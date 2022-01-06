@@ -1,15 +1,18 @@
 {
-    "name": "falconjs",
+    "name": "crowdstrike-falcon",
     "version": "0.0.2",
     "description": "TypeScript based SDK for CrowdStrike's Falcon APIs",
     "devDependencies": {
       "prettier": "^2.5.1",
       "typescript": "^4.5.4"
     },
-    "main": "index.js",
+    "main": "./dist/index.js",
+    "typings": "./dist/index.d.ts",
     "scripts": {
+        "build": "tsc",
+        "prepare": "npm run build",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "prettier-format": "prettier --config .prettierrc '{apis,models}/**/*.ts' *.ts --write"
+        "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write"
     },
     "repository": {
         "type": "git",
