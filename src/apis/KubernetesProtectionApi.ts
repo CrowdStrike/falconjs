@@ -69,7 +69,7 @@ export interface GetHelmValuesYamlRequest {
 }
 
 export interface GetLocationsRequest {
-    clouds?: GetLocationsCloudsEnum;
+    clouds?: Array<String>;
 }
 
 export interface TriggerScanRequest {
@@ -362,7 +362,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     /**
      * Provides the cloud locations acknowledged by the Kubernetes Protection service
      */
-    async getLocations(clouds?: GetLocationsCloudsEnum, initOverrides?: RequestInit): Promise<K8sregGetLocationsResp> {
+    async getLocations(clouds?: Array<String>, initOverrides?: RequestInit): Promise<K8sregGetLocationsResp> {
         const response = await this.getLocationsRaw({ clouds: clouds }, initOverrides);
         return await response.value();
     }
