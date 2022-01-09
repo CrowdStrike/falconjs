@@ -1,7 +1,7 @@
 type CloudUs1 = "us-1";
 type CloudUs2 = "us-2";
 type CloudEu1 = "eu-1";
-type CloudUSGov1 = "us-gov-1";
+type CloudUsGov1 = "us-gov-1";
 
 export type FalconCloud = CloudUs1 | CloudUs2 | CloudEu1 | CloudUsGov1;
 
