@@ -1,5 +1,6 @@
 import { Oauth2Api } from "../apis";
 import { Configuration, FetchAPI } from "../runtime";
+import { FalconCloud, CloudBasePath } from "../FalconCloud";
 
 type Token = {
     accessToken: string;
@@ -8,6 +9,7 @@ type Token = {
 
 type OAuth2Options = {
     fetchApi?: FetchAPI;
+    cloud: FalconCloud;
     clientId: string;
     clientSecret: string;
 };
@@ -49,6 +51,7 @@ export class OAuth2 {
 
     private async refreshTokenInternal(): Promise<Token> {
         var config = new Configuration({
+            basePath: CloudBasePath(this.options.cloud),
             fetchApi: this.options.fetchApi || fetch,
         });
         var api = new Oauth2Api(config);
