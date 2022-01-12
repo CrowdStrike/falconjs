@@ -50,12 +50,12 @@ export class OAuth2 {
     }
 
     private async refreshTokenInternal(): Promise<Token> {
-        var config = new Configuration({
+        const config = new Configuration({
             basePath: CloudBasePath(this.options.cloud),
             fetchApi: this.options.fetchApi || fetch,
         });
-        var api = new Oauth2Api(config);
-        let response = await api.oauth2AccessToken(this.options.clientId, this.options.clientSecret);
+        const api = new Oauth2Api(config);
+        const response = await api.oauth2AccessToken(this.options.clientId, this.options.clientSecret);
         return {
             accessToken: response.accessToken,
             expiresAt: response.expiresIn ? Date.now() + response.expiresIn * 1000 : null,
