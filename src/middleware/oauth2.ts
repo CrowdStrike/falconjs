@@ -1,6 +1,6 @@
 import { Oauth2Api } from "../apis";
 import { Configuration, FetchAPI } from "../runtime";
-import { FalconCloud, CloudBasePath } from "../FalconCloud";
+import { FalconCloud, FalconCloudInput, CloudBasePath } from "../FalconCloud";
 import { UserAgent } from "./useragent";
 
 type Token = {
@@ -10,7 +10,7 @@ type Token = {
 
 type OAuth2Options = {
     fetchApi?: FetchAPI;
-    cloud: FalconCloud;
+    cloud?: FalconCloudInput;
     clientId: string;
     clientSecret: string;
     memberCid?: string;
@@ -56,6 +56,15 @@ export class OAuth2 {
     }
 
     private async cloud(): Promise<FalconCloud> {
+        if (this.options.cloud instanceof FalconCloud) {
+            return this.options.cloud;
+        } else {
+            // User has not provided FalconCloud. Let's try to autodiscover.
+            token = OAuth2.refreshTokenInternal(FalconCloudUs1, this.options.clientId, this.options.clientSecret);
+            // TODO token.XCSRegion header missing
+            // TODO patch openapi-generator to support response headers
+        }
+
         return this.options.cloud;
     }
 
