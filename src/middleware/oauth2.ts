@@ -52,13 +52,17 @@ export class OAuth2 {
     }
 
     private async refreshTokenInternal(): Promise<Token> {
+        return await OAuth2.refreshTokenInternal(this.options.cloud, this.options.clientId, this.options.clientSecret, this.options.memberCid, this.options.fetchApi);
+    }
+
+    private static async refreshTokenInternal(cloud: FalconCloud, clientId: string, clientSecret: string, memberCid?: string, fetchApi?: FetchAPI): Promise<Token> {
         const config = new Configuration({
-            basePath: CloudBasePath(this.options.cloud),
-            fetchApi: this.options.fetchApi || fetch,
+            basePath: CloudBasePath(cloud),
+            fetchApi: fetchApi || fetch,
             middleware: [new UserAgent()],
         });
         const api = new Oauth2Api(config);
-        const response = await api.oauth2AccessToken(this.options.clientId, this.options.clientSecret, this.options.memberCid);
+        const response = await api.oauth2AccessToken(clientId, clientSecret, memberCid);
         return {
             accessToken: response.accessToken,
             expiresAt: response.expiresIn ? Date.now() + response.expiresIn * 1000 : null,
