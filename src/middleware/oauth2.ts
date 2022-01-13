@@ -52,7 +52,11 @@ export class OAuth2 {
     }
 
     private async refreshTokenInternal(): Promise<Token> {
-        return await OAuth2.refreshTokenInternal(this.options.cloud, this.options.clientId, this.options.clientSecret, this.options.memberCid, this.options.fetchApi);
+        return await OAuth2.refreshTokenInternal(await this.cloud(), this.options.clientId, this.options.clientSecret, this.options.memberCid, this.options.fetchApi);
+    }
+
+    private async cloud(): Promise<FalconCloud> {
+        return this.options.cloud;
     }
 
     private static async refreshTokenInternal(cloud: FalconCloud, clientId: string, clientSecret: string, memberCid?: string, fetchApi?: FetchAPI): Promise<Token> {
