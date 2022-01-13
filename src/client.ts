@@ -1,5 +1,5 @@
-import { BaseAPI, Configuration, FetchAPI } from "./runtime";
-import { FalconCloud, CloudBasePath } from "./FalconCloud";
+import { Configuration, FetchAPI } from "./runtime";
+import { FalconCloud } from "./FalconCloud";
 import { OAuth2 } from "./middleware";
 import {
     CloudConnectAwsApi,
