@@ -20,7 +20,7 @@ export class OAuth2 {
 
     constructor(private options: OAuth2Options) {}
 
-    async accessToken(name?: string, scopes?: string[]): Promise<string> {
+    async accessToken(_name?: string, _scopes?: string[]): Promise<string> {
         const token = await this.getToken();
         return "Bearer " + token.accessToken;
     }
