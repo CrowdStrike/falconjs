@@ -61,6 +61,10 @@ export interface FalconClientOptions {
 
     /** Client API credentials: ClientID */
     clientSecret: string;
+
+    /** (optional) Member CID (MSSP targetting). Please provide memberCid only if your clientId/clientSecret key pair
+        has access to multiple CID environments. */
+    memberCid?: string;
 }
 
 export class FalconClient {
@@ -116,6 +120,7 @@ export class FalconClient {
             cloud: options.cloud,
             clientId: options.clientId,
             clientSecret: options.clientSecret,
+            memberCid: options.memberCid,
         });
         const config = new Configuration({
             fetchApi: options.fetchApi,
