@@ -11,14 +11,14 @@ TypeScript based SDK for CrowdStrike's Falcon APIs
 ```typescript
 import fetch from "cross-fetch"; // Node-only. Not needed in browser
 
-let client = new FalconClient({
+const client = new FalconClient({
     fetchApi: fetch,
     cloud: "us-1",
     clientId: "",
     clientSecret: "",
 });
 
-let response = client.sensorDownload
+const response = client.sensorDownload
     .getSensorInstallersCCIDByQuery()
     .then((value) => {
         console.log("my CCID: ", value);
