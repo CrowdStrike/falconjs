@@ -6,7 +6,7 @@ TypeScript based SDK for CrowdStrike's Falcon APIs
 
 > falconjs is an open source project, not a CrowdStrike product. As such it carries no formal support, expressed or implied.
 
-## Example use
+## Exemplary use
 
 ```typescript
 import fetch from "cross-fetch"; // Node-only. Not needed in browser
@@ -28,3 +28,7 @@ const response = client.sensorDownload
     });
 
 ```
+
+## Developer docs
+
+[Developer documentation](docs/devel.md)
