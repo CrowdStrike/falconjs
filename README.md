@@ -1,4 +1,5 @@
 # falconjs
+[![Build](https://github.com/CrowdStrike/falconjs/actions/workflows/sanity_check.yaml/badge.svg)](https://github.com/CrowdStrike/falconjs/actions/workflows/sanity_check.yaml)
 
 TypeScript based SDK for CrowdStrike's Falcon APIs
 
