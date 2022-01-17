@@ -19,7 +19,7 @@ npm run prettier-format
 
 Ask linter to fix any issues it can fix
 ```
-npm run lint-fix
+npm run lint:fix
 ```
 
 Ensure linter output is empty (this checks for issues that cannot be fixed automatically)
@@ -52,3 +52,12 @@ After placing this into `./example.ts` you can execute it under node with
 ```
 tsc && node ./build/example.js
 ```
+
+## How to release falconjs
+
+- bump version in `package.json`
+- verify codebase is well formed `npm run lint:fix && npm run prettier-format`
+- build javascript `npm run clean ; npm run build`
+- build package
+- review contents of the package
+- `npm publish`

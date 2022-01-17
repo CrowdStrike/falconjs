@@ -13,8 +13,10 @@
     "main": "./dist/index.js",
     "typings": "./dist/index.d.ts",
     "scripts": {
+        "clean": "rm -fr ./dist",
         "build": "tsc",
         "lint": "eslint . --ext .ts",
+        "lint:fix": "eslint . --ext .ts --fix",
         "prepare": "npm run build",
         "test": "echo \"Error: no test specified\" && exit 1",
         "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write"
