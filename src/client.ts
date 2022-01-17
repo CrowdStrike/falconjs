@@ -1,6 +1,6 @@
 import { Configuration, FetchAPI } from "./runtime";
 import { FalconCloud } from "./FalconCloud";
-import { OAuth2 } from "./middleware";
+import { OAuth2, UserAgent } from "./middleware";
 import {
     CloudConnectAwsApi,
     CspmRegistrationApi,
@@ -120,6 +120,7 @@ export class FalconClient {
         const config = new Configuration({
             fetchApi: options.fetchApi,
             accessToken: oauth2.accessToken.bind(oauth2),
+            middleware: [new UserAgent()],
         });
         this.cloudConnectAws = new CloudConnectAwsApi(config);
         this.cspmRegistration = new CspmRegistrationApi(config);
