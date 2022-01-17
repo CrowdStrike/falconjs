@@ -12,6 +12,7 @@ type OAuth2Options = {
     cloud: FalconCloud;
     clientId: string;
     clientSecret: string;
+    memberCid?: string;
 };
 
 export class OAuth2 {
@@ -55,7 +56,7 @@ export class OAuth2 {
             fetchApi: this.options.fetchApi || fetch,
         });
         const api = new Oauth2Api(config);
-        const response = await api.oauth2AccessToken(this.options.clientId, this.options.clientSecret);
+        const response = await api.oauth2AccessToken(this.options.clientId, this.options.clientSecret, this.options.memberCid);
         return {
             accessToken: response.accessToken,
             expiresAt: response.expiresIn ? Date.now() + response.expiresIn * 1000 : null,
