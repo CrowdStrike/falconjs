@@ -20,7 +20,7 @@ export class OAuth2 {
 
     constructor(private options: OAuth2Options) {}
 
-    async accessToken(name?: string, scopes?: string[]): Promise<string> {
+    async accessToken(_name?: string, _scopes?: string[]): Promise<string> {
         const token = await this.getToken();
         return "Bearer " + token.accessToken;
     }
@@ -50,12 +50,12 @@ export class OAuth2 {
     }
 
     private async refreshTokenInternal(): Promise<Token> {
-        var config = new Configuration({
+        const config = new Configuration({
             basePath: CloudBasePath(this.options.cloud),
             fetchApi: this.options.fetchApi || fetch,
         });
-        var api = new Oauth2Api(config);
-        let response = await api.oauth2AccessToken(this.options.clientId, this.options.clientSecret);
+        const api = new Oauth2Api(config);
+        const response = await api.oauth2AccessToken(this.options.clientId, this.options.clientSecret);
         return {
             accessToken: response.accessToken,
             expiresAt: response.expiresIn ? Date.now() + response.expiresIn * 1000 : null,

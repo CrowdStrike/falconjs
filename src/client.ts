@@ -1,5 +1,5 @@
-import { BaseAPI, Configuration, FetchAPI } from "./runtime";
-import { FalconCloud, CloudBasePath } from "./FalconCloud";
+import { Configuration, FetchAPI } from "./runtime";
+import { FalconCloud } from "./FalconCloud";
 import { OAuth2 } from "./middleware";
 import {
     CloudConnectAwsApi,
@@ -111,13 +111,13 @@ export class FalconClient {
     zeroTrustAssessment: ZeroTrustAssessmentApi;
 
     constructor(private options: FalconClientOptions) {
-        let oauth2 = new OAuth2({
+        const oauth2 = new OAuth2({
             fetchApi: options.fetchApi || fetch,
             cloud: options.cloud,
             clientId: options.clientId,
             clientSecret: options.clientSecret,
         });
-        let config = new Configuration({
+        const config = new Configuration({
             fetchApi: options.fetchApi,
             accessToken: oauth2.accessToken.bind(oauth2),
         });
