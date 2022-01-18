@@ -3,7 +3,6 @@ import { MsaAPIError, MsaMetaInfo } from "../src/models";
 interface errorJson {
     errors: Array<MsaAPIError>;
     meta: MsaMetaInfo;
-    resources?: Array<any>;
 }
 
 class FalconError {

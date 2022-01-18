@@ -14,7 +14,7 @@ npm run build
 
 Reformat codebase to fit nicely with the rest
 ```
-npm run prettier-format
+npm run format:fix
 ```
 
 Ask linter to fix any issues it can fix
@@ -56,7 +56,7 @@ tsc && node ./build/example.js
 ## How to release falconjs
 
 - bump version in `package.json`
-- verify codebase is well formed `npm run lint:fix && npm run prettier-format`
+- verify codebase is well formed `npm run lint:fix && npm run format:fix`
 - build javascript `npm run clean ; npm run build`
 - build package
 - review contents of the package
