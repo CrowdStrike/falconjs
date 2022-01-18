@@ -17,9 +17,9 @@
         "build": "tsc",
         "lint": "eslint . --ext .ts",
         "lint:fix": "eslint . --ext .ts --fix",
+        "format:fix": "prettier --config .prettierrc 'src/**/*.ts' --write",
         "prepare": "npm run build",
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write"
+        "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
         "type": "git",
