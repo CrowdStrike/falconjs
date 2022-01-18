@@ -1,6 +1,7 @@
 import { Oauth2Api } from "../apis";
 import { Configuration, FetchAPI } from "../runtime";
 import { FalconCloud, CloudBasePath } from "../FalconCloud";
+import { UserAgent } from "./useragent";
 
 type Token = {
     accessToken: string;
@@ -54,6 +55,7 @@ export class OAuth2 {
         const config = new Configuration({
             basePath: CloudBasePath(this.options.cloud),
             fetchApi: this.options.fetchApi || fetch,
+            middleware: [new UserAgent()],
         });
         const api = new Oauth2Api(config);
         const response = await api.oauth2AccessToken(this.options.clientId, this.options.clientSecret, this.options.memberCid);
