@@ -5,4 +5,5 @@ export * from "./apis";
 export * from "./models";
 export * from "./middleware";
 export * from "./client";
+export * from "./error";
 export * from "./FalconCloud";
