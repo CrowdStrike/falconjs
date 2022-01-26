@@ -1,6 +1,6 @@
 {
     "name": "crowdstrike-falcon",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "CrowdStrike Falcon API library for browser and node",
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^5.10.0",
