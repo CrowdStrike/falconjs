@@ -6,7 +6,7 @@
 
 [![NPM](https://nodei.co/npm/crowdstrike-falcon.png?mini=true)](https://npmjs.org/package/crowdstrike-falcon)
 
-TypeScript based SDK for CrowdStrike's Falcon APIs
+CrowdStrike Falcon API JS library for the browser and Node
 
 ## Experimental
 
@@ -15,26 +15,24 @@ TypeScript based SDK for CrowdStrike's Falcon APIs
 ## Exemplary use
 
 ```typescript
-import fetch from "cross-fetch"; // Node-only. Not needed in browser
+import { FalconClient, FalconErrorExplain } from "crowdstrike-falcon";
 
 const client = new FalconClient({
-    fetchApi: fetch,
     cloud: "us-1",
     clientId: "",
     clientSecret: "",
 });
 
-const response = client.sensorDownload
+await client.sensorDownload
     .getSensorInstallersCCIDByQuery()
+    .catch(async function (err) {
+        alert("Could not fetch CCID: " + (await FalconErrorExplain(err)));
+    })
     .then((value) => {
         console.log("my CCID: ", value);
-    })
-    .catch((err) => {
-        console.log("Could not fetch CCID: ", err);
     });
-
 ```
 
-## Developer docs
+## Documentation
 
-[Developer documentation](docs/devel.md)
+[SDK Developer documentation](docs/devel.md)
