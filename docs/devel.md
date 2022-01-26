@@ -55,9 +55,9 @@ tsc && node ./build/example.js
 
 ## How to release falconjs
 
-- bump version in `package.json`
+- bump version in `package.json` (`npm version patch`)
 - verify codebase is well formed `npm run lint:fix && npm run format:fix`
-- build javascript `npm run clean ; npm run build`
-- build package
+- build javascript `npm run clean && npm run build && npm run build:browser`
+- build package (`npm pack`)
 - review contents of the package
 - `npm publish`

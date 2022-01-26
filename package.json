@@ -12,9 +12,17 @@
     },
     "main": "./dist/index.js",
     "typings": "./dist/index.d.ts",
+    "browser": "./dist/esbuild/browser.js",
+    "files": [
+        "dist",
+        "package.json",
+        "README.md",
+        "LICENSE"
+    ],
     "scripts": {
         "clean": "rm -fr ./dist",
         "build": "tsc",
+        "build:browser": "esbuild src/index.ts --bundle --minify --sourcemap=external --outfile=dist/esbuild/browser.js",
         "lint": "eslint . --ext .ts",
         "lint:fix": "eslint . --ext .ts --fix",
         "format:fix": "prettier --config .prettierrc 'src/**/*.ts' --write",
