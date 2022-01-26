@@ -6,7 +6,7 @@
 
 [![NPM](https://nodei.co/npm/crowdstrike-falcon.png?mini=true)](https://npmjs.org/package/crowdstrike-falcon)
 
-TypeScript based SDK for CrowdStrike's Falcon APIs
+CrowdStrike Falcon API JS library for the browser and Node
 
 ## Experimental
 
@@ -33,6 +33,6 @@ await client.sensorDownload
     });
 ```
 
-## Developer docs
+## Documentation
 
-[Developer documentation](docs/devel.md)
+[SDK Developer documentation](docs/devel.md)
