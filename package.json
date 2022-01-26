@@ -1,10 +1,11 @@
 {
     "name": "crowdstrike-falcon",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "CrowdStrike Falcon API library for browser and node",
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^5.10.0",
         "@typescript-eslint/parser": "^5.10.0",
+        "esbuild": "^0.14.14",
         "eslint": "^8.7.0",
         "eslint-config-google": "^0.14.0",
         "prettier": "^2.5.1",
@@ -22,7 +23,7 @@
     "scripts": {
         "clean": "rm -fr ./dist",
         "build": "tsc",
-        "build:browser": "esbuild src/index.ts --bundle --minify --sourcemap=external --outfile=dist/esbuild/browser.js",
+        "build:browser": "esbuild src/index.ts --bundle --minify --sourcemap=external --format=cjs --outfile=dist/esbuild/browser.js",
         "lint": "eslint . --ext .ts",
         "lint:fix": "eslint . --ext .ts --fix",
         "format:fix": "prettier --config .prettierrc 'src/**/*.ts' --write",
