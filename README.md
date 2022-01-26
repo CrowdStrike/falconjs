@@ -1,6 +1,8 @@
 # falconjs
 [![Build](https://github.com/CrowdStrike/falconjs/actions/workflows/sanity_check.yaml/badge.svg)](https://github.com/CrowdStrike/falconjs/actions/workflows/sanity_check.yaml)
 
+[![NPM](https://nodei.co/npm/crowdstrike-falcon.png?mini=true)](https://npmjs.org/package/crowdstrike-falcon)
+
 TypeScript based SDK for CrowdStrike's Falcon APIs
 
 ## Experimental
