@@ -153,6 +153,12 @@ export interface DomainDiscoverAPIHost {
      */
     id: string;
     /**
+     * Whether the asset is exposed to the internet (Yes or Unknown)
+     * @type {string}
+     * @memberof DomainDiscoverAPIHost
+     */
+    internetExposure?: string;
+    /**
      * For Linux and Mac hosts: the major version, minor version, and patch version of the kernel for the asset. For Windows hosts: the build number of the asset.
      * @type {string}
      * @memberof DomainDiscoverAPIHost
@@ -280,6 +286,7 @@ export function DomainDiscoverAPIHostFromJSONTyped(json: any, ignoreDiscriminato
         groups: !exists(json, "groups") ? undefined : json["groups"],
         hostname: !exists(json, "hostname") ? undefined : json["hostname"],
         id: json["id"],
+        internetExposure: !exists(json, "internet_exposure") ? undefined : json["internet_exposure"],
         kernelVersion: !exists(json, "kernel_version") ? undefined : json["kernel_version"],
         lastDiscovererAid: !exists(json, "last_discoverer_aid") ? undefined : json["last_discoverer_aid"],
         lastSeenTimestamp: !exists(json, "last_seen_timestamp") ? undefined : json["last_seen_timestamp"],
@@ -328,6 +335,7 @@ export function DomainDiscoverAPIHostToJSON(value?: DomainDiscoverAPIHost | null
         groups: value.groups,
         hostname: value.hostname,
         id: value.id,
+        internet_exposure: value.internetExposure,
         kernel_version: value.kernelVersion,
         last_discoverer_aid: value.lastDiscovererAid,
         last_seen_timestamp: value.lastSeenTimestamp,
