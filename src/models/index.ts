@@ -578,6 +578,8 @@ export * from "./ResponsesRTResponsePolicyV1";
 export * from "./ResponsesRevealUninstallTokenRespV1";
 export * from "./ResponsesSensorUpdateBuildV1";
 export * from "./ResponsesSensorUpdateBuildsV1";
+export * from "./ResponsesSensorUpdateKernelV1";
+export * from "./ResponsesSensorUpdateKernelsV1";
 export * from "./ResponsesSensorUpdatePoliciesV1";
 export * from "./ResponsesSensorUpdatePoliciesV2";
 export * from "./ResponsesSensorUpdatePolicyV1";
