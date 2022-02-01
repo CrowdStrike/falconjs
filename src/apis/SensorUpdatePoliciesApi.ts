@@ -53,6 +53,9 @@ import {
     ResponsesSensorUpdateBuildsV1,
     ResponsesSensorUpdateBuildsV1FromJSON,
     ResponsesSensorUpdateBuildsV1ToJSON,
+    ResponsesSensorUpdateKernelsV1,
+    ResponsesSensorUpdateKernelsV1FromJSON,
+    ResponsesSensorUpdateKernelsV1ToJSON,
     ResponsesSensorUpdatePoliciesV1,
     ResponsesSensorUpdatePoliciesV1FromJSON,
     ResponsesSensorUpdatePoliciesV1ToJSON,
@@ -90,6 +93,12 @@ export interface QueryCombinedSensorUpdateBuildsRequest {
     platform?: QueryCombinedSensorUpdateBuildsPlatformEnum;
 }
 
+export interface QueryCombinedSensorUpdateKernelsRequest {
+    filter?: string;
+    offset?: number;
+    limit?: number;
+}
+
 export interface QueryCombinedSensorUpdatePoliciesRequest {
     filter?: string;
     offset?: number;
@@ -110,6 +119,13 @@ export interface QueryCombinedSensorUpdatePolicyMembersRequest {
     offset?: number;
     limit?: number;
     sort?: string;
+}
+
+export interface QuerySensorUpdateKernelsDistinctRequest {
+    distinctField: string;
+    filter?: string;
+    offset?: number;
+    limit?: number;
 }
 
 export interface QuerySensorUpdatePoliciesRequest {
@@ -450,6 +466,52 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
     }
 
     /**
+     * Retrieve kernel compatibility info for Sensor Update Builds
+     */
+    async queryCombinedSensorUpdateKernelsRaw(requestParameters: QueryCombinedSensorUpdateKernelsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ResponsesSensorUpdateKernelsV1>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/policy/combined/sensor-update-kernels/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesSensorUpdateKernelsV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve kernel compatibility info for Sensor Update Builds
+     */
+    async queryCombinedSensorUpdateKernels(filter?: string, offset?: number, limit?: number, initOverrides?: RequestInit): Promise<ResponsesSensorUpdateKernelsV1> {
+        const response = await this.queryCombinedSensorUpdateKernelsRaw({ filter: filter, offset: offset, limit: limit }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Search for Sensor Update Policies in your environment by providing an FQL filter and paging details. Returns a set of Sensor Update Policies which match the filter criteria
      */
     async queryCombinedSensorUpdatePoliciesRaw(
@@ -621,6 +683,56 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
      */
     async queryCombinedSensorUpdatePolicyMembers(id?: string, filter?: string, offset?: number, limit?: number, sort?: string, initOverrides?: RequestInit): Promise<ResponsesPolicyMembersRespV1> {
         const response = await this.queryCombinedSensorUpdatePolicyMembersRaw({ id: id, filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve kernel compatibility info for Sensor Update Builds
+     */
+    async querySensorUpdateKernelsDistinctRaw(requestParameters: QuerySensorUpdateKernelsDistinctRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        if (requestParameters.distinctField === null || requestParameters.distinctField === undefined) {
+            throw new runtime.RequiredError("distinctField", "Required parameter requestParameters.distinctField was null or undefined when calling querySensorUpdateKernelsDistinct.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/policy/queries/sensor-update-kernels/{distinct-field}/v1`.replace(`{${"distinct-field"}}`, encodeURIComponent(String(requestParameters.distinctField))),
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve kernel compatibility info for Sensor Update Builds
+     */
+    async querySensorUpdateKernelsDistinct(distinctField: string, filter?: string, offset?: number, limit?: number, initOverrides?: RequestInit): Promise<MsaQueryResponse> {
+        const response = await this.querySensorUpdateKernelsDistinctRaw({ distinctField: distinctField, filter: filter, offset: offset, limit: limit }, initOverrides);
         return await response.value();
     }
 
