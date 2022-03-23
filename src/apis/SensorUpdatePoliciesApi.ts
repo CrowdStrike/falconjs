@@ -717,7 +717,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         const response = await this.request(
             {
-                path: `/policy/queries/sensor-update-kernels/{distinct-field}/v1`.replace(`{${"distinct-field"}}`, encodeURIComponent(String(requestParameters.distinctField))),
+                path: `/policy/queries/sensor-update-kernels/{distinct_field}/v1`.replace(`{${"distinct_field"}}`, encodeURIComponent(String(requestParameters.distinctField))),
                 method: "GET",
                 headers: headerParameters,
                 query: queryParameters,

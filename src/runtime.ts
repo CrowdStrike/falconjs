@@ -63,6 +63,8 @@ export class BaseAPI {
             (typeof FormData !== "undefined" && context.body instanceof FormData) || context.body instanceof URLSearchParams || isBlob(context.body) ? context.body : JSON.stringify(context.body);
 
         const headers = Object.assign({}, this.configuration.headers, context.headers);
+        Object.keys(headers).forEach((key) => (headers[key] === undefined ? delete headers[key] : {}));
+
         const init = {
             method: context.method,
             headers: headers,
