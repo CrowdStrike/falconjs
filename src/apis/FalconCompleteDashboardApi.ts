@@ -192,6 +192,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     }
 
     /**
+     * Fields allowed to aggregate on:  - indexed_time   - created_time   - detect_time   - ldt   - cid   - aid   - platform_name   - os_version   - device_tags   - host_name   - status   - severity   - adversary_ids   - behavior_ids   - behavior_names   - num_blocked_processes   - num_quarantined_files   - pattern_ids   - first_behavior_time   - last_behavior_time   - show_in_ui   - seconds_to_triaged   - seconds_to_resolved   - assigned_to_uid   - public_tags   - vertical_tags
      * Retrieve aggregate detection values based on the matched filter
      */
     async aggregateDetectionsRaw(requestParameters: AggregateDetectionsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
@@ -225,6 +226,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     }
 
     /**
+     * Fields allowed to aggregate on:  - indexed_time   - created_time   - detect_time   - ldt   - cid   - aid   - platform_name   - os_version   - device_tags   - host_name   - status   - severity   - adversary_ids   - behavior_ids   - behavior_names   - num_blocked_processes   - num_quarantined_files   - pattern_ids   - first_behavior_time   - last_behavior_time   - show_in_ui   - seconds_to_triaged   - seconds_to_resolved   - assigned_to_uid   - public_tags   - vertical_tags
      * Retrieve aggregate detection values based on the matched filter
      */
     async aggregateDetections(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit): Promise<MsaAggregatesResponse> {

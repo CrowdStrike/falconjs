@@ -14,57 +14,51 @@
 
 import { exists, mapValues } from "../runtime";
 import { DomainAPIEvaluationLogicV1, DomainAPIEvaluationLogicV1FromJSON, DomainAPIEvaluationLogicV1FromJSONTyped, DomainAPIEvaluationLogicV1ToJSON } from "./DomainAPIEvaluationLogicV1";
-import { DomainAPIRemediationIDs, DomainAPIRemediationIDsFromJSON, DomainAPIRemediationIDsFromJSONTyped, DomainAPIRemediationIDsToJSON } from "./DomainAPIRemediationIDs";
+import { DomainMetaInfo, DomainMetaInfoFromJSON, DomainMetaInfoFromJSONTyped, DomainMetaInfoToJSON } from "./DomainMetaInfo";
+import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
 
 /**
  *
  * @export
- * @interface DomainAPIVulnerabilityExtendedAppV2
+ * @interface DomainSPAPIEvaluationLogicEntitiesResponseV1
  */
-export interface DomainAPIVulnerabilityExtendedAppV2 {
+export interface DomainSPAPIEvaluationLogicEntitiesResponseV1 {
     /**
      *
-     * @type {DomainAPIEvaluationLogicV1}
-     * @memberof DomainAPIVulnerabilityExtendedAppV2
+     * @type {Array<MsaAPIError>}
+     * @memberof DomainSPAPIEvaluationLogicEntitiesResponseV1
      */
-    evaluationLogic?: DomainAPIEvaluationLogicV1;
+    errors?: Array<MsaAPIError>;
     /**
      *
-     * @type {string}
-     * @memberof DomainAPIVulnerabilityExtendedAppV2
+     * @type {DomainMetaInfo}
+     * @memberof DomainSPAPIEvaluationLogicEntitiesResponseV1
      */
-    productNameVersion: string;
+    meta: DomainMetaInfo;
     /**
      *
-     * @type {DomainAPIRemediationIDs}
-     * @memberof DomainAPIVulnerabilityExtendedAppV2
+     * @type {Array<DomainAPIEvaluationLogicV1>}
+     * @memberof DomainSPAPIEvaluationLogicEntitiesResponseV1
      */
-    remediation?: DomainAPIRemediationIDs;
-    /**
-     *
-     * @type {string}
-     * @memberof DomainAPIVulnerabilityExtendedAppV2
-     */
-    subStatus?: string;
+    resources: Array<DomainAPIEvaluationLogicV1>;
 }
 
-export function DomainAPIVulnerabilityExtendedAppV2FromJSON(json: any): DomainAPIVulnerabilityExtendedAppV2 {
-    return DomainAPIVulnerabilityExtendedAppV2FromJSONTyped(json, false);
+export function DomainSPAPIEvaluationLogicEntitiesResponseV1FromJSON(json: any): DomainSPAPIEvaluationLogicEntitiesResponseV1 {
+    return DomainSPAPIEvaluationLogicEntitiesResponseV1FromJSONTyped(json, false);
 }
 
-export function DomainAPIVulnerabilityExtendedAppV2FromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainAPIVulnerabilityExtendedAppV2 {
+export function DomainSPAPIEvaluationLogicEntitiesResponseV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainSPAPIEvaluationLogicEntitiesResponseV1 {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        evaluationLogic: !exists(json, "evaluation_logic") ? undefined : DomainAPIEvaluationLogicV1FromJSON(json["evaluation_logic"]),
-        productNameVersion: json["product_name_version"],
-        remediation: !exists(json, "remediation") ? undefined : DomainAPIRemediationIDsFromJSON(json["remediation"]),
-        subStatus: !exists(json, "sub_status") ? undefined : json["sub_status"],
+        errors: !exists(json, "errors") ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
+        meta: DomainMetaInfoFromJSON(json["meta"]),
+        resources: (json["resources"] as Array<any>).map(DomainAPIEvaluationLogicV1FromJSON),
     };
 }
 
-export function DomainAPIVulnerabilityExtendedAppV2ToJSON(value?: DomainAPIVulnerabilityExtendedAppV2 | null): any {
+export function DomainSPAPIEvaluationLogicEntitiesResponseV1ToJSON(value?: DomainSPAPIEvaluationLogicEntitiesResponseV1 | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -72,9 +66,8 @@ export function DomainAPIVulnerabilityExtendedAppV2ToJSON(value?: DomainAPIVulne
         return null;
     }
     return {
-        evaluation_logic: DomainAPIEvaluationLogicV1ToJSON(value.evaluationLogic),
-        product_name_version: value.productNameVersion,
-        remediation: DomainAPIRemediationIDsToJSON(value.remediation),
-        sub_status: value.subStatus,
+        errors: value.errors === undefined ? undefined : (value.errors as Array<any>).map(MsaAPIErrorToJSON),
+        meta: DomainMetaInfoToJSON(value.meta),
+        resources: (value.resources as Array<any>).map(DomainAPIEvaluationLogicV1ToJSON),
     };
 }
