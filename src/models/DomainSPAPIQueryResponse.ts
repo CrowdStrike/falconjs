@@ -13,52 +13,51 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainBaseAPIVulnerabilityV2, DomainBaseAPIVulnerabilityV2FromJSON, DomainBaseAPIVulnerabilityV2FromJSONTyped, DomainBaseAPIVulnerabilityV2ToJSON } from "./DomainBaseAPIVulnerabilityV2";
 import { DomainSPAPIQueryMeta, DomainSPAPIQueryMetaFromJSON, DomainSPAPIQueryMetaFromJSONTyped, DomainSPAPIQueryMetaToJSON } from "./DomainSPAPIQueryMeta";
 import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
 
 /**
  *
  * @export
- * @interface DomainSPAPICombinedVulnerabilitiesResponse
+ * @interface DomainSPAPIQueryResponse
  */
-export interface DomainSPAPICombinedVulnerabilitiesResponse {
+export interface DomainSPAPIQueryResponse {
     /**
      *
      * @type {Array<MsaAPIError>}
-     * @memberof DomainSPAPICombinedVulnerabilitiesResponse
+     * @memberof DomainSPAPIQueryResponse
      */
     errors?: Array<MsaAPIError>;
     /**
      *
      * @type {DomainSPAPIQueryMeta}
-     * @memberof DomainSPAPICombinedVulnerabilitiesResponse
+     * @memberof DomainSPAPIQueryResponse
      */
     meta: DomainSPAPIQueryMeta;
     /**
      *
-     * @type {Array<DomainBaseAPIVulnerabilityV2>}
-     * @memberof DomainSPAPICombinedVulnerabilitiesResponse
+     * @type {Array<string>}
+     * @memberof DomainSPAPIQueryResponse
      */
-    resources: Array<DomainBaseAPIVulnerabilityV2>;
+    resources: Array<string>;
 }
 
-export function DomainSPAPICombinedVulnerabilitiesResponseFromJSON(json: any): DomainSPAPICombinedVulnerabilitiesResponse {
-    return DomainSPAPICombinedVulnerabilitiesResponseFromJSONTyped(json, false);
+export function DomainSPAPIQueryResponseFromJSON(json: any): DomainSPAPIQueryResponse {
+    return DomainSPAPIQueryResponseFromJSONTyped(json, false);
 }
 
-export function DomainSPAPICombinedVulnerabilitiesResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainSPAPICombinedVulnerabilitiesResponse {
+export function DomainSPAPIQueryResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainSPAPIQueryResponse {
     if (json === undefined || json === null) {
         return json;
     }
     return {
         errors: !exists(json, "errors") ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: DomainSPAPIQueryMetaFromJSON(json["meta"]),
-        resources: (json["resources"] as Array<any>).map(DomainBaseAPIVulnerabilityV2FromJSON),
+        resources: json["resources"],
     };
 }
 
-export function DomainSPAPICombinedVulnerabilitiesResponseToJSON(value?: DomainSPAPICombinedVulnerabilitiesResponse | null): any {
+export function DomainSPAPIQueryResponseToJSON(value?: DomainSPAPIQueryResponse | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -68,6 +67,6 @@ export function DomainSPAPICombinedVulnerabilitiesResponseToJSON(value?: DomainS
     return {
         errors: value.errors === undefined ? undefined : (value.errors as Array<any>).map(MsaAPIErrorToJSON),
         meta: DomainSPAPIQueryMetaToJSON(value.meta),
-        resources: (value.resources as Array<any>).map(DomainBaseAPIVulnerabilityV2ToJSON),
+        resources: value.resources,
     };
 }

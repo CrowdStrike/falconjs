@@ -45,6 +45,12 @@ export interface MsaAggregateQueryRequest {
      * @type {string}
      * @memberof MsaAggregateQueryRequest
      */
+    include: string;
+    /**
+     *
+     * @type {string}
+     * @memberof MsaAggregateQueryRequest
+     */
     interval: string;
     /**
      *
@@ -120,6 +126,7 @@ export function MsaAggregateQueryRequestFromJSONTyped(json: any, ignoreDiscrimin
         dateRanges: (json["date_ranges"] as Array<any>).map(MsaDateRangeSpecFromJSON),
         field: json["field"],
         filter: json["filter"],
+        include: json["include"],
         interval: json["interval"],
         minDocCount: json["min_doc_count"],
         missing: json["missing"],
@@ -145,6 +152,7 @@ export function MsaAggregateQueryRequestToJSON(value?: MsaAggregateQueryRequest 
         date_ranges: (value.dateRanges as Array<any>).map(MsaDateRangeSpecToJSON),
         field: value.field,
         filter: value.filter,
+        include: value.include,
         interval: value.interval,
         min_doc_count: value.minDocCount,
         missing: value.missing,

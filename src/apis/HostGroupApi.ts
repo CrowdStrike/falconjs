@@ -55,6 +55,7 @@ export interface GetHostGroupsRequest {
 export interface PerformGroupActionRequest {
     actionName: PerformGroupActionActionNameEnum;
     body: MsaEntityActionRequestV2;
+    disableHostnameCheck?: boolean;
 }
 
 export interface QueryCombinedGroupMembersRequest {
@@ -238,6 +239,10 @@ export class HostGroupApi extends runtime.BaseAPI {
             queryParameters["action_name"] = requestParameters.actionName;
         }
 
+        if (requestParameters.disableHostnameCheck !== undefined) {
+            queryParameters["disable_hostname_check"] = requestParameters.disableHostnameCheck;
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters["Content-Type"] = "application/json";
@@ -264,8 +269,13 @@ export class HostGroupApi extends runtime.BaseAPI {
     /**
      * Perform the specified action on the Host Groups specified in the request
      */
-    async performGroupAction(actionName: PerformGroupActionActionNameEnum, body: MsaEntityActionRequestV2, initOverrides?: RequestInit): Promise<ResponsesHostGroupsV1> {
-        const response = await this.performGroupActionRaw({ actionName: actionName, body: body }, initOverrides);
+    async performGroupAction(
+        actionName: PerformGroupActionActionNameEnum,
+        body: MsaEntityActionRequestV2,
+        disableHostnameCheck?: boolean,
+        initOverrides?: RequestInit
+    ): Promise<ResponsesHostGroupsV1> {
+        const response = await this.performGroupActionRaw({ actionName: actionName, body: body, disableHostnameCheck: disableHostnameCheck }, initOverrides);
         return await response.value();
     }
 
