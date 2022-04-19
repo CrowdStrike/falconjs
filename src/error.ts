@@ -1,4 +1,5 @@
-import { MsaAPIError, MsaMetaInfo } from "../src/models";
+import { MsaAPIError, MsaMetaInfo } from "./models";
+import { ResponseError } from "./runtime";
 
 interface errorJson {
     errors: Array<MsaAPIError>;
@@ -6,11 +7,17 @@ interface errorJson {
 }
 
 class FalconError {
+    public response: Response;
     json: Promise<errorJson>;
 
     private body: errorJson | null = null;
 
-    constructor(public response: Response) {
+    constructor(input: Response | ResponseError) {
+        if (input instanceof ResponseError) {
+            this.response = input.response;
+        } else {
+            this.response = input;
+        }
         this.json = this.response.json();
     }
 
