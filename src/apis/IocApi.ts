@@ -396,49 +396,49 @@ export class IocApi extends runtime.BaseAPI {
 
 /**
  * @export
- * @enum {string}
  */
-export enum IndicatorCombinedV1SortEnum {
-    Action = "action",
-    AppliedGlobally = "applied_globally",
-    MetadataAvHits = "metadata.av_hits",
-    MetadataCompanyNameRaw = "metadata.company_name.raw",
-    CreatedBy = "created_by",
-    CreatedOn = "created_on",
-    Expiration = "expiration",
-    Expired = "expired",
-    MetadataFilenameRaw = "metadata.filename.raw",
-    ModifiedBy = "modified_by",
-    ModifiedOn = "modified_on",
-    MetadataOriginalFilenameRaw = "metadata.original_filename.raw",
-    MetadataProductNameRaw = "metadata.product_name.raw",
-    MetadataProductVersion = "metadata.product_version",
-    SeverityNumber = "severity_number",
-    Source = "source",
-    Type = "type",
-    Value = "value",
-}
+export const IndicatorCombinedV1SortEnum = {
+    Action: "action",
+    AppliedGlobally: "applied_globally",
+    MetadataAvHits: "metadata.av_hits",
+    MetadataCompanyNameRaw: "metadata.company_name.raw",
+    CreatedBy: "created_by",
+    CreatedOn: "created_on",
+    Expiration: "expiration",
+    Expired: "expired",
+    MetadataFilenameRaw: "metadata.filename.raw",
+    ModifiedBy: "modified_by",
+    ModifiedOn: "modified_on",
+    MetadataOriginalFilenameRaw: "metadata.original_filename.raw",
+    MetadataProductNameRaw: "metadata.product_name.raw",
+    MetadataProductVersion: "metadata.product_version",
+    SeverityNumber: "severity_number",
+    Source: "source",
+    Type: "type",
+    Value: "value",
+} as const;
+export type IndicatorCombinedV1SortEnum = typeof IndicatorCombinedV1SortEnum[keyof typeof IndicatorCombinedV1SortEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum IndicatorSearchV1SortEnum {
-    Action = "action",
-    AppliedGlobally = "applied_globally",
-    MetadataAvHits = "metadata.av_hits",
-    MetadataCompanyNameRaw = "metadata.company_name.raw",
-    CreatedBy = "created_by",
-    CreatedOn = "created_on",
-    Expiration = "expiration",
-    Expired = "expired",
-    MetadataFilenameRaw = "metadata.filename.raw",
-    ModifiedBy = "modified_by",
-    ModifiedOn = "modified_on",
-    MetadataOriginalFilenameRaw = "metadata.original_filename.raw",
-    MetadataProductNameRaw = "metadata.product_name.raw",
-    MetadataProductVersion = "metadata.product_version",
-    SeverityNumber = "severity_number",
-    Source = "source",
-    Type = "type",
-    Value = "value",
-}
+export const IndicatorSearchV1SortEnum = {
+    Action: "action",
+    AppliedGlobally: "applied_globally",
+    MetadataAvHits: "metadata.av_hits",
+    MetadataCompanyNameRaw: "metadata.company_name.raw",
+    CreatedBy: "created_by",
+    CreatedOn: "created_on",
+    Expiration: "expiration",
+    Expired: "expired",
+    MetadataFilenameRaw: "metadata.filename.raw",
+    ModifiedBy: "modified_by",
+    ModifiedOn: "modified_on",
+    MetadataOriginalFilenameRaw: "metadata.original_filename.raw",
+    MetadataProductNameRaw: "metadata.product_name.raw",
+    MetadataProductVersion: "metadata.product_version",
+    SeverityNumber: "severity_number",
+    Source: "source",
+    Type: "type",
+    Value: "value",
+} as const;
+export type IndicatorSearchV1SortEnum = typeof IndicatorSearchV1SortEnum[keyof typeof IndicatorSearchV1SortEnum];

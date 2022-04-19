@@ -55,13 +55,13 @@ export interface RequestsCreatePreventionPolicyV1 {
 
 /**
  * @export
- * @enum {string}
  */
-export enum RequestsCreatePreventionPolicyV1PlatformNameEnum {
-    Windows = "Windows",
-    Mac = "Mac",
-    Linux = "Linux",
-}
+export const RequestsCreatePreventionPolicyV1PlatformNameEnum = {
+    Windows: "Windows",
+    Mac: "Mac",
+    Linux: "Linux",
+} as const;
+export type RequestsCreatePreventionPolicyV1PlatformNameEnum = typeof RequestsCreatePreventionPolicyV1PlatformNameEnum[keyof typeof RequestsCreatePreventionPolicyV1PlatformNameEnum];
 
 export function RequestsCreatePreventionPolicyV1FromJSON(json: any): RequestsCreatePreventionPolicyV1 {
     return RequestsCreatePreventionPolicyV1FromJSONTyped(json, false);

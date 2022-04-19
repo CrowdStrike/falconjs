@@ -1007,86 +1007,86 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
 /**
  * @export
- * @enum {string}
  */
-export enum PerformSensorUpdatePoliciesActionActionNameEnum {
-    AddHostGroup = "add-host-group",
-    Disable = "disable",
-    Enable = "enable",
-    RemoveHostGroup = "remove-host-group",
-}
+export const PerformSensorUpdatePoliciesActionActionNameEnum = {
+    AddHostGroup: "add-host-group",
+    Disable: "disable",
+    Enable: "enable",
+    RemoveHostGroup: "remove-host-group",
+} as const;
+export type PerformSensorUpdatePoliciesActionActionNameEnum = typeof PerformSensorUpdatePoliciesActionActionNameEnum[keyof typeof PerformSensorUpdatePoliciesActionActionNameEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum QueryCombinedSensorUpdateBuildsPlatformEnum {
-    Linux = "linux",
-    Mac = "mac",
-    Windows = "windows",
-}
+export const QueryCombinedSensorUpdateBuildsPlatformEnum = {
+    Linux: "linux",
+    Mac: "mac",
+    Windows: "windows",
+} as const;
+export type QueryCombinedSensorUpdateBuildsPlatformEnum = typeof QueryCombinedSensorUpdateBuildsPlatformEnum[keyof typeof QueryCombinedSensorUpdateBuildsPlatformEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum QueryCombinedSensorUpdatePoliciesSortEnum {
-    CreatedByAsc = "created_by.asc",
-    CreatedByDesc = "created_by.desc",
-    CreatedTimestampAsc = "created_timestamp.asc",
-    CreatedTimestampDesc = "created_timestamp.desc",
-    EnabledAsc = "enabled.asc",
-    EnabledDesc = "enabled.desc",
-    ModifiedByAsc = "modified_by.asc",
-    ModifiedByDesc = "modified_by.desc",
-    ModifiedTimestampAsc = "modified_timestamp.asc",
-    ModifiedTimestampDesc = "modified_timestamp.desc",
-    NameAsc = "name.asc",
-    NameDesc = "name.desc",
-    PlatformNameAsc = "platform_name.asc",
-    PlatformNameDesc = "platform_name.desc",
-    PrecedenceAsc = "precedence.asc",
-    PrecedenceDesc = "precedence.desc",
-}
+export const QueryCombinedSensorUpdatePoliciesSortEnum = {
+    CreatedByAsc: "created_by.asc",
+    CreatedByDesc: "created_by.desc",
+    CreatedTimestampAsc: "created_timestamp.asc",
+    CreatedTimestampDesc: "created_timestamp.desc",
+    EnabledAsc: "enabled.asc",
+    EnabledDesc: "enabled.desc",
+    ModifiedByAsc: "modified_by.asc",
+    ModifiedByDesc: "modified_by.desc",
+    ModifiedTimestampAsc: "modified_timestamp.asc",
+    ModifiedTimestampDesc: "modified_timestamp.desc",
+    NameAsc: "name.asc",
+    NameDesc: "name.desc",
+    PlatformNameAsc: "platform_name.asc",
+    PlatformNameDesc: "platform_name.desc",
+    PrecedenceAsc: "precedence.asc",
+    PrecedenceDesc: "precedence.desc",
+} as const;
+export type QueryCombinedSensorUpdatePoliciesSortEnum = typeof QueryCombinedSensorUpdatePoliciesSortEnum[keyof typeof QueryCombinedSensorUpdatePoliciesSortEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum QueryCombinedSensorUpdatePoliciesV2SortEnum {
-    CreatedByAsc = "created_by.asc",
-    CreatedByDesc = "created_by.desc",
-    CreatedTimestampAsc = "created_timestamp.asc",
-    CreatedTimestampDesc = "created_timestamp.desc",
-    EnabledAsc = "enabled.asc",
-    EnabledDesc = "enabled.desc",
-    ModifiedByAsc = "modified_by.asc",
-    ModifiedByDesc = "modified_by.desc",
-    ModifiedTimestampAsc = "modified_timestamp.asc",
-    ModifiedTimestampDesc = "modified_timestamp.desc",
-    NameAsc = "name.asc",
-    NameDesc = "name.desc",
-    PlatformNameAsc = "platform_name.asc",
-    PlatformNameDesc = "platform_name.desc",
-    PrecedenceAsc = "precedence.asc",
-    PrecedenceDesc = "precedence.desc",
-}
+export const QueryCombinedSensorUpdatePoliciesV2SortEnum = {
+    CreatedByAsc: "created_by.asc",
+    CreatedByDesc: "created_by.desc",
+    CreatedTimestampAsc: "created_timestamp.asc",
+    CreatedTimestampDesc: "created_timestamp.desc",
+    EnabledAsc: "enabled.asc",
+    EnabledDesc: "enabled.desc",
+    ModifiedByAsc: "modified_by.asc",
+    ModifiedByDesc: "modified_by.desc",
+    ModifiedTimestampAsc: "modified_timestamp.asc",
+    ModifiedTimestampDesc: "modified_timestamp.desc",
+    NameAsc: "name.asc",
+    NameDesc: "name.desc",
+    PlatformNameAsc: "platform_name.asc",
+    PlatformNameDesc: "platform_name.desc",
+    PrecedenceAsc: "precedence.asc",
+    PrecedenceDesc: "precedence.desc",
+} as const;
+export type QueryCombinedSensorUpdatePoliciesV2SortEnum = typeof QueryCombinedSensorUpdatePoliciesV2SortEnum[keyof typeof QueryCombinedSensorUpdatePoliciesV2SortEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum QuerySensorUpdatePoliciesSortEnum {
-    CreatedByAsc = "created_by.asc",
-    CreatedByDesc = "created_by.desc",
-    CreatedTimestampAsc = "created_timestamp.asc",
-    CreatedTimestampDesc = "created_timestamp.desc",
-    EnabledAsc = "enabled.asc",
-    EnabledDesc = "enabled.desc",
-    ModifiedByAsc = "modified_by.asc",
-    ModifiedByDesc = "modified_by.desc",
-    ModifiedTimestampAsc = "modified_timestamp.asc",
-    ModifiedTimestampDesc = "modified_timestamp.desc",
-    NameAsc = "name.asc",
-    NameDesc = "name.desc",
-    PlatformNameAsc = "platform_name.asc",
-    PlatformNameDesc = "platform_name.desc",
-    PrecedenceAsc = "precedence.asc",
-    PrecedenceDesc = "precedence.desc",
-}
+export const QuerySensorUpdatePoliciesSortEnum = {
+    CreatedByAsc: "created_by.asc",
+    CreatedByDesc: "created_by.desc",
+    CreatedTimestampAsc: "created_timestamp.asc",
+    CreatedTimestampDesc: "created_timestamp.desc",
+    EnabledAsc: "enabled.asc",
+    EnabledDesc: "enabled.desc",
+    ModifiedByAsc: "modified_by.asc",
+    ModifiedByDesc: "modified_by.desc",
+    ModifiedTimestampAsc: "modified_timestamp.asc",
+    ModifiedTimestampDesc: "modified_timestamp.desc",
+    NameAsc: "name.asc",
+    NameDesc: "name.desc",
+    PlatformNameAsc: "platform_name.asc",
+    PlatformNameDesc: "platform_name.desc",
+    PrecedenceAsc: "precedence.asc",
+    PrecedenceDesc: "precedence.desc",
+} as const;
+export type QuerySensorUpdatePoliciesSortEnum = typeof QuerySensorUpdatePoliciesSortEnum[keyof typeof QuerySensorUpdatePoliciesSortEnum];

@@ -13,51 +13,52 @@
  */
 
 import { exists, mapValues } from "../runtime";
-/**
- * Sets the precedence order for policies of a given platform
- * @export
- * @interface RequestsSetPolicyPrecedenceReqV1
- */
-export interface RequestsSetPolicyPrecedenceReqV1 {
-    /**
-     * The ids of all current prevention policies for the platform specified. The precedence will be set in the order the ids are specified
-     * @type {Array<string>}
-     * @memberof RequestsSetPolicyPrecedenceReqV1
-     */
-    ids: Array<string>;
-    /**
-     * The name of the platform for which to set precedence
-     * @type {string}
-     * @memberof RequestsSetPolicyPrecedenceReqV1
-     */
-    platformName: RequestsSetPolicyPrecedenceReqV1PlatformNameEnum;
-}
+import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { StateOnlineStateResultV1, StateOnlineStateResultV1FromJSON, StateOnlineStateResultV1FromJSONTyped, StateOnlineStateResultV1ToJSON } from "./StateOnlineStateResultV1";
 
 /**
+ *
  * @export
+ * @interface StateOnlineStateRespV1
  */
-export const RequestsSetPolicyPrecedenceReqV1PlatformNameEnum = {
-    Windows: "Windows",
-    Mac: "Mac",
-    Linux: "Linux",
-} as const;
-export type RequestsSetPolicyPrecedenceReqV1PlatformNameEnum = typeof RequestsSetPolicyPrecedenceReqV1PlatformNameEnum[keyof typeof RequestsSetPolicyPrecedenceReqV1PlatformNameEnum];
-
-export function RequestsSetPolicyPrecedenceReqV1FromJSON(json: any): RequestsSetPolicyPrecedenceReqV1 {
-    return RequestsSetPolicyPrecedenceReqV1FromJSONTyped(json, false);
+export interface StateOnlineStateRespV1 {
+    /**
+     *
+     * @type {Array<MsaAPIError>}
+     * @memberof StateOnlineStateRespV1
+     */
+    errors: Array<MsaAPIError>;
+    /**
+     *
+     * @type {MsaMetaInfo}
+     * @memberof StateOnlineStateRespV1
+     */
+    meta: MsaMetaInfo;
+    /**
+     *
+     * @type {Array<StateOnlineStateResultV1>}
+     * @memberof StateOnlineStateRespV1
+     */
+    resources: Array<StateOnlineStateResultV1>;
 }
 
-export function RequestsSetPolicyPrecedenceReqV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): RequestsSetPolicyPrecedenceReqV1 {
+export function StateOnlineStateRespV1FromJSON(json: any): StateOnlineStateRespV1 {
+    return StateOnlineStateRespV1FromJSONTyped(json, false);
+}
+
+export function StateOnlineStateRespV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): StateOnlineStateRespV1 {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        ids: json["ids"],
-        platformName: json["platform_name"],
+        errors: (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
+        meta: MsaMetaInfoFromJSON(json["meta"]),
+        resources: (json["resources"] as Array<any>).map(StateOnlineStateResultV1FromJSON),
     };
 }
 
-export function RequestsSetPolicyPrecedenceReqV1ToJSON(value?: RequestsSetPolicyPrecedenceReqV1 | null): any {
+export function StateOnlineStateRespV1ToJSON(value?: StateOnlineStateRespV1 | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -65,7 +66,8 @@ export function RequestsSetPolicyPrecedenceReqV1ToJSON(value?: RequestsSetPolicy
         return null;
     }
     return {
-        ids: value.ids,
-        platform_name: value.platformName,
+        errors: (value.errors as Array<any>).map(MsaAPIErrorToJSON),
+        meta: MsaMetaInfoToJSON(value.meta),
+        resources: (value.resources as Array<any>).map(StateOnlineStateResultV1ToJSON),
     };
 }

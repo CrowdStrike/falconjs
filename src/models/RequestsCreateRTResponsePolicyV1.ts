@@ -55,13 +55,13 @@ export interface RequestsCreateRTResponsePolicyV1 {
 
 /**
  * @export
- * @enum {string}
  */
-export enum RequestsCreateRTResponsePolicyV1PlatformNameEnum {
-    Windows = "Windows",
-    Mac = "Mac",
-    Linux = "Linux",
-}
+export const RequestsCreateRTResponsePolicyV1PlatformNameEnum = {
+    Windows: "Windows",
+    Mac: "Mac",
+    Linux: "Linux",
+} as const;
+export type RequestsCreateRTResponsePolicyV1PlatformNameEnum = typeof RequestsCreateRTResponsePolicyV1PlatformNameEnum[keyof typeof RequestsCreateRTResponsePolicyV1PlatformNameEnum];
 
 export function RequestsCreateRTResponsePolicyV1FromJSON(json: any): RequestsCreateRTResponsePolicyV1 {
     return RequestsCreateRTResponsePolicyV1FromJSONTyped(json, false);

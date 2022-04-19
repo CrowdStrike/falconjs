@@ -47,12 +47,12 @@ export interface RequestsCreateGroupV1 {
 
 /**
  * @export
- * @enum {string}
  */
-export enum RequestsCreateGroupV1GroupTypeEnum {
-    Static = "static",
-    Dynamic = "dynamic",
-}
+export const RequestsCreateGroupV1GroupTypeEnum = {
+    Static: "static",
+    Dynamic: "dynamic",
+} as const;
+export type RequestsCreateGroupV1GroupTypeEnum = typeof RequestsCreateGroupV1GroupTypeEnum[keyof typeof RequestsCreateGroupV1GroupTypeEnum];
 
 export function RequestsCreateGroupV1FromJSON(json: any): RequestsCreateGroupV1 {
     return RequestsCreateGroupV1FromJSONTyped(json, false);

@@ -588,55 +588,55 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
 /**
  * @export
- * @enum {string}
  */
-export enum PerformDeviceControlPoliciesActionActionNameEnum {
-    AddHostGroup = "add-host-group",
-    Disable = "disable",
-    Enable = "enable",
-    RemoveHostGroup = "remove-host-group",
-}
+export const PerformDeviceControlPoliciesActionActionNameEnum = {
+    AddHostGroup: "add-host-group",
+    Disable: "disable",
+    Enable: "enable",
+    RemoveHostGroup: "remove-host-group",
+} as const;
+export type PerformDeviceControlPoliciesActionActionNameEnum = typeof PerformDeviceControlPoliciesActionActionNameEnum[keyof typeof PerformDeviceControlPoliciesActionActionNameEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum QueryCombinedDeviceControlPoliciesSortEnum {
-    CreatedByAsc = "created_by.asc",
-    CreatedByDesc = "created_by.desc",
-    CreatedTimestampAsc = "created_timestamp.asc",
-    CreatedTimestampDesc = "created_timestamp.desc",
-    EnabledAsc = "enabled.asc",
-    EnabledDesc = "enabled.desc",
-    ModifiedByAsc = "modified_by.asc",
-    ModifiedByDesc = "modified_by.desc",
-    ModifiedTimestampAsc = "modified_timestamp.asc",
-    ModifiedTimestampDesc = "modified_timestamp.desc",
-    NameAsc = "name.asc",
-    NameDesc = "name.desc",
-    PlatformNameAsc = "platform_name.asc",
-    PlatformNameDesc = "platform_name.desc",
-    PrecedenceAsc = "precedence.asc",
-    PrecedenceDesc = "precedence.desc",
-}
+export const QueryCombinedDeviceControlPoliciesSortEnum = {
+    CreatedByAsc: "created_by.asc",
+    CreatedByDesc: "created_by.desc",
+    CreatedTimestampAsc: "created_timestamp.asc",
+    CreatedTimestampDesc: "created_timestamp.desc",
+    EnabledAsc: "enabled.asc",
+    EnabledDesc: "enabled.desc",
+    ModifiedByAsc: "modified_by.asc",
+    ModifiedByDesc: "modified_by.desc",
+    ModifiedTimestampAsc: "modified_timestamp.asc",
+    ModifiedTimestampDesc: "modified_timestamp.desc",
+    NameAsc: "name.asc",
+    NameDesc: "name.desc",
+    PlatformNameAsc: "platform_name.asc",
+    PlatformNameDesc: "platform_name.desc",
+    PrecedenceAsc: "precedence.asc",
+    PrecedenceDesc: "precedence.desc",
+} as const;
+export type QueryCombinedDeviceControlPoliciesSortEnum = typeof QueryCombinedDeviceControlPoliciesSortEnum[keyof typeof QueryCombinedDeviceControlPoliciesSortEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum QueryDeviceControlPoliciesSortEnum {
-    CreatedByAsc = "created_by.asc",
-    CreatedByDesc = "created_by.desc",
-    CreatedTimestampAsc = "created_timestamp.asc",
-    CreatedTimestampDesc = "created_timestamp.desc",
-    EnabledAsc = "enabled.asc",
-    EnabledDesc = "enabled.desc",
-    ModifiedByAsc = "modified_by.asc",
-    ModifiedByDesc = "modified_by.desc",
-    ModifiedTimestampAsc = "modified_timestamp.asc",
-    ModifiedTimestampDesc = "modified_timestamp.desc",
-    NameAsc = "name.asc",
-    NameDesc = "name.desc",
-    PlatformNameAsc = "platform_name.asc",
-    PlatformNameDesc = "platform_name.desc",
-    PrecedenceAsc = "precedence.asc",
-    PrecedenceDesc = "precedence.desc",
-}
+export const QueryDeviceControlPoliciesSortEnum = {
+    CreatedByAsc: "created_by.asc",
+    CreatedByDesc: "created_by.desc",
+    CreatedTimestampAsc: "created_timestamp.asc",
+    CreatedTimestampDesc: "created_timestamp.desc",
+    EnabledAsc: "enabled.asc",
+    EnabledDesc: "enabled.desc",
+    ModifiedByAsc: "modified_by.asc",
+    ModifiedByDesc: "modified_by.desc",
+    ModifiedTimestampAsc: "modified_timestamp.asc",
+    ModifiedTimestampDesc: "modified_timestamp.desc",
+    NameAsc: "name.asc",
+    NameDesc: "name.desc",
+    PlatformNameAsc: "platform_name.asc",
+    PlatformNameDesc: "platform_name.desc",
+    PrecedenceAsc: "precedence.asc",
+    PrecedenceDesc: "precedence.desc",
+} as const;
+export type QueryDeviceControlPoliciesSortEnum = typeof QueryDeviceControlPoliciesSortEnum[keyof typeof QueryDeviceControlPoliciesSortEnum];

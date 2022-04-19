@@ -53,6 +53,9 @@ import {
     MsaReplyMetaOnly,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
+    StateOnlineStateRespV1,
+    StateOnlineStateRespV1FromJSON,
+    StateOnlineStateRespV1ToJSON,
 } from "../models";
 
 export interface EntitiesPerformActionRequest {
@@ -62,6 +65,10 @@ export interface EntitiesPerformActionRequest {
 }
 
 export interface GetDeviceDetailsRequest {
+    ids: Array<string>;
+}
+
+export interface GetOnlineStateV1Request {
     ids: Array<string>;
 }
 
@@ -203,6 +210,48 @@ export class HostsApi extends runtime.BaseAPI {
      */
     async getDeviceDetails(ids: Array<string>, initOverrides?: RequestInit): Promise<DomainDeviceDetailsResponseSwagger> {
         const response = await this.getDeviceDetailsRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get the online status for one or more hosts by specifying each host’s unique ID. Successful requests return an HTTP 200 response and the status for each host identified by a `state` of `online`, `offline`, or `unknown` for each host, identified by host `id`.  Make a `GET` request to `/devices/queries/devices/v1` to get a list of host IDs.
+     */
+    async getOnlineStateV1Raw(requestParameters: GetOnlineStateV1Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<StateOnlineStateRespV1>> {
+        if (requestParameters.ids === null || requestParameters.ids === undefined) {
+            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getOnlineStateV1.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.ids) {
+            queryParameters["ids"] = requestParameters.ids;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/devices/entities/online-state/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => StateOnlineStateRespV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Get the online status for one or more hosts by specifying each host’s unique ID. Successful requests return an HTTP 200 response and the status for each host identified by a `state` of `online`, `offline`, or `unknown` for each host, identified by host `id`.  Make a `GET` request to `/devices/queries/devices/v1` to get a list of host IDs.
+     */
+    async getOnlineStateV1(ids: Array<string>, initOverrides?: RequestInit): Promise<StateOnlineStateRespV1> {
+        const response = await this.getOnlineStateV1Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
 
@@ -534,10 +583,10 @@ export class HostsApi extends runtime.BaseAPI {
 
 /**
  * @export
- * @enum {string}
  */
-export enum EntitiesPerformActionActionNameEnum {
-    AddGroupMember = "add_group_member",
-    RemoveAll = "remove_all",
-    RemoveGroupMember = "remove_group_member",
-}
+export const EntitiesPerformActionActionNameEnum = {
+    AddGroupMember: "add_group_member",
+    RemoveAll: "remove_all",
+    RemoveGroupMember: "remove_group_member",
+} as const;
+export type EntitiesPerformActionActionNameEnum = typeof EntitiesPerformActionActionNameEnum[keyof typeof EntitiesPerformActionActionNameEnum];

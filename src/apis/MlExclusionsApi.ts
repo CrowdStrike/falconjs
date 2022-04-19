@@ -285,19 +285,19 @@ export class MlExclusionsApi extends runtime.BaseAPI {
 
 /**
  * @export
- * @enum {string}
  */
-export enum QueryMLExclusionsV1SortEnum {
-    AppliedGloballyAsc = "applied_globally.asc",
-    AppliedGloballyDesc = "applied_globally.desc",
-    CreatedByAsc = "created_by.asc",
-    CreatedByDesc = "created_by.desc",
-    CreatedOnAsc = "created_on.asc",
-    CreatedOnDesc = "created_on.desc",
-    LastModifiedAsc = "last_modified.asc",
-    LastModifiedDesc = "last_modified.desc",
-    ModifiedByAsc = "modified_by.asc",
-    ModifiedByDesc = "modified_by.desc",
-    ValueAsc = "value.asc",
-    ValueDesc = "value.desc",
-}
+export const QueryMLExclusionsV1SortEnum = {
+    AppliedGloballyAsc: "applied_globally.asc",
+    AppliedGloballyDesc: "applied_globally.desc",
+    CreatedByAsc: "created_by.asc",
+    CreatedByDesc: "created_by.desc",
+    CreatedOnAsc: "created_on.asc",
+    CreatedOnDesc: "created_on.desc",
+    LastModifiedAsc: "last_modified.asc",
+    LastModifiedDesc: "last_modified.desc",
+    ModifiedByAsc: "modified_by.asc",
+    ModifiedByDesc: "modified_by.desc",
+    ValueAsc: "value.asc",
+    ValueDesc: "value.desc",
+} as const;
+export type QueryMLExclusionsV1SortEnum = typeof QueryMLExclusionsV1SortEnum[keyof typeof QueryMLExclusionsV1SortEnum];

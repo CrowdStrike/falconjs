@@ -60,13 +60,13 @@ export interface RequestsCreateDeviceControlPolicyV1 {
 
 /**
  * @export
- * @enum {string}
  */
-export enum RequestsCreateDeviceControlPolicyV1PlatformNameEnum {
-    Windows = "Windows",
-    Mac = "Mac",
-    Linux = "Linux",
-}
+export const RequestsCreateDeviceControlPolicyV1PlatformNameEnum = {
+    Windows: "Windows",
+    Mac: "Mac",
+    Linux: "Linux",
+} as const;
+export type RequestsCreateDeviceControlPolicyV1PlatformNameEnum = typeof RequestsCreateDeviceControlPolicyV1PlatformNameEnum[keyof typeof RequestsCreateDeviceControlPolicyV1PlatformNameEnum];
 
 export function RequestsCreateDeviceControlPolicyV1FromJSON(json: any): RequestsCreateDeviceControlPolicyV1 {
     return RequestsCreateDeviceControlPolicyV1FromJSONTyped(json, false);

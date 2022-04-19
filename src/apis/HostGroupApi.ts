@@ -531,45 +531,45 @@ export class HostGroupApi extends runtime.BaseAPI {
 
 /**
  * @export
- * @enum {string}
  */
-export enum PerformGroupActionActionNameEnum {
-    AddHosts = "add-hosts",
-    RemoveHosts = "remove-hosts",
-}
+export const PerformGroupActionActionNameEnum = {
+    AddHosts: "add-hosts",
+    RemoveHosts: "remove-hosts",
+} as const;
+export type PerformGroupActionActionNameEnum = typeof PerformGroupActionActionNameEnum[keyof typeof PerformGroupActionActionNameEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum QueryCombinedHostGroupsSortEnum {
-    CreatedByAsc = "created_by.asc",
-    CreatedByDesc = "created_by.desc",
-    CreatedTimestampAsc = "created_timestamp.asc",
-    CreatedTimestampDesc = "created_timestamp.desc",
-    GroupTypeAsc = "group_type.asc",
-    GroupTypeDesc = "group_type.desc",
-    ModifiedByAsc = "modified_by.asc",
-    ModifiedByDesc = "modified_by.desc",
-    ModifiedTimestampAsc = "modified_timestamp.asc",
-    ModifiedTimestampDesc = "modified_timestamp.desc",
-    NameAsc = "name.asc",
-    NameDesc = "name.desc",
-}
+export const QueryCombinedHostGroupsSortEnum = {
+    CreatedByAsc: "created_by.asc",
+    CreatedByDesc: "created_by.desc",
+    CreatedTimestampAsc: "created_timestamp.asc",
+    CreatedTimestampDesc: "created_timestamp.desc",
+    GroupTypeAsc: "group_type.asc",
+    GroupTypeDesc: "group_type.desc",
+    ModifiedByAsc: "modified_by.asc",
+    ModifiedByDesc: "modified_by.desc",
+    ModifiedTimestampAsc: "modified_timestamp.asc",
+    ModifiedTimestampDesc: "modified_timestamp.desc",
+    NameAsc: "name.asc",
+    NameDesc: "name.desc",
+} as const;
+export type QueryCombinedHostGroupsSortEnum = typeof QueryCombinedHostGroupsSortEnum[keyof typeof QueryCombinedHostGroupsSortEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum QueryHostGroupsSortEnum {
-    CreatedByAsc = "created_by.asc",
-    CreatedByDesc = "created_by.desc",
-    CreatedTimestampAsc = "created_timestamp.asc",
-    CreatedTimestampDesc = "created_timestamp.desc",
-    GroupTypeAsc = "group_type.asc",
-    GroupTypeDesc = "group_type.desc",
-    ModifiedByAsc = "modified_by.asc",
-    ModifiedByDesc = "modified_by.desc",
-    ModifiedTimestampAsc = "modified_timestamp.asc",
-    ModifiedTimestampDesc = "modified_timestamp.desc",
-    NameAsc = "name.asc",
-    NameDesc = "name.desc",
-}
+export const QueryHostGroupsSortEnum = {
+    CreatedByAsc: "created_by.asc",
+    CreatedByDesc: "created_by.desc",
+    CreatedTimestampAsc: "created_timestamp.asc",
+    CreatedTimestampDesc: "created_timestamp.desc",
+    GroupTypeAsc: "group_type.asc",
+    GroupTypeDesc: "group_type.desc",
+    ModifiedByAsc: "modified_by.asc",
+    ModifiedByDesc: "modified_by.desc",
+    ModifiedTimestampAsc: "modified_timestamp.asc",
+    ModifiedTimestampDesc: "modified_timestamp.desc",
+    NameAsc: "name.asc",
+    NameDesc: "name.desc",
+} as const;
+export type QueryHostGroupsSortEnum = typeof QueryHostGroupsSortEnum[keyof typeof QueryHostGroupsSortEnum];

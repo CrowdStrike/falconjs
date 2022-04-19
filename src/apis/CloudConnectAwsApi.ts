@@ -476,9 +476,9 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
 
 /**
  * @export
- * @enum {string}
  */
-export enum ProvisionAWSAccountsModeEnum {
-    Cloudformation = "cloudformation",
-    Manual = "manual",
-}
+export const ProvisionAWSAccountsModeEnum = {
+    Cloudformation: "cloudformation",
+    Manual: "manual",
+} as const;
+export type ProvisionAWSAccountsModeEnum = typeof ProvisionAWSAccountsModeEnum[keyof typeof ProvisionAWSAccountsModeEnum];

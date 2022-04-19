@@ -285,23 +285,23 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
 
 /**
  * @export
- * @enum {string}
  */
-export enum QueryIOAExclusionsV1SortEnum {
-    AppliedGloballyAsc = "applied_globally.asc",
-    AppliedGloballyDesc = "applied_globally.desc",
-    CreatedByAsc = "created_by.asc",
-    CreatedByDesc = "created_by.desc",
-    CreatedOnAsc = "created_on.asc",
-    CreatedOnDesc = "created_on.desc",
-    LastModifiedAsc = "last_modified.asc",
-    LastModifiedDesc = "last_modified.desc",
-    ModifiedByAsc = "modified_by.asc",
-    ModifiedByDesc = "modified_by.desc",
-    NameAsc = "name.asc",
-    NameDesc = "name.desc",
-    PatternIdAsc = "pattern_id.asc",
-    PatternIdDesc = "pattern_id.desc",
-    PatternNameAsc = "pattern_name.asc",
-    PatternNameDesc = "pattern_name.desc",
-}
+export const QueryIOAExclusionsV1SortEnum = {
+    AppliedGloballyAsc: "applied_globally.asc",
+    AppliedGloballyDesc: "applied_globally.desc",
+    CreatedByAsc: "created_by.asc",
+    CreatedByDesc: "created_by.desc",
+    CreatedOnAsc: "created_on.asc",
+    CreatedOnDesc: "created_on.desc",
+    LastModifiedAsc: "last_modified.asc",
+    LastModifiedDesc: "last_modified.desc",
+    ModifiedByAsc: "modified_by.asc",
+    ModifiedByDesc: "modified_by.desc",
+    NameAsc: "name.asc",
+    NameDesc: "name.desc",
+    PatternIdAsc: "pattern_id.asc",
+    PatternIdDesc: "pattern_id.desc",
+    PatternNameAsc: "pattern_name.asc",
+    PatternNameDesc: "pattern_name.desc",
+} as const;
+export type QueryIOAExclusionsV1SortEnum = typeof QueryIOAExclusionsV1SortEnum[keyof typeof QueryIOAExclusionsV1SortEnum];
