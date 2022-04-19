@@ -97,13 +97,13 @@ export interface ResponsesDeviceControlPolicyV1 {
 
 /**
  * @export
- * @enum {string}
  */
-export enum ResponsesDeviceControlPolicyV1PlatformNameEnum {
-    Windows = "Windows",
-    Mac = "Mac",
-    Linux = "Linux",
-}
+export const ResponsesDeviceControlPolicyV1PlatformNameEnum = {
+    Windows: "Windows",
+    Mac: "Mac",
+    Linux: "Linux",
+} as const;
+export type ResponsesDeviceControlPolicyV1PlatformNameEnum = typeof ResponsesDeviceControlPolicyV1PlatformNameEnum[keyof typeof ResponsesDeviceControlPolicyV1PlatformNameEnum];
 
 export function ResponsesDeviceControlPolicyV1FromJSON(json: any): ResponsesDeviceControlPolicyV1 {
     return ResponsesDeviceControlPolicyV1FromJSONTyped(json, false);

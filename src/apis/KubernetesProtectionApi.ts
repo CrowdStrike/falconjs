@@ -492,22 +492,22 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
 /**
  * @export
- * @enum {string}
  */
-export enum GetClustersClusterServiceEnum {
-    Eks = "eks",
-}
+export const GetClustersClusterServiceEnum = {
+    Eks: "eks",
+} as const;
+export type GetClustersClusterServiceEnum = typeof GetClustersClusterServiceEnum[keyof typeof GetClustersClusterServiceEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum GetLocationsCloudsEnum {}
+export const GetLocationsCloudsEnum = {} as const;
+export type GetLocationsCloudsEnum = typeof GetLocationsCloudsEnum[keyof typeof GetLocationsCloudsEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum TriggerScanScanTypeEnum {
-    ClusterRefresh = "cluster-refresh",
-    DryRun = "dry-run",
-    Full = "full",
-}
+export const TriggerScanScanTypeEnum = {
+    ClusterRefresh: "cluster-refresh",
+    DryRun: "dry-run",
+    Full: "full",
+} as const;
+export type TriggerScanScanTypeEnum = typeof TriggerScanScanTypeEnum[keyof typeof TriggerScanScanTypeEnum];

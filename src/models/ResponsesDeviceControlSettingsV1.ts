@@ -48,20 +48,22 @@ export interface ResponsesDeviceControlSettingsV1 {
 
 /**
  * @export
- * @enum {string}
  */
-export enum ResponsesDeviceControlSettingsV1EndUserNotificationEnum {
-    True = "TRUE",
-    False = "FALSE",
-}
+export const ResponsesDeviceControlSettingsV1EndUserNotificationEnum = {
+    True: "TRUE",
+    False: "FALSE",
+} as const;
+export type ResponsesDeviceControlSettingsV1EndUserNotificationEnum =
+    typeof ResponsesDeviceControlSettingsV1EndUserNotificationEnum[keyof typeof ResponsesDeviceControlSettingsV1EndUserNotificationEnum];
+
 /**
  * @export
- * @enum {string}
  */
-export enum ResponsesDeviceControlSettingsV1EnforcementModeEnum {
-    Enforced = "ENFORCED",
-    MonitoryOnly = "MONITORY_ONLY",
-}
+export const ResponsesDeviceControlSettingsV1EnforcementModeEnum = {
+    Enforced: "ENFORCED",
+    MonitoryOnly: "MONITORY_ONLY",
+} as const;
+export type ResponsesDeviceControlSettingsV1EnforcementModeEnum = typeof ResponsesDeviceControlSettingsV1EnforcementModeEnum[keyof typeof ResponsesDeviceControlSettingsV1EnforcementModeEnum];
 
 export function ResponsesDeviceControlSettingsV1FromJSON(json: any): ResponsesDeviceControlSettingsV1 {
     return ResponsesDeviceControlSettingsV1FromJSONTyped(json, false);

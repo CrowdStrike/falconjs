@@ -35,15 +35,15 @@ export interface RequestsSensorUpdateSettingsV2 {
 
 /**
  * @export
- * @enum {string}
  */
-export enum RequestsSensorUpdateSettingsV2UninstallProtectionEnum {
-    Enabled = "ENABLED",
-    Disabled = "DISABLED",
-    MaintenanceMode = "MAINTENANCE_MODE",
-    Ignore = "IGNORE",
-    Unknown = "UNKNOWN",
-}
+export const RequestsSensorUpdateSettingsV2UninstallProtectionEnum = {
+    Enabled: "ENABLED",
+    Disabled: "DISABLED",
+    MaintenanceMode: "MAINTENANCE_MODE",
+    Ignore: "IGNORE",
+    Unknown: "UNKNOWN",
+} as const;
+export type RequestsSensorUpdateSettingsV2UninstallProtectionEnum = typeof RequestsSensorUpdateSettingsV2UninstallProtectionEnum[keyof typeof RequestsSensorUpdateSettingsV2UninstallProtectionEnum];
 
 export function RequestsSensorUpdateSettingsV2FromJSON(json: any): RequestsSensorUpdateSettingsV2 {
     return RequestsSensorUpdateSettingsV2FromJSONTyped(json, false);

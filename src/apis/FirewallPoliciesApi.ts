@@ -580,55 +580,55 @@ export class FirewallPoliciesApi extends runtime.BaseAPI {
 
 /**
  * @export
- * @enum {string}
  */
-export enum PerformFirewallPoliciesActionActionNameEnum {
-    AddHostGroup = "add-host-group",
-    Disable = "disable",
-    Enable = "enable",
-    RemoveHostGroup = "remove-host-group",
-}
+export const PerformFirewallPoliciesActionActionNameEnum = {
+    AddHostGroup: "add-host-group",
+    Disable: "disable",
+    Enable: "enable",
+    RemoveHostGroup: "remove-host-group",
+} as const;
+export type PerformFirewallPoliciesActionActionNameEnum = typeof PerformFirewallPoliciesActionActionNameEnum[keyof typeof PerformFirewallPoliciesActionActionNameEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum QueryCombinedFirewallPoliciesSortEnum {
-    CreatedByAsc = "created_by.asc",
-    CreatedByDesc = "created_by.desc",
-    CreatedTimestampAsc = "created_timestamp.asc",
-    CreatedTimestampDesc = "created_timestamp.desc",
-    EnabledAsc = "enabled.asc",
-    EnabledDesc = "enabled.desc",
-    ModifiedByAsc = "modified_by.asc",
-    ModifiedByDesc = "modified_by.desc",
-    ModifiedTimestampAsc = "modified_timestamp.asc",
-    ModifiedTimestampDesc = "modified_timestamp.desc",
-    NameAsc = "name.asc",
-    NameDesc = "name.desc",
-    PlatformNameAsc = "platform_name.asc",
-    PlatformNameDesc = "platform_name.desc",
-    PrecedenceAsc = "precedence.asc",
-    PrecedenceDesc = "precedence.desc",
-}
+export const QueryCombinedFirewallPoliciesSortEnum = {
+    CreatedByAsc: "created_by.asc",
+    CreatedByDesc: "created_by.desc",
+    CreatedTimestampAsc: "created_timestamp.asc",
+    CreatedTimestampDesc: "created_timestamp.desc",
+    EnabledAsc: "enabled.asc",
+    EnabledDesc: "enabled.desc",
+    ModifiedByAsc: "modified_by.asc",
+    ModifiedByDesc: "modified_by.desc",
+    ModifiedTimestampAsc: "modified_timestamp.asc",
+    ModifiedTimestampDesc: "modified_timestamp.desc",
+    NameAsc: "name.asc",
+    NameDesc: "name.desc",
+    PlatformNameAsc: "platform_name.asc",
+    PlatformNameDesc: "platform_name.desc",
+    PrecedenceAsc: "precedence.asc",
+    PrecedenceDesc: "precedence.desc",
+} as const;
+export type QueryCombinedFirewallPoliciesSortEnum = typeof QueryCombinedFirewallPoliciesSortEnum[keyof typeof QueryCombinedFirewallPoliciesSortEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum QueryFirewallPoliciesSortEnum {
-    CreatedByAsc = "created_by.asc",
-    CreatedByDesc = "created_by.desc",
-    CreatedTimestampAsc = "created_timestamp.asc",
-    CreatedTimestampDesc = "created_timestamp.desc",
-    EnabledAsc = "enabled.asc",
-    EnabledDesc = "enabled.desc",
-    ModifiedByAsc = "modified_by.asc",
-    ModifiedByDesc = "modified_by.desc",
-    ModifiedTimestampAsc = "modified_timestamp.asc",
-    ModifiedTimestampDesc = "modified_timestamp.desc",
-    NameAsc = "name.asc",
-    NameDesc = "name.desc",
-    PlatformNameAsc = "platform_name.asc",
-    PlatformNameDesc = "platform_name.desc",
-    PrecedenceAsc = "precedence.asc",
-    PrecedenceDesc = "precedence.desc",
-}
+export const QueryFirewallPoliciesSortEnum = {
+    CreatedByAsc: "created_by.asc",
+    CreatedByDesc: "created_by.desc",
+    CreatedTimestampAsc: "created_timestamp.asc",
+    CreatedTimestampDesc: "created_timestamp.desc",
+    EnabledAsc: "enabled.asc",
+    EnabledDesc: "enabled.desc",
+    ModifiedByAsc: "modified_by.asc",
+    ModifiedByDesc: "modified_by.desc",
+    ModifiedTimestampAsc: "modified_timestamp.asc",
+    ModifiedTimestampDesc: "modified_timestamp.desc",
+    NameAsc: "name.asc",
+    NameDesc: "name.desc",
+    PlatformNameAsc: "platform_name.asc",
+    PlatformNameDesc: "platform_name.desc",
+    PrecedenceAsc: "precedence.asc",
+    PrecedenceDesc: "precedence.desc",
+} as const;
+export type QueryFirewallPoliciesSortEnum = typeof QueryFirewallPoliciesSortEnum[keyof typeof QueryFirewallPoliciesSortEnum];

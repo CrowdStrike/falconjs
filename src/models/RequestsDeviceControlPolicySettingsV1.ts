@@ -54,12 +54,13 @@ export interface RequestsDeviceControlPolicySettingsV1 {
 
 /**
  * @export
- * @enum {string}
  */
-export enum RequestsDeviceControlPolicySettingsV1EndUserNotificationEnum {
-    True = "TRUE",
-    False = "FALSE",
-}
+export const RequestsDeviceControlPolicySettingsV1EndUserNotificationEnum = {
+    True: "TRUE",
+    False: "FALSE",
+} as const;
+export type RequestsDeviceControlPolicySettingsV1EndUserNotificationEnum =
+    typeof RequestsDeviceControlPolicySettingsV1EndUserNotificationEnum[keyof typeof RequestsDeviceControlPolicySettingsV1EndUserNotificationEnum];
 
 export function RequestsDeviceControlPolicySettingsV1FromJSON(json: any): RequestsDeviceControlPolicySettingsV1 {
     return RequestsDeviceControlPolicySettingsV1FromJSONTyped(json, false);

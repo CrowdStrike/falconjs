@@ -353,43 +353,43 @@ export class IncidentsApi extends runtime.BaseAPI {
 
 /**
  * @export
- * @enum {string}
  */
-export enum CrowdScoreSortEnum {
-    ScoreAsc = "score.asc",
-    ScoreDesc = "score.desc",
-    TimestampAsc = "timestamp.asc",
-    TimestampDesc = "timestamp.desc",
-}
+export const CrowdScoreSortEnum = {
+    ScoreAsc: "score.asc",
+    ScoreDesc: "score.desc",
+    TimestampAsc: "timestamp.asc",
+    TimestampDesc: "timestamp.desc",
+} as const;
+export type CrowdScoreSortEnum = typeof CrowdScoreSortEnum[keyof typeof CrowdScoreSortEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum QueryBehaviorsSortEnum {
-    Asc = "timestamp.asc",
-    Desc = "timestamp.desc",
-}
+export const QueryBehaviorsSortEnum = {
+    Asc: "timestamp.asc",
+    Desc: "timestamp.desc",
+} as const;
+export type QueryBehaviorsSortEnum = typeof QueryBehaviorsSortEnum[keyof typeof QueryBehaviorsSortEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum QueryIncidentsSortEnum {
-    AssignedToAsc = "assigned_to.asc",
-    AssignedToDesc = "assigned_to.desc",
-    AssignedToNameAsc = "assigned_to_name.asc",
-    AssignedToNameDesc = "assigned_to_name.desc",
-    EndAsc = "end.asc",
-    EndDesc = "end.desc",
-    ModifiedTimestampAsc = "modified_timestamp.asc",
-    ModifiedTimestampDesc = "modified_timestamp.desc",
-    NameAsc = "name.asc",
-    NameDesc = "name.desc",
-    SortScoreAsc = "sort_score.asc",
-    SortScoreDesc = "sort_score.desc",
-    StartAsc = "start.asc",
-    StartDesc = "start.desc",
-    StateAsc = "state.asc",
-    StateDesc = "state.desc",
-    StatusAsc = "status.asc",
-    StatusDesc = "status.desc",
-}
+export const QueryIncidentsSortEnum = {
+    AssignedToAsc: "assigned_to.asc",
+    AssignedToDesc: "assigned_to.desc",
+    AssignedToNameAsc: "assigned_to_name.asc",
+    AssignedToNameDesc: "assigned_to_name.desc",
+    EndAsc: "end.asc",
+    EndDesc: "end.desc",
+    ModifiedTimestampAsc: "modified_timestamp.asc",
+    ModifiedTimestampDesc: "modified_timestamp.desc",
+    NameAsc: "name.asc",
+    NameDesc: "name.desc",
+    SortScoreAsc: "sort_score.asc",
+    SortScoreDesc: "sort_score.desc",
+    StartAsc: "start.asc",
+    StartDesc: "start.desc",
+    StateAsc: "state.asc",
+    StateDesc: "state.desc",
+    StatusAsc: "status.asc",
+    StatusDesc: "status.desc",
+} as const;
+export type QueryIncidentsSortEnum = typeof QueryIncidentsSortEnum[keyof typeof QueryIncidentsSortEnum];

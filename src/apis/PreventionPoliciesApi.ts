@@ -582,57 +582,57 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
 
 /**
  * @export
- * @enum {string}
  */
-export enum PerformPreventionPoliciesActionActionNameEnum {
-    AddHostGroup = "add-host-group",
-    AddRuleGroup = "add-rule-group",
-    Disable = "disable",
-    Enable = "enable",
-    RemoveHostGroup = "remove-host-group",
-    RemoveRuleGroup = "remove-rule-group",
-}
+export const PerformPreventionPoliciesActionActionNameEnum = {
+    AddHostGroup: "add-host-group",
+    AddRuleGroup: "add-rule-group",
+    Disable: "disable",
+    Enable: "enable",
+    RemoveHostGroup: "remove-host-group",
+    RemoveRuleGroup: "remove-rule-group",
+} as const;
+export type PerformPreventionPoliciesActionActionNameEnum = typeof PerformPreventionPoliciesActionActionNameEnum[keyof typeof PerformPreventionPoliciesActionActionNameEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum QueryCombinedPreventionPoliciesSortEnum {
-    CreatedByAsc = "created_by.asc",
-    CreatedByDesc = "created_by.desc",
-    CreatedTimestampAsc = "created_timestamp.asc",
-    CreatedTimestampDesc = "created_timestamp.desc",
-    EnabledAsc = "enabled.asc",
-    EnabledDesc = "enabled.desc",
-    ModifiedByAsc = "modified_by.asc",
-    ModifiedByDesc = "modified_by.desc",
-    ModifiedTimestampAsc = "modified_timestamp.asc",
-    ModifiedTimestampDesc = "modified_timestamp.desc",
-    NameAsc = "name.asc",
-    NameDesc = "name.desc",
-    PlatformNameAsc = "platform_name.asc",
-    PlatformNameDesc = "platform_name.desc",
-    PrecedenceAsc = "precedence.asc",
-    PrecedenceDesc = "precedence.desc",
-}
+export const QueryCombinedPreventionPoliciesSortEnum = {
+    CreatedByAsc: "created_by.asc",
+    CreatedByDesc: "created_by.desc",
+    CreatedTimestampAsc: "created_timestamp.asc",
+    CreatedTimestampDesc: "created_timestamp.desc",
+    EnabledAsc: "enabled.asc",
+    EnabledDesc: "enabled.desc",
+    ModifiedByAsc: "modified_by.asc",
+    ModifiedByDesc: "modified_by.desc",
+    ModifiedTimestampAsc: "modified_timestamp.asc",
+    ModifiedTimestampDesc: "modified_timestamp.desc",
+    NameAsc: "name.asc",
+    NameDesc: "name.desc",
+    PlatformNameAsc: "platform_name.asc",
+    PlatformNameDesc: "platform_name.desc",
+    PrecedenceAsc: "precedence.asc",
+    PrecedenceDesc: "precedence.desc",
+} as const;
+export type QueryCombinedPreventionPoliciesSortEnum = typeof QueryCombinedPreventionPoliciesSortEnum[keyof typeof QueryCombinedPreventionPoliciesSortEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum QueryPreventionPoliciesSortEnum {
-    CreatedByAsc = "created_by.asc",
-    CreatedByDesc = "created_by.desc",
-    CreatedTimestampAsc = "created_timestamp.asc",
-    CreatedTimestampDesc = "created_timestamp.desc",
-    EnabledAsc = "enabled.asc",
-    EnabledDesc = "enabled.desc",
-    ModifiedByAsc = "modified_by.asc",
-    ModifiedByDesc = "modified_by.desc",
-    ModifiedTimestampAsc = "modified_timestamp.asc",
-    ModifiedTimestampDesc = "modified_timestamp.desc",
-    NameAsc = "name.asc",
-    NameDesc = "name.desc",
-    PlatformNameAsc = "platform_name.asc",
-    PlatformNameDesc = "platform_name.desc",
-    PrecedenceAsc = "precedence.asc",
-    PrecedenceDesc = "precedence.desc",
-}
+export const QueryPreventionPoliciesSortEnum = {
+    CreatedByAsc: "created_by.asc",
+    CreatedByDesc: "created_by.desc",
+    CreatedTimestampAsc: "created_timestamp.asc",
+    CreatedTimestampDesc: "created_timestamp.desc",
+    EnabledAsc: "enabled.asc",
+    EnabledDesc: "enabled.desc",
+    ModifiedByAsc: "modified_by.asc",
+    ModifiedByDesc: "modified_by.desc",
+    ModifiedTimestampAsc: "modified_timestamp.asc",
+    ModifiedTimestampDesc: "modified_timestamp.desc",
+    NameAsc: "name.asc",
+    NameDesc: "name.desc",
+    PlatformNameAsc: "platform_name.asc",
+    PlatformNameDesc: "platform_name.desc",
+    PrecedenceAsc: "precedence.asc",
+    PrecedenceDesc: "precedence.desc",
+} as const;
+export type QueryPreventionPoliciesSortEnum = typeof QueryPreventionPoliciesSortEnum[keyof typeof QueryPreventionPoliciesSortEnum];

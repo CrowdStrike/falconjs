@@ -77,12 +77,12 @@ export interface ResponsesHostGroupV1 {
 
 /**
  * @export
- * @enum {string}
  */
-export enum ResponsesHostGroupV1GroupTypeEnum {
-    Static = "static",
-    Dynamic = "dynamic",
-}
+export const ResponsesHostGroupV1GroupTypeEnum = {
+    Static: "static",
+    Dynamic: "dynamic",
+} as const;
+export type ResponsesHostGroupV1GroupTypeEnum = typeof ResponsesHostGroupV1GroupTypeEnum[keyof typeof ResponsesHostGroupV1GroupTypeEnum];
 
 export function ResponsesHostGroupV1FromJSON(json: any): ResponsesHostGroupV1 {
     return ResponsesHostGroupV1FromJSONTyped(json, false);

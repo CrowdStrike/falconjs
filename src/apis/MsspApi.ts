@@ -1241,47 +1241,47 @@ export class MsspApi extends runtime.BaseAPI {
 
 /**
  * @export
- * @enum {string}
  */
-export enum QueryCIDGroupMembersSortEnum {
-    Asc = "last_modified_timestamp|asc",
-    Desc = "last_modified_timestamp|desc",
-}
+export const QueryCIDGroupMembersSortEnum = {
+    Asc: "last_modified_timestamp|asc",
+    Desc: "last_modified_timestamp|desc",
+} as const;
+export type QueryCIDGroupMembersSortEnum = typeof QueryCIDGroupMembersSortEnum[keyof typeof QueryCIDGroupMembersSortEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum QueryCIDGroupsSortEnum {
-    LastModifiedTimestamp = "last_modified_timestamp",
-    Name = "name",
-}
+export const QueryCIDGroupsSortEnum = {
+    LastModifiedTimestamp: "last_modified_timestamp",
+    Name: "name",
+} as const;
+export type QueryCIDGroupsSortEnum = typeof QueryCIDGroupsSortEnum[keyof typeof QueryCIDGroupsSortEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum QueryChildrenSortEnum {
-    LastModifiedTimestamp = "last_modified_timestamp",
-}
+export const QueryChildrenSortEnum = {
+    LastModifiedTimestamp: "last_modified_timestamp",
+} as const;
+export type QueryChildrenSortEnum = typeof QueryChildrenSortEnum[keyof typeof QueryChildrenSortEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum QueryRolesSortEnum {
-    Asc = "last_modified_timestamp|asc",
-    Desc = "last_modified_timestamp|desc",
-}
+export const QueryRolesSortEnum = {
+    Asc: "last_modified_timestamp|asc",
+    Desc: "last_modified_timestamp|desc",
+} as const;
+export type QueryRolesSortEnum = typeof QueryRolesSortEnum[keyof typeof QueryRolesSortEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum QueryUserGroupMembersSortEnum {
-    LastModifiedTimestamp = "last_modified_timestamp",
-}
+export const QueryUserGroupMembersSortEnum = {
+    LastModifiedTimestamp: "last_modified_timestamp",
+} as const;
+export type QueryUserGroupMembersSortEnum = typeof QueryUserGroupMembersSortEnum[keyof typeof QueryUserGroupMembersSortEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum QueryUserGroupsSortEnum {
-    LastModifiedTimestamp = "last_modified_timestamp",
-    Name = "name",
-}
+export const QueryUserGroupsSortEnum = {
+    LastModifiedTimestamp: "last_modified_timestamp",
+    Name: "name",
+} as const;
+export type QueryUserGroupsSortEnum = typeof QueryUserGroupsSortEnum[keyof typeof QueryUserGroupsSortEnum];

@@ -579,27 +579,27 @@ export class MessageCenterApi extends runtime.BaseAPI {
 
 /**
  * @export
- * @enum {string}
  */
-export enum QueryActivityByCaseIDSortEnum {
-    CreatedTimeAsc = "activity.created_time.asc",
-    CreatedTimeDesc = "activity.created_time.desc",
-    TypeAsc = "activity.type.asc",
-    TypeDesc = "activity.type.desc",
-}
+export const QueryActivityByCaseIDSortEnum = {
+    CreatedTimeAsc: "activity.created_time.asc",
+    CreatedTimeDesc: "activity.created_time.desc",
+    TypeAsc: "activity.type.asc",
+    TypeDesc: "activity.type.desc",
+} as const;
+export type QueryActivityByCaseIDSortEnum = typeof QueryActivityByCaseIDSortEnum[keyof typeof QueryActivityByCaseIDSortEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum QueryCasesIdsByFilterSortEnum {
-    CreatedTimeAsc = "case.created_time.asc",
-    CreatedTimeDesc = "case.created_time.desc",
-    IdAsc = "case.id.asc",
-    IdDesc = "case.id.desc",
-    LastModifiedTimeAsc = "case.last_modified_time.asc",
-    LastModifiedTimeDesc = "case.last_modified_time.desc",
-    StatusAsc = "case.status.asc",
-    StatusDesc = "case.status.desc",
-    TypeAsc = "case.type.asc",
-    TypeDesc = "case.type.desc",
-}
+export const QueryCasesIdsByFilterSortEnum = {
+    CreatedTimeAsc: "case.created_time.asc",
+    CreatedTimeDesc: "case.created_time.desc",
+    IdAsc: "case.id.asc",
+    IdDesc: "case.id.desc",
+    LastModifiedTimeAsc: "case.last_modified_time.asc",
+    LastModifiedTimeDesc: "case.last_modified_time.desc",
+    StatusAsc: "case.status.asc",
+    StatusDesc: "case.status.desc",
+    TypeAsc: "case.type.asc",
+    TypeDesc: "case.type.desc",
+} as const;
+export type QueryCasesIdsByFilterSortEnum = typeof QueryCasesIdsByFilterSortEnum[keyof typeof QueryCasesIdsByFilterSortEnum];

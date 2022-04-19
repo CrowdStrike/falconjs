@@ -97,13 +97,13 @@ export interface ResponsesFirewallPolicyV1 {
 
 /**
  * @export
- * @enum {string}
  */
-export enum ResponsesFirewallPolicyV1PlatformNameEnum {
-    Windows = "Windows",
-    Mac = "Mac",
-    Linux = "Linux",
-}
+export const ResponsesFirewallPolicyV1PlatformNameEnum = {
+    Windows: "Windows",
+    Mac: "Mac",
+    Linux: "Linux",
+} as const;
+export type ResponsesFirewallPolicyV1PlatformNameEnum = typeof ResponsesFirewallPolicyV1PlatformNameEnum[keyof typeof ResponsesFirewallPolicyV1PlatformNameEnum];
 
 export function ResponsesFirewallPolicyV1FromJSON(json: any): ResponsesFirewallPolicyV1 {
     return ResponsesFirewallPolicyV1FromJSONTyped(json, false);

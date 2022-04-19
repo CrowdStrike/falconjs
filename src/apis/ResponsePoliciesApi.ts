@@ -582,57 +582,57 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
 
 /**
  * @export
- * @enum {string}
  */
-export enum PerformRTResponsePoliciesActionActionNameEnum {
-    AddHostGroup = "add-host-group",
-    AddRuleGroup = "add-rule-group",
-    Disable = "disable",
-    Enable = "enable",
-    RemoveHostGroup = "remove-host-group",
-    RemoveRuleGroup = "remove-rule-group",
-}
+export const PerformRTResponsePoliciesActionActionNameEnum = {
+    AddHostGroup: "add-host-group",
+    AddRuleGroup: "add-rule-group",
+    Disable: "disable",
+    Enable: "enable",
+    RemoveHostGroup: "remove-host-group",
+    RemoveRuleGroup: "remove-rule-group",
+} as const;
+export type PerformRTResponsePoliciesActionActionNameEnum = typeof PerformRTResponsePoliciesActionActionNameEnum[keyof typeof PerformRTResponsePoliciesActionActionNameEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum QueryCombinedRTResponsePoliciesSortEnum {
-    CreatedByAsc = "created_by.asc",
-    CreatedByDesc = "created_by.desc",
-    CreatedTimestampAsc = "created_timestamp.asc",
-    CreatedTimestampDesc = "created_timestamp.desc",
-    EnabledAsc = "enabled.asc",
-    EnabledDesc = "enabled.desc",
-    ModifiedByAsc = "modified_by.asc",
-    ModifiedByDesc = "modified_by.desc",
-    ModifiedTimestampAsc = "modified_timestamp.asc",
-    ModifiedTimestampDesc = "modified_timestamp.desc",
-    NameAsc = "name.asc",
-    NameDesc = "name.desc",
-    PlatformNameAsc = "platform_name.asc",
-    PlatformNameDesc = "platform_name.desc",
-    PrecedenceAsc = "precedence.asc",
-    PrecedenceDesc = "precedence.desc",
-}
+export const QueryCombinedRTResponsePoliciesSortEnum = {
+    CreatedByAsc: "created_by.asc",
+    CreatedByDesc: "created_by.desc",
+    CreatedTimestampAsc: "created_timestamp.asc",
+    CreatedTimestampDesc: "created_timestamp.desc",
+    EnabledAsc: "enabled.asc",
+    EnabledDesc: "enabled.desc",
+    ModifiedByAsc: "modified_by.asc",
+    ModifiedByDesc: "modified_by.desc",
+    ModifiedTimestampAsc: "modified_timestamp.asc",
+    ModifiedTimestampDesc: "modified_timestamp.desc",
+    NameAsc: "name.asc",
+    NameDesc: "name.desc",
+    PlatformNameAsc: "platform_name.asc",
+    PlatformNameDesc: "platform_name.desc",
+    PrecedenceAsc: "precedence.asc",
+    PrecedenceDesc: "precedence.desc",
+} as const;
+export type QueryCombinedRTResponsePoliciesSortEnum = typeof QueryCombinedRTResponsePoliciesSortEnum[keyof typeof QueryCombinedRTResponsePoliciesSortEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum QueryRTResponsePoliciesSortEnum {
-    CreatedByAsc = "created_by.asc",
-    CreatedByDesc = "created_by.desc",
-    CreatedTimestampAsc = "created_timestamp.asc",
-    CreatedTimestampDesc = "created_timestamp.desc",
-    EnabledAsc = "enabled.asc",
-    EnabledDesc = "enabled.desc",
-    ModifiedByAsc = "modified_by.asc",
-    ModifiedByDesc = "modified_by.desc",
-    ModifiedTimestampAsc = "modified_timestamp.asc",
-    ModifiedTimestampDesc = "modified_timestamp.desc",
-    NameAsc = "name.asc",
-    NameDesc = "name.desc",
-    PlatformNameAsc = "platform_name.asc",
-    PlatformNameDesc = "platform_name.desc",
-    PrecedenceAsc = "precedence.asc",
-    PrecedenceDesc = "precedence.desc",
-}
+export const QueryRTResponsePoliciesSortEnum = {
+    CreatedByAsc: "created_by.asc",
+    CreatedByDesc: "created_by.desc",
+    CreatedTimestampAsc: "created_timestamp.asc",
+    CreatedTimestampDesc: "created_timestamp.desc",
+    EnabledAsc: "enabled.asc",
+    EnabledDesc: "enabled.desc",
+    ModifiedByAsc: "modified_by.asc",
+    ModifiedByDesc: "modified_by.desc",
+    ModifiedTimestampAsc: "modified_timestamp.asc",
+    ModifiedTimestampDesc: "modified_timestamp.desc",
+    NameAsc: "name.asc",
+    NameDesc: "name.desc",
+    PlatformNameAsc: "platform_name.asc",
+    PlatformNameDesc: "platform_name.desc",
+    PrecedenceAsc: "precedence.asc",
+    PrecedenceDesc: "precedence.desc",
+} as const;
+export type QueryRTResponsePoliciesSortEnum = typeof QueryRTResponsePoliciesSortEnum[keyof typeof QueryRTResponsePoliciesSortEnum];

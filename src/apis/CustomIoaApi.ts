@@ -1003,43 +1003,43 @@ export class CustomIoaApi extends runtime.BaseAPI {
 
 /**
  * @export
- * @enum {string}
  */
-export enum QueryRuleGroupsFullSortEnum {
-    CreatedBy = "created_by",
-    CreatedOn = "created_on",
-    Description = "description",
-    Enabled = "enabled",
-    ModifiedBy = "modified_by",
-    ModifiedOn = "modified_on",
-    Name = "name",
-}
+export const QueryRuleGroupsFullSortEnum = {
+    CreatedBy: "created_by",
+    CreatedOn: "created_on",
+    Description: "description",
+    Enabled: "enabled",
+    ModifiedBy: "modified_by",
+    ModifiedOn: "modified_on",
+    Name: "name",
+} as const;
+export type QueryRuleGroupsFullSortEnum = typeof QueryRuleGroupsFullSortEnum[keyof typeof QueryRuleGroupsFullSortEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum QueryRuleGroupsMixin0SortEnum {
-    CreatedBy = "created_by",
-    CreatedOn = "created_on",
-    Description = "description",
-    Enabled = "enabled",
-    ModifiedBy = "modified_by",
-    ModifiedOn = "modified_on",
-    Name = "name",
-}
+export const QueryRuleGroupsMixin0SortEnum = {
+    CreatedBy: "created_by",
+    CreatedOn: "created_on",
+    Description: "description",
+    Enabled: "enabled",
+    ModifiedBy: "modified_by",
+    ModifiedOn: "modified_on",
+    Name: "name",
+} as const;
+export type QueryRuleGroupsMixin0SortEnum = typeof QueryRuleGroupsMixin0SortEnum[keyof typeof QueryRuleGroupsMixin0SortEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum QueryRulesMixin0SortEnum {
-    CreatedBy = "rules.created_by",
-    CreatedOn = "rules.created_on",
-    CurrentVersionActionLabel = "rules.current_version.action_label",
-    CurrentVersionDescription = "rules.current_version.description",
-    CurrentVersionModifiedBy = "rules.current_version.modified_by",
-    CurrentVersionModifiedOn = "rules.current_version.modified_on",
-    CurrentVersionName = "rules.current_version.name",
-    CurrentVersionPatternSeverity = "rules.current_version.pattern_severity",
-    Enabled = "rules.enabled",
-    RuletypeName = "rules.ruletype_name",
-}
+export const QueryRulesMixin0SortEnum = {
+    CreatedBy: "rules.created_by",
+    CreatedOn: "rules.created_on",
+    CurrentVersionActionLabel: "rules.current_version.action_label",
+    CurrentVersionDescription: "rules.current_version.description",
+    CurrentVersionModifiedBy: "rules.current_version.modified_by",
+    CurrentVersionModifiedOn: "rules.current_version.modified_on",
+    CurrentVersionName: "rules.current_version.name",
+    CurrentVersionPatternSeverity: "rules.current_version.pattern_severity",
+    Enabled: "rules.enabled",
+    RuletypeName: "rules.ruletype_name",
+} as const;
+export type QueryRulesMixin0SortEnum = typeof QueryRulesMixin0SortEnum[keyof typeof QueryRulesMixin0SortEnum];

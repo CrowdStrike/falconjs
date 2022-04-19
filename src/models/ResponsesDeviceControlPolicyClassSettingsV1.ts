@@ -48,13 +48,13 @@ export interface ResponsesDeviceControlPolicyClassSettingsV1 {
 
 /**
  * @export
- * @enum {string}
  */
-export enum ResponsesDeviceControlPolicyClassSettingsV1ActionEnum {
-    FullAccess = "FULL_ACCESS",
-    FullBlock = "FULL_BLOCK",
-    ReadOnly = "READ_ONLY",
-}
+export const ResponsesDeviceControlPolicyClassSettingsV1ActionEnum = {
+    FullAccess: "FULL_ACCESS",
+    FullBlock: "FULL_BLOCK",
+    ReadOnly: "READ_ONLY",
+} as const;
+export type ResponsesDeviceControlPolicyClassSettingsV1ActionEnum = typeof ResponsesDeviceControlPolicyClassSettingsV1ActionEnum[keyof typeof ResponsesDeviceControlPolicyClassSettingsV1ActionEnum];
 
 export function ResponsesDeviceControlPolicyClassSettingsV1FromJSON(json: any): ResponsesDeviceControlPolicyClassSettingsV1 {
     return ResponsesDeviceControlPolicyClassSettingsV1FromJSONTyped(json, false);

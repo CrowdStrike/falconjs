@@ -54,13 +54,13 @@ export interface RequestsCreateSensorUpdatePolicyV2 {
 
 /**
  * @export
- * @enum {string}
  */
-export enum RequestsCreateSensorUpdatePolicyV2PlatformNameEnum {
-    Windows = "Windows",
-    Mac = "Mac",
-    Linux = "Linux",
-}
+export const RequestsCreateSensorUpdatePolicyV2PlatformNameEnum = {
+    Windows: "Windows",
+    Mac: "Mac",
+    Linux: "Linux",
+} as const;
+export type RequestsCreateSensorUpdatePolicyV2PlatformNameEnum = typeof RequestsCreateSensorUpdatePolicyV2PlatformNameEnum[keyof typeof RequestsCreateSensorUpdatePolicyV2PlatformNameEnum];
 
 export function RequestsCreateSensorUpdatePolicyV2FromJSON(json: any): RequestsCreateSensorUpdatePolicyV2 {
     return RequestsCreateSensorUpdatePolicyV2FromJSONTyped(json, false);

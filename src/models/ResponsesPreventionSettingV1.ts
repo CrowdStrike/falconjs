@@ -53,12 +53,12 @@ export interface ResponsesPreventionSettingV1 {
 
 /**
  * @export
- * @enum {string}
  */
-export enum ResponsesPreventionSettingV1TypeEnum {
-    Toggle = "toggle",
-    Mlslider = "mlslider",
-}
+export const ResponsesPreventionSettingV1TypeEnum = {
+    Toggle: "toggle",
+    Mlslider: "mlslider",
+} as const;
+export type ResponsesPreventionSettingV1TypeEnum = typeof ResponsesPreventionSettingV1TypeEnum[keyof typeof ResponsesPreventionSettingV1TypeEnum];
 
 export function ResponsesPreventionSettingV1FromJSON(json: any): ResponsesPreventionSettingV1 {
     return ResponsesPreventionSettingV1FromJSONTyped(json, false);

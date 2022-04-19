@@ -1379,240 +1379,240 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
 /**
  * @export
- * @enum {string}
  */
-export enum GetBehaviorDetectionsCloudProviderEnum {
-    Aws = "aws",
-    Azure = "azure",
-}
+export const GetBehaviorDetectionsCloudProviderEnum = {
+    Aws: "aws",
+    Azure: "azure",
+} as const;
+export type GetBehaviorDetectionsCloudProviderEnum = typeof GetBehaviorDetectionsCloudProviderEnum[keyof typeof GetBehaviorDetectionsCloudProviderEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum GetBehaviorDetectionsServiceEnum {
-    Acm = "ACM",
-    Acr = "ACR",
-    Any = "Any",
-    AppEngine = "App Engine",
-    AppService = "AppService",
-    BigQuery = "BigQuery",
-    CloudLoadBalancing = "Cloud Load Balancing",
-    CloudLogging = "Cloud Logging",
-    CloudSql = "Cloud SQL",
-    CloudStorage = "Cloud Storage",
-    CloudFormation = "CloudFormation",
-    CloudTrail = "CloudTrail",
-    CloudWatchLogs = "CloudWatch Logs",
-    Cloudfront = "Cloudfront",
-    ComputeEngine = "Compute Engine",
-    Config = "Config",
-    Disk = "Disk",
-    DynamoDb = "DynamoDB",
-    Ebs = "EBS",
-    Ec2 = "EC2",
-    Ecr = "ECR",
-    Efs = "EFS",
-    Eks = "EKS",
-    Elb = "ELB",
-    Emr = "EMR",
-    Elasticache = "Elasticache",
-    GuardDuty = "GuardDuty",
-    Iam = "IAM",
-    Identity = "Identity",
-    Kms = "KMS",
-    KeyVault = "KeyVault",
-    Kinesis = "Kinesis",
-    Kubernetes = "Kubernetes",
-    Lambda = "Lambda",
-    LoadBalancer = "LoadBalancer",
-    Monitor = "Monitor",
-    NlbAlb = "NLB/ALB",
-    NetworkSecurityGroup = "NetworkSecurityGroup",
-    PostgreSql = "PostgreSQL",
-    Rds = "RDS",
-    Redshift = "Redshift",
-    S3 = "S3",
-    Ses = "SES",
-    Sns = "SNS",
-    SqlDatabase = "SQLDatabase",
-    SqlServer = "SQLServer",
-    Sqs = "SQS",
-    Ssm = "SSM",
-    ServerlessApplicationRepository = "Serverless Application Repository",
-    StorageAccount = "StorageAccount",
-    Subscriptions = "Subscriptions",
-    Vpc = "VPC",
-    VirtualMachine = "VirtualMachine",
-    VirtualNetwork = "VirtualNetwork",
-}
+export const GetBehaviorDetectionsServiceEnum = {
+    Acm: "ACM",
+    Acr: "ACR",
+    Any: "Any",
+    AppEngine: "App Engine",
+    AppService: "AppService",
+    BigQuery: "BigQuery",
+    CloudLoadBalancing: "Cloud Load Balancing",
+    CloudLogging: "Cloud Logging",
+    CloudSql: "Cloud SQL",
+    CloudStorage: "Cloud Storage",
+    CloudFormation: "CloudFormation",
+    CloudTrail: "CloudTrail",
+    CloudWatchLogs: "CloudWatch Logs",
+    Cloudfront: "Cloudfront",
+    ComputeEngine: "Compute Engine",
+    Config: "Config",
+    Disk: "Disk",
+    DynamoDb: "DynamoDB",
+    Ebs: "EBS",
+    Ec2: "EC2",
+    Ecr: "ECR",
+    Efs: "EFS",
+    Eks: "EKS",
+    Elb: "ELB",
+    Emr: "EMR",
+    Elasticache: "Elasticache",
+    GuardDuty: "GuardDuty",
+    Iam: "IAM",
+    Identity: "Identity",
+    Kms: "KMS",
+    KeyVault: "KeyVault",
+    Kinesis: "Kinesis",
+    Kubernetes: "Kubernetes",
+    Lambda: "Lambda",
+    LoadBalancer: "LoadBalancer",
+    Monitor: "Monitor",
+    NlbAlb: "NLB/ALB",
+    NetworkSecurityGroup: "NetworkSecurityGroup",
+    PostgreSql: "PostgreSQL",
+    Rds: "RDS",
+    Redshift: "Redshift",
+    S3: "S3",
+    Ses: "SES",
+    Sns: "SNS",
+    SqlDatabase: "SQLDatabase",
+    SqlServer: "SQLServer",
+    Sqs: "SQS",
+    Ssm: "SSM",
+    ServerlessApplicationRepository: "Serverless Application Repository",
+    StorageAccount: "StorageAccount",
+    Subscriptions: "Subscriptions",
+    Vpc: "VPC",
+    VirtualMachine: "VirtualMachine",
+    VirtualNetwork: "VirtualNetwork",
+} as const;
+export type GetBehaviorDetectionsServiceEnum = typeof GetBehaviorDetectionsServiceEnum[keyof typeof GetBehaviorDetectionsServiceEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum GetBehaviorDetectionsStateEnum {
-    Closed = "closed",
-    Open = "open",
-}
+export const GetBehaviorDetectionsStateEnum = {
+    Closed: "closed",
+    Open: "open",
+} as const;
+export type GetBehaviorDetectionsStateEnum = typeof GetBehaviorDetectionsStateEnum[keyof typeof GetBehaviorDetectionsStateEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum GetBehaviorDetectionsSeverityEnum {
-    High = "High",
-    Informational = "Informational",
-    Medium = "Medium",
-}
+export const GetBehaviorDetectionsSeverityEnum = {
+    High: "High",
+    Informational: "Informational",
+    Medium: "Medium",
+} as const;
+export type GetBehaviorDetectionsSeverityEnum = typeof GetBehaviorDetectionsSeverityEnum[keyof typeof GetBehaviorDetectionsSeverityEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum GetCSPMAwsAccountGroupByEnum {
-    Organization = "organization",
-}
+export const GetCSPMAwsAccountGroupByEnum = {
+    Organization: "organization",
+} as const;
+export type GetCSPMAwsAccountGroupByEnum = typeof GetCSPMAwsAccountGroupByEnum[keyof typeof GetCSPMAwsAccountGroupByEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum GetCSPMPolicySettingsServiceEnum {
-    Acm = "ACM",
-    Acr = "ACR",
-    AppService = "AppService",
-    CloudFormation = "CloudFormation",
-    CloudTrail = "CloudTrail",
-    CloudWatchLogs = "CloudWatch Logs",
-    Cloudfront = "Cloudfront",
-    Config = "Config",
-    Disk = "Disk",
-    DynamoDb = "DynamoDB",
-    Ebs = "EBS",
-    Ec2 = "EC2",
-    Ecr = "ECR",
-    Efs = "EFS",
-    Eks = "EKS",
-    Elb = "ELB",
-    Emr = "EMR",
-    Elasticache = "Elasticache",
-    GuardDuty = "GuardDuty",
-    Iam = "IAM",
-    Identity = "Identity",
-    Kms = "KMS",
-    KeyVault = "KeyVault",
-    Kinesis = "Kinesis",
-    Kubernetes = "Kubernetes",
-    Lambda = "Lambda",
-    LoadBalancer = "LoadBalancer",
-    Monitor = "Monitor",
-    NlbAlb = "NLB/ALB",
-    NetworkSecurityGroup = "NetworkSecurityGroup",
-    PostgreSql = "PostgreSQL",
-    Rds = "RDS",
-    Redshift = "Redshift",
-    S3 = "S3",
-    Ses = "SES",
-    Sns = "SNS",
-    SqlDatabase = "SQLDatabase",
-    SqlServer = "SQLServer",
-    Sqs = "SQS",
-    Ssm = "SSM",
-    ServerlessApplicationRepository = "Serverless Application Repository",
-    StorageAccount = "StorageAccount",
-    Subscriptions = "Subscriptions",
-    VirtualMachine = "VirtualMachine",
-    VirtualNetwork = "VirtualNetwork",
-}
+export const GetCSPMPolicySettingsServiceEnum = {
+    Acm: "ACM",
+    Acr: "ACR",
+    AppService: "AppService",
+    CloudFormation: "CloudFormation",
+    CloudTrail: "CloudTrail",
+    CloudWatchLogs: "CloudWatch Logs",
+    Cloudfront: "Cloudfront",
+    Config: "Config",
+    Disk: "Disk",
+    DynamoDb: "DynamoDB",
+    Ebs: "EBS",
+    Ec2: "EC2",
+    Ecr: "ECR",
+    Efs: "EFS",
+    Eks: "EKS",
+    Elb: "ELB",
+    Emr: "EMR",
+    Elasticache: "Elasticache",
+    GuardDuty: "GuardDuty",
+    Iam: "IAM",
+    Identity: "Identity",
+    Kms: "KMS",
+    KeyVault: "KeyVault",
+    Kinesis: "Kinesis",
+    Kubernetes: "Kubernetes",
+    Lambda: "Lambda",
+    LoadBalancer: "LoadBalancer",
+    Monitor: "Monitor",
+    NlbAlb: "NLB/ALB",
+    NetworkSecurityGroup: "NetworkSecurityGroup",
+    PostgreSql: "PostgreSQL",
+    Rds: "RDS",
+    Redshift: "Redshift",
+    S3: "S3",
+    Ses: "SES",
+    Sns: "SNS",
+    SqlDatabase: "SQLDatabase",
+    SqlServer: "SQLServer",
+    Sqs: "SQS",
+    Ssm: "SSM",
+    ServerlessApplicationRepository: "Serverless Application Repository",
+    StorageAccount: "StorageAccount",
+    Subscriptions: "Subscriptions",
+    VirtualMachine: "VirtualMachine",
+    VirtualNetwork: "VirtualNetwork",
+} as const;
+export type GetCSPMPolicySettingsServiceEnum = typeof GetCSPMPolicySettingsServiceEnum[keyof typeof GetCSPMPolicySettingsServiceEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum GetCSPMPolicySettingsCloudPlatformEnum {
-    Aws = "aws",
-    Azure = "azure",
-    Gcp = "gcp",
-}
+export const GetCSPMPolicySettingsCloudPlatformEnum = {
+    Aws: "aws",
+    Azure: "azure",
+    Gcp: "gcp",
+} as const;
+export type GetCSPMPolicySettingsCloudPlatformEnum = typeof GetCSPMPolicySettingsCloudPlatformEnum[keyof typeof GetCSPMPolicySettingsCloudPlatformEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum GetConfigurationDetectionsCloudProviderEnum {
-    Aws = "aws",
-    Azure = "azure",
-    Gcp = "gcp",
-}
+export const GetConfigurationDetectionsCloudProviderEnum = {
+    Aws: "aws",
+    Azure: "azure",
+    Gcp: "gcp",
+} as const;
+export type GetConfigurationDetectionsCloudProviderEnum = typeof GetConfigurationDetectionsCloudProviderEnum[keyof typeof GetConfigurationDetectionsCloudProviderEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum GetConfigurationDetectionsStatusEnum {
-    All = "all",
-    New = "new",
-    Reoccurring = "reoccurring",
-}
+export const GetConfigurationDetectionsStatusEnum = {
+    All: "all",
+    New: "new",
+    Reoccurring: "reoccurring",
+} as const;
+export type GetConfigurationDetectionsStatusEnum = typeof GetConfigurationDetectionsStatusEnum[keyof typeof GetConfigurationDetectionsStatusEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum GetConfigurationDetectionsSeverityEnum {
-    High = "High",
-    Informational = "Informational",
-    Medium = "Medium",
-}
+export const GetConfigurationDetectionsSeverityEnum = {
+    High: "High",
+    Informational: "Informational",
+    Medium: "Medium",
+} as const;
+export type GetConfigurationDetectionsSeverityEnum = typeof GetConfigurationDetectionsSeverityEnum[keyof typeof GetConfigurationDetectionsSeverityEnum];
 /**
  * @export
- * @enum {string}
  */
-export enum GetConfigurationDetectionsServiceEnum {
-    Acm = "ACM",
-    Acr = "ACR",
-    Any = "Any",
-    AppEngine = "App Engine",
-    AppService = "AppService",
-    BigQuery = "BigQuery",
-    CloudLoadBalancing = "Cloud Load Balancing",
-    CloudLogging = "Cloud Logging",
-    CloudSql = "Cloud SQL",
-    CloudStorage = "Cloud Storage",
-    CloudFormation = "CloudFormation",
-    CloudTrail = "CloudTrail",
-    CloudWatchLogs = "CloudWatch Logs",
-    Cloudfront = "Cloudfront",
-    ComputeEngine = "Compute Engine",
-    Config = "Config",
-    Disk = "Disk",
-    DynamoDb = "DynamoDB",
-    Ebs = "EBS",
-    Ec2 = "EC2",
-    Ecr = "ECR",
-    Efs = "EFS",
-    Eks = "EKS",
-    Elb = "ELB",
-    Emr = "EMR",
-    Elasticache = "Elasticache",
-    GuardDuty = "GuardDuty",
-    Iam = "IAM",
-    Identity = "Identity",
-    Kms = "KMS",
-    KeyVault = "KeyVault",
-    Kinesis = "Kinesis",
-    Kubernetes = "Kubernetes",
-    Lambda = "Lambda",
-    LoadBalancer = "LoadBalancer",
-    Monitor = "Monitor",
-    NlbAlb = "NLB/ALB",
-    NetworkSecurityGroup = "NetworkSecurityGroup",
-    PostgreSql = "PostgreSQL",
-    Rds = "RDS",
-    Redshift = "Redshift",
-    S3 = "S3",
-    Ses = "SES",
-    Sns = "SNS",
-    SqlDatabase = "SQLDatabase",
-    SqlServer = "SQLServer",
-    Sqs = "SQS",
-    Ssm = "SSM",
-    ServerlessApplicationRepository = "Serverless Application Repository",
-    StorageAccount = "StorageAccount",
-    Subscriptions = "Subscriptions",
-    Vpc = "VPC",
-    VirtualMachine = "VirtualMachine",
-    VirtualNetwork = "VirtualNetwork",
-}
+export const GetConfigurationDetectionsServiceEnum = {
+    Acm: "ACM",
+    Acr: "ACR",
+    Any: "Any",
+    AppEngine: "App Engine",
+    AppService: "AppService",
+    BigQuery: "BigQuery",
+    CloudLoadBalancing: "Cloud Load Balancing",
+    CloudLogging: "Cloud Logging",
+    CloudSql: "Cloud SQL",
+    CloudStorage: "Cloud Storage",
+    CloudFormation: "CloudFormation",
+    CloudTrail: "CloudTrail",
+    CloudWatchLogs: "CloudWatch Logs",
+    Cloudfront: "Cloudfront",
+    ComputeEngine: "Compute Engine",
+    Config: "Config",
+    Disk: "Disk",
+    DynamoDb: "DynamoDB",
+    Ebs: "EBS",
+    Ec2: "EC2",
+    Ecr: "ECR",
+    Efs: "EFS",
+    Eks: "EKS",
+    Elb: "ELB",
+    Emr: "EMR",
+    Elasticache: "Elasticache",
+    GuardDuty: "GuardDuty",
+    Iam: "IAM",
+    Identity: "Identity",
+    Kms: "KMS",
+    KeyVault: "KeyVault",
+    Kinesis: "Kinesis",
+    Kubernetes: "Kubernetes",
+    Lambda: "Lambda",
+    LoadBalancer: "LoadBalancer",
+    Monitor: "Monitor",
+    NlbAlb: "NLB/ALB",
+    NetworkSecurityGroup: "NetworkSecurityGroup",
+    PostgreSql: "PostgreSQL",
+    Rds: "RDS",
+    Redshift: "Redshift",
+    S3: "S3",
+    Ses: "SES",
+    Sns: "SNS",
+    SqlDatabase: "SQLDatabase",
+    SqlServer: "SQLServer",
+    Sqs: "SQS",
+    Ssm: "SSM",
+    ServerlessApplicationRepository: "Serverless Application Repository",
+    StorageAccount: "StorageAccount",
+    Subscriptions: "Subscriptions",
+    Vpc: "VPC",
+    VirtualMachine: "VirtualMachine",
+    VirtualNetwork: "VirtualNetwork",
+} as const;
+export type GetConfigurationDetectionsServiceEnum = typeof GetConfigurationDetectionsServiceEnum[keyof typeof GetConfigurationDetectionsServiceEnum];
