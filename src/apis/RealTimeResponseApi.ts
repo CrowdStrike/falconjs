@@ -56,6 +56,9 @@ import {
     DomainListFilesResponseWrapper,
     DomainListFilesResponseWrapperFromJSON,
     DomainListFilesResponseWrapperToJSON,
+    DomainListFilesV2ResponseWrapper,
+    DomainListFilesV2ResponseWrapperFromJSON,
+    DomainListFilesV2ResponseWrapperToJSON,
     DomainListSessionsResponseMsa,
     DomainListSessionsResponseMsaFromJSON,
     DomainListSessionsResponseMsaToJSON,
@@ -143,6 +146,11 @@ export interface RTRDeleteFileRequest {
     sessionId: string;
 }
 
+export interface RTRDeleteFileV2Request {
+    ids: string;
+    sessionId: string;
+}
+
 export interface RTRDeleteQueuedSessionRequest {
     sessionId: string;
     cloudRequestId: string;
@@ -178,6 +186,10 @@ export interface RTRListAllSessionsRequest {
 }
 
 export interface RTRListFilesRequest {
+    sessionId: string;
+}
+
+export interface RTRListFilesV2Request {
     sessionId: string;
 }
 
@@ -721,6 +733,56 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     }
 
     /**
+     * Delete a RTR session file.
+     */
+    async rTRDeleteFileV2Raw(requestParameters: RTRDeleteFileV2Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+        if (requestParameters.ids === null || requestParameters.ids === undefined) {
+            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling rTRDeleteFileV2.");
+        }
+
+        if (requestParameters.sessionId === null || requestParameters.sessionId === undefined) {
+            throw new runtime.RequiredError("sessionId", "Required parameter requestParameters.sessionId was null or undefined when calling rTRDeleteFileV2.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.ids !== undefined) {
+            queryParameters["ids"] = requestParameters.ids;
+        }
+
+        if (requestParameters.sessionId !== undefined) {
+            queryParameters["session_id"] = requestParameters.sessionId;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/real-time-response/entities/file/v2`,
+                method: "DELETE",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
+    }
+
+    /**
+     * Delete a RTR session file.
+     */
+    async rTRDeleteFileV2(ids: string, sessionId: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaReplyMetaOnly> {
+        const response = await this.rTRDeleteFileV2Raw({ ids: ids, sessionId: sessionId }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Delete a queued session command
      */
     async rTRDeleteQueuedSessionRaw(requestParameters: RTRDeleteQueuedSessionRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
@@ -1084,6 +1146,48 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
      */
     async rTRListFiles(sessionId: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainListFilesResponseWrapper> {
         const response = await this.rTRListFilesRaw({ sessionId: sessionId }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get a list of files for the specified RTR session.
+     */
+    async rTRListFilesV2Raw(requestParameters: RTRListFilesV2Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainListFilesV2ResponseWrapper>> {
+        if (requestParameters.sessionId === null || requestParameters.sessionId === undefined) {
+            throw new runtime.RequiredError("sessionId", "Required parameter requestParameters.sessionId was null or undefined when calling rTRListFilesV2.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.sessionId !== undefined) {
+            queryParameters["session_id"] = requestParameters.sessionId;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/real-time-response/entities/file/v2`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainListFilesV2ResponseWrapperFromJSON(jsonValue));
+    }
+
+    /**
+     * Get a list of files for the specified RTR session.
+     */
+    async rTRListFilesV2(sessionId: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainListFilesV2ResponseWrapper> {
+        const response = await this.rTRListFilesV2Raw({ sessionId: sessionId }, initOverrides);
         return await response.value();
     }
 
