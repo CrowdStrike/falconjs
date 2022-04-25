@@ -44,7 +44,7 @@ export class FilevantageApi extends runtime.BaseAPI {
      * Retrieve key attributes of Falcon FileVantage changes for the specified ids.
      * Retrieve information on changes
      */
-    async getChangesRaw(requestParameters: GetChangesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ExternalGetChangesResponse>> {
+    async getChangesRaw(requestParameters: GetChangesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ExternalGetChangesResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getChanges.");
         }
@@ -79,7 +79,7 @@ export class FilevantageApi extends runtime.BaseAPI {
      * Retrieve key attributes of Falcon FileVantage changes for the specified ids.
      * Retrieve information on changes
      */
-    async getChanges(ids: Array<string>, initOverrides?: RequestInit): Promise<ExternalGetChangesResponse> {
+    async getChanges(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ExternalGetChangesResponse> {
         const response = await this.getChangesRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -88,7 +88,7 @@ export class FilevantageApi extends runtime.BaseAPI {
      * Returns a list of Falcon FileVantage change IDs filtered, sorted and limited by the query parameters provided
      * Returns one or more change IDs
      */
-    async queryChangesRaw(requestParameters: QueryChangesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryChangesRaw(requestParameters: QueryChangesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.offset !== undefined) {
@@ -131,7 +131,7 @@ export class FilevantageApi extends runtime.BaseAPI {
      * Returns a list of Falcon FileVantage change IDs filtered, sorted and limited by the query parameters provided
      * Returns one or more change IDs
      */
-    async queryChanges(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit): Promise<MsaQueryResponse> {
+    async queryChanges(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryChangesRaw({ offset: offset, limit: limit, sort: sort, filter: filter }, initOverrides);
         return await response.value();
     }

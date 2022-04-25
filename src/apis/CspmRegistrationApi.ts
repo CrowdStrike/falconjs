@@ -209,7 +209,10 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Creates a new account in our system for a customer and generates a script for them to run in their AWS cloud environment to grant us access.
      */
-    async createCSPMAwsAccountRaw(requestParameters: CreateCSPMAwsAccountRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RegistrationAWSAccountResponseV2>> {
+    async createCSPMAwsAccountRaw(
+        requestParameters: CreateCSPMAwsAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<RegistrationAWSAccountResponseV2>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createCSPMAwsAccount.");
         }
@@ -242,7 +245,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Creates a new account in our system for a customer and generates a script for them to run in their AWS cloud environment to grant us access.
      */
-    async createCSPMAwsAccount(body: RegistrationAWSAccountCreateRequestExtV2, initOverrides?: RequestInit): Promise<RegistrationAWSAccountResponseV2> {
+    async createCSPMAwsAccount(body: RegistrationAWSAccountCreateRequestExtV2, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<RegistrationAWSAccountResponseV2> {
         const response = await this.createCSPMAwsAccountRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -250,7 +253,10 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Creates a new account in our system for a customer and generates a script for them to run in their cloud environment to grant us access.
      */
-    async createCSPMAzureAccountRaw(requestParameters: CreateCSPMAzureAccountRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RegistrationAzureAccountResponseV1>> {
+    async createCSPMAzureAccountRaw(
+        requestParameters: CreateCSPMAzureAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<RegistrationAzureAccountResponseV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createCSPMAzureAccount.");
         }
@@ -283,7 +289,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Creates a new account in our system for a customer and generates a script for them to run in their cloud environment to grant us access.
      */
-    async createCSPMAzureAccount(body: RegistrationAzureAccountCreateRequestExternalV1, initOverrides?: RequestInit): Promise<RegistrationAzureAccountResponseV1> {
+    async createCSPMAzureAccount(body: RegistrationAzureAccountCreateRequestExternalV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<RegistrationAzureAccountResponseV1> {
         const response = await this.createCSPMAzureAccountRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -291,7 +297,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Deletes an existing AWS account or organization in our system.
      */
-    async deleteCSPMAwsAccountRaw(requestParameters: DeleteCSPMAwsAccountRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RegistrationBaseResponseV1>> {
+    async deleteCSPMAwsAccountRaw(requestParameters: DeleteCSPMAwsAccountRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<RegistrationBaseResponseV1>> {
         const queryParameters: any = {};
 
         if (requestParameters.ids) {
@@ -325,7 +331,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Deletes an existing AWS account or organization in our system.
      */
-    async deleteCSPMAwsAccount(ids?: Array<string>, organizationIds?: Array<string>, initOverrides?: RequestInit): Promise<RegistrationBaseResponseV1> {
+    async deleteCSPMAwsAccount(ids?: Array<string>, organizationIds?: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<RegistrationBaseResponseV1> {
         const response = await this.deleteCSPMAwsAccountRaw({ ids: ids, organizationIds: organizationIds }, initOverrides);
         return await response.value();
     }
@@ -333,7 +339,10 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Deletes an Azure subscription from the system.
      */
-    async deleteCSPMAzureAccountRaw(requestParameters: DeleteCSPMAzureAccountRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RegistrationBaseResponseV1>> {
+    async deleteCSPMAzureAccountRaw(
+        requestParameters: DeleteCSPMAzureAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<RegistrationBaseResponseV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling deleteCSPMAzureAccount.");
         }
@@ -367,7 +376,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Deletes an Azure subscription from the system.
      */
-    async deleteCSPMAzureAccount(ids: Array<string>, initOverrides?: RequestInit): Promise<RegistrationBaseResponseV1> {
+    async deleteCSPMAzureAccount(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<RegistrationBaseResponseV1> {
         const response = await this.deleteCSPMAzureAccountRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -375,7 +384,10 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Get list of detected behaviors
      */
-    async getBehaviorDetectionsRaw(requestParameters: GetBehaviorDetectionsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RegistrationExternalIOAEventResponse>> {
+    async getBehaviorDetectionsRaw(
+        requestParameters: GetBehaviorDetectionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<RegistrationExternalIOAEventResponse>> {
         if (requestParameters.cloudProvider === null || requestParameters.cloudProvider === undefined) {
             throw new runtime.RequiredError("cloudProvider", "Required parameter requestParameters.cloudProvider was null or undefined when calling getBehaviorDetections.");
         }
@@ -461,7 +473,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
         severity?: GetBehaviorDetectionsSeverityEnum,
         nextToken?: string,
         limit?: number,
-        initOverrides?: RequestInit
+        initOverrides?: RequestInit | runtime.InitOverideFunction
     ): Promise<RegistrationExternalIOAEventResponse> {
         const response = await this.getBehaviorDetectionsRaw(
             {
@@ -485,7 +497,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Returns information about the current status of an AWS account.
      */
-    async getCSPMAwsAccountRaw(requestParameters: GetCSPMAwsAccountRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RegistrationAWSAccountResponseV2>> {
+    async getCSPMAwsAccountRaw(requestParameters: GetCSPMAwsAccountRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<RegistrationAWSAccountResponseV2>> {
         const queryParameters: any = {};
 
         if (requestParameters.scanType !== undefined) {
@@ -547,7 +559,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
         limit?: number,
         offset?: number,
         groupBy?: GetCSPMAwsAccountGroupByEnum,
-        initOverrides?: RequestInit
+        initOverrides?: RequestInit | runtime.InitOverideFunction
     ): Promise<RegistrationAWSAccountResponseV2> {
         const response = await this.getCSPMAwsAccountRaw(
             { scanType: scanType, ids: ids, organizationIds: organizationIds, status: status, limit: limit, offset: offset, groupBy: groupBy },
@@ -559,7 +571,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Return a script for customer to run in their cloud environment to grant us access to their AWS environment as a downloadable attachment.
      */
-    async getCSPMAwsAccountScriptsAttachmentRaw(initOverrides?: RequestInit): Promise<runtime.ApiResponse<RegistrationAWSProvisionGetAccountScriptResponseV2>> {
+    async getCSPMAwsAccountScriptsAttachmentRaw(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<RegistrationAWSProvisionGetAccountScriptResponseV2>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -585,7 +597,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Return a script for customer to run in their cloud environment to grant us access to their AWS environment as a downloadable attachment.
      */
-    async getCSPMAwsAccountScriptsAttachment(initOverrides?: RequestInit): Promise<RegistrationAWSProvisionGetAccountScriptResponseV2> {
+    async getCSPMAwsAccountScriptsAttachment(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<RegistrationAWSProvisionGetAccountScriptResponseV2> {
         const response = await this.getCSPMAwsAccountScriptsAttachmentRaw(initOverrides);
         return await response.value();
     }
@@ -593,7 +605,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Return a URL for customer to visit in their cloud environment to grant us access to their AWS environment.
      */
-    async getCSPMAwsConsoleSetupURLsRaw(initOverrides?: RequestInit): Promise<runtime.ApiResponse<RegistrationAWSAccountConsoleURL>> {
+    async getCSPMAwsConsoleSetupURLsRaw(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<RegistrationAWSAccountConsoleURL>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -619,7 +631,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Return a URL for customer to visit in their cloud environment to grant us access to their AWS environment.
      */
-    async getCSPMAwsConsoleSetupURLs(initOverrides?: RequestInit): Promise<RegistrationAWSAccountConsoleURL> {
+    async getCSPMAwsConsoleSetupURLs(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<RegistrationAWSAccountConsoleURL> {
         const response = await this.getCSPMAwsConsoleSetupURLsRaw(initOverrides);
         return await response.value();
     }
@@ -627,7 +639,10 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Return information about Azure account registration
      */
-    async getCSPMAzureAccountRaw(requestParameters: GetCSPMAzureAccountRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RegistrationAzureAccountResponseV1>> {
+    async getCSPMAzureAccountRaw(
+        requestParameters: GetCSPMAzureAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<RegistrationAzureAccountResponseV1>> {
         const queryParameters: any = {};
 
         if (requestParameters.ids) {
@@ -673,7 +688,14 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Return information about Azure account registration
      */
-    async getCSPMAzureAccount(ids?: Array<string>, scanType?: string, status?: string, limit?: number, offset?: number, initOverrides?: RequestInit): Promise<RegistrationAzureAccountResponseV1> {
+    async getCSPMAzureAccount(
+        ids?: Array<string>,
+        scanType?: string,
+        status?: string,
+        limit?: number,
+        offset?: number,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<RegistrationAzureAccountResponseV1> {
         const response = await this.getCSPMAzureAccountRaw({ ids: ids, scanType: scanType, status: status, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }
@@ -683,7 +705,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
      */
     async getCSPMAzureUserScriptsAttachmentRaw(
         requestParameters: GetCSPMAzureUserScriptsAttachmentRequest,
-        initOverrides?: RequestInit
+        initOverrides?: RequestInit | runtime.InitOverideFunction
     ): Promise<runtime.ApiResponse<RegistrationAzureProvisionGetUserScriptResponseV1>> {
         const queryParameters: any = {};
 
@@ -714,7 +736,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Return a script for customer to run in their cloud environment to grant us access to their Azure environment as a downloadable attachment
      */
-    async getCSPMAzureUserScriptsAttachment(tenantId?: string, initOverrides?: RequestInit): Promise<RegistrationAzureProvisionGetUserScriptResponseV1> {
+    async getCSPMAzureUserScriptsAttachment(tenantId?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<RegistrationAzureProvisionGetUserScriptResponseV1> {
         const response = await this.getCSPMAzureUserScriptsAttachmentRaw({ tenantId: tenantId }, initOverrides);
         return await response.value();
     }
@@ -722,7 +744,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Given a policy ID, returns detailed policy information.
      */
-    async getCSPMPolicyRaw(requestParameters: GetCSPMPolicyRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RegistrationPolicyResponseV1>> {
+    async getCSPMPolicyRaw(requestParameters: GetCSPMPolicyRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<RegistrationPolicyResponseV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getCSPMPolicy.");
         }
@@ -756,7 +778,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Given a policy ID, returns detailed policy information.
      */
-    async getCSPMPolicy(ids: string, initOverrides?: RequestInit): Promise<RegistrationPolicyResponseV1> {
+    async getCSPMPolicy(ids: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<RegistrationPolicyResponseV1> {
         const response = await this.getCSPMPolicyRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -764,7 +786,10 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Returns information about current policy settings.
      */
-    async getCSPMPolicySettingsRaw(requestParameters: GetCSPMPolicySettingsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RegistrationPolicySettingsResponseV1>> {
+    async getCSPMPolicySettingsRaw(
+        requestParameters: GetCSPMPolicySettingsRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<RegistrationPolicySettingsResponseV1>> {
         const queryParameters: any = {};
 
         if (requestParameters.service !== undefined) {
@@ -806,7 +831,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
         service?: GetCSPMPolicySettingsServiceEnum,
         policyId?: string,
         cloudPlatform?: GetCSPMPolicySettingsCloudPlatformEnum,
-        initOverrides?: RequestInit
+        initOverrides?: RequestInit | runtime.InitOverideFunction
     ): Promise<RegistrationPolicySettingsResponseV1> {
         const response = await this.getCSPMPolicySettingsRaw({ service: service, policyId: policyId, cloudPlatform: cloudPlatform }, initOverrides);
         return await response.value();
@@ -815,7 +840,10 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Returns scan schedule configuration for one or more cloud platforms.
      */
-    async getCSPMScanScheduleRaw(requestParameters: GetCSPMScanScheduleRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RegistrationScanScheduleResponseV1>> {
+    async getCSPMScanScheduleRaw(
+        requestParameters: GetCSPMScanScheduleRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<RegistrationScanScheduleResponseV1>> {
         const queryParameters: any = {};
 
         if (requestParameters.cloudPlatform) {
@@ -845,7 +873,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Returns scan schedule configuration for one or more cloud platforms.
      */
-    async getCSPMScanSchedule(cloudPlatform?: Array<string>, initOverrides?: RequestInit): Promise<RegistrationScanScheduleResponseV1> {
+    async getCSPMScanSchedule(cloudPlatform?: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<RegistrationScanScheduleResponseV1> {
         const response = await this.getCSPMScanScheduleRaw({ cloudPlatform: cloudPlatform }, initOverrides);
         return await response.value();
     }
@@ -853,7 +881,10 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Get list of active misconfigurations
      */
-    async getConfigurationDetectionsRaw(requestParameters: GetConfigurationDetectionsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RegistrationExternalIOMEventResponse>> {
+    async getConfigurationDetectionsRaw(
+        requestParameters: GetConfigurationDetectionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<RegistrationExternalIOMEventResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.cloudProvider !== undefined) {
@@ -930,7 +961,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
         service?: GetConfigurationDetectionsServiceEnum,
         nextToken?: string,
         limit?: number,
-        initOverrides?: RequestInit
+        initOverrides?: RequestInit | runtime.InitOverideFunction
     ): Promise<RegistrationExternalIOMEventResponse> {
         const response = await this.getConfigurationDetectionsRaw(
             {
@@ -953,7 +984,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * For CSPM IOA events, gets list of IOA events.
      */
-    async getIOAEventsRaw(requestParameters: GetIOAEventsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RegistrationExternalIOAEventResponse>> {
+    async getIOAEventsRaw(requestParameters: GetIOAEventsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<RegistrationExternalIOAEventResponse>> {
         if (requestParameters.policyId === null || requestParameters.policyId === undefined) {
             throw new runtime.RequiredError("policyId", "Required parameter requestParameters.policyId was null or undefined when calling getIOAEvents.");
         }
@@ -1038,7 +1069,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
         state?: string,
         offset?: number,
         limit?: number,
-        initOverrides?: RequestInit
+        initOverrides?: RequestInit | runtime.InitOverideFunction
     ): Promise<RegistrationExternalIOAEventResponse> {
         const response = await this.getIOAEventsRaw(
             {
@@ -1061,7 +1092,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * For CSPM IOA users, gets list of IOA users.
      */
-    async getIOAUsersRaw(requestParameters: GetIOAUsersRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RegistrationIOAUserResponse>> {
+    async getIOAUsersRaw(requestParameters: GetIOAUsersRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<RegistrationIOAUserResponse>> {
         if (requestParameters.policyId === null || requestParameters.policyId === undefined) {
             throw new runtime.RequiredError("policyId", "Required parameter requestParameters.policyId was null or undefined when calling getIOAUsers.");
         }
@@ -1131,7 +1162,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
         awsAccountId?: string,
         azureSubscriptionId?: string,
         azureTenantId?: string,
-        initOverrides?: RequestInit
+        initOverrides?: RequestInit | runtime.InitOverideFunction
     ): Promise<RegistrationIOAUserResponse> {
         const response = await this.getIOAUsersRaw(
             {
@@ -1151,7 +1182,10 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Patches a existing account in our system for a customer.
      */
-    async patchCSPMAwsAccountRaw(requestParameters: PatchCSPMAwsAccountRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RegistrationAWSAccountResponseV2>> {
+    async patchCSPMAwsAccountRaw(
+        requestParameters: PatchCSPMAwsAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<RegistrationAWSAccountResponseV2>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling patchCSPMAwsAccount.");
         }
@@ -1184,7 +1218,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Patches a existing account in our system for a customer.
      */
-    async patchCSPMAwsAccount(body: RegistrationAWSAccountPatchRequest, initOverrides?: RequestInit): Promise<RegistrationAWSAccountResponseV2> {
+    async patchCSPMAwsAccount(body: RegistrationAWSAccountPatchRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<RegistrationAWSAccountResponseV2> {
         const response = await this.patchCSPMAwsAccountRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -1194,7 +1228,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
      */
     async updateCSPMAzureAccountClientIDRaw(
         requestParameters: UpdateCSPMAzureAccountClientIDRequest,
-        initOverrides?: RequestInit
+        initOverrides?: RequestInit | runtime.InitOverideFunction
     ): Promise<runtime.ApiResponse<RegistrationAzureServicePrincipalResponseV1>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
             throw new runtime.RequiredError("id", "Required parameter requestParameters.id was null or undefined when calling updateCSPMAzureAccountClientID.");
@@ -1240,7 +1274,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Update an Azure service account in our system by with the user-created client_id created with the public key we\'ve provided
      */
-    async updateCSPMAzureAccountClientID(id: string, body: object, tenantId?: string, initOverrides?: RequestInit): Promise<RegistrationAzureServicePrincipalResponseV1> {
+    async updateCSPMAzureAccountClientID(id: string, body: object, tenantId?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<RegistrationAzureServicePrincipalResponseV1> {
         const response = await this.updateCSPMAzureAccountClientIDRaw({ id: id, body: body, tenantId: tenantId }, initOverrides);
         return await response.value();
     }
@@ -1250,7 +1284,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
      */
     async updateCSPMAzureTenantDefaultSubscriptionIDRaw(
         requestParameters: UpdateCSPMAzureTenantDefaultSubscriptionIDRequest,
-        initOverrides?: RequestInit
+        initOverrides?: RequestInit | runtime.InitOverideFunction
     ): Promise<runtime.ApiResponse<RegistrationAzureTenantDefaultSubscriptionIDResponseV1>> {
         if (requestParameters.subscriptionId === null || requestParameters.subscriptionId === undefined) {
             throw new runtime.RequiredError("subscriptionId", "Required parameter requestParameters.subscriptionId was null or undefined when calling updateCSPMAzureTenantDefaultSubscriptionID.");
@@ -1289,7 +1323,11 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Update an Azure default subscription_id in our system for given tenant_id
      */
-    async updateCSPMAzureTenantDefaultSubscriptionID(subscriptionId: string, tenantId?: string, initOverrides?: RequestInit): Promise<RegistrationAzureTenantDefaultSubscriptionIDResponseV1> {
+    async updateCSPMAzureTenantDefaultSubscriptionID(
+        subscriptionId: string,
+        tenantId?: string,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<RegistrationAzureTenantDefaultSubscriptionIDResponseV1> {
         const response = await this.updateCSPMAzureTenantDefaultSubscriptionIDRaw({ subscriptionId: subscriptionId, tenantId: tenantId }, initOverrides);
         return await response.value();
     }
@@ -1297,7 +1335,10 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Updates a policy setting - can be used to override policy severity or to disable a policy entirely.
      */
-    async updateCSPMPolicySettingsRaw(requestParameters: UpdateCSPMPolicySettingsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RegistrationPolicySettingsResponseV1>> {
+    async updateCSPMPolicySettingsRaw(
+        requestParameters: UpdateCSPMPolicySettingsRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<RegistrationPolicySettingsResponseV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateCSPMPolicySettings.");
         }
@@ -1330,7 +1371,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Updates a policy setting - can be used to override policy severity or to disable a policy entirely.
      */
-    async updateCSPMPolicySettings(body: RegistrationPolicyRequestExtV1, initOverrides?: RequestInit): Promise<RegistrationPolicySettingsResponseV1> {
+    async updateCSPMPolicySettings(body: RegistrationPolicyRequestExtV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<RegistrationPolicySettingsResponseV1> {
         const response = await this.updateCSPMPolicySettingsRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -1338,7 +1379,10 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Updates scan schedule configuration for one or more cloud platforms.
      */
-    async updateCSPMScanScheduleRaw(requestParameters: UpdateCSPMScanScheduleRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RegistrationScanScheduleResponseV1>> {
+    async updateCSPMScanScheduleRaw(
+        requestParameters: UpdateCSPMScanScheduleRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<RegistrationScanScheduleResponseV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateCSPMScanSchedule.");
         }
@@ -1371,7 +1415,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Updates scan schedule configuration for one or more cloud platforms.
      */
-    async updateCSPMScanSchedule(body: RegistrationScanScheduleUpdateRequestV1, initOverrides?: RequestInit): Promise<RegistrationScanScheduleResponseV1> {
+    async updateCSPMScanSchedule(body: RegistrationScanScheduleUpdateRequestV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<RegistrationScanScheduleResponseV1> {
         const response = await this.updateCSPMScanScheduleRaw({ body: body }, initOverrides);
         return await response.value();
     }

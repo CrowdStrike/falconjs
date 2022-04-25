@@ -32,7 +32,7 @@ export class FalconContainerApi extends runtime.BaseAPI {
     /**
      * Gets the registry credentials
      */
-    async getCredentialsRaw(initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaEntitiesResponse>> {
+    async getCredentialsRaw(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaEntitiesResponse>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -58,7 +58,7 @@ export class FalconContainerApi extends runtime.BaseAPI {
     /**
      * Gets the registry credentials
      */
-    async getCredentials(initOverrides?: RequestInit): Promise<MsaEntitiesResponse> {
+    async getCredentials(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaEntitiesResponse> {
         const response = await this.getCredentialsRaw(initOverrides);
         return await response.value();
     }

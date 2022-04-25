@@ -80,7 +80,7 @@ export class IncidentsApi extends runtime.BaseAPI {
     /**
      * Query environment wide CrowdScore and return the entity data
      */
-    async crowdScoreRaw(requestParameters: CrowdScoreRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ApiMsaEnvironmentScoreResponse>> {
+    async crowdScoreRaw(requestParameters: CrowdScoreRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiMsaEnvironmentScoreResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -122,7 +122,7 @@ export class IncidentsApi extends runtime.BaseAPI {
     /**
      * Query environment wide CrowdScore and return the entity data
      */
-    async crowdScore(filter?: string, offset?: string, limit?: number, sort?: CrowdScoreSortEnum, initOverrides?: RequestInit): Promise<ApiMsaEnvironmentScoreResponse> {
+    async crowdScore(filter?: string, offset?: string, limit?: number, sort?: CrowdScoreSortEnum, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiMsaEnvironmentScoreResponse> {
         const response = await this.crowdScoreRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
@@ -130,7 +130,7 @@ export class IncidentsApi extends runtime.BaseAPI {
     /**
      * Get details on behaviors by providing behavior IDs
      */
-    async getBehaviorsRaw(requestParameters: GetBehaviorsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ApiMsaExternalBehaviorResponse>> {
+    async getBehaviorsRaw(requestParameters: GetBehaviorsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiMsaExternalBehaviorResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling getBehaviors.");
         }
@@ -163,7 +163,7 @@ export class IncidentsApi extends runtime.BaseAPI {
     /**
      * Get details on behaviors by providing behavior IDs
      */
-    async getBehaviors(body: MsaIdsRequest, initOverrides?: RequestInit): Promise<ApiMsaExternalBehaviorResponse> {
+    async getBehaviors(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiMsaExternalBehaviorResponse> {
         const response = await this.getBehaviorsRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -171,7 +171,7 @@ export class IncidentsApi extends runtime.BaseAPI {
     /**
      * Get details on incidents by providing incident IDs
      */
-    async getIncidentsRaw(requestParameters: GetIncidentsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ApiMsaExternalIncidentResponse>> {
+    async getIncidentsRaw(requestParameters: GetIncidentsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiMsaExternalIncidentResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling getIncidents.");
         }
@@ -204,7 +204,7 @@ export class IncidentsApi extends runtime.BaseAPI {
     /**
      * Get details on incidents by providing incident IDs
      */
-    async getIncidents(body: MsaIdsRequest, initOverrides?: RequestInit): Promise<ApiMsaExternalIncidentResponse> {
+    async getIncidents(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiMsaExternalIncidentResponse> {
         const response = await this.getIncidentsRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -212,7 +212,7 @@ export class IncidentsApi extends runtime.BaseAPI {
     /**
      * Perform a set of actions on one or more incidents, such as adding tags or comments or updating the incident name or description
      */
-    async performIncidentActionRaw(requestParameters: PerformIncidentActionRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async performIncidentActionRaw(requestParameters: PerformIncidentActionRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling performIncidentAction.");
         }
@@ -245,7 +245,7 @@ export class IncidentsApi extends runtime.BaseAPI {
     /**
      * Perform a set of actions on one or more incidents, such as adding tags or comments or updating the incident name or description
      */
-    async performIncidentAction(body: MsaEntityActionRequestV2, initOverrides?: RequestInit): Promise<MsaReplyMetaOnly> {
+    async performIncidentAction(body: MsaEntityActionRequestV2, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaReplyMetaOnly> {
         const response = await this.performIncidentActionRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -253,7 +253,7 @@ export class IncidentsApi extends runtime.BaseAPI {
     /**
      * Search for behaviors by providing an FQL filter, sorting, and paging details
      */
-    async queryBehaviorsRaw(requestParameters: QueryBehaviorsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryBehaviorsRaw(requestParameters: QueryBehaviorsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -295,7 +295,7 @@ export class IncidentsApi extends runtime.BaseAPI {
     /**
      * Search for behaviors by providing an FQL filter, sorting, and paging details
      */
-    async queryBehaviors(filter?: string, offset?: string, limit?: number, sort?: QueryBehaviorsSortEnum, initOverrides?: RequestInit): Promise<MsaQueryResponse> {
+    async queryBehaviors(filter?: string, offset?: string, limit?: number, sort?: QueryBehaviorsSortEnum, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryBehaviorsRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
@@ -303,7 +303,7 @@ export class IncidentsApi extends runtime.BaseAPI {
     /**
      * Search for incidents by providing an FQL filter, sorting, and paging details
      */
-    async queryIncidentsRaw(requestParameters: QueryIncidentsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ApiMsaIncidentQueryResponse>> {
+    async queryIncidentsRaw(requestParameters: QueryIncidentsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiMsaIncidentQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.sort !== undefined) {
@@ -345,7 +345,13 @@ export class IncidentsApi extends runtime.BaseAPI {
     /**
      * Search for incidents by providing an FQL filter, sorting, and paging details
      */
-    async queryIncidents(sort?: QueryIncidentsSortEnum, filter?: string, offset?: string, limit?: number, initOverrides?: RequestInit): Promise<ApiMsaIncidentQueryResponse> {
+    async queryIncidents(
+        sort?: QueryIncidentsSortEnum,
+        filter?: string,
+        offset?: string,
+        limit?: number,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<ApiMsaIncidentQueryResponse> {
         const response = await this.queryIncidentsRaw({ sort: sort, filter: filter, offset: offset, limit: limit }, initOverrides);
         return await response.value();
     }

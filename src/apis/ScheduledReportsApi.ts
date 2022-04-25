@@ -54,7 +54,7 @@ export class ScheduledReportsApi extends runtime.BaseAPI {
     /**
      * Retrieve scheduled reports for the provided report IDs.
      */
-    async scheduledReportsGetRaw(requestParameters: ScheduledReportsGetRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ApiScheduledReportsResultV1>> {
+    async scheduledReportsGetRaw(requestParameters: ScheduledReportsGetRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiScheduledReportsResultV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling scheduledReportsGet.");
         }
@@ -88,7 +88,7 @@ export class ScheduledReportsApi extends runtime.BaseAPI {
     /**
      * Retrieve scheduled reports for the provided report IDs.
      */
-    async scheduledReportsGet(ids: Array<string>, initOverrides?: RequestInit): Promise<ApiScheduledReportsResultV1> {
+    async scheduledReportsGet(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiScheduledReportsResultV1> {
         const response = await this.scheduledReportsGetRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -96,7 +96,10 @@ export class ScheduledReportsApi extends runtime.BaseAPI {
     /**
      * Launch scheduled reports executions for the provided report IDs.
      */
-    async scheduledReportsLaunchRaw(requestParameters: ScheduledReportsLaunchRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ApiReportExecutionsResponseV1>> {
+    async scheduledReportsLaunchRaw(
+        requestParameters: ScheduledReportsLaunchRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<ApiReportExecutionsResponseV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling scheduledReportsLaunch.");
         }
@@ -129,7 +132,7 @@ export class ScheduledReportsApi extends runtime.BaseAPI {
     /**
      * Launch scheduled reports executions for the provided report IDs.
      */
-    async scheduledReportsLaunch(body: Array<ApiReportExecutionLaunchRequestV1>, initOverrides?: RequestInit): Promise<ApiReportExecutionsResponseV1> {
+    async scheduledReportsLaunch(body: Array<ApiReportExecutionLaunchRequestV1>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiReportExecutionsResponseV1> {
         const response = await this.scheduledReportsLaunchRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -137,7 +140,7 @@ export class ScheduledReportsApi extends runtime.BaseAPI {
     /**
      * Find all report IDs matching the query with filter
      */
-    async scheduledReportsQueryRaw(requestParameters: ScheduledReportsQueryRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async scheduledReportsQueryRaw(requestParameters: ScheduledReportsQueryRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.sort !== undefined) {
@@ -183,7 +186,7 @@ export class ScheduledReportsApi extends runtime.BaseAPI {
     /**
      * Find all report IDs matching the query with filter
      */
-    async scheduledReportsQuery(sort?: string, filter?: string, q?: string, offset?: string, limit?: number, initOverrides?: RequestInit): Promise<MsaQueryResponse> {
+    async scheduledReportsQuery(sort?: string, filter?: string, q?: string, offset?: string, limit?: number, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
         const response = await this.scheduledReportsQueryRaw({ sort: sort, filter: filter, q: q, offset: offset, limit: limit }, initOverrides);
         return await response.value();
     }

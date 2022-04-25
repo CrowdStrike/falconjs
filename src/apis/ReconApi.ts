@@ -171,7 +171,10 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Get notification aggregates as specified via JSON in request body.
      */
-    async aggregateNotificationsV1Raw(requestParameters: AggregateNotificationsV1Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DomainAggregatesResponse>> {
+    async aggregateNotificationsV1Raw(
+        requestParameters: AggregateNotificationsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<DomainAggregatesResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling aggregateNotificationsV1.");
         }
@@ -204,7 +207,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Get notification aggregates as specified via JSON in request body.
      */
-    async aggregateNotificationsV1(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit): Promise<DomainAggregatesResponse> {
+    async aggregateNotificationsV1(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainAggregatesResponse> {
         const response = await this.aggregateNotificationsV1Raw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -212,7 +215,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Create actions for a monitoring rule. Accepts a list of actions that will be attached to the monitoring rule.
      */
-    async createActionsV1Raw(requestParameters: CreateActionsV1Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DomainActionEntitiesResponseV1>> {
+    async createActionsV1Raw(requestParameters: CreateActionsV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainActionEntitiesResponseV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createActionsV1.");
         }
@@ -245,7 +248,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Create actions for a monitoring rule. Accepts a list of actions that will be attached to the monitoring rule.
      */
-    async createActionsV1(body: DomainRegisterActionsRequest, initOverrides?: RequestInit): Promise<DomainActionEntitiesResponseV1> {
+    async createActionsV1(body: DomainRegisterActionsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainActionEntitiesResponseV1> {
         const response = await this.createActionsV1Raw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -253,7 +256,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Create monitoring rules.
      */
-    async createRulesV1Raw(requestParameters: CreateRulesV1Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DomainRulesEntitiesResponseV1>> {
+    async createRulesV1Raw(requestParameters: CreateRulesV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainRulesEntitiesResponseV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createRulesV1.");
         }
@@ -290,7 +293,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Create monitoring rules.
      */
-    async createRulesV1(body: Array<SadomainCreateRuleRequestV1>, xCSUSERUUID?: string, initOverrides?: RequestInit): Promise<DomainRulesEntitiesResponseV1> {
+    async createRulesV1(body: Array<SadomainCreateRuleRequestV1>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainRulesEntitiesResponseV1> {
         const response = await this.createRulesV1Raw({ body: body, xCSUSERUUID: xCSUSERUUID }, initOverrides);
         return await response.value();
     }
@@ -298,7 +301,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Delete an action from a monitoring rule based on the action ID.
      */
-    async deleteActionV1Raw(requestParameters: DeleteActionV1Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DomainQueryResponse>> {
+    async deleteActionV1Raw(requestParameters: DeleteActionV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainQueryResponse>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
             throw new runtime.RequiredError("id", "Required parameter requestParameters.id was null or undefined when calling deleteActionV1.");
         }
@@ -332,7 +335,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Delete an action from a monitoring rule based on the action ID.
      */
-    async deleteActionV1(id: string, initOverrides?: RequestInit): Promise<DomainQueryResponse> {
+    async deleteActionV1(id: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainQueryResponse> {
         const response = await this.deleteActionV1Raw({ id: id }, initOverrides);
         return await response.value();
     }
@@ -340,7 +343,10 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Delete notifications based on IDs. Notifications cannot be recovered after they are deleted.
      */
-    async deleteNotificationsV1Raw(requestParameters: DeleteNotificationsV1Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DomainNotificationIDResponse>> {
+    async deleteNotificationsV1Raw(
+        requestParameters: DeleteNotificationsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<DomainNotificationIDResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling deleteNotificationsV1.");
         }
@@ -374,7 +380,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Delete notifications based on IDs. Notifications cannot be recovered after they are deleted.
      */
-    async deleteNotificationsV1(ids: Array<string>, initOverrides?: RequestInit): Promise<DomainNotificationIDResponse> {
+    async deleteNotificationsV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainNotificationIDResponse> {
         const response = await this.deleteNotificationsV1Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -382,7 +388,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Delete monitoring rules.
      */
-    async deleteRulesV1Raw(requestParameters: DeleteRulesV1Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DomainRuleQueryResponseV1>> {
+    async deleteRulesV1Raw(requestParameters: DeleteRulesV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainRuleQueryResponseV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling deleteRulesV1.");
         }
@@ -420,7 +426,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Delete monitoring rules.
      */
-    async deleteRulesV1(ids: Array<string>, xCSUSERUUID?: string, initOverrides?: RequestInit): Promise<DomainRuleQueryResponseV1> {
+    async deleteRulesV1(ids: Array<string>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainRuleQueryResponseV1> {
         const response = await this.deleteRulesV1Raw({ ids: ids, xCSUSERUUID: xCSUSERUUID }, initOverrides);
         return await response.value();
     }
@@ -428,7 +434,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Get actions based on their IDs. IDs can be retrieved using the GET /queries/actions/v1 endpoint.
      */
-    async getActionsV1Raw(requestParameters: GetActionsV1Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DomainActionEntitiesResponseV1>> {
+    async getActionsV1Raw(requestParameters: GetActionsV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainActionEntitiesResponseV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getActionsV1.");
         }
@@ -462,7 +468,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Get actions based on their IDs. IDs can be retrieved using the GET /queries/actions/v1 endpoint.
      */
-    async getActionsV1(ids: Array<string>, initOverrides?: RequestInit): Promise<DomainActionEntitiesResponseV1> {
+    async getActionsV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainActionEntitiesResponseV1> {
         const response = await this.getActionsV1Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -472,7 +478,7 @@ export class ReconApi extends runtime.BaseAPI {
      */
     async getNotificationsDetailedTranslatedV1Raw(
         requestParameters: GetNotificationsDetailedTranslatedV1Request,
-        initOverrides?: RequestInit
+        initOverrides?: RequestInit | runtime.InitOverideFunction
     ): Promise<runtime.ApiResponse<DomainNotificationDetailsResponseV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getNotificationsDetailedTranslatedV1.");
@@ -507,7 +513,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Get detailed notifications based on their IDs. These include the raw intelligence content that generated the match.This endpoint will return translated notification content. The only target language available is English. A single notification can be translated per request
      */
-    async getNotificationsDetailedTranslatedV1(ids: Array<string>, initOverrides?: RequestInit): Promise<DomainNotificationDetailsResponseV1> {
+    async getNotificationsDetailedTranslatedV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainNotificationDetailsResponseV1> {
         const response = await this.getNotificationsDetailedTranslatedV1Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -515,7 +521,10 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Get detailed notifications based on their IDs. These include the raw intelligence content that generated the match.
      */
-    async getNotificationsDetailedV1Raw(requestParameters: GetNotificationsDetailedV1Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DomainNotificationDetailsResponseV1>> {
+    async getNotificationsDetailedV1Raw(
+        requestParameters: GetNotificationsDetailedV1Request,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<DomainNotificationDetailsResponseV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getNotificationsDetailedV1.");
         }
@@ -549,7 +558,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Get detailed notifications based on their IDs. These include the raw intelligence content that generated the match.
      */
-    async getNotificationsDetailedV1(ids: Array<string>, initOverrides?: RequestInit): Promise<DomainNotificationDetailsResponseV1> {
+    async getNotificationsDetailedV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainNotificationDetailsResponseV1> {
         const response = await this.getNotificationsDetailedV1Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -557,7 +566,10 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Get notifications based on their IDs. IDs can be retrieved using the GET /queries/notifications/v1 endpoint. This endpoint will return translated notification content. The only target language available is English.
      */
-    async getNotificationsTranslatedV1Raw(requestParameters: GetNotificationsTranslatedV1Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DomainNotificationEntitiesResponseV1>> {
+    async getNotificationsTranslatedV1Raw(
+        requestParameters: GetNotificationsTranslatedV1Request,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<DomainNotificationEntitiesResponseV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getNotificationsTranslatedV1.");
         }
@@ -591,7 +603,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Get notifications based on their IDs. IDs can be retrieved using the GET /queries/notifications/v1 endpoint. This endpoint will return translated notification content. The only target language available is English.
      */
-    async getNotificationsTranslatedV1(ids: Array<string>, initOverrides?: RequestInit): Promise<DomainNotificationEntitiesResponseV1> {
+    async getNotificationsTranslatedV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainNotificationEntitiesResponseV1> {
         const response = await this.getNotificationsTranslatedV1Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -599,7 +611,10 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Get notifications based on their IDs. IDs can be retrieved using the GET /queries/notifications/v1 endpoint.
      */
-    async getNotificationsV1Raw(requestParameters: GetNotificationsV1Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DomainNotificationEntitiesResponseV1>> {
+    async getNotificationsV1Raw(
+        requestParameters: GetNotificationsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<DomainNotificationEntitiesResponseV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getNotificationsV1.");
         }
@@ -633,7 +648,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Get notifications based on their IDs. IDs can be retrieved using the GET /queries/notifications/v1 endpoint.
      */
-    async getNotificationsV1(ids: Array<string>, initOverrides?: RequestInit): Promise<DomainNotificationEntitiesResponseV1> {
+    async getNotificationsV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainNotificationEntitiesResponseV1> {
         const response = await this.getNotificationsV1Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -641,7 +656,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Get monitoring rules rules by provided IDs.
      */
-    async getRulesV1Raw(requestParameters: GetRulesV1Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DomainRulesEntitiesResponseV1>> {
+    async getRulesV1Raw(requestParameters: GetRulesV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainRulesEntitiesResponseV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getRulesV1.");
         }
@@ -679,7 +694,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Get monitoring rules rules by provided IDs.
      */
-    async getRulesV1(ids: Array<string>, xCSUSERUUID?: string, initOverrides?: RequestInit): Promise<DomainRulesEntitiesResponseV1> {
+    async getRulesV1(ids: Array<string>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainRulesEntitiesResponseV1> {
         const response = await this.getRulesV1Raw({ ids: ids, xCSUSERUUID: xCSUSERUUID }, initOverrides);
         return await response.value();
     }
@@ -687,7 +702,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Preview rules notification count and distribution. This will return aggregations on: channel, count, site.
      */
-    async previewRuleV1Raw(requestParameters: PreviewRuleV1Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DomainAggregatesResponse>> {
+    async previewRuleV1Raw(requestParameters: PreviewRuleV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainAggregatesResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling previewRuleV1.");
         }
@@ -724,7 +739,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Preview rules notification count and distribution. This will return aggregations on: channel, count, site.
      */
-    async previewRuleV1(body: DomainRulePreviewRequest, xCSUSERUUID?: string, initOverrides?: RequestInit): Promise<DomainAggregatesResponse> {
+    async previewRuleV1(body: DomainRulePreviewRequest, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainAggregatesResponse> {
         const response = await this.previewRuleV1Raw({ body: body, xCSUSERUUID: xCSUSERUUID }, initOverrides);
         return await response.value();
     }
@@ -732,7 +747,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Query actions based on provided criteria. Use the IDs from this response to get the action entities on GET /entities/actions/v1.
      */
-    async queryActionsV1Raw(requestParameters: QueryActionsV1Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DomainQueryResponse>> {
+    async queryActionsV1Raw(requestParameters: QueryActionsV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.offset !== undefined) {
@@ -778,7 +793,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Query actions based on provided criteria. Use the IDs from this response to get the action entities on GET /entities/actions/v1.
      */
-    async queryActionsV1(offset?: string, limit?: number, sort?: string, filter?: string, q?: string, initOverrides?: RequestInit): Promise<DomainQueryResponse> {
+    async queryActionsV1(offset?: string, limit?: number, sort?: string, filter?: string, q?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainQueryResponse> {
         const response = await this.queryActionsV1Raw({ offset: offset, limit: limit, sort: sort, filter: filter, q: q }, initOverrides);
         return await response.value();
     }
@@ -786,7 +801,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Query notifications based on provided criteria. Use the IDs from this response to get the notification entities on GET /entities/notifications/v1 or GET /entities/notifications-detailed/v1.
      */
-    async queryNotificationsV1Raw(requestParameters: QueryNotificationsV1Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DomainQueryResponse>> {
+    async queryNotificationsV1Raw(requestParameters: QueryNotificationsV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.offset !== undefined) {
@@ -832,7 +847,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Query notifications based on provided criteria. Use the IDs from this response to get the notification entities on GET /entities/notifications/v1 or GET /entities/notifications-detailed/v1.
      */
-    async queryNotificationsV1(offset?: number, limit?: number, sort?: string, filter?: string, q?: string, initOverrides?: RequestInit): Promise<DomainQueryResponse> {
+    async queryNotificationsV1(offset?: number, limit?: number, sort?: string, filter?: string, q?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainQueryResponse> {
         const response = await this.queryNotificationsV1Raw({ offset: offset, limit: limit, sort: sort, filter: filter, q: q }, initOverrides);
         return await response.value();
     }
@@ -840,7 +855,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Query monitoring rules based on provided criteria. Use the IDs from this response to fetch the rules on /entities/rules/v1.
      */
-    async queryRulesV1Raw(requestParameters: QueryRulesV1Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DomainRuleQueryResponseV1>> {
+    async queryRulesV1Raw(requestParameters: QueryRulesV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainRuleQueryResponseV1>> {
         const queryParameters: any = {};
 
         if (requestParameters.offset !== undefined) {
@@ -890,7 +905,15 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Query monitoring rules based on provided criteria. Use the IDs from this response to fetch the rules on /entities/rules/v1.
      */
-    async queryRulesV1(xCSUSERUUID?: string, offset?: string, limit?: number, sort?: string, filter?: string, q?: string, initOverrides?: RequestInit): Promise<DomainRuleQueryResponseV1> {
+    async queryRulesV1(
+        xCSUSERUUID?: string,
+        offset?: string,
+        limit?: number,
+        sort?: string,
+        filter?: string,
+        q?: string,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<DomainRuleQueryResponseV1> {
         const response = await this.queryRulesV1Raw({ xCSUSERUUID: xCSUSERUUID, offset: offset, limit: limit, sort: sort, filter: filter, q: q }, initOverrides);
         return await response.value();
     }
@@ -898,7 +921,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Update an action for a monitoring rule.
      */
-    async updateActionV1Raw(requestParameters: UpdateActionV1Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DomainActionEntitiesResponseV1>> {
+    async updateActionV1Raw(requestParameters: UpdateActionV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainActionEntitiesResponseV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateActionV1.");
         }
@@ -931,7 +954,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Update an action for a monitoring rule.
      */
-    async updateActionV1(body: DomainUpdateActionRequest, initOverrides?: RequestInit): Promise<DomainActionEntitiesResponseV1> {
+    async updateActionV1(body: DomainUpdateActionRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainActionEntitiesResponseV1> {
         const response = await this.updateActionV1Raw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -939,7 +962,10 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Update notification status or assignee. Accepts bulk requests
      */
-    async updateNotificationsV1Raw(requestParameters: UpdateNotificationsV1Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DomainNotificationEntitiesResponseV1>> {
+    async updateNotificationsV1Raw(
+        requestParameters: UpdateNotificationsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<DomainNotificationEntitiesResponseV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateNotificationsV1.");
         }
@@ -972,7 +998,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Update notification status or assignee. Accepts bulk requests
      */
-    async updateNotificationsV1(body: Array<DomainUpdateNotificationRequestV1>, initOverrides?: RequestInit): Promise<DomainNotificationEntitiesResponseV1> {
+    async updateNotificationsV1(body: Array<DomainUpdateNotificationRequestV1>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainNotificationEntitiesResponseV1> {
         const response = await this.updateNotificationsV1Raw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -980,7 +1006,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Update monitoring rules.
      */
-    async updateRulesV1Raw(requestParameters: UpdateRulesV1Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DomainRulesEntitiesResponseV1>> {
+    async updateRulesV1Raw(requestParameters: UpdateRulesV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainRulesEntitiesResponseV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateRulesV1.");
         }
@@ -1017,7 +1043,7 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Update monitoring rules.
      */
-    async updateRulesV1(body: Array<DomainUpdateRuleRequestV1>, xCSUSERUUID?: string, initOverrides?: RequestInit): Promise<DomainRulesEntitiesResponseV1> {
+    async updateRulesV1(body: Array<DomainUpdateRuleRequestV1>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainRulesEntitiesResponseV1> {
         const response = await this.updateRulesV1Raw({ body: body, xCSUSERUUID: xCSUSERUUID }, initOverrides);
         return await response.value();
     }
