@@ -500,8 +500,7 @@ export type GetClustersClusterServiceEnum = typeof GetClustersClusterServiceEnum
 /**
  * @export
  */
-export const GetLocationsCloudsEnum = {} as const;
-export type GetLocationsCloudsEnum = typeof GetLocationsCloudsEnum[keyof typeof GetLocationsCloudsEnum];
+export type GetLocationsCloudsEnum = Array<String>;
 /**
  * @export
  */
