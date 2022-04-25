@@ -105,7 +105,10 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     /**
      * Create Prevention Policies by specifying details about the policy to create
      */
-    async createPreventionPoliciesRaw(requestParameters: CreatePreventionPoliciesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ResponsesPreventionPoliciesV1>> {
+    async createPreventionPoliciesRaw(
+        requestParameters: CreatePreventionPoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<ResponsesPreventionPoliciesV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createPreventionPolicies.");
         }
@@ -138,7 +141,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     /**
      * Create Prevention Policies by specifying details about the policy to create
      */
-    async createPreventionPolicies(body: RequestsCreatePreventionPoliciesV1, initOverrides?: RequestInit): Promise<ResponsesPreventionPoliciesV1> {
+    async createPreventionPolicies(body: RequestsCreatePreventionPoliciesV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ResponsesPreventionPoliciesV1> {
         const response = await this.createPreventionPoliciesRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -146,7 +149,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     /**
      * Delete a set of Prevention Policies by specifying their IDs
      */
-    async deletePreventionPoliciesRaw(requestParameters: DeletePreventionPoliciesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async deletePreventionPoliciesRaw(requestParameters: DeletePreventionPoliciesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling deletePreventionPolicies.");
         }
@@ -180,7 +183,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     /**
      * Delete a set of Prevention Policies by specifying their IDs
      */
-    async deletePreventionPolicies(ids: Array<string>, initOverrides?: RequestInit): Promise<MsaQueryResponse> {
+    async deletePreventionPolicies(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
         const response = await this.deletePreventionPoliciesRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -188,7 +191,10 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     /**
      * Retrieve a set of Prevention Policies by specifying their IDs
      */
-    async getPreventionPoliciesRaw(requestParameters: GetPreventionPoliciesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ResponsesPreventionPoliciesV1>> {
+    async getPreventionPoliciesRaw(
+        requestParameters: GetPreventionPoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<ResponsesPreventionPoliciesV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getPreventionPolicies.");
         }
@@ -222,7 +228,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     /**
      * Retrieve a set of Prevention Policies by specifying their IDs
      */
-    async getPreventionPolicies(ids: Array<string>, initOverrides?: RequestInit): Promise<ResponsesPreventionPoliciesV1> {
+    async getPreventionPolicies(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ResponsesPreventionPoliciesV1> {
         const response = await this.getPreventionPoliciesRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -230,7 +236,10 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     /**
      * Perform the specified action on the Prevention Policies specified in the request
      */
-    async performPreventionPoliciesActionRaw(requestParameters: PerformPreventionPoliciesActionRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ResponsesPreventionPoliciesV1>> {
+    async performPreventionPoliciesActionRaw(
+        requestParameters: PerformPreventionPoliciesActionRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<ResponsesPreventionPoliciesV1>> {
         if (requestParameters.actionName === null || requestParameters.actionName === undefined) {
             throw new runtime.RequiredError("actionName", "Required parameter requestParameters.actionName was null or undefined when calling performPreventionPoliciesAction.");
         }
@@ -274,7 +283,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     async performPreventionPoliciesAction(
         actionName: PerformPreventionPoliciesActionActionNameEnum,
         body: MsaEntityActionRequestV2,
-        initOverrides?: RequestInit
+        initOverrides?: RequestInit | runtime.InitOverideFunction
     ): Promise<ResponsesPreventionPoliciesV1> {
         const response = await this.performPreventionPoliciesActionRaw({ actionName: actionName, body: body }, initOverrides);
         return await response.value();
@@ -283,7 +292,10 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     /**
      * Search for Prevention Policies in your environment by providing an FQL filter and paging details. Returns a set of Prevention Policies which match the filter criteria
      */
-    async queryCombinedPreventionPoliciesRaw(requestParameters: QueryCombinedPreventionPoliciesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ResponsesPreventionPoliciesV1>> {
+    async queryCombinedPreventionPoliciesRaw(
+        requestParameters: QueryCombinedPreventionPoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<ResponsesPreventionPoliciesV1>> {
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -330,7 +342,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
         offset?: number,
         limit?: number,
         sort?: QueryCombinedPreventionPoliciesSortEnum,
-        initOverrides?: RequestInit
+        initOverrides?: RequestInit | runtime.InitOverideFunction
     ): Promise<ResponsesPreventionPoliciesV1> {
         const response = await this.queryCombinedPreventionPoliciesRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
@@ -341,7 +353,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
      */
     async queryCombinedPreventionPolicyMembersRaw(
         requestParameters: QueryCombinedPreventionPolicyMembersRequest,
-        initOverrides?: RequestInit
+        initOverrides?: RequestInit | runtime.InitOverideFunction
     ): Promise<runtime.ApiResponse<ResponsesPolicyMembersRespV1>> {
         const queryParameters: any = {};
 
@@ -388,7 +400,14 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     /**
      * Search for members of a Prevention Policy in your environment by providing an FQL filter and paging details. Returns a set of host details which match the filter criteria
      */
-    async queryCombinedPreventionPolicyMembers(id?: string, filter?: string, offset?: number, limit?: number, sort?: string, initOverrides?: RequestInit): Promise<ResponsesPolicyMembersRespV1> {
+    async queryCombinedPreventionPolicyMembers(
+        id?: string,
+        filter?: string,
+        offset?: number,
+        limit?: number,
+        sort?: string,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<ResponsesPolicyMembersRespV1> {
         const response = await this.queryCombinedPreventionPolicyMembersRaw({ id: id, filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
@@ -396,7 +415,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     /**
      * Search for Prevention Policies in your environment by providing an FQL filter and paging details. Returns a set of Prevention Policy IDs which match the filter criteria
      */
-    async queryPreventionPoliciesRaw(requestParameters: QueryPreventionPoliciesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryPreventionPoliciesRaw(requestParameters: QueryPreventionPoliciesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -438,7 +457,13 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     /**
      * Search for Prevention Policies in your environment by providing an FQL filter and paging details. Returns a set of Prevention Policy IDs which match the filter criteria
      */
-    async queryPreventionPolicies(filter?: string, offset?: number, limit?: number, sort?: QueryPreventionPoliciesSortEnum, initOverrides?: RequestInit): Promise<MsaQueryResponse> {
+    async queryPreventionPolicies(
+        filter?: string,
+        offset?: number,
+        limit?: number,
+        sort?: QueryPreventionPoliciesSortEnum,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<MsaQueryResponse> {
         const response = await this.queryPreventionPoliciesRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
@@ -446,7 +471,10 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     /**
      * Search for members of a Prevention Policy in your environment by providing an FQL filter and paging details. Returns a set of Agent IDs which match the filter criteria
      */
-    async queryPreventionPolicyMembersRaw(requestParameters: QueryPreventionPolicyMembersRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryPreventionPolicyMembersRaw(
+        requestParameters: QueryPreventionPolicyMembersRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.id !== undefined) {
@@ -492,7 +520,14 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     /**
      * Search for members of a Prevention Policy in your environment by providing an FQL filter and paging details. Returns a set of Agent IDs which match the filter criteria
      */
-    async queryPreventionPolicyMembers(id?: string, filter?: string, offset?: number, limit?: number, sort?: string, initOverrides?: RequestInit): Promise<MsaQueryResponse> {
+    async queryPreventionPolicyMembers(
+        id?: string,
+        filter?: string,
+        offset?: number,
+        limit?: number,
+        sort?: string,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<MsaQueryResponse> {
         const response = await this.queryPreventionPolicyMembersRaw({ id: id, filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
@@ -500,7 +535,10 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     /**
      * Sets the precedence of Prevention Policies based on the order of IDs specified in the request. The first ID specified will have the highest precedence and the last ID specified will have the lowest. You must specify all non-Default Policies for a platform when updating precedence
      */
-    async setPreventionPoliciesPrecedenceRaw(requestParameters: SetPreventionPoliciesPrecedenceRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async setPreventionPoliciesPrecedenceRaw(
+        requestParameters: SetPreventionPoliciesPrecedenceRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling setPreventionPoliciesPrecedence.");
         }
@@ -533,7 +571,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     /**
      * Sets the precedence of Prevention Policies based on the order of IDs specified in the request. The first ID specified will have the highest precedence and the last ID specified will have the lowest. You must specify all non-Default Policies for a platform when updating precedence
      */
-    async setPreventionPoliciesPrecedence(body: RequestsSetPolicyPrecedenceReqV1, initOverrides?: RequestInit): Promise<MsaQueryResponse> {
+    async setPreventionPoliciesPrecedence(body: RequestsSetPolicyPrecedenceReqV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
         const response = await this.setPreventionPoliciesPrecedenceRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -541,7 +579,10 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     /**
      * Update Prevention Policies by specifying the ID of the policy and details to update
      */
-    async updatePreventionPoliciesRaw(requestParameters: UpdatePreventionPoliciesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ResponsesPreventionPoliciesV1>> {
+    async updatePreventionPoliciesRaw(
+        requestParameters: UpdatePreventionPoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<ResponsesPreventionPoliciesV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updatePreventionPolicies.");
         }
@@ -574,7 +615,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     /**
      * Update Prevention Policies by specifying the ID of the policy and details to update
      */
-    async updatePreventionPolicies(body: RequestsUpdatePreventionPoliciesV1, initOverrides?: RequestInit): Promise<ResponsesPreventionPoliciesV1> {
+    async updatePreventionPolicies(body: RequestsUpdatePreventionPoliciesV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ResponsesPreventionPoliciesV1> {
         const response = await this.updatePreventionPoliciesRaw({ body: body }, initOverrides);
         return await response.value();
     }

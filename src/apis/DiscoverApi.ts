@@ -43,7 +43,7 @@ export class DiscoverApi extends runtime.BaseAPI {
     /**
      * Get details on assets by providing one or more IDs.
      */
-    async getHostsRaw(requestParameters: GetHostsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DomainDiscoverAPIHostEntitiesResponse>> {
+    async getHostsRaw(requestParameters: GetHostsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainDiscoverAPIHostEntitiesResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getHosts.");
         }
@@ -77,7 +77,7 @@ export class DiscoverApi extends runtime.BaseAPI {
     /**
      * Get details on assets by providing one or more IDs.
      */
-    async getHosts(ids: Array<string>, initOverrides?: RequestInit): Promise<DomainDiscoverAPIHostEntitiesResponse> {
+    async getHosts(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainDiscoverAPIHostEntitiesResponse> {
         const response = await this.getHostsRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -85,7 +85,7 @@ export class DiscoverApi extends runtime.BaseAPI {
     /**
      * Search for assets in your environment by providing an FQL (Falcon Query Language) filter and paging details. Returns a set of asset IDs which match the filter criteria.
      */
-    async queryHostsRaw(requestParameters: QueryHostsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryHostsRaw(requestParameters: QueryHostsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.offset !== undefined) {
@@ -127,7 +127,7 @@ export class DiscoverApi extends runtime.BaseAPI {
     /**
      * Search for assets in your environment by providing an FQL (Falcon Query Language) filter and paging details. Returns a set of asset IDs which match the filter criteria.
      */
-    async queryHosts(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit): Promise<MsaQueryResponse> {
+    async queryHosts(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryHostsRaw({ offset: offset, limit: limit, sort: sort, filter: filter }, initOverrides);
         return await response.value();
     }

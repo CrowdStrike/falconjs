@@ -69,7 +69,10 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     /**
      * Creates a new account in our system for a customer and generates a script for them to run in their cloud environment to grant us access.
      */
-    async createCSPMAzureAccountRaw(requestParameters: CreateCSPMAzureAccountRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RegistrationAzureAccountResponseV1>> {
+    async createCSPMAzureAccountRaw(
+        requestParameters: CreateCSPMAzureAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<RegistrationAzureAccountResponseV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createCSPMAzureAccount.");
         }
@@ -102,7 +105,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     /**
      * Creates a new account in our system for a customer and generates a script for them to run in their cloud environment to grant us access.
      */
-    async createCSPMAzureAccount(body: RegistrationAzureAccountCreateRequestExternalV1, initOverrides?: RequestInit): Promise<RegistrationAzureAccountResponseV1> {
+    async createCSPMAzureAccount(body: RegistrationAzureAccountCreateRequestExternalV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<RegistrationAzureAccountResponseV1> {
         const response = await this.createCSPMAzureAccountRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -110,7 +113,10 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     /**
      * Creates a new account in our system for a customer and generates a new service account for them to add access to in their GCP environment to grant us access.
      */
-    async createCSPMGCPAccountRaw(requestParameters: CreateCSPMGCPAccountRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RegistrationGCPAccountResponseV1>> {
+    async createCSPMGCPAccountRaw(
+        requestParameters: CreateCSPMGCPAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<RegistrationGCPAccountResponseV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createCSPMGCPAccount.");
         }
@@ -143,7 +149,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     /**
      * Creates a new account in our system for a customer and generates a new service account for them to add access to in their GCP environment to grant us access.
      */
-    async createCSPMGCPAccount(body: RegistrationGCPAccountCreateRequestExtV1, initOverrides?: RequestInit): Promise<RegistrationGCPAccountResponseV1> {
+    async createCSPMGCPAccount(body: RegistrationGCPAccountCreateRequestExtV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<RegistrationGCPAccountResponseV1> {
         const response = await this.createCSPMGCPAccountRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -151,7 +157,10 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     /**
      * Return information about Azure account registration
      */
-    async getCSPMAzureAccountRaw(requestParameters: GetCSPMAzureAccountRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RegistrationAzureAccountResponseV1>> {
+    async getCSPMAzureAccountRaw(
+        requestParameters: GetCSPMAzureAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<RegistrationAzureAccountResponseV1>> {
         const queryParameters: any = {};
 
         if (requestParameters.ids) {
@@ -185,7 +194,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     /**
      * Return information about Azure account registration
      */
-    async getCSPMAzureAccount(ids?: Array<string>, scanType?: string, initOverrides?: RequestInit): Promise<RegistrationAzureAccountResponseV1> {
+    async getCSPMAzureAccount(ids?: Array<string>, scanType?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<RegistrationAzureAccountResponseV1> {
         const response = await this.getCSPMAzureAccountRaw({ ids: ids, scanType: scanType }, initOverrides);
         return await response.value();
     }
@@ -193,7 +202,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     /**
      * Return a script for customer to run in their cloud environment to grant us access to their Azure environment
      */
-    async getCSPMAzureUserScriptsRaw(initOverrides?: RequestInit): Promise<runtime.ApiResponse<RegistrationAzureProvisionGetUserScriptResponseV1>> {
+    async getCSPMAzureUserScriptsRaw(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<RegistrationAzureProvisionGetUserScriptResponseV1>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -219,7 +228,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     /**
      * Return a script for customer to run in their cloud environment to grant us access to their Azure environment
      */
-    async getCSPMAzureUserScripts(initOverrides?: RequestInit): Promise<RegistrationAzureProvisionGetUserScriptResponseV1> {
+    async getCSPMAzureUserScripts(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<RegistrationAzureProvisionGetUserScriptResponseV1> {
         const response = await this.getCSPMAzureUserScriptsRaw(initOverrides);
         return await response.value();
     }
@@ -227,7 +236,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     /**
      * Return a script for customer to run in their cloud environment to grant us access to their Azure environment as a downloadable attachment
      */
-    async getCSPMAzureUserScriptsAttachmentRaw(initOverrides?: RequestInit): Promise<runtime.ApiResponse<RegistrationAzureProvisionGetUserScriptResponseV1>> {
+    async getCSPMAzureUserScriptsAttachmentRaw(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<RegistrationAzureProvisionGetUserScriptResponseV1>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -253,7 +262,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     /**
      * Return a script for customer to run in their cloud environment to grant us access to their Azure environment as a downloadable attachment
      */
-    async getCSPMAzureUserScriptsAttachment(initOverrides?: RequestInit): Promise<RegistrationAzureProvisionGetUserScriptResponseV1> {
+    async getCSPMAzureUserScriptsAttachment(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<RegistrationAzureProvisionGetUserScriptResponseV1> {
         const response = await this.getCSPMAzureUserScriptsAttachmentRaw(initOverrides);
         return await response.value();
     }
@@ -261,7 +270,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     /**
      * Returns information about the current status of an GCP account.
      */
-    async getCSPMCGPAccountRaw(requestParameters: GetCSPMCGPAccountRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RegistrationGCPAccountResponseV1>> {
+    async getCSPMCGPAccountRaw(requestParameters: GetCSPMCGPAccountRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<RegistrationGCPAccountResponseV1>> {
         const queryParameters: any = {};
 
         if (requestParameters.scanType !== undefined) {
@@ -295,7 +304,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     /**
      * Returns information about the current status of an GCP account.
      */
-    async getCSPMCGPAccount(scanType?: string, ids?: Array<string>, initOverrides?: RequestInit): Promise<RegistrationGCPAccountResponseV1> {
+    async getCSPMCGPAccount(scanType?: string, ids?: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<RegistrationGCPAccountResponseV1> {
         const response = await this.getCSPMCGPAccountRaw({ scanType: scanType, ids: ids }, initOverrides);
         return await response.value();
     }
@@ -303,7 +312,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     /**
      * Return a script for customer to run in their cloud environment to grant us access to their GCP environment
      */
-    async getCSPMGCPUserScriptsRaw(initOverrides?: RequestInit): Promise<runtime.ApiResponse<RegistrationGCPProvisionGetUserScriptResponseV1>> {
+    async getCSPMGCPUserScriptsRaw(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<RegistrationGCPProvisionGetUserScriptResponseV1>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -329,7 +338,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     /**
      * Return a script for customer to run in their cloud environment to grant us access to their GCP environment
      */
-    async getCSPMGCPUserScripts(initOverrides?: RequestInit): Promise<RegistrationGCPProvisionGetUserScriptResponseV1> {
+    async getCSPMGCPUserScripts(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<RegistrationGCPProvisionGetUserScriptResponseV1> {
         const response = await this.getCSPMGCPUserScriptsRaw(initOverrides);
         return await response.value();
     }
@@ -337,7 +346,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     /**
      * Return a script for customer to run in their cloud environment to grant us access to their GCP environment as a downloadable attachment
      */
-    async getCSPMGCPUserScriptsAttachmentRaw(initOverrides?: RequestInit): Promise<runtime.ApiResponse<RegistrationGCPProvisionGetUserScriptResponseV1>> {
+    async getCSPMGCPUserScriptsAttachmentRaw(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<RegistrationGCPProvisionGetUserScriptResponseV1>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -363,7 +372,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     /**
      * Return a script for customer to run in their cloud environment to grant us access to their GCP environment as a downloadable attachment
      */
-    async getCSPMGCPUserScriptsAttachment(initOverrides?: RequestInit): Promise<RegistrationGCPProvisionGetUserScriptResponseV1> {
+    async getCSPMGCPUserScriptsAttachment(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<RegistrationGCPProvisionGetUserScriptResponseV1> {
         const response = await this.getCSPMGCPUserScriptsAttachmentRaw(initOverrides);
         return await response.value();
     }
@@ -373,7 +382,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
      */
     async updateCSPMAzureAccountClientIDRaw(
         requestParameters: UpdateCSPMAzureAccountClientIDRequest,
-        initOverrides?: RequestInit
+        initOverrides?: RequestInit | runtime.InitOverideFunction
     ): Promise<runtime.ApiResponse<RegistrationAzureServicePrincipalResponseV1>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
             throw new runtime.RequiredError("id", "Required parameter requestParameters.id was null or undefined when calling updateCSPMAzureAccountClientID.");
@@ -408,7 +417,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     /**
      * Update an Azure service account in our system by with the user-created client_id created with the public key we\'ve provided
      */
-    async updateCSPMAzureAccountClientID(id: string, initOverrides?: RequestInit): Promise<RegistrationAzureServicePrincipalResponseV1> {
+    async updateCSPMAzureAccountClientID(id: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<RegistrationAzureServicePrincipalResponseV1> {
         const response = await this.updateCSPMAzureAccountClientIDRaw({ id: id }, initOverrides);
         return await response.value();
     }

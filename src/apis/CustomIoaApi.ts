@@ -159,7 +159,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Create a rule within a rule group. Returns the rule.
      */
-    async createRuleRaw(requestParameters: CreateRuleRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ApiRulesResponse>> {
+    async createRuleRaw(requestParameters: CreateRuleRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiRulesResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createRule.");
         }
@@ -192,7 +192,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Create a rule within a rule group. Returns the rule.
      */
-    async createRule(body: ApiRuleCreateV1, initOverrides?: RequestInit): Promise<ApiRulesResponse> {
+    async createRule(body: ApiRuleCreateV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiRulesResponse> {
         const response = await this.createRuleRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -200,7 +200,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Create a rule group for a platform with a name and an optional description. Returns the rule group.
      */
-    async createRuleGroupMixin0Raw(requestParameters: CreateRuleGroupMixin0Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ApiRuleGroupsResponse>> {
+    async createRuleGroupMixin0Raw(requestParameters: CreateRuleGroupMixin0Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiRuleGroupsResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createRuleGroupMixin0.");
         }
@@ -233,7 +233,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Create a rule group for a platform with a name and an optional description. Returns the rule group.
      */
-    async createRuleGroupMixin0(body: ApiRuleGroupCreateRequestV1, initOverrides?: RequestInit): Promise<ApiRuleGroupsResponse> {
+    async createRuleGroupMixin0(body: ApiRuleGroupCreateRequestV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiRuleGroupsResponse> {
         const response = await this.createRuleGroupMixin0Raw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -241,7 +241,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Delete rule groups by ID.
      */
-    async deleteRuleGroupsMixin0Raw(requestParameters: DeleteRuleGroupsMixin0Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async deleteRuleGroupsMixin0Raw(requestParameters: DeleteRuleGroupsMixin0Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling deleteRuleGroupsMixin0.");
         }
@@ -279,7 +279,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Delete rule groups by ID.
      */
-    async deleteRuleGroupsMixin0(ids: Array<string>, comment?: string, initOverrides?: RequestInit): Promise<MsaReplyMetaOnly> {
+    async deleteRuleGroupsMixin0(ids: Array<string>, comment?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaReplyMetaOnly> {
         const response = await this.deleteRuleGroupsMixin0Raw({ ids: ids, comment: comment }, initOverrides);
         return await response.value();
     }
@@ -287,7 +287,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Delete rules from a rule group by ID.
      */
-    async deleteRulesRaw(requestParameters: DeleteRulesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async deleteRulesRaw(requestParameters: DeleteRulesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
         if (requestParameters.ruleGroupId === null || requestParameters.ruleGroupId === undefined) {
             throw new runtime.RequiredError("ruleGroupId", "Required parameter requestParameters.ruleGroupId was null or undefined when calling deleteRules.");
         }
@@ -333,7 +333,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Delete rules from a rule group by ID.
      */
-    async deleteRules(ruleGroupId: string, ids: Array<string>, comment?: string, initOverrides?: RequestInit): Promise<MsaReplyMetaOnly> {
+    async deleteRules(ruleGroupId: string, ids: Array<string>, comment?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaReplyMetaOnly> {
         const response = await this.deleteRulesRaw({ ruleGroupId: ruleGroupId, ids: ids, comment: comment }, initOverrides);
         return await response.value();
     }
@@ -341,7 +341,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Get pattern severities by ID.
      */
-    async getPatternsRaw(requestParameters: GetPatternsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ApiPatternsResponse>> {
+    async getPatternsRaw(requestParameters: GetPatternsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiPatternsResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getPatterns.");
         }
@@ -375,7 +375,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Get pattern severities by ID.
      */
-    async getPatterns(ids: Array<string>, initOverrides?: RequestInit): Promise<ApiPatternsResponse> {
+    async getPatterns(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiPatternsResponse> {
         const response = await this.getPatternsRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -383,7 +383,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Get platforms by ID.
      */
-    async getPlatformsMixin0Raw(requestParameters: GetPlatformsMixin0Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ApiPlatformsResponse>> {
+    async getPlatformsMixin0Raw(requestParameters: GetPlatformsMixin0Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiPlatformsResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getPlatformsMixin0.");
         }
@@ -417,7 +417,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Get platforms by ID.
      */
-    async getPlatformsMixin0(ids: Array<string>, initOverrides?: RequestInit): Promise<ApiPlatformsResponse> {
+    async getPlatformsMixin0(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiPlatformsResponse> {
         const response = await this.getPlatformsMixin0Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -425,7 +425,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Get rule groups by ID.
      */
-    async getRuleGroupsMixin0Raw(requestParameters: GetRuleGroupsMixin0Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ApiRuleGroupsResponse>> {
+    async getRuleGroupsMixin0Raw(requestParameters: GetRuleGroupsMixin0Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiRuleGroupsResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getRuleGroupsMixin0.");
         }
@@ -459,7 +459,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Get rule groups by ID.
      */
-    async getRuleGroupsMixin0(ids: Array<string>, initOverrides?: RequestInit): Promise<ApiRuleGroupsResponse> {
+    async getRuleGroupsMixin0(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiRuleGroupsResponse> {
         const response = await this.getRuleGroupsMixin0Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -467,7 +467,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Get rule types by ID.
      */
-    async getRuleTypesRaw(requestParameters: GetRuleTypesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ApiRuleTypesResponse>> {
+    async getRuleTypesRaw(requestParameters: GetRuleTypesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiRuleTypesResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getRuleTypes.");
         }
@@ -501,7 +501,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Get rule types by ID.
      */
-    async getRuleTypes(ids: Array<string>, initOverrides?: RequestInit): Promise<ApiRuleTypesResponse> {
+    async getRuleTypes(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiRuleTypesResponse> {
         const response = await this.getRuleTypesRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -509,7 +509,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Get rules by ID and optionally version in the following format: `ID[:version]`.
      */
-    async getRulesGetRaw(requestParameters: GetRulesGetRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ApiRulesResponse>> {
+    async getRulesGetRaw(requestParameters: GetRulesGetRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiRulesResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling getRulesGet.");
         }
@@ -542,7 +542,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Get rules by ID and optionally version in the following format: `ID[:version]`.
      */
-    async getRulesGet(body: ApiRulesGetRequestV1, initOverrides?: RequestInit): Promise<ApiRulesResponse> {
+    async getRulesGet(body: ApiRulesGetRequestV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiRulesResponse> {
         const response = await this.getRulesGetRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -550,7 +550,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Get rules by ID and optionally version in the following format: `ID[:version]`. The max number of IDs is constrained by URL size.
      */
-    async getRulesMixin0Raw(requestParameters: GetRulesMixin0Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ApiRulesResponse>> {
+    async getRulesMixin0Raw(requestParameters: GetRulesMixin0Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiRulesResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getRulesMixin0.");
         }
@@ -584,7 +584,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Get rules by ID and optionally version in the following format: `ID[:version]`. The max number of IDs is constrained by URL size.
      */
-    async getRulesMixin0(ids: Array<string>, initOverrides?: RequestInit): Promise<ApiRulesResponse> {
+    async getRulesMixin0(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiRulesResponse> {
         const response = await this.getRulesMixin0Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -592,7 +592,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Get all pattern severity IDs.
      */
-    async queryPatternsRaw(requestParameters: QueryPatternsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryPatternsRaw(requestParameters: QueryPatternsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.offset !== undefined) {
@@ -626,7 +626,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Get all pattern severity IDs.
      */
-    async queryPatterns(offset?: string, limit?: number, initOverrides?: RequestInit): Promise<MsaQueryResponse> {
+    async queryPatterns(offset?: string, limit?: number, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryPatternsRaw({ offset: offset, limit: limit }, initOverrides);
         return await response.value();
     }
@@ -634,7 +634,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Get all platform IDs.
      */
-    async queryPlatformsMixin0Raw(requestParameters: QueryPlatformsMixin0Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryPlatformsMixin0Raw(requestParameters: QueryPlatformsMixin0Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.offset !== undefined) {
@@ -668,7 +668,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Get all platform IDs.
      */
-    async queryPlatformsMixin0(offset?: string, limit?: number, initOverrides?: RequestInit): Promise<MsaQueryResponse> {
+    async queryPlatformsMixin0(offset?: string, limit?: number, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryPlatformsMixin0Raw({ offset: offset, limit: limit }, initOverrides);
         return await response.value();
     }
@@ -676,7 +676,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Find all rule groups matching the query with optional filter.
      */
-    async queryRuleGroupsFullRaw(requestParameters: QueryRuleGroupsFullRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryRuleGroupsFullRaw(requestParameters: QueryRuleGroupsFullRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.sort !== undefined) {
@@ -722,7 +722,14 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Find all rule groups matching the query with optional filter.
      */
-    async queryRuleGroupsFull(sort?: QueryRuleGroupsFullSortEnum, filter?: string, q?: string, offset?: string, limit?: number, initOverrides?: RequestInit): Promise<MsaQueryResponse> {
+    async queryRuleGroupsFull(
+        sort?: QueryRuleGroupsFullSortEnum,
+        filter?: string,
+        q?: string,
+        offset?: string,
+        limit?: number,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<MsaQueryResponse> {
         const response = await this.queryRuleGroupsFullRaw({ sort: sort, filter: filter, q: q, offset: offset, limit: limit }, initOverrides);
         return await response.value();
     }
@@ -730,7 +737,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Finds all rule group IDs matching the query with optional filter.
      */
-    async queryRuleGroupsMixin0Raw(requestParameters: QueryRuleGroupsMixin0Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryRuleGroupsMixin0Raw(requestParameters: QueryRuleGroupsMixin0Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.sort !== undefined) {
@@ -776,7 +783,14 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Finds all rule group IDs matching the query with optional filter.
      */
-    async queryRuleGroupsMixin0(sort?: QueryRuleGroupsMixin0SortEnum, filter?: string, q?: string, offset?: string, limit?: number, initOverrides?: RequestInit): Promise<MsaQueryResponse> {
+    async queryRuleGroupsMixin0(
+        sort?: QueryRuleGroupsMixin0SortEnum,
+        filter?: string,
+        q?: string,
+        offset?: string,
+        limit?: number,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<MsaQueryResponse> {
         const response = await this.queryRuleGroupsMixin0Raw({ sort: sort, filter: filter, q: q, offset: offset, limit: limit }, initOverrides);
         return await response.value();
     }
@@ -784,7 +798,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Get all rule type IDs.
      */
-    async queryRuleTypesRaw(requestParameters: QueryRuleTypesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryRuleTypesRaw(requestParameters: QueryRuleTypesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.offset !== undefined) {
@@ -818,7 +832,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Get all rule type IDs.
      */
-    async queryRuleTypes(offset?: string, limit?: number, initOverrides?: RequestInit): Promise<MsaQueryResponse> {
+    async queryRuleTypes(offset?: string, limit?: number, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryRuleTypesRaw({ offset: offset, limit: limit }, initOverrides);
         return await response.value();
     }
@@ -826,7 +840,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Finds all rule IDs matching the query with optional filter.
      */
-    async queryRulesMixin0Raw(requestParameters: QueryRulesMixin0Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryRulesMixin0Raw(requestParameters: QueryRulesMixin0Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.sort !== undefined) {
@@ -872,7 +886,14 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Finds all rule IDs matching the query with optional filter.
      */
-    async queryRulesMixin0(sort?: QueryRulesMixin0SortEnum, filter?: string, q?: string, offset?: string, limit?: number, initOverrides?: RequestInit): Promise<MsaQueryResponse> {
+    async queryRulesMixin0(
+        sort?: QueryRulesMixin0SortEnum,
+        filter?: string,
+        q?: string,
+        offset?: string,
+        limit?: number,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<MsaQueryResponse> {
         const response = await this.queryRulesMixin0Raw({ sort: sort, filter: filter, q: q, offset: offset, limit: limit }, initOverrides);
         return await response.value();
     }
@@ -880,7 +901,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Update a rule group. The following properties can be modified: name, description, enabled.
      */
-    async updateRuleGroupMixin0Raw(requestParameters: UpdateRuleGroupMixin0Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ApiRuleGroupsResponse>> {
+    async updateRuleGroupMixin0Raw(requestParameters: UpdateRuleGroupMixin0Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiRuleGroupsResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateRuleGroupMixin0.");
         }
@@ -913,7 +934,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Update a rule group. The following properties can be modified: name, description, enabled.
      */
-    async updateRuleGroupMixin0(body: ApiRuleGroupModifyRequestV1, initOverrides?: RequestInit): Promise<ApiRuleGroupsResponse> {
+    async updateRuleGroupMixin0(body: ApiRuleGroupModifyRequestV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiRuleGroupsResponse> {
         const response = await this.updateRuleGroupMixin0Raw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -921,7 +942,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Update rules within a rule group. Return the updated rules.
      */
-    async updateRulesRaw(requestParameters: UpdateRulesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ApiRulesResponse>> {
+    async updateRulesRaw(requestParameters: UpdateRulesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiRulesResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateRules.");
         }
@@ -954,7 +975,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Update rules within a rule group. Return the updated rules.
      */
-    async updateRules(body: ApiRuleUpdatesRequestV1, initOverrides?: RequestInit): Promise<ApiRulesResponse> {
+    async updateRules(body: ApiRuleUpdatesRequestV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiRulesResponse> {
         const response = await this.updateRulesRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -962,7 +983,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Validates field values and checks for matches if a test string is provided.
      */
-    async validateRaw(requestParameters: ValidateRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ApiValidationResponseV1>> {
+    async validateRaw(requestParameters: ValidateRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiValidationResponseV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling validate.");
         }
@@ -995,7 +1016,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Validates field values and checks for matches if a test string is provided.
      */
-    async validate(body: ApiValidationRequestV1, initOverrides?: RequestInit): Promise<ApiValidationResponseV1> {
+    async validate(body: ApiValidationRequestV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiValidationResponseV1> {
         const response = await this.validateRaw({ body: body }, initOverrides);
         return await response.value();
     }

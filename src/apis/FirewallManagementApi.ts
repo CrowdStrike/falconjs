@@ -176,7 +176,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Aggregate events for customer
      */
-    async aggregateEventsRaw(requestParameters: AggregateEventsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<FwmgrApiAggregatesResponse>> {
+    async aggregateEventsRaw(requestParameters: AggregateEventsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<FwmgrApiAggregatesResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling aggregateEvents.");
         }
@@ -209,7 +209,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Aggregate events for customer
      */
-    async aggregateEvents(body: Array<FwmgrMsaAggregateQueryRequest>, initOverrides?: RequestInit): Promise<FwmgrApiAggregatesResponse> {
+    async aggregateEvents(body: Array<FwmgrMsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<FwmgrApiAggregatesResponse> {
         const response = await this.aggregateEventsRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -217,7 +217,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Aggregate rules within a policy for customer
      */
-    async aggregatePolicyRulesRaw(requestParameters: AggregatePolicyRulesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<FwmgrApiAggregatesResponse>> {
+    async aggregatePolicyRulesRaw(requestParameters: AggregatePolicyRulesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<FwmgrApiAggregatesResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling aggregatePolicyRules.");
         }
@@ -250,7 +250,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Aggregate rules within a policy for customer
      */
-    async aggregatePolicyRules(body: Array<FwmgrMsaAggregateQueryRequest>, initOverrides?: RequestInit): Promise<FwmgrApiAggregatesResponse> {
+    async aggregatePolicyRules(body: Array<FwmgrMsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<FwmgrApiAggregatesResponse> {
         const response = await this.aggregatePolicyRulesRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -258,7 +258,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Aggregate rule groups for customer
      */
-    async aggregateRuleGroupsRaw(requestParameters: AggregateRuleGroupsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<FwmgrApiAggregatesResponse>> {
+    async aggregateRuleGroupsRaw(requestParameters: AggregateRuleGroupsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<FwmgrApiAggregatesResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling aggregateRuleGroups.");
         }
@@ -291,7 +291,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Aggregate rule groups for customer
      */
-    async aggregateRuleGroups(body: Array<FwmgrMsaAggregateQueryRequest>, initOverrides?: RequestInit): Promise<FwmgrApiAggregatesResponse> {
+    async aggregateRuleGroups(body: Array<FwmgrMsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<FwmgrApiAggregatesResponse> {
         const response = await this.aggregateRuleGroupsRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -299,7 +299,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Aggregate rules for customer
      */
-    async aggregateRulesRaw(requestParameters: AggregateRulesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<FwmgrApiAggregatesResponse>> {
+    async aggregateRulesRaw(requestParameters: AggregateRulesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<FwmgrApiAggregatesResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling aggregateRules.");
         }
@@ -332,7 +332,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Aggregate rules for customer
      */
-    async aggregateRules(body: Array<FwmgrMsaAggregateQueryRequest>, initOverrides?: RequestInit): Promise<FwmgrApiAggregatesResponse> {
+    async aggregateRules(body: Array<FwmgrMsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<FwmgrApiAggregatesResponse> {
         const response = await this.aggregateRulesRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -340,7 +340,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Create new rule group on a platform for a customer with a name and description, and return the ID
      */
-    async createRuleGroupRaw(requestParameters: CreateRuleGroupRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<FwmgrApiQueryResponse>> {
+    async createRuleGroupRaw(requestParameters: CreateRuleGroupRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<FwmgrApiQueryResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createRuleGroup.");
         }
@@ -385,7 +385,13 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Create new rule group on a platform for a customer with a name and description, and return the ID
      */
-    async createRuleGroup(body: FwmgrApiRuleGroupCreateRequestV1, cloneId?: string, library?: string, comment?: string, initOverrides?: RequestInit): Promise<FwmgrApiQueryResponse> {
+    async createRuleGroup(
+        body: FwmgrApiRuleGroupCreateRequestV1,
+        cloneId?: string,
+        library?: string,
+        comment?: string,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<FwmgrApiQueryResponse> {
         const response = await this.createRuleGroupRaw({ body: body, cloneId: cloneId, library: library, comment: comment }, initOverrides);
         return await response.value();
     }
@@ -393,7 +399,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Delete rule group entities by ID
      */
-    async deleteRuleGroupsRaw(requestParameters: DeleteRuleGroupsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<FwmgrApiQueryResponse>> {
+    async deleteRuleGroupsRaw(requestParameters: DeleteRuleGroupsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<FwmgrApiQueryResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling deleteRuleGroups.");
         }
@@ -431,7 +437,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Delete rule group entities by ID
      */
-    async deleteRuleGroups(ids: Array<string>, comment?: string, initOverrides?: RequestInit): Promise<FwmgrApiQueryResponse> {
+    async deleteRuleGroups(ids: Array<string>, comment?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<FwmgrApiQueryResponse> {
         const response = await this.deleteRuleGroupsRaw({ ids: ids, comment: comment }, initOverrides);
         return await response.value();
     }
@@ -439,7 +445,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Get events entities by ID and optionally version
      */
-    async getEventsRaw(requestParameters: GetEventsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<FwmgrApiEventsResponse>> {
+    async getEventsRaw(requestParameters: GetEventsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<FwmgrApiEventsResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getEvents.");
         }
@@ -473,7 +479,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Get events entities by ID and optionally version
      */
-    async getEvents(ids: Array<string>, initOverrides?: RequestInit): Promise<FwmgrApiEventsResponse> {
+    async getEvents(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<FwmgrApiEventsResponse> {
         const response = await this.getEventsRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -481,7 +487,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Get the firewall field specifications by ID
      */
-    async getFirewallFieldsRaw(requestParameters: GetFirewallFieldsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<FwmgrApiFirewallFieldsResponse>> {
+    async getFirewallFieldsRaw(requestParameters: GetFirewallFieldsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<FwmgrApiFirewallFieldsResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getFirewallFields.");
         }
@@ -515,7 +521,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Get the firewall field specifications by ID
      */
-    async getFirewallFields(ids: Array<string>, initOverrides?: RequestInit): Promise<FwmgrApiFirewallFieldsResponse> {
+    async getFirewallFields(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<FwmgrApiFirewallFieldsResponse> {
         const response = await this.getFirewallFieldsRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -523,7 +529,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Get platforms by ID, e.g., windows or mac or droid
      */
-    async getPlatformsRaw(requestParameters: GetPlatformsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<FwmgrApiPlatformsResponse>> {
+    async getPlatformsRaw(requestParameters: GetPlatformsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<FwmgrApiPlatformsResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getPlatforms.");
         }
@@ -557,7 +563,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Get platforms by ID, e.g., windows or mac or droid
      */
-    async getPlatforms(ids: Array<string>, initOverrides?: RequestInit): Promise<FwmgrApiPlatformsResponse> {
+    async getPlatforms(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<FwmgrApiPlatformsResponse> {
         const response = await this.getPlatformsRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -565,7 +571,10 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Get policy container entities by policy ID
      */
-    async getPolicyContainersRaw(requestParameters: GetPolicyContainersRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<FwmgrApiPolicyContainersResponse>> {
+    async getPolicyContainersRaw(
+        requestParameters: GetPolicyContainersRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<FwmgrApiPolicyContainersResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getPolicyContainers.");
         }
@@ -599,7 +608,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Get policy container entities by policy ID
      */
-    async getPolicyContainers(ids: Array<string>, initOverrides?: RequestInit): Promise<FwmgrApiPolicyContainersResponse> {
+    async getPolicyContainers(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<FwmgrApiPolicyContainersResponse> {
         const response = await this.getPolicyContainersRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -607,7 +616,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Get rule group entities by ID. These groups do not contain their rule entites, just the rule IDs in precedence order.
      */
-    async getRuleGroupsRaw(requestParameters: GetRuleGroupsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<FwmgrApiRuleGroupsResponse>> {
+    async getRuleGroupsRaw(requestParameters: GetRuleGroupsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<FwmgrApiRuleGroupsResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getRuleGroups.");
         }
@@ -641,7 +650,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Get rule group entities by ID. These groups do not contain their rule entites, just the rule IDs in precedence order.
      */
-    async getRuleGroups(ids: Array<string>, initOverrides?: RequestInit): Promise<FwmgrApiRuleGroupsResponse> {
+    async getRuleGroups(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<FwmgrApiRuleGroupsResponse> {
         const response = await this.getRuleGroupsRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -649,7 +658,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Get rule entities by ID (64-bit unsigned int as decimal string) or Family ID (32-character hexadecimal string)
      */
-    async getRulesRaw(requestParameters: GetRulesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<FwmgrApiRulesResponse>> {
+    async getRulesRaw(requestParameters: GetRulesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<FwmgrApiRulesResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getRules.");
         }
@@ -683,7 +692,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Get rule entities by ID (64-bit unsigned int as decimal string) or Family ID (32-character hexadecimal string)
      */
-    async getRules(ids: Array<string>, initOverrides?: RequestInit): Promise<FwmgrApiRulesResponse> {
+    async getRules(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<FwmgrApiRulesResponse> {
         const response = await this.getRulesRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -691,7 +700,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Find all event IDs matching the query with filter
      */
-    async queryEventsRaw(requestParameters: QueryEventsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<FwmgrApiQueryResponse>> {
+    async queryEventsRaw(requestParameters: QueryEventsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<FwmgrApiQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.sort !== undefined) {
@@ -741,7 +750,15 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Find all event IDs matching the query with filter
      */
-    async queryEvents(sort?: string, filter?: string, q?: string, offset?: string, after?: string, limit?: number, initOverrides?: RequestInit): Promise<FwmgrApiQueryResponse> {
+    async queryEvents(
+        sort?: string,
+        filter?: string,
+        q?: string,
+        offset?: string,
+        after?: string,
+        limit?: number,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<FwmgrApiQueryResponse> {
         const response = await this.queryEventsRaw({ sort: sort, filter: filter, q: q, offset: offset, after: after, limit: limit }, initOverrides);
         return await response.value();
     }
@@ -749,7 +766,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Get the firewall field specification IDs for the provided platform
      */
-    async queryFirewallFieldsRaw(requestParameters: QueryFirewallFieldsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<FwmgrMsaQueryResponse>> {
+    async queryFirewallFieldsRaw(requestParameters: QueryFirewallFieldsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<FwmgrMsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.platformId !== undefined) {
@@ -787,7 +804,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Get the firewall field specification IDs for the provided platform
      */
-    async queryFirewallFields(platformId?: string, offset?: string, limit?: number, initOverrides?: RequestInit): Promise<FwmgrMsaQueryResponse> {
+    async queryFirewallFields(platformId?: string, offset?: string, limit?: number, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<FwmgrMsaQueryResponse> {
         const response = await this.queryFirewallFieldsRaw({ platformId: platformId, offset: offset, limit: limit }, initOverrides);
         return await response.value();
     }
@@ -795,7 +812,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Get the list of platform names
      */
-    async queryPlatformsRaw(requestParameters: QueryPlatformsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<FwmgrMsaQueryResponse>> {
+    async queryPlatformsRaw(requestParameters: QueryPlatformsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<FwmgrMsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.offset !== undefined) {
@@ -829,7 +846,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Get the list of platform names
      */
-    async queryPlatforms(offset?: string, limit?: number, initOverrides?: RequestInit): Promise<FwmgrMsaQueryResponse> {
+    async queryPlatforms(offset?: string, limit?: number, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<FwmgrMsaQueryResponse> {
         const response = await this.queryPlatformsRaw({ offset: offset, limit: limit }, initOverrides);
         return await response.value();
     }
@@ -837,7 +854,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Find all firewall rule IDs matching the query with filter, and return them in precedence order
      */
-    async queryPolicyRulesRaw(requestParameters: QueryPolicyRulesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<FwmgrApiQueryResponse>> {
+    async queryPolicyRulesRaw(requestParameters: QueryPolicyRulesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<FwmgrApiQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.id !== undefined) {
@@ -887,7 +904,15 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Find all firewall rule IDs matching the query with filter, and return them in precedence order
      */
-    async queryPolicyRules(id?: string, sort?: string, filter?: string, q?: string, offset?: string, limit?: number, initOverrides?: RequestInit): Promise<FwmgrApiQueryResponse> {
+    async queryPolicyRules(
+        id?: string,
+        sort?: string,
+        filter?: string,
+        q?: string,
+        offset?: string,
+        limit?: number,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<FwmgrApiQueryResponse> {
         const response = await this.queryPolicyRulesRaw({ id: id, sort: sort, filter: filter, q: q, offset: offset, limit: limit }, initOverrides);
         return await response.value();
     }
@@ -895,7 +920,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Find all rule group IDs matching the query with filter
      */
-    async queryRuleGroupsRaw(requestParameters: QueryRuleGroupsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<FwmgrApiQueryResponse>> {
+    async queryRuleGroupsRaw(requestParameters: QueryRuleGroupsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<FwmgrApiQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.sort !== undefined) {
@@ -945,7 +970,15 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Find all rule group IDs matching the query with filter
      */
-    async queryRuleGroups(sort?: string, filter?: string, q?: string, offset?: string, after?: string, limit?: number, initOverrides?: RequestInit): Promise<FwmgrApiQueryResponse> {
+    async queryRuleGroups(
+        sort?: string,
+        filter?: string,
+        q?: string,
+        offset?: string,
+        after?: string,
+        limit?: number,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<FwmgrApiQueryResponse> {
         const response = await this.queryRuleGroupsRaw({ sort: sort, filter: filter, q: q, offset: offset, after: after, limit: limit }, initOverrides);
         return await response.value();
     }
@@ -953,7 +986,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Find all rule IDs matching the query with filter
      */
-    async queryRulesRaw(requestParameters: QueryRulesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<FwmgrApiQueryResponse>> {
+    async queryRulesRaw(requestParameters: QueryRulesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<FwmgrApiQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.sort !== undefined) {
@@ -1003,7 +1036,15 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Find all rule IDs matching the query with filter
      */
-    async queryRules(sort?: string, filter?: string, q?: string, offset?: string, after?: string, limit?: number, initOverrides?: RequestInit): Promise<FwmgrApiQueryResponse> {
+    async queryRules(
+        sort?: string,
+        filter?: string,
+        q?: string,
+        offset?: string,
+        after?: string,
+        limit?: number,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<FwmgrApiQueryResponse> {
         const response = await this.queryRulesRaw({ sort: sort, filter: filter, q: q, offset: offset, after: after, limit: limit }, initOverrides);
         return await response.value();
     }
@@ -1011,7 +1052,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Update an identified policy container
      */
-    async updatePolicyContainerRaw(requestParameters: UpdatePolicyContainerRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<FwmgrMsaReplyMetaOnly>> {
+    async updatePolicyContainerRaw(requestParameters: UpdatePolicyContainerRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<FwmgrMsaReplyMetaOnly>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updatePolicyContainer.");
         }
@@ -1044,7 +1085,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Update an identified policy container
      */
-    async updatePolicyContainer(body: FwmgrApiPolicyContainerUpsertRequestV1, initOverrides?: RequestInit): Promise<FwmgrMsaReplyMetaOnly> {
+    async updatePolicyContainer(body: FwmgrApiPolicyContainerUpsertRequestV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<FwmgrMsaReplyMetaOnly> {
         const response = await this.updatePolicyContainerRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -1052,7 +1093,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Update name, description, or enabled status of a rule group, or create, edit, delete, or reorder rules
      */
-    async updateRuleGroupRaw(requestParameters: UpdateRuleGroupRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<FwmgrApiQueryResponse>> {
+    async updateRuleGroupRaw(requestParameters: UpdateRuleGroupRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<FwmgrApiQueryResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateRuleGroup.");
         }
@@ -1089,7 +1130,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Update name, description, or enabled status of a rule group, or create, edit, delete, or reorder rules
      */
-    async updateRuleGroup(body: FwmgrApiRuleGroupModifyRequestV1, comment?: string, initOverrides?: RequestInit): Promise<FwmgrApiQueryResponse> {
+    async updateRuleGroup(body: FwmgrApiRuleGroupModifyRequestV1, comment?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<FwmgrApiQueryResponse> {
         const response = await this.updateRuleGroupRaw({ body: body, comment: comment }, initOverrides);
         return await response.value();
     }

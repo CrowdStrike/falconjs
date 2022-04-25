@@ -79,7 +79,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     /**
      * Search for audit events by providing an FQL filter and paging details.
      */
-    async auditEventsQueryRaw(requestParameters: AuditEventsQueryRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async auditEventsQueryRaw(requestParameters: AuditEventsQueryRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.offset !== undefined) {
@@ -121,7 +121,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     /**
      * Search for audit events by providing an FQL filter and paging details.
      */
-    async auditEventsQuery(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit): Promise<MsaQueryResponse> {
+    async auditEventsQuery(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
         const response = await this.auditEventsQueryRaw({ offset: offset, limit: limit, sort: sort, filter: filter }, initOverrides);
         return await response.value();
     }
@@ -129,7 +129,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     /**
      * Gets the details of one or more audit events by id.
      */
-    async auditEventsReadRaw(requestParameters: AuditEventsReadRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ApiAuditEventDetailsResponseV1>> {
+    async auditEventsReadRaw(requestParameters: AuditEventsReadRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiAuditEventDetailsResponseV1>> {
         const queryParameters: any = {};
 
         if (requestParameters.ids) {
@@ -159,7 +159,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     /**
      * Gets the details of one or more audit events by id.
      */
-    async auditEventsRead(ids?: Array<string>, initOverrides?: RequestInit): Promise<ApiAuditEventDetailsResponseV1> {
+    async auditEventsRead(ids?: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiAuditEventDetailsResponseV1> {
         const response = await this.auditEventsReadRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -167,7 +167,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     /**
      * Check current installation token settings.
      */
-    async customerSettingsReadRaw(initOverrides?: RequestInit): Promise<runtime.ApiResponse<ApiCustomerSettingsResponseV1>> {
+    async customerSettingsReadRaw(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiCustomerSettingsResponseV1>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -193,7 +193,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     /**
      * Check current installation token settings.
      */
-    async customerSettingsRead(initOverrides?: RequestInit): Promise<ApiCustomerSettingsResponseV1> {
+    async customerSettingsRead(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiCustomerSettingsResponseV1> {
         const response = await this.customerSettingsReadRaw(initOverrides);
         return await response.value();
     }
@@ -201,7 +201,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     /**
      * Creates a token.
      */
-    async tokensCreateRaw(requestParameters: TokensCreateRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ApiTokenDetailsResponseV1>> {
+    async tokensCreateRaw(requestParameters: TokensCreateRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiTokenDetailsResponseV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling tokensCreate.");
         }
@@ -234,7 +234,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     /**
      * Creates a token.
      */
-    async tokensCreate(body: ApiTokenCreateRequestV1, initOverrides?: RequestInit): Promise<ApiTokenDetailsResponseV1> {
+    async tokensCreate(body: ApiTokenCreateRequestV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiTokenDetailsResponseV1> {
         const response = await this.tokensCreateRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -242,7 +242,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     /**
      * Deletes a token immediately. To revoke a token, use PATCH /installation-tokens/entities/tokens/v1 instead.
      */
-    async tokensDeleteRaw(requestParameters: TokensDeleteRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async tokensDeleteRaw(requestParameters: TokensDeleteRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling tokensDelete.");
         }
@@ -276,7 +276,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     /**
      * Deletes a token immediately. To revoke a token, use PATCH /installation-tokens/entities/tokens/v1 instead.
      */
-    async tokensDelete(ids: Array<string>, initOverrides?: RequestInit): Promise<MsaReplyMetaOnly> {
+    async tokensDelete(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaReplyMetaOnly> {
         const response = await this.tokensDeleteRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -284,7 +284,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     /**
      * Search for tokens by providing an FQL filter and paging details.
      */
-    async tokensQueryRaw(requestParameters: TokensQueryRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async tokensQueryRaw(requestParameters: TokensQueryRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.offset !== undefined) {
@@ -326,7 +326,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     /**
      * Search for tokens by providing an FQL filter and paging details.
      */
-    async tokensQuery(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit): Promise<MsaQueryResponse> {
+    async tokensQuery(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
         const response = await this.tokensQueryRaw({ offset: offset, limit: limit, sort: sort, filter: filter }, initOverrides);
         return await response.value();
     }
@@ -334,7 +334,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     /**
      * Gets the details of one or more tokens by id.
      */
-    async tokensReadRaw(requestParameters: TokensReadRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ApiTokenDetailsResponseV1>> {
+    async tokensReadRaw(requestParameters: TokensReadRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiTokenDetailsResponseV1>> {
         const queryParameters: any = {};
 
         if (requestParameters.ids) {
@@ -364,7 +364,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     /**
      * Gets the details of one or more tokens by id.
      */
-    async tokensRead(ids?: Array<string>, initOverrides?: RequestInit): Promise<ApiTokenDetailsResponseV1> {
+    async tokensRead(ids?: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiTokenDetailsResponseV1> {
         const response = await this.tokensReadRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -372,7 +372,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     /**
      * Updates one or more tokens. Use this endpoint to edit labels, change expiration, revoke, or restore.
      */
-    async tokensUpdateRaw(requestParameters: TokensUpdateRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async tokensUpdateRaw(requestParameters: TokensUpdateRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling tokensUpdate.");
         }
@@ -413,7 +413,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     /**
      * Updates one or more tokens. Use this endpoint to edit labels, change expiration, revoke, or restore.
      */
-    async tokensUpdate(ids: Array<string>, body: ApiTokenPatchRequestV1, initOverrides?: RequestInit): Promise<MsaQueryResponse> {
+    async tokensUpdate(ids: Array<string>, body: ApiTokenPatchRequestV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
         const response = await this.tokensUpdateRaw({ ids: ids, body: body }, initOverrides);
         return await response.value();
     }

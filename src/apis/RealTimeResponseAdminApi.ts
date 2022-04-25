@@ -126,7 +126,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     /**
      * Batch executes a RTR administrator command across the hosts mapped to the given batch ID.
      */
-    async batchAdminCmdRaw(requestParameters: BatchAdminCmdRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DomainMultiCommandExecuteResponseWrapper>> {
+    async batchAdminCmdRaw(requestParameters: BatchAdminCmdRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainMultiCommandExecuteResponseWrapper>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling batchAdminCmd.");
         }
@@ -167,7 +167,12 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     /**
      * Batch executes a RTR administrator command across the hosts mapped to the given batch ID.
      */
-    async batchAdminCmd(body: DomainBatchExecuteCommandRequest, timeout?: number, timeoutDuration?: string, initOverrides?: RequestInit): Promise<DomainMultiCommandExecuteResponseWrapper> {
+    async batchAdminCmd(
+        body: DomainBatchExecuteCommandRequest,
+        timeout?: number,
+        timeoutDuration?: string,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<DomainMultiCommandExecuteResponseWrapper> {
         const response = await this.batchAdminCmdRaw({ body: body, timeout: timeout, timeoutDuration: timeoutDuration }, initOverrides);
         return await response.value();
     }
@@ -175,7 +180,10 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     /**
      * Get status of an executed RTR administrator command on a single host.
      */
-    async rTRCheckAdminCommandStatusRaw(requestParameters: RTRCheckAdminCommandStatusRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DomainStatusResponseWrapper>> {
+    async rTRCheckAdminCommandStatusRaw(
+        requestParameters: RTRCheckAdminCommandStatusRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<DomainStatusResponseWrapper>> {
         if (requestParameters.cloudRequestId === null || requestParameters.cloudRequestId === undefined) {
             throw new runtime.RequiredError("cloudRequestId", "Required parameter requestParameters.cloudRequestId was null or undefined when calling rTRCheckAdminCommandStatus.");
         }
@@ -217,7 +225,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     /**
      * Get status of an executed RTR administrator command on a single host.
      */
-    async rTRCheckAdminCommandStatus(cloudRequestId: string, sequenceId: number, initOverrides?: RequestInit): Promise<DomainStatusResponseWrapper> {
+    async rTRCheckAdminCommandStatus(cloudRequestId: string, sequenceId: number, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainStatusResponseWrapper> {
         const response = await this.rTRCheckAdminCommandStatusRaw({ cloudRequestId: cloudRequestId, sequenceId: sequenceId }, initOverrides);
         return await response.value();
     }
@@ -225,7 +233,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     /**
      * Upload a new put-file to use for the RTR `put` command.
      */
-    async rTRCreatePutFilesRaw(requestParameters: RTRCreatePutFilesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async rTRCreatePutFilesRaw(requestParameters: RTRCreatePutFilesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
         if (requestParameters.file === null || requestParameters.file === undefined) {
             throw new runtime.RequiredError("file", "Required parameter requestParameters.file was null or undefined when calling rTRCreatePutFiles.");
         }
@@ -290,7 +298,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     /**
      * Upload a new put-file to use for the RTR `put` command.
      */
-    async rTRCreatePutFiles(file: Blob, description: string, name?: string, commentsForAuditLog?: string, initOverrides?: RequestInit): Promise<MsaReplyMetaOnly> {
+    async rTRCreatePutFiles(file: Blob, description: string, name?: string, commentsForAuditLog?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaReplyMetaOnly> {
         const response = await this.rTRCreatePutFilesRaw({ file: file, description: description, name: name, commentsForAuditLog: commentsForAuditLog }, initOverrides);
         return await response.value();
     }
@@ -298,7 +306,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     /**
      * Upload a new custom-script to use for the RTR `runscript` command.
      */
-    async rTRCreateScriptsRaw(requestParameters: RTRCreateScriptsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async rTRCreateScriptsRaw(requestParameters: RTRCreateScriptsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
         if (requestParameters.description === null || requestParameters.description === undefined) {
             throw new runtime.RequiredError("description", "Required parameter requestParameters.description was null or undefined when calling rTRCreateScripts.");
         }
@@ -383,7 +391,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
         commentsForAuditLog?: string,
         content?: string,
         platform?: Array<string>,
-        initOverrides?: RequestInit
+        initOverrides?: RequestInit | runtime.InitOverideFunction
     ): Promise<MsaReplyMetaOnly> {
         const response = await this.rTRCreateScriptsRaw(
             { description: description, permissionType: permissionType, file: file, name: name, commentsForAuditLog: commentsForAuditLog, content: content, platform: platform },
@@ -395,7 +403,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     /**
      * Delete a put-file based on the ID given.  Can only delete one file at a time.
      */
-    async rTRDeletePutFilesRaw(requestParameters: RTRDeletePutFilesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async rTRDeletePutFilesRaw(requestParameters: RTRDeletePutFilesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling rTRDeletePutFiles.");
         }
@@ -429,7 +437,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     /**
      * Delete a put-file based on the ID given.  Can only delete one file at a time.
      */
-    async rTRDeletePutFiles(ids: string, initOverrides?: RequestInit): Promise<MsaReplyMetaOnly> {
+    async rTRDeletePutFiles(ids: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaReplyMetaOnly> {
         const response = await this.rTRDeletePutFilesRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -437,7 +445,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     /**
      * Delete a custom-script based on the ID given.  Can only delete one script at a time.
      */
-    async rTRDeleteScriptsRaw(requestParameters: RTRDeleteScriptsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async rTRDeleteScriptsRaw(requestParameters: RTRDeleteScriptsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling rTRDeleteScripts.");
         }
@@ -471,7 +479,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     /**
      * Delete a custom-script based on the ID given.  Can only delete one script at a time.
      */
-    async rTRDeleteScripts(ids: string, initOverrides?: RequestInit): Promise<MsaReplyMetaOnly> {
+    async rTRDeleteScripts(ids: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaReplyMetaOnly> {
         const response = await this.rTRDeleteScriptsRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -479,7 +487,10 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     /**
      * Execute a RTR administrator command on a single host.
      */
-    async rTRExecuteAdminCommandRaw(requestParameters: RTRExecuteAdminCommandRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DomainCommandExecuteResponseWrapper>> {
+    async rTRExecuteAdminCommandRaw(
+        requestParameters: RTRExecuteAdminCommandRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<DomainCommandExecuteResponseWrapper>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling rTRExecuteAdminCommand.");
         }
@@ -512,7 +523,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     /**
      * Execute a RTR administrator command on a single host.
      */
-    async rTRExecuteAdminCommand(body: DomainCommandExecuteRequest, initOverrides?: RequestInit): Promise<DomainCommandExecuteResponseWrapper> {
+    async rTRExecuteAdminCommand(body: DomainCommandExecuteRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainCommandExecuteResponseWrapper> {
         const response = await this.rTRExecuteAdminCommandRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -520,7 +531,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     /**
      * Get put-files based on the ID\'s given. These are used for the RTR `put` command.
      */
-    async rTRGetPutFilesRaw(requestParameters: RTRGetPutFilesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<BinservclientMsaPFResponse>> {
+    async rTRGetPutFilesRaw(requestParameters: RTRGetPutFilesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<BinservclientMsaPFResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling rTRGetPutFiles.");
         }
@@ -554,7 +565,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     /**
      * Get put-files based on the ID\'s given. These are used for the RTR `put` command.
      */
-    async rTRGetPutFiles(ids: Array<string>, initOverrides?: RequestInit): Promise<BinservclientMsaPFResponse> {
+    async rTRGetPutFiles(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<BinservclientMsaPFResponse> {
         const response = await this.rTRGetPutFilesRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -562,7 +573,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     /**
      * Get custom-scripts based on the ID\'s given. These are used for the RTR `runscript` command.
      */
-    async rTRGetScriptsRaw(requestParameters: RTRGetScriptsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<BinservclientMsaPFResponse>> {
+    async rTRGetScriptsRaw(requestParameters: RTRGetScriptsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<BinservclientMsaPFResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling rTRGetScripts.");
         }
@@ -596,7 +607,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     /**
      * Get custom-scripts based on the ID\'s given. These are used for the RTR `runscript` command.
      */
-    async rTRGetScripts(ids: Array<string>, initOverrides?: RequestInit): Promise<BinservclientMsaPFResponse> {
+    async rTRGetScripts(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<BinservclientMsaPFResponse> {
         const response = await this.rTRGetScriptsRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -604,7 +615,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     /**
      * Get a list of put-file ID\'s that are available to the user for the `put` command.
      */
-    async rTRListPutFilesRaw(requestParameters: RTRListPutFilesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<BinservclientMsaPutFileResponse>> {
+    async rTRListPutFilesRaw(requestParameters: RTRListPutFilesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<BinservclientMsaPutFileResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -646,7 +657,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     /**
      * Get a list of put-file ID\'s that are available to the user for the `put` command.
      */
-    async rTRListPutFiles(filter?: string, offset?: string, limit?: number, sort?: string, initOverrides?: RequestInit): Promise<BinservclientMsaPutFileResponse> {
+    async rTRListPutFiles(filter?: string, offset?: string, limit?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<BinservclientMsaPutFileResponse> {
         const response = await this.rTRListPutFilesRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
@@ -654,7 +665,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     /**
      * Get a list of custom-script ID\'s that are available to the user for the `runscript` command.
      */
-    async rTRListScriptsRaw(requestParameters: RTRListScriptsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<BinservclientMsaPutFileResponse>> {
+    async rTRListScriptsRaw(requestParameters: RTRListScriptsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<BinservclientMsaPutFileResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -696,7 +707,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     /**
      * Get a list of custom-script ID\'s that are available to the user for the `runscript` command.
      */
-    async rTRListScripts(filter?: string, offset?: string, limit?: number, sort?: string, initOverrides?: RequestInit): Promise<BinservclientMsaPutFileResponse> {
+    async rTRListScripts(filter?: string, offset?: string, limit?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<BinservclientMsaPutFileResponse> {
         const response = await this.rTRListScriptsRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
@@ -704,7 +715,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     /**
      * Upload a new scripts to replace an existing one.
      */
-    async rTRUpdateScriptsRaw(requestParameters: RTRUpdateScriptsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async rTRUpdateScriptsRaw(requestParameters: RTRUpdateScriptsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
             throw new runtime.RequiredError("id", "Required parameter requestParameters.id was null or undefined when calling rTRUpdateScripts.");
         }
@@ -790,7 +801,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
         permissionType?: string,
         content?: string,
         platform?: Array<string>,
-        initOverrides?: RequestInit
+        initOverrides?: RequestInit | runtime.InitOverideFunction
     ): Promise<MsaReplyMetaOnly> {
         const response = await this.rTRUpdateScriptsRaw(
             { id: id, file: file, description: description, name: name, commentsForAuditLog: commentsForAuditLog, permissionType: permissionType, content: content, platform: platform },

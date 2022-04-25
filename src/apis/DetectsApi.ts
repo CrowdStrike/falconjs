@@ -64,7 +64,7 @@ export class DetectsApi extends runtime.BaseAPI {
     /**
      * Get detect aggregates as specified via json in request body.
      */
-    async getAggregateDetectsRaw(requestParameters: GetAggregateDetectsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+    async getAggregateDetectsRaw(requestParameters: GetAggregateDetectsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling getAggregateDetects.");
         }
@@ -97,7 +97,7 @@ export class DetectsApi extends runtime.BaseAPI {
     /**
      * Get detect aggregates as specified via json in request body.
      */
-    async getAggregateDetects(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit): Promise<MsaAggregatesResponse> {
+    async getAggregateDetects(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaAggregatesResponse> {
         const response = await this.getAggregateDetectsRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -105,7 +105,10 @@ export class DetectsApi extends runtime.BaseAPI {
     /**
      * View information about detections
      */
-    async getDetectSummariesRaw(requestParameters: GetDetectSummariesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DomainMsaDetectSummariesResponse>> {
+    async getDetectSummariesRaw(
+        requestParameters: GetDetectSummariesRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<DomainMsaDetectSummariesResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling getDetectSummaries.");
         }
@@ -138,7 +141,7 @@ export class DetectsApi extends runtime.BaseAPI {
     /**
      * View information about detections
      */
-    async getDetectSummaries(body: MsaIdsRequest, initOverrides?: RequestInit): Promise<DomainMsaDetectSummariesResponse> {
+    async getDetectSummaries(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainMsaDetectSummariesResponse> {
         const response = await this.getDetectSummariesRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -146,7 +149,7 @@ export class DetectsApi extends runtime.BaseAPI {
     /**
      * Search for detection IDs that match a given query
      */
-    async queryDetectsRaw(requestParameters: QueryDetectsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryDetectsRaw(requestParameters: QueryDetectsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.offset !== undefined) {
@@ -192,7 +195,7 @@ export class DetectsApi extends runtime.BaseAPI {
     /**
      * Search for detection IDs that match a given query
      */
-    async queryDetects(offset?: number, limit?: number, sort?: string, filter?: string, q?: string, initOverrides?: RequestInit): Promise<MsaQueryResponse> {
+    async queryDetects(offset?: number, limit?: number, sort?: string, filter?: string, q?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryDetectsRaw({ offset: offset, limit: limit, sort: sort, filter: filter, q: q }, initOverrides);
         return await response.value();
     }
@@ -200,7 +203,7 @@ export class DetectsApi extends runtime.BaseAPI {
     /**
      * Modify the state, assignee, and visibility of detections
      */
-    async updateDetectsByIdsV2Raw(requestParameters: UpdateDetectsByIdsV2Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async updateDetectsByIdsV2Raw(requestParameters: UpdateDetectsByIdsV2Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateDetectsByIdsV2.");
         }
@@ -233,7 +236,7 @@ export class DetectsApi extends runtime.BaseAPI {
     /**
      * Modify the state, assignee, and visibility of detections
      */
-    async updateDetectsByIdsV2(body: DomainDetectsEntitiesPatchRequest, initOverrides?: RequestInit): Promise<MsaReplyMetaOnly> {
+    async updateDetectsByIdsV2(body: DomainDetectsEntitiesPatchRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaReplyMetaOnly> {
         const response = await this.updateDetectsByIdsV2Raw({ body: body }, initOverrides);
         return await response.value();
     }

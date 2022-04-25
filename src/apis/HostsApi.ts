@@ -117,7 +117,10 @@ export class HostsApi extends runtime.BaseAPI {
     /**
      * Performs the specified action on the provided prevention policy IDs.
      */
-    async entitiesPerformActionRaw(requestParameters: EntitiesPerformActionRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DeviceapiGroupsResponseV1>> {
+    async entitiesPerformActionRaw(
+        requestParameters: EntitiesPerformActionRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<DeviceapiGroupsResponseV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling entitiesPerformAction.");
         }
@@ -166,7 +169,12 @@ export class HostsApi extends runtime.BaseAPI {
     /**
      * Performs the specified action on the provided prevention policy IDs.
      */
-    async entitiesPerformAction(ids: Array<string>, actionName: EntitiesPerformActionActionNameEnum, body: MsaEntityActionRequest, initOverrides?: RequestInit): Promise<DeviceapiGroupsResponseV1> {
+    async entitiesPerformAction(
+        ids: Array<string>,
+        actionName: EntitiesPerformActionActionNameEnum,
+        body: MsaEntityActionRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<DeviceapiGroupsResponseV1> {
         const response = await this.entitiesPerformActionRaw({ ids: ids, actionName: actionName, body: body }, initOverrides);
         return await response.value();
     }
@@ -174,7 +182,7 @@ export class HostsApi extends runtime.BaseAPI {
     /**
      * Get details on one or more hosts by providing agent IDs (AID). You can get a host\'s agent IDs (AIDs) from the /devices/queries/devices/v1 endpoint, the Falcon console or the Streaming API
      */
-    async getDeviceDetailsRaw(requestParameters: GetDeviceDetailsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DomainDeviceDetailsResponseSwagger>> {
+    async getDeviceDetailsRaw(requestParameters: GetDeviceDetailsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainDeviceDetailsResponseSwagger>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getDeviceDetails.");
         }
@@ -208,7 +216,7 @@ export class HostsApi extends runtime.BaseAPI {
     /**
      * Get details on one or more hosts by providing agent IDs (AID). You can get a host\'s agent IDs (AIDs) from the /devices/queries/devices/v1 endpoint, the Falcon console or the Streaming API
      */
-    async getDeviceDetails(ids: Array<string>, initOverrides?: RequestInit): Promise<DomainDeviceDetailsResponseSwagger> {
+    async getDeviceDetails(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainDeviceDetailsResponseSwagger> {
         const response = await this.getDeviceDetailsRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -216,7 +224,7 @@ export class HostsApi extends runtime.BaseAPI {
     /**
      * Get the online status for one or more hosts by specifying each host’s unique ID. Successful requests return an HTTP 200 response and the status for each host identified by a `state` of `online`, `offline`, or `unknown` for each host, identified by host `id`.  Make a `GET` request to `/devices/queries/devices/v1` to get a list of host IDs.
      */
-    async getOnlineStateV1Raw(requestParameters: GetOnlineStateV1Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<StateOnlineStateRespV1>> {
+    async getOnlineStateV1Raw(requestParameters: GetOnlineStateV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<StateOnlineStateRespV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getOnlineStateV1.");
         }
@@ -250,7 +258,7 @@ export class HostsApi extends runtime.BaseAPI {
     /**
      * Get the online status for one or more hosts by specifying each host’s unique ID. Successful requests return an HTTP 200 response and the status for each host identified by a `state` of `online`, `offline`, or `unknown` for each host, identified by host `id`.  Make a `GET` request to `/devices/queries/devices/v1` to get a list of host IDs.
      */
-    async getOnlineStateV1(ids: Array<string>, initOverrides?: RequestInit): Promise<StateOnlineStateRespV1> {
+    async getOnlineStateV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<StateOnlineStateRespV1> {
         const response = await this.getOnlineStateV1Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -258,7 +266,7 @@ export class HostsApi extends runtime.BaseAPI {
     /**
      * Take various actions on the hosts in your environment. Contain or lift containment on a host. Delete or restore a host.
      */
-    async performActionV2Raw(requestParameters: PerformActionV2Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaReplyAffectedEntities>> {
+    async performActionV2Raw(requestParameters: PerformActionV2Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaReplyAffectedEntities>> {
         if (requestParameters.actionName === null || requestParameters.actionName === undefined) {
             throw new runtime.RequiredError("actionName", "Required parameter requestParameters.actionName was null or undefined when calling performActionV2.");
         }
@@ -299,7 +307,7 @@ export class HostsApi extends runtime.BaseAPI {
     /**
      * Take various actions on the hosts in your environment. Contain or lift containment on a host. Delete or restore a host.
      */
-    async performActionV2(actionName: string, body: MsaEntityActionRequestV2, initOverrides?: RequestInit): Promise<MsaReplyAffectedEntities> {
+    async performActionV2(actionName: string, body: MsaEntityActionRequestV2, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaReplyAffectedEntities> {
         const response = await this.performActionV2Raw({ actionName: actionName, body: body }, initOverrides);
         return await response.value();
     }
@@ -307,7 +315,10 @@ export class HostsApi extends runtime.BaseAPI {
     /**
      * Retrieve details about recent login sessions for a set of devices.
      */
-    async queryDeviceLoginHistoryRaw(requestParameters: QueryDeviceLoginHistoryRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DeviceapiLoginHistoryResponseV1>> {
+    async queryDeviceLoginHistoryRaw(
+        requestParameters: QueryDeviceLoginHistoryRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<DeviceapiLoginHistoryResponseV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling queryDeviceLoginHistory.");
         }
@@ -340,7 +351,7 @@ export class HostsApi extends runtime.BaseAPI {
     /**
      * Retrieve details about recent login sessions for a set of devices.
      */
-    async queryDeviceLoginHistory(body: MsaIdsRequest, initOverrides?: RequestInit): Promise<DeviceapiLoginHistoryResponseV1> {
+    async queryDeviceLoginHistory(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DeviceapiLoginHistoryResponseV1> {
         const response = await this.queryDeviceLoginHistoryRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -348,7 +359,7 @@ export class HostsApi extends runtime.BaseAPI {
     /**
      * Search for hosts in your environment by platform, hostname, IP, and other criteria.
      */
-    async queryDevicesByFilterRaw(requestParameters: QueryDevicesByFilterRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryDevicesByFilterRaw(requestParameters: QueryDevicesByFilterRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.offset !== undefined) {
@@ -390,7 +401,7 @@ export class HostsApi extends runtime.BaseAPI {
     /**
      * Search for hosts in your environment by platform, hostname, IP, and other criteria.
      */
-    async queryDevicesByFilter(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit): Promise<MsaQueryResponse> {
+    async queryDevicesByFilter(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryDevicesByFilterRaw({ offset: offset, limit: limit, sort: sort, filter: filter }, initOverrides);
         return await response.value();
     }
@@ -398,7 +409,10 @@ export class HostsApi extends runtime.BaseAPI {
     /**
      * Search for hosts in your environment by platform, hostname, IP, and other criteria with continuous pagination capability (based on offset pointer which expires after 2 minutes with no maximum limit)
      */
-    async queryDevicesByFilterScrollRaw(requestParameters: QueryDevicesByFilterScrollRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DomainDeviceResponse>> {
+    async queryDevicesByFilterScrollRaw(
+        requestParameters: QueryDevicesByFilterScrollRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<DomainDeviceResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.offset !== undefined) {
@@ -440,7 +454,7 @@ export class HostsApi extends runtime.BaseAPI {
     /**
      * Search for hosts in your environment by platform, hostname, IP, and other criteria with continuous pagination capability (based on offset pointer which expires after 2 minutes with no maximum limit)
      */
-    async queryDevicesByFilterScroll(offset?: string, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit): Promise<DomainDeviceResponse> {
+    async queryDevicesByFilterScroll(offset?: string, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainDeviceResponse> {
         const response = await this.queryDevicesByFilterScrollRaw({ offset: offset, limit: limit, sort: sort, filter: filter }, initOverrides);
         return await response.value();
     }
@@ -450,7 +464,7 @@ export class HostsApi extends runtime.BaseAPI {
      */
     async queryGetNetworkAddressHistoryV1Raw(
         requestParameters: QueryGetNetworkAddressHistoryV1Request,
-        initOverrides?: RequestInit
+        initOverrides?: RequestInit | runtime.InitOverideFunction
     ): Promise<runtime.ApiResponse<DeviceapiNetworkAddressHistoryResponseV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling queryGetNetworkAddressHistoryV1.");
@@ -484,7 +498,7 @@ export class HostsApi extends runtime.BaseAPI {
     /**
      * Retrieve history of IP and MAC addresses of devices.
      */
-    async queryGetNetworkAddressHistoryV1(body: MsaIdsRequest, initOverrides?: RequestInit): Promise<DeviceapiNetworkAddressHistoryResponseV1> {
+    async queryGetNetworkAddressHistoryV1(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DeviceapiNetworkAddressHistoryResponseV1> {
         const response = await this.queryGetNetworkAddressHistoryV1Raw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -492,7 +506,7 @@ export class HostsApi extends runtime.BaseAPI {
     /**
      * Retrieve hidden hosts that match the provided filter criteria.
      */
-    async queryHiddenDevicesRaw(requestParameters: QueryHiddenDevicesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryHiddenDevicesRaw(requestParameters: QueryHiddenDevicesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.offset !== undefined) {
@@ -534,7 +548,7 @@ export class HostsApi extends runtime.BaseAPI {
     /**
      * Retrieve hidden hosts that match the provided filter criteria.
      */
-    async queryHiddenDevices(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit): Promise<MsaQueryResponse> {
+    async queryHiddenDevices(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryHiddenDevicesRaw({ offset: offset, limit: limit, sort: sort, filter: filter }, initOverrides);
         return await response.value();
     }
@@ -542,7 +556,7 @@ export class HostsApi extends runtime.BaseAPI {
     /**
      * Append or remove one or more Falcon Grouping Tags on one or more hosts.
      */
-    async updateDeviceTagsRaw(requestParameters: UpdateDeviceTagsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<MsaEntitiesResponse>> {
+    async updateDeviceTagsRaw(requestParameters: UpdateDeviceTagsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaEntitiesResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateDeviceTags.");
         }
@@ -575,7 +589,7 @@ export class HostsApi extends runtime.BaseAPI {
     /**
      * Append or remove one or more Falcon Grouping Tags on one or more hosts.
      */
-    async updateDeviceTags(body: DomainUpdateDeviceTagsRequestV1, initOverrides?: RequestInit): Promise<MsaEntitiesResponse> {
+    async updateDeviceTags(body: DomainUpdateDeviceTagsRequestV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaEntitiesResponse> {
         const response = await this.updateDeviceTagsRaw({ body: body }, initOverrides);
         return await response.value();
     }

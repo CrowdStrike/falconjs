@@ -63,7 +63,7 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
      */
     async combinedQueryVulnerabilitiesRaw(
         requestParameters: CombinedQueryVulnerabilitiesRequest,
-        initOverrides?: RequestInit
+        initOverrides?: RequestInit | runtime.InitOverideFunction
     ): Promise<runtime.ApiResponse<DomainSPAPICombinedVulnerabilitiesResponse>> {
         if (requestParameters.filter === null || requestParameters.filter === undefined) {
             throw new runtime.RequiredError("filter", "Required parameter requestParameters.filter was null or undefined when calling combinedQueryVulnerabilities.");
@@ -120,7 +120,7 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
         limit?: number,
         sort?: string,
         facet?: Array<string>,
-        initOverrides?: RequestInit
+        initOverrides?: RequestInit | runtime.InitOverideFunction
     ): Promise<DomainSPAPICombinedVulnerabilitiesResponse> {
         const response = await this.combinedQueryVulnerabilitiesRaw({ filter: filter, after: after, limit: limit, sort: sort, facet: facet }, initOverrides);
         return await response.value();
@@ -129,7 +129,10 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
     /**
      * Get details on remediation by providing one or more IDs
      */
-    async getRemediationsV2Raw(requestParameters: GetRemediationsV2Request, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DomainSPAPIRemediationEntitiesResponseV2>> {
+    async getRemediationsV2Raw(
+        requestParameters: GetRemediationsV2Request,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<DomainSPAPIRemediationEntitiesResponseV2>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getRemediationsV2.");
         }
@@ -163,7 +166,7 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
     /**
      * Get details on remediation by providing one or more IDs
      */
-    async getRemediationsV2(ids: Array<string>, initOverrides?: RequestInit): Promise<DomainSPAPIRemediationEntitiesResponseV2> {
+    async getRemediationsV2(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainSPAPIRemediationEntitiesResponseV2> {
         const response = await this.getRemediationsV2Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -171,7 +174,10 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
     /**
      * Get details on vulnerabilities by providing one or more IDs
      */
-    async getVulnerabilitiesRaw(requestParameters: GetVulnerabilitiesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DomainSPAPIVulnerabilitiesEntitiesResponseV2>> {
+    async getVulnerabilitiesRaw(
+        requestParameters: GetVulnerabilitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<DomainSPAPIVulnerabilitiesEntitiesResponseV2>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getVulnerabilities.");
         }
@@ -205,7 +211,7 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
     /**
      * Get details on vulnerabilities by providing one or more IDs
      */
-    async getVulnerabilities(ids: Array<string>, initOverrides?: RequestInit): Promise<DomainSPAPIVulnerabilitiesEntitiesResponseV2> {
+    async getVulnerabilities(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainSPAPIVulnerabilitiesEntitiesResponseV2> {
         const response = await this.getVulnerabilitiesRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -213,7 +219,10 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
     /**
      * Search for Vulnerabilities in your environment by providing an FQL filter and paging details. Returns a set of Vulnerability IDs which match the filter criteria
      */
-    async queryVulnerabilitiesRaw(requestParameters: QueryVulnerabilitiesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<DomainSPAPIQueryVulnerabilitiesResponse>> {
+    async queryVulnerabilitiesRaw(
+        requestParameters: QueryVulnerabilitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<runtime.ApiResponse<DomainSPAPIQueryVulnerabilitiesResponse>> {
         if (requestParameters.filter === null || requestParameters.filter === undefined) {
             throw new runtime.RequiredError("filter", "Required parameter requestParameters.filter was null or undefined when calling queryVulnerabilities.");
         }
@@ -259,7 +268,13 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
     /**
      * Search for Vulnerabilities in your environment by providing an FQL filter and paging details. Returns a set of Vulnerability IDs which match the filter criteria
      */
-    async queryVulnerabilities(filter: string, after?: string, limit?: number, sort?: string, initOverrides?: RequestInit): Promise<DomainSPAPIQueryVulnerabilitiesResponse> {
+    async queryVulnerabilities(
+        filter: string,
+        after?: string,
+        limit?: number,
+        sort?: string,
+        initOverrides?: RequestInit | runtime.InitOverideFunction
+    ): Promise<DomainSPAPIQueryVulnerabilitiesResponse> {
         const response = await this.queryVulnerabilitiesRaw({ filter: filter, after: after, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
