@@ -14,9 +14,15 @@
 
 import * as runtime from "../runtime";
 import {
+    DomainDiscoverAPIAccountEntitiesResponse,
+    DomainDiscoverAPIAccountEntitiesResponseFromJSON,
+    DomainDiscoverAPIAccountEntitiesResponseToJSON,
     DomainDiscoverAPIHostEntitiesResponse,
     DomainDiscoverAPIHostEntitiesResponseFromJSON,
     DomainDiscoverAPIHostEntitiesResponseToJSON,
+    DomainDiscoverAPILoginEntitiesResponse,
+    DomainDiscoverAPILoginEntitiesResponseFromJSON,
+    DomainDiscoverAPILoginEntitiesResponseToJSON,
     MsaQueryResponse,
     MsaQueryResponseFromJSON,
     MsaQueryResponseToJSON,
@@ -25,11 +31,33 @@ import {
     MsaReplyMetaOnlyToJSON,
 } from "../models";
 
+export interface GetAccountsRequest {
+    ids: Array<string>;
+}
+
 export interface GetHostsRequest {
     ids: Array<string>;
 }
 
+export interface GetLoginsRequest {
+    ids: Array<string>;
+}
+
+export interface QueryAccountsRequest {
+    offset?: number;
+    limit?: number;
+    sort?: string;
+    filter?: string;
+}
+
 export interface QueryHostsRequest {
+    offset?: number;
+    limit?: number;
+    sort?: string;
+    filter?: string;
+}
+
+export interface QueryLoginsRequest {
     offset?: number;
     limit?: number;
     sort?: string;
@@ -40,6 +68,48 @@ export interface QueryHostsRequest {
  *
  */
 export class DiscoverApi extends runtime.BaseAPI {
+    /**
+     * Get details on accounts by providing one or more IDs.
+     */
+    async getAccountsRaw(requestParameters: GetAccountsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainDiscoverAPIAccountEntitiesResponse>> {
+        if (requestParameters.ids === null || requestParameters.ids === undefined) {
+            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getAccounts.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.ids) {
+            queryParameters["ids"] = requestParameters.ids;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/discover/entities/accounts/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainDiscoverAPIAccountEntitiesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get details on accounts by providing one or more IDs.
+     */
+    async getAccounts(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainDiscoverAPIAccountEntitiesResponse> {
+        const response = await this.getAccountsRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
     /**
      * Get details on assets by providing one or more IDs.
      */
@@ -79,6 +149,98 @@ export class DiscoverApi extends runtime.BaseAPI {
      */
     async getHosts(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainDiscoverAPIHostEntitiesResponse> {
         const response = await this.getHostsRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get details on logins by providing one or more IDs.
+     */
+    async getLoginsRaw(requestParameters: GetLoginsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainDiscoverAPILoginEntitiesResponse>> {
+        if (requestParameters.ids === null || requestParameters.ids === undefined) {
+            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getLogins.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.ids) {
+            queryParameters["ids"] = requestParameters.ids;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/discover/entities/logins/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainDiscoverAPILoginEntitiesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get details on logins by providing one or more IDs.
+     */
+    async getLogins(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainDiscoverAPILoginEntitiesResponse> {
+        const response = await this.getLoginsRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Search for accounts in your environment by providing an FQL (Falcon Query Language) filter and paging details. Returns a set of account IDs which match the filter criteria.
+     */
+    async queryAccountsRaw(requestParameters: QueryAccountsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        if (requestParameters.sort !== undefined) {
+            queryParameters["sort"] = requestParameters.sort;
+        }
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/discover/queries/accounts/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Search for accounts in your environment by providing an FQL (Falcon Query Language) filter and paging details. Returns a set of account IDs which match the filter criteria.
+     */
+    async queryAccounts(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+        const response = await this.queryAccountsRaw({ offset: offset, limit: limit, sort: sort, filter: filter }, initOverrides);
         return await response.value();
     }
 
@@ -129,6 +291,56 @@ export class DiscoverApi extends runtime.BaseAPI {
      */
     async queryHosts(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryHostsRaw({ offset: offset, limit: limit, sort: sort, filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Search for logins in your environment by providing an FQL (Falcon Query Language) filter and paging details. Returns a set of login IDs which match the filter criteria.
+     */
+    async queryLoginsRaw(requestParameters: QueryLoginsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        if (requestParameters.sort !== undefined) {
+            queryParameters["sort"] = requestParameters.sort;
+        }
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/discover/queries/logins/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Search for logins in your environment by providing an FQL (Falcon Query Language) filter and paging details. Returns a set of login IDs which match the filter criteria.
+     */
+    async queryLogins(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+        const response = await this.queryLoginsRaw({ offset: offset, limit: limit, sort: sort, filter: filter }, initOverrides);
         return await response.value();
     }
 }
