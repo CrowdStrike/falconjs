@@ -56,6 +56,6 @@ tsc && node ./build/example.js
 ## How to release falconjs
 
 - bump version in `package.json` (`npm version patch`)
-- build package (`npm build:release`)
+- build package (`npm run build:release`)
 - review contents of the package (`.tgz` file in working directory)
 - `npm publish`
