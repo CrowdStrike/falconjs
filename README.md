@@ -12,6 +12,12 @@ CrowdStrike Falcon API JS library for the browser and Node
 
 > falconjs is an open source project, not a CrowdStrike product. As such it carries no formal support, expressed or implied.
 
+## Installation
+
+```
+npm install crowdstrike-falcon
+```
+
 ## Exemplary use
 
 ```typescript
