@@ -96,7 +96,7 @@ function saveAs(blob: Blob | void, fileName: string) {
     }
     const url = window.URL.createObjectURL(blob);
     const anchorElem = document.createElement("a");
-    anchorElem.style = "display: none";
+    anchorElem.style.display = "none";
     anchorElem.href = url;
     anchorElem.download = fileName;
 
