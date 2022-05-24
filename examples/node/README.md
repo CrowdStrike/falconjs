@@ -10,7 +10,7 @@ Read the source code
 
 Build the example
 ```
-npm run build
+npm run build:devel
 ```
 
 Run the example under node
