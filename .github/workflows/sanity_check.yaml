@@ -23,8 +23,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: npm run build
-    - run: npm run build:browser
+    - run: npm run build:devel
     - run: npm run lint
     - name: Assert correct formatting
       run: |
@@ -36,3 +35,4 @@ jobs:
            git diff
            exit 1
         fi
+    - run: npm run build:release
