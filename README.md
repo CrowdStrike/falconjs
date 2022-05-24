@@ -42,4 +42,6 @@ await client.sensorDownload
 ## Documentation
 
  - [Example usage under nodejs](examples/node/README.md)
+ - [Example usage inside browser](examples/browser/README.md)
+
  - [SDK Developer documentation](docs/devel.md)
