@@ -1,4 +1,4 @@
-import { FalconClient, FalconErrorExplain, DomainSensorInstallerV1 } from "./../src";
+import { FalconClient, FalconErrorExplain, DomainSensorInstallerV1 } from "./../../src";
 
 let client: FalconClient | null = null;
 
@@ -53,7 +53,7 @@ function showSensors(sensors: Array<DomainSensorInstallerV1>) {
                 sensor.os +
                 " " +
                 sensor.osVersion +
-                "</td><td><button onclick=\"simple.downloadSensor('" +
+                "</td><td><button onclick=\"sensor_download.downloadSensor('" +
                 sensor.sha256 +
                 "', '" +
                 sensor.name +
