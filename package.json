@@ -25,6 +25,7 @@
     "scripts": {
         "clean": "rm -fr ./dist",
         "build": "tsc",
+        "build:devel": "tsc -p ./tsconfig.devel.json",
         "build:browser": "esbuild src/index.ts --bundle --minify --sourcemap=external --format=cjs --outfile=dist/esbuild/browser.js",
         "lint": "eslint . --ext .ts",
         "lint:fix": "eslint . --ext .ts --fix",
