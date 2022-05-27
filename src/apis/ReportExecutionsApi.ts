@@ -45,9 +45,7 @@ export interface ReportExecutionsQueryRequest {
 }
 
 export interface ReportExecutionsRetryRequest {
-    xCSUSERUUID: string;
     body: Array<ApiReportExecutionRetryRequestV1>;
-    xCSUSERID?: string;
 }
 
 /**
@@ -205,10 +203,6 @@ export class ReportExecutionsApi extends runtime.BaseAPI {
         requestParameters: ReportExecutionsRetryRequest,
         initOverrides?: RequestInit | runtime.InitOverideFunction
     ): Promise<runtime.ApiResponse<ApiReportExecutionsResponseV1>> {
-        if (requestParameters.xCSUSERUUID === null || requestParameters.xCSUSERUUID === undefined) {
-            throw new runtime.RequiredError("xCSUSERUUID", "Required parameter requestParameters.xCSUSERUUID was null or undefined when calling reportExecutionsRetry.");
-        }
-
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling reportExecutionsRetry.");
         }
@@ -218,14 +212,6 @@ export class ReportExecutionsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters["Content-Type"] = "application/json";
-
-        if (requestParameters.xCSUSERID !== undefined && requestParameters.xCSUSERID !== null) {
-            headerParameters["X-CS-USERID"] = String(requestParameters.xCSUSERID);
-        }
-
-        if (requestParameters.xCSUSERUUID !== undefined && requestParameters.xCSUSERUUID !== null) {
-            headerParameters["X-CS-USERUUID"] = String(requestParameters.xCSUSERUUID);
-        }
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
@@ -249,13 +235,8 @@ export class ReportExecutionsApi extends runtime.BaseAPI {
     /**
      * This endpoint will be used to retry report executions
      */
-    async reportExecutionsRetry(
-        xCSUSERUUID: string,
-        body: Array<ApiReportExecutionRetryRequestV1>,
-        xCSUSERID?: string,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
-    ): Promise<ApiReportExecutionsResponseV1> {
-        const response = await this.reportExecutionsRetryRaw({ xCSUSERUUID: xCSUSERUUID, body: body, xCSUSERID: xCSUSERID }, initOverrides);
+    async reportExecutionsRetry(body: Array<ApiReportExecutionRetryRequestV1>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiReportExecutionsResponseV1> {
+        const response = await this.reportExecutionsRetryRaw({ body: body }, initOverrides);
         return await response.value();
     }
 }

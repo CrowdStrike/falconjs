@@ -293,6 +293,8 @@ export * from "./DomainUserRole";
 export * from "./DomainUserRoleIDsResponse";
 export * from "./DomainUserRoleResponse";
 export * from "./DomainValueItem";
+export * from "./DomainXDRData";
+export * from "./DomainXDRParams";
 export * from "./ExternalChange";
 export * from "./ExternalDiff";
 export * from "./ExternalDiffHash";
