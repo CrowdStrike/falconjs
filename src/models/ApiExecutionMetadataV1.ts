@@ -13,6 +13,9 @@
  */
 
 import { exists, mapValues } from "../runtime";
+import { DomainXDRData, DomainXDRDataFromJSON, DomainXDRDataFromJSONTyped, DomainXDRDataToJSON } from "./DomainXDRData";
+import { DomainXDRParams, DomainXDRParamsFromJSON, DomainXDRParamsFromJSONTyped, DomainXDRParamsToJSON } from "./DomainXDRParams";
+
 /**
  *
  * @export
@@ -49,6 +52,18 @@ export interface ApiExecutionMetadataV1 {
      * @memberof ApiExecutionMetadataV1
      */
     unscheduledExecutionType: string;
+    /**
+     *
+     * @type {DomainXDRData}
+     * @memberof ApiExecutionMetadataV1
+     */
+    xdrData: DomainXDRData;
+    /**
+     *
+     * @type {DomainXDRParams}
+     * @memberof ApiExecutionMetadataV1
+     */
+    xdrParams: DomainXDRParams;
 }
 
 export function ApiExecutionMetadataV1FromJSON(json: any): ApiExecutionMetadataV1 {
@@ -65,6 +80,8 @@ export function ApiExecutionMetadataV1FromJSONTyped(json: any, ignoreDiscriminat
         retryReportExecutionId: json["retry_report_execution_id"],
         subtype: json["subtype"],
         unscheduledExecutionType: json["unscheduled_execution_type"],
+        xdrData: DomainXDRDataFromJSON(json["xdr_data"]),
+        xdrParams: DomainXDRParamsFromJSON(json["xdr_params"]),
     };
 }
 
@@ -81,5 +98,7 @@ export function ApiExecutionMetadataV1ToJSON(value?: ApiExecutionMetadataV1 | nu
         retry_report_execution_id: value.retryReportExecutionId,
         subtype: value.subtype,
         unscheduled_execution_type: value.unscheduledExecutionType,
+        xdr_data: DomainXDRDataToJSON(value.xdrData),
+        xdr_params: DomainXDRParamsToJSON(value.xdrParams),
     };
 }
