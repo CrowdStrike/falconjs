@@ -1,4 +1,5 @@
 import { Configuration, FetchAPI } from "./runtime";
+import { EventStream } from "./event_stream";
 import { FalconCloud } from "./FalconCloud";
 import { OAuth2, UserAgent } from "./middleware";
 import {
@@ -113,6 +114,7 @@ export class FalconClient {
     spotlightVulnerabilities: SpotlightVulnerabilitiesApi;
     userManagement: UserManagementApi;
     zeroTrustAssessment: ZeroTrustAssessmentApi;
+    private config: Configuration;
 
     constructor(private options: FalconClientOptions) {
         const oauth2 = new OAuth2({
@@ -122,55 +124,61 @@ export class FalconClient {
             clientSecret: options.clientSecret,
             memberCid: options.memberCid,
         });
-        const config = new Configuration({
+        this.config = new Configuration({
             fetchApi: options.fetchApi,
             accessToken: oauth2.accessToken.bind(oauth2),
             middleware: [new UserAgent()],
         });
-        this.cloudConnectAws = new CloudConnectAwsApi(config);
-        this.cspmRegistration = new CspmRegistrationApi(config);
-        this.customIoa = new CustomIoaApi(config);
-        this.detects = new DetectsApi(config);
-        this.deviceControlPolicies = new DeviceControlPoliciesApi(config);
-        this.discover = new DiscoverApi(config);
-        this.eventStreams = new EventStreamsApi(config);
-        this.falconCompleteDashboard = new FalconCompleteDashboardApi(config);
-        this.falconContainer = new FalconContainerApi(config);
-        this.falconxSandbox = new FalconxSandboxApi(config);
-        this.filevantage = new FilevantageApi(config);
-        this.firewallManagement = new FirewallManagementApi(config);
-        this.firewallPolicies = new FirewallPoliciesApi(config);
-        this.hostGroup = new HostGroupApi(config);
-        this.hosts = new HostsApi(config);
-        this.identityProtection = new IdentityProtectionApi(config);
-        this.incidents = new IncidentsApi(config);
-        this.installationTokens = new InstallationTokensApi(config);
-        this.intel = new IntelApi(config);
-        this.ioaExclusions = new IoaExclusionsApi(config);
-        this.ioc = new IocApi(config);
-        this.iocs = new IocsApi(config);
-        this.kubernetesProtection = new KubernetesProtectionApi(config);
-        this.malquery = new MalqueryApi(config);
-        this.messageCenter = new MessageCenterApi(config);
-        this.mlExclusions = new MlExclusionsApi(config);
-        this.mssp = new MsspApi(config);
-        this.oauth2 = new Oauth2Api(config);
-        this.overwatchDashboard = new OverwatchDashboardApi(config);
-        this.preventionPolicies = new PreventionPoliciesApi(config);
-        this.quarantine = new QuarantineApi(config);
-        this.quickScan = new QuickScanApi(config);
-        this.realTimeResponse = new RealTimeResponseApi(config);
-        this.realTimeResponseAdmin = new RealTimeResponseAdminApi(config);
-        this.recon = new ReconApi(config);
-        this.reportExecutions = new ReportExecutionsApi(config);
-        this.responsePolicies = new ResponsePoliciesApi(config);
-        this.sampleUploads = new SampleUploadsApi(config);
-        this.scheduledReports = new ScheduledReportsApi(config);
-        this.sensorDownload = new SensorDownloadApi(config);
-        this.sensorUpdatePolicies = new SensorUpdatePoliciesApi(config);
-        this.sensorVisibilityExclusions = new SensorVisibilityExclusionsApi(config);
-        this.spotlightVulnerabilities = new SpotlightVulnerabilitiesApi(config);
-        this.userManagement = new UserManagementApi(config);
-        this.zeroTrustAssessment = new ZeroTrustAssessmentApi(config);
+        this.cloudConnectAws = new CloudConnectAwsApi(this.config);
+        this.cspmRegistration = new CspmRegistrationApi(this.config);
+        this.customIoa = new CustomIoaApi(this.config);
+        this.detects = new DetectsApi(this.config);
+        this.deviceControlPolicies = new DeviceControlPoliciesApi(this.config);
+        this.discover = new DiscoverApi(this.config);
+        this.eventStreams = new EventStreamsApi(this.config);
+        this.falconCompleteDashboard = new FalconCompleteDashboardApi(this.config);
+        this.falconContainer = new FalconContainerApi(this.config);
+        this.falconxSandbox = new FalconxSandboxApi(this.config);
+        this.filevantage = new FilevantageApi(this.config);
+        this.firewallManagement = new FirewallManagementApi(this.config);
+        this.firewallPolicies = new FirewallPoliciesApi(this.config);
+        this.hostGroup = new HostGroupApi(this.config);
+        this.hosts = new HostsApi(this.config);
+        this.identityProtection = new IdentityProtectionApi(this.config);
+        this.incidents = new IncidentsApi(this.config);
+        this.installationTokens = new InstallationTokensApi(this.config);
+        this.intel = new IntelApi(this.config);
+        this.ioaExclusions = new IoaExclusionsApi(this.config);
+        this.ioc = new IocApi(this.config);
+        this.iocs = new IocsApi(this.config);
+        this.kubernetesProtection = new KubernetesProtectionApi(this.config);
+        this.malquery = new MalqueryApi(this.config);
+        this.messageCenter = new MessageCenterApi(this.config);
+        this.mlExclusions = new MlExclusionsApi(this.config);
+        this.mssp = new MsspApi(this.config);
+        this.oauth2 = new Oauth2Api(this.config);
+        this.overwatchDashboard = new OverwatchDashboardApi(this.config);
+        this.preventionPolicies = new PreventionPoliciesApi(this.config);
+        this.quarantine = new QuarantineApi(this.config);
+        this.quickScan = new QuickScanApi(this.config);
+        this.realTimeResponse = new RealTimeResponseApi(this.config);
+        this.realTimeResponseAdmin = new RealTimeResponseAdminApi(this.config);
+        this.recon = new ReconApi(this.config);
+        this.reportExecutions = new ReportExecutionsApi(this.config);
+        this.responsePolicies = new ResponsePoliciesApi(this.config);
+        this.sampleUploads = new SampleUploadsApi(this.config);
+        this.scheduledReports = new ScheduledReportsApi(this.config);
+        this.sensorDownload = new SensorDownloadApi(this.config);
+        this.sensorUpdatePolicies = new SensorUpdatePoliciesApi(this.config);
+        this.sensorVisibilityExclusions = new SensorVisibilityExclusionsApi(this.config);
+        this.spotlightVulnerabilities = new SpotlightVulnerabilitiesApi(this.config);
+        this.userManagement = new UserManagementApi(this.config);
+        this.zeroTrustAssessment = new ZeroTrustAssessmentApi(this.config);
+    }
+
+    async availableEventStreams(appName: string): Promise<EventStream[]> {
+        return this.eventStreams.listAvailableStreamsOAuth2(appName).then((value) => {
+            return value.resources.map((resource) => new EventStream(this.config, appName, resource));
+        });
     }
 }
