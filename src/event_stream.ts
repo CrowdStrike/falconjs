@@ -1,7 +1,7 @@
 import { MainAvailableStreamV2 } from "./models";
 import * as runtime from "./runtime";
 
-type EventStreamCallback = (a: string) => void;
+type EventStreamCallback = (a: object) => void;
 
 export class EventStream {
     constructor(private configuration: runtime.Configuration, private appName: string, private resource: MainAvailableStreamV2) {}
@@ -46,12 +46,17 @@ export class EventStream {
                     //}
                 } else if (res.on) {
                     // We run under a node
+                    let buffer = "";
                     res.on("readable", () => {
                         let chunk;
                         while (null !== (chunk = res.read())) {
-                            const str = chunk.toString().trim();
-                            if (str != "") {
-                                callback(str);
+                            buffer += chunk.toString();
+                            let delimiter;
+                            while (-1 !== (delimiter = buffer.indexOf("\n"))) {
+                                const objectString = buffer.substring(0, delimiter);
+                                buffer = buffer.substring(delimiter + 1);
+                                if (objectString.trim() == "") continue;
+                                callback(JSON.parse(objectString));
                             }
                         }
                     });
@@ -60,7 +65,7 @@ export class EventStream {
     }
 
     private async refreshActiveSessionWorker() {
-        console.log("HERE WE GO");
+        console.log("TODO: implement stream refresh");
         console.log(this.resource);
     }
 }
