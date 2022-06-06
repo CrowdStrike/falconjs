@@ -48,7 +48,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
     /**
      * Removes a sample, including file, meta and submissions from the collection
      */
-    async deleteSampleV3Raw(requestParameters: DeleteSampleV3Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async deleteSampleV3Raw(requestParameters: DeleteSampleV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling deleteSampleV3.");
         }
@@ -82,7 +82,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
     /**
      * Removes a sample, including file, meta and submissions from the collection
      */
-    async deleteSampleV3(ids: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async deleteSampleV3(ids: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.deleteSampleV3Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -90,7 +90,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
     /**
      * Retrieves the file associated with the given ID (SHA256)
      */
-    async getSampleV3Raw(requestParameters: GetSampleV3Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<string>> {
+    async getSampleV3Raw(requestParameters: GetSampleV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getSampleV3.");
         }
@@ -128,7 +128,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
     /**
      * Retrieves the file associated with the given ID (SHA256)
      */
-    async getSampleV3(ids: string, passwordProtected?: boolean, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<string> {
+    async getSampleV3(ids: string, passwordProtected?: boolean, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
         const response = await this.getSampleV3Raw({ ids: ids, passwordProtected: passwordProtected }, initOverrides);
         return await response.value();
     }
@@ -136,7 +136,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
     /**
      * Upload a file for further cloud analysis. After uploading, call the specific analysis API endpoint.
      */
-    async uploadSampleV3Raw(requestParameters: UploadSampleV3Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ClientSampleMetadataResponseV2>> {
+    async uploadSampleV3Raw(requestParameters: UploadSampleV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClientSampleMetadataResponseV2>> {
         if (requestParameters.sample === null || requestParameters.sample === undefined) {
             throw new runtime.RequiredError("sample", "Required parameter requestParameters.sample was null or undefined when calling uploadSampleV3.");
         }
@@ -206,7 +206,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
         fileName: string,
         comment?: string,
         isConfidential?: boolean,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<ClientSampleMetadataResponseV2> {
         const response = await this.uploadSampleV3Raw({ sample: sample, fileName: fileName, comment: comment, isConfidential: isConfidential }, initOverrides);
         return await response.value();

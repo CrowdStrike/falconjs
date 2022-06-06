@@ -88,7 +88,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     /**
      * Creates a new AWS account in our system for a customer and generates the installation script
      */
-    async createAWSAccountRaw(requestParameters: CreateAWSAccountRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<K8sregCreateAWSAccReq>> {
+    async createAWSAccountRaw(requestParameters: CreateAWSAccountRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<K8sregCreateAWSAccReq>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createAWSAccount.");
         }
@@ -121,7 +121,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     /**
      * Creates a new AWS account in our system for a customer and generates the installation script
      */
-    async createAWSAccount(body: K8sregCreateAWSAccReq, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<K8sregCreateAWSAccReq> {
+    async createAWSAccount(body: K8sregCreateAWSAccReq, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<K8sregCreateAWSAccReq> {
         const response = await this.createAWSAccountRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -129,7 +129,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     /**
      * Delete AWS accounts.
      */
-    async deleteAWSAccountsMixin0Raw(requestParameters: DeleteAWSAccountsMixin0Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaMetaInfo>> {
+    async deleteAWSAccountsMixin0Raw(requestParameters: DeleteAWSAccountsMixin0Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaMetaInfo>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling deleteAWSAccountsMixin0.");
         }
@@ -163,7 +163,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     /**
      * Delete AWS accounts.
      */
-    async deleteAWSAccountsMixin0(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaMetaInfo> {
+    async deleteAWSAccountsMixin0(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaMetaInfo> {
         const response = await this.deleteAWSAccountsMixin0Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -171,7 +171,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     /**
      * Provides a list of AWS accounts.
      */
-    async getAWSAccountsMixin0Raw(requestParameters: GetAWSAccountsMixin0Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<K8sregGetAWSAccountsResp>> {
+    async getAWSAccountsMixin0Raw(requestParameters: GetAWSAccountsMixin0Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<K8sregGetAWSAccountsResp>> {
         const queryParameters: any = {};
 
         if (requestParameters.ids) {
@@ -213,7 +213,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     /**
      * Provides a list of AWS accounts.
      */
-    async getAWSAccountsMixin0(ids?: Array<string>, status?: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<K8sregGetAWSAccountsResp> {
+    async getAWSAccountsMixin0(ids?: Array<string>, status?: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<K8sregGetAWSAccountsResp> {
         const response = await this.getAWSAccountsMixin0Raw({ ids: ids, status: status, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }
@@ -221,7 +221,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     /**
      * Provides the clusters acknowledged by the Kubernetes Protection service
      */
-    async getClustersRaw(requestParameters: GetClustersRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<K8sregGetClustersResp>> {
+    async getClustersRaw(requestParameters: GetClustersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<K8sregGetClustersResp>> {
         const queryParameters: any = {};
 
         if (requestParameters.clusterNames) {
@@ -278,7 +278,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
         clusterService?: GetClustersClusterServiceEnum,
         limit?: number,
         offset?: number,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<K8sregGetClustersResp> {
         const response = await this.getClustersRaw(
             { clusterNames: clusterNames, accountIds: accountIds, locations: locations, clusterService: clusterService, limit: limit, offset: offset },
@@ -290,7 +290,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     /**
      * Provides a sample Helm values.yaml file for a customer to install alongside the agent Helm chart
      */
-    async getHelmValuesYamlRaw(requestParameters: GetHelmValuesYamlRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<object>> {
+    async getHelmValuesYamlRaw(requestParameters: GetHelmValuesYamlRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<object>> {
         if (requestParameters.clusterName === null || requestParameters.clusterName === undefined) {
             throw new runtime.RequiredError("clusterName", "Required parameter requestParameters.clusterName was null or undefined when calling getHelmValuesYaml.");
         }
@@ -324,7 +324,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     /**
      * Provides a sample Helm values.yaml file for a customer to install alongside the agent Helm chart
      */
-    async getHelmValuesYaml(clusterName: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<object> {
+    async getHelmValuesYaml(clusterName: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<object> {
         const response = await this.getHelmValuesYamlRaw({ clusterName: clusterName }, initOverrides);
         return await response.value();
     }
@@ -332,7 +332,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     /**
      * Provides the cloud locations acknowledged by the Kubernetes Protection service
      */
-    async getLocationsRaw(requestParameters: GetLocationsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<K8sregGetLocationsResp>> {
+    async getLocationsRaw(requestParameters: GetLocationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<K8sregGetLocationsResp>> {
         const queryParameters: any = {};
 
         if (requestParameters.clouds) {
@@ -362,7 +362,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     /**
      * Provides the cloud locations acknowledged by the Kubernetes Protection service
      */
-    async getLocations(clouds?: GetLocationsCloudsEnum, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<K8sregGetLocationsResp> {
+    async getLocations(clouds?: GetLocationsCloudsEnum, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<K8sregGetLocationsResp> {
         const response = await this.getLocationsRaw({ clouds: clouds }, initOverrides);
         return await response.value();
     }
@@ -370,7 +370,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     /**
      * Regenerate API key for docker registry integrations
      */
-    async regenerateAPIKeyRaw(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<K8sregRegenAPIKeyResp>> {
+    async regenerateAPIKeyRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<K8sregRegenAPIKeyResp>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -396,7 +396,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     /**
      * Regenerate API key for docker registry integrations
      */
-    async regenerateAPIKey(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<K8sregRegenAPIKeyResp> {
+    async regenerateAPIKey(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<K8sregRegenAPIKeyResp> {
         const response = await this.regenerateAPIKeyRaw(initOverrides);
         return await response.value();
     }
@@ -404,7 +404,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     /**
      * Triggers a dry run or a full scan of a customer\'s kubernetes footprint
      */
-    async triggerScanRaw(requestParameters: TriggerScanRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaBaseEntitiesResponse>> {
+    async triggerScanRaw(requestParameters: TriggerScanRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaBaseEntitiesResponse>> {
         if (requestParameters.scanType === null || requestParameters.scanType === undefined) {
             throw new runtime.RequiredError("scanType", "Required parameter requestParameters.scanType was null or undefined when calling triggerScan.");
         }
@@ -438,7 +438,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     /**
      * Triggers a dry run or a full scan of a customer\'s kubernetes footprint
      */
-    async triggerScan(scanType: TriggerScanScanTypeEnum, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaBaseEntitiesResponse> {
+    async triggerScan(scanType: TriggerScanScanTypeEnum, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaBaseEntitiesResponse> {
         const response = await this.triggerScanRaw({ scanType: scanType }, initOverrides);
         return await response.value();
     }
@@ -446,7 +446,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     /**
      * Updates the AWS account per the query parameters provided
      */
-    async updateAWSAccountRaw(requestParameters: UpdateAWSAccountRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaBaseEntitiesResponse>> {
+    async updateAWSAccountRaw(requestParameters: UpdateAWSAccountRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaBaseEntitiesResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling updateAWSAccount.");
         }
@@ -484,7 +484,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     /**
      * Updates the AWS account per the query parameters provided
      */
-    async updateAWSAccount(ids: Array<string>, region?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaBaseEntitiesResponse> {
+    async updateAWSAccount(ids: Array<string>, region?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaBaseEntitiesResponse> {
         const response = await this.updateAWSAccountRaw({ ids: ids, region: region }, initOverrides);
         return await response.value();
     }

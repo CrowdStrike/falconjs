@@ -82,7 +82,7 @@ export class IocApi extends runtime.BaseAPI {
     /**
      * Get Combined for Indicators.
      */
-    async indicatorCombinedV1Raw(requestParameters: IndicatorCombinedV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiIndicatorRespV1>> {
+    async indicatorCombinedV1Raw(requestParameters: IndicatorCombinedV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorRespV1>> {
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -139,7 +139,7 @@ export class IocApi extends runtime.BaseAPI {
         sort?: IndicatorCombinedV1SortEnum,
         after?: string,
         fromParent?: boolean,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<ApiIndicatorRespV1> {
         const response = await this.indicatorCombinedV1Raw({ filter: filter, offset: offset, limit: limit, sort: sort, after: after, fromParent: fromParent }, initOverrides);
         return await response.value();
@@ -148,7 +148,7 @@ export class IocApi extends runtime.BaseAPI {
     /**
      * Create Indicators.
      */
-    async indicatorCreateV1Raw(requestParameters: IndicatorCreateV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiIndicatorRespV1>> {
+    async indicatorCreateV1Raw(requestParameters: IndicatorCreateV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorRespV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling indicatorCreateV1.");
         }
@@ -198,7 +198,7 @@ export class IocApi extends runtime.BaseAPI {
         xCSUSERNAME?: string,
         retrodetects?: any,
         ignoreWarnings?: any,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<ApiIndicatorRespV1> {
         const response = await this.indicatorCreateV1Raw({ body: body, xCSUSERNAME: xCSUSERNAME, retrodetects: retrodetects, ignoreWarnings: ignoreWarnings }, initOverrides);
         return await response.value();
@@ -207,7 +207,7 @@ export class IocApi extends runtime.BaseAPI {
     /**
      * Delete Indicators by ids.
      */
-    async indicatorDeleteV1Raw(requestParameters: IndicatorDeleteV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiIndicatorQueryResponse>> {
+    async indicatorDeleteV1Raw(requestParameters: IndicatorDeleteV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -245,7 +245,7 @@ export class IocApi extends runtime.BaseAPI {
     /**
      * Delete Indicators by ids.
      */
-    async indicatorDeleteV1(filter?: string, ids?: Array<string>, comment?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiIndicatorQueryResponse> {
+    async indicatorDeleteV1(filter?: string, ids?: Array<string>, comment?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiIndicatorQueryResponse> {
         const response = await this.indicatorDeleteV1Raw({ filter: filter, ids: ids, comment: comment }, initOverrides);
         return await response.value();
     }
@@ -253,7 +253,7 @@ export class IocApi extends runtime.BaseAPI {
     /**
      * Get Indicators by ids.
      */
-    async indicatorGetV1Raw(requestParameters: IndicatorGetV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiIndicatorRespV1>> {
+    async indicatorGetV1Raw(requestParameters: IndicatorGetV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorRespV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling indicatorGetV1.");
         }
@@ -287,7 +287,7 @@ export class IocApi extends runtime.BaseAPI {
     /**
      * Get Indicators by ids.
      */
-    async indicatorGetV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiIndicatorRespV1> {
+    async indicatorGetV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiIndicatorRespV1> {
         const response = await this.indicatorGetV1Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -295,7 +295,7 @@ export class IocApi extends runtime.BaseAPI {
     /**
      * Search for Indicators.
      */
-    async indicatorSearchV1Raw(requestParameters: IndicatorSearchV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiIndicatorQueryRespV1>> {
+    async indicatorSearchV1Raw(requestParameters: IndicatorSearchV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorQueryRespV1>> {
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -347,7 +347,7 @@ export class IocApi extends runtime.BaseAPI {
         limit?: number,
         sort?: IndicatorSearchV1SortEnum,
         after?: string,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<ApiIndicatorQueryRespV1> {
         const response = await this.indicatorSearchV1Raw({ filter: filter, offset: offset, limit: limit, sort: sort, after: after }, initOverrides);
         return await response.value();
@@ -356,7 +356,7 @@ export class IocApi extends runtime.BaseAPI {
     /**
      * Update Indicators.
      */
-    async indicatorUpdateV1Raw(requestParameters: IndicatorUpdateV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiIndicatorRespV1>> {
+    async indicatorUpdateV1Raw(requestParameters: IndicatorUpdateV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorRespV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling indicatorUpdateV1.");
         }
@@ -406,7 +406,7 @@ export class IocApi extends runtime.BaseAPI {
         xCSUSERNAME?: string,
         retrodetects?: any,
         ignoreWarnings?: any,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<ApiIndicatorRespV1> {
         const response = await this.indicatorUpdateV1Raw({ body: body, xCSUSERNAME: xCSUSERNAME, retrodetects: retrodetects, ignoreWarnings: ignoreWarnings }, initOverrides);
         return await response.value();

@@ -67,7 +67,7 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
      */
     async createIOAExclusionsV1Raw(
         requestParameters: CreateIOAExclusionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<ResponsesIoaExclusionRespV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createIOAExclusionsV1.");
@@ -101,7 +101,7 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
     /**
      * Create the IOA exclusions
      */
-    async createIOAExclusionsV1(body: RequestsIoaExclusionCreateReqV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ResponsesIoaExclusionRespV1> {
+    async createIOAExclusionsV1(body: RequestsIoaExclusionCreateReqV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesIoaExclusionRespV1> {
         const response = await this.createIOAExclusionsV1Raw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -109,7 +109,7 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
     /**
      * Delete the IOA exclusions by id
      */
-    async deleteIOAExclusionsV1Raw(requestParameters: DeleteIOAExclusionsV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async deleteIOAExclusionsV1Raw(requestParameters: DeleteIOAExclusionsV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling deleteIOAExclusionsV1.");
         }
@@ -147,7 +147,7 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
     /**
      * Delete the IOA exclusions by id
      */
-    async deleteIOAExclusionsV1(ids: Array<string>, comment?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async deleteIOAExclusionsV1(ids: Array<string>, comment?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.deleteIOAExclusionsV1Raw({ ids: ids, comment: comment }, initOverrides);
         return await response.value();
     }
@@ -155,7 +155,7 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
     /**
      * Get a set of IOA Exclusions by specifying their IDs
      */
-    async getIOAExclusionsV1Raw(requestParameters: GetIOAExclusionsV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ResponsesIoaExclusionRespV1>> {
+    async getIOAExclusionsV1Raw(requestParameters: GetIOAExclusionsV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponsesIoaExclusionRespV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getIOAExclusionsV1.");
         }
@@ -189,7 +189,7 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
     /**
      * Get a set of IOA Exclusions by specifying their IDs
      */
-    async getIOAExclusionsV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ResponsesIoaExclusionRespV1> {
+    async getIOAExclusionsV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesIoaExclusionRespV1> {
         const response = await this.getIOAExclusionsV1Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -197,7 +197,7 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
     /**
      * Search for IOA exclusions.
      */
-    async queryIOAExclusionsV1Raw(requestParameters: QueryIOAExclusionsV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryIOAExclusionsV1Raw(requestParameters: QueryIOAExclusionsV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -244,7 +244,7 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
         offset?: number,
         limit?: number,
         sort?: QueryIOAExclusionsV1SortEnum,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<MsaQueryResponse> {
         const response = await this.queryIOAExclusionsV1Raw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
@@ -255,7 +255,7 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
      */
     async updateIOAExclusionsV1Raw(
         requestParameters: UpdateIOAExclusionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<ResponsesIoaExclusionRespV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateIOAExclusionsV1.");
@@ -289,7 +289,7 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
     /**
      * Update the IOA exclusions
      */
-    async updateIOAExclusionsV1(body: RequestsIoaExclusionUpdateReqV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ResponsesIoaExclusionRespV1> {
+    async updateIOAExclusionsV1(body: RequestsIoaExclusionUpdateReqV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesIoaExclusionRespV1> {
         const response = await this.updateIOAExclusionsV1Raw({ body: body }, initOverrides);
         return await response.value();
     }

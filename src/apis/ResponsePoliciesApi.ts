@@ -107,7 +107,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
      */
     async createRTResponsePoliciesRaw(
         requestParameters: CreateRTResponsePoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<ResponsesRTResponsePoliciesV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createRTResponsePolicies.");
@@ -141,7 +141,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
     /**
      * Create Response Policies by specifying details about the policy to create
      */
-    async createRTResponsePolicies(body: RequestsCreateRTResponsePoliciesV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ResponsesRTResponsePoliciesV1> {
+    async createRTResponsePolicies(body: RequestsCreateRTResponsePoliciesV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesRTResponsePoliciesV1> {
         const response = await this.createRTResponsePoliciesRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -149,7 +149,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
     /**
      * Delete a set of Response Policies by specifying their IDs
      */
-    async deleteRTResponsePoliciesRaw(requestParameters: DeleteRTResponsePoliciesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async deleteRTResponsePoliciesRaw(requestParameters: DeleteRTResponsePoliciesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling deleteRTResponsePolicies.");
         }
@@ -183,7 +183,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
     /**
      * Delete a set of Response Policies by specifying their IDs
      */
-    async deleteRTResponsePolicies(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async deleteRTResponsePolicies(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.deleteRTResponsePoliciesRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -193,7 +193,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
      */
     async getRTResponsePoliciesRaw(
         requestParameters: GetRTResponsePoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<ResponsesRTResponsePoliciesV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getRTResponsePolicies.");
@@ -228,7 +228,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
     /**
      * Retrieve a set of Response Policies by specifying their IDs
      */
-    async getRTResponsePolicies(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ResponsesRTResponsePoliciesV1> {
+    async getRTResponsePolicies(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesRTResponsePoliciesV1> {
         const response = await this.getRTResponsePoliciesRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -238,7 +238,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
      */
     async performRTResponsePoliciesActionRaw(
         requestParameters: PerformRTResponsePoliciesActionRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<ResponsesRTResponsePoliciesV1>> {
         if (requestParameters.actionName === null || requestParameters.actionName === undefined) {
             throw new runtime.RequiredError("actionName", "Required parameter requestParameters.actionName was null or undefined when calling performRTResponsePoliciesAction.");
@@ -283,7 +283,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
     async performRTResponsePoliciesAction(
         actionName: PerformRTResponsePoliciesActionActionNameEnum,
         body: MsaEntityActionRequestV2,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<ResponsesRTResponsePoliciesV1> {
         const response = await this.performRTResponsePoliciesActionRaw({ actionName: actionName, body: body }, initOverrides);
         return await response.value();
@@ -294,7 +294,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
      */
     async queryCombinedRTResponsePoliciesRaw(
         requestParameters: QueryCombinedRTResponsePoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<ResponsesRTResponsePoliciesV1>> {
         const queryParameters: any = {};
 
@@ -342,7 +342,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
         offset?: number,
         limit?: number,
         sort?: QueryCombinedRTResponsePoliciesSortEnum,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<ResponsesRTResponsePoliciesV1> {
         const response = await this.queryCombinedRTResponsePoliciesRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
@@ -353,7 +353,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
      */
     async queryCombinedRTResponsePolicyMembersRaw(
         requestParameters: QueryCombinedRTResponsePolicyMembersRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<ResponsesPolicyMembersRespV1>> {
         const queryParameters: any = {};
 
@@ -406,7 +406,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
         offset?: number,
         limit?: number,
         sort?: string,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<ResponsesPolicyMembersRespV1> {
         const response = await this.queryCombinedRTResponsePolicyMembersRaw({ id: id, filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
@@ -415,7 +415,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
     /**
      * Search for Response Policies in your environment by providing an FQL filter with sort and/or paging details. This returns a set of Response Policy IDs that match the given criteria.
      */
-    async queryRTResponsePoliciesRaw(requestParameters: QueryRTResponsePoliciesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryRTResponsePoliciesRaw(requestParameters: QueryRTResponsePoliciesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -462,7 +462,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
         offset?: number,
         limit?: number,
         sort?: QueryRTResponsePoliciesSortEnum,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<MsaQueryResponse> {
         const response = await this.queryRTResponsePoliciesRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
@@ -473,7 +473,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
      */
     async queryRTResponsePolicyMembersRaw(
         requestParameters: QueryRTResponsePolicyMembersRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
@@ -526,7 +526,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
         offset?: number,
         limit?: number,
         sort?: string,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<MsaQueryResponse> {
         const response = await this.queryRTResponsePolicyMembersRaw({ id: id, filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
@@ -537,7 +537,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
      */
     async setRTResponsePoliciesPrecedenceRaw(
         requestParameters: SetRTResponsePoliciesPrecedenceRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling setRTResponsePoliciesPrecedence.");
@@ -571,7 +571,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
     /**
      * Sets the precedence of Response Policies based on the order of IDs specified in the request. The first ID specified will have the highest precedence and the last ID specified will have the lowest. You must specify all non-Default Policies for a platform when updating precedence
      */
-    async setRTResponsePoliciesPrecedence(body: RequestsSetPolicyPrecedenceReqV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async setRTResponsePoliciesPrecedence(body: RequestsSetPolicyPrecedenceReqV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.setRTResponsePoliciesPrecedenceRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -581,7 +581,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
      */
     async updateRTResponsePoliciesRaw(
         requestParameters: UpdateRTResponsePoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<ResponsesRTResponsePoliciesV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateRTResponsePolicies.");
@@ -615,7 +615,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
     /**
      * Update Response Policies by specifying the ID of the policy and details to update
      */
-    async updateRTResponsePolicies(body: RequestsUpdateRTResponsePoliciesV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ResponsesRTResponsePoliciesV1> {
+    async updateRTResponsePolicies(body: RequestsUpdateRTResponsePoliciesV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesRTResponsePoliciesV1> {
         const response = await this.updateRTResponsePoliciesRaw({ body: body }, initOverrides);
         return await response.value();
     }

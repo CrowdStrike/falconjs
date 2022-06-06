@@ -55,7 +55,7 @@ export class SpotlightEvaluationLogicApi extends runtime.BaseAPI {
      */
     async combinedQueryEvaluationLogicRaw(
         requestParameters: CombinedQueryEvaluationLogicRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainSPAPIEvaluationLogicCombinedResponseV1>> {
         if (requestParameters.filter === null || requestParameters.filter === undefined) {
             throw new runtime.RequiredError("filter", "Required parameter requestParameters.filter was null or undefined when calling combinedQueryEvaluationLogic.");
@@ -107,7 +107,7 @@ export class SpotlightEvaluationLogicApi extends runtime.BaseAPI {
         after?: string,
         limit?: number,
         sort?: string,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<DomainSPAPIEvaluationLogicCombinedResponseV1> {
         const response = await this.combinedQueryEvaluationLogicRaw({ filter: filter, after: after, limit: limit, sort: sort }, initOverrides);
         return await response.value();
@@ -118,7 +118,7 @@ export class SpotlightEvaluationLogicApi extends runtime.BaseAPI {
      */
     async getEvaluationLogicRaw(
         requestParameters: GetEvaluationLogicRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainSPAPIEvaluationLogicEntitiesResponseV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getEvaluationLogic.");
@@ -153,7 +153,7 @@ export class SpotlightEvaluationLogicApi extends runtime.BaseAPI {
     /**
      * Get details on evaluation logic items by providing one or more IDs.
      */
-    async getEvaluationLogic(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainSPAPIEvaluationLogicEntitiesResponseV1> {
+    async getEvaluationLogic(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainSPAPIEvaluationLogicEntitiesResponseV1> {
         const response = await this.getEvaluationLogicRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -161,7 +161,7 @@ export class SpotlightEvaluationLogicApi extends runtime.BaseAPI {
     /**
      * Search for evaluation logic in your environment by providing a FQL filter and paging details. Returns a set of evaluation logic IDs which match the filter criteria.
      */
-    async queryEvaluationLogicRaw(requestParameters: QueryEvaluationLogicRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainSPAPIQueryResponse>> {
+    async queryEvaluationLogicRaw(requestParameters: QueryEvaluationLogicRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainSPAPIQueryResponse>> {
         if (requestParameters.filter === null || requestParameters.filter === undefined) {
             throw new runtime.RequiredError("filter", "Required parameter requestParameters.filter was null or undefined when calling queryEvaluationLogic.");
         }
@@ -207,7 +207,7 @@ export class SpotlightEvaluationLogicApi extends runtime.BaseAPI {
     /**
      * Search for evaluation logic in your environment by providing a FQL filter and paging details. Returns a set of evaluation logic IDs which match the filter criteria.
      */
-    async queryEvaluationLogic(filter: string, after?: string, limit?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainSPAPIQueryResponse> {
+    async queryEvaluationLogic(filter: string, after?: string, limit?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainSPAPIQueryResponse> {
         const response = await this.queryEvaluationLogicRaw({ filter: filter, after: after, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }

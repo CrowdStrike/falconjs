@@ -89,7 +89,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * Create a new user. After creating a user, assign one or more roles with POST /user-roles/entities/user-roles/v1
      */
-    async createUserRaw(requestParameters: CreateUserRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainUserMetaDataResponse>> {
+    async createUserRaw(requestParameters: CreateUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainUserMetaDataResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createUser.");
         }
@@ -122,7 +122,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * Create a new user. After creating a user, assign one or more roles with POST /user-roles/entities/user-roles/v1
      */
-    async createUser(body: DomainUserCreateRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainUserMetaDataResponse> {
+    async createUser(body: DomainUserCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainUserMetaDataResponse> {
         const response = await this.createUserRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -130,7 +130,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * Delete a user permanently
      */
-    async deleteUserRaw(requestParameters: DeleteUserRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async deleteUserRaw(requestParameters: DeleteUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
         if (requestParameters.userUuid === null || requestParameters.userUuid === undefined) {
             throw new runtime.RequiredError("userUuid", "Required parameter requestParameters.userUuid was null or undefined when calling deleteUser.");
         }
@@ -164,7 +164,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * Delete a user permanently
      */
-    async deleteUser(userUuid: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaReplyMetaOnly> {
+    async deleteUser(userUuid: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyMetaOnly> {
         const response = await this.deleteUserRaw({ userUuid: userUuid }, initOverrides);
         return await response.value();
     }
@@ -172,7 +172,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * Show role IDs for all roles available in your customer account. For more information on each role, provide the role ID to `/customer/entities/roles/v1`.
      */
-    async getAvailableRoleIdsRaw(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async getAvailableRoleIdsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -198,7 +198,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * Show role IDs for all roles available in your customer account. For more information on each role, provide the role ID to `/customer/entities/roles/v1`.
      */
-    async getAvailableRoleIds(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async getAvailableRoleIds(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.getAvailableRoleIdsRaw(initOverrides);
         return await response.value();
     }
@@ -206,7 +206,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * Get info about a role
      */
-    async getRolesRaw(requestParameters: GetRolesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainUserRoleResponse>> {
+    async getRolesRaw(requestParameters: GetRolesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainUserRoleResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getRoles.");
         }
@@ -240,7 +240,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * Get info about a role
      */
-    async getRoles(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainUserRoleResponse> {
+    async getRoles(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainUserRoleResponse> {
         const response = await this.getRolesRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -248,7 +248,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * Show role IDs of roles assigned to a user. For more information on each role, provide the role ID to `/customer/entities/roles/v1`.
      */
-    async getUserRoleIdsRaw(requestParameters: GetUserRoleIdsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async getUserRoleIdsRaw(requestParameters: GetUserRoleIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         if (requestParameters.userUuid === null || requestParameters.userUuid === undefined) {
             throw new runtime.RequiredError("userUuid", "Required parameter requestParameters.userUuid was null or undefined when calling getUserRoleIds.");
         }
@@ -282,7 +282,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * Show role IDs of roles assigned to a user. For more information on each role, provide the role ID to `/customer/entities/roles/v1`.
      */
-    async getUserRoleIds(userUuid: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async getUserRoleIds(userUuid: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.getUserRoleIdsRaw({ userUuid: userUuid }, initOverrides);
         return await response.value();
     }
@@ -290,7 +290,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * Assign one or more roles to a user
      */
-    async grantUserRoleIdsRaw(requestParameters: GrantUserRoleIdsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainUserRoleIDsResponse>> {
+    async grantUserRoleIdsRaw(requestParameters: GrantUserRoleIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainUserRoleIDsResponse>> {
         if (requestParameters.userUuid === null || requestParameters.userUuid === undefined) {
             throw new runtime.RequiredError("userUuid", "Required parameter requestParameters.userUuid was null or undefined when calling grantUserRoleIds.");
         }
@@ -331,7 +331,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * Assign one or more roles to a user
      */
-    async grantUserRoleIds(userUuid: string, body: DomainRoleIDs, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainUserRoleIDsResponse> {
+    async grantUserRoleIds(userUuid: string, body: DomainRoleIDs, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainUserRoleIDsResponse> {
         const response = await this.grantUserRoleIdsRaw({ userUuid: userUuid, body: body }, initOverrides);
         return await response.value();
     }
@@ -339,7 +339,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * List the usernames (usually an email address) for all users in your customer account
      */
-    async retrieveEmailsByCIDRaw(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async retrieveEmailsByCIDRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -365,7 +365,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * List the usernames (usually an email address) for all users in your customer account
      */
-    async retrieveEmailsByCID(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async retrieveEmailsByCID(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.retrieveEmailsByCIDRaw(initOverrides);
         return await response.value();
     }
@@ -373,7 +373,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * Get info about a user
      */
-    async retrieveUserRaw(requestParameters: RetrieveUserRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainUserMetaDataResponse>> {
+    async retrieveUserRaw(requestParameters: RetrieveUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainUserMetaDataResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling retrieveUser.");
         }
@@ -407,7 +407,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * Get info about a user
      */
-    async retrieveUser(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainUserMetaDataResponse> {
+    async retrieveUser(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainUserMetaDataResponse> {
         const response = await this.retrieveUserRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -415,7 +415,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * Get a user\'s ID by providing a username (usually an email address)
      */
-    async retrieveUserUUIDRaw(requestParameters: RetrieveUserUUIDRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async retrieveUserUUIDRaw(requestParameters: RetrieveUserUUIDRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         if (requestParameters.uid === null || requestParameters.uid === undefined) {
             throw new runtime.RequiredError("uid", "Required parameter requestParameters.uid was null or undefined when calling retrieveUserUUID.");
         }
@@ -449,7 +449,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * Get a user\'s ID by providing a username (usually an email address)
      */
-    async retrieveUserUUID(uid: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async retrieveUserUUID(uid: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.retrieveUserUUIDRaw({ uid: uid }, initOverrides);
         return await response.value();
     }
@@ -457,7 +457,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * List user IDs for all users in your customer account. For more information on each user, provide the user ID to `/users/entities/user/v1`.
      */
-    async retrieveUserUUIDsByCIDRaw(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async retrieveUserUUIDsByCIDRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -483,7 +483,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * List user IDs for all users in your customer account. For more information on each user, provide the user ID to `/users/entities/user/v1`.
      */
-    async retrieveUserUUIDsByCID(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async retrieveUserUUIDsByCID(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.retrieveUserUUIDsByCIDRaw(initOverrides);
         return await response.value();
     }
@@ -491,7 +491,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * Revoke one or more roles from a user
      */
-    async revokeUserRoleIdsRaw(requestParameters: RevokeUserRoleIdsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainUserRoleIDsResponse>> {
+    async revokeUserRoleIdsRaw(requestParameters: RevokeUserRoleIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainUserRoleIDsResponse>> {
         if (requestParameters.userUuid === null || requestParameters.userUuid === undefined) {
             throw new runtime.RequiredError("userUuid", "Required parameter requestParameters.userUuid was null or undefined when calling revokeUserRoleIds.");
         }
@@ -533,7 +533,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * Revoke one or more roles from a user
      */
-    async revokeUserRoleIds(userUuid: string, ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainUserRoleIDsResponse> {
+    async revokeUserRoleIds(userUuid: string, ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainUserRoleIDsResponse> {
         const response = await this.revokeUserRoleIdsRaw({ userUuid: userUuid, ids: ids }, initOverrides);
         return await response.value();
     }
@@ -541,7 +541,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * Modify an existing user\'s first or last name
      */
-    async updateUserRaw(requestParameters: UpdateUserRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainUserMetaDataResponse>> {
+    async updateUserRaw(requestParameters: UpdateUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainUserMetaDataResponse>> {
         if (requestParameters.userUuid === null || requestParameters.userUuid === undefined) {
             throw new runtime.RequiredError("userUuid", "Required parameter requestParameters.userUuid was null or undefined when calling updateUser.");
         }
@@ -582,7 +582,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * Modify an existing user\'s first or last name
      */
-    async updateUser(userUuid: string, body: DomainUpdateUserFields, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainUserMetaDataResponse> {
+    async updateUser(userUuid: string, body: DomainUpdateUserFields, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainUserMetaDataResponse> {
         const response = await this.updateUserRaw({ userUuid: userUuid, body: body }, initOverrides);
         return await response.value();
     }

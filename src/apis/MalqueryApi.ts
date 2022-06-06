@@ -88,7 +88,7 @@ export class MalqueryApi extends runtime.BaseAPI {
     /**
      * Download a file indexed by MalQuery. Specify the file using its SHA256. Only one file is supported at this time
      */
-    async getMalQueryDownloadV1Raw(requestParameters: GetMalQueryDownloadV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<void>> {
+    async getMalQueryDownloadV1Raw(requestParameters: GetMalQueryDownloadV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getMalQueryDownloadV1.");
         }
@@ -122,7 +122,7 @@ export class MalqueryApi extends runtime.BaseAPI {
     /**
      * Download a file indexed by MalQuery. Specify the file using its SHA256. Only one file is supported at this time
      */
-    async getMalQueryDownloadV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<void> {
+    async getMalQueryDownloadV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.getMalQueryDownloadV1Raw({ ids: ids }, initOverrides);
     }
 
@@ -131,7 +131,7 @@ export class MalqueryApi extends runtime.BaseAPI {
      */
     async getMalQueryEntitiesSamplesFetchV1Raw(
         requestParameters: GetMalQueryEntitiesSamplesFetchV1Request,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getMalQueryEntitiesSamplesFetchV1.");
@@ -166,7 +166,7 @@ export class MalqueryApi extends runtime.BaseAPI {
     /**
      * Fetch a zip archive with password \'infected\' containing the samples. Call this once the /entities/samples-multidownload request has finished processing
      */
-    async getMalQueryEntitiesSamplesFetchV1(ids: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<void> {
+    async getMalQueryEntitiesSamplesFetchV1(ids: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.getMalQueryEntitiesSamplesFetchV1Raw({ ids: ids }, initOverrides);
     }
 
@@ -175,7 +175,7 @@ export class MalqueryApi extends runtime.BaseAPI {
      */
     async getMalQueryMetadataV1Raw(
         requestParameters: GetMalQueryMetadataV1Request,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<MalquerySampleMetadataResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getMalQueryMetadataV1.");
@@ -210,7 +210,7 @@ export class MalqueryApi extends runtime.BaseAPI {
     /**
      * Retrieve indexed files metadata by their hash
      */
-    async getMalQueryMetadataV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MalquerySampleMetadataResponse> {
+    async getMalQueryMetadataV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MalquerySampleMetadataResponse> {
         const response = await this.getMalQueryMetadataV1Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -218,7 +218,7 @@ export class MalqueryApi extends runtime.BaseAPI {
     /**
      * Get information about search and download quotas in your environment
      */
-    async getMalQueryQuotasV1Raw(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MalqueryRateLimitsResponse>> {
+    async getMalQueryQuotasV1Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MalqueryRateLimitsResponse>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -244,7 +244,7 @@ export class MalqueryApi extends runtime.BaseAPI {
     /**
      * Get information about search and download quotas in your environment
      */
-    async getMalQueryQuotasV1(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MalqueryRateLimitsResponse> {
+    async getMalQueryQuotasV1(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MalqueryRateLimitsResponse> {
         const response = await this.getMalQueryQuotasV1Raw(initOverrides);
         return await response.value();
     }
@@ -252,7 +252,7 @@ export class MalqueryApi extends runtime.BaseAPI {
     /**
      * Check the status and results of an asynchronous request, such as hunt or exact-search. Supports a single request id at this time.
      */
-    async getMalQueryRequestV1Raw(requestParameters: GetMalQueryRequestV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MalqueryRequestResponse>> {
+    async getMalQueryRequestV1Raw(requestParameters: GetMalQueryRequestV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MalqueryRequestResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getMalQueryRequestV1.");
         }
@@ -286,7 +286,7 @@ export class MalqueryApi extends runtime.BaseAPI {
     /**
      * Check the status and results of an asynchronous request, such as hunt or exact-search. Supports a single request id at this time.
      */
-    async getMalQueryRequestV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MalqueryRequestResponse> {
+    async getMalQueryRequestV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MalqueryRequestResponse> {
         const response = await this.getMalQueryRequestV1Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -296,7 +296,7 @@ export class MalqueryApi extends runtime.BaseAPI {
      */
     async postMalQueryEntitiesSamplesMultidownloadV1Raw(
         requestParameters: PostMalQueryEntitiesSamplesMultidownloadV1Request,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<MalqueryExternalQueryResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling postMalQueryEntitiesSamplesMultidownloadV1.");
@@ -330,7 +330,7 @@ export class MalqueryApi extends runtime.BaseAPI {
     /**
      * Schedule samples for download. Use the result id with the /request endpoint to check if the download is ready after which you can call the /entities/samples-fetch to get the zip
      */
-    async postMalQueryEntitiesSamplesMultidownloadV1(body: MalqueryMultiDownloadRequestV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MalqueryExternalQueryResponse> {
+    async postMalQueryEntitiesSamplesMultidownloadV1(body: MalqueryMultiDownloadRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MalqueryExternalQueryResponse> {
         const response = await this.postMalQueryEntitiesSamplesMultidownloadV1Raw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -340,7 +340,7 @@ export class MalqueryApi extends runtime.BaseAPI {
      */
     async postMalQueryExactSearchV1Raw(
         requestParameters: PostMalQueryExactSearchV1Request,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<MalqueryExternalQueryResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling postMalQueryExactSearchV1.");
@@ -374,7 +374,7 @@ export class MalqueryApi extends runtime.BaseAPI {
     /**
      * Search Falcon MalQuery for a combination of hex patterns and strings in order to identify samples based upon file content at byte level granularity. You can filter results on criteria such as file type, file size and first seen date. Returns a request id which can be used with the /request endpoint
      */
-    async postMalQueryExactSearchV1(body: MalqueryExternalExactSearchParametersV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MalqueryExternalQueryResponse> {
+    async postMalQueryExactSearchV1(body: MalqueryExternalExactSearchParametersV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MalqueryExternalQueryResponse> {
         const response = await this.postMalQueryExactSearchV1Raw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -384,7 +384,7 @@ export class MalqueryApi extends runtime.BaseAPI {
      */
     async postMalQueryFuzzySearchV1Raw(
         requestParameters: PostMalQueryFuzzySearchV1Request,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<MalqueryFuzzySearchResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling postMalQueryFuzzySearchV1.");
@@ -418,7 +418,7 @@ export class MalqueryApi extends runtime.BaseAPI {
     /**
      * Search Falcon MalQuery quickly, but with more potential for false positives. Search for a combination of hex patterns and strings in order to identify samples based upon file content at byte level granularity.
      */
-    async postMalQueryFuzzySearchV1(body: MalqueryFuzzySearchParametersV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MalqueryFuzzySearchResponse> {
+    async postMalQueryFuzzySearchV1(body: MalqueryFuzzySearchParametersV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MalqueryFuzzySearchResponse> {
         const response = await this.postMalQueryFuzzySearchV1Raw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -426,7 +426,7 @@ export class MalqueryApi extends runtime.BaseAPI {
     /**
      * Schedule a YARA-based search for execution. Returns a request id which can be used with the /request endpoint
      */
-    async postMalQueryHuntV1Raw(requestParameters: PostMalQueryHuntV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MalqueryExternalQueryResponse>> {
+    async postMalQueryHuntV1Raw(requestParameters: PostMalQueryHuntV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MalqueryExternalQueryResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling postMalQueryHuntV1.");
         }
@@ -459,7 +459,7 @@ export class MalqueryApi extends runtime.BaseAPI {
     /**
      * Schedule a YARA-based search for execution. Returns a request id which can be used with the /request endpoint
      */
-    async postMalQueryHuntV1(body: MalqueryExternalHuntParametersV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MalqueryExternalQueryResponse> {
+    async postMalQueryHuntV1(body: MalqueryExternalHuntParametersV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MalqueryExternalQueryResponse> {
         const response = await this.postMalQueryHuntV1Raw({ body: body }, initOverrides);
         return await response.value();
     }

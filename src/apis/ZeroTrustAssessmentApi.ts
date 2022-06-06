@@ -36,7 +36,7 @@ export class ZeroTrustAssessmentApi extends runtime.BaseAPI {
     /**
      * Get Zero Trust Assessment data for one or more hosts by providing agent IDs (AID) and a customer ID (CID).
      */
-    async getAssessmentV1Raw(requestParameters: GetAssessmentV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainAssessmentsResponse>> {
+    async getAssessmentV1Raw(requestParameters: GetAssessmentV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainAssessmentsResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getAssessmentV1.");
         }
@@ -70,7 +70,7 @@ export class ZeroTrustAssessmentApi extends runtime.BaseAPI {
     /**
      * Get Zero Trust Assessment data for one or more hosts by providing agent IDs (AID) and a customer ID (CID).
      */
-    async getAssessmentV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainAssessmentsResponse> {
+    async getAssessmentV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainAssessmentsResponse> {
         const response = await this.getAssessmentV1Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -78,7 +78,7 @@ export class ZeroTrustAssessmentApi extends runtime.BaseAPI {
     /**
      * Get the Zero Trust Assessment compliance report for one customer ID (CID).
      */
-    async getComplianceV1Raw(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainComplianceResponse>> {
+    async getComplianceV1Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainComplianceResponse>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -104,7 +104,7 @@ export class ZeroTrustAssessmentApi extends runtime.BaseAPI {
     /**
      * Get the Zero Trust Assessment compliance report for one customer ID (CID).
      */
-    async getComplianceV1(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainComplianceResponse> {
+    async getComplianceV1(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainComplianceResponse> {
         const response = await this.getComplianceV1Raw(initOverrides);
         return await response.value();
     }

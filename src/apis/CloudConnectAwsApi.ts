@@ -91,7 +91,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
      */
     async createOrUpdateAWSSettingsRaw(
         requestParameters: CreateOrUpdateAWSSettingsRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<ModelsCustomerConfigurationsV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createOrUpdateAWSSettings.");
@@ -125,7 +125,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
     /**
      * Create or update Global Settings which are applicable to all provisioned AWS accounts
      */
-    async createOrUpdateAWSSettings(body: ModelsModifyAWSCustomerSettingsV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ModelsCustomerConfigurationsV1> {
+    async createOrUpdateAWSSettings(body: ModelsModifyAWSCustomerSettingsV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsCustomerConfigurationsV1> {
         const response = await this.createOrUpdateAWSSettingsRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -133,7 +133,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
     /**
      * Delete a set of AWS Accounts by specifying their IDs
      */
-    async deleteAWSAccountsRaw(requestParameters: DeleteAWSAccountsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ModelsBaseResponseV1>> {
+    async deleteAWSAccountsRaw(requestParameters: DeleteAWSAccountsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsBaseResponseV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling deleteAWSAccounts.");
         }
@@ -167,7 +167,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
     /**
      * Delete a set of AWS Accounts by specifying their IDs
      */
-    async deleteAWSAccounts(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ModelsBaseResponseV1> {
+    async deleteAWSAccounts(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsBaseResponseV1> {
         const response = await this.deleteAWSAccountsRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -175,7 +175,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
     /**
      * Retrieve a set of AWS Accounts by specifying their IDs
      */
-    async getAWSAccountsRaw(requestParameters: GetAWSAccountsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ModelsAWSAccountsV1>> {
+    async getAWSAccountsRaw(requestParameters: GetAWSAccountsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsAWSAccountsV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getAWSAccounts.");
         }
@@ -209,7 +209,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
     /**
      * Retrieve a set of AWS Accounts by specifying their IDs
      */
-    async getAWSAccounts(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ModelsAWSAccountsV1> {
+    async getAWSAccounts(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsAWSAccountsV1> {
         const response = await this.getAWSAccountsRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -217,7 +217,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
     /**
      * Retrieve a set of Global Settings which are applicable to all provisioned AWS accounts
      */
-    async getAWSSettingsRaw(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ModelsCustomerConfigurationsV1>> {
+    async getAWSSettingsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsCustomerConfigurationsV1>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -243,7 +243,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
     /**
      * Retrieve a set of Global Settings which are applicable to all provisioned AWS accounts
      */
-    async getAWSSettings(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ModelsCustomerConfigurationsV1> {
+    async getAWSSettings(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsCustomerConfigurationsV1> {
         const response = await this.getAWSSettingsRaw(initOverrides);
         return await response.value();
     }
@@ -251,7 +251,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
     /**
      * Provision AWS Accounts by specifying details about the accounts to provision
      */
-    async provisionAWSAccountsRaw(requestParameters: ProvisionAWSAccountsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ModelsAWSAccountsV1>> {
+    async provisionAWSAccountsRaw(requestParameters: ProvisionAWSAccountsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsAWSAccountsV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling provisionAWSAccounts.");
         }
@@ -288,7 +288,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
     /**
      * Provision AWS Accounts by specifying details about the accounts to provision
      */
-    async provisionAWSAccounts(body: ModelsCreateAWSAccountsV1, mode?: ProvisionAWSAccountsModeEnum, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ModelsAWSAccountsV1> {
+    async provisionAWSAccounts(body: ModelsCreateAWSAccountsV1, mode?: ProvisionAWSAccountsModeEnum, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsAWSAccountsV1> {
         const response = await this.provisionAWSAccountsRaw({ body: body, mode: mode }, initOverrides);
         return await response.value();
     }
@@ -296,7 +296,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
     /**
      * Search for provisioned AWS Accounts by providing an FQL filter and paging details. Returns a set of AWS accounts which match the filter criteria
      */
-    async queryAWSAccountsRaw(requestParameters: QueryAWSAccountsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ModelsAWSAccountsV1>> {
+    async queryAWSAccountsRaw(requestParameters: QueryAWSAccountsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsAWSAccountsV1>> {
         const queryParameters: any = {};
 
         if (requestParameters.limit !== undefined) {
@@ -338,7 +338,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
     /**
      * Search for provisioned AWS Accounts by providing an FQL filter and paging details. Returns a set of AWS accounts which match the filter criteria
      */
-    async queryAWSAccounts(limit?: number, offset?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ModelsAWSAccountsV1> {
+    async queryAWSAccounts(limit?: number, offset?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsAWSAccountsV1> {
         const response = await this.queryAWSAccountsRaw({ limit: limit, offset: offset, sort: sort, filter: filter }, initOverrides);
         return await response.value();
     }
@@ -346,7 +346,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
     /**
      * Search for provisioned AWS Accounts by providing an FQL filter and paging details. Returns a set of AWS account IDs which match the filter criteria
      */
-    async queryAWSAccountsForIDsRaw(requestParameters: QueryAWSAccountsForIDsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryAWSAccountsForIDsRaw(requestParameters: QueryAWSAccountsForIDsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.limit !== undefined) {
@@ -388,7 +388,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
     /**
      * Search for provisioned AWS Accounts by providing an FQL filter and paging details. Returns a set of AWS account IDs which match the filter criteria
      */
-    async queryAWSAccountsForIDs(limit?: number, offset?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async queryAWSAccountsForIDs(limit?: number, offset?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryAWSAccountsForIDsRaw({ limit: limit, offset: offset, sort: sort, filter: filter }, initOverrides);
         return await response.value();
     }
@@ -396,7 +396,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
     /**
      * Update AWS Accounts by specifying the ID of the account and details to update
      */
-    async updateAWSAccountsRaw(requestParameters: UpdateAWSAccountsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ModelsAWSAccountsV1>> {
+    async updateAWSAccountsRaw(requestParameters: UpdateAWSAccountsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsAWSAccountsV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateAWSAccounts.");
         }
@@ -429,7 +429,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
     /**
      * Update AWS Accounts by specifying the ID of the account and details to update
      */
-    async updateAWSAccounts(body: ModelsUpdateAWSAccountsV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ModelsAWSAccountsV1> {
+    async updateAWSAccounts(body: ModelsUpdateAWSAccountsV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsAWSAccountsV1> {
         const response = await this.updateAWSAccountsRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -439,7 +439,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
      */
     async verifyAWSAccountAccessRaw(
         requestParameters: VerifyAWSAccountAccessRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<ModelsVerifyAccessResponseV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling verifyAWSAccountAccess.");
@@ -474,7 +474,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
     /**
      * Performs an Access Verification check on the specified AWS Account IDs
      */
-    async verifyAWSAccountAccess(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ModelsVerifyAccessResponseV1> {
+    async verifyAWSAccountAccess(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsVerifyAccessResponseV1> {
         const response = await this.verifyAWSAccountAccessRaw({ ids: ids }, initOverrides);
         return await response.value();
     }

@@ -62,7 +62,7 @@ export class IocsApi extends runtime.BaseAPI {
     /**
      * Number of hosts in your customer account that have observed a given custom IOC
      */
-    async devicesCountRaw(requestParameters: DevicesCountRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiMsaReplyIOCDevicesCount>> {
+    async devicesCountRaw(requestParameters: DevicesCountRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiMsaReplyIOCDevicesCount>> {
         if (requestParameters.type === null || requestParameters.type === undefined) {
             throw new runtime.RequiredError("type", "Required parameter requestParameters.type was null or undefined when calling devicesCount.");
         }
@@ -104,7 +104,7 @@ export class IocsApi extends runtime.BaseAPI {
     /**
      * Number of hosts in your customer account that have observed a given custom IOC
      */
-    async devicesCount(type: string, value: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiMsaReplyIOCDevicesCount> {
+    async devicesCount(type: string, value: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiMsaReplyIOCDevicesCount> {
         const response = await this.devicesCountRaw({ type: type, value: value }, initOverrides);
         return await response.value();
     }
@@ -112,7 +112,7 @@ export class IocsApi extends runtime.BaseAPI {
     /**
      * Find hosts that have observed a given custom IOC. For details about those hosts, use GET /devices/entities/devices/v1
      */
-    async devicesRanOnRaw(requestParameters: DevicesRanOnRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiMsaReplyDevicesRanOn>> {
+    async devicesRanOnRaw(requestParameters: DevicesRanOnRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiMsaReplyDevicesRanOn>> {
         if (requestParameters.type === null || requestParameters.type === undefined) {
             throw new runtime.RequiredError("type", "Required parameter requestParameters.type was null or undefined when calling devicesRanOn.");
         }
@@ -162,7 +162,7 @@ export class IocsApi extends runtime.BaseAPI {
     /**
      * Find hosts that have observed a given custom IOC. For details about those hosts, use GET /devices/entities/devices/v1
      */
-    async devicesRanOn(type: string, value: string, limit?: string, offset?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiMsaReplyDevicesRanOn> {
+    async devicesRanOn(type: string, value: string, limit?: string, offset?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiMsaReplyDevicesRanOn> {
         const response = await this.devicesRanOnRaw({ type: type, value: value, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }
@@ -170,7 +170,7 @@ export class IocsApi extends runtime.BaseAPI {
     /**
      * For the provided ProcessID retrieve the process details
      */
-    async entitiesProcessesRaw(requestParameters: EntitiesProcessesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiMsaProcessDetailResponse>> {
+    async entitiesProcessesRaw(requestParameters: EntitiesProcessesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiMsaProcessDetailResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling entitiesProcesses.");
         }
@@ -204,7 +204,7 @@ export class IocsApi extends runtime.BaseAPI {
     /**
      * For the provided ProcessID retrieve the process details
      */
-    async entitiesProcesses(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiMsaProcessDetailResponse> {
+    async entitiesProcesses(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiMsaProcessDetailResponse> {
         const response = await this.entitiesProcessesRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -212,7 +212,7 @@ export class IocsApi extends runtime.BaseAPI {
     /**
      * Search for processes associated with a custom IOC
      */
-    async processesRanOnRaw(requestParameters: ProcessesRanOnRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ApiMsaReplyProcessesRanOn>> {
+    async processesRanOnRaw(requestParameters: ProcessesRanOnRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiMsaReplyProcessesRanOn>> {
         if (requestParameters.type === null || requestParameters.type === undefined) {
             throw new runtime.RequiredError("type", "Required parameter requestParameters.type was null or undefined when calling processesRanOn.");
         }
@@ -276,7 +276,7 @@ export class IocsApi extends runtime.BaseAPI {
         deviceId: string,
         limit?: string,
         offset?: string,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<ApiMsaReplyProcessesRanOn> {
         const response = await this.processesRanOnRaw({ type: type, value: value, deviceId: deviceId, limit: limit, offset: offset }, initOverrides);
         return await response.value();

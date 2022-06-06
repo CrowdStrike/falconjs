@@ -75,7 +75,7 @@ export class QuarantineApi extends runtime.BaseAPI {
     /**
      * Returns count of potentially affected quarantined files for each action.
      */
-    async actionUpdateCountRaw(requestParameters: ActionUpdateCountRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+    async actionUpdateCountRaw(requestParameters: ActionUpdateCountRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters.filter === null || requestParameters.filter === undefined) {
             throw new runtime.RequiredError("filter", "Required parameter requestParameters.filter was null or undefined when calling actionUpdateCount.");
         }
@@ -109,7 +109,7 @@ export class QuarantineApi extends runtime.BaseAPI {
     /**
      * Returns count of potentially affected quarantined files for each action.
      */
-    async actionUpdateCount(filter: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaAggregatesResponse> {
+    async actionUpdateCount(filter: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaAggregatesResponse> {
         const response = await this.actionUpdateCountRaw({ filter: filter }, initOverrides);
         return await response.value();
     }
@@ -117,7 +117,7 @@ export class QuarantineApi extends runtime.BaseAPI {
     /**
      * Get quarantine file aggregates as specified via json in request body.
      */
-    async getAggregateFilesRaw(requestParameters: GetAggregateFilesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+    async getAggregateFilesRaw(requestParameters: GetAggregateFilesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling getAggregateFiles.");
         }
@@ -150,7 +150,7 @@ export class QuarantineApi extends runtime.BaseAPI {
     /**
      * Get quarantine file aggregates as specified via json in request body.
      */
-    async getAggregateFiles(body: MsaAggregateQueryRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaAggregatesResponse> {
+    async getAggregateFiles(body: MsaAggregateQueryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaAggregatesResponse> {
         const response = await this.getAggregateFilesRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -158,7 +158,7 @@ export class QuarantineApi extends runtime.BaseAPI {
     /**
      * Get quarantine file metadata for specified ids.
      */
-    async getQuarantineFilesRaw(requestParameters: GetQuarantineFilesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainMsaQfResponse>> {
+    async getQuarantineFilesRaw(requestParameters: GetQuarantineFilesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainMsaQfResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling getQuarantineFiles.");
         }
@@ -191,7 +191,7 @@ export class QuarantineApi extends runtime.BaseAPI {
     /**
      * Get quarantine file metadata for specified ids.
      */
-    async getQuarantineFiles(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainMsaQfResponse> {
+    async getQuarantineFiles(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainMsaQfResponse> {
         const response = await this.getQuarantineFilesRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -199,7 +199,7 @@ export class QuarantineApi extends runtime.BaseAPI {
     /**
      * Get quarantine file ids that match the provided filter criteria.
      */
-    async queryQuarantineFilesRaw(requestParameters: QueryQuarantineFilesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryQuarantineFilesRaw(requestParameters: QueryQuarantineFilesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.offset !== undefined) {
@@ -245,7 +245,7 @@ export class QuarantineApi extends runtime.BaseAPI {
     /**
      * Get quarantine file ids that match the provided filter criteria.
      */
-    async queryQuarantineFiles(offset?: string, limit?: number, sort?: string, filter?: string, q?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async queryQuarantineFiles(offset?: string, limit?: number, sort?: string, filter?: string, q?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryQuarantineFilesRaw({ offset: offset, limit: limit, sort: sort, filter: filter, q: q }, initOverrides);
         return await response.value();
     }
@@ -253,7 +253,7 @@ export class QuarantineApi extends runtime.BaseAPI {
     /**
      * Apply quarantine file actions by query.
      */
-    async updateQfByQueryRaw(requestParameters: UpdateQfByQueryRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async updateQfByQueryRaw(requestParameters: UpdateQfByQueryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateQfByQuery.");
         }
@@ -286,7 +286,7 @@ export class QuarantineApi extends runtime.BaseAPI {
     /**
      * Apply quarantine file actions by query.
      */
-    async updateQfByQuery(body: DomainQueriesPatchRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaReplyMetaOnly> {
+    async updateQfByQuery(body: DomainQueriesPatchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyMetaOnly> {
         const response = await this.updateQfByQueryRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -296,7 +296,7 @@ export class QuarantineApi extends runtime.BaseAPI {
      */
     async updateQuarantinedDetectsByIdsRaw(
         requestParameters: UpdateQuarantinedDetectsByIdsRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateQuarantinedDetectsByIds.");
@@ -330,7 +330,7 @@ export class QuarantineApi extends runtime.BaseAPI {
     /**
      * Apply action by quarantine file ids
      */
-    async updateQuarantinedDetectsByIds(body: DomainEntitiesPatchRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaReplyMetaOnly> {
+    async updateQuarantinedDetectsByIds(body: DomainEntitiesPatchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyMetaOnly> {
         const response = await this.updateQuarantinedDetectsByIdsRaw({ body: body }, initOverrides);
         return await response.value();
     }

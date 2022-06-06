@@ -107,7 +107,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
      */
     async createDeviceControlPoliciesRaw(
         requestParameters: CreateDeviceControlPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<ResponsesDeviceControlPoliciesV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createDeviceControlPolicies.");
@@ -141,7 +141,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
     /**
      * Create Device Control Policies by specifying details about the policy to create
      */
-    async createDeviceControlPolicies(body: RequestsCreateDeviceControlPoliciesV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ResponsesDeviceControlPoliciesV1> {
+    async createDeviceControlPolicies(body: RequestsCreateDeviceControlPoliciesV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesDeviceControlPoliciesV1> {
         const response = await this.createDeviceControlPoliciesRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -151,7 +151,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
      */
     async deleteDeviceControlPoliciesRaw(
         requestParameters: DeleteDeviceControlPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling deleteDeviceControlPolicies.");
@@ -186,7 +186,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
     /**
      * Delete a set of Device Control Policies by specifying their IDs
      */
-    async deleteDeviceControlPolicies(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async deleteDeviceControlPolicies(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.deleteDeviceControlPoliciesRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -196,7 +196,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
      */
     async getDeviceControlPoliciesRaw(
         requestParameters: GetDeviceControlPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<ResponsesDeviceControlPoliciesV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getDeviceControlPolicies.");
@@ -231,7 +231,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
     /**
      * Retrieve a set of Device Control Policies by specifying their IDs
      */
-    async getDeviceControlPolicies(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ResponsesDeviceControlPoliciesV1> {
+    async getDeviceControlPolicies(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesDeviceControlPoliciesV1> {
         const response = await this.getDeviceControlPoliciesRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -241,7 +241,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
      */
     async performDeviceControlPoliciesActionRaw(
         requestParameters: PerformDeviceControlPoliciesActionRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<ResponsesDeviceControlPoliciesV1>> {
         if (requestParameters.actionName === null || requestParameters.actionName === undefined) {
             throw new runtime.RequiredError("actionName", "Required parameter requestParameters.actionName was null or undefined when calling performDeviceControlPoliciesAction.");
@@ -286,7 +286,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
     async performDeviceControlPoliciesAction(
         actionName: PerformDeviceControlPoliciesActionActionNameEnum,
         body: MsaEntityActionRequestV2,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<ResponsesDeviceControlPoliciesV1> {
         const response = await this.performDeviceControlPoliciesActionRaw({ actionName: actionName, body: body }, initOverrides);
         return await response.value();
@@ -297,7 +297,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
      */
     async queryCombinedDeviceControlPoliciesRaw(
         requestParameters: QueryCombinedDeviceControlPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<ResponsesDeviceControlPoliciesV1>> {
         const queryParameters: any = {};
 
@@ -345,7 +345,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
         offset?: number,
         limit?: number,
         sort?: QueryCombinedDeviceControlPoliciesSortEnum,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<ResponsesDeviceControlPoliciesV1> {
         const response = await this.queryCombinedDeviceControlPoliciesRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
@@ -356,7 +356,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
      */
     async queryCombinedDeviceControlPolicyMembersRaw(
         requestParameters: QueryCombinedDeviceControlPolicyMembersRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<ResponsesPolicyMembersRespV1>> {
         const queryParameters: any = {};
 
@@ -409,7 +409,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
         offset?: number,
         limit?: number,
         sort?: string,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<ResponsesPolicyMembersRespV1> {
         const response = await this.queryCombinedDeviceControlPolicyMembersRaw({ id: id, filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
@@ -420,7 +420,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
      */
     async queryDeviceControlPoliciesRaw(
         requestParameters: QueryDeviceControlPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
@@ -468,7 +468,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
         offset?: number,
         limit?: number,
         sort?: QueryDeviceControlPoliciesSortEnum,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<MsaQueryResponse> {
         const response = await this.queryDeviceControlPoliciesRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
@@ -479,7 +479,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
      */
     async queryDeviceControlPolicyMembersRaw(
         requestParameters: QueryDeviceControlPolicyMembersRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
@@ -532,7 +532,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
         offset?: number,
         limit?: number,
         sort?: string,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<MsaQueryResponse> {
         const response = await this.queryDeviceControlPolicyMembersRaw({ id: id, filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
@@ -543,7 +543,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
      */
     async setDeviceControlPoliciesPrecedenceRaw(
         requestParameters: SetDeviceControlPoliciesPrecedenceRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling setDeviceControlPoliciesPrecedence.");
@@ -577,7 +577,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
     /**
      * Sets the precedence of Device Control Policies based on the order of IDs specified in the request. The first ID specified will have the highest precedence and the last ID specified will have the lowest. You must specify all non-Default Policies for a platform when updating precedence
      */
-    async setDeviceControlPoliciesPrecedence(body: RequestsSetPolicyPrecedenceReqV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async setDeviceControlPoliciesPrecedence(body: RequestsSetPolicyPrecedenceReqV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.setDeviceControlPoliciesPrecedenceRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -587,7 +587,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
      */
     async updateDeviceControlPoliciesRaw(
         requestParameters: UpdateDeviceControlPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<ResponsesDeviceControlPoliciesV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateDeviceControlPolicies.");
@@ -621,7 +621,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
     /**
      * Update Device Control Policies by specifying the ID of the policy and details to update
      */
-    async updateDeviceControlPolicies(body: RequestsUpdateDeviceControlPoliciesV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ResponsesDeviceControlPoliciesV1> {
+    async updateDeviceControlPolicies(body: RequestsUpdateDeviceControlPoliciesV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesDeviceControlPoliciesV1> {
         const response = await this.updateDeviceControlPoliciesRaw({ body: body }, initOverrides);
         return await response.value();
     }

@@ -57,7 +57,7 @@ export class ReportExecutionsApi extends runtime.BaseAPI {
      */
     async reportExecutionsDownloadGetRaw(
         requestParameters: ReportExecutionsDownloadGetRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<Array<number>>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling reportExecutionsDownloadGet.");
@@ -92,7 +92,7 @@ export class ReportExecutionsApi extends runtime.BaseAPI {
     /**
      * Get report entity download
      */
-    async reportExecutionsDownloadGet(ids: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<Array<number>> {
+    async reportExecutionsDownloadGet(ids: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<number>> {
         const response = await this.reportExecutionsDownloadGetRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -102,7 +102,7 @@ export class ReportExecutionsApi extends runtime.BaseAPI {
      */
     async reportExecutionsGetRaw(
         requestParameters: ReportExecutionsGetRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<ApiReportExecutionsResponseV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling reportExecutionsGet.");
@@ -137,7 +137,7 @@ export class ReportExecutionsApi extends runtime.BaseAPI {
     /**
      * Retrieve report details for the provided report IDs.
      */
-    async reportExecutionsGet(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiReportExecutionsResponseV1> {
+    async reportExecutionsGet(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiReportExecutionsResponseV1> {
         const response = await this.reportExecutionsGetRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -145,7 +145,7 @@ export class ReportExecutionsApi extends runtime.BaseAPI {
     /**
      * Find all report execution IDs matching the query with filter
      */
-    async reportExecutionsQueryRaw(requestParameters: ReportExecutionsQueryRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async reportExecutionsQueryRaw(requestParameters: ReportExecutionsQueryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.sort !== undefined) {
@@ -191,7 +191,7 @@ export class ReportExecutionsApi extends runtime.BaseAPI {
     /**
      * Find all report execution IDs matching the query with filter
      */
-    async reportExecutionsQuery(sort?: string, filter?: string, q?: string, offset?: string, limit?: number, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async reportExecutionsQuery(sort?: string, filter?: string, q?: string, offset?: string, limit?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.reportExecutionsQueryRaw({ sort: sort, filter: filter, q: q, offset: offset, limit: limit }, initOverrides);
         return await response.value();
     }
@@ -201,7 +201,7 @@ export class ReportExecutionsApi extends runtime.BaseAPI {
      */
     async reportExecutionsRetryRaw(
         requestParameters: ReportExecutionsRetryRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<ApiReportExecutionsResponseV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling reportExecutionsRetry.");
@@ -235,7 +235,7 @@ export class ReportExecutionsApi extends runtime.BaseAPI {
     /**
      * This endpoint will be used to retry report executions
      */
-    async reportExecutionsRetry(body: Array<ApiReportExecutionRetryRequestV1>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiReportExecutionsResponseV1> {
+    async reportExecutionsRetry(body: Array<ApiReportExecutionRetryRequestV1>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiReportExecutionsResponseV1> {
         const response = await this.reportExecutionsRetryRaw({ body: body }, initOverrides);
         return await response.value();
     }

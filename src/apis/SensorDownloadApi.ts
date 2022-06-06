@@ -54,7 +54,7 @@ export class SensorDownloadApi extends runtime.BaseAPI {
     /**
      * Download sensor installer by SHA256 ID
      */
-    async downloadSensorInstallerByIdRaw(requestParameters: DownloadSensorInstallerByIdRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<Blob>> {
+    async downloadSensorInstallerByIdRaw(requestParameters: DownloadSensorInstallerByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
             throw new runtime.RequiredError("id", "Required parameter requestParameters.id was null or undefined when calling downloadSensorInstallerById.");
         }
@@ -88,7 +88,7 @@ export class SensorDownloadApi extends runtime.BaseAPI {
     /**
      * Download sensor installer by SHA256 ID
      */
-    async downloadSensorInstallerById(id: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<Blob> {
+    async downloadSensorInstallerById(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
         const response = await this.downloadSensorInstallerByIdRaw({ id: id }, initOverrides);
         return await response.value();
     }
@@ -98,7 +98,7 @@ export class SensorDownloadApi extends runtime.BaseAPI {
      */
     async getCombinedSensorInstallersByQueryRaw(
         requestParameters: GetCombinedSensorInstallersByQueryRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainSensorInstallersV1>> {
         const queryParameters: any = {};
 
@@ -146,7 +146,7 @@ export class SensorDownloadApi extends runtime.BaseAPI {
         limit?: number,
         sort?: string,
         filter?: string,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<DomainSensorInstallersV1> {
         const response = await this.getCombinedSensorInstallersByQueryRaw({ offset: offset, limit: limit, sort: sort, filter: filter }, initOverrides);
         return await response.value();
@@ -157,7 +157,7 @@ export class SensorDownloadApi extends runtime.BaseAPI {
      */
     async getSensorInstallersByQueryRaw(
         requestParameters: GetSensorInstallersByQueryRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
@@ -200,7 +200,7 @@ export class SensorDownloadApi extends runtime.BaseAPI {
     /**
      * Get sensor installer IDs by provided query
      */
-    async getSensorInstallersByQuery(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async getSensorInstallersByQuery(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.getSensorInstallersByQueryRaw({ offset: offset, limit: limit, sort: sort, filter: filter }, initOverrides);
         return await response.value();
     }
@@ -208,7 +208,7 @@ export class SensorDownloadApi extends runtime.BaseAPI {
     /**
      * Get CCID to use with sensor installers
      */
-    async getSensorInstallersCCIDByQueryRaw(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async getSensorInstallersCCIDByQueryRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -234,7 +234,7 @@ export class SensorDownloadApi extends runtime.BaseAPI {
     /**
      * Get CCID to use with sensor installers
      */
-    async getSensorInstallersCCIDByQuery(initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async getSensorInstallersCCIDByQuery(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.getSensorInstallersCCIDByQueryRaw(initOverrides);
         return await response.value();
     }
@@ -244,7 +244,7 @@ export class SensorDownloadApi extends runtime.BaseAPI {
      */
     async getSensorInstallersEntitiesRaw(
         requestParameters: GetSensorInstallersEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainSensorInstallersV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getSensorInstallersEntities.");
@@ -279,7 +279,7 @@ export class SensorDownloadApi extends runtime.BaseAPI {
     /**
      * Get sensor installer details by provided SHA256 IDs
      */
-    async getSensorInstallersEntities(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainSensorInstallersV1> {
+    async getSensorInstallersEntities(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainSensorInstallersV1> {
         const response = await this.getSensorInstallersEntitiesRaw({ ids: ids }, initOverrides);
         return await response.value();
     }

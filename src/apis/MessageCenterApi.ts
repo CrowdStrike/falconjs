@@ -108,7 +108,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
     /**
      * Retrieve aggregate case values based on the matched filter
      */
-    async aggregateCasesRaw(requestParameters: AggregateCasesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+    async aggregateCasesRaw(requestParameters: AggregateCasesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling aggregateCases.");
         }
@@ -141,7 +141,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
     /**
      * Retrieve aggregate case values based on the matched filter
      */
-    async aggregateCases(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaAggregatesResponse> {
+    async aggregateCases(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaAggregatesResponse> {
         const response = await this.aggregateCasesRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -149,7 +149,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
     /**
      * Add an activity to case. Only activities of type comment are allowed via API
      */
-    async caseAddActivityRaw(requestParameters: CaseAddActivityRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async caseAddActivityRaw(requestParameters: CaseAddActivityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling caseAddActivity.");
         }
@@ -182,7 +182,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
     /**
      * Add an activity to case. Only activities of type comment are allowed via API
      */
-    async caseAddActivity(body: ApiActivityCreationRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaReplyMetaOnly> {
+    async caseAddActivity(body: ApiActivityCreationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyMetaOnly> {
         const response = await this.caseAddActivityRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -193,7 +193,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
      */
     async caseAddAttachmentRaw(
         requestParameters: CaseAddAttachmentRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<ApiMessageCenterAttachmentUploadResponse>> {
         if (requestParameters.caseId === null || requestParameters.caseId === undefined) {
             throw new runtime.RequiredError("caseId", "Required parameter requestParameters.caseId was null or undefined when calling caseAddAttachment.");
@@ -260,7 +260,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
      * Upload an attachment for the case. Maximum upload size allowed is *15 MB*.   Filename must start with *[a-zA-Z0-9_-]*. Allowed characters in file name are *[a-zA-Z0-9-_.\\s]*.    Maximum file name is *255* characters      Following attachment types are allowed:   - png   - bmp   - jpg   - jpeg   - gif   - pdf   - doc   - docx   - xls   - xlsx   - pptx   - txt   - csv
      * Upload an attachment for the case.
      */
-    async caseAddAttachment(caseId: string, userUuid: string, file: Blob, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiMessageCenterAttachmentUploadResponse> {
+    async caseAddAttachment(caseId: string, userUuid: string, file: Blob, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiMessageCenterAttachmentUploadResponse> {
         const response = await this.caseAddAttachmentRaw({ caseId: caseId, userUuid: userUuid, file: file }, initOverrides);
         return await response.value();
     }
@@ -268,7 +268,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
     /**
      * retrieves an attachment for the case, given the attachment id
      */
-    async caseDownloadAttachmentRaw(requestParameters: CaseDownloadAttachmentRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<string>> {
+    async caseDownloadAttachmentRaw(requestParameters: CaseDownloadAttachmentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
             throw new runtime.RequiredError("id", "Required parameter requestParameters.id was null or undefined when calling caseDownloadAttachment.");
         }
@@ -302,7 +302,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
     /**
      * retrieves an attachment for the case, given the attachment id
      */
-    async caseDownloadAttachment(id: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<string> {
+    async caseDownloadAttachment(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
         const response = await this.caseDownloadAttachmentRaw({ id: id }, initOverrides);
         return await response.value();
     }
@@ -310,7 +310,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
     /**
      * create a new case
      */
-    async createCaseRaw(requestParameters: CreateCaseRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaReplyAffectedEntities>> {
+    async createCaseRaw(requestParameters: CreateCaseRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyAffectedEntities>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createCase.");
         }
@@ -343,7 +343,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
     /**
      * create a new case
      */
-    async createCase(body: ApiCaseCreationRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaReplyAffectedEntities> {
+    async createCase(body: ApiCaseCreationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyAffectedEntities> {
         const response = await this.createCaseRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -353,7 +353,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
      */
     async getCaseActivityByIdsRaw(
         requestParameters: GetCaseActivityByIdsRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<ApiMessageCenterActivityResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling getCaseActivityByIds.");
@@ -387,7 +387,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
     /**
      * Retrieve activities for given id\'s
      */
-    async getCaseActivityByIds(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiMessageCenterActivityResponse> {
+    async getCaseActivityByIds(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiMessageCenterActivityResponse> {
         const response = await this.getCaseActivityByIdsRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -397,7 +397,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
      */
     async getCaseEntitiesByIDsRaw(
         requestParameters: GetCaseEntitiesByIDsRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<ApiMessageCenterCasesResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling getCaseEntitiesByIDs.");
@@ -431,7 +431,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
     /**
      * Retrieve message center cases
      */
-    async getCaseEntitiesByIDs(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ApiMessageCenterCasesResponse> {
+    async getCaseEntitiesByIDs(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiMessageCenterCasesResponse> {
         const response = await this.getCaseEntitiesByIDsRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -439,7 +439,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
     /**
      * Retrieve activities id\'s for a case
      */
-    async queryActivityByCaseIDRaw(requestParameters: QueryActivityByCaseIDRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryActivityByCaseIDRaw(requestParameters: QueryActivityByCaseIDRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         if (requestParameters.caseId === null || requestParameters.caseId === undefined) {
             throw new runtime.RequiredError("caseId", "Required parameter requestParameters.caseId was null or undefined when calling queryActivityByCaseID.");
         }
@@ -495,7 +495,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
         sort?: QueryActivityByCaseIDSortEnum,
         filter?: string,
         offset?: string,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<MsaQueryResponse> {
         const response = await this.queryActivityByCaseIDRaw({ caseId: caseId, limit: limit, sort: sort, filter: filter, offset: offset }, initOverrides);
         return await response.value();
@@ -504,7 +504,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
     /**
      * Retrieve case id\'s that match the provided filter criteria
      */
-    async queryCasesIdsByFilterRaw(requestParameters: QueryCasesIdsByFilterRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryCasesIdsByFilterRaw(requestParameters: QueryCasesIdsByFilterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.limit !== undefined) {
@@ -551,7 +551,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
         sort?: QueryCasesIdsByFilterSortEnum,
         filter?: string,
         offset?: string,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<MsaQueryResponse> {
         const response = await this.queryCasesIdsByFilterRaw({ limit: limit, sort: sort, filter: filter, offset: offset }, initOverrides);
         return await response.value();
@@ -560,7 +560,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
     /**
      * update an existing case
      */
-    async updateCaseRaw(requestParameters: UpdateCaseRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaReplyAffectedEntities>> {
+    async updateCaseRaw(requestParameters: UpdateCaseRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyAffectedEntities>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateCase.");
         }
@@ -593,7 +593,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
     /**
      * update an existing case
      */
-    async updateCase(body: ApiCaseUpdateRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaReplyAffectedEntities> {
+    async updateCase(body: ApiCaseUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyAffectedEntities> {
         const response = await this.updateCaseRaw({ body: body }, initOverrides);
         return await response.value();
     }

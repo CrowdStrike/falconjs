@@ -57,7 +57,7 @@ export class QuickScanApi extends runtime.BaseAPI {
     /**
      * Check the status of a volume scan. Time required for analysis increases with the number of samples in a volume but usually it should take less than 1 minute
      */
-    async getScansRaw(requestParameters: GetScansRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MlscannerScanV1Response>> {
+    async getScansRaw(requestParameters: GetScansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MlscannerScanV1Response>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getScans.");
         }
@@ -91,7 +91,7 @@ export class QuickScanApi extends runtime.BaseAPI {
     /**
      * Check the status of a volume scan. Time required for analysis increases with the number of samples in a volume but usually it should take less than 1 minute
      */
-    async getScans(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MlscannerScanV1Response> {
+    async getScans(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MlscannerScanV1Response> {
         const response = await this.getScansRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -99,7 +99,7 @@ export class QuickScanApi extends runtime.BaseAPI {
     /**
      * Get scans aggregations as specified via json in request body.
      */
-    async getScansAggregatesRaw(requestParameters: GetScansAggregatesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<void>> {
+    async getScansAggregatesRaw(requestParameters: GetScansAggregatesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling getScansAggregates.");
         }
@@ -132,14 +132,17 @@ export class QuickScanApi extends runtime.BaseAPI {
     /**
      * Get scans aggregations as specified via json in request body.
      */
-    async getScansAggregates(body: MsaAggregateQueryRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<void> {
+    async getScansAggregates(body: MsaAggregateQueryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.getScansAggregatesRaw({ body: body }, initOverrides);
     }
 
     /**
      * Find IDs for submitted scans by providing an FQL filter and paging details. Returns a set of volume IDs that match your criteria.
      */
-    async querySubmissionsMixin0Raw(requestParameters: QuerySubmissionsMixin0Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MlscannerQueryResponse>> {
+    async querySubmissionsMixin0Raw(
+        requestParameters: QuerySubmissionsMixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MlscannerQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -181,7 +184,7 @@ export class QuickScanApi extends runtime.BaseAPI {
     /**
      * Find IDs for submitted scans by providing an FQL filter and paging details. Returns a set of volume IDs that match your criteria.
      */
-    async querySubmissionsMixin0(filter?: string, offset?: string, limit?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MlscannerQueryResponse> {
+    async querySubmissionsMixin0(filter?: string, offset?: string, limit?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MlscannerQueryResponse> {
         const response = await this.querySubmissionsMixin0Raw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
@@ -189,7 +192,7 @@ export class QuickScanApi extends runtime.BaseAPI {
     /**
      * Submit a volume of files for ml scanning. Time required for analysis increases with the number of samples in a volume but usually it should take less than 1 minute
      */
-    async scanSamplesRaw(requestParameters: ScanSamplesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MlscannerQueryResponse>> {
+    async scanSamplesRaw(requestParameters: ScanSamplesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MlscannerQueryResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling scanSamples.");
         }
@@ -222,7 +225,7 @@ export class QuickScanApi extends runtime.BaseAPI {
     /**
      * Submit a volume of files for ml scanning. Time required for analysis increases with the number of samples in a volume but usually it should take less than 1 minute
      */
-    async scanSamples(body: MlscannerSamplesScanParameters, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MlscannerQueryResponse> {
+    async scanSamples(body: MlscannerSamplesScanParameters, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MlscannerQueryResponse> {
         const response = await this.scanSamplesRaw({ body: body }, initOverrides);
         return await response.value();
     }
