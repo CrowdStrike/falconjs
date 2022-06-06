@@ -26,7 +26,7 @@ export class IdentityProtectionApi extends runtime.BaseAPI {
     /**
      * Identity Protection GraphQL API. Allows to retrieve entities, timeline activities, identity-based incidents and security assessment. Allows to perform actions on entities and identity-based incidents.
      */
-    async apiPreemptProxyPostGraphqlRaw(requestParameters: ApiPreemptProxyPostGraphqlRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<void>> {
+    async apiPreemptProxyPostGraphqlRaw(requestParameters: ApiPreemptProxyPostGraphqlRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.authorization === null || requestParameters.authorization === undefined) {
             throw new runtime.RequiredError("authorization", "Required parameter requestParameters.authorization was null or undefined when calling apiPreemptProxyPostGraphql.");
         }
@@ -60,7 +60,7 @@ export class IdentityProtectionApi extends runtime.BaseAPI {
     /**
      * Identity Protection GraphQL API. Allows to retrieve entities, timeline activities, identity-based incidents and security assessment. Allows to perform actions on entities and identity-based incidents.
      */
-    async apiPreemptProxyPostGraphql(authorization: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<void> {
+    async apiPreemptProxyPostGraphql(authorization: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.apiPreemptProxyPostGraphqlRaw({ authorization: authorization }, initOverrides);
     }
 }

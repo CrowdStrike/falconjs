@@ -65,7 +65,10 @@ export class MlExclusionsApi extends runtime.BaseAPI {
     /**
      * Create the ML exclusions
      */
-    async createMLExclusionsV1Raw(requestParameters: CreateMLExclusionsV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ResponsesMlExclusionRespV1>> {
+    async createMLExclusionsV1Raw(
+        requestParameters: CreateMLExclusionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ResponsesMlExclusionRespV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createMLExclusionsV1.");
         }
@@ -98,7 +101,7 @@ export class MlExclusionsApi extends runtime.BaseAPI {
     /**
      * Create the ML exclusions
      */
-    async createMLExclusionsV1(body: RequestsMlExclusionCreateReqV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ResponsesMlExclusionRespV1> {
+    async createMLExclusionsV1(body: RequestsMlExclusionCreateReqV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesMlExclusionRespV1> {
         const response = await this.createMLExclusionsV1Raw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -106,7 +109,10 @@ export class MlExclusionsApi extends runtime.BaseAPI {
     /**
      * Delete the ML exclusions by id
      */
-    async deleteMLExclusionsV1Raw(requestParameters: DeleteMLExclusionsV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ResponsesMlExclusionRespV1>> {
+    async deleteMLExclusionsV1Raw(
+        requestParameters: DeleteMLExclusionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ResponsesMlExclusionRespV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling deleteMLExclusionsV1.");
         }
@@ -144,7 +150,7 @@ export class MlExclusionsApi extends runtime.BaseAPI {
     /**
      * Delete the ML exclusions by id
      */
-    async deleteMLExclusionsV1(ids: Array<string>, comment?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ResponsesMlExclusionRespV1> {
+    async deleteMLExclusionsV1(ids: Array<string>, comment?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesMlExclusionRespV1> {
         const response = await this.deleteMLExclusionsV1Raw({ ids: ids, comment: comment }, initOverrides);
         return await response.value();
     }
@@ -152,7 +158,7 @@ export class MlExclusionsApi extends runtime.BaseAPI {
     /**
      * Get a set of ML Exclusions by specifying their IDs
      */
-    async getMLExclusionsV1Raw(requestParameters: GetMLExclusionsV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ResponsesMlExclusionRespV1>> {
+    async getMLExclusionsV1Raw(requestParameters: GetMLExclusionsV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponsesMlExclusionRespV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getMLExclusionsV1.");
         }
@@ -186,7 +192,7 @@ export class MlExclusionsApi extends runtime.BaseAPI {
     /**
      * Get a set of ML Exclusions by specifying their IDs
      */
-    async getMLExclusionsV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ResponsesMlExclusionRespV1> {
+    async getMLExclusionsV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesMlExclusionRespV1> {
         const response = await this.getMLExclusionsV1Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -194,7 +200,7 @@ export class MlExclusionsApi extends runtime.BaseAPI {
     /**
      * Search for ML exclusions.
      */
-    async queryMLExclusionsV1Raw(requestParameters: QueryMLExclusionsV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryMLExclusionsV1Raw(requestParameters: QueryMLExclusionsV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -241,7 +247,7 @@ export class MlExclusionsApi extends runtime.BaseAPI {
         offset?: number,
         limit?: number,
         sort?: QueryMLExclusionsV1SortEnum,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<MsaQueryResponse> {
         const response = await this.queryMLExclusionsV1Raw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
@@ -250,7 +256,10 @@ export class MlExclusionsApi extends runtime.BaseAPI {
     /**
      * Update the ML exclusions
      */
-    async updateMLExclusionsV1Raw(requestParameters: UpdateMLExclusionsV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ResponsesMlExclusionRespV1>> {
+    async updateMLExclusionsV1Raw(
+        requestParameters: UpdateMLExclusionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ResponsesMlExclusionRespV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateMLExclusionsV1.");
         }
@@ -283,7 +292,7 @@ export class MlExclusionsApi extends runtime.BaseAPI {
     /**
      * Update the ML exclusions
      */
-    async updateMLExclusionsV1(body: RequestsSvExclusionUpdateReqV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ResponsesMlExclusionRespV1> {
+    async updateMLExclusionsV1(body: RequestsSvExclusionUpdateReqV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesMlExclusionRespV1> {
         const response = await this.updateMLExclusionsV1Raw({ body: body }, initOverrides);
         return await response.value();
     }

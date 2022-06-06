@@ -71,7 +71,7 @@ export class DiscoverApi extends runtime.BaseAPI {
     /**
      * Get details on accounts by providing one or more IDs.
      */
-    async getAccountsRaw(requestParameters: GetAccountsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainDiscoverAPIAccountEntitiesResponse>> {
+    async getAccountsRaw(requestParameters: GetAccountsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainDiscoverAPIAccountEntitiesResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getAccounts.");
         }
@@ -105,7 +105,7 @@ export class DiscoverApi extends runtime.BaseAPI {
     /**
      * Get details on accounts by providing one or more IDs.
      */
-    async getAccounts(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainDiscoverAPIAccountEntitiesResponse> {
+    async getAccounts(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainDiscoverAPIAccountEntitiesResponse> {
         const response = await this.getAccountsRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -113,7 +113,7 @@ export class DiscoverApi extends runtime.BaseAPI {
     /**
      * Get details on assets by providing one or more IDs.
      */
-    async getHostsRaw(requestParameters: GetHostsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainDiscoverAPIHostEntitiesResponse>> {
+    async getHostsRaw(requestParameters: GetHostsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainDiscoverAPIHostEntitiesResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getHosts.");
         }
@@ -147,7 +147,7 @@ export class DiscoverApi extends runtime.BaseAPI {
     /**
      * Get details on assets by providing one or more IDs.
      */
-    async getHosts(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainDiscoverAPIHostEntitiesResponse> {
+    async getHosts(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainDiscoverAPIHostEntitiesResponse> {
         const response = await this.getHostsRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -155,7 +155,7 @@ export class DiscoverApi extends runtime.BaseAPI {
     /**
      * Get details on logins by providing one or more IDs.
      */
-    async getLoginsRaw(requestParameters: GetLoginsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainDiscoverAPILoginEntitiesResponse>> {
+    async getLoginsRaw(requestParameters: GetLoginsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainDiscoverAPILoginEntitiesResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getLogins.");
         }
@@ -189,7 +189,7 @@ export class DiscoverApi extends runtime.BaseAPI {
     /**
      * Get details on logins by providing one or more IDs.
      */
-    async getLogins(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainDiscoverAPILoginEntitiesResponse> {
+    async getLogins(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainDiscoverAPILoginEntitiesResponse> {
         const response = await this.getLoginsRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -197,7 +197,7 @@ export class DiscoverApi extends runtime.BaseAPI {
     /**
      * Search for accounts in your environment by providing an FQL (Falcon Query Language) filter and paging details. Returns a set of account IDs which match the filter criteria.
      */
-    async queryAccountsRaw(requestParameters: QueryAccountsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryAccountsRaw(requestParameters: QueryAccountsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.offset !== undefined) {
@@ -239,7 +239,7 @@ export class DiscoverApi extends runtime.BaseAPI {
     /**
      * Search for accounts in your environment by providing an FQL (Falcon Query Language) filter and paging details. Returns a set of account IDs which match the filter criteria.
      */
-    async queryAccounts(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async queryAccounts(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryAccountsRaw({ offset: offset, limit: limit, sort: sort, filter: filter }, initOverrides);
         return await response.value();
     }
@@ -247,7 +247,7 @@ export class DiscoverApi extends runtime.BaseAPI {
     /**
      * Search for assets in your environment by providing an FQL (Falcon Query Language) filter and paging details. Returns a set of asset IDs which match the filter criteria.
      */
-    async queryHostsRaw(requestParameters: QueryHostsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryHostsRaw(requestParameters: QueryHostsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.offset !== undefined) {
@@ -289,7 +289,7 @@ export class DiscoverApi extends runtime.BaseAPI {
     /**
      * Search for assets in your environment by providing an FQL (Falcon Query Language) filter and paging details. Returns a set of asset IDs which match the filter criteria.
      */
-    async queryHosts(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async queryHosts(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryHostsRaw({ offset: offset, limit: limit, sort: sort, filter: filter }, initOverrides);
         return await response.value();
     }
@@ -297,7 +297,7 @@ export class DiscoverApi extends runtime.BaseAPI {
     /**
      * Search for logins in your environment by providing an FQL (Falcon Query Language) filter and paging details. Returns a set of login IDs which match the filter criteria.
      */
-    async queryLoginsRaw(requestParameters: QueryLoginsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryLoginsRaw(requestParameters: QueryLoginsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.offset !== undefined) {
@@ -339,7 +339,7 @@ export class DiscoverApi extends runtime.BaseAPI {
     /**
      * Search for logins in your environment by providing an FQL (Falcon Query Language) filter and paging details. Returns a set of login IDs which match the filter criteria.
      */
-    async queryLogins(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async queryLogins(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryLoginsRaw({ offset: offset, limit: limit, sort: sort, filter: filter }, initOverrides);
         return await response.value();
     }

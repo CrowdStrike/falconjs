@@ -32,7 +32,7 @@ export class Oauth2Api extends runtime.BaseAPI {
     /**
      * Generate an OAuth2 access token
      */
-    async oauth2AccessTokenRaw(requestParameters: Oauth2AccessTokenRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainAccessTokenResponseV1>> {
+    async oauth2AccessTokenRaw(requestParameters: Oauth2AccessTokenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainAccessTokenResponseV1>> {
         if (requestParameters.clientId === null || requestParameters.clientId === undefined) {
             throw new runtime.RequiredError("clientId", "Required parameter requestParameters.clientId was null or undefined when calling oauth2AccessToken.");
         }
@@ -86,7 +86,7 @@ export class Oauth2Api extends runtime.BaseAPI {
     /**
      * Generate an OAuth2 access token
      */
-    async oauth2AccessToken(clientId: string, clientSecret: string, memberCid?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainAccessTokenResponseV1> {
+    async oauth2AccessToken(clientId: string, clientSecret: string, memberCid?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainAccessTokenResponseV1> {
         const response = await this.oauth2AccessTokenRaw({ clientId: clientId, clientSecret: clientSecret, memberCid: memberCid }, initOverrides);
         return await response.value();
     }
@@ -94,7 +94,7 @@ export class Oauth2Api extends runtime.BaseAPI {
     /**
      * Revoke a previously issued OAuth2 access token before the end of its standard 30-minute lifespan.
      */
-    async oauth2RevokeTokenRaw(requestParameters: Oauth2RevokeTokenRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async oauth2RevokeTokenRaw(requestParameters: Oauth2RevokeTokenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
         if (requestParameters.token === null || requestParameters.token === undefined) {
             throw new runtime.RequiredError("token", "Required parameter requestParameters.token was null or undefined when calling oauth2RevokeToken.");
         }
@@ -139,7 +139,7 @@ export class Oauth2Api extends runtime.BaseAPI {
     /**
      * Revoke a previously issued OAuth2 access token before the end of its standard 30-minute lifespan.
      */
-    async oauth2RevokeToken(token: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaReplyMetaOnly> {
+    async oauth2RevokeToken(token: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyMetaOnly> {
         const response = await this.oauth2RevokeTokenRaw({ token: token }, initOverrides);
         return await response.value();
     }

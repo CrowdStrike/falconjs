@@ -35,7 +35,7 @@ export class EventStreamsApi extends runtime.BaseAPI {
      */
     async listAvailableStreamsOAuth2Raw(
         requestParameters: ListAvailableStreamsOAuth2Request,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<MainDiscoveryResponseV2>> {
         if (requestParameters.appId === null || requestParameters.appId === undefined) {
             throw new runtime.RequiredError("appId", "Required parameter requestParameters.appId was null or undefined when calling listAvailableStreamsOAuth2.");
@@ -74,7 +74,7 @@ export class EventStreamsApi extends runtime.BaseAPI {
     /**
      * Discover all event streams in your environment
      */
-    async listAvailableStreamsOAuth2(appId: string, format?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MainDiscoveryResponseV2> {
+    async listAvailableStreamsOAuth2(appId: string, format?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MainDiscoveryResponseV2> {
         const response = await this.listAvailableStreamsOAuth2Raw({ appId: appId, format: format }, initOverrides);
         return await response.value();
     }
@@ -84,7 +84,7 @@ export class EventStreamsApi extends runtime.BaseAPI {
      */
     async refreshActiveStreamSessionRaw(
         requestParameters: RefreshActiveStreamSessionRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
         if (requestParameters.actionName === null || requestParameters.actionName === undefined) {
             throw new runtime.RequiredError("actionName", "Required parameter requestParameters.actionName was null or undefined when calling refreshActiveStreamSession.");
@@ -131,7 +131,7 @@ export class EventStreamsApi extends runtime.BaseAPI {
     /**
      * Refresh an active event stream. Use the URL shown in a GET /sensors/entities/datafeed/v2 response.
      */
-    async refreshActiveStreamSession(actionName: string, appId: string, partition: number, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaReplyMetaOnly> {
+    async refreshActiveStreamSession(actionName: string, appId: string, partition: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyMetaOnly> {
         const response = await this.refreshActiveStreamSessionRaw({ actionName: actionName, appId: appId, partition: partition }, initOverrides);
         return await response.value();
     }

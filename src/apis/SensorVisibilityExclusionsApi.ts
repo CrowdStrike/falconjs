@@ -68,7 +68,10 @@ export class SensorVisibilityExclusionsApi extends runtime.BaseAPI {
     /**
      * Create the sensor visibility exclusions
      */
-    async createSVExclusionsV1Raw(requestParameters: CreateSVExclusionsV1Request, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ResponsesMlExclusionRespV1>> {
+    async createSVExclusionsV1Raw(
+        requestParameters: CreateSVExclusionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ResponsesMlExclusionRespV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createSVExclusionsV1.");
         }
@@ -101,7 +104,7 @@ export class SensorVisibilityExclusionsApi extends runtime.BaseAPI {
     /**
      * Create the sensor visibility exclusions
      */
-    async createSVExclusionsV1(body: RequestsSvExclusionCreateReqV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ResponsesMlExclusionRespV1> {
+    async createSVExclusionsV1(body: RequestsSvExclusionCreateReqV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesMlExclusionRespV1> {
         const response = await this.createSVExclusionsV1Raw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -111,7 +114,7 @@ export class SensorVisibilityExclusionsApi extends runtime.BaseAPI {
      */
     async deleteSensorVisibilityExclusionsV1Raw(
         requestParameters: DeleteSensorVisibilityExclusionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling deleteSensorVisibilityExclusionsV1.");
@@ -150,7 +153,7 @@ export class SensorVisibilityExclusionsApi extends runtime.BaseAPI {
     /**
      * Delete the sensor visibility exclusions by id
      */
-    async deleteSensorVisibilityExclusionsV1(ids: Array<string>, comment?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async deleteSensorVisibilityExclusionsV1(ids: Array<string>, comment?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.deleteSensorVisibilityExclusionsV1Raw({ ids: ids, comment: comment }, initOverrides);
         return await response.value();
     }
@@ -160,7 +163,7 @@ export class SensorVisibilityExclusionsApi extends runtime.BaseAPI {
      */
     async getSensorVisibilityExclusionsV1Raw(
         requestParameters: GetSensorVisibilityExclusionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<ResponsesSvExclusionRespV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getSensorVisibilityExclusionsV1.");
@@ -195,7 +198,7 @@ export class SensorVisibilityExclusionsApi extends runtime.BaseAPI {
     /**
      * Get a set of Sensor Visibility Exclusions by specifying their IDs
      */
-    async getSensorVisibilityExclusionsV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ResponsesSvExclusionRespV1> {
+    async getSensorVisibilityExclusionsV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesSvExclusionRespV1> {
         const response = await this.getSensorVisibilityExclusionsV1Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -205,7 +208,7 @@ export class SensorVisibilityExclusionsApi extends runtime.BaseAPI {
      */
     async querySensorVisibilityExclusionsV1Raw(
         requestParameters: QuerySensorVisibilityExclusionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
@@ -253,7 +256,7 @@ export class SensorVisibilityExclusionsApi extends runtime.BaseAPI {
         offset?: number,
         limit?: number,
         sort?: QuerySensorVisibilityExclusionsV1SortEnum,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<MsaQueryResponse> {
         const response = await this.querySensorVisibilityExclusionsV1Raw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
@@ -264,7 +267,7 @@ export class SensorVisibilityExclusionsApi extends runtime.BaseAPI {
      */
     async updateSensorVisibilityExclusionsV1Raw(
         requestParameters: UpdateSensorVisibilityExclusionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<ResponsesSvExclusionRespV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateSensorVisibilityExclusionsV1.");
@@ -298,7 +301,7 @@ export class SensorVisibilityExclusionsApi extends runtime.BaseAPI {
     /**
      * Update the sensor visibility exclusions
      */
-    async updateSensorVisibilityExclusionsV1(body: RequestsSvExclusionUpdateReqV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ResponsesSvExclusionRespV1> {
+    async updateSensorVisibilityExclusionsV1(body: RequestsSvExclusionUpdateReqV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesSvExclusionRespV1> {
         const response = await this.updateSensorVisibilityExclusionsV1Raw({ body: body }, initOverrides);
         return await response.value();
     }

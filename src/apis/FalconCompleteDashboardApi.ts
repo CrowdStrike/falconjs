@@ -112,7 +112,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve aggregate allowlist ticket values based on the matched filter
      */
-    async aggregateAllowListRaw(requestParameters: AggregateAllowListRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+    async aggregateAllowListRaw(requestParameters: AggregateAllowListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling aggregateAllowList.");
         }
@@ -145,7 +145,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve aggregate allowlist ticket values based on the matched filter
      */
-    async aggregateAllowList(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaAggregatesResponse> {
+    async aggregateAllowList(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaAggregatesResponse> {
         const response = await this.aggregateAllowListRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -153,7 +153,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve aggregate blocklist ticket values based on the matched filter
      */
-    async aggregateBlockListRaw(requestParameters: AggregateBlockListRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+    async aggregateBlockListRaw(requestParameters: AggregateBlockListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling aggregateBlockList.");
         }
@@ -186,7 +186,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve aggregate blocklist ticket values based on the matched filter
      */
-    async aggregateBlockList(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaAggregatesResponse> {
+    async aggregateBlockList(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaAggregatesResponse> {
         const response = await this.aggregateBlockListRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -195,7 +195,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
      * Fields allowed to aggregate on:  - indexed_time   - created_time   - detect_time   - ldt   - cid   - aid   - platform_name   - os_version   - device_tags   - host_name   - status   - severity   - adversary_ids   - behavior_ids   - behavior_names   - num_blocked_processes   - num_quarantined_files   - pattern_ids   - first_behavior_time   - last_behavior_time   - show_in_ui   - seconds_to_triaged   - seconds_to_resolved   - assigned_to_uid   - public_tags   - vertical_tags
      * Retrieve aggregate detection values based on the matched filter
      */
-    async aggregateDetectionsRaw(requestParameters: AggregateDetectionsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+    async aggregateDetectionsRaw(requestParameters: AggregateDetectionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling aggregateDetections.");
         }
@@ -229,7 +229,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
      * Fields allowed to aggregate on:  - indexed_time   - created_time   - detect_time   - ldt   - cid   - aid   - platform_name   - os_version   - device_tags   - host_name   - status   - severity   - adversary_ids   - behavior_ids   - behavior_names   - num_blocked_processes   - num_quarantined_files   - pattern_ids   - first_behavior_time   - last_behavior_time   - show_in_ui   - seconds_to_triaged   - seconds_to_resolved   - assigned_to_uid   - public_tags   - vertical_tags
      * Retrieve aggregate detection values based on the matched filter
      */
-    async aggregateDetections(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaAggregatesResponse> {
+    async aggregateDetections(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaAggregatesResponse> {
         const response = await this.aggregateDetectionsRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -239,7 +239,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
      */
     async aggregateDeviceCountCollectionRaw(
         requestParameters: AggregateDeviceCountCollectionRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling aggregateDeviceCountCollection.");
@@ -273,7 +273,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve aggregate host/devices count based on the matched filter
      */
-    async aggregateDeviceCountCollection(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaAggregatesResponse> {
+    async aggregateDeviceCountCollection(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaAggregatesResponse> {
         const response = await this.aggregateDeviceCountCollectionRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -281,7 +281,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve aggregate escalation ticket values based on the matched filter
      */
-    async aggregateEscalationsRaw(requestParameters: AggregateEscalationsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+    async aggregateEscalationsRaw(requestParameters: AggregateEscalationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling aggregateEscalations.");
         }
@@ -314,7 +314,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve aggregate escalation ticket values based on the matched filter
      */
-    async aggregateEscalations(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaAggregatesResponse> {
+    async aggregateEscalations(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaAggregatesResponse> {
         const response = await this.aggregateEscalationsRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -322,7 +322,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve aggregate incident values based on the matched filter
      */
-    async aggregateFCIncidentsRaw(requestParameters: AggregateFCIncidentsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+    async aggregateFCIncidentsRaw(requestParameters: AggregateFCIncidentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling aggregateFCIncidents.");
         }
@@ -355,7 +355,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve aggregate incident values based on the matched filter
      */
-    async aggregateFCIncidents(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaAggregatesResponse> {
+    async aggregateFCIncidents(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaAggregatesResponse> {
         const response = await this.aggregateFCIncidentsRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -363,7 +363,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve aggregate remediation ticket values based on the matched filter
      */
-    async aggregateRemediationsRaw(requestParameters: AggregateRemediationsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+    async aggregateRemediationsRaw(requestParameters: AggregateRemediationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling aggregateRemediations.");
         }
@@ -396,7 +396,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve aggregate remediation ticket values based on the matched filter
      */
-    async aggregateRemediations(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaAggregatesResponse> {
+    async aggregateRemediations(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaAggregatesResponse> {
         const response = await this.aggregateRemediationsRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -406,7 +406,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
      */
     async getDeviceCountCollectionQueriesByFilterRaw(
         requestParameters: GetDeviceCountCollectionQueriesByFilterRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
@@ -454,7 +454,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
         sort?: string,
         filter?: string,
         offset?: string,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<MsaQueryResponse> {
         const response = await this.getDeviceCountCollectionQueriesByFilterRaw({ limit: limit, sort: sort, filter: filter, offset: offset }, initOverrides);
         return await response.value();
@@ -463,7 +463,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve allowlist tickets that match the provided filter criteria with scrolling enabled
      */
-    async queryAllowListFilterRaw(requestParameters: QueryAllowListFilterRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryAllowListFilterRaw(requestParameters: QueryAllowListFilterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.limit !== undefined) {
@@ -505,7 +505,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve allowlist tickets that match the provided filter criteria with scrolling enabled
      */
-    async queryAllowListFilter(limit?: number, sort?: string, filter?: string, offset?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async queryAllowListFilter(limit?: number, sort?: string, filter?: string, offset?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryAllowListFilterRaw({ limit: limit, sort: sort, filter: filter, offset: offset }, initOverrides);
         return await response.value();
     }
@@ -513,7 +513,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve block listtickets that match the provided filter criteria with scrolling enabled
      */
-    async queryBlockListFilterRaw(requestParameters: QueryBlockListFilterRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryBlockListFilterRaw(requestParameters: QueryBlockListFilterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.limit !== undefined) {
@@ -555,7 +555,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve block listtickets that match the provided filter criteria with scrolling enabled
      */
-    async queryBlockListFilter(limit?: number, sort?: string, filter?: string, offset?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async queryBlockListFilter(limit?: number, sort?: string, filter?: string, offset?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryBlockListFilterRaw({ limit: limit, sort: sort, filter: filter, offset: offset }, initOverrides);
         return await response.value();
     }
@@ -563,7 +563,10 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve DetectionsIds that match the provided FQL filter, criteria with scrolling enabled
      */
-    async queryDetectionIdsByFilterRaw(requestParameters: QueryDetectionIdsByFilterRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryDetectionIdsByFilterRaw(
+        requestParameters: QueryDetectionIdsByFilterRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.limit !== undefined) {
@@ -605,7 +608,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve DetectionsIds that match the provided FQL filter, criteria with scrolling enabled
      */
-    async queryDetectionIdsByFilter(limit?: number, sort?: string, filter?: string, offset?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async queryDetectionIdsByFilter(limit?: number, sort?: string, filter?: string, offset?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryDetectionIdsByFilterRaw({ limit: limit, sort: sort, filter: filter, offset: offset }, initOverrides);
         return await response.value();
     }
@@ -613,7 +616,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve escalation tickets that match the provided filter criteria with scrolling enabled
      */
-    async queryEscalationsFilterRaw(requestParameters: QueryEscalationsFilterRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryEscalationsFilterRaw(requestParameters: QueryEscalationsFilterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.limit !== undefined) {
@@ -655,7 +658,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve escalation tickets that match the provided filter criteria with scrolling enabled
      */
-    async queryEscalationsFilter(limit?: number, sort?: string, filter?: string, offset?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async queryEscalationsFilter(limit?: number, sort?: string, filter?: string, offset?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryEscalationsFilterRaw({ limit: limit, sort: sort, filter: filter, offset: offset }, initOverrides);
         return await response.value();
     }
@@ -663,7 +666,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve incidents that match the provided filter criteria with scrolling enabled
      */
-    async queryIncidentIdsByFilterRaw(requestParameters: QueryIncidentIdsByFilterRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryIncidentIdsByFilterRaw(requestParameters: QueryIncidentIdsByFilterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.limit !== undefined) {
@@ -705,7 +708,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve incidents that match the provided filter criteria with scrolling enabled
      */
-    async queryIncidentIdsByFilter(limit?: number, sort?: string, filter?: string, offset?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async queryIncidentIdsByFilter(limit?: number, sort?: string, filter?: string, offset?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryIncidentIdsByFilterRaw({ limit: limit, sort: sort, filter: filter, offset: offset }, initOverrides);
         return await response.value();
     }
@@ -713,7 +716,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve remediation tickets that match the provided filter criteria with scrolling enabled
      */
-    async queryRemediationsFilterRaw(requestParameters: QueryRemediationsFilterRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryRemediationsFilterRaw(requestParameters: QueryRemediationsFilterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.limit !== undefined) {
@@ -755,7 +758,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve remediation tickets that match the provided filter criteria with scrolling enabled
      */
-    async queryRemediationsFilter(limit?: number, sort?: string, filter?: string, offset?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async queryRemediationsFilter(limit?: number, sort?: string, filter?: string, offset?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryRemediationsFilterRaw({ limit: limit, sort: sort, filter: filter, offset: offset }, initOverrides);
         return await response.value();
     }

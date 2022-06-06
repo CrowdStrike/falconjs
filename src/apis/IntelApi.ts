@@ -149,7 +149,7 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Retrieve specific actors using their actor IDs.
      */
-    async getIntelActorEntitiesRaw(requestParameters: GetIntelActorEntitiesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainActorsResponse>> {
+    async getIntelActorEntitiesRaw(requestParameters: GetIntelActorEntitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainActorsResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getIntelActorEntities.");
         }
@@ -187,7 +187,7 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Retrieve specific actors using their actor IDs.
      */
-    async getIntelActorEntities(ids: Array<string>, fields?: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainActorsResponse> {
+    async getIntelActorEntities(ids: Array<string>, fields?: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainActorsResponse> {
         const response = await this.getIntelActorEntitiesRaw({ ids: ids, fields: fields }, initOverrides);
         return await response.value();
     }
@@ -197,7 +197,7 @@ export class IntelApi extends runtime.BaseAPI {
      */
     async getIntelIndicatorEntitiesRaw(
         requestParameters: GetIntelIndicatorEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainPublicIndicatorsV3Response>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling getIntelIndicatorEntities.");
@@ -231,7 +231,7 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Retrieve specific indicators using their indicator IDs.
      */
-    async getIntelIndicatorEntities(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainPublicIndicatorsV3Response> {
+    async getIntelIndicatorEntities(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainPublicIndicatorsV3Response> {
         const response = await this.getIntelIndicatorEntitiesRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -239,7 +239,7 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Retrieve specific reports using their report IDs.
      */
-    async getIntelReportEntitiesRaw(requestParameters: GetIntelReportEntitiesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainNewsResponse>> {
+    async getIntelReportEntitiesRaw(requestParameters: GetIntelReportEntitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainNewsResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getIntelReportEntities.");
         }
@@ -277,7 +277,7 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Retrieve specific reports using their report IDs.
      */
-    async getIntelReportEntities(ids: Array<string>, fields?: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainNewsResponse> {
+    async getIntelReportEntities(ids: Array<string>, fields?: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainNewsResponse> {
         const response = await this.getIntelReportEntitiesRaw({ ids: ids, fields: fields }, initOverrides);
         return await response.value();
     }
@@ -285,7 +285,7 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Return a Report PDF attachment
      */
-    async getIntelReportPDFRaw(requestParameters: GetIntelReportPDFRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<Blob>> {
+    async getIntelReportPDFRaw(requestParameters: GetIntelReportPDFRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
             throw new runtime.RequiredError("id", "Required parameter requestParameters.id was null or undefined when calling getIntelReportPDF.");
         }
@@ -319,7 +319,7 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Return a Report PDF attachment
      */
-    async getIntelReportPDF(id: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<Blob> {
+    async getIntelReportPDF(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
         const response = await this.getIntelReportPDFRaw({ id: id }, initOverrides);
         return await response.value();
     }
@@ -327,7 +327,7 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Retrieve details for rule sets for the specified ids.
      */
-    async getIntelRuleEntitiesRaw(requestParameters: GetIntelRuleEntitiesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainRulesResponse>> {
+    async getIntelRuleEntitiesRaw(requestParameters: GetIntelRuleEntitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRulesResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getIntelRuleEntities.");
         }
@@ -361,7 +361,7 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Retrieve details for rule sets for the specified ids.
      */
-    async getIntelRuleEntities(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<DomainRulesResponse> {
+    async getIntelRuleEntities(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainRulesResponse> {
         const response = await this.getIntelRuleEntitiesRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -369,7 +369,7 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Download earlier rule sets.
      */
-    async getIntelRuleFileRaw(requestParameters: GetIntelRuleFileRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<Blob>> {
+    async getIntelRuleFileRaw(requestParameters: GetIntelRuleFileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
             throw new runtime.RequiredError("id", "Required parameter requestParameters.id was null or undefined when calling getIntelRuleFile.");
         }
@@ -411,7 +411,7 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Download earlier rule sets.
      */
-    async getIntelRuleFile(id: number, accept?: string, format?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<Blob> {
+    async getIntelRuleFile(id: number, accept?: string, format?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
         const response = await this.getIntelRuleFileRaw({ id: id, accept: accept, format: format }, initOverrides);
         return await response.value();
     }
@@ -419,7 +419,7 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Download the latest rule set.
      */
-    async getLatestIntelRuleFileRaw(requestParameters: GetLatestIntelRuleFileRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<Blob>> {
+    async getLatestIntelRuleFileRaw(requestParameters: GetLatestIntelRuleFileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
         if (requestParameters.type === null || requestParameters.type === undefined) {
             throw new runtime.RequiredError("type", "Required parameter requestParameters.type was null or undefined when calling getLatestIntelRuleFile.");
         }
@@ -465,7 +465,7 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Download the latest rule set.
      */
-    async getLatestIntelRuleFile(type: string, accept?: string, format?: string, ifModifiedSince?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<Blob> {
+    async getLatestIntelRuleFile(type: string, accept?: string, format?: string, ifModifiedSince?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
         const response = await this.getLatestIntelRuleFileRaw({ type: type, accept: accept, format: format, ifModifiedSince: ifModifiedSince }, initOverrides);
         return await response.value();
     }
@@ -473,7 +473,10 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Get info about actors that match provided FQL filters.
      */
-    async queryIntelActorEntitiesRaw(requestParameters: QueryIntelActorEntitiesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainActorsResponse>> {
+    async queryIntelActorEntitiesRaw(
+        requestParameters: QueryIntelActorEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainActorsResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.offset !== undefined) {
@@ -530,7 +533,7 @@ export class IntelApi extends runtime.BaseAPI {
         filter?: string,
         q?: string,
         fields?: Array<string>,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<DomainActorsResponse> {
         const response = await this.queryIntelActorEntitiesRaw({ offset: offset, limit: limit, sort: sort, filter: filter, q: q, fields: fields }, initOverrides);
         return await response.value();
@@ -539,7 +542,7 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Get actor IDs that match provided FQL filters.
      */
-    async queryIntelActorIdsRaw(requestParameters: QueryIntelActorIdsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryIntelActorIdsRaw(requestParameters: QueryIntelActorIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.offset !== undefined) {
@@ -585,7 +588,7 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Get actor IDs that match provided FQL filters.
      */
-    async queryIntelActorIds(offset?: number, limit?: number, sort?: string, filter?: string, q?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async queryIntelActorIds(offset?: number, limit?: number, sort?: string, filter?: string, q?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryIntelActorIdsRaw({ offset: offset, limit: limit, sort: sort, filter: filter, q: q }, initOverrides);
         return await response.value();
     }
@@ -595,7 +598,7 @@ export class IntelApi extends runtime.BaseAPI {
      */
     async queryIntelIndicatorEntitiesRaw(
         requestParameters: QueryIntelIndicatorEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainPublicIndicatorsV3Response>> {
         const queryParameters: any = {};
 
@@ -658,7 +661,7 @@ export class IntelApi extends runtime.BaseAPI {
         q?: string,
         includeDeleted?: boolean,
         includeRelations?: boolean,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<DomainPublicIndicatorsV3Response> {
         const response = await this.queryIntelIndicatorEntitiesRaw(
             { offset: offset, limit: limit, sort: sort, filter: filter, q: q, includeDeleted: includeDeleted, includeRelations: includeRelations },
@@ -670,7 +673,7 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Get indicators IDs that match provided FQL filters.
      */
-    async queryIntelIndicatorIdsRaw(requestParameters: QueryIntelIndicatorIdsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryIntelIndicatorIdsRaw(requestParameters: QueryIntelIndicatorIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.offset !== undefined) {
@@ -732,7 +735,7 @@ export class IntelApi extends runtime.BaseAPI {
         q?: string,
         includeDeleted?: boolean,
         includeRelations?: boolean,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<MsaQueryResponse> {
         const response = await this.queryIntelIndicatorIdsRaw(
             { offset: offset, limit: limit, sort: sort, filter: filter, q: q, includeDeleted: includeDeleted, includeRelations: includeRelations },
@@ -744,7 +747,10 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Get info about reports that match provided FQL filters.
      */
-    async queryIntelReportEntitiesRaw(requestParameters: QueryIntelReportEntitiesRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<DomainNewsResponse>> {
+    async queryIntelReportEntitiesRaw(
+        requestParameters: QueryIntelReportEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainNewsResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.offset !== undefined) {
@@ -801,7 +807,7 @@ export class IntelApi extends runtime.BaseAPI {
         filter?: string,
         q?: string,
         fields?: Array<string>,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<DomainNewsResponse> {
         const response = await this.queryIntelReportEntitiesRaw({ offset: offset, limit: limit, sort: sort, filter: filter, q: q, fields: fields }, initOverrides);
         return await response.value();
@@ -810,7 +816,7 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Get report IDs that match provided FQL filters.
      */
-    async queryIntelReportIdsRaw(requestParameters: QueryIntelReportIdsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryIntelReportIdsRaw(requestParameters: QueryIntelReportIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.offset !== undefined) {
@@ -856,7 +862,7 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Get report IDs that match provided FQL filters.
      */
-    async queryIntelReportIds(offset?: number, limit?: number, sort?: string, filter?: string, q?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async queryIntelReportIds(offset?: number, limit?: number, sort?: string, filter?: string, q?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryIntelReportIdsRaw({ offset: offset, limit: limit, sort: sort, filter: filter, q: q }, initOverrides);
         return await response.value();
     }
@@ -864,7 +870,7 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Search for rule IDs that match provided filter criteria.
      */
-    async queryIntelRuleIdsRaw(requestParameters: QueryIntelRuleIdsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryIntelRuleIdsRaw(requestParameters: QueryIntelRuleIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         if (requestParameters.type === null || requestParameters.type === undefined) {
             throw new runtime.RequiredError("type", "Required parameter requestParameters.type was null or undefined when calling queryIntelRuleIds.");
         }
@@ -945,7 +951,7 @@ export class IntelApi extends runtime.BaseAPI {
         minCreatedDate?: number,
         maxCreatedDate?: string,
         q?: string,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<MsaQueryResponse> {
         const response = await this.queryIntelRuleIdsRaw(
             { type: type, offset: offset, limit: limit, sort: sort, name: name, description: description, tags: tags, minCreatedDate: minCreatedDate, maxCreatedDate: maxCreatedDate, q: q },

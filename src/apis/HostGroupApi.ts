@@ -99,7 +99,7 @@ export class HostGroupApi extends runtime.BaseAPI {
     /**
      * Create Host Groups by specifying details about the group to create
      */
-    async createHostGroupsRaw(requestParameters: CreateHostGroupsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ResponsesHostGroupsV1>> {
+    async createHostGroupsRaw(requestParameters: CreateHostGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponsesHostGroupsV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createHostGroups.");
         }
@@ -132,7 +132,7 @@ export class HostGroupApi extends runtime.BaseAPI {
     /**
      * Create Host Groups by specifying details about the group to create
      */
-    async createHostGroups(body: RequestsCreateGroupsV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ResponsesHostGroupsV1> {
+    async createHostGroups(body: RequestsCreateGroupsV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesHostGroupsV1> {
         const response = await this.createHostGroupsRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -140,7 +140,7 @@ export class HostGroupApi extends runtime.BaseAPI {
     /**
      * Delete a set of Host Groups by specifying their IDs
      */
-    async deleteHostGroupsRaw(requestParameters: DeleteHostGroupsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async deleteHostGroupsRaw(requestParameters: DeleteHostGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling deleteHostGroups.");
         }
@@ -174,7 +174,7 @@ export class HostGroupApi extends runtime.BaseAPI {
     /**
      * Delete a set of Host Groups by specifying their IDs
      */
-    async deleteHostGroups(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async deleteHostGroups(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.deleteHostGroupsRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -182,7 +182,7 @@ export class HostGroupApi extends runtime.BaseAPI {
     /**
      * Retrieve a set of Host Groups by specifying their IDs
      */
-    async getHostGroupsRaw(requestParameters: GetHostGroupsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ResponsesHostGroupsV1>> {
+    async getHostGroupsRaw(requestParameters: GetHostGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponsesHostGroupsV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getHostGroups.");
         }
@@ -216,7 +216,7 @@ export class HostGroupApi extends runtime.BaseAPI {
     /**
      * Retrieve a set of Host Groups by specifying their IDs
      */
-    async getHostGroups(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ResponsesHostGroupsV1> {
+    async getHostGroups(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesHostGroupsV1> {
         const response = await this.getHostGroupsRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -224,7 +224,7 @@ export class HostGroupApi extends runtime.BaseAPI {
     /**
      * Perform the specified action on the Host Groups specified in the request
      */
-    async performGroupActionRaw(requestParameters: PerformGroupActionRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ResponsesHostGroupsV1>> {
+    async performGroupActionRaw(requestParameters: PerformGroupActionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponsesHostGroupsV1>> {
         if (requestParameters.actionName === null || requestParameters.actionName === undefined) {
             throw new runtime.RequiredError("actionName", "Required parameter requestParameters.actionName was null or undefined when calling performGroupAction.");
         }
@@ -273,7 +273,7 @@ export class HostGroupApi extends runtime.BaseAPI {
         actionName: PerformGroupActionActionNameEnum,
         body: MsaEntityActionRequestV2,
         disableHostnameCheck?: boolean,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<ResponsesHostGroupsV1> {
         const response = await this.performGroupActionRaw({ actionName: actionName, body: body, disableHostnameCheck: disableHostnameCheck }, initOverrides);
         return await response.value();
@@ -284,7 +284,7 @@ export class HostGroupApi extends runtime.BaseAPI {
      */
     async queryCombinedGroupMembersRaw(
         requestParameters: QueryCombinedGroupMembersRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<ResponsesHostGroupMembersV1>> {
         const queryParameters: any = {};
 
@@ -337,7 +337,7 @@ export class HostGroupApi extends runtime.BaseAPI {
         offset?: number,
         limit?: number,
         sort?: string,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<ResponsesHostGroupMembersV1> {
         const response = await this.queryCombinedGroupMembersRaw({ id: id, filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
@@ -348,7 +348,7 @@ export class HostGroupApi extends runtime.BaseAPI {
      */
     async queryCombinedHostGroupsRaw(
         requestParameters: QueryCombinedHostGroupsRequest,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<ResponsesHostGroupsV1>> {
         const queryParameters: any = {};
 
@@ -396,7 +396,7 @@ export class HostGroupApi extends runtime.BaseAPI {
         offset?: number,
         limit?: number,
         sort?: QueryCombinedHostGroupsSortEnum,
-        initOverrides?: RequestInit | runtime.InitOverideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<ResponsesHostGroupsV1> {
         const response = await this.queryCombinedHostGroupsRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
@@ -405,7 +405,7 @@ export class HostGroupApi extends runtime.BaseAPI {
     /**
      * Search for members of a Host Group in your environment by providing an FQL filter and paging details. Returns a set of Agent IDs which match the filter criteria
      */
-    async queryGroupMembersRaw(requestParameters: QueryGroupMembersRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryGroupMembersRaw(requestParameters: QueryGroupMembersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.id !== undefined) {
@@ -451,7 +451,7 @@ export class HostGroupApi extends runtime.BaseAPI {
     /**
      * Search for members of a Host Group in your environment by providing an FQL filter and paging details. Returns a set of Agent IDs which match the filter criteria
      */
-    async queryGroupMembers(id?: string, filter?: string, offset?: number, limit?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async queryGroupMembers(id?: string, filter?: string, offset?: number, limit?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryGroupMembersRaw({ id: id, filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
@@ -459,7 +459,7 @@ export class HostGroupApi extends runtime.BaseAPI {
     /**
      * Search for Host Groups in your environment by providing an FQL filter and paging details. Returns a set of Host Group IDs which match the filter criteria
      */
-    async queryHostGroupsRaw(requestParameters: QueryHostGroupsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryHostGroupsRaw(requestParameters: QueryHostGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -501,7 +501,7 @@ export class HostGroupApi extends runtime.BaseAPI {
     /**
      * Search for Host Groups in your environment by providing an FQL filter and paging details. Returns a set of Host Group IDs which match the filter criteria
      */
-    async queryHostGroups(filter?: string, offset?: number, limit?: number, sort?: QueryHostGroupsSortEnum, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<MsaQueryResponse> {
+    async queryHostGroups(filter?: string, offset?: number, limit?: number, sort?: QueryHostGroupsSortEnum, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryHostGroupsRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
@@ -509,7 +509,7 @@ export class HostGroupApi extends runtime.BaseAPI {
     /**
      * Update Host Groups by specifying the ID of the group and details to update
      */
-    async updateHostGroupsRaw(requestParameters: UpdateHostGroupsRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<runtime.ApiResponse<ResponsesHostGroupsV1>> {
+    async updateHostGroupsRaw(requestParameters: UpdateHostGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponsesHostGroupsV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateHostGroups.");
         }
@@ -542,7 +542,7 @@ export class HostGroupApi extends runtime.BaseAPI {
     /**
      * Update Host Groups by specifying the ID of the group and details to update
      */
-    async updateHostGroups(body: RequestsUpdateGroupsV1, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<ResponsesHostGroupsV1> {
+    async updateHostGroups(body: RequestsUpdateGroupsV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesHostGroupsV1> {
         const response = await this.updateHostGroupsRaw({ body: body }, initOverrides);
         return await response.value();
     }
