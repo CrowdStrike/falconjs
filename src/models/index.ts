@@ -503,6 +503,8 @@ export * from "./RegistrationAWSProvisionGetAccountScriptResponseV2";
 export * from "./RegistrationAzureAccountCreateRequestExternalV1";
 export * from "./RegistrationAzureAccountExternalV1";
 export * from "./RegistrationAzureAccountResponseV1";
+export * from "./RegistrationAzureDownloadCertificateResponseV1";
+export * from "./RegistrationAzureKeyV1";
 export * from "./RegistrationAzureProvisionGetUserScriptResponseV1";
 export * from "./RegistrationAzureServicePrincipalResponseV1";
 export * from "./RegistrationAzureTenantDefaultSubscriptionIDResponseV1";

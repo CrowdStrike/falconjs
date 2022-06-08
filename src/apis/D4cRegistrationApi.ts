@@ -23,6 +23,9 @@ import {
     RegistrationAzureAccountResponseV1,
     RegistrationAzureAccountResponseV1FromJSON,
     RegistrationAzureAccountResponseV1ToJSON,
+    RegistrationAzureDownloadCertificateResponseV1,
+    RegistrationAzureDownloadCertificateResponseV1FromJSON,
+    RegistrationAzureDownloadCertificateResponseV1ToJSON,
     RegistrationAzureProvisionGetUserScriptResponseV1,
     RegistrationAzureProvisionGetUserScriptResponseV1FromJSON,
     RegistrationAzureProvisionGetUserScriptResponseV1ToJSON,
@@ -46,6 +49,11 @@ export interface CreateCSPMAzureAccountRequest {
 
 export interface CreateCSPMGCPAccountRequest {
     body: RegistrationGCPAccountCreateRequestExtV1;
+}
+
+export interface DiscoverCloudAzureDownloadCertificateRequest {
+    tenantId: Array<string>;
+    refresh?: DiscoverCloudAzureDownloadCertificateRefreshEnum;
 }
 
 export interface GetCSPMAzureAccountRequest {
@@ -151,6 +159,59 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
      */
     async createCSPMGCPAccount(body: RegistrationGCPAccountCreateRequestExtV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationGCPAccountResponseV1> {
         const response = await this.createCSPMGCPAccountRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Returns JSON object(s) that contain the base64 encoded certificate for a service principal.
+     */
+    async discoverCloudAzureDownloadCertificateRaw(
+        requestParameters: DiscoverCloudAzureDownloadCertificateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<RegistrationAzureDownloadCertificateResponseV1>> {
+        if (requestParameters.tenantId === null || requestParameters.tenantId === undefined) {
+            throw new runtime.RequiredError("tenantId", "Required parameter requestParameters.tenantId was null or undefined when calling discoverCloudAzureDownloadCertificate.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.tenantId) {
+            queryParameters["tenant_id"] = requestParameters.tenantId;
+        }
+
+        if (requestParameters.refresh !== undefined) {
+            queryParameters["refresh"] = requestParameters.refresh;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cloud-connect-azure/entities/download-certificate/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureDownloadCertificateResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Returns JSON object(s) that contain the base64 encoded certificate for a service principal.
+     */
+    async discoverCloudAzureDownloadCertificate(
+        tenantId: Array<string>,
+        refresh?: DiscoverCloudAzureDownloadCertificateRefreshEnum,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<RegistrationAzureDownloadCertificateResponseV1> {
+        const response = await this.discoverCloudAzureDownloadCertificateRaw({ tenantId: tenantId, refresh: refresh }, initOverrides);
         return await response.value();
     }
 
@@ -425,3 +486,12 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
         return await response.value();
     }
 }
+
+/**
+ * @export
+ */
+export const DiscoverCloudAzureDownloadCertificateRefreshEnum = {
+    False: "false",
+    True: "true",
+} as const;
+export type DiscoverCloudAzureDownloadCertificateRefreshEnum = typeof DiscoverCloudAzureDownloadCertificateRefreshEnum[keyof typeof DiscoverCloudAzureDownloadCertificateRefreshEnum];
