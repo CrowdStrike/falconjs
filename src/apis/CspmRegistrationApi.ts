@@ -38,6 +38,9 @@ import {
     RegistrationAzureAccountResponseV1,
     RegistrationAzureAccountResponseV1FromJSON,
     RegistrationAzureAccountResponseV1ToJSON,
+    RegistrationAzureDownloadCertificateResponseV1,
+    RegistrationAzureDownloadCertificateResponseV1FromJSON,
+    RegistrationAzureDownloadCertificateResponseV1ToJSON,
     RegistrationAzureProvisionGetUserScriptResponseV1,
     RegistrationAzureProvisionGetUserScriptResponseV1FromJSON,
     RegistrationAzureProvisionGetUserScriptResponseV1ToJSON,
@@ -75,6 +78,11 @@ import {
     RegistrationScanScheduleUpdateRequestV1FromJSON,
     RegistrationScanScheduleUpdateRequestV1ToJSON,
 } from "../models";
+
+export interface AzureDownloadCertificateRequest {
+    tenantId: Array<string>;
+    refresh?: AzureDownloadCertificateRefreshEnum;
+}
 
 export interface CreateCSPMAwsAccountRequest {
     body: RegistrationAWSAccountCreateRequestExtV2;
@@ -206,6 +214,59 @@ export interface UpdateCSPMScanScheduleRequest {
  *
  */
 export class CspmRegistrationApi extends runtime.BaseAPI {
+    /**
+     * Returns JSON object(s) that contain the base64 encoded certificate for a service principal.
+     */
+    async azureDownloadCertificateRaw(
+        requestParameters: AzureDownloadCertificateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<RegistrationAzureDownloadCertificateResponseV1>> {
+        if (requestParameters.tenantId === null || requestParameters.tenantId === undefined) {
+            throw new runtime.RequiredError("tenantId", "Required parameter requestParameters.tenantId was null or undefined when calling azureDownloadCertificate.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.tenantId) {
+            queryParameters["tenant_id"] = requestParameters.tenantId;
+        }
+
+        if (requestParameters.refresh !== undefined) {
+            queryParameters["refresh"] = requestParameters.refresh;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cloud-connect-cspm-azure/entities/download-certificate/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureDownloadCertificateResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Returns JSON object(s) that contain the base64 encoded certificate for a service principal.
+     */
+    async azureDownloadCertificate(
+        tenantId: Array<string>,
+        refresh?: AzureDownloadCertificateRefreshEnum,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<RegistrationAzureDownloadCertificateResponseV1> {
+        const response = await this.azureDownloadCertificateRaw({ tenantId: tenantId, refresh: refresh }, initOverrides);
+        return await response.value();
+    }
+
     /**
      * Creates a new account in our system for a customer and generates a script for them to run in their AWS cloud environment to grant us access.
      */
@@ -1432,6 +1493,14 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 }
 
+/**
+ * @export
+ */
+export const AzureDownloadCertificateRefreshEnum = {
+    False: "false",
+    True: "true",
+} as const;
+export type AzureDownloadCertificateRefreshEnum = typeof AzureDownloadCertificateRefreshEnum[keyof typeof AzureDownloadCertificateRefreshEnum];
 /**
  * @export
  */
