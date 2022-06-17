@@ -144,6 +144,35 @@ export interface DomainSession {
     userUuid: string;
 }
 
+/**
+ * Check if a given object implements the DomainSession interface.
+ */
+export function instanceOfDomainSession(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "cid" in value;
+    isInstance = isInstance && "cloudRequestIds" in value;
+    isInstance = isInstance && "commands" in value;
+    isInstance = isInstance && "commandsQueued" in value;
+    isInstance = isInstance && "createdAt" in value;
+    isInstance = isInstance && "deletedAt" in value;
+    isInstance = isInstance && "deviceDetails" in value;
+    isInstance = isInstance && "deviceId" in value;
+    isInstance = isInstance && "duration" in value;
+    isInstance = isInstance && "hostname" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "logs" in value;
+    isInstance = isInstance && "offlineQueued" in value;
+    isInstance = isInstance && "origin" in value;
+    isInstance = isInstance && "platformId" in value;
+    isInstance = isInstance && "platformName" in value;
+    isInstance = isInstance && "pwd" in value;
+    isInstance = isInstance && "updatedAt" in value;
+    isInstance = isInstance && "userId" in value;
+    isInstance = isInstance && "userUuid" in value;
+
+    return isInstance;
+}
+
 export function DomainSessionFromJSON(json: any): DomainSession {
     return DomainSessionFromJSONTyped(json, false);
 }

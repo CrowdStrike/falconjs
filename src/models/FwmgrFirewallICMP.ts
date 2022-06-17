@@ -33,6 +33,17 @@ export interface FwmgrFirewallICMP {
     icmpType: string;
 }
 
+/**
+ * Check if a given object implements the FwmgrFirewallICMP interface.
+ */
+export function instanceOfFwmgrFirewallICMP(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "icmpCode" in value;
+    isInstance = isInstance && "icmpType" in value;
+
+    return isInstance;
+}
+
 export function FwmgrFirewallICMPFromJSON(json: any): FwmgrFirewallICMP {
     return FwmgrFirewallICMPFromJSONTyped(json, false);
 }

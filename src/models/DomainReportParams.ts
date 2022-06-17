@@ -69,6 +69,22 @@ export interface DomainReportParams {
     sort: string;
 }
 
+/**
+ * Check if a given object implements the DomainReportParams interface.
+ */
+export function instanceOfDomainReportParams(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "dashboardId" in value;
+    isInstance = isInstance && "dashboardVisibility" in value;
+    isInstance = isInstance && "filter" in value;
+    isInstance = isInstance && "filterDisplay" in value;
+    isInstance = isInstance && "filterUi" in value;
+    isInstance = isInstance && "format" in value;
+    isInstance = isInstance && "sort" in value;
+
+    return isInstance;
+}
+
 export function DomainReportParamsFromJSON(json: any): DomainReportParams {
     return DomainReportParamsFromJSONTyped(json, false);
 }

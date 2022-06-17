@@ -29,6 +29,15 @@ export interface RegistrationIOMResources {
     events?: Array<RegistrationIOMEvent>;
 }
 
+/**
+ * Check if a given object implements the RegistrationIOMResources interface.
+ */
+export function instanceOfRegistrationIOMResources(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function RegistrationIOMResourcesFromJSON(json: any): RegistrationIOMResources {
     return RegistrationIOMResourcesFromJSONTyped(json, false);
 }

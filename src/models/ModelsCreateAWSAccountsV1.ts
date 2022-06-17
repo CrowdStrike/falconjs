@@ -29,6 +29,16 @@ export interface ModelsCreateAWSAccountsV1 {
     resources: Array<ModelsAWSAccountRequestV1>;
 }
 
+/**
+ * Check if a given object implements the ModelsCreateAWSAccountsV1 interface.
+ */
+export function instanceOfModelsCreateAWSAccountsV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ModelsCreateAWSAccountsV1FromJSON(json: any): ModelsCreateAWSAccountsV1 {
     return ModelsCreateAWSAccountsV1FromJSONTyped(json, false);
 }

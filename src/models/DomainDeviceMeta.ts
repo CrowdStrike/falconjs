@@ -47,6 +47,17 @@ export interface DomainDeviceMeta {
     traceId: string;
 }
 
+/**
+ * Check if a given object implements the DomainDeviceMeta interface.
+ */
+export function instanceOfDomainDeviceMeta(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "queryTime" in value;
+    isInstance = isInstance && "traceId" in value;
+
+    return isInstance;
+}
+
 export function DomainDeviceMetaFromJSON(json: any): DomainDeviceMeta {
     return DomainDeviceMetaFromJSONTyped(json, false);
 }

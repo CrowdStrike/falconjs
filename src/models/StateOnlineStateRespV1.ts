@@ -43,6 +43,18 @@ export interface StateOnlineStateRespV1 {
     resources: Array<StateOnlineStateResultV1>;
 }
 
+/**
+ * Check if a given object implements the StateOnlineStateRespV1 interface.
+ */
+export function instanceOfStateOnlineStateRespV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function StateOnlineStateRespV1FromJSON(json: any): StateOnlineStateRespV1 {
     return StateOnlineStateRespV1FromJSONTyped(json, false);
 }

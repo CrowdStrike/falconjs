@@ -33,6 +33,17 @@ export interface FwmgrDomainPortRange {
     start: number;
 }
 
+/**
+ * Check if a given object implements the FwmgrDomainPortRange interface.
+ */
+export function instanceOfFwmgrDomainPortRange(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "end" in value;
+    isInstance = isInstance && "start" in value;
+
+    return isInstance;
+}
+
 export function FwmgrDomainPortRangeFromJSON(json: any): FwmgrDomainPortRange {
     return FwmgrDomainPortRangeFromJSONTyped(json, false);
 }

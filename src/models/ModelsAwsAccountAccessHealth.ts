@@ -29,6 +29,15 @@ export interface ModelsAwsAccountAccessHealth {
     api?: ModelsAccessHealthDetails;
 }
 
+/**
+ * Check if a given object implements the ModelsAwsAccountAccessHealth interface.
+ */
+export function instanceOfModelsAwsAccountAccessHealth(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function ModelsAwsAccountAccessHealthFromJSON(json: any): ModelsAwsAccountAccessHealth {
     return ModelsAwsAccountAccessHealthFromJSONTyped(json, false);
 }

@@ -43,6 +43,18 @@ export interface ApiIndicatorRespV1 {
     resources: Array<ApiIndicatorV1>;
 }
 
+/**
+ * Check if a given object implements the ApiIndicatorRespV1 interface.
+ */
+export function instanceOfApiIndicatorRespV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ApiIndicatorRespV1FromJSON(json: any): ApiIndicatorRespV1 {
     return ApiIndicatorRespV1FromJSONTyped(json, false);
 }

@@ -113,6 +113,15 @@ export interface QuarantineQuarantinedFile {
     username?: string;
 }
 
+/**
+ * Check if a given object implements the QuarantineQuarantinedFile interface.
+ */
+export function instanceOfQuarantineQuarantinedFile(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function QuarantineQuarantinedFileFromJSON(json: any): QuarantineQuarantinedFile {
     return QuarantineQuarantinedFileFromJSONTyped(json, false);
 }

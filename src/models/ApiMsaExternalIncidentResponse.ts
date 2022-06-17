@@ -43,6 +43,18 @@ export interface ApiMsaExternalIncidentResponse {
     resources: Array<DomainIncident>;
 }
 
+/**
+ * Check if a given object implements the ApiMsaExternalIncidentResponse interface.
+ */
+export function instanceOfApiMsaExternalIncidentResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ApiMsaExternalIncidentResponseFromJSON(json: any): ApiMsaExternalIncidentResponse {
     return ApiMsaExternalIncidentResponseFromJSONTyped(json, false);
 }

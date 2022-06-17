@@ -95,6 +95,15 @@ export interface ApiIndicatorUpdateReqV1 {
     tags?: Array<string>;
 }
 
+/**
+ * Check if a given object implements the ApiIndicatorUpdateReqV1 interface.
+ */
+export function instanceOfApiIndicatorUpdateReqV1(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function ApiIndicatorUpdateReqV1FromJSON(json: any): ApiIndicatorUpdateReqV1 {
     return ApiIndicatorUpdateReqV1FromJSONTyped(json, false);
 }

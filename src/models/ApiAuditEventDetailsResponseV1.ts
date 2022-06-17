@@ -48,6 +48,18 @@ export interface ApiAuditEventDetailsResponseV1 {
     resources: Array<ApiAuditEventDetailsResourceV1>;
 }
 
+/**
+ * Check if a given object implements the ApiAuditEventDetailsResponseV1 interface.
+ */
+export function instanceOfApiAuditEventDetailsResponseV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ApiAuditEventDetailsResponseV1FromJSON(json: any): ApiAuditEventDetailsResponseV1 {
     return ApiAuditEventDetailsResponseV1FromJSONTyped(json, false);
 }

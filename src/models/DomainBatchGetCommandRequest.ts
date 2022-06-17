@@ -39,6 +39,18 @@ export interface DomainBatchGetCommandRequest {
     optionalHosts: Array<string>;
 }
 
+/**
+ * Check if a given object implements the DomainBatchGetCommandRequest interface.
+ */
+export function instanceOfDomainBatchGetCommandRequest(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "batchId" in value;
+    isInstance = isInstance && "filePath" in value;
+    isInstance = isInstance && "optionalHosts" in value;
+
+    return isInstance;
+}
+
 export function DomainBatchGetCommandRequestFromJSON(json: any): DomainBatchGetCommandRequest {
     return DomainBatchGetCommandRequestFromJSONTyped(json, false);
 }

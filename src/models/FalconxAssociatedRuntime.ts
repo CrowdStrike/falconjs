@@ -33,6 +33,15 @@ export interface FalconxAssociatedRuntime {
     pid?: number;
 }
 
+/**
+ * Check if a given object implements the FalconxAssociatedRuntime interface.
+ */
+export function instanceOfFalconxAssociatedRuntime(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxAssociatedRuntimeFromJSON(json: any): FalconxAssociatedRuntime {
     return FalconxAssociatedRuntimeFromJSONTyped(json, false);
 }

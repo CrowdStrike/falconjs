@@ -63,6 +63,22 @@ export interface DomainBreachedItemV1 {
     phone: string;
 }
 
+/**
+ * Check if a given object implements the DomainBreachedItemV1 interface.
+ */
+export function instanceOfDomainBreachedItemV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "domain" in value;
+    isInstance = isInstance && "email" in value;
+    isInstance = isInstance && "hashType" in value;
+    isInstance = isInstance && "loginId" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "password" in value;
+    isInstance = isInstance && "phone" in value;
+
+    return isInstance;
+}
+
 export function DomainBreachedItemV1FromJSON(json: any): DomainBreachedItemV1 {
     return DomainBreachedItemV1FromJSONTyped(json, false);
 }

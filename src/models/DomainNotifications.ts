@@ -41,6 +41,17 @@ export interface DomainNotifications {
     type: string;
 }
 
+/**
+ * Check if a given object implements the DomainNotifications interface.
+ */
+export function instanceOfDomainNotifications(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "config" in value;
+    isInstance = isInstance && "type" in value;
+
+    return isInstance;
+}
+
 export function DomainNotificationsFromJSON(json: any): DomainNotifications {
     return DomainNotificationsFromJSONTyped(json, false);
 }

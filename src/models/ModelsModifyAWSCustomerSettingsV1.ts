@@ -34,6 +34,16 @@ export interface ModelsModifyAWSCustomerSettingsV1 {
     resources: Array<ModelsAWSCustomerSettingsRequestV1>;
 }
 
+/**
+ * Check if a given object implements the ModelsModifyAWSCustomerSettingsV1 interface.
+ */
+export function instanceOfModelsModifyAWSCustomerSettingsV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ModelsModifyAWSCustomerSettingsV1FromJSON(json: any): ModelsModifyAWSCustomerSettingsV1 {
     return ModelsModifyAWSCustomerSettingsV1FromJSONTyped(json, false);
 }

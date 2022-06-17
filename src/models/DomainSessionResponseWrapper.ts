@@ -43,6 +43,18 @@ export interface DomainSessionResponseWrapper {
     resources: Array<DomainSession>;
 }
 
+/**
+ * Check if a given object implements the DomainSessionResponseWrapper interface.
+ */
+export function instanceOfDomainSessionResponseWrapper(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainSessionResponseWrapperFromJSON(json: any): DomainSessionResponseWrapper {
     return DomainSessionResponseWrapperFromJSONTyped(json, false);
 }

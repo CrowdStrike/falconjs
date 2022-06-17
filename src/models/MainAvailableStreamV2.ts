@@ -47,6 +47,19 @@ export interface MainAvailableStreamV2 {
     sessionToken: MainSessionToken;
 }
 
+/**
+ * Check if a given object implements the MainAvailableStreamV2 interface.
+ */
+export function instanceOfMainAvailableStreamV2(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "dataFeedURL" in value;
+    isInstance = isInstance && "refreshActiveSessionInterval" in value;
+    isInstance = isInstance && "refreshActiveSessionURL" in value;
+    isInstance = isInstance && "sessionToken" in value;
+
+    return isInstance;
+}
+
 export function MainAvailableStreamV2FromJSON(json: any): MainAvailableStreamV2 {
     return MainAvailableStreamV2FromJSONTyped(json, false);
 }

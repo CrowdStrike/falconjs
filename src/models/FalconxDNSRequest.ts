@@ -69,6 +69,15 @@ export interface FalconxDNSRequest {
     registrarOrganization?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxDNSRequest interface.
+ */
+export function instanceOfFalconxDNSRequest(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxDNSRequestFromJSON(json: any): FalconxDNSRequest {
     return FalconxDNSRequestFromJSONTyped(json, false);
 }

@@ -131,6 +131,15 @@ export interface ModelsAWSAccountV1 {
     templateVersion?: string;
 }
 
+/**
+ * Check if a given object implements the ModelsAWSAccountV1 interface.
+ */
+export function instanceOfModelsAWSAccountV1(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function ModelsAWSAccountV1FromJSON(json: any): ModelsAWSAccountV1 {
     return ModelsAWSAccountV1FromJSONTyped(json, false);
 }

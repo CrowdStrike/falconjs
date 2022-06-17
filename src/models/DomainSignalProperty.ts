@@ -51,6 +51,20 @@ export interface DomainSignalProperty {
     signalName: string;
 }
 
+/**
+ * Check if a given object implements the DomainSignalProperty interface.
+ */
+export function instanceOfDomainSignalProperty(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "criteria" in value;
+    isInstance = isInstance && "groupName" in value;
+    isInstance = isInstance && "meetsCriteria" in value;
+    isInstance = isInstance && "signalId" in value;
+    isInstance = isInstance && "signalName" in value;
+
+    return isInstance;
+}
+
 export function DomainSignalPropertyFromJSON(json: any): DomainSignalProperty {
     return DomainSignalPropertyFromJSONTyped(json, false);
 }

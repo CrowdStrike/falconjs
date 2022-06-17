@@ -43,6 +43,18 @@ export interface ApiScheduledReportsResultV1 {
     resources: Array<ApiScheduledReportV1>;
 }
 
+/**
+ * Check if a given object implements the ApiScheduledReportsResultV1 interface.
+ */
+export function instanceOfApiScheduledReportsResultV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ApiScheduledReportsResultV1FromJSON(json: any): ApiScheduledReportsResultV1 {
     return ApiScheduledReportsResultV1FromJSONTyped(json, false);
 }

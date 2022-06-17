@@ -60,6 +60,21 @@ export interface ApiCaseCreationRequest {
     userUuid: string;
 }
 
+/**
+ * Check if a given object implements the ApiCaseCreationRequest interface.
+ */
+export function instanceOfApiCaseCreationRequest(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "body" in value;
+    isInstance = isInstance && "detections" in value;
+    isInstance = isInstance && "incidents" in value;
+    isInstance = isInstance && "title" in value;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "userUuid" in value;
+
+    return isInstance;
+}
+
 export function ApiCaseCreationRequestFromJSON(json: any): ApiCaseCreationRequest {
     return ApiCaseCreationRequestFromJSONTyped(json, false);
 }

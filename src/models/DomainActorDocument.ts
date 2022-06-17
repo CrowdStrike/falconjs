@@ -188,6 +188,30 @@ export interface DomainActorDocument {
     url?: string;
 }
 
+/**
+ * Check if a given object implements the DomainActorDocument interface.
+ */
+export function instanceOfDomainActorDocument(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "active" in value;
+    isInstance = isInstance && "createdDate" in value;
+    isInstance = isInstance && "firstActivityDate" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "knownAs" in value;
+    isInstance = isInstance && "lastActivityDate" in value;
+    isInstance = isInstance && "lastModifiedDate" in value;
+    isInstance = isInstance && "motivations" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "notifyUsers" in value;
+    isInstance = isInstance && "origins" in value;
+    isInstance = isInstance && "shortDescription" in value;
+    isInstance = isInstance && "slug" in value;
+    isInstance = isInstance && "targetCountries" in value;
+    isInstance = isInstance && "targetIndustries" in value;
+
+    return isInstance;
+}
+
 export function DomainActorDocumentFromJSON(json: any): DomainActorDocument {
     return DomainActorDocumentFromJSONTyped(json, false);
 }

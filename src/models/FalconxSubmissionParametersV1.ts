@@ -41,6 +41,15 @@ export interface FalconxSubmissionParametersV1 {
     userTags?: Array<string>;
 }
 
+/**
+ * Check if a given object implements the FalconxSubmissionParametersV1 interface.
+ */
+export function instanceOfFalconxSubmissionParametersV1(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxSubmissionParametersV1FromJSON(json: any): FalconxSubmissionParametersV1 {
     return FalconxSubmissionParametersV1FromJSONTyped(json, false);
 }

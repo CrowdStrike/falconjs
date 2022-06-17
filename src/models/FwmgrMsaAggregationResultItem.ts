@@ -83,6 +83,16 @@ export interface FwmgrMsaAggregationResultItem {
     valueAsString?: string;
 }
 
+/**
+ * Check if a given object implements the FwmgrMsaAggregationResultItem interface.
+ */
+export function instanceOfFwmgrMsaAggregationResultItem(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "count" in value;
+
+    return isInstance;
+}
+
 export function FwmgrMsaAggregationResultItemFromJSON(json: any): FwmgrMsaAggregationResultItem {
     return FwmgrMsaAggregationResultItemFromJSONTyped(json, false);
 }

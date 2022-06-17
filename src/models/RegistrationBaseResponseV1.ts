@@ -36,6 +36,17 @@ export interface RegistrationBaseResponseV1 {
     meta: MsaMetaInfo;
 }
 
+/**
+ * Check if a given object implements the RegistrationBaseResponseV1 interface.
+ */
+export function instanceOfRegistrationBaseResponseV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+
+    return isInstance;
+}
+
 export function RegistrationBaseResponseV1FromJSON(json: any): RegistrationBaseResponseV1 {
     return RegistrationBaseResponseV1FromJSONTyped(json, false);
 }

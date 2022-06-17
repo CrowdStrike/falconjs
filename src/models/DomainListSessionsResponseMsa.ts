@@ -42,6 +42,18 @@ export interface DomainListSessionsResponseMsa {
     resources: Array<string>;
 }
 
+/**
+ * Check if a given object implements the DomainListSessionsResponseMsa interface.
+ */
+export function instanceOfDomainListSessionsResponseMsa(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainListSessionsResponseMsaFromJSON(json: any): DomainListSessionsResponseMsa {
     return DomainListSessionsResponseMsaFromJSONTyped(json, false);
 }

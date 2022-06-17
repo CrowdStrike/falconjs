@@ -81,6 +81,15 @@ export interface FalconxSignature {
     type?: number;
 }
 
+/**
+ * Check if a given object implements the FalconxSignature interface.
+ */
+export function instanceOfFalconxSignature(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxSignatureFromJSON(json: any): FalconxSignature {
     return FalconxSignatureFromJSONTyped(json, false);
 }

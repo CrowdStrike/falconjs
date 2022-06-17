@@ -131,6 +131,26 @@ export interface DomainNotificationV1 {
     updatedDate: Date;
 }
 
+/**
+ * Check if a given object implements the DomainNotificationV1 interface.
+ */
+export function instanceOfDomainNotificationV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "createdDate" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "itemDate" in value;
+    isInstance = isInstance && "itemId" in value;
+    isInstance = isInstance && "itemType" in value;
+    isInstance = isInstance && "ruleId" in value;
+    isInstance = isInstance && "ruleName" in value;
+    isInstance = isInstance && "rulePriority" in value;
+    isInstance = isInstance && "ruleTopic" in value;
+    isInstance = isInstance && "status" in value;
+    isInstance = isInstance && "updatedDate" in value;
+
+    return isInstance;
+}
+
 export function DomainNotificationV1FromJSON(json: any): DomainNotificationV1 {
     return DomainNotificationV1FromJSONTyped(json, false);
 }

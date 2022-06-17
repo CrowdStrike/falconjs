@@ -33,6 +33,17 @@ export interface K8sregAWSAccountPermissionsStatus {
     status: string;
 }
 
+/**
+ * Check if a given object implements the K8sregAWSAccountPermissionsStatus interface.
+ */
+export function instanceOfK8sregAWSAccountPermissionsStatus(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "status" in value;
+
+    return isInstance;
+}
+
 export function K8sregAWSAccountPermissionsStatusFromJSON(json: any): K8sregAWSAccountPermissionsStatus {
     return K8sregAWSAccountPermissionsStatusFromJSONTyped(json, false);
 }

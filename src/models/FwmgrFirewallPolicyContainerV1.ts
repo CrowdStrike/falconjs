@@ -105,6 +105,22 @@ export interface FwmgrFirewallPolicyContainerV1 {
     tracking?: string;
 }
 
+/**
+ * Check if a given object implements the FwmgrFirewallPolicyContainerV1 interface.
+ */
+export function instanceOfFwmgrFirewallPolicyContainerV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "defaultInbound" in value;
+    isInstance = isInstance && "defaultOutbound" in value;
+    isInstance = isInstance && "enforce" in value;
+    isInstance = isInstance && "platformId" in value;
+    isInstance = isInstance && "policyId" in value;
+    isInstance = isInstance && "ruleGroupIds" in value;
+    isInstance = isInstance && "testMode" in value;
+
+    return isInstance;
+}
+
 export function FwmgrFirewallPolicyContainerV1FromJSON(json: any): FwmgrFirewallPolicyContainerV1 {
     return FwmgrFirewallPolicyContainerV1FromJSONTyped(json, false);
 }

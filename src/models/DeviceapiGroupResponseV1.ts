@@ -89,6 +89,24 @@ export interface DeviceapiGroupResponseV1 {
     name: string;
 }
 
+/**
+ * Check if a given object implements the DeviceapiGroupResponseV1 interface.
+ */
+export function instanceOfDeviceapiGroupResponseV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "cid" in value;
+    isInstance = isInstance && "createdBy" in value;
+    isInstance = isInstance && "createdTimestamp" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "groupType" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "modifiedBy" in value;
+    isInstance = isInstance && "modifiedTimestamp" in value;
+    isInstance = isInstance && "name" in value;
+
+    return isInstance;
+}
+
 export function DeviceapiGroupResponseV1FromJSON(json: any): DeviceapiGroupResponseV1 {
     return DeviceapiGroupResponseV1FromJSONTyped(json, false);
 }

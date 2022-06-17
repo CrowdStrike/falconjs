@@ -45,6 +45,19 @@ export interface ApiRuleGroupCreateRequestV1 {
     platform: string;
 }
 
+/**
+ * Check if a given object implements the ApiRuleGroupCreateRequestV1 interface.
+ */
+export function instanceOfApiRuleGroupCreateRequestV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "comment" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "platform" in value;
+
+    return isInstance;
+}
+
 export function ApiRuleGroupCreateRequestV1FromJSON(json: any): ApiRuleGroupCreateRequestV1 {
     return ApiRuleGroupCreateRequestV1FromJSONTyped(json, false);
 }

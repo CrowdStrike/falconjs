@@ -45,6 +45,18 @@ export interface DomainUserRole {
     id: string;
 }
 
+/**
+ * Check if a given object implements the DomainUserRole interface.
+ */
+export function instanceOfDomainUserRole(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "displayName" in value;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
+}
+
 export function DomainUserRoleFromJSON(json: any): DomainUserRole {
     return DomainUserRoleFromJSONTyped(json, false);
 }

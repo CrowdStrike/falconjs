@@ -45,6 +45,15 @@ export interface FalconxThreatGraphIndicatorV1 {
     value?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxThreatGraphIndicatorV1 interface.
+ */
+export function instanceOfFalconxThreatGraphIndicatorV1(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxThreatGraphIndicatorV1FromJSON(json: any): FalconxThreatGraphIndicatorV1 {
     return FalconxThreatGraphIndicatorV1FromJSONTyped(json, false);
 }

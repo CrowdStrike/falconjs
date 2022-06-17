@@ -63,6 +63,17 @@ export const RequestsCreatePreventionPolicyV1PlatformNameEnum = {
 } as const;
 export type RequestsCreatePreventionPolicyV1PlatformNameEnum = typeof RequestsCreatePreventionPolicyV1PlatformNameEnum[keyof typeof RequestsCreatePreventionPolicyV1PlatformNameEnum];
 
+/**
+ * Check if a given object implements the RequestsCreatePreventionPolicyV1 interface.
+ */
+export function instanceOfRequestsCreatePreventionPolicyV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "platformName" in value;
+
+    return isInstance;
+}
+
 export function RequestsCreatePreventionPolicyV1FromJSON(json: any): RequestsCreatePreventionPolicyV1 {
     return RequestsCreatePreventionPolicyV1FromJSONTyped(json, false);
 }

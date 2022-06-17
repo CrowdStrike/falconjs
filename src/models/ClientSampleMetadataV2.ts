@@ -33,6 +33,16 @@ export interface ClientSampleMetadataV2 {
     sha256: string;
 }
 
+/**
+ * Check if a given object implements the ClientSampleMetadataV2 interface.
+ */
+export function instanceOfClientSampleMetadataV2(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "sha256" in value;
+
+    return isInstance;
+}
+
 export function ClientSampleMetadataV2FromJSON(json: any): ClientSampleMetadataV2 {
     return ClientSampleMetadataV2FromJSONTyped(json, false);
 }

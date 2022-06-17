@@ -54,6 +54,17 @@ export const RequestsCreateGroupV1GroupTypeEnum = {
 } as const;
 export type RequestsCreateGroupV1GroupTypeEnum = typeof RequestsCreateGroupV1GroupTypeEnum[keyof typeof RequestsCreateGroupV1GroupTypeEnum];
 
+/**
+ * Check if a given object implements the RequestsCreateGroupV1 interface.
+ */
+export function instanceOfRequestsCreateGroupV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "groupType" in value;
+    isInstance = isInstance && "name" in value;
+
+    return isInstance;
+}
+
 export function RequestsCreateGroupV1FromJSON(json: any): RequestsCreateGroupV1 {
     return RequestsCreateGroupV1FromJSONTyped(json, false);
 }

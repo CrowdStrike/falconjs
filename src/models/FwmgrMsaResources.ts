@@ -27,6 +27,16 @@ export interface FwmgrMsaResources {
     resourcesAffected: number;
 }
 
+/**
+ * Check if a given object implements the FwmgrMsaResources interface.
+ */
+export function instanceOfFwmgrMsaResources(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "resourcesAffected" in value;
+
+    return isInstance;
+}
+
 export function FwmgrMsaResourcesFromJSON(json: any): FwmgrMsaResources {
     return FwmgrMsaResourcesFromJSONTyped(json, false);
 }

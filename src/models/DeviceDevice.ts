@@ -452,6 +452,17 @@ export interface DeviceDevice {
     zoneGroup?: string;
 }
 
+/**
+ * Check if a given object implements the DeviceDevice interface.
+ */
+export function instanceOfDeviceDevice(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "cid" in value;
+    isInstance = isInstance && "deviceId" in value;
+
+    return isInstance;
+}
+
 export function DeviceDeviceFromJSON(json: any): DeviceDevice {
     return DeviceDeviceFromJSONTyped(json, false);
 }

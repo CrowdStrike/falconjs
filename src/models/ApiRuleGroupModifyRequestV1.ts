@@ -57,6 +57,21 @@ export interface ApiRuleGroupModifyRequestV1 {
     rulegroupVersion: number;
 }
 
+/**
+ * Check if a given object implements the ApiRuleGroupModifyRequestV1 interface.
+ */
+export function instanceOfApiRuleGroupModifyRequestV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "comment" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "enabled" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "rulegroupVersion" in value;
+
+    return isInstance;
+}
+
 export function ApiRuleGroupModifyRequestV1FromJSON(json: any): ApiRuleGroupModifyRequestV1 {
     return ApiRuleGroupModifyRequestV1FromJSONTyped(json, false);
 }

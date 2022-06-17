@@ -39,6 +39,18 @@ export interface DomainCSIXLabel {
     name: string;
 }
 
+/**
+ * Check if a given object implements the DomainCSIXLabel interface.
+ */
+export function instanceOfDomainCSIXLabel(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "createdOn" in value;
+    isInstance = isInstance && "lastValidOn" in value;
+    isInstance = isInstance && "name" in value;
+
+    return isInstance;
+}
+
 export function DomainCSIXLabelFromJSON(json: any): DomainCSIXLabel {
     return DomainCSIXLabelFromJSONTyped(json, false);
 }

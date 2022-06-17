@@ -33,6 +33,17 @@ export interface MsaActionParameter {
     value: string;
 }
 
+/**
+ * Check if a given object implements the MsaActionParameter interface.
+ */
+export function instanceOfMsaActionParameter(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "value" in value;
+
+    return isInstance;
+}
+
 export function MsaActionParameterFromJSON(json: any): MsaActionParameter {
     return MsaActionParameterFromJSONTyped(json, false);
 }

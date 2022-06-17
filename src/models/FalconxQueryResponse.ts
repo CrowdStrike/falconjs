@@ -42,6 +42,18 @@ export interface FalconxQueryResponse {
     resources: Array<string>;
 }
 
+/**
+ * Check if a given object implements the FalconxQueryResponse interface.
+ */
+export function instanceOfFalconxQueryResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function FalconxQueryResponseFromJSON(json: any): FalconxQueryResponse {
     return FalconxQueryResponseFromJSONTyped(json, false);
 }

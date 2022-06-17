@@ -29,6 +29,15 @@ export interface ExternalDiff {
     after?: ExternalDiffType;
 }
 
+/**
+ * Check if a given object implements the ExternalDiff interface.
+ */
+export function instanceOfExternalDiff(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function ExternalDiffFromJSON(json: any): ExternalDiff {
     return ExternalDiffFromJSONTyped(json, false);
 }

@@ -45,6 +45,17 @@ export interface ApiIndicatorsQueryPaging {
     total: number;
 }
 
+/**
+ * Check if a given object implements the ApiIndicatorsQueryPaging interface.
+ */
+export function instanceOfApiIndicatorsQueryPaging(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "limit" in value;
+    isInstance = isInstance && "total" in value;
+
+    return isInstance;
+}
+
 export function ApiIndicatorsQueryPagingFromJSON(json: any): ApiIndicatorsQueryPaging {
     return ApiIndicatorsQueryPagingFromJSONTyped(json, false);
 }

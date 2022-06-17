@@ -27,6 +27,16 @@ export interface K8sregAPIKey {
     apiKey: string;
 }
 
+/**
+ * Check if a given object implements the K8sregAPIKey interface.
+ */
+export function instanceOfK8sregAPIKey(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "apiKey" in value;
+
+    return isInstance;
+}
+
 export function K8sregAPIKeyFromJSON(json: any): K8sregAPIKey {
     return K8sregAPIKeyFromJSONTyped(json, false);
 }

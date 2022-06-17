@@ -101,6 +101,16 @@ export interface ApiIndicatorCreateReqV1 {
     value?: string;
 }
 
+/**
+ * Check if a given object implements the ApiIndicatorCreateReqV1 interface.
+ */
+export function instanceOfApiIndicatorCreateReqV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "appliedGlobally" in value;
+
+    return isInstance;
+}
+
 export function ApiIndicatorCreateReqV1FromJSON(json: any): ApiIndicatorCreateReqV1 {
     return ApiIndicatorCreateReqV1FromJSONTyped(json, false);
 }

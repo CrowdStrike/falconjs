@@ -39,6 +39,18 @@ export interface DomainAPIEvaluationLogicItemV1 {
     type: string;
 }
 
+/**
+ * Check if a given object implements the DomainAPIEvaluationLogicItemV1 interface.
+ */
+export function instanceOfDomainAPIEvaluationLogicItemV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "title" in value;
+    isInstance = isInstance && "type" in value;
+
+    return isInstance;
+}
+
 export function DomainAPIEvaluationLogicItemV1FromJSON(json: any): DomainAPIEvaluationLogicItemV1 {
     return DomainAPIEvaluationLogicItemV1FromJSONTyped(json, false);
 }

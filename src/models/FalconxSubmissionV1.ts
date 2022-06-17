@@ -89,6 +89,15 @@ export interface FalconxSubmissionV1 {
     userUuid?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxSubmissionV1 interface.
+ */
+export function instanceOfFalconxSubmissionV1(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxSubmissionV1FromJSON(json: any): FalconxSubmissionV1 {
     return FalconxSubmissionV1FromJSONTyped(json, false);
 }

@@ -29,6 +29,15 @@ export interface DetectionAggregateThreatIntel {
     indicator?: DetectionAggregateIndicator;
 }
 
+/**
+ * Check if a given object implements the DetectionAggregateThreatIntel interface.
+ */
+export function instanceOfDetectionAggregateThreatIntel(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function DetectionAggregateThreatIntelFromJSON(json: any): DetectionAggregateThreatIntel {
     return DetectionAggregateThreatIntelFromJSONTyped(json, false);
 }

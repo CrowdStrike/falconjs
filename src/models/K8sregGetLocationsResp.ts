@@ -43,6 +43,18 @@ export interface K8sregGetLocationsResp {
     resources: Array<K8sregLocationResp>;
 }
 
+/**
+ * Check if a given object implements the K8sregGetLocationsResp interface.
+ */
+export function instanceOfK8sregGetLocationsResp(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function K8sregGetLocationsRespFromJSON(json: any): K8sregGetLocationsResp {
     return K8sregGetLocationsRespFromJSONTyped(json, false);
 }

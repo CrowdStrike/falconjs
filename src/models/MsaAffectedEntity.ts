@@ -33,6 +33,17 @@ export interface MsaAffectedEntity {
     path: string;
 }
 
+/**
+ * Check if a given object implements the MsaAffectedEntity interface.
+ */
+export function instanceOfMsaAffectedEntity(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "path" in value;
+
+    return isInstance;
+}
+
 export function MsaAffectedEntityFromJSON(json: any): MsaAffectedEntity {
     return MsaAffectedEntityFromJSONTyped(json, false);
 }

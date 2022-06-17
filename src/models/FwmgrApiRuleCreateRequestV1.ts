@@ -134,6 +134,32 @@ export interface FwmgrApiRuleCreateRequestV1 {
     tempId: string;
 }
 
+/**
+ * Check if a given object implements the FwmgrApiRuleCreateRequestV1 interface.
+ */
+export function instanceOfFwmgrApiRuleCreateRequestV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "action" in value;
+    isInstance = isInstance && "addressFamily" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "direction" in value;
+    isInstance = isInstance && "enabled" in value;
+    isInstance = isInstance && "fields" in value;
+    isInstance = isInstance && "icmp" in value;
+    isInstance = isInstance && "localAddress" in value;
+    isInstance = isInstance && "localPort" in value;
+    isInstance = isInstance && "log" in value;
+    isInstance = isInstance && "monitor" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "platformIds" in value;
+    isInstance = isInstance && "protocol" in value;
+    isInstance = isInstance && "remoteAddress" in value;
+    isInstance = isInstance && "remotePort" in value;
+    isInstance = isInstance && "tempId" in value;
+
+    return isInstance;
+}
+
 export function FwmgrApiRuleCreateRequestV1FromJSON(json: any): FwmgrApiRuleCreateRequestV1 {
     return FwmgrApiRuleCreateRequestV1FromJSONTyped(json, false);
 }

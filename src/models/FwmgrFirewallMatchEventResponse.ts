@@ -221,6 +221,48 @@ export interface FwmgrFirewallMatchEventResponse {
     treeId: string;
 }
 
+/**
+ * Check if a given object implements the FwmgrFirewallMatchEventResponse interface.
+ */
+export function instanceOfFwmgrFirewallMatchEventResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "aid" in value;
+    isInstance = isInstance && "cid" in value;
+    isInstance = isInstance && "commandLine" in value;
+    isInstance = isInstance && "connectionDirection" in value;
+    isInstance = isInstance && "eventType" in value;
+    isInstance = isInstance && "flags" in value;
+    isInstance = isInstance && "hidden" in value;
+    isInstance = isInstance && "hostName" in value;
+    isInstance = isInstance && "icmpCode" in value;
+    isInstance = isInstance && "icmpType" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "imageFileName" in value;
+    isInstance = isInstance && "ipv" in value;
+    isInstance = isInstance && "localAddress" in value;
+    isInstance = isInstance && "localPort" in value;
+    isInstance = isInstance && "matchCount" in value;
+    isInstance = isInstance && "matchCountSinceLastEvent" in value;
+    isInstance = isInstance && "networkProfile" in value;
+    isInstance = isInstance && "pid" in value;
+    isInstance = isInstance && "policyId" in value;
+    isInstance = isInstance && "policyName" in value;
+    isInstance = isInstance && "protocol" in value;
+    isInstance = isInstance && "remoteAddress" in value;
+    isInstance = isInstance && "remotePort" in value;
+    isInstance = isInstance && "ruleAction" in value;
+    isInstance = isInstance && "ruleDescription" in value;
+    isInstance = isInstance && "ruleFamilyId" in value;
+    isInstance = isInstance && "ruleGroupName" in value;
+    isInstance = isInstance && "ruleId" in value;
+    isInstance = isInstance && "ruleName" in value;
+    isInstance = isInstance && "status" in value;
+    isInstance = isInstance && "timestamp" in value;
+    isInstance = isInstance && "treeId" in value;
+
+    return isInstance;
+}
+
 export function FwmgrFirewallMatchEventResponseFromJSON(json: any): FwmgrFirewallMatchEventResponse {
     return FwmgrFirewallMatchEventResponseFromJSONTyped(json, false);
 }

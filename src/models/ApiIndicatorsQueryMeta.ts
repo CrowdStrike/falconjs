@@ -47,6 +47,17 @@ export interface ApiIndicatorsQueryMeta {
     traceId: string;
 }
 
+/**
+ * Check if a given object implements the ApiIndicatorsQueryMeta interface.
+ */
+export function instanceOfApiIndicatorsQueryMeta(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "queryTime" in value;
+    isInstance = isInstance && "traceId" in value;
+
+    return isInstance;
+}
+
 export function ApiIndicatorsQueryMetaFromJSON(json: any): ApiIndicatorsQueryMeta {
     return ApiIndicatorsQueryMetaFromJSONTyped(json, false);
 }

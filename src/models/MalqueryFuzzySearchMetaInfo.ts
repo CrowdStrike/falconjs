@@ -73,6 +73,16 @@ export interface MalqueryFuzzySearchMetaInfo {
     writes?: MsaResources;
 }
 
+/**
+ * Check if a given object implements the MalqueryFuzzySearchMetaInfo interface.
+ */
+export function instanceOfMalqueryFuzzySearchMetaInfo(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "traceId" in value;
+
+    return isInstance;
+}
+
 export function MalqueryFuzzySearchMetaInfoFromJSON(json: any): MalqueryFuzzySearchMetaInfo {
     return MalqueryFuzzySearchMetaInfoFromJSONTyped(json, false);
 }

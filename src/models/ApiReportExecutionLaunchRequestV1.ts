@@ -27,6 +27,16 @@ export interface ApiReportExecutionLaunchRequestV1 {
     id: string;
 }
 
+/**
+ * Check if a given object implements the ApiReportExecutionLaunchRequestV1 interface.
+ */
+export function instanceOfApiReportExecutionLaunchRequestV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
+}
+
 export function ApiReportExecutionLaunchRequestV1FromJSON(json: any): ApiReportExecutionLaunchRequestV1 {
     return ApiReportExecutionLaunchRequestV1FromJSONTyped(json, false);
 }

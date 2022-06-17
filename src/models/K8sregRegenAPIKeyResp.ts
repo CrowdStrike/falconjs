@@ -43,6 +43,18 @@ export interface K8sregRegenAPIKeyResp {
     resources: Array<K8sregAPIKey>;
 }
 
+/**
+ * Check if a given object implements the K8sregRegenAPIKeyResp interface.
+ */
+export function instanceOfK8sregRegenAPIKeyResp(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function K8sregRegenAPIKeyRespFromJSON(json: any): K8sregRegenAPIKeyResp {
     return K8sregRegenAPIKeyRespFromJSONTyped(json, false);
 }

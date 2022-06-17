@@ -29,6 +29,16 @@ export interface DomainBreachDetailsV1 {
     items: Array<DomainBreachedItemV1>;
 }
 
+/**
+ * Check if a given object implements the DomainBreachDetailsV1 interface.
+ */
+export function instanceOfDomainBreachDetailsV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "items" in value;
+
+    return isInstance;
+}
+
 export function DomainBreachDetailsV1FromJSON(json: any): DomainBreachDetailsV1 {
     return DomainBreachDetailsV1FromJSONTyped(json, false);
 }

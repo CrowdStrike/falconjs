@@ -66,6 +66,22 @@ export interface ApiExecutionMetadataV1 {
     xdrParams: DomainXDRParams;
 }
 
+/**
+ * Check if a given object implements the ApiExecutionMetadataV1 interface.
+ */
+export function instanceOfApiExecutionMetadataV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "retryAllowed" in value;
+    isInstance = isInstance && "retryPerformed" in value;
+    isInstance = isInstance && "retryReportExecutionId" in value;
+    isInstance = isInstance && "subtype" in value;
+    isInstance = isInstance && "unscheduledExecutionType" in value;
+    isInstance = isInstance && "xdrData" in value;
+    isInstance = isInstance && "xdrParams" in value;
+
+    return isInstance;
+}
+
 export function ApiExecutionMetadataV1FromJSON(json: any): ApiExecutionMetadataV1 {
     return ApiExecutionMetadataV1FromJSONTyped(json, false);
 }

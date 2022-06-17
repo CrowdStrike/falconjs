@@ -29,6 +29,16 @@ export interface RequestsUpdateGroupsV1 {
     resources: Array<RequestsUpdateGroupV1>;
 }
 
+/**
+ * Check if a given object implements the RequestsUpdateGroupsV1 interface.
+ */
+export function instanceOfRequestsUpdateGroupsV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function RequestsUpdateGroupsV1FromJSON(json: any): RequestsUpdateGroupsV1 {
     return RequestsUpdateGroupsV1FromJSONTyped(json, false);
 }

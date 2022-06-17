@@ -138,6 +138,34 @@ export interface DomainPublicIndicatorV3 {
     vulnerabilities: Array<string>;
 }
 
+/**
+ * Check if a given object implements the DomainPublicIndicatorV3 interface.
+ */
+export function instanceOfDomainPublicIndicatorV3(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "marker" in value;
+    isInstance = isInstance && "actors" in value;
+    isInstance = isInstance && "deleted" in value;
+    isInstance = isInstance && "domainTypes" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "indicator" in value;
+    isInstance = isInstance && "ipAddressTypes" in value;
+    isInstance = isInstance && "killChains" in value;
+    isInstance = isInstance && "labels" in value;
+    isInstance = isInstance && "lastUpdated" in value;
+    isInstance = isInstance && "maliciousConfidence" in value;
+    isInstance = isInstance && "malwareFamilies" in value;
+    isInstance = isInstance && "publishedDate" in value;
+    isInstance = isInstance && "relations" in value;
+    isInstance = isInstance && "reports" in value;
+    isInstance = isInstance && "targets" in value;
+    isInstance = isInstance && "threatTypes" in value;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "vulnerabilities" in value;
+
+    return isInstance;
+}
+
 export function DomainPublicIndicatorV3FromJSON(json: any): DomainPublicIndicatorV3 {
     return DomainPublicIndicatorV3FromJSONTyped(json, false);
 }

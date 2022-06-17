@@ -27,6 +27,16 @@ export interface DomainRoleIDs {
     roleIds: Array<string>;
 }
 
+/**
+ * Check if a given object implements the DomainRoleIDs interface.
+ */
+export function instanceOfDomainRoleIDs(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "roleIds" in value;
+
+    return isInstance;
+}
+
 export function DomainRoleIDsFromJSON(json: any): DomainRoleIDs {
     return DomainRoleIDsFromJSONTyped(json, false);
 }

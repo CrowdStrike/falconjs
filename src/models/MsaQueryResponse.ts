@@ -42,6 +42,18 @@ export interface MsaQueryResponse {
     resources: Array<string>;
 }
 
+/**
+ * Check if a given object implements the MsaQueryResponse interface.
+ */
+export function instanceOfMsaQueryResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function MsaQueryResponseFromJSON(json: any): MsaQueryResponse {
     return MsaQueryResponseFromJSONTyped(json, false);
 }

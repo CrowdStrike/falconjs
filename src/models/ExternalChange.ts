@@ -145,6 +145,31 @@ export interface ExternalChange {
     userName: string;
 }
 
+/**
+ * Check if a given object implements the ExternalChange interface.
+ */
+export function instanceOfExternalChange(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "actionTimestamp" in value;
+    isInstance = isInstance && "actionType" in value;
+    isInstance = isInstance && "aid" in value;
+    isInstance = isInstance && "cid" in value;
+    isInstance = isInstance && "commandLine" in value;
+    isInstance = isInstance && "entityPath" in value;
+    isInstance = isInstance && "entityType" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "ingestionTimestamp" in value;
+    isInstance = isInstance && "isSuppressed" in value;
+    isInstance = isInstance && "platformName" in value;
+    isInstance = isInstance && "processId" in value;
+    isInstance = isInstance && "processImageFileName" in value;
+    isInstance = isInstance && "severity" in value;
+    isInstance = isInstance && "userId" in value;
+    isInstance = isInstance && "userName" in value;
+
+    return isInstance;
+}
+
 export function ExternalChangeFromJSON(json: any): ExternalChange {
     return ExternalChangeFromJSONTyped(json, false);
 }

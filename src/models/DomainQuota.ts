@@ -33,6 +33,17 @@ export interface DomainQuota {
     used: number;
 }
 
+/**
+ * Check if a given object implements the DomainQuota interface.
+ */
+export function instanceOfDomainQuota(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "total" in value;
+    isInstance = isInstance && "used" in value;
+
+    return isInstance;
+}
+
 export function DomainQuotaFromJSON(json: any): DomainQuota {
     return DomainQuotaFromJSONTyped(json, false);
 }

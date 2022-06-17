@@ -29,6 +29,16 @@ export interface RegistrationScanScheduleUpdateRequestV1 {
     resources: Array<DomainScanScheduleDataV1>;
 }
 
+/**
+ * Check if a given object implements the RegistrationScanScheduleUpdateRequestV1 interface.
+ */
+export function instanceOfRegistrationScanScheduleUpdateRequestV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function RegistrationScanScheduleUpdateRequestV1FromJSON(json: any): RegistrationScanScheduleUpdateRequestV1 {
     return RegistrationScanScheduleUpdateRequestV1FromJSONTyped(json, false);
 }

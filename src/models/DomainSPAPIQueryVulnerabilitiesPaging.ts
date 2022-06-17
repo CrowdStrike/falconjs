@@ -39,6 +39,18 @@ export interface DomainSPAPIQueryVulnerabilitiesPaging {
     total: number;
 }
 
+/**
+ * Check if a given object implements the DomainSPAPIQueryVulnerabilitiesPaging interface.
+ */
+export function instanceOfDomainSPAPIQueryVulnerabilitiesPaging(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "after" in value;
+    isInstance = isInstance && "limit" in value;
+    isInstance = isInstance && "total" in value;
+
+    return isInstance;
+}
+
 export function DomainSPAPIQueryVulnerabilitiesPagingFromJSON(json: any): DomainSPAPIQueryVulnerabilitiesPaging {
     return DomainSPAPIQueryVulnerabilitiesPagingFromJSONTyped(json, false);
 }

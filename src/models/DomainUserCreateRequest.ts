@@ -45,6 +45,15 @@ export interface DomainUserCreateRequest {
     uid?: string;
 }
 
+/**
+ * Check if a given object implements the DomainUserCreateRequest interface.
+ */
+export function instanceOfDomainUserCreateRequest(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function DomainUserCreateRequestFromJSON(json: any): DomainUserCreateRequest {
     return DomainUserCreateRequestFromJSONTyped(json, false);
 }

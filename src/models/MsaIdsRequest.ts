@@ -27,6 +27,16 @@ export interface MsaIdsRequest {
     ids: Array<string>;
 }
 
+/**
+ * Check if a given object implements the MsaIdsRequest interface.
+ */
+export function instanceOfMsaIdsRequest(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "ids" in value;
+
+    return isInstance;
+}
+
 export function MsaIdsRequestFromJSON(json: any): MsaIdsRequest {
     return MsaIdsRequestFromJSONTyped(json, false);
 }

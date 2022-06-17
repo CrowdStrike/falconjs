@@ -45,6 +45,19 @@ export interface CommonOSCompliance {
     numAids: number;
 }
 
+/**
+ * Check if a given object implements the CommonOSCompliance interface.
+ */
+export function instanceOfCommonOSCompliance(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "averageOverallScore" in value;
+    isInstance = isInstance && "compliance" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "numAids" in value;
+
+    return isInstance;
+}
+
 export function CommonOSComplianceFromJSON(json: any): CommonOSCompliance {
     return CommonOSComplianceFromJSONTyped(json, false);
 }

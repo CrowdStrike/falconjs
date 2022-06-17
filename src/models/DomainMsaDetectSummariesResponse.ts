@@ -43,6 +43,18 @@ export interface DomainMsaDetectSummariesResponse {
     resources: Array<DomainAPIDetectionDocument>;
 }
 
+/**
+ * Check if a given object implements the DomainMsaDetectSummariesResponse interface.
+ */
+export function instanceOfDomainMsaDetectSummariesResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainMsaDetectSummariesResponseFromJSON(json: any): DomainMsaDetectSummariesResponse {
     return DomainMsaDetectSummariesResponseFromJSONTyped(json, false);
 }

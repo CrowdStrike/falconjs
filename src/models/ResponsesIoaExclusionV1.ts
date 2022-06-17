@@ -107,6 +107,29 @@ export interface ResponsesIoaExclusionV1 {
     patternName: string;
 }
 
+/**
+ * Check if a given object implements the ResponsesIoaExclusionV1 interface.
+ */
+export function instanceOfResponsesIoaExclusionV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "appliedGlobally" in value;
+    isInstance = isInstance && "clRegex" in value;
+    isInstance = isInstance && "createdBy" in value;
+    isInstance = isInstance && "createdOn" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "detectionJson" in value;
+    isInstance = isInstance && "groups" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "ifnRegex" in value;
+    isInstance = isInstance && "lastModified" in value;
+    isInstance = isInstance && "modifiedBy" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "patternId" in value;
+    isInstance = isInstance && "patternName" in value;
+
+    return isInstance;
+}
+
 export function ResponsesIoaExclusionV1FromJSON(json: any): ResponsesIoaExclusionV1 {
     return ResponsesIoaExclusionV1FromJSONTyped(json, false);
 }

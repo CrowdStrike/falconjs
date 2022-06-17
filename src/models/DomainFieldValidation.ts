@@ -63,6 +63,19 @@ export interface DomainFieldValidation {
     value: string;
 }
 
+/**
+ * Check if a given object implements the DomainFieldValidation interface.
+ */
+export function instanceOfDomainFieldValidation(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "bytes" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "valid" in value;
+    isInstance = isInstance && "value" in value;
+
+    return isInstance;
+}
+
 export function DomainFieldValidationFromJSON(json: any): DomainFieldValidation {
     return DomainFieldValidationFromJSONTyped(json, false);
 }

@@ -43,6 +43,17 @@ export interface FwmgrApiRuleGroupsResponse {
     resources: Array<FwmgrApiRuleGroupV1>;
 }
 
+/**
+ * Check if a given object implements the FwmgrApiRuleGroupsResponse interface.
+ */
+export function instanceOfFwmgrApiRuleGroupsResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function FwmgrApiRuleGroupsResponseFromJSON(json: any): FwmgrApiRuleGroupsResponse {
     return FwmgrApiRuleGroupsResponseFromJSONTyped(json, false);
 }

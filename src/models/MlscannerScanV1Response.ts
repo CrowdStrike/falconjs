@@ -43,6 +43,18 @@ export interface MlscannerScanV1Response {
     resources: Array<MlscannerSamplesScanResult>;
 }
 
+/**
+ * Check if a given object implements the MlscannerScanV1Response interface.
+ */
+export function instanceOfMlscannerScanV1Response(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function MlscannerScanV1ResponseFromJSON(json: any): MlscannerScanV1Response {
     return MlscannerScanV1ResponseFromJSONTyped(json, false);
 }

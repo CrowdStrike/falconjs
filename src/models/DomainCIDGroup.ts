@@ -45,6 +45,17 @@ export interface DomainCIDGroup {
     name: string;
 }
 
+/**
+ * Check if a given object implements the DomainCIDGroup interface.
+ */
+export function instanceOfDomainCIDGroup(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "name" in value;
+
+    return isInstance;
+}
+
 export function DomainCIDGroupFromJSON(json: any): DomainCIDGroup {
     return DomainCIDGroupFromJSONTyped(json, false);
 }

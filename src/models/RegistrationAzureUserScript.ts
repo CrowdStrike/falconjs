@@ -33,6 +33,16 @@ export interface RegistrationAzureUserScript {
     serviceAccountPublicKeys: Array<string>;
 }
 
+/**
+ * Check if a given object implements the RegistrationAzureUserScript interface.
+ */
+export function instanceOfRegistrationAzureUserScript(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "serviceAccountPublicKeys" in value;
+
+    return isInstance;
+}
+
 export function RegistrationAzureUserScriptFromJSON(json: any): RegistrationAzureUserScript {
     return RegistrationAzureUserScriptFromJSONTyped(json, false);
 }

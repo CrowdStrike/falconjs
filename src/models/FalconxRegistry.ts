@@ -57,6 +57,15 @@ export interface FalconxRegistry {
     value?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxRegistry interface.
+ */
+export function instanceOfFalconxRegistry(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxRegistryFromJSON(json: any): FalconxRegistry {
     return FalconxRegistryFromJSONTyped(json, false);
 }

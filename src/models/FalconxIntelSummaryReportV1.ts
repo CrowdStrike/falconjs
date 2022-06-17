@@ -29,6 +29,15 @@ export interface FalconxIntelSummaryReportV1 {
     actors?: Array<FalconxActorSummary>;
 }
 
+/**
+ * Check if a given object implements the FalconxIntelSummaryReportV1 interface.
+ */
+export function instanceOfFalconxIntelSummaryReportV1(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxIntelSummaryReportV1FromJSON(json: any): FalconxIntelSummaryReportV1 {
     return FalconxIntelSummaryReportV1FromJSONTyped(json, false);
 }

@@ -305,6 +305,15 @@ export interface FalconxSandboxReportV1 {
     windowsVersionVersion?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxSandboxReportV1 interface.
+ */
+export function instanceOfFalconxSandboxReportV1(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxSandboxReportV1FromJSON(json: any): FalconxSandboxReportV1 {
     return FalconxSandboxReportV1FromJSONTyped(json, false);
 }

@@ -27,6 +27,16 @@ export interface ApiReportExecutionRetryRequestV1 {
     id: string;
 }
 
+/**
+ * Check if a given object implements the ApiReportExecutionRetryRequestV1 interface.
+ */
+export function instanceOfApiReportExecutionRetryRequestV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
+}
+
 export function ApiReportExecutionRetryRequestV1FromJSON(json: any): ApiReportExecutionRetryRequestV1 {
     return ApiReportExecutionRetryRequestV1FromJSONTyped(json, false);
 }

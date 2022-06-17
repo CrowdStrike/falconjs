@@ -27,6 +27,16 @@ export interface RegistrationGCPAccountExtV1 {
     parentId: string;
 }
 
+/**
+ * Check if a given object implements the RegistrationGCPAccountExtV1 interface.
+ */
+export function instanceOfRegistrationGCPAccountExtV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "parentId" in value;
+
+    return isInstance;
+}
+
 export function RegistrationGCPAccountExtV1FromJSON(json: any): RegistrationGCPAccountExtV1 {
     return RegistrationGCPAccountExtV1FromJSONTyped(json, false);
 }

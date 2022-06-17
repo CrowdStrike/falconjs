@@ -34,6 +34,16 @@ export interface RequestsCreateRTResponsePoliciesV1 {
     resources: Array<RequestsCreateRTResponsePolicyV1>;
 }
 
+/**
+ * Check if a given object implements the RequestsCreateRTResponsePoliciesV1 interface.
+ */
+export function instanceOfRequestsCreateRTResponsePoliciesV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function RequestsCreateRTResponsePoliciesV1FromJSON(json: any): RequestsCreateRTResponsePoliciesV1 {
     return RequestsCreateRTResponsePoliciesV1FromJSONTyped(json, false);
 }

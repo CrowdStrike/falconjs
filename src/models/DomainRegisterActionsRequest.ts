@@ -35,6 +35,17 @@ export interface DomainRegisterActionsRequest {
     ruleId: string;
 }
 
+/**
+ * Check if a given object implements the DomainRegisterActionsRequest interface.
+ */
+export function instanceOfDomainRegisterActionsRequest(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "actions" in value;
+    isInstance = isInstance && "ruleId" in value;
+
+    return isInstance;
+}
+
 export function DomainRegisterActionsRequestFromJSON(json: any): DomainRegisterActionsRequest {
     return DomainRegisterActionsRequestFromJSONTyped(json, false);
 }

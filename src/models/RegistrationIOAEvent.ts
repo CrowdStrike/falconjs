@@ -253,6 +253,24 @@ export interface RegistrationIOAEvent {
     vpcEndpointId?: string;
 }
 
+/**
+ * Check if a given object implements the RegistrationIOAEvent interface.
+ */
+export function instanceOfRegistrationIOAEvent(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "cid" in value;
+    isInstance = isInstance && "cloudProvider" in value;
+    isInstance = isInstance && "policyId" in value;
+    isInstance = isInstance && "policyStatement" in value;
+    isInstance = isInstance && "service" in value;
+    isInstance = isInstance && "severity" in value;
+    isInstance = isInstance && "state" in value;
+    isInstance = isInstance && "vertexId" in value;
+    isInstance = isInstance && "vertexType" in value;
+
+    return isInstance;
+}
+
 export function RegistrationIOAEventFromJSON(json: any): RegistrationIOAEvent {
     return RegistrationIOAEventFromJSONTyped(json, false);
 }

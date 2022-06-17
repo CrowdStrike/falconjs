@@ -62,6 +62,17 @@ export const RequestsCreateSensorUpdatePolicyV2PlatformNameEnum = {
 } as const;
 export type RequestsCreateSensorUpdatePolicyV2PlatformNameEnum = typeof RequestsCreateSensorUpdatePolicyV2PlatformNameEnum[keyof typeof RequestsCreateSensorUpdatePolicyV2PlatformNameEnum];
 
+/**
+ * Check if a given object implements the RequestsCreateSensorUpdatePolicyV2 interface.
+ */
+export function instanceOfRequestsCreateSensorUpdatePolicyV2(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "platformName" in value;
+
+    return isInstance;
+}
+
 export function RequestsCreateSensorUpdatePolicyV2FromJSON(json: any): RequestsCreateSensorUpdatePolicyV2 {
     return RequestsCreateSensorUpdatePolicyV2FromJSONTyped(json, false);
 }

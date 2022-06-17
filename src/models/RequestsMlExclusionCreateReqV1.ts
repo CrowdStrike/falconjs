@@ -45,6 +45,15 @@ export interface RequestsMlExclusionCreateReqV1 {
     value?: string;
 }
 
+/**
+ * Check if a given object implements the RequestsMlExclusionCreateReqV1 interface.
+ */
+export function instanceOfRequestsMlExclusionCreateReqV1(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function RequestsMlExclusionCreateReqV1FromJSON(json: any): RequestsMlExclusionCreateReqV1 {
     return RequestsMlExclusionCreateReqV1FromJSONTyped(json, false);
 }

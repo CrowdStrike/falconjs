@@ -57,6 +57,21 @@ export interface MessagesAttachment {
     size: number;
 }
 
+/**
+ * Check if a given object implements the MessagesAttachment interface.
+ */
+export function instanceOfMessagesAttachment(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "createdBy" in value;
+    isInstance = isInstance && "createdTime" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "mimeType" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "size" in value;
+
+    return isInstance;
+}
+
 export function MessagesAttachmentFromJSON(json: any): MessagesAttachment {
     return MessagesAttachmentFromJSONTyped(json, false);
 }

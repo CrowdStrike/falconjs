@@ -35,6 +35,17 @@ export interface ResponsesPreventionCategoryV1 {
     settings: Array<ResponsesPreventionSettingV1>;
 }
 
+/**
+ * Check if a given object implements the ResponsesPreventionCategoryV1 interface.
+ */
+export function instanceOfResponsesPreventionCategoryV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "settings" in value;
+
+    return isInstance;
+}
+
 export function ResponsesPreventionCategoryV1FromJSON(json: any): ResponsesPreventionCategoryV1 {
     return ResponsesPreventionCategoryV1FromJSONTyped(json, false);
 }

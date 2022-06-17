@@ -43,6 +43,18 @@ export interface K8sregGetClustersResp {
     resources: Array<K8sregClusterResp>;
 }
 
+/**
+ * Check if a given object implements the K8sregGetClustersResp interface.
+ */
+export function instanceOfK8sregGetClustersResp(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function K8sregGetClustersRespFromJSON(json: any): K8sregGetClustersResp {
     return K8sregGetClustersRespFromJSONTyped(json, false);
 }

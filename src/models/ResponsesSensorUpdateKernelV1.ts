@@ -99,6 +99,28 @@ export interface ResponsesSensorUpdateKernelV1 {
     ztlSupportedSensorVersions: Array<string>;
 }
 
+/**
+ * Check if a given object implements the ResponsesSensorUpdateKernelV1 interface.
+ */
+export function instanceOfResponsesSensorUpdateKernelV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "architecture" in value;
+    isInstance = isInstance && "basePackageSupportedSensorVersions" in value;
+    isInstance = isInstance && "createdTimestamp" in value;
+    isInstance = isInstance && "distro" in value;
+    isInstance = isInstance && "distroVersion" in value;
+    isInstance = isInstance && "flavor" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "modifiedTimestamp" in value;
+    isInstance = isInstance && "release" in value;
+    isInstance = isInstance && "vendor" in value;
+    isInstance = isInstance && "version" in value;
+    isInstance = isInstance && "ztlModuleSupportedSensorVersions" in value;
+    isInstance = isInstance && "ztlSupportedSensorVersions" in value;
+
+    return isInstance;
+}
+
 export function ResponsesSensorUpdateKernelV1FromJSON(json: any): ResponsesSensorUpdateKernelV1 {
     return ResponsesSensorUpdateKernelV1FromJSONTyped(json, false);
 }

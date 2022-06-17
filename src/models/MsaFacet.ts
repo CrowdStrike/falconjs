@@ -51,6 +51,17 @@ export interface MsaFacet {
     term: string;
 }
 
+/**
+ * Check if a given object implements the MsaFacet interface.
+ */
+export function instanceOfMsaFacet(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "count" in value;
+    isInstance = isInstance && "term" in value;
+
+    return isInstance;
+}
+
 export function MsaFacetFromJSON(json: any): MsaFacet {
     return MsaFacetFromJSONTyped(json, false);
 }

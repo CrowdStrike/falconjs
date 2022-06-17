@@ -39,6 +39,18 @@ export interface DomainCIDPolicyAssignmentsSoc2Benchmark {
     recommendationNumber: string;
 }
 
+/**
+ * Check if a given object implements the DomainCIDPolicyAssignmentsSoc2Benchmark interface.
+ */
+export function instanceOfDomainCIDPolicyAssignmentsSoc2Benchmark(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "benchmarkShort" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "recommendationNumber" in value;
+
+    return isInstance;
+}
+
 export function DomainCIDPolicyAssignmentsSoc2BenchmarkFromJSON(json: any): DomainCIDPolicyAssignmentsSoc2Benchmark {
     return DomainCIDPolicyAssignmentsSoc2BenchmarkFromJSONTyped(json, false);
 }

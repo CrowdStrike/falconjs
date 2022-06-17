@@ -39,6 +39,15 @@ export interface ApiTokenPatchRequestV1 {
     revoked?: boolean;
 }
 
+/**
+ * Check if a given object implements the ApiTokenPatchRequestV1 interface.
+ */
+export function instanceOfApiTokenPatchRequestV1(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function ApiTokenPatchRequestV1FromJSON(json: any): ApiTokenPatchRequestV1 {
     return ApiTokenPatchRequestV1FromJSONTyped(json, false);
 }

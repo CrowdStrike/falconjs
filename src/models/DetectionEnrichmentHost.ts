@@ -65,6 +65,15 @@ export interface DetectionEnrichmentHost {
     type?: string;
 }
 
+/**
+ * Check if a given object implements the DetectionEnrichmentHost interface.
+ */
+export function instanceOfDetectionEnrichmentHost(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function DetectionEnrichmentHostFromJSON(json: any): DetectionEnrichmentHost {
     return DetectionEnrichmentHostFromJSONTyped(json, false);
 }

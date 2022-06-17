@@ -33,6 +33,17 @@ export interface K8sregLocationResp {
     location: string;
 }
 
+/**
+ * Check if a given object implements the K8sregLocationResp interface.
+ */
+export function instanceOfK8sregLocationResp(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "cloud" in value;
+    isInstance = isInstance && "location" in value;
+
+    return isInstance;
+}
+
 export function K8sregLocationRespFromJSON(json: any): K8sregLocationResp {
     return K8sregLocationRespFromJSONTyped(json, false);
 }

@@ -43,6 +43,18 @@ export interface ResponsesPolicyMembersRespV1 {
     resources: Array<DeviceDevice>;
 }
 
+/**
+ * Check if a given object implements the ResponsesPolicyMembersRespV1 interface.
+ */
+export function instanceOfResponsesPolicyMembersRespV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ResponsesPolicyMembersRespV1FromJSON(json: any): ResponsesPolicyMembersRespV1 {
     return ResponsesPolicyMembersRespV1FromJSONTyped(json, false);
 }

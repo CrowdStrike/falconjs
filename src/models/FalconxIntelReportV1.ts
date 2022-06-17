@@ -42,6 +42,15 @@ export interface FalconxIntelReportV1 {
     relatedIndicators?: Array<FalconxRelatedIndicator>;
 }
 
+/**
+ * Check if a given object implements the FalconxIntelReportV1 interface.
+ */
+export function instanceOfFalconxIntelReportV1(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxIntelReportV1FromJSON(json: any): FalconxIntelReportV1 {
     return FalconxIntelReportV1FromJSONTyped(json, false);
 }

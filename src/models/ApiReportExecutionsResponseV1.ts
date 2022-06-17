@@ -43,6 +43,18 @@ export interface ApiReportExecutionsResponseV1 {
     resources: Array<ApiReportExecutionV1>;
 }
 
+/**
+ * Check if a given object implements the ApiReportExecutionsResponseV1 interface.
+ */
+export function instanceOfApiReportExecutionsResponseV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ApiReportExecutionsResponseV1FromJSON(json: any): ApiReportExecutionsResponseV1 {
     return ApiReportExecutionsResponseV1FromJSONTyped(json, false);
 }

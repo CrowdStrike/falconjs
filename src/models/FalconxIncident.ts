@@ -33,6 +33,15 @@ export interface FalconxIncident {
     name?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxIncident interface.
+ */
+export function instanceOfFalconxIncident(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxIncidentFromJSON(json: any): FalconxIncident {
     return FalconxIncidentFromJSONTyped(json, false);
 }

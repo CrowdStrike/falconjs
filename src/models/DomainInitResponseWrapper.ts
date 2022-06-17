@@ -43,6 +43,18 @@ export interface DomainInitResponseWrapper {
     resources: Array<DomainInitResponse>;
 }
 
+/**
+ * Check if a given object implements the DomainInitResponseWrapper interface.
+ */
+export function instanceOfDomainInitResponseWrapper(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainInitResponseWrapperFromJSON(json: any): DomainInitResponseWrapper {
     return DomainInitResponseWrapperFromJSONTyped(json, false);
 }

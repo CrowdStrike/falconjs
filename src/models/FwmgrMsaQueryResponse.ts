@@ -42,6 +42,18 @@ export interface FwmgrMsaQueryResponse {
     resources: Array<string>;
 }
 
+/**
+ * Check if a given object implements the FwmgrMsaQueryResponse interface.
+ */
+export function instanceOfFwmgrMsaQueryResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function FwmgrMsaQueryResponseFromJSON(json: any): FwmgrMsaQueryResponse {
     return FwmgrMsaQueryResponseFromJSONTyped(json, false);
 }

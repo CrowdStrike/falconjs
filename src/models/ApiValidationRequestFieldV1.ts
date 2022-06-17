@@ -47,6 +47,19 @@ export interface ApiValidationRequestFieldV1 {
     values: Array<DomainValueItem>;
 }
 
+/**
+ * Check if a given object implements the ApiValidationRequestFieldV1 interface.
+ */
+export function instanceOfApiValidationRequestFieldV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "testData" in value;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "values" in value;
+
+    return isInstance;
+}
+
 export function ApiValidationRequestFieldV1FromJSON(json: any): ApiValidationRequestFieldV1 {
     return ApiValidationRequestFieldV1FromJSONTyped(json, false);
 }

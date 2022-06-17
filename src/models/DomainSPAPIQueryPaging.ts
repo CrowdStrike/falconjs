@@ -39,6 +39,18 @@ export interface DomainSPAPIQueryPaging {
     total: number;
 }
 
+/**
+ * Check if a given object implements the DomainSPAPIQueryPaging interface.
+ */
+export function instanceOfDomainSPAPIQueryPaging(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "after" in value;
+    isInstance = isInstance && "limit" in value;
+    isInstance = isInstance && "total" in value;
+
+    return isInstance;
+}
+
 export function DomainSPAPIQueryPagingFromJSON(json: any): DomainSPAPIQueryPaging {
     return DomainSPAPIQueryPagingFromJSONTyped(json, false);
 }

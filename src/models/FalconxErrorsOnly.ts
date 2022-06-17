@@ -43,6 +43,17 @@ export interface FalconxErrorsOnly {
     quota?: FalconxQuota;
 }
 
+/**
+ * Check if a given object implements the FalconxErrorsOnly interface.
+ */
+export function instanceOfFalconxErrorsOnly(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "msaMetaInfo" in value;
+    isInstance = isInstance && "errors" in value;
+
+    return isInstance;
+}
+
 export function FalconxErrorsOnlyFromJSON(json: any): FalconxErrorsOnly {
     return FalconxErrorsOnlyFromJSONTyped(json, false);
 }

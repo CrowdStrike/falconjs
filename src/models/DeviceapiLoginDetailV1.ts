@@ -35,6 +35,17 @@ export interface DeviceapiLoginDetailV1 {
     recentLogins: Array<DeviceapiLoginInfoV1>;
 }
 
+/**
+ * Check if a given object implements the DeviceapiLoginDetailV1 interface.
+ */
+export function instanceOfDeviceapiLoginDetailV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "deviceId" in value;
+    isInstance = isInstance && "recentLogins" in value;
+
+    return isInstance;
+}
+
 export function DeviceapiLoginDetailV1FromJSON(json: any): DeviceapiLoginDetailV1 {
     return DeviceapiLoginDetailV1FromJSONTyped(json, false);
 }

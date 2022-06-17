@@ -45,6 +45,17 @@ export interface DomainDevicePaging {
     total: number;
 }
 
+/**
+ * Check if a given object implements the DomainDevicePaging interface.
+ */
+export function instanceOfDomainDevicePaging(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "offset" in value;
+    isInstance = isInstance && "total" in value;
+
+    return isInstance;
+}
+
 export function DomainDevicePagingFromJSON(json: any): DomainDevicePaging {
     return DomainDevicePagingFromJSONTyped(json, false);
 }

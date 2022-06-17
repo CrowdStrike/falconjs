@@ -57,6 +57,16 @@ export interface FwmgrApiWorkaroundUIFieldValue {
     values?: Array<string>;
 }
 
+/**
+ * Check if a given object implements the FwmgrApiWorkaroundUIFieldValue interface.
+ */
+export function instanceOfFwmgrApiWorkaroundUIFieldValue(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "name" in value;
+
+    return isInstance;
+}
+
 export function FwmgrApiWorkaroundUIFieldValueFromJSON(json: any): FwmgrApiWorkaroundUIFieldValue {
     return FwmgrApiWorkaroundUIFieldValueFromJSONTyped(json, false);
 }

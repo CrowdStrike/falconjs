@@ -48,6 +48,17 @@ export interface FwmgrApiPolicyContainersResponse {
     resources: Array<FwmgrFirewallPolicyContainerV1>;
 }
 
+/**
+ * Check if a given object implements the FwmgrApiPolicyContainersResponse interface.
+ */
+export function instanceOfFwmgrApiPolicyContainersResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function FwmgrApiPolicyContainersResponseFromJSON(json: any): FwmgrApiPolicyContainersResponse {
     return FwmgrApiPolicyContainersResponseFromJSONTyped(json, false);
 }

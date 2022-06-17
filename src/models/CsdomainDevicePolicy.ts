@@ -75,6 +75,17 @@ export interface CsdomainDevicePolicy {
     uninstallProtection?: string;
 }
 
+/**
+ * Check if a given object implements the CsdomainDevicePolicy interface.
+ */
+export function instanceOfCsdomainDevicePolicy(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "policyId" in value;
+    isInstance = isInstance && "policyType" in value;
+
+    return isInstance;
+}
+
 export function CsdomainDevicePolicyFromJSON(json: any): CsdomainDevicePolicy {
     return CsdomainDevicePolicyFromJSONTyped(json, false);
 }

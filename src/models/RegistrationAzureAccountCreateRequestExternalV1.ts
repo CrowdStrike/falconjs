@@ -34,6 +34,16 @@ export interface RegistrationAzureAccountCreateRequestExternalV1 {
     resources: Array<RegistrationAzureAccountExternalV1>;
 }
 
+/**
+ * Check if a given object implements the RegistrationAzureAccountCreateRequestExternalV1 interface.
+ */
+export function instanceOfRegistrationAzureAccountCreateRequestExternalV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function RegistrationAzureAccountCreateRequestExternalV1FromJSON(json: any): RegistrationAzureAccountCreateRequestExternalV1 {
     return RegistrationAzureAccountCreateRequestExternalV1FromJSONTyped(json, false);
 }

@@ -43,6 +43,18 @@ export interface ApiMessageCenterCasesResponse {
     resources: Array<MessagesCase>;
 }
 
+/**
+ * Check if a given object implements the ApiMessageCenterCasesResponse interface.
+ */
+export function instanceOfApiMessageCenterCasesResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ApiMessageCenterCasesResponseFromJSON(json: any): ApiMessageCenterCasesResponse {
     return ApiMessageCenterCasesResponseFromJSONTyped(json, false);
 }

@@ -45,6 +45,19 @@ export interface DomainNotificationConfig {
     severity: string;
 }
 
+/**
+ * Check if a given object implements the DomainNotificationConfig interface.
+ */
+export function instanceOfDomainNotificationConfig(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "configId" in value;
+    isInstance = isInstance && "pluginId" in value;
+    isInstance = isInstance && "recipients" in value;
+    isInstance = isInstance && "severity" in value;
+
+    return isInstance;
+}
+
 export function DomainNotificationConfigFromJSON(json: any): DomainNotificationConfig {
     return DomainNotificationConfigFromJSONTyped(json, false);
 }

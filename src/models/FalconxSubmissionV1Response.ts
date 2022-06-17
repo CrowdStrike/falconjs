@@ -43,6 +43,18 @@ export interface FalconxSubmissionV1Response {
     resources: Array<FalconxSubmissionV1>;
 }
 
+/**
+ * Check if a given object implements the FalconxSubmissionV1Response interface.
+ */
+export function instanceOfFalconxSubmissionV1Response(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function FalconxSubmissionV1ResponseFromJSON(json: any): FalconxSubmissionV1Response {
     return FalconxSubmissionV1ResponseFromJSONTyped(json, false);
 }

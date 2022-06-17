@@ -99,6 +99,28 @@ export interface FwmgrApiRuleGroupV1 {
     tracking: string;
 }
 
+/**
+ * Check if a given object implements the FwmgrApiRuleGroupV1 interface.
+ */
+export function instanceOfFwmgrApiRuleGroupV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "createdBy" in value;
+    isInstance = isInstance && "createdOn" in value;
+    isInstance = isInstance && "customerId" in value;
+    isInstance = isInstance && "deleted" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "enabled" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "modifiedBy" in value;
+    isInstance = isInstance && "modifiedOn" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "policyIds" in value;
+    isInstance = isInstance && "ruleIds" in value;
+    isInstance = isInstance && "tracking" in value;
+
+    return isInstance;
+}
+
 export function FwmgrApiRuleGroupV1FromJSON(json: any): FwmgrApiRuleGroupV1 {
     return FwmgrApiRuleGroupV1FromJSONTyped(json, false);
 }

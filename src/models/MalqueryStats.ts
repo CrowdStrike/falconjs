@@ -51,6 +51,20 @@ export interface MalqueryStats {
     unknownCount: number;
 }
 
+/**
+ * Check if a given object implements the MalqueryStats interface.
+ */
+export function instanceOfMalqueryStats(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "cleanCount" in value;
+    isInstance = isInstance && "malwareCount" in value;
+    isInstance = isInstance && "puaCount" in value;
+    isInstance = isInstance && "totalCount" in value;
+    isInstance = isInstance && "unknownCount" in value;
+
+    return isInstance;
+}
+
 export function MalqueryStatsFromJSON(json: any): MalqueryStats {
     return MalqueryStatsFromJSONTyped(json, false);
 }

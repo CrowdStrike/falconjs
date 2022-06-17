@@ -107,6 +107,15 @@ export interface FalconxActor {
     thumbnailArtifactId?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxActor interface.
+ */
+export function instanceOfFalconxActor(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxActorFromJSON(json: any): FalconxActor {
     return FalconxActorFromJSONTyped(json, false);
 }

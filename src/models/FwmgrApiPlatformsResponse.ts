@@ -43,6 +43,17 @@ export interface FwmgrApiPlatformsResponse {
     resources: Array<FwmgrDomainPlatform>;
 }
 
+/**
+ * Check if a given object implements the FwmgrApiPlatformsResponse interface.
+ */
+export function instanceOfFwmgrApiPlatformsResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function FwmgrApiPlatformsResponseFromJSON(json: any): FwmgrApiPlatformsResponse {
     return FwmgrApiPlatformsResponseFromJSONTyped(json, false);
 }

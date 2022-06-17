@@ -125,6 +125,21 @@ export interface DomainAWSAccountV2 {
     status?: string;
 }
 
+/**
+ * Check if a given object implements the DomainAWSAccountV2 interface.
+ */
+export function instanceOfDomainAWSAccountV2(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "createdAt" in value;
+    isInstance = isInstance && "deletedAt" in value;
+    isInstance = isInstance && "iD" in value;
+    isInstance = isInstance && "updatedAt" in value;
+    isInstance = isInstance && "awsPermissionsStatus" in value;
+    isInstance = isInstance && "isMaster" in value;
+
+    return isInstance;
+}
+
 export function DomainAWSAccountV2FromJSON(json: any): DomainAWSAccountV2 {
     return DomainAWSAccountV2FromJSONTyped(json, false);
 }

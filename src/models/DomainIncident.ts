@@ -174,6 +174,23 @@ export interface DomainIncident {
     visibility?: number;
 }
 
+/**
+ * Check if a given object implements the DomainIncident interface.
+ */
+export function instanceOfDomainIncident(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "cid" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "end" in value;
+    isInstance = isInstance && "fineScore" in value;
+    isInstance = isInstance && "hostIds" in value;
+    isInstance = isInstance && "incidentId" in value;
+    isInstance = isInstance && "start" in value;
+    isInstance = isInstance && "state" in value;
+
+    return isInstance;
+}
+
 export function DomainIncidentFromJSON(json: any): DomainIncident {
     return DomainIncidentFromJSONTyped(json, false);
 }

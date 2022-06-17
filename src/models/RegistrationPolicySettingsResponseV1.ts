@@ -43,6 +43,18 @@ export interface RegistrationPolicySettingsResponseV1 {
     resources: Array<DomainCIDPolicyAssignments>;
 }
 
+/**
+ * Check if a given object implements the RegistrationPolicySettingsResponseV1 interface.
+ */
+export function instanceOfRegistrationPolicySettingsResponseV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function RegistrationPolicySettingsResponseV1FromJSON(json: any): RegistrationPolicySettingsResponseV1 {
     return RegistrationPolicySettingsResponseV1FromJSONTyped(json, false);
 }

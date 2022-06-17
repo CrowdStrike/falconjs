@@ -45,6 +45,19 @@ export interface DomainMSSPRoles {
     userGroupId: string;
 }
 
+/**
+ * Check if a given object implements the DomainMSSPRoles interface.
+ */
+export function instanceOfDomainMSSPRoles(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "cidGroupId" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "roleIds" in value;
+    isInstance = isInstance && "userGroupId" in value;
+
+    return isInstance;
+}
+
 export function DomainMSSPRolesFromJSON(json: any): DomainMSSPRoles {
     return DomainMSSPRolesFromJSONTyped(json, false);
 }

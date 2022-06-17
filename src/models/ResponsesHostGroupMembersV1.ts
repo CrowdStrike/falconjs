@@ -43,6 +43,18 @@ export interface ResponsesHostGroupMembersV1 {
     resources: Array<CsdomainDevice>;
 }
 
+/**
+ * Check if a given object implements the ResponsesHostGroupMembersV1 interface.
+ */
+export function instanceOfResponsesHostGroupMembersV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ResponsesHostGroupMembersV1FromJSON(json: any): ResponsesHostGroupMembersV1 {
     return ResponsesHostGroupMembersV1FromJSONTyped(json, false);
 }

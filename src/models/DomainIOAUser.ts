@@ -33,6 +33,17 @@ export interface DomainIOAUser {
     userName: string;
 }
 
+/**
+ * Check if a given object implements the DomainIOAUser interface.
+ */
+export function instanceOfDomainIOAUser(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "userId" in value;
+    isInstance = isInstance && "userName" in value;
+
+    return isInstance;
+}
+
 export function DomainIOAUserFromJSON(json: any): DomainIOAUser {
     return DomainIOAUserFromJSONTyped(json, false);
 }

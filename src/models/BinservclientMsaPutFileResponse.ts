@@ -42,6 +42,17 @@ export interface BinservclientMsaPutFileResponse {
     resources: Array<string>;
 }
 
+/**
+ * Check if a given object implements the BinservclientMsaPutFileResponse interface.
+ */
+export function instanceOfBinservclientMsaPutFileResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function BinservclientMsaPutFileResponseFromJSON(json: any): BinservclientMsaPutFileResponse {
     return BinservclientMsaPutFileResponseFromJSONTyped(json, false);
 }

@@ -45,6 +45,15 @@ export const RequestsSensorUpdateSettingsV2UninstallProtectionEnum = {
 } as const;
 export type RequestsSensorUpdateSettingsV2UninstallProtectionEnum = typeof RequestsSensorUpdateSettingsV2UninstallProtectionEnum[keyof typeof RequestsSensorUpdateSettingsV2UninstallProtectionEnum];
 
+/**
+ * Check if a given object implements the RequestsSensorUpdateSettingsV2 interface.
+ */
+export function instanceOfRequestsSensorUpdateSettingsV2(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function RequestsSensorUpdateSettingsV2FromJSON(json: any): RequestsSensorUpdateSettingsV2 {
     return RequestsSensorUpdateSettingsV2FromJSONTyped(json, false);
 }

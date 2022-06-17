@@ -33,6 +33,17 @@ export interface DomainBatchRefreshSessionRequest {
     hostsToRemove: Array<string>;
 }
 
+/**
+ * Check if a given object implements the DomainBatchRefreshSessionRequest interface.
+ */
+export function instanceOfDomainBatchRefreshSessionRequest(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "batchId" in value;
+    isInstance = isInstance && "hostsToRemove" in value;
+
+    return isInstance;
+}
+
 export function DomainBatchRefreshSessionRequestFromJSON(json: any): DomainBatchRefreshSessionRequest {
     return DomainBatchRefreshSessionRequestFromJSONTyped(json, false);
 }

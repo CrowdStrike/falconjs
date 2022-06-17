@@ -34,6 +34,16 @@ export interface RequestsCreateFirewallPoliciesV1 {
     resources: Array<RequestsCreateFirewallPolicyV1>;
 }
 
+/**
+ * Check if a given object implements the RequestsCreateFirewallPoliciesV1 interface.
+ */
+export function instanceOfRequestsCreateFirewallPoliciesV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function RequestsCreateFirewallPoliciesV1FromJSON(json: any): RequestsCreateFirewallPoliciesV1 {
     return RequestsCreateFirewallPoliciesV1FromJSONTyped(json, false);
 }

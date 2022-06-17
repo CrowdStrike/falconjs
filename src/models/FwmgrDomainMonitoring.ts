@@ -33,6 +33,17 @@ export interface FwmgrDomainMonitoring {
     periodMs: string;
 }
 
+/**
+ * Check if a given object implements the FwmgrDomainMonitoring interface.
+ */
+export function instanceOfFwmgrDomainMonitoring(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "count" in value;
+    isInstance = isInstance && "periodMs" in value;
+
+    return isInstance;
+}
+
 export function FwmgrDomainMonitoringFromJSON(json: any): FwmgrDomainMonitoring {
     return FwmgrDomainMonitoringFromJSONTyped(json, false);
 }

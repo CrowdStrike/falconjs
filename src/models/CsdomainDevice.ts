@@ -356,6 +356,17 @@ export interface CsdomainDevice {
     tags?: Array<string>;
 }
 
+/**
+ * Check if a given object implements the CsdomainDevice interface.
+ */
+export function instanceOfCsdomainDevice(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "cid" in value;
+    isInstance = isInstance && "deviceId" in value;
+
+    return isInstance;
+}
+
 export function CsdomainDeviceFromJSON(json: any): CsdomainDevice {
     return CsdomainDeviceFromJSONTyped(json, false);
 }

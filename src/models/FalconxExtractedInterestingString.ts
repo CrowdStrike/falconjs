@@ -51,6 +51,15 @@ export interface FalconxExtractedInterestingString {
     value?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxExtractedInterestingString interface.
+ */
+export function instanceOfFalconxExtractedInterestingString(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxExtractedInterestingStringFromJSON(json: any): FalconxExtractedInterestingString {
     return FalconxExtractedInterestingStringFromJSONTyped(json, false);
 }

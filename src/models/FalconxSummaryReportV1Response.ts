@@ -43,6 +43,18 @@ export interface FalconxSummaryReportV1Response {
     resources: Array<FalconxSummaryReportV1>;
 }
 
+/**
+ * Check if a given object implements the FalconxSummaryReportV1Response interface.
+ */
+export function instanceOfFalconxSummaryReportV1Response(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function FalconxSummaryReportV1ResponseFromJSON(json: any): FalconxSummaryReportV1Response {
     return FalconxSummaryReportV1ResponseFromJSONTyped(json, false);
 }

@@ -183,6 +183,37 @@ export interface FwmgrFirewallRuleV1 {
     version: number;
 }
 
+/**
+ * Check if a given object implements the FwmgrFirewallRuleV1 interface.
+ */
+export function instanceOfFwmgrFirewallRuleV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "action" in value;
+    isInstance = isInstance && "addressFamily" in value;
+    isInstance = isInstance && "createdBy" in value;
+    isInstance = isInstance && "createdOn" in value;
+    isInstance = isInstance && "deleted" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "direction" in value;
+    isInstance = isInstance && "enabled" in value;
+    isInstance = isInstance && "family" in value;
+    isInstance = isInstance && "fields" in value;
+    isInstance = isInstance && "icmp" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "localAddress" in value;
+    isInstance = isInstance && "localPort" in value;
+    isInstance = isInstance && "monitor" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "platformIds" in value;
+    isInstance = isInstance && "protocol" in value;
+    isInstance = isInstance && "remoteAddress" in value;
+    isInstance = isInstance && "remotePort" in value;
+    isInstance = isInstance && "ruleGroup" in value;
+    isInstance = isInstance && "version" in value;
+
+    return isInstance;
+}
+
 export function FwmgrFirewallRuleV1FromJSON(json: any): FwmgrFirewallRuleV1 {
     return FwmgrFirewallRuleV1FromJSONTyped(json, false);
 }

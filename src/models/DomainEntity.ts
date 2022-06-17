@@ -45,6 +45,16 @@ export interface DomainEntity {
     value?: string;
 }
 
+/**
+ * Check if a given object implements the DomainEntity interface.
+ */
+export function instanceOfDomainEntity(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
+}
+
 export function DomainEntityFromJSON(json: any): DomainEntity {
     return DomainEntityFromJSONTyped(json, false);
 }

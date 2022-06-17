@@ -52,6 +52,16 @@ export interface RequestsUpdateSensorUpdatePolicyV1 {
     settings?: RequestsSensorUpdateSettingsV1;
 }
 
+/**
+ * Check if a given object implements the RequestsUpdateSensorUpdatePolicyV1 interface.
+ */
+export function instanceOfRequestsUpdateSensorUpdatePolicyV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
+}
+
 export function RequestsUpdateSensorUpdatePolicyV1FromJSON(json: any): RequestsUpdateSensorUpdatePolicyV1 {
     return RequestsUpdateSensorUpdatePolicyV1FromJSONTyped(json, false);
 }

@@ -33,6 +33,17 @@ export interface DomainCIDGroupMembers {
     cids: Array<string>;
 }
 
+/**
+ * Check if a given object implements the DomainCIDGroupMembers interface.
+ */
+export function instanceOfDomainCIDGroupMembers(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "cidGroupId" in value;
+    isInstance = isInstance && "cids" in value;
+
+    return isInstance;
+}
+
 export function DomainCIDGroupMembersFromJSON(json: any): DomainCIDGroupMembers {
     return DomainCIDGroupMembersFromJSONTyped(json, false);
 }

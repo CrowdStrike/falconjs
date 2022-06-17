@@ -43,6 +43,17 @@ export interface DomainDiscoverAPIHostEntitiesResponse {
     resources: Array<DomainDiscoverAPIHost>;
 }
 
+/**
+ * Check if a given object implements the DomainDiscoverAPIHostEntitiesResponse interface.
+ */
+export function instanceOfDomainDiscoverAPIHostEntitiesResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainDiscoverAPIHostEntitiesResponseFromJSON(json: any): DomainDiscoverAPIHostEntitiesResponse {
     return DomainDiscoverAPIHostEntitiesResponseFromJSONTyped(json, false);
 }

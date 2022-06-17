@@ -93,6 +93,15 @@ export interface FalconxExtractedFile {
     typeTags?: Array<string>;
 }
 
+/**
+ * Check if a given object implements the FalconxExtractedFile interface.
+ */
+export function instanceOfFalconxExtractedFile(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxExtractedFileFromJSON(json: any): FalconxExtractedFile {
     return FalconxExtractedFileFromJSONTyped(json, false);
 }

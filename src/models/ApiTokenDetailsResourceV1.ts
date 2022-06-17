@@ -75,6 +75,24 @@ export interface ApiTokenDetailsResourceV1 {
     value: string;
 }
 
+/**
+ * Check if a given object implements the ApiTokenDetailsResourceV1 interface.
+ */
+export function instanceOfApiTokenDetailsResourceV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "createdTimestamp" in value;
+    isInstance = isInstance && "expiresTimestamp" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "label" in value;
+    isInstance = isInstance && "lastUsedTimestamp" in value;
+    isInstance = isInstance && "revokedTimestamp" in value;
+    isInstance = isInstance && "status" in value;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "value" in value;
+
+    return isInstance;
+}
+
 export function ApiTokenDetailsResourceV1FromJSON(json: any): ApiTokenDetailsResourceV1 {
     return ApiTokenDetailsResourceV1FromJSONTyped(json, false);
 }

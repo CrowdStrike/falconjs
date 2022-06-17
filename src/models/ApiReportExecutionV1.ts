@@ -144,6 +144,28 @@ export interface ApiReportExecutionV1 {
     userUuid: string;
 }
 
+/**
+ * Check if a given object implements the ApiReportExecutionV1 interface.
+ */
+export function instanceOfApiReportExecutionV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "createdOn" in value;
+    isInstance = isInstance && "customerId" in value;
+    isInstance = isInstance && "expirationOn" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "lastUpdatedOn" in value;
+    isInstance = isInstance && "scheduledReportId" in value;
+    isInstance = isInstance && "sharedWith" in value;
+    isInstance = isInstance && "status" in value;
+    isInstance = isInstance && "statusDisplay" in value;
+    isInstance = isInstance && "statusMsg" in value;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "userId" in value;
+    isInstance = isInstance && "userUuid" in value;
+
+    return isInstance;
+}
+
 export function ApiReportExecutionV1FromJSON(json: any): ApiReportExecutionV1 {
     return ApiReportExecutionV1FromJSONTyped(json, false);
 }

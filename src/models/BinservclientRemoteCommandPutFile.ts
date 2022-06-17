@@ -153,6 +153,17 @@ export interface BinservclientRemoteCommandPutFile {
     writeAccess?: boolean;
 }
 
+/**
+ * Check if a given object implements the BinservclientRemoteCommandPutFile interface.
+ */
+export function instanceOfBinservclientRemoteCommandPutFile(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "runAttemptCount" in value;
+    isInstance = isInstance && "runSuccessCount" in value;
+
+    return isInstance;
+}
+
 export function BinservclientRemoteCommandPutFileFromJSON(json: any): BinservclientRemoteCommandPutFile {
     return BinservclientRemoteCommandPutFileFromJSONTyped(json, false);
 }

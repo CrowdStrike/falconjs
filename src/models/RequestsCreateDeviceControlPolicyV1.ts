@@ -68,6 +68,17 @@ export const RequestsCreateDeviceControlPolicyV1PlatformNameEnum = {
 } as const;
 export type RequestsCreateDeviceControlPolicyV1PlatformNameEnum = typeof RequestsCreateDeviceControlPolicyV1PlatformNameEnum[keyof typeof RequestsCreateDeviceControlPolicyV1PlatformNameEnum];
 
+/**
+ * Check if a given object implements the RequestsCreateDeviceControlPolicyV1 interface.
+ */
+export function instanceOfRequestsCreateDeviceControlPolicyV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "platformName" in value;
+
+    return isInstance;
+}
+
 export function RequestsCreateDeviceControlPolicyV1FromJSON(json: any): RequestsCreateDeviceControlPolicyV1 {
     return RequestsCreateDeviceControlPolicyV1FromJSONTyped(json, false);
 }

@@ -33,6 +33,17 @@ export interface DomainValueItem {
     value: string;
 }
 
+/**
+ * Check if a given object implements the DomainValueItem interface.
+ */
+export function instanceOfDomainValueItem(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "label" in value;
+    isInstance = isInstance && "value" in value;
+
+    return isInstance;
+}
+
 export function DomainValueItemFromJSON(json: any): DomainValueItem {
     return DomainValueItemFromJSONTyped(json, false);
 }

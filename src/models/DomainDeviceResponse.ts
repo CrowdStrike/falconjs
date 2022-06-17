@@ -42,6 +42,18 @@ export interface DomainDeviceResponse {
     resources: Array<string>;
 }
 
+/**
+ * Check if a given object implements the DomainDeviceResponse interface.
+ */
+export function instanceOfDomainDeviceResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainDeviceResponseFromJSON(json: any): DomainDeviceResponse {
     return DomainDeviceResponseFromJSONTyped(json, false);
 }

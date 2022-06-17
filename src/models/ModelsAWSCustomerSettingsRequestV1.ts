@@ -33,6 +33,15 @@ export interface ModelsAWSCustomerSettingsRequestV1 {
     staticExternalId?: string;
 }
 
+/**
+ * Check if a given object implements the ModelsAWSCustomerSettingsRequestV1 interface.
+ */
+export function instanceOfModelsAWSCustomerSettingsRequestV1(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function ModelsAWSCustomerSettingsRequestV1FromJSON(json: any): ModelsAWSCustomerSettingsRequestV1 {
     return ModelsAWSCustomerSettingsRequestV1FromJSONTyped(json, false);
 }

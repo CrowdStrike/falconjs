@@ -81,6 +81,24 @@ export interface RequestsIoaExclusionUpdateReqV1 {
     patternName: string;
 }
 
+/**
+ * Check if a given object implements the RequestsIoaExclusionUpdateReqV1 interface.
+ */
+export function instanceOfRequestsIoaExclusionUpdateReqV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "clRegex" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "detectionJson" in value;
+    isInstance = isInstance && "groups" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "ifnRegex" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "patternId" in value;
+    isInstance = isInstance && "patternName" in value;
+
+    return isInstance;
+}
+
 export function RequestsIoaExclusionUpdateReqV1FromJSON(json: any): RequestsIoaExclusionUpdateReqV1 {
     return RequestsIoaExclusionUpdateReqV1FromJSONTyped(json, false);
 }

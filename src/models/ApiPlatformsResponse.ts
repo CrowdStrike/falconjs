@@ -43,6 +43,17 @@ export interface ApiPlatformsResponse {
     resources: Array<DomainPlatform>;
 }
 
+/**
+ * Check if a given object implements the ApiPlatformsResponse interface.
+ */
+export function instanceOfApiPlatformsResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ApiPlatformsResponseFromJSON(json: any): ApiPlatformsResponse {
     return ApiPlatformsResponseFromJSONTyped(json, false);
 }

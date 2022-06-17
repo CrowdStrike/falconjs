@@ -33,6 +33,17 @@ export interface MsaRangeSpec {
     to: number;
 }
 
+/**
+ * Check if a given object implements the MsaRangeSpec interface.
+ */
+export function instanceOfMsaRangeSpec(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "from" in value;
+    isInstance = isInstance && "to" in value;
+
+    return isInstance;
+}
+
 export function MsaRangeSpecFromJSON(json: any): MsaRangeSpec {
     return MsaRangeSpecFromJSONTyped(json, false);
 }

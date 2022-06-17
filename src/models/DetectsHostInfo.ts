@@ -33,6 +33,16 @@ export interface DetectsHostInfo {
     domain: string;
 }
 
+/**
+ * Check if a given object implements the DetectsHostInfo interface.
+ */
+export function instanceOfDetectsHostInfo(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "domain" in value;
+
+    return isInstance;
+}
+
 export function DetectsHostInfoFromJSON(json: any): DetectsHostInfo {
     return DetectsHostInfoFromJSONTyped(json, false);
 }

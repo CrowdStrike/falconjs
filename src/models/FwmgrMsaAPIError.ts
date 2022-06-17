@@ -39,6 +39,17 @@ export interface FwmgrMsaAPIError {
     message: string;
 }
 
+/**
+ * Check if a given object implements the FwmgrMsaAPIError interface.
+ */
+export function instanceOfFwmgrMsaAPIError(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "code" in value;
+    isInstance = isInstance && "message" in value;
+
+    return isInstance;
+}
+
 export function FwmgrMsaAPIErrorFromJSON(json: any): FwmgrMsaAPIError {
     return FwmgrMsaAPIErrorFromJSONTyped(json, false);
 }

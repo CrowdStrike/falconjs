@@ -51,6 +51,20 @@ export interface DomainAPIRemediationV2 {
     title: string;
 }
 
+/**
+ * Check if a given object implements the DomainAPIRemediationV2 interface.
+ */
+export function instanceOfDomainAPIRemediationV2(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "action" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "link" in value;
+    isInstance = isInstance && "reference" in value;
+    isInstance = isInstance && "title" in value;
+
+    return isInstance;
+}
+
 export function DomainAPIRemediationV2FromJSON(json: any): DomainAPIRemediationV2 {
     return DomainAPIRemediationV2FromJSONTyped(json, false);
 }

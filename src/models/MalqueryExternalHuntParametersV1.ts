@@ -35,6 +35,16 @@ export interface MalqueryExternalHuntParametersV1 {
     yaraRule: string;
 }
 
+/**
+ * Check if a given object implements the MalqueryExternalHuntParametersV1 interface.
+ */
+export function instanceOfMalqueryExternalHuntParametersV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "yaraRule" in value;
+
+    return isInstance;
+}
+
 export function MalqueryExternalHuntParametersV1FromJSON(json: any): MalqueryExternalHuntParametersV1 {
     return MalqueryExternalHuntParametersV1FromJSONTyped(json, false);
 }

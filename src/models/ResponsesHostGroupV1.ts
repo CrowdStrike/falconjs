@@ -84,6 +84,22 @@ export const ResponsesHostGroupV1GroupTypeEnum = {
 } as const;
 export type ResponsesHostGroupV1GroupTypeEnum = typeof ResponsesHostGroupV1GroupTypeEnum[keyof typeof ResponsesHostGroupV1GroupTypeEnum];
 
+/**
+ * Check if a given object implements the ResponsesHostGroupV1 interface.
+ */
+export function instanceOfResponsesHostGroupV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "createdBy" in value;
+    isInstance = isInstance && "createdTimestamp" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "modifiedBy" in value;
+    isInstance = isInstance && "modifiedTimestamp" in value;
+    isInstance = isInstance && "name" in value;
+
+    return isInstance;
+}
+
 export function ResponsesHostGroupV1FromJSON(json: any): ResponsesHostGroupV1 {
     return ResponsesHostGroupV1FromJSONTyped(json, false);
 }

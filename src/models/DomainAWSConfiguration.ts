@@ -45,6 +45,15 @@ export interface DomainAWSConfiguration {
     staticExternalId?: string;
 }
 
+/**
+ * Check if a given object implements the DomainAWSConfiguration interface.
+ */
+export function instanceOfDomainAWSConfiguration(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function DomainAWSConfigurationFromJSON(json: any): DomainAWSConfiguration {
     return DomainAWSConfigurationFromJSONTyped(json, false);
 }

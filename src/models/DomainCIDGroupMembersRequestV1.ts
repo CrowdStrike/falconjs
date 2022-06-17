@@ -29,6 +29,16 @@ export interface DomainCIDGroupMembersRequestV1 {
     resources: Array<DomainCIDGroupMembers>;
 }
 
+/**
+ * Check if a given object implements the DomainCIDGroupMembersRequestV1 interface.
+ */
+export function instanceOfDomainCIDGroupMembersRequestV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainCIDGroupMembersRequestV1FromJSON(json: any): DomainCIDGroupMembersRequestV1 {
     return DomainCIDGroupMembersRequestV1FromJSONTyped(json, false);
 }

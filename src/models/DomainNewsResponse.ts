@@ -43,6 +43,18 @@ export interface DomainNewsResponse {
     resources: Array<DomainNewsDocument>;
 }
 
+/**
+ * Check if a given object implements the DomainNewsResponse interface.
+ */
+export function instanceOfDomainNewsResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainNewsResponseFromJSON(json: any): DomainNewsResponse {
     return DomainNewsResponseFromJSONTyped(json, false);
 }

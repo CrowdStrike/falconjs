@@ -59,6 +59,19 @@ export interface DomainFieldValue {
     values: Array<DomainValueItem>;
 }
 
+/**
+ * Check if a given object implements the DomainFieldValue interface.
+ */
+export function instanceOfDomainFieldValue(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "value" in value;
+    isInstance = isInstance && "values" in value;
+
+    return isInstance;
+}
+
 export function DomainFieldValueFromJSON(json: any): DomainFieldValue {
     return DomainFieldValueFromJSONTyped(json, false);
 }

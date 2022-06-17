@@ -43,6 +43,17 @@ export interface MalqueryFuzzySearchResponse {
     resources: Array<MalquerySampleMetadata>;
 }
 
+/**
+ * Check if a given object implements the MalqueryFuzzySearchResponse interface.
+ */
+export function instanceOfMalqueryFuzzySearchResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function MalqueryFuzzySearchResponseFromJSON(json: any): MalqueryFuzzySearchResponse {
     return MalqueryFuzzySearchResponseFromJSONTyped(json, false);
 }

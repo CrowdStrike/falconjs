@@ -57,6 +57,17 @@ export interface DomainAzureClientServicePrincipalV1 {
     x5t?: string;
 }
 
+/**
+ * Check if a given object implements the DomainAzureClientServicePrincipalV1 interface.
+ */
+export function instanceOfDomainAzureClientServicePrincipalV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "cid" in value;
+    isInstance = isInstance && "tenantId" in value;
+
+    return isInstance;
+}
+
 export function DomainAzureClientServicePrincipalV1FromJSON(json: any): DomainAzureClientServicePrincipalV1 {
     return DomainAzureClientServicePrincipalV1FromJSONTyped(json, false);
 }

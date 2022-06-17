@@ -83,6 +83,16 @@ export interface MsaAggregationResultItem {
     valueAsString?: string;
 }
 
+/**
+ * Check if a given object implements the MsaAggregationResultItem interface.
+ */
+export function instanceOfMsaAggregationResultItem(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "count" in value;
+
+    return isInstance;
+}
+
 export function MsaAggregationResultItemFromJSON(json: any): MsaAggregationResultItem {
     return MsaAggregationResultItemFromJSONTyped(json, false);
 }

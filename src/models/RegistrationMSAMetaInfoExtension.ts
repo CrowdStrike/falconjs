@@ -41,6 +41,16 @@ export interface RegistrationMSAMetaInfoExtension {
     pagination?: RegistrationMSAPagingExtension;
 }
 
+/**
+ * Check if a given object implements the RegistrationMSAMetaInfoExtension interface.
+ */
+export function instanceOfRegistrationMSAMetaInfoExtension(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "metaInfo" in value;
+
+    return isInstance;
+}
+
 export function RegistrationMSAMetaInfoExtensionFromJSON(json: any): RegistrationMSAMetaInfoExtension {
     return RegistrationMSAMetaInfoExtensionFromJSONTyped(json, false);
 }

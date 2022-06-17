@@ -29,6 +29,15 @@ export interface ExternalDiffType {
     hash?: ExternalDiffHash;
 }
 
+/**
+ * Check if a given object implements the ExternalDiffType interface.
+ */
+export function instanceOfExternalDiffType(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function ExternalDiffTypeFromJSON(json: any): ExternalDiffType {
     return ExternalDiffTypeFromJSONTyped(json, false);
 }

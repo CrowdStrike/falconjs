@@ -29,6 +29,16 @@ export interface RegistrationGCPAccountCreateRequestExtV1 {
     resources: Array<RegistrationGCPAccountExtV1>;
 }
 
+/**
+ * Check if a given object implements the RegistrationGCPAccountCreateRequestExtV1 interface.
+ */
+export function instanceOfRegistrationGCPAccountCreateRequestExtV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function RegistrationGCPAccountCreateRequestExtV1FromJSON(json: any): RegistrationGCPAccountCreateRequestExtV1 {
     return RegistrationGCPAccountCreateRequestExtV1FromJSONTyped(json, false);
 }

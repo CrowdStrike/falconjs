@@ -69,6 +69,22 @@ export interface DomainQueuedSessionCommand {
     updatedAt: Date;
 }
 
+/**
+ * Check if a given object implements the DomainQueuedSessionCommand interface.
+ */
+export function instanceOfDomainQueuedSessionCommand(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "baseCommand" in value;
+    isInstance = isInstance && "cloudRequestId" in value;
+    isInstance = isInstance && "commandString" in value;
+    isInstance = isInstance && "createdAt" in value;
+    isInstance = isInstance && "deletedAt" in value;
+    isInstance = isInstance && "status" in value;
+    isInstance = isInstance && "updatedAt" in value;
+
+    return isInstance;
+}
+
 export function DomainQueuedSessionCommandFromJSON(json: any): DomainQueuedSessionCommand {
     return DomainQueuedSessionCommandFromJSONTyped(json, false);
 }

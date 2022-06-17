@@ -27,6 +27,16 @@ export interface DomainXDRData {
     detectionId: string;
 }
 
+/**
+ * Check if a given object implements the DomainXDRData interface.
+ */
+export function instanceOfDomainXDRData(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "detectionId" in value;
+
+    return isInstance;
+}
+
 export function DomainXDRDataFromJSON(json: any): DomainXDRData {
     return DomainXDRDataFromJSONTyped(json, false);
 }

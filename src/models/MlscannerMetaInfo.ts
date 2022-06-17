@@ -61,6 +61,17 @@ export interface MlscannerMetaInfo {
     writes?: MsaResources;
 }
 
+/**
+ * Check if a given object implements the MlscannerMetaInfo interface.
+ */
+export function instanceOfMlscannerMetaInfo(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "queryTime" in value;
+    isInstance = isInstance && "traceId" in value;
+
+    return isInstance;
+}
+
 export function MlscannerMetaInfoFromJSON(json: any): MlscannerMetaInfo {
     return MlscannerMetaInfoFromJSONTyped(json, false);
 }

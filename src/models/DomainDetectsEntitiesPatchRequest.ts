@@ -51,6 +51,15 @@ export interface DomainDetectsEntitiesPatchRequest {
     status?: string;
 }
 
+/**
+ * Check if a given object implements the DomainDetectsEntitiesPatchRequest interface.
+ */
+export function instanceOfDomainDetectsEntitiesPatchRequest(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function DomainDetectsEntitiesPatchRequestFromJSON(json: any): DomainDetectsEntitiesPatchRequest {
     return DomainDetectsEntitiesPatchRequestFromJSONTyped(json, false);
 }

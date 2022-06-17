@@ -72,6 +72,23 @@ export interface ApiRuleTypeV1 {
     released: boolean;
 }
 
+/**
+ * Check if a given object implements the ApiRuleTypeV1 interface.
+ */
+export function instanceOfApiRuleTypeV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "channel" in value;
+    isInstance = isInstance && "dispositionMap" in value;
+    isInstance = isInstance && "fields" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "longDesc" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "platform" in value;
+    isInstance = isInstance && "released" in value;
+
+    return isInstance;
+}
+
 export function ApiRuleTypeV1FromJSON(json: any): ApiRuleTypeV1 {
     return ApiRuleTypeV1FromJSONTyped(json, false);
 }

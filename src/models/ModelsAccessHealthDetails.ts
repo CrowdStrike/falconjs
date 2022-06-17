@@ -39,6 +39,16 @@ export interface ModelsAccessHealthDetails {
     valid: boolean;
 }
 
+/**
+ * Check if a given object implements the ModelsAccessHealthDetails interface.
+ */
+export function instanceOfModelsAccessHealthDetails(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "valid" in value;
+
+    return isInstance;
+}
+
 export function ModelsAccessHealthDetailsFromJSON(json: any): ModelsAccessHealthDetails {
     return ModelsAccessHealthDetailsFromJSONTyped(json, false);
 }

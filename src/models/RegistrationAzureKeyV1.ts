@@ -51,6 +51,17 @@ export interface RegistrationAzureKeyV1 {
     valid?: boolean;
 }
 
+/**
+ * Check if a given object implements the RegistrationAzureKeyV1 interface.
+ */
+export function instanceOfRegistrationAzureKeyV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "clientId" in value;
+    isInstance = isInstance && "tenantId" in value;
+
+    return isInstance;
+}
+
 export function RegistrationAzureKeyV1FromJSON(json: any): RegistrationAzureKeyV1 {
     return RegistrationAzureKeyV1FromJSONTyped(json, false);
 }

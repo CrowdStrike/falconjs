@@ -43,6 +43,18 @@ export interface DomainStatusResponseWrapper {
     resources: Array<DomainStatusResponse>;
 }
 
+/**
+ * Check if a given object implements the DomainStatusResponseWrapper interface.
+ */
+export function instanceOfDomainStatusResponseWrapper(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainStatusResponseWrapperFromJSON(json: any): DomainStatusResponseWrapper {
     return DomainStatusResponseWrapperFromJSONTyped(json, false);
 }

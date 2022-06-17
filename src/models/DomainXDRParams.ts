@@ -51,6 +51,20 @@ export interface DomainXDRParams {
     type: string;
 }
 
+/**
+ * Check if a given object implements the DomainXDRParams interface.
+ */
+export function instanceOfDomainXDRParams(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "executionOffset" in value;
+    isInstance = isInstance && "severity" in value;
+    isInstance = isInstance && "tactic" in value;
+    isInstance = isInstance && "technique" in value;
+    isInstance = isInstance && "type" in value;
+
+    return isInstance;
+}
+
 export function DomainXDRParamsFromJSON(json: any): DomainXDRParams {
     return DomainXDRParamsFromJSONTyped(json, false);
 }

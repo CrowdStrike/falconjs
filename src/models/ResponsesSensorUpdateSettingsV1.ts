@@ -27,6 +27,16 @@ export interface ResponsesSensorUpdateSettingsV1 {
     build: string;
 }
 
+/**
+ * Check if a given object implements the ResponsesSensorUpdateSettingsV1 interface.
+ */
+export function instanceOfResponsesSensorUpdateSettingsV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "build" in value;
+
+    return isInstance;
+}
+
 export function ResponsesSensorUpdateSettingsV1FromJSON(json: any): ResponsesSensorUpdateSettingsV1 {
     return ResponsesSensorUpdateSettingsV1FromJSONTyped(json, false);
 }

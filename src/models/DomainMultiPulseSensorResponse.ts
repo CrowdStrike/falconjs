@@ -41,6 +41,18 @@ export interface DomainMultiPulseSensorResponse {
     sessionId: string;
 }
 
+/**
+ * Check if a given object implements the DomainMultiPulseSensorResponse interface.
+ */
+export function instanceOfDomainMultiPulseSensorResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "aid" in value;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "sessionId" in value;
+
+    return isInstance;
+}
+
 export function DomainMultiPulseSensorResponseFromJSON(json: any): DomainMultiPulseSensorResponse {
     return DomainMultiPulseSensorResponseFromJSONTyped(json, false);
 }

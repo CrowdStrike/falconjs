@@ -33,6 +33,16 @@ export interface ApiCustomerSettingsResourceV1 {
     tokensRequired: boolean;
 }
 
+/**
+ * Check if a given object implements the ApiCustomerSettingsResourceV1 interface.
+ */
+export function instanceOfApiCustomerSettingsResourceV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "tokensRequired" in value;
+
+    return isInstance;
+}
+
 export function ApiCustomerSettingsResourceV1FromJSON(json: any): ApiCustomerSettingsResourceV1 {
     return ApiCustomerSettingsResourceV1FromJSONTyped(json, false);
 }

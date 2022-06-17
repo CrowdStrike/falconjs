@@ -105,6 +105,26 @@ export const ResponsesDeviceControlPolicyV1PlatformNameEnum = {
 } as const;
 export type ResponsesDeviceControlPolicyV1PlatformNameEnum = typeof ResponsesDeviceControlPolicyV1PlatformNameEnum[keyof typeof ResponsesDeviceControlPolicyV1PlatformNameEnum];
 
+/**
+ * Check if a given object implements the ResponsesDeviceControlPolicyV1 interface.
+ */
+export function instanceOfResponsesDeviceControlPolicyV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "createdBy" in value;
+    isInstance = isInstance && "createdTimestamp" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "enabled" in value;
+    isInstance = isInstance && "groups" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "modifiedBy" in value;
+    isInstance = isInstance && "modifiedTimestamp" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "platformName" in value;
+    isInstance = isInstance && "settings" in value;
+
+    return isInstance;
+}
+
 export function ResponsesDeviceControlPolicyV1FromJSON(json: any): ResponsesDeviceControlPolicyV1 {
     return ResponsesDeviceControlPolicyV1FromJSONTyped(json, false);
 }

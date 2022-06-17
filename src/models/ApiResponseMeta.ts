@@ -47,6 +47,17 @@ export interface ApiResponseMeta {
     traceId: string;
 }
 
+/**
+ * Check if a given object implements the ApiResponseMeta interface.
+ */
+export function instanceOfApiResponseMeta(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "queryTime" in value;
+    isInstance = isInstance && "traceId" in value;
+
+    return isInstance;
+}
+
 export function ApiResponseMetaFromJSON(json: any): ApiResponseMeta {
     return ApiResponseMetaFromJSONTyped(json, false);
 }

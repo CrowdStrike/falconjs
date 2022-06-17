@@ -53,6 +53,19 @@ export interface MlscannerSamplesScanResult {
     status: string;
 }
 
+/**
+ * Check if a given object implements the MlscannerSamplesScanResult interface.
+ */
+export function instanceOfMlscannerSamplesScanResult(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "cid" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "samples" in value;
+    isInstance = isInstance && "status" in value;
+
+    return isInstance;
+}
+
 export function MlscannerSamplesScanResultFromJSON(json: any): MlscannerSamplesScanResult {
     return MlscannerSamplesScanResultFromJSONTyped(json, false);
 }

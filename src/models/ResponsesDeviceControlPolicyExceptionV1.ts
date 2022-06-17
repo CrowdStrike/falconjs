@@ -81,6 +81,25 @@ export interface ResponsesDeviceControlPolicyExceptionV1 {
     vendorName: string;
 }
 
+/**
+ * Check if a given object implements the ResponsesDeviceControlPolicyExceptionV1 interface.
+ */
+export function instanceOfResponsesDeviceControlPolicyExceptionV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "action" in value;
+    isInstance = isInstance && "_class" in value;
+    isInstance = isInstance && "combinedId" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "matchMethod" in value;
+    isInstance = isInstance && "productId" in value;
+    isInstance = isInstance && "productName" in value;
+    isInstance = isInstance && "serialNumber" in value;
+    isInstance = isInstance && "vendorId" in value;
+    isInstance = isInstance && "vendorName" in value;
+
+    return isInstance;
+}
+
 export function ResponsesDeviceControlPolicyExceptionV1FromJSON(json: any): ResponsesDeviceControlPolicyExceptionV1 {
     return ResponsesDeviceControlPolicyExceptionV1FromJSONTyped(json, false);
 }

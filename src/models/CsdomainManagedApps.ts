@@ -41,6 +41,15 @@ export interface CsdomainManagedApps {
     netskope?: CsdomainManagedApp;
 }
 
+/**
+ * Check if a given object implements the CsdomainManagedApps interface.
+ */
+export function instanceOfCsdomainManagedApps(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function CsdomainManagedAppsFromJSON(json: any): CsdomainManagedApps {
     return CsdomainManagedAppsFromJSONTyped(json, false);
 }

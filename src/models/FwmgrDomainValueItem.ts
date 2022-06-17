@@ -33,6 +33,17 @@ export interface FwmgrDomainValueItem {
     value: string;
 }
 
+/**
+ * Check if a given object implements the FwmgrDomainValueItem interface.
+ */
+export function instanceOfFwmgrDomainValueItem(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "label" in value;
+    isInstance = isInstance && "value" in value;
+
+    return isInstance;
+}
+
 export function FwmgrDomainValueItemFromJSON(json: any): FwmgrDomainValueItem {
     return FwmgrDomainValueItemFromJSONTyped(json, false);
 }

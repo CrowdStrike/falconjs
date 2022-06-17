@@ -57,6 +57,15 @@ export interface FalconxSuricataAlert {
     sid?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxSuricataAlert interface.
+ */
+export function instanceOfFalconxSuricataAlert(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxSuricataAlertFromJSON(json: any): FalconxSuricataAlert {
     return FalconxSuricataAlertFromJSONTyped(json, false);
 }

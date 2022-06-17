@@ -161,6 +161,38 @@ export interface ApiRuleV1 {
     versionIds: Array<string>;
 }
 
+/**
+ * Check if a given object implements the ApiRuleV1 interface.
+ */
+export function instanceOfApiRuleV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "actionLabel" in value;
+    isInstance = isInstance && "comment" in value;
+    isInstance = isInstance && "committedOn" in value;
+    isInstance = isInstance && "createdBy" in value;
+    isInstance = isInstance && "createdOn" in value;
+    isInstance = isInstance && "customerId" in value;
+    isInstance = isInstance && "deleted" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "dispositionId" in value;
+    isInstance = isInstance && "enabled" in value;
+    isInstance = isInstance && "fieldValues" in value;
+    isInstance = isInstance && "instanceId" in value;
+    isInstance = isInstance && "instanceVersion" in value;
+    isInstance = isInstance && "magicCookie" in value;
+    isInstance = isInstance && "modifiedBy" in value;
+    isInstance = isInstance && "modifiedOn" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "patternId" in value;
+    isInstance = isInstance && "patternSeverity" in value;
+    isInstance = isInstance && "rulegroupId" in value;
+    isInstance = isInstance && "ruletypeId" in value;
+    isInstance = isInstance && "ruletypeName" in value;
+    isInstance = isInstance && "versionIds" in value;
+
+    return isInstance;
+}
+
 export function ApiRuleV1FromJSON(json: any): ApiRuleV1 {
     return ApiRuleV1FromJSONTyped(json, false);
 }

@@ -75,6 +75,17 @@ export interface DeviceDevicePolicy {
     uninstallProtection?: string;
 }
 
+/**
+ * Check if a given object implements the DeviceDevicePolicy interface.
+ */
+export function instanceOfDeviceDevicePolicy(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "policyId" in value;
+    isInstance = isInstance && "policyType" in value;
+
+    return isInstance;
+}
+
 export function DeviceDevicePolicyFromJSON(json: any): DeviceDevicePolicy {
     return DeviceDevicePolicyFromJSONTyped(json, false);
 }

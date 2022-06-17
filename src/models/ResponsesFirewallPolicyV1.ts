@@ -105,6 +105,27 @@ export const ResponsesFirewallPolicyV1PlatformNameEnum = {
 } as const;
 export type ResponsesFirewallPolicyV1PlatformNameEnum = typeof ResponsesFirewallPolicyV1PlatformNameEnum[keyof typeof ResponsesFirewallPolicyV1PlatformNameEnum];
 
+/**
+ * Check if a given object implements the ResponsesFirewallPolicyV1 interface.
+ */
+export function instanceOfResponsesFirewallPolicyV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "channelVersion" in value;
+    isInstance = isInstance && "createdBy" in value;
+    isInstance = isInstance && "createdTimestamp" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "enabled" in value;
+    isInstance = isInstance && "groups" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "modifiedBy" in value;
+    isInstance = isInstance && "modifiedTimestamp" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "platformName" in value;
+    isInstance = isInstance && "ruleSetId" in value;
+
+    return isInstance;
+}
+
 export function ResponsesFirewallPolicyV1FromJSON(json: any): ResponsesFirewallPolicyV1 {
     return ResponsesFirewallPolicyV1FromJSONTyped(json, false);
 }

@@ -39,6 +39,18 @@ export interface DomainCIDPolicyAssignmentsNistBenchmark {
     recommendationNumber: string;
 }
 
+/**
+ * Check if a given object implements the DomainCIDPolicyAssignmentsNistBenchmark interface.
+ */
+export function instanceOfDomainCIDPolicyAssignmentsNistBenchmark(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "benchmarkShort" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "recommendationNumber" in value;
+
+    return isInstance;
+}
+
 export function DomainCIDPolicyAssignmentsNistBenchmarkFromJSON(json: any): DomainCIDPolicyAssignmentsNistBenchmark {
     return DomainCIDPolicyAssignmentsNistBenchmarkFromJSONTyped(json, false);
 }

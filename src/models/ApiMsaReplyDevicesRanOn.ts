@@ -42,6 +42,18 @@ export interface ApiMsaReplyDevicesRanOn {
     resources: Array<string>;
 }
 
+/**
+ * Check if a given object implements the ApiMsaReplyDevicesRanOn interface.
+ */
+export function instanceOfApiMsaReplyDevicesRanOn(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ApiMsaReplyDevicesRanOnFromJSON(json: any): ApiMsaReplyDevicesRanOn {
     return ApiMsaReplyDevicesRanOnFromJSONTyped(json, false);
 }

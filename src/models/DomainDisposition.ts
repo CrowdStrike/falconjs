@@ -33,6 +33,17 @@ export interface DomainDisposition {
     label: string;
 }
 
+/**
+ * Check if a given object implements the DomainDisposition interface.
+ */
+export function instanceOfDomainDisposition(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "label" in value;
+
+    return isInstance;
+}
+
 export function DomainDispositionFromJSON(json: any): DomainDisposition {
     return DomainDispositionFromJSONTyped(json, false);
 }

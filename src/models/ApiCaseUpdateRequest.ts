@@ -48,6 +48,19 @@ export interface ApiCaseUpdateRequest {
     incidents: Array<MessagesIncident>;
 }
 
+/**
+ * Check if a given object implements the ApiCaseUpdateRequest interface.
+ */
+export function instanceOfApiCaseUpdateRequest(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "body" in value;
+    isInstance = isInstance && "detections" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "incidents" in value;
+
+    return isInstance;
+}
+
 export function ApiCaseUpdateRequestFromJSON(json: any): ApiCaseUpdateRequest {
     return ApiCaseUpdateRequestFromJSONTyped(json, false);
 }

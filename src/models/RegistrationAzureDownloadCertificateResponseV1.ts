@@ -43,6 +43,18 @@ export interface RegistrationAzureDownloadCertificateResponseV1 {
     resources: Array<RegistrationAzureKeyV1>;
 }
 
+/**
+ * Check if a given object implements the RegistrationAzureDownloadCertificateResponseV1 interface.
+ */
+export function instanceOfRegistrationAzureDownloadCertificateResponseV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function RegistrationAzureDownloadCertificateResponseV1FromJSON(json: any): RegistrationAzureDownloadCertificateResponseV1 {
     return RegistrationAzureDownloadCertificateResponseV1FromJSONTyped(json, false);
 }

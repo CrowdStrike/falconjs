@@ -51,6 +51,15 @@ export interface FalconxRelatedIndicator {
     value?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxRelatedIndicator interface.
+ */
+export function instanceOfFalconxRelatedIndicator(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxRelatedIndicatorFromJSON(json: any): FalconxRelatedIndicator {
     return FalconxRelatedIndicatorFromJSONTyped(json, false);
 }

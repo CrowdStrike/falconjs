@@ -27,6 +27,16 @@ export interface MsaResources {
     resourcesAffected: number;
 }
 
+/**
+ * Check if a given object implements the MsaResources interface.
+ */
+export function instanceOfMsaResources(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "resourcesAffected" in value;
+
+    return isInstance;
+}
+
 export function MsaResourcesFromJSON(json: any): MsaResources {
     return MsaResourcesFromJSONTyped(json, false);
 }

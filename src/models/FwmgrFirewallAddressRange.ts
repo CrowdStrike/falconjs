@@ -33,6 +33,16 @@ export interface FwmgrFirewallAddressRange {
     netmask?: number;
 }
 
+/**
+ * Check if a given object implements the FwmgrFirewallAddressRange interface.
+ */
+export function instanceOfFwmgrFirewallAddressRange(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "address" in value;
+
+    return isInstance;
+}
+
 export function FwmgrFirewallAddressRangeFromJSON(json: any): FwmgrFirewallAddressRange {
     return FwmgrFirewallAddressRangeFromJSONTyped(json, false);
 }

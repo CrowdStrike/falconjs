@@ -57,6 +57,21 @@ export interface ApiAuditEventDetailsResourceV1 {
     tokenId: string;
 }
 
+/**
+ * Check if a given object implements the ApiAuditEventDetailsResourceV1 interface.
+ */
+export function instanceOfApiAuditEventDetailsResourceV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "action" in value;
+    isInstance = isInstance && "actor" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "timestamp" in value;
+    isInstance = isInstance && "tokenId" in value;
+
+    return isInstance;
+}
+
 export function ApiAuditEventDetailsResourceV1FromJSON(json: any): ApiAuditEventDetailsResourceV1 {
     return ApiAuditEventDetailsResourceV1FromJSONTyped(json, false);
 }

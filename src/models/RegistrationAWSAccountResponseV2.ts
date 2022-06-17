@@ -43,6 +43,18 @@ export interface RegistrationAWSAccountResponseV2 {
     resources: Array<DomainAWSAccountV2>;
 }
 
+/**
+ * Check if a given object implements the RegistrationAWSAccountResponseV2 interface.
+ */
+export function instanceOfRegistrationAWSAccountResponseV2(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function RegistrationAWSAccountResponseV2FromJSON(json: any): RegistrationAWSAccountResponseV2 {
     return RegistrationAWSAccountResponseV2FromJSONTyped(json, false);
 }

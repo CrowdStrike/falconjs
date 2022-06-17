@@ -33,6 +33,17 @@ export interface FwmgrDomainPlatform {
     label: string;
 }
 
+/**
+ * Check if a given object implements the FwmgrDomainPlatform interface.
+ */
+export function instanceOfFwmgrDomainPlatform(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "label" in value;
+
+    return isInstance;
+}
+
 export function FwmgrDomainPlatformFromJSON(json: any): FwmgrDomainPlatform {
     return FwmgrDomainPlatformFromJSONTyped(json, false);
 }

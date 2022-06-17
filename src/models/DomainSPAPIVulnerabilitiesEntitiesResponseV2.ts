@@ -43,6 +43,17 @@ export interface DomainSPAPIVulnerabilitiesEntitiesResponseV2 {
     resources: Array<DomainAPIVulnerabilityV2>;
 }
 
+/**
+ * Check if a given object implements the DomainSPAPIVulnerabilitiesEntitiesResponseV2 interface.
+ */
+export function instanceOfDomainSPAPIVulnerabilitiesEntitiesResponseV2(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainSPAPIVulnerabilitiesEntitiesResponseV2FromJSON(json: any): DomainSPAPIVulnerabilitiesEntitiesResponseV2 {
     return DomainSPAPIVulnerabilitiesEntitiesResponseV2FromJSONTyped(json, false);
 }

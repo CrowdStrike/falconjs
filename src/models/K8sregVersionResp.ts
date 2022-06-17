@@ -39,6 +39,17 @@ export interface K8sregVersionResp {
     minor: number;
 }
 
+/**
+ * Check if a given object implements the K8sregVersionResp interface.
+ */
+export function instanceOfK8sregVersionResp(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "major" in value;
+    isInstance = isInstance && "minor" in value;
+
+    return isInstance;
+}
+
 export function K8sregVersionRespFromJSON(json: any): K8sregVersionResp {
     return K8sregVersionRespFromJSONTyped(json, false);
 }

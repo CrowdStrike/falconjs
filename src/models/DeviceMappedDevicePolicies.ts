@@ -89,6 +89,15 @@ export interface DeviceMappedDevicePolicies {
     sensorUpdate?: DeviceDevicePolicy;
 }
 
+/**
+ * Check if a given object implements the DeviceMappedDevicePolicies interface.
+ */
+export function instanceOfDeviceMappedDevicePolicies(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function DeviceMappedDevicePoliciesFromJSON(json: any): DeviceMappedDevicePolicies {
     return DeviceMappedDevicePoliciesFromJSONTyped(json, false);
 }

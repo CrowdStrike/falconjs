@@ -39,6 +39,15 @@ export interface DomainCloudAccountID {
     azureTenantId?: string;
 }
 
+/**
+ * Check if a given object implements the DomainCloudAccountID interface.
+ */
+export function instanceOfDomainCloudAccountID(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function DomainCloudAccountIDFromJSON(json: any): DomainCloudAccountID {
     return DomainCloudAccountIDFromJSONTyped(json, false);
 }

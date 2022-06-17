@@ -256,6 +256,17 @@ export interface DomainDiscoverAPIHost {
     tags?: Array<string>;
 }
 
+/**
+ * Check if a given object implements the DomainDiscoverAPIHost interface.
+ */
+export function instanceOfDomainDiscoverAPIHost(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "cid" in value;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
+}
+
 export function DomainDiscoverAPIHostFromJSON(json: any): DomainDiscoverAPIHost {
     return DomainDiscoverAPIHostFromJSONTyped(json, false);
 }

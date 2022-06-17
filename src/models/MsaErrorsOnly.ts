@@ -36,6 +36,17 @@ export interface MsaErrorsOnly {
     meta: MsaMetaInfo;
 }
 
+/**
+ * Check if a given object implements the MsaErrorsOnly interface.
+ */
+export function instanceOfMsaErrorsOnly(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+
+    return isInstance;
+}
+
 export function MsaErrorsOnlyFromJSON(json: any): MsaErrorsOnly {
     return MsaErrorsOnlyFromJSONTyped(json, false);
 }

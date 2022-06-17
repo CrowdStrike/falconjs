@@ -54,6 +54,17 @@ export interface FwmgrMsaMetaInfo {
     writes?: FwmgrMsaResources;
 }
 
+/**
+ * Check if a given object implements the FwmgrMsaMetaInfo interface.
+ */
+export function instanceOfFwmgrMsaMetaInfo(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "queryTime" in value;
+    isInstance = isInstance && "traceId" in value;
+
+    return isInstance;
+}
+
 export function FwmgrMsaMetaInfoFromJSON(json: any): FwmgrMsaMetaInfo {
     return FwmgrMsaMetaInfoFromJSONTyped(json, false);
 }

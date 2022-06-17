@@ -105,6 +105,16 @@ export interface MalqueryRequestMetaInfo {
     yaraRule?: string;
 }
 
+/**
+ * Check if a given object implements the MalqueryRequestMetaInfo interface.
+ */
+export function instanceOfMalqueryRequestMetaInfo(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "traceId" in value;
+
+    return isInstance;
+}
+
 export function MalqueryRequestMetaInfoFromJSON(json: any): MalqueryRequestMetaInfo {
     return MalqueryRequestMetaInfoFromJSONTyped(json, false);
 }

@@ -34,6 +34,16 @@ export interface K8sregCreateAWSAccReq {
     resources: Array<K8sregCreateAWSAccReqResources>;
 }
 
+/**
+ * Check if a given object implements the K8sregCreateAWSAccReq interface.
+ */
+export function instanceOfK8sregCreateAWSAccReq(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function K8sregCreateAWSAccReqFromJSON(json: any): K8sregCreateAWSAccReq {
     return K8sregCreateAWSAccReqFromJSONTyped(json, false);
 }

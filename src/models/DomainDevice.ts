@@ -225,6 +225,17 @@ export interface DomainDevice {
     tags?: Array<string>;
 }
 
+/**
+ * Check if a given object implements the DomainDevice interface.
+ */
+export function instanceOfDomainDevice(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "platformIDNumeric" in value;
+    isInstance = isInstance && "deviceId" in value;
+
+    return isInstance;
+}
+
 export function DomainDeviceFromJSON(json: any): DomainDevice {
     return DomainDeviceFromJSONTyped(json, false);
 }

@@ -27,6 +27,16 @@ export interface DeviceManagedApp {
     version: string;
 }
 
+/**
+ * Check if a given object implements the DeviceManagedApp interface.
+ */
+export function instanceOfDeviceManagedApp(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "version" in value;
+
+    return isInstance;
+}
+
 export function DeviceManagedAppFromJSON(json: any): DeviceManagedApp {
     return DeviceManagedAppFromJSONTyped(json, false);
 }

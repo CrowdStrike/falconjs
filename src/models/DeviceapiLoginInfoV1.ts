@@ -33,6 +33,15 @@ export interface DeviceapiLoginInfoV1 {
     userName?: string;
 }
 
+/**
+ * Check if a given object implements the DeviceapiLoginInfoV1 interface.
+ */
+export function instanceOfDeviceapiLoginInfoV1(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function DeviceapiLoginInfoV1FromJSON(json: any): DeviceapiLoginInfoV1 {
     return DeviceapiLoginInfoV1FromJSONTyped(json, false);
 }

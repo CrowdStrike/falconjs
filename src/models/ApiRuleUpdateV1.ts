@@ -71,6 +71,23 @@ export interface ApiRuleUpdateV1 {
     rulegroupVersion: number;
 }
 
+/**
+ * Check if a given object implements the ApiRuleUpdateV1 interface.
+ */
+export function instanceOfApiRuleUpdateV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "dispositionId" in value;
+    isInstance = isInstance && "enabled" in value;
+    isInstance = isInstance && "fieldValues" in value;
+    isInstance = isInstance && "instanceId" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "patternSeverity" in value;
+    isInstance = isInstance && "rulegroupVersion" in value;
+
+    return isInstance;
+}
+
 export function ApiRuleUpdateV1FromJSON(json: any): ApiRuleUpdateV1 {
     return ApiRuleUpdateV1FromJSONTyped(json, false);
 }

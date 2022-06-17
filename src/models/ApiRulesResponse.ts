@@ -43,6 +43,17 @@ export interface ApiRulesResponse {
     resources: Array<ApiRuleV1>;
 }
 
+/**
+ * Check if a given object implements the ApiRulesResponse interface.
+ */
+export function instanceOfApiRulesResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ApiRulesResponseFromJSON(json: any): ApiRulesResponse {
     return ApiRulesResponseFromJSONTyped(json, false);
 }

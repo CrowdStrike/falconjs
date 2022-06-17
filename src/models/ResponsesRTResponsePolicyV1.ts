@@ -100,6 +100,26 @@ export const ResponsesRTResponsePolicyV1PlatformNameEnum = {
 } as const;
 export type ResponsesRTResponsePolicyV1PlatformNameEnum = typeof ResponsesRTResponsePolicyV1PlatformNameEnum[keyof typeof ResponsesRTResponsePolicyV1PlatformNameEnum];
 
+/**
+ * Check if a given object implements the ResponsesRTResponsePolicyV1 interface.
+ */
+export function instanceOfResponsesRTResponsePolicyV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "createdBy" in value;
+    isInstance = isInstance && "createdTimestamp" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "enabled" in value;
+    isInstance = isInstance && "groups" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "modifiedBy" in value;
+    isInstance = isInstance && "modifiedTimestamp" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "platformName" in value;
+    isInstance = isInstance && "settings" in value;
+
+    return isInstance;
+}
+
 export function ResponsesRTResponsePolicyV1FromJSON(json: any): ResponsesRTResponsePolicyV1 {
     return ResponsesRTResponsePolicyV1FromJSONTyped(json, false);
 }

@@ -39,6 +39,15 @@ export interface FalconxActorSummary {
     slug?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxActorSummary interface.
+ */
+export function instanceOfFalconxActorSummary(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxActorSummaryFromJSON(json: any): FalconxActorSummary {
     return FalconxActorSummaryFromJSONTyped(json, false);
 }

@@ -33,6 +33,17 @@ export interface RegistrationAWSAccountPatch {
     cloudtrailRegion: string;
 }
 
+/**
+ * Check if a given object implements the RegistrationAWSAccountPatch interface.
+ */
+export function instanceOfRegistrationAWSAccountPatch(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "accountId" in value;
+    isInstance = isInstance && "cloudtrailRegion" in value;
+
+    return isInstance;
+}
+
 export function RegistrationAWSAccountPatchFromJSON(json: any): RegistrationAWSAccountPatch {
     return RegistrationAWSAccountPatchFromJSONTyped(json, false);
 }

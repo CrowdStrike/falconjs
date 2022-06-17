@@ -43,6 +43,17 @@ export interface MainDiscoveryResponseV2 {
     resources: Array<MainAvailableStreamV2>;
 }
 
+/**
+ * Check if a given object implements the MainDiscoveryResponseV2 interface.
+ */
+export function instanceOfMainDiscoveryResponseV2(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function MainDiscoveryResponseV2FromJSON(json: any): MainDiscoveryResponseV2 {
     return MainDiscoveryResponseV2FromJSONTyped(json, false);
 }

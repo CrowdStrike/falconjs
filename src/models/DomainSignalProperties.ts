@@ -78,6 +78,24 @@ export interface DomainSignalProperties {
     systemSerialNumber: string;
 }
 
+/**
+ * Check if a given object implements the DomainSignalProperties interface.
+ */
+export function instanceOfDomainSignalProperties(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "aid" in value;
+    isInstance = isInstance && "assessment" in value;
+    isInstance = isInstance && "assessmentItems" in value;
+    isInstance = isInstance && "cid" in value;
+    isInstance = isInstance && "eventPlatform" in value;
+    isInstance = isInstance && "modifiedTime" in value;
+    isInstance = isInstance && "productTypeDesc" in value;
+    isInstance = isInstance && "sensorFileStatus" in value;
+    isInstance = isInstance && "systemSerialNumber" in value;
+
+    return isInstance;
+}
+
 export function DomainSignalPropertiesFromJSON(json: any): DomainSignalProperties {
     return DomainSignalPropertiesFromJSONTyped(json, false);
 }

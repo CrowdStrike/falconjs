@@ -43,6 +43,18 @@ export interface DomainDeviceDetailsResponseSwagger {
     resources: Array<DomainDeviceSwagger>;
 }
 
+/**
+ * Check if a given object implements the DomainDeviceDetailsResponseSwagger interface.
+ */
+export function instanceOfDomainDeviceDetailsResponseSwagger(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainDeviceDetailsResponseSwaggerFromJSON(json: any): DomainDeviceDetailsResponseSwagger {
     return DomainDeviceDetailsResponseSwaggerFromJSONTyped(json, false);
 }

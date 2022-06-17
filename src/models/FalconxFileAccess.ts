@@ -39,6 +39,15 @@ export interface FalconxFileAccess {
     type?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxFileAccess interface.
+ */
+export function instanceOfFalconxFileAccess(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxFileAccessFromJSON(json: any): FalconxFileAccess {
     return FalconxFileAccessFromJSONTyped(json, false);
 }

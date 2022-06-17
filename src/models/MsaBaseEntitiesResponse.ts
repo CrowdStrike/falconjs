@@ -36,6 +36,17 @@ export interface MsaBaseEntitiesResponse {
     meta: MsaMetaInfo;
 }
 
+/**
+ * Check if a given object implements the MsaBaseEntitiesResponse interface.
+ */
+export function instanceOfMsaBaseEntitiesResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+
+    return isInstance;
+}
+
 export function MsaBaseEntitiesResponseFromJSON(json: any): MsaBaseEntitiesResponse {
     return MsaBaseEntitiesResponseFromJSONTyped(json, false);
 }

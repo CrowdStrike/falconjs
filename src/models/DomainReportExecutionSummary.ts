@@ -59,6 +59,21 @@ export interface DomainReportExecutionSummary {
     statusMsg: string;
 }
 
+/**
+ * Check if a given object implements the DomainReportExecutionSummary interface.
+ */
+export function instanceOfDomainReportExecutionSummary(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "lastUpdatedOn" in value;
+    isInstance = isInstance && "reportFileReference" in value;
+    isInstance = isInstance && "resultMetadata" in value;
+    isInstance = isInstance && "status" in value;
+    isInstance = isInstance && "statusMsg" in value;
+
+    return isInstance;
+}
+
 export function DomainReportExecutionSummaryFromJSON(json: any): DomainReportExecutionSummary {
     return DomainReportExecutionSummaryFromJSONTyped(json, false);
 }

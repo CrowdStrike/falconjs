@@ -41,6 +41,15 @@ export interface DetectionInventoryEnrichment {
     host?: Array<DetectionEnrichmentHost>;
 }
 
+/**
+ * Check if a given object implements the DetectionInventoryEnrichment interface.
+ */
+export function instanceOfDetectionInventoryEnrichment(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function DetectionInventoryEnrichmentFromJSON(json: any): DetectionInventoryEnrichment {
     return DetectionInventoryEnrichmentFromJSONTyped(json, false);
 }

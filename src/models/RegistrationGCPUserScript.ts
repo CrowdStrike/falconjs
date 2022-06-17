@@ -33,6 +33,16 @@ export interface RegistrationGCPUserScript {
     serviceAccountEmails: Array<string>;
 }
 
+/**
+ * Check if a given object implements the RegistrationGCPUserScript interface.
+ */
+export function instanceOfRegistrationGCPUserScript(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "serviceAccountEmails" in value;
+
+    return isInstance;
+}
+
 export function RegistrationGCPUserScriptFromJSON(json: any): RegistrationGCPUserScript {
     return RegistrationGCPUserScriptFromJSONTyped(json, false);
 }

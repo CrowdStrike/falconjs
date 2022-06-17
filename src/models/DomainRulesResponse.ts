@@ -43,6 +43,18 @@ export interface DomainRulesResponse {
     resources: Array<DomainRule>;
 }
 
+/**
+ * Check if a given object implements the DomainRulesResponse interface.
+ */
+export function instanceOfDomainRulesResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainRulesResponseFromJSON(json: any): DomainRulesResponse {
     return DomainRulesResponseFromJSONTyped(json, false);
 }

@@ -33,6 +33,17 @@ export interface DomainUserGroupMembers {
     userUuids: Array<string>;
 }
 
+/**
+ * Check if a given object implements the DomainUserGroupMembers interface.
+ */
+export function instanceOfDomainUserGroupMembers(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "userGroupId" in value;
+    isInstance = isInstance && "userUuids" in value;
+
+    return isInstance;
+}
+
 export function DomainUserGroupMembersFromJSON(json: any): DomainUserGroupMembers {
     return DomainUserGroupMembersFromJSONTyped(json, false);
 }

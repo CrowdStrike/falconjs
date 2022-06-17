@@ -39,6 +39,18 @@ export interface RegistrationAWSAccountExtV2 {
     organizationId: string;
 }
 
+/**
+ * Check if a given object implements the RegistrationAWSAccountExtV2 interface.
+ */
+export function instanceOfRegistrationAWSAccountExtV2(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "accountId" in value;
+    isInstance = isInstance && "cloudtrailRegion" in value;
+    isInstance = isInstance && "organizationId" in value;
+
+    return isInstance;
+}
+
 export function RegistrationAWSAccountExtV2FromJSON(json: any): RegistrationAWSAccountExtV2 {
     return RegistrationAWSAccountExtV2FromJSONTyped(json, false);
 }

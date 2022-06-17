@@ -135,6 +135,17 @@ export interface DomainDiscoverAPIAccount {
     username?: string;
 }
 
+/**
+ * Check if a given object implements the DomainDiscoverAPIAccount interface.
+ */
+export function instanceOfDomainDiscoverAPIAccount(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "cid" in value;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
+}
+
 export function DomainDiscoverAPIAccountFromJSON(json: any): DomainDiscoverAPIAccount {
     return DomainDiscoverAPIAccountFromJSONTyped(json, false);
 }

@@ -43,6 +43,18 @@ export interface ResponsesSvExclusionRespV1 {
     resources: Array<ResponsesSvExclusionV1>;
 }
 
+/**
+ * Check if a given object implements the ResponsesSvExclusionRespV1 interface.
+ */
+export function instanceOfResponsesSvExclusionRespV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ResponsesSvExclusionRespV1FromJSON(json: any): ResponsesSvExclusionRespV1 {
     return ResponsesSvExclusionRespV1FromJSONTyped(json, false);
 }

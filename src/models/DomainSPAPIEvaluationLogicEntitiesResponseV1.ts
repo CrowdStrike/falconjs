@@ -43,6 +43,17 @@ export interface DomainSPAPIEvaluationLogicEntitiesResponseV1 {
     resources: Array<DomainAPIEvaluationLogicV1>;
 }
 
+/**
+ * Check if a given object implements the DomainSPAPIEvaluationLogicEntitiesResponseV1 interface.
+ */
+export function instanceOfDomainSPAPIEvaluationLogicEntitiesResponseV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainSPAPIEvaluationLogicEntitiesResponseV1FromJSON(json: any): DomainSPAPIEvaluationLogicEntitiesResponseV1 {
     return DomainSPAPIEvaluationLogicEntitiesResponseV1FromJSONTyped(json, false);
 }

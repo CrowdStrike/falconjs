@@ -39,6 +39,16 @@ export interface MlscannerScannedSample {
     verdict?: string;
 }
 
+/**
+ * Check if a given object implements the MlscannerScannedSample interface.
+ */
+export function instanceOfMlscannerScannedSample(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "sha256" in value;
+
+    return isInstance;
+}
+
 export function MlscannerScannedSampleFromJSON(json: any): MlscannerScannedSample {
     return MlscannerScannedSampleFromJSONTyped(json, false);
 }

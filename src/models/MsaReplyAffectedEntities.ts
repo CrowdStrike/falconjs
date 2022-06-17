@@ -43,6 +43,18 @@ export interface MsaReplyAffectedEntities {
     resources: Array<MsaAffectedEntity>;
 }
 
+/**
+ * Check if a given object implements the MsaReplyAffectedEntities interface.
+ */
+export function instanceOfMsaReplyAffectedEntities(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function MsaReplyAffectedEntitiesFromJSON(json: any): MsaReplyAffectedEntities {
     return MsaReplyAffectedEntitiesFromJSONTyped(json, false);
 }

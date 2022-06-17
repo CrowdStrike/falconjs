@@ -63,6 +63,17 @@ export const RequestsCreateRTResponsePolicyV1PlatformNameEnum = {
 } as const;
 export type RequestsCreateRTResponsePolicyV1PlatformNameEnum = typeof RequestsCreateRTResponsePolicyV1PlatformNameEnum[keyof typeof RequestsCreateRTResponsePolicyV1PlatformNameEnum];
 
+/**
+ * Check if a given object implements the RequestsCreateRTResponsePolicyV1 interface.
+ */
+export function instanceOfRequestsCreateRTResponsePolicyV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "platformName" in value;
+
+    return isInstance;
+}
+
 export function RequestsCreateRTResponsePolicyV1FromJSON(json: any): RequestsCreateRTResponsePolicyV1 {
     return RequestsCreateRTResponsePolicyV1FromJSONTyped(json, false);
 }

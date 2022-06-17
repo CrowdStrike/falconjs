@@ -39,6 +39,18 @@ export interface DomainCreateActionRequest {
     type: string;
 }
 
+/**
+ * Check if a given object implements the DomainCreateActionRequest interface.
+ */
+export function instanceOfDomainCreateActionRequest(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "frequency" in value;
+    isInstance = isInstance && "recipients" in value;
+    isInstance = isInstance && "type" in value;
+
+    return isInstance;
+}
+
 export function DomainCreateActionRequestFromJSON(json: any): DomainCreateActionRequest {
     return DomainCreateActionRequestFromJSONTyped(json, false);
 }

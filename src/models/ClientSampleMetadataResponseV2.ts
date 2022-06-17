@@ -43,6 +43,18 @@ export interface ClientSampleMetadataResponseV2 {
     resources: Array<ClientSampleMetadataV2>;
 }
 
+/**
+ * Check if a given object implements the ClientSampleMetadataResponseV2 interface.
+ */
+export function instanceOfClientSampleMetadataResponseV2(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ClientSampleMetadataResponseV2FromJSON(json: any): ClientSampleMetadataResponseV2 {
     return ClientSampleMetadataResponseV2FromJSONTyped(json, false);
 }

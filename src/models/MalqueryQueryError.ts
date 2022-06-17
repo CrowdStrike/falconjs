@@ -45,6 +45,17 @@ export interface MalqueryQueryError {
     type?: string;
 }
 
+/**
+ * Check if a given object implements the MalqueryQueryError interface.
+ */
+export function instanceOfMalqueryQueryError(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "code" in value;
+    isInstance = isInstance && "message" in value;
+
+    return isInstance;
+}
+
 export function MalqueryQueryErrorFromJSON(json: any): MalqueryQueryError {
     return MalqueryQueryErrorFromJSONTyped(json, false);
 }

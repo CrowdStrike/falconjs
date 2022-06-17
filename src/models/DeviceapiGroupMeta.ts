@@ -27,6 +27,15 @@ export interface DeviceapiGroupMeta {
     version?: number;
 }
 
+/**
+ * Check if a given object implements the DeviceapiGroupMeta interface.
+ */
+export function instanceOfDeviceapiGroupMeta(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function DeviceapiGroupMetaFromJSON(json: any): DeviceapiGroupMeta {
     return DeviceapiGroupMetaFromJSONTyped(json, false);
 }

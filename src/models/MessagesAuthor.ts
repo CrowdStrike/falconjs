@@ -51,6 +51,20 @@ export interface MessagesAuthor {
     uuid: string;
 }
 
+/**
+ * Check if a given object implements the MessagesAuthor interface.
+ */
+export function instanceOfMessagesAuthor(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "displayName" in value;
+    isInstance = isInstance && "firstName" in value;
+    isInstance = isInstance && "lastName" in value;
+    isInstance = isInstance && "uid" in value;
+    isInstance = isInstance && "uuid" in value;
+
+    return isInstance;
+}
+
 export function MessagesAuthorFromJSON(json: any): MessagesAuthor {
     return MessagesAuthorFromJSONTyped(json, false);
 }

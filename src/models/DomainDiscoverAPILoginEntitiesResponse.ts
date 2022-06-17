@@ -43,6 +43,17 @@ export interface DomainDiscoverAPILoginEntitiesResponse {
     resources: Array<DomainDiscoverAPILogin>;
 }
 
+/**
+ * Check if a given object implements the DomainDiscoverAPILoginEntitiesResponse interface.
+ */
+export function instanceOfDomainDiscoverAPILoginEntitiesResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainDiscoverAPILoginEntitiesResponseFromJSON(json: any): DomainDiscoverAPILoginEntitiesResponse {
     return DomainDiscoverAPILoginEntitiesResponseFromJSONTyped(json, false);
 }

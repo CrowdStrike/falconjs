@@ -42,6 +42,17 @@ export interface FwmgrApiQueryResponse {
     resources: Array<string>;
 }
 
+/**
+ * Check if a given object implements the FwmgrApiQueryResponse interface.
+ */
+export function instanceOfFwmgrApiQueryResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function FwmgrApiQueryResponseFromJSON(json: any): FwmgrApiQueryResponse {
     return FwmgrApiQueryResponseFromJSONTyped(json, false);
 }

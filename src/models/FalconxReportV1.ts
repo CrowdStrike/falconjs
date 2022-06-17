@@ -158,6 +158,15 @@ export interface FalconxReportV1 {
     verdict?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxReportV1 interface.
+ */
+export function instanceOfFalconxReportV1(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxReportV1FromJSON(json: any): FalconxReportV1 {
     return FalconxReportV1FromJSONTyped(json, false);
 }

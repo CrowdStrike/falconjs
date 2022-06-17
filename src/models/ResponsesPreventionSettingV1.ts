@@ -60,6 +60,19 @@ export const ResponsesPreventionSettingV1TypeEnum = {
 } as const;
 export type ResponsesPreventionSettingV1TypeEnum = typeof ResponsesPreventionSettingV1TypeEnum[keyof typeof ResponsesPreventionSettingV1TypeEnum];
 
+/**
+ * Check if a given object implements the ResponsesPreventionSettingV1 interface.
+ */
+export function instanceOfResponsesPreventionSettingV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "value" in value;
+
+    return isInstance;
+}
+
 export function ResponsesPreventionSettingV1FromJSON(json: any): ResponsesPreventionSettingV1 {
     return ResponsesPreventionSettingV1FromJSONTyped(json, false);
 }

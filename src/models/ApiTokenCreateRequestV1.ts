@@ -39,6 +39,15 @@ export interface ApiTokenCreateRequestV1 {
     type?: string;
 }
 
+/**
+ * Check if a given object implements the ApiTokenCreateRequestV1 interface.
+ */
+export function instanceOfApiTokenCreateRequestV1(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function ApiTokenCreateRequestV1FromJSON(json: any): ApiTokenCreateRequestV1 {
     return ApiTokenCreateRequestV1FromJSONTyped(json, false);
 }

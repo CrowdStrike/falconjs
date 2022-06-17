@@ -65,6 +65,20 @@ export interface DomainInitResponse {
     sessionId: string;
 }
 
+/**
+ * Check if a given object implements the DomainInitResponse interface.
+ */
+export function instanceOfDomainInitResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "createdAt" in value;
+    isInstance = isInstance && "existingAidSessions" in value;
+    isInstance = isInstance && "offlineQueued" in value;
+    isInstance = isInstance && "scripts" in value;
+    isInstance = isInstance && "sessionId" in value;
+
+    return isInstance;
+}
+
 export function DomainInitResponseFromJSON(json: any): DomainInitResponse {
     return DomainInitResponseFromJSONTyped(json, false);
 }

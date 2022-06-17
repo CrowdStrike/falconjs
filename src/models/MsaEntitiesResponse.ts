@@ -42,6 +42,18 @@ export interface MsaEntitiesResponse {
     resources: object;
 }
 
+/**
+ * Check if a given object implements the MsaEntitiesResponse interface.
+ */
+export function instanceOfMsaEntitiesResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function MsaEntitiesResponseFromJSON(json: any): MsaEntitiesResponse {
     return MsaEntitiesResponseFromJSONTyped(json, false);
 }

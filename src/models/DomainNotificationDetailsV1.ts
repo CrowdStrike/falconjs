@@ -81,6 +81,19 @@ export interface DomainNotificationDetailsV1 {
     url?: string;
 }
 
+/**
+ * Check if a given object implements the DomainNotificationDetailsV1 interface.
+ */
+export function instanceOfDomainNotificationDetailsV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "content" in value;
+    isInstance = isInstance && "createdDate" in value;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "updatedDate" in value;
+
+    return isInstance;
+}
+
 export function DomainNotificationDetailsV1FromJSON(json: any): DomainNotificationDetailsV1 {
     return DomainNotificationDetailsV1FromJSONTyped(json, false);
 }

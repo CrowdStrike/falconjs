@@ -33,6 +33,17 @@ export interface MessagesIncident {
     url: string;
 }
 
+/**
+ * Check if a given object implements the MessagesIncident interface.
+ */
+export function instanceOfMessagesIncident(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "url" in value;
+
+    return isInstance;
+}
+
 export function MessagesIncidentFromJSON(json: any): MessagesIncident {
     return MessagesIncidentFromJSONTyped(json, false);
 }

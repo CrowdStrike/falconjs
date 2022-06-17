@@ -51,6 +51,20 @@ export interface SadomainCreateRuleRequestV1 {
     topic: string;
 }
 
+/**
+ * Check if a given object implements the SadomainCreateRuleRequestV1 interface.
+ */
+export function instanceOfSadomainCreateRuleRequestV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "filter" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "permissions" in value;
+    isInstance = isInstance && "priority" in value;
+    isInstance = isInstance && "topic" in value;
+
+    return isInstance;
+}
+
 export function SadomainCreateRuleRequestV1FromJSON(json: any): SadomainCreateRuleRequestV1 {
     return SadomainCreateRuleRequestV1FromJSONTyped(json, false);
 }

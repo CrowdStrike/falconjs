@@ -142,6 +142,15 @@ export interface DomainCIDPolicyAssignments {
     soc2Benchmark?: Array<DomainCIDPolicyAssignmentsSoc2Benchmark>;
 }
 
+/**
+ * Check if a given object implements the DomainCIDPolicyAssignments interface.
+ */
+export function instanceOfDomainCIDPolicyAssignments(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function DomainCIDPolicyAssignmentsFromJSON(json: any): DomainCIDPolicyAssignments {
     return DomainCIDPolicyAssignmentsFromJSONTyped(json, false);
 }

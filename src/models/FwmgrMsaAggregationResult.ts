@@ -41,6 +41,17 @@ export interface FwmgrMsaAggregationResult {
     sumOtherDocCount?: number;
 }
 
+/**
+ * Check if a given object implements the FwmgrMsaAggregationResult interface.
+ */
+export function instanceOfFwmgrMsaAggregationResult(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "buckets" in value;
+    isInstance = isInstance && "name" in value;
+
+    return isInstance;
+}
+
 export function FwmgrMsaAggregationResultFromJSON(json: any): FwmgrMsaAggregationResult {
     return FwmgrMsaAggregationResultFromJSONTyped(json, false);
 }

@@ -57,6 +57,15 @@ export interface FalconxMITREAttack {
     technique?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxMITREAttack interface.
+ */
+export function instanceOfFalconxMITREAttack(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxMITREAttackFromJSON(json: any): FalconxMITREAttack {
     return FalconxMITREAttackFromJSONTyped(json, false);
 }

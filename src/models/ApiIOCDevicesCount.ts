@@ -51,6 +51,19 @@ export interface ApiIOCDevicesCount {
     value: string;
 }
 
+/**
+ * Check if a given object implements the ApiIOCDevicesCount interface.
+ */
+export function instanceOfApiIOCDevicesCount(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "deviceCount" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "value" in value;
+
+    return isInstance;
+}
+
 export function ApiIOCDevicesCountFromJSON(json: any): ApiIOCDevicesCount {
     return ApiIOCDevicesCountFromJSONTyped(json, false);
 }

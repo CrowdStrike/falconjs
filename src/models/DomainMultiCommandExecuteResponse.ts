@@ -34,6 +34,16 @@ export interface DomainMultiCommandExecuteResponse {
     resources: { [key: string]: DomainMultiStatusSensorResponse };
 }
 
+/**
+ * Check if a given object implements the DomainMultiCommandExecuteResponse interface.
+ */
+export function instanceOfDomainMultiCommandExecuteResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainMultiCommandExecuteResponseFromJSON(json: any): DomainMultiCommandExecuteResponse {
     return DomainMultiCommandExecuteResponseFromJSONTyped(json, false);
 }

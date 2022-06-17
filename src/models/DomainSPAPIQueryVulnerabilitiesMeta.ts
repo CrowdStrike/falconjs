@@ -59,6 +59,17 @@ export interface DomainSPAPIQueryVulnerabilitiesMeta {
     traceId: string;
 }
 
+/**
+ * Check if a given object implements the DomainSPAPIQueryVulnerabilitiesMeta interface.
+ */
+export function instanceOfDomainSPAPIQueryVulnerabilitiesMeta(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "queryTime" in value;
+    isInstance = isInstance && "traceId" in value;
+
+    return isInstance;
+}
+
 export function DomainSPAPIQueryVulnerabilitiesMetaFromJSON(json: any): DomainSPAPIQueryVulnerabilitiesMeta {
     return DomainSPAPIQueryVulnerabilitiesMetaFromJSONTyped(json, false);
 }

@@ -155,6 +155,15 @@ export interface ApiIndicatorV1 {
     value?: string;
 }
 
+/**
+ * Check if a given object implements the ApiIndicatorV1 interface.
+ */
+export function instanceOfApiIndicatorV1(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function ApiIndicatorV1FromJSON(json: any): ApiIndicatorV1 {
     return ApiIndicatorV1FromJSONTyped(json, false);
 }

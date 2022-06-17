@@ -27,6 +27,15 @@ export interface ApiMetadataReqV1 {
     filename?: string;
 }
 
+/**
+ * Check if a given object implements the ApiMetadataReqV1 interface.
+ */
+export function instanceOfApiMetadataReqV1(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function ApiMetadataReqV1FromJSON(json: any): ApiMetadataReqV1 {
     return ApiMetadataReqV1FromJSONTyped(json, false);
 }

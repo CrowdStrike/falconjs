@@ -69,6 +69,23 @@ export interface ModelSessionLog {
     updatedAt: Date;
 }
 
+/**
+ * Check if a given object implements the ModelSessionLog interface.
+ */
+export function instanceOfModelSessionLog(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "baseCommand" in value;
+    isInstance = isInstance && "cloudRequestId" in value;
+    isInstance = isInstance && "commandString" in value;
+    isInstance = isInstance && "createdAt" in value;
+    isInstance = isInstance && "currentDirectory" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "sessionId" in value;
+    isInstance = isInstance && "updatedAt" in value;
+
+    return isInstance;
+}
+
 export function ModelSessionLogFromJSON(json: any): ModelSessionLog {
     return ModelSessionLogFromJSONTyped(json, false);
 }

@@ -47,6 +47,19 @@ export interface FwmgrDomainField {
     type: string;
 }
 
+/**
+ * Check if a given object implements the FwmgrDomainField interface.
+ */
+export function instanceOfFwmgrDomainField(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "label" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "options" in value;
+    isInstance = isInstance && "type" in value;
+
+    return isInstance;
+}
+
 export function FwmgrDomainFieldFromJSON(json: any): FwmgrDomainField {
     return FwmgrDomainFieldFromJSONTyped(json, false);
 }

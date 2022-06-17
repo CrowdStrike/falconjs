@@ -39,6 +39,15 @@ export interface DomainEntitiesPatchRequest {
     ids?: Array<string>;
 }
 
+/**
+ * Check if a given object implements the DomainEntitiesPatchRequest interface.
+ */
+export function instanceOfDomainEntitiesPatchRequest(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function DomainEntitiesPatchRequestFromJSON(json: any): DomainEntitiesPatchRequest {
     return DomainEntitiesPatchRequestFromJSONTyped(json, false);
 }

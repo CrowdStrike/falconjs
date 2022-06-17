@@ -54,6 +54,19 @@ export interface DomainBatchInitSessionResponse {
     resources: { [key: string]: DomainMultiStatusSensorResponse };
 }
 
+/**
+ * Check if a given object implements the DomainBatchInitSessionResponse interface.
+ */
+export function instanceOfDomainBatchInitSessionResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "batchId" in value;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainBatchInitSessionResponseFromJSON(json: any): DomainBatchInitSessionResponse {
     return DomainBatchInitSessionResponseFromJSONTyped(json, false);
 }

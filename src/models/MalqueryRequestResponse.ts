@@ -43,6 +43,17 @@ export interface MalqueryRequestResponse {
     resources: Array<MalqueryExternalResource>;
 }
 
+/**
+ * Check if a given object implements the MalqueryRequestResponse interface.
+ */
+export function instanceOfMalqueryRequestResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function MalqueryRequestResponseFromJSON(json: any): MalqueryRequestResponse {
     return MalqueryRequestResponseFromJSONTyped(json, false);
 }

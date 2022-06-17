@@ -35,6 +35,17 @@ export interface DomainAssessmentItems {
     sensorSignals: Array<DomainSignalProperty>;
 }
 
+/**
+ * Check if a given object implements the DomainAssessmentItems interface.
+ */
+export function instanceOfDomainAssessmentItems(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "osSignals" in value;
+    isInstance = isInstance && "sensorSignals" in value;
+
+    return isInstance;
+}
+
 export function DomainAssessmentItemsFromJSON(json: any): DomainAssessmentItems {
     return DomainAssessmentItemsFromJSONTyped(json, false);
 }

@@ -33,6 +33,17 @@ export interface FwmgrMsaDateRangeSpec {
     to: string;
 }
 
+/**
+ * Check if a given object implements the FwmgrMsaDateRangeSpec interface.
+ */
+export function instanceOfFwmgrMsaDateRangeSpec(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "from" in value;
+    isInstance = isInstance && "to" in value;
+
+    return isInstance;
+}
+
 export function FwmgrMsaDateRangeSpecFromJSON(json: any): FwmgrMsaDateRangeSpec {
     return FwmgrMsaDateRangeSpecFromJSONTyped(json, false);
 }

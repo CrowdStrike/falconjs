@@ -53,6 +53,16 @@ export interface DomainSimpleActor {
     url?: string;
 }
 
+/**
+ * Check if a given object implements the DomainSimpleActor interface.
+ */
+export function instanceOfDomainSimpleActor(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
+}
+
 export function DomainSimpleActorFromJSON(json: any): DomainSimpleActor {
     return DomainSimpleActorFromJSONTyped(json, false);
 }

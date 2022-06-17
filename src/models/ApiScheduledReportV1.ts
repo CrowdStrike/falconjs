@@ -158,6 +158,31 @@ export interface ApiScheduledReportV1 {
     userUuid: string;
 }
 
+/**
+ * Check if a given object implements the ApiScheduledReportV1 interface.
+ */
+export function instanceOfApiScheduledReportV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "canWrite" in value;
+    isInstance = isInstance && "createdOn" in value;
+    isInstance = isInstance && "customerId" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "lastUpdatedOn" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "notifications" in value;
+    isInstance = isInstance && "reportParams" in value;
+    isInstance = isInstance && "schedule" in value;
+    isInstance = isInstance && "sharedWith" in value;
+    isInstance = isInstance && "status" in value;
+    isInstance = isInstance && "triggerReference" in value;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "userId" in value;
+    isInstance = isInstance && "userUuid" in value;
+
+    return isInstance;
+}
+
 export function ApiScheduledReportV1FromJSON(json: any): ApiScheduledReportV1 {
     return ApiScheduledReportV1FromJSONTyped(json, false);
 }

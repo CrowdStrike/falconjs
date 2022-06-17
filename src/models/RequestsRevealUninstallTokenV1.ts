@@ -33,6 +33,16 @@ export interface RequestsRevealUninstallTokenV1 {
     deviceId: string;
 }
 
+/**
+ * Check if a given object implements the RequestsRevealUninstallTokenV1 interface.
+ */
+export function instanceOfRequestsRevealUninstallTokenV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "deviceId" in value;
+
+    return isInstance;
+}
+
 export function RequestsRevealUninstallTokenV1FromJSON(json: any): RequestsRevealUninstallTokenV1 {
     return RequestsRevealUninstallTokenV1FromJSONTyped(json, false);
 }

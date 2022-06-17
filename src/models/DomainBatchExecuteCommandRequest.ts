@@ -51,6 +51,20 @@ export interface DomainBatchExecuteCommandRequest {
     persistAll: boolean;
 }
 
+/**
+ * Check if a given object implements the DomainBatchExecuteCommandRequest interface.
+ */
+export function instanceOfDomainBatchExecuteCommandRequest(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "baseCommand" in value;
+    isInstance = isInstance && "batchId" in value;
+    isInstance = isInstance && "commandString" in value;
+    isInstance = isInstance && "optionalHosts" in value;
+    isInstance = isInstance && "persistAll" in value;
+
+    return isInstance;
+}
+
 export function DomainBatchExecuteCommandRequestFromJSON(json: any): DomainBatchExecuteCommandRequest {
     return DomainBatchExecuteCommandRequestFromJSONTyped(json, false);
 }
