@@ -42,6 +42,17 @@ export interface ApiIndicatorUpdateReqsV1 {
     indicators: Array<ApiIndicatorUpdateReqV1>;
 }
 
+/**
+ * Check if a given object implements the ApiIndicatorUpdateReqsV1 interface.
+ */
+export function instanceOfApiIndicatorUpdateReqsV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "bulkUpdate" in value;
+    isInstance = isInstance && "indicators" in value;
+
+    return isInstance;
+}
+
 export function ApiIndicatorUpdateReqsV1FromJSON(json: any): ApiIndicatorUpdateReqsV1 {
     return ApiIndicatorUpdateReqsV1FromJSONTyped(json, false);
 }

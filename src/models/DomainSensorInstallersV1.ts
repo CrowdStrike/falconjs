@@ -43,6 +43,18 @@ export interface DomainSensorInstallersV1 {
     resources: Array<DomainSensorInstallerV1>;
 }
 
+/**
+ * Check if a given object implements the DomainSensorInstallersV1 interface.
+ */
+export function instanceOfDomainSensorInstallersV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainSensorInstallersV1FromJSON(json: any): DomainSensorInstallersV1 {
     return DomainSensorInstallersV1FromJSONTyped(json, false);
 }

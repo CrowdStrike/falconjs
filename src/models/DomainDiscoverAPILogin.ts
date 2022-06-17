@@ -162,6 +162,15 @@ export interface DomainDiscoverAPILogin {
     username?: string;
 }
 
+/**
+ * Check if a given object implements the DomainDiscoverAPILogin interface.
+ */
+export function instanceOfDomainDiscoverAPILogin(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function DomainDiscoverAPILoginFromJSON(json: any): DomainDiscoverAPILogin {
     return DomainDiscoverAPILoginFromJSONTyped(json, false);
 }

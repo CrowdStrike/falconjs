@@ -29,6 +29,16 @@ export interface RegistrationAWSAccountCreateRequestExtV2 {
     resources: Array<RegistrationAWSAccountExtV2>;
 }
 
+/**
+ * Check if a given object implements the RegistrationAWSAccountCreateRequestExtV2 interface.
+ */
+export function instanceOfRegistrationAWSAccountCreateRequestExtV2(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function RegistrationAWSAccountCreateRequestExtV2FromJSON(json: any): RegistrationAWSAccountCreateRequestExtV2 {
     return RegistrationAWSAccountCreateRequestExtV2FromJSONTyped(json, false);
 }

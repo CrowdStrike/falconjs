@@ -33,6 +33,17 @@ export interface MalquerySearchParameter {
     value: string;
 }
 
+/**
+ * Check if a given object implements the MalquerySearchParameter interface.
+ */
+export function instanceOfMalquerySearchParameter(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "value" in value;
+
+    return isInstance;
+}
+
 export function MalquerySearchParameterFromJSON(json: any): MalquerySearchParameter {
     return MalquerySearchParameterFromJSONTyped(json, false);
 }

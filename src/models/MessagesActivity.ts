@@ -77,6 +77,22 @@ export interface MessagesActivity {
     type: string;
 }
 
+/**
+ * Check if a given object implements the MessagesActivity interface.
+ */
+export function instanceOfMessagesActivity(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "body" in value;
+    isInstance = isInstance && "caseId" in value;
+    isInstance = isInstance && "cid" in value;
+    isInstance = isInstance && "createdBy" in value;
+    isInstance = isInstance && "createdTime" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "type" in value;
+
+    return isInstance;
+}
+
 export function MessagesActivityFromJSON(json: any): MessagesActivity {
     return MessagesActivityFromJSONTyped(json, false);
 }

@@ -43,6 +43,18 @@ export interface MsaAggregatesResponse {
     resources: Array<MsaAggregationResult>;
 }
 
+/**
+ * Check if a given object implements the MsaAggregatesResponse interface.
+ */
+export function instanceOfMsaAggregatesResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function MsaAggregatesResponseFromJSON(json: any): MsaAggregatesResponse {
     return MsaAggregatesResponseFromJSONTyped(json, false);
 }

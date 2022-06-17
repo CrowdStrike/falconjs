@@ -51,6 +51,15 @@ export interface DomainDiscoverAPINetworkInterface {
     networkPrefix?: string;
 }
 
+/**
+ * Check if a given object implements the DomainDiscoverAPINetworkInterface interface.
+ */
+export function instanceOfDomainDiscoverAPINetworkInterface(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function DomainDiscoverAPINetworkInterfaceFromJSON(json: any): DomainDiscoverAPINetworkInterface {
     return DomainDiscoverAPINetworkInterfaceFromJSONTyped(json, false);
 }

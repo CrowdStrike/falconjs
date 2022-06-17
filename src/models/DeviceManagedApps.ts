@@ -47,6 +47,15 @@ export interface DeviceManagedApps {
     netskope?: DeviceManagedApp;
 }
 
+/**
+ * Check if a given object implements the DeviceManagedApps interface.
+ */
+export function instanceOfDeviceManagedApps(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function DeviceManagedAppsFromJSON(json: any): DeviceManagedApps {
     return DeviceManagedAppsFromJSONTyped(json, false);
 }

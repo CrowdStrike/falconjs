@@ -33,6 +33,15 @@ export interface RegistrationAWSAccountConsoleURL {
     url?: string;
 }
 
+/**
+ * Check if a given object implements the RegistrationAWSAccountConsoleURL interface.
+ */
+export function instanceOfRegistrationAWSAccountConsoleURL(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function RegistrationAWSAccountConsoleURLFromJSON(json: any): RegistrationAWSAccountConsoleURL {
     return RegistrationAWSAccountConsoleURLFromJSONTyped(json, false);
 }

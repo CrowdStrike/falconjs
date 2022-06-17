@@ -89,6 +89,25 @@ export interface ResponsesMlExclusionV1 {
     valueHash: string;
 }
 
+/**
+ * Check if a given object implements the ResponsesMlExclusionV1 interface.
+ */
+export function instanceOfResponsesMlExclusionV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "appliedGlobally" in value;
+    isInstance = isInstance && "createdBy" in value;
+    isInstance = isInstance && "createdOn" in value;
+    isInstance = isInstance && "groups" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "lastModified" in value;
+    isInstance = isInstance && "modifiedBy" in value;
+    isInstance = isInstance && "regexpValue" in value;
+    isInstance = isInstance && "value" in value;
+    isInstance = isInstance && "valueHash" in value;
+
+    return isInstance;
+}
+
 export function ResponsesMlExclusionV1FromJSON(json: any): ResponsesMlExclusionV1 {
     return ResponsesMlExclusionV1FromJSONTyped(json, false);
 }

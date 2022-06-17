@@ -43,6 +43,18 @@ export interface RegistrationAzureProvisionGetUserScriptResponseV1 {
     resources: Array<RegistrationAzureUserScript>;
 }
 
+/**
+ * Check if a given object implements the RegistrationAzureProvisionGetUserScriptResponseV1 interface.
+ */
+export function instanceOfRegistrationAzureProvisionGetUserScriptResponseV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function RegistrationAzureProvisionGetUserScriptResponseV1FromJSON(json: any): RegistrationAzureProvisionGetUserScriptResponseV1 {
     return RegistrationAzureProvisionGetUserScriptResponseV1FromJSONTyped(json, false);
 }

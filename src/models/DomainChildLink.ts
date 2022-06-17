@@ -63,6 +63,18 @@ export interface DomainChildLink {
     status?: string;
 }
 
+/**
+ * Check if a given object implements the DomainChildLink interface.
+ */
+export function instanceOfDomainChildLink(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "checksum" in value;
+    isInstance = isInstance && "childCid" in value;
+    isInstance = isInstance && "childOf" in value;
+
+    return isInstance;
+}
+
 export function DomainChildLinkFromJSON(json: any): DomainChildLink {
     return DomainChildLinkFromJSONTyped(json, false);
 }

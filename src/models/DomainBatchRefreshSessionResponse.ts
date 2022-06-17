@@ -48,6 +48,18 @@ export interface DomainBatchRefreshSessionResponse {
     resources: { [key: string]: DomainMultiPulseSensorResponse };
 }
 
+/**
+ * Check if a given object implements the DomainBatchRefreshSessionResponse interface.
+ */
+export function instanceOfDomainBatchRefreshSessionResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainBatchRefreshSessionResponseFromJSON(json: any): DomainBatchRefreshSessionResponse {
     return DomainBatchRefreshSessionResponseFromJSONTyped(json, false);
 }

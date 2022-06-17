@@ -123,6 +123,32 @@ export interface CloudontologyPatternDisposition {
     sensorOnly: boolean;
 }
 
+/**
+ * Check if a given object implements the CloudontologyPatternDisposition interface.
+ */
+export function instanceOfCloudontologyPatternDisposition(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "bootupSafeguardEnabled" in value;
+    isInstance = isInstance && "criticalProcessDisabled" in value;
+    isInstance = isInstance && "detect" in value;
+    isInstance = isInstance && "fsOperationBlocked" in value;
+    isInstance = isInstance && "inddetMask" in value;
+    isInstance = isInstance && "indicator" in value;
+    isInstance = isInstance && "killParent" in value;
+    isInstance = isInstance && "killProcess" in value;
+    isInstance = isInstance && "killSubprocess" in value;
+    isInstance = isInstance && "operationBlocked" in value;
+    isInstance = isInstance && "policyDisabled" in value;
+    isInstance = isInstance && "processBlocked" in value;
+    isInstance = isInstance && "quarantineFile" in value;
+    isInstance = isInstance && "quarantineMachine" in value;
+    isInstance = isInstance && "registryOperationBlocked" in value;
+    isInstance = isInstance && "rooting" in value;
+    isInstance = isInstance && "sensorOnly" in value;
+
+    return isInstance;
+}
+
 export function CloudontologyPatternDispositionFromJSON(json: any): CloudontologyPatternDisposition {
     return CloudontologyPatternDispositionFromJSONTyped(json, false);
 }

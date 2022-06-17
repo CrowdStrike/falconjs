@@ -165,6 +165,19 @@ export interface DomainPolicyInfo {
     policyStatement?: string;
 }
 
+/**
+ * Check if a given object implements the DomainPolicyInfo interface.
+ */
+export function instanceOfDomainPolicyInfo(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "createdAt" in value;
+    isInstance = isInstance && "deletedAt" in value;
+    isInstance = isInstance && "iD" in value;
+    isInstance = isInstance && "updatedAt" in value;
+
+    return isInstance;
+}
+
 export function DomainPolicyInfoFromJSON(json: any): DomainPolicyInfo {
     return DomainPolicyInfoFromJSONTyped(json, false);
 }

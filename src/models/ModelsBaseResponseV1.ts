@@ -36,6 +36,17 @@ export interface ModelsBaseResponseV1 {
     meta: MsaMetaInfo;
 }
 
+/**
+ * Check if a given object implements the ModelsBaseResponseV1 interface.
+ */
+export function instanceOfModelsBaseResponseV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+
+    return isInstance;
+}
+
 export function ModelsBaseResponseV1FromJSON(json: any): ModelsBaseResponseV1 {
     return ModelsBaseResponseV1FromJSONTyped(json, false);
 }

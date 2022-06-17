@@ -29,6 +29,16 @@ export interface DomainMSSPRoleRequestV1 {
     resources: Array<DomainMSSPRoles>;
 }
 
+/**
+ * Check if a given object implements the DomainMSSPRoleRequestV1 interface.
+ */
+export function instanceOfDomainMSSPRoleRequestV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainMSSPRoleRequestV1FromJSON(json: any): DomainMSSPRoleRequestV1 {
     return DomainMSSPRoleRequestV1FromJSONTyped(json, false);
 }

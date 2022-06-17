@@ -75,6 +75,24 @@ export interface ModelFile {
     updatedAt: Date;
 }
 
+/**
+ * Check if a given object implements the ModelFile interface.
+ */
+export function instanceOfModelFile(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "cloudRequestId" in value;
+    isInstance = isInstance && "createdAt" in value;
+    isInstance = isInstance && "deletedAt" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "sessionId" in value;
+    isInstance = isInstance && "sha256" in value;
+    isInstance = isInstance && "size" in value;
+    isInstance = isInstance && "updatedAt" in value;
+
+    return isInstance;
+}
+
 export function ModelFileFromJSON(json: any): ModelFile {
     return ModelFileFromJSONTyped(json, false);
 }

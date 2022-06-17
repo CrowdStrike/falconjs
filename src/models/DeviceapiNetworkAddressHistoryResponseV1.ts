@@ -48,6 +48,18 @@ export interface DeviceapiNetworkAddressHistoryResponseV1 {
     resources: Array<DeviceapiNetworkAddressHistoryV1>;
 }
 
+/**
+ * Check if a given object implements the DeviceapiNetworkAddressHistoryResponseV1 interface.
+ */
+export function instanceOfDeviceapiNetworkAddressHistoryResponseV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DeviceapiNetworkAddressHistoryResponseV1FromJSON(json: any): DeviceapiNetworkAddressHistoryResponseV1 {
     return DeviceapiNetworkAddressHistoryResponseV1FromJSONTyped(json, false);
 }

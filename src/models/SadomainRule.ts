@@ -105,6 +105,26 @@ export interface SadomainRule {
     userUuid: string;
 }
 
+/**
+ * Check if a given object implements the SadomainRule interface.
+ */
+export function instanceOfSadomainRule(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "cid" in value;
+    isInstance = isInstance && "createdTimestamp" in value;
+    isInstance = isInstance && "filter" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "permissions" in value;
+    isInstance = isInstance && "priority" in value;
+    isInstance = isInstance && "status" in value;
+    isInstance = isInstance && "topic" in value;
+    isInstance = isInstance && "updatedTimestamp" in value;
+    isInstance = isInstance && "userUuid" in value;
+
+    return isInstance;
+}
+
 export function SadomainRuleFromJSON(json: any): SadomainRule {
     return SadomainRuleFromJSONTyped(json, false);
 }

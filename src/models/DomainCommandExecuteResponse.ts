@@ -39,6 +39,18 @@ export interface DomainCommandExecuteResponse {
     sessionId: string;
 }
 
+/**
+ * Check if a given object implements the DomainCommandExecuteResponse interface.
+ */
+export function instanceOfDomainCommandExecuteResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "cloudRequestId" in value;
+    isInstance = isInstance && "queuedCommandOffline" in value;
+    isInstance = isInstance && "sessionId" in value;
+
+    return isInstance;
+}
+
 export function DomainCommandExecuteResponseFromJSON(json: any): DomainCommandExecuteResponse {
     return DomainCommandExecuteResponseFromJSONTyped(json, false);
 }

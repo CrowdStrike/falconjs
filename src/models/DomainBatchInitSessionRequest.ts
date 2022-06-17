@@ -39,6 +39,18 @@ export interface DomainBatchInitSessionRequest {
     queueOffline: boolean;
 }
 
+/**
+ * Check if a given object implements the DomainBatchInitSessionRequest interface.
+ */
+export function instanceOfDomainBatchInitSessionRequest(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "existingBatchId" in value;
+    isInstance = isInstance && "hostIds" in value;
+    isInstance = isInstance && "queueOffline" in value;
+
+    return isInstance;
+}
+
 export function DomainBatchInitSessionRequestFromJSON(json: any): DomainBatchInitSessionRequest {
     return DomainBatchInitSessionRequestFromJSONTyped(json, false);
 }

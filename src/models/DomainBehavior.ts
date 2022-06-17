@@ -166,6 +166,18 @@ export interface DomainBehavior {
     userName?: string;
 }
 
+/**
+ * Check if a given object implements the DomainBehavior interface.
+ */
+export function instanceOfDomainBehavior(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "patternId" in value;
+    isInstance = isInstance && "templateInstanceId" in value;
+    isInstance = isInstance && "timestamp" in value;
+
+    return isInstance;
+}
+
 export function DomainBehaviorFromJSON(json: any): DomainBehavior {
     return DomainBehaviorFromJSONTyped(json, false);
 }

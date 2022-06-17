@@ -33,6 +33,17 @@ export interface DomainField {
     value: string;
 }
 
+/**
+ * Check if a given object implements the DomainField interface.
+ */
+export function instanceOfDomainField(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "value" in value;
+
+    return isInstance;
+}
+
 export function DomainFieldFromJSON(json: any): DomainField {
     return DomainFieldFromJSONTyped(json, false);
 }

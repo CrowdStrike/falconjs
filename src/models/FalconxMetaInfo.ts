@@ -36,6 +36,16 @@ export interface FalconxMetaInfo {
     quota?: FalconxQuota;
 }
 
+/**
+ * Check if a given object implements the FalconxMetaInfo interface.
+ */
+export function instanceOfFalconxMetaInfo(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "msaMetaInfo" in value;
+
+    return isInstance;
+}
+
 export function FalconxMetaInfoFromJSON(json: any): FalconxMetaInfo {
     return FalconxMetaInfoFromJSONTyped(json, false);
 }

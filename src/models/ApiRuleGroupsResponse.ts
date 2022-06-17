@@ -43,6 +43,17 @@ export interface ApiRuleGroupsResponse {
     resources: Array<ApiRuleGroupV1>;
 }
 
+/**
+ * Check if a given object implements the ApiRuleGroupsResponse interface.
+ */
+export function instanceOfApiRuleGroupsResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ApiRuleGroupsResponseFromJSON(json: any): ApiRuleGroupsResponse {
     return ApiRuleGroupsResponseFromJSONTyped(json, false);
 }

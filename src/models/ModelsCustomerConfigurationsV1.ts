@@ -43,6 +43,18 @@ export interface ModelsCustomerConfigurationsV1 {
     resources: Array<DomainAWSConfiguration>;
 }
 
+/**
+ * Check if a given object implements the ModelsCustomerConfigurationsV1 interface.
+ */
+export function instanceOfModelsCustomerConfigurationsV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ModelsCustomerConfigurationsV1FromJSON(json: any): ModelsCustomerConfigurationsV1 {
     return ModelsCustomerConfigurationsV1FromJSONTyped(json, false);
 }

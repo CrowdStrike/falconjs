@@ -47,6 +47,17 @@ export interface DomainSPAPIQueryVulnerabilitiesResponse {
     resources: Array<string>;
 }
 
+/**
+ * Check if a given object implements the DomainSPAPIQueryVulnerabilitiesResponse interface.
+ */
+export function instanceOfDomainSPAPIQueryVulnerabilitiesResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainSPAPIQueryVulnerabilitiesResponseFromJSON(json: any): DomainSPAPIQueryVulnerabilitiesResponse {
     return DomainSPAPIQueryVulnerabilitiesResponseFromJSONTyped(json, false);
 }

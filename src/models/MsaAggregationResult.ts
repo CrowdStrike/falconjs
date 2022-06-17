@@ -41,6 +41,17 @@ export interface MsaAggregationResult {
     sumOtherDocCount?: number;
 }
 
+/**
+ * Check if a given object implements the MsaAggregationResult interface.
+ */
+export function instanceOfMsaAggregationResult(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "buckets" in value;
+    isInstance = isInstance && "name" in value;
+
+    return isInstance;
+}
+
 export function MsaAggregationResultFromJSON(json: any): MsaAggregationResult {
     return MsaAggregationResultFromJSONTyped(json, false);
 }

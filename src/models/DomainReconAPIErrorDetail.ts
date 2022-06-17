@@ -39,6 +39,18 @@ export interface DomainReconAPIErrorDetail {
     messageKey: string;
 }
 
+/**
+ * Check if a given object implements the DomainReconAPIErrorDetail interface.
+ */
+export function instanceOfDomainReconAPIErrorDetail(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "field" in value;
+    isInstance = isInstance && "message" in value;
+    isInstance = isInstance && "messageKey" in value;
+
+    return isInstance;
+}
+
 export function DomainReconAPIErrorDetailFromJSON(json: any): DomainReconAPIErrorDetail {
     return DomainReconAPIErrorDetailFromJSONTyped(json, false);
 }

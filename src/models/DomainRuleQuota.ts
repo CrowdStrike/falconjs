@@ -39,6 +39,18 @@ export interface DomainRuleQuota {
     total: number;
 }
 
+/**
+ * Check if a given object implements the DomainRuleQuota interface.
+ */
+export function instanceOfDomainRuleQuota(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "active" in value;
+    isInstance = isInstance && "pending" in value;
+    isInstance = isInstance && "total" in value;
+
+    return isInstance;
+}
+
 export function DomainRuleQuotaFromJSON(json: any): DomainRuleQuota {
     return DomainRuleQuotaFromJSONTyped(json, false);
 }

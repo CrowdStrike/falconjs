@@ -33,6 +33,15 @@ export interface MalqueryFuzzyOptions {
     limit?: number;
 }
 
+/**
+ * Check if a given object implements the MalqueryFuzzyOptions interface.
+ */
+export function instanceOfMalqueryFuzzyOptions(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function MalqueryFuzzyOptionsFromJSON(json: any): MalqueryFuzzyOptions {
     return MalqueryFuzzyOptionsFromJSONTyped(json, false);
 }

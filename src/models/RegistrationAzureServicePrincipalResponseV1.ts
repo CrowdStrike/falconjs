@@ -48,6 +48,18 @@ export interface RegistrationAzureServicePrincipalResponseV1 {
     resources: Array<DomainAzureClientServicePrincipalV1>;
 }
 
+/**
+ * Check if a given object implements the RegistrationAzureServicePrincipalResponseV1 interface.
+ */
+export function instanceOfRegistrationAzureServicePrincipalResponseV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function RegistrationAzureServicePrincipalResponseV1FromJSON(json: any): RegistrationAzureServicePrincipalResponseV1 {
     return RegistrationAzureServicePrincipalResponseV1FromJSONTyped(json, false);
 }

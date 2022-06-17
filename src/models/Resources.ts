@@ -39,6 +39,18 @@ export interface Resources {
     tenantId: string;
 }
 
+/**
+ * Check if a given object implements the Resources interface.
+ */
+export function instanceOfResources(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "defaultSubscriptionId" in value;
+    isInstance = isInstance && "subscriptionIds" in value;
+    isInstance = isInstance && "tenantId" in value;
+
+    return isInstance;
+}
+
 export function ResourcesFromJSON(json: any): Resources {
     return ResourcesFromJSONTyped(json, false);
 }

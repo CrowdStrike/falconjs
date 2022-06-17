@@ -39,6 +39,18 @@ export interface ResponsesUninstallTokenV1 {
     uninstallToken: string;
 }
 
+/**
+ * Check if a given object implements the ResponsesUninstallTokenV1 interface.
+ */
+export function instanceOfResponsesUninstallTokenV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "deviceId" in value;
+    isInstance = isInstance && "seedId" in value;
+    isInstance = isInstance && "uninstallToken" in value;
+
+    return isInstance;
+}
+
 export function ResponsesUninstallTokenV1FromJSON(json: any): ResponsesUninstallTokenV1 {
     return ResponsesUninstallTokenV1FromJSONTyped(json, false);
 }

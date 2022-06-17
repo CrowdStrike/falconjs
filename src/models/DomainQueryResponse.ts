@@ -42,6 +42,18 @@ export interface DomainQueryResponse {
     resources: Array<string>;
 }
 
+/**
+ * Check if a given object implements the DomainQueryResponse interface.
+ */
+export function instanceOfDomainQueryResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainQueryResponseFromJSON(json: any): DomainQueryResponse {
     return DomainQueryResponseFromJSONTyped(json, false);
 }

@@ -75,6 +75,24 @@ export interface DomainRule {
     type: string;
 }
 
+/**
+ * Check if a given object implements the DomainRule interface.
+ */
+export function instanceOfDomainRule(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "createdDate" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "lastModifiedDate" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "richTextDescription" in value;
+    isInstance = isInstance && "shortDescription" in value;
+    isInstance = isInstance && "tags" in value;
+    isInstance = isInstance && "type" in value;
+
+    return isInstance;
+}
+
 export function DomainRuleFromJSON(json: any): DomainRule {
     return DomainRuleFromJSONTyped(json, false);
 }

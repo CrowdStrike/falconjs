@@ -39,6 +39,18 @@ export interface FwmgrMsaPaging {
     total: number;
 }
 
+/**
+ * Check if a given object implements the FwmgrMsaPaging interface.
+ */
+export function instanceOfFwmgrMsaPaging(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "limit" in value;
+    isInstance = isInstance && "offset" in value;
+    isInstance = isInstance && "total" in value;
+
+    return isInstance;
+}
+
 export function FwmgrMsaPagingFromJSON(json: any): FwmgrMsaPaging {
     return FwmgrMsaPagingFromJSONTyped(json, false);
 }

@@ -54,6 +54,17 @@ export interface MsaMetaInfo {
     writes?: MsaResources;
 }
 
+/**
+ * Check if a given object implements the MsaMetaInfo interface.
+ */
+export function instanceOfMsaMetaInfo(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "queryTime" in value;
+    isInstance = isInstance && "traceId" in value;
+
+    return isInstance;
+}
+
 export function MsaMetaInfoFromJSON(json: any): MsaMetaInfo {
     return MsaMetaInfoFromJSONTyped(json, false);
 }

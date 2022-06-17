@@ -118,6 +118,15 @@ export interface FalconxProcess {
     uid?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxProcess interface.
+ */
+export function instanceOfFalconxProcess(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxProcessFromJSON(json: any): FalconxProcess {
     return FalconxProcessFromJSONTyped(json, false);
 }

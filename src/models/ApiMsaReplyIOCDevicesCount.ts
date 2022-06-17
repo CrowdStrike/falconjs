@@ -43,6 +43,18 @@ export interface ApiMsaReplyIOCDevicesCount {
     resources: Array<ApiIOCDevicesCount>;
 }
 
+/**
+ * Check if a given object implements the ApiMsaReplyIOCDevicesCount interface.
+ */
+export function instanceOfApiMsaReplyIOCDevicesCount(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ApiMsaReplyIOCDevicesCountFromJSON(json: any): ApiMsaReplyIOCDevicesCount {
     return ApiMsaReplyIOCDevicesCountFromJSONTyped(json, false);
 }

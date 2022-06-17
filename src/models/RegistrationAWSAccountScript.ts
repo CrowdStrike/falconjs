@@ -27,6 +27,15 @@ export interface RegistrationAWSAccountScript {
     bash?: string;
 }
 
+/**
+ * Check if a given object implements the RegistrationAWSAccountScript interface.
+ */
+export function instanceOfRegistrationAWSAccountScript(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function RegistrationAWSAccountScriptFromJSON(json: any): RegistrationAWSAccountScript {
     return RegistrationAWSAccountScriptFromJSONTyped(json, false);
 }

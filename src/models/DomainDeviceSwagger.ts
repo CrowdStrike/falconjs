@@ -434,6 +434,17 @@ export interface DomainDeviceSwagger {
     zoneGroup?: string;
 }
 
+/**
+ * Check if a given object implements the DomainDeviceSwagger interface.
+ */
+export function instanceOfDomainDeviceSwagger(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "cid" in value;
+    isInstance = isInstance && "deviceId" in value;
+
+    return isInstance;
+}
+
 export function DomainDeviceSwaggerFromJSON(json: any): DomainDeviceSwagger {
     return DomainDeviceSwaggerFromJSONTyped(json, false);
 }

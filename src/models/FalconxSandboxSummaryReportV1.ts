@@ -113,6 +113,15 @@ export interface FalconxSandboxSummaryReportV1 {
     verdict?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxSandboxSummaryReportV1 interface.
+ */
+export function instanceOfFalconxSandboxSummaryReportV1(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxSandboxSummaryReportV1FromJSON(json: any): FalconxSandboxSummaryReportV1 {
     return FalconxSandboxSummaryReportV1FromJSONTyped(json, false);
 }

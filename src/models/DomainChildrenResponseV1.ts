@@ -36,6 +36,17 @@ export interface DomainChildrenResponseV1 {
     resources: Array<DomainChildLink>;
 }
 
+/**
+ * Check if a given object implements the DomainChildrenResponseV1 interface.
+ */
+export function instanceOfDomainChildrenResponseV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "msaReplyMetaOnly" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainChildrenResponseV1FromJSON(json: any): DomainChildrenResponseV1 {
     return DomainChildrenResponseV1FromJSONTyped(json, false);
 }

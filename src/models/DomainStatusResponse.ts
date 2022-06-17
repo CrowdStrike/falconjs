@@ -63,6 +63,19 @@ export interface DomainStatusResponse {
     taskId?: string;
 }
 
+/**
+ * Check if a given object implements the DomainStatusResponse interface.
+ */
+export function instanceOfDomainStatusResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "complete" in value;
+    isInstance = isInstance && "sessionId" in value;
+    isInstance = isInstance && "stderr" in value;
+    isInstance = isInstance && "stdout" in value;
+
+    return isInstance;
+}
+
 export function DomainStatusResponseFromJSON(json: any): DomainStatusResponse {
     return DomainStatusResponseFromJSONTyped(json, false);
 }

@@ -158,6 +158,31 @@ export interface DomainAPIDetectionDocument {
     status: string;
 }
 
+/**
+ * Check if a given object implements the DomainAPIDetectionDocument interface.
+ */
+export function instanceOfDomainAPIDetectionDocument(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "behaviorsProcessed" in value;
+    isInstance = isInstance && "cid" in value;
+    isInstance = isInstance && "createdTimestamp" in value;
+    isInstance = isInstance && "detectionId" in value;
+    isInstance = isInstance && "device" in value;
+    isInstance = isInstance && "emailSent" in value;
+    isInstance = isInstance && "firstBehavior" in value;
+    isInstance = isInstance && "hostinfo" in value;
+    isInstance = isInstance && "lastBehavior" in value;
+    isInstance = isInstance && "maxConfidence" in value;
+    isInstance = isInstance && "maxSeverity" in value;
+    isInstance = isInstance && "maxSeverityDisplayname" in value;
+    isInstance = isInstance && "secondsToResolved" in value;
+    isInstance = isInstance && "secondsToTriaged" in value;
+    isInstance = isInstance && "showInUi" in value;
+    isInstance = isInstance && "status" in value;
+
+    return isInstance;
+}
+
 export function DomainAPIDetectionDocumentFromJSON(json: any): DomainAPIDetectionDocument {
     return DomainAPIDetectionDocumentFromJSONTyped(json, false);
 }

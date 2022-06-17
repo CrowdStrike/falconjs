@@ -27,6 +27,15 @@ export interface CsdomainDeviceMeta {
     version?: string;
 }
 
+/**
+ * Check if a given object implements the CsdomainDeviceMeta interface.
+ */
+export function instanceOfCsdomainDeviceMeta(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function CsdomainDeviceMetaFromJSON(json: any): CsdomainDeviceMeta {
     return CsdomainDeviceMetaFromJSONTyped(json, false);
 }

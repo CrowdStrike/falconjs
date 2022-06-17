@@ -43,6 +43,18 @@ export interface DomainActorsResponse {
     resources: Array<DomainActorDocument>;
 }
 
+/**
+ * Check if a given object implements the DomainActorsResponse interface.
+ */
+export function instanceOfDomainActorsResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainActorsResponseFromJSON(json: any): DomainActorsResponse {
     return DomainActorsResponseFromJSONTyped(json, false);
 }

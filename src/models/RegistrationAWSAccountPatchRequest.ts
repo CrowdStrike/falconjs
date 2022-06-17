@@ -29,6 +29,16 @@ export interface RegistrationAWSAccountPatchRequest {
     resources: Array<RegistrationAWSAccountPatch>;
 }
 
+/**
+ * Check if a given object implements the RegistrationAWSAccountPatchRequest interface.
+ */
+export function instanceOfRegistrationAWSAccountPatchRequest(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function RegistrationAWSAccountPatchRequestFromJSON(json: any): RegistrationAWSAccountPatchRequest {
     return RegistrationAWSAccountPatchRequestFromJSONTyped(json, false);
 }

@@ -39,6 +39,18 @@ export interface DomainEnvironmentScore {
     timestamp: Date;
 }
 
+/**
+ * Check if a given object implements the DomainEnvironmentScore interface.
+ */
+export function instanceOfDomainEnvironmentScore(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "score" in value;
+    isInstance = isInstance && "timestamp" in value;
+
+    return isInstance;
+}
+
 export function DomainEnvironmentScoreFromJSON(json: any): DomainEnvironmentScore {
     return DomainEnvironmentScoreFromJSONTyped(json, false);
 }

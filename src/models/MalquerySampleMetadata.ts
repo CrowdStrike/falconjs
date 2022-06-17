@@ -69,6 +69,15 @@ export interface MalquerySampleMetadata {
     sha256?: string;
 }
 
+/**
+ * Check if a given object implements the MalquerySampleMetadata interface.
+ */
+export function instanceOfMalquerySampleMetadata(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function MalquerySampleMetadataFromJSON(json: any): MalquerySampleMetadata {
     return MalquerySampleMetadataFromJSONTyped(json, false);
 }

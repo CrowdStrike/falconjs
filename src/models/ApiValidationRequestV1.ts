@@ -29,6 +29,16 @@ export interface ApiValidationRequestV1 {
     fields: Array<ApiValidationRequestFieldV1>;
 }
 
+/**
+ * Check if a given object implements the ApiValidationRequestV1 interface.
+ */
+export function instanceOfApiValidationRequestV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "fields" in value;
+
+    return isInstance;
+}
+
 export function ApiValidationRequestV1FromJSON(json: any): ApiValidationRequestV1 {
     return ApiValidationRequestV1FromJSONTyped(json, false);
 }

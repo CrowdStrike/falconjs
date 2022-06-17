@@ -39,6 +39,16 @@ export interface DomainImage {
     width?: number;
 }
 
+/**
+ * Check if a given object implements the DomainImage interface.
+ */
+export function instanceOfDomainImage(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "url" in value;
+
+    return isInstance;
+}
+
 export function DomainImageFromJSON(json: any): DomainImage {
     return DomainImageFromJSONTyped(json, false);
 }

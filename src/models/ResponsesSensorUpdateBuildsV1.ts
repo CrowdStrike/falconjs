@@ -43,6 +43,18 @@ export interface ResponsesSensorUpdateBuildsV1 {
     resources: Array<ResponsesSensorUpdateBuildV1>;
 }
 
+/**
+ * Check if a given object implements the ResponsesSensorUpdateBuildsV1 interface.
+ */
+export function instanceOfResponsesSensorUpdateBuildsV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ResponsesSensorUpdateBuildsV1FromJSON(json: any): ResponsesSensorUpdateBuildsV1 {
     return ResponsesSensorUpdateBuildsV1FromJSONTyped(json, false);
 }

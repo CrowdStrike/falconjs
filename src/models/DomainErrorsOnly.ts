@@ -36,6 +36,17 @@ export interface DomainErrorsOnly {
     meta: MsaMetaInfo;
 }
 
+/**
+ * Check if a given object implements the DomainErrorsOnly interface.
+ */
+export function instanceOfDomainErrorsOnly(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+
+    return isInstance;
+}
+
 export function DomainErrorsOnlyFromJSON(json: any): DomainErrorsOnly {
     return DomainErrorsOnlyFromJSONTyped(json, false);
 }

@@ -63,6 +63,15 @@ export interface ModelsAWSAccountRequestV1 {
     rateLimitTime?: number;
 }
 
+/**
+ * Check if a given object implements the ModelsAWSAccountRequestV1 interface.
+ */
+export function instanceOfModelsAWSAccountRequestV1(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function ModelsAWSAccountRequestV1FromJSON(json: any): ModelsAWSAccountRequestV1 {
     return ModelsAWSAccountRequestV1FromJSONTyped(json, false);
 }

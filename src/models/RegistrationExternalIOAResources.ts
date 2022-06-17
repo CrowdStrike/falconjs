@@ -41,6 +41,16 @@ export interface RegistrationExternalIOAResources {
     maxScore?: number;
 }
 
+/**
+ * Check if a given object implements the RegistrationExternalIOAResources interface.
+ */
+export function instanceOfRegistrationExternalIOAResources(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "events" in value;
+
+    return isInstance;
+}
+
 export function RegistrationExternalIOAResourcesFromJSON(json: any): RegistrationExternalIOAResources {
     return RegistrationExternalIOAResourcesFromJSONTyped(json, false);
 }

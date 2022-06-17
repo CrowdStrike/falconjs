@@ -54,6 +54,15 @@ export interface FalconxMalqueryReportV1 {
     verdict?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxMalqueryReportV1 interface.
+ */
+export function instanceOfFalconxMalqueryReportV1(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxMalqueryReportV1FromJSON(json: any): FalconxMalqueryReportV1 {
     return FalconxMalqueryReportV1FromJSONTyped(json, false);
 }

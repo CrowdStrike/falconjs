@@ -33,6 +33,15 @@ export interface FalconxMatchedSignature {
     value?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxMatchedSignature interface.
+ */
+export function instanceOfFalconxMatchedSignature(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxMatchedSignatureFromJSON(json: any): FalconxMatchedSignature {
     return FalconxMatchedSignatureFromJSONTyped(json, false);
 }

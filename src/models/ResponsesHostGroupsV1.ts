@@ -43,6 +43,18 @@ export interface ResponsesHostGroupsV1 {
     resources: Array<ResponsesHostGroupV1>;
 }
 
+/**
+ * Check if a given object implements the ResponsesHostGroupsV1 interface.
+ */
+export function instanceOfResponsesHostGroupsV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ResponsesHostGroupsV1FromJSON(json: any): ResponsesHostGroupsV1 {
     return ResponsesHostGroupsV1FromJSONTyped(json, false);
 }

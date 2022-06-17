@@ -36,6 +36,15 @@ export interface DomainIOAEnrichments {
     sensorEvents?: DetectionEnrichment;
 }
 
+/**
+ * Check if a given object implements the DomainIOAEnrichments interface.
+ */
+export function instanceOfDomainIOAEnrichments(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function DomainIOAEnrichmentsFromJSON(json: any): DomainIOAEnrichments {
     return DomainIOAEnrichmentsFromJSONTyped(json, false);
 }

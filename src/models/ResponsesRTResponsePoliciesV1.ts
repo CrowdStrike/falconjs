@@ -43,6 +43,18 @@ export interface ResponsesRTResponsePoliciesV1 {
     resources: Array<ResponsesRTResponsePolicyV1>;
 }
 
+/**
+ * Check if a given object implements the ResponsesRTResponsePoliciesV1 interface.
+ */
+export function instanceOfResponsesRTResponsePoliciesV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ResponsesRTResponsePoliciesV1FromJSON(json: any): ResponsesRTResponsePoliciesV1 {
     return ResponsesRTResponsePoliciesV1FromJSONTyped(json, false);
 }

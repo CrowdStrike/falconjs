@@ -129,6 +129,15 @@ export interface DomainECrimeKillChain {
     victims?: string;
 }
 
+/**
+ * Check if a given object implements the DomainECrimeKillChain interface.
+ */
+export function instanceOfDomainECrimeKillChain(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function DomainECrimeKillChainFromJSON(json: any): DomainECrimeKillChain {
     return DomainECrimeKillChainFromJSONTyped(json, false);
 }

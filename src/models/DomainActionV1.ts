@@ -81,6 +81,25 @@ export interface DomainActionV1 {
     userUuid: string;
 }
 
+/**
+ * Check if a given object implements the DomainActionV1 interface.
+ */
+export function instanceOfDomainActionV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "cid" in value;
+    isInstance = isInstance && "createdTimestamp" in value;
+    isInstance = isInstance && "frequency" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "recipients" in value;
+    isInstance = isInstance && "ruleId" in value;
+    isInstance = isInstance && "status" in value;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "updatedTimestamp" in value;
+    isInstance = isInstance && "userUuid" in value;
+
+    return isInstance;
+}
+
 export function DomainActionV1FromJSON(json: any): DomainActionV1 {
     return DomainActionV1FromJSONTyped(json, false);
 }

@@ -45,6 +45,15 @@ export interface DomainQueriesPatchRequest {
     q?: string;
 }
 
+/**
+ * Check if a given object implements the DomainQueriesPatchRequest interface.
+ */
+export function instanceOfDomainQueriesPatchRequest(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function DomainQueriesPatchRequestFromJSON(json: any): DomainQueriesPatchRequest {
     return DomainQueriesPatchRequestFromJSONTyped(json, false);
 }

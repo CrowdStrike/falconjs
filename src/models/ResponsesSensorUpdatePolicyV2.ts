@@ -105,6 +105,26 @@ export const ResponsesSensorUpdatePolicyV2PlatformNameEnum = {
 } as const;
 export type ResponsesSensorUpdatePolicyV2PlatformNameEnum = typeof ResponsesSensorUpdatePolicyV2PlatformNameEnum[keyof typeof ResponsesSensorUpdatePolicyV2PlatformNameEnum];
 
+/**
+ * Check if a given object implements the ResponsesSensorUpdatePolicyV2 interface.
+ */
+export function instanceOfResponsesSensorUpdatePolicyV2(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "createdBy" in value;
+    isInstance = isInstance && "createdTimestamp" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "enabled" in value;
+    isInstance = isInstance && "groups" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "modifiedBy" in value;
+    isInstance = isInstance && "modifiedTimestamp" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "platformName" in value;
+    isInstance = isInstance && "settings" in value;
+
+    return isInstance;
+}
+
 export function ResponsesSensorUpdatePolicyV2FromJSON(json: any): ResponsesSensorUpdatePolicyV2 {
     return ResponsesSensorUpdatePolicyV2FromJSONTyped(json, false);
 }

@@ -43,6 +43,18 @@ export interface DomainNotificationDetailsResponseV1 {
     resources: Array<DomainDetailedNotificationV1>;
 }
 
+/**
+ * Check if a given object implements the DomainNotificationDetailsResponseV1 interface.
+ */
+export function instanceOfDomainNotificationDetailsResponseV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainNotificationDetailsResponseV1FromJSON(json: any): DomainNotificationDetailsResponseV1 {
     return DomainNotificationDetailsResponseV1FromJSONTyped(json, false);
 }

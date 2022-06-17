@@ -33,6 +33,17 @@ export interface MsaDateRangeSpec {
     to: string;
 }
 
+/**
+ * Check if a given object implements the MsaDateRangeSpec interface.
+ */
+export function instanceOfMsaDateRangeSpec(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "from" in value;
+    isInstance = isInstance && "to" in value;
+
+    return isInstance;
+}
+
 export function MsaDateRangeSpecFromJSON(json: any): MsaDateRangeSpec {
     return MsaDateRangeSpecFromJSONTyped(json, false);
 }

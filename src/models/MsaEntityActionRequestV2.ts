@@ -35,6 +35,16 @@ export interface MsaEntityActionRequestV2 {
     ids: Array<string>;
 }
 
+/**
+ * Check if a given object implements the MsaEntityActionRequestV2 interface.
+ */
+export function instanceOfMsaEntityActionRequestV2(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "ids" in value;
+
+    return isInstance;
+}
+
 export function MsaEntityActionRequestV2FromJSON(json: any): MsaEntityActionRequestV2 {
     return MsaEntityActionRequestV2FromJSONTyped(json, false);
 }

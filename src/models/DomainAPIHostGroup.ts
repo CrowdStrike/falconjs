@@ -33,6 +33,16 @@ export interface DomainAPIHostGroup {
     name: string;
 }
 
+/**
+ * Check if a given object implements the DomainAPIHostGroup interface.
+ */
+export function instanceOfDomainAPIHostGroup(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "name" in value;
+
+    return isInstance;
+}
+
 export function DomainAPIHostGroupFromJSON(json: any): DomainAPIHostGroup {
     return DomainAPIHostGroupFromJSONTyped(json, false);
 }

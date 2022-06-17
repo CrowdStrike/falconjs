@@ -33,6 +33,15 @@ export interface FalconxVersionInfo {
     value?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxVersionInfo interface.
+ */
+export function instanceOfFalconxVersionInfo(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxVersionInfoFromJSON(json: any): FalconxVersionInfo {
     return FalconxVersionInfoFromJSONTyped(json, false);
 }

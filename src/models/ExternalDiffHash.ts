@@ -27,6 +27,15 @@ export interface ExternalDiffHash {
     sha256?: string;
 }
 
+/**
+ * Check if a given object implements the ExternalDiffHash interface.
+ */
+export function instanceOfExternalDiffHash(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function ExternalDiffHashFromJSON(json: any): ExternalDiffHash {
     return ExternalDiffHashFromJSONTyped(json, false);
 }

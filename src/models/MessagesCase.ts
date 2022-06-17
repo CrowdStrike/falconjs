@@ -122,6 +122,31 @@ export interface MessagesCase {
     type: string;
 }
 
+/**
+ * Check if a given object implements the MessagesCase interface.
+ */
+export function instanceOfMessagesCase(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "aids" in value;
+    isInstance = isInstance && "assigner" in value;
+    isInstance = isInstance && "attachments" in value;
+    isInstance = isInstance && "body" in value;
+    isInstance = isInstance && "cid" in value;
+    isInstance = isInstance && "createdTime" in value;
+    isInstance = isInstance && "detections" in value;
+    isInstance = isInstance && "hosts" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "incidents" in value;
+    isInstance = isInstance && "ipAddresses" in value;
+    isInstance = isInstance && "key" in value;
+    isInstance = isInstance && "lastModifiedTime" in value;
+    isInstance = isInstance && "status" in value;
+    isInstance = isInstance && "title" in value;
+    isInstance = isInstance && "type" in value;
+
+    return isInstance;
+}
+
 export function MessagesCaseFromJSON(json: any): MessagesCase {
     return MessagesCaseFromJSONTyped(json, false);
 }

@@ -43,6 +43,17 @@ export interface ApiValidationResponseV1 {
     resources: Array<DomainFieldValidation>;
 }
 
+/**
+ * Check if a given object implements the ApiValidationResponseV1 interface.
+ */
+export function instanceOfApiValidationResponseV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ApiValidationResponseV1FromJSON(json: any): ApiValidationResponseV1 {
     return ApiValidationResponseV1FromJSONTyped(json, false);
 }

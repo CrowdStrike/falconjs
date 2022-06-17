@@ -43,6 +43,18 @@ export interface RegistrationAWSProvisionGetAccountScriptResponseV2 {
     resources: Array<RegistrationAWSAccountScript>;
 }
 
+/**
+ * Check if a given object implements the RegistrationAWSProvisionGetAccountScriptResponseV2 interface.
+ */
+export function instanceOfRegistrationAWSProvisionGetAccountScriptResponseV2(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function RegistrationAWSProvisionGetAccountScriptResponseV2FromJSON(json: any): RegistrationAWSProvisionGetAccountScriptResponseV2 {
     return RegistrationAWSProvisionGetAccountScriptResponseV2FromJSONTyped(json, false);
 }

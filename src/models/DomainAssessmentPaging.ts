@@ -45,6 +45,17 @@ export interface DomainAssessmentPaging {
     total: number;
 }
 
+/**
+ * Check if a given object implements the DomainAssessmentPaging interface.
+ */
+export function instanceOfDomainAssessmentPaging(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "offset" in value;
+    isInstance = isInstance && "total" in value;
+
+    return isInstance;
+}
+
 export function DomainAssessmentPagingFromJSON(json: any): DomainAssessmentPaging {
     return DomainAssessmentPagingFromJSONTyped(json, false);
 }

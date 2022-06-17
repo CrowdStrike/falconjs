@@ -29,6 +29,15 @@ export interface FalconxThreatGraphReportV1 {
     indicators?: Array<FalconxThreatGraphIndicatorV1>;
 }
 
+/**
+ * Check if a given object implements the FalconxThreatGraphReportV1 interface.
+ */
+export function instanceOfFalconxThreatGraphReportV1(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxThreatGraphReportV1FromJSON(json: any): FalconxThreatGraphReportV1 {
     return FalconxThreatGraphReportV1FromJSONTyped(json, false);
 }

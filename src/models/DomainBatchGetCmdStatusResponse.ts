@@ -43,6 +43,18 @@ export interface DomainBatchGetCmdStatusResponse {
     resources: { [key: string]: ModelFile };
 }
 
+/**
+ * Check if a given object implements the DomainBatchGetCmdStatusResponse interface.
+ */
+export function instanceOfDomainBatchGetCmdStatusResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainBatchGetCmdStatusResponseFromJSON(json: any): DomainBatchGetCmdStatusResponse {
     return DomainBatchGetCmdStatusResponseFromJSONTyped(json, false);
 }

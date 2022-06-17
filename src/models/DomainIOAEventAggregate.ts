@@ -83,6 +83,15 @@ export interface DomainIOAEventAggregate {
     timestamps?: Array<string>;
 }
 
+/**
+ * Check if a given object implements the DomainIOAEventAggregate interface.
+ */
+export function instanceOfDomainIOAEventAggregate(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function DomainIOAEventAggregateFromJSON(json: any): DomainIOAEventAggregate {
     return DomainIOAEventAggregateFromJSONTyped(json, false);
 }

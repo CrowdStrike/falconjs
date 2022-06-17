@@ -34,6 +34,16 @@ export interface RequestsCreatePreventionPoliciesV1 {
     resources: Array<RequestsCreatePreventionPolicyV1>;
 }
 
+/**
+ * Check if a given object implements the RequestsCreatePreventionPoliciesV1 interface.
+ */
+export function instanceOfRequestsCreatePreventionPoliciesV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function RequestsCreatePreventionPoliciesV1FromJSON(json: any): RequestsCreatePreventionPoliciesV1 {
     return RequestsCreatePreventionPoliciesV1FromJSONTyped(json, false);
 }

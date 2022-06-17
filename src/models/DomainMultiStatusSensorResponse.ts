@@ -89,6 +89,23 @@ export interface DomainMultiStatusSensorResponse {
     taskId?: string;
 }
 
+/**
+ * Check if a given object implements the DomainMultiStatusSensorResponse interface.
+ */
+export function instanceOfDomainMultiStatusSensorResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "aid" in value;
+    isInstance = isInstance && "complete" in value;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "offlineQueued" in value;
+    isInstance = isInstance && "queryTime" in value;
+    isInstance = isInstance && "sessionId" in value;
+    isInstance = isInstance && "stderr" in value;
+    isInstance = isInstance && "stdout" in value;
+
+    return isInstance;
+}
+
 export function DomainMultiStatusSensorResponseFromJSON(json: any): DomainMultiStatusSensorResponse {
     return DomainMultiStatusSensorResponseFromJSONTyped(json, false);
 }

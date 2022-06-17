@@ -69,6 +69,20 @@ export interface DomainAzureAccountV1 {
     tenantId?: string;
 }
 
+/**
+ * Check if a given object implements the DomainAzureAccountV1 interface.
+ */
+export function instanceOfDomainAzureAccountV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "createdAt" in value;
+    isInstance = isInstance && "deletedAt" in value;
+    isInstance = isInstance && "iD" in value;
+    isInstance = isInstance && "updatedAt" in value;
+    isInstance = isInstance && "cid" in value;
+
+    return isInstance;
+}
+
 export function DomainAzureAccountV1FromJSON(json: any): DomainAzureAccountV1 {
     return DomainAzureAccountV1FromJSONTyped(json, false);
 }

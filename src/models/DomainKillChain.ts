@@ -117,6 +117,15 @@ export interface DomainKillChain {
     weaponization?: string;
 }
 
+/**
+ * Check if a given object implements the DomainKillChain interface.
+ */
+export function instanceOfDomainKillChain(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function DomainKillChainFromJSON(json: any): DomainKillChain {
     return DomainKillChainFromJSONTyped(json, false);
 }

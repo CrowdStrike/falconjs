@@ -43,6 +43,18 @@ export interface MsaFacetsResponse {
     resources: Array<MsaFacet>;
 }
 
+/**
+ * Check if a given object implements the MsaFacetsResponse interface.
+ */
+export function instanceOfMsaFacetsResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function MsaFacetsResponseFromJSON(json: any): MsaFacetsResponse {
     return MsaFacetsResponseFromJSONTyped(json, false);
 }

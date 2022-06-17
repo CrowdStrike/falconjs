@@ -48,6 +48,18 @@ export interface DomainMultiCommandExecuteResponseWrapper {
     meta: MsaMetaInfo;
 }
 
+/**
+ * Check if a given object implements the DomainMultiCommandExecuteResponseWrapper interface.
+ */
+export function instanceOfDomainMultiCommandExecuteResponseWrapper(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "combined" in value;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+
+    return isInstance;
+}
+
 export function DomainMultiCommandExecuteResponseWrapperFromJSON(json: any): DomainMultiCommandExecuteResponseWrapper {
     return DomainMultiCommandExecuteResponseWrapperFromJSONTyped(json, false);
 }

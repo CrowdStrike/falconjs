@@ -39,6 +39,17 @@ export interface MsaAPIError {
     message: string;
 }
 
+/**
+ * Check if a given object implements the MsaAPIError interface.
+ */
+export function instanceOfMsaAPIError(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "code" in value;
+    isInstance = isInstance && "message" in value;
+
+    return isInstance;
+}
+
 export function MsaAPIErrorFromJSON(json: any): MsaAPIError {
     return MsaAPIErrorFromJSONTyped(json, false);
 }

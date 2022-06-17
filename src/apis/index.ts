@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+export * from "./AlertsApi";
 export * from "./CloudConnectAwsApi";
 export * from "./CspmRegistrationApi";
 export * from "./CustomIoaApi";

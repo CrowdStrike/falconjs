@@ -43,6 +43,18 @@ export interface DomainCIDGroupsResponseV1 {
     resources: Array<DomainCIDGroup>;
 }
 
+/**
+ * Check if a given object implements the DomainCIDGroupsResponseV1 interface.
+ */
+export function instanceOfDomainCIDGroupsResponseV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainCIDGroupsResponseV1FromJSON(json: any): DomainCIDGroupsResponseV1 {
     return DomainCIDGroupsResponseV1FromJSONTyped(json, false);
 }

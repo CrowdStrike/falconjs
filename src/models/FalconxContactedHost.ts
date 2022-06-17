@@ -59,6 +59,15 @@ export interface FalconxContactedHost {
     protocol?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxContactedHost interface.
+ */
+export function instanceOfFalconxContactedHost(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxContactedHostFromJSON(json: any): FalconxContactedHost {
     return FalconxContactedHostFromJSONTyped(json, false);
 }

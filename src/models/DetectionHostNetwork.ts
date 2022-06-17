@@ -39,6 +39,15 @@ export interface DetectionHostNetwork {
     subnetId?: string;
 }
 
+/**
+ * Check if a given object implements the DetectionHostNetwork interface.
+ */
+export function instanceOfDetectionHostNetwork(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function DetectionHostNetworkFromJSON(json: any): DetectionHostNetwork {
     return DetectionHostNetworkFromJSONTyped(json, false);
 }

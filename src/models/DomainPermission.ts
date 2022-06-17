@@ -33,6 +33,17 @@ export interface DomainPermission {
     status: string;
 }
 
+/**
+ * Check if a given object implements the DomainPermission interface.
+ */
+export function instanceOfDomainPermission(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "status" in value;
+
+    return isInstance;
+}
+
 export function DomainPermissionFromJSON(json: any): DomainPermission {
     return DomainPermissionFromJSONTyped(json, false);
 }

@@ -53,6 +53,18 @@ export interface RegistrationExternalIOAEventResponse {
     resources: RegistrationExternalIOAResources;
 }
 
+/**
+ * Check if a given object implements the RegistrationExternalIOAEventResponse interface.
+ */
+export function instanceOfRegistrationExternalIOAEventResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function RegistrationExternalIOAEventResponseFromJSON(json: any): RegistrationExternalIOAEventResponse {
     return RegistrationExternalIOAEventResponseFromJSONTyped(json, false);
 }

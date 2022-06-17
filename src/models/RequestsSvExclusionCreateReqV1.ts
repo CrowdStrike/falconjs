@@ -39,6 +39,15 @@ export interface RequestsSvExclusionCreateReqV1 {
     value?: string;
 }
 
+/**
+ * Check if a given object implements the RequestsSvExclusionCreateReqV1 interface.
+ */
+export function instanceOfRequestsSvExclusionCreateReqV1(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function RequestsSvExclusionCreateReqV1FromJSON(json: any): RequestsSvExclusionCreateReqV1 {
     return RequestsSvExclusionCreateReqV1FromJSONTyped(json, false);
 }

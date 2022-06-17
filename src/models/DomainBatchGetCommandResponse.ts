@@ -54,6 +54,19 @@ export interface DomainBatchGetCommandResponse {
     meta: MsaMetaInfo;
 }
 
+/**
+ * Check if a given object implements the DomainBatchGetCommandResponse interface.
+ */
+export function instanceOfDomainBatchGetCommandResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "batchGetCmdReqId" in value;
+    isInstance = isInstance && "combined" in value;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+
+    return isInstance;
+}
+
 export function DomainBatchGetCommandResponseFromJSON(json: any): DomainBatchGetCommandResponse {
     return DomainBatchGetCommandResponseFromJSONTyped(json, false);
 }

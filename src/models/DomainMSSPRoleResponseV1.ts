@@ -43,6 +43,18 @@ export interface DomainMSSPRoleResponseV1 {
     resources: Array<DomainMSSPRoles>;
 }
 
+/**
+ * Check if a given object implements the DomainMSSPRoleResponseV1 interface.
+ */
+export function instanceOfDomainMSSPRoleResponseV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainMSSPRoleResponseV1FromJSON(json: any): DomainMSSPRoleResponseV1 {
     return DomainMSSPRoleResponseV1FromJSONTyped(json, false);
 }

@@ -63,6 +63,15 @@ export interface MalqueryExternalHuntOptions {
     minSize?: string;
 }
 
+/**
+ * Check if a given object implements the MalqueryExternalHuntOptions interface.
+ */
+export function instanceOfMalqueryExternalHuntOptions(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function MalqueryExternalHuntOptionsFromJSON(json: any): MalqueryExternalHuntOptions {
     return MalqueryExternalHuntOptionsFromJSONTyped(json, false);
 }

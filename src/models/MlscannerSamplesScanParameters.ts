@@ -27,6 +27,16 @@ export interface MlscannerSamplesScanParameters {
     samples: Array<string>;
 }
 
+/**
+ * Check if a given object implements the MlscannerSamplesScanParameters interface.
+ */
+export function instanceOfMlscannerSamplesScanParameters(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "samples" in value;
+
+    return isInstance;
+}
+
 export function MlscannerSamplesScanParametersFromJSON(json: any): MlscannerSamplesScanParameters {
     return MlscannerSamplesScanParametersFromJSONTyped(json, false);
 }

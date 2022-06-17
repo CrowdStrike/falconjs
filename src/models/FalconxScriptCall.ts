@@ -59,6 +59,15 @@ export interface FalconxScriptCall {
     status?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxScriptCall interface.
+ */
+export function instanceOfFalconxScriptCall(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxScriptCallFromJSON(json: any): FalconxScriptCall {
     return FalconxScriptCallFromJSONTyped(json, false);
 }

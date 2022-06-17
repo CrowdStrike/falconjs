@@ -39,6 +39,17 @@ export interface DomainGCPAccountV1 {
     status?: string;
 }
 
+/**
+ * Check if a given object implements the DomainGCPAccountV1 interface.
+ */
+export function instanceOfDomainGCPAccountV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "cid" in value;
+    isInstance = isInstance && "parentId" in value;
+
+    return isInstance;
+}
+
 export function DomainGCPAccountV1FromJSON(json: any): DomainGCPAccountV1 {
     return DomainGCPAccountV1FromJSONTyped(json, false);
 }

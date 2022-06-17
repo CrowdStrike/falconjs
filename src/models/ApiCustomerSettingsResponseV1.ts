@@ -43,6 +43,18 @@ export interface ApiCustomerSettingsResponseV1 {
     resources: Array<ApiCustomerSettingsResourceV1>;
 }
 
+/**
+ * Check if a given object implements the ApiCustomerSettingsResponseV1 interface.
+ */
+export function instanceOfApiCustomerSettingsResponseV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ApiCustomerSettingsResponseV1FromJSON(json: any): ApiCustomerSettingsResponseV1 {
     return ApiCustomerSettingsResponseV1FromJSONTyped(json, false);
 }

@@ -43,6 +43,18 @@ export interface RegistrationAzureTenantDefaultSubscriptionIDResponseV1 {
     resources: Resources;
 }
 
+/**
+ * Check if a given object implements the RegistrationAzureTenantDefaultSubscriptionIDResponseV1 interface.
+ */
+export function instanceOfRegistrationAzureTenantDefaultSubscriptionIDResponseV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function RegistrationAzureTenantDefaultSubscriptionIDResponseV1FromJSON(json: any): RegistrationAzureTenantDefaultSubscriptionIDResponseV1 {
     return RegistrationAzureTenantDefaultSubscriptionIDResponseV1FromJSONTyped(json, false);
 }

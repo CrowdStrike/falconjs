@@ -43,6 +43,18 @@ export interface DomainPublicIndicatorsV3Response {
     resources: Array<DomainPublicIndicatorV3>;
 }
 
+/**
+ * Check if a given object implements the DomainPublicIndicatorsV3Response interface.
+ */
+export function instanceOfDomainPublicIndicatorsV3Response(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainPublicIndicatorsV3ResponseFromJSON(json: any): DomainPublicIndicatorsV3Response {
     return DomainPublicIndicatorsV3ResponseFromJSONTyped(json, false);
 }

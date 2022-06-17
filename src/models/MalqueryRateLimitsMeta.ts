@@ -83,6 +83,23 @@ export interface MalqueryRateLimitsMeta {
     refreshTime: string;
 }
 
+/**
+ * Check if a given object implements the MalqueryRateLimitsMeta interface.
+ */
+export function instanceOfMalqueryRateLimitsMeta(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "daysLeft" in value;
+    isInstance = isInstance && "downloadCount" in value;
+    isInstance = isInstance && "downloadLimit" in value;
+    isInstance = isInstance && "huntCount" in value;
+    isInstance = isInstance && "huntLimit" in value;
+    isInstance = isInstance && "monitorCount" in value;
+    isInstance = isInstance && "monitorLimit" in value;
+    isInstance = isInstance && "refreshTime" in value;
+
+    return isInstance;
+}
+
 export function MalqueryRateLimitsMetaFromJSON(json: any): MalqueryRateLimitsMeta {
     return MalqueryRateLimitsMetaFromJSONTyped(json, false);
 }

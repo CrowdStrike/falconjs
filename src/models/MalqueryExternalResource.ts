@@ -119,6 +119,16 @@ export interface MalqueryExternalResource {
     yaraRules?: Array<string>;
 }
 
+/**
+ * Check if a given object implements the MalqueryExternalResource interface.
+ */
+export function instanceOfMalqueryExternalResource(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "samples" in value;
+
+    return isInstance;
+}
+
 export function MalqueryExternalResourceFromJSON(json: any): MalqueryExternalResource {
     return MalqueryExternalResourceFromJSONTyped(json, false);
 }

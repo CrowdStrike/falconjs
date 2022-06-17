@@ -43,6 +43,17 @@ export interface DomainMsaPFResponseV2 {
     resources: Array<DomainRemoteCommandPutFileV2>;
 }
 
+/**
+ * Check if a given object implements the DomainMsaPFResponseV2 interface.
+ */
+export function instanceOfDomainMsaPFResponseV2(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainMsaPFResponseV2FromJSON(json: any): DomainMsaPFResponseV2 {
     return DomainMsaPFResponseV2FromJSONTyped(json, false);
 }

@@ -27,6 +27,15 @@ export interface DomainAPIRemediationIDs {
     ids?: Array<string>;
 }
 
+/**
+ * Check if a given object implements the DomainAPIRemediationIDs interface.
+ */
+export function instanceOfDomainAPIRemediationIDs(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function DomainAPIRemediationIDsFromJSON(json: any): DomainAPIRemediationIDs {
     return DomainAPIRemediationIDsFromJSONTyped(json, false);
 }

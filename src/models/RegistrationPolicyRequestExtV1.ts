@@ -29,6 +29,16 @@ export interface RegistrationPolicyRequestExtV1 {
     resources: Array<RegistrationPolicyExtV1>;
 }
 
+/**
+ * Check if a given object implements the RegistrationPolicyRequestExtV1 interface.
+ */
+export function instanceOfRegistrationPolicyRequestExtV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function RegistrationPolicyRequestExtV1FromJSON(json: any): RegistrationPolicyRequestExtV1 {
     return RegistrationPolicyRequestExtV1FromJSONTyped(json, false);
 }

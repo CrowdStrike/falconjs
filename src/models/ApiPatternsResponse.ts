@@ -43,6 +43,17 @@ export interface ApiPatternsResponse {
     resources: Array<ApiPatternV1>;
 }
 
+/**
+ * Check if a given object implements the ApiPatternsResponse interface.
+ */
+export function instanceOfApiPatternsResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ApiPatternsResponseFromJSON(json: any): ApiPatternsResponse {
     return ApiPatternsResponseFromJSONTyped(json, false);
 }

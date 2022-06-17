@@ -33,6 +33,15 @@ export interface RegistrationAzureAccountExternalV1 {
     tenantId?: string;
 }
 
+/**
+ * Check if a given object implements the RegistrationAzureAccountExternalV1 interface.
+ */
+export function instanceOfRegistrationAzureAccountExternalV1(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function RegistrationAzureAccountExternalV1FromJSON(json: any): RegistrationAzureAccountExternalV1 {
     return RegistrationAzureAccountExternalV1FromJSONTyped(json, false);
 }

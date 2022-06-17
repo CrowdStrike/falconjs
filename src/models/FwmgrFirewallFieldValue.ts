@@ -57,6 +57,19 @@ export interface FwmgrFirewallFieldValue {
     values: Array<string>;
 }
 
+/**
+ * Check if a given object implements the FwmgrFirewallFieldValue interface.
+ */
+export function instanceOfFwmgrFirewallFieldValue(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "value" in value;
+    isInstance = isInstance && "values" in value;
+
+    return isInstance;
+}
+
 export function FwmgrFirewallFieldValueFromJSON(json: any): FwmgrFirewallFieldValue {
     return FwmgrFirewallFieldValueFromJSONTyped(json, false);
 }

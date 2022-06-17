@@ -39,6 +39,18 @@ export interface DomainUpdateNotificationRequestV1 {
     status: string;
 }
 
+/**
+ * Check if a given object implements the DomainUpdateNotificationRequestV1 interface.
+ */
+export function instanceOfDomainUpdateNotificationRequestV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "assignedToUuid" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "status" in value;
+
+    return isInstance;
+}
+
 export function DomainUpdateNotificationRequestV1FromJSON(json: any): DomainUpdateNotificationRequestV1 {
     return DomainUpdateNotificationRequestV1FromJSONTyped(json, false);
 }

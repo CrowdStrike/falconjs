@@ -51,6 +51,20 @@ export interface DomainUpdateRuleRequestV1 {
     priority: string;
 }
 
+/**
+ * Check if a given object implements the DomainUpdateRuleRequestV1 interface.
+ */
+export function instanceOfDomainUpdateRuleRequestV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "filter" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "permissions" in value;
+    isInstance = isInstance && "priority" in value;
+
+    return isInstance;
+}
+
 export function DomainUpdateRuleRequestV1FromJSON(json: any): DomainUpdateRuleRequestV1 {
     return DomainUpdateRuleRequestV1FromJSONTyped(json, false);
 }

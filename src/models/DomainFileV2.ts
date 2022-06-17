@@ -105,6 +105,29 @@ export interface DomainFileV2 {
     updatedAt: Date;
 }
 
+/**
+ * Check if a given object implements the DomainFileV2 interface.
+ */
+export function instanceOfDomainFileV2(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "cloudRequestId" in value;
+    isInstance = isInstance && "complete" in value;
+    isInstance = isInstance && "createdAt" in value;
+    isInstance = isInstance && "deletedAt" in value;
+    isInstance = isInstance && "errorMessage" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "progress" in value;
+    isInstance = isInstance && "sessionId" in value;
+    isInstance = isInstance && "sha256" in value;
+    isInstance = isInstance && "size" in value;
+    isInstance = isInstance && "stage" in value;
+    isInstance = isInstance && "status" in value;
+    isInstance = isInstance && "updatedAt" in value;
+
+    return isInstance;
+}
+
 export function DomainFileV2FromJSON(json: any): DomainFileV2 {
     return DomainFileV2FromJSONTyped(json, false);
 }

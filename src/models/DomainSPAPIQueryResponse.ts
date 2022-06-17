@@ -42,6 +42,17 @@ export interface DomainSPAPIQueryResponse {
     resources: Array<string>;
 }
 
+/**
+ * Check if a given object implements the DomainSPAPIQueryResponse interface.
+ */
+export function instanceOfDomainSPAPIQueryResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainSPAPIQueryResponseFromJSON(json: any): DomainSPAPIQueryResponse {
     return DomainSPAPIQueryResponseFromJSONTyped(json, false);
 }

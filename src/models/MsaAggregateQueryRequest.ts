@@ -42,6 +42,12 @@ export interface MsaAggregateQueryRequest {
     filter: string;
     /**
      *
+     * @type {number}
+     * @memberof MsaAggregateQueryRequest
+     */
+    from: number;
+    /**
+     *
      * @type {string}
      * @memberof MsaAggregateQueryRequest
      */
@@ -114,6 +120,31 @@ export interface MsaAggregateQueryRequest {
     type: string;
 }
 
+/**
+ * Check if a given object implements the MsaAggregateQueryRequest interface.
+ */
+export function instanceOfMsaAggregateQueryRequest(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "dateRanges" in value;
+    isInstance = isInstance && "field" in value;
+    isInstance = isInstance && "filter" in value;
+    isInstance = isInstance && "from" in value;
+    isInstance = isInstance && "include" in value;
+    isInstance = isInstance && "interval" in value;
+    isInstance = isInstance && "minDocCount" in value;
+    isInstance = isInstance && "missing" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "q" in value;
+    isInstance = isInstance && "ranges" in value;
+    isInstance = isInstance && "size" in value;
+    isInstance = isInstance && "sort" in value;
+    isInstance = isInstance && "subAggregates" in value;
+    isInstance = isInstance && "timeZone" in value;
+    isInstance = isInstance && "type" in value;
+
+    return isInstance;
+}
+
 export function MsaAggregateQueryRequestFromJSON(json: any): MsaAggregateQueryRequest {
     return MsaAggregateQueryRequestFromJSONTyped(json, false);
 }
@@ -126,6 +157,7 @@ export function MsaAggregateQueryRequestFromJSONTyped(json: any, ignoreDiscrimin
         dateRanges: (json["date_ranges"] as Array<any>).map(MsaDateRangeSpecFromJSON),
         field: json["field"],
         filter: json["filter"],
+        from: json["from"],
         include: json["include"],
         interval: json["interval"],
         minDocCount: json["min_doc_count"],
@@ -152,6 +184,7 @@ export function MsaAggregateQueryRequestToJSON(value?: MsaAggregateQueryRequest 
         date_ranges: (value.dateRanges as Array<any>).map(MsaDateRangeSpecToJSON),
         field: value.field,
         filter: value.filter,
+        from: value.from,
         include: value.include,
         interval: value.interval,
         min_doc_count: value.minDocCount,

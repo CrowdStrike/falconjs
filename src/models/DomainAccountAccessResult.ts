@@ -39,6 +39,17 @@ export interface DomainAccountAccessResult {
     successful: boolean;
 }
 
+/**
+ * Check if a given object implements the DomainAccountAccessResult interface.
+ */
+export function instanceOfDomainAccountAccessResult(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "successful" in value;
+
+    return isInstance;
+}
+
 export function DomainAccountAccessResultFromJSON(json: any): DomainAccountAccessResult {
     return DomainAccountAccessResultFromJSONTyped(json, false);
 }

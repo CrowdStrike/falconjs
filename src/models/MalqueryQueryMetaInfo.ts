@@ -66,6 +66,16 @@ export interface MalqueryQueryMetaInfo {
     writes?: MsaResources;
 }
 
+/**
+ * Check if a given object implements the MalqueryQueryMetaInfo interface.
+ */
+export function instanceOfMalqueryQueryMetaInfo(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "traceId" in value;
+
+    return isInstance;
+}
+
 export function MalqueryQueryMetaInfoFromJSON(json: any): MalqueryQueryMetaInfo {
     return MalqueryQueryMetaInfoFromJSONTyped(json, false);
 }

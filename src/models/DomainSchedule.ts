@@ -33,6 +33,17 @@ export interface DomainSchedule {
     display: string;
 }
 
+/**
+ * Check if a given object implements the DomainSchedule interface.
+ */
+export function instanceOfDomainSchedule(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "definition" in value;
+    isInstance = isInstance && "display" in value;
+
+    return isInstance;
+}
+
 export function DomainScheduleFromJSON(json: any): DomainSchedule {
     return DomainScheduleFromJSONTyped(json, false);
 }

@@ -51,6 +51,19 @@ export interface DomainCSIXRelation {
     type: string;
 }
 
+/**
+ * Check if a given object implements the DomainCSIXRelation interface.
+ */
+export function instanceOfDomainCSIXRelation(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "createdDate" in value;
+    isInstance = isInstance && "indicator" in value;
+    isInstance = isInstance && "lastValidDate" in value;
+    isInstance = isInstance && "type" in value;
+
+    return isInstance;
+}
+
 export function DomainCSIXRelationFromJSON(json: any): DomainCSIXRelation {
     return DomainCSIXRelationFromJSONTyped(json, false);
 }

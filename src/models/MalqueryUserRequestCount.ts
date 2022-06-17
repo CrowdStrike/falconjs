@@ -33,6 +33,17 @@ export interface MalqueryUserRequestCount {
     userid: string;
 }
 
+/**
+ * Check if a given object implements the MalqueryUserRequestCount interface.
+ */
+export function instanceOfMalqueryUserRequestCount(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "counter" in value;
+    isInstance = isInstance && "userid" in value;
+
+    return isInstance;
+}
+
 export function MalqueryUserRequestCountFromJSON(json: any): MalqueryUserRequestCount {
     return MalqueryUserRequestCountFromJSONTyped(json, false);
 }

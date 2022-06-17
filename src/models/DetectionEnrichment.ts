@@ -33,6 +33,15 @@ export interface DetectionEnrichment {
     enrichmentType?: string;
 }
 
+/**
+ * Check if a given object implements the DetectionEnrichment interface.
+ */
+export function instanceOfDetectionEnrichment(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function DetectionEnrichmentFromJSON(json: any): DetectionEnrichment {
     return DetectionEnrichmentFromJSONTyped(json, false);
 }

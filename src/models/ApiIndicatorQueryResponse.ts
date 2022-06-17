@@ -42,6 +42,18 @@ export interface ApiIndicatorQueryResponse {
     resources: Array<string>;
 }
 
+/**
+ * Check if a given object implements the ApiIndicatorQueryResponse interface.
+ */
+export function instanceOfApiIndicatorQueryResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ApiIndicatorQueryResponseFromJSON(json: any): ApiIndicatorQueryResponse {
     return ApiIndicatorQueryResponseFromJSONTyped(json, false);
 }

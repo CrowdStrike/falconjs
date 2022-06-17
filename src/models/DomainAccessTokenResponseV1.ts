@@ -39,6 +39,18 @@ export interface DomainAccessTokenResponseV1 {
     tokenType: string;
 }
 
+/**
+ * Check if a given object implements the DomainAccessTokenResponseV1 interface.
+ */
+export function instanceOfDomainAccessTokenResponseV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "accessToken" in value;
+    isInstance = isInstance && "expiresIn" in value;
+    isInstance = isInstance && "tokenType" in value;
+
+    return isInstance;
+}
+
 export function DomainAccessTokenResponseV1FromJSON(json: any): DomainAccessTokenResponseV1 {
     return DomainAccessTokenResponseV1FromJSONTyped(json, false);
 }

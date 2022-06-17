@@ -43,6 +43,17 @@ export interface DomainSPAPIRemediationEntitiesResponseV2 {
     resources: Array<DomainAPIRemediationV2>;
 }
 
+/**
+ * Check if a given object implements the DomainSPAPIRemediationEntitiesResponseV2 interface.
+ */
+export function instanceOfDomainSPAPIRemediationEntitiesResponseV2(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainSPAPIRemediationEntitiesResponseV2FromJSON(json: any): DomainSPAPIRemediationEntitiesResponseV2 {
     return DomainSPAPIRemediationEntitiesResponseV2FromJSONTyped(json, false);
 }

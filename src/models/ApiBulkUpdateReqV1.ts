@@ -87,6 +87,15 @@ export interface ApiBulkUpdateReqV1 {
     tags?: Array<string>;
 }
 
+/**
+ * Check if a given object implements the ApiBulkUpdateReqV1 interface.
+ */
+export function instanceOfApiBulkUpdateReqV1(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function ApiBulkUpdateReqV1FromJSON(json: any): ApiBulkUpdateReqV1 {
     return ApiBulkUpdateReqV1FromJSONTyped(json, false);
 }

@@ -65,6 +65,22 @@ export interface DomainScriptHelp {
     subCommands: Array<DomainScriptHelp>;
 }
 
+/**
+ * Check if a given object implements the DomainScriptHelp interface.
+ */
+export function instanceOfDomainScriptHelp(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "args" in value;
+    isInstance = isInstance && "command" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "examples" in value;
+    isInstance = isInstance && "internalOnly" in value;
+    isInstance = isInstance && "runnable" in value;
+    isInstance = isInstance && "subCommands" in value;
+
+    return isInstance;
+}
+
 export function DomainScriptHelpFromJSON(json: any): DomainScriptHelp {
     return DomainScriptHelpFromJSONTyped(json, false);
 }

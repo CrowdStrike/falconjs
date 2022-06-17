@@ -45,6 +45,19 @@ export interface ApiActivityCreationRequest {
     userUuid: string;
 }
 
+/**
+ * Check if a given object implements the ApiActivityCreationRequest interface.
+ */
+export function instanceOfApiActivityCreationRequest(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "body" in value;
+    isInstance = isInstance && "caseId" in value;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "userUuid" in value;
+
+    return isInstance;
+}
+
 export function ApiActivityCreationRequestFromJSON(json: any): ApiActivityCreationRequest {
     return ApiActivityCreationRequestFromJSONTyped(json, false);
 }

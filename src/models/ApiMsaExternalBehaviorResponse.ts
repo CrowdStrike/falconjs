@@ -43,6 +43,18 @@ export interface ApiMsaExternalBehaviorResponse {
     resources: Array<DomainBehavior>;
 }
 
+/**
+ * Check if a given object implements the ApiMsaExternalBehaviorResponse interface.
+ */
+export function instanceOfApiMsaExternalBehaviorResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ApiMsaExternalBehaviorResponseFromJSON(json: any): ApiMsaExternalBehaviorResponse {
     return ApiMsaExternalBehaviorResponseFromJSONTyped(json, false);
 }

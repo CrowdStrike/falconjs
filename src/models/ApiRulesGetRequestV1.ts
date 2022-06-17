@@ -27,6 +27,16 @@ export interface ApiRulesGetRequestV1 {
     ids: Array<string>;
 }
 
+/**
+ * Check if a given object implements the ApiRulesGetRequestV1 interface.
+ */
+export function instanceOfApiRulesGetRequestV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "ids" in value;
+
+    return isInstance;
+}
+
 export function ApiRulesGetRequestV1FromJSON(json: any): ApiRulesGetRequestV1 {
     return ApiRulesGetRequestV1FromJSONTyped(json, false);
 }

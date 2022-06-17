@@ -33,6 +33,15 @@ export interface FalconxFileImport {
     module?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxFileImport interface.
+ */
+export function instanceOfFalconxFileImport(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxFileImportFromJSON(json: any): FalconxFileImport {
     return FalconxFileImportFromJSONTyped(json, false);
 }

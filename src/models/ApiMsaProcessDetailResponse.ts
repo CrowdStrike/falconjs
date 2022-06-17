@@ -43,6 +43,18 @@ export interface ApiMsaProcessDetailResponse {
     resources: Array<ApiProcessDetail>;
 }
 
+/**
+ * Check if a given object implements the ApiMsaProcessDetailResponse interface.
+ */
+export function instanceOfApiMsaProcessDetailResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ApiMsaProcessDetailResponseFromJSON(json: any): ApiMsaProcessDetailResponse {
     return ApiMsaProcessDetailResponseFromJSONTyped(json, false);
 }

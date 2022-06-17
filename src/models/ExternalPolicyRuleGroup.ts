@@ -35,6 +35,15 @@ export interface ExternalPolicyRuleGroup {
     rule?: ExternalPolicyRule;
 }
 
+/**
+ * Check if a given object implements the ExternalPolicyRuleGroup interface.
+ */
+export function instanceOfExternalPolicyRuleGroup(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function ExternalPolicyRuleGroupFromJSON(json: any): ExternalPolicyRuleGroup {
     return ExternalPolicyRuleGroupFromJSONTyped(json, false);
 }

@@ -27,6 +27,15 @@ export interface ExternalHostGroup {
     name?: string;
 }
 
+/**
+ * Check if a given object implements the ExternalHostGroup interface.
+ */
+export function instanceOfExternalHostGroup(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function ExternalHostGroupFromJSON(json: any): ExternalHostGroup {
     return ExternalHostGroupFromJSONTyped(json, false);
 }

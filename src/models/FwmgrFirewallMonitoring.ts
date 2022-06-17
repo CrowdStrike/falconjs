@@ -33,6 +33,17 @@ export interface FwmgrFirewallMonitoring {
     periodMs: string;
 }
 
+/**
+ * Check if a given object implements the FwmgrFirewallMonitoring interface.
+ */
+export function instanceOfFwmgrFirewallMonitoring(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "count" in value;
+    isInstance = isInstance && "periodMs" in value;
+
+    return isInstance;
+}
+
 export function FwmgrFirewallMonitoringFromJSON(json: any): FwmgrFirewallMonitoring {
     return FwmgrFirewallMonitoringFromJSONTyped(json, false);
 }

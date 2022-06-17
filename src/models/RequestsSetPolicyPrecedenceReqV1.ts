@@ -43,6 +43,17 @@ export const RequestsSetPolicyPrecedenceReqV1PlatformNameEnum = {
 } as const;
 export type RequestsSetPolicyPrecedenceReqV1PlatformNameEnum = typeof RequestsSetPolicyPrecedenceReqV1PlatformNameEnum[keyof typeof RequestsSetPolicyPrecedenceReqV1PlatformNameEnum];
 
+/**
+ * Check if a given object implements the RequestsSetPolicyPrecedenceReqV1 interface.
+ */
+export function instanceOfRequestsSetPolicyPrecedenceReqV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "ids" in value;
+    isInstance = isInstance && "platformName" in value;
+
+    return isInstance;
+}
+
 export function RequestsSetPolicyPrecedenceReqV1FromJSON(json: any): RequestsSetPolicyPrecedenceReqV1 {
     return RequestsSetPolicyPrecedenceReqV1FromJSONTyped(json, false);
 }

@@ -51,6 +51,15 @@ export interface FalconxParameter {
     value?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxParameter interface.
+ */
+export function instanceOfFalconxParameter(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxParameterFromJSON(json: any): FalconxParameter {
     return FalconxParameterFromJSONTyped(json, false);
 }

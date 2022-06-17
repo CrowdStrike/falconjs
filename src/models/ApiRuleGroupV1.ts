@@ -119,6 +119,31 @@ export interface ApiRuleGroupV1 {
     version: number;
 }
 
+/**
+ * Check if a given object implements the ApiRuleGroupV1 interface.
+ */
+export function instanceOfApiRuleGroupV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "comment" in value;
+    isInstance = isInstance && "committedOn" in value;
+    isInstance = isInstance && "createdBy" in value;
+    isInstance = isInstance && "createdOn" in value;
+    isInstance = isInstance && "customerId" in value;
+    isInstance = isInstance && "deleted" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "enabled" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "modifiedBy" in value;
+    isInstance = isInstance && "modifiedOn" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "platform" in value;
+    isInstance = isInstance && "ruleIds" in value;
+    isInstance = isInstance && "rules" in value;
+    isInstance = isInstance && "version" in value;
+
+    return isInstance;
+}
+
 export function ApiRuleGroupV1FromJSON(json: any): ApiRuleGroupV1 {
     return ApiRuleGroupV1FromJSONTyped(json, false);
 }

@@ -27,6 +27,15 @@ export interface ClientQuerySamplesRequest {
     sha256s?: Array<string>;
 }
 
+/**
+ * Check if a given object implements the ClientQuerySamplesRequest interface.
+ */
+export function instanceOfClientQuerySamplesRequest(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function ClientQuerySamplesRequestFromJSON(json: any): ClientQuerySamplesRequest {
     return ClientQuerySamplesRequestFromJSONTyped(json, false);
 }

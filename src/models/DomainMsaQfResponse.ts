@@ -43,6 +43,18 @@ export interface DomainMsaQfResponse {
     resources: Array<QuarantineQuarantinedFile>;
 }
 
+/**
+ * Check if a given object implements the DomainMsaQfResponse interface.
+ */
+export function instanceOfDomainMsaQfResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainMsaQfResponseFromJSON(json: any): DomainMsaQfResponse {
     return DomainMsaQfResponseFromJSONTyped(json, false);
 }

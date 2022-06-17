@@ -100,6 +100,24 @@ export interface K8sregAWSAccountResp {
     updatedAt: Date;
 }
 
+/**
+ * Check if a given object implements the K8sregAWSAccountResp interface.
+ */
+export function instanceOfK8sregAWSAccountResp(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "accountId" in value;
+    isInstance = isInstance && "awsPermissionsStatus" in value;
+    isInstance = isInstance && "cid" in value;
+    isInstance = isInstance && "createdAt" in value;
+    isInstance = isInstance && "fromCspm" in value;
+    isInstance = isInstance && "iamRoleArn" in value;
+    isInstance = isInstance && "isMaster" in value;
+    isInstance = isInstance && "status" in value;
+    isInstance = isInstance && "updatedAt" in value;
+
+    return isInstance;
+}
+
 export function K8sregAWSAccountRespFromJSON(json: any): K8sregAWSAccountResp {
     return K8sregAWSAccountRespFromJSONTyped(json, false);
 }

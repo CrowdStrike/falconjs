@@ -43,6 +43,18 @@ export interface DomainAssessmentsResponse {
     resources: Array<DomainSignalProperties>;
 }
 
+/**
+ * Check if a given object implements the DomainAssessmentsResponse interface.
+ */
+export function instanceOfDomainAssessmentsResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainAssessmentsResponseFromJSON(json: any): DomainAssessmentsResponse {
     return DomainAssessmentsResponseFromJSONTyped(json, false);
 }

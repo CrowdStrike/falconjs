@@ -43,6 +43,18 @@ export interface ResponsesIoaExclusionRespV1 {
     resources: Array<ResponsesIoaExclusionV1>;
 }
 
+/**
+ * Check if a given object implements the ResponsesIoaExclusionRespV1 interface.
+ */
+export function instanceOfResponsesIoaExclusionRespV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ResponsesIoaExclusionRespV1FromJSON(json: any): ResponsesIoaExclusionRespV1 {
     return ResponsesIoaExclusionRespV1FromJSONTyped(json, false);
 }

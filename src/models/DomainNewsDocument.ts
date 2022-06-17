@@ -164,6 +164,26 @@ export interface DomainNewsDocument {
     url?: string;
 }
 
+/**
+ * Check if a given object implements the DomainNewsDocument interface.
+ */
+export function instanceOfDomainNewsDocument(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "actors" in value;
+    isInstance = isInstance && "createdDate" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "lastModifiedDate" in value;
+    isInstance = isInstance && "motivations" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "slug" in value;
+    isInstance = isInstance && "tags" in value;
+    isInstance = isInstance && "targetCountries" in value;
+    isInstance = isInstance && "targetIndustries" in value;
+    isInstance = isInstance && "thumbnail" in value;
+
+    return isInstance;
+}
+
 export function DomainNewsDocumentFromJSON(json: any): DomainNewsDocument {
     return DomainNewsDocumentFromJSONTyped(json, false);
 }

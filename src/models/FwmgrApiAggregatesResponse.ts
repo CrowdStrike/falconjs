@@ -43,6 +43,17 @@ export interface FwmgrApiAggregatesResponse {
     resources: Array<FwmgrMsaAggregationResult>;
 }
 
+/**
+ * Check if a given object implements the FwmgrApiAggregatesResponse interface.
+ */
+export function instanceOfFwmgrApiAggregatesResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function FwmgrApiAggregatesResponseFromJSON(json: any): FwmgrApiAggregatesResponse {
     return FwmgrApiAggregatesResponseFromJSONTyped(json, false);
 }

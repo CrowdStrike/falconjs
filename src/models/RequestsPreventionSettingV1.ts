@@ -33,6 +33,17 @@ export interface RequestsPreventionSettingV1 {
     value: object;
 }
 
+/**
+ * Check if a given object implements the RequestsPreventionSettingV1 interface.
+ */
+export function instanceOfRequestsPreventionSettingV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "value" in value;
+
+    return isInstance;
+}
+
 export function RequestsPreventionSettingV1FromJSON(json: any): RequestsPreventionSettingV1 {
     return RequestsPreventionSettingV1FromJSONTyped(json, false);
 }

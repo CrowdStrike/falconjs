@@ -54,6 +54,17 @@ export interface DomainSPAPIQueryMeta {
     traceId: string;
 }
 
+/**
+ * Check if a given object implements the DomainSPAPIQueryMeta interface.
+ */
+export function instanceOfDomainSPAPIQueryMeta(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "queryTime" in value;
+    isInstance = isInstance && "traceId" in value;
+
+    return isInstance;
+}
+
 export function DomainSPAPIQueryMetaFromJSON(json: any): DomainSPAPIQueryMeta {
     return DomainSPAPIQueryMetaFromJSONTyped(json, false);
 }

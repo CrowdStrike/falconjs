@@ -77,6 +77,15 @@ export interface CsdomainMappedDevicePolicies {
     sensorUpdate?: CsdomainDevicePolicy;
 }
 
+/**
+ * Check if a given object implements the CsdomainMappedDevicePolicies interface.
+ */
+export function instanceOfCsdomainMappedDevicePolicies(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function CsdomainMappedDevicePoliciesFromJSON(json: any): CsdomainMappedDevicePolicies {
     return CsdomainMappedDevicePoliciesFromJSONTyped(json, false);
 }

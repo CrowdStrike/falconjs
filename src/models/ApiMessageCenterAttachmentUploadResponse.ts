@@ -43,6 +43,18 @@ export interface ApiMessageCenterAttachmentUploadResponse {
     resources: Array<MessagesAttachment>;
 }
 
+/**
+ * Check if a given object implements the ApiMessageCenterAttachmentUploadResponse interface.
+ */
+export function instanceOfApiMessageCenterAttachmentUploadResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ApiMessageCenterAttachmentUploadResponseFromJSON(json: any): ApiMessageCenterAttachmentUploadResponse {
     return ApiMessageCenterAttachmentUploadResponseFromJSONTyped(json, false);
 }

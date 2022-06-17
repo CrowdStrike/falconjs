@@ -43,6 +43,18 @@ export interface RegistrationGCPAccountResponseV1 {
     resources: Array<DomainGCPAccountV1>;
 }
 
+/**
+ * Check if a given object implements the RegistrationGCPAccountResponseV1 interface.
+ */
+export function instanceOfRegistrationGCPAccountResponseV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function RegistrationGCPAccountResponseV1FromJSON(json: any): RegistrationGCPAccountResponseV1 {
     return RegistrationGCPAccountResponseV1FromJSONTyped(json, false);
 }

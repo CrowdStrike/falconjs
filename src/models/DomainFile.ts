@@ -33,6 +33,17 @@ export interface DomainFile {
     url: string;
 }
 
+/**
+ * Check if a given object implements the DomainFile interface.
+ */
+export function instanceOfDomainFile(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "url" in value;
+
+    return isInstance;
+}
+
 export function DomainFileFromJSON(json: any): DomainFile {
     return DomainFileFromJSONTyped(json, false);
 }

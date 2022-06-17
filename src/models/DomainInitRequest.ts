@@ -39,6 +39,18 @@ export interface DomainInitRequest {
     queueOffline: boolean;
 }
 
+/**
+ * Check if a given object implements the DomainInitRequest interface.
+ */
+export function instanceOfDomainInitRequest(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "deviceId" in value;
+    isInstance = isInstance && "origin" in value;
+    isInstance = isInstance && "queueOffline" in value;
+
+    return isInstance;
+}
+
 export function DomainInitRequestFromJSON(json: any): DomainInitRequest {
     return DomainInitRequestFromJSONTyped(json, false);
 }

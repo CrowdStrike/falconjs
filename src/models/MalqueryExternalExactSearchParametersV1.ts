@@ -36,6 +36,16 @@ export interface MalqueryExternalExactSearchParametersV1 {
     patterns: Array<MalquerySearchParameter>;
 }
 
+/**
+ * Check if a given object implements the MalqueryExternalExactSearchParametersV1 interface.
+ */
+export function instanceOfMalqueryExternalExactSearchParametersV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "patterns" in value;
+
+    return isInstance;
+}
+
 export function MalqueryExternalExactSearchParametersV1FromJSON(json: any): MalqueryExternalExactSearchParametersV1 {
     return MalqueryExternalExactSearchParametersV1FromJSONTyped(json, false);
 }

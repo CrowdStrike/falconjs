@@ -45,6 +45,15 @@ export interface DetectsQuarantinedFile {
     state?: string;
 }
 
+/**
+ * Check if a given object implements the DetectsQuarantinedFile interface.
+ */
+export function instanceOfDetectsQuarantinedFile(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function DetectsQuarantinedFileFromJSON(json: any): DetectsQuarantinedFile {
     return DetectsQuarantinedFileFromJSONTyped(json, false);
 }

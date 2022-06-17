@@ -135,6 +135,34 @@ export interface RegistrationIOMEvent {
     tags: string;
 }
 
+/**
+ * Check if a given object implements the RegistrationIOMEvent interface.
+ */
+export function instanceOfRegistrationIOMEvent(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "accountId" in value;
+    isInstance = isInstance && "accountName" in value;
+    isInstance = isInstance && "azureTenantId" in value;
+    isInstance = isInstance && "cid" in value;
+    isInstance = isInstance && "cloudProvider" in value;
+    isInstance = isInstance && "finding" in value;
+    isInstance = isInstance && "policyId" in value;
+    isInstance = isInstance && "policyStatement" in value;
+    isInstance = isInstance && "region" in value;
+    isInstance = isInstance && "reportDateTime" in value;
+    isInstance = isInstance && "resourceAttributes" in value;
+    isInstance = isInstance && "resourceCreateTime" in value;
+    isInstance = isInstance && "resourceId" in value;
+    isInstance = isInstance && "resourceIdType" in value;
+    isInstance = isInstance && "resourceUrl" in value;
+    isInstance = isInstance && "service" in value;
+    isInstance = isInstance && "severity" in value;
+    isInstance = isInstance && "status" in value;
+    isInstance = isInstance && "tags" in value;
+
+    return isInstance;
+}
+
 export function RegistrationIOMEventFromJSON(json: any): RegistrationIOMEvent {
     return RegistrationIOMEventFromJSONTyped(json, false);
 }

@@ -39,6 +39,15 @@ export interface FalconxHandle {
     type?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxHandle interface.
+ */
+export function instanceOfFalconxHandle(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxHandleFromJSON(json: any): FalconxHandle {
     return FalconxHandleFromJSONTyped(json, false);
 }

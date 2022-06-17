@@ -77,6 +77,24 @@ export interface DomainQueuedSessionJob {
     userUuid: string;
 }
 
+/**
+ * Check if a given object implements the DomainQueuedSessionJob interface.
+ */
+export function instanceOfDomainQueuedSessionJob(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "commands" in value;
+    isInstance = isInstance && "aid" in value;
+    isInstance = isInstance && "createdAt" in value;
+    isInstance = isInstance && "deletedAt" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "status" in value;
+    isInstance = isInstance && "updatedAt" in value;
+    isInstance = isInstance && "userId" in value;
+    isInstance = isInstance && "userUuid" in value;
+
+    return isInstance;
+}
+
 export function DomainQueuedSessionJobFromJSON(json: any): DomainQueuedSessionJob {
     return DomainQueuedSessionJobFromJSONTyped(json, false);
 }

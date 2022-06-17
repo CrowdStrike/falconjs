@@ -33,6 +33,17 @@ export interface DomainPlatform {
     label: string;
 }
 
+/**
+ * Check if a given object implements the DomainPlatform interface.
+ */
+export function instanceOfDomainPlatform(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "label" in value;
+
+    return isInstance;
+}
+
 export function DomainPlatformFromJSON(json: any): DomainPlatform {
     return DomainPlatformFromJSONTyped(json, false);
 }

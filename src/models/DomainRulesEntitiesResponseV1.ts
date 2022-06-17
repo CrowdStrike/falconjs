@@ -43,6 +43,18 @@ export interface DomainRulesEntitiesResponseV1 {
     resources: Array<SadomainRule>;
 }
 
+/**
+ * Check if a given object implements the DomainRulesEntitiesResponseV1 interface.
+ */
+export function instanceOfDomainRulesEntitiesResponseV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainRulesEntitiesResponseV1FromJSON(json: any): DomainRulesEntitiesResponseV1 {
     return DomainRulesEntitiesResponseV1FromJSONTyped(json, false);
 }

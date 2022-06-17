@@ -33,6 +33,17 @@ export interface DomainRulePreviewRequest {
     topic: string;
 }
 
+/**
+ * Check if a given object implements the DomainRulePreviewRequest interface.
+ */
+export function instanceOfDomainRulePreviewRequest(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "filter" in value;
+    isInstance = isInstance && "topic" in value;
+
+    return isInstance;
+}
+
 export function DomainRulePreviewRequestFromJSON(json: any): DomainRulePreviewRequest {
     return DomainRulePreviewRequestFromJSONTyped(json, false);
 }

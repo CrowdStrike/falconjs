@@ -39,6 +39,18 @@ export interface DomainUpdateDeviceTagsRequestV1 {
     tags: Array<string>;
 }
 
+/**
+ * Check if a given object implements the DomainUpdateDeviceTagsRequestV1 interface.
+ */
+export function instanceOfDomainUpdateDeviceTagsRequestV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "action" in value;
+    isInstance = isInstance && "deviceIds" in value;
+    isInstance = isInstance && "tags" in value;
+
+    return isInstance;
+}
+
 export function DomainUpdateDeviceTagsRequestV1FromJSON(json: any): DomainUpdateDeviceTagsRequestV1 {
     return DomainUpdateDeviceTagsRequestV1FromJSONTyped(json, false);
 }

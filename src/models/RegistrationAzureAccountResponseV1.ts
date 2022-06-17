@@ -43,6 +43,18 @@ export interface RegistrationAzureAccountResponseV1 {
     resources: Array<DomainAzureAccountV1>;
 }
 
+/**
+ * Check if a given object implements the RegistrationAzureAccountResponseV1 interface.
+ */
+export function instanceOfRegistrationAzureAccountResponseV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function RegistrationAzureAccountResponseV1FromJSON(json: any): RegistrationAzureAccountResponseV1 {
     return RegistrationAzureAccountResponseV1FromJSONTyped(json, false);
 }

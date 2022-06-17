@@ -43,6 +43,17 @@ export interface ExternalGetChangesResponse {
     resources: Array<ExternalChange>;
 }
 
+/**
+ * Check if a given object implements the ExternalGetChangesResponse interface.
+ */
+export function instanceOfExternalGetChangesResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ExternalGetChangesResponseFromJSON(json: any): ExternalGetChangesResponse {
     return ExternalGetChangesResponseFromJSONTyped(json, false);
 }

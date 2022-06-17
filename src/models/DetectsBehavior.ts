@@ -233,6 +233,45 @@ export interface DetectsBehavior {
     userName: string;
 }
 
+/**
+ * Check if a given object implements the DetectsBehavior interface.
+ */
+export function instanceOfDetectsBehavior(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "allegedFiletype" in value;
+    isInstance = isInstance && "behaviorId" in value;
+    isInstance = isInstance && "cmdline" in value;
+    isInstance = isInstance && "confidence" in value;
+    isInstance = isInstance && "controlGraphId" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "deviceId" in value;
+    isInstance = isInstance && "displayName" in value;
+    isInstance = isInstance && "filename" in value;
+    isInstance = isInstance && "filepath" in value;
+    isInstance = isInstance && "iocDescription" in value;
+    isInstance = isInstance && "iocSource" in value;
+    isInstance = isInstance && "iocType" in value;
+    isInstance = isInstance && "iocValue" in value;
+    isInstance = isInstance && "md5" in value;
+    isInstance = isInstance && "objective" in value;
+    isInstance = isInstance && "parentDetails" in value;
+    isInstance = isInstance && "patternDisposition" in value;
+    isInstance = isInstance && "patternDispositionDetails" in value;
+    isInstance = isInstance && "scenario" in value;
+    isInstance = isInstance && "severity" in value;
+    isInstance = isInstance && "sha256" in value;
+    isInstance = isInstance && "tactic" in value;
+    isInstance = isInstance && "tacticId" in value;
+    isInstance = isInstance && "technique" in value;
+    isInstance = isInstance && "techniqueId" in value;
+    isInstance = isInstance && "timestamp" in value;
+    isInstance = isInstance && "triggeringProcessGraphId" in value;
+    isInstance = isInstance && "userId" in value;
+    isInstance = isInstance && "userName" in value;
+
+    return isInstance;
+}
+
 export function DetectsBehaviorFromJSON(json: any): DetectsBehavior {
     return DetectsBehaviorFromJSONTyped(json, false);
 }

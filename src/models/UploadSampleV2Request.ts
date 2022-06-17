@@ -72,6 +72,17 @@ export interface UploadSampleV2Request {
     isConfidential?: boolean;
 }
 
+/**
+ * Check if a given object implements the UploadSampleV2Request interface.
+ */
+export function instanceOfUploadSampleV2Request(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "sample" in value;
+    isInstance = isInstance && "fileName" in value;
+
+    return isInstance;
+}
+
 export function UploadSampleV2RequestFromJSON(json: any): UploadSampleV2Request {
     return UploadSampleV2RequestFromJSONTyped(json, false);
 }

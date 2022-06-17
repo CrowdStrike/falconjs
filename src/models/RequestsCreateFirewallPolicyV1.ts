@@ -55,6 +55,17 @@ export const RequestsCreateFirewallPolicyV1PlatformNameEnum = {
 } as const;
 export type RequestsCreateFirewallPolicyV1PlatformNameEnum = typeof RequestsCreateFirewallPolicyV1PlatformNameEnum[keyof typeof RequestsCreateFirewallPolicyV1PlatformNameEnum];
 
+/**
+ * Check if a given object implements the RequestsCreateFirewallPolicyV1 interface.
+ */
+export function instanceOfRequestsCreateFirewallPolicyV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "platformName" in value;
+
+    return isInstance;
+}
+
 export function RequestsCreateFirewallPolicyV1FromJSON(json: any): RequestsCreateFirewallPolicyV1 {
     return RequestsCreateFirewallPolicyV1FromJSONTyped(json, false);
 }

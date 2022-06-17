@@ -297,6 +297,17 @@ export interface DetectsDeviceDetailIndexed {
     tags?: Array<string>;
 }
 
+/**
+ * Check if a given object implements the DetectsDeviceDetailIndexed interface.
+ */
+export function instanceOfDetectsDeviceDetailIndexed(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "cid" in value;
+    isInstance = isInstance && "deviceId" in value;
+
+    return isInstance;
+}
+
 export function DetectsDeviceDetailIndexedFromJSON(json: any): DetectsDeviceDetailIndexed {
     return DetectsDeviceDetailIndexedFromJSONTyped(json, false);
 }

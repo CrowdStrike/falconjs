@@ -27,6 +27,16 @@ export interface MalqueryMultiDownloadRequestV1 {
     samples: Array<string>;
 }
 
+/**
+ * Check if a given object implements the MalqueryMultiDownloadRequestV1 interface.
+ */
+export function instanceOfMalqueryMultiDownloadRequestV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "samples" in value;
+
+    return isInstance;
+}
+
 export function MalqueryMultiDownloadRequestV1FromJSON(json: any): MalqueryMultiDownloadRequestV1 {
     return MalqueryMultiDownloadRequestV1FromJSONTyped(json, false);
 }

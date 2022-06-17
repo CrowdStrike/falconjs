@@ -48,6 +48,18 @@ export interface ResponsesDeviceControlPoliciesV1 {
     resources: Array<ResponsesDeviceControlPolicyV1>;
 }
 
+/**
+ * Check if a given object implements the ResponsesDeviceControlPoliciesV1 interface.
+ */
+export function instanceOfResponsesDeviceControlPoliciesV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ResponsesDeviceControlPoliciesV1FromJSON(json: any): ResponsesDeviceControlPoliciesV1 {
     return ResponsesDeviceControlPoliciesV1FromJSONTyped(json, false);
 }

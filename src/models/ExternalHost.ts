@@ -65,6 +65,15 @@ export interface ExternalHost {
     osVersion?: string;
 }
 
+/**
+ * Check if a given object implements the ExternalHost interface.
+ */
+export function instanceOfExternalHost(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function ExternalHostFromJSON(json: any): ExternalHost {
     return ExternalHostFromJSONTyped(json, false);
 }

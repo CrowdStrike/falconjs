@@ -43,6 +43,18 @@ export interface DomainActionEntitiesResponseV1 {
     resources: Array<DomainActionV1>;
 }
 
+/**
+ * Check if a given object implements the DomainActionEntitiesResponseV1 interface.
+ */
+export function instanceOfDomainActionEntitiesResponseV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainActionEntitiesResponseV1FromJSON(json: any): DomainActionEntitiesResponseV1 {
     return DomainActionEntitiesResponseV1FromJSONTyped(json, false);
 }

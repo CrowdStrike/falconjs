@@ -34,6 +34,16 @@ export interface RequestsCreateDeviceControlPoliciesV1 {
     resources: Array<RequestsCreateDeviceControlPolicyV1>;
 }
 
+/**
+ * Check if a given object implements the RequestsCreateDeviceControlPoliciesV1 interface.
+ */
+export function instanceOfRequestsCreateDeviceControlPoliciesV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function RequestsCreateDeviceControlPoliciesV1FromJSON(json: any): RequestsCreateDeviceControlPoliciesV1 {
     return RequestsCreateDeviceControlPoliciesV1FromJSONTyped(json, false);
 }

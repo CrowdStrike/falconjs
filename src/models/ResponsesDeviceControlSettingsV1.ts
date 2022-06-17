@@ -65,6 +65,18 @@ export const ResponsesDeviceControlSettingsV1EnforcementModeEnum = {
 } as const;
 export type ResponsesDeviceControlSettingsV1EnforcementModeEnum = typeof ResponsesDeviceControlSettingsV1EnforcementModeEnum[keyof typeof ResponsesDeviceControlSettingsV1EnforcementModeEnum];
 
+/**
+ * Check if a given object implements the ResponsesDeviceControlSettingsV1 interface.
+ */
+export function instanceOfResponsesDeviceControlSettingsV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "classes" in value;
+    isInstance = isInstance && "endUserNotification" in value;
+    isInstance = isInstance && "enforcementMode" in value;
+
+    return isInstance;
+}
+
 export function ResponsesDeviceControlSettingsV1FromJSON(json: any): ResponsesDeviceControlSettingsV1 {
     return ResponsesDeviceControlSettingsV1FromJSONTyped(json, false);
 }

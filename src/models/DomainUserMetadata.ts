@@ -51,6 +51,17 @@ export interface DomainUserMetadata {
     uuid: string;
 }
 
+/**
+ * Check if a given object implements the DomainUserMetadata interface.
+ */
+export function instanceOfDomainUserMetadata(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "customer" in value;
+    isInstance = isInstance && "uuid" in value;
+
+    return isInstance;
+}
+
 export function DomainUserMetadataFromJSON(json: any): DomainUserMetadata {
     return DomainUserMetadataFromJSONTyped(json, false);
 }

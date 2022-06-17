@@ -45,6 +45,15 @@ export interface ApiPaginationMeta {
     total?: number;
 }
 
+/**
+ * Check if a given object implements the ApiPaginationMeta interface.
+ */
+export function instanceOfApiPaginationMeta(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function ApiPaginationMetaFromJSON(json: any): ApiPaginationMeta {
     return ApiPaginationMetaFromJSONTyped(json, false);
 }

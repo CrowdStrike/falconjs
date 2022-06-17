@@ -36,6 +36,16 @@ export interface FwmgrMsaReplyMetaOnly {
     meta: FwmgrMsaMetaInfo;
 }
 
+/**
+ * Check if a given object implements the FwmgrMsaReplyMetaOnly interface.
+ */
+export function instanceOfFwmgrMsaReplyMetaOnly(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+
+    return isInstance;
+}
+
 export function FwmgrMsaReplyMetaOnlyFromJSON(json: any): FwmgrMsaReplyMetaOnly {
     return FwmgrMsaReplyMetaOnlyFromJSONTyped(json, false);
 }

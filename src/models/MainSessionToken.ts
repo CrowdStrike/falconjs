@@ -33,6 +33,17 @@ export interface MainSessionToken {
     token: string;
 }
 
+/**
+ * Check if a given object implements the MainSessionToken interface.
+ */
+export function instanceOfMainSessionToken(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "expiration" in value;
+    isInstance = isInstance && "token" in value;
+
+    return isInstance;
+}
+
 export function MainSessionTokenFromJSON(json: any): MainSessionToken {
     return MainSessionTokenFromJSONTyped(json, false);
 }

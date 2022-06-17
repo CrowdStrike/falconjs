@@ -59,6 +59,21 @@ export interface FwmgrApiRuleGroupModifyRequestV1 {
     tracking: string;
 }
 
+/**
+ * Check if a given object implements the FwmgrApiRuleGroupModifyRequestV1 interface.
+ */
+export function instanceOfFwmgrApiRuleGroupModifyRequestV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "diffOperations" in value;
+    isInstance = isInstance && "diffType" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "ruleIds" in value;
+    isInstance = isInstance && "ruleVersions" in value;
+    isInstance = isInstance && "tracking" in value;
+
+    return isInstance;
+}
+
 export function FwmgrApiRuleGroupModifyRequestV1FromJSON(json: any): FwmgrApiRuleGroupModifyRequestV1 {
     return FwmgrApiRuleGroupModifyRequestV1FromJSONTyped(json, false);
 }

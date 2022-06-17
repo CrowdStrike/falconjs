@@ -101,6 +101,28 @@ export interface K8sregClusterResp {
     updatedAt: Date;
 }
 
+/**
+ * Check if a given object implements the K8sregClusterResp interface.
+ */
+export function instanceOfK8sregClusterResp(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "accountId" in value;
+    isInstance = isInstance && "agentVersion" in value;
+    isInstance = isInstance && "cid" in value;
+    isInstance = isInstance && "clusterId" in value;
+    isInstance = isInstance && "clusterName" in value;
+    isInstance = isInstance && "clusterService" in value;
+    isInstance = isInstance && "createdAt" in value;
+    isInstance = isInstance && "helmVersion" in value;
+    isInstance = isInstance && "k8sVersion" in value;
+    isInstance = isInstance && "lastHeartbeatAt" in value;
+    isInstance = isInstance && "location" in value;
+    isInstance = isInstance && "status" in value;
+    isInstance = isInstance && "updatedAt" in value;
+
+    return isInstance;
+}
+
 export function K8sregClusterRespFromJSON(json: any): K8sregClusterResp {
     return K8sregClusterRespFromJSONTyped(json, false);
 }

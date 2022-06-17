@@ -48,6 +48,17 @@ export interface FwmgrApiEventsResponse {
     resources: Array<FwmgrFirewallMatchEventResponse>;
 }
 
+/**
+ * Check if a given object implements the FwmgrApiEventsResponse interface.
+ */
+export function instanceOfFwmgrApiEventsResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function FwmgrApiEventsResponseFromJSON(json: any): FwmgrApiEventsResponse {
     return FwmgrApiEventsResponseFromJSONTyped(json, false);
 }

@@ -45,6 +45,15 @@ export interface QuarantineQuarantinedFilePath {
     state?: string;
 }
 
+/**
+ * Check if a given object implements the QuarantineQuarantinedFilePath interface.
+ */
+export function instanceOfQuarantineQuarantinedFilePath(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function QuarantineQuarantinedFilePathFromJSON(json: any): QuarantineQuarantinedFilePath {
     return QuarantineQuarantinedFilePathFromJSONTyped(json, false);
 }

@@ -47,6 +47,17 @@ export interface RequestsUpdatePreventionPolicyV1 {
     settings: Array<RequestsPreventionSettingV1>;
 }
 
+/**
+ * Check if a given object implements the RequestsUpdatePreventionPolicyV1 interface.
+ */
+export function instanceOfRequestsUpdatePreventionPolicyV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "settings" in value;
+
+    return isInstance;
+}
+
 export function RequestsUpdatePreventionPolicyV1FromJSON(json: any): RequestsUpdatePreventionPolicyV1 {
     return RequestsUpdatePreventionPolicyV1FromJSONTyped(json, false);
 }

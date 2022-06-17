@@ -43,6 +43,18 @@ export interface DomainListFilesV2ResponseWrapper {
     resources: Array<DomainFileV2>;
 }
 
+/**
+ * Check if a given object implements the DomainListFilesV2ResponseWrapper interface.
+ */
+export function instanceOfDomainListFilesV2ResponseWrapper(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainListFilesV2ResponseWrapperFromJSON(json: any): DomainListFilesV2ResponseWrapper {
     return DomainListFilesV2ResponseWrapperFromJSONTyped(json, false);
 }

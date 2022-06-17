@@ -81,6 +81,25 @@ export interface DomainSensorInstallerV1 {
     version: string;
 }
 
+/**
+ * Check if a given object implements the DomainSensorInstallerV1 interface.
+ */
+export function instanceOfDomainSensorInstallerV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "fileSize" in value;
+    isInstance = isInstance && "fileType" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "os" in value;
+    isInstance = isInstance && "osVersion" in value;
+    isInstance = isInstance && "platform" in value;
+    isInstance = isInstance && "releaseDate" in value;
+    isInstance = isInstance && "sha256" in value;
+    isInstance = isInstance && "version" in value;
+
+    return isInstance;
+}
+
 export function DomainSensorInstallerV1FromJSON(json: any): DomainSensorInstallerV1 {
     return DomainSensorInstallerV1FromJSONTyped(json, false);
 }

@@ -35,6 +35,16 @@ export interface RegistrationMSAPagingExtension {
     nextToken?: string;
 }
 
+/**
+ * Check if a given object implements the RegistrationMSAPagingExtension interface.
+ */
+export function instanceOfRegistrationMSAPagingExtension(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "paging" in value;
+
+    return isInstance;
+}
+
 export function RegistrationMSAPagingExtensionFromJSON(json: any): RegistrationMSAPagingExtension {
     return RegistrationMSAPagingExtensionFromJSONTyped(json, false);
 }

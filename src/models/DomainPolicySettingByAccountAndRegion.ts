@@ -57,6 +57,17 @@ export interface DomainPolicySettingByAccountAndRegion {
     tenantId?: string;
 }
 
+/**
+ * Check if a given object implements the DomainPolicySettingByAccountAndRegion interface.
+ */
+export function instanceOfDomainPolicySettingByAccountAndRegion(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "enabled" in value;
+    isInstance = isInstance && "tagExcluded" in value;
+
+    return isInstance;
+}
+
 export function DomainPolicySettingByAccountAndRegionFromJSON(json: any): DomainPolicySettingByAccountAndRegion {
     return DomainPolicySettingByAccountAndRegionFromJSONTyped(json, false);
 }

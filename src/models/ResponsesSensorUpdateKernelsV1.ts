@@ -43,6 +43,18 @@ export interface ResponsesSensorUpdateKernelsV1 {
     resources: Array<ResponsesSensorUpdateKernelV1>;
 }
 
+/**
+ * Check if a given object implements the ResponsesSensorUpdateKernelsV1 interface.
+ */
+export function instanceOfResponsesSensorUpdateKernelsV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ResponsesSensorUpdateKernelsV1FromJSON(json: any): ResponsesSensorUpdateKernelsV1 {
     return ResponsesSensorUpdateKernelsV1FromJSONTyped(json, false);
 }

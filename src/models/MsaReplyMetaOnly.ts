@@ -36,6 +36,16 @@ export interface MsaReplyMetaOnly {
     meta: MsaMetaInfo;
 }
 
+/**
+ * Check if a given object implements the MsaReplyMetaOnly interface.
+ */
+export function instanceOfMsaReplyMetaOnly(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+
+    return isInstance;
+}
+
 export function MsaReplyMetaOnlyFromJSON(json: any): MsaReplyMetaOnly {
     return MsaReplyMetaOnlyFromJSONTyped(json, false);
 }

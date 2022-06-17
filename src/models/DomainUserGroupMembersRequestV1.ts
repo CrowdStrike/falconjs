@@ -29,6 +29,16 @@ export interface DomainUserGroupMembersRequestV1 {
     resources: Array<DomainUserGroupMembers>;
 }
 
+/**
+ * Check if a given object implements the DomainUserGroupMembersRequestV1 interface.
+ */
+export function instanceOfDomainUserGroupMembersRequestV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainUserGroupMembersRequestV1FromJSON(json: any): DomainUserGroupMembersRequestV1 {
     return DomainUserGroupMembersRequestV1FromJSONTyped(json, false);
 }

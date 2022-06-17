@@ -93,6 +93,27 @@ export interface DomainResultMetadata {
     searchWindowStart: Date;
 }
 
+/**
+ * Check if a given object implements the DomainResultMetadata interface.
+ */
+export function instanceOfDomainResultMetadata(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "executionDelay" in value;
+    isInstance = isInstance && "executionDuration" in value;
+    isInstance = isInstance && "executionFinish" in value;
+    isInstance = isInstance && "executionStart" in value;
+    isInstance = isInstance && "queueDuration" in value;
+    isInstance = isInstance && "queueStart" in value;
+    isInstance = isInstance && "reportFileName" in value;
+    isInstance = isInstance && "reportFinish" in value;
+    isInstance = isInstance && "resultCount" in value;
+    isInstance = isInstance && "resultId" in value;
+    isInstance = isInstance && "searchWindowEnd" in value;
+    isInstance = isInstance && "searchWindowStart" in value;
+
+    return isInstance;
+}
+
 export function DomainResultMetadataFromJSON(json: any): DomainResultMetadata {
     return DomainResultMetadataFromJSONTyped(json, false);
 }

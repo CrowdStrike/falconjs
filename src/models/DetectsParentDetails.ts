@@ -45,6 +45,19 @@ export interface DetectsParentDetails {
     parentSha256: string;
 }
 
+/**
+ * Check if a given object implements the DetectsParentDetails interface.
+ */
+export function instanceOfDetectsParentDetails(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "parentCmdline" in value;
+    isInstance = isInstance && "parentMd5" in value;
+    isInstance = isInstance && "parentProcessGraphId" in value;
+    isInstance = isInstance && "parentSha256" in value;
+
+    return isInstance;
+}
+
 export function DetectsParentDetailsFromJSON(json: any): DetectsParentDetails {
     return DetectsParentDetailsFromJSONTyped(json, false);
 }

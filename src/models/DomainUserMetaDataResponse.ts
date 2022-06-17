@@ -43,6 +43,18 @@ export interface DomainUserMetaDataResponse {
     resources: Array<DomainUserMetadata>;
 }
 
+/**
+ * Check if a given object implements the DomainUserMetaDataResponse interface.
+ */
+export function instanceOfDomainUserMetaDataResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainUserMetaDataResponseFromJSON(json: any): DomainUserMetaDataResponse {
     return DomainUserMetaDataResponseFromJSONTyped(json, false);
 }

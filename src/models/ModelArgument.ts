@@ -111,6 +111,30 @@ export interface ModelArgument {
     updatedAt: Date;
 }
 
+/**
+ * Check if a given object implements the ModelArgument interface.
+ */
+export function instanceOfModelArgument(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "argName" in value;
+    isInstance = isInstance && "argType" in value;
+    isInstance = isInstance && "commandLevel" in value;
+    isInstance = isInstance && "createdAt" in value;
+    isInstance = isInstance && "dataType" in value;
+    isInstance = isInstance && "defaultValue" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "encoding" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "options" in value;
+    isInstance = isInstance && "required" in value;
+    isInstance = isInstance && "requiresValue" in value;
+    isInstance = isInstance && "scriptId" in value;
+    isInstance = isInstance && "sequence" in value;
+    isInstance = isInstance && "updatedAt" in value;
+
+    return isInstance;
+}
+
 export function ModelArgumentFromJSON(json: any): ModelArgument {
     return ModelArgumentFromJSONTyped(json, false);
 }

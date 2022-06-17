@@ -33,6 +33,15 @@ export interface FalconxMemoryForensic {
     value?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxMemoryForensic interface.
+ */
+export function instanceOfFalconxMemoryForensic(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxMemoryForensicFromJSON(json: any): FalconxMemoryForensic {
     return FalconxMemoryForensicFromJSONTyped(json, false);
 }

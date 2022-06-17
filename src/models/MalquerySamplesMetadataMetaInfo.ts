@@ -60,6 +60,16 @@ export interface MalquerySamplesMetadataMetaInfo {
     writes?: MsaResources;
 }
 
+/**
+ * Check if a given object implements the MalquerySamplesMetadataMetaInfo interface.
+ */
+export function instanceOfMalquerySamplesMetadataMetaInfo(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "traceId" in value;
+
+    return isInstance;
+}
+
 export function MalquerySamplesMetadataMetaInfoFromJSON(json: any): MalquerySamplesMetadataMetaInfo {
     return MalquerySamplesMetadataMetaInfoFromJSONTyped(json, false);
 }

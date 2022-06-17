@@ -33,6 +33,17 @@ export interface FwmgrFirewallPortRange {
     start: number;
 }
 
+/**
+ * Check if a given object implements the FwmgrFirewallPortRange interface.
+ */
+export function instanceOfFwmgrFirewallPortRange(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "end" in value;
+    isInstance = isInstance && "start" in value;
+
+    return isInstance;
+}
+
 export function FwmgrFirewallPortRangeFromJSON(json: any): FwmgrFirewallPortRange {
     return FwmgrFirewallPortRangeFromJSONTyped(json, false);
 }

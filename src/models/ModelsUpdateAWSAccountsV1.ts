@@ -29,6 +29,16 @@ export interface ModelsUpdateAWSAccountsV1 {
     resources: Array<ModelsAWSAccountRequestV1>;
 }
 
+/**
+ * Check if a given object implements the ModelsUpdateAWSAccountsV1 interface.
+ */
+export function instanceOfModelsUpdateAWSAccountsV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ModelsUpdateAWSAccountsV1FromJSON(json: any): ModelsUpdateAWSAccountsV1 {
     return ModelsUpdateAWSAccountsV1FromJSONTyped(json, false);
 }

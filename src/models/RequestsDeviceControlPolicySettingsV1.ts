@@ -62,6 +62,19 @@ export const RequestsDeviceControlPolicySettingsV1EndUserNotificationEnum = {
 export type RequestsDeviceControlPolicySettingsV1EndUserNotificationEnum =
     typeof RequestsDeviceControlPolicySettingsV1EndUserNotificationEnum[keyof typeof RequestsDeviceControlPolicySettingsV1EndUserNotificationEnum];
 
+/**
+ * Check if a given object implements the RequestsDeviceControlPolicySettingsV1 interface.
+ */
+export function instanceOfRequestsDeviceControlPolicySettingsV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "classes" in value;
+    isInstance = isInstance && "endUserNotification" in value;
+    isInstance = isInstance && "enforcementMode" in value;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
+}
+
 export function RequestsDeviceControlPolicySettingsV1FromJSON(json: any): RequestsDeviceControlPolicySettingsV1 {
     return RequestsDeviceControlPolicySettingsV1FromJSONTyped(json, false);
 }

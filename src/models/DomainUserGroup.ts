@@ -45,6 +45,17 @@ export interface DomainUserGroup {
     userGroupId?: string;
 }
 
+/**
+ * Check if a given object implements the DomainUserGroup interface.
+ */
+export function instanceOfDomainUserGroup(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "name" in value;
+
+    return isInstance;
+}
+
 export function DomainUserGroupFromJSON(json: any): DomainUserGroup {
     return DomainUserGroupFromJSONTyped(json, false);
 }

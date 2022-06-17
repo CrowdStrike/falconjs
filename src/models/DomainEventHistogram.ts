@@ -57,6 +57,21 @@ export interface DomainEventHistogram {
     timestampMin: number;
 }
 
+/**
+ * Check if a given object implements the DomainEventHistogram interface.
+ */
+export function instanceOfDomainEventHistogram(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "count" in value;
+    isInstance = isInstance && "hasDetect" in value;
+    isInstance = isInstance && "hasOverwatch" in value;
+    isInstance = isInstance && "hasPrevented" in value;
+    isInstance = isInstance && "timestampMax" in value;
+    isInstance = isInstance && "timestampMin" in value;
+
+    return isInstance;
+}
+
 export function DomainEventHistogramFromJSON(json: any): DomainEventHistogram {
     return DomainEventHistogramFromJSONTyped(json, false);
 }

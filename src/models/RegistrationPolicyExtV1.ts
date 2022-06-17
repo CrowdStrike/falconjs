@@ -57,6 +57,21 @@ export interface RegistrationPolicyExtV1 {
     tagExcluded: boolean;
 }
 
+/**
+ * Check if a given object implements the RegistrationPolicyExtV1 interface.
+ */
+export function instanceOfRegistrationPolicyExtV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "accountId" in value;
+    isInstance = isInstance && "enabled" in value;
+    isInstance = isInstance && "policyId" in value;
+    isInstance = isInstance && "regions" in value;
+    isInstance = isInstance && "severity" in value;
+    isInstance = isInstance && "tagExcluded" in value;
+
+    return isInstance;
+}
+
 export function RegistrationPolicyExtV1FromJSON(json: any): RegistrationPolicyExtV1 {
     return RegistrationPolicyExtV1FromJSONTyped(json, false);
 }

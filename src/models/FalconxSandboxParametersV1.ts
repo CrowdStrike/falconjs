@@ -87,6 +87,15 @@ export interface FalconxSandboxParametersV1 {
     url?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxSandboxParametersV1 interface.
+ */
+export function instanceOfFalconxSandboxParametersV1(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxSandboxParametersV1FromJSON(json: any): FalconxSandboxParametersV1 {
     return FalconxSandboxParametersV1FromJSONTyped(json, false);
 }

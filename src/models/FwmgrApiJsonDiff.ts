@@ -45,6 +45,18 @@ export interface FwmgrApiJsonDiff {
     value: object;
 }
 
+/**
+ * Check if a given object implements the FwmgrApiJsonDiff interface.
+ */
+export function instanceOfFwmgrApiJsonDiff(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "op" in value;
+    isInstance = isInstance && "path" in value;
+    isInstance = isInstance && "value" in value;
+
+    return isInstance;
+}
+
 export function FwmgrApiJsonDiffFromJSON(json: any): FwmgrApiJsonDiff {
     return FwmgrApiJsonDiffFromJSONTyped(json, false);
 }

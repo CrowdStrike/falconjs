@@ -27,6 +27,15 @@ export interface DeviceDeviceMeta {
     version?: string;
 }
 
+/**
+ * Check if a given object implements the DeviceDeviceMeta interface.
+ */
+export function instanceOfDeviceDeviceMeta(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function DeviceDeviceMetaFromJSON(json: any): DeviceDeviceMeta {
     return DeviceDeviceMetaFromJSONTyped(json, false);
 }

@@ -27,6 +27,16 @@ export interface CsdomainManagedApp {
     version: string;
 }
 
+/**
+ * Check if a given object implements the CsdomainManagedApp interface.
+ */
+export function instanceOfCsdomainManagedApp(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "version" in value;
+
+    return isInstance;
+}
+
 export function CsdomainManagedAppFromJSON(json: any): CsdomainManagedApp {
     return CsdomainManagedAppFromJSONTyped(json, false);
 }

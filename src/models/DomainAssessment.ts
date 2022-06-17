@@ -45,6 +45,19 @@ export interface DomainAssessment {
     version: string;
 }
 
+/**
+ * Check if a given object implements the DomainAssessment interface.
+ */
+export function instanceOfDomainAssessment(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "os" in value;
+    isInstance = isInstance && "overall" in value;
+    isInstance = isInstance && "sensorConfig" in value;
+    isInstance = isInstance && "version" in value;
+
+    return isInstance;
+}
+
 export function DomainAssessmentFromJSON(json: any): DomainAssessment {
     return DomainAssessmentFromJSONTyped(json, false);
 }

@@ -41,6 +41,18 @@ export interface DeviceapiNetworkAddressHistoryV1 {
     history: Array<DeviceapiNetworkAddressV1>;
 }
 
+/**
+ * Check if a given object implements the DeviceapiNetworkAddressHistoryV1 interface.
+ */
+export function instanceOfDeviceapiNetworkAddressHistoryV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "cid" in value;
+    isInstance = isInstance && "deviceId" in value;
+    isInstance = isInstance && "history" in value;
+
+    return isInstance;
+}
+
 export function DeviceapiNetworkAddressHistoryV1FromJSON(json: any): DeviceapiNetworkAddressHistoryV1 {
     return DeviceapiNetworkAddressHistoryV1FromJSONTyped(json, false);
 }

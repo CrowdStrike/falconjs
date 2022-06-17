@@ -43,6 +43,17 @@ export interface DomainSPAPICombinedVulnerabilitiesResponse {
     resources: Array<DomainBaseAPIVulnerabilityV2>;
 }
 
+/**
+ * Check if a given object implements the DomainSPAPICombinedVulnerabilitiesResponse interface.
+ */
+export function instanceOfDomainSPAPICombinedVulnerabilitiesResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainSPAPICombinedVulnerabilitiesResponseFromJSON(json: any): DomainSPAPICombinedVulnerabilitiesResponse {
     return DomainSPAPICombinedVulnerabilitiesResponseFromJSONTyped(json, false);
 }

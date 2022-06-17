@@ -42,6 +42,18 @@ export interface DomainRuleQueryResponseV1 {
     resources: Array<string>;
 }
 
+/**
+ * Check if a given object implements the DomainRuleQueryResponseV1 interface.
+ */
+export function instanceOfDomainRuleQueryResponseV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainRuleQueryResponseV1FromJSON(json: any): DomainRuleQueryResponseV1 {
     return DomainRuleQueryResponseV1FromJSONTyped(json, false);
 }

@@ -45,6 +45,15 @@ export interface FalconxEntity {
     value?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxEntity interface.
+ */
+export function instanceOfFalconxEntity(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxEntityFromJSON(json: any): FalconxEntity {
     return FalconxEntityFromJSONTyped(json, false);
 }

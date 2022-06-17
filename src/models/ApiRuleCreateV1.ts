@@ -71,6 +71,23 @@ export interface ApiRuleCreateV1 {
     ruletypeId: string;
 }
 
+/**
+ * Check if a given object implements the ApiRuleCreateV1 interface.
+ */
+export function instanceOfApiRuleCreateV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "comment" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "dispositionId" in value;
+    isInstance = isInstance && "fieldValues" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "patternSeverity" in value;
+    isInstance = isInstance && "rulegroupId" in value;
+    isInstance = isInstance && "ruletypeId" in value;
+
+    return isInstance;
+}
+
 export function ApiRuleCreateV1FromJSON(json: any): ApiRuleCreateV1 {
     return ApiRuleCreateV1FromJSONTyped(json, false);
 }

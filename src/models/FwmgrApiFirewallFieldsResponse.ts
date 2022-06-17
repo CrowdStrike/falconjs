@@ -43,6 +43,17 @@ export interface FwmgrApiFirewallFieldsResponse {
     resources: Array<FwmgrApiFirewallFieldsV1>;
 }
 
+/**
+ * Check if a given object implements the FwmgrApiFirewallFieldsResponse interface.
+ */
+export function instanceOfFwmgrApiFirewallFieldsResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function FwmgrApiFirewallFieldsResponseFromJSON(json: any): FwmgrApiFirewallFieldsResponse {
     return FwmgrApiFirewallFieldsResponseFromJSONTyped(json, false);
 }

@@ -39,6 +39,18 @@ export interface DomainScanScheduleDataV1 {
     scanSchedule: string;
 }
 
+/**
+ * Check if a given object implements the DomainScanScheduleDataV1 interface.
+ */
+export function instanceOfDomainScanScheduleDataV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "cloudPlatform" in value;
+    isInstance = isInstance && "nextScanTimestamp" in value;
+    isInstance = isInstance && "scanSchedule" in value;
+
+    return isInstance;
+}
+
 export function DomainScanScheduleDataV1FromJSON(json: any): DomainScanScheduleDataV1 {
     return DomainScanScheduleDataV1FromJSONTyped(json, false);
 }

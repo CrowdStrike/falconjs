@@ -52,6 +52,17 @@ export interface RequestsUpdateDeviceControlPolicyV1 {
     settings: RequestsDeviceControlPolicySettingsV1;
 }
 
+/**
+ * Check if a given object implements the RequestsUpdateDeviceControlPolicyV1 interface.
+ */
+export function instanceOfRequestsUpdateDeviceControlPolicyV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "settings" in value;
+
+    return isInstance;
+}
+
 export function RequestsUpdateDeviceControlPolicyV1FromJSON(json: any): RequestsUpdateDeviceControlPolicyV1 {
     return RequestsUpdateDeviceControlPolicyV1FromJSONTyped(json, false);
 }

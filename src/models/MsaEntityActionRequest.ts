@@ -29,6 +29,15 @@ export interface MsaEntityActionRequest {
     actionParameters?: Array<MsaActionParameter>;
 }
 
+/**
+ * Check if a given object implements the MsaEntityActionRequest interface.
+ */
+export function instanceOfMsaEntityActionRequest(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function MsaEntityActionRequestFromJSON(json: any): MsaEntityActionRequest {
     return MsaEntityActionRequestFromJSONTyped(json, false);
 }

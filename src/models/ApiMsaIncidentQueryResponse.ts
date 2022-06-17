@@ -42,6 +42,18 @@ export interface ApiMsaIncidentQueryResponse {
     resources: Array<object>;
 }
 
+/**
+ * Check if a given object implements the ApiMsaIncidentQueryResponse interface.
+ */
+export function instanceOfApiMsaIncidentQueryResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ApiMsaIncidentQueryResponseFromJSON(json: any): ApiMsaIncidentQueryResponse {
     return ApiMsaIncidentQueryResponseFromJSONTyped(json, false);
 }

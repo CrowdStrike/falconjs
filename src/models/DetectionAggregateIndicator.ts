@@ -63,6 +63,15 @@ export interface DetectionAggregateIndicator {
     value?: string;
 }
 
+/**
+ * Check if a given object implements the DetectionAggregateIndicator interface.
+ */
+export function instanceOfDetectionAggregateIndicator(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function DetectionAggregateIndicatorFromJSON(json: any): DetectionAggregateIndicator {
     return DetectionAggregateIndicatorFromJSONTyped(json, false);
 }

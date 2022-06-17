@@ -47,6 +47,19 @@ export interface FwmgrApiRuleGroupCreateRequestV1 {
     rules: Array<FwmgrApiRuleCreateRequestV1>;
 }
 
+/**
+ * Check if a given object implements the FwmgrApiRuleGroupCreateRequestV1 interface.
+ */
+export function instanceOfFwmgrApiRuleGroupCreateRequestV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "enabled" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "rules" in value;
+
+    return isInstance;
+}
+
 export function FwmgrApiRuleGroupCreateRequestV1FromJSON(json: any): FwmgrApiRuleGroupCreateRequestV1 {
     return FwmgrApiRuleGroupCreateRequestV1FromJSONTyped(json, false);
 }

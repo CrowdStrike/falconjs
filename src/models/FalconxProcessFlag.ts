@@ -33,6 +33,15 @@ export interface FalconxProcessFlag {
     name?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxProcessFlag interface.
+ */
+export function instanceOfFalconxProcessFlag(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxProcessFlagFromJSON(json: any): FalconxProcessFlag {
     return FalconxProcessFlagFromJSONTyped(json, false);
 }

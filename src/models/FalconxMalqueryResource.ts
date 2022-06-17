@@ -69,6 +69,15 @@ export interface FalconxMalqueryResource {
     sha256?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxMalqueryResource interface.
+ */
+export function instanceOfFalconxMalqueryResource(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxMalqueryResourceFromJSON(json: any): FalconxMalqueryResource {
     return FalconxMalqueryResourceFromJSONTyped(json, false);
 }

@@ -61,6 +61,17 @@ export interface DomainRuleMetaInfo {
     writes?: MsaResources;
 }
 
+/**
+ * Check if a given object implements the DomainRuleMetaInfo interface.
+ */
+export function instanceOfDomainRuleMetaInfo(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "queryTime" in value;
+    isInstance = isInstance && "traceId" in value;
+
+    return isInstance;
+}
+
 export function DomainRuleMetaInfoFromJSON(json: any): DomainRuleMetaInfo {
     return DomainRuleMetaInfoFromJSONTyped(json, false);
 }

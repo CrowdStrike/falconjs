@@ -45,6 +45,19 @@ export interface DomainUpdateActionRequest {
     status: string;
 }
 
+/**
+ * Check if a given object implements the DomainUpdateActionRequest interface.
+ */
+export function instanceOfDomainUpdateActionRequest(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "frequency" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "recipients" in value;
+    isInstance = isInstance && "status" in value;
+
+    return isInstance;
+}
+
 export function DomainUpdateActionRequestFromJSON(json: any): DomainUpdateActionRequest {
     return DomainUpdateActionRequestFromJSONTyped(json, false);
 }

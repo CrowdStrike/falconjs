@@ -59,6 +59,15 @@ export interface FalconxStream {
     uid?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxStream interface.
+ */
+export function instanceOfFalconxStream(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxStreamFromJSON(json: any): FalconxStream {
     return FalconxStreamFromJSONTyped(json, false);
 }

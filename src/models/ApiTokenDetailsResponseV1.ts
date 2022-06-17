@@ -43,6 +43,18 @@ export interface ApiTokenDetailsResponseV1 {
     resources: Array<ApiTokenDetailsResourceV1>;
 }
 
+/**
+ * Check if a given object implements the ApiTokenDetailsResponseV1 interface.
+ */
+export function instanceOfApiTokenDetailsResponseV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ApiTokenDetailsResponseV1FromJSON(json: any): ApiTokenDetailsResponseV1 {
     return ApiTokenDetailsResponseV1FromJSONTyped(json, false);
 }

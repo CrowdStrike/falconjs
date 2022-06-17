@@ -43,6 +43,18 @@ export interface ResponsesMlExclusionRespV1 {
     resources: Array<ResponsesMlExclusionV1>;
 }
 
+/**
+ * Check if a given object implements the ResponsesMlExclusionRespV1 interface.
+ */
+export function instanceOfResponsesMlExclusionRespV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function ResponsesMlExclusionRespV1FromJSON(json: any): ResponsesMlExclusionRespV1 {
     return ResponsesMlExclusionRespV1FromJSONTyped(json, false);
 }

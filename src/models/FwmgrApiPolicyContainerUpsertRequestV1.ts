@@ -75,6 +75,22 @@ export interface FwmgrApiPolicyContainerUpsertRequestV1 {
     tracking?: string;
 }
 
+/**
+ * Check if a given object implements the FwmgrApiPolicyContainerUpsertRequestV1 interface.
+ */
+export function instanceOfFwmgrApiPolicyContainerUpsertRequestV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "defaultInbound" in value;
+    isInstance = isInstance && "defaultOutbound" in value;
+    isInstance = isInstance && "enforce" in value;
+    isInstance = isInstance && "platformId" in value;
+    isInstance = isInstance && "policyId" in value;
+    isInstance = isInstance && "ruleGroupIds" in value;
+    isInstance = isInstance && "testMode" in value;
+
+    return isInstance;
+}
+
 export function FwmgrApiPolicyContainerUpsertRequestV1FromJSON(json: any): FwmgrApiPolicyContainerUpsertRequestV1 {
     return FwmgrApiPolicyContainerUpsertRequestV1FromJSONTyped(json, false);
 }

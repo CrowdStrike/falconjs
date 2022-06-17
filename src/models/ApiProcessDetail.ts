@@ -75,6 +75,24 @@ export interface ApiProcessDetail {
     stopTimestampRaw: string;
 }
 
+/**
+ * Check if a given object implements the ApiProcessDetail interface.
+ */
+export function instanceOfApiProcessDetail(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "commandLine" in value;
+    isInstance = isInstance && "deviceId" in value;
+    isInstance = isInstance && "fileName" in value;
+    isInstance = isInstance && "processId" in value;
+    isInstance = isInstance && "processIdLocal" in value;
+    isInstance = isInstance && "startTimestamp" in value;
+    isInstance = isInstance && "startTimestampRaw" in value;
+    isInstance = isInstance && "stopTimestamp" in value;
+    isInstance = isInstance && "stopTimestampRaw" in value;
+
+    return isInstance;
+}
+
 export function ApiProcessDetailFromJSON(json: any): ApiProcessDetail {
     return ApiProcessDetailFromJSONTyped(json, false);
 }

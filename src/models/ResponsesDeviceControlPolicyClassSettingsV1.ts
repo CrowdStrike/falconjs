@@ -56,6 +56,18 @@ export const ResponsesDeviceControlPolicyClassSettingsV1ActionEnum = {
 } as const;
 export type ResponsesDeviceControlPolicyClassSettingsV1ActionEnum = typeof ResponsesDeviceControlPolicyClassSettingsV1ActionEnum[keyof typeof ResponsesDeviceControlPolicyClassSettingsV1ActionEnum];
 
+/**
+ * Check if a given object implements the ResponsesDeviceControlPolicyClassSettingsV1 interface.
+ */
+export function instanceOfResponsesDeviceControlPolicyClassSettingsV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "action" in value;
+    isInstance = isInstance && "exceptions" in value;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
+}
+
 export function ResponsesDeviceControlPolicyClassSettingsV1FromJSON(json: any): ResponsesDeviceControlPolicyClassSettingsV1 {
     return ResponsesDeviceControlPolicyClassSettingsV1FromJSONTyped(json, false);
 }

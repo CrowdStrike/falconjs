@@ -39,6 +39,16 @@ export interface RequestsUpdateFirewallPolicyV1 {
     name?: string;
 }
 
+/**
+ * Check if a given object implements the RequestsUpdateFirewallPolicyV1 interface.
+ */
+export function instanceOfRequestsUpdateFirewallPolicyV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
+}
+
 export function RequestsUpdateFirewallPolicyV1FromJSON(json: any): RequestsUpdateFirewallPolicyV1 {
     return RequestsUpdateFirewallPolicyV1FromJSONTyped(json, false);
 }

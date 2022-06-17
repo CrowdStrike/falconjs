@@ -48,6 +48,17 @@ export interface BinservclientMsaPFResponse {
     resources: Array<BinservclientRemoteCommandPutFile>;
 }
 
+/**
+ * Check if a given object implements the BinservclientMsaPFResponse interface.
+ */
+export function instanceOfBinservclientMsaPFResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function BinservclientMsaPFResponseFromJSON(json: any): BinservclientMsaPFResponse {
     return BinservclientMsaPFResponseFromJSONTyped(json, false);
 }

@@ -48,6 +48,19 @@ export interface FwmgrApiFirewallFieldsV1 {
     platformFields: Array<FwmgrDomainField>;
 }
 
+/**
+ * Check if a given object implements the FwmgrApiFirewallFieldsV1 interface.
+ */
+export function instanceOfFwmgrApiFirewallFieldsV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "defaultMonitor" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "platform" in value;
+    isInstance = isInstance && "platformFields" in value;
+
+    return isInstance;
+}
+
 export function FwmgrApiFirewallFieldsV1FromJSON(json: any): FwmgrApiFirewallFieldsV1 {
     return FwmgrApiFirewallFieldsV1FromJSONTyped(json, false);
 }

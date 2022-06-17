@@ -39,6 +39,18 @@ export interface FalconxQuota {
     used: number;
 }
 
+/**
+ * Check if a given object implements the FalconxQuota interface.
+ */
+export function instanceOfFalconxQuota(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "inProgress" in value;
+    isInstance = isInstance && "total" in value;
+    isInstance = isInstance && "used" in value;
+
+    return isInstance;
+}
+
 export function FalconxQuotaFromJSON(json: any): FalconxQuota {
     return FalconxQuotaFromJSONTyped(json, false);
 }

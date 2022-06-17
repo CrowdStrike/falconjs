@@ -47,6 +47,17 @@ export interface DomainMetaInfo {
     traceId: string;
 }
 
+/**
+ * Check if a given object implements the DomainMetaInfo interface.
+ */
+export function instanceOfDomainMetaInfo(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "queryTime" in value;
+    isInstance = isInstance && "traceId" in value;
+
+    return isInstance;
+}
+
 export function DomainMetaInfoFromJSON(json: any): DomainMetaInfo {
     return DomainMetaInfoFromJSONTyped(json, false);
 }

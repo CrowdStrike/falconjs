@@ -39,6 +39,15 @@ export interface FalconxFileMetadata {
     importedObjects?: Array<string>;
 }
 
+/**
+ * Check if a given object implements the FalconxFileMetadata interface.
+ */
+export function instanceOfFalconxFileMetadata(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxFileMetadataFromJSON(json: any): FalconxFileMetadata {
     return FalconxFileMetadataFromJSONTyped(json, false);
 }

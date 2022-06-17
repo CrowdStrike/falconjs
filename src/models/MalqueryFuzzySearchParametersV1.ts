@@ -36,6 +36,16 @@ export interface MalqueryFuzzySearchParametersV1 {
     patterns: Array<MalquerySearchParameter>;
 }
 
+/**
+ * Check if a given object implements the MalqueryFuzzySearchParametersV1 interface.
+ */
+export function instanceOfMalqueryFuzzySearchParametersV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "patterns" in value;
+
+    return isInstance;
+}
+
 export function MalqueryFuzzySearchParametersV1FromJSON(json: any): MalqueryFuzzySearchParametersV1 {
     return MalqueryFuzzySearchParametersV1FromJSONTyped(json, false);
 }

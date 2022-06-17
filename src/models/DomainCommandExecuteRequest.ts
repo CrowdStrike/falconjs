@@ -57,6 +57,21 @@ export interface DomainCommandExecuteRequest {
     sessionId: string;
 }
 
+/**
+ * Check if a given object implements the DomainCommandExecuteRequest interface.
+ */
+export function instanceOfDomainCommandExecuteRequest(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "baseCommand" in value;
+    isInstance = isInstance && "commandString" in value;
+    isInstance = isInstance && "deviceId" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "persist" in value;
+    isInstance = isInstance && "sessionId" in value;
+
+    return isInstance;
+}
+
 export function DomainCommandExecuteRequestFromJSON(json: any): DomainCommandExecuteRequest {
     return DomainCommandExecuteRequestFromJSONTyped(json, false);
 }

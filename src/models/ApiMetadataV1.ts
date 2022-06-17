@@ -75,6 +75,15 @@ export interface ApiMetadataV1 {
     signed?: boolean;
 }
 
+/**
+ * Check if a given object implements the ApiMetadataV1 interface.
+ */
+export function instanceOfApiMetadataV1(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function ApiMetadataV1FromJSON(json: any): ApiMetadataV1 {
     return ApiMetadataV1FromJSONTyped(json, false);
 }

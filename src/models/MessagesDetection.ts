@@ -33,6 +33,17 @@ export interface MessagesDetection {
     url: string;
 }
 
+/**
+ * Check if a given object implements the MessagesDetection interface.
+ */
+export function instanceOfMessagesDetection(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "url" in value;
+
+    return isInstance;
+}
+
 export function MessagesDetectionFromJSON(json: any): MessagesDetection {
     return MessagesDetectionFromJSONTyped(json, false);
 }

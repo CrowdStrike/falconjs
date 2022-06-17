@@ -33,6 +33,16 @@ export interface FwmgrDomainAddressRange {
     netmask?: number;
 }
 
+/**
+ * Check if a given object implements the FwmgrDomainAddressRange interface.
+ */
+export function instanceOfFwmgrDomainAddressRange(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "address" in value;
+
+    return isInstance;
+}
+
 export function FwmgrDomainAddressRangeFromJSON(json: any): FwmgrDomainAddressRange {
     return FwmgrDomainAddressRangeFromJSONTyped(json, false);
 }

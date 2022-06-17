@@ -43,6 +43,18 @@ export interface RegistrationGCPProvisionGetUserScriptResponseV1 {
     resources: Array<RegistrationGCPUserScript>;
 }
 
+/**
+ * Check if a given object implements the RegistrationGCPProvisionGetUserScriptResponseV1 interface.
+ */
+export function instanceOfRegistrationGCPProvisionGetUserScriptResponseV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function RegistrationGCPProvisionGetUserScriptResponseV1FromJSON(json: any): RegistrationGCPProvisionGetUserScriptResponseV1 {
     return RegistrationGCPProvisionGetUserScriptResponseV1FromJSONTyped(json, false);
 }

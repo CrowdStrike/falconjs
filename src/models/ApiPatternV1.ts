@@ -33,6 +33,17 @@ export interface ApiPatternV1 {
     severity: string;
 }
 
+/**
+ * Check if a given object implements the ApiPatternV1 interface.
+ */
+export function instanceOfApiPatternV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "severity" in value;
+
+    return isInstance;
+}
+
 export function ApiPatternV1FromJSON(json: any): ApiPatternV1 {
     return ApiPatternV1FromJSONTyped(json, false);
 }

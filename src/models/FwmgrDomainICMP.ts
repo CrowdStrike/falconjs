@@ -33,6 +33,17 @@ export interface FwmgrDomainICMP {
     icmpType: string;
 }
 
+/**
+ * Check if a given object implements the FwmgrDomainICMP interface.
+ */
+export function instanceOfFwmgrDomainICMP(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "icmpCode" in value;
+    isInstance = isInstance && "icmpType" in value;
+
+    return isInstance;
+}
+
 export function FwmgrDomainICMPFromJSON(json: any): FwmgrDomainICMP {
     return FwmgrDomainICMPFromJSONTyped(json, false);
 }

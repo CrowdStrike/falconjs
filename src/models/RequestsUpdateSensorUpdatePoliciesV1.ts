@@ -34,6 +34,16 @@ export interface RequestsUpdateSensorUpdatePoliciesV1 {
     resources: Array<RequestsUpdateSensorUpdatePolicyV1>;
 }
 
+/**
+ * Check if a given object implements the RequestsUpdateSensorUpdatePoliciesV1 interface.
+ */
+export function instanceOfRequestsUpdateSensorUpdatePoliciesV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function RequestsUpdateSensorUpdatePoliciesV1FromJSON(json: any): RequestsUpdateSensorUpdatePoliciesV1 {
     return RequestsUpdateSensorUpdatePoliciesV1FromJSONTyped(json, false);
 }

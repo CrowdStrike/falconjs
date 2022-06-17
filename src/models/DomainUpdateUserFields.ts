@@ -33,6 +33,15 @@ export interface DomainUpdateUserFields {
     lastName?: string;
 }
 
+/**
+ * Check if a given object implements the DomainUpdateUserFields interface.
+ */
+export function instanceOfDomainUpdateUserFields(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function DomainUpdateUserFieldsFromJSON(json: any): DomainUpdateUserFields {
     return DomainUpdateUserFieldsFromJSONTyped(json, false);
 }

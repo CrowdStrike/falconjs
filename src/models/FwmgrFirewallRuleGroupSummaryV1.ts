@@ -75,6 +75,24 @@ export interface FwmgrFirewallRuleGroupSummaryV1 {
     policyIds: Array<string>;
 }
 
+/**
+ * Check if a given object implements the FwmgrFirewallRuleGroupSummaryV1 interface.
+ */
+export function instanceOfFwmgrFirewallRuleGroupSummaryV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "createdBy" in value;
+    isInstance = isInstance && "createdOn" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "enabled" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "modifiedBy" in value;
+    isInstance = isInstance && "modifiedOn" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "policyIds" in value;
+
+    return isInstance;
+}
+
 export function FwmgrFirewallRuleGroupSummaryV1FromJSON(json: any): FwmgrFirewallRuleGroupSummaryV1 {
     return FwmgrFirewallRuleGroupSummaryV1FromJSONTyped(json, false);
 }

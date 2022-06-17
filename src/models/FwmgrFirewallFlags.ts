@@ -39,6 +39,18 @@ export interface FwmgrFirewallFlags {
     monitor: boolean;
 }
 
+/**
+ * Check if a given object implements the FwmgrFirewallFlags interface.
+ */
+export function instanceOfFwmgrFirewallFlags(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "audit" in value;
+    isInstance = isInstance && "log" in value;
+    isInstance = isInstance && "monitor" in value;
+
+    return isInstance;
+}
+
 export function FwmgrFirewallFlagsFromJSON(json: any): FwmgrFirewallFlags {
     return FwmgrFirewallFlagsFromJSONTyped(json, false);
 }

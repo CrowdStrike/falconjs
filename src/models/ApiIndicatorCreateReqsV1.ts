@@ -35,6 +35,16 @@ export interface ApiIndicatorCreateReqsV1 {
     indicators: Array<ApiIndicatorCreateReqV1>;
 }
 
+/**
+ * Check if a given object implements the ApiIndicatorCreateReqsV1 interface.
+ */
+export function instanceOfApiIndicatorCreateReqsV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "indicators" in value;
+
+    return isInstance;
+}
+
 export function ApiIndicatorCreateReqsV1FromJSON(json: any): ApiIndicatorCreateReqsV1 {
     return ApiIndicatorCreateReqsV1FromJSONTyped(json, false);
 }

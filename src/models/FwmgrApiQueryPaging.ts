@@ -45,6 +45,17 @@ export interface FwmgrApiQueryPaging {
     total: number;
 }
 
+/**
+ * Check if a given object implements the FwmgrApiQueryPaging interface.
+ */
+export function instanceOfFwmgrApiQueryPaging(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "limit" in value;
+    isInstance = isInstance && "total" in value;
+
+    return isInstance;
+}
+
 export function FwmgrApiQueryPagingFromJSON(json: any): FwmgrApiQueryPaging {
     return FwmgrApiQueryPagingFromJSONTyped(json, false);
 }

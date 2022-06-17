@@ -43,6 +43,18 @@ export interface DomainNotificationEntitiesResponseV1 {
     resources: Array<DomainNotificationV1>;
 }
 
+/**
+ * Check if a given object implements the DomainNotificationEntitiesResponseV1 interface.
+ */
+export function instanceOfDomainNotificationEntitiesResponseV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function DomainNotificationEntitiesResponseV1FromJSON(json: any): DomainNotificationEntitiesResponseV1 {
     return DomainNotificationEntitiesResponseV1FromJSONTyped(json, false);
 }

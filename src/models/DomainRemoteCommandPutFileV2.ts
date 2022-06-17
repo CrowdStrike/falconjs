@@ -159,6 +159,19 @@ export interface DomainRemoteCommandPutFileV2 {
     writeAccess?: boolean;
 }
 
+/**
+ * Check if a given object implements the DomainRemoteCommandPutFileV2 interface.
+ */
+export function instanceOfDomainRemoteCommandPutFileV2(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "runAttemptCount" in value;
+    isInstance = isInstance && "runSuccessCount" in value;
+    isInstance = isInstance && "shareWithWorkflow" in value;
+    isInstance = isInstance && "workflowIsDisruptive" in value;
+
+    return isInstance;
+}
+
 export function DomainRemoteCommandPutFileV2FromJSON(json: any): DomainRemoteCommandPutFileV2 {
     return DomainRemoteCommandPutFileV2FromJSONTyped(json, false);
 }

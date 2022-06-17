@@ -39,6 +39,18 @@ export interface MsaPaging {
     total: number;
 }
 
+/**
+ * Check if a given object implements the MsaPaging interface.
+ */
+export function instanceOfMsaPaging(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "limit" in value;
+    isInstance = isInstance && "offset" in value;
+    isInstance = isInstance && "total" in value;
+
+    return isInstance;
+}
+
 export function MsaPagingFromJSON(json: any): MsaPaging {
     return MsaPagingFromJSONTyped(json, false);
 }

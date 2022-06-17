@@ -43,6 +43,18 @@ export interface RegistrationPolicyResponseV1 {
     resources: Array<DomainPolicyInfo>;
 }
 
+/**
+ * Check if a given object implements the RegistrationPolicyResponseV1 interface.
+ */
+export function instanceOfRegistrationPolicyResponseV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "errors" in value;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function RegistrationPolicyResponseV1FromJSON(json: any): RegistrationPolicyResponseV1 {
     return RegistrationPolicyResponseV1FromJSONTyped(json, false);
 }

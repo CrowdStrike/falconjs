@@ -43,6 +43,17 @@ export interface FwmgrApiRulesResponse {
     resources: Array<FwmgrFirewallRuleV1>;
 }
 
+/**
+ * Check if a given object implements the FwmgrApiRulesResponse interface.
+ */
+export function instanceOfFwmgrApiRulesResponse(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
+
+    return isInstance;
+}
+
 export function FwmgrApiRulesResponseFromJSON(json: any): FwmgrApiRulesResponse {
     return FwmgrApiRulesResponseFromJSONTyped(json, false);
 }

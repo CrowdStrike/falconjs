@@ -39,6 +39,18 @@ export interface DomainMatchedBreachSummaryV1 {
     name: string;
 }
 
+/**
+ * Check if a given object implements the DomainMatchedBreachSummaryV1 interface.
+ */
+export function instanceOfDomainMatchedBreachSummaryV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "fields" in value;
+    isInstance = isInstance && "name" in value;
+
+    return isInstance;
+}
+
 export function DomainMatchedBreachSummaryV1FromJSON(json: any): DomainMatchedBreachSummaryV1 {
     return DomainMatchedBreachSummaryV1FromJSONTyped(json, false);
 }

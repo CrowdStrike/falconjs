@@ -47,6 +47,19 @@ export interface CommonCIDComplianceResult {
     platforms: Array<CommonOSCompliance>;
 }
 
+/**
+ * Check if a given object implements the CommonCIDComplianceResult interface.
+ */
+export function instanceOfCommonCIDComplianceResult(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "averageOverallScore" in value;
+    isInstance = isInstance && "cid" in value;
+    isInstance = isInstance && "numAids" in value;
+    isInstance = isInstance && "platforms" in value;
+
+    return isInstance;
+}
+
 export function CommonCIDComplianceResultFromJSON(json: any): CommonCIDComplianceResult {
     return CommonCIDComplianceResultFromJSONTyped(json, false);
 }

@@ -69,6 +69,15 @@ export interface FalconxHTTPRequest {
     url?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxHTTPRequest interface.
+ */
+export function instanceOfFalconxHTTPRequest(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxHTTPRequestFromJSON(json: any): FalconxHTTPRequest {
     return FalconxHTTPRequestFromJSONTyped(json, false);
 }

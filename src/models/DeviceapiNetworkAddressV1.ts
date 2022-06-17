@@ -39,6 +39,15 @@ export interface DeviceapiNetworkAddressV1 {
     timestamp?: string;
 }
 
+/**
+ * Check if a given object implements the DeviceapiNetworkAddressV1 interface.
+ */
+export function instanceOfDeviceapiNetworkAddressV1(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function DeviceapiNetworkAddressV1FromJSON(json: any): DeviceapiNetworkAddressV1 {
     return DeviceapiNetworkAddressV1FromJSONTyped(json, false);
 }

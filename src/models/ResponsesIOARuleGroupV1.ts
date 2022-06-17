@@ -111,6 +111,30 @@ export interface ResponsesIOARuleGroupV1 {
     version: number;
 }
 
+/**
+ * Check if a given object implements the ResponsesIOARuleGroupV1 interface.
+ */
+export function instanceOfResponsesIOARuleGroupV1(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "comment" in value;
+    isInstance = isInstance && "committedTimestamp" in value;
+    isInstance = isInstance && "createdBy" in value;
+    isInstance = isInstance && "createdTimestamp" in value;
+    isInstance = isInstance && "customerId" in value;
+    isInstance = isInstance && "deleted" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "enabled" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "modifiedBy" in value;
+    isInstance = isInstance && "modifiedTimestamp" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "platform" in value;
+    isInstance = isInstance && "ruleIds" in value;
+    isInstance = isInstance && "version" in value;
+
+    return isInstance;
+}
+
 export function ResponsesIOARuleGroupV1FromJSON(json: any): ResponsesIOARuleGroupV1 {
     return ResponsesIOARuleGroupV1FromJSONTyped(json, false);
 }

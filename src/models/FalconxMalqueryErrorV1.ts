@@ -33,6 +33,15 @@ export interface FalconxMalqueryErrorV1 {
     message?: string;
 }
 
+/**
+ * Check if a given object implements the FalconxMalqueryErrorV1 interface.
+ */
+export function instanceOfFalconxMalqueryErrorV1(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FalconxMalqueryErrorV1FromJSON(json: any): FalconxMalqueryErrorV1 {
     return FalconxMalqueryErrorV1FromJSONTyped(json, false);
 }
