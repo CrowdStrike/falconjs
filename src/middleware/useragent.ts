@@ -8,7 +8,7 @@ export class UserAgent {
                 ...context.init,
                 headers: {
                     ...context.init.headers,
-                    "User-Agent": "falconjs/0.2.1",
+                    "User-Agent": "falconjs/0.2.2",
                 },
             },
         };
