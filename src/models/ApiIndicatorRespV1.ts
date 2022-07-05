@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ApiIndicatorV1, ApiIndicatorV1FromJSON, ApiIndicatorV1FromJSONTyped, ApiIndicatorV1ToJSON } from "./ApiIndicatorV1";
-import { ApiIndicatorsQueryMeta, ApiIndicatorsQueryMetaFromJSON, ApiIndicatorsQueryMetaFromJSONTyped, ApiIndicatorsQueryMetaToJSON } from "./ApiIndicatorsQueryMeta";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { ApiIndicatorV1 } from "./ApiIndicatorV1";
+import { ApiIndicatorV1FromJSON, ApiIndicatorV1FromJSONTyped, ApiIndicatorV1ToJSON } from "./ApiIndicatorV1";
+import type { ApiIndicatorsQueryMeta } from "./ApiIndicatorsQueryMeta";
+import { ApiIndicatorsQueryMetaFromJSON, ApiIndicatorsQueryMetaFromJSONTyped, ApiIndicatorsQueryMetaToJSON } from "./ApiIndicatorsQueryMeta";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
 
 /**
  *

@@ -13,26 +13,28 @@
  */
 
 import * as runtime from "../runtime";
-import {
+import type {
     MsaErrorsOnly,
+    MsaQueryResponse,
+    MsaReplyMetaOnly,
+    RequestsSvExclusionCreateReqV1,
+    RequestsSvExclusionUpdateReqV1,
+    ResponsesMlExclusionRespV1,
+    ResponsesSvExclusionRespV1,
+} from "../models";
+import {
     MsaErrorsOnlyFromJSON,
     MsaErrorsOnlyToJSON,
-    MsaQueryResponse,
     MsaQueryResponseFromJSON,
     MsaQueryResponseToJSON,
-    MsaReplyMetaOnly,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-    RequestsSvExclusionCreateReqV1,
     RequestsSvExclusionCreateReqV1FromJSON,
     RequestsSvExclusionCreateReqV1ToJSON,
-    RequestsSvExclusionUpdateReqV1,
     RequestsSvExclusionUpdateReqV1FromJSON,
     RequestsSvExclusionUpdateReqV1ToJSON,
-    ResponsesMlExclusionRespV1,
     ResponsesMlExclusionRespV1FromJSON,
     ResponsesMlExclusionRespV1ToJSON,
-    ResponsesSvExclusionRespV1,
     ResponsesSvExclusionRespV1FromJSON,
     ResponsesSvExclusionRespV1ToJSON,
 } from "../models";

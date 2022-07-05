@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DetectionEnrichment, DetectionEnrichmentFromJSON, DetectionEnrichmentFromJSONTyped, DetectionEnrichmentToJSON } from "./DetectionEnrichment";
-import { DetectionInventoryEnrichment, DetectionInventoryEnrichmentFromJSON, DetectionInventoryEnrichmentFromJSONTyped, DetectionInventoryEnrichmentToJSON } from "./DetectionInventoryEnrichment";
+import type { DetectionEnrichment } from "./DetectionEnrichment";
+import { DetectionEnrichmentFromJSON, DetectionEnrichmentFromJSONTyped, DetectionEnrichmentToJSON } from "./DetectionEnrichment";
+import type { DetectionInventoryEnrichment } from "./DetectionInventoryEnrichment";
+import { DetectionInventoryEnrichmentFromJSON, DetectionInventoryEnrichmentFromJSONTyped, DetectionInventoryEnrichmentToJSON } from "./DetectionInventoryEnrichment";
 
 /**
  *

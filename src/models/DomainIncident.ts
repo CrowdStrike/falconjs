@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DetectsDeviceDetailIndexed, DetectsDeviceDetailIndexedFromJSON, DetectsDeviceDetailIndexedFromJSONTyped, DetectsDeviceDetailIndexedToJSON } from "./DetectsDeviceDetailIndexed";
-import { DomainEventHistogram, DomainEventHistogramFromJSON, DomainEventHistogramFromJSONTyped, DomainEventHistogramToJSON } from "./DomainEventHistogram";
+import type { DetectsDeviceDetailIndexed } from "./DetectsDeviceDetailIndexed";
+import { DetectsDeviceDetailIndexedFromJSON, DetectsDeviceDetailIndexedFromJSONTyped, DetectsDeviceDetailIndexedToJSON } from "./DetectsDeviceDetailIndexed";
+import type { DomainEventHistogram } from "./DomainEventHistogram";
+import { DomainEventHistogramFromJSON, DomainEventHistogramFromJSONTyped, DomainEventHistogramToJSON } from "./DomainEventHistogram";
 
 /**
  *

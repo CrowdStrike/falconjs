@@ -13,32 +13,34 @@
  */
 
 import * as runtime from "../runtime";
-import {
+import type {
     ModelsAWSAccountsV1,
+    ModelsBaseResponseV1,
+    ModelsCreateAWSAccountsV1,
+    ModelsCustomerConfigurationsV1,
+    ModelsModifyAWSCustomerSettingsV1,
+    ModelsUpdateAWSAccountsV1,
+    ModelsVerifyAccessResponseV1,
+    MsaQueryResponse,
+    MsaReplyMetaOnly,
+} from "../models";
+import {
     ModelsAWSAccountsV1FromJSON,
     ModelsAWSAccountsV1ToJSON,
-    ModelsBaseResponseV1,
     ModelsBaseResponseV1FromJSON,
     ModelsBaseResponseV1ToJSON,
-    ModelsCreateAWSAccountsV1,
     ModelsCreateAWSAccountsV1FromJSON,
     ModelsCreateAWSAccountsV1ToJSON,
-    ModelsCustomerConfigurationsV1,
     ModelsCustomerConfigurationsV1FromJSON,
     ModelsCustomerConfigurationsV1ToJSON,
-    ModelsModifyAWSCustomerSettingsV1,
     ModelsModifyAWSCustomerSettingsV1FromJSON,
     ModelsModifyAWSCustomerSettingsV1ToJSON,
-    ModelsUpdateAWSAccountsV1,
     ModelsUpdateAWSAccountsV1FromJSON,
     ModelsUpdateAWSAccountsV1ToJSON,
-    ModelsVerifyAccessResponseV1,
     ModelsVerifyAccessResponseV1FromJSON,
     ModelsVerifyAccessResponseV1ToJSON,
-    MsaQueryResponse,
     MsaQueryResponseFromJSON,
     MsaQueryResponseToJSON,
-    MsaReplyMetaOnly,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
 } from "../models";

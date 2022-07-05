@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DeviceManagedApp, DeviceManagedAppFromJSON, DeviceManagedAppFromJSONTyped, DeviceManagedAppToJSON } from "./DeviceManagedApp";
+import type { DeviceManagedApp } from "./DeviceManagedApp";
+import { DeviceManagedAppFromJSON, DeviceManagedAppFromJSONTyped, DeviceManagedAppToJSON } from "./DeviceManagedApp";
 
 /**
  *

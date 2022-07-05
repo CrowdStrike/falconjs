@@ -13,12 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import {
-    ModelsAWSCustomerSettingsRequestV1,
-    ModelsAWSCustomerSettingsRequestV1FromJSON,
-    ModelsAWSCustomerSettingsRequestV1FromJSONTyped,
-    ModelsAWSCustomerSettingsRequestV1ToJSON,
-} from "./ModelsAWSCustomerSettingsRequestV1";
+import type { ModelsAWSCustomerSettingsRequestV1 } from "./ModelsAWSCustomerSettingsRequestV1";
+import { ModelsAWSCustomerSettingsRequestV1FromJSON, ModelsAWSCustomerSettingsRequestV1FromJSONTyped, ModelsAWSCustomerSettingsRequestV1ToJSON } from "./ModelsAWSCustomerSettingsRequestV1";
 
 /**
  *

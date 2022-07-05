@@ -13,11 +13,16 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { MalqueryExternalHuntOptions, MalqueryExternalHuntOptionsFromJSON, MalqueryExternalHuntOptionsFromJSONTyped, MalqueryExternalHuntOptionsToJSON } from "./MalqueryExternalHuntOptions";
-import { MalquerySearchParameter, MalquerySearchParameterFromJSON, MalquerySearchParameterFromJSONTyped, MalquerySearchParameterToJSON } from "./MalquerySearchParameter";
-import { MalqueryStats, MalqueryStatsFromJSON, MalqueryStatsFromJSONTyped, MalqueryStatsToJSON } from "./MalqueryStats";
-import { MsaPaging, MsaPagingFromJSON, MsaPagingFromJSONTyped, MsaPagingToJSON } from "./MsaPaging";
-import { MsaResources, MsaResourcesFromJSON, MsaResourcesFromJSONTyped, MsaResourcesToJSON } from "./MsaResources";
+import type { MalqueryExternalHuntOptions } from "./MalqueryExternalHuntOptions";
+import { MalqueryExternalHuntOptionsFromJSON, MalqueryExternalHuntOptionsFromJSONTyped, MalqueryExternalHuntOptionsToJSON } from "./MalqueryExternalHuntOptions";
+import type { MalquerySearchParameter } from "./MalquerySearchParameter";
+import { MalquerySearchParameterFromJSON, MalquerySearchParameterFromJSONTyped, MalquerySearchParameterToJSON } from "./MalquerySearchParameter";
+import type { MalqueryStats } from "./MalqueryStats";
+import { MalqueryStatsFromJSON, MalqueryStatsFromJSONTyped, MalqueryStatsToJSON } from "./MalqueryStats";
+import type { MsaPaging } from "./MsaPaging";
+import { MsaPagingFromJSON, MsaPagingFromJSONTyped, MsaPagingToJSON } from "./MsaPaging";
+import type { MsaResources } from "./MsaResources";
+import { MsaResourcesFromJSON, MsaResourcesFromJSONTyped, MsaResourcesToJSON } from "./MsaResources";
 
 /**
  *

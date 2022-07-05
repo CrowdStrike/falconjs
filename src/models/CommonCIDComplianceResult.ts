@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { CommonOSCompliance, CommonOSComplianceFromJSON, CommonOSComplianceFromJSONTyped, CommonOSComplianceToJSON } from "./CommonOSCompliance";
+import type { CommonOSCompliance } from "./CommonOSCompliance";
+import { CommonOSComplianceFromJSON, CommonOSComplianceFromJSONTyped, CommonOSComplianceToJSON } from "./CommonOSCompliance";
 
 /**
  *

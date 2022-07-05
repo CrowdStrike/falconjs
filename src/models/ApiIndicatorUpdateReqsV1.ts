@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ApiBulkUpdateReqV1, ApiBulkUpdateReqV1FromJSON, ApiBulkUpdateReqV1FromJSONTyped, ApiBulkUpdateReqV1ToJSON } from "./ApiBulkUpdateReqV1";
-import { ApiIndicatorUpdateReqV1, ApiIndicatorUpdateReqV1FromJSON, ApiIndicatorUpdateReqV1FromJSONTyped, ApiIndicatorUpdateReqV1ToJSON } from "./ApiIndicatorUpdateReqV1";
+import type { ApiBulkUpdateReqV1 } from "./ApiBulkUpdateReqV1";
+import { ApiBulkUpdateReqV1FromJSON, ApiBulkUpdateReqV1FromJSONTyped, ApiBulkUpdateReqV1ToJSON } from "./ApiBulkUpdateReqV1";
+import type { ApiIndicatorUpdateReqV1 } from "./ApiIndicatorUpdateReqV1";
+import { ApiIndicatorUpdateReqV1FromJSON, ApiIndicatorUpdateReqV1FromJSONTyped, ApiIndicatorUpdateReqV1ToJSON } from "./ApiIndicatorUpdateReqV1";
 
 /**
  *

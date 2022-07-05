@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainReconAPIError, DomainReconAPIErrorFromJSON, DomainReconAPIErrorFromJSONTyped, DomainReconAPIErrorToJSON } from "./DomainReconAPIError";
-import { DomainRuleMetaInfo, DomainRuleMetaInfoFromJSON, DomainRuleMetaInfoFromJSONTyped, DomainRuleMetaInfoToJSON } from "./DomainRuleMetaInfo";
+import type { DomainReconAPIError } from "./DomainReconAPIError";
+import { DomainReconAPIErrorFromJSON, DomainReconAPIErrorFromJSONTyped, DomainReconAPIErrorToJSON } from "./DomainReconAPIError";
+import type { DomainRuleMetaInfo } from "./DomainRuleMetaInfo";
+import { DomainRuleMetaInfoFromJSON, DomainRuleMetaInfoFromJSONTyped, DomainRuleMetaInfoToJSON } from "./DomainRuleMetaInfo";
 
 /**
  *

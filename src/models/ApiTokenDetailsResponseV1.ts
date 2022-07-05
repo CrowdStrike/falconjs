@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ApiTokenDetailsResourceV1, ApiTokenDetailsResourceV1FromJSON, ApiTokenDetailsResourceV1FromJSONTyped, ApiTokenDetailsResourceV1ToJSON } from "./ApiTokenDetailsResourceV1";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { ApiTokenDetailsResourceV1 } from "./ApiTokenDetailsResourceV1";
+import { ApiTokenDetailsResourceV1FromJSON, ApiTokenDetailsResourceV1FromJSONTyped, ApiTokenDetailsResourceV1ToJSON } from "./ApiTokenDetailsResourceV1";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *

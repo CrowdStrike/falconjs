@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainAssessmentPaging, DomainAssessmentPagingFromJSON, DomainAssessmentPagingFromJSONTyped, DomainAssessmentPagingToJSON } from "./DomainAssessmentPaging";
+import type { DomainAssessmentPaging } from "./DomainAssessmentPaging";
+import { DomainAssessmentPagingFromJSON, DomainAssessmentPagingFromJSONTyped, DomainAssessmentPagingToJSON } from "./DomainAssessmentPaging";
 
 /**
  *

@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { CsdomainDevicePolicy, CsdomainDevicePolicyFromJSON, CsdomainDevicePolicyFromJSONTyped, CsdomainDevicePolicyToJSON } from "./CsdomainDevicePolicy";
+import type { CsdomainDevicePolicy } from "./CsdomainDevicePolicy";
+import { CsdomainDevicePolicyFromJSON, CsdomainDevicePolicyFromJSONTyped, CsdomainDevicePolicyToJSON } from "./CsdomainDevicePolicy";
 
 /**
  *

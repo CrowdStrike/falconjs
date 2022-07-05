@@ -13,12 +13,18 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { FalconxFileAccess, FalconxFileAccessFromJSON, FalconxFileAccessFromJSONTyped, FalconxFileAccessToJSON } from "./FalconxFileAccess";
-import { FalconxHandle, FalconxHandleFromJSON, FalconxHandleFromJSONTyped, FalconxHandleToJSON } from "./FalconxHandle";
-import { FalconxProcessFlag, FalconxProcessFlagFromJSON, FalconxProcessFlagFromJSONTyped, FalconxProcessFlagToJSON } from "./FalconxProcessFlag";
-import { FalconxRegistry, FalconxRegistryFromJSON, FalconxRegistryFromJSONTyped, FalconxRegistryToJSON } from "./FalconxRegistry";
-import { FalconxScriptCall, FalconxScriptCallFromJSON, FalconxScriptCallFromJSONTyped, FalconxScriptCallToJSON } from "./FalconxScriptCall";
-import { FalconxStream, FalconxStreamFromJSON, FalconxStreamFromJSONTyped, FalconxStreamToJSON } from "./FalconxStream";
+import type { FalconxFileAccess } from "./FalconxFileAccess";
+import { FalconxFileAccessFromJSON, FalconxFileAccessFromJSONTyped, FalconxFileAccessToJSON } from "./FalconxFileAccess";
+import type { FalconxHandle } from "./FalconxHandle";
+import { FalconxHandleFromJSON, FalconxHandleFromJSONTyped, FalconxHandleToJSON } from "./FalconxHandle";
+import type { FalconxProcessFlag } from "./FalconxProcessFlag";
+import { FalconxProcessFlagFromJSON, FalconxProcessFlagFromJSONTyped, FalconxProcessFlagToJSON } from "./FalconxProcessFlag";
+import type { FalconxRegistry } from "./FalconxRegistry";
+import { FalconxRegistryFromJSON, FalconxRegistryFromJSONTyped, FalconxRegistryToJSON } from "./FalconxRegistry";
+import type { FalconxScriptCall } from "./FalconxScriptCall";
+import { FalconxScriptCallFromJSON, FalconxScriptCallFromJSONTyped, FalconxScriptCallToJSON } from "./FalconxScriptCall";
+import type { FalconxStream } from "./FalconxStream";
+import { FalconxStreamFromJSON, FalconxStreamFromJSONTyped, FalconxStreamToJSON } from "./FalconxStream";
 
 /**
  *

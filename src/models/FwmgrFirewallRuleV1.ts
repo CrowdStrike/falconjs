@@ -13,17 +13,18 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { FwmgrFirewallAddressRange, FwmgrFirewallAddressRangeFromJSON, FwmgrFirewallAddressRangeFromJSONTyped, FwmgrFirewallAddressRangeToJSON } from "./FwmgrFirewallAddressRange";
-import { FwmgrFirewallFieldValue, FwmgrFirewallFieldValueFromJSON, FwmgrFirewallFieldValueFromJSONTyped, FwmgrFirewallFieldValueToJSON } from "./FwmgrFirewallFieldValue";
-import { FwmgrFirewallICMP, FwmgrFirewallICMPFromJSON, FwmgrFirewallICMPFromJSONTyped, FwmgrFirewallICMPToJSON } from "./FwmgrFirewallICMP";
-import { FwmgrFirewallMonitoring, FwmgrFirewallMonitoringFromJSON, FwmgrFirewallMonitoringFromJSONTyped, FwmgrFirewallMonitoringToJSON } from "./FwmgrFirewallMonitoring";
-import { FwmgrFirewallPortRange, FwmgrFirewallPortRangeFromJSON, FwmgrFirewallPortRangeFromJSONTyped, FwmgrFirewallPortRangeToJSON } from "./FwmgrFirewallPortRange";
-import {
-    FwmgrFirewallRuleGroupSummaryV1,
-    FwmgrFirewallRuleGroupSummaryV1FromJSON,
-    FwmgrFirewallRuleGroupSummaryV1FromJSONTyped,
-    FwmgrFirewallRuleGroupSummaryV1ToJSON,
-} from "./FwmgrFirewallRuleGroupSummaryV1";
+import type { FwmgrFirewallAddressRange } from "./FwmgrFirewallAddressRange";
+import { FwmgrFirewallAddressRangeFromJSON, FwmgrFirewallAddressRangeFromJSONTyped, FwmgrFirewallAddressRangeToJSON } from "./FwmgrFirewallAddressRange";
+import type { FwmgrFirewallFieldValue } from "./FwmgrFirewallFieldValue";
+import { FwmgrFirewallFieldValueFromJSON, FwmgrFirewallFieldValueFromJSONTyped, FwmgrFirewallFieldValueToJSON } from "./FwmgrFirewallFieldValue";
+import type { FwmgrFirewallICMP } from "./FwmgrFirewallICMP";
+import { FwmgrFirewallICMPFromJSON, FwmgrFirewallICMPFromJSONTyped, FwmgrFirewallICMPToJSON } from "./FwmgrFirewallICMP";
+import type { FwmgrFirewallMonitoring } from "./FwmgrFirewallMonitoring";
+import { FwmgrFirewallMonitoringFromJSON, FwmgrFirewallMonitoringFromJSONTyped, FwmgrFirewallMonitoringToJSON } from "./FwmgrFirewallMonitoring";
+import type { FwmgrFirewallPortRange } from "./FwmgrFirewallPortRange";
+import { FwmgrFirewallPortRangeFromJSON, FwmgrFirewallPortRangeFromJSONTyped, FwmgrFirewallPortRangeToJSON } from "./FwmgrFirewallPortRange";
+import type { FwmgrFirewallRuleGroupSummaryV1 } from "./FwmgrFirewallRuleGroupSummaryV1";
+import { FwmgrFirewallRuleGroupSummaryV1FromJSON, FwmgrFirewallRuleGroupSummaryV1FromJSONTyped, FwmgrFirewallRuleGroupSummaryV1ToJSON } from "./FwmgrFirewallRuleGroupSummaryV1";
 
 /**
  *

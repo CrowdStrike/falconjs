@@ -13,12 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import {
-    K8sregCreateAWSAccReqResources,
-    K8sregCreateAWSAccReqResourcesFromJSON,
-    K8sregCreateAWSAccReqResourcesFromJSONTyped,
-    K8sregCreateAWSAccReqResourcesToJSON,
-} from "./K8sregCreateAWSAccReqResources";
+import type { K8sregCreateAWSAccReqResources } from "./K8sregCreateAWSAccReqResources";
+import { K8sregCreateAWSAccReqResourcesFromJSON, K8sregCreateAWSAccReqResourcesFromJSONTyped, K8sregCreateAWSAccReqResourcesToJSON } from "./K8sregCreateAWSAccReqResources";
 
 /**
  *

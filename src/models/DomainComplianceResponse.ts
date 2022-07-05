@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { CommonCIDComplianceResult, CommonCIDComplianceResultFromJSON, CommonCIDComplianceResultFromJSONTyped, CommonCIDComplianceResultToJSON } from "./CommonCIDComplianceResult";
-import { DomainMetaInfo, DomainMetaInfoFromJSON, DomainMetaInfoFromJSONTyped, DomainMetaInfoToJSON } from "./DomainMetaInfo";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { CommonCIDComplianceResult } from "./CommonCIDComplianceResult";
+import { CommonCIDComplianceResultFromJSON, CommonCIDComplianceResultFromJSONTyped, CommonCIDComplianceResultToJSON } from "./CommonCIDComplianceResult";
+import type { DomainMetaInfo } from "./DomainMetaInfo";
+import { DomainMetaInfoFromJSON, DomainMetaInfoFromJSONTyped, DomainMetaInfoToJSON } from "./DomainMetaInfo";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
 
 /**
  *

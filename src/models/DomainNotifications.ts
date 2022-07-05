@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainNotificationConfig, DomainNotificationConfigFromJSON, DomainNotificationConfigFromJSONTyped, DomainNotificationConfigToJSON } from "./DomainNotificationConfig";
+import type { DomainNotificationConfig } from "./DomainNotificationConfig";
+import { DomainNotificationConfigFromJSON, DomainNotificationConfigFromJSONTyped, DomainNotificationConfigToJSON } from "./DomainNotificationConfig";
 
 /**
  *

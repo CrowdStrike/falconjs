@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { K8sregVersionResp, K8sregVersionRespFromJSON, K8sregVersionRespFromJSONTyped, K8sregVersionRespToJSON } from "./K8sregVersionResp";
+import type { K8sregVersionResp } from "./K8sregVersionResp";
+import { K8sregVersionRespFromJSON, K8sregVersionRespFromJSONTyped, K8sregVersionRespToJSON } from "./K8sregVersionResp";
 
 /**
  *

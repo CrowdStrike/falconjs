@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
-import { StateOnlineStateResultV1, StateOnlineStateResultV1FromJSON, StateOnlineStateResultV1FromJSONTyped, StateOnlineStateResultV1ToJSON } from "./StateOnlineStateResultV1";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { StateOnlineStateResultV1 } from "./StateOnlineStateResultV1";
+import { StateOnlineStateResultV1FromJSON, StateOnlineStateResultV1FromJSONTyped, StateOnlineStateResultV1ToJSON } from "./StateOnlineStateResultV1";
 
 /**
  *

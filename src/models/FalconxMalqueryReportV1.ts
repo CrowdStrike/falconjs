@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { FalconxMalqueryErrorV1, FalconxMalqueryErrorV1FromJSON, FalconxMalqueryErrorV1FromJSONTyped, FalconxMalqueryErrorV1ToJSON } from "./FalconxMalqueryErrorV1";
-import { FalconxMalqueryResource, FalconxMalqueryResourceFromJSON, FalconxMalqueryResourceFromJSONTyped, FalconxMalqueryResourceToJSON } from "./FalconxMalqueryResource";
+import type { FalconxMalqueryErrorV1 } from "./FalconxMalqueryErrorV1";
+import { FalconxMalqueryErrorV1FromJSON, FalconxMalqueryErrorV1FromJSONTyped, FalconxMalqueryErrorV1ToJSON } from "./FalconxMalqueryErrorV1";
+import type { FalconxMalqueryResource } from "./FalconxMalqueryResource";
+import { FalconxMalqueryResourceFromJSON, FalconxMalqueryResourceFromJSONTyped, FalconxMalqueryResourceToJSON } from "./FalconxMalqueryResource";
 
 /**
  *

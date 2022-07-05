@@ -13,17 +13,14 @@
  */
 
 import * as runtime from "../runtime";
+import type { MsaAggregateQueryRequest, MsaAggregatesResponse, MsaFacetsResponse, MsaReplyMetaOnly } from "../models";
 import {
-    MsaAggregateQueryRequest,
     MsaAggregateQueryRequestFromJSON,
     MsaAggregateQueryRequestToJSON,
-    MsaAggregatesResponse,
     MsaAggregatesResponseFromJSON,
     MsaAggregatesResponseToJSON,
-    MsaFacetsResponse,
     MsaFacetsResponseFromJSON,
     MsaFacetsResponseToJSON,
-    MsaReplyMetaOnly,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
 } from "../models";

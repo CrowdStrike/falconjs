@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainDevicePaging, DomainDevicePagingFromJSON, DomainDevicePagingFromJSONTyped, DomainDevicePagingToJSON } from "./DomainDevicePaging";
+import type { DomainDevicePaging } from "./DomainDevicePaging";
+import { DomainDevicePagingFromJSON, DomainDevicePagingFromJSONTyped, DomainDevicePagingToJSON } from "./DomainDevicePaging";
 
 /**
  *

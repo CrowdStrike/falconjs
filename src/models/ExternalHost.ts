@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ExternalHostGroup, ExternalHostGroupFromJSON, ExternalHostGroupFromJSONTyped, ExternalHostGroupToJSON } from "./ExternalHostGroup";
+import type { ExternalHostGroup } from "./ExternalHostGroup";
+import { ExternalHostGroupFromJSON, ExternalHostGroupFromJSONTyped, ExternalHostGroupToJSON } from "./ExternalHostGroup";
 
 /**
  *

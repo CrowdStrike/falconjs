@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ApiScheduledReportV1, ApiScheduledReportV1FromJSON, ApiScheduledReportV1FromJSONTyped, ApiScheduledReportV1ToJSON } from "./ApiScheduledReportV1";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { ApiScheduledReportV1 } from "./ApiScheduledReportV1";
+import { ApiScheduledReportV1FromJSON, ApiScheduledReportV1FromJSONTyped, ApiScheduledReportV1ToJSON } from "./ApiScheduledReportV1";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *

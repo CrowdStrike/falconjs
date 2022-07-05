@@ -13,10 +13,14 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DetectsBehavior, DetectsBehaviorFromJSON, DetectsBehaviorFromJSONTyped, DetectsBehaviorToJSON } from "./DetectsBehavior";
-import { DetectsDeviceDetailIndexed, DetectsDeviceDetailIndexedFromJSON, DetectsDeviceDetailIndexedFromJSONTyped, DetectsDeviceDetailIndexedToJSON } from "./DetectsDeviceDetailIndexed";
-import { DetectsHostInfo, DetectsHostInfoFromJSON, DetectsHostInfoFromJSONTyped, DetectsHostInfoToJSON } from "./DetectsHostInfo";
-import { DetectsQuarantinedFile, DetectsQuarantinedFileFromJSON, DetectsQuarantinedFileFromJSONTyped, DetectsQuarantinedFileToJSON } from "./DetectsQuarantinedFile";
+import type { DetectsBehavior } from "./DetectsBehavior";
+import { DetectsBehaviorFromJSON, DetectsBehaviorFromJSONTyped, DetectsBehaviorToJSON } from "./DetectsBehavior";
+import type { DetectsDeviceDetailIndexed } from "./DetectsDeviceDetailIndexed";
+import { DetectsDeviceDetailIndexedFromJSON, DetectsDeviceDetailIndexedFromJSONTyped, DetectsDeviceDetailIndexedToJSON } from "./DetectsDeviceDetailIndexed";
+import type { DetectsHostInfo } from "./DetectsHostInfo";
+import { DetectsHostInfoFromJSON, DetectsHostInfoFromJSONTyped, DetectsHostInfoToJSON } from "./DetectsHostInfo";
+import type { DetectsQuarantinedFile } from "./DetectsQuarantinedFile";
+import { DetectsQuarantinedFileFromJSON, DetectsQuarantinedFileFromJSONTyped, DetectsQuarantinedFileToJSON } from "./DetectsQuarantinedFile";
 
 /**
  *

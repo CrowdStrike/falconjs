@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ModelsAWSAccountV1, ModelsAWSAccountV1FromJSON, ModelsAWSAccountV1FromJSONTyped, ModelsAWSAccountV1ToJSON } from "./ModelsAWSAccountV1";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { ModelsAWSAccountV1 } from "./ModelsAWSAccountV1";
+import { ModelsAWSAccountV1FromJSON, ModelsAWSAccountV1FromJSONTyped, ModelsAWSAccountV1ToJSON } from "./ModelsAWSAccountV1";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *

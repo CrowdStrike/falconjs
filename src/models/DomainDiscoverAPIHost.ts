@@ -13,12 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import {
-    DomainDiscoverAPINetworkInterface,
-    DomainDiscoverAPINetworkInterfaceFromJSON,
-    DomainDiscoverAPINetworkInterfaceFromJSONTyped,
-    DomainDiscoverAPINetworkInterfaceToJSON,
-} from "./DomainDiscoverAPINetworkInterface";
+import type { DomainDiscoverAPINetworkInterface } from "./DomainDiscoverAPINetworkInterface";
+import { DomainDiscoverAPINetworkInterfaceFromJSON, DomainDiscoverAPINetworkInterfaceFromJSONTyped, DomainDiscoverAPINetworkInterfaceToJSON } from "./DomainDiscoverAPINetworkInterface";
 
 /**
  * Represents information about a managed, an unmanaged or an unsupported asset.

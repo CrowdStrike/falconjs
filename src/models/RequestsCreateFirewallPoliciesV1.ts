@@ -13,12 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import {
-    RequestsCreateFirewallPolicyV1,
-    RequestsCreateFirewallPolicyV1FromJSON,
-    RequestsCreateFirewallPolicyV1FromJSONTyped,
-    RequestsCreateFirewallPolicyV1ToJSON,
-} from "./RequestsCreateFirewallPolicyV1";
+import type { RequestsCreateFirewallPolicyV1 } from "./RequestsCreateFirewallPolicyV1";
+import { RequestsCreateFirewallPolicyV1FromJSON, RequestsCreateFirewallPolicyV1FromJSONTyped, RequestsCreateFirewallPolicyV1ToJSON } from "./RequestsCreateFirewallPolicyV1";
 
 /**
  * A req to create prevention policies

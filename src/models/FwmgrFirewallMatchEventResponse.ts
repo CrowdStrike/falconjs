@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { FwmgrFirewallFlags, FwmgrFirewallFlagsFromJSON, FwmgrFirewallFlagsFromJSONTyped, FwmgrFirewallFlagsToJSON } from "./FwmgrFirewallFlags";
+import type { FwmgrFirewallFlags } from "./FwmgrFirewallFlags";
+import { FwmgrFirewallFlagsFromJSON, FwmgrFirewallFlagsFromJSONTyped, FwmgrFirewallFlagsToJSON } from "./FwmgrFirewallFlags";
 
 /**
  *

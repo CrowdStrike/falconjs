@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { FalconxActor, FalconxActorFromJSON, FalconxActorFromJSONTyped, FalconxActorToJSON } from "./FalconxActor";
-import { FalconxRelatedIndicator, FalconxRelatedIndicatorFromJSON, FalconxRelatedIndicatorFromJSONTyped, FalconxRelatedIndicatorToJSON } from "./FalconxRelatedIndicator";
+import type { FalconxActor } from "./FalconxActor";
+import { FalconxActorFromJSON, FalconxActorFromJSONTyped, FalconxActorToJSON } from "./FalconxActor";
+import type { FalconxRelatedIndicator } from "./FalconxRelatedIndicator";
+import { FalconxRelatedIndicatorFromJSON, FalconxRelatedIndicatorFromJSONTyped, FalconxRelatedIndicatorToJSON } from "./FalconxRelatedIndicator";
 
 /**
  *

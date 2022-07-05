@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
-import { ResponsesSensorUpdateBuildV1, ResponsesSensorUpdateBuildV1FromJSON, ResponsesSensorUpdateBuildV1FromJSONTyped, ResponsesSensorUpdateBuildV1ToJSON } from "./ResponsesSensorUpdateBuildV1";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { ResponsesSensorUpdateBuildV1 } from "./ResponsesSensorUpdateBuildV1";
+import { ResponsesSensorUpdateBuildV1FromJSON, ResponsesSensorUpdateBuildV1FromJSONTyped, ResponsesSensorUpdateBuildV1ToJSON } from "./ResponsesSensorUpdateBuildV1";
 
 /**
  *

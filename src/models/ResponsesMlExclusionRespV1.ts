@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
-import { ResponsesMlExclusionV1, ResponsesMlExclusionV1FromJSON, ResponsesMlExclusionV1FromJSONTyped, ResponsesMlExclusionV1ToJSON } from "./ResponsesMlExclusionV1";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { ResponsesMlExclusionV1 } from "./ResponsesMlExclusionV1";
+import { ResponsesMlExclusionV1FromJSON, ResponsesMlExclusionV1FromJSONTyped, ResponsesMlExclusionV1ToJSON } from "./ResponsesMlExclusionV1";
 
 /**
  *

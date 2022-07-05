@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { FalconxMetaInfo, FalconxMetaInfoFromJSON, FalconxMetaInfoFromJSONTyped, FalconxMetaInfoToJSON } from "./FalconxMetaInfo";
-import { FalconxSummaryReportV1, FalconxSummaryReportV1FromJSON, FalconxSummaryReportV1FromJSONTyped, FalconxSummaryReportV1ToJSON } from "./FalconxSummaryReportV1";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { FalconxMetaInfo } from "./FalconxMetaInfo";
+import { FalconxMetaInfoFromJSON, FalconxMetaInfoFromJSONTyped, FalconxMetaInfoToJSON } from "./FalconxMetaInfo";
+import type { FalconxSummaryReportV1 } from "./FalconxSummaryReportV1";
+import { FalconxSummaryReportV1FromJSON, FalconxSummaryReportV1FromJSONTyped, FalconxSummaryReportV1ToJSON } from "./FalconxSummaryReportV1";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
 
 /**
  *

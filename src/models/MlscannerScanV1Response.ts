@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { MlscannerMetaInfo, MlscannerMetaInfoFromJSON, MlscannerMetaInfoFromJSONTyped, MlscannerMetaInfoToJSON } from "./MlscannerMetaInfo";
-import { MlscannerSamplesScanResult, MlscannerSamplesScanResultFromJSON, MlscannerSamplesScanResultFromJSONTyped, MlscannerSamplesScanResultToJSON } from "./MlscannerSamplesScanResult";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MlscannerMetaInfo } from "./MlscannerMetaInfo";
+import { MlscannerMetaInfoFromJSON, MlscannerMetaInfoFromJSONTyped, MlscannerMetaInfoToJSON } from "./MlscannerMetaInfo";
+import type { MlscannerSamplesScanResult } from "./MlscannerSamplesScanResult";
+import { MlscannerSamplesScanResultFromJSON, MlscannerSamplesScanResultFromJSONTyped, MlscannerSamplesScanResultToJSON } from "./MlscannerSamplesScanResult";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
 
 /**
  *

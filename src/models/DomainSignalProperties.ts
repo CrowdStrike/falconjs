@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainAssessment, DomainAssessmentFromJSON, DomainAssessmentFromJSONTyped, DomainAssessmentToJSON } from "./DomainAssessment";
-import { DomainAssessmentItems, DomainAssessmentItemsFromJSON, DomainAssessmentItemsFromJSONTyped, DomainAssessmentItemsToJSON } from "./DomainAssessmentItems";
+import type { DomainAssessment } from "./DomainAssessment";
+import { DomainAssessmentFromJSON, DomainAssessmentFromJSONTyped, DomainAssessmentToJSON } from "./DomainAssessment";
+import type { DomainAssessmentItems } from "./DomainAssessmentItems";
+import { DomainAssessmentItemsFromJSON, DomainAssessmentItemsFromJSONTyped, DomainAssessmentItemsToJSON } from "./DomainAssessmentItems";
 
 /**
  *

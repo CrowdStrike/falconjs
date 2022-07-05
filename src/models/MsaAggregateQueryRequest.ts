@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { MsaDateRangeSpec, MsaDateRangeSpecFromJSON, MsaDateRangeSpecFromJSONTyped, MsaDateRangeSpecToJSON } from "./MsaDateRangeSpec";
-import { MsaRangeSpec, MsaRangeSpecFromJSON, MsaRangeSpecFromJSONTyped, MsaRangeSpecToJSON } from "./MsaRangeSpec";
+import type { MsaDateRangeSpec } from "./MsaDateRangeSpec";
+import { MsaDateRangeSpecFromJSON, MsaDateRangeSpecFromJSONTyped, MsaDateRangeSpecToJSON } from "./MsaDateRangeSpec";
+import type { MsaRangeSpec } from "./MsaRangeSpec";
+import { MsaRangeSpecFromJSON, MsaRangeSpecFromJSONTyped, MsaRangeSpecToJSON } from "./MsaRangeSpec";
 
 /**
  *

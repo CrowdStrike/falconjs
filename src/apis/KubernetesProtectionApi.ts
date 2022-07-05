@@ -13,29 +13,31 @@
  */
 
 import * as runtime from "../runtime";
-import {
+import type {
     K8sregCreateAWSAccReq,
+    K8sregGetAWSAccountsResp,
+    K8sregGetClustersResp,
+    K8sregGetLocationsResp,
+    K8sregRegenAPIKeyResp,
+    MsaBaseEntitiesResponse,
+    MsaMetaInfo,
+    MsaReplyMetaOnly,
+} from "../models";
+import {
     K8sregCreateAWSAccReqFromJSON,
     K8sregCreateAWSAccReqToJSON,
-    K8sregGetAWSAccountsResp,
     K8sregGetAWSAccountsRespFromJSON,
     K8sregGetAWSAccountsRespToJSON,
-    K8sregGetClustersResp,
     K8sregGetClustersRespFromJSON,
     K8sregGetClustersRespToJSON,
-    K8sregGetLocationsResp,
     K8sregGetLocationsRespFromJSON,
     K8sregGetLocationsRespToJSON,
-    K8sregRegenAPIKeyResp,
     K8sregRegenAPIKeyRespFromJSON,
     K8sregRegenAPIKeyRespToJSON,
-    MsaBaseEntitiesResponse,
     MsaBaseEntitiesResponseFromJSON,
     MsaBaseEntitiesResponseToJSON,
-    MsaMetaInfo,
     MsaMetaInfoFromJSON,
     MsaMetaInfoToJSON,
-    MsaReplyMetaOnly,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
 } from "../models";

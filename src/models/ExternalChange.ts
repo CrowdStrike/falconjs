@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ExternalDiff, ExternalDiffFromJSON, ExternalDiffFromJSONTyped, ExternalDiffToJSON } from "./ExternalDiff";
-import { ExternalHost, ExternalHostFromJSON, ExternalHostFromJSONTyped, ExternalHostToJSON } from "./ExternalHost";
-import { ExternalPolicy, ExternalPolicyFromJSON, ExternalPolicyFromJSONTyped, ExternalPolicyToJSON } from "./ExternalPolicy";
+import type { ExternalDiff } from "./ExternalDiff";
+import { ExternalDiffFromJSON, ExternalDiffFromJSONTyped, ExternalDiffToJSON } from "./ExternalDiff";
+import type { ExternalHost } from "./ExternalHost";
+import { ExternalHostFromJSON, ExternalHostFromJSONTyped, ExternalHostToJSON } from "./ExternalHost";
+import type { ExternalPolicy } from "./ExternalPolicy";
+import { ExternalPolicyFromJSON, ExternalPolicyFromJSONTyped, ExternalPolicyToJSON } from "./ExternalPolicy";
 
 /**
  *

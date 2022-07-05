@@ -13,29 +13,31 @@
  */
 
 import * as runtime from "../runtime";
-import {
+import type {
     ApiMsaEnvironmentScoreResponse,
+    ApiMsaExternalBehaviorResponse,
+    ApiMsaExternalIncidentResponse,
+    ApiMsaIncidentQueryResponse,
+    MsaEntityActionRequestV2,
+    MsaIdsRequest,
+    MsaQueryResponse,
+    MsaReplyMetaOnly,
+} from "../models";
+import {
     ApiMsaEnvironmentScoreResponseFromJSON,
     ApiMsaEnvironmentScoreResponseToJSON,
-    ApiMsaExternalBehaviorResponse,
     ApiMsaExternalBehaviorResponseFromJSON,
     ApiMsaExternalBehaviorResponseToJSON,
-    ApiMsaExternalIncidentResponse,
     ApiMsaExternalIncidentResponseFromJSON,
     ApiMsaExternalIncidentResponseToJSON,
-    ApiMsaIncidentQueryResponse,
     ApiMsaIncidentQueryResponseFromJSON,
     ApiMsaIncidentQueryResponseToJSON,
-    MsaEntityActionRequestV2,
     MsaEntityActionRequestV2FromJSON,
     MsaEntityActionRequestV2ToJSON,
-    MsaIdsRequest,
     MsaIdsRequestFromJSON,
     MsaIdsRequestToJSON,
-    MsaQueryResponse,
     MsaQueryResponseFromJSON,
     MsaQueryResponseToJSON,
-    MsaReplyMetaOnly,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
 } from "../models";

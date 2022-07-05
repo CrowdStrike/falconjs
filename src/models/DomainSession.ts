@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainDevice, DomainDeviceFromJSON, DomainDeviceFromJSONTyped, DomainDeviceToJSON } from "./DomainDevice";
-import { ModelSessionLog, ModelSessionLogFromJSON, ModelSessionLogFromJSONTyped, ModelSessionLogToJSON } from "./ModelSessionLog";
+import type { DomainDevice } from "./DomainDevice";
+import { DomainDeviceFromJSON, DomainDeviceFromJSONTyped, DomainDeviceToJSON } from "./DomainDevice";
+import type { ModelSessionLog } from "./ModelSessionLog";
+import { ModelSessionLogFromJSON, ModelSessionLogFromJSONTyped, ModelSessionLogToJSON } from "./ModelSessionLog";
 
 /**
  *

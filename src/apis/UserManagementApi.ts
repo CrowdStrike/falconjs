@@ -13,32 +13,34 @@
  */
 
 import * as runtime from "../runtime";
-import {
+import type {
     DomainRoleIDs,
+    DomainUpdateUserFields,
+    DomainUserCreateRequest,
+    DomainUserMetaDataResponse,
+    DomainUserRoleIDsResponse,
+    DomainUserRoleResponse,
+    MsaEntitiesResponse,
+    MsaQueryResponse,
+    MsaReplyMetaOnly,
+} from "../models";
+import {
     DomainRoleIDsFromJSON,
     DomainRoleIDsToJSON,
-    DomainUpdateUserFields,
     DomainUpdateUserFieldsFromJSON,
     DomainUpdateUserFieldsToJSON,
-    DomainUserCreateRequest,
     DomainUserCreateRequestFromJSON,
     DomainUserCreateRequestToJSON,
-    DomainUserMetaDataResponse,
     DomainUserMetaDataResponseFromJSON,
     DomainUserMetaDataResponseToJSON,
-    DomainUserRoleIDsResponse,
     DomainUserRoleIDsResponseFromJSON,
     DomainUserRoleIDsResponseToJSON,
-    DomainUserRoleResponse,
     DomainUserRoleResponseFromJSON,
     DomainUserRoleResponseToJSON,
-    MsaEntitiesResponse,
     MsaEntitiesResponseFromJSON,
     MsaEntitiesResponseToJSON,
-    MsaQueryResponse,
     MsaQueryResponseFromJSON,
     MsaQueryResponseToJSON,
-    MsaReplyMetaOnly,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
 } from "../models";

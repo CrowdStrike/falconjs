@@ -13,20 +13,16 @@
  */
 
 import * as runtime from "../runtime";
+import type { MlscannerQueryResponse, MlscannerSamplesScanParameters, MlscannerScanV1Response, MsaAggregateQueryRequest, MsaReplyMetaOnly } from "../models";
 import {
-    MlscannerQueryResponse,
     MlscannerQueryResponseFromJSON,
     MlscannerQueryResponseToJSON,
-    MlscannerSamplesScanParameters,
     MlscannerSamplesScanParametersFromJSON,
     MlscannerSamplesScanParametersToJSON,
-    MlscannerScanV1Response,
     MlscannerScanV1ResponseFromJSON,
     MlscannerScanV1ResponseToJSON,
-    MsaAggregateQueryRequest,
     MsaAggregateQueryRequestFromJSON,
     MsaAggregateQueryRequestToJSON,
-    MsaReplyMetaOnly,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
 } from "../models";

@@ -13,7 +13,8 @@
  */
 
 import * as runtime from "../runtime";
-import { MsaReplyMetaOnly, MsaReplyMetaOnlyFromJSON, MsaReplyMetaOnlyToJSON } from "../models";
+import type { MsaReplyMetaOnly } from "../models";
+import { MsaReplyMetaOnlyFromJSON, MsaReplyMetaOnlyToJSON } from "../models";
 
 export interface ApiPreemptProxyPostGraphqlRequest {
     authorization: string;

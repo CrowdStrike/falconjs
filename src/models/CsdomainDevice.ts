@@ -13,10 +13,14 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { CsdomainDeviceMeta, CsdomainDeviceMetaFromJSON, CsdomainDeviceMetaFromJSONTyped, CsdomainDeviceMetaToJSON } from "./CsdomainDeviceMeta";
-import { CsdomainDevicePolicy, CsdomainDevicePolicyFromJSON, CsdomainDevicePolicyFromJSONTyped, CsdomainDevicePolicyToJSON } from "./CsdomainDevicePolicy";
-import { CsdomainManagedApps, CsdomainManagedAppsFromJSON, CsdomainManagedAppsFromJSONTyped, CsdomainManagedAppsToJSON } from "./CsdomainManagedApps";
-import { CsdomainMappedDevicePolicies, CsdomainMappedDevicePoliciesFromJSON, CsdomainMappedDevicePoliciesFromJSONTyped, CsdomainMappedDevicePoliciesToJSON } from "./CsdomainMappedDevicePolicies";
+import type { CsdomainDeviceMeta } from "./CsdomainDeviceMeta";
+import { CsdomainDeviceMetaFromJSON, CsdomainDeviceMetaFromJSONTyped, CsdomainDeviceMetaToJSON } from "./CsdomainDeviceMeta";
+import type { CsdomainDevicePolicy } from "./CsdomainDevicePolicy";
+import { CsdomainDevicePolicyFromJSON, CsdomainDevicePolicyFromJSONTyped, CsdomainDevicePolicyToJSON } from "./CsdomainDevicePolicy";
+import type { CsdomainManagedApps } from "./CsdomainManagedApps";
+import { CsdomainManagedAppsFromJSON, CsdomainManagedAppsFromJSONTyped, CsdomainManagedAppsToJSON } from "./CsdomainManagedApps";
+import type { CsdomainMappedDevicePolicies } from "./CsdomainMappedDevicePolicies";
+import { CsdomainMappedDevicePoliciesFromJSON, CsdomainMappedDevicePoliciesFromJSONTyped, CsdomainMappedDevicePoliciesToJSON } from "./CsdomainMappedDevicePolicies";
 
 /**
  *

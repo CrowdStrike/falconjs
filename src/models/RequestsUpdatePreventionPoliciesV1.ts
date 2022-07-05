@@ -13,12 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import {
-    RequestsUpdatePreventionPolicyV1,
-    RequestsUpdatePreventionPolicyV1FromJSON,
-    RequestsUpdatePreventionPolicyV1FromJSONTyped,
-    RequestsUpdatePreventionPolicyV1ToJSON,
-} from "./RequestsUpdatePreventionPolicyV1";
+import type { RequestsUpdatePreventionPolicyV1 } from "./RequestsUpdatePreventionPolicyV1";
+import { RequestsUpdatePreventionPolicyV1FromJSON, RequestsUpdatePreventionPolicyV1FromJSONTyped, RequestsUpdatePreventionPolicyV1ToJSON } from "./RequestsUpdatePreventionPolicyV1";
 
 /**
  * A req to update prevention policies

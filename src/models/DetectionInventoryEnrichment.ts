@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DetectionEnrichmentHost, DetectionEnrichmentHostFromJSON, DetectionEnrichmentHostFromJSONTyped, DetectionEnrichmentHostToJSON } from "./DetectionEnrichmentHost";
+import type { DetectionEnrichmentHost } from "./DetectionEnrichmentHost";
+import { DetectionEnrichmentHostFromJSON, DetectionEnrichmentHostFromJSONTyped, DetectionEnrichmentHostToJSON } from "./DetectionEnrichmentHost";
 
 /**
  *

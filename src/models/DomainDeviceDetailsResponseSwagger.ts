@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainDeviceSwagger, DomainDeviceSwaggerFromJSON, DomainDeviceSwaggerFromJSONTyped, DomainDeviceSwaggerToJSON } from "./DomainDeviceSwagger";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { DomainDeviceSwagger } from "./DomainDeviceSwagger";
+import { DomainDeviceSwaggerFromJSON, DomainDeviceSwaggerFromJSONTyped, DomainDeviceSwaggerToJSON } from "./DomainDeviceSwagger";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *

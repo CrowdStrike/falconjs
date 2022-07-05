@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { RequestsUpdateGroupV1, RequestsUpdateGroupV1FromJSON, RequestsUpdateGroupV1FromJSONTyped, RequestsUpdateGroupV1ToJSON } from "./RequestsUpdateGroupV1";
+import type { RequestsUpdateGroupV1 } from "./RequestsUpdateGroupV1";
+import { RequestsUpdateGroupV1FromJSON, RequestsUpdateGroupV1FromJSONTyped, RequestsUpdateGroupV1ToJSON } from "./RequestsUpdateGroupV1";
 
 /**
  * A request to update a set of device groups

@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { FwmgrApiRuleGroupV1, FwmgrApiRuleGroupV1FromJSON, FwmgrApiRuleGroupV1FromJSONTyped, FwmgrApiRuleGroupV1ToJSON } from "./FwmgrApiRuleGroupV1";
-import { FwmgrMsaAPIError, FwmgrMsaAPIErrorFromJSON, FwmgrMsaAPIErrorFromJSONTyped, FwmgrMsaAPIErrorToJSON } from "./FwmgrMsaAPIError";
-import { FwmgrMsaMetaInfo, FwmgrMsaMetaInfoFromJSON, FwmgrMsaMetaInfoFromJSONTyped, FwmgrMsaMetaInfoToJSON } from "./FwmgrMsaMetaInfo";
+import type { FwmgrApiRuleGroupV1 } from "./FwmgrApiRuleGroupV1";
+import { FwmgrApiRuleGroupV1FromJSON, FwmgrApiRuleGroupV1FromJSONTyped, FwmgrApiRuleGroupV1ToJSON } from "./FwmgrApiRuleGroupV1";
+import type { FwmgrMsaAPIError } from "./FwmgrMsaAPIError";
+import { FwmgrMsaAPIErrorFromJSON, FwmgrMsaAPIErrorFromJSONTyped, FwmgrMsaAPIErrorToJSON } from "./FwmgrMsaAPIError";
+import type { FwmgrMsaMetaInfo } from "./FwmgrMsaMetaInfo";
+import { FwmgrMsaMetaInfoFromJSON, FwmgrMsaMetaInfoFromJSONTyped, FwmgrMsaMetaInfoToJSON } from "./FwmgrMsaMetaInfo";
 
 /**
  *

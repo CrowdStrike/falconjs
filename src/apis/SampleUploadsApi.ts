@@ -13,14 +13,12 @@
  */
 
 import * as runtime from "../runtime";
+import type { ClientSampleMetadataResponseV2, MsaQueryResponse, MsaReplyMetaOnly } from "../models";
 import {
-    ClientSampleMetadataResponseV2,
     ClientSampleMetadataResponseV2FromJSON,
     ClientSampleMetadataResponseV2ToJSON,
-    MsaQueryResponse,
     MsaQueryResponseFromJSON,
     MsaQueryResponseToJSON,
-    MsaReplyMetaOnly,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
 } from "../models";

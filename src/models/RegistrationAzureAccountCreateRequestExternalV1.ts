@@ -13,12 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import {
-    RegistrationAzureAccountExternalV1,
-    RegistrationAzureAccountExternalV1FromJSON,
-    RegistrationAzureAccountExternalV1FromJSONTyped,
-    RegistrationAzureAccountExternalV1ToJSON,
-} from "./RegistrationAzureAccountExternalV1";
+import type { RegistrationAzureAccountExternalV1 } from "./RegistrationAzureAccountExternalV1";
+import { RegistrationAzureAccountExternalV1FromJSON, RegistrationAzureAccountExternalV1FromJSONTyped, RegistrationAzureAccountExternalV1ToJSON } from "./RegistrationAzureAccountExternalV1";
 
 /**
  *

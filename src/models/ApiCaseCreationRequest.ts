@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { MessagesDetection, MessagesDetectionFromJSON, MessagesDetectionFromJSONTyped, MessagesDetectionToJSON } from "./MessagesDetection";
-import { MessagesIncident, MessagesIncidentFromJSON, MessagesIncidentFromJSONTyped, MessagesIncidentToJSON } from "./MessagesIncident";
+import type { MessagesDetection } from "./MessagesDetection";
+import { MessagesDetectionFromJSON, MessagesDetectionFromJSONTyped, MessagesDetectionToJSON } from "./MessagesDetection";
+import type { MessagesIncident } from "./MessagesIncident";
+import { MessagesIncidentFromJSON, MessagesIncidentFromJSONTyped, MessagesIncidentToJSON } from "./MessagesIncident";
 
 /**
  *

@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { FwmgrMsaAggregationResult, FwmgrMsaAggregationResultFromJSON, FwmgrMsaAggregationResultFromJSONTyped, FwmgrMsaAggregationResultToJSON } from "./FwmgrMsaAggregationResult";
+import type { FwmgrMsaAggregationResult } from "./FwmgrMsaAggregationResult";
+import { FwmgrMsaAggregationResultFromJSON, FwmgrMsaAggregationResultFromJSONTyped, FwmgrMsaAggregationResultToJSON } from "./FwmgrMsaAggregationResult";
 
 /**
  *

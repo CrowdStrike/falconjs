@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { FalconxThreatGraphIndicatorV1, FalconxThreatGraphIndicatorV1FromJSON, FalconxThreatGraphIndicatorV1FromJSONTyped, FalconxThreatGraphIndicatorV1ToJSON } from "./FalconxThreatGraphIndicatorV1";
+import type { FalconxThreatGraphIndicatorV1 } from "./FalconxThreatGraphIndicatorV1";
+import { FalconxThreatGraphIndicatorV1FromJSON, FalconxThreatGraphIndicatorV1FromJSONTyped, FalconxThreatGraphIndicatorV1ToJSON } from "./FalconxThreatGraphIndicatorV1";
 
 /**
  *

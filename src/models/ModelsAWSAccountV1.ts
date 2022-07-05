@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ModelsAwsAccountAccessHealth, ModelsAwsAccountAccessHealthFromJSON, ModelsAwsAccountAccessHealthFromJSONTyped, ModelsAwsAccountAccessHealthToJSON } from "./ModelsAwsAccountAccessHealth";
+import type { ModelsAwsAccountAccessHealth } from "./ModelsAwsAccountAccessHealth";
+import { ModelsAwsAccountAccessHealthFromJSON, ModelsAwsAccountAccessHealthFromJSONTyped, ModelsAwsAccountAccessHealthToJSON } from "./ModelsAwsAccountAccessHealth";
 
 /**
  *

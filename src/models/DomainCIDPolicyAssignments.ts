@@ -13,32 +13,32 @@
  */
 
 import { exists, mapValues } from "../runtime";
+import type { DomainCIDPolicyAssignmentsCisBenchmark } from "./DomainCIDPolicyAssignmentsCisBenchmark";
 import {
-    DomainCIDPolicyAssignmentsCisBenchmark,
     DomainCIDPolicyAssignmentsCisBenchmarkFromJSON,
     DomainCIDPolicyAssignmentsCisBenchmarkFromJSONTyped,
     DomainCIDPolicyAssignmentsCisBenchmarkToJSON,
 } from "./DomainCIDPolicyAssignmentsCisBenchmark";
+import type { DomainCIDPolicyAssignmentsNistBenchmark } from "./DomainCIDPolicyAssignmentsNistBenchmark";
 import {
-    DomainCIDPolicyAssignmentsNistBenchmark,
     DomainCIDPolicyAssignmentsNistBenchmarkFromJSON,
     DomainCIDPolicyAssignmentsNistBenchmarkFromJSONTyped,
     DomainCIDPolicyAssignmentsNistBenchmarkToJSON,
 } from "./DomainCIDPolicyAssignmentsNistBenchmark";
+import type { DomainCIDPolicyAssignmentsPciBenchmark } from "./DomainCIDPolicyAssignmentsPciBenchmark";
 import {
-    DomainCIDPolicyAssignmentsPciBenchmark,
     DomainCIDPolicyAssignmentsPciBenchmarkFromJSON,
     DomainCIDPolicyAssignmentsPciBenchmarkFromJSONTyped,
     DomainCIDPolicyAssignmentsPciBenchmarkToJSON,
 } from "./DomainCIDPolicyAssignmentsPciBenchmark";
+import type { DomainCIDPolicyAssignmentsSoc2Benchmark } from "./DomainCIDPolicyAssignmentsSoc2Benchmark";
 import {
-    DomainCIDPolicyAssignmentsSoc2Benchmark,
     DomainCIDPolicyAssignmentsSoc2BenchmarkFromJSON,
     DomainCIDPolicyAssignmentsSoc2BenchmarkFromJSONTyped,
     DomainCIDPolicyAssignmentsSoc2BenchmarkToJSON,
 } from "./DomainCIDPolicyAssignmentsSoc2Benchmark";
+import type { DomainPolicySettingByAccountAndRegion } from "./DomainPolicySettingByAccountAndRegion";
 import {
-    DomainPolicySettingByAccountAndRegion,
     DomainPolicySettingByAccountAndRegionFromJSON,
     DomainPolicySettingByAccountAndRegionFromJSONTyped,
     DomainPolicySettingByAccountAndRegionToJSON,

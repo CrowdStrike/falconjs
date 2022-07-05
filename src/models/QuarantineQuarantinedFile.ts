@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { QuarantineQuarantinedFilePath, QuarantineQuarantinedFilePathFromJSON, QuarantineQuarantinedFilePathFromJSONTyped, QuarantineQuarantinedFilePathToJSON } from "./QuarantineQuarantinedFilePath";
+import type { QuarantineQuarantinedFilePath } from "./QuarantineQuarantinedFilePath";
+import { QuarantineQuarantinedFilePathFromJSON, QuarantineQuarantinedFilePathFromJSONTyped, QuarantineQuarantinedFilePathToJSON } from "./QuarantineQuarantinedFilePath";
 
 /**
  *

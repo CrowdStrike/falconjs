@@ -13,10 +13,14 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DeviceDeviceMeta, DeviceDeviceMetaFromJSON, DeviceDeviceMetaFromJSONTyped, DeviceDeviceMetaToJSON } from "./DeviceDeviceMeta";
-import { DeviceDevicePolicy, DeviceDevicePolicyFromJSON, DeviceDevicePolicyFromJSONTyped, DeviceDevicePolicyToJSON } from "./DeviceDevicePolicy";
-import { DeviceManagedApps, DeviceManagedAppsFromJSON, DeviceManagedAppsFromJSONTyped, DeviceManagedAppsToJSON } from "./DeviceManagedApps";
-import { DeviceMappedDevicePolicies, DeviceMappedDevicePoliciesFromJSON, DeviceMappedDevicePoliciesFromJSONTyped, DeviceMappedDevicePoliciesToJSON } from "./DeviceMappedDevicePolicies";
+import type { DeviceDeviceMeta } from "./DeviceDeviceMeta";
+import { DeviceDeviceMetaFromJSON, DeviceDeviceMetaFromJSONTyped, DeviceDeviceMetaToJSON } from "./DeviceDeviceMeta";
+import type { DeviceDevicePolicy } from "./DeviceDevicePolicy";
+import { DeviceDevicePolicyFromJSON, DeviceDevicePolicyFromJSONTyped, DeviceDevicePolicyToJSON } from "./DeviceDevicePolicy";
+import type { DeviceManagedApps } from "./DeviceManagedApps";
+import { DeviceManagedAppsFromJSON, DeviceManagedAppsFromJSONTyped, DeviceManagedAppsToJSON } from "./DeviceManagedApps";
+import type { DeviceMappedDevicePolicies } from "./DeviceMappedDevicePolicies";
+import { DeviceMappedDevicePoliciesFromJSON, DeviceMappedDevicePoliciesFromJSONTyped, DeviceMappedDevicePoliciesToJSON } from "./DeviceMappedDevicePolicies";
 
 /**
  *

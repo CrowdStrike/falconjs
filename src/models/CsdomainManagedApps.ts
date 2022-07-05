@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { CsdomainManagedApp, CsdomainManagedAppFromJSON, CsdomainManagedAppFromJSONTyped, CsdomainManagedAppToJSON } from "./CsdomainManagedApp";
+import type { CsdomainManagedApp } from "./CsdomainManagedApp";
+import { CsdomainManagedAppFromJSON, CsdomainManagedAppFromJSONTyped, CsdomainManagedAppToJSON } from "./CsdomainManagedApp";
 
 /**
  *

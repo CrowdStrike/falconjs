@@ -13,32 +13,34 @@
  */
 
 import * as runtime from "../runtime";
-import {
+import type {
     MsaReplyMetaOnly,
+    RegistrationAzureAccountCreateRequestExternalV1,
+    RegistrationAzureAccountResponseV1,
+    RegistrationAzureDownloadCertificateResponseV1,
+    RegistrationAzureProvisionGetUserScriptResponseV1,
+    RegistrationAzureServicePrincipalResponseV1,
+    RegistrationGCPAccountCreateRequestExtV1,
+    RegistrationGCPAccountResponseV1,
+    RegistrationGCPProvisionGetUserScriptResponseV1,
+} from "../models";
+import {
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-    RegistrationAzureAccountCreateRequestExternalV1,
     RegistrationAzureAccountCreateRequestExternalV1FromJSON,
     RegistrationAzureAccountCreateRequestExternalV1ToJSON,
-    RegistrationAzureAccountResponseV1,
     RegistrationAzureAccountResponseV1FromJSON,
     RegistrationAzureAccountResponseV1ToJSON,
-    RegistrationAzureDownloadCertificateResponseV1,
     RegistrationAzureDownloadCertificateResponseV1FromJSON,
     RegistrationAzureDownloadCertificateResponseV1ToJSON,
-    RegistrationAzureProvisionGetUserScriptResponseV1,
     RegistrationAzureProvisionGetUserScriptResponseV1FromJSON,
     RegistrationAzureProvisionGetUserScriptResponseV1ToJSON,
-    RegistrationAzureServicePrincipalResponseV1,
     RegistrationAzureServicePrincipalResponseV1FromJSON,
     RegistrationAzureServicePrincipalResponseV1ToJSON,
-    RegistrationGCPAccountCreateRequestExtV1,
     RegistrationGCPAccountCreateRequestExtV1FromJSON,
     RegistrationGCPAccountCreateRequestExtV1ToJSON,
-    RegistrationGCPAccountResponseV1,
     RegistrationGCPAccountResponseV1FromJSON,
     RegistrationGCPAccountResponseV1ToJSON,
-    RegistrationGCPProvisionGetUserScriptResponseV1,
     RegistrationGCPProvisionGetUserScriptResponseV1FromJSON,
     RegistrationGCPProvisionGetUserScriptResponseV1ToJSON,
 } from "../models";

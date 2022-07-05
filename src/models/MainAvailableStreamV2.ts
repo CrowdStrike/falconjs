@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { MainSessionToken, MainSessionTokenFromJSON, MainSessionTokenFromJSONTyped, MainSessionTokenToJSON } from "./MainSessionToken";
+import type { MainSessionToken } from "./MainSessionToken";
+import { MainSessionTokenFromJSON, MainSessionTokenFromJSONTyped, MainSessionTokenToJSON } from "./MainSessionToken";
 
 /**
  *

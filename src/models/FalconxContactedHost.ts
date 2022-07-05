@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { FalconxAssociatedRuntime, FalconxAssociatedRuntimeFromJSON, FalconxAssociatedRuntimeFromJSONTyped, FalconxAssociatedRuntimeToJSON } from "./FalconxAssociatedRuntime";
+import type { FalconxAssociatedRuntime } from "./FalconxAssociatedRuntime";
+import { FalconxAssociatedRuntimeFromJSON, FalconxAssociatedRuntimeFromJSONTyped, FalconxAssociatedRuntimeToJSON } from "./FalconxAssociatedRuntime";
 
 /**
  *

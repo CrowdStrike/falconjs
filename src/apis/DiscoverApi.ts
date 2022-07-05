@@ -13,20 +13,16 @@
  */
 
 import * as runtime from "../runtime";
+import type { DomainDiscoverAPIAccountEntitiesResponse, DomainDiscoverAPIHostEntitiesResponse, DomainDiscoverAPILoginEntitiesResponse, MsaQueryResponse, MsaReplyMetaOnly } from "../models";
 import {
-    DomainDiscoverAPIAccountEntitiesResponse,
     DomainDiscoverAPIAccountEntitiesResponseFromJSON,
     DomainDiscoverAPIAccountEntitiesResponseToJSON,
-    DomainDiscoverAPIHostEntitiesResponse,
     DomainDiscoverAPIHostEntitiesResponseFromJSON,
     DomainDiscoverAPIHostEntitiesResponseToJSON,
-    DomainDiscoverAPILoginEntitiesResponse,
     DomainDiscoverAPILoginEntitiesResponseFromJSON,
     DomainDiscoverAPILoginEntitiesResponseToJSON,
-    MsaQueryResponse,
     MsaQueryResponseFromJSON,
     MsaQueryResponseToJSON,
-    MsaReplyMetaOnly,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
 } from "../models";

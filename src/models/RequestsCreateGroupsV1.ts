@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { RequestsCreateGroupV1, RequestsCreateGroupV1FromJSON, RequestsCreateGroupV1FromJSONTyped, RequestsCreateGroupV1ToJSON } from "./RequestsCreateGroupV1";
+import type { RequestsCreateGroupV1 } from "./RequestsCreateGroupV1";
+import { RequestsCreateGroupV1FromJSON, RequestsCreateGroupV1FromJSONTyped, RequestsCreateGroupV1ToJSON } from "./RequestsCreateGroupV1";
 
 /**
  * A request to create device groups

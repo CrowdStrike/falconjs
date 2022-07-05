@@ -13,16 +13,16 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import {
-    FwmgrApiWorkaroundUIFieldValue,
-    FwmgrApiWorkaroundUIFieldValueFromJSON,
-    FwmgrApiWorkaroundUIFieldValueFromJSONTyped,
-    FwmgrApiWorkaroundUIFieldValueToJSON,
-} from "./FwmgrApiWorkaroundUIFieldValue";
-import { FwmgrDomainAddressRange, FwmgrDomainAddressRangeFromJSON, FwmgrDomainAddressRangeFromJSONTyped, FwmgrDomainAddressRangeToJSON } from "./FwmgrDomainAddressRange";
-import { FwmgrDomainICMP, FwmgrDomainICMPFromJSON, FwmgrDomainICMPFromJSONTyped, FwmgrDomainICMPToJSON } from "./FwmgrDomainICMP";
-import { FwmgrDomainMonitoring, FwmgrDomainMonitoringFromJSON, FwmgrDomainMonitoringFromJSONTyped, FwmgrDomainMonitoringToJSON } from "./FwmgrDomainMonitoring";
-import { FwmgrDomainPortRange, FwmgrDomainPortRangeFromJSON, FwmgrDomainPortRangeFromJSONTyped, FwmgrDomainPortRangeToJSON } from "./FwmgrDomainPortRange";
+import type { FwmgrApiWorkaroundUIFieldValue } from "./FwmgrApiWorkaroundUIFieldValue";
+import { FwmgrApiWorkaroundUIFieldValueFromJSON, FwmgrApiWorkaroundUIFieldValueFromJSONTyped, FwmgrApiWorkaroundUIFieldValueToJSON } from "./FwmgrApiWorkaroundUIFieldValue";
+import type { FwmgrDomainAddressRange } from "./FwmgrDomainAddressRange";
+import { FwmgrDomainAddressRangeFromJSON, FwmgrDomainAddressRangeFromJSONTyped, FwmgrDomainAddressRangeToJSON } from "./FwmgrDomainAddressRange";
+import type { FwmgrDomainICMP } from "./FwmgrDomainICMP";
+import { FwmgrDomainICMPFromJSON, FwmgrDomainICMPFromJSONTyped, FwmgrDomainICMPToJSON } from "./FwmgrDomainICMP";
+import type { FwmgrDomainMonitoring } from "./FwmgrDomainMonitoring";
+import { FwmgrDomainMonitoringFromJSON, FwmgrDomainMonitoringFromJSONTyped, FwmgrDomainMonitoringToJSON } from "./FwmgrDomainMonitoring";
+import type { FwmgrDomainPortRange } from "./FwmgrDomainPortRange";
+import { FwmgrDomainPortRangeFromJSON, FwmgrDomainPortRangeFromJSONTyped, FwmgrDomainPortRangeToJSON } from "./FwmgrDomainPortRange";
 
 /**
  *

@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ApiRuleTypeV1, ApiRuleTypeV1FromJSON, ApiRuleTypeV1FromJSONTyped, ApiRuleTypeV1ToJSON } from "./ApiRuleTypeV1";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { ApiRuleTypeV1 } from "./ApiRuleTypeV1";
+import { ApiRuleTypeV1FromJSON, ApiRuleTypeV1FromJSONTyped, ApiRuleTypeV1ToJSON } from "./ApiRuleTypeV1";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *

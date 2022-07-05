@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainReconAPIErrorDetail, DomainReconAPIErrorDetailFromJSON, DomainReconAPIErrorDetailFromJSONTyped, DomainReconAPIErrorDetailToJSON } from "./DomainReconAPIErrorDetail";
+import type { DomainReconAPIErrorDetail } from "./DomainReconAPIErrorDetail";
+import { DomainReconAPIErrorDetailFromJSON, DomainReconAPIErrorDetailFromJSONTyped, DomainReconAPIErrorDetailToJSON } from "./DomainReconAPIErrorDetail";
 
 /**
  *

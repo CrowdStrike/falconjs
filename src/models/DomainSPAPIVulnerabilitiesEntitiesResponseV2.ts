@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainAPIVulnerabilityV2, DomainAPIVulnerabilityV2FromJSON, DomainAPIVulnerabilityV2FromJSONTyped, DomainAPIVulnerabilityV2ToJSON } from "./DomainAPIVulnerabilityV2";
-import { DomainMetaInfo, DomainMetaInfoFromJSON, DomainMetaInfoFromJSONTyped, DomainMetaInfoToJSON } from "./DomainMetaInfo";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { DomainAPIVulnerabilityV2 } from "./DomainAPIVulnerabilityV2";
+import { DomainAPIVulnerabilityV2FromJSON, DomainAPIVulnerabilityV2FromJSONTyped, DomainAPIVulnerabilityV2ToJSON } from "./DomainAPIVulnerabilityV2";
+import type { DomainMetaInfo } from "./DomainMetaInfo";
+import { DomainMetaInfoFromJSON, DomainMetaInfoFromJSONTyped, DomainMetaInfoToJSON } from "./DomainMetaInfo";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
 
 /**
  *

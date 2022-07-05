@@ -13,17 +13,8 @@
  */
 
 import * as runtime from "../runtime";
-import {
-    MsaEntitiesResponse,
-    MsaEntitiesResponseFromJSON,
-    MsaEntitiesResponseToJSON,
-    MsaErrorsOnly,
-    MsaErrorsOnlyFromJSON,
-    MsaErrorsOnlyToJSON,
-    MsaReplyMetaOnly,
-    MsaReplyMetaOnlyFromJSON,
-    MsaReplyMetaOnlyToJSON,
-} from "../models";
+import type { MsaEntitiesResponse, MsaErrorsOnly, MsaReplyMetaOnly } from "../models";
+import { MsaEntitiesResponseFromJSON, MsaEntitiesResponseToJSON, MsaErrorsOnlyFromJSON, MsaErrorsOnlyToJSON, MsaReplyMetaOnlyFromJSON, MsaReplyMetaOnlyToJSON } from "../models";
 
 /**
  *

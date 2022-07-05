@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { FwmgrMsaDateRangeSpec, FwmgrMsaDateRangeSpecFromJSON, FwmgrMsaDateRangeSpecFromJSONTyped, FwmgrMsaDateRangeSpecToJSON } from "./FwmgrMsaDateRangeSpec";
-import { FwmgrMsaRangeSpec, FwmgrMsaRangeSpecFromJSON, FwmgrMsaRangeSpecFromJSONTyped, FwmgrMsaRangeSpecToJSON } from "./FwmgrMsaRangeSpec";
+import type { FwmgrMsaDateRangeSpec } from "./FwmgrMsaDateRangeSpec";
+import { FwmgrMsaDateRangeSpecFromJSON, FwmgrMsaDateRangeSpecFromJSONTyped, FwmgrMsaDateRangeSpecToJSON } from "./FwmgrMsaDateRangeSpec";
+import type { FwmgrMsaRangeSpec } from "./FwmgrMsaRangeSpec";
+import { FwmgrMsaRangeSpecFromJSON, FwmgrMsaRangeSpecFromJSONTyped, FwmgrMsaRangeSpecToJSON } from "./FwmgrMsaRangeSpec";
 
 /**
  *

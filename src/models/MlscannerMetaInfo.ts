@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { MlscannerQuota, MlscannerQuotaFromJSON, MlscannerQuotaFromJSONTyped, MlscannerQuotaToJSON } from "./MlscannerQuota";
-import { MsaPaging, MsaPagingFromJSON, MsaPagingFromJSONTyped, MsaPagingToJSON } from "./MsaPaging";
-import { MsaResources, MsaResourcesFromJSON, MsaResourcesFromJSONTyped, MsaResourcesToJSON } from "./MsaResources";
+import type { MlscannerQuota } from "./MlscannerQuota";
+import { MlscannerQuotaFromJSON, MlscannerQuotaFromJSONTyped, MlscannerQuotaToJSON } from "./MlscannerQuota";
+import type { MsaPaging } from "./MsaPaging";
+import { MsaPagingFromJSON, MsaPagingFromJSONTyped, MsaPagingToJSON } from "./MsaPaging";
+import type { MsaResources } from "./MsaResources";
+import { MsaResourcesFromJSON, MsaResourcesFromJSONTyped, MsaResourcesToJSON } from "./MsaResources";
 
 /**
  *

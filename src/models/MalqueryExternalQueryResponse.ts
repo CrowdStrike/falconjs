@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { MalqueryExternalResource, MalqueryExternalResourceFromJSON, MalqueryExternalResourceFromJSONTyped, MalqueryExternalResourceToJSON } from "./MalqueryExternalResource";
-import { MalqueryQueryError, MalqueryQueryErrorFromJSON, MalqueryQueryErrorFromJSONTyped, MalqueryQueryErrorToJSON } from "./MalqueryQueryError";
-import { MalqueryQueryMetaInfo, MalqueryQueryMetaInfoFromJSON, MalqueryQueryMetaInfoFromJSONTyped, MalqueryQueryMetaInfoToJSON } from "./MalqueryQueryMetaInfo";
+import type { MalqueryExternalResource } from "./MalqueryExternalResource";
+import { MalqueryExternalResourceFromJSON, MalqueryExternalResourceFromJSONTyped, MalqueryExternalResourceToJSON } from "./MalqueryExternalResource";
+import type { MalqueryQueryError } from "./MalqueryQueryError";
+import { MalqueryQueryErrorFromJSON, MalqueryQueryErrorFromJSONTyped, MalqueryQueryErrorToJSON } from "./MalqueryQueryError";
+import type { MalqueryQueryMetaInfo } from "./MalqueryQueryMetaInfo";
+import { MalqueryQueryMetaInfoFromJSON, MalqueryQueryMetaInfoFromJSONTyped, MalqueryQueryMetaInfoToJSON } from "./MalqueryQueryMetaInfo";
 
 /**
  *

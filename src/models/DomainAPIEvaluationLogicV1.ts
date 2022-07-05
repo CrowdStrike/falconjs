@@ -13,12 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import {
-    DomainAPIEvaluationLogicItemV1,
-    DomainAPIEvaluationLogicItemV1FromJSON,
-    DomainAPIEvaluationLogicItemV1FromJSONTyped,
-    DomainAPIEvaluationLogicItemV1ToJSON,
-} from "./DomainAPIEvaluationLogicItemV1";
+import type { DomainAPIEvaluationLogicItemV1 } from "./DomainAPIEvaluationLogicItemV1";
+import { DomainAPIEvaluationLogicItemV1FromJSON, DomainAPIEvaluationLogicItemV1FromJSONTyped, DomainAPIEvaluationLogicItemV1ToJSON } from "./DomainAPIEvaluationLogicItemV1";
 
 /**
  *

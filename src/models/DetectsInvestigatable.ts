@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ThreatgraphCrawlEdgesRequest, ThreatgraphCrawlEdgesRequestFromJSON, ThreatgraphCrawlEdgesRequestFromJSONTyped, ThreatgraphCrawlEdgesRequestToJSON } from "./ThreatgraphCrawlEdgesRequest";
+import type { ThreatgraphCrawlEdgesRequest } from "./ThreatgraphCrawlEdgesRequest";
+import { ThreatgraphCrawlEdgesRequestFromJSON, ThreatgraphCrawlEdgesRequestFromJSONTyped, ThreatgraphCrawlEdgesRequestToJSON } from "./ThreatgraphCrawlEdgesRequest";
 
 /**
  *

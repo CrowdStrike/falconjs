@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainDeviceMeta, DomainDeviceMetaFromJSON, DomainDeviceMetaFromJSONTyped, DomainDeviceMetaToJSON } from "./DomainDeviceMeta";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { DomainDeviceMeta } from "./DomainDeviceMeta";
+import { DomainDeviceMetaFromJSON, DomainDeviceMetaFromJSONTyped, DomainDeviceMetaToJSON } from "./DomainDeviceMeta";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
 
 /**
  *

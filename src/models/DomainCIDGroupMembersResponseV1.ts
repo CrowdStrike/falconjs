@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainCIDGroupMembers, DomainCIDGroupMembersFromJSON, DomainCIDGroupMembersFromJSONTyped, DomainCIDGroupMembersToJSON } from "./DomainCIDGroupMembers";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { DomainCIDGroupMembers } from "./DomainCIDGroupMembers";
+import { DomainCIDGroupMembersFromJSON, DomainCIDGroupMembersFromJSONTyped, DomainCIDGroupMembersToJSON } from "./DomainCIDGroupMembers";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *

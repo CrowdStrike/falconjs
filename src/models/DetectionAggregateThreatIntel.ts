@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DetectionAggregateIndicator, DetectionAggregateIndicatorFromJSON, DetectionAggregateIndicatorFromJSONTyped, DetectionAggregateIndicatorToJSON } from "./DetectionAggregateIndicator";
+import type { DetectionAggregateIndicator } from "./DetectionAggregateIndicator";
+import { DetectionAggregateIndicatorFromJSON, DetectionAggregateIndicatorFromJSONTyped, DetectionAggregateIndicatorToJSON } from "./DetectionAggregateIndicator";
 
 /**
  *

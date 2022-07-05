@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { FalconxParameter, FalconxParameterFromJSON, FalconxParameterFromJSONTyped, FalconxParameterToJSON } from "./FalconxParameter";
+import type { FalconxParameter } from "./FalconxParameter";
+import { FalconxParameterFromJSON, FalconxParameterFromJSONTyped, FalconxParameterToJSON } from "./FalconxParameter";
 
 /**
  *

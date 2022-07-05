@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ApiResponseMeta, ApiResponseMetaFromJSON, ApiResponseMetaFromJSONTyped, ApiResponseMetaToJSON } from "./ApiResponseMeta";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { ApiResponseMeta } from "./ApiResponseMeta";
+import { ApiResponseMetaFromJSON, ApiResponseMetaFromJSONTyped, ApiResponseMetaToJSON } from "./ApiResponseMeta";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
 
 /**
  *

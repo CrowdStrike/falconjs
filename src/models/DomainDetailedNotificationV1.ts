@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainBreachDetailsV1, DomainBreachDetailsV1FromJSON, DomainBreachDetailsV1FromJSONTyped, DomainBreachDetailsV1ToJSON } from "./DomainBreachDetailsV1";
-import { DomainNotificationDetailsV1, DomainNotificationDetailsV1FromJSON, DomainNotificationDetailsV1FromJSONTyped, DomainNotificationDetailsV1ToJSON } from "./DomainNotificationDetailsV1";
-import { DomainNotificationV1, DomainNotificationV1FromJSON, DomainNotificationV1FromJSONTyped, DomainNotificationV1ToJSON } from "./DomainNotificationV1";
+import type { DomainBreachDetailsV1 } from "./DomainBreachDetailsV1";
+import { DomainBreachDetailsV1FromJSON, DomainBreachDetailsV1FromJSONTyped, DomainBreachDetailsV1ToJSON } from "./DomainBreachDetailsV1";
+import type { DomainNotificationDetailsV1 } from "./DomainNotificationDetailsV1";
+import { DomainNotificationDetailsV1FromJSON, DomainNotificationDetailsV1FromJSONTyped, DomainNotificationDetailsV1ToJSON } from "./DomainNotificationDetailsV1";
+import type { DomainNotificationV1 } from "./DomainNotificationV1";
+import { DomainNotificationV1FromJSON, DomainNotificationV1FromJSONTyped, DomainNotificationV1ToJSON } from "./DomainNotificationV1";
 
 /**
  *

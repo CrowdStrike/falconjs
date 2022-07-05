@@ -13,26 +13,28 @@
  */
 
 import * as runtime from "../runtime";
-import {
+import type {
     ApiAuditEventDetailsResponseV1,
+    ApiCustomerSettingsResponseV1,
+    ApiTokenCreateRequestV1,
+    ApiTokenDetailsResponseV1,
+    ApiTokenPatchRequestV1,
+    MsaQueryResponse,
+    MsaReplyMetaOnly,
+} from "../models";
+import {
     ApiAuditEventDetailsResponseV1FromJSON,
     ApiAuditEventDetailsResponseV1ToJSON,
-    ApiCustomerSettingsResponseV1,
     ApiCustomerSettingsResponseV1FromJSON,
     ApiCustomerSettingsResponseV1ToJSON,
-    ApiTokenCreateRequestV1,
     ApiTokenCreateRequestV1FromJSON,
     ApiTokenCreateRequestV1ToJSON,
-    ApiTokenDetailsResponseV1,
     ApiTokenDetailsResponseV1FromJSON,
     ApiTokenDetailsResponseV1ToJSON,
-    ApiTokenPatchRequestV1,
     ApiTokenPatchRequestV1FromJSON,
     ApiTokenPatchRequestV1ToJSON,
-    MsaQueryResponse,
     MsaQueryResponseFromJSON,
     MsaQueryResponseToJSON,
-    MsaReplyMetaOnly,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
 } from "../models";

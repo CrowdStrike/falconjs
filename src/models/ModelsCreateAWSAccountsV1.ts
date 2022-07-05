@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ModelsAWSAccountRequestV1, ModelsAWSAccountRequestV1FromJSON, ModelsAWSAccountRequestV1FromJSONTyped, ModelsAWSAccountRequestV1ToJSON } from "./ModelsAWSAccountRequestV1";
+import type { ModelsAWSAccountRequestV1 } from "./ModelsAWSAccountRequestV1";
+import { ModelsAWSAccountRequestV1FromJSON, ModelsAWSAccountRequestV1FromJSONTyped, ModelsAWSAccountRequestV1ToJSON } from "./ModelsAWSAccountRequestV1";
 
 /**
  *

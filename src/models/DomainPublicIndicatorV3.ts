@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainCSIXLabel, DomainCSIXLabelFromJSON, DomainCSIXLabelFromJSONTyped, DomainCSIXLabelToJSON } from "./DomainCSIXLabel";
-import { DomainCSIXRelation, DomainCSIXRelationFromJSON, DomainCSIXRelationFromJSONTyped, DomainCSIXRelationToJSON } from "./DomainCSIXRelation";
+import type { DomainCSIXLabel } from "./DomainCSIXLabel";
+import { DomainCSIXLabelFromJSON, DomainCSIXLabelFromJSONTyped, DomainCSIXLabelToJSON } from "./DomainCSIXLabel";
+import type { DomainCSIXRelation } from "./DomainCSIXRelation";
+import { DomainCSIXRelationFromJSON, DomainCSIXRelationFromJSONTyped, DomainCSIXRelationToJSON } from "./DomainCSIXRelation";
 
 /**
  *

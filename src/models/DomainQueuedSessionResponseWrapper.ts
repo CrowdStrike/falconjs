@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainQueuedSessionJob, DomainQueuedSessionJobFromJSON, DomainQueuedSessionJobFromJSONTyped, DomainQueuedSessionJobToJSON } from "./DomainQueuedSessionJob";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { DomainQueuedSessionJob } from "./DomainQueuedSessionJob";
+import { DomainQueuedSessionJobFromJSON, DomainQueuedSessionJobFromJSONTyped, DomainQueuedSessionJobToJSON } from "./DomainQueuedSessionJob";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *

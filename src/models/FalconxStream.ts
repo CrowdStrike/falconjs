@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { FalconxMatchedSignature, FalconxMatchedSignatureFromJSON, FalconxMatchedSignatureFromJSONTyped, FalconxMatchedSignatureToJSON } from "./FalconxMatchedSignature";
+import type { FalconxMatchedSignature } from "./FalconxMatchedSignature";
+import { FalconxMatchedSignatureFromJSON, FalconxMatchedSignatureFromJSONTyped, FalconxMatchedSignatureToJSON } from "./FalconxMatchedSignature";
 
 /**
  *

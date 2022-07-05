@@ -13,14 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { MalqueryQueryError, MalqueryQueryErrorFromJSON, MalqueryQueryErrorFromJSONTyped, MalqueryQueryErrorToJSON } from "./MalqueryQueryError";
-import { MalquerySampleMetadata, MalquerySampleMetadataFromJSON, MalquerySampleMetadataFromJSONTyped, MalquerySampleMetadataToJSON } from "./MalquerySampleMetadata";
-import {
-    MalquerySamplesMetadataMetaInfo,
-    MalquerySamplesMetadataMetaInfoFromJSON,
-    MalquerySamplesMetadataMetaInfoFromJSONTyped,
-    MalquerySamplesMetadataMetaInfoToJSON,
-} from "./MalquerySamplesMetadataMetaInfo";
+import type { MalqueryQueryError } from "./MalqueryQueryError";
+import { MalqueryQueryErrorFromJSON, MalqueryQueryErrorFromJSONTyped, MalqueryQueryErrorToJSON } from "./MalqueryQueryError";
+import type { MalquerySampleMetadata } from "./MalquerySampleMetadata";
+import { MalquerySampleMetadataFromJSON, MalquerySampleMetadataFromJSONTyped, MalquerySampleMetadataToJSON } from "./MalquerySampleMetadata";
+import type { MalquerySamplesMetadataMetaInfo } from "./MalquerySamplesMetadataMetaInfo";
+import { MalquerySamplesMetadataMetaInfoFromJSON, MalquerySamplesMetadataMetaInfoFromJSONTyped, MalquerySamplesMetadataMetaInfoToJSON } from "./MalquerySamplesMetadataMetaInfo";
 
 /**
  *

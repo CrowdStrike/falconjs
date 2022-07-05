@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainDetailedNotificationV1, DomainDetailedNotificationV1FromJSON, DomainDetailedNotificationV1FromJSONTyped, DomainDetailedNotificationV1ToJSON } from "./DomainDetailedNotificationV1";
-import { DomainReconAPIError, DomainReconAPIErrorFromJSON, DomainReconAPIErrorFromJSONTyped, DomainReconAPIErrorToJSON } from "./DomainReconAPIError";
-import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { DomainDetailedNotificationV1 } from "./DomainDetailedNotificationV1";
+import { DomainDetailedNotificationV1FromJSON, DomainDetailedNotificationV1FromJSONTyped, DomainDetailedNotificationV1ToJSON } from "./DomainDetailedNotificationV1";
+import type { DomainReconAPIError } from "./DomainReconAPIError";
+import { DomainReconAPIErrorFromJSON, DomainReconAPIErrorFromJSONTyped, DomainReconAPIErrorToJSON } from "./DomainReconAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *

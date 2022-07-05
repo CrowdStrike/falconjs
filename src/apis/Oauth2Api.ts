@@ -13,7 +13,8 @@
  */
 
 import * as runtime from "../runtime";
-import { DomainAccessTokenResponseV1, DomainAccessTokenResponseV1FromJSON, DomainAccessTokenResponseV1ToJSON, MsaReplyMetaOnly, MsaReplyMetaOnlyFromJSON, MsaReplyMetaOnlyToJSON } from "../models";
+import type { DomainAccessTokenResponseV1, MsaReplyMetaOnly } from "../models";
+import { DomainAccessTokenResponseV1FromJSON, DomainAccessTokenResponseV1ToJSON, MsaReplyMetaOnlyFromJSON, MsaReplyMetaOnlyToJSON } from "../models";
 
 export interface Oauth2AccessTokenRequest {
     clientId: string;

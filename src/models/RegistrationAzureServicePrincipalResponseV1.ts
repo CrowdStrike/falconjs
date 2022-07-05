@@ -13,14 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import {
-    DomainAzureClientServicePrincipalV1,
-    DomainAzureClientServicePrincipalV1FromJSON,
-    DomainAzureClientServicePrincipalV1FromJSONTyped,
-    DomainAzureClientServicePrincipalV1ToJSON,
-} from "./DomainAzureClientServicePrincipalV1";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { DomainAzureClientServicePrincipalV1 } from "./DomainAzureClientServicePrincipalV1";
+import { DomainAzureClientServicePrincipalV1FromJSON, DomainAzureClientServicePrincipalV1FromJSONTyped, DomainAzureClientServicePrincipalV1ToJSON } from "./DomainAzureClientServicePrincipalV1";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *

@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ApiIndicatorCreateReqV1, ApiIndicatorCreateReqV1FromJSON, ApiIndicatorCreateReqV1FromJSONTyped, ApiIndicatorCreateReqV1ToJSON } from "./ApiIndicatorCreateReqV1";
+import type { ApiIndicatorCreateReqV1 } from "./ApiIndicatorCreateReqV1";
+import { ApiIndicatorCreateReqV1FromJSON, ApiIndicatorCreateReqV1FromJSONTyped, ApiIndicatorCreateReqV1ToJSON } from "./ApiIndicatorCreateReqV1";
 
 /**
  *

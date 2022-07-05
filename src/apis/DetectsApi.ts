@@ -13,26 +13,28 @@
  */
 
 import * as runtime from "../runtime";
-import {
+import type {
     DomainDetectsEntitiesPatchRequest,
+    DomainMsaDetectSummariesResponse,
+    MsaAggregateQueryRequest,
+    MsaAggregatesResponse,
+    MsaIdsRequest,
+    MsaQueryResponse,
+    MsaReplyMetaOnly,
+} from "../models";
+import {
     DomainDetectsEntitiesPatchRequestFromJSON,
     DomainDetectsEntitiesPatchRequestToJSON,
-    DomainMsaDetectSummariesResponse,
     DomainMsaDetectSummariesResponseFromJSON,
     DomainMsaDetectSummariesResponseToJSON,
-    MsaAggregateQueryRequest,
     MsaAggregateQueryRequestFromJSON,
     MsaAggregateQueryRequestToJSON,
-    MsaAggregatesResponse,
     MsaAggregatesResponseFromJSON,
     MsaAggregatesResponseToJSON,
-    MsaIdsRequest,
     MsaIdsRequestFromJSON,
     MsaIdsRequestToJSON,
-    MsaQueryResponse,
     MsaQueryResponseFromJSON,
     MsaQueryResponseToJSON,
-    MsaReplyMetaOnly,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
 } from "../models";

@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DeviceapiGroupMeta, DeviceapiGroupMetaFromJSON, DeviceapiGroupMetaFromJSONTyped, DeviceapiGroupMetaToJSON } from "./DeviceapiGroupMeta";
+import type { DeviceapiGroupMeta } from "./DeviceapiGroupMeta";
+import { DeviceapiGroupMetaFromJSON, DeviceapiGroupMetaFromJSONTyped, DeviceapiGroupMetaToJSON } from "./DeviceapiGroupMeta";
 
 /**
  *

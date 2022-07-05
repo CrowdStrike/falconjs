@@ -13,26 +13,28 @@
  */
 
 import * as runtime from "../runtime";
-import {
+import type {
     DetectsapiPatchEntitiesInvestigatablesV1Request,
+    DetectsapiPostEntitiesInvestigatablesV1Request,
+    DetectsapiPostEntitiesInvestigatablesV1Response,
+    MsaAggregateQueryRequest,
+    MsaAggregatesResponse,
+    MsaQueryResponse,
+    MsaReplyMetaOnly,
+} from "../models";
+import {
     DetectsapiPatchEntitiesInvestigatablesV1RequestFromJSON,
     DetectsapiPatchEntitiesInvestigatablesV1RequestToJSON,
-    DetectsapiPostEntitiesInvestigatablesV1Request,
     DetectsapiPostEntitiesInvestigatablesV1RequestFromJSON,
     DetectsapiPostEntitiesInvestigatablesV1RequestToJSON,
-    DetectsapiPostEntitiesInvestigatablesV1Response,
     DetectsapiPostEntitiesInvestigatablesV1ResponseFromJSON,
     DetectsapiPostEntitiesInvestigatablesV1ResponseToJSON,
-    MsaAggregateQueryRequest,
     MsaAggregateQueryRequestFromJSON,
     MsaAggregateQueryRequestToJSON,
-    MsaAggregatesResponse,
     MsaAggregatesResponseFromJSON,
     MsaAggregatesResponseToJSON,
-    MsaQueryResponse,
     MsaQueryResponseFromJSON,
     MsaQueryResponseToJSON,
-    MsaReplyMetaOnly,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
 } from "../models";

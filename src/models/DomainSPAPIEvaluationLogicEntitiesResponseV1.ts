@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainAPIEvaluationLogicV1, DomainAPIEvaluationLogicV1FromJSON, DomainAPIEvaluationLogicV1FromJSONTyped, DomainAPIEvaluationLogicV1ToJSON } from "./DomainAPIEvaluationLogicV1";
-import { DomainMetaInfo, DomainMetaInfoFromJSON, DomainMetaInfoFromJSONTyped, DomainMetaInfoToJSON } from "./DomainMetaInfo";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { DomainAPIEvaluationLogicV1 } from "./DomainAPIEvaluationLogicV1";
+import { DomainAPIEvaluationLogicV1FromJSON, DomainAPIEvaluationLogicV1FromJSONTyped, DomainAPIEvaluationLogicV1ToJSON } from "./DomainAPIEvaluationLogicV1";
+import type { DomainMetaInfo } from "./DomainMetaInfo";
+import { DomainMetaInfoFromJSON, DomainMetaInfoFromJSONTyped, DomainMetaInfoToJSON } from "./DomainMetaInfo";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
 
 /**
  *

@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ExternalPolicyRule, ExternalPolicyRuleFromJSON, ExternalPolicyRuleFromJSONTyped, ExternalPolicyRuleToJSON } from "./ExternalPolicyRule";
+import type { ExternalPolicyRule } from "./ExternalPolicyRule";
+import { ExternalPolicyRuleFromJSON, ExternalPolicyRuleFromJSONTyped, ExternalPolicyRuleToJSON } from "./ExternalPolicyRule";
 
 /**
  *

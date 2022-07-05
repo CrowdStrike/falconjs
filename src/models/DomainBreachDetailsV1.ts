@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainBreachedItemV1, DomainBreachedItemV1FromJSON, DomainBreachedItemV1FromJSONTyped, DomainBreachedItemV1ToJSON } from "./DomainBreachedItemV1";
+import type { DomainBreachedItemV1 } from "./DomainBreachedItemV1";
+import { DomainBreachedItemV1FromJSON, DomainBreachedItemV1FromJSONTyped, DomainBreachedItemV1ToJSON } from "./DomainBreachedItemV1";
 
 /**
  *

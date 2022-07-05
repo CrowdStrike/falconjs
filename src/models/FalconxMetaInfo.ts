@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { FalconxQuota, FalconxQuotaFromJSON, FalconxQuotaFromJSONTyped, FalconxQuotaToJSON } from "./FalconxQuota";
-import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { FalconxQuota } from "./FalconxQuota";
+import { FalconxQuotaFromJSON, FalconxQuotaFromJSONTyped, FalconxQuotaToJSON } from "./FalconxQuota";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *

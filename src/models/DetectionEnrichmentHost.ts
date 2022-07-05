@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DetectionHostNetwork, DetectionHostNetworkFromJSON, DetectionHostNetworkFromJSONTyped, DetectionHostNetworkToJSON } from "./DetectionHostNetwork";
+import type { DetectionHostNetwork } from "./DetectionHostNetwork";
+import { DetectionHostNetworkFromJSON, DetectionHostNetworkFromJSONTyped, DetectionHostNetworkToJSON } from "./DetectionHostNetwork";
 
 /**
  *

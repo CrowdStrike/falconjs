@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { FwmgrApiQueryPaging, FwmgrApiQueryPagingFromJSON, FwmgrApiQueryPagingFromJSONTyped, FwmgrApiQueryPagingToJSON } from "./FwmgrApiQueryPaging";
-import { FwmgrMsaResources, FwmgrMsaResourcesFromJSON, FwmgrMsaResourcesFromJSONTyped, FwmgrMsaResourcesToJSON } from "./FwmgrMsaResources";
+import type { FwmgrApiQueryPaging } from "./FwmgrApiQueryPaging";
+import { FwmgrApiQueryPagingFromJSON, FwmgrApiQueryPagingFromJSONTyped, FwmgrApiQueryPagingToJSON } from "./FwmgrApiQueryPaging";
+import type { FwmgrMsaResources } from "./FwmgrMsaResources";
+import { FwmgrMsaResourcesFromJSON, FwmgrMsaResourcesFromJSONTyped, FwmgrMsaResourcesToJSON } from "./FwmgrMsaResources";
 
 /**
  *

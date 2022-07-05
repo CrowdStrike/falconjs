@@ -21,10 +21,10 @@ import { exists, mapValues } from "../runtime";
 export interface DomainAPIEvaluationLogicItemV1 {
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof DomainAPIEvaluationLogicItemV1
      */
-    id: number;
+    id: string;
     /**
      *
      * @type {string}

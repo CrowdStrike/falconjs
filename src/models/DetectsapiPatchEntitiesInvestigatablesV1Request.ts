@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { MsaEntityActionRequest, MsaEntityActionRequestFromJSON, MsaEntityActionRequestFromJSONTyped, MsaEntityActionRequestToJSON } from "./MsaEntityActionRequest";
+import type { MsaEntityActionRequest } from "./MsaEntityActionRequest";
+import { MsaEntityActionRequestFromJSON, MsaEntityActionRequestFromJSONTyped, MsaEntityActionRequestToJSON } from "./MsaEntityActionRequest";
 
 /**
  *

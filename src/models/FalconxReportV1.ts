@@ -13,10 +13,14 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { FalconxIntelReportV1, FalconxIntelReportV1FromJSON, FalconxIntelReportV1FromJSONTyped, FalconxIntelReportV1ToJSON } from "./FalconxIntelReportV1";
-import { FalconxMalqueryReportV1, FalconxMalqueryReportV1FromJSON, FalconxMalqueryReportV1FromJSONTyped, FalconxMalqueryReportV1ToJSON } from "./FalconxMalqueryReportV1";
-import { FalconxSandboxReportV1, FalconxSandboxReportV1FromJSON, FalconxSandboxReportV1FromJSONTyped, FalconxSandboxReportV1ToJSON } from "./FalconxSandboxReportV1";
-import { FalconxThreatGraphReportV1, FalconxThreatGraphReportV1FromJSON, FalconxThreatGraphReportV1FromJSONTyped, FalconxThreatGraphReportV1ToJSON } from "./FalconxThreatGraphReportV1";
+import type { FalconxIntelReportV1 } from "./FalconxIntelReportV1";
+import { FalconxIntelReportV1FromJSON, FalconxIntelReportV1FromJSONTyped, FalconxIntelReportV1ToJSON } from "./FalconxIntelReportV1";
+import type { FalconxMalqueryReportV1 } from "./FalconxMalqueryReportV1";
+import { FalconxMalqueryReportV1FromJSON, FalconxMalqueryReportV1FromJSONTyped, FalconxMalqueryReportV1ToJSON } from "./FalconxMalqueryReportV1";
+import type { FalconxSandboxReportV1 } from "./FalconxSandboxReportV1";
+import { FalconxSandboxReportV1FromJSON, FalconxSandboxReportV1FromJSONTyped, FalconxSandboxReportV1ToJSON } from "./FalconxSandboxReportV1";
+import type { FalconxThreatGraphReportV1 } from "./FalconxThreatGraphReportV1";
+import { FalconxThreatGraphReportV1FromJSON, FalconxThreatGraphReportV1FromJSONTyped, FalconxThreatGraphReportV1ToJSON } from "./FalconxThreatGraphReportV1";
 
 /**
  *

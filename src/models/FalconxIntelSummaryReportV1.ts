@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { FalconxActorSummary, FalconxActorSummaryFromJSON, FalconxActorSummaryFromJSONTyped, FalconxActorSummaryToJSON } from "./FalconxActorSummary";
+import type { FalconxActorSummary } from "./FalconxActorSummary";
+import { FalconxActorSummaryFromJSON, FalconxActorSummaryFromJSONTyped, FalconxActorSummaryToJSON } from "./FalconxActorSummary";
 
 /**
  *

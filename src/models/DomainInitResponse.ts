@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainScriptHelp, DomainScriptHelpFromJSON, DomainScriptHelpFromJSONTyped, DomainScriptHelpToJSON } from "./DomainScriptHelp";
+import type { DomainScriptHelp } from "./DomainScriptHelp";
+import { DomainScriptHelpFromJSON, DomainScriptHelpFromJSONTyped, DomainScriptHelpToJSON } from "./DomainScriptHelp";
 
 /**
  *
