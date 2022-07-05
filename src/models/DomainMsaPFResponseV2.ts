@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainRemoteCommandPutFileV2, DomainRemoteCommandPutFileV2FromJSON, DomainRemoteCommandPutFileV2FromJSONTyped, DomainRemoteCommandPutFileV2ToJSON } from "./DomainRemoteCommandPutFileV2";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { DomainRemoteCommandPutFileV2 } from "./DomainRemoteCommandPutFileV2";
+import { DomainRemoteCommandPutFileV2FromJSON, DomainRemoteCommandPutFileV2FromJSONTyped, DomainRemoteCommandPutFileV2ToJSON } from "./DomainRemoteCommandPutFileV2";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *

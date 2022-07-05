@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { FwmgrMsaAPIError, FwmgrMsaAPIErrorFromJSON, FwmgrMsaAPIErrorFromJSONTyped, FwmgrMsaAPIErrorToJSON } from "./FwmgrMsaAPIError";
-import { FwmgrMsaAggregationResult, FwmgrMsaAggregationResultFromJSON, FwmgrMsaAggregationResultFromJSONTyped, FwmgrMsaAggregationResultToJSON } from "./FwmgrMsaAggregationResult";
-import { FwmgrMsaMetaInfo, FwmgrMsaMetaInfoFromJSON, FwmgrMsaMetaInfoFromJSONTyped, FwmgrMsaMetaInfoToJSON } from "./FwmgrMsaMetaInfo";
+import type { FwmgrMsaAPIError } from "./FwmgrMsaAPIError";
+import { FwmgrMsaAPIErrorFromJSON, FwmgrMsaAPIErrorFromJSONTyped, FwmgrMsaAPIErrorToJSON } from "./FwmgrMsaAPIError";
+import type { FwmgrMsaAggregationResult } from "./FwmgrMsaAggregationResult";
+import { FwmgrMsaAggregationResultFromJSON, FwmgrMsaAggregationResultFromJSONTyped, FwmgrMsaAggregationResultToJSON } from "./FwmgrMsaAggregationResult";
+import type { FwmgrMsaMetaInfo } from "./FwmgrMsaMetaInfo";
+import { FwmgrMsaMetaInfoFromJSON, FwmgrMsaMetaInfoFromJSONTyped, FwmgrMsaMetaInfoToJSON } from "./FwmgrMsaMetaInfo";
 
 /**
  *

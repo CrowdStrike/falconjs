@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { MlscannerScannedSample, MlscannerScannedSampleFromJSON, MlscannerScannedSampleFromJSONTyped, MlscannerScannedSampleToJSON } from "./MlscannerScannedSample";
+import type { MlscannerScannedSample } from "./MlscannerScannedSample";
+import { MlscannerScannedSampleFromJSON, MlscannerScannedSampleFromJSONTyped, MlscannerScannedSampleToJSON } from "./MlscannerScannedSample";
 
 /**
  *

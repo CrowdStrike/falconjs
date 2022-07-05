@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DeviceapiGroupResponseV1, DeviceapiGroupResponseV1FromJSON, DeviceapiGroupResponseV1FromJSONTyped, DeviceapiGroupResponseV1ToJSON } from "./DeviceapiGroupResponseV1";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { DeviceapiGroupResponseV1 } from "./DeviceapiGroupResponseV1";
+import { DeviceapiGroupResponseV1FromJSON, DeviceapiGroupResponseV1FromJSONTyped, DeviceapiGroupResponseV1ToJSON } from "./DeviceapiGroupResponseV1";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *

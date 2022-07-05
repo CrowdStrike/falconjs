@@ -13,10 +13,14 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainNotifications, DomainNotificationsFromJSON, DomainNotificationsFromJSONTyped, DomainNotificationsToJSON } from "./DomainNotifications";
-import { DomainReportExecutionSummary, DomainReportExecutionSummaryFromJSON, DomainReportExecutionSummaryFromJSONTyped, DomainReportExecutionSummaryToJSON } from "./DomainReportExecutionSummary";
-import { DomainReportParams, DomainReportParamsFromJSON, DomainReportParamsFromJSONTyped, DomainReportParamsToJSON } from "./DomainReportParams";
-import { DomainSchedule, DomainScheduleFromJSON, DomainScheduleFromJSONTyped, DomainScheduleToJSON } from "./DomainSchedule";
+import type { DomainNotifications } from "./DomainNotifications";
+import { DomainNotificationsFromJSON, DomainNotificationsFromJSONTyped, DomainNotificationsToJSON } from "./DomainNotifications";
+import type { DomainReportExecutionSummary } from "./DomainReportExecutionSummary";
+import { DomainReportExecutionSummaryFromJSON, DomainReportExecutionSummaryFromJSONTyped, DomainReportExecutionSummaryToJSON } from "./DomainReportExecutionSummary";
+import type { DomainReportParams } from "./DomainReportParams";
+import { DomainReportParamsFromJSON, DomainReportParamsFromJSONTyped, DomainReportParamsToJSON } from "./DomainReportParams";
+import type { DomainSchedule } from "./DomainSchedule";
+import { DomainScheduleFromJSON, DomainScheduleFromJSONTyped, DomainScheduleToJSON } from "./DomainSchedule";
 
 /**
  *

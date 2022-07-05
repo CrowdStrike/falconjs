@@ -13,17 +13,8 @@
  */
 
 import * as runtime from "../runtime";
-import {
-    DomainSensorInstallersV1,
-    DomainSensorInstallersV1FromJSON,
-    DomainSensorInstallersV1ToJSON,
-    MsaQueryResponse,
-    MsaQueryResponseFromJSON,
-    MsaQueryResponseToJSON,
-    MsaReplyMetaOnly,
-    MsaReplyMetaOnlyFromJSON,
-    MsaReplyMetaOnlyToJSON,
-} from "../models";
+import type { DomainSensorInstallersV1, MsaQueryResponse, MsaReplyMetaOnly } from "../models";
+import { DomainSensorInstallersV1FromJSON, DomainSensorInstallersV1ToJSON, MsaQueryResponseFromJSON, MsaQueryResponseToJSON, MsaReplyMetaOnlyFromJSON, MsaReplyMetaOnlyToJSON } from "../models";
 
 export interface DownloadSensorInstallerByIdRequest {
     id: string;

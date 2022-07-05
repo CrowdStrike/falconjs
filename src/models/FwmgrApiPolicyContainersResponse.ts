@@ -13,14 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import {
-    FwmgrFirewallPolicyContainerV1,
-    FwmgrFirewallPolicyContainerV1FromJSON,
-    FwmgrFirewallPolicyContainerV1FromJSONTyped,
-    FwmgrFirewallPolicyContainerV1ToJSON,
-} from "./FwmgrFirewallPolicyContainerV1";
-import { FwmgrMsaAPIError, FwmgrMsaAPIErrorFromJSON, FwmgrMsaAPIErrorFromJSONTyped, FwmgrMsaAPIErrorToJSON } from "./FwmgrMsaAPIError";
-import { FwmgrMsaMetaInfo, FwmgrMsaMetaInfoFromJSON, FwmgrMsaMetaInfoFromJSONTyped, FwmgrMsaMetaInfoToJSON } from "./FwmgrMsaMetaInfo";
+import type { FwmgrFirewallPolicyContainerV1 } from "./FwmgrFirewallPolicyContainerV1";
+import { FwmgrFirewallPolicyContainerV1FromJSON, FwmgrFirewallPolicyContainerV1FromJSONTyped, FwmgrFirewallPolicyContainerV1ToJSON } from "./FwmgrFirewallPolicyContainerV1";
+import type { FwmgrMsaAPIError } from "./FwmgrMsaAPIError";
+import { FwmgrMsaAPIErrorFromJSON, FwmgrMsaAPIErrorFromJSONTyped, FwmgrMsaAPIErrorToJSON } from "./FwmgrMsaAPIError";
+import type { FwmgrMsaMetaInfo } from "./FwmgrMsaMetaInfo";
+import { FwmgrMsaMetaInfoFromJSON, FwmgrMsaMetaInfoFromJSONTyped, FwmgrMsaMetaInfoToJSON } from "./FwmgrMsaMetaInfo";
 
 /**
  *

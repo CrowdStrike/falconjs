@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { RegistrationIOMEvent, RegistrationIOMEventFromJSON, RegistrationIOMEventFromJSONTyped, RegistrationIOMEventToJSON } from "./RegistrationIOMEvent";
+import type { RegistrationIOMEvent } from "./RegistrationIOMEvent";
+import { RegistrationIOMEventFromJSON, RegistrationIOMEventFromJSONTyped, RegistrationIOMEventToJSON } from "./RegistrationIOMEvent";
 
 /**
  *

@@ -13,9 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainQuota, DomainQuotaFromJSON, DomainQuotaFromJSONTyped, DomainQuotaToJSON } from "./DomainQuota";
+import type { DomainQuota } from "./DomainQuota";
+import { DomainQuotaFromJSON, DomainQuotaFromJSONTyped, DomainQuotaToJSON } from "./DomainQuota";
+import type { DomainSPAPIQueryVulnerabilitiesPaging } from "./DomainSPAPIQueryVulnerabilitiesPaging";
 import {
-    DomainSPAPIQueryVulnerabilitiesPaging,
     DomainSPAPIQueryVulnerabilitiesPagingFromJSON,
     DomainSPAPIQueryVulnerabilitiesPagingFromJSONTyped,
     DomainSPAPIQueryVulnerabilitiesPagingToJSON,

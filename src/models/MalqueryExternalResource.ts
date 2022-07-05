@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { MalquerySampleMetadata, MalquerySampleMetadataFromJSON, MalquerySampleMetadataFromJSONTyped, MalquerySampleMetadataToJSON } from "./MalquerySampleMetadata";
+import type { MalquerySampleMetadata } from "./MalquerySampleMetadata";
+import { MalquerySampleMetadataFromJSON, MalquerySampleMetadataFromJSONTyped, MalquerySampleMetadataToJSON } from "./MalquerySampleMetadata";
 
 /**
  *

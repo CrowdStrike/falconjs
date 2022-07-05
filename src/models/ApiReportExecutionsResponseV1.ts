@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ApiReportExecutionV1, ApiReportExecutionV1FromJSON, ApiReportExecutionV1FromJSONTyped, ApiReportExecutionV1ToJSON } from "./ApiReportExecutionV1";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { ApiReportExecutionV1 } from "./ApiReportExecutionV1";
+import { ApiReportExecutionV1FromJSON, ApiReportExecutionV1FromJSONTyped, ApiReportExecutionV1ToJSON } from "./ApiReportExecutionV1";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *

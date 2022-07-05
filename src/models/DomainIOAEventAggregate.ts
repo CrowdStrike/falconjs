@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DetectionAggregateThreatIntel, DetectionAggregateThreatIntelFromJSON, DetectionAggregateThreatIntelFromJSONTyped, DetectionAggregateThreatIntelToJSON } from "./DetectionAggregateThreatIntel";
+import type { DetectionAggregateThreatIntel } from "./DetectionAggregateThreatIntel";
+import { DetectionAggregateThreatIntelFromJSON, DetectionAggregateThreatIntelFromJSONTyped, DetectionAggregateThreatIntelToJSON } from "./DetectionAggregateThreatIntel";
 
 /**
  *

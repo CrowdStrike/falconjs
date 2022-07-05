@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainMatchedBreachSummaryV1, DomainMatchedBreachSummaryV1FromJSON, DomainMatchedBreachSummaryV1FromJSONTyped, DomainMatchedBreachSummaryV1ToJSON } from "./DomainMatchedBreachSummaryV1";
+import type { DomainMatchedBreachSummaryV1 } from "./DomainMatchedBreachSummaryV1";
+import { DomainMatchedBreachSummaryV1FromJSON, DomainMatchedBreachSummaryV1FromJSONTyped, DomainMatchedBreachSummaryV1ToJSON } from "./DomainMatchedBreachSummaryV1";
 
 /**
  *

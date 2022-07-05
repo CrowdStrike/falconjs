@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainMSSPRoles, DomainMSSPRolesFromJSON, DomainMSSPRolesFromJSONTyped, DomainMSSPRolesToJSON } from "./DomainMSSPRoles";
+import type { DomainMSSPRoles } from "./DomainMSSPRoles";
+import { DomainMSSPRolesFromJSON, DomainMSSPRolesFromJSONTyped, DomainMSSPRolesToJSON } from "./DomainMSSPRoles";
 
 /**
  *

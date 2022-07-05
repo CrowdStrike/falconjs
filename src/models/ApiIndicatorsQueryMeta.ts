@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ApiIndicatorsQueryPaging, ApiIndicatorsQueryPagingFromJSON, ApiIndicatorsQueryPagingFromJSONTyped, ApiIndicatorsQueryPagingToJSON } from "./ApiIndicatorsQueryPaging";
+import type { ApiIndicatorsQueryPaging } from "./ApiIndicatorsQueryPaging";
+import { ApiIndicatorsQueryPagingFromJSON, ApiIndicatorsQueryPagingFromJSONTyped, ApiIndicatorsQueryPagingToJSON } from "./ApiIndicatorsQueryPaging";
 
 /**
  *

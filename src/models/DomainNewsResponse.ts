@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainNewsDocument, DomainNewsDocumentFromJSON, DomainNewsDocumentFromJSONTyped, DomainNewsDocumentToJSON } from "./DomainNewsDocument";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { DomainNewsDocument } from "./DomainNewsDocument";
+import { DomainNewsDocumentFromJSON, DomainNewsDocumentFromJSONTyped, DomainNewsDocumentToJSON } from "./DomainNewsDocument";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *

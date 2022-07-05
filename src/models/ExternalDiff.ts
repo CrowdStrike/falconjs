@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ExternalDiffType, ExternalDiffTypeFromJSON, ExternalDiffTypeFromJSONTyped, ExternalDiffTypeToJSON } from "./ExternalDiffType";
+import type { ExternalDiffType } from "./ExternalDiffType";
+import { ExternalDiffTypeFromJSON, ExternalDiffTypeFromJSONTyped, ExternalDiffTypeToJSON } from "./ExternalDiffType";
 
 /**
  *

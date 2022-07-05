@@ -13,35 +13,37 @@
  */
 
 import * as runtime from "../runtime";
-import {
+import type {
     ClientQuerySamplesRequest,
+    ClientSampleMetadataResponseV2,
+    FalconxErrorsOnly,
+    FalconxQueryResponse,
+    FalconxReportV1Response,
+    FalconxSubmissionParametersV1,
+    FalconxSubmissionV1Response,
+    FalconxSummaryReportV1Response,
+    MsaQueryResponse,
+    MsaReplyMetaOnly,
+} from "../models";
+import {
     ClientQuerySamplesRequestFromJSON,
     ClientQuerySamplesRequestToJSON,
-    ClientSampleMetadataResponseV2,
     ClientSampleMetadataResponseV2FromJSON,
     ClientSampleMetadataResponseV2ToJSON,
-    FalconxErrorsOnly,
     FalconxErrorsOnlyFromJSON,
     FalconxErrorsOnlyToJSON,
-    FalconxQueryResponse,
     FalconxQueryResponseFromJSON,
     FalconxQueryResponseToJSON,
-    FalconxReportV1Response,
     FalconxReportV1ResponseFromJSON,
     FalconxReportV1ResponseToJSON,
-    FalconxSubmissionParametersV1,
     FalconxSubmissionParametersV1FromJSON,
     FalconxSubmissionParametersV1ToJSON,
-    FalconxSubmissionV1Response,
     FalconxSubmissionV1ResponseFromJSON,
     FalconxSubmissionV1ResponseToJSON,
-    FalconxSummaryReportV1Response,
     FalconxSummaryReportV1ResponseFromJSON,
     FalconxSummaryReportV1ResponseToJSON,
-    MsaQueryResponse,
     MsaQueryResponseFromJSON,
     MsaQueryResponseToJSON,
-    MsaReplyMetaOnly,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
 } from "../models";

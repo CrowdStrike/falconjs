@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DeviceapiLoginInfoV1, DeviceapiLoginInfoV1FromJSON, DeviceapiLoginInfoV1FromJSONTyped, DeviceapiLoginInfoV1ToJSON } from "./DeviceapiLoginInfoV1";
+import type { DeviceapiLoginInfoV1 } from "./DeviceapiLoginInfoV1";
+import { DeviceapiLoginInfoV1FromJSON, DeviceapiLoginInfoV1FromJSONTyped, DeviceapiLoginInfoV1ToJSON } from "./DeviceapiLoginInfoV1";
 
 /**
  *

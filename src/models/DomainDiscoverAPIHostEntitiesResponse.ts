@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainDiscoverAPIHost, DomainDiscoverAPIHostFromJSON, DomainDiscoverAPIHostFromJSONTyped, DomainDiscoverAPIHostToJSON } from "./DomainDiscoverAPIHost";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { DomainDiscoverAPIHost } from "./DomainDiscoverAPIHost";
+import { DomainDiscoverAPIHostFromJSON, DomainDiscoverAPIHostFromJSONTyped, DomainDiscoverAPIHostToJSON } from "./DomainDiscoverAPIHost";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *

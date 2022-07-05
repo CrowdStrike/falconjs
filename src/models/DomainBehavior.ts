@@ -13,12 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import {
-    CloudontologyPatternDisposition,
-    CloudontologyPatternDispositionFromJSON,
-    CloudontologyPatternDispositionFromJSONTyped,
-    CloudontologyPatternDispositionToJSON,
-} from "./CloudontologyPatternDisposition";
+import type { CloudontologyPatternDisposition } from "./CloudontologyPatternDisposition";
+import { CloudontologyPatternDispositionFromJSON, CloudontologyPatternDispositionFromJSONTyped, CloudontologyPatternDispositionToJSON } from "./CloudontologyPatternDisposition";
 
 /**
  *

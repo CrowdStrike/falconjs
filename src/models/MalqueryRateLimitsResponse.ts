@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { MalqueryRateLimitsMeta, MalqueryRateLimitsMetaFromJSON, MalqueryRateLimitsMetaFromJSONTyped, MalqueryRateLimitsMetaToJSON } from "./MalqueryRateLimitsMeta";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MalqueryRateLimitsMeta } from "./MalqueryRateLimitsMeta";
+import { MalqueryRateLimitsMetaFromJSON, MalqueryRateLimitsMetaFromJSONTyped, MalqueryRateLimitsMetaToJSON } from "./MalqueryRateLimitsMeta";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
 
 /**
  *

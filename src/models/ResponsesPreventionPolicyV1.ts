@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ResponsesHostGroupV1, ResponsesHostGroupV1FromJSON, ResponsesHostGroupV1FromJSONTyped, ResponsesHostGroupV1ToJSON } from "./ResponsesHostGroupV1";
-import { ResponsesIOARuleGroupV1, ResponsesIOARuleGroupV1FromJSON, ResponsesIOARuleGroupV1FromJSONTyped, ResponsesIOARuleGroupV1ToJSON } from "./ResponsesIOARuleGroupV1";
-import { ResponsesPreventionCategoryV1, ResponsesPreventionCategoryV1FromJSON, ResponsesPreventionCategoryV1FromJSONTyped, ResponsesPreventionCategoryV1ToJSON } from "./ResponsesPreventionCategoryV1";
+import type { ResponsesHostGroupV1 } from "./ResponsesHostGroupV1";
+import { ResponsesHostGroupV1FromJSON, ResponsesHostGroupV1FromJSONTyped, ResponsesHostGroupV1ToJSON } from "./ResponsesHostGroupV1";
+import type { ResponsesIOARuleGroupV1 } from "./ResponsesIOARuleGroupV1";
+import { ResponsesIOARuleGroupV1FromJSON, ResponsesIOARuleGroupV1FromJSONTyped, ResponsesIOARuleGroupV1ToJSON } from "./ResponsesIOARuleGroupV1";
+import type { ResponsesPreventionCategoryV1 } from "./ResponsesPreventionCategoryV1";
+import { ResponsesPreventionCategoryV1FromJSON, ResponsesPreventionCategoryV1FromJSONTyped, ResponsesPreventionCategoryV1ToJSON } from "./ResponsesPreventionCategoryV1";
 
 /**
  * A fully formed prevention policy

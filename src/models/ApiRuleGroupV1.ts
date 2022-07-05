@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ApiRuleV1, ApiRuleV1FromJSON, ApiRuleV1FromJSONTyped, ApiRuleV1ToJSON } from "./ApiRuleV1";
+import type { ApiRuleV1 } from "./ApiRuleV1";
+import { ApiRuleV1FromJSON, ApiRuleV1FromJSONTyped, ApiRuleV1ToJSON } from "./ApiRuleV1";
 
 /**
  *

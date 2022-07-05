@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ResponsesHostGroupV1, ResponsesHostGroupV1FromJSON, ResponsesHostGroupV1FromJSONTyped, ResponsesHostGroupV1ToJSON } from "./ResponsesHostGroupV1";
+import type { ResponsesHostGroupV1 } from "./ResponsesHostGroupV1";
+import { ResponsesHostGroupV1FromJSON, ResponsesHostGroupV1FromJSONTyped, ResponsesHostGroupV1ToJSON } from "./ResponsesHostGroupV1";
 
 /**
  *

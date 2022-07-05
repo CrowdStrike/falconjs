@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainXDRData, DomainXDRDataFromJSON, DomainXDRDataFromJSONTyped, DomainXDRDataToJSON } from "./DomainXDRData";
-import { DomainXDRParams, DomainXDRParamsFromJSON, DomainXDRParamsFromJSONTyped, DomainXDRParamsToJSON } from "./DomainXDRParams";
+import type { DomainXDRData } from "./DomainXDRData";
+import { DomainXDRDataFromJSON, DomainXDRDataFromJSONTyped, DomainXDRDataToJSON } from "./DomainXDRData";
+import type { DomainXDRParams } from "./DomainXDRParams";
+import { DomainXDRParamsFromJSON, DomainXDRParamsFromJSONTyped, DomainXDRParamsToJSON } from "./DomainXDRParams";
 
 /**
  *

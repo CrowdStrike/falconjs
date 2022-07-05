@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainAzureAccountV1, DomainAzureAccountV1FromJSON, DomainAzureAccountV1FromJSONTyped, DomainAzureAccountV1ToJSON } from "./DomainAzureAccountV1";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { DomainAzureAccountV1 } from "./DomainAzureAccountV1";
+import { DomainAzureAccountV1FromJSON, DomainAzureAccountV1FromJSONTyped, DomainAzureAccountV1ToJSON } from "./DomainAzureAccountV1";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *

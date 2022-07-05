@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainSignalProperty, DomainSignalPropertyFromJSON, DomainSignalPropertyFromJSONTyped, DomainSignalPropertyToJSON } from "./DomainSignalProperty";
+import type { DomainSignalProperty } from "./DomainSignalProperty";
+import { DomainSignalPropertyFromJSON, DomainSignalPropertyFromJSONTyped, DomainSignalPropertyToJSON } from "./DomainSignalProperty";
 
 /**
  *

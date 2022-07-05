@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { FalconxSandboxParametersV1, FalconxSandboxParametersV1FromJSON, FalconxSandboxParametersV1FromJSONTyped, FalconxSandboxParametersV1ToJSON } from "./FalconxSandboxParametersV1";
+import type { FalconxSandboxParametersV1 } from "./FalconxSandboxParametersV1";
+import { FalconxSandboxParametersV1FromJSON, FalconxSandboxParametersV1FromJSONTyped, FalconxSandboxParametersV1ToJSON } from "./FalconxSandboxParametersV1";
 
 /**
  *

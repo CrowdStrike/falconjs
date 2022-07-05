@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { FwmgrDomainField, FwmgrDomainFieldFromJSON, FwmgrDomainFieldFromJSONTyped, FwmgrDomainFieldToJSON } from "./FwmgrDomainField";
-import { FwmgrDomainMonitoring, FwmgrDomainMonitoringFromJSON, FwmgrDomainMonitoringFromJSONTyped, FwmgrDomainMonitoringToJSON } from "./FwmgrDomainMonitoring";
+import type { FwmgrDomainField } from "./FwmgrDomainField";
+import { FwmgrDomainFieldFromJSON, FwmgrDomainFieldFromJSONTyped, FwmgrDomainFieldToJSON } from "./FwmgrDomainField";
+import type { FwmgrDomainMonitoring } from "./FwmgrDomainMonitoring";
+import { FwmgrDomainMonitoringFromJSON, FwmgrDomainMonitoringFromJSONTyped, FwmgrDomainMonitoringToJSON } from "./FwmgrDomainMonitoring";
 
 /**
  *

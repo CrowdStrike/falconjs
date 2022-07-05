@@ -13,17 +13,14 @@
  */
 
 import * as runtime from "../runtime";
+import type { DomainSPAPIEvaluationLogicCombinedResponseV1, DomainSPAPIEvaluationLogicEntitiesResponseV1, DomainSPAPIQueryResponse, MsaReplyMetaOnly } from "../models";
 import {
-    DomainSPAPIEvaluationLogicCombinedResponseV1,
     DomainSPAPIEvaluationLogicCombinedResponseV1FromJSON,
     DomainSPAPIEvaluationLogicCombinedResponseV1ToJSON,
-    DomainSPAPIEvaluationLogicEntitiesResponseV1,
     DomainSPAPIEvaluationLogicEntitiesResponseV1FromJSON,
     DomainSPAPIEvaluationLogicEntitiesResponseV1ToJSON,
-    DomainSPAPIQueryResponse,
     DomainSPAPIQueryResponseFromJSON,
     DomainSPAPIQueryResponseToJSON,
-    MsaReplyMetaOnly,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
 } from "../models";

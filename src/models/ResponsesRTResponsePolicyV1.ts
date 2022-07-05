@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ResponsesHostGroupV1, ResponsesHostGroupV1FromJSON, ResponsesHostGroupV1FromJSONTyped, ResponsesHostGroupV1ToJSON } from "./ResponsesHostGroupV1";
-import { ResponsesPreventionCategoryV1, ResponsesPreventionCategoryV1FromJSON, ResponsesPreventionCategoryV1FromJSONTyped, ResponsesPreventionCategoryV1ToJSON } from "./ResponsesPreventionCategoryV1";
+import type { ResponsesHostGroupV1 } from "./ResponsesHostGroupV1";
+import { ResponsesHostGroupV1FromJSON, ResponsesHostGroupV1FromJSONTyped, ResponsesHostGroupV1ToJSON } from "./ResponsesHostGroupV1";
+import type { ResponsesPreventionCategoryV1 } from "./ResponsesPreventionCategoryV1";
+import { ResponsesPreventionCategoryV1FromJSON, ResponsesPreventionCategoryV1FromJSONTyped, ResponsesPreventionCategoryV1ToJSON } from "./ResponsesPreventionCategoryV1";
 
 /**
  * A fully formed RTR policy

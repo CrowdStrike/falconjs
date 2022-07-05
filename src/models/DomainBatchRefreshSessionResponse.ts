@@ -13,14 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import {
-    DomainMultiPulseSensorResponse,
-    DomainMultiPulseSensorResponseFromJSON,
-    DomainMultiPulseSensorResponseFromJSONTyped,
-    DomainMultiPulseSensorResponseToJSON,
-} from "./DomainMultiPulseSensorResponse";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { DomainMultiPulseSensorResponse } from "./DomainMultiPulseSensorResponse";
+import { DomainMultiPulseSensorResponseFromJSON, DomainMultiPulseSensorResponseFromJSONTyped, DomainMultiPulseSensorResponseToJSON } from "./DomainMultiPulseSensorResponse";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *

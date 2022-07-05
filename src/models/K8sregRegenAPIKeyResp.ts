@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { K8sregAPIKey, K8sregAPIKeyFromJSON, K8sregAPIKeyFromJSONTyped, K8sregAPIKeyToJSON } from "./K8sregAPIKey";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { K8sregAPIKey } from "./K8sregAPIKey";
+import { K8sregAPIKeyFromJSON, K8sregAPIKeyFromJSONTyped, K8sregAPIKeyToJSON } from "./K8sregAPIKey";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *

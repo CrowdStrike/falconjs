@@ -13,13 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import {
-    DomainSPAPIQueryVulnerabilitiesMeta,
-    DomainSPAPIQueryVulnerabilitiesMetaFromJSON,
-    DomainSPAPIQueryVulnerabilitiesMetaFromJSONTyped,
-    DomainSPAPIQueryVulnerabilitiesMetaToJSON,
-} from "./DomainSPAPIQueryVulnerabilitiesMeta";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { DomainSPAPIQueryVulnerabilitiesMeta } from "./DomainSPAPIQueryVulnerabilitiesMeta";
+import { DomainSPAPIQueryVulnerabilitiesMetaFromJSON, DomainSPAPIQueryVulnerabilitiesMetaFromJSONTyped, DomainSPAPIQueryVulnerabilitiesMetaToJSON } from "./DomainSPAPIQueryVulnerabilitiesMeta";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
 
 /**
  *

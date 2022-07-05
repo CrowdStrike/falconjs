@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { MsaAggregationResult, MsaAggregationResultFromJSON, MsaAggregationResultFromJSONTyped, MsaAggregationResultToJSON } from "./MsaAggregationResult";
+import type { MsaAggregationResult } from "./MsaAggregationResult";
+import { MsaAggregationResultFromJSON, MsaAggregationResultFromJSONTyped, MsaAggregationResultToJSON } from "./MsaAggregationResult";
 
 /**
  *

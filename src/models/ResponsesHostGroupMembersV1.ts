@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { CsdomainDevice, CsdomainDeviceFromJSON, CsdomainDeviceFromJSONTyped, CsdomainDeviceToJSON } from "./CsdomainDevice";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { CsdomainDevice } from "./CsdomainDevice";
+import { CsdomainDeviceFromJSON, CsdomainDeviceFromJSONTyped, CsdomainDeviceToJSON } from "./CsdomainDevice";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *

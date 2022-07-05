@@ -13,14 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import {
-    BinservclientRemoteCommandPutFile,
-    BinservclientRemoteCommandPutFileFromJSON,
-    BinservclientRemoteCommandPutFileFromJSONTyped,
-    BinservclientRemoteCommandPutFileToJSON,
-} from "./BinservclientRemoteCommandPutFile";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { BinservclientRemoteCommandPutFile } from "./BinservclientRemoteCommandPutFile";
+import { BinservclientRemoteCommandPutFileFromJSON, BinservclientRemoteCommandPutFileFromJSONTyped, BinservclientRemoteCommandPutFileToJSON } from "./BinservclientRemoteCommandPutFile";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *

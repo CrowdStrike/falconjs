@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { FwmgrDomainValueItem, FwmgrDomainValueItemFromJSON, FwmgrDomainValueItemFromJSONTyped, FwmgrDomainValueItemToJSON } from "./FwmgrDomainValueItem";
+import type { FwmgrDomainValueItem } from "./FwmgrDomainValueItem";
+import { FwmgrDomainValueItemFromJSON, FwmgrDomainValueItemFromJSONTyped, FwmgrDomainValueItemToJSON } from "./FwmgrDomainValueItem";
 
 /**
  *

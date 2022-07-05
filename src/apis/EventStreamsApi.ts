@@ -13,7 +13,8 @@
  */
 
 import * as runtime from "../runtime";
-import { MainDiscoveryResponseV2, MainDiscoveryResponseV2FromJSON, MainDiscoveryResponseV2ToJSON, MsaReplyMetaOnly, MsaReplyMetaOnlyFromJSON, MsaReplyMetaOnlyToJSON } from "../models";
+import type { MainDiscoveryResponseV2, MsaReplyMetaOnly } from "../models";
+import { MainDiscoveryResponseV2FromJSON, MainDiscoveryResponseV2ToJSON, MsaReplyMetaOnlyFromJSON, MsaReplyMetaOnlyToJSON } from "../models";
 
 export interface ListAvailableStreamsOAuth2Request {
     appId: string;

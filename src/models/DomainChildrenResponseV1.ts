@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainChildLink, DomainChildLinkFromJSON, DomainChildLinkFromJSONTyped, DomainChildLinkToJSON } from "./DomainChildLink";
-import { MsaReplyMetaOnly, MsaReplyMetaOnlyFromJSON, MsaReplyMetaOnlyFromJSONTyped, MsaReplyMetaOnlyToJSON } from "./MsaReplyMetaOnly";
+import type { DomainChildLink } from "./DomainChildLink";
+import { DomainChildLinkFromJSON, DomainChildLinkFromJSONTyped, DomainChildLinkToJSON } from "./DomainChildLink";
+import type { MsaReplyMetaOnly } from "./MsaReplyMetaOnly";
+import { MsaReplyMetaOnlyFromJSON, MsaReplyMetaOnlyFromJSONTyped, MsaReplyMetaOnlyToJSON } from "./MsaReplyMetaOnly";
 
 /**
  *

@@ -13,12 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import {
-    K8sregAWSAccountPermissionsStatus,
-    K8sregAWSAccountPermissionsStatusFromJSON,
-    K8sregAWSAccountPermissionsStatusFromJSONTyped,
-    K8sregAWSAccountPermissionsStatusToJSON,
-} from "./K8sregAWSAccountPermissionsStatus";
+import type { K8sregAWSAccountPermissionsStatus } from "./K8sregAWSAccountPermissionsStatus";
+import { K8sregAWSAccountPermissionsStatusFromJSON, K8sregAWSAccountPermissionsStatusFromJSONTyped, K8sregAWSAccountPermissionsStatusToJSON } from "./K8sregAWSAccountPermissionsStatus";
 
 /**
  *

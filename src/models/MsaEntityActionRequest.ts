@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { MsaActionParameter, MsaActionParameterFromJSON, MsaActionParameterFromJSONTyped, MsaActionParameterToJSON } from "./MsaActionParameter";
+import type { MsaActionParameter } from "./MsaActionParameter";
+import { MsaActionParameterFromJSON, MsaActionParameterFromJSONTyped, MsaActionParameterToJSON } from "./MsaActionParameter";
 
 /**
  *

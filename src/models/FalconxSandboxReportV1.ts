@@ -13,25 +13,34 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { FalconxContactedHost, FalconxContactedHostFromJSON, FalconxContactedHostFromJSONTyped, FalconxContactedHostToJSON } from "./FalconxContactedHost";
-import { FalconxDNSRequest, FalconxDNSRequestFromJSON, FalconxDNSRequestFromJSONTyped, FalconxDNSRequestToJSON } from "./FalconxDNSRequest";
-import { FalconxExtractedFile, FalconxExtractedFileFromJSON, FalconxExtractedFileFromJSONTyped, FalconxExtractedFileToJSON } from "./FalconxExtractedFile";
-import {
-    FalconxExtractedInterestingString,
-    FalconxExtractedInterestingStringFromJSON,
-    FalconxExtractedInterestingStringFromJSONTyped,
-    FalconxExtractedInterestingStringToJSON,
-} from "./FalconxExtractedInterestingString";
-import { FalconxFileImport, FalconxFileImportFromJSON, FalconxFileImportFromJSONTyped, FalconxFileImportToJSON } from "./FalconxFileImport";
-import { FalconxFileMetadata, FalconxFileMetadataFromJSON, FalconxFileMetadataFromJSONTyped, FalconxFileMetadataToJSON } from "./FalconxFileMetadata";
-import { FalconxHTTPRequest, FalconxHTTPRequestFromJSON, FalconxHTTPRequestFromJSONTyped, FalconxHTTPRequestToJSON } from "./FalconxHTTPRequest";
-import { FalconxIncident, FalconxIncidentFromJSON, FalconxIncidentFromJSONTyped, FalconxIncidentToJSON } from "./FalconxIncident";
-import { FalconxMITREAttack, FalconxMITREAttackFromJSON, FalconxMITREAttackFromJSONTyped, FalconxMITREAttackToJSON } from "./FalconxMITREAttack";
-import { FalconxMemoryForensic, FalconxMemoryForensicFromJSON, FalconxMemoryForensicFromJSONTyped, FalconxMemoryForensicToJSON } from "./FalconxMemoryForensic";
-import { FalconxProcess, FalconxProcessFromJSON, FalconxProcessFromJSONTyped, FalconxProcessToJSON } from "./FalconxProcess";
-import { FalconxSignature, FalconxSignatureFromJSON, FalconxSignatureFromJSONTyped, FalconxSignatureToJSON } from "./FalconxSignature";
-import { FalconxSuricataAlert, FalconxSuricataAlertFromJSON, FalconxSuricataAlertFromJSONTyped, FalconxSuricataAlertToJSON } from "./FalconxSuricataAlert";
-import { FalconxVersionInfo, FalconxVersionInfoFromJSON, FalconxVersionInfoFromJSONTyped, FalconxVersionInfoToJSON } from "./FalconxVersionInfo";
+import type { FalconxContactedHost } from "./FalconxContactedHost";
+import { FalconxContactedHostFromJSON, FalconxContactedHostFromJSONTyped, FalconxContactedHostToJSON } from "./FalconxContactedHost";
+import type { FalconxDNSRequest } from "./FalconxDNSRequest";
+import { FalconxDNSRequestFromJSON, FalconxDNSRequestFromJSONTyped, FalconxDNSRequestToJSON } from "./FalconxDNSRequest";
+import type { FalconxExtractedFile } from "./FalconxExtractedFile";
+import { FalconxExtractedFileFromJSON, FalconxExtractedFileFromJSONTyped, FalconxExtractedFileToJSON } from "./FalconxExtractedFile";
+import type { FalconxExtractedInterestingString } from "./FalconxExtractedInterestingString";
+import { FalconxExtractedInterestingStringFromJSON, FalconxExtractedInterestingStringFromJSONTyped, FalconxExtractedInterestingStringToJSON } from "./FalconxExtractedInterestingString";
+import type { FalconxFileImport } from "./FalconxFileImport";
+import { FalconxFileImportFromJSON, FalconxFileImportFromJSONTyped, FalconxFileImportToJSON } from "./FalconxFileImport";
+import type { FalconxFileMetadata } from "./FalconxFileMetadata";
+import { FalconxFileMetadataFromJSON, FalconxFileMetadataFromJSONTyped, FalconxFileMetadataToJSON } from "./FalconxFileMetadata";
+import type { FalconxHTTPRequest } from "./FalconxHTTPRequest";
+import { FalconxHTTPRequestFromJSON, FalconxHTTPRequestFromJSONTyped, FalconxHTTPRequestToJSON } from "./FalconxHTTPRequest";
+import type { FalconxIncident } from "./FalconxIncident";
+import { FalconxIncidentFromJSON, FalconxIncidentFromJSONTyped, FalconxIncidentToJSON } from "./FalconxIncident";
+import type { FalconxMITREAttack } from "./FalconxMITREAttack";
+import { FalconxMITREAttackFromJSON, FalconxMITREAttackFromJSONTyped, FalconxMITREAttackToJSON } from "./FalconxMITREAttack";
+import type { FalconxMemoryForensic } from "./FalconxMemoryForensic";
+import { FalconxMemoryForensicFromJSON, FalconxMemoryForensicFromJSONTyped, FalconxMemoryForensicToJSON } from "./FalconxMemoryForensic";
+import type { FalconxProcess } from "./FalconxProcess";
+import { FalconxProcessFromJSON, FalconxProcessFromJSONTyped, FalconxProcessToJSON } from "./FalconxProcess";
+import type { FalconxSignature } from "./FalconxSignature";
+import { FalconxSignatureFromJSON, FalconxSignatureFromJSONTyped, FalconxSignatureToJSON } from "./FalconxSignature";
+import type { FalconxSuricataAlert } from "./FalconxSuricataAlert";
+import { FalconxSuricataAlertFromJSON, FalconxSuricataAlertFromJSONTyped, FalconxSuricataAlertToJSON } from "./FalconxSuricataAlert";
+import type { FalconxVersionInfo } from "./FalconxVersionInfo";
+import { FalconxVersionInfoFromJSON, FalconxVersionInfoFromJSONTyped, FalconxVersionInfoToJSON } from "./FalconxVersionInfo";
 
 /**
  *

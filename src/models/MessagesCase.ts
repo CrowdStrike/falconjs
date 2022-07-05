@@ -13,10 +13,14 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { MessagesAttachment, MessagesAttachmentFromJSON, MessagesAttachmentFromJSONTyped, MessagesAttachmentToJSON } from "./MessagesAttachment";
-import { MessagesAuthor, MessagesAuthorFromJSON, MessagesAuthorFromJSONTyped, MessagesAuthorToJSON } from "./MessagesAuthor";
-import { MessagesDetection, MessagesDetectionFromJSON, MessagesDetectionFromJSONTyped, MessagesDetectionToJSON } from "./MessagesDetection";
-import { MessagesIncident, MessagesIncidentFromJSON, MessagesIncidentFromJSONTyped, MessagesIncidentToJSON } from "./MessagesIncident";
+import type { MessagesAttachment } from "./MessagesAttachment";
+import { MessagesAttachmentFromJSON, MessagesAttachmentFromJSONTyped, MessagesAttachmentToJSON } from "./MessagesAttachment";
+import type { MessagesAuthor } from "./MessagesAuthor";
+import { MessagesAuthorFromJSON, MessagesAuthorFromJSONTyped, MessagesAuthorToJSON } from "./MessagesAuthor";
+import type { MessagesDetection } from "./MessagesDetection";
+import { MessagesDetectionFromJSON, MessagesDetectionFromJSONTyped, MessagesDetectionToJSON } from "./MessagesDetection";
+import type { MessagesIncident } from "./MessagesIncident";
+import { MessagesIncidentFromJSON, MessagesIncidentFromJSONTyped, MessagesIncidentToJSON } from "./MessagesIncident";
 
 /**
  *

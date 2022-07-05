@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainCIDGroupMembers, DomainCIDGroupMembersFromJSON, DomainCIDGroupMembersFromJSONTyped, DomainCIDGroupMembersToJSON } from "./DomainCIDGroupMembers";
+import type { DomainCIDGroupMembers } from "./DomainCIDGroupMembers";
+import { DomainCIDGroupMembersFromJSON, DomainCIDGroupMembersFromJSONTyped, DomainCIDGroupMembersToJSON } from "./DomainCIDGroupMembers";
 
 /**
  *

@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ApiPaginationMeta, ApiPaginationMetaFromJSON, ApiPaginationMetaFromJSONTyped, ApiPaginationMetaToJSON } from "./ApiPaginationMeta";
+import type { ApiPaginationMeta } from "./ApiPaginationMeta";
+import { ApiPaginationMetaFromJSON, ApiPaginationMetaFromJSONTyped, ApiPaginationMetaToJSON } from "./ApiPaginationMeta";
 
 /**
  *

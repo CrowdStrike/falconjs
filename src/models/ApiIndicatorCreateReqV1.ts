@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ApiMetadataReqV1, ApiMetadataReqV1FromJSON, ApiMetadataReqV1FromJSONTyped, ApiMetadataReqV1ToJSON } from "./ApiMetadataReqV1";
+import type { ApiMetadataReqV1 } from "./ApiMetadataReqV1";
+import { ApiMetadataReqV1FromJSON, ApiMetadataReqV1FromJSONTyped, ApiMetadataReqV1ToJSON } from "./ApiMetadataReqV1";
 
 /**
  *

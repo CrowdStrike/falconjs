@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainCreateActionRequest, DomainCreateActionRequestFromJSON, DomainCreateActionRequestFromJSONTyped, DomainCreateActionRequestToJSON } from "./DomainCreateActionRequest";
+import type { DomainCreateActionRequest } from "./DomainCreateActionRequest";
+import { DomainCreateActionRequestFromJSON, DomainCreateActionRequestFromJSONTyped, DomainCreateActionRequestToJSON } from "./DomainCreateActionRequest";
 
 /**
  *

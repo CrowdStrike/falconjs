@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { FwmgrApiJsonDiff, FwmgrApiJsonDiffFromJSON, FwmgrApiJsonDiffFromJSONTyped, FwmgrApiJsonDiffToJSON } from "./FwmgrApiJsonDiff";
+import type { FwmgrApiJsonDiff } from "./FwmgrApiJsonDiff";
+import { FwmgrApiJsonDiffFromJSON, FwmgrApiJsonDiffFromJSONTyped, FwmgrApiJsonDiffToJSON } from "./FwmgrApiJsonDiff";
 
 /**
  *

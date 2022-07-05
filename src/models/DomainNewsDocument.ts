@@ -13,10 +13,14 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainEntity, DomainEntityFromJSON, DomainEntityFromJSONTyped, DomainEntityToJSON } from "./DomainEntity";
-import { DomainFile, DomainFileFromJSON, DomainFileFromJSONTyped, DomainFileToJSON } from "./DomainFile";
-import { DomainImage, DomainImageFromJSON, DomainImageFromJSONTyped, DomainImageToJSON } from "./DomainImage";
-import { DomainSimpleActor, DomainSimpleActorFromJSON, DomainSimpleActorFromJSONTyped, DomainSimpleActorToJSON } from "./DomainSimpleActor";
+import type { DomainEntity } from "./DomainEntity";
+import { DomainEntityFromJSON, DomainEntityFromJSONTyped, DomainEntityToJSON } from "./DomainEntity";
+import type { DomainFile } from "./DomainFile";
+import { DomainFileFromJSON, DomainFileFromJSONTyped, DomainFileToJSON } from "./DomainFile";
+import type { DomainImage } from "./DomainImage";
+import { DomainImageFromJSON, DomainImageFromJSONTyped, DomainImageToJSON } from "./DomainImage";
+import type { DomainSimpleActor } from "./DomainSimpleActor";
+import { DomainSimpleActorFromJSON, DomainSimpleActorFromJSONTyped, DomainSimpleActorToJSON } from "./DomainSimpleActor";
 
 /**
  *

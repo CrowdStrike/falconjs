@@ -13,10 +13,14 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainECrimeKillChain, DomainECrimeKillChainFromJSON, DomainECrimeKillChainFromJSONTyped, DomainECrimeKillChainToJSON } from "./DomainECrimeKillChain";
-import { DomainEntity, DomainEntityFromJSON, DomainEntityFromJSONTyped, DomainEntityToJSON } from "./DomainEntity";
-import { DomainImage, DomainImageFromJSON, DomainImageFromJSONTyped, DomainImageToJSON } from "./DomainImage";
-import { DomainKillChain, DomainKillChainFromJSON, DomainKillChainFromJSONTyped, DomainKillChainToJSON } from "./DomainKillChain";
+import type { DomainECrimeKillChain } from "./DomainECrimeKillChain";
+import { DomainECrimeKillChainFromJSON, DomainECrimeKillChainFromJSONTyped, DomainECrimeKillChainToJSON } from "./DomainECrimeKillChain";
+import type { DomainEntity } from "./DomainEntity";
+import { DomainEntityFromJSON, DomainEntityFromJSONTyped, DomainEntityToJSON } from "./DomainEntity";
+import type { DomainImage } from "./DomainImage";
+import { DomainImageFromJSON, DomainImageFromJSONTyped, DomainImageToJSON } from "./DomainImage";
+import type { DomainKillChain } from "./DomainKillChain";
+import { DomainKillChainFromJSON, DomainKillChainFromJSONTyped, DomainKillChainToJSON } from "./DomainKillChain";
 
 /**
  *

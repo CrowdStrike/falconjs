@@ -13,29 +13,31 @@
  */
 
 import * as runtime from "../runtime";
-import {
+import type {
     MsaEntityActionRequestV2,
+    MsaErrorsOnly,
+    MsaQueryResponse,
+    MsaReplyMetaOnly,
+    RequestsCreateGroupsV1,
+    RequestsUpdateGroupsV1,
+    ResponsesHostGroupMembersV1,
+    ResponsesHostGroupsV1,
+} from "../models";
+import {
     MsaEntityActionRequestV2FromJSON,
     MsaEntityActionRequestV2ToJSON,
-    MsaErrorsOnly,
     MsaErrorsOnlyFromJSON,
     MsaErrorsOnlyToJSON,
-    MsaQueryResponse,
     MsaQueryResponseFromJSON,
     MsaQueryResponseToJSON,
-    MsaReplyMetaOnly,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-    RequestsCreateGroupsV1,
     RequestsCreateGroupsV1FromJSON,
     RequestsCreateGroupsV1ToJSON,
-    RequestsUpdateGroupsV1,
     RequestsUpdateGroupsV1FromJSON,
     RequestsUpdateGroupsV1ToJSON,
-    ResponsesHostGroupMembersV1,
     ResponsesHostGroupMembersV1FromJSON,
     ResponsesHostGroupMembersV1ToJSON,
-    ResponsesHostGroupsV1,
     ResponsesHostGroupsV1FromJSON,
     ResponsesHostGroupsV1ToJSON,
 } from "../models";

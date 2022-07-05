@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ApiExecutionMetadataV1, ApiExecutionMetadataV1FromJSON, ApiExecutionMetadataV1FromJSONTyped, ApiExecutionMetadataV1ToJSON } from "./ApiExecutionMetadataV1";
-import { DomainResultMetadata, DomainResultMetadataFromJSON, DomainResultMetadataFromJSONTyped, DomainResultMetadataToJSON } from "./DomainResultMetadata";
+import type { ApiExecutionMetadataV1 } from "./ApiExecutionMetadataV1";
+import { ApiExecutionMetadataV1FromJSON, ApiExecutionMetadataV1FromJSONTyped, ApiExecutionMetadataV1ToJSON } from "./ApiExecutionMetadataV1";
+import type { DomainResultMetadata } from "./DomainResultMetadata";
+import { DomainResultMetadataFromJSON, DomainResultMetadataFromJSONTyped, DomainResultMetadataToJSON } from "./DomainResultMetadata";
 
 /**
  *

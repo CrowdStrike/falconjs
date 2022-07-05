@@ -13,12 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import {
-    DomainMultiStatusSensorResponse,
-    DomainMultiStatusSensorResponseFromJSON,
-    DomainMultiStatusSensorResponseFromJSONTyped,
-    DomainMultiStatusSensorResponseToJSON,
-} from "./DomainMultiStatusSensorResponse";
+import type { DomainMultiStatusSensorResponse } from "./DomainMultiStatusSensorResponse";
+import { DomainMultiStatusSensorResponseFromJSON, DomainMultiStatusSensorResponseFromJSONTyped, DomainMultiStatusSensorResponseToJSON } from "./DomainMultiStatusSensorResponse";
 
 /**
  *

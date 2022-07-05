@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { MalqueryFuzzyOptions, MalqueryFuzzyOptionsFromJSON, MalqueryFuzzyOptionsFromJSONTyped, MalqueryFuzzyOptionsToJSON } from "./MalqueryFuzzyOptions";
-import { MalquerySearchParameter, MalquerySearchParameterFromJSON, MalquerySearchParameterFromJSONTyped, MalquerySearchParameterToJSON } from "./MalquerySearchParameter";
+import type { MalqueryFuzzyOptions } from "./MalqueryFuzzyOptions";
+import { MalqueryFuzzyOptionsFromJSON, MalqueryFuzzyOptionsFromJSONTyped, MalqueryFuzzyOptionsToJSON } from "./MalqueryFuzzyOptions";
+import type { MalquerySearchParameter } from "./MalquerySearchParameter";
+import { MalquerySearchParameterFromJSON, MalquerySearchParameterFromJSONTyped, MalquerySearchParameterToJSON } from "./MalquerySearchParameter";
 
 /**
  *

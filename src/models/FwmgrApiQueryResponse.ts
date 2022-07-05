@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { FwmgrApiMetaInfo, FwmgrApiMetaInfoFromJSON, FwmgrApiMetaInfoFromJSONTyped, FwmgrApiMetaInfoToJSON } from "./FwmgrApiMetaInfo";
-import { FwmgrMsaAPIError, FwmgrMsaAPIErrorFromJSON, FwmgrMsaAPIErrorFromJSONTyped, FwmgrMsaAPIErrorToJSON } from "./FwmgrMsaAPIError";
+import type { FwmgrApiMetaInfo } from "./FwmgrApiMetaInfo";
+import { FwmgrApiMetaInfoFromJSON, FwmgrApiMetaInfoFromJSONTyped, FwmgrApiMetaInfoToJSON } from "./FwmgrApiMetaInfo";
+import type { FwmgrMsaAPIError } from "./FwmgrMsaAPIError";
+import { FwmgrMsaAPIErrorFromJSON, FwmgrMsaAPIErrorFromJSONTyped, FwmgrMsaAPIErrorToJSON } from "./FwmgrMsaAPIError";
 
 /**
  *

@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { RegistrationGCPAccountExtV1, RegistrationGCPAccountExtV1FromJSON, RegistrationGCPAccountExtV1FromJSONTyped, RegistrationGCPAccountExtV1ToJSON } from "./RegistrationGCPAccountExtV1";
+import type { RegistrationGCPAccountExtV1 } from "./RegistrationGCPAccountExtV1";
+import { RegistrationGCPAccountExtV1FromJSON, RegistrationGCPAccountExtV1FromJSONTyped, RegistrationGCPAccountExtV1ToJSON } from "./RegistrationGCPAccountExtV1";
 
 /**
  *

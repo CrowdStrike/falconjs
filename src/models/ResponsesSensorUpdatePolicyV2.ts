@@ -13,13 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ResponsesHostGroupV1, ResponsesHostGroupV1FromJSON, ResponsesHostGroupV1FromJSONTyped, ResponsesHostGroupV1ToJSON } from "./ResponsesHostGroupV1";
-import {
-    ResponsesSensorUpdateSettingsV2,
-    ResponsesSensorUpdateSettingsV2FromJSON,
-    ResponsesSensorUpdateSettingsV2FromJSONTyped,
-    ResponsesSensorUpdateSettingsV2ToJSON,
-} from "./ResponsesSensorUpdateSettingsV2";
+import type { ResponsesHostGroupV1 } from "./ResponsesHostGroupV1";
+import { ResponsesHostGroupV1FromJSON, ResponsesHostGroupV1FromJSONTyped, ResponsesHostGroupV1ToJSON } from "./ResponsesHostGroupV1";
+import type { ResponsesSensorUpdateSettingsV2 } from "./ResponsesSensorUpdateSettingsV2";
+import { ResponsesSensorUpdateSettingsV2FromJSON, ResponsesSensorUpdateSettingsV2FromJSONTyped, ResponsesSensorUpdateSettingsV2ToJSON } from "./ResponsesSensorUpdateSettingsV2";
 
 /**
  *

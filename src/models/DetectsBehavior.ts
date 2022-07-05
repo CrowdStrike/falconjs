@@ -13,13 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DetectsParentDetails, DetectsParentDetailsFromJSON, DetectsParentDetailsFromJSONTyped, DetectsParentDetailsToJSON } from "./DetectsParentDetails";
-import {
-    PatterndispositionPatternDisposition,
-    PatterndispositionPatternDispositionFromJSON,
-    PatterndispositionPatternDispositionFromJSONTyped,
-    PatterndispositionPatternDispositionToJSON,
-} from "./PatterndispositionPatternDisposition";
+import type { DetectsParentDetails } from "./DetectsParentDetails";
+import { DetectsParentDetailsFromJSON, DetectsParentDetailsFromJSONTyped, DetectsParentDetailsToJSON } from "./DetectsParentDetails";
+import type { PatterndispositionPatternDisposition } from "./PatterndispositionPatternDisposition";
+import { PatterndispositionPatternDispositionFromJSON, PatterndispositionPatternDispositionFromJSONTyped, PatterndispositionPatternDispositionToJSON } from "./PatterndispositionPatternDisposition";
 
 /**
  *

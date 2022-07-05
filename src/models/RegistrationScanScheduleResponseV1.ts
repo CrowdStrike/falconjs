@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainScanScheduleDataV1, DomainScanScheduleDataV1FromJSON, DomainScanScheduleDataV1FromJSONTyped, DomainScanScheduleDataV1ToJSON } from "./DomainScanScheduleDataV1";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { DomainScanScheduleDataV1 } from "./DomainScanScheduleDataV1";
+import { DomainScanScheduleDataV1FromJSON, DomainScanScheduleDataV1FromJSONTyped, DomainScanScheduleDataV1ToJSON } from "./DomainScanScheduleDataV1";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *

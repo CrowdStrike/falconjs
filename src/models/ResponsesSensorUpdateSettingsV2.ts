@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ResponsesSensorUpdateBuildV1, ResponsesSensorUpdateBuildV1FromJSON, ResponsesSensorUpdateBuildV1FromJSONTyped, ResponsesSensorUpdateBuildV1ToJSON } from "./ResponsesSensorUpdateBuildV1";
+import type { ResponsesSensorUpdateBuildV1 } from "./ResponsesSensorUpdateBuildV1";
+import { ResponsesSensorUpdateBuildV1FromJSON, ResponsesSensorUpdateBuildV1FromJSONTyped, ResponsesSensorUpdateBuildV1ToJSON } from "./ResponsesSensorUpdateBuildV1";
 
 /**
  *

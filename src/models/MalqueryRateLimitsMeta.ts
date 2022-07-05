@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { MalqueryUserRequestCount, MalqueryUserRequestCountFromJSON, MalqueryUserRequestCountFromJSONTyped, MalqueryUserRequestCountToJSON } from "./MalqueryUserRequestCount";
+import type { MalqueryUserRequestCount } from "./MalqueryUserRequestCount";
+import { MalqueryUserRequestCountFromJSON, MalqueryUserRequestCountFromJSONTyped, MalqueryUserRequestCountToJSON } from "./MalqueryUserRequestCount";
 
 /**
  *

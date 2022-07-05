@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DeviceapiNetworkAddressV1, DeviceapiNetworkAddressV1FromJSON, DeviceapiNetworkAddressV1FromJSONTyped, DeviceapiNetworkAddressV1ToJSON } from "./DeviceapiNetworkAddressV1";
+import type { DeviceapiNetworkAddressV1 } from "./DeviceapiNetworkAddressV1";
+import { DeviceapiNetworkAddressV1FromJSON, DeviceapiNetworkAddressV1FromJSONTyped, DeviceapiNetworkAddressV1ToJSON } from "./DeviceapiNetworkAddressV1";
 
 /**
  *

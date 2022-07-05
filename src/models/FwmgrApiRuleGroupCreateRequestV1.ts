@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { FwmgrApiRuleCreateRequestV1, FwmgrApiRuleCreateRequestV1FromJSON, FwmgrApiRuleCreateRequestV1FromJSONTyped, FwmgrApiRuleCreateRequestV1ToJSON } from "./FwmgrApiRuleCreateRequestV1";
+import type { FwmgrApiRuleCreateRequestV1 } from "./FwmgrApiRuleCreateRequestV1";
+import { FwmgrApiRuleCreateRequestV1FromJSON, FwmgrApiRuleCreateRequestV1FromJSONTyped, FwmgrApiRuleCreateRequestV1ToJSON } from "./FwmgrApiRuleCreateRequestV1";
 
 /**
  *

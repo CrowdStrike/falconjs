@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainUserGroupMembers, DomainUserGroupMembersFromJSON, DomainUserGroupMembersFromJSONTyped, DomainUserGroupMembersToJSON } from "./DomainUserGroupMembers";
+import type { DomainUserGroupMembers } from "./DomainUserGroupMembers";
+import { DomainUserGroupMembersFromJSON, DomainUserGroupMembersFromJSONTyped, DomainUserGroupMembersToJSON } from "./DomainUserGroupMembers";
 
 /**
  *

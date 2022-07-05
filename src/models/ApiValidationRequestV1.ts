@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ApiValidationRequestFieldV1, ApiValidationRequestFieldV1FromJSON, ApiValidationRequestFieldV1FromJSONTyped, ApiValidationRequestFieldV1ToJSON } from "./ApiValidationRequestFieldV1";
+import type { ApiValidationRequestFieldV1 } from "./ApiValidationRequestFieldV1";
+import { ApiValidationRequestFieldV1FromJSON, ApiValidationRequestFieldV1FromJSONTyped, ApiValidationRequestFieldV1ToJSON } from "./ApiValidationRequestFieldV1";
 
 /**
  *

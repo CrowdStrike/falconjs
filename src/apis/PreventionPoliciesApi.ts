@@ -13,32 +13,34 @@
  */
 
 import * as runtime from "../runtime";
-import {
+import type {
     MsaEntityActionRequestV2,
+    MsaErrorsOnly,
+    MsaQueryResponse,
+    MsaReplyMetaOnly,
+    RequestsCreatePreventionPoliciesV1,
+    RequestsSetPolicyPrecedenceReqV1,
+    RequestsUpdatePreventionPoliciesV1,
+    ResponsesPolicyMembersRespV1,
+    ResponsesPreventionPoliciesV1,
+} from "../models";
+import {
     MsaEntityActionRequestV2FromJSON,
     MsaEntityActionRequestV2ToJSON,
-    MsaErrorsOnly,
     MsaErrorsOnlyFromJSON,
     MsaErrorsOnlyToJSON,
-    MsaQueryResponse,
     MsaQueryResponseFromJSON,
     MsaQueryResponseToJSON,
-    MsaReplyMetaOnly,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-    RequestsCreatePreventionPoliciesV1,
     RequestsCreatePreventionPoliciesV1FromJSON,
     RequestsCreatePreventionPoliciesV1ToJSON,
-    RequestsSetPolicyPrecedenceReqV1,
     RequestsSetPolicyPrecedenceReqV1FromJSON,
     RequestsSetPolicyPrecedenceReqV1ToJSON,
-    RequestsUpdatePreventionPoliciesV1,
     RequestsUpdatePreventionPoliciesV1FromJSON,
     RequestsUpdatePreventionPoliciesV1ToJSON,
-    ResponsesPolicyMembersRespV1,
     ResponsesPolicyMembersRespV1FromJSON,
     ResponsesPolicyMembersRespV1ToJSON,
-    ResponsesPreventionPoliciesV1,
     ResponsesPreventionPoliciesV1FromJSON,
     ResponsesPreventionPoliciesV1ToJSON,
 } from "../models";

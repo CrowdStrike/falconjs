@@ -13,12 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import {
-    RequestsUpdateSensorUpdatePolicyV1,
-    RequestsUpdateSensorUpdatePolicyV1FromJSON,
-    RequestsUpdateSensorUpdatePolicyV1FromJSONTyped,
-    RequestsUpdateSensorUpdatePolicyV1ToJSON,
-} from "./RequestsUpdateSensorUpdatePolicyV1";
+import type { RequestsUpdateSensorUpdatePolicyV1 } from "./RequestsUpdateSensorUpdatePolicyV1";
+import { RequestsUpdateSensorUpdatePolicyV1FromJSON, RequestsUpdateSensorUpdatePolicyV1FromJSONTyped, RequestsUpdateSensorUpdatePolicyV1ToJSON } from "./RequestsUpdateSensorUpdatePolicyV1";
 
 /**
  * A req to update sensorUpdate policies

@@ -13,12 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import {
-    RequestsUpdateDeviceControlPolicyV1,
-    RequestsUpdateDeviceControlPolicyV1FromJSON,
-    RequestsUpdateDeviceControlPolicyV1FromJSONTyped,
-    RequestsUpdateDeviceControlPolicyV1ToJSON,
-} from "./RequestsUpdateDeviceControlPolicyV1";
+import type { RequestsUpdateDeviceControlPolicyV1 } from "./RequestsUpdateDeviceControlPolicyV1";
+import { RequestsUpdateDeviceControlPolicyV1FromJSON, RequestsUpdateDeviceControlPolicyV1FromJSONTyped, RequestsUpdateDeviceControlPolicyV1ToJSON } from "./RequestsUpdateDeviceControlPolicyV1";
 
 /**
  * A req to update DeviceControl policies

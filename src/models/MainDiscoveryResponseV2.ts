@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { MainAvailableStreamV2, MainAvailableStreamV2FromJSON, MainAvailableStreamV2FromJSONTyped, MainAvailableStreamV2ToJSON } from "./MainAvailableStreamV2";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { MainAvailableStreamV2 } from "./MainAvailableStreamV2";
+import { MainAvailableStreamV2FromJSON, MainAvailableStreamV2FromJSONTyped, MainAvailableStreamV2ToJSON } from "./MainAvailableStreamV2";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *

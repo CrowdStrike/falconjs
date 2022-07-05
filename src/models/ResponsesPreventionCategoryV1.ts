@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ResponsesPreventionSettingV1, ResponsesPreventionSettingV1FromJSON, ResponsesPreventionSettingV1FromJSONTyped, ResponsesPreventionSettingV1ToJSON } from "./ResponsesPreventionSettingV1";
+import type { ResponsesPreventionSettingV1 } from "./ResponsesPreventionSettingV1";
+import { ResponsesPreventionSettingV1FromJSON, ResponsesPreventionSettingV1FromJSONTyped, ResponsesPreventionSettingV1ToJSON } from "./ResponsesPreventionSettingV1";
 
 /**
  * A prevention policy category

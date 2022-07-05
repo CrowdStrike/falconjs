@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ModelsAccessHealthDetails, ModelsAccessHealthDetailsFromJSON, ModelsAccessHealthDetailsFromJSONTyped, ModelsAccessHealthDetailsToJSON } from "./ModelsAccessHealthDetails";
+import type { ModelsAccessHealthDetails } from "./ModelsAccessHealthDetails";
+import { ModelsAccessHealthDetailsFromJSON, ModelsAccessHealthDetailsFromJSONTyped, ModelsAccessHealthDetailsToJSON } from "./ModelsAccessHealthDetails";
 
 /**
  *

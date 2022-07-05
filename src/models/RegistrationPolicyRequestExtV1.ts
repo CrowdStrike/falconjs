@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { RegistrationPolicyExtV1, RegistrationPolicyExtV1FromJSON, RegistrationPolicyExtV1FromJSONTyped, RegistrationPolicyExtV1ToJSON } from "./RegistrationPolicyExtV1";
+import type { RegistrationPolicyExtV1 } from "./RegistrationPolicyExtV1";
+import { RegistrationPolicyExtV1FromJSON, RegistrationPolicyExtV1FromJSONTyped, RegistrationPolicyExtV1ToJSON } from "./RegistrationPolicyExtV1";
 
 /**
  *

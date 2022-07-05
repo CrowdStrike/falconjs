@@ -13,12 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import {
-    RequestsUpdateRTResponsePolicyV1,
-    RequestsUpdateRTResponsePolicyV1FromJSON,
-    RequestsUpdateRTResponsePolicyV1FromJSONTyped,
-    RequestsUpdateRTResponsePolicyV1ToJSON,
-} from "./RequestsUpdateRTResponsePolicyV1";
+import type { RequestsUpdateRTResponsePolicyV1 } from "./RequestsUpdateRTResponsePolicyV1";
+import { RequestsUpdateRTResponsePolicyV1FromJSON, RequestsUpdateRTResponsePolicyV1FromJSONTyped, RequestsUpdateRTResponsePolicyV1ToJSON } from "./RequestsUpdateRTResponsePolicyV1";
 
 /**
  * A req to update realtime response policies

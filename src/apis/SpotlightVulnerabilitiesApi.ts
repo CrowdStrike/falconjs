@@ -13,20 +13,22 @@
  */
 
 import * as runtime from "../runtime";
-import {
+import type {
     DomainSPAPICombinedVulnerabilitiesResponse,
+    DomainSPAPIQueryVulnerabilitiesResponse,
+    DomainSPAPIRemediationEntitiesResponseV2,
+    DomainSPAPIVulnerabilitiesEntitiesResponseV2,
+    MsaReplyMetaOnly,
+} from "../models";
+import {
     DomainSPAPICombinedVulnerabilitiesResponseFromJSON,
     DomainSPAPICombinedVulnerabilitiesResponseToJSON,
-    DomainSPAPIQueryVulnerabilitiesResponse,
     DomainSPAPIQueryVulnerabilitiesResponseFromJSON,
     DomainSPAPIQueryVulnerabilitiesResponseToJSON,
-    DomainSPAPIRemediationEntitiesResponseV2,
     DomainSPAPIRemediationEntitiesResponseV2FromJSON,
     DomainSPAPIRemediationEntitiesResponseV2ToJSON,
-    DomainSPAPIVulnerabilitiesEntitiesResponseV2,
     DomainSPAPIVulnerabilitiesEntitiesResponseV2FromJSON,
     DomainSPAPIVulnerabilitiesEntitiesResponseV2ToJSON,
-    MsaReplyMetaOnly,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
 } from "../models";

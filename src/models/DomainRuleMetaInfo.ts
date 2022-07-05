@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainRuleQuota, DomainRuleQuotaFromJSON, DomainRuleQuotaFromJSONTyped, DomainRuleQuotaToJSON } from "./DomainRuleQuota";
-import { MsaPaging, MsaPagingFromJSON, MsaPagingFromJSONTyped, MsaPagingToJSON } from "./MsaPaging";
-import { MsaResources, MsaResourcesFromJSON, MsaResourcesFromJSONTyped, MsaResourcesToJSON } from "./MsaResources";
+import type { DomainRuleQuota } from "./DomainRuleQuota";
+import { DomainRuleQuotaFromJSON, DomainRuleQuotaFromJSONTyped, DomainRuleQuotaToJSON } from "./DomainRuleQuota";
+import type { MsaPaging } from "./MsaPaging";
+import { MsaPagingFromJSON, MsaPagingFromJSONTyped, MsaPagingToJSON } from "./MsaPaging";
+import type { MsaResources } from "./MsaResources";
+import { MsaResourcesFromJSON, MsaResourcesFromJSONTyped, MsaResourcesToJSON } from "./MsaResources";
 
 /**
  *

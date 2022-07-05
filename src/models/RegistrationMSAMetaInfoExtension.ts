@@ -13,13 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
-import {
-    RegistrationMSAPagingExtension,
-    RegistrationMSAPagingExtensionFromJSON,
-    RegistrationMSAPagingExtensionFromJSONTyped,
-    RegistrationMSAPagingExtensionToJSON,
-} from "./RegistrationMSAPagingExtension";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { RegistrationMSAPagingExtension } from "./RegistrationMSAPagingExtension";
+import { RegistrationMSAPagingExtensionFromJSON, RegistrationMSAPagingExtensionFromJSONTyped, RegistrationMSAPagingExtensionToJSON } from "./RegistrationMSAPagingExtension";
 
 /**
  *

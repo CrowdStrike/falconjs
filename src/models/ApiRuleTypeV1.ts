@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainDisposition, DomainDispositionFromJSON, DomainDispositionFromJSONTyped, DomainDispositionToJSON } from "./DomainDisposition";
-import { DomainField, DomainFieldFromJSON, DomainFieldFromJSONTyped, DomainFieldToJSON } from "./DomainField";
+import type { DomainDisposition } from "./DomainDisposition";
+import { DomainDispositionFromJSON, DomainDispositionFromJSONTyped, DomainDispositionToJSON } from "./DomainDisposition";
+import type { DomainField } from "./DomainField";
+import { DomainFieldFromJSON, DomainFieldFromJSONTyped, DomainFieldToJSON } from "./DomainField";
 
 /**
  *

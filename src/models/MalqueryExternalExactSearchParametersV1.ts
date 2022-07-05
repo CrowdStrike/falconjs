@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { MalqueryExternalHuntOptions, MalqueryExternalHuntOptionsFromJSON, MalqueryExternalHuntOptionsFromJSONTyped, MalqueryExternalHuntOptionsToJSON } from "./MalqueryExternalHuntOptions";
-import { MalquerySearchParameter, MalquerySearchParameterFromJSON, MalquerySearchParameterFromJSONTyped, MalquerySearchParameterToJSON } from "./MalquerySearchParameter";
+import type { MalqueryExternalHuntOptions } from "./MalqueryExternalHuntOptions";
+import { MalqueryExternalHuntOptionsFromJSON, MalqueryExternalHuntOptionsFromJSONTyped, MalqueryExternalHuntOptionsToJSON } from "./MalqueryExternalHuntOptions";
+import type { MalquerySearchParameter } from "./MalquerySearchParameter";
+import { MalquerySearchParameterFromJSON, MalquerySearchParameterFromJSONTyped, MalquerySearchParameterToJSON } from "./MalquerySearchParameter";
 
 /**
  *

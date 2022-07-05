@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainQueuedSessionCommand, DomainQueuedSessionCommandFromJSON, DomainQueuedSessionCommandFromJSONTyped, DomainQueuedSessionCommandToJSON } from "./DomainQueuedSessionCommand";
+import type { DomainQueuedSessionCommand } from "./DomainQueuedSessionCommand";
+import { DomainQueuedSessionCommandFromJSON, DomainQueuedSessionCommandFromJSONTyped, DomainQueuedSessionCommandToJSON } from "./DomainQueuedSessionCommand";
 
 /**
  *

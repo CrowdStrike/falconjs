@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
-import { RegistrationAzureUserScript, RegistrationAzureUserScriptFromJSON, RegistrationAzureUserScriptFromJSONTyped, RegistrationAzureUserScriptToJSON } from "./RegistrationAzureUserScript";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { RegistrationAzureUserScript } from "./RegistrationAzureUserScript";
+import { RegistrationAzureUserScriptFromJSON, RegistrationAzureUserScriptFromJSONTyped, RegistrationAzureUserScriptToJSON } from "./RegistrationAzureUserScript";
 
 /**
  *

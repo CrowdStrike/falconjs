@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { FalconxIntelSummaryReportV1, FalconxIntelSummaryReportV1FromJSON, FalconxIntelSummaryReportV1FromJSONTyped, FalconxIntelSummaryReportV1ToJSON } from "./FalconxIntelSummaryReportV1";
-import { FalconxSandboxSummaryReportV1, FalconxSandboxSummaryReportV1FromJSON, FalconxSandboxSummaryReportV1FromJSONTyped, FalconxSandboxSummaryReportV1ToJSON } from "./FalconxSandboxSummaryReportV1";
+import type { FalconxIntelSummaryReportV1 } from "./FalconxIntelSummaryReportV1";
+import { FalconxIntelSummaryReportV1FromJSON, FalconxIntelSummaryReportV1FromJSONTyped, FalconxIntelSummaryReportV1ToJSON } from "./FalconxIntelSummaryReportV1";
+import type { FalconxSandboxSummaryReportV1 } from "./FalconxSandboxSummaryReportV1";
+import { FalconxSandboxSummaryReportV1FromJSON, FalconxSandboxSummaryReportV1FromJSONTyped, FalconxSandboxSummaryReportV1ToJSON } from "./FalconxSandboxSummaryReportV1";
 
 /**
  *

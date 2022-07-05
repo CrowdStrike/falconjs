@@ -13,14 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import { RegistrationIOMResources, RegistrationIOMResourcesFromJSON, RegistrationIOMResourcesFromJSONTyped, RegistrationIOMResourcesToJSON } from "./RegistrationIOMResources";
-import {
-    RegistrationMSAMetaInfoExtension,
-    RegistrationMSAMetaInfoExtensionFromJSON,
-    RegistrationMSAMetaInfoExtensionFromJSONTyped,
-    RegistrationMSAMetaInfoExtensionToJSON,
-} from "./RegistrationMSAMetaInfoExtension";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { RegistrationIOMResources } from "./RegistrationIOMResources";
+import { RegistrationIOMResourcesFromJSON, RegistrationIOMResourcesFromJSONTyped, RegistrationIOMResourcesToJSON } from "./RegistrationIOMResources";
+import type { RegistrationMSAMetaInfoExtension } from "./RegistrationMSAMetaInfoExtension";
+import { RegistrationMSAMetaInfoExtensionFromJSON, RegistrationMSAMetaInfoExtensionFromJSONTyped, RegistrationMSAMetaInfoExtensionToJSON } from "./RegistrationMSAMetaInfoExtension";
 
 /**
  *

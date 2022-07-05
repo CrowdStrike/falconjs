@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainQuota, DomainQuotaFromJSON, DomainQuotaFromJSONTyped, DomainQuotaToJSON } from "./DomainQuota";
-import { DomainSPAPIQueryPaging, DomainSPAPIQueryPagingFromJSON, DomainSPAPIQueryPagingFromJSONTyped, DomainSPAPIQueryPagingToJSON } from "./DomainSPAPIQueryPaging";
+import type { DomainQuota } from "./DomainQuota";
+import { DomainQuotaFromJSON, DomainQuotaFromJSONTyped, DomainQuotaToJSON } from "./DomainQuota";
+import type { DomainSPAPIQueryPaging } from "./DomainSPAPIQueryPaging";
+import { DomainSPAPIQueryPagingFromJSON, DomainSPAPIQueryPagingFromJSONTyped, DomainSPAPIQueryPagingToJSON } from "./DomainSPAPIQueryPaging";
 
 /**
  *

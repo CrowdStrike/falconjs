@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainFieldValue, DomainFieldValueFromJSON, DomainFieldValueFromJSONTyped, DomainFieldValueToJSON } from "./DomainFieldValue";
+import type { DomainFieldValue } from "./DomainFieldValue";
+import { DomainFieldValueFromJSON, DomainFieldValueFromJSONTyped, DomainFieldValueToJSON } from "./DomainFieldValue";
 
 /**
  *

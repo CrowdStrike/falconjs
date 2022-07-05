@@ -13,20 +13,16 @@
  */
 
 import * as runtime from "../runtime";
+import type { ApiReportExecutionLaunchRequestV1, ApiReportExecutionsResponseV1, ApiScheduledReportsResultV1, MsaQueryResponse, MsaReplyMetaOnly } from "../models";
 import {
-    ApiReportExecutionLaunchRequestV1,
     ApiReportExecutionLaunchRequestV1FromJSON,
     ApiReportExecutionLaunchRequestV1ToJSON,
-    ApiReportExecutionsResponseV1,
     ApiReportExecutionsResponseV1FromJSON,
     ApiReportExecutionsResponseV1ToJSON,
-    ApiScheduledReportsResultV1,
     ApiScheduledReportsResultV1FromJSON,
     ApiScheduledReportsResultV1ToJSON,
-    MsaQueryResponse,
     MsaQueryResponseFromJSON,
     MsaQueryResponseToJSON,
-    MsaReplyMetaOnly,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
 } from "../models";

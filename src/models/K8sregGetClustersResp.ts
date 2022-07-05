@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { K8sregClusterResp, K8sregClusterRespFromJSON, K8sregClusterRespFromJSONTyped, K8sregClusterRespToJSON } from "./K8sregClusterResp";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { K8sregClusterResp } from "./K8sregClusterResp";
+import { K8sregClusterRespFromJSON, K8sregClusterRespFromJSONTyped, K8sregClusterRespToJSON } from "./K8sregClusterResp";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *

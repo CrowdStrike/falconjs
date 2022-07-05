@@ -13,14 +13,12 @@
  */
 
 import * as runtime from "../runtime";
+import type { DomainAssessmentsResponse, DomainComplianceResponse, MsaReplyMetaOnly } from "../models";
 import {
-    DomainAssessmentsResponse,
     DomainAssessmentsResponseFromJSON,
     DomainAssessmentsResponseToJSON,
-    DomainComplianceResponse,
     DomainComplianceResponseFromJSON,
     DomainComplianceResponseToJSON,
-    MsaReplyMetaOnly,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
 } from "../models";

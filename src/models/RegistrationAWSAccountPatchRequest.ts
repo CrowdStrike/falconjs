@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { RegistrationAWSAccountPatch, RegistrationAWSAccountPatchFromJSON, RegistrationAWSAccountPatchFromJSONTyped, RegistrationAWSAccountPatchToJSON } from "./RegistrationAWSAccountPatch";
+import type { RegistrationAWSAccountPatch } from "./RegistrationAWSAccountPatch";
+import { RegistrationAWSAccountPatchFromJSON, RegistrationAWSAccountPatchFromJSONTyped, RegistrationAWSAccountPatchToJSON } from "./RegistrationAWSAccountPatch";
 
 /**
  *

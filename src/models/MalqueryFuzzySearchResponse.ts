@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { MalqueryFuzzySearchMetaInfo, MalqueryFuzzySearchMetaInfoFromJSON, MalqueryFuzzySearchMetaInfoFromJSONTyped, MalqueryFuzzySearchMetaInfoToJSON } from "./MalqueryFuzzySearchMetaInfo";
-import { MalqueryQueryError, MalqueryQueryErrorFromJSON, MalqueryQueryErrorFromJSONTyped, MalqueryQueryErrorToJSON } from "./MalqueryQueryError";
-import { MalquerySampleMetadata, MalquerySampleMetadataFromJSON, MalquerySampleMetadataFromJSONTyped, MalquerySampleMetadataToJSON } from "./MalquerySampleMetadata";
+import type { MalqueryFuzzySearchMetaInfo } from "./MalqueryFuzzySearchMetaInfo";
+import { MalqueryFuzzySearchMetaInfoFromJSON, MalqueryFuzzySearchMetaInfoFromJSONTyped, MalqueryFuzzySearchMetaInfoToJSON } from "./MalqueryFuzzySearchMetaInfo";
+import type { MalqueryQueryError } from "./MalqueryQueryError";
+import { MalqueryQueryErrorFromJSON, MalqueryQueryErrorFromJSONTyped, MalqueryQueryErrorToJSON } from "./MalqueryQueryError";
+import type { MalquerySampleMetadata } from "./MalquerySampleMetadata";
+import { MalquerySampleMetadataFromJSON, MalquerySampleMetadataFromJSONTyped, MalquerySampleMetadataToJSON } from "./MalquerySampleMetadata";
 
 /**
  *

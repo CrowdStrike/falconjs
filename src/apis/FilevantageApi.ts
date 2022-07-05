@@ -13,17 +13,8 @@
  */
 
 import * as runtime from "../runtime";
-import {
-    ExternalGetChangesResponse,
-    ExternalGetChangesResponseFromJSON,
-    ExternalGetChangesResponseToJSON,
-    MsaQueryResponse,
-    MsaQueryResponseFromJSON,
-    MsaQueryResponseToJSON,
-    MsaReplyMetaOnly,
-    MsaReplyMetaOnlyFromJSON,
-    MsaReplyMetaOnlyToJSON,
-} from "../models";
+import type { ExternalGetChangesResponse, MsaQueryResponse, MsaReplyMetaOnly } from "../models";
+import { ExternalGetChangesResponseFromJSON, ExternalGetChangesResponseToJSON, MsaQueryResponseFromJSON, MsaQueryResponseToJSON, MsaReplyMetaOnlyFromJSON, MsaReplyMetaOnlyToJSON } from "../models";
 
 export interface GetChangesRequest {
     ids: Array<string>;

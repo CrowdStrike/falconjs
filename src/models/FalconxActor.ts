@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { FalconxEntity, FalconxEntityFromJSON, FalconxEntityFromJSONTyped, FalconxEntityToJSON } from "./FalconxEntity";
+import type { FalconxEntity } from "./FalconxEntity";
+import { FalconxEntityFromJSON, FalconxEntityFromJSONTyped, FalconxEntityToJSON } from "./FalconxEntity";
 
 /**
  *

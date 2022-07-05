@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainCloudAccountID, DomainCloudAccountIDFromJSON, DomainCloudAccountIDFromJSONTyped, DomainCloudAccountIDToJSON } from "./DomainCloudAccountID";
-import { DomainIOAEnrichments, DomainIOAEnrichmentsFromJSON, DomainIOAEnrichmentsFromJSONTyped, DomainIOAEnrichmentsToJSON } from "./DomainIOAEnrichments";
-import { DomainIOAEventAggregate, DomainIOAEventAggregateFromJSON, DomainIOAEventAggregateFromJSONTyped, DomainIOAEventAggregateToJSON } from "./DomainIOAEventAggregate";
+import type { DomainCloudAccountID } from "./DomainCloudAccountID";
+import { DomainCloudAccountIDFromJSON, DomainCloudAccountIDFromJSONTyped, DomainCloudAccountIDToJSON } from "./DomainCloudAccountID";
+import type { DomainIOAEnrichments } from "./DomainIOAEnrichments";
+import { DomainIOAEnrichmentsFromJSON, DomainIOAEnrichmentsFromJSONTyped, DomainIOAEnrichmentsToJSON } from "./DomainIOAEnrichments";
+import type { DomainIOAEventAggregate } from "./DomainIOAEventAggregate";
+import { DomainIOAEventAggregateFromJSON, DomainIOAEventAggregateFromJSONTyped, DomainIOAEventAggregateToJSON } from "./DomainIOAEventAggregate";
 
 /**
  *

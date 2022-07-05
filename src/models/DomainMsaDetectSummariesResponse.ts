@@ -13,9 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainAPIDetectionDocument, DomainAPIDetectionDocumentFromJSON, DomainAPIDetectionDocumentFromJSONTyped, DomainAPIDetectionDocumentToJSON } from "./DomainAPIDetectionDocument";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import { MsaMetaInfo, MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { DomainAPIDetectionDocument } from "./DomainAPIDetectionDocument";
+import { DomainAPIDetectionDocumentFromJSON, DomainAPIDetectionDocumentFromJSONTyped, DomainAPIDetectionDocumentToJSON } from "./DomainAPIDetectionDocument";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *

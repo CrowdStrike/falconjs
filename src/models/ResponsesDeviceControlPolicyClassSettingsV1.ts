@@ -13,8 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
+import type { ResponsesDeviceControlPolicyExceptionV1 } from "./ResponsesDeviceControlPolicyExceptionV1";
 import {
-    ResponsesDeviceControlPolicyExceptionV1,
     ResponsesDeviceControlPolicyExceptionV1FromJSON,
     ResponsesDeviceControlPolicyExceptionV1FromJSONTyped,
     ResponsesDeviceControlPolicyExceptionV1ToJSON,

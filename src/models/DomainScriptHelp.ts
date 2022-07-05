@@ -13,7 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { ModelArgument, ModelArgumentFromJSON, ModelArgumentFromJSONTyped, ModelArgumentToJSON } from "./ModelArgument";
+import type { ModelArgument } from "./ModelArgument";
+import { ModelArgumentFromJSON, ModelArgumentFromJSONTyped, ModelArgumentToJSON } from "./ModelArgument";
 
 /**
  *

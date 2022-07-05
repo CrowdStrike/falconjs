@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import { DomainSPAPIQueryMeta, DomainSPAPIQueryMetaFromJSON, DomainSPAPIQueryMetaFromJSONTyped, DomainSPAPIQueryMetaToJSON } from "./DomainSPAPIQueryMeta";
-import { MsaAPIError, MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { DomainSPAPIQueryMeta } from "./DomainSPAPIQueryMeta";
+import { DomainSPAPIQueryMetaFromJSON, DomainSPAPIQueryMetaFromJSONTyped, DomainSPAPIQueryMetaToJSON } from "./DomainSPAPIQueryMeta";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
 
 /**
  *
