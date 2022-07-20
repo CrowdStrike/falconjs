@@ -16,57 +16,56 @@ import { exists, mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface DomainAPIEvaluationLogicItemV1
+ * @interface MsaspecError
  */
-export interface DomainAPIEvaluationLogicItemV1 {
+export interface MsaspecError {
     /**
      *
      * @type {number}
-     * @memberof DomainAPIEvaluationLogicItemV1
+     * @memberof MsaspecError
      */
-    id: number;
+    code: number;
     /**
      *
      * @type {string}
-     * @memberof DomainAPIEvaluationLogicItemV1
+     * @memberof MsaspecError
      */
-    title: string;
+    id?: string;
     /**
      *
      * @type {string}
-     * @memberof DomainAPIEvaluationLogicItemV1
+     * @memberof MsaspecError
      */
-    type: string;
+    message: string;
 }
 
 /**
- * Check if a given object implements the DomainAPIEvaluationLogicItemV1 interface.
+ * Check if a given object implements the MsaspecError interface.
  */
-export function instanceOfDomainAPIEvaluationLogicItemV1(value: object): boolean {
+export function instanceOfMsaspecError(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "title" in value;
-    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "code" in value;
+    isInstance = isInstance && "message" in value;
 
     return isInstance;
 }
 
-export function DomainAPIEvaluationLogicItemV1FromJSON(json: any): DomainAPIEvaluationLogicItemV1 {
-    return DomainAPIEvaluationLogicItemV1FromJSONTyped(json, false);
+export function MsaspecErrorFromJSON(json: any): MsaspecError {
+    return MsaspecErrorFromJSONTyped(json, false);
 }
 
-export function DomainAPIEvaluationLogicItemV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainAPIEvaluationLogicItemV1 {
+export function MsaspecErrorFromJSONTyped(json: any, ignoreDiscriminator: boolean): MsaspecError {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        id: json["id"],
-        title: json["title"],
-        type: json["type"],
+        code: json["code"],
+        id: !exists(json, "id") ? undefined : json["id"],
+        message: json["message"],
     };
 }
 
-export function DomainAPIEvaluationLogicItemV1ToJSON(value?: DomainAPIEvaluationLogicItemV1 | null): any {
+export function MsaspecErrorToJSON(value?: MsaspecError | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -74,8 +73,8 @@ export function DomainAPIEvaluationLogicItemV1ToJSON(value?: DomainAPIEvaluation
         return null;
     }
     return {
+        code: value.code,
         id: value.id,
-        title: value.title,
-        type: value.type,
+        message: value.message,
     };
 }

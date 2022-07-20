@@ -16,57 +16,49 @@ import { exists, mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface DomainAPIEvaluationLogicItemV1
+ * @interface MsaspecActionParameter
  */
-export interface DomainAPIEvaluationLogicItemV1 {
-    /**
-     *
-     * @type {number}
-     * @memberof DomainAPIEvaluationLogicItemV1
-     */
-    id: number;
+export interface MsaspecActionParameter {
     /**
      *
      * @type {string}
-     * @memberof DomainAPIEvaluationLogicItemV1
+     * @memberof MsaspecActionParameter
      */
-    title: string;
+    name: string;
     /**
      *
      * @type {string}
-     * @memberof DomainAPIEvaluationLogicItemV1
+     * @memberof MsaspecActionParameter
      */
-    type: string;
+    value: string;
 }
 
 /**
- * Check if a given object implements the DomainAPIEvaluationLogicItemV1 interface.
+ * Check if a given object implements the MsaspecActionParameter interface.
  */
-export function instanceOfDomainAPIEvaluationLogicItemV1(value: object): boolean {
+export function instanceOfMsaspecActionParameter(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "title" in value;
-    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "value" in value;
 
     return isInstance;
 }
 
-export function DomainAPIEvaluationLogicItemV1FromJSON(json: any): DomainAPIEvaluationLogicItemV1 {
-    return DomainAPIEvaluationLogicItemV1FromJSONTyped(json, false);
+export function MsaspecActionParameterFromJSON(json: any): MsaspecActionParameter {
+    return MsaspecActionParameterFromJSONTyped(json, false);
 }
 
-export function DomainAPIEvaluationLogicItemV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainAPIEvaluationLogicItemV1 {
+export function MsaspecActionParameterFromJSONTyped(json: any, ignoreDiscriminator: boolean): MsaspecActionParameter {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        id: json["id"],
-        title: json["title"],
-        type: json["type"],
+        name: json["name"],
+        value: json["value"],
     };
 }
 
-export function DomainAPIEvaluationLogicItemV1ToJSON(value?: DomainAPIEvaluationLogicItemV1 | null): any {
+export function MsaspecActionParameterToJSON(value?: MsaspecActionParameter | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -74,8 +66,7 @@ export function DomainAPIEvaluationLogicItemV1ToJSON(value?: DomainAPIEvaluation
         return null;
     }
     return {
-        id: value.id,
-        title: value.title,
-        type: value.type,
+        name: value.name,
+        value: value.value,
     };
 }

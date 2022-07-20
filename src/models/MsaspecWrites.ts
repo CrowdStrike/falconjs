@@ -16,57 +16,41 @@ import { exists, mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface DomainAPIEvaluationLogicItemV1
+ * @interface MsaspecWrites
  */
-export interface DomainAPIEvaluationLogicItemV1 {
+export interface MsaspecWrites {
     /**
      *
      * @type {number}
-     * @memberof DomainAPIEvaluationLogicItemV1
+     * @memberof MsaspecWrites
      */
-    id: number;
-    /**
-     *
-     * @type {string}
-     * @memberof DomainAPIEvaluationLogicItemV1
-     */
-    title: string;
-    /**
-     *
-     * @type {string}
-     * @memberof DomainAPIEvaluationLogicItemV1
-     */
-    type: string;
+    resourcesAffected: number;
 }
 
 /**
- * Check if a given object implements the DomainAPIEvaluationLogicItemV1 interface.
+ * Check if a given object implements the MsaspecWrites interface.
  */
-export function instanceOfDomainAPIEvaluationLogicItemV1(value: object): boolean {
+export function instanceOfMsaspecWrites(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "title" in value;
-    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "resourcesAffected" in value;
 
     return isInstance;
 }
 
-export function DomainAPIEvaluationLogicItemV1FromJSON(json: any): DomainAPIEvaluationLogicItemV1 {
-    return DomainAPIEvaluationLogicItemV1FromJSONTyped(json, false);
+export function MsaspecWritesFromJSON(json: any): MsaspecWrites {
+    return MsaspecWritesFromJSONTyped(json, false);
 }
 
-export function DomainAPIEvaluationLogicItemV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainAPIEvaluationLogicItemV1 {
+export function MsaspecWritesFromJSONTyped(json: any, ignoreDiscriminator: boolean): MsaspecWrites {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        id: json["id"],
-        title: json["title"],
-        type: json["type"],
+        resourcesAffected: json["resources_affected"],
     };
 }
 
-export function DomainAPIEvaluationLogicItemV1ToJSON(value?: DomainAPIEvaluationLogicItemV1 | null): any {
+export function MsaspecWritesToJSON(value?: MsaspecWrites | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -74,8 +58,6 @@ export function DomainAPIEvaluationLogicItemV1ToJSON(value?: DomainAPIEvaluation
         return null;
     }
     return {
-        id: value.id,
-        title: value.title,
-        type: value.type,
+        resources_affected: value.resourcesAffected,
     };
 }

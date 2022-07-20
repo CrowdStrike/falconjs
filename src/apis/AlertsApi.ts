@@ -15,16 +15,20 @@
 import * as runtime from "../runtime";
 import type {
     DetectsapiPatchEntitiesInvestigatablesV1Request,
+    DetectsapiPatchEntitiesInvestigatablesV2Request,
     DetectsapiPostEntitiesInvestigatablesV1Request,
     DetectsapiPostEntitiesInvestigatablesV1Response,
     MsaAggregateQueryRequest,
     MsaAggregatesResponse,
     MsaQueryResponse,
     MsaReplyMetaOnly,
+    MsaspecResponseFields,
 } from "../models";
 import {
     DetectsapiPatchEntitiesInvestigatablesV1RequestFromJSON,
     DetectsapiPatchEntitiesInvestigatablesV1RequestToJSON,
+    DetectsapiPatchEntitiesInvestigatablesV2RequestFromJSON,
+    DetectsapiPatchEntitiesInvestigatablesV2RequestToJSON,
     DetectsapiPostEntitiesInvestigatablesV1RequestFromJSON,
     DetectsapiPostEntitiesInvestigatablesV1RequestToJSON,
     DetectsapiPostEntitiesInvestigatablesV1ResponseFromJSON,
@@ -37,6 +41,8 @@ import {
     MsaQueryResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
+    MsaspecResponseFieldsFromJSON,
+    MsaspecResponseFieldsToJSON,
 } from "../models";
 
 export interface GetQueriesAlertsV1Request {
@@ -49,6 +55,10 @@ export interface GetQueriesAlertsV1Request {
 
 export interface PatchEntitiesAlertsV1Request {
     body: DetectsapiPatchEntitiesInvestigatablesV1Request;
+}
+
+export interface PatchEntitiesAlertsV2Request {
+    body: DetectsapiPatchEntitiesInvestigatablesV2Request;
 }
 
 export interface PostAggregatesAlertsV1Request {
@@ -155,6 +165,47 @@ export class AlertsApi extends runtime.BaseAPI {
      */
     async patchEntitiesAlertsV1(body: DetectsapiPatchEntitiesInvestigatablesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyMetaOnly> {
         const response = await this.patchEntitiesAlertsV1Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Perform actions on detections identified by detection ID(s) in request. Each action has a name and a description which describes what the action does.
+     */
+    async patchEntitiesAlertsV2Raw(requestParameters: PatchEntitiesAlertsV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling patchEntitiesAlertsV2.");
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["alerts:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/alerts/entities/alerts/v2`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+                body: DetectsapiPatchEntitiesInvestigatablesV2RequestToJSON(requestParameters.body),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecResponseFieldsFromJSON(jsonValue));
+    }
+
+    /**
+     * Perform actions on detections identified by detection ID(s) in request. Each action has a name and a description which describes what the action does.
+     */
+    async patchEntitiesAlertsV2(body: DetectsapiPatchEntitiesInvestigatablesV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecResponseFields> {
+        const response = await this.patchEntitiesAlertsV2Raw({ body: body }, initOverrides);
         return await response.value();
     }
 
