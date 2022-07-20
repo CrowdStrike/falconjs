@@ -16,57 +16,57 @@ import { exists, mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface DomainAPIEvaluationLogicItemV1
+ * @interface MsaspecPaging
  */
-export interface DomainAPIEvaluationLogicItemV1 {
+export interface MsaspecPaging {
     /**
      *
      * @type {number}
-     * @memberof DomainAPIEvaluationLogicItemV1
+     * @memberof MsaspecPaging
      */
-    id: number;
+    limit: number;
     /**
      *
-     * @type {string}
-     * @memberof DomainAPIEvaluationLogicItemV1
+     * @type {number}
+     * @memberof MsaspecPaging
      */
-    title: string;
+    offset: number;
     /**
      *
-     * @type {string}
-     * @memberof DomainAPIEvaluationLogicItemV1
+     * @type {number}
+     * @memberof MsaspecPaging
      */
-    type: string;
+    total: number;
 }
 
 /**
- * Check if a given object implements the DomainAPIEvaluationLogicItemV1 interface.
+ * Check if a given object implements the MsaspecPaging interface.
  */
-export function instanceOfDomainAPIEvaluationLogicItemV1(value: object): boolean {
+export function instanceOfMsaspecPaging(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "title" in value;
-    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "limit" in value;
+    isInstance = isInstance && "offset" in value;
+    isInstance = isInstance && "total" in value;
 
     return isInstance;
 }
 
-export function DomainAPIEvaluationLogicItemV1FromJSON(json: any): DomainAPIEvaluationLogicItemV1 {
-    return DomainAPIEvaluationLogicItemV1FromJSONTyped(json, false);
+export function MsaspecPagingFromJSON(json: any): MsaspecPaging {
+    return MsaspecPagingFromJSONTyped(json, false);
 }
 
-export function DomainAPIEvaluationLogicItemV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainAPIEvaluationLogicItemV1 {
+export function MsaspecPagingFromJSONTyped(json: any, ignoreDiscriminator: boolean): MsaspecPaging {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        id: json["id"],
-        title: json["title"],
-        type: json["type"],
+        limit: json["limit"],
+        offset: json["offset"],
+        total: json["total"],
     };
 }
 
-export function DomainAPIEvaluationLogicItemV1ToJSON(value?: DomainAPIEvaluationLogicItemV1 | null): any {
+export function MsaspecPagingToJSON(value?: MsaspecPaging | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -74,8 +74,8 @@ export function DomainAPIEvaluationLogicItemV1ToJSON(value?: DomainAPIEvaluation
         return null;
     }
     return {
-        id: value.id,
-        title: value.title,
-        type: value.type,
+        limit: value.limit,
+        offset: value.offset,
+        total: value.total,
     };
 }

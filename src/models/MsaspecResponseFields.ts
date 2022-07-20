@@ -13,60 +13,56 @@
  */
 
 import { exists, mapValues } from "../runtime";
+import type { MsaspecError } from "./MsaspecError";
+import { MsaspecErrorFromJSON, MsaspecErrorFromJSONTyped, MsaspecErrorToJSON } from "./MsaspecError";
+import type { MsaspecMetaInfo } from "./MsaspecMetaInfo";
+import { MsaspecMetaInfoFromJSON, MsaspecMetaInfoFromJSONTyped, MsaspecMetaInfoToJSON } from "./MsaspecMetaInfo";
+
 /**
  *
  * @export
- * @interface DomainAPIEvaluationLogicItemV1
+ * @interface MsaspecResponseFields
  */
-export interface DomainAPIEvaluationLogicItemV1 {
+export interface MsaspecResponseFields {
     /**
      *
-     * @type {number}
-     * @memberof DomainAPIEvaluationLogicItemV1
+     * @type {Array<MsaspecError>}
+     * @memberof MsaspecResponseFields
      */
-    id: number;
+    errors?: Array<MsaspecError>;
     /**
      *
-     * @type {string}
-     * @memberof DomainAPIEvaluationLogicItemV1
+     * @type {MsaspecMetaInfo}
+     * @memberof MsaspecResponseFields
      */
-    title: string;
-    /**
-     *
-     * @type {string}
-     * @memberof DomainAPIEvaluationLogicItemV1
-     */
-    type: string;
+    meta: MsaspecMetaInfo;
 }
 
 /**
- * Check if a given object implements the DomainAPIEvaluationLogicItemV1 interface.
+ * Check if a given object implements the MsaspecResponseFields interface.
  */
-export function instanceOfDomainAPIEvaluationLogicItemV1(value: object): boolean {
+export function instanceOfMsaspecResponseFields(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "title" in value;
-    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "meta" in value;
 
     return isInstance;
 }
 
-export function DomainAPIEvaluationLogicItemV1FromJSON(json: any): DomainAPIEvaluationLogicItemV1 {
-    return DomainAPIEvaluationLogicItemV1FromJSONTyped(json, false);
+export function MsaspecResponseFieldsFromJSON(json: any): MsaspecResponseFields {
+    return MsaspecResponseFieldsFromJSONTyped(json, false);
 }
 
-export function DomainAPIEvaluationLogicItemV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainAPIEvaluationLogicItemV1 {
+export function MsaspecResponseFieldsFromJSONTyped(json: any, ignoreDiscriminator: boolean): MsaspecResponseFields {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        id: json["id"],
-        title: json["title"],
-        type: json["type"],
+        errors: !exists(json, "errors") ? undefined : (json["errors"] as Array<any>).map(MsaspecErrorFromJSON),
+        meta: MsaspecMetaInfoFromJSON(json["meta"]),
     };
 }
 
-export function DomainAPIEvaluationLogicItemV1ToJSON(value?: DomainAPIEvaluationLogicItemV1 | null): any {
+export function MsaspecResponseFieldsToJSON(value?: MsaspecResponseFields | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -74,8 +70,7 @@ export function DomainAPIEvaluationLogicItemV1ToJSON(value?: DomainAPIEvaluation
         return null;
     }
     return {
-        id: value.id,
-        title: value.title,
-        type: value.type,
+        errors: value.errors === undefined ? undefined : (value.errors as Array<any>).map(MsaspecErrorToJSON),
+        meta: MsaspecMetaInfoToJSON(value.meta),
     };
 }
