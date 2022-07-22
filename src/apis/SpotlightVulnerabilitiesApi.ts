@@ -15,7 +15,7 @@
 import * as runtime from "../runtime";
 import type {
     DomainSPAPICombinedVulnerabilitiesResponse,
-    DomainSPAPIQueryVulnerabilitiesResponse,
+    DomainSPAPIQueryResponse,
     DomainSPAPIRemediationEntitiesResponseV2,
     DomainSPAPIVulnerabilitiesEntitiesResponseV2,
     MsaReplyMetaOnly,
@@ -23,8 +23,8 @@ import type {
 import {
     DomainSPAPICombinedVulnerabilitiesResponseFromJSON,
     DomainSPAPICombinedVulnerabilitiesResponseToJSON,
-    DomainSPAPIQueryVulnerabilitiesResponseFromJSON,
-    DomainSPAPIQueryVulnerabilitiesResponseToJSON,
+    DomainSPAPIQueryResponseFromJSON,
+    DomainSPAPIQueryResponseToJSON,
     DomainSPAPIRemediationEntitiesResponseV2FromJSON,
     DomainSPAPIRemediationEntitiesResponseV2ToJSON,
     DomainSPAPIVulnerabilitiesEntitiesResponseV2FromJSON,
@@ -221,10 +221,7 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
     /**
      * Search for Vulnerabilities in your environment by providing an FQL filter and paging details. Returns a set of Vulnerability IDs which match the filter criteria
      */
-    async queryVulnerabilitiesRaw(
-        requestParameters: QueryVulnerabilitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<DomainSPAPIQueryVulnerabilitiesResponse>> {
+    async queryVulnerabilitiesRaw(requestParameters: QueryVulnerabilitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainSPAPIQueryResponse>> {
         if (requestParameters.filter === null || requestParameters.filter === undefined) {
             throw new runtime.RequiredError("filter", "Required parameter requestParameters.filter was null or undefined when calling queryVulnerabilities.");
         }
@@ -264,19 +261,13 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainSPAPIQueryVulnerabilitiesResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainSPAPIQueryResponseFromJSON(jsonValue));
     }
 
     /**
      * Search for Vulnerabilities in your environment by providing an FQL filter and paging details. Returns a set of Vulnerability IDs which match the filter criteria
      */
-    async queryVulnerabilities(
-        filter: string,
-        after?: string,
-        limit?: number,
-        sort?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<DomainSPAPIQueryVulnerabilitiesResponse> {
+    async queryVulnerabilities(filter: string, after?: string, limit?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainSPAPIQueryResponse> {
         const response = await this.queryVulnerabilitiesRaw({ filter: filter, after: after, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
