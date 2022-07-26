@@ -13,10 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import type { MsaspecError } from "./MsaspecError";
-import { MsaspecErrorFromJSON, MsaspecErrorFromJSONTyped, MsaspecErrorToJSON } from "./MsaspecError";
-import type { MsaspecMetaInfo } from "./MsaspecMetaInfo";
-import { MsaspecMetaInfoFromJSON, MsaspecMetaInfoFromJSONTyped, MsaspecMetaInfoToJSON } from "./MsaspecMetaInfo";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *
@@ -26,16 +26,16 @@ import { MsaspecMetaInfoFromJSON, MsaspecMetaInfoFromJSONTyped, MsaspecMetaInfoT
 export interface MsaspecResponseFields {
     /**
      *
-     * @type {Array<MsaspecError>}
+     * @type {Array<MsaAPIError>}
      * @memberof MsaspecResponseFields
      */
-    errors?: Array<MsaspecError>;
+    errors?: Array<MsaAPIError>;
     /**
      *
-     * @type {MsaspecMetaInfo}
+     * @type {MsaMetaInfo}
      * @memberof MsaspecResponseFields
      */
-    meta: MsaspecMetaInfo;
+    meta: MsaMetaInfo;
 }
 
 /**
@@ -57,8 +57,8 @@ export function MsaspecResponseFieldsFromJSONTyped(json: any, ignoreDiscriminato
         return json;
     }
     return {
-        errors: !exists(json, "errors") ? undefined : (json["errors"] as Array<any>).map(MsaspecErrorFromJSON),
-        meta: MsaspecMetaInfoFromJSON(json["meta"]),
+        errors: !exists(json, "errors") ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
+        meta: MsaMetaInfoFromJSON(json["meta"]),
     };
 }
 
@@ -70,7 +70,7 @@ export function MsaspecResponseFieldsToJSON(value?: MsaspecResponseFields | null
         return null;
     }
     return {
-        errors: value.errors === undefined ? undefined : (value.errors as Array<any>).map(MsaspecErrorToJSON),
-        meta: MsaspecMetaInfoToJSON(value.meta),
+        errors: value.errors === undefined ? undefined : (value.errors as Array<any>).map(MsaAPIErrorToJSON),
+        meta: MsaMetaInfoToJSON(value.meta),
     };
 }

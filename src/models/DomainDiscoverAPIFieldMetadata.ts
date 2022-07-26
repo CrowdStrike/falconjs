@@ -14,58 +14,42 @@
 
 import { exists, mapValues } from "../runtime";
 /**
- *
+ * The metadata information for a host for each field
  * @export
- * @interface MsaspecError
+ * @interface DomainDiscoverAPIFieldMetadata
  */
-export interface MsaspecError {
+export interface DomainDiscoverAPIFieldMetadata {
     /**
-     *
-     * @type {number}
-     * @memberof MsaspecError
+     * Providers which have set the value.
+     * @type {Array<string>}
+     * @memberof DomainDiscoverAPIFieldMetadata
      */
-    code: number;
-    /**
-     *
-     * @type {string}
-     * @memberof MsaspecError
-     */
-    id?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MsaspecError
-     */
-    message: string;
+    providers?: Array<string>;
 }
 
 /**
- * Check if a given object implements the MsaspecError interface.
+ * Check if a given object implements the DomainDiscoverAPIFieldMetadata interface.
  */
-export function instanceOfMsaspecError(value: object): boolean {
+export function instanceOfDomainDiscoverAPIFieldMetadata(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "code" in value;
-    isInstance = isInstance && "message" in value;
 
     return isInstance;
 }
 
-export function MsaspecErrorFromJSON(json: any): MsaspecError {
-    return MsaspecErrorFromJSONTyped(json, false);
+export function DomainDiscoverAPIFieldMetadataFromJSON(json: any): DomainDiscoverAPIFieldMetadata {
+    return DomainDiscoverAPIFieldMetadataFromJSONTyped(json, false);
 }
 
-export function MsaspecErrorFromJSONTyped(json: any, ignoreDiscriminator: boolean): MsaspecError {
+export function DomainDiscoverAPIFieldMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainDiscoverAPIFieldMetadata {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        code: json["code"],
-        id: !exists(json, "id") ? undefined : json["id"],
-        message: json["message"],
+        providers: !exists(json, "providers") ? undefined : json["providers"],
     };
 }
 
-export function MsaspecErrorToJSON(value?: MsaspecError | null): any {
+export function DomainDiscoverAPIFieldMetadataToJSON(value?: DomainDiscoverAPIFieldMetadata | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -73,8 +57,6 @@ export function MsaspecErrorToJSON(value?: MsaspecError | null): any {
         return null;
     }
     return {
-        code: value.code,
-        id: value.id,
-        message: value.message,
+        providers: value.providers,
     };
 }
