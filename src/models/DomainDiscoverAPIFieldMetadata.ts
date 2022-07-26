@@ -14,59 +14,42 @@
 
 import { exists, mapValues } from "../runtime";
 /**
- *
+ * The metadata information for a host for each field
  * @export
- * @interface DomainSPAPIQueryVulnerabilitiesPaging
+ * @interface DomainDiscoverAPIFieldMetadata
  */
-export interface DomainSPAPIQueryVulnerabilitiesPaging {
+export interface DomainDiscoverAPIFieldMetadata {
     /**
-     *
-     * @type {string}
-     * @memberof DomainSPAPIQueryVulnerabilitiesPaging
+     * Providers which have set the value.
+     * @type {Array<string>}
+     * @memberof DomainDiscoverAPIFieldMetadata
      */
-    after: string;
-    /**
-     *
-     * @type {number}
-     * @memberof DomainSPAPIQueryVulnerabilitiesPaging
-     */
-    limit: number;
-    /**
-     *
-     * @type {number}
-     * @memberof DomainSPAPIQueryVulnerabilitiesPaging
-     */
-    total: number;
+    providers?: Array<string>;
 }
 
 /**
- * Check if a given object implements the DomainSPAPIQueryVulnerabilitiesPaging interface.
+ * Check if a given object implements the DomainDiscoverAPIFieldMetadata interface.
  */
-export function instanceOfDomainSPAPIQueryVulnerabilitiesPaging(value: object): boolean {
+export function instanceOfDomainDiscoverAPIFieldMetadata(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "after" in value;
-    isInstance = isInstance && "limit" in value;
-    isInstance = isInstance && "total" in value;
 
     return isInstance;
 }
 
-export function DomainSPAPIQueryVulnerabilitiesPagingFromJSON(json: any): DomainSPAPIQueryVulnerabilitiesPaging {
-    return DomainSPAPIQueryVulnerabilitiesPagingFromJSONTyped(json, false);
+export function DomainDiscoverAPIFieldMetadataFromJSON(json: any): DomainDiscoverAPIFieldMetadata {
+    return DomainDiscoverAPIFieldMetadataFromJSONTyped(json, false);
 }
 
-export function DomainSPAPIQueryVulnerabilitiesPagingFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainSPAPIQueryVulnerabilitiesPaging {
+export function DomainDiscoverAPIFieldMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainDiscoverAPIFieldMetadata {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        after: json["after"],
-        limit: json["limit"],
-        total: json["total"],
+        providers: !exists(json, "providers") ? undefined : json["providers"],
     };
 }
 
-export function DomainSPAPIQueryVulnerabilitiesPagingToJSON(value?: DomainSPAPIQueryVulnerabilitiesPaging | null): any {
+export function DomainDiscoverAPIFieldMetadataToJSON(value?: DomainDiscoverAPIFieldMetadata | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -74,8 +57,6 @@ export function DomainSPAPIQueryVulnerabilitiesPagingToJSON(value?: DomainSPAPIQ
         return null;
     }
     return {
-        after: value.after,
-        limit: value.limit,
-        total: value.total,
+        providers: value.providers,
     };
 }
