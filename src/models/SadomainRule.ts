@@ -13,12 +13,21 @@
  */
 
 import { exists, mapValues } from "../runtime";
+import type { SadomainCustomerAssets } from "./SadomainCustomerAssets";
+import { SadomainCustomerAssetsFromJSON, SadomainCustomerAssetsFromJSONTyped, SadomainCustomerAssetsToJSON } from "./SadomainCustomerAssets";
+
 /**
  *
  * @export
  * @interface SadomainRule
  */
 export interface SadomainRule {
+    /**
+     * Whether to monitor for breach data. Available only for `Company Domains` and `Email addresses` rule topics. When enabled, ownership of the monitored domains or emails is required.
+     * @type {boolean}
+     * @memberof SadomainRule
+     */
+    breachMonitoringEnabled: boolean;
     /**
      *
      * @type {string}
@@ -32,7 +41,7 @@ export interface SadomainRule {
      */
     createdTimestamp: Date;
     /**
-     * The FQL filter contained in a rule and used for searching
+     * The FQL filter contained in a rule and used for searching. Parentheses may be added automatically for clarity.
      * @type {string}
      * @memberof SadomainRule
      */
@@ -49,6 +58,12 @@ export interface SadomainRule {
      * @memberof SadomainRule
      */
     name: string;
+    /**
+     *
+     * @type {SadomainCustomerAssets}
+     * @memberof SadomainRule
+     */
+    ownershipAssets?: SadomainCustomerAssets;
     /**
      * The permissions of a given rule
      * @type {string}
@@ -110,6 +125,7 @@ export interface SadomainRule {
  */
 export function instanceOfSadomainRule(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "breachMonitoringEnabled" in value;
     isInstance = isInstance && "cid" in value;
     isInstance = isInstance && "createdTimestamp" in value;
     isInstance = isInstance && "filter" in value;
@@ -134,11 +150,13 @@ export function SadomainRuleFromJSONTyped(json: any, ignoreDiscriminator: boolea
         return json;
     }
     return {
+        breachMonitoringEnabled: json["breach_monitoring_enabled"],
         cid: json["cid"],
         createdTimestamp: new Date(json["created_timestamp"]),
         filter: json["filter"],
         id: json["id"],
         name: json["name"],
+        ownershipAssets: !exists(json, "ownership_assets") ? undefined : SadomainCustomerAssetsFromJSON(json["ownership_assets"]),
         permissions: json["permissions"],
         priority: json["priority"],
         status: json["status"],
@@ -159,11 +177,13 @@ export function SadomainRuleToJSON(value?: SadomainRule | null): any {
         return null;
     }
     return {
+        breach_monitoring_enabled: value.breachMonitoringEnabled,
         cid: value.cid,
         created_timestamp: value.createdTimestamp.toISOString(),
         filter: value.filter,
         id: value.id,
         name: value.name,
+        ownership_assets: SadomainCustomerAssetsToJSON(value.ownershipAssets),
         permissions: value.permissions,
         priority: value.priority,
         status: value.status,

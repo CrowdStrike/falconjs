@@ -82,7 +82,6 @@ export interface CreateActionsV1Request {
 
 export interface CreateRulesV1Request {
     body: Array<SadomainCreateRuleRequestV1>;
-    xCSUSERUUID?: string;
 }
 
 export interface DeleteActionV1Request {
@@ -95,7 +94,6 @@ export interface DeleteNotificationsV1Request {
 
 export interface DeleteRulesV1Request {
     ids: Array<string>;
-    xCSUSERUUID?: string;
 }
 
 export interface GetActionsV1Request {
@@ -120,12 +118,10 @@ export interface GetNotificationsV1Request {
 
 export interface GetRulesV1Request {
     ids: Array<string>;
-    xCSUSERUUID?: string;
 }
 
 export interface PreviewRuleV1Request {
     body: DomainRulePreviewRequest;
-    xCSUSERUUID?: string;
 }
 
 export interface QueryActionsV1Request {
@@ -145,8 +141,7 @@ export interface QueryNotificationsV1Request {
 }
 
 export interface QueryRulesV1Request {
-    xCSUSERUUID?: string;
-    offset?: string;
+    offset?: number;
     limit?: number;
     sort?: string;
     filter?: string;
@@ -163,7 +158,6 @@ export interface UpdateNotificationsV1Request {
 
 export interface UpdateRulesV1Request {
     body: Array<DomainUpdateRuleRequestV1>;
-    xCSUSERUUID?: string;
 }
 
 /**
@@ -269,10 +263,6 @@ export class ReconApi extends runtime.BaseAPI {
 
         headerParameters["Content-Type"] = "application/json";
 
-        if (requestParameters.xCSUSERUUID !== undefined && requestParameters.xCSUSERUUID !== null) {
-            headerParameters["X-CS-USERUUID"] = String(requestParameters.xCSUSERUUID);
-        }
-
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:write"]);
@@ -295,8 +285,8 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Create monitoring rules.
      */
-    async createRulesV1(body: Array<SadomainCreateRuleRequestV1>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainRulesEntitiesResponseV1> {
-        const response = await this.createRulesV1Raw({ body: body, xCSUSERUUID: xCSUSERUUID }, initOverrides);
+    async createRulesV1(body: Array<SadomainCreateRuleRequestV1>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainRulesEntitiesResponseV1> {
+        const response = await this.createRulesV1Raw({ body: body }, initOverrides);
         return await response.value();
     }
 
@@ -403,10 +393,6 @@ export class ReconApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters.xCSUSERUUID !== undefined && requestParameters.xCSUSERUUID !== null) {
-            headerParameters["X-CS-USERUUID"] = String(requestParameters.xCSUSERUUID);
-        }
-
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:write"]);
@@ -428,8 +414,8 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Delete monitoring rules.
      */
-    async deleteRulesV1(ids: Array<string>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainRuleQueryResponseV1> {
-        const response = await this.deleteRulesV1Raw({ ids: ids, xCSUSERUUID: xCSUSERUUID }, initOverrides);
+    async deleteRulesV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainRuleQueryResponseV1> {
+        const response = await this.deleteRulesV1Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
 
@@ -656,7 +642,7 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get monitoring rules rules by provided IDs.
+     * Get monitoring rules based on their IDs. IDs can be retrieved using the GET /queries/rules/v1 endpoint.
      */
     async getRulesV1Raw(requestParameters: GetRulesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRulesEntitiesResponseV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
@@ -670,10 +656,6 @@ export class ReconApi extends runtime.BaseAPI {
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xCSUSERUUID !== undefined && requestParameters.xCSUSERUUID !== null) {
-            headerParameters["X-CS-USERUUID"] = String(requestParameters.xCSUSERUUID);
-        }
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
@@ -694,10 +676,10 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get monitoring rules rules by provided IDs.
+     * Get monitoring rules based on their IDs. IDs can be retrieved using the GET /queries/rules/v1 endpoint.
      */
-    async getRulesV1(ids: Array<string>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainRulesEntitiesResponseV1> {
-        const response = await this.getRulesV1Raw({ ids: ids, xCSUSERUUID: xCSUSERUUID }, initOverrides);
+    async getRulesV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainRulesEntitiesResponseV1> {
+        const response = await this.getRulesV1Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
 
@@ -714,10 +696,6 @@ export class ReconApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters["Content-Type"] = "application/json";
-
-        if (requestParameters.xCSUSERUUID !== undefined && requestParameters.xCSUSERUUID !== null) {
-            headerParameters["X-CS-USERUUID"] = String(requestParameters.xCSUSERUUID);
-        }
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
@@ -741,8 +719,8 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Preview rules notification count and distribution. This will return aggregations on: channel, count, site.
      */
-    async previewRuleV1(body: DomainRulePreviewRequest, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainAggregatesResponse> {
-        const response = await this.previewRuleV1Raw({ body: body, xCSUSERUUID: xCSUSERUUID }, initOverrides);
+    async previewRuleV1(body: DomainRulePreviewRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainAggregatesResponse> {
+        const response = await this.previewRuleV1Raw({ body: body }, initOverrides);
         return await response.value();
     }
 
@@ -882,10 +860,6 @@ export class ReconApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters.xCSUSERUUID !== undefined && requestParameters.xCSUSERUUID !== null) {
-            headerParameters["X-CS-USERUUID"] = String(requestParameters.xCSUSERUUID);
-        }
-
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:read"]);
@@ -907,16 +881,8 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Query monitoring rules based on provided criteria. Use the IDs from this response to fetch the rules on /entities/rules/v1.
      */
-    async queryRulesV1(
-        xCSUSERUUID?: string,
-        offset?: string,
-        limit?: number,
-        sort?: string,
-        filter?: string,
-        q?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<DomainRuleQueryResponseV1> {
-        const response = await this.queryRulesV1Raw({ xCSUSERUUID: xCSUSERUUID, offset: offset, limit: limit, sort: sort, filter: filter, q: q }, initOverrides);
+    async queryRulesV1(offset?: number, limit?: number, sort?: string, filter?: string, q?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainRuleQueryResponseV1> {
+        const response = await this.queryRulesV1Raw({ offset: offset, limit: limit, sort: sort, filter: filter, q: q }, initOverrides);
         return await response.value();
     }
 
@@ -1019,10 +985,6 @@ export class ReconApi extends runtime.BaseAPI {
 
         headerParameters["Content-Type"] = "application/json";
 
-        if (requestParameters.xCSUSERUUID !== undefined && requestParameters.xCSUSERUUID !== null) {
-            headerParameters["X-CS-USERUUID"] = String(requestParameters.xCSUSERUUID);
-        }
-
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:write"]);
@@ -1045,8 +1007,8 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Update monitoring rules.
      */
-    async updateRulesV1(body: Array<DomainUpdateRuleRequestV1>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainRulesEntitiesResponseV1> {
-        const response = await this.updateRulesV1Raw({ body: body, xCSUSERUUID: xCSUSERUUID }, initOverrides);
+    async updateRulesV1(body: Array<DomainUpdateRuleRequestV1>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainRulesEntitiesResponseV1> {
+        const response = await this.updateRulesV1Raw({ body: body }, initOverrides);
         return await response.value();
     }
 }
