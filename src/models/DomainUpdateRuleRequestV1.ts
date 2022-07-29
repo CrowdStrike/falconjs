@@ -20,6 +20,12 @@ import { exists, mapValues } from "../runtime";
  */
 export interface DomainUpdateRuleRequestV1 {
     /**
+     * Whether to monitor for breach data
+     * @type {boolean}
+     * @memberof DomainUpdateRuleRequestV1
+     */
+    breachMonitoringEnabled: boolean;
+    /**
      * The filter to be used for searching
      * @type {string}
      * @memberof DomainUpdateRuleRequestV1
@@ -38,7 +44,7 @@ export interface DomainUpdateRuleRequestV1 {
      */
     name: string;
     /**
-     * The permissions for a particular rule which specifies the rule's access by other users. Possible values: [private public]
+     * The permissions for a particular rule which specifies the rule's access by other users. Possible values: [public private]
      * @type {string}
      * @memberof DomainUpdateRuleRequestV1
      */
@@ -56,6 +62,7 @@ export interface DomainUpdateRuleRequestV1 {
  */
 export function instanceOfDomainUpdateRuleRequestV1(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "breachMonitoringEnabled" in value;
     isInstance = isInstance && "filter" in value;
     isInstance = isInstance && "id" in value;
     isInstance = isInstance && "name" in value;
@@ -74,6 +81,7 @@ export function DomainUpdateRuleRequestV1FromJSONTyped(json: any, ignoreDiscrimi
         return json;
     }
     return {
+        breachMonitoringEnabled: json["breach_monitoring_enabled"],
         filter: json["filter"],
         id: json["id"],
         name: json["name"],
@@ -90,6 +98,7 @@ export function DomainUpdateRuleRequestV1ToJSON(value?: DomainUpdateRuleRequestV
         return null;
     }
     return {
+        breach_monitoring_enabled: value.breachMonitoringEnabled,
         filter: value.filter,
         id: value.id,
         name: value.name,

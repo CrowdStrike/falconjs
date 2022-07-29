@@ -17,8 +17,8 @@ import type { DomainRuleQuota } from "./DomainRuleQuota";
 import { DomainRuleQuotaFromJSON, DomainRuleQuotaFromJSONTyped, DomainRuleQuotaToJSON } from "./DomainRuleQuota";
 import type { MsaPaging } from "./MsaPaging";
 import { MsaPagingFromJSON, MsaPagingFromJSONTyped, MsaPagingToJSON } from "./MsaPaging";
-import type { MsaResources } from "./MsaResources";
-import { MsaResourcesFromJSON, MsaResourcesFromJSONTyped, MsaResourcesToJSON } from "./MsaResources";
+import type { MsaspecWrites } from "./MsaspecWrites";
+import { MsaspecWritesFromJSON, MsaspecWritesFromJSONTyped, MsaspecWritesToJSON } from "./MsaspecWrites";
 
 /**
  *
@@ -58,10 +58,10 @@ export interface DomainRuleMetaInfo {
     traceId: string;
     /**
      *
-     * @type {MsaResources}
+     * @type {MsaspecWrites}
      * @memberof DomainRuleMetaInfo
      */
-    writes?: MsaResources;
+    writes?: MsaspecWrites;
 }
 
 /**
@@ -89,7 +89,7 @@ export function DomainRuleMetaInfoFromJSONTyped(json: any, ignoreDiscriminator: 
         queryTime: json["query_time"],
         quota: !exists(json, "quota") ? undefined : DomainRuleQuotaFromJSON(json["quota"]),
         traceId: json["trace_id"],
-        writes: !exists(json, "writes") ? undefined : MsaResourcesFromJSON(json["writes"]),
+        writes: !exists(json, "writes") ? undefined : MsaspecWritesFromJSON(json["writes"]),
     };
 }
 
@@ -106,6 +106,6 @@ export function DomainRuleMetaInfoToJSON(value?: DomainRuleMetaInfo | null): any
         query_time: value.queryTime,
         quota: DomainRuleQuotaToJSON(value.quota),
         trace_id: value.traceId,
-        writes: MsaResourcesToJSON(value.writes),
+        writes: MsaspecWritesToJSON(value.writes),
     };
 }

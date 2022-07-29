@@ -20,6 +20,12 @@ import { exists, mapValues } from "../runtime";
  */
 export interface SadomainCreateRuleRequestV1 {
     /**
+     * Whether to monitor for breach data. Available only for `Company Domains` and `Email addresses` rule topics. When enabled, ownership of the monitored domains or emails is required.
+     * @type {boolean}
+     * @memberof SadomainCreateRuleRequestV1
+     */
+    breachMonitoringEnabled: boolean;
+    /**
      * The filter to be used for searching
      * @type {string}
      * @memberof SadomainCreateRuleRequestV1
@@ -32,19 +38,19 @@ export interface SadomainCreateRuleRequestV1 {
      */
     name: string;
     /**
-     * The permissions for a particular rule which specifies the rule's access by other users. Possible values: [public private]
+     * The permissions for a particular rule which specifies the rule's access by other users. Possible values: [private public]
      * @type {string}
      * @memberof SadomainCreateRuleRequestV1
      */
     permissions: string;
     /**
-     * The priority for a particular rule. Possible values: [medium high low]
+     * The priority for a particular rule. Possible values: [low medium high]
      * @type {string}
      * @memberof SadomainCreateRuleRequestV1
      */
     priority: string;
     /**
-     * The topic of a given rule. Possible values: [SA_THIRD_PARTY SA_CVE SA_ALIAS SA_AUTHOR SA_BRAND_PRODUCT SA_VIP SA_IP SA_BIN SA_DOMAIN SA_EMAIL SA_CUSTOM]
+     * The topic of a given rule. Possible values: [SA_BRAND_PRODUCT SA_THIRD_PARTY SA_IP SA_CVE SA_DOMAIN SA_AUTHOR SA_CUSTOM SA_VIP SA_BIN SA_EMAIL SA_ALIAS]
      * @type {string}
      * @memberof SadomainCreateRuleRequestV1
      */
@@ -56,6 +62,7 @@ export interface SadomainCreateRuleRequestV1 {
  */
 export function instanceOfSadomainCreateRuleRequestV1(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "breachMonitoringEnabled" in value;
     isInstance = isInstance && "filter" in value;
     isInstance = isInstance && "name" in value;
     isInstance = isInstance && "permissions" in value;
@@ -74,6 +81,7 @@ export function SadomainCreateRuleRequestV1FromJSONTyped(json: any, ignoreDiscri
         return json;
     }
     return {
+        breachMonitoringEnabled: json["breach_monitoring_enabled"],
         filter: json["filter"],
         name: json["name"],
         permissions: json["permissions"],
@@ -90,6 +98,7 @@ export function SadomainCreateRuleRequestV1ToJSON(value?: SadomainCreateRuleRequ
         return null;
     }
     return {
+        breach_monitoring_enabled: value.breachMonitoringEnabled,
         filter: value.filter,
         name: value.name,
         permissions: value.permissions,

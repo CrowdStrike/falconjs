@@ -616,6 +616,7 @@ export * from "./ResponsesSvExclusionRespV1";
 export * from "./ResponsesSvExclusionV1";
 export * from "./ResponsesUninstallTokenV1";
 export * from "./SadomainCreateRuleRequestV1";
+export * from "./SadomainCustomerAssets";
 export * from "./SadomainRule";
 export * from "./StateOnlineStateRespV1";
 export * from "./StateOnlineStateResultV1";
