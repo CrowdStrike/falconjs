@@ -24,7 +24,7 @@ export interface ResponsesDeviceControlPolicyExceptionV1 {
      * @type {string}
      * @memberof ResponsesDeviceControlPolicyExceptionV1
      */
-    action: string;
+    action?: string;
     /**
      * USB Class ID to apply the exception. If empty it applies to all classes
      * @type {string}
@@ -36,7 +36,19 @@ export interface ResponsesDeviceControlPolicyExceptionV1 {
      * @type {string}
      * @memberof ResponsesDeviceControlPolicyExceptionV1
      */
-    combinedId: string;
+    combinedId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ResponsesDeviceControlPolicyExceptionV1
+     */
+    description?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ResponsesDeviceControlPolicyExceptionV1
+     */
+    expirationTime?: string;
     /**
      * Unique identifier for an exception
      * @type {string}
@@ -48,37 +60,49 @@ export interface ResponsesDeviceControlPolicyExceptionV1 {
      * @type {string}
      * @memberof ResponsesDeviceControlPolicyExceptionV1
      */
-    matchMethod: string;
+    matchMethod?: string;
     /**
      *
      * @type {string}
      * @memberof ResponsesDeviceControlPolicyExceptionV1
      */
-    productId: string;
+    productId?: string;
     /**
      *
      * @type {string}
      * @memberof ResponsesDeviceControlPolicyExceptionV1
      */
-    productName: string;
+    productIdDecimal?: string;
     /**
      *
      * @type {string}
      * @memberof ResponsesDeviceControlPolicyExceptionV1
      */
-    serialNumber: string;
+    productName?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ResponsesDeviceControlPolicyExceptionV1
+     */
+    serialNumber?: string;
     /**
      * Hexadecimal VendorID used to apply the exception
      * @type {string}
      * @memberof ResponsesDeviceControlPolicyExceptionV1
      */
-    vendorId: string;
+    vendorId?: string;
+    /**
+     * Hexadecimal VendorID used to apply the exception
+     * @type {string}
+     * @memberof ResponsesDeviceControlPolicyExceptionV1
+     */
+    vendorIdDecimal?: string;
     /**
      * Vendor Name
      * @type {string}
      * @memberof ResponsesDeviceControlPolicyExceptionV1
      */
-    vendorName: string;
+    vendorName?: string;
 }
 
 /**
@@ -86,16 +110,8 @@ export interface ResponsesDeviceControlPolicyExceptionV1 {
  */
 export function instanceOfResponsesDeviceControlPolicyExceptionV1(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "action" in value;
     isInstance = isInstance && "_class" in value;
-    isInstance = isInstance && "combinedId" in value;
     isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "matchMethod" in value;
-    isInstance = isInstance && "productId" in value;
-    isInstance = isInstance && "productName" in value;
-    isInstance = isInstance && "serialNumber" in value;
-    isInstance = isInstance && "vendorId" in value;
-    isInstance = isInstance && "vendorName" in value;
 
     return isInstance;
 }
@@ -109,16 +125,20 @@ export function ResponsesDeviceControlPolicyExceptionV1FromJSONTyped(json: any, 
         return json;
     }
     return {
-        action: json["action"],
+        action: !exists(json, "action") ? undefined : json["action"],
         _class: json["class"],
-        combinedId: json["combined_id"],
+        combinedId: !exists(json, "combined_id") ? undefined : json["combined_id"],
+        description: !exists(json, "description") ? undefined : json["description"],
+        expirationTime: !exists(json, "expiration_time") ? undefined : json["expiration_time"],
         id: json["id"],
-        matchMethod: json["match_method"],
-        productId: json["product_id"],
-        productName: json["product_name"],
-        serialNumber: json["serial_number"],
-        vendorId: json["vendor_id"],
-        vendorName: json["vendor_name"],
+        matchMethod: !exists(json, "match_method") ? undefined : json["match_method"],
+        productId: !exists(json, "product_id") ? undefined : json["product_id"],
+        productIdDecimal: !exists(json, "product_id_decimal") ? undefined : json["product_id_decimal"],
+        productName: !exists(json, "product_name") ? undefined : json["product_name"],
+        serialNumber: !exists(json, "serial_number") ? undefined : json["serial_number"],
+        vendorId: !exists(json, "vendor_id") ? undefined : json["vendor_id"],
+        vendorIdDecimal: !exists(json, "vendor_id_decimal") ? undefined : json["vendor_id_decimal"],
+        vendorName: !exists(json, "vendor_name") ? undefined : json["vendor_name"],
     };
 }
 
@@ -133,12 +153,16 @@ export function ResponsesDeviceControlPolicyExceptionV1ToJSON(value?: ResponsesD
         action: value.action,
         class: value._class,
         combined_id: value.combinedId,
+        description: value.description,
+        expiration_time: value.expirationTime,
         id: value.id,
         match_method: value.matchMethod,
         product_id: value.productId,
+        product_id_decimal: value.productIdDecimal,
         product_name: value.productName,
         serial_number: value.serialNumber,
         vendor_id: value.vendorId,
+        vendor_id_decimal: value.vendorIdDecimal,
         vendor_name: value.vendorName,
     };
 }

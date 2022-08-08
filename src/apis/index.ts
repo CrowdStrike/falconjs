@@ -28,6 +28,7 @@ export * from "./KubernetesProtectionApi";
 export * from "./MalqueryApi";
 export * from "./MessageCenterApi";
 export * from "./MlExclusionsApi";
+export * from "./MobileEnrollmentApi";
 export * from "./MsspApi";
 export * from "./Oauth2Api";
 export * from "./OverwatchDashboardApi";

@@ -24,73 +24,73 @@ export interface RequestsDeviceControlPolicyExceptionV1 {
      * @type {string}
      * @memberof RequestsDeviceControlPolicyExceptionV1
      */
-    action: string;
-    /**
-     * USB Class ID to apply the exception. If empty it applies to all classes
-     * @type {string}
-     * @memberof RequestsDeviceControlPolicyExceptionV1
-     */
-    _class: string;
+    action?: string;
     /**
      *
      * @type {string}
      * @memberof RequestsDeviceControlPolicyExceptionV1
      */
-    combinedId: string;
+    combinedId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof RequestsDeviceControlPolicyExceptionV1
+     */
+    description?: string;
+    /**
+     *
+     * @type {Date}
+     * @memberof RequestsDeviceControlPolicyExceptionV1
+     */
+    expirationTime?: Date;
     /**
      * Unique identifier for an exception
      * @type {string}
      * @memberof RequestsDeviceControlPolicyExceptionV1
      */
-    id: string;
+    id?: string;
     /**
      *
      * @type {string}
      * @memberof RequestsDeviceControlPolicyExceptionV1
      */
-    matchMethod: string;
+    productId?: string;
     /**
      *
      * @type {string}
      * @memberof RequestsDeviceControlPolicyExceptionV1
      */
-    productId: string;
+    productIdDecimal?: string;
     /**
      *
      * @type {string}
      * @memberof RequestsDeviceControlPolicyExceptionV1
      */
-    productIdDecimal: string;
+    productName?: string;
     /**
      *
      * @type {string}
      * @memberof RequestsDeviceControlPolicyExceptionV1
      */
-    productName: string;
-    /**
-     *
-     * @type {string}
-     * @memberof RequestsDeviceControlPolicyExceptionV1
-     */
-    serialNumber: string;
+    serialNumber?: string;
     /**
      * Hexadecimal VendorID used to apply the exception
      * @type {string}
      * @memberof RequestsDeviceControlPolicyExceptionV1
      */
-    vendorId: string;
+    vendorId?: string;
     /**
      * Hexadecimal VendorID used to apply the exception
      * @type {string}
      * @memberof RequestsDeviceControlPolicyExceptionV1
      */
-    vendorIdDecimal: string;
+    vendorIdDecimal?: string;
     /**
      * Vendor Name, optional
      * @type {string}
      * @memberof RequestsDeviceControlPolicyExceptionV1
      */
-    vendorName: string;
+    vendorName?: string;
 }
 
 /**
@@ -98,18 +98,6 @@ export interface RequestsDeviceControlPolicyExceptionV1 {
  */
 export function instanceOfRequestsDeviceControlPolicyExceptionV1(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "action" in value;
-    isInstance = isInstance && "_class" in value;
-    isInstance = isInstance && "combinedId" in value;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "matchMethod" in value;
-    isInstance = isInstance && "productId" in value;
-    isInstance = isInstance && "productIdDecimal" in value;
-    isInstance = isInstance && "productName" in value;
-    isInstance = isInstance && "serialNumber" in value;
-    isInstance = isInstance && "vendorId" in value;
-    isInstance = isInstance && "vendorIdDecimal" in value;
-    isInstance = isInstance && "vendorName" in value;
 
     return isInstance;
 }
@@ -123,18 +111,18 @@ export function RequestsDeviceControlPolicyExceptionV1FromJSONTyped(json: any, i
         return json;
     }
     return {
-        action: json["action"],
-        _class: json["class"],
-        combinedId: json["combined_id"],
-        id: json["id"],
-        matchMethod: json["match_method"],
-        productId: json["product_id"],
-        productIdDecimal: json["product_id_decimal"],
-        productName: json["product_name"],
-        serialNumber: json["serial_number"],
-        vendorId: json["vendor_id"],
-        vendorIdDecimal: json["vendor_id_decimal"],
-        vendorName: json["vendor_name"],
+        action: !exists(json, "action") ? undefined : json["action"],
+        combinedId: !exists(json, "combined_id") ? undefined : json["combined_id"],
+        description: !exists(json, "description") ? undefined : json["description"],
+        expirationTime: !exists(json, "expiration_time") ? undefined : new Date(json["expiration_time"]),
+        id: !exists(json, "id") ? undefined : json["id"],
+        productId: !exists(json, "product_id") ? undefined : json["product_id"],
+        productIdDecimal: !exists(json, "product_id_decimal") ? undefined : json["product_id_decimal"],
+        productName: !exists(json, "product_name") ? undefined : json["product_name"],
+        serialNumber: !exists(json, "serial_number") ? undefined : json["serial_number"],
+        vendorId: !exists(json, "vendor_id") ? undefined : json["vendor_id"],
+        vendorIdDecimal: !exists(json, "vendor_id_decimal") ? undefined : json["vendor_id_decimal"],
+        vendorName: !exists(json, "vendor_name") ? undefined : json["vendor_name"],
     };
 }
 
@@ -147,10 +135,10 @@ export function RequestsDeviceControlPolicyExceptionV1ToJSON(value?: RequestsDev
     }
     return {
         action: value.action,
-        class: value._class,
         combined_id: value.combinedId,
+        description: value.description,
+        expiration_time: value.expirationTime === undefined ? undefined : value.expirationTime.toISOString(),
         id: value.id,
-        match_method: value.matchMethod,
         product_id: value.productId,
         product_id_decimal: value.productIdDecimal,
         product_name: value.productName,

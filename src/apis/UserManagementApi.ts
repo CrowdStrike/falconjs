@@ -14,21 +14,44 @@
 
 import * as runtime from "../runtime";
 import type {
+    DomainActionUserRolesRequest,
+    DomainCreateUserRequest,
+    DomainMsaEntitiesRolesResponse,
+    DomainMsaEntitiesUsersResponse,
+    DomainMsaUserGrantsResponse,
     DomainRoleIDs,
     DomainUpdateUserFields,
+    DomainUpdateUserRequest,
+    DomainUserActionRequest,
     DomainUserCreateRequest,
     DomainUserMetaDataResponse,
     DomainUserRoleIDsResponse,
     DomainUserRoleResponse,
     MsaEntitiesResponse,
+    MsaErrorsOnly,
+    MsaIdsRequest,
     MsaQueryResponse,
     MsaReplyMetaOnly,
 } from "../models";
 import {
+    DomainActionUserRolesRequestFromJSON,
+    DomainActionUserRolesRequestToJSON,
+    DomainCreateUserRequestFromJSON,
+    DomainCreateUserRequestToJSON,
+    DomainMsaEntitiesRolesResponseFromJSON,
+    DomainMsaEntitiesRolesResponseToJSON,
+    DomainMsaEntitiesUsersResponseFromJSON,
+    DomainMsaEntitiesUsersResponseToJSON,
+    DomainMsaUserGrantsResponseFromJSON,
+    DomainMsaUserGrantsResponseToJSON,
     DomainRoleIDsFromJSON,
     DomainRoleIDsToJSON,
     DomainUpdateUserFieldsFromJSON,
     DomainUpdateUserFieldsToJSON,
+    DomainUpdateUserRequestFromJSON,
+    DomainUpdateUserRequestToJSON,
+    DomainUserActionRequestFromJSON,
+    DomainUserActionRequestToJSON,
     DomainUserCreateRequestFromJSON,
     DomainUserCreateRequestToJSON,
     DomainUserMetaDataResponseFromJSON,
@@ -39,18 +62,46 @@ import {
     DomainUserRoleResponseToJSON,
     MsaEntitiesResponseFromJSON,
     MsaEntitiesResponseToJSON,
+    MsaErrorsOnlyFromJSON,
+    MsaErrorsOnlyToJSON,
+    MsaIdsRequestFromJSON,
+    MsaIdsRequestToJSON,
     MsaQueryResponseFromJSON,
     MsaQueryResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
 } from "../models";
 
+export interface CombinedUserRolesV1Request {
+    userUuid: string;
+    cid?: string;
+    directOnly?: boolean;
+    filter?: CombinedUserRolesV1FilterEnum;
+    offset?: number;
+    limit?: number;
+    sort?: CombinedUserRolesV1SortEnum;
+}
+
 export interface CreateUserRequest {
     body: DomainUserCreateRequest;
 }
 
+export interface CreateUserV1Request {
+    body: DomainCreateUserRequest;
+    validateOnly?: boolean;
+}
+
 export interface DeleteUserRequest {
     userUuid: string;
+}
+
+export interface DeleteUserV1Request {
+    userUuid: string;
+}
+
+export interface EntitiesRolesV1Request {
+    ids: Array<string>;
+    cid?: string;
 }
 
 export interface GetRolesRequest {
@@ -66,12 +117,28 @@ export interface GrantUserRoleIdsRequest {
     body: DomainRoleIDs;
 }
 
+export interface QueriesRolesV1Request {
+    cid?: string;
+    userUuid?: string;
+}
+
+export interface QueryUserV1Request {
+    filter?: QueryUserV1FilterEnum;
+    offset?: number;
+    limit?: number;
+    sort?: QueryUserV1SortEnum;
+}
+
 export interface RetrieveUserRequest {
     ids: Array<string>;
 }
 
 export interface RetrieveUserUUIDRequest {
     uid: Array<string>;
+}
+
+export interface RetrieveUsersGETV1Request {
+    body: MsaIdsRequest;
 }
 
 export interface RevokeUserRoleIdsRequest {
@@ -84,10 +151,98 @@ export interface UpdateUserRequest {
     body: DomainUpdateUserFields;
 }
 
+export interface UpdateUserV1Request {
+    userUuid: string;
+    body: DomainUpdateUserRequest;
+}
+
+export interface UserActionV1Request {
+    body: DomainUserActionRequest;
+}
+
+export interface UserRolesActionV1Request {
+    body: DomainActionUserRolesRequest;
+}
+
 /**
  *
  */
 export class UserManagementApi extends runtime.BaseAPI {
+    /**
+     * Get User Grant(s). This endpoint lists both direct as well as flight control grants between a User and a Customer.
+     */
+    async combinedUserRolesV1Raw(requestParameters: CombinedUserRolesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainMsaUserGrantsResponse>> {
+        if (requestParameters.userUuid === null || requestParameters.userUuid === undefined) {
+            throw new runtime.RequiredError("userUuid", "Required parameter requestParameters.userUuid was null or undefined when calling combinedUserRolesV1.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.userUuid !== undefined) {
+            queryParameters["user_uuid"] = requestParameters.userUuid;
+        }
+
+        if (requestParameters.cid !== undefined) {
+            queryParameters["cid"] = requestParameters.cid;
+        }
+
+        if (requestParameters.directOnly !== undefined) {
+            queryParameters["direct_only"] = requestParameters.directOnly;
+        }
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        if (requestParameters.sort !== undefined) {
+            queryParameters["sort"] = requestParameters.sort;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/user-management/combined/user-roles/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaUserGrantsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get User Grant(s). This endpoint lists both direct as well as flight control grants between a User and a Customer.
+     */
+    async combinedUserRolesV1(
+        userUuid: string,
+        cid?: string,
+        directOnly?: boolean,
+        filter?: CombinedUserRolesV1FilterEnum,
+        offset?: number,
+        limit?: number,
+        sort?: CombinedUserRolesV1SortEnum,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<DomainMsaUserGrantsResponse> {
+        const response = await this.combinedUserRolesV1Raw({ userUuid: userUuid, cid: cid, directOnly: directOnly, filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
+        return await response.value();
+    }
+
     /**
      * Create a new user. After creating a user, assign one or more roles with POST /user-roles/entities/user-roles/v1
      */
@@ -130,6 +285,51 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
+     * Create a new user. After creating a user, assign one or more roles with POST \'/user-management/entities/user-role-actions/v1\'
+     */
+    async createUserV1Raw(requestParameters: CreateUserV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainMsaEntitiesUsersResponse>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createUserV1.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.validateOnly !== undefined) {
+            queryParameters["validate_only"] = requestParameters.validateOnly;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/user-management/entities/users/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: DomainCreateUserRequestToJSON(requestParameters.body),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaEntitiesUsersResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Create a new user. After creating a user, assign one or more roles with POST \'/user-management/entities/user-role-actions/v1\'
+     */
+    async createUserV1(body: DomainCreateUserRequest, validateOnly?: boolean, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainMsaEntitiesUsersResponse> {
+        const response = await this.createUserV1Raw({ body: body, validateOnly: validateOnly }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Delete a user permanently
      */
     async deleteUserRaw(requestParameters: DeleteUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
@@ -168,6 +368,94 @@ export class UserManagementApi extends runtime.BaseAPI {
      */
     async deleteUser(userUuid: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyMetaOnly> {
         const response = await this.deleteUserRaw({ userUuid: userUuid }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Delete a user permanently.
+     */
+    async deleteUserV1Raw(requestParameters: DeleteUserV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+        if (requestParameters.userUuid === null || requestParameters.userUuid === undefined) {
+            throw new runtime.RequiredError("userUuid", "Required parameter requestParameters.userUuid was null or undefined when calling deleteUserV1.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.userUuid !== undefined) {
+            queryParameters["user_uuid"] = requestParameters.userUuid;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/user-management/entities/users/v1`,
+                method: "DELETE",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
+    }
+
+    /**
+     * Delete a user permanently.
+     */
+    async deleteUserV1(userUuid: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyMetaOnly> {
+        const response = await this.deleteUserV1Raw({ userUuid: userUuid }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get info about a role
+     */
+    async entitiesRolesV1Raw(requestParameters: EntitiesRolesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainMsaEntitiesRolesResponse>> {
+        if (requestParameters.ids === null || requestParameters.ids === undefined) {
+            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling entitiesRolesV1.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.cid !== undefined) {
+            queryParameters["cid"] = requestParameters.cid;
+        }
+
+        if (requestParameters.ids) {
+            queryParameters["ids"] = requestParameters.ids;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/user-management/entities/roles/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaEntitiesRolesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get info about a role
+     */
+    async entitiesRolesV1(ids: Array<string>, cid?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainMsaEntitiesRolesResponse> {
+        const response = await this.entitiesRolesV1Raw({ ids: ids, cid: cid }, initOverrides);
         return await response.value();
     }
 
@@ -339,6 +627,104 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
+     * Show role IDs for all roles available in your customer account. For more information on each role, provide the role ID to `/user-management/entities/roles/v1`.
+     */
+    async queriesRolesV1Raw(requestParameters: QueriesRolesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.cid !== undefined) {
+            queryParameters["cid"] = requestParameters.cid;
+        }
+
+        if (requestParameters.userUuid !== undefined) {
+            queryParameters["user_uuid"] = requestParameters.userUuid;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/user-management/queries/roles/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Show role IDs for all roles available in your customer account. For more information on each role, provide the role ID to `/user-management/entities/roles/v1`.
+     */
+    async queriesRolesV1(cid?: string, userUuid?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
+        const response = await this.queriesRolesV1Raw({ cid: cid, userUuid: userUuid }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * List user IDs for all users in your customer account. For more information on each user, provide the user ID to `/user-management/entities/users/GET/v1`.
+     */
+    async queryUserV1Raw(requestParameters: QueryUserV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        if (requestParameters.sort !== undefined) {
+            queryParameters["sort"] = requestParameters.sort;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/user-management/queries/users/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * List user IDs for all users in your customer account. For more information on each user, provide the user ID to `/user-management/entities/users/GET/v1`.
+     */
+    async queryUserV1(
+        filter?: QueryUserV1FilterEnum,
+        offset?: number,
+        limit?: number,
+        sort?: QueryUserV1SortEnum,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<MsaQueryResponse> {
+        const response = await this.queryUserV1Raw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * List the usernames (usually an email address) for all users in your customer account
      */
     async retrieveEmailsByCIDRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
@@ -491,6 +877,50 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
+     * Get info about users including their name, UID and CID by providing user UUIDs
+     */
+    async retrieveUsersGETV1Raw(
+        requestParameters: RetrieveUsersGETV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainMsaEntitiesUsersResponse>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling retrieveUsersGETV1.");
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/user-management/entities/users/GET/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: MsaIdsRequestToJSON(requestParameters.body),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaEntitiesUsersResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get info about users including their name, UID and CID by providing user UUIDs
+     */
+    async retrieveUsersGETV1(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainMsaEntitiesUsersResponse> {
+        const response = await this.retrieveUsersGETV1Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Revoke one or more roles from a user
      */
     async revokeUserRoleIdsRaw(requestParameters: RevokeUserRoleIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainUserRoleIDsResponse>> {
@@ -588,4 +1018,182 @@ export class UserManagementApi extends runtime.BaseAPI {
         const response = await this.updateUserRaw({ userUuid: userUuid, body: body }, initOverrides);
         return await response.value();
     }
+
+    /**
+     * Modify an existing user\'s first or last name.
+     */
+    async updateUserV1Raw(requestParameters: UpdateUserV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainMsaEntitiesUsersResponse>> {
+        if (requestParameters.userUuid === null || requestParameters.userUuid === undefined) {
+            throw new runtime.RequiredError("userUuid", "Required parameter requestParameters.userUuid was null or undefined when calling updateUserV1.");
+        }
+
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateUserV1.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.userUuid !== undefined) {
+            queryParameters["user_uuid"] = requestParameters.userUuid;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/user-management/entities/users/v1`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+                body: DomainUpdateUserRequestToJSON(requestParameters.body),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaEntitiesUsersResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Modify an existing user\'s first or last name.
+     */
+    async updateUserV1(userUuid: string, body: DomainUpdateUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainMsaEntitiesUsersResponse> {
+        const response = await this.updateUserV1Raw({ userUuid: userUuid, body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Apply actions to one or more User. Available action names: reset_2fa, reset_password.
+     */
+    async userActionV1Raw(requestParameters: UserActionV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling userActionV1.");
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/user-management/entities/user-actions/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: DomainUserActionRequestToJSON(requestParameters.body),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
+    }
+
+    /**
+     * Apply actions to one or more User. Available action names: reset_2fa, reset_password.
+     */
+    async userActionV1(body: DomainUserActionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyMetaOnly> {
+        const response = await this.userActionV1Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Grant or Revoke one or more role(s) to a user against a CID.
+     */
+    async userRolesActionV1Raw(requestParameters: UserRolesActionV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling userRolesActionV1.");
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/user-management/entities/user-role-actions/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: DomainActionUserRolesRequestToJSON(requestParameters.body),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
+    }
+
+    /**
+     * Grant or Revoke one or more role(s) to a user against a CID.
+     */
+    async userRolesActionV1(body: DomainActionUserRolesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyMetaOnly> {
+        const response = await this.userRolesActionV1Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
 }
+
+/**
+ * @export
+ */
+export const CombinedUserRolesV1FilterEnum = {
+    Id: "role_id",
+    Name: "role_name",
+} as const;
+export type CombinedUserRolesV1FilterEnum = typeof CombinedUserRolesV1FilterEnum[keyof typeof CombinedUserRolesV1FilterEnum];
+/**
+ * @export
+ */
+export const CombinedUserRolesV1SortEnum = {
+    CidAsc: "cid|asc",
+    CidDesc: "cid|desc",
+    RoleNameAsc: "role_name|asc",
+    RoleNameDesc: "role_name|desc",
+    TypeAsc: "type|asc",
+    TypeDesc: "type|desc",
+} as const;
+export type CombinedUserRolesV1SortEnum = typeof CombinedUserRolesV1SortEnum[keyof typeof CombinedUserRolesV1SortEnum];
+/**
+ * @export
+ */
+export const QueryUserV1FilterEnum = {
+    AssignedCids: "assigned_cids",
+    Cid: "cid",
+    FirstName: "first_name",
+    LastName: "last_name",
+    Name: "name",
+    Uid: "uid",
+} as const;
+export type QueryUserV1FilterEnum = typeof QueryUserV1FilterEnum[keyof typeof QueryUserV1FilterEnum];
+/**
+ * @export
+ */
+export const QueryUserV1SortEnum = {
+    FirstNameAsc: "first_name|asc",
+    FirstNameDesc: "first_name|desc",
+    LastNameAsc: "last_name|asc",
+    LastNameDesc: "last_name|desc",
+    NameAsc: "name|asc",
+    NameDesc: "name|desc",
+    UidAsc: "uid|asc",
+    UidDesc: "uid|desc",
+} as const;
+export type QueryUserV1SortEnum = typeof QueryUserV1SortEnum[keyof typeof QueryUserV1SortEnum];
