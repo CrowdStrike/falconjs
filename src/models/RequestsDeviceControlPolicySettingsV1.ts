@@ -21,7 +21,7 @@ import {
 } from "./RequestsDeviceControlPolicyClassSettingsV1";
 
 /**
- * A specific setting to update
+ *
  * @export
  * @interface RequestsDeviceControlPolicySettingsV1
  */
@@ -33,6 +33,12 @@ export interface RequestsDeviceControlPolicySettingsV1 {
      */
     classes: Array<RequestsDeviceControlPolicyClassSettingsV1>;
     /**
+     * An array of exception IDs to delete from the policy
+     * @type {Array<string>}
+     * @memberof RequestsDeviceControlPolicySettingsV1
+     */
+    deleteExceptions: Array<string>;
+    /**
      * Does the end user receives a notification when the policy is violated
      * @type {string}
      * @memberof RequestsDeviceControlPolicySettingsV1
@@ -43,24 +49,28 @@ export interface RequestsDeviceControlPolicySettingsV1 {
      * @type {string}
      * @memberof RequestsDeviceControlPolicySettingsV1
      */
-    enforcementMode: string;
-    /**
-     * The id of the setting to update
-     * @type {string}
-     * @memberof RequestsDeviceControlPolicySettingsV1
-     */
-    id: string;
+    enforcementMode: RequestsDeviceControlPolicySettingsV1EnforcementModeEnum;
 }
 
 /**
  * @export
  */
 export const RequestsDeviceControlPolicySettingsV1EndUserNotificationEnum = {
-    True: "TRUE",
-    False: "FALSE",
+    Silent: "SILENT",
+    NotifyUser: "NOTIFY_USER",
 } as const;
 export type RequestsDeviceControlPolicySettingsV1EndUserNotificationEnum =
     typeof RequestsDeviceControlPolicySettingsV1EndUserNotificationEnum[keyof typeof RequestsDeviceControlPolicySettingsV1EndUserNotificationEnum];
+
+/**
+ * @export
+ */
+export const RequestsDeviceControlPolicySettingsV1EnforcementModeEnum = {
+    Only: "MONITOR_ONLY",
+    Enforce: "MONITOR_ENFORCE",
+} as const;
+export type RequestsDeviceControlPolicySettingsV1EnforcementModeEnum =
+    typeof RequestsDeviceControlPolicySettingsV1EnforcementModeEnum[keyof typeof RequestsDeviceControlPolicySettingsV1EnforcementModeEnum];
 
 /**
  * Check if a given object implements the RequestsDeviceControlPolicySettingsV1 interface.
@@ -68,9 +78,9 @@ export type RequestsDeviceControlPolicySettingsV1EndUserNotificationEnum =
 export function instanceOfRequestsDeviceControlPolicySettingsV1(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "classes" in value;
+    isInstance = isInstance && "deleteExceptions" in value;
     isInstance = isInstance && "endUserNotification" in value;
     isInstance = isInstance && "enforcementMode" in value;
-    isInstance = isInstance && "id" in value;
 
     return isInstance;
 }
@@ -85,9 +95,9 @@ export function RequestsDeviceControlPolicySettingsV1FromJSONTyped(json: any, ig
     }
     return {
         classes: (json["classes"] as Array<any>).map(RequestsDeviceControlPolicyClassSettingsV1FromJSON),
+        deleteExceptions: json["delete_exceptions"],
         endUserNotification: json["end_user_notification"],
         enforcementMode: json["enforcement_mode"],
-        id: json["id"],
     };
 }
 
@@ -100,8 +110,8 @@ export function RequestsDeviceControlPolicySettingsV1ToJSON(value?: RequestsDevi
     }
     return {
         classes: (value.classes as Array<any>).map(RequestsDeviceControlPolicyClassSettingsV1ToJSON),
+        delete_exceptions: value.deleteExceptions,
         end_user_notification: value.endUserNotification,
         enforcement_mode: value.enforcementMode,
-        id: value.id,
     };
 }

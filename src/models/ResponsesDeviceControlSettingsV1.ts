@@ -27,7 +27,7 @@ import {
  */
 export interface ResponsesDeviceControlSettingsV1 {
     /**
-     *
+     * List of class_settings this policy applies to
      * @type {Array<ResponsesDeviceControlPolicyClassSettingsV1>}
      * @memberof ResponsesDeviceControlSettingsV1
      */
@@ -50,8 +50,8 @@ export interface ResponsesDeviceControlSettingsV1 {
  * @export
  */
 export const ResponsesDeviceControlSettingsV1EndUserNotificationEnum = {
-    True: "TRUE",
-    False: "FALSE",
+    Silent: "SILENT",
+    NotifyUser: "NOTIFY_USER",
 } as const;
 export type ResponsesDeviceControlSettingsV1EndUserNotificationEnum =
     typeof ResponsesDeviceControlSettingsV1EndUserNotificationEnum[keyof typeof ResponsesDeviceControlSettingsV1EndUserNotificationEnum];
@@ -60,8 +60,9 @@ export type ResponsesDeviceControlSettingsV1EndUserNotificationEnum =
  * @export
  */
 export const ResponsesDeviceControlSettingsV1EnforcementModeEnum = {
-    Enforced: "ENFORCED",
-    MonitoryOnly: "MONITORY_ONLY",
+    MonitorOnly: "MONITOR_ONLY",
+    MonitorEnforce: "MONITOR_ENFORCE",
+    Off: "OFF",
 } as const;
 export type ResponsesDeviceControlSettingsV1EnforcementModeEnum = typeof ResponsesDeviceControlSettingsV1EnforcementModeEnum[keyof typeof ResponsesDeviceControlSettingsV1EnforcementModeEnum];
 
