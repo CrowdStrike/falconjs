@@ -25,6 +25,12 @@ export interface DeviceDeviceMeta {
      * @memberof DeviceDeviceMeta
      */
     version?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceDeviceMeta
+     */
+    versionString?: string;
 }
 
 /**
@@ -46,6 +52,7 @@ export function DeviceDeviceMetaFromJSONTyped(json: any, ignoreDiscriminator: bo
     }
     return {
         version: !exists(json, "version") ? undefined : json["version"],
+        versionString: !exists(json, "version_string") ? undefined : json["version_string"],
     };
 }
 
@@ -58,5 +65,6 @@ export function DeviceDeviceMetaToJSON(value?: DeviceDeviceMeta | null): any {
     }
     return {
         version: value.version,
+        version_string: value.versionString,
     };
 }

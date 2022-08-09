@@ -45,6 +45,12 @@ export interface DeviceMappedDevicePolicies {
      * @type {DeviceDevicePolicy}
      * @memberof DeviceMappedDevicePolicies
      */
+    fim?: DeviceDevicePolicy;
+    /**
+     *
+     * @type {DeviceDevicePolicy}
+     * @memberof DeviceMappedDevicePolicies
+     */
     firewall?: DeviceDevicePolicy;
     /**
      *
@@ -58,6 +64,12 @@ export interface DeviceMappedDevicePolicies {
      * @memberof DeviceMappedDevicePolicies
      */
     identityProtection?: DeviceDevicePolicy;
+    /**
+     *
+     * @type {DeviceDevicePolicy}
+     * @memberof DeviceMappedDevicePolicies
+     */
+    jumpcloud?: DeviceDevicePolicy;
     /**
      *
      * @type {DeviceDevicePolicy}
@@ -111,9 +123,11 @@ export function DeviceMappedDevicePoliciesFromJSONTyped(json: any, ignoreDiscrim
         airlock: !exists(json, "airlock") ? undefined : DeviceDevicePolicyFromJSON(json["airlock"]),
         automox: !exists(json, "automox") ? undefined : DeviceDevicePolicyFromJSON(json["automox"]),
         deviceControl: !exists(json, "device_control") ? undefined : DeviceDevicePolicyFromJSON(json["device_control"]),
+        fim: !exists(json, "fim") ? undefined : DeviceDevicePolicyFromJSON(json["fim"]),
         firewall: !exists(json, "firewall") ? undefined : DeviceDevicePolicyFromJSON(json["firewall"]),
         globalConfig: !exists(json, "global_config") ? undefined : DeviceDevicePolicyFromJSON(json["global_config"]),
         identityProtection: !exists(json, "identity-protection") ? undefined : DeviceDevicePolicyFromJSON(json["identity-protection"]),
+        jumpcloud: !exists(json, "jumpcloud") ? undefined : DeviceDevicePolicyFromJSON(json["jumpcloud"]),
         mobile: !exists(json, "mobile") ? undefined : DeviceDevicePolicyFromJSON(json["mobile"]),
         netskope: !exists(json, "netskope") ? undefined : DeviceDevicePolicyFromJSON(json["netskope"]),
         prevention: !exists(json, "prevention") ? undefined : DeviceDevicePolicyFromJSON(json["prevention"]),
@@ -133,9 +147,11 @@ export function DeviceMappedDevicePoliciesToJSON(value?: DeviceMappedDevicePolic
         airlock: DeviceDevicePolicyToJSON(value.airlock),
         automox: DeviceDevicePolicyToJSON(value.automox),
         device_control: DeviceDevicePolicyToJSON(value.deviceControl),
+        fim: DeviceDevicePolicyToJSON(value.fim),
         firewall: DeviceDevicePolicyToJSON(value.firewall),
         global_config: DeviceDevicePolicyToJSON(value.globalConfig),
         "identity-protection": DeviceDevicePolicyToJSON(value.identityProtection),
+        jumpcloud: DeviceDevicePolicyToJSON(value.jumpcloud),
         mobile: DeviceDevicePolicyToJSON(value.mobile),
         netskope: DeviceDevicePolicyToJSON(value.netskope),
         prevention: DeviceDevicePolicyToJSON(value.prevention),
