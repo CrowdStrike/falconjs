@@ -4,7 +4,7 @@ export * from "./AlertsApi";
 export * from "./CloudConnectAwsApi";
 export * from "./CspmRegistrationApi";
 export * from "./CustomIoaApi";
-export * from "./D4cRegistrationApi";
+// export * from "./D4cRegistrationApi";
 export * from "./DetectsApi";
 export * from "./DeviceControlPoliciesApi";
 export * from "./DiscoverApi";
