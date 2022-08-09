@@ -39,6 +39,12 @@ export interface DeviceDevicePolicy {
     assignedDate?: Date;
     /**
      *
+     * @type {boolean}
+     * @memberof DeviceDevicePolicy
+     */
+    exempt?: boolean;
+    /**
+     *
      * @type {string}
      * @memberof DeviceDevicePolicy
      */
@@ -98,6 +104,7 @@ export function DeviceDevicePolicyFromJSONTyped(json: any, ignoreDiscriminator: 
         applied: !exists(json, "applied") ? undefined : json["applied"],
         appliedDate: !exists(json, "applied_date") ? undefined : new Date(json["applied_date"]),
         assignedDate: !exists(json, "assigned_date") ? undefined : new Date(json["assigned_date"]),
+        exempt: !exists(json, "exempt") ? undefined : json["exempt"],
         policyId: json["policy_id"],
         policyType: json["policy_type"],
         ruleGroups: !exists(json, "rule_groups") ? undefined : json["rule_groups"],
@@ -118,6 +125,7 @@ export function DeviceDevicePolicyToJSON(value?: DeviceDevicePolicy | null): any
         applied: value.applied,
         applied_date: value.appliedDate === undefined ? undefined : value.appliedDate.toISOString(),
         assigned_date: value.assignedDate === undefined ? undefined : value.assignedDate.toISOString(),
+        exempt: value.exempt,
         policy_id: value.policyId,
         policy_type: value.policyType,
         rule_groups: value.ruleGroups,

@@ -45,6 +45,12 @@ export interface DeviceManagedApps {
      * @type {DeviceManagedApp}
      * @memberof DeviceManagedApps
      */
+    jumpcloud?: DeviceManagedApp;
+    /**
+     *
+     * @type {DeviceManagedApp}
+     * @memberof DeviceManagedApps
+     */
     netskope?: DeviceManagedApp;
 }
 
@@ -69,6 +75,7 @@ export function DeviceManagedAppsFromJSONTyped(json: any, ignoreDiscriminator: b
         airlock: !exists(json, "airlock") ? undefined : DeviceManagedAppFromJSON(json["airlock"]),
         automox: !exists(json, "automox") ? undefined : DeviceManagedAppFromJSON(json["automox"]),
         identityProtection: !exists(json, "identity-protection") ? undefined : DeviceManagedAppFromJSON(json["identity-protection"]),
+        jumpcloud: !exists(json, "jumpcloud") ? undefined : DeviceManagedAppFromJSON(json["jumpcloud"]),
         netskope: !exists(json, "netskope") ? undefined : DeviceManagedAppFromJSON(json["netskope"]),
     };
 }
@@ -84,6 +91,7 @@ export function DeviceManagedAppsToJSON(value?: DeviceManagedApps | null): any {
         airlock: DeviceManagedAppToJSON(value.airlock),
         automox: DeviceManagedAppToJSON(value.automox),
         "identity-protection": DeviceManagedAppToJSON(value.identityProtection),
+        jumpcloud: DeviceManagedAppToJSON(value.jumpcloud),
         netskope: DeviceManagedAppToJSON(value.netskope),
     };
 }
