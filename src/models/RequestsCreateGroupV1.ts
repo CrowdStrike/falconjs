@@ -51,6 +51,7 @@ export interface RequestsCreateGroupV1 {
 export const RequestsCreateGroupV1GroupTypeEnum = {
     Static: "static",
     Dynamic: "dynamic",
+    StaticById: "staticByID",
 } as const;
 export type RequestsCreateGroupV1GroupTypeEnum = typeof RequestsCreateGroupV1GroupTypeEnum[keyof typeof RequestsCreateGroupV1GroupTypeEnum];
 

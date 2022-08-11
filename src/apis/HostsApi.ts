@@ -14,6 +14,7 @@
 
 import * as runtime from "../runtime";
 import type {
+    DeviceapiDeviceDetailsResponseSwagger,
     DeviceapiGroupsResponseV1,
     DeviceapiLoginHistoryResponseV1,
     DeviceapiNetworkAddressHistoryResponseV1,
@@ -30,6 +31,8 @@ import type {
     StateOnlineStateRespV1,
 } from "../models";
 import {
+    DeviceapiDeviceDetailsResponseSwaggerFromJSON,
+    DeviceapiDeviceDetailsResponseSwaggerToJSON,
     DeviceapiGroupsResponseV1FromJSON,
     DeviceapiGroupsResponseV1ToJSON,
     DeviceapiLoginHistoryResponseV1FromJSON,
@@ -70,6 +73,10 @@ export interface GetDeviceDetailsRequest {
     ids: Array<string>;
 }
 
+export interface GetDeviceDetailsV2Request {
+    ids: Array<string>;
+}
+
 export interface GetOnlineStateV1Request {
     ids: Array<string>;
 }
@@ -77,6 +84,10 @@ export interface GetOnlineStateV1Request {
 export interface PerformActionV2Request {
     actionName: string;
     body: MsaEntityActionRequestV2;
+}
+
+export interface PostDeviceDetailsV2Request {
+    body: MsaIdsRequest;
 }
 
 export interface QueryDeviceLoginHistoryRequest {
@@ -182,7 +193,7 @@ export class HostsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get details on one or more hosts by providing agent IDs (AID). You can get a host\'s agent IDs (AIDs) from the /devices/queries/devices/v1 endpoint, the Falcon console or the Streaming API
+     * Deprecated: Please use new GET or POST /devices/entities/devices/v2 endpoints.  This endpoint will be removed on or sometime after February 9, 2023.  Get details on one or more hosts by providing agent IDs (AID). You can get a host\'s agent IDs (AIDs) from the /devices/queries/devices/v1 endpoint, the Falcon console or the Streaming API
      */
     async getDeviceDetailsRaw(
         requestParameters: GetDeviceDetailsRequest,
@@ -219,10 +230,55 @@ export class HostsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get details on one or more hosts by providing agent IDs (AID). You can get a host\'s agent IDs (AIDs) from the /devices/queries/devices/v1 endpoint, the Falcon console or the Streaming API
+     * Deprecated: Please use new GET or POST /devices/entities/devices/v2 endpoints.  This endpoint will be removed on or sometime after February 9, 2023.  Get details on one or more hosts by providing agent IDs (AID). You can get a host\'s agent IDs (AIDs) from the /devices/queries/devices/v1 endpoint, the Falcon console or the Streaming API
      */
     async getDeviceDetails(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainDeviceDetailsResponseSwagger> {
         const response = await this.getDeviceDetailsRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get details on one or more hosts by providing host IDs as a query parameter.  Supports up to a maximum 100 IDs.
+     */
+    async getDeviceDetailsV2Raw(
+        requestParameters: GetDeviceDetailsV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DeviceapiDeviceDetailsResponseSwagger>> {
+        if (requestParameters.ids === null || requestParameters.ids === undefined) {
+            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getDeviceDetailsV2.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.ids) {
+            queryParameters["ids"] = requestParameters.ids;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/devices/entities/devices/v2`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DeviceapiDeviceDetailsResponseSwaggerFromJSON(jsonValue));
+    }
+
+    /**
+     * Get details on one or more hosts by providing host IDs as a query parameter.  Supports up to a maximum 100 IDs.
+     */
+    async getDeviceDetailsV2(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeviceapiDeviceDetailsResponseSwagger> {
+        const response = await this.getDeviceDetailsV2Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
 
@@ -314,6 +370,50 @@ export class HostsApi extends runtime.BaseAPI {
      */
     async performActionV2(actionName: string, body: MsaEntityActionRequestV2, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyAffectedEntities> {
         const response = await this.performActionV2Raw({ actionName: actionName, body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get details on one or more hosts by providing host IDs in a POST body.  Supports up to a maximum 5000 IDs.
+     */
+    async postDeviceDetailsV2Raw(
+        requestParameters: PostDeviceDetailsV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DeviceapiDeviceDetailsResponseSwagger>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling postDeviceDetailsV2.");
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/devices/entities/devices/v2`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: MsaIdsRequestToJSON(requestParameters.body),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DeviceapiDeviceDetailsResponseSwaggerFromJSON(jsonValue));
+    }
+
+    /**
+     * Get details on one or more hosts by providing host IDs in a POST body.  Supports up to a maximum 5000 IDs.
+     */
+    async postDeviceDetailsV2(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeviceapiDeviceDetailsResponseSwagger> {
+        const response = await this.postDeviceDetailsV2Raw({ body: body }, initOverrides);
         return await response.value();
     }
 

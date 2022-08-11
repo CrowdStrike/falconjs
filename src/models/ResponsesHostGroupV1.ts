@@ -81,6 +81,7 @@ export interface ResponsesHostGroupV1 {
 export const ResponsesHostGroupV1GroupTypeEnum = {
     Static: "static",
     Dynamic: "dynamic",
+    StaticById: "staticByID",
 } as const;
 export type ResponsesHostGroupV1GroupTypeEnum = typeof ResponsesHostGroupV1GroupTypeEnum[keyof typeof ResponsesHostGroupV1GroupTypeEnum];
 

@@ -635,4 +635,4 @@ export * from "./SadomainRule";
 export * from "./StateOnlineStateRespV1";
 export * from "./StateOnlineStateResultV1";
 export * from "./ThreatgraphCrawlEdgesRequest";
-// export * from "./UploadSampleV2Request";
+export * from "./UploadSampleV2Request";
