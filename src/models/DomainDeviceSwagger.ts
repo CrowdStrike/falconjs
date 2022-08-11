@@ -171,6 +171,18 @@ export interface DomainDeviceSwagger {
      * @type {string}
      * @memberof DomainDeviceSwagger
      */
+    internetExposure?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainDeviceSwagger
+     */
+    kernelVersion?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainDeviceSwagger
+     */
     lastLoginTimestamp?: string;
     /**
      *
@@ -232,6 +244,12 @@ export interface DomainDeviceSwagger {
      * @memberof DomainDeviceSwagger
      */
     notes?: Array<string>;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainDeviceSwagger
+     */
+    osBuild?: string;
     /**
      *
      * @type {string}
@@ -405,12 +423,6 @@ export interface DomainDeviceSwagger {
      * @type {string}
      * @memberof DomainDeviceSwagger
      */
-    slowChangingModifiedTimestamp?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof DomainDeviceSwagger
-     */
     status?: string;
     /**
      *
@@ -481,6 +493,8 @@ export function DomainDeviceSwaggerFromJSONTyped(json: any, ignoreDiscriminator:
         hostHiddenStatus: !exists(json, "host_hidden_status") ? undefined : json["host_hidden_status"],
         hostname: !exists(json, "hostname") ? undefined : json["hostname"],
         instanceId: !exists(json, "instance_id") ? undefined : json["instance_id"],
+        internetExposure: !exists(json, "internet_exposure") ? undefined : json["internet_exposure"],
+        kernelVersion: !exists(json, "kernel_version") ? undefined : json["kernel_version"],
         lastLoginTimestamp: !exists(json, "last_login_timestamp") ? undefined : json["last_login_timestamp"],
         lastSeen: !exists(json, "last_seen") ? undefined : json["last_seen"],
         localIp: !exists(json, "local_ip") ? undefined : json["local_ip"],
@@ -492,6 +506,7 @@ export function DomainDeviceSwaggerFromJSONTyped(json: any, ignoreDiscriminator:
         minorVersion: !exists(json, "minor_version") ? undefined : json["minor_version"],
         modifiedTimestamp: !exists(json, "modified_timestamp") ? undefined : json["modified_timestamp"],
         notes: !exists(json, "notes") ? undefined : json["notes"],
+        osBuild: !exists(json, "os_build") ? undefined : json["os_build"],
         osVersion: !exists(json, "os_version") ? undefined : json["os_version"],
         ou: !exists(json, "ou") ? undefined : json["ou"],
         platformId: !exists(json, "platform_id") ? undefined : json["platform_id"],
@@ -520,7 +535,6 @@ export function DomainDeviceSwaggerFromJSONTyped(json: any, ignoreDiscriminator:
         serviceProvider: !exists(json, "service_provider") ? undefined : json["service_provider"],
         serviceProviderAccountId: !exists(json, "service_provider_account_id") ? undefined : json["service_provider_account_id"],
         siteName: !exists(json, "site_name") ? undefined : json["site_name"],
-        slowChangingModifiedTimestamp: !exists(json, "slow_changing_modified_timestamp") ? undefined : json["slow_changing_modified_timestamp"],
         status: !exists(json, "status") ? undefined : json["status"],
         systemManufacturer: !exists(json, "system_manufacturer") ? undefined : json["system_manufacturer"],
         systemProductName: !exists(json, "system_product_name") ? undefined : json["system_product_name"],
@@ -560,6 +574,8 @@ export function DomainDeviceSwaggerToJSON(value?: DomainDeviceSwagger | null): a
         host_hidden_status: value.hostHiddenStatus,
         hostname: value.hostname,
         instance_id: value.instanceId,
+        internet_exposure: value.internetExposure,
+        kernel_version: value.kernelVersion,
         last_login_timestamp: value.lastLoginTimestamp,
         last_seen: value.lastSeen,
         local_ip: value.localIp,
@@ -571,6 +587,7 @@ export function DomainDeviceSwaggerToJSON(value?: DomainDeviceSwagger | null): a
         minor_version: value.minorVersion,
         modified_timestamp: value.modifiedTimestamp,
         notes: value.notes,
+        os_build: value.osBuild,
         os_version: value.osVersion,
         ou: value.ou,
         platform_id: value.platformId,
@@ -599,7 +616,6 @@ export function DomainDeviceSwaggerToJSON(value?: DomainDeviceSwagger | null): a
         service_provider: value.serviceProvider,
         service_provider_account_id: value.serviceProviderAccountId,
         site_name: value.siteName,
-        slow_changing_modified_timestamp: value.slowChangingModifiedTimestamp,
         status: value.status,
         system_manufacturer: value.systemManufacturer,
         system_product_name: value.systemProductName,

@@ -7,7 +7,6 @@ export * from "./CustomIoaApi";
 // export * from "./D4cRegistrationApi";
 export * from "./DetectsApi";
 export * from "./DeviceControlPoliciesApi";
-export * from "./DevicesApi";
 export * from "./DiscoverApi";
 export * from "./EventStreamsApi";
 export * from "./FalconCompleteDashboardApi";

@@ -25,6 +25,12 @@ import { ResponsesPreventionCategoryV1FromJSON, ResponsesPreventionCategoryV1Fro
  */
 export interface ResponsesRTResponsePolicyV1 {
     /**
+     * The customer id associated with the policy
+     * @type {string}
+     * @memberof ResponsesRTResponsePolicyV1
+     */
+    cid: string;
+    /**
      * The email of the user which created the policy
      * @type {string}
      * @memberof ResponsesRTResponsePolicyV1
@@ -107,6 +113,7 @@ export type ResponsesRTResponsePolicyV1PlatformNameEnum = typeof ResponsesRTResp
  */
 export function instanceOfResponsesRTResponsePolicyV1(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "cid" in value;
     isInstance = isInstance && "createdBy" in value;
     isInstance = isInstance && "createdTimestamp" in value;
     isInstance = isInstance && "description" in value;
@@ -131,6 +138,7 @@ export function ResponsesRTResponsePolicyV1FromJSONTyped(json: any, ignoreDiscri
         return json;
     }
     return {
+        cid: json["cid"],
         createdBy: json["created_by"],
         createdTimestamp: new Date(json["created_timestamp"]),
         description: json["description"],
@@ -153,6 +161,7 @@ export function ResponsesRTResponsePolicyV1ToJSON(value?: ResponsesRTResponsePol
         return null;
     }
     return {
+        cid: value.cid,
         created_by: value.createdBy,
         created_timestamp: value.createdTimestamp.toISOString(),
         description: value.description,
