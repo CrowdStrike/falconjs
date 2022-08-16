@@ -97,18 +97,21 @@ export interface BatchActiveResponderCmdRequest {
     body: DomainBatchExecuteCommandRequest;
     timeout?: number;
     timeoutDuration?: string;
+    hostTimeoutDuration?: string;
 }
 
 export interface BatchCmdRequest {
     body: DomainBatchExecuteCommandRequest;
     timeout?: number;
     timeoutDuration?: string;
+    hostTimeoutDuration?: string;
 }
 
 export interface BatchGetCmdRequest {
     body: DomainBatchGetCommandRequest;
     timeout?: number;
     timeoutDuration?: string;
+    hostTimeoutDuration?: string;
 }
 
 export interface BatchGetCmdStatusRequest {
@@ -121,6 +124,7 @@ export interface BatchInitSessionsRequest {
     body: DomainBatchInitSessionRequest;
     timeout?: number;
     timeoutDuration?: string;
+    hostTimeoutDuration?: string;
 }
 
 export interface BatchRefreshSessionsRequest {
@@ -232,6 +236,10 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
             queryParameters["timeout_duration"] = requestParameters.timeoutDuration;
         }
 
+        if (requestParameters.hostTimeoutDuration !== undefined) {
+            queryParameters["host_timeout_duration"] = requestParameters.hostTimeoutDuration;
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters["Content-Type"] = "application/json";
@@ -262,9 +270,10 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
         body: DomainBatchExecuteCommandRequest,
         timeout?: number,
         timeoutDuration?: string,
+        hostTimeoutDuration?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<DomainMultiCommandExecuteResponseWrapper> {
-        const response = await this.batchActiveResponderCmdRaw({ body: body, timeout: timeout, timeoutDuration: timeoutDuration }, initOverrides);
+        const response = await this.batchActiveResponderCmdRaw({ body: body, timeout: timeout, timeoutDuration: timeoutDuration, hostTimeoutDuration: hostTimeoutDuration }, initOverrides);
         return await response.value();
     }
 
@@ -284,6 +293,10 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (requestParameters.timeoutDuration !== undefined) {
             queryParameters["timeout_duration"] = requestParameters.timeoutDuration;
+        }
+
+        if (requestParameters.hostTimeoutDuration !== undefined) {
+            queryParameters["host_timeout_duration"] = requestParameters.hostTimeoutDuration;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -316,9 +329,10 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
         body: DomainBatchExecuteCommandRequest,
         timeout?: number,
         timeoutDuration?: string,
+        hostTimeoutDuration?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<DomainMultiCommandExecuteResponseWrapper> {
-        const response = await this.batchCmdRaw({ body: body, timeout: timeout, timeoutDuration: timeoutDuration }, initOverrides);
+        const response = await this.batchCmdRaw({ body: body, timeout: timeout, timeoutDuration: timeoutDuration, hostTimeoutDuration: hostTimeoutDuration }, initOverrides);
         return await response.value();
     }
 
@@ -338,6 +352,10 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (requestParameters.timeoutDuration !== undefined) {
             queryParameters["timeout_duration"] = requestParameters.timeoutDuration;
+        }
+
+        if (requestParameters.hostTimeoutDuration !== undefined) {
+            queryParameters["host_timeout_duration"] = requestParameters.hostTimeoutDuration;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -370,9 +388,10 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
         body: DomainBatchGetCommandRequest,
         timeout?: number,
         timeoutDuration?: string,
+        hostTimeoutDuration?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<DomainBatchGetCommandResponse> {
-        const response = await this.batchGetCmdRaw({ body: body, timeout: timeout, timeoutDuration: timeoutDuration }, initOverrides);
+        const response = await this.batchGetCmdRaw({ body: body, timeout: timeout, timeoutDuration: timeoutDuration, hostTimeoutDuration: hostTimeoutDuration }, initOverrides);
         return await response.value();
     }
 
@@ -449,6 +468,10 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
             queryParameters["timeout_duration"] = requestParameters.timeoutDuration;
         }
 
+        if (requestParameters.hostTimeoutDuration !== undefined) {
+            queryParameters["host_timeout_duration"] = requestParameters.hostTimeoutDuration;
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters["Content-Type"] = "application/json";
@@ -479,9 +502,10 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
         body: DomainBatchInitSessionRequest,
         timeout?: number,
         timeoutDuration?: string,
+        hostTimeoutDuration?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<DomainBatchInitSessionResponse> {
-        const response = await this.batchInitSessionsRaw({ body: body, timeout: timeout, timeoutDuration: timeoutDuration }, initOverrides);
+        const response = await this.batchInitSessionsRaw({ body: body, timeout: timeout, timeoutDuration: timeoutDuration, hostTimeoutDuration: hostTimeoutDuration }, initOverrides);
         return await response.value();
     }
 
