@@ -55,6 +55,7 @@ export interface BatchAdminCmdRequest {
     body: DomainBatchExecuteCommandRequest;
     timeout?: number;
     timeoutDuration?: string;
+    hostTimeoutDuration?: string;
 }
 
 export interface RTRCheckAdminCommandStatusRequest {
@@ -157,6 +158,10 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
             queryParameters["timeout_duration"] = requestParameters.timeoutDuration;
         }
 
+        if (requestParameters.hostTimeoutDuration !== undefined) {
+            queryParameters["host_timeout_duration"] = requestParameters.hostTimeoutDuration;
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters["Content-Type"] = "application/json";
@@ -187,9 +192,10 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
         body: DomainBatchExecuteCommandRequest,
         timeout?: number,
         timeoutDuration?: string,
+        hostTimeoutDuration?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<DomainMultiCommandExecuteResponseWrapper> {
-        const response = await this.batchAdminCmdRaw({ body: body, timeout: timeout, timeoutDuration: timeoutDuration }, initOverrides);
+        const response = await this.batchAdminCmdRaw({ body: body, timeout: timeout, timeoutDuration: timeoutDuration, hostTimeoutDuration: hostTimeoutDuration }, initOverrides);
         return await response.value();
     }
 
