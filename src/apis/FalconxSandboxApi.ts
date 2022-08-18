@@ -197,7 +197,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
     }
 
     /**
-     * Download IOC packs, PCAP files, and other analysis artifacts.
+     * Download IOC packs, PCAP files, memory dumps, and other analysis artifacts.
      */
     async getArtifactsRaw(requestParameters: GetArtifactsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
@@ -239,7 +239,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
     }
 
     /**
-     * Download IOC packs, PCAP files, and other analysis artifacts.
+     * Download IOC packs, PCAP files, memory dumps, and other analysis artifacts.
      */
     async getArtifacts(id: string, name?: string, acceptEncoding?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.getArtifactsRaw({ id: id, name: name, acceptEncoding: acceptEncoding }, initOverrides);
