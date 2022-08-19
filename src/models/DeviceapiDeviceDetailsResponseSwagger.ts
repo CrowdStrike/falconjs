@@ -31,7 +31,7 @@ export interface DeviceapiDeviceDetailsResponseSwagger {
      * @type {Array<MsaAPIError>}
      * @memberof DeviceapiDeviceDetailsResponseSwagger
      */
-    errors: Array<MsaAPIError>;
+    errors: Array<MsaAPIError> | null;
     /**
      *
      * @type {MsaMetaInfo}
@@ -67,7 +67,7 @@ export function DeviceapiDeviceDetailsResponseSwaggerFromJSONTyped(json: any, ig
         return json;
     }
     return {
-        errors: (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
+        errors: json["errors"] === null ? null : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
         resources: (json["resources"] as Array<any>).map(DeviceapiDeviceSwaggerFromJSON),
     };
@@ -81,7 +81,7 @@ export function DeviceapiDeviceDetailsResponseSwaggerToJSON(value?: DeviceapiDev
         return null;
     }
     return {
-        errors: (value.errors as Array<any>).map(MsaAPIErrorToJSON),
+        errors: value.errors === null ? null : (value.errors as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value.meta),
         resources: (value.resources as Array<any>).map(DeviceapiDeviceSwaggerToJSON),
     };
