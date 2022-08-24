@@ -41,8 +41,8 @@ export interface IndicatorCombinedV1Request {
 export interface IndicatorCreateV1Request {
     body: ApiIndicatorCreateReqsV1;
     xCSUSERNAME?: string;
-    retrodetects?: any;
-    ignoreWarnings?: any;
+    retrodetects?: boolean;
+    ignoreWarnings?: boolean;
 }
 
 export interface IndicatorDeleteV1Request {
@@ -66,8 +66,8 @@ export interface IndicatorSearchV1Request {
 export interface IndicatorUpdateV1Request {
     body: ApiIndicatorUpdateReqsV1;
     xCSUSERNAME?: string;
-    retrodetects?: any;
-    ignoreWarnings?: any;
+    retrodetects?: boolean;
+    ignoreWarnings?: boolean;
 }
 
 /**
@@ -191,8 +191,8 @@ export class IocApi extends runtime.BaseAPI {
     async indicatorCreateV1(
         body: ApiIndicatorCreateReqsV1,
         xCSUSERNAME?: string,
-        retrodetects?: any,
-        ignoreWarnings?: any,
+        retrodetects?: boolean,
+        ignoreWarnings?: boolean,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<ApiIndicatorRespV1> {
         const response = await this.indicatorCreateV1Raw({ body: body, xCSUSERNAME: xCSUSERNAME, retrodetects: retrodetects, ignoreWarnings: ignoreWarnings }, initOverrides);
@@ -399,8 +399,8 @@ export class IocApi extends runtime.BaseAPI {
     async indicatorUpdateV1(
         body: ApiIndicatorUpdateReqsV1,
         xCSUSERNAME?: string,
-        retrodetects?: any,
-        ignoreWarnings?: any,
+        retrodetects?: boolean,
+        ignoreWarnings?: boolean,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<ApiIndicatorRespV1> {
         const response = await this.indicatorUpdateV1Raw({ body: body, xCSUSERNAME: xCSUSERNAME, retrodetects: retrodetects, ignoreWarnings: ignoreWarnings }, initOverrides);
