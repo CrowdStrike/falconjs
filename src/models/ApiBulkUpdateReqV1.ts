@@ -13,6 +13,9 @@
  */
 
 import { exists, mapValues } from "../runtime";
+import type { ApiMetadataReqV1 } from "./ApiMetadataReqV1";
+import { ApiMetadataReqV1FromJSON, ApiMetadataReqV1FromJSONTyped, ApiMetadataReqV1ToJSON } from "./ApiMetadataReqV1";
+
 /**
  *
  * @export
@@ -51,10 +54,22 @@ export interface ApiBulkUpdateReqV1 {
     filter?: string;
     /**
      *
+     * @type {boolean}
+     * @memberof ApiBulkUpdateReqV1
+     */
+    fromParent?: boolean;
+    /**
+     *
      * @type {Array<string>}
      * @memberof ApiBulkUpdateReqV1
      */
     hostGroups?: Array<string>;
+    /**
+     *
+     * @type {ApiMetadataReqV1}
+     * @memberof ApiBulkUpdateReqV1
+     */
+    metadata?: ApiMetadataReqV1;
     /**
      *
      * @type {string}
@@ -110,7 +125,9 @@ export function ApiBulkUpdateReqV1FromJSONTyped(json: any, ignoreDiscriminator: 
         description: !exists(json, "description") ? undefined : json["description"],
         expiration: !exists(json, "expiration") ? undefined : new Date(json["expiration"]),
         filter: !exists(json, "filter") ? undefined : json["filter"],
+        fromParent: !exists(json, "from_parent") ? undefined : json["from_parent"],
         hostGroups: !exists(json, "host_groups") ? undefined : json["host_groups"],
+        metadata: !exists(json, "metadata") ? undefined : ApiMetadataReqV1FromJSON(json["metadata"]),
         mobileAction: !exists(json, "mobile_action") ? undefined : json["mobile_action"],
         platforms: !exists(json, "platforms") ? undefined : json["platforms"],
         severity: !exists(json, "severity") ? undefined : json["severity"],
@@ -132,7 +149,9 @@ export function ApiBulkUpdateReqV1ToJSON(value?: ApiBulkUpdateReqV1 | null): any
         description: value.description,
         expiration: value.expiration === undefined ? undefined : value.expiration.toISOString(),
         filter: value.filter,
+        from_parent: value.fromParent,
         host_groups: value.hostGroups,
+        metadata: ApiMetadataReqV1ToJSON(value.metadata),
         mobile_action: value.mobileAction,
         platforms: value.platforms,
         severity: value.severity,
