@@ -40,7 +40,6 @@ export interface IndicatorCombinedV1Request {
 
 export interface IndicatorCreateV1Request {
     body: ApiIndicatorCreateReqsV1;
-    xCSUSERNAME?: string;
     retrodetects?: boolean;
     ignoreWarnings?: boolean;
 }
@@ -65,7 +64,6 @@ export interface IndicatorSearchV1Request {
 
 export interface IndicatorUpdateV1Request {
     body: ApiIndicatorUpdateReqsV1;
-    xCSUSERNAME?: string;
     retrodetects?: boolean;
     ignoreWarnings?: boolean;
 }
@@ -162,10 +160,6 @@ export class IocApi extends runtime.BaseAPI {
 
         headerParameters["Content-Type"] = "application/json";
 
-        if (requestParameters.xCSUSERNAME !== undefined && requestParameters.xCSUSERNAME !== null) {
-            headerParameters["X-CS-USERNAME"] = String(requestParameters.xCSUSERNAME);
-        }
-
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:write"]);
@@ -188,14 +182,8 @@ export class IocApi extends runtime.BaseAPI {
     /**
      * Create Indicators.
      */
-    async indicatorCreateV1(
-        body: ApiIndicatorCreateReqsV1,
-        xCSUSERNAME?: string,
-        retrodetects?: boolean,
-        ignoreWarnings?: boolean,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<ApiIndicatorRespV1> {
-        const response = await this.indicatorCreateV1Raw({ body: body, xCSUSERNAME: xCSUSERNAME, retrodetects: retrodetects, ignoreWarnings: ignoreWarnings }, initOverrides);
+    async indicatorCreateV1(body: ApiIndicatorCreateReqsV1, retrodetects?: boolean, ignoreWarnings?: boolean, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiIndicatorRespV1> {
+        const response = await this.indicatorCreateV1Raw({ body: body, retrodetects: retrodetects, ignoreWarnings: ignoreWarnings }, initOverrides);
         return await response.value();
     }
 
@@ -370,10 +358,6 @@ export class IocApi extends runtime.BaseAPI {
 
         headerParameters["Content-Type"] = "application/json";
 
-        if (requestParameters.xCSUSERNAME !== undefined && requestParameters.xCSUSERNAME !== null) {
-            headerParameters["X-CS-USERNAME"] = String(requestParameters.xCSUSERNAME);
-        }
-
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:write"]);
@@ -396,14 +380,8 @@ export class IocApi extends runtime.BaseAPI {
     /**
      * Update Indicators.
      */
-    async indicatorUpdateV1(
-        body: ApiIndicatorUpdateReqsV1,
-        xCSUSERNAME?: string,
-        retrodetects?: boolean,
-        ignoreWarnings?: boolean,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<ApiIndicatorRespV1> {
-        const response = await this.indicatorUpdateV1Raw({ body: body, xCSUSERNAME: xCSUSERNAME, retrodetects: retrodetects, ignoreWarnings: ignoreWarnings }, initOverrides);
+    async indicatorUpdateV1(body: ApiIndicatorUpdateReqsV1, retrodetects?: boolean, ignoreWarnings?: boolean, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiIndicatorRespV1> {
+        const response = await this.indicatorUpdateV1Raw({ body: body, retrodetects: retrodetects, ignoreWarnings: ignoreWarnings }, initOverrides);
         return await response.value();
     }
 }
