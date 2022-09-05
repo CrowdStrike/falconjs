@@ -182,6 +182,8 @@ export interface RTRGetExtractedFileContentsRequest {
 
 export interface RTRInitSessionRequest {
     body: DomainInitRequest;
+    timeout?: number;
+    timeoutDuration?: string;
 }
 
 export interface RTRListAllSessionsRequest {
@@ -1057,6 +1059,14 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         const queryParameters: any = {};
 
+        if (requestParameters.timeout !== undefined) {
+            queryParameters["timeout"] = requestParameters.timeout;
+        }
+
+        if (requestParameters.timeoutDuration !== undefined) {
+            queryParameters["timeout_duration"] = requestParameters.timeoutDuration;
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters["Content-Type"] = "application/json";
@@ -1083,8 +1093,8 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     /**
      * Initialize a new session with the RTR cloud.
      */
-    async rTRInitSession(body: DomainInitRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainInitResponseWrapper> {
-        const response = await this.rTRInitSessionRaw({ body: body }, initOverrides);
+    async rTRInitSession(body: DomainInitRequest, timeout?: number, timeoutDuration?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainInitResponseWrapper> {
+        const response = await this.rTRInitSessionRaw({ body: body, timeout: timeout, timeoutDuration: timeoutDuration }, initOverrides);
         return await response.value();
     }
 
