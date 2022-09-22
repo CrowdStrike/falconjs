@@ -23,33 +23,33 @@ import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from
 /**
  *
  * @export
- * @interface DomainUserMetaDataResponse
+ * @interface ApiUserMetadataResponse
  */
-export interface DomainUserMetaDataResponse {
+export interface ApiUserMetadataResponse {
     /**
      *
      * @type {Array<MsaAPIError>}
-     * @memberof DomainUserMetaDataResponse
+     * @memberof ApiUserMetadataResponse
      */
     errors: Array<MsaAPIError>;
     /**
      *
      * @type {MsaMetaInfo}
-     * @memberof DomainUserMetaDataResponse
+     * @memberof ApiUserMetadataResponse
      */
     meta: MsaMetaInfo;
     /**
      *
      * @type {Array<DomainUserMetadata>}
-     * @memberof DomainUserMetaDataResponse
+     * @memberof ApiUserMetadataResponse
      */
     resources: Array<DomainUserMetadata>;
 }
 
 /**
- * Check if a given object implements the DomainUserMetaDataResponse interface.
+ * Check if a given object implements the ApiUserMetadataResponse interface.
  */
-export function instanceOfDomainUserMetaDataResponse(value: object): boolean {
+export function instanceOfApiUserMetadataResponse(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "errors" in value;
     isInstance = isInstance && "meta" in value;
@@ -58,11 +58,11 @@ export function instanceOfDomainUserMetaDataResponse(value: object): boolean {
     return isInstance;
 }
 
-export function DomainUserMetaDataResponseFromJSON(json: any): DomainUserMetaDataResponse {
-    return DomainUserMetaDataResponseFromJSONTyped(json, false);
+export function ApiUserMetadataResponseFromJSON(json: any): ApiUserMetadataResponse {
+    return ApiUserMetadataResponseFromJSONTyped(json, false);
 }
 
-export function DomainUserMetaDataResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainUserMetaDataResponse {
+export function ApiUserMetadataResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): ApiUserMetadataResponse {
     if (json === undefined || json === null) {
         return json;
     }
@@ -73,7 +73,7 @@ export function DomainUserMetaDataResponseFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function DomainUserMetaDataResponseToJSON(value?: DomainUserMetaDataResponse | null): any {
+export function ApiUserMetadataResponseToJSON(value?: ApiUserMetadataResponse | null): any {
     if (value === undefined) {
         return undefined;
     }

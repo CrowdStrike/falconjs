@@ -23,33 +23,33 @@ import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from
 /**
  *
  * @export
- * @interface DomainUserRoleResponse
+ * @interface ApiUserRoleResponse
  */
-export interface DomainUserRoleResponse {
+export interface ApiUserRoleResponse {
     /**
      *
      * @type {Array<MsaAPIError>}
-     * @memberof DomainUserRoleResponse
+     * @memberof ApiUserRoleResponse
      */
     errors: Array<MsaAPIError>;
     /**
      *
      * @type {MsaMetaInfo}
-     * @memberof DomainUserRoleResponse
+     * @memberof ApiUserRoleResponse
      */
     meta: MsaMetaInfo;
     /**
      *
      * @type {Array<DomainUserRole>}
-     * @memberof DomainUserRoleResponse
+     * @memberof ApiUserRoleResponse
      */
     resources: Array<DomainUserRole>;
 }
 
 /**
- * Check if a given object implements the DomainUserRoleResponse interface.
+ * Check if a given object implements the ApiUserRoleResponse interface.
  */
-export function instanceOfDomainUserRoleResponse(value: object): boolean {
+export function instanceOfApiUserRoleResponse(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "errors" in value;
     isInstance = isInstance && "meta" in value;
@@ -58,11 +58,11 @@ export function instanceOfDomainUserRoleResponse(value: object): boolean {
     return isInstance;
 }
 
-export function DomainUserRoleResponseFromJSON(json: any): DomainUserRoleResponse {
-    return DomainUserRoleResponseFromJSONTyped(json, false);
+export function ApiUserRoleResponseFromJSON(json: any): ApiUserRoleResponse {
+    return ApiUserRoleResponseFromJSONTyped(json, false);
 }
 
-export function DomainUserRoleResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainUserRoleResponse {
+export function ApiUserRoleResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): ApiUserRoleResponse {
     if (json === undefined || json === null) {
         return json;
     }
@@ -73,7 +73,7 @@ export function DomainUserRoleResponseFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function DomainUserRoleResponseToJSON(value?: DomainUserRoleResponse | null): any {
+export function ApiUserRoleResponseToJSON(value?: ApiUserRoleResponse | null): any {
     if (value === undefined) {
         return undefined;
     }
