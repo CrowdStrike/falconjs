@@ -14,6 +14,9 @@
 
 import * as runtime from "../runtime";
 import type {
+    ApiUserMetadataResponse,
+    ApiUserRoleIDsResponse,
+    ApiUserRoleResponse,
     DomainActionUserRolesRequest,
     DomainCreateUserRequest,
     DomainMsaEntitiesRolesResponse,
@@ -24,9 +27,6 @@ import type {
     DomainUpdateUserRequest,
     DomainUserActionRequest,
     DomainUserCreateRequest,
-    DomainUserMetaDataResponse,
-    DomainUserRoleIDsResponse,
-    DomainUserRoleResponse,
     MsaEntitiesResponse,
     MsaErrorsOnly,
     MsaIdsRequest,
@@ -34,6 +34,12 @@ import type {
     MsaReplyMetaOnly,
 } from "../models";
 import {
+    ApiUserMetadataResponseFromJSON,
+    ApiUserMetadataResponseToJSON,
+    ApiUserRoleIDsResponseFromJSON,
+    ApiUserRoleIDsResponseToJSON,
+    ApiUserRoleResponseFromJSON,
+    ApiUserRoleResponseToJSON,
     DomainActionUserRolesRequestFromJSON,
     DomainActionUserRolesRequestToJSON,
     DomainCreateUserRequestFromJSON,
@@ -54,12 +60,6 @@ import {
     DomainUserActionRequestToJSON,
     DomainUserCreateRequestFromJSON,
     DomainUserCreateRequestToJSON,
-    DomainUserMetaDataResponseFromJSON,
-    DomainUserMetaDataResponseToJSON,
-    DomainUserRoleIDsResponseFromJSON,
-    DomainUserRoleIDsResponseToJSON,
-    DomainUserRoleResponseFromJSON,
-    DomainUserRoleResponseToJSON,
     MsaEntitiesResponseFromJSON,
     MsaEntitiesResponseToJSON,
     MsaErrorsOnlyFromJSON,
@@ -244,9 +244,9 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create a new user. After creating a user, assign one or more roles with POST /user-roles/entities/user-roles/v1
+     * Deprecated : Please use POST /user-management/entities/users/v1. Create a new user. After creating a user, assign one or more roles with POST /user-roles/entities/user-roles/v1
      */
-    async createUserRaw(requestParameters: CreateUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainUserMetaDataResponse>> {
+    async createUserRaw(requestParameters: CreateUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiUserMetadataResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createUser.");
         }
@@ -273,13 +273,13 @@ export class UserManagementApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainUserMetaDataResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiUserMetadataResponseFromJSON(jsonValue));
     }
 
     /**
-     * Create a new user. After creating a user, assign one or more roles with POST /user-roles/entities/user-roles/v1
+     * Deprecated : Please use POST /user-management/entities/users/v1. Create a new user. After creating a user, assign one or more roles with POST /user-roles/entities/user-roles/v1
      */
-    async createUser(body: DomainUserCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainUserMetaDataResponse> {
+    async createUser(body: DomainUserCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiUserMetadataResponse> {
         const response = await this.createUserRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -330,7 +330,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete a user permanently
+     * Deprecated : Please use DELETE /user-management/entities/users/v1. Delete a user permanently
      */
     async deleteUserRaw(requestParameters: DeleteUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
         if (requestParameters.userUuid === null || requestParameters.userUuid === undefined) {
@@ -364,7 +364,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete a user permanently
+     * Deprecated : Please use DELETE /user-management/entities/users/v1. Delete a user permanently
      */
     async deleteUser(userUuid: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyMetaOnly> {
         const response = await this.deleteUserRaw({ userUuid: userUuid }, initOverrides);
@@ -460,7 +460,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Show role IDs for all roles available in your customer account. For more information on each role, provide the role ID to `/customer/entities/roles/v1`.
+     * Deprecated : Please use GET /user-management/queries/roles/v1. Show role IDs for all roles available in your customer account. For more information on each role, provide the role ID to `/customer/entities/roles/v1`.
      */
     async getAvailableRoleIdsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
@@ -486,7 +486,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Show role IDs for all roles available in your customer account. For more information on each role, provide the role ID to `/customer/entities/roles/v1`.
+     * Deprecated : Please use GET /user-management/queries/roles/v1. Show role IDs for all roles available in your customer account. For more information on each role, provide the role ID to `/customer/entities/roles/v1`.
      */
     async getAvailableRoleIds(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.getAvailableRoleIdsRaw(initOverrides);
@@ -494,9 +494,9 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get info about a role
+     * Deprecated : Please use GET /user-management/entities/roles/v1. Get info about a role
      */
-    async getRolesRaw(requestParameters: GetRolesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainUserRoleResponse>> {
+    async getRolesRaw(requestParameters: GetRolesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiUserRoleResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getRoles.");
         }
@@ -524,19 +524,19 @@ export class UserManagementApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainUserRoleResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiUserRoleResponseFromJSON(jsonValue));
     }
 
     /**
-     * Get info about a role
+     * Deprecated : Please use GET /user-management/entities/roles/v1. Get info about a role
      */
-    async getRoles(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainUserRoleResponse> {
+    async getRoles(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiUserRoleResponse> {
         const response = await this.getRolesRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
 
     /**
-     * Show role IDs of roles assigned to a user. For more information on each role, provide the role ID to `/customer/entities/roles/v1`.
+     * Deprecated : Please use GET /user-management/combined/user-roles/v1. Show role IDs of roles assigned to a user. For more information on each role, provide the role ID to `/customer/entities/roles/v1`.
      */
     async getUserRoleIdsRaw(requestParameters: GetUserRoleIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         if (requestParameters.userUuid === null || requestParameters.userUuid === undefined) {
@@ -570,7 +570,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Show role IDs of roles assigned to a user. For more information on each role, provide the role ID to `/customer/entities/roles/v1`.
+     * Deprecated : Please use GET /user-management/combined/user-roles/v1. Show role IDs of roles assigned to a user. For more information on each role, provide the role ID to `/customer/entities/roles/v1`.
      */
     async getUserRoleIds(userUuid: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.getUserRoleIdsRaw({ userUuid: userUuid }, initOverrides);
@@ -578,9 +578,9 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Assign one or more roles to a user
+     * Deprecated : Please use POST /user-management/entities/user-role-actions/v1. Assign one or more roles to a user
      */
-    async grantUserRoleIdsRaw(requestParameters: GrantUserRoleIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainUserRoleIDsResponse>> {
+    async grantUserRoleIdsRaw(requestParameters: GrantUserRoleIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiUserRoleIDsResponse>> {
         if (requestParameters.userUuid === null || requestParameters.userUuid === undefined) {
             throw new runtime.RequiredError("userUuid", "Required parameter requestParameters.userUuid was null or undefined when calling grantUserRoleIds.");
         }
@@ -615,13 +615,13 @@ export class UserManagementApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainUserRoleIDsResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiUserRoleIDsResponseFromJSON(jsonValue));
     }
 
     /**
-     * Assign one or more roles to a user
+     * Deprecated : Please use POST /user-management/entities/user-role-actions/v1. Assign one or more roles to a user
      */
-    async grantUserRoleIds(userUuid: string, body: DomainRoleIDs, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainUserRoleIDsResponse> {
+    async grantUserRoleIds(userUuid: string, body: DomainRoleIDs, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiUserRoleIDsResponse> {
         const response = await this.grantUserRoleIdsRaw({ userUuid: userUuid, body: body }, initOverrides);
         return await response.value();
     }
@@ -725,7 +725,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * List the usernames (usually an email address) for all users in your customer account
+     * Deprecated : Please use POST /user-management/entities/users/GET/v1. List the usernames (usually an email address) for all users in your customer account
      */
     async retrieveEmailsByCIDRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
@@ -751,7 +751,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * List the usernames (usually an email address) for all users in your customer account
+     * Deprecated : Please use POST /user-management/entities/users/GET/v1. List the usernames (usually an email address) for all users in your customer account
      */
     async retrieveEmailsByCID(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.retrieveEmailsByCIDRaw(initOverrides);
@@ -759,9 +759,9 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get info about a user
+     * Deprecated : Please use POST /user-management/entities/users/GET/v1. Get info about a user
      */
-    async retrieveUserRaw(requestParameters: RetrieveUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainUserMetaDataResponse>> {
+    async retrieveUserRaw(requestParameters: RetrieveUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiUserMetadataResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling retrieveUser.");
         }
@@ -789,19 +789,19 @@ export class UserManagementApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainUserMetaDataResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiUserMetadataResponseFromJSON(jsonValue));
     }
 
     /**
-     * Get info about a user
+     * Deprecated : Please use POST /user-management/entities/users/GET/v1. Get info about a user
      */
-    async retrieveUser(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainUserMetaDataResponse> {
+    async retrieveUser(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiUserMetadataResponse> {
         const response = await this.retrieveUserRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
 
     /**
-     * Get a user\'s ID by providing a username (usually an email address)
+     * Deprecated : Please use GET /user-management/queries/users/v1. Get a user\'s ID by providing a username (usually an email address)
      */
     async retrieveUserUUIDRaw(requestParameters: RetrieveUserUUIDRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         if (requestParameters.uid === null || requestParameters.uid === undefined) {
@@ -835,7 +835,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a user\'s ID by providing a username (usually an email address)
+     * Deprecated : Please use GET /user-management/queries/users/v1. Get a user\'s ID by providing a username (usually an email address)
      */
     async retrieveUserUUID(uid: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.retrieveUserUUIDRaw({ uid: uid }, initOverrides);
@@ -843,7 +843,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * List user IDs for all users in your customer account. For more information on each user, provide the user ID to `/users/entities/user/v1`.
+     * Deprecated : Please use GET /user-management/queries/users/v1. List user IDs for all users in your customer account. For more information on each user, provide the user ID to `/users/entities/user/v1`.
      */
     async retrieveUserUUIDsByCIDRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
@@ -869,7 +869,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * List user IDs for all users in your customer account. For more information on each user, provide the user ID to `/users/entities/user/v1`.
+     * Deprecated : Please use GET /user-management/queries/users/v1. List user IDs for all users in your customer account. For more information on each user, provide the user ID to `/users/entities/user/v1`.
      */
     async retrieveUserUUIDsByCID(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.retrieveUserUUIDsByCIDRaw(initOverrides);
@@ -921,9 +921,9 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Revoke one or more roles from a user
+     * Deprecated : Please use POST /user-management/entities/user-role-actions/v1. Revoke one or more roles from a user
      */
-    async revokeUserRoleIdsRaw(requestParameters: RevokeUserRoleIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainUserRoleIDsResponse>> {
+    async revokeUserRoleIdsRaw(requestParameters: RevokeUserRoleIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiUserRoleIDsResponse>> {
         if (requestParameters.userUuid === null || requestParameters.userUuid === undefined) {
             throw new runtime.RequiredError("userUuid", "Required parameter requestParameters.userUuid was null or undefined when calling revokeUserRoleIds.");
         }
@@ -959,21 +959,21 @@ export class UserManagementApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainUserRoleIDsResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiUserRoleIDsResponseFromJSON(jsonValue));
     }
 
     /**
-     * Revoke one or more roles from a user
+     * Deprecated : Please use POST /user-management/entities/user-role-actions/v1. Revoke one or more roles from a user
      */
-    async revokeUserRoleIds(userUuid: string, ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainUserRoleIDsResponse> {
+    async revokeUserRoleIds(userUuid: string, ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiUserRoleIDsResponse> {
         const response = await this.revokeUserRoleIdsRaw({ userUuid: userUuid, ids: ids }, initOverrides);
         return await response.value();
     }
 
     /**
-     * Modify an existing user\'s first or last name
+     * Deprecated : Please use PATCH /user-management/entities/users/v1. Modify an existing user\'s first or last name
      */
-    async updateUserRaw(requestParameters: UpdateUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainUserMetaDataResponse>> {
+    async updateUserRaw(requestParameters: UpdateUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiUserMetadataResponse>> {
         if (requestParameters.userUuid === null || requestParameters.userUuid === undefined) {
             throw new runtime.RequiredError("userUuid", "Required parameter requestParameters.userUuid was null or undefined when calling updateUser.");
         }
@@ -1008,13 +1008,13 @@ export class UserManagementApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainUserMetaDataResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiUserMetadataResponseFromJSON(jsonValue));
     }
 
     /**
-     * Modify an existing user\'s first or last name
+     * Deprecated : Please use PATCH /user-management/entities/users/v1. Modify an existing user\'s first or last name
      */
-    async updateUser(userUuid: string, body: DomainUpdateUserFields, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainUserMetaDataResponse> {
+    async updateUser(userUuid: string, body: DomainUpdateUserFields, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiUserMetadataResponse> {
         const response = await this.updateUserRaw({ userUuid: userUuid, body: body }, initOverrides);
         return await response.value();
     }

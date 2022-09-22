@@ -21,33 +21,33 @@ import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from
 /**
  *
  * @export
- * @interface DomainUserRoleIDsResponse
+ * @interface ApiUserRoleIDsResponse
  */
-export interface DomainUserRoleIDsResponse {
+export interface ApiUserRoleIDsResponse {
     /**
      *
      * @type {Array<MsaAPIError>}
-     * @memberof DomainUserRoleIDsResponse
+     * @memberof ApiUserRoleIDsResponse
      */
     errors: Array<MsaAPIError>;
     /**
      *
      * @type {MsaMetaInfo}
-     * @memberof DomainUserRoleIDsResponse
+     * @memberof ApiUserRoleIDsResponse
      */
     meta: MsaMetaInfo;
     /**
      *
      * @type {Array<string>}
-     * @memberof DomainUserRoleIDsResponse
+     * @memberof ApiUserRoleIDsResponse
      */
     resources: Array<string>;
 }
 
 /**
- * Check if a given object implements the DomainUserRoleIDsResponse interface.
+ * Check if a given object implements the ApiUserRoleIDsResponse interface.
  */
-export function instanceOfDomainUserRoleIDsResponse(value: object): boolean {
+export function instanceOfApiUserRoleIDsResponse(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "errors" in value;
     isInstance = isInstance && "meta" in value;
@@ -56,11 +56,11 @@ export function instanceOfDomainUserRoleIDsResponse(value: object): boolean {
     return isInstance;
 }
 
-export function DomainUserRoleIDsResponseFromJSON(json: any): DomainUserRoleIDsResponse {
-    return DomainUserRoleIDsResponseFromJSONTyped(json, false);
+export function ApiUserRoleIDsResponseFromJSON(json: any): ApiUserRoleIDsResponse {
+    return ApiUserRoleIDsResponseFromJSONTyped(json, false);
 }
 
-export function DomainUserRoleIDsResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainUserRoleIDsResponse {
+export function ApiUserRoleIDsResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): ApiUserRoleIDsResponse {
     if (json === undefined || json === null) {
         return json;
     }
@@ -71,7 +71,7 @@ export function DomainUserRoleIDsResponseFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DomainUserRoleIDsResponseToJSON(value?: DomainUserRoleIDsResponse | null): any {
+export function ApiUserRoleIDsResponseToJSON(value?: ApiUserRoleIDsResponse | null): any {
     if (value === undefined) {
         return undefined;
     }

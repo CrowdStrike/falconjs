@@ -16,57 +16,63 @@ import { exists, mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface DomainUpdateDeviceTagsRequestV1
+ * @interface DeviceapiUpdateDeviceDetailsResponseV1
  */
-export interface DomainUpdateDeviceTagsRequestV1 {
+export interface DeviceapiUpdateDeviceDetailsResponseV1 {
+    /**
+     *
+     * @type {number}
+     * @memberof DeviceapiUpdateDeviceDetailsResponseV1
+     */
+    code?: number;
     /**
      *
      * @type {string}
-     * @memberof DomainUpdateDeviceTagsRequestV1
+     * @memberof DeviceapiUpdateDeviceDetailsResponseV1
      */
-    action: string;
+    deviceId: string;
     /**
      *
-     * @type {Array<string>}
-     * @memberof DomainUpdateDeviceTagsRequestV1
+     * @type {string}
+     * @memberof DeviceapiUpdateDeviceDetailsResponseV1
      */
-    deviceIds: Array<string>;
+    error?: string;
     /**
      *
-     * @type {Array<string>}
-     * @memberof DomainUpdateDeviceTagsRequestV1
+     * @type {boolean}
+     * @memberof DeviceapiUpdateDeviceDetailsResponseV1
      */
-    tags: Array<string>;
+    updated: boolean;
 }
 
 /**
- * Check if a given object implements the DomainUpdateDeviceTagsRequestV1 interface.
+ * Check if a given object implements the DeviceapiUpdateDeviceDetailsResponseV1 interface.
  */
-export function instanceOfDomainUpdateDeviceTagsRequestV1(value: object): boolean {
+export function instanceOfDeviceapiUpdateDeviceDetailsResponseV1(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "action" in value;
-    isInstance = isInstance && "deviceIds" in value;
-    isInstance = isInstance && "tags" in value;
+    isInstance = isInstance && "deviceId" in value;
+    isInstance = isInstance && "updated" in value;
 
     return isInstance;
 }
 
-export function DomainUpdateDeviceTagsRequestV1FromJSON(json: any): DomainUpdateDeviceTagsRequestV1 {
-    return DomainUpdateDeviceTagsRequestV1FromJSONTyped(json, false);
+export function DeviceapiUpdateDeviceDetailsResponseV1FromJSON(json: any): DeviceapiUpdateDeviceDetailsResponseV1 {
+    return DeviceapiUpdateDeviceDetailsResponseV1FromJSONTyped(json, false);
 }
 
-export function DomainUpdateDeviceTagsRequestV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainUpdateDeviceTagsRequestV1 {
+export function DeviceapiUpdateDeviceDetailsResponseV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): DeviceapiUpdateDeviceDetailsResponseV1 {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        action: json["action"],
-        deviceIds: json["device_ids"],
-        tags: json["tags"],
+        code: !exists(json, "code") ? undefined : json["code"],
+        deviceId: json["device_id"],
+        error: !exists(json, "error") ? undefined : json["error"],
+        updated: json["updated"],
     };
 }
 
-export function DomainUpdateDeviceTagsRequestV1ToJSON(value?: DomainUpdateDeviceTagsRequestV1 | null): any {
+export function DeviceapiUpdateDeviceDetailsResponseV1ToJSON(value?: DeviceapiUpdateDeviceDetailsResponseV1 | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -74,8 +80,9 @@ export function DomainUpdateDeviceTagsRequestV1ToJSON(value?: DomainUpdateDevice
         return null;
     }
     return {
-        action: value.action,
-        device_ids: value.deviceIds,
-        tags: value.tags,
+        code: value.code,
+        device_id: value.deviceId,
+        error: value.error,
+        updated: value.updated,
     };
 }

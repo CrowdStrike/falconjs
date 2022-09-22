@@ -18,10 +18,10 @@ import type {
     DeviceapiGroupsResponseV1,
     DeviceapiLoginHistoryResponseV1,
     DeviceapiNetworkAddressHistoryResponseV1,
+    DeviceapiUpdateDeviceTagsRequestV1,
+    DeviceapiUpdateDeviceTagsSwaggerV1,
     DomainDeviceDetailsResponseSwagger,
     DomainDeviceResponse,
-    DomainUpdateDeviceTagsRequestV1,
-    MsaEntitiesResponse,
     MsaEntityActionRequest,
     MsaEntityActionRequestV2,
     MsaIdsRequest,
@@ -39,14 +39,14 @@ import {
     DeviceapiLoginHistoryResponseV1ToJSON,
     DeviceapiNetworkAddressHistoryResponseV1FromJSON,
     DeviceapiNetworkAddressHistoryResponseV1ToJSON,
+    DeviceapiUpdateDeviceTagsRequestV1FromJSON,
+    DeviceapiUpdateDeviceTagsRequestV1ToJSON,
+    DeviceapiUpdateDeviceTagsSwaggerV1FromJSON,
+    DeviceapiUpdateDeviceTagsSwaggerV1ToJSON,
     DomainDeviceDetailsResponseSwaggerFromJSON,
     DomainDeviceDetailsResponseSwaggerToJSON,
     DomainDeviceResponseFromJSON,
     DomainDeviceResponseToJSON,
-    DomainUpdateDeviceTagsRequestV1FromJSON,
-    DomainUpdateDeviceTagsRequestV1ToJSON,
-    MsaEntitiesResponseFromJSON,
-    MsaEntitiesResponseToJSON,
     MsaEntityActionRequestFromJSON,
     MsaEntityActionRequestToJSON,
     MsaEntityActionRequestV2FromJSON,
@@ -120,7 +120,7 @@ export interface QueryHiddenDevicesRequest {
 }
 
 export interface UpdateDeviceTagsRequest {
-    body: DomainUpdateDeviceTagsRequestV1;
+    body: DeviceapiUpdateDeviceTagsRequestV1;
 }
 
 /**
@@ -659,9 +659,12 @@ export class HostsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Append or remove one or more Falcon Grouping Tags on one or more hosts.
+     * Append or remove one or more Falcon Grouping Tags on one or more hosts.  Tags must be of the form FalconGroupingTags/
      */
-    async updateDeviceTagsRaw(requestParameters: UpdateDeviceTagsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaEntitiesResponse>> {
+    async updateDeviceTagsRaw(
+        requestParameters: UpdateDeviceTagsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DeviceapiUpdateDeviceTagsSwaggerV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateDeviceTags.");
         }
@@ -683,18 +686,18 @@ export class HostsApi extends runtime.BaseAPI {
                 method: "PATCH",
                 headers: headerParameters,
                 query: queryParameters,
-                body: DomainUpdateDeviceTagsRequestV1ToJSON(requestParameters.body),
+                body: DeviceapiUpdateDeviceTagsRequestV1ToJSON(requestParameters.body),
             },
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaEntitiesResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => DeviceapiUpdateDeviceTagsSwaggerV1FromJSON(jsonValue));
     }
 
     /**
-     * Append or remove one or more Falcon Grouping Tags on one or more hosts.
+     * Append or remove one or more Falcon Grouping Tags on one or more hosts.  Tags must be of the form FalconGroupingTags/
      */
-    async updateDeviceTags(body: DomainUpdateDeviceTagsRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaEntitiesResponse> {
+    async updateDeviceTags(body: DeviceapiUpdateDeviceTagsRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeviceapiUpdateDeviceTagsSwaggerV1> {
         const response = await this.updateDeviceTagsRaw({ body: body }, initOverrides);
         return await response.value();
     }
