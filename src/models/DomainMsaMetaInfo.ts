@@ -13,64 +13,54 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import type { DomainMsaMetaInfo } from "./DomainMsaMetaInfo";
-import { DomainMsaMetaInfoFromJSON, DomainMsaMetaInfoFromJSONTyped, DomainMsaMetaInfoToJSON } from "./DomainMsaMetaInfo";
-import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaPaging } from "./MsaPaging";
+import { MsaPagingFromJSON, MsaPagingFromJSONTyped, MsaPagingToJSON } from "./MsaPaging";
 
 /**
  *
  * @export
- * @interface DomainQueryResponse
+ * @interface DomainMsaMetaInfo
  */
-export interface DomainQueryResponse {
+export interface DomainMsaMetaInfo {
     /**
      *
-     * @type {Array<MsaAPIError>}
-     * @memberof DomainQueryResponse
+     * @type {MsaPaging}
+     * @memberof DomainMsaMetaInfo
      */
-    errors?: Array<MsaAPIError>;
+    pagination?: MsaPaging;
     /**
      *
-     * @type {DomainMsaMetaInfo}
-     * @memberof DomainQueryResponse
+     * @type {number}
+     * @memberof DomainMsaMetaInfo
      */
-    meta: DomainMsaMetaInfo;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof DomainQueryResponse
-     */
-    resources: Array<string>;
+    queryTime: number;
 }
 
 /**
- * Check if a given object implements the DomainQueryResponse interface.
+ * Check if a given object implements the DomainMsaMetaInfo interface.
  */
-export function instanceOfDomainQueryResponse(value: object): boolean {
+export function instanceOfDomainMsaMetaInfo(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "meta" in value;
-    isInstance = isInstance && "resources" in value;
+    isInstance = isInstance && "queryTime" in value;
 
     return isInstance;
 }
 
-export function DomainQueryResponseFromJSON(json: any): DomainQueryResponse {
-    return DomainQueryResponseFromJSONTyped(json, false);
+export function DomainMsaMetaInfoFromJSON(json: any): DomainMsaMetaInfo {
+    return DomainMsaMetaInfoFromJSONTyped(json, false);
 }
 
-export function DomainQueryResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainQueryResponse {
+export function DomainMsaMetaInfoFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainMsaMetaInfo {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        errors: !exists(json, "errors") ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
-        meta: DomainMsaMetaInfoFromJSON(json["meta"]),
-        resources: json["resources"],
+        pagination: !exists(json, "pagination") ? undefined : MsaPagingFromJSON(json["pagination"]),
+        queryTime: json["queryTime"],
     };
 }
 
-export function DomainQueryResponseToJSON(value?: DomainQueryResponse | null): any {
+export function DomainMsaMetaInfoToJSON(value?: DomainMsaMetaInfo | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -78,8 +68,7 @@ export function DomainQueryResponseToJSON(value?: DomainQueryResponse | null): a
         return null;
     }
     return {
-        errors: value.errors === undefined ? undefined : (value.errors as Array<any>).map(MsaAPIErrorToJSON),
-        meta: DomainMsaMetaInfoToJSON(value.meta),
-        resources: value.resources,
+        pagination: MsaPagingToJSON(value.pagination),
+        queryTime: value.queryTime,
     };
 }

@@ -20,59 +20,53 @@ import { exists, mapValues } from "../runtime";
  */
 export interface DomainRule {
     /**
-     *
-     * @type {number}
+     * The categories associated with the rule
+     * @type {Array<string>}
      * @memberof DomainRule
      */
-    createdDate: number;
+    categories: Array<string>;
     /**
-     *
+     * UTC timestamp when rule was created
      * @type {string}
      * @memberof DomainRule
      */
-    description: string;
+    createdDate: string;
     /**
-     *
-     * @type {number}
+     * The ID of the customer
+     * @type {string}
      * @memberof DomainRule
      */
-    id: number;
+    customerId: string;
     /**
-     *
-     * @type {number}
+     * The ID of the rule
+     * @type {string}
      * @memberof DomainRule
      */
-    lastModifiedDate: number;
+    id: string;
     /**
-     *
+     * The name of the rule
      * @type {string}
      * @memberof DomainRule
      */
     name: string;
     /**
-     *
+     * The type of the rule
      * @type {string}
      * @memberof DomainRule
      */
-    richTextDescription: string;
+    ruleType: string;
     /**
-     *
+     * UTC timestamp when rule was last updated
      * @type {string}
      * @memberof DomainRule
      */
-    shortDescription: string;
+    updatedDate: string;
     /**
-     *
-     * @type {Array<string>}
-     * @memberof DomainRule
-     */
-    tags: Array<string>;
-    /**
-     *
+     * The value of the rule
      * @type {string}
      * @memberof DomainRule
      */
-    type: string;
+    value: string;
 }
 
 /**
@@ -80,15 +74,14 @@ export interface DomainRule {
  */
 export function instanceOfDomainRule(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "categories" in value;
     isInstance = isInstance && "createdDate" in value;
-    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "customerId" in value;
     isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "lastModifiedDate" in value;
     isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "richTextDescription" in value;
-    isInstance = isInstance && "shortDescription" in value;
-    isInstance = isInstance && "tags" in value;
-    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "ruleType" in value;
+    isInstance = isInstance && "updatedDate" in value;
+    isInstance = isInstance && "value" in value;
 
     return isInstance;
 }
@@ -102,15 +95,14 @@ export function DomainRuleFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         return json;
     }
     return {
+        categories: json["categories"],
         createdDate: json["created_date"],
-        description: json["description"],
+        customerId: json["customer_id"],
         id: json["id"],
-        lastModifiedDate: json["last_modified_date"],
         name: json["name"],
-        richTextDescription: json["rich_text_description"],
-        shortDescription: json["short_description"],
-        tags: json["tags"],
-        type: json["type"],
+        ruleType: json["rule_type"],
+        updatedDate: json["updated_date"],
+        value: json["value"],
     };
 }
 
@@ -122,14 +114,13 @@ export function DomainRuleToJSON(value?: DomainRule | null): any {
         return null;
     }
     return {
+        categories: value.categories,
         created_date: value.createdDate,
-        description: value.description,
+        customer_id: value.customerId,
         id: value.id,
-        last_modified_date: value.lastModifiedDate,
         name: value.name,
-        rich_text_description: value.richTextDescription,
-        short_description: value.shortDescription,
-        tags: value.tags,
-        type: value.type,
+        rule_type: value.ruleType,
+        updated_date: value.updatedDate,
+        value: value.value,
     };
 }

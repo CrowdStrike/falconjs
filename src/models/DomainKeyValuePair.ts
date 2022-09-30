@@ -13,64 +13,52 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import type { DomainMsaMetaInfo } from "./DomainMsaMetaInfo";
-import { DomainMsaMetaInfoFromJSON, DomainMsaMetaInfoFromJSONTyped, DomainMsaMetaInfoToJSON } from "./DomainMsaMetaInfo";
-import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-
 /**
  *
  * @export
- * @interface DomainQueryResponse
+ * @interface DomainKeyValuePair
  */
-export interface DomainQueryResponse {
+export interface DomainKeyValuePair {
     /**
      *
-     * @type {Array<MsaAPIError>}
-     * @memberof DomainQueryResponse
+     * @type {string}
+     * @memberof DomainKeyValuePair
      */
-    errors?: Array<MsaAPIError>;
+    name: string;
     /**
      *
-     * @type {DomainMsaMetaInfo}
-     * @memberof DomainQueryResponse
+     * @type {string}
+     * @memberof DomainKeyValuePair
      */
-    meta: DomainMsaMetaInfo;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof DomainQueryResponse
-     */
-    resources: Array<string>;
+    value: string;
 }
 
 /**
- * Check if a given object implements the DomainQueryResponse interface.
+ * Check if a given object implements the DomainKeyValuePair interface.
  */
-export function instanceOfDomainQueryResponse(value: object): boolean {
+export function instanceOfDomainKeyValuePair(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "meta" in value;
-    isInstance = isInstance && "resources" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "value" in value;
 
     return isInstance;
 }
 
-export function DomainQueryResponseFromJSON(json: any): DomainQueryResponse {
-    return DomainQueryResponseFromJSONTyped(json, false);
+export function DomainKeyValuePairFromJSON(json: any): DomainKeyValuePair {
+    return DomainKeyValuePairFromJSONTyped(json, false);
 }
 
-export function DomainQueryResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainQueryResponse {
+export function DomainKeyValuePairFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainKeyValuePair {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        errors: !exists(json, "errors") ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
-        meta: DomainMsaMetaInfoFromJSON(json["meta"]),
-        resources: json["resources"],
+        name: json["name"],
+        value: json["value"],
     };
 }
 
-export function DomainQueryResponseToJSON(value?: DomainQueryResponse | null): any {
+export function DomainKeyValuePairToJSON(value?: DomainKeyValuePair | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -78,8 +66,7 @@ export function DomainQueryResponseToJSON(value?: DomainQueryResponse | null): a
         return null;
     }
     return {
-        errors: value.errors === undefined ? undefined : (value.errors as Array<any>).map(MsaAPIErrorToJSON),
-        meta: DomainMsaMetaInfoToJSON(value.meta),
-        resources: value.resources,
+        name: value.name,
+        value: value.value,
     };
 }
