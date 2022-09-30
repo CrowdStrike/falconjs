@@ -13,64 +13,57 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import type { DomainMsaMetaInfo } from "./DomainMsaMetaInfo";
-import { DomainMsaMetaInfoFromJSON, DomainMsaMetaInfoFromJSONTyped, DomainMsaMetaInfoToJSON } from "./DomainMsaMetaInfo";
-import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-
 /**
  *
  * @export
- * @interface DomainQueryResponse
+ * @interface DomainMatchedRule
  */
-export interface DomainQueryResponse {
+export interface DomainMatchedRule {
     /**
-     *
-     * @type {Array<MsaAPIError>}
-     * @memberof DomainQueryResponse
+     * The customer ID
+     * @type {string}
+     * @memberof DomainMatchedRule
      */
-    errors?: Array<MsaAPIError>;
+    customerId?: string;
     /**
-     *
-     * @type {DomainMsaMetaInfo}
-     * @memberof DomainQueryResponse
+     * The matched rule hit ID
+     * @type {string}
+     * @memberof DomainMatchedRule
      */
-    meta: DomainMsaMetaInfo;
+    hitId?: string;
     /**
-     *
-     * @type {Array<string>}
-     * @memberof DomainQueryResponse
+     * The matched rule ID
+     * @type {string}
+     * @memberof DomainMatchedRule
      */
-    resources: Array<string>;
+    ruleId?: string;
 }
 
 /**
- * Check if a given object implements the DomainQueryResponse interface.
+ * Check if a given object implements the DomainMatchedRule interface.
  */
-export function instanceOfDomainQueryResponse(value: object): boolean {
+export function instanceOfDomainMatchedRule(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "meta" in value;
-    isInstance = isInstance && "resources" in value;
 
     return isInstance;
 }
 
-export function DomainQueryResponseFromJSON(json: any): DomainQueryResponse {
-    return DomainQueryResponseFromJSONTyped(json, false);
+export function DomainMatchedRuleFromJSON(json: any): DomainMatchedRule {
+    return DomainMatchedRuleFromJSONTyped(json, false);
 }
 
-export function DomainQueryResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainQueryResponse {
+export function DomainMatchedRuleFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainMatchedRule {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        errors: !exists(json, "errors") ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
-        meta: DomainMsaMetaInfoFromJSON(json["meta"]),
-        resources: json["resources"],
+        customerId: !exists(json, "customer_id") ? undefined : json["customer_id"],
+        hitId: !exists(json, "hit_id") ? undefined : json["hit_id"],
+        ruleId: !exists(json, "rule_id") ? undefined : json["rule_id"],
     };
 }
 
-export function DomainQueryResponseToJSON(value?: DomainQueryResponse | null): any {
+export function DomainMatchedRuleToJSON(value?: DomainMatchedRule | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -78,8 +71,8 @@ export function DomainQueryResponseToJSON(value?: DomainQueryResponse | null): a
         return null;
     }
     return {
-        errors: value.errors === undefined ? undefined : (value.errors as Array<any>).map(MsaAPIErrorToJSON),
-        meta: DomainMsaMetaInfoToJSON(value.meta),
-        resources: value.resources,
+        customer_id: value.customerId,
+        hit_id: value.hitId,
+        rule_id: value.ruleId,
     };
 }

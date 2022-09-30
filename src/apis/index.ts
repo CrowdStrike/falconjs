@@ -47,5 +47,6 @@ export * from "./SensorUpdatePoliciesApi";
 export * from "./SensorVisibilityExclusionsApi";
 export * from "./SpotlightEvaluationLogicApi";
 export * from "./SpotlightVulnerabilitiesApi";
+export * from "./TailoredIntelligenceApi";
 export * from "./UserManagementApi";
 export * from "./ZeroTrustAssessmentApi";

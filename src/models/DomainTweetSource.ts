@@ -13,64 +13,75 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import type { DomainMsaMetaInfo } from "./DomainMsaMetaInfo";
-import { DomainMsaMetaInfoFromJSON, DomainMsaMetaInfoFromJSONTyped, DomainMsaMetaInfoToJSON } from "./DomainMsaMetaInfo";
-import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-
 /**
  *
  * @export
- * @interface DomainQueryResponse
+ * @interface DomainTweetSource
  */
-export interface DomainQueryResponse {
+export interface DomainTweetSource {
+    /**
+     * The username of the tweet's author
+     * @type {string}
+     * @memberof DomainTweetSource
+     */
+    authorName: string;
+    /**
+     * The language of the tweet
+     * @type {string}
+     * @memberof DomainTweetSource
+     */
+    language: string;
     /**
      *
-     * @type {Array<MsaAPIError>}
-     * @memberof DomainQueryResponse
+     * @type {object}
+     * @memberof DomainTweetSource
      */
-    errors?: Array<MsaAPIError>;
+    legacySource?: object;
     /**
-     *
-     * @type {DomainMsaMetaInfo}
-     * @memberof DomainQueryResponse
+     * The link to the tweet
+     * @type {string}
+     * @memberof DomainTweetSource
      */
-    meta: DomainMsaMetaInfo;
+    sourceLink: string;
     /**
-     *
-     * @type {Array<string>}
-     * @memberof DomainQueryResponse
+     * The tweet ID
+     * @type {number}
+     * @memberof DomainTweetSource
      */
-    resources: Array<string>;
+    tweetId: number;
 }
 
 /**
- * Check if a given object implements the DomainQueryResponse interface.
+ * Check if a given object implements the DomainTweetSource interface.
  */
-export function instanceOfDomainQueryResponse(value: object): boolean {
+export function instanceOfDomainTweetSource(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "meta" in value;
-    isInstance = isInstance && "resources" in value;
+    isInstance = isInstance && "authorName" in value;
+    isInstance = isInstance && "language" in value;
+    isInstance = isInstance && "sourceLink" in value;
+    isInstance = isInstance && "tweetId" in value;
 
     return isInstance;
 }
 
-export function DomainQueryResponseFromJSON(json: any): DomainQueryResponse {
-    return DomainQueryResponseFromJSONTyped(json, false);
+export function DomainTweetSourceFromJSON(json: any): DomainTweetSource {
+    return DomainTweetSourceFromJSONTyped(json, false);
 }
 
-export function DomainQueryResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainQueryResponse {
+export function DomainTweetSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainTweetSource {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        errors: !exists(json, "errors") ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
-        meta: DomainMsaMetaInfoFromJSON(json["meta"]),
-        resources: json["resources"],
+        authorName: json["author_name"],
+        language: json["language"],
+        legacySource: !exists(json, "legacy_source") ? undefined : json["legacy_source"],
+        sourceLink: json["source_link"],
+        tweetId: json["tweet_id"],
     };
 }
 
-export function DomainQueryResponseToJSON(value?: DomainQueryResponse | null): any {
+export function DomainTweetSourceToJSON(value?: DomainTweetSource | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -78,8 +89,10 @@ export function DomainQueryResponseToJSON(value?: DomainQueryResponse | null): a
         return null;
     }
     return {
-        errors: value.errors === undefined ? undefined : (value.errors as Array<any>).map(MsaAPIErrorToJSON),
-        meta: DomainMsaMetaInfoToJSON(value.meta),
-        resources: value.resources,
+        author_name: value.authorName,
+        language: value.language,
+        legacy_source: value.legacySource,
+        source_link: value.sourceLink,
+        tweet_id: value.tweetId,
     };
 }

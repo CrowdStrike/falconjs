@@ -13,41 +13,43 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import type { DomainMsaMetaInfo } from "./DomainMsaMetaInfo";
-import { DomainMsaMetaInfoFromJSON, DomainMsaMetaInfoFromJSONTyped, DomainMsaMetaInfoToJSON } from "./DomainMsaMetaInfo";
+import type { DomainRule } from "./DomainRule";
+import { DomainRuleFromJSON, DomainRuleFromJSONTyped, DomainRuleToJSON } from "./DomainRule";
 import type { MsaAPIError } from "./MsaAPIError";
 import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *
  * @export
- * @interface DomainQueryResponse
+ * @interface DomainRuleEntitiesResponse
  */
-export interface DomainQueryResponse {
+export interface DomainRuleEntitiesResponse {
     /**
      *
      * @type {Array<MsaAPIError>}
-     * @memberof DomainQueryResponse
+     * @memberof DomainRuleEntitiesResponse
      */
     errors?: Array<MsaAPIError>;
     /**
      *
-     * @type {DomainMsaMetaInfo}
-     * @memberof DomainQueryResponse
+     * @type {MsaMetaInfo}
+     * @memberof DomainRuleEntitiesResponse
      */
-    meta: DomainMsaMetaInfo;
+    meta: MsaMetaInfo;
     /**
      *
-     * @type {Array<string>}
-     * @memberof DomainQueryResponse
+     * @type {Array<DomainRule>}
+     * @memberof DomainRuleEntitiesResponse
      */
-    resources: Array<string>;
+    resources: Array<DomainRule>;
 }
 
 /**
- * Check if a given object implements the DomainQueryResponse interface.
+ * Check if a given object implements the DomainRuleEntitiesResponse interface.
  */
-export function instanceOfDomainQueryResponse(value: object): boolean {
+export function instanceOfDomainRuleEntitiesResponse(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "meta" in value;
     isInstance = isInstance && "resources" in value;
@@ -55,22 +57,22 @@ export function instanceOfDomainQueryResponse(value: object): boolean {
     return isInstance;
 }
 
-export function DomainQueryResponseFromJSON(json: any): DomainQueryResponse {
-    return DomainQueryResponseFromJSONTyped(json, false);
+export function DomainRuleEntitiesResponseFromJSON(json: any): DomainRuleEntitiesResponse {
+    return DomainRuleEntitiesResponseFromJSONTyped(json, false);
 }
 
-export function DomainQueryResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainQueryResponse {
+export function DomainRuleEntitiesResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainRuleEntitiesResponse {
     if (json === undefined || json === null) {
         return json;
     }
     return {
         errors: !exists(json, "errors") ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
-        meta: DomainMsaMetaInfoFromJSON(json["meta"]),
-        resources: json["resources"],
+        meta: MsaMetaInfoFromJSON(json["meta"]),
+        resources: (json["resources"] as Array<any>).map(DomainRuleFromJSON),
     };
 }
 
-export function DomainQueryResponseToJSON(value?: DomainQueryResponse | null): any {
+export function DomainRuleEntitiesResponseToJSON(value?: DomainRuleEntitiesResponse | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -79,7 +81,7 @@ export function DomainQueryResponseToJSON(value?: DomainQueryResponse | null): a
     }
     return {
         errors: value.errors === undefined ? undefined : (value.errors as Array<any>).map(MsaAPIErrorToJSON),
-        meta: DomainMsaMetaInfoToJSON(value.meta),
-        resources: value.resources,
+        meta: MsaMetaInfoToJSON(value.meta),
+        resources: (value.resources as Array<any>).map(DomainRuleToJSON),
     };
 }
