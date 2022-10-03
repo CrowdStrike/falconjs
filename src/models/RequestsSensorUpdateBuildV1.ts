@@ -16,57 +16,49 @@ import { exists, mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface ResponsesSensorUpdateBuildV1
+ * @interface RequestsSensorUpdateBuildV1
  */
-export interface ResponsesSensorUpdateBuildV1 {
+export interface RequestsSensorUpdateBuildV1 {
     /**
      *
      * @type {string}
-     * @memberof ResponsesSensorUpdateBuildV1
+     * @memberof RequestsSensorUpdateBuildV1
      */
     build: string;
     /**
      *
      * @type {string}
-     * @memberof ResponsesSensorUpdateBuildV1
+     * @memberof RequestsSensorUpdateBuildV1
      */
     platform: string;
-    /**
-     *
-     * @type {string}
-     * @memberof ResponsesSensorUpdateBuildV1
-     */
-    sensorVersion: string;
 }
 
 /**
- * Check if a given object implements the ResponsesSensorUpdateBuildV1 interface.
+ * Check if a given object implements the RequestsSensorUpdateBuildV1 interface.
  */
-export function instanceOfResponsesSensorUpdateBuildV1(value: object): boolean {
+export function instanceOfRequestsSensorUpdateBuildV1(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "build" in value;
     isInstance = isInstance && "platform" in value;
-    isInstance = isInstance && "sensorVersion" in value;
 
     return isInstance;
 }
 
-export function ResponsesSensorUpdateBuildV1FromJSON(json: any): ResponsesSensorUpdateBuildV1 {
-    return ResponsesSensorUpdateBuildV1FromJSONTyped(json, false);
+export function RequestsSensorUpdateBuildV1FromJSON(json: any): RequestsSensorUpdateBuildV1 {
+    return RequestsSensorUpdateBuildV1FromJSONTyped(json, false);
 }
 
-export function ResponsesSensorUpdateBuildV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): ResponsesSensorUpdateBuildV1 {
+export function RequestsSensorUpdateBuildV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): RequestsSensorUpdateBuildV1 {
     if (json === undefined || json === null) {
         return json;
     }
     return {
         build: json["build"],
         platform: json["platform"],
-        sensorVersion: json["sensor_version"],
     };
 }
 
-export function ResponsesSensorUpdateBuildV1ToJSON(value?: ResponsesSensorUpdateBuildV1 | null): any {
+export function RequestsSensorUpdateBuildV1ToJSON(value?: RequestsSensorUpdateBuildV1 | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -76,6 +68,5 @@ export function ResponsesSensorUpdateBuildV1ToJSON(value?: ResponsesSensorUpdate
     return {
         build: value.build,
         platform: value.platform,
-        sensor_version: value.sensorVersion,
     };
 }
