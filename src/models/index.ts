@@ -587,6 +587,7 @@ export * from "./RequestsIoaExclusionUpdateReqV1";
 export * from "./RequestsMlExclusionCreateReqV1";
 export * from "./RequestsPreventionSettingV1";
 export * from "./RequestsRevealUninstallTokenV1";
+export * from "./RequestsSensorUpdateBuildV1";
 export * from "./RequestsSensorUpdateSettingsV1";
 export * from "./RequestsSensorUpdateSettingsV2";
 export * from "./RequestsSetPolicyPrecedenceReqV1";

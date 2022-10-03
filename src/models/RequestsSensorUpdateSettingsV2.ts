@@ -13,6 +13,9 @@
  */
 
 import { exists, mapValues } from "../runtime";
+import type { RequestsSensorUpdateBuildV1 } from "./RequestsSensorUpdateBuildV1";
+import { RequestsSensorUpdateBuildV1FromJSON, RequestsSensorUpdateBuildV1FromJSONTyped, RequestsSensorUpdateBuildV1ToJSON } from "./RequestsSensorUpdateBuildV1";
+
 /**
  *
  * @export
@@ -31,6 +34,12 @@ export interface RequestsSensorUpdateSettingsV2 {
      * @memberof RequestsSensorUpdateSettingsV2
      */
     uninstallProtection?: RequestsSensorUpdateSettingsV2UninstallProtectionEnum;
+    /**
+     *
+     * @type {Array<RequestsSensorUpdateBuildV1>}
+     * @memberof RequestsSensorUpdateSettingsV2
+     */
+    variants: Array<RequestsSensorUpdateBuildV1>;
 }
 
 /**
@@ -50,6 +59,7 @@ export type RequestsSensorUpdateSettingsV2UninstallProtectionEnum = typeof Reque
  */
 export function instanceOfRequestsSensorUpdateSettingsV2(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "variants" in value;
 
     return isInstance;
 }
@@ -65,6 +75,7 @@ export function RequestsSensorUpdateSettingsV2FromJSONTyped(json: any, ignoreDis
     return {
         build: !exists(json, "build") ? undefined : json["build"],
         uninstallProtection: !exists(json, "uninstall_protection") ? undefined : json["uninstall_protection"],
+        variants: (json["variants"] as Array<any>).map(RequestsSensorUpdateBuildV1FromJSON),
     };
 }
 
@@ -78,5 +89,6 @@ export function RequestsSensorUpdateSettingsV2ToJSON(value?: RequestsSensorUpdat
     return {
         build: value.build,
         uninstall_protection: value.uninstallProtection,
+        variants: (value.variants as Array<any>).map(RequestsSensorUpdateBuildV1ToJSON),
     };
 }

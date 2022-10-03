@@ -29,6 +29,12 @@ export interface ResponsesSensorUpdateSettingsV2 {
      */
     build: string;
     /**
+     *
+     * @type {string}
+     * @memberof ResponsesSensorUpdateSettingsV2
+     */
+    sensorVersion: string;
+    /**
      * The uninstall protection setting to apply to devices in the policy
      * @type {string}
      * @memberof ResponsesSensorUpdateSettingsV2
@@ -60,6 +66,7 @@ export type ResponsesSensorUpdateSettingsV2UninstallProtectionEnum = typeof Resp
 export function instanceOfResponsesSensorUpdateSettingsV2(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "build" in value;
+    isInstance = isInstance && "sensorVersion" in value;
     isInstance = isInstance && "uninstallProtection" in value;
     isInstance = isInstance && "variants" in value;
 
@@ -76,6 +83,7 @@ export function ResponsesSensorUpdateSettingsV2FromJSONTyped(json: any, ignoreDi
     }
     return {
         build: json["build"],
+        sensorVersion: json["sensor_version"],
         uninstallProtection: json["uninstall_protection"],
         variants: (json["variants"] as Array<any>).map(ResponsesSensorUpdateBuildV1FromJSON),
     };
@@ -90,6 +98,7 @@ export function ResponsesSensorUpdateSettingsV2ToJSON(value?: ResponsesSensorUpd
     }
     return {
         build: value.build,
+        sensor_version: value.sensorVersion,
         uninstall_protection: value.uninstallProtection,
         variants: (value.variants as Array<any>).map(ResponsesSensorUpdateBuildV1ToJSON),
     };
