@@ -13,12 +13,43 @@
  */
 
 import { exists, mapValues } from "../runtime";
+import type { DomainExposedDataRecordFinancialV1 } from "./DomainExposedDataRecordFinancialV1";
+import { DomainExposedDataRecordFinancialV1FromJSON, DomainExposedDataRecordFinancialV1FromJSONTyped, DomainExposedDataRecordFinancialV1ToJSON } from "./DomainExposedDataRecordFinancialV1";
+import type { DomainExposedDataRecordLocationV1 } from "./DomainExposedDataRecordLocationV1";
+import { DomainExposedDataRecordLocationV1FromJSON, DomainExposedDataRecordLocationV1FromJSONTyped, DomainExposedDataRecordLocationV1ToJSON } from "./DomainExposedDataRecordLocationV1";
+import type { DomainExposedDataRecordSocialV1 } from "./DomainExposedDataRecordSocialV1";
+import { DomainExposedDataRecordSocialV1FromJSON, DomainExposedDataRecordSocialV1FromJSONTyped, DomainExposedDataRecordSocialV1ToJSON } from "./DomainExposedDataRecordSocialV1";
+
 /**
  *
  * @export
  * @interface DomainBreachedItemV1
  */
 export interface DomainBreachedItemV1 {
+    /**
+     *
+     * @type {string}
+     * @memberof DomainBreachedItemV1
+     */
+    company?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainBreachedItemV1
+     */
+    credentialsIp?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainBreachedItemV1
+     */
+    credentialsUrl?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainBreachedItemV1
+     */
+    displayName?: string;
     /**
      * The domain associated with the breached account.
      * @type {string}
@@ -32,11 +63,29 @@ export interface DomainBreachedItemV1 {
      */
     email: string;
     /**
+     *
+     * @type {DomainExposedDataRecordFinancialV1}
+     * @memberof DomainBreachedItemV1
+     */
+    financial?: DomainExposedDataRecordFinancialV1;
+    /**
      * The original hashing algorithm applied to the breached password. Possible values: 'plain', 'unknown', 'base64', 'md5', 'sha1', 'bcrypt', etc. The value 'plain' means that the password was originally found as plaintext.
      * @type {string}
      * @memberof DomainBreachedItemV1
      */
     hashType: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainBreachedItemV1
+     */
+    jobPosition?: string;
+    /**
+     *
+     * @type {DomainExposedDataRecordLocationV1}
+     * @memberof DomainBreachedItemV1
+     */
+    location?: DomainExposedDataRecordLocationV1;
     /**
      * The username of the breached account.
      * @type {string}
@@ -56,11 +105,41 @@ export interface DomainBreachedItemV1 {
      */
     password: string;
     /**
+     *
+     * @type {string}
+     * @memberof DomainBreachedItemV1
+     */
+    passwordHash?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainBreachedItemV1
+     */
+    passwordSalt?: string;
+    /**
      * The phone number of the person associated with the breached account.
      * @type {string}
      * @memberof DomainBreachedItemV1
      */
     phone: string;
+    /**
+     *
+     * @type {DomainExposedDataRecordSocialV1}
+     * @memberof DomainBreachedItemV1
+     */
+    social?: DomainExposedDataRecordSocialV1;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainBreachedItemV1
+     */
+    userId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainBreachedItemV1
+     */
+    userIp?: string;
 }
 
 /**
@@ -88,13 +167,25 @@ export function DomainBreachedItemV1FromJSONTyped(json: any, ignoreDiscriminator
         return json;
     }
     return {
+        company: !exists(json, "company") ? undefined : json["company"],
+        credentialsIp: !exists(json, "credentials_ip") ? undefined : json["credentials_ip"],
+        credentialsUrl: !exists(json, "credentials_url") ? undefined : json["credentials_url"],
+        displayName: !exists(json, "display_name") ? undefined : json["display_name"],
         domain: json["domain"],
         email: json["email"],
+        financial: !exists(json, "financial") ? undefined : DomainExposedDataRecordFinancialV1FromJSON(json["financial"]),
         hashType: json["hash_type"],
+        jobPosition: !exists(json, "job_position") ? undefined : json["job_position"],
+        location: !exists(json, "location") ? undefined : DomainExposedDataRecordLocationV1FromJSON(json["location"]),
         loginId: json["login_id"],
         name: json["name"],
         password: json["password"],
+        passwordHash: !exists(json, "password_hash") ? undefined : json["password_hash"],
+        passwordSalt: !exists(json, "password_salt") ? undefined : json["password_salt"],
         phone: json["phone"],
+        social: !exists(json, "social") ? undefined : DomainExposedDataRecordSocialV1FromJSON(json["social"]),
+        userId: !exists(json, "user_id") ? undefined : json["user_id"],
+        userIp: !exists(json, "user_ip") ? undefined : json["user_ip"],
     };
 }
 
@@ -106,12 +197,24 @@ export function DomainBreachedItemV1ToJSON(value?: DomainBreachedItemV1 | null):
         return null;
     }
     return {
+        company: value.company,
+        credentials_ip: value.credentialsIp,
+        credentials_url: value.credentialsUrl,
+        display_name: value.displayName,
         domain: value.domain,
         email: value.email,
+        financial: DomainExposedDataRecordFinancialV1ToJSON(value.financial),
         hash_type: value.hashType,
+        job_position: value.jobPosition,
+        location: DomainExposedDataRecordLocationV1ToJSON(value.location),
         login_id: value.loginId,
         name: value.name,
         password: value.password,
+        password_hash: value.passwordHash,
+        password_salt: value.passwordSalt,
         phone: value.phone,
+        social: DomainExposedDataRecordSocialV1ToJSON(value.social),
+        user_id: value.userId,
+        user_ip: value.userIp,
     };
 }

@@ -26,13 +26,19 @@ export interface DomainActionV1 {
      */
     cid: string;
     /**
+     * The level of detail in which the content will be delivered
+     * @type {string}
+     * @memberof DomainActionV1
+     */
+    contentFormat: string;
+    /**
      * The date when the action was created
      * @type {Date}
      * @memberof DomainActionV1
      */
     createdTimestamp: Date;
     /**
-     *
+     * The time interval between the action's triggers
      * @type {string}
      * @memberof DomainActionV1
      */
@@ -62,6 +68,12 @@ export interface DomainActionV1 {
      */
     status: string;
     /**
+     * Whether to periodically trigger the action based on the frequency, even when there are no new matches for the associated monitoring rule
+     * @type {boolean}
+     * @memberof DomainActionV1
+     */
+    triggerMatchless: boolean;
+    /**
      * The action type. The only type currently supported is 'email'
      * @type {string}
      * @memberof DomainActionV1
@@ -87,12 +99,14 @@ export interface DomainActionV1 {
 export function instanceOfDomainActionV1(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "cid" in value;
+    isInstance = isInstance && "contentFormat" in value;
     isInstance = isInstance && "createdTimestamp" in value;
     isInstance = isInstance && "frequency" in value;
     isInstance = isInstance && "id" in value;
     isInstance = isInstance && "recipients" in value;
     isInstance = isInstance && "ruleId" in value;
     isInstance = isInstance && "status" in value;
+    isInstance = isInstance && "triggerMatchless" in value;
     isInstance = isInstance && "type" in value;
     isInstance = isInstance && "updatedTimestamp" in value;
     isInstance = isInstance && "userUuid" in value;
@@ -110,12 +124,14 @@ export function DomainActionV1FromJSONTyped(json: any, ignoreDiscriminator: bool
     }
     return {
         cid: json["cid"],
+        contentFormat: json["content_format"],
         createdTimestamp: new Date(json["created_timestamp"]),
         frequency: json["frequency"],
         id: json["id"],
         recipients: json["recipients"],
         ruleId: json["rule_id"],
         status: json["status"],
+        triggerMatchless: json["trigger_matchless"],
         type: json["type"],
         updatedTimestamp: new Date(json["updated_timestamp"]),
         userUuid: json["user_uuid"],
@@ -131,12 +147,14 @@ export function DomainActionV1ToJSON(value?: DomainActionV1 | null): any {
     }
     return {
         cid: value.cid,
+        content_format: value.contentFormat,
         created_timestamp: value.createdTimestamp.toISOString(),
         frequency: value.frequency,
         id: value.id,
         recipients: value.recipients,
         rule_id: value.ruleId,
         status: value.status,
+        trigger_matchless: value.triggerMatchless,
         type: value.type,
         updated_timestamp: value.updatedTimestamp.toISOString(),
         user_uuid: value.userUuid,

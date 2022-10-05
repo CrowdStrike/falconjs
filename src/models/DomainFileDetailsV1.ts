@@ -16,57 +16,65 @@ import { exists, mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface DomainUpdateNotificationRequestV1
+ * @interface DomainFileDetailsV1
  */
-export interface DomainUpdateNotificationRequestV1 {
+export interface DomainFileDetailsV1 {
     /**
-     * The unique ID of the user who is assigned to this notification. The value `unassigned` can be used to unassign a notification.
-     * @type {string}
-     * @memberof DomainUpdateNotificationRequestV1
+     * (Boolean) If it's a complete dataset or not.
+     * @type {boolean}
+     * @memberof DomainFileDetailsV1
      */
-    assignedToUuid: string;
+    completeDataSet: boolean;
     /**
-     * The ID of the notifications
-     * @type {string}
-     * @memberof DomainUpdateNotificationRequestV1
+     * A list of download urls for this file.
+     * @type {Array<string>}
+     * @memberof DomainFileDetailsV1
      */
-    id: string;
+    downloadUrls: Array<string>;
     /**
-     * The notification status. This can be one of: `new`, `in-progress`, `closed-false-positive`, `closed-true-positive`.
+     * The name of the file containing the exposed record(s).
      * @type {string}
-     * @memberof DomainUpdateNotificationRequestV1
+     * @memberof DomainFileDetailsV1
      */
-    status: string;
+    name: string;
+    /**
+     * The size of the file.
+     * @type {number}
+     * @memberof DomainFileDetailsV1
+     */
+    size: number;
 }
 
 /**
- * Check if a given object implements the DomainUpdateNotificationRequestV1 interface.
+ * Check if a given object implements the DomainFileDetailsV1 interface.
  */
-export function instanceOfDomainUpdateNotificationRequestV1(value: object): boolean {
+export function instanceOfDomainFileDetailsV1(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "assignedToUuid" in value;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "status" in value;
+    isInstance = isInstance && "completeDataSet" in value;
+    isInstance = isInstance && "downloadUrls" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "size" in value;
 
     return isInstance;
 }
 
-export function DomainUpdateNotificationRequestV1FromJSON(json: any): DomainUpdateNotificationRequestV1 {
-    return DomainUpdateNotificationRequestV1FromJSONTyped(json, false);
+export function DomainFileDetailsV1FromJSON(json: any): DomainFileDetailsV1 {
+    return DomainFileDetailsV1FromJSONTyped(json, false);
 }
 
-export function DomainUpdateNotificationRequestV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainUpdateNotificationRequestV1 {
+export function DomainFileDetailsV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainFileDetailsV1 {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        assignedToUuid: json["assigned_to_uuid"],
-        id: json["id"],
-        status: json["status"],
+        completeDataSet: json["complete_data_set"],
+        downloadUrls: json["download_urls"],
+        name: json["name"],
+        size: json["size"],
     };
 }
 
-export function DomainUpdateNotificationRequestV1ToJSON(value?: DomainUpdateNotificationRequestV1 | null): any {
+export function DomainFileDetailsV1ToJSON(value?: DomainFileDetailsV1 | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -74,8 +82,9 @@ export function DomainUpdateNotificationRequestV1ToJSON(value?: DomainUpdateNoti
         return null;
     }
     return {
-        assigned_to_uuid: value.assignedToUuid,
-        id: value.id,
-        status: value.status,
+        complete_data_set: value.completeDataSet,
+        download_urls: value.downloadUrls,
+        name: value.name,
+        size: value.size,
     };
 }

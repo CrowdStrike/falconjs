@@ -13,6 +13,9 @@
  */
 
 import { exists, mapValues } from "../runtime";
+import type { DomainFileDetailsV1 } from "./DomainFileDetailsV1";
+import { DomainFileDetailsV1FromJSON, DomainFileDetailsV1FromJSONTyped, DomainFileDetailsV1ToJSON } from "./DomainFileDetailsV1";
+
 /**
  *
  * @export
@@ -20,11 +23,41 @@ import { exists, mapValues } from "../runtime";
  */
 export interface DomainMatchedBreachSummaryV1 {
     /**
+     * Community/colloquial exposed data event name.
+     * @type {string}
+     * @memberof DomainMatchedBreachSummaryV1
+     */
+    communityName?: string;
+    /**
+     * The level of confidence regarding data veridicality. Options for likely authentic, confirmed authentic (default: unverified).
+     * @type {string}
+     * @memberof DomainMatchedBreachSummaryV1
+     */
+    confidenceLevel?: string;
+    /**
      * The description of the breach
      * @type {string}
      * @memberof DomainMatchedBreachSummaryV1
      */
     description: string;
+    /**
+     * The date the exposed data event occurred.
+     * @type {string}
+     * @memberof DomainMatchedBreachSummaryV1
+     */
+    eventDate?: string;
+    /**
+     * CrowdStrike-generated unique exposed data event identifier.
+     * @type {string}
+     * @memberof DomainMatchedBreachSummaryV1
+     */
+    eventId?: string;
+    /**
+     * The date when the data was leaked online
+     * @type {Date}
+     * @memberof DomainMatchedBreachSummaryV1
+     */
+    exposureDate?: Date;
     /**
      * The set of fields which were breached: 'email', 'password', 'login_id', 'phone', etc.
      * @type {Array<string>}
@@ -32,11 +65,41 @@ export interface DomainMatchedBreachSummaryV1 {
      */
     fields: Array<string>;
     /**
+     * Metadata regarding the file(s) where exposed data records where found.
+     * @type {Array<DomainFileDetailsV1>}
+     * @memberof DomainMatchedBreachSummaryV1
+     */
+    files?: Array<DomainFileDetailsV1>;
+    /**
+     * Where the exposed data event happened. (e.g. LinkedIn or linkedin[.]com)
+     * @type {Array<string>}
+     * @memberof DomainMatchedBreachSummaryV1
+     */
+    impactedDomains?: Array<string>;
+    /**
+     * Where the exposed data event happened
+     * @type {Array<string>}
+     * @memberof DomainMatchedBreachSummaryV1
+     */
+    impactedIps?: Array<string>;
+    /**
      * The name of the breach
      * @type {string}
      * @memberof DomainMatchedBreachSummaryV1
      */
     name: string;
+    /**
+     * Exposed Data Event Threat Actor/Group: Moniker(s) or real name(s) of the individual/group who unveiled confidential data.
+     * @type {string}
+     * @memberof DomainMatchedBreachSummaryV1
+     */
+    obtainedBy?: string;
+    /**
+     * Where the leak was found.
+     * @type {string}
+     * @memberof DomainMatchedBreachSummaryV1
+     */
+    url?: string;
 }
 
 /**
@@ -60,9 +123,19 @@ export function DomainMatchedBreachSummaryV1FromJSONTyped(json: any, ignoreDiscr
         return json;
     }
     return {
+        communityName: !exists(json, "community_name") ? undefined : json["community_name"],
+        confidenceLevel: !exists(json, "confidence_level") ? undefined : json["confidence_level"],
         description: json["description"],
+        eventDate: !exists(json, "event_date") ? undefined : json["event_date"],
+        eventId: !exists(json, "event_id") ? undefined : json["event_id"],
+        exposureDate: !exists(json, "exposure_date") ? undefined : new Date(json["exposure_date"]),
         fields: json["fields"],
+        files: !exists(json, "files") ? undefined : (json["files"] as Array<any>).map(DomainFileDetailsV1FromJSON),
+        impactedDomains: !exists(json, "impacted_domains") ? undefined : json["impacted_domains"],
+        impactedIps: !exists(json, "impacted_ips") ? undefined : json["impacted_ips"],
         name: json["name"],
+        obtainedBy: !exists(json, "obtained_by") ? undefined : json["obtained_by"],
+        url: !exists(json, "url") ? undefined : json["url"],
     };
 }
 
@@ -74,8 +147,18 @@ export function DomainMatchedBreachSummaryV1ToJSON(value?: DomainMatchedBreachSu
         return null;
     }
     return {
+        community_name: value.communityName,
+        confidence_level: value.confidenceLevel,
         description: value.description,
+        event_date: value.eventDate,
+        event_id: value.eventId,
+        exposure_date: value.exposureDate === undefined ? undefined : value.exposureDate.toISOString(),
         fields: value.fields,
+        files: value.files === undefined ? undefined : (value.files as Array<any>).map(DomainFileDetailsV1ToJSON),
+        impacted_domains: value.impactedDomains,
+        impacted_ips: value.impactedIps,
         name: value.name,
+        obtained_by: value.obtainedBy,
+        url: value.url,
     };
 }

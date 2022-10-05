@@ -24,6 +24,12 @@ export interface DomainUpdateActionRequest {
      * @type {string}
      * @memberof DomainUpdateActionRequest
      */
+    contentFormat: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainUpdateActionRequest
+     */
     frequency: string;
     /**
      *
@@ -43,6 +49,12 @@ export interface DomainUpdateActionRequest {
      * @memberof DomainUpdateActionRequest
      */
     status: string;
+    /**
+     *
+     * @type {boolean}
+     * @memberof DomainUpdateActionRequest
+     */
+    triggerMatchless: boolean;
 }
 
 /**
@@ -50,10 +62,12 @@ export interface DomainUpdateActionRequest {
  */
 export function instanceOfDomainUpdateActionRequest(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "contentFormat" in value;
     isInstance = isInstance && "frequency" in value;
     isInstance = isInstance && "id" in value;
     isInstance = isInstance && "recipients" in value;
     isInstance = isInstance && "status" in value;
+    isInstance = isInstance && "triggerMatchless" in value;
 
     return isInstance;
 }
@@ -67,10 +81,12 @@ export function DomainUpdateActionRequestFromJSONTyped(json: any, ignoreDiscrimi
         return json;
     }
     return {
+        contentFormat: json["content_format"],
         frequency: json["frequency"],
         id: json["id"],
         recipients: json["recipients"],
         status: json["status"],
+        triggerMatchless: json["trigger_matchless"],
     };
 }
 
@@ -82,9 +98,11 @@ export function DomainUpdateActionRequestToJSON(value?: DomainUpdateActionReques
         return null;
     }
     return {
+        content_format: value.contentFormat,
         frequency: value.frequency,
         id: value.id,
         recipients: value.recipients,
         status: value.status,
+        trigger_matchless: value.triggerMatchless,
     };
 }

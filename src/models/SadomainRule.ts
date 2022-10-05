@@ -23,7 +23,7 @@ import { SadomainCustomerAssetsFromJSON, SadomainCustomerAssetsFromJSONTyped, Sa
  */
 export interface SadomainRule {
     /**
-     * Whether to monitor for breach data. Available only for `Company Domains` and `Email addresses` rule topics. When enabled, ownership of the monitored domains or emails is required.
+     * Whether to monitor for breach data. Available only for `Company Domains` and `Email addresses` rule topics. When enabled, ownership of the monitored domains or emails is required
      * @type {boolean}
      * @memberof SadomainRule
      */
@@ -41,7 +41,7 @@ export interface SadomainRule {
      */
     createdTimestamp: Date;
     /**
-     * The FQL filter contained in a rule and used for searching. Parentheses may be added automatically for clarity.
+     * The FQL filter contained in a rule and used for searching. Parentheses may be added automatically for clarity
      * @type {string}
      * @memberof SadomainRule
      */
@@ -53,7 +53,7 @@ export interface SadomainRule {
      */
     id: string;
     /**
-     * The name for a given rule
+     * The name of a given rule
      * @type {string}
      * @memberof SadomainRule
      */
@@ -77,17 +77,23 @@ export interface SadomainRule {
      */
     priority: string;
     /**
-     * The status of a rule
+     * The status of a given rule
      * @type {string}
      * @memberof SadomainRule
      */
     status: string;
     /**
-     * The detailed status message
+     * The detailed status message of a given rule
      * @type {string}
      * @memberof SadomainRule
      */
     statusMessage?: string;
+    /**
+     * Whether to monitor for substring matches. Only available for the `Typosquatting` rule topic
+     * @type {boolean}
+     * @memberof SadomainRule
+     */
+    substringMatchingEnabled: boolean;
     /**
      * The topic of a given rule
      * @type {string}
@@ -134,6 +140,7 @@ export function instanceOfSadomainRule(value: object): boolean {
     isInstance = isInstance && "permissions" in value;
     isInstance = isInstance && "priority" in value;
     isInstance = isInstance && "status" in value;
+    isInstance = isInstance && "substringMatchingEnabled" in value;
     isInstance = isInstance && "topic" in value;
     isInstance = isInstance && "updatedTimestamp" in value;
     isInstance = isInstance && "userUuid" in value;
@@ -161,6 +168,7 @@ export function SadomainRuleFromJSONTyped(json: any, ignoreDiscriminator: boolea
         priority: json["priority"],
         status: json["status"],
         statusMessage: !exists(json, "status_message") ? undefined : json["status_message"],
+        substringMatchingEnabled: json["substring_matching_enabled"],
         topic: json["topic"],
         updatedTimestamp: new Date(json["updated_timestamp"]),
         userId: !exists(json, "user_id") ? undefined : json["user_id"],
@@ -188,6 +196,7 @@ export function SadomainRuleToJSON(value?: SadomainRule | null): any {
         priority: value.priority,
         status: value.status,
         status_message: value.statusMessage,
+        substring_matching_enabled: value.substringMatchingEnabled,
         topic: value.topic,
         updated_timestamp: value.updatedTimestamp.toISOString(),
         user_id: value.userId,

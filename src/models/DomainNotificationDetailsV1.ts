@@ -26,7 +26,7 @@ export interface DomainNotificationDetailsV1 {
      */
     author?: string;
     /**
-     * Highlighted content based on the rule that generated the notifications. Highlights are surrounded with a <cs-highlight> tag
+     * Highlighted content based on the rule that generated the notifications. Highlights are surrounded with a `<cs-highlight>` tag
      * @type {string}
      * @memberof DomainNotificationDetailsV1
      */

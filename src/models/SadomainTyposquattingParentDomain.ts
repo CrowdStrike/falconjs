@@ -16,73 +16,57 @@ import { exists, mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface DomainCreateActionRequest
+ * @interface SadomainTyposquattingParentDomain
  */
-export interface DomainCreateActionRequest {
+export interface SadomainTyposquattingParentDomain {
     /**
-     *
+     * The ID of the domain
      * @type {string}
-     * @memberof DomainCreateActionRequest
+     * @memberof SadomainTyposquattingParentDomain
      */
-    contentFormat: string;
+    id: string;
     /**
-     *
+     * The Punycode representation of the domain, i.e. starting with `xn--`
      * @type {string}
-     * @memberof DomainCreateActionRequest
+     * @memberof SadomainTyposquattingParentDomain
      */
-    frequency: string;
+    punycodeFormat: string;
     /**
-     *
-     * @type {Array<string>}
-     * @memberof DomainCreateActionRequest
-     */
-    recipients: Array<string>;
-    /**
-     *
-     * @type {boolean}
-     * @memberof DomainCreateActionRequest
-     */
-    triggerMatchless: boolean;
-    /**
-     *
+     * The Unicode representation of the domain
      * @type {string}
-     * @memberof DomainCreateActionRequest
+     * @memberof SadomainTyposquattingParentDomain
      */
-    type: string;
+    unicodeFormat: string;
 }
 
 /**
- * Check if a given object implements the DomainCreateActionRequest interface.
+ * Check if a given object implements the SadomainTyposquattingParentDomain interface.
  */
-export function instanceOfDomainCreateActionRequest(value: object): boolean {
+export function instanceOfSadomainTyposquattingParentDomain(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "contentFormat" in value;
-    isInstance = isInstance && "frequency" in value;
-    isInstance = isInstance && "recipients" in value;
-    isInstance = isInstance && "triggerMatchless" in value;
-    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "punycodeFormat" in value;
+    isInstance = isInstance && "unicodeFormat" in value;
 
     return isInstance;
 }
 
-export function DomainCreateActionRequestFromJSON(json: any): DomainCreateActionRequest {
-    return DomainCreateActionRequestFromJSONTyped(json, false);
+export function SadomainTyposquattingParentDomainFromJSON(json: any): SadomainTyposquattingParentDomain {
+    return SadomainTyposquattingParentDomainFromJSONTyped(json, false);
 }
 
-export function DomainCreateActionRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainCreateActionRequest {
+export function SadomainTyposquattingParentDomainFromJSONTyped(json: any, ignoreDiscriminator: boolean): SadomainTyposquattingParentDomain {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        contentFormat: json["content_format"],
-        frequency: json["frequency"],
-        recipients: json["recipients"],
-        triggerMatchless: json["trigger_matchless"],
-        type: json["type"],
+        id: json["id"],
+        punycodeFormat: json["punycode_format"],
+        unicodeFormat: json["unicode_format"],
     };
 }
 
-export function DomainCreateActionRequestToJSON(value?: DomainCreateActionRequest | null): any {
+export function SadomainTyposquattingParentDomainToJSON(value?: SadomainTyposquattingParentDomain | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -90,10 +74,8 @@ export function DomainCreateActionRequestToJSON(value?: DomainCreateActionReques
         return null;
     }
     return {
-        content_format: value.contentFormat,
-        frequency: value.frequency,
-        recipients: value.recipients,
-        trigger_matchless: value.triggerMatchless,
-        type: value.type,
+        id: value.id,
+        punycode_format: value.punycodeFormat,
+        unicode_format: value.unicodeFormat,
     };
 }
