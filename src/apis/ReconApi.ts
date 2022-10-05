@@ -125,7 +125,7 @@ export interface PreviewRuleV1Request {
 }
 
 export interface QueryActionsV1Request {
-    offset?: string;
+    offset?: number;
     limit?: number;
     sort?: string;
     filter?: string;
@@ -250,7 +250,6 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create monitoring rules.
      */
     async createRulesV1Raw(requestParameters: CreateRulesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRulesEntitiesResponseV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
@@ -283,7 +282,6 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create monitoring rules.
      */
     async createRulesV1(body: Array<SadomainCreateRuleRequestV1>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainRulesEntitiesResponseV1> {
         const response = await this.createRulesV1Raw({ body: body }, initOverrides);
@@ -462,7 +460,6 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get detailed notifications based on their IDs. These include the raw intelligence content that generated the match.This endpoint will return translated notification content. The only target language available is English. A single notification can be translated per request
      */
     async getNotificationsDetailedTranslatedV1Raw(
         requestParameters: GetNotificationsDetailedTranslatedV1Request,
@@ -499,7 +496,6 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get detailed notifications based on their IDs. These include the raw intelligence content that generated the match.This endpoint will return translated notification content. The only target language available is English. A single notification can be translated per request
      */
     async getNotificationsDetailedTranslatedV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainNotificationDetailsResponseV1> {
         const response = await this.getNotificationsDetailedTranslatedV1Raw({ ids: ids }, initOverrides);
@@ -507,7 +503,6 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get detailed notifications based on their IDs. These include the raw intelligence content that generated the match.
      */
     async getNotificationsDetailedV1Raw(
         requestParameters: GetNotificationsDetailedV1Request,
@@ -544,7 +539,6 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get detailed notifications based on their IDs. These include the raw intelligence content that generated the match.
      */
     async getNotificationsDetailedV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainNotificationDetailsResponseV1> {
         const response = await this.getNotificationsDetailedV1Raw({ ids: ids }, initOverrides);
@@ -552,7 +546,6 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get notifications based on their IDs. IDs can be retrieved using the GET /queries/notifications/v1 endpoint. This endpoint will return translated notification content. The only target language available is English.
      */
     async getNotificationsTranslatedV1Raw(
         requestParameters: GetNotificationsTranslatedV1Request,
@@ -589,7 +582,6 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get notifications based on their IDs. IDs can be retrieved using the GET /queries/notifications/v1 endpoint. This endpoint will return translated notification content. The only target language available is English.
      */
     async getNotificationsTranslatedV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainNotificationEntitiesResponseV1> {
         const response = await this.getNotificationsTranslatedV1Raw({ ids: ids }, initOverrides);
@@ -597,7 +589,6 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get notifications based on their IDs. IDs can be retrieved using the GET /queries/notifications/v1 endpoint.
      */
     async getNotificationsV1Raw(
         requestParameters: GetNotificationsV1Request,
@@ -634,7 +625,6 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get notifications based on their IDs. IDs can be retrieved using the GET /queries/notifications/v1 endpoint.
      */
     async getNotificationsV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainNotificationEntitiesResponseV1> {
         const response = await this.getNotificationsV1Raw({ ids: ids }, initOverrides);
@@ -642,7 +632,6 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get monitoring rules based on their IDs. IDs can be retrieved using the GET /queries/rules/v1 endpoint.
      */
     async getRulesV1Raw(requestParameters: GetRulesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRulesEntitiesResponseV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
@@ -676,7 +665,6 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get monitoring rules based on their IDs. IDs can be retrieved using the GET /queries/rules/v1 endpoint.
      */
     async getRulesV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainRulesEntitiesResponseV1> {
         const response = await this.getRulesV1Raw({ ids: ids }, initOverrides);
@@ -773,13 +761,13 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Query actions based on provided criteria. Use the IDs from this response to get the action entities on GET /entities/actions/v1.
      */
-    async queryActionsV1(offset?: string, limit?: number, sort?: string, filter?: string, q?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainQueryResponse> {
+    async queryActionsV1(offset?: number, limit?: number, sort?: string, filter?: string, q?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainQueryResponse> {
         const response = await this.queryActionsV1Raw({ offset: offset, limit: limit, sort: sort, filter: filter, q: q }, initOverrides);
         return await response.value();
     }
 
     /**
-     * Query notifications based on provided criteria. Use the IDs from this response to get the notification entities on GET /entities/notifications/v1 or GET /entities/notifications-detailed/v1.
+     * Query notifications based on provided criteria. Use the IDs from this response to get the notification +entities on GET /entities/notifications/v1, GET /entities/notifications-detailed/v1, +GET /entities/notifications-translated/v1 or GET /entities/notifications-detailed-translated/v1.
      */
     async queryNotificationsV1Raw(requestParameters: QueryNotificationsV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainQueryResponse>> {
         const queryParameters: any = {};
@@ -825,7 +813,7 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query notifications based on provided criteria. Use the IDs from this response to get the notification entities on GET /entities/notifications/v1 or GET /entities/notifications-detailed/v1.
+     * Query notifications based on provided criteria. Use the IDs from this response to get the notification +entities on GET /entities/notifications/v1, GET /entities/notifications-detailed/v1, +GET /entities/notifications-translated/v1 or GET /entities/notifications-detailed-translated/v1.
      */
     async queryNotificationsV1(offset?: number, limit?: number, sort?: string, filter?: string, q?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainQueryResponse> {
         const response = await this.queryNotificationsV1Raw({ offset: offset, limit: limit, sort: sort, filter: filter, q: q }, initOverrides);
@@ -928,7 +916,6 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update notification status or assignee. Accepts bulk requests
      */
     async updateNotificationsV1Raw(
         requestParameters: UpdateNotificationsV1Request,
@@ -964,7 +951,6 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update notification status or assignee. Accepts bulk requests
      */
     async updateNotificationsV1(body: Array<DomainUpdateNotificationRequestV1>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainNotificationEntitiesResponseV1> {
         const response = await this.updateNotificationsV1Raw({ body: body }, initOverrides);
@@ -972,7 +958,6 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update monitoring rules.
      */
     async updateRulesV1Raw(requestParameters: UpdateRulesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRulesEntitiesResponseV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
@@ -1005,7 +990,6 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update monitoring rules.
      */
     async updateRulesV1(body: Array<DomainUpdateRuleRequestV1>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainRulesEntitiesResponseV1> {
         const response = await this.updateRulesV1Raw({ body: body }, initOverrides);

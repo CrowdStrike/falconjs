@@ -16,73 +16,57 @@ import { exists, mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface DomainCreateActionRequest
+ * @interface DomainExposedDataRecordFinancialV1
  */
-export interface DomainCreateActionRequest {
+export interface DomainExposedDataRecordFinancialV1 {
     /**
      *
      * @type {string}
-     * @memberof DomainCreateActionRequest
+     * @memberof DomainExposedDataRecordFinancialV1
      */
-    contentFormat: string;
+    bankAccount: string;
     /**
      *
      * @type {string}
-     * @memberof DomainCreateActionRequest
+     * @memberof DomainExposedDataRecordFinancialV1
      */
-    frequency: string;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof DomainCreateActionRequest
-     */
-    recipients: Array<string>;
-    /**
-     *
-     * @type {boolean}
-     * @memberof DomainCreateActionRequest
-     */
-    triggerMatchless: boolean;
+    creditCard: string;
     /**
      *
      * @type {string}
-     * @memberof DomainCreateActionRequest
+     * @memberof DomainExposedDataRecordFinancialV1
      */
-    type: string;
+    cryptoCurrencyAddress: string;
 }
 
 /**
- * Check if a given object implements the DomainCreateActionRequest interface.
+ * Check if a given object implements the DomainExposedDataRecordFinancialV1 interface.
  */
-export function instanceOfDomainCreateActionRequest(value: object): boolean {
+export function instanceOfDomainExposedDataRecordFinancialV1(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "contentFormat" in value;
-    isInstance = isInstance && "frequency" in value;
-    isInstance = isInstance && "recipients" in value;
-    isInstance = isInstance && "triggerMatchless" in value;
-    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "bankAccount" in value;
+    isInstance = isInstance && "creditCard" in value;
+    isInstance = isInstance && "cryptoCurrencyAddress" in value;
 
     return isInstance;
 }
 
-export function DomainCreateActionRequestFromJSON(json: any): DomainCreateActionRequest {
-    return DomainCreateActionRequestFromJSONTyped(json, false);
+export function DomainExposedDataRecordFinancialV1FromJSON(json: any): DomainExposedDataRecordFinancialV1 {
+    return DomainExposedDataRecordFinancialV1FromJSONTyped(json, false);
 }
 
-export function DomainCreateActionRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainCreateActionRequest {
+export function DomainExposedDataRecordFinancialV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainExposedDataRecordFinancialV1 {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        contentFormat: json["content_format"],
-        frequency: json["frequency"],
-        recipients: json["recipients"],
-        triggerMatchless: json["trigger_matchless"],
-        type: json["type"],
+        bankAccount: json["bank_account"],
+        creditCard: json["credit_card"],
+        cryptoCurrencyAddress: json["crypto_currency_address"],
     };
 }
 
-export function DomainCreateActionRequestToJSON(value?: DomainCreateActionRequest | null): any {
+export function DomainExposedDataRecordFinancialV1ToJSON(value?: DomainExposedDataRecordFinancialV1 | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -90,10 +74,8 @@ export function DomainCreateActionRequestToJSON(value?: DomainCreateActionReques
         return null;
     }
     return {
-        content_format: value.contentFormat,
-        frequency: value.frequency,
-        recipients: value.recipients,
-        trigger_matchless: value.triggerMatchless,
-        type: value.type,
+        bank_account: value.bankAccount,
+        credit_card: value.creditCard,
+        crypto_currency_address: value.cryptoCurrencyAddress,
     };
 }

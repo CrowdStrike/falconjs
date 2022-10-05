@@ -16,73 +16,57 @@ import { exists, mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface DomainCreateActionRequest
+ * @interface SadomainWhoisRegistrant
  */
-export interface DomainCreateActionRequest {
+export interface SadomainWhoisRegistrant {
     /**
-     *
+     * The email of the entity who registered a given domain
      * @type {string}
-     * @memberof DomainCreateActionRequest
+     * @memberof SadomainWhoisRegistrant
      */
-    contentFormat: string;
+    email: string;
     /**
-     *
+     * The name of the entity who registered a given domain
      * @type {string}
-     * @memberof DomainCreateActionRequest
+     * @memberof SadomainWhoisRegistrant
      */
-    frequency: string;
+    name: string;
     /**
-     *
-     * @type {Array<string>}
-     * @memberof DomainCreateActionRequest
-     */
-    recipients: Array<string>;
-    /**
-     *
-     * @type {boolean}
-     * @memberof DomainCreateActionRequest
-     */
-    triggerMatchless: boolean;
-    /**
-     *
+     * The organization who registered a given domain
      * @type {string}
-     * @memberof DomainCreateActionRequest
+     * @memberof SadomainWhoisRegistrant
      */
-    type: string;
+    org: string;
 }
 
 /**
- * Check if a given object implements the DomainCreateActionRequest interface.
+ * Check if a given object implements the SadomainWhoisRegistrant interface.
  */
-export function instanceOfDomainCreateActionRequest(value: object): boolean {
+export function instanceOfSadomainWhoisRegistrant(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "contentFormat" in value;
-    isInstance = isInstance && "frequency" in value;
-    isInstance = isInstance && "recipients" in value;
-    isInstance = isInstance && "triggerMatchless" in value;
-    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "email" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "org" in value;
 
     return isInstance;
 }
 
-export function DomainCreateActionRequestFromJSON(json: any): DomainCreateActionRequest {
-    return DomainCreateActionRequestFromJSONTyped(json, false);
+export function SadomainWhoisRegistrantFromJSON(json: any): SadomainWhoisRegistrant {
+    return SadomainWhoisRegistrantFromJSONTyped(json, false);
 }
 
-export function DomainCreateActionRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainCreateActionRequest {
+export function SadomainWhoisRegistrantFromJSONTyped(json: any, ignoreDiscriminator: boolean): SadomainWhoisRegistrant {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        contentFormat: json["content_format"],
-        frequency: json["frequency"],
-        recipients: json["recipients"],
-        triggerMatchless: json["trigger_matchless"],
-        type: json["type"],
+        email: json["email"],
+        name: json["name"],
+        org: json["org"],
     };
 }
 
-export function DomainCreateActionRequestToJSON(value?: DomainCreateActionRequest | null): any {
+export function SadomainWhoisRegistrantToJSON(value?: SadomainWhoisRegistrant | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -90,10 +74,8 @@ export function DomainCreateActionRequestToJSON(value?: DomainCreateActionReques
         return null;
     }
     return {
-        content_format: value.contentFormat,
-        frequency: value.frequency,
-        recipients: value.recipients,
-        trigger_matchless: value.triggerMatchless,
-        type: value.type,
+        email: value.email,
+        name: value.name,
+        org: value.org,
     };
 }

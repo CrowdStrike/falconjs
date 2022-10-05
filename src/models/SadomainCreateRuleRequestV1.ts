@@ -20,37 +20,43 @@ import { exists, mapValues } from "../runtime";
  */
 export interface SadomainCreateRuleRequestV1 {
     /**
-     * Whether to monitor for breach data. Available only for `Company Domains` and `Email addresses` rule topics. When enabled, ownership of the monitored domains or emails is required.
+     * Whether to monitor for breach data. Available only for `Company Domains` and `Email addresses` rule topics. When enabled, ownership of the monitored domains or emails is required
      * @type {boolean}
      * @memberof SadomainCreateRuleRequestV1
      */
     breachMonitoringEnabled: boolean;
     /**
-     * The filter to be used for searching
+     * The FQL filter to be used for searching
      * @type {string}
      * @memberof SadomainCreateRuleRequestV1
      */
     filter: string;
     /**
-     * The name of a particular rule
+     * The name of a given rule
      * @type {string}
      * @memberof SadomainCreateRuleRequestV1
      */
     name: string;
     /**
-     * The permissions for a particular rule which specifies the rule's access by other users. Possible values: [private public]
+     * The permissions for a given rule which specifies the rule's access by other users. Possible values: `public`, `private`
      * @type {string}
      * @memberof SadomainCreateRuleRequestV1
      */
     permissions: string;
     /**
-     * The priority for a particular rule. Possible values: [low medium high]
+     * The priority for a given rule. Possible values: `high`, `low`, `medium`
      * @type {string}
      * @memberof SadomainCreateRuleRequestV1
      */
     priority: string;
     /**
-     * The topic of a given rule. Possible values: [SA_BRAND_PRODUCT SA_THIRD_PARTY SA_IP SA_CVE SA_DOMAIN SA_AUTHOR SA_CUSTOM SA_VIP SA_BIN SA_EMAIL SA_ALIAS]
+     * Whether to monitor for substring matches. Only available for the `Typosquatting` topic.
+     * @type {boolean}
+     * @memberof SadomainCreateRuleRequestV1
+     */
+    substringMatchingEnabled: boolean;
+    /**
+     * The topic of a given rule. Possible values: `SA_BIN`, `SA_DOMAIN`, `SA_ALIAS`, `SA_TYPOSQUATTING`, `SA_IP`, `SA_VIP`, `SA_THIRD_PARTY`, `SA_CVE`, `SA_EMAIL`, `SA_AUTHOR`, `SA_CUSTOM`, `SA_BRAND_PRODUCT`
      * @type {string}
      * @memberof SadomainCreateRuleRequestV1
      */
@@ -67,6 +73,7 @@ export function instanceOfSadomainCreateRuleRequestV1(value: object): boolean {
     isInstance = isInstance && "name" in value;
     isInstance = isInstance && "permissions" in value;
     isInstance = isInstance && "priority" in value;
+    isInstance = isInstance && "substringMatchingEnabled" in value;
     isInstance = isInstance && "topic" in value;
 
     return isInstance;
@@ -86,6 +93,7 @@ export function SadomainCreateRuleRequestV1FromJSONTyped(json: any, ignoreDiscri
         name: json["name"],
         permissions: json["permissions"],
         priority: json["priority"],
+        substringMatchingEnabled: json["substring_matching_enabled"],
         topic: json["topic"],
     };
 }
@@ -103,6 +111,7 @@ export function SadomainCreateRuleRequestV1ToJSON(value?: SadomainCreateRuleRequ
         name: value.name,
         permissions: value.permissions,
         priority: value.priority,
+        substring_matching_enabled: value.substringMatchingEnabled,
         topic: value.topic,
     };
 }

@@ -15,6 +15,8 @@
 import { exists, mapValues } from "../runtime";
 import type { DomainMatchedBreachSummaryV1 } from "./DomainMatchedBreachSummaryV1";
 import { DomainMatchedBreachSummaryV1FromJSON, DomainMatchedBreachSummaryV1FromJSONTyped, DomainMatchedBreachSummaryV1ToJSON } from "./DomainMatchedBreachSummaryV1";
+import type { SadomainTyposquattingComponent } from "./SadomainTyposquattingComponent";
+import { SadomainTyposquattingComponentFromJSON, SadomainTyposquattingComponentFromJSONTyped, SadomainTyposquattingComponentToJSON } from "./SadomainTyposquattingComponent";
 
 /**
  *
@@ -47,13 +49,19 @@ export interface DomainNotificationV1 {
      */
     breachSummary?: DomainMatchedBreachSummaryV1;
     /**
+     *
+     * @type {string}
+     * @memberof DomainNotificationV1
+     */
+    cid: string;
+    /**
      * The date when the notification was generated
      * @type {Date}
      * @memberof DomainNotificationV1
      */
     createdDate: Date;
     /**
-     * Highlighted content based on the rule that generated the notifications. Highlights are surrounded with a <cs-highlight> tag
+     * Highlighted content based on the rule that generated the notifications. Highlights are surrounded with a `<cs-highlight>` tag
      * @type {Array<string>}
      * @memberof DomainNotificationV1
      */
@@ -70,6 +78,12 @@ export interface DomainNotificationV1 {
      * @memberof DomainNotificationV1
      */
     itemAuthor?: string;
+    /**
+     * The ID of the author who posted the intelligence item
+     * @type {string}
+     * @memberof DomainNotificationV1
+     */
+    itemAuthorId?: string;
     /**
      * Timestamp when the item is considered to have been created
      * @type {Date}
@@ -89,11 +103,23 @@ export interface DomainNotificationV1 {
      */
     itemSite?: string;
     /**
-     * Type of the item which matched the rule: 'post', 'reply', 'botnet_config', 'breach', etc.
+     * The ID of the site where the intelligence item was found
+     * @type {string}
+     * @memberof DomainNotificationV1
+     */
+    itemSiteId?: string;
+    /**
+     * Type of the item which matched the rule: `post`, `reply`, `botnet_config`, `breach`, etc.
      * @type {string}
      * @memberof DomainNotificationV1
      */
     itemType: string;
+    /**
+     * ID of the raw intel item that matched the rule
+     * @type {string}
+     * @memberof DomainNotificationV1
+     */
+    rawIntelId: string;
     /**
      * The ID of the rule that generated this notification
      * @type {string}
@@ -119,11 +145,23 @@ export interface DomainNotificationV1 {
      */
     ruleTopic: string;
     /**
-     * The notification status. This can be one of: 'new', 'in-progress', 'closed-false-positive', 'closed-true-positive'.
+     * Category of the source that generated the notification
+     * @type {string}
+     * @memberof DomainNotificationV1
+     */
+    sourceCategory?: string;
+    /**
+     * The notification status. This can be one of: `new`, `in-progress`, `closed-false-positive`, `closed-true-positive`.
      * @type {string}
      * @memberof DomainNotificationV1
      */
     status: string;
+    /**
+     *
+     * @type {SadomainTyposquattingComponent}
+     * @memberof DomainNotificationV1
+     */
+    typosquatting?: SadomainTyposquattingComponent;
     /**
      * The date when the notification was updated
      * @type {Date}
@@ -137,11 +175,13 @@ export interface DomainNotificationV1 {
  */
 export function instanceOfDomainNotificationV1(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "cid" in value;
     isInstance = isInstance && "createdDate" in value;
     isInstance = isInstance && "id" in value;
     isInstance = isInstance && "itemDate" in value;
     isInstance = isInstance && "itemId" in value;
     isInstance = isInstance && "itemType" in value;
+    isInstance = isInstance && "rawIntelId" in value;
     isInstance = isInstance && "ruleId" in value;
     isInstance = isInstance && "ruleName" in value;
     isInstance = isInstance && "rulePriority" in value;
@@ -165,19 +205,25 @@ export function DomainNotificationV1FromJSONTyped(json: any, ignoreDiscriminator
         assignedToUsername: !exists(json, "assigned_to_username") ? undefined : json["assigned_to_username"],
         assignedToUuid: !exists(json, "assigned_to_uuid") ? undefined : json["assigned_to_uuid"],
         breachSummary: !exists(json, "breach_summary") ? undefined : DomainMatchedBreachSummaryV1FromJSON(json["breach_summary"]),
+        cid: json["cid"],
         createdDate: new Date(json["created_date"]),
         highlights: !exists(json, "highlights") ? undefined : json["highlights"],
         id: json["id"],
         itemAuthor: !exists(json, "item_author") ? undefined : json["item_author"],
+        itemAuthorId: !exists(json, "item_author_id") ? undefined : json["item_author_id"],
         itemDate: new Date(json["item_date"]),
         itemId: json["item_id"],
         itemSite: !exists(json, "item_site") ? undefined : json["item_site"],
+        itemSiteId: !exists(json, "item_site_id") ? undefined : json["item_site_id"],
         itemType: json["item_type"],
+        rawIntelId: json["raw_intel_id"],
         ruleId: json["rule_id"],
         ruleName: json["rule_name"],
         rulePriority: json["rule_priority"],
         ruleTopic: json["rule_topic"],
+        sourceCategory: !exists(json, "source_category") ? undefined : json["source_category"],
         status: json["status"],
+        typosquatting: !exists(json, "typosquatting") ? undefined : SadomainTyposquattingComponentFromJSON(json["typosquatting"]),
         updatedDate: new Date(json["updated_date"]),
     };
 }
@@ -194,19 +240,25 @@ export function DomainNotificationV1ToJSON(value?: DomainNotificationV1 | null):
         assigned_to_username: value.assignedToUsername,
         assigned_to_uuid: value.assignedToUuid,
         breach_summary: DomainMatchedBreachSummaryV1ToJSON(value.breachSummary),
+        cid: value.cid,
         created_date: value.createdDate.toISOString(),
         highlights: value.highlights,
         id: value.id,
         item_author: value.itemAuthor,
+        item_author_id: value.itemAuthorId,
         item_date: value.itemDate.toISOString(),
         item_id: value.itemId,
         item_site: value.itemSite,
+        item_site_id: value.itemSiteId,
         item_type: value.itemType,
+        raw_intel_id: value.rawIntelId,
         rule_id: value.ruleId,
         rule_name: value.ruleName,
         rule_priority: value.rulePriority,
         rule_topic: value.ruleTopic,
+        source_category: value.sourceCategory,
         status: value.status,
+        typosquatting: SadomainTyposquattingComponentToJSON(value.typosquatting),
         updated_date: value.updatedDate.toISOString(),
     };
 }

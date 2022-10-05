@@ -16,57 +16,49 @@ import { exists, mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface DomainUpdateNotificationRequestV1
+ * @interface SadomainWhoisRegistrar
  */
-export interface DomainUpdateNotificationRequestV1 {
+export interface SadomainWhoisRegistrar {
     /**
-     * The unique ID of the user who is assigned to this notification. The value `unassigned` can be used to unassign a notification.
+     * The name of the registrar for a given domain
      * @type {string}
-     * @memberof DomainUpdateNotificationRequestV1
+     * @memberof SadomainWhoisRegistrar
      */
-    assignedToUuid: string;
+    name: string;
     /**
-     * The ID of the notifications
-     * @type {string}
-     * @memberof DomainUpdateNotificationRequestV1
+     * The list of Extensible Provisioning Protocol (EPP) status codes provided by the registrar for a given domain
+     * @type {Array<string>}
+     * @memberof SadomainWhoisRegistrar
      */
-    id: string;
-    /**
-     * The notification status. This can be one of: `new`, `in-progress`, `closed-false-positive`, `closed-true-positive`.
-     * @type {string}
-     * @memberof DomainUpdateNotificationRequestV1
-     */
-    status: string;
+    status: Array<string>;
 }
 
 /**
- * Check if a given object implements the DomainUpdateNotificationRequestV1 interface.
+ * Check if a given object implements the SadomainWhoisRegistrar interface.
  */
-export function instanceOfDomainUpdateNotificationRequestV1(value: object): boolean {
+export function instanceOfSadomainWhoisRegistrar(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "assignedToUuid" in value;
-    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "name" in value;
     isInstance = isInstance && "status" in value;
 
     return isInstance;
 }
 
-export function DomainUpdateNotificationRequestV1FromJSON(json: any): DomainUpdateNotificationRequestV1 {
-    return DomainUpdateNotificationRequestV1FromJSONTyped(json, false);
+export function SadomainWhoisRegistrarFromJSON(json: any): SadomainWhoisRegistrar {
+    return SadomainWhoisRegistrarFromJSONTyped(json, false);
 }
 
-export function DomainUpdateNotificationRequestV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainUpdateNotificationRequestV1 {
+export function SadomainWhoisRegistrarFromJSONTyped(json: any, ignoreDiscriminator: boolean): SadomainWhoisRegistrar {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        assignedToUuid: json["assigned_to_uuid"],
-        id: json["id"],
+        name: json["name"],
         status: json["status"],
     };
 }
 
-export function DomainUpdateNotificationRequestV1ToJSON(value?: DomainUpdateNotificationRequestV1 | null): any {
+export function SadomainWhoisRegistrarToJSON(value?: SadomainWhoisRegistrar | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -74,8 +66,7 @@ export function DomainUpdateNotificationRequestV1ToJSON(value?: DomainUpdateNoti
         return null;
     }
     return {
-        assigned_to_uuid: value.assignedToUuid,
-        id: value.id,
+        name: value.name,
         status: value.status,
     };
 }

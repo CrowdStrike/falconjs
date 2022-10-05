@@ -20,13 +20,13 @@ import { exists, mapValues } from "../runtime";
  */
 export interface DomainUpdateRuleRequestV1 {
     /**
-     * Whether to monitor for breach data
+     * Whether to monitor for breach data. Available only for `Company Domains` and `Email addresses` rule topics. When enabled, ownership of the monitored domains or emails is required
      * @type {boolean}
      * @memberof DomainUpdateRuleRequestV1
      */
     breachMonitoringEnabled: boolean;
     /**
-     * The filter to be used for searching
+     * The FQL filter to be used for searching
      * @type {string}
      * @memberof DomainUpdateRuleRequestV1
      */
@@ -38,23 +38,29 @@ export interface DomainUpdateRuleRequestV1 {
      */
     id: string;
     /**
-     * The name of a particular rule
+     * The name of a given rule
      * @type {string}
      * @memberof DomainUpdateRuleRequestV1
      */
     name: string;
     /**
-     * The permissions for a particular rule which specifies the rule's access by other users. Possible values: [public private]
+     * The permissions for a given rule which specifies the rule's access by other users. Possible values: `public`, `private`
      * @type {string}
      * @memberof DomainUpdateRuleRequestV1
      */
     permissions: string;
     /**
-     * The priority for a particular rule. Possible values: [low medium high]
+     * The priority for a given rule. Possible values: `low`, `medium`, `high`
      * @type {string}
      * @memberof DomainUpdateRuleRequestV1
      */
     priority: string;
+    /**
+     * Whether to monitor for substring matches. Only available for the `Typosquatting` topic.
+     * @type {boolean}
+     * @memberof DomainUpdateRuleRequestV1
+     */
+    substringMatchingEnabled: boolean;
 }
 
 /**
@@ -68,6 +74,7 @@ export function instanceOfDomainUpdateRuleRequestV1(value: object): boolean {
     isInstance = isInstance && "name" in value;
     isInstance = isInstance && "permissions" in value;
     isInstance = isInstance && "priority" in value;
+    isInstance = isInstance && "substringMatchingEnabled" in value;
 
     return isInstance;
 }
@@ -87,6 +94,7 @@ export function DomainUpdateRuleRequestV1FromJSONTyped(json: any, ignoreDiscrimi
         name: json["name"],
         permissions: json["permissions"],
         priority: json["priority"],
+        substringMatchingEnabled: json["substring_matching_enabled"],
     };
 }
 
@@ -104,5 +112,6 @@ export function DomainUpdateRuleRequestV1ToJSON(value?: DomainUpdateRuleRequestV
         name: value.name,
         permissions: value.permissions,
         priority: value.priority,
+        substring_matching_enabled: value.substringMatchingEnabled,
     };
 }
