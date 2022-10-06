@@ -38,13 +38,13 @@ export interface SadomainCreateRuleRequestV1 {
      */
     name: string;
     /**
-     * The permissions for a given rule which specifies the rule's access by other users. Possible values: `public`, `private`
+     * The permissions for a given rule which specifies the rule's access by other users. Possible values: `private`, `public`
      * @type {string}
      * @memberof SadomainCreateRuleRequestV1
      */
     permissions: string;
     /**
-     * The priority for a given rule. Possible values: `high`, `low`, `medium`
+     * The priority for a given rule. Possible values: `low`, `medium`, `high`
      * @type {string}
      * @memberof SadomainCreateRuleRequestV1
      */
@@ -56,7 +56,7 @@ export interface SadomainCreateRuleRequestV1 {
      */
     substringMatchingEnabled: boolean;
     /**
-     * The topic of a given rule. Possible values: `SA_BIN`, `SA_DOMAIN`, `SA_ALIAS`, `SA_TYPOSQUATTING`, `SA_IP`, `SA_VIP`, `SA_THIRD_PARTY`, `SA_CVE`, `SA_EMAIL`, `SA_AUTHOR`, `SA_CUSTOM`, `SA_BRAND_PRODUCT`
+     * The topic of a given rule. Possible values: `SA_VIP`, `SA_IP`, `SA_CVE`, `SA_BIN`, `SA_DOMAIN`, `SA_EMAIL`, `SA_ALIAS`, `SA_BRAND_PRODUCT`, `SA_CUSTOM`, `SA_TYPOSQUATTING`, `SA_AUTHOR`, `SA_THIRD_PARTY`
      * @type {string}
      * @memberof SadomainCreateRuleRequestV1
      */
