@@ -42,10 +42,10 @@ export interface ResponsesMlExclusionV1 {
     createdOn: Date;
     /**
      *
-     * @type {Array<object>}
+     * @type {Array<string>}
      * @memberof ResponsesMlExclusionV1
      */
-    excludedFrom?: Array<object>;
+    excludedFrom?: Array<string>;
     /**
      *
      * @type {Array<ResponsesHostGroupV1>}

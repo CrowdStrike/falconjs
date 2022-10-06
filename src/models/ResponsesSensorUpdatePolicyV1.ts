@@ -25,6 +25,12 @@ import { ResponsesSensorUpdateSettingsV1FromJSON, ResponsesSensorUpdateSettingsV
  */
 export interface ResponsesSensorUpdatePolicyV1 {
     /**
+     * The customer id associated with the policy
+     * @type {string}
+     * @memberof ResponsesSensorUpdatePolicyV1
+     */
+    cid: string;
+    /**
      * The email of the user which created the policy
      * @type {string}
      * @memberof ResponsesSensorUpdatePolicyV1
@@ -107,6 +113,7 @@ export type ResponsesSensorUpdatePolicyV1PlatformNameEnum = typeof ResponsesSens
  */
 export function instanceOfResponsesSensorUpdatePolicyV1(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "cid" in value;
     isInstance = isInstance && "createdBy" in value;
     isInstance = isInstance && "createdTimestamp" in value;
     isInstance = isInstance && "description" in value;
@@ -131,6 +138,7 @@ export function ResponsesSensorUpdatePolicyV1FromJSONTyped(json: any, ignoreDisc
         return json;
     }
     return {
+        cid: json["cid"],
         createdBy: json["created_by"],
         createdTimestamp: new Date(json["created_timestamp"]),
         description: json["description"],
@@ -153,6 +161,7 @@ export function ResponsesSensorUpdatePolicyV1ToJSON(value?: ResponsesSensorUpdat
         return null;
     }
     return {
+        cid: value.cid,
         created_by: value.createdBy,
         created_timestamp: value.createdTimestamp.toISOString(),
         description: value.description,

@@ -29,6 +29,12 @@ export interface ResponsesFirewallPolicyV1 {
      */
     channelVersion: number;
     /**
+     * The customer id associated with the policy
+     * @type {string}
+     * @memberof ResponsesFirewallPolicyV1
+     */
+    cid: string;
+    /**
      * The email of the user which created the policy
      * @type {string}
      * @memberof ResponsesFirewallPolicyV1
@@ -112,6 +118,7 @@ export type ResponsesFirewallPolicyV1PlatformNameEnum = typeof ResponsesFirewall
 export function instanceOfResponsesFirewallPolicyV1(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "channelVersion" in value;
+    isInstance = isInstance && "cid" in value;
     isInstance = isInstance && "createdBy" in value;
     isInstance = isInstance && "createdTimestamp" in value;
     isInstance = isInstance && "description" in value;
@@ -137,6 +144,7 @@ export function ResponsesFirewallPolicyV1FromJSONTyped(json: any, ignoreDiscrimi
     }
     return {
         channelVersion: json["channel_version"],
+        cid: json["cid"],
         createdBy: json["created_by"],
         createdTimestamp: new Date(json["created_timestamp"]),
         description: json["description"],
@@ -160,6 +168,7 @@ export function ResponsesFirewallPolicyV1ToJSON(value?: ResponsesFirewallPolicyV
     }
     return {
         channel_version: value.channelVersion,
+        cid: value.cid,
         created_by: value.createdBy,
         created_timestamp: value.createdTimestamp.toISOString(),
         description: value.description,
