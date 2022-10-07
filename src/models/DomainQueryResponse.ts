@@ -13,10 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import type { DomainReconAPIError } from "./DomainReconAPIError";
-import { DomainReconAPIErrorFromJSON, DomainReconAPIErrorFromJSONTyped, DomainReconAPIErrorToJSON } from "./DomainReconAPIError";
-import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { DomainMsaMetaInfo } from "./DomainMsaMetaInfo";
+import { DomainMsaMetaInfoFromJSON, DomainMsaMetaInfoFromJSONTyped, DomainMsaMetaInfoToJSON } from "./DomainMsaMetaInfo";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
 
 /**
  *
@@ -26,16 +26,16 @@ import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from
 export interface DomainQueryResponse {
     /**
      *
-     * @type {Array<DomainReconAPIError>}
+     * @type {Array<MsaAPIError>}
      * @memberof DomainQueryResponse
      */
-    errors: Array<DomainReconAPIError>;
+    errors?: Array<MsaAPIError>;
     /**
      *
-     * @type {MsaMetaInfo}
+     * @type {DomainMsaMetaInfo}
      * @memberof DomainQueryResponse
      */
-    meta: MsaMetaInfo;
+    meta: DomainMsaMetaInfo;
     /**
      *
      * @type {Array<string>}
@@ -49,7 +49,6 @@ export interface DomainQueryResponse {
  */
 export function instanceOfDomainQueryResponse(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "errors" in value;
     isInstance = isInstance && "meta" in value;
     isInstance = isInstance && "resources" in value;
 
@@ -65,8 +64,8 @@ export function DomainQueryResponseFromJSONTyped(json: any, ignoreDiscriminator:
         return json;
     }
     return {
-        errors: (json["errors"] as Array<any>).map(DomainReconAPIErrorFromJSON),
-        meta: MsaMetaInfoFromJSON(json["meta"]),
+        errors: !exists(json, "errors") ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
+        meta: DomainMsaMetaInfoFromJSON(json["meta"]),
         resources: json["resources"],
     };
 }
@@ -79,8 +78,8 @@ export function DomainQueryResponseToJSON(value?: DomainQueryResponse | null): a
         return null;
     }
     return {
-        errors: (value.errors as Array<any>).map(DomainReconAPIErrorToJSON),
-        meta: MsaMetaInfoToJSON(value.meta),
+        errors: value.errors === undefined ? undefined : (value.errors as Array<any>).map(MsaAPIErrorToJSON),
+        meta: DomainMsaMetaInfoToJSON(value.meta),
         resources: value.resources,
     };
 }
