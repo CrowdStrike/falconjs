@@ -112,7 +112,7 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids.join(runtime.COLLECTION_FORMATS["csv"]);
+            queryParameters["ids"] = requestParameters.ids;
         }
 
         if (requestParameters.comment !== undefined) {
@@ -158,7 +158,7 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids.join(runtime.COLLECTION_FORMATS["csv"]);
+            queryParameters["ids"] = requestParameters.ids;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
