@@ -3,8 +3,6 @@ name: Docs
 on:
   push:
     branches: [ main ]
-    paths:
-      - '**.md'
   pull_request:
     branches: [ main ]
     paths:
