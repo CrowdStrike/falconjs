@@ -49,6 +49,12 @@ export interface DomainAPIRemediationV2 {
      * @memberof DomainAPIRemediationV2
      */
     title: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainAPIRemediationV2
+     */
+    vendorUrl: string;
 }
 
 /**
@@ -61,6 +67,7 @@ export function instanceOfDomainAPIRemediationV2(value: object): boolean {
     isInstance = isInstance && "link" in value;
     isInstance = isInstance && "reference" in value;
     isInstance = isInstance && "title" in value;
+    isInstance = isInstance && "vendorUrl" in value;
 
     return isInstance;
 }
@@ -79,6 +86,7 @@ export function DomainAPIRemediationV2FromJSONTyped(json: any, ignoreDiscriminat
         link: json["link"],
         reference: json["reference"],
         title: json["title"],
+        vendorUrl: json["vendor_url"],
     };
 }
 
@@ -95,5 +103,6 @@ export function DomainAPIRemediationV2ToJSON(value?: DomainAPIRemediationV2 | nu
         link: value.link,
         reference: value.reference,
         title: value.title,
+        vendor_url: value.vendorUrl,
     };
 }
