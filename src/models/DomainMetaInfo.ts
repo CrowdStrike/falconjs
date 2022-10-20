@@ -13,8 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import type { DomainAssessmentPaging } from "./DomainAssessmentPaging";
-import { DomainAssessmentPagingFromJSON, DomainAssessmentPagingFromJSONTyped, DomainAssessmentPagingToJSON } from "./DomainAssessmentPaging";
+import type { DomainQuota } from "./DomainQuota";
+import { DomainQuotaFromJSON, DomainQuotaFromJSONTyped, DomainQuotaToJSON } from "./DomainQuota";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *
@@ -24,28 +26,16 @@ import { DomainAssessmentPagingFromJSON, DomainAssessmentPagingFromJSONTyped, Do
 export interface DomainMetaInfo {
     /**
      *
-     * @type {DomainAssessmentPaging}
+     * @type {MsaMetaInfo}
      * @memberof DomainMetaInfo
      */
-    pagination?: DomainAssessmentPaging;
+    msaMetaInfo: MsaMetaInfo;
     /**
      *
-     * @type {string}
+     * @type {DomainQuota}
      * @memberof DomainMetaInfo
      */
-    poweredBy?: string;
-    /**
-     *
-     * @type {number}
-     * @memberof DomainMetaInfo
-     */
-    queryTime: number;
-    /**
-     *
-     * @type {string}
-     * @memberof DomainMetaInfo
-     */
-    traceId: string;
+    quota?: DomainQuota;
 }
 
 /**
@@ -53,8 +43,7 @@ export interface DomainMetaInfo {
  */
 export function instanceOfDomainMetaInfo(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "queryTime" in value;
-    isInstance = isInstance && "traceId" in value;
+    isInstance = isInstance && "msaMetaInfo" in value;
 
     return isInstance;
 }
@@ -68,10 +57,8 @@ export function DomainMetaInfoFromJSONTyped(json: any, ignoreDiscriminator: bool
         return json;
     }
     return {
-        pagination: !exists(json, "pagination") ? undefined : DomainAssessmentPagingFromJSON(json["pagination"]),
-        poweredBy: !exists(json, "powered_by") ? undefined : json["powered_by"],
-        queryTime: json["query_time"],
-        traceId: json["trace_id"],
+        msaMetaInfo: MsaMetaInfoFromJSON(json["MsaMetaInfo"]),
+        quota: !exists(json, "quota") ? undefined : DomainQuotaFromJSON(json["quota"]),
     };
 }
 
@@ -83,9 +70,7 @@ export function DomainMetaInfoToJSON(value?: DomainMetaInfo | null): any {
         return null;
     }
     return {
-        pagination: DomainAssessmentPagingToJSON(value.pagination),
-        powered_by: value.poweredBy,
-        query_time: value.queryTime,
-        trace_id: value.traceId,
+        MsaMetaInfo: MsaMetaInfoToJSON(value.msaMetaInfo),
+        quota: DomainQuotaToJSON(value.quota),
     };
 }
