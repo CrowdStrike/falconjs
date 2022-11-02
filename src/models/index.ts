@@ -1,5 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
+export * from "./ApiActionRespV1";
+export * from "./ApiActionV1";
 export * from "./ApiActivityCreationRequest";
 export * from "./ApiAuditEventDetailsResourceV1";
 export * from "./ApiAuditEventDetailsResponseV1";
@@ -20,6 +22,8 @@ export * from "./ApiIndicatorUpdateReqsV1";
 export * from "./ApiIndicatorV1";
 export * from "./ApiIndicatorsQueryMeta";
 export * from "./ApiIndicatorsQueryPaging";
+export * from "./ApiIndicatorsReportRequest";
+export * from "./ApiIndicatorsSortedSearch";
 export * from "./ApiMessageCenterActivityResponse";
 export * from "./ApiMessageCenterAttachmentUploadResponse";
 export * from "./ApiMessageCenterCasesResponse";
