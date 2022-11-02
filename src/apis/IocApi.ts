@@ -13,8 +13,22 @@
  */
 
 import * as runtime from "../runtime";
-import type { ApiIndicatorCreateReqsV1, ApiIndicatorQueryRespV1, ApiIndicatorQueryResponse, ApiIndicatorRespV1, ApiIndicatorUpdateReqsV1, MsaReplyMetaOnly } from "../models";
+import type {
+    ApiActionRespV1,
+    ApiIndicatorCreateReqsV1,
+    ApiIndicatorQueryRespV1,
+    ApiIndicatorQueryResponse,
+    ApiIndicatorRespV1,
+    ApiIndicatorUpdateReqsV1,
+    ApiIndicatorsReportRequest,
+    MsaAggregateQueryRequest,
+    MsaAggregatesResponse,
+    MsaEntitiesResponse,
+    MsaReplyMetaOnly,
+} from "../models";
 import {
+    ApiActionRespV1FromJSON,
+    ApiActionRespV1ToJSON,
     ApiIndicatorCreateReqsV1FromJSON,
     ApiIndicatorCreateReqsV1ToJSON,
     ApiIndicatorQueryRespV1FromJSON,
@@ -25,9 +39,36 @@ import {
     ApiIndicatorRespV1ToJSON,
     ApiIndicatorUpdateReqsV1FromJSON,
     ApiIndicatorUpdateReqsV1ToJSON,
+    ApiIndicatorsReportRequestFromJSON,
+    ApiIndicatorsReportRequestToJSON,
+    MsaAggregateQueryRequestFromJSON,
+    MsaAggregateQueryRequestToJSON,
+    MsaAggregatesResponseFromJSON,
+    MsaAggregatesResponseToJSON,
+    MsaEntitiesResponseFromJSON,
+    MsaEntitiesResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
 } from "../models";
+
+export interface ActionGetV1Request {
+    ids?: Array<string>;
+}
+
+export interface ActionQueryV1Request {
+    offset?: string;
+    limit?: number;
+}
+
+export interface GetIndicatorsReportRequest {
+    body: ApiIndicatorsReportRequest;
+}
+
+export interface IndicatorAggregateV1Request {
+    body: MsaAggregateQueryRequest;
+    filter?: string;
+    fromParent?: boolean;
+}
 
 export interface IndicatorCombinedV1Request {
     filter?: string;
@@ -68,10 +109,195 @@ export interface IndicatorUpdateV1Request {
     ignoreWarnings?: boolean;
 }
 
+export interface IocTypeQueryV1Request {
+    offset?: string;
+    limit?: number;
+}
+
+export interface PlatformQueryV1Request {
+    offset?: string;
+    limit?: number;
+}
+
+export interface SeverityQueryV1Request {
+    offset?: string;
+    limit?: number;
+}
+
 /**
  *
  */
 export class IocApi extends runtime.BaseAPI {
+    /**
+     * Get Actions by ids.
+     */
+    async actionGetV1Raw(requestParameters: ActionGetV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiActionRespV1>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.ids) {
+            queryParameters["ids"] = requestParameters.ids.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/iocs/entities/actions/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiActionRespV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Get Actions by ids.
+     */
+    async actionGetV1(ids?: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiActionRespV1> {
+        const response = await this.actionGetV1Raw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Query Actions.
+     */
+    async actionQueryV1Raw(requestParameters: ActionQueryV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorQueryRespV1>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/iocs/queries/actions/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiIndicatorQueryRespV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Query Actions.
+     */
+    async actionQueryV1(offset?: string, limit?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiIndicatorQueryRespV1> {
+        const response = await this.actionQueryV1Raw({ offset: offset, limit: limit }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Launch an indicators report creation job
+     */
+    async getIndicatorsReportRaw(requestParameters: GetIndicatorsReportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaEntitiesResponse>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling getIndicatorsReport.");
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/iocs/entities/indicators-reports/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiIndicatorsReportRequestToJSON(requestParameters.body),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaEntitiesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Launch an indicators report creation job
+     */
+    async getIndicatorsReport(body: ApiIndicatorsReportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaEntitiesResponse> {
+        const response = await this.getIndicatorsReportRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get Indicators aggregates as specified via json in the request body.
+     */
+    async indicatorAggregateV1Raw(requestParameters: IndicatorAggregateV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling indicatorAggregateV1.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        if (requestParameters.fromParent !== undefined) {
+            queryParameters["from_parent"] = requestParameters.fromParent;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/iocs/aggregates/indicators/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: MsaAggregateQueryRequestToJSON(requestParameters.body),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get Indicators aggregates as specified via json in the request body.
+     */
+    async indicatorAggregateV1(body: MsaAggregateQueryRequest, filter?: string, fromParent?: boolean, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaAggregatesResponse> {
+        const response = await this.indicatorAggregateV1Raw({ body: body, filter: filter, fromParent: fromParent }, initOverrides);
+        return await response.value();
+    }
+
     /**
      * Get Combined for Indicators.
      */
@@ -382,6 +608,132 @@ export class IocApi extends runtime.BaseAPI {
      */
     async indicatorUpdateV1(body: ApiIndicatorUpdateReqsV1, retrodetects?: boolean, ignoreWarnings?: boolean, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiIndicatorRespV1> {
         const response = await this.indicatorUpdateV1Raw({ body: body, retrodetects: retrodetects, ignoreWarnings: ignoreWarnings }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Query IOC Types.
+     */
+    async iocTypeQueryV1Raw(requestParameters: IocTypeQueryV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorQueryRespV1>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/iocs/queries/ioc-types/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiIndicatorQueryRespV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Query IOC Types.
+     */
+    async iocTypeQueryV1(offset?: string, limit?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiIndicatorQueryRespV1> {
+        const response = await this.iocTypeQueryV1Raw({ offset: offset, limit: limit }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Query Platforms.
+     */
+    async platformQueryV1Raw(requestParameters: PlatformQueryV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorQueryRespV1>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/iocs/queries/platforms/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiIndicatorQueryRespV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Query Platforms.
+     */
+    async platformQueryV1(offset?: string, limit?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiIndicatorQueryRespV1> {
+        const response = await this.platformQueryV1Raw({ offset: offset, limit: limit }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Query Severities.
+     */
+    async severityQueryV1Raw(requestParameters: SeverityQueryV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorQueryRespV1>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/iocs/queries/severities/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiIndicatorQueryRespV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Query Severities.
+     */
+    async severityQueryV1(offset?: string, limit?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiIndicatorQueryRespV1> {
+        const response = await this.severityQueryV1Raw({ offset: offset, limit: limit }, initOverrides);
         return await response.value();
     }
 }
