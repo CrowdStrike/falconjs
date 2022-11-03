@@ -42,6 +42,12 @@ export interface FwmgrApiRuleGroupCreateRequestV1 {
     name: string;
     /**
      *
+     * @type {string}
+     * @memberof FwmgrApiRuleGroupCreateRequestV1
+     */
+    platform: string;
+    /**
+     *
      * @type {Array<FwmgrApiRuleCreateRequestV1>}
      * @memberof FwmgrApiRuleGroupCreateRequestV1
      */
@@ -56,6 +62,7 @@ export function instanceOfFwmgrApiRuleGroupCreateRequestV1(value: object): boole
     isInstance = isInstance && "description" in value;
     isInstance = isInstance && "enabled" in value;
     isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "platform" in value;
     isInstance = isInstance && "rules" in value;
 
     return isInstance;
@@ -73,6 +80,7 @@ export function FwmgrApiRuleGroupCreateRequestV1FromJSONTyped(json: any, ignoreD
         description: json["description"],
         enabled: json["enabled"],
         name: json["name"],
+        platform: json["platform"],
         rules: (json["rules"] as Array<any>).map(FwmgrApiRuleCreateRequestV1FromJSON),
     };
 }
@@ -88,6 +96,7 @@ export function FwmgrApiRuleGroupCreateRequestV1ToJSON(value?: FwmgrApiRuleGroup
         description: value.description,
         enabled: value.enabled,
         name: value.name,
+        platform: value.platform,
         rules: (value.rules as Array<any>).map(FwmgrApiRuleCreateRequestV1ToJSON),
     };
 }

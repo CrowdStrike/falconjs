@@ -45,6 +45,12 @@ export interface FwmgrApiPolicyContainerUpsertRequestV1 {
     isDefaultPolicy?: boolean;
     /**
      *
+     * @type {boolean}
+     * @memberof FwmgrApiPolicyContainerUpsertRequestV1
+     */
+    localLogging: boolean;
+    /**
+     *
      * @type {string}
      * @memberof FwmgrApiPolicyContainerUpsertRequestV1
      */
@@ -83,6 +89,7 @@ export function instanceOfFwmgrApiPolicyContainerUpsertRequestV1(value: object):
     isInstance = isInstance && "defaultInbound" in value;
     isInstance = isInstance && "defaultOutbound" in value;
     isInstance = isInstance && "enforce" in value;
+    isInstance = isInstance && "localLogging" in value;
     isInstance = isInstance && "platformId" in value;
     isInstance = isInstance && "policyId" in value;
     isInstance = isInstance && "ruleGroupIds" in value;
@@ -104,6 +111,7 @@ export function FwmgrApiPolicyContainerUpsertRequestV1FromJSONTyped(json: any, i
         defaultOutbound: json["default_outbound"],
         enforce: json["enforce"],
         isDefaultPolicy: !exists(json, "is_default_policy") ? undefined : json["is_default_policy"],
+        localLogging: json["local_logging"],
         platformId: json["platform_id"],
         policyId: json["policy_id"],
         ruleGroupIds: json["rule_group_ids"],
@@ -124,6 +132,7 @@ export function FwmgrApiPolicyContainerUpsertRequestV1ToJSON(value?: FwmgrApiPol
         default_outbound: value.defaultOutbound,
         enforce: value.enforce,
         is_default_policy: value.isDefaultPolicy,
+        local_logging: value.localLogging,
         platform_id: value.platformId,
         policy_id: value.policyId,
         rule_group_ids: value.ruleGroupIds,

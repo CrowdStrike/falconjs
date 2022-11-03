@@ -13,6 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
+import type { FwmgrApiFilepathTestResult } from "./FwmgrApiFilepathTestResult";
+import { FwmgrApiFilepathTestResultFromJSON, FwmgrApiFilepathTestResultFromJSONTyped, FwmgrApiFilepathTestResultToJSON } from "./FwmgrApiFilepathTestResult";
 import type { FwmgrMsaspecError } from "./FwmgrMsaspecError";
 import { FwmgrMsaspecErrorFromJSON, FwmgrMsaspecErrorFromJSONTyped, FwmgrMsaspecErrorToJSON } from "./FwmgrMsaspecError";
 import type { FwmgrMsaspecMetaInfo } from "./FwmgrMsaspecMetaInfo";
@@ -21,48 +23,56 @@ import { FwmgrMsaspecMetaInfoFromJSON, FwmgrMsaspecMetaInfoFromJSONTyped, FwmgrM
 /**
  *
  * @export
- * @interface FwmgrMsaReplyMetaOnly
+ * @interface FwmgrApiValidateFilepathResponse
  */
-export interface FwmgrMsaReplyMetaOnly {
+export interface FwmgrApiValidateFilepathResponse {
     /**
      *
      * @type {Array<FwmgrMsaspecError>}
-     * @memberof FwmgrMsaReplyMetaOnly
+     * @memberof FwmgrApiValidateFilepathResponse
      */
     errors?: Array<FwmgrMsaspecError>;
     /**
      *
      * @type {FwmgrMsaspecMetaInfo}
-     * @memberof FwmgrMsaReplyMetaOnly
+     * @memberof FwmgrApiValidateFilepathResponse
      */
     meta: FwmgrMsaspecMetaInfo;
+    /**
+     *
+     * @type {Array<FwmgrApiFilepathTestResult>}
+     * @memberof FwmgrApiValidateFilepathResponse
+     */
+    resources: Array<FwmgrApiFilepathTestResult>;
 }
 
 /**
- * Check if a given object implements the FwmgrMsaReplyMetaOnly interface.
+ * Check if a given object implements the FwmgrApiValidateFilepathResponse interface.
  */
-export function instanceOfFwmgrMsaReplyMetaOnly(value: object): boolean {
+export function instanceOfFwmgrApiValidateFilepathResponse(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
 
     return isInstance;
 }
 
-export function FwmgrMsaReplyMetaOnlyFromJSON(json: any): FwmgrMsaReplyMetaOnly {
-    return FwmgrMsaReplyMetaOnlyFromJSONTyped(json, false);
+export function FwmgrApiValidateFilepathResponseFromJSON(json: any): FwmgrApiValidateFilepathResponse {
+    return FwmgrApiValidateFilepathResponseFromJSONTyped(json, false);
 }
 
-export function FwmgrMsaReplyMetaOnlyFromJSONTyped(json: any, ignoreDiscriminator: boolean): FwmgrMsaReplyMetaOnly {
+export function FwmgrApiValidateFilepathResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): FwmgrApiValidateFilepathResponse {
     if (json === undefined || json === null) {
         return json;
     }
     return {
         errors: !exists(json, "errors") ? undefined : (json["errors"] as Array<any>).map(FwmgrMsaspecErrorFromJSON),
         meta: FwmgrMsaspecMetaInfoFromJSON(json["meta"]),
+        resources: (json["resources"] as Array<any>).map(FwmgrApiFilepathTestResultFromJSON),
     };
 }
 
-export function FwmgrMsaReplyMetaOnlyToJSON(value?: FwmgrMsaReplyMetaOnly | null): any {
+export function FwmgrApiValidateFilepathResponseToJSON(value?: FwmgrApiValidateFilepathResponse | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -72,5 +82,6 @@ export function FwmgrMsaReplyMetaOnlyToJSON(value?: FwmgrMsaReplyMetaOnly | null
     return {
         errors: value.errors === undefined ? undefined : (value.errors as Array<any>).map(FwmgrMsaspecErrorToJSON),
         meta: FwmgrMsaspecMetaInfoToJSON(value.meta),
+        resources: (value.resources as Array<any>).map(FwmgrApiFilepathTestResultToJSON),
     };
 }

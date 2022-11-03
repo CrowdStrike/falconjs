@@ -104,12 +104,6 @@ export interface FwmgrApiRuleCreateRequestV1 {
     name: string;
     /**
      *
-     * @type {Array<string>}
-     * @memberof FwmgrApiRuleCreateRequestV1
-     */
-    platformIds: Array<string>;
-    /**
-     *
      * @type {string}
      * @memberof FwmgrApiRuleCreateRequestV1
      */
@@ -151,7 +145,6 @@ export function instanceOfFwmgrApiRuleCreateRequestV1(value: object): boolean {
     isInstance = isInstance && "log" in value;
     isInstance = isInstance && "monitor" in value;
     isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "platformIds" in value;
     isInstance = isInstance && "protocol" in value;
     isInstance = isInstance && "remoteAddress" in value;
     isInstance = isInstance && "remotePort" in value;
@@ -181,7 +174,6 @@ export function FwmgrApiRuleCreateRequestV1FromJSONTyped(json: any, ignoreDiscri
         log: json["log"],
         monitor: FwmgrDomainMonitoringFromJSON(json["monitor"]),
         name: json["name"],
-        platformIds: json["platform_ids"],
         protocol: json["protocol"],
         remoteAddress: (json["remote_address"] as Array<any>).map(FwmgrDomainAddressRangeFromJSON),
         remotePort: (json["remote_port"] as Array<any>).map(FwmgrDomainPortRangeFromJSON),
@@ -209,7 +201,6 @@ export function FwmgrApiRuleCreateRequestV1ToJSON(value?: FwmgrApiRuleCreateRequ
         log: value.log,
         monitor: FwmgrDomainMonitoringToJSON(value.monitor),
         name: value.name,
-        platform_ids: value.platformIds,
         protocol: value.protocol,
         remote_address: (value.remoteAddress as Array<any>).map(FwmgrDomainAddressRangeToJSON),
         remote_port: (value.remotePort as Array<any>).map(FwmgrDomainPortRangeToJSON),
