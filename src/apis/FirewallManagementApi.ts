@@ -16,6 +16,7 @@ import * as runtime from "../runtime";
 import type {
     FwmgrApiAggregatesResponse,
     FwmgrApiEventsResponse,
+    FwmgrApiFilepathTestRequest,
     FwmgrApiFirewallFieldsResponse,
     FwmgrApiPlatformsResponse,
     FwmgrApiPolicyContainerUpsertRequestV1,
@@ -25,6 +26,7 @@ import type {
     FwmgrApiRuleGroupModifyRequestV1,
     FwmgrApiRuleGroupsResponse,
     FwmgrApiRulesResponse,
+    FwmgrApiValidateFilepathResponse,
     FwmgrMsaAggregateQueryRequest,
     FwmgrMsaQueryResponse,
     FwmgrMsaReplyMetaOnly,
@@ -35,6 +37,8 @@ import {
     FwmgrApiAggregatesResponseToJSON,
     FwmgrApiEventsResponseFromJSON,
     FwmgrApiEventsResponseToJSON,
+    FwmgrApiFilepathTestRequestFromJSON,
+    FwmgrApiFilepathTestRequestToJSON,
     FwmgrApiFirewallFieldsResponseFromJSON,
     FwmgrApiFirewallFieldsResponseToJSON,
     FwmgrApiPlatformsResponseFromJSON,
@@ -53,6 +57,8 @@ import {
     FwmgrApiRuleGroupsResponseToJSON,
     FwmgrApiRulesResponseFromJSON,
     FwmgrApiRulesResponseToJSON,
+    FwmgrApiValidateFilepathResponseFromJSON,
+    FwmgrApiValidateFilepathResponseToJSON,
     FwmgrMsaAggregateQueryRequestFromJSON,
     FwmgrMsaAggregateQueryRequestToJSON,
     FwmgrMsaQueryResponseFromJSON,
@@ -80,6 +86,13 @@ export interface AggregateRulesRequest {
 }
 
 export interface CreateRuleGroupRequest {
+    body: FwmgrApiRuleGroupCreateRequestV1;
+    cloneId?: string;
+    library?: string;
+    comment?: string;
+}
+
+export interface CreateRuleGroupValidationRequest {
     body: FwmgrApiRuleGroupCreateRequestV1;
     cloneId?: string;
     library?: string;
@@ -166,9 +179,22 @@ export interface UpdatePolicyContainerRequest {
     body: FwmgrApiPolicyContainerUpsertRequestV1;
 }
 
+export interface UpdatePolicyContainer0Request {
+    body: FwmgrApiPolicyContainerUpsertRequestV1;
+}
+
 export interface UpdateRuleGroupRequest {
     body: FwmgrApiRuleGroupModifyRequestV1;
     comment?: string;
+}
+
+export interface UpdateRuleGroupValidationRequest {
+    body: FwmgrApiRuleGroupModifyRequestV1;
+    comment?: string;
+}
+
+export interface ValidateFilepathPatternRequest {
+    body: FwmgrApiFilepathTestRequest;
 }
 
 /**
@@ -398,6 +424,68 @@ export class FirewallManagementApi extends runtime.BaseAPI {
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<FwmgrApiQueryResponse> {
         const response = await this.createRuleGroupRaw({ body: body, cloneId: cloneId, library: library, comment: comment }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Validates the request of creating a new rule group on a platform for a customer with a name and description
+     */
+    async createRuleGroupValidationRaw(
+        requestParameters: CreateRuleGroupValidationRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<FwmgrMsaQueryResponse>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createRuleGroupValidation.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.cloneId !== undefined) {
+            queryParameters["clone_id"] = requestParameters.cloneId;
+        }
+
+        if (requestParameters.library !== undefined) {
+            queryParameters["library"] = requestParameters.library;
+        }
+
+        if (requestParameters.comment !== undefined) {
+            queryParameters["comment"] = requestParameters.comment;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/fwmgr/entities/rule-groups/validation/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: FwmgrApiRuleGroupCreateRequestV1ToJSON(requestParameters.body),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => FwmgrMsaQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Validates the request of creating a new rule group on a platform for a customer with a name and description
+     */
+    async createRuleGroupValidation(
+        body: FwmgrApiRuleGroupCreateRequestV1,
+        cloneId?: string,
+        library?: string,
+        comment?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<FwmgrMsaQueryResponse> {
+        const response = await this.createRuleGroupValidationRaw({ body: body, cloneId: cloneId, library: library, comment: comment }, initOverrides);
         return await response.value();
     }
 
@@ -1096,6 +1184,50 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     }
 
     /**
+     * Update an identified policy container, including local logging functionality.
+     */
+    async updatePolicyContainer_1Raw(
+        requestParameters: UpdatePolicyContainer0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<FwmgrMsaReplyMetaOnly>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updatePolicyContainer_1.");
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/fwmgr/entities/policies/v2`,
+                method: "PUT",
+                headers: headerParameters,
+                query: queryParameters,
+                body: FwmgrApiPolicyContainerUpsertRequestV1ToJSON(requestParameters.body),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => FwmgrMsaReplyMetaOnlyFromJSON(jsonValue));
+    }
+
+    /**
+     * Update an identified policy container, including local logging functionality.
+     */
+    async updatePolicyContainer_1(body: FwmgrApiPolicyContainerUpsertRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FwmgrMsaReplyMetaOnly> {
+        const response = await this.updatePolicyContainer_1Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Update name, description, or enabled status of a rule group, or create, edit, delete, or reorder rules
      */
     async updateRuleGroupRaw(requestParameters: UpdateRuleGroupRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FwmgrApiQueryResponse>> {
@@ -1137,6 +1269,98 @@ export class FirewallManagementApi extends runtime.BaseAPI {
      */
     async updateRuleGroup(body: FwmgrApiRuleGroupModifyRequestV1, comment?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FwmgrApiQueryResponse> {
         const response = await this.updateRuleGroupRaw({ body: body, comment: comment }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Validates the request of updating name, description, or enabled status of a rule group, or create, edit, delete, or reorder rules
+     */
+    async updateRuleGroupValidationRaw(
+        requestParameters: UpdateRuleGroupValidationRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<FwmgrMsaQueryResponse>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateRuleGroupValidation.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.comment !== undefined) {
+            queryParameters["comment"] = requestParameters.comment;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/fwmgr/entities/rule-groups/validation/v1`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+                body: FwmgrApiRuleGroupModifyRequestV1ToJSON(requestParameters.body),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => FwmgrMsaQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Validates the request of updating name, description, or enabled status of a rule group, or create, edit, delete, or reorder rules
+     */
+    async updateRuleGroupValidation(body: FwmgrApiRuleGroupModifyRequestV1, comment?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FwmgrMsaQueryResponse> {
+        const response = await this.updateRuleGroupValidationRaw({ body: body, comment: comment }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Validates that the test pattern matches the executable filepath glob pattern.
+     */
+    async validateFilepathPatternRaw(
+        requestParameters: ValidateFilepathPatternRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<FwmgrApiValidateFilepathResponse>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling validateFilepathPattern.");
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/fwmgr/entities/rules/validate-filepath/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: FwmgrApiFilepathTestRequestToJSON(requestParameters.body),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => FwmgrApiValidateFilepathResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Validates that the test pattern matches the executable filepath glob pattern.
+     */
+    async validateFilepathPattern(body: FwmgrApiFilepathTestRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FwmgrApiValidateFilepathResponse> {
+        const response = await this.validateFilepathPatternRaw({ body: body }, initOverrides);
         return await response.value();
     }
 }

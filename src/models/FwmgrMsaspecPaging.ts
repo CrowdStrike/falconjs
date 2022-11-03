@@ -13,56 +13,60 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import type { FwmgrMsaspecError } from "./FwmgrMsaspecError";
-import { FwmgrMsaspecErrorFromJSON, FwmgrMsaspecErrorFromJSONTyped, FwmgrMsaspecErrorToJSON } from "./FwmgrMsaspecError";
-import type { FwmgrMsaspecMetaInfo } from "./FwmgrMsaspecMetaInfo";
-import { FwmgrMsaspecMetaInfoFromJSON, FwmgrMsaspecMetaInfoFromJSONTyped, FwmgrMsaspecMetaInfoToJSON } from "./FwmgrMsaspecMetaInfo";
-
 /**
  *
  * @export
- * @interface FwmgrMsaReplyMetaOnly
+ * @interface FwmgrMsaspecPaging
  */
-export interface FwmgrMsaReplyMetaOnly {
+export interface FwmgrMsaspecPaging {
     /**
      *
-     * @type {Array<FwmgrMsaspecError>}
-     * @memberof FwmgrMsaReplyMetaOnly
+     * @type {number}
+     * @memberof FwmgrMsaspecPaging
      */
-    errors?: Array<FwmgrMsaspecError>;
+    limit: number;
     /**
      *
-     * @type {FwmgrMsaspecMetaInfo}
-     * @memberof FwmgrMsaReplyMetaOnly
+     * @type {number}
+     * @memberof FwmgrMsaspecPaging
      */
-    meta: FwmgrMsaspecMetaInfo;
+    offset: number;
+    /**
+     *
+     * @type {number}
+     * @memberof FwmgrMsaspecPaging
+     */
+    total: number;
 }
 
 /**
- * Check if a given object implements the FwmgrMsaReplyMetaOnly interface.
+ * Check if a given object implements the FwmgrMsaspecPaging interface.
  */
-export function instanceOfFwmgrMsaReplyMetaOnly(value: object): boolean {
+export function instanceOfFwmgrMsaspecPaging(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "limit" in value;
+    isInstance = isInstance && "offset" in value;
+    isInstance = isInstance && "total" in value;
 
     return isInstance;
 }
 
-export function FwmgrMsaReplyMetaOnlyFromJSON(json: any): FwmgrMsaReplyMetaOnly {
-    return FwmgrMsaReplyMetaOnlyFromJSONTyped(json, false);
+export function FwmgrMsaspecPagingFromJSON(json: any): FwmgrMsaspecPaging {
+    return FwmgrMsaspecPagingFromJSONTyped(json, false);
 }
 
-export function FwmgrMsaReplyMetaOnlyFromJSONTyped(json: any, ignoreDiscriminator: boolean): FwmgrMsaReplyMetaOnly {
+export function FwmgrMsaspecPagingFromJSONTyped(json: any, ignoreDiscriminator: boolean): FwmgrMsaspecPaging {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        errors: !exists(json, "errors") ? undefined : (json["errors"] as Array<any>).map(FwmgrMsaspecErrorFromJSON),
-        meta: FwmgrMsaspecMetaInfoFromJSON(json["meta"]),
+        limit: json["limit"],
+        offset: json["offset"],
+        total: json["total"],
     };
 }
 
-export function FwmgrMsaReplyMetaOnlyToJSON(value?: FwmgrMsaReplyMetaOnly | null): any {
+export function FwmgrMsaspecPagingToJSON(value?: FwmgrMsaspecPaging | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -70,7 +74,8 @@ export function FwmgrMsaReplyMetaOnlyToJSON(value?: FwmgrMsaReplyMetaOnly | null
         return null;
     }
     return {
-        errors: value.errors === undefined ? undefined : (value.errors as Array<any>).map(FwmgrMsaspecErrorToJSON),
-        meta: FwmgrMsaspecMetaInfoToJSON(value.meta),
+        limit: value.limit,
+        offset: value.offset,
+        total: value.total,
     };
 }

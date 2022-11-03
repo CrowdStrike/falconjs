@@ -13,56 +13,44 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import type { FwmgrMsaspecError } from "./FwmgrMsaspecError";
-import { FwmgrMsaspecErrorFromJSON, FwmgrMsaspecErrorFromJSONTyped, FwmgrMsaspecErrorToJSON } from "./FwmgrMsaspecError";
-import type { FwmgrMsaspecMetaInfo } from "./FwmgrMsaspecMetaInfo";
-import { FwmgrMsaspecMetaInfoFromJSON, FwmgrMsaspecMetaInfoFromJSONTyped, FwmgrMsaspecMetaInfoToJSON } from "./FwmgrMsaspecMetaInfo";
-
 /**
  *
  * @export
- * @interface FwmgrMsaReplyMetaOnly
+ * @interface FwmgrMsaspecWrites
  */
-export interface FwmgrMsaReplyMetaOnly {
+export interface FwmgrMsaspecWrites {
     /**
      *
-     * @type {Array<FwmgrMsaspecError>}
-     * @memberof FwmgrMsaReplyMetaOnly
+     * @type {number}
+     * @memberof FwmgrMsaspecWrites
      */
-    errors?: Array<FwmgrMsaspecError>;
-    /**
-     *
-     * @type {FwmgrMsaspecMetaInfo}
-     * @memberof FwmgrMsaReplyMetaOnly
-     */
-    meta: FwmgrMsaspecMetaInfo;
+    resourcesAffected: number;
 }
 
 /**
- * Check if a given object implements the FwmgrMsaReplyMetaOnly interface.
+ * Check if a given object implements the FwmgrMsaspecWrites interface.
  */
-export function instanceOfFwmgrMsaReplyMetaOnly(value: object): boolean {
+export function instanceOfFwmgrMsaspecWrites(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resourcesAffected" in value;
 
     return isInstance;
 }
 
-export function FwmgrMsaReplyMetaOnlyFromJSON(json: any): FwmgrMsaReplyMetaOnly {
-    return FwmgrMsaReplyMetaOnlyFromJSONTyped(json, false);
+export function FwmgrMsaspecWritesFromJSON(json: any): FwmgrMsaspecWrites {
+    return FwmgrMsaspecWritesFromJSONTyped(json, false);
 }
 
-export function FwmgrMsaReplyMetaOnlyFromJSONTyped(json: any, ignoreDiscriminator: boolean): FwmgrMsaReplyMetaOnly {
+export function FwmgrMsaspecWritesFromJSONTyped(json: any, ignoreDiscriminator: boolean): FwmgrMsaspecWrites {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        errors: !exists(json, "errors") ? undefined : (json["errors"] as Array<any>).map(FwmgrMsaspecErrorFromJSON),
-        meta: FwmgrMsaspecMetaInfoFromJSON(json["meta"]),
+        resourcesAffected: json["resources_affected"],
     };
 }
 
-export function FwmgrMsaReplyMetaOnlyToJSON(value?: FwmgrMsaReplyMetaOnly | null): any {
+export function FwmgrMsaspecWritesToJSON(value?: FwmgrMsaspecWrites | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -70,7 +58,6 @@ export function FwmgrMsaReplyMetaOnlyToJSON(value?: FwmgrMsaReplyMetaOnly | null
         return null;
     }
     return {
-        errors: value.errors === undefined ? undefined : (value.errors as Array<any>).map(FwmgrMsaspecErrorToJSON),
-        meta: FwmgrMsaspecMetaInfoToJSON(value.meta),
+        resources_affected: value.resourcesAffected,
     };
 }

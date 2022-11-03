@@ -13,10 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import type { FwmgrMsaAPIError } from "./FwmgrMsaAPIError";
-import { FwmgrMsaAPIErrorFromJSON, FwmgrMsaAPIErrorFromJSONTyped, FwmgrMsaAPIErrorToJSON } from "./FwmgrMsaAPIError";
-import type { FwmgrMsaMetaInfo } from "./FwmgrMsaMetaInfo";
-import { FwmgrMsaMetaInfoFromJSON, FwmgrMsaMetaInfoFromJSONTyped, FwmgrMsaMetaInfoToJSON } from "./FwmgrMsaMetaInfo";
+import type { FwmgrMsaspecError } from "./FwmgrMsaspecError";
+import { FwmgrMsaspecErrorFromJSON, FwmgrMsaspecErrorFromJSONTyped, FwmgrMsaspecErrorToJSON } from "./FwmgrMsaspecError";
+import type { FwmgrMsaspecMetaInfo } from "./FwmgrMsaspecMetaInfo";
+import { FwmgrMsaspecMetaInfoFromJSON, FwmgrMsaspecMetaInfoFromJSONTyped, FwmgrMsaspecMetaInfoToJSON } from "./FwmgrMsaspecMetaInfo";
 
 /**
  *
@@ -26,16 +26,16 @@ import { FwmgrMsaMetaInfoFromJSON, FwmgrMsaMetaInfoFromJSONTyped, FwmgrMsaMetaIn
 export interface FwmgrMsaQueryResponse {
     /**
      *
-     * @type {Array<FwmgrMsaAPIError>}
+     * @type {Array<FwmgrMsaspecError>}
      * @memberof FwmgrMsaQueryResponse
      */
-    errors: Array<FwmgrMsaAPIError>;
+    errors: Array<FwmgrMsaspecError>;
     /**
      *
-     * @type {FwmgrMsaMetaInfo}
+     * @type {FwmgrMsaspecMetaInfo}
      * @memberof FwmgrMsaQueryResponse
      */
-    meta: FwmgrMsaMetaInfo;
+    meta: FwmgrMsaspecMetaInfo;
     /**
      *
      * @type {Array<string>}
@@ -65,8 +65,8 @@ export function FwmgrMsaQueryResponseFromJSONTyped(json: any, ignoreDiscriminato
         return json;
     }
     return {
-        errors: (json["errors"] as Array<any>).map(FwmgrMsaAPIErrorFromJSON),
-        meta: FwmgrMsaMetaInfoFromJSON(json["meta"]),
+        errors: (json["errors"] as Array<any>).map(FwmgrMsaspecErrorFromJSON),
+        meta: FwmgrMsaspecMetaInfoFromJSON(json["meta"]),
         resources: json["resources"],
     };
 }
@@ -79,8 +79,8 @@ export function FwmgrMsaQueryResponseToJSON(value?: FwmgrMsaQueryResponse | null
         return null;
     }
     return {
-        errors: (value.errors as Array<any>).map(FwmgrMsaAPIErrorToJSON),
-        meta: FwmgrMsaMetaInfoToJSON(value.meta),
+        errors: (value.errors as Array<any>).map(FwmgrMsaspecErrorToJSON),
+        meta: FwmgrMsaspecMetaInfoToJSON(value.meta),
         resources: value.resources,
     };
 }
