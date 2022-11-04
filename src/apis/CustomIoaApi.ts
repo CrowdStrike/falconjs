@@ -1030,7 +1030,6 @@ export class CustomIoaApi extends runtime.BaseAPI {
 export const QueryRuleGroupsFullSortEnum = {
     CreatedBy: "created_by",
     CreatedOn: "created_on",
-    Description: "description",
     Enabled: "enabled",
     ModifiedBy: "modified_by",
     ModifiedOn: "modified_on",
@@ -1043,7 +1042,6 @@ export type QueryRuleGroupsFullSortEnum = typeof QueryRuleGroupsFullSortEnum[key
 export const QueryRuleGroupsMixin0SortEnum = {
     CreatedBy: "created_by",
     CreatedOn: "created_on",
-    Description: "description",
     Enabled: "enabled",
     ModifiedBy: "modified_by",
     ModifiedOn: "modified_on",

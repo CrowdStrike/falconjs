@@ -13,64 +13,65 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import type { FwmgrApiMetaInfo } from "./FwmgrApiMetaInfo";
-import { FwmgrApiMetaInfoFromJSON, FwmgrApiMetaInfoFromJSONTyped, FwmgrApiMetaInfoToJSON } from "./FwmgrApiMetaInfo";
-import type { FwmgrMsaspecError } from "./FwmgrMsaspecError";
-import { FwmgrMsaspecErrorFromJSON, FwmgrMsaspecErrorFromJSONTyped, FwmgrMsaspecErrorToJSON } from "./FwmgrMsaspecError";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *
  * @export
- * @interface FwmgrApiQueryResponse
+ * @interface RegistrationStaticScriptsResponse
  */
-export interface FwmgrApiQueryResponse {
+export interface RegistrationStaticScriptsResponse {
     /**
      *
-     * @type {Array<FwmgrMsaspecError>}
-     * @memberof FwmgrApiQueryResponse
+     * @type {Array<MsaAPIError>}
+     * @memberof RegistrationStaticScriptsResponse
      */
-    errors?: Array<FwmgrMsaspecError>;
+    errors: Array<MsaAPIError>;
     /**
      *
-     * @type {FwmgrApiMetaInfo}
-     * @memberof FwmgrApiQueryResponse
+     * @type {MsaMetaInfo}
+     * @memberof RegistrationStaticScriptsResponse
      */
-    meta: FwmgrApiMetaInfo;
+    meta: MsaMetaInfo;
     /**
      *
-     * @type {Array<string>}
-     * @memberof FwmgrApiQueryResponse
+     * @type {Array<object>}
+     * @memberof RegistrationStaticScriptsResponse
      */
-    resources: Array<string>;
+    resources: Array<object>;
 }
 
 /**
- * Check if a given object implements the FwmgrApiQueryResponse interface.
+ * Check if a given object implements the RegistrationStaticScriptsResponse interface.
  */
-export function instanceOfFwmgrApiQueryResponse(value: object): boolean {
+export function instanceOfRegistrationStaticScriptsResponse(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "errors" in value;
     isInstance = isInstance && "meta" in value;
     isInstance = isInstance && "resources" in value;
 
     return isInstance;
 }
 
-export function FwmgrApiQueryResponseFromJSON(json: any): FwmgrApiQueryResponse {
-    return FwmgrApiQueryResponseFromJSONTyped(json, false);
+export function RegistrationStaticScriptsResponseFromJSON(json: any): RegistrationStaticScriptsResponse {
+    return RegistrationStaticScriptsResponseFromJSONTyped(json, false);
 }
 
-export function FwmgrApiQueryResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): FwmgrApiQueryResponse {
+export function RegistrationStaticScriptsResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): RegistrationStaticScriptsResponse {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        errors: !exists(json, "errors") ? undefined : (json["errors"] as Array<any>).map(FwmgrMsaspecErrorFromJSON),
-        meta: FwmgrApiMetaInfoFromJSON(json["meta"]),
+        errors: (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
+        meta: MsaMetaInfoFromJSON(json["meta"]),
         resources: json["resources"],
     };
 }
 
-export function FwmgrApiQueryResponseToJSON(value?: FwmgrApiQueryResponse | null): any {
+export function RegistrationStaticScriptsResponseToJSON(value?: RegistrationStaticScriptsResponse | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -78,8 +79,8 @@ export function FwmgrApiQueryResponseToJSON(value?: FwmgrApiQueryResponse | null
         return null;
     }
     return {
-        errors: value.errors === undefined ? undefined : (value.errors as Array<any>).map(FwmgrMsaspecErrorToJSON),
-        meta: FwmgrApiMetaInfoToJSON(value.meta),
+        errors: (value.errors as Array<any>).map(MsaAPIErrorToJSON),
+        meta: MsaMetaInfoToJSON(value.meta),
         resources: value.resources,
     };
 }

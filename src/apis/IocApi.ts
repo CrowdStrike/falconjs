@@ -17,7 +17,6 @@ import type {
     ApiActionRespV1,
     ApiIndicatorCreateReqsV1,
     ApiIndicatorQueryRespV1,
-    ApiIndicatorQueryResponse,
     ApiIndicatorRespV1,
     ApiIndicatorUpdateReqsV1,
     ApiIndicatorsReportRequest,
@@ -33,8 +32,6 @@ import {
     ApiIndicatorCreateReqsV1ToJSON,
     ApiIndicatorQueryRespV1FromJSON,
     ApiIndicatorQueryRespV1ToJSON,
-    ApiIndicatorQueryResponseFromJSON,
-    ApiIndicatorQueryResponseToJSON,
     ApiIndicatorRespV1FromJSON,
     ApiIndicatorRespV1ToJSON,
     ApiIndicatorUpdateReqsV1FromJSON,
@@ -89,6 +86,7 @@ export interface IndicatorDeleteV1Request {
     filter?: string;
     ids?: Array<string>;
     comment?: string;
+    fromParent?: boolean;
 }
 
 export interface IndicatorGetV1Request {
@@ -416,7 +414,7 @@ export class IocApi extends runtime.BaseAPI {
     /**
      * Delete Indicators by ids.
      */
-    async indicatorDeleteV1Raw(requestParameters: IndicatorDeleteV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorQueryResponse>> {
+    async indicatorDeleteV1Raw(requestParameters: IndicatorDeleteV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorQueryRespV1>> {
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -429,6 +427,10 @@ export class IocApi extends runtime.BaseAPI {
 
         if (requestParameters.comment !== undefined) {
             queryParameters["comment"] = requestParameters.comment;
+        }
+
+        if (requestParameters.fromParent !== undefined) {
+            queryParameters["from_parent"] = requestParameters.fromParent;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -448,14 +450,20 @@ export class IocApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ApiIndicatorQueryResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiIndicatorQueryRespV1FromJSON(jsonValue));
     }
 
     /**
      * Delete Indicators by ids.
      */
-    async indicatorDeleteV1(filter?: string, ids?: Array<string>, comment?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiIndicatorQueryResponse> {
-        const response = await this.indicatorDeleteV1Raw({ filter: filter, ids: ids, comment: comment }, initOverrides);
+    async indicatorDeleteV1(
+        filter?: string,
+        ids?: Array<string>,
+        comment?: string,
+        fromParent?: boolean,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<ApiIndicatorQueryRespV1> {
+        const response = await this.indicatorDeleteV1Raw({ filter: filter, ids: ids, comment: comment, fromParent: fromParent }, initOverrides);
         return await response.value();
     }
 

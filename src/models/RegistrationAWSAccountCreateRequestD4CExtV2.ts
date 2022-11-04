@@ -13,64 +13,47 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import type { FwmgrApiMetaInfo } from "./FwmgrApiMetaInfo";
-import { FwmgrApiMetaInfoFromJSON, FwmgrApiMetaInfoFromJSONTyped, FwmgrApiMetaInfoToJSON } from "./FwmgrApiMetaInfo";
-import type { FwmgrMsaspecError } from "./FwmgrMsaspecError";
-import { FwmgrMsaspecErrorFromJSON, FwmgrMsaspecErrorFromJSONTyped, FwmgrMsaspecErrorToJSON } from "./FwmgrMsaspecError";
+import type { RegistrationAWSAccountD4CExtV2 } from "./RegistrationAWSAccountD4CExtV2";
+import { RegistrationAWSAccountD4CExtV2FromJSON, RegistrationAWSAccountD4CExtV2FromJSONTyped, RegistrationAWSAccountD4CExtV2ToJSON } from "./RegistrationAWSAccountD4CExtV2";
 
 /**
  *
  * @export
- * @interface FwmgrApiQueryResponse
+ * @interface RegistrationAWSAccountCreateRequestD4CExtV2
  */
-export interface FwmgrApiQueryResponse {
+export interface RegistrationAWSAccountCreateRequestD4CExtV2 {
     /**
      *
-     * @type {Array<FwmgrMsaspecError>}
-     * @memberof FwmgrApiQueryResponse
+     * @type {Array<RegistrationAWSAccountD4CExtV2>}
+     * @memberof RegistrationAWSAccountCreateRequestD4CExtV2
      */
-    errors?: Array<FwmgrMsaspecError>;
-    /**
-     *
-     * @type {FwmgrApiMetaInfo}
-     * @memberof FwmgrApiQueryResponse
-     */
-    meta: FwmgrApiMetaInfo;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof FwmgrApiQueryResponse
-     */
-    resources: Array<string>;
+    resources: Array<RegistrationAWSAccountD4CExtV2>;
 }
 
 /**
- * Check if a given object implements the FwmgrApiQueryResponse interface.
+ * Check if a given object implements the RegistrationAWSAccountCreateRequestD4CExtV2 interface.
  */
-export function instanceOfFwmgrApiQueryResponse(value: object): boolean {
+export function instanceOfRegistrationAWSAccountCreateRequestD4CExtV2(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "meta" in value;
     isInstance = isInstance && "resources" in value;
 
     return isInstance;
 }
 
-export function FwmgrApiQueryResponseFromJSON(json: any): FwmgrApiQueryResponse {
-    return FwmgrApiQueryResponseFromJSONTyped(json, false);
+export function RegistrationAWSAccountCreateRequestD4CExtV2FromJSON(json: any): RegistrationAWSAccountCreateRequestD4CExtV2 {
+    return RegistrationAWSAccountCreateRequestD4CExtV2FromJSONTyped(json, false);
 }
 
-export function FwmgrApiQueryResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): FwmgrApiQueryResponse {
+export function RegistrationAWSAccountCreateRequestD4CExtV2FromJSONTyped(json: any, ignoreDiscriminator: boolean): RegistrationAWSAccountCreateRequestD4CExtV2 {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        errors: !exists(json, "errors") ? undefined : (json["errors"] as Array<any>).map(FwmgrMsaspecErrorFromJSON),
-        meta: FwmgrApiMetaInfoFromJSON(json["meta"]),
-        resources: json["resources"],
+        resources: (json["resources"] as Array<any>).map(RegistrationAWSAccountD4CExtV2FromJSON),
     };
 }
 
-export function FwmgrApiQueryResponseToJSON(value?: FwmgrApiQueryResponse | null): any {
+export function RegistrationAWSAccountCreateRequestD4CExtV2ToJSON(value?: RegistrationAWSAccountCreateRequestD4CExtV2 | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -78,8 +61,6 @@ export function FwmgrApiQueryResponseToJSON(value?: FwmgrApiQueryResponse | null
         return null;
     }
     return {
-        errors: value.errors === undefined ? undefined : (value.errors as Array<any>).map(FwmgrMsaspecErrorToJSON),
-        meta: FwmgrApiMetaInfoToJSON(value.meta),
-        resources: value.resources,
+        resources: (value.resources as Array<any>).map(RegistrationAWSAccountD4CExtV2ToJSON),
     };
 }

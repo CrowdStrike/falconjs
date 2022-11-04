@@ -44,6 +44,18 @@ export interface FwmgrMsaAggregateQueryRequest {
     filter: string;
     /**
      *
+     * @type {number}
+     * @memberof FwmgrMsaAggregateQueryRequest
+     */
+    from: number;
+    /**
+     *
+     * @type {string}
+     * @memberof FwmgrMsaAggregateQueryRequest
+     */
+    include: string;
+    /**
+     *
      * @type {string}
      * @memberof FwmgrMsaAggregateQueryRequest
      */
@@ -118,6 +130,8 @@ export function instanceOfFwmgrMsaAggregateQueryRequest(value: object): boolean 
     isInstance = isInstance && "dateRanges" in value;
     isInstance = isInstance && "field" in value;
     isInstance = isInstance && "filter" in value;
+    isInstance = isInstance && "from" in value;
+    isInstance = isInstance && "include" in value;
     isInstance = isInstance && "interval" in value;
     isInstance = isInstance && "minDocCount" in value;
     isInstance = isInstance && "missing" in value;
@@ -145,6 +159,8 @@ export function FwmgrMsaAggregateQueryRequestFromJSONTyped(json: any, ignoreDisc
         dateRanges: (json["date_ranges"] as Array<any>).map(FwmgrMsaDateRangeSpecFromJSON),
         field: json["field"],
         filter: json["filter"],
+        from: json["from"],
+        include: json["include"],
         interval: json["interval"],
         minDocCount: json["min_doc_count"],
         missing: json["missing"],
@@ -170,6 +186,8 @@ export function FwmgrMsaAggregateQueryRequestToJSON(value?: FwmgrMsaAggregateQue
         date_ranges: (value.dateRanges as Array<any>).map(FwmgrMsaDateRangeSpecToJSON),
         field: value.field,
         filter: value.filter,
+        from: value.from,
+        include: value.include,
         interval: value.interval,
         min_doc_count: value.minDocCount,
         missing: value.missing,

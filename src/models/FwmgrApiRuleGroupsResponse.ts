@@ -15,10 +15,10 @@
 import { exists, mapValues } from "../runtime";
 import type { FwmgrApiRuleGroupV1 } from "./FwmgrApiRuleGroupV1";
 import { FwmgrApiRuleGroupV1FromJSON, FwmgrApiRuleGroupV1FromJSONTyped, FwmgrApiRuleGroupV1ToJSON } from "./FwmgrApiRuleGroupV1";
-import type { FwmgrMsaAPIError } from "./FwmgrMsaAPIError";
-import { FwmgrMsaAPIErrorFromJSON, FwmgrMsaAPIErrorFromJSONTyped, FwmgrMsaAPIErrorToJSON } from "./FwmgrMsaAPIError";
-import type { FwmgrMsaMetaInfo } from "./FwmgrMsaMetaInfo";
-import { FwmgrMsaMetaInfoFromJSON, FwmgrMsaMetaInfoFromJSONTyped, FwmgrMsaMetaInfoToJSON } from "./FwmgrMsaMetaInfo";
+import type { FwmgrMsaspecError } from "./FwmgrMsaspecError";
+import { FwmgrMsaspecErrorFromJSON, FwmgrMsaspecErrorFromJSONTyped, FwmgrMsaspecErrorToJSON } from "./FwmgrMsaspecError";
+import type { FwmgrMsaspecMetaInfo } from "./FwmgrMsaspecMetaInfo";
+import { FwmgrMsaspecMetaInfoFromJSON, FwmgrMsaspecMetaInfoFromJSONTyped, FwmgrMsaspecMetaInfoToJSON } from "./FwmgrMsaspecMetaInfo";
 
 /**
  *
@@ -28,16 +28,16 @@ import { FwmgrMsaMetaInfoFromJSON, FwmgrMsaMetaInfoFromJSONTyped, FwmgrMsaMetaIn
 export interface FwmgrApiRuleGroupsResponse {
     /**
      *
-     * @type {Array<FwmgrMsaAPIError>}
+     * @type {Array<FwmgrMsaspecError>}
      * @memberof FwmgrApiRuleGroupsResponse
      */
-    errors?: Array<FwmgrMsaAPIError>;
+    errors?: Array<FwmgrMsaspecError>;
     /**
      *
-     * @type {FwmgrMsaMetaInfo}
+     * @type {FwmgrMsaspecMetaInfo}
      * @memberof FwmgrApiRuleGroupsResponse
      */
-    meta: FwmgrMsaMetaInfo;
+    meta: FwmgrMsaspecMetaInfo;
     /**
      *
      * @type {Array<FwmgrApiRuleGroupV1>}
@@ -66,8 +66,8 @@ export function FwmgrApiRuleGroupsResponseFromJSONTyped(json: any, ignoreDiscrim
         return json;
     }
     return {
-        errors: !exists(json, "errors") ? undefined : (json["errors"] as Array<any>).map(FwmgrMsaAPIErrorFromJSON),
-        meta: FwmgrMsaMetaInfoFromJSON(json["meta"]),
+        errors: !exists(json, "errors") ? undefined : (json["errors"] as Array<any>).map(FwmgrMsaspecErrorFromJSON),
+        meta: FwmgrMsaspecMetaInfoFromJSON(json["meta"]),
         resources: (json["resources"] as Array<any>).map(FwmgrApiRuleGroupV1FromJSON),
     };
 }
@@ -80,8 +80,8 @@ export function FwmgrApiRuleGroupsResponseToJSON(value?: FwmgrApiRuleGroupsRespo
         return null;
     }
     return {
-        errors: value.errors === undefined ? undefined : (value.errors as Array<any>).map(FwmgrMsaAPIErrorToJSON),
-        meta: FwmgrMsaMetaInfoToJSON(value.meta),
+        errors: value.errors === undefined ? undefined : (value.errors as Array<any>).map(FwmgrMsaspecErrorToJSON),
+        meta: FwmgrMsaspecMetaInfoToJSON(value.meta),
         resources: (value.resources as Array<any>).map(FwmgrApiRuleGroupV1ToJSON),
     };
 }

@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import type { FwmgrMsaAPIError } from "./FwmgrMsaAPIError";
-import { FwmgrMsaAPIErrorFromJSON, FwmgrMsaAPIErrorFromJSONTyped, FwmgrMsaAPIErrorToJSON } from "./FwmgrMsaAPIError";
 import type { FwmgrMsaAggregationResult } from "./FwmgrMsaAggregationResult";
 import { FwmgrMsaAggregationResultFromJSON, FwmgrMsaAggregationResultFromJSONTyped, FwmgrMsaAggregationResultToJSON } from "./FwmgrMsaAggregationResult";
-import type { FwmgrMsaMetaInfo } from "./FwmgrMsaMetaInfo";
-import { FwmgrMsaMetaInfoFromJSON, FwmgrMsaMetaInfoFromJSONTyped, FwmgrMsaMetaInfoToJSON } from "./FwmgrMsaMetaInfo";
+import type { FwmgrMsaspecError } from "./FwmgrMsaspecError";
+import { FwmgrMsaspecErrorFromJSON, FwmgrMsaspecErrorFromJSONTyped, FwmgrMsaspecErrorToJSON } from "./FwmgrMsaspecError";
+import type { FwmgrMsaspecMetaInfo } from "./FwmgrMsaspecMetaInfo";
+import { FwmgrMsaspecMetaInfoFromJSON, FwmgrMsaspecMetaInfoFromJSONTyped, FwmgrMsaspecMetaInfoToJSON } from "./FwmgrMsaspecMetaInfo";
 
 /**
  *
@@ -28,16 +28,16 @@ import { FwmgrMsaMetaInfoFromJSON, FwmgrMsaMetaInfoFromJSONTyped, FwmgrMsaMetaIn
 export interface FwmgrApiAggregatesResponse {
     /**
      *
-     * @type {Array<FwmgrMsaAPIError>}
+     * @type {Array<FwmgrMsaspecError>}
      * @memberof FwmgrApiAggregatesResponse
      */
-    errors?: Array<FwmgrMsaAPIError>;
+    errors?: Array<FwmgrMsaspecError>;
     /**
      *
-     * @type {FwmgrMsaMetaInfo}
+     * @type {FwmgrMsaspecMetaInfo}
      * @memberof FwmgrApiAggregatesResponse
      */
-    meta: FwmgrMsaMetaInfo;
+    meta: FwmgrMsaspecMetaInfo;
     /**
      *
      * @type {Array<FwmgrMsaAggregationResult>}
@@ -66,8 +66,8 @@ export function FwmgrApiAggregatesResponseFromJSONTyped(json: any, ignoreDiscrim
         return json;
     }
     return {
-        errors: !exists(json, "errors") ? undefined : (json["errors"] as Array<any>).map(FwmgrMsaAPIErrorFromJSON),
-        meta: FwmgrMsaMetaInfoFromJSON(json["meta"]),
+        errors: !exists(json, "errors") ? undefined : (json["errors"] as Array<any>).map(FwmgrMsaspecErrorFromJSON),
+        meta: FwmgrMsaspecMetaInfoFromJSON(json["meta"]),
         resources: (json["resources"] as Array<any>).map(FwmgrMsaAggregationResultFromJSON),
     };
 }
@@ -80,8 +80,8 @@ export function FwmgrApiAggregatesResponseToJSON(value?: FwmgrApiAggregatesRespo
         return null;
     }
     return {
-        errors: value.errors === undefined ? undefined : (value.errors as Array<any>).map(FwmgrMsaAPIErrorToJSON),
-        meta: FwmgrMsaMetaInfoToJSON(value.meta),
+        errors: value.errors === undefined ? undefined : (value.errors as Array<any>).map(FwmgrMsaspecErrorToJSON),
+        meta: FwmgrMsaspecMetaInfoToJSON(value.meta),
         resources: (value.resources as Array<any>).map(FwmgrMsaAggregationResultToJSON),
     };
 }

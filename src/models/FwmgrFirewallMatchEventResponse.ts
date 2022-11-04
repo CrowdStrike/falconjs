@@ -141,6 +141,12 @@ export interface FwmgrFirewallMatchEventResponse {
      * @type {string}
      * @memberof FwmgrFirewallMatchEventResponse
      */
+    platform: string;
+    /**
+     *
+     * @type {string}
+     * @memberof FwmgrFirewallMatchEventResponse
+     */
     policyId: string;
     /**
      *
@@ -246,6 +252,7 @@ export function instanceOfFwmgrFirewallMatchEventResponse(value: object): boolea
     isInstance = isInstance && "matchCountSinceLastEvent" in value;
     isInstance = isInstance && "networkProfile" in value;
     isInstance = isInstance && "pid" in value;
+    isInstance = isInstance && "platform" in value;
     isInstance = isInstance && "policyId" in value;
     isInstance = isInstance && "policyName" in value;
     isInstance = isInstance && "protocol" in value;
@@ -292,6 +299,7 @@ export function FwmgrFirewallMatchEventResponseFromJSONTyped(json: any, ignoreDi
         matchCountSinceLastEvent: json["match_count_since_last_event"],
         networkProfile: json["network_profile"],
         pid: json["pid"],
+        platform: json["platform"],
         policyId: json["policy_id"],
         policyName: json["policy_name"],
         protocol: json["protocol"],
@@ -336,6 +344,7 @@ export function FwmgrFirewallMatchEventResponseToJSON(value?: FwmgrFirewallMatch
         match_count_since_last_event: value.matchCountSinceLastEvent,
         network_profile: value.networkProfile,
         pid: value.pid,
+        platform: value.platform,
         policy_id: value.policyId,
         policy_name: value.policyName,
         protocol: value.protocol,
