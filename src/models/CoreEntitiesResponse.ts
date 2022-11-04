@@ -13,41 +13,41 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import type { ApiIndicatorsQueryMeta } from "./ApiIndicatorsQueryMeta";
-import { ApiIndicatorsQueryMetaFromJSON, ApiIndicatorsQueryMetaFromJSONTyped, ApiIndicatorsQueryMetaToJSON } from "./ApiIndicatorsQueryMeta";
 import type { MsaAPIError } from "./MsaAPIError";
 import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *
  * @export
- * @interface ApiIndicatorQueryResponse
+ * @interface CoreEntitiesResponse
  */
-export interface ApiIndicatorQueryResponse {
+export interface CoreEntitiesResponse {
     /**
      *
      * @type {Array<MsaAPIError>}
-     * @memberof ApiIndicatorQueryResponse
+     * @memberof CoreEntitiesResponse
      */
     errors: Array<MsaAPIError>;
     /**
      *
-     * @type {ApiIndicatorsQueryMeta}
-     * @memberof ApiIndicatorQueryResponse
+     * @type {MsaMetaInfo}
+     * @memberof CoreEntitiesResponse
      */
-    meta: ApiIndicatorsQueryMeta;
+    meta: MsaMetaInfo;
     /**
      *
-     * @type {Array<string>}
-     * @memberof ApiIndicatorQueryResponse
+     * @type {object}
+     * @memberof CoreEntitiesResponse
      */
-    resources: Array<string>;
+    resources: object;
 }
 
 /**
- * Check if a given object implements the ApiIndicatorQueryResponse interface.
+ * Check if a given object implements the CoreEntitiesResponse interface.
  */
-export function instanceOfApiIndicatorQueryResponse(value: object): boolean {
+export function instanceOfCoreEntitiesResponse(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "errors" in value;
     isInstance = isInstance && "meta" in value;
@@ -56,22 +56,22 @@ export function instanceOfApiIndicatorQueryResponse(value: object): boolean {
     return isInstance;
 }
 
-export function ApiIndicatorQueryResponseFromJSON(json: any): ApiIndicatorQueryResponse {
-    return ApiIndicatorQueryResponseFromJSONTyped(json, false);
+export function CoreEntitiesResponseFromJSON(json: any): CoreEntitiesResponse {
+    return CoreEntitiesResponseFromJSONTyped(json, false);
 }
 
-export function ApiIndicatorQueryResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): ApiIndicatorQueryResponse {
+export function CoreEntitiesResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): CoreEntitiesResponse {
     if (json === undefined || json === null) {
         return json;
     }
     return {
         errors: (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
-        meta: ApiIndicatorsQueryMetaFromJSON(json["meta"]),
+        meta: MsaMetaInfoFromJSON(json["meta"]),
         resources: json["resources"],
     };
 }
 
-export function ApiIndicatorQueryResponseToJSON(value?: ApiIndicatorQueryResponse | null): any {
+export function CoreEntitiesResponseToJSON(value?: CoreEntitiesResponse | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -80,7 +80,7 @@ export function ApiIndicatorQueryResponseToJSON(value?: ApiIndicatorQueryRespons
     }
     return {
         errors: (value.errors as Array<any>).map(MsaAPIErrorToJSON),
-        meta: ApiIndicatorsQueryMetaToJSON(value.meta),
+        meta: MsaMetaInfoToJSON(value.meta),
         resources: value.resources,
     };
 }

@@ -179,7 +179,7 @@ export interface UpdatePolicyContainerRequest {
     body: FwmgrApiPolicyContainerUpsertRequestV1;
 }
 
-export interface UpdatePolicyContainer0Request {
+export interface UpdatePolicyContainerV1Request {
     body: FwmgrApiPolicyContainerUpsertRequestV1;
 }
 
@@ -1143,55 +1143,11 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update an identified policy container
+     * Update an identified policy container, including local logging functionality.
      */
     async updatePolicyContainerRaw(requestParameters: UpdatePolicyContainerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FwmgrMsaReplyMetaOnly>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updatePolicyContainer.");
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters["Content-Type"] = "application/json";
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
-        }
-
-        const response = await this.request(
-            {
-                path: `/fwmgr/entities/policies/v1`,
-                method: "PUT",
-                headers: headerParameters,
-                query: queryParameters,
-                body: FwmgrApiPolicyContainerUpsertRequestV1ToJSON(requestParameters.body),
-            },
-            initOverrides
-        );
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => FwmgrMsaReplyMetaOnlyFromJSON(jsonValue));
-    }
-
-    /**
-     * Update an identified policy container
-     */
-    async updatePolicyContainer(body: FwmgrApiPolicyContainerUpsertRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FwmgrMsaReplyMetaOnly> {
-        const response = await this.updatePolicyContainerRaw({ body: body }, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Update an identified policy container, including local logging functionality.
-     */
-    async updatePolicyContainer_1Raw(
-        requestParameters: UpdatePolicyContainer0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<FwmgrMsaReplyMetaOnly>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updatePolicyContainer_1.");
         }
 
         const queryParameters: any = {};
@@ -1222,8 +1178,52 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Update an identified policy container, including local logging functionality.
      */
-    async updatePolicyContainer_1(body: FwmgrApiPolicyContainerUpsertRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FwmgrMsaReplyMetaOnly> {
-        const response = await this.updatePolicyContainer_1Raw({ body: body }, initOverrides);
+    async updatePolicyContainer(body: FwmgrApiPolicyContainerUpsertRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FwmgrMsaReplyMetaOnly> {
+        const response = await this.updatePolicyContainerRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Update an identified policy container. WARNING: This endpoint is deprecated in favor of v2, using this endpoint could disable your local logging setting.
+     */
+    async updatePolicyContainerV1Raw(
+        requestParameters: UpdatePolicyContainerV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<FwmgrMsaReplyMetaOnly>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updatePolicyContainerV1.");
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/fwmgr/entities/policies/v1`,
+                method: "PUT",
+                headers: headerParameters,
+                query: queryParameters,
+                body: FwmgrApiPolicyContainerUpsertRequestV1ToJSON(requestParameters.body),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => FwmgrMsaReplyMetaOnlyFromJSON(jsonValue));
+    }
+
+    /**
+     * Update an identified policy container. WARNING: This endpoint is deprecated in favor of v2, using this endpoint could disable your local logging setting.
+     */
+    async updatePolicyContainerV1(body: FwmgrApiPolicyContainerUpsertRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FwmgrMsaReplyMetaOnly> {
+        const response = await this.updatePolicyContainerV1Raw({ body: body }, initOverrides);
         return await response.value();
     }
 

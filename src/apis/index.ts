@@ -11,6 +11,7 @@ export * from "./DiscoverApi";
 export * from "./EventStreamsApi";
 export * from "./FalconCompleteDashboardApi";
 export * from "./FalconContainerApi";
+export * from "./FalconContainerCliApi";
 export * from "./FalconxSandboxApi";
 export * from "./FilevantageApi";
 export * from "./FirewallManagementApi";

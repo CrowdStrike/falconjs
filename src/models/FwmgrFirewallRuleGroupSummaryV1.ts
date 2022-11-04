@@ -69,6 +69,12 @@ export interface FwmgrFirewallRuleGroupSummaryV1 {
     name: string;
     /**
      *
+     * @type {string}
+     * @memberof FwmgrFirewallRuleGroupSummaryV1
+     */
+    platform: string;
+    /**
+     *
      * @type {Array<string>}
      * @memberof FwmgrFirewallRuleGroupSummaryV1
      */
@@ -88,6 +94,7 @@ export function instanceOfFwmgrFirewallRuleGroupSummaryV1(value: object): boolea
     isInstance = isInstance && "modifiedBy" in value;
     isInstance = isInstance && "modifiedOn" in value;
     isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "platform" in value;
     isInstance = isInstance && "policyIds" in value;
 
     return isInstance;
@@ -110,6 +117,7 @@ export function FwmgrFirewallRuleGroupSummaryV1FromJSONTyped(json: any, ignoreDi
         modifiedBy: json["modified_by"],
         modifiedOn: json["modified_on"],
         name: json["name"],
+        platform: json["platform"],
         policyIds: json["policy_ids"],
     };
 }
@@ -130,6 +138,7 @@ export function FwmgrFirewallRuleGroupSummaryV1ToJSON(value?: FwmgrFirewallRuleG
         modified_by: value.modifiedBy,
         modified_on: value.modifiedOn,
         name: value.name,
+        platform: value.platform,
         policy_ids: value.policyIds,
     };
 }

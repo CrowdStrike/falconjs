@@ -81,6 +81,12 @@ export interface FwmgrApiRuleGroupV1 {
     name: string;
     /**
      *
+     * @type {string}
+     * @memberof FwmgrApiRuleGroupV1
+     */
+    platform: string;
+    /**
+     *
      * @type {Array<string>}
      * @memberof FwmgrApiRuleGroupV1
      */
@@ -114,6 +120,7 @@ export function instanceOfFwmgrApiRuleGroupV1(value: object): boolean {
     isInstance = isInstance && "modifiedBy" in value;
     isInstance = isInstance && "modifiedOn" in value;
     isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "platform" in value;
     isInstance = isInstance && "policyIds" in value;
     isInstance = isInstance && "ruleIds" in value;
     isInstance = isInstance && "tracking" in value;
@@ -140,6 +147,7 @@ export function FwmgrApiRuleGroupV1FromJSONTyped(json: any, ignoreDiscriminator:
         modifiedBy: json["modified_by"],
         modifiedOn: json["modified_on"],
         name: json["name"],
+        platform: json["platform"],
         policyIds: json["policy_ids"],
         ruleIds: json["rule_ids"],
         tracking: json["tracking"],
@@ -164,6 +172,7 @@ export function FwmgrApiRuleGroupV1ToJSON(value?: FwmgrApiRuleGroupV1 | null): a
         modified_by: value.modifiedBy,
         modified_on: value.modifiedOn,
         name: value.name,
+        platform: value.platform,
         policy_ids: value.policyIds,
         rule_ids: value.ruleIds,
         tracking: value.tracking,

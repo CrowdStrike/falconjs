@@ -63,6 +63,12 @@ export interface FwmgrFirewallPolicyContainerV1 {
     isDefaultPolicy?: boolean;
     /**
      *
+     * @type {boolean}
+     * @memberof FwmgrFirewallPolicyContainerV1
+     */
+    localLogging: boolean;
+    /**
+     *
      * @type {string}
      * @memberof FwmgrFirewallPolicyContainerV1
      */
@@ -113,6 +119,7 @@ export function instanceOfFwmgrFirewallPolicyContainerV1(value: object): boolean
     isInstance = isInstance && "defaultInbound" in value;
     isInstance = isInstance && "defaultOutbound" in value;
     isInstance = isInstance && "enforce" in value;
+    isInstance = isInstance && "localLogging" in value;
     isInstance = isInstance && "platformId" in value;
     isInstance = isInstance && "policyId" in value;
     isInstance = isInstance && "ruleGroupIds" in value;
@@ -137,6 +144,7 @@ export function FwmgrFirewallPolicyContainerV1FromJSONTyped(json: any, ignoreDis
         deleted: !exists(json, "deleted") ? undefined : json["deleted"],
         enforce: json["enforce"],
         isDefaultPolicy: !exists(json, "is_default_policy") ? undefined : json["is_default_policy"],
+        localLogging: json["local_logging"],
         modifiedBy: !exists(json, "modified_by") ? undefined : json["modified_by"],
         modifiedOn: !exists(json, "modified_on") ? undefined : json["modified_on"],
         platformId: json["platform_id"],
@@ -162,6 +170,7 @@ export function FwmgrFirewallPolicyContainerV1ToJSON(value?: FwmgrFirewallPolicy
         deleted: value.deleted,
         enforce: value.enforce,
         is_default_policy: value.isDefaultPolicy,
+        local_logging: value.localLogging,
         modified_by: value.modifiedBy,
         modified_on: value.modifiedOn,
         platform_id: value.platformId,

@@ -15,8 +15,8 @@
 import { exists, mapValues } from "../runtime";
 import type { FwmgrApiQueryPaging } from "./FwmgrApiQueryPaging";
 import { FwmgrApiQueryPagingFromJSON, FwmgrApiQueryPagingFromJSONTyped, FwmgrApiQueryPagingToJSON } from "./FwmgrApiQueryPaging";
-import type { FwmgrMsaResources } from "./FwmgrMsaResources";
-import { FwmgrMsaResourcesFromJSON, FwmgrMsaResourcesFromJSONTyped, FwmgrMsaResourcesToJSON } from "./FwmgrMsaResources";
+import type { FwmgrMsaspecWrites } from "./FwmgrMsaspecWrites";
+import { FwmgrMsaspecWritesFromJSON, FwmgrMsaspecWritesFromJSONTyped, FwmgrMsaspecWritesToJSON } from "./FwmgrMsaspecWrites";
 
 /**
  *
@@ -50,10 +50,10 @@ export interface FwmgrApiMetaInfo {
     traceId: string;
     /**
      *
-     * @type {FwmgrMsaResources}
+     * @type {FwmgrMsaspecWrites}
      * @memberof FwmgrApiMetaInfo
      */
-    writes?: FwmgrMsaResources;
+    writes?: FwmgrMsaspecWrites;
 }
 
 /**
@@ -80,7 +80,7 @@ export function FwmgrApiMetaInfoFromJSONTyped(json: any, ignoreDiscriminator: bo
         poweredBy: !exists(json, "powered_by") ? undefined : json["powered_by"],
         queryTime: json["query_time"],
         traceId: json["trace_id"],
-        writes: !exists(json, "writes") ? undefined : FwmgrMsaResourcesFromJSON(json["writes"]),
+        writes: !exists(json, "writes") ? undefined : FwmgrMsaspecWritesFromJSON(json["writes"]),
     };
 }
 
@@ -96,6 +96,6 @@ export function FwmgrApiMetaInfoToJSON(value?: FwmgrApiMetaInfo | null): any {
         powered_by: value.poweredBy,
         query_time: value.queryTime,
         trace_id: value.traceId,
-        writes: FwmgrMsaResourcesToJSON(value.writes),
+        writes: FwmgrMsaspecWritesToJSON(value.writes),
     };
 }

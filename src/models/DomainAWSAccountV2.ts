@@ -13,6 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
+import type { DomainAWSD4CAccountV1 } from "./DomainAWSD4CAccountV1";
+import { DomainAWSD4CAccountV1FromJSON, DomainAWSD4CAccountV1FromJSONTyped, DomainAWSD4CAccountV1ToJSON } from "./DomainAWSD4CAccountV1";
 import type { DomainPermission } from "./DomainPermission";
 import { DomainPermissionFromJSON, DomainPermissionFromJSONTyped, DomainPermissionToJSON } from "./DomainPermission";
 
@@ -53,6 +55,12 @@ export interface DomainAWSAccountV2 {
      */
     accountId?: string;
     /**
+     *
+     * @type {string}
+     * @memberof DomainAWSAccountV2
+     */
+    accountType?: string;
+    /**
      * AWS CloudTrail bucket name to store logs.
      * @type {string}
      * @memberof DomainAWSAccountV2
@@ -65,11 +73,23 @@ export interface DomainAWSAccountV2 {
      */
     awsCloudtrailRegion?: string;
     /**
+     * AWS Eventbus ARN.
+     * @type {string}
+     * @memberof DomainAWSAccountV2
+     */
+    awsEventbusArn?: string;
+    /**
      * Permissions status returned via API.
      * @type {Array<DomainPermission>}
      * @memberof DomainAWSAccountV2
      */
     awsPermissionsStatus: Array<DomainPermission>;
+    /**
+     *
+     * @type {boolean}
+     * @memberof DomainAWSAccountV2
+     */
+    behaviorAssessmentEnabled?: boolean;
     /**
      *
      * @type {string}
@@ -82,6 +102,18 @@ export interface DomainAWSAccountV2 {
      * @memberof DomainAWSAccountV2
      */
     cloudformationUrl?: string;
+    /**
+     *
+     * @type {DomainAWSD4CAccountV1}
+     * @memberof DomainAWSAccountV2
+     */
+    d4c?: DomainAWSD4CAccountV1;
+    /**
+     *
+     * @type {boolean}
+     * @memberof DomainAWSAccountV2
+     */
+    d4cMigrated?: boolean;
     /**
      *
      * @type {string}
@@ -111,7 +143,13 @@ export interface DomainAWSAccountV2 {
      * @type {boolean}
      * @memberof DomainAWSAccountV2
      */
-    isMaster: boolean;
+    isCustomRolename: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof DomainAWSAccountV2
+     */
+    isMaster?: boolean;
     /**
      * Up to 34 character AWS provided unique identifier for the organization.
      * @type {string}
@@ -119,11 +157,65 @@ export interface DomainAWSAccountV2 {
      */
     organizationId?: string;
     /**
+     *
+     * @type {string}
+     * @memberof DomainAWSAccountV2
+     */
+    remediationCloudformationUrl?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainAWSAccountV2
+     */
+    remediationRegion?: string;
+    /**
+     *
+     * @type {Date}
+     * @memberof DomainAWSAccountV2
+     */
+    remediationTouAccepted?: Date;
+    /**
+     * 12 digit AWS provided unique identifier for the root account (of the organization this account belongs to).
+     * @type {string}
+     * @memberof DomainAWSAccountV2
+     */
+    rootAccountId?: string;
+    /**
+     *
+     * @type {boolean}
+     * @memberof DomainAWSAccountV2
+     */
+    rootIamRole?: boolean;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainAWSAccountV2
+     */
+    secondaryRoleArn?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainAWSAccountV2
+     */
+    settings?: string;
+    /**
      * Account registration status.
      * @type {string}
      * @memberof DomainAWSAccountV2
      */
     status?: string;
+    /**
+     *
+     * @type {boolean}
+     * @memberof DomainAWSAccountV2
+     */
+    useExistingCloudtrail?: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof DomainAWSAccountV2
+     */
+    valid?: boolean;
 }
 
 /**
@@ -136,7 +228,7 @@ export function instanceOfDomainAWSAccountV2(value: object): boolean {
     isInstance = isInstance && "iD" in value;
     isInstance = isInstance && "updatedAt" in value;
     isInstance = isInstance && "awsPermissionsStatus" in value;
-    isInstance = isInstance && "isMaster" in value;
+    isInstance = isInstance && "isCustomRolename" in value;
 
     return isInstance;
 }
@@ -155,18 +247,33 @@ export function DomainAWSAccountV2FromJSONTyped(json: any, ignoreDiscriminator: 
         iD: json["ID"],
         updatedAt: new Date(json["UpdatedAt"]),
         accountId: !exists(json, "account_id") ? undefined : json["account_id"],
+        accountType: !exists(json, "account_type") ? undefined : json["account_type"],
         awsCloudtrailBucketName: !exists(json, "aws_cloudtrail_bucket_name") ? undefined : json["aws_cloudtrail_bucket_name"],
         awsCloudtrailRegion: !exists(json, "aws_cloudtrail_region") ? undefined : json["aws_cloudtrail_region"],
+        awsEventbusArn: !exists(json, "aws_eventbus_arn") ? undefined : json["aws_eventbus_arn"],
         awsPermissionsStatus: (json["aws_permissions_status"] as Array<any>).map(DomainPermissionFromJSON),
+        behaviorAssessmentEnabled: !exists(json, "behavior_assessment_enabled") ? undefined : json["behavior_assessment_enabled"],
         cid: !exists(json, "cid") ? undefined : json["cid"],
         cloudformationUrl: !exists(json, "cloudformation_url") ? undefined : json["cloudformation_url"],
+        d4c: !exists(json, "d4c") ? undefined : DomainAWSD4CAccountV1FromJSON(json["d4c"]),
+        d4cMigrated: !exists(json, "d4c_migrated") ? undefined : json["d4c_migrated"],
         eventbusName: !exists(json, "eventbus_name") ? undefined : json["eventbus_name"],
         externalId: !exists(json, "external_id") ? undefined : json["external_id"],
         iamRoleArn: !exists(json, "iam_role_arn") ? undefined : json["iam_role_arn"],
         intermediateRoleArn: !exists(json, "intermediate_role_arn") ? undefined : json["intermediate_role_arn"],
-        isMaster: json["is_master"],
+        isCustomRolename: json["is_custom_rolename"],
+        isMaster: !exists(json, "is_master") ? undefined : json["is_master"],
         organizationId: !exists(json, "organization_id") ? undefined : json["organization_id"],
+        remediationCloudformationUrl: !exists(json, "remediation_cloudformation_url") ? undefined : json["remediation_cloudformation_url"],
+        remediationRegion: !exists(json, "remediation_region") ? undefined : json["remediation_region"],
+        remediationTouAccepted: !exists(json, "remediation_tou_accepted") ? undefined : new Date(json["remediation_tou_accepted"]),
+        rootAccountId: !exists(json, "root_account_id") ? undefined : json["root_account_id"],
+        rootIamRole: !exists(json, "root_iam_role") ? undefined : json["root_iam_role"],
+        secondaryRoleArn: !exists(json, "secondary_role_arn") ? undefined : json["secondary_role_arn"],
+        settings: !exists(json, "settings") ? undefined : json["settings"],
         status: !exists(json, "status") ? undefined : json["status"],
+        useExistingCloudtrail: !exists(json, "use_existing_cloudtrail") ? undefined : json["use_existing_cloudtrail"],
+        valid: !exists(json, "valid") ? undefined : json["valid"],
     };
 }
 
@@ -183,17 +290,32 @@ export function DomainAWSAccountV2ToJSON(value?: DomainAWSAccountV2 | null): any
         ID: value.iD,
         UpdatedAt: value.updatedAt.toISOString(),
         account_id: value.accountId,
+        account_type: value.accountType,
         aws_cloudtrail_bucket_name: value.awsCloudtrailBucketName,
         aws_cloudtrail_region: value.awsCloudtrailRegion,
+        aws_eventbus_arn: value.awsEventbusArn,
         aws_permissions_status: (value.awsPermissionsStatus as Array<any>).map(DomainPermissionToJSON),
+        behavior_assessment_enabled: value.behaviorAssessmentEnabled,
         cid: value.cid,
         cloudformation_url: value.cloudformationUrl,
+        d4c: DomainAWSD4CAccountV1ToJSON(value.d4c),
+        d4c_migrated: value.d4cMigrated,
         eventbus_name: value.eventbusName,
         external_id: value.externalId,
         iam_role_arn: value.iamRoleArn,
         intermediate_role_arn: value.intermediateRoleArn,
+        is_custom_rolename: value.isCustomRolename,
         is_master: value.isMaster,
         organization_id: value.organizationId,
+        remediation_cloudformation_url: value.remediationCloudformationUrl,
+        remediation_region: value.remediationRegion,
+        remediation_tou_accepted: value.remediationTouAccepted === undefined ? undefined : value.remediationTouAccepted.toISOString(),
+        root_account_id: value.rootAccountId,
+        root_iam_role: value.rootIamRole,
+        secondary_role_arn: value.secondaryRoleArn,
+        settings: value.settings,
         status: value.status,
+        use_existing_cloudtrail: value.useExistingCloudtrail,
+        valid: value.valid,
     };
 }
