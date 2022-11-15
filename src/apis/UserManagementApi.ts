@@ -76,7 +76,7 @@ export interface CombinedUserRolesV1Request {
     userUuid: string;
     cid?: string;
     directOnly?: boolean;
-    filter?: CombinedUserRolesV1FilterEnum;
+    filter?: string;
     offset?: number;
     limit?: number;
     sort?: CombinedUserRolesV1SortEnum;
@@ -123,7 +123,7 @@ export interface QueriesRolesV1Request {
 }
 
 export interface QueryUserV1Request {
-    filter?: QueryUserV1FilterEnum;
+    filter?: string;
     offset?: number;
     limit?: number;
     sort?: QueryUserV1SortEnum;
@@ -233,7 +233,7 @@ export class UserManagementApi extends runtime.BaseAPI {
         userUuid: string,
         cid?: string,
         directOnly?: boolean,
-        filter?: CombinedUserRolesV1FilterEnum,
+        filter?: string,
         offset?: number,
         limit?: number,
         sort?: CombinedUserRolesV1SortEnum,
@@ -713,13 +713,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * List user IDs for all users in your customer account. For more information on each user, provide the user ID to `/user-management/entities/users/GET/v1`.
      */
-    async queryUserV1(
-        filter?: QueryUserV1FilterEnum,
-        offset?: number,
-        limit?: number,
-        sort?: QueryUserV1SortEnum,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<MsaQueryResponse> {
+    async queryUserV1(filter?: string, offset?: number, limit?: number, sort?: QueryUserV1SortEnum, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryUserV1Raw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
@@ -1154,14 +1148,6 @@ export class UserManagementApi extends runtime.BaseAPI {
 /**
  * @export
  */
-export const CombinedUserRolesV1FilterEnum = {
-    Id: "role_id",
-    Name: "role_name",
-} as const;
-export type CombinedUserRolesV1FilterEnum = typeof CombinedUserRolesV1FilterEnum[keyof typeof CombinedUserRolesV1FilterEnum];
-/**
- * @export
- */
 export const CombinedUserRolesV1SortEnum = {
     CidAsc: "cid|asc",
     CidDesc: "cid|desc",
@@ -1171,18 +1157,6 @@ export const CombinedUserRolesV1SortEnum = {
     TypeDesc: "type|desc",
 } as const;
 export type CombinedUserRolesV1SortEnum = typeof CombinedUserRolesV1SortEnum[keyof typeof CombinedUserRolesV1SortEnum];
-/**
- * @export
- */
-export const QueryUserV1FilterEnum = {
-    AssignedCids: "assigned_cids",
-    Cid: "cid",
-    FirstName: "first_name",
-    LastName: "last_name",
-    Name: "name",
-    Uid: "uid",
-} as const;
-export type QueryUserV1FilterEnum = typeof QueryUserV1FilterEnum[keyof typeof QueryUserV1FilterEnum];
 /**
  * @export
  */
