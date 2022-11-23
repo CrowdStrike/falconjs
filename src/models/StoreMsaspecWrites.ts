@@ -16,54 +16,41 @@ import { exists, mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface DomainSchedule
+ * @interface StoreMsaspecWrites
  */
-export interface DomainSchedule {
-    /**
-     *
-     * @type {boolean}
-     * @memberof DomainSchedule
-     */
-    ignoredByChannelfile?: boolean;
+export interface StoreMsaspecWrites {
     /**
      *
      * @type {number}
-     * @memberof DomainSchedule
+     * @memberof StoreMsaspecWrites
      */
-    interval?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof DomainSchedule
-     */
-    startTimestamp?: string;
+    resourcesAffected: number;
 }
 
 /**
- * Check if a given object implements the DomainSchedule interface.
+ * Check if a given object implements the StoreMsaspecWrites interface.
  */
-export function instanceOfDomainSchedule(value: object): boolean {
+export function instanceOfStoreMsaspecWrites(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "resourcesAffected" in value;
 
     return isInstance;
 }
 
-export function DomainScheduleFromJSON(json: any): DomainSchedule {
-    return DomainScheduleFromJSONTyped(json, false);
+export function StoreMsaspecWritesFromJSON(json: any): StoreMsaspecWrites {
+    return StoreMsaspecWritesFromJSONTyped(json, false);
 }
 
-export function DomainScheduleFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainSchedule {
+export function StoreMsaspecWritesFromJSONTyped(json: any, ignoreDiscriminator: boolean): StoreMsaspecWrites {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        ignoredByChannelfile: !exists(json, "ignored_by_channelfile") ? undefined : json["ignored_by_channelfile"],
-        interval: !exists(json, "interval") ? undefined : json["interval"],
-        startTimestamp: !exists(json, "start_timestamp") ? undefined : json["start_timestamp"],
+        resourcesAffected: json["resources_affected"],
     };
 }
 
-export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
+export function StoreMsaspecWritesToJSON(value?: StoreMsaspecWrites | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -71,8 +58,6 @@ export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
         return null;
     }
     return {
-        ignored_by_channelfile: value.ignoredByChannelfile,
-        interval: value.interval,
-        start_timestamp: value.startTimestamp,
+        resources_affected: value.resourcesAffected,
     };
 }

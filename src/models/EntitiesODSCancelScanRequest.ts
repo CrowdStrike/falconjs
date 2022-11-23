@@ -16,54 +16,41 @@ import { exists, mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface DomainSchedule
+ * @interface EntitiesODSCancelScanRequest
  */
-export interface DomainSchedule {
+export interface EntitiesODSCancelScanRequest {
     /**
      *
-     * @type {boolean}
-     * @memberof DomainSchedule
+     * @type {Array<string>}
+     * @memberof EntitiesODSCancelScanRequest
      */
-    ignoredByChannelfile?: boolean;
-    /**
-     *
-     * @type {number}
-     * @memberof DomainSchedule
-     */
-    interval?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof DomainSchedule
-     */
-    startTimestamp?: string;
+    ids: Array<string>;
 }
 
 /**
- * Check if a given object implements the DomainSchedule interface.
+ * Check if a given object implements the EntitiesODSCancelScanRequest interface.
  */
-export function instanceOfDomainSchedule(value: object): boolean {
+export function instanceOfEntitiesODSCancelScanRequest(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "ids" in value;
 
     return isInstance;
 }
 
-export function DomainScheduleFromJSON(json: any): DomainSchedule {
-    return DomainScheduleFromJSONTyped(json, false);
+export function EntitiesODSCancelScanRequestFromJSON(json: any): EntitiesODSCancelScanRequest {
+    return EntitiesODSCancelScanRequestFromJSONTyped(json, false);
 }
 
-export function DomainScheduleFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainSchedule {
+export function EntitiesODSCancelScanRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): EntitiesODSCancelScanRequest {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        ignoredByChannelfile: !exists(json, "ignored_by_channelfile") ? undefined : json["ignored_by_channelfile"],
-        interval: !exists(json, "interval") ? undefined : json["interval"],
-        startTimestamp: !exists(json, "start_timestamp") ? undefined : json["start_timestamp"],
+        ids: json["ids"],
     };
 }
 
-export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
+export function EntitiesODSCancelScanRequestToJSON(value?: EntitiesODSCancelScanRequest | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -71,8 +58,6 @@ export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
         return null;
     }
     return {
-        ignored_by_channelfile: value.ignoredByChannelfile,
-        interval: value.interval,
-        start_timestamp: value.startTimestamp,
+        ids: value.ids,
     };
 }

@@ -16,54 +16,49 @@ import { exists, mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface DomainSchedule
+ * @interface DomainJobWithLink
  */
-export interface DomainSchedule {
-    /**
-     *
-     * @type {boolean}
-     * @memberof DomainSchedule
-     */
-    ignoredByChannelfile?: boolean;
-    /**
-     *
-     * @type {number}
-     * @memberof DomainSchedule
-     */
-    interval?: number;
+export interface DomainJobWithLink {
     /**
      *
      * @type {string}
-     * @memberof DomainSchedule
+     * @memberof DomainJobWithLink
      */
-    startTimestamp?: string;
+    href: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainJobWithLink
+     */
+    id: string;
 }
 
 /**
- * Check if a given object implements the DomainSchedule interface.
+ * Check if a given object implements the DomainJobWithLink interface.
  */
-export function instanceOfDomainSchedule(value: object): boolean {
+export function instanceOfDomainJobWithLink(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "href" in value;
+    isInstance = isInstance && "id" in value;
 
     return isInstance;
 }
 
-export function DomainScheduleFromJSON(json: any): DomainSchedule {
-    return DomainScheduleFromJSONTyped(json, false);
+export function DomainJobWithLinkFromJSON(json: any): DomainJobWithLink {
+    return DomainJobWithLinkFromJSONTyped(json, false);
 }
 
-export function DomainScheduleFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainSchedule {
+export function DomainJobWithLinkFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainJobWithLink {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        ignoredByChannelfile: !exists(json, "ignored_by_channelfile") ? undefined : json["ignored_by_channelfile"],
-        interval: !exists(json, "interval") ? undefined : json["interval"],
-        startTimestamp: !exists(json, "start_timestamp") ? undefined : json["start_timestamp"],
+        href: json["href"],
+        id: json["id"],
     };
 }
 
-export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
+export function DomainJobWithLinkToJSON(value?: DomainJobWithLink | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -71,8 +66,7 @@ export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
         return null;
     }
     return {
-        ignored_by_channelfile: value.ignoredByChannelfile,
-        interval: value.interval,
-        start_timestamp: value.startTimestamp,
+        href: value.href,
+        id: value.id,
     };
 }

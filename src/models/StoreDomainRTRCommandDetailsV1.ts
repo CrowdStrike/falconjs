@@ -16,54 +16,49 @@ import { exists, mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface DomainSchedule
+ * @interface StoreDomainRTRCommandDetailsV1
  */
-export interface DomainSchedule {
+export interface StoreDomainRTRCommandDetailsV1 {
     /**
-     *
-     * @type {boolean}
-     * @memberof DomainSchedule
-     */
-    ignoredByChannelfile?: boolean;
-    /**
-     *
-     * @type {number}
-     * @memberof DomainSchedule
-     */
-    interval?: number;
-    /**
-     *
+     * the description of the command
      * @type {string}
-     * @memberof DomainSchedule
+     * @memberof StoreDomainRTRCommandDetailsV1
      */
-    startTimestamp?: string;
+    description: string;
+    /**
+     * the name of the command
+     * @type {string}
+     * @memberof StoreDomainRTRCommandDetailsV1
+     */
+    name: string;
 }
 
 /**
- * Check if a given object implements the DomainSchedule interface.
+ * Check if a given object implements the StoreDomainRTRCommandDetailsV1 interface.
  */
-export function instanceOfDomainSchedule(value: object): boolean {
+export function instanceOfStoreDomainRTRCommandDetailsV1(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "name" in value;
 
     return isInstance;
 }
 
-export function DomainScheduleFromJSON(json: any): DomainSchedule {
-    return DomainScheduleFromJSONTyped(json, false);
+export function StoreDomainRTRCommandDetailsV1FromJSON(json: any): StoreDomainRTRCommandDetailsV1 {
+    return StoreDomainRTRCommandDetailsV1FromJSONTyped(json, false);
 }
 
-export function DomainScheduleFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainSchedule {
+export function StoreDomainRTRCommandDetailsV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): StoreDomainRTRCommandDetailsV1 {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        ignoredByChannelfile: !exists(json, "ignored_by_channelfile") ? undefined : json["ignored_by_channelfile"],
-        interval: !exists(json, "interval") ? undefined : json["interval"],
-        startTimestamp: !exists(json, "start_timestamp") ? undefined : json["start_timestamp"],
+        description: json["description"],
+        name: json["name"],
     };
 }
 
-export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
+export function StoreDomainRTRCommandDetailsV1ToJSON(value?: StoreDomainRTRCommandDetailsV1 | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -71,8 +66,7 @@ export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
         return null;
     }
     return {
-        ignored_by_channelfile: value.ignoredByChannelfile,
-        interval: value.interval,
-        start_timestamp: value.startTimestamp,
+        description: value.description,
+        name: value.name,
     };
 }

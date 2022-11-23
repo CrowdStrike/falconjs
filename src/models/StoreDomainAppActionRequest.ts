@@ -13,57 +13,54 @@
  */
 
 import { exists, mapValues } from "../runtime";
+import type { StoreMsaspecActionParameter } from "./StoreMsaspecActionParameter";
+import { StoreMsaspecActionParameterFromJSON, StoreMsaspecActionParameterFromJSONTyped, StoreMsaspecActionParameterToJSON } from "./StoreMsaspecActionParameter";
+
 /**
  *
  * @export
- * @interface DomainSchedule
+ * @interface StoreDomainAppActionRequest
  */
-export interface DomainSchedule {
+export interface StoreDomainAppActionRequest {
     /**
      *
-     * @type {boolean}
-     * @memberof DomainSchedule
+     * @type {Array<StoreMsaspecActionParameter>}
+     * @memberof StoreDomainAppActionRequest
      */
-    ignoredByChannelfile?: boolean;
+    actionParameters?: Array<StoreMsaspecActionParameter>;
     /**
      *
-     * @type {number}
-     * @memberof DomainSchedule
+     * @type {Array<string>}
+     * @memberof StoreDomainAppActionRequest
      */
-    interval?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof DomainSchedule
-     */
-    startTimestamp?: string;
+    ids: Array<string>;
 }
 
 /**
- * Check if a given object implements the DomainSchedule interface.
+ * Check if a given object implements the StoreDomainAppActionRequest interface.
  */
-export function instanceOfDomainSchedule(value: object): boolean {
+export function instanceOfStoreDomainAppActionRequest(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "ids" in value;
 
     return isInstance;
 }
 
-export function DomainScheduleFromJSON(json: any): DomainSchedule {
-    return DomainScheduleFromJSONTyped(json, false);
+export function StoreDomainAppActionRequestFromJSON(json: any): StoreDomainAppActionRequest {
+    return StoreDomainAppActionRequestFromJSONTyped(json, false);
 }
 
-export function DomainScheduleFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainSchedule {
+export function StoreDomainAppActionRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): StoreDomainAppActionRequest {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        ignoredByChannelfile: !exists(json, "ignored_by_channelfile") ? undefined : json["ignored_by_channelfile"],
-        interval: !exists(json, "interval") ? undefined : json["interval"],
-        startTimestamp: !exists(json, "start_timestamp") ? undefined : json["start_timestamp"],
+        actionParameters: !exists(json, "action_parameters") ? undefined : (json["action_parameters"] as Array<any>).map(StoreMsaspecActionParameterFromJSON),
+        ids: json["ids"],
     };
 }
 
-export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
+export function StoreDomainAppActionRequestToJSON(value?: StoreDomainAppActionRequest | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -71,8 +68,7 @@ export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
         return null;
     }
     return {
-        ignored_by_channelfile: value.ignoredByChannelfile,
-        interval: value.interval,
-        start_timestamp: value.startTimestamp,
+        action_parameters: value.actionParameters === undefined ? undefined : (value.actionParameters as Array<any>).map(StoreMsaspecActionParameterToJSON),
+        ids: value.ids,
     };
 }

@@ -16,54 +16,49 @@ import { exists, mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface DomainSchedule
+ * @interface EntitiesScansSortedSearch
  */
-export interface DomainSchedule {
-    /**
-     *
-     * @type {boolean}
-     * @memberof DomainSchedule
-     */
-    ignoredByChannelfile?: boolean;
-    /**
-     *
-     * @type {number}
-     * @memberof DomainSchedule
-     */
-    interval?: number;
+export interface EntitiesScansSortedSearch {
     /**
      *
      * @type {string}
-     * @memberof DomainSchedule
+     * @memberof EntitiesScansSortedSearch
      */
-    startTimestamp?: string;
+    filter: string;
+    /**
+     *
+     * @type {string}
+     * @memberof EntitiesScansSortedSearch
+     */
+    sort: string;
 }
 
 /**
- * Check if a given object implements the DomainSchedule interface.
+ * Check if a given object implements the EntitiesScansSortedSearch interface.
  */
-export function instanceOfDomainSchedule(value: object): boolean {
+export function instanceOfEntitiesScansSortedSearch(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "filter" in value;
+    isInstance = isInstance && "sort" in value;
 
     return isInstance;
 }
 
-export function DomainScheduleFromJSON(json: any): DomainSchedule {
-    return DomainScheduleFromJSONTyped(json, false);
+export function EntitiesScansSortedSearchFromJSON(json: any): EntitiesScansSortedSearch {
+    return EntitiesScansSortedSearchFromJSONTyped(json, false);
 }
 
-export function DomainScheduleFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainSchedule {
+export function EntitiesScansSortedSearchFromJSONTyped(json: any, ignoreDiscriminator: boolean): EntitiesScansSortedSearch {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        ignoredByChannelfile: !exists(json, "ignored_by_channelfile") ? undefined : json["ignored_by_channelfile"],
-        interval: !exists(json, "interval") ? undefined : json["interval"],
-        startTimestamp: !exists(json, "start_timestamp") ? undefined : json["start_timestamp"],
+        filter: json["filter"],
+        sort: json["sort"],
     };
 }
 
-export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
+export function EntitiesScansSortedSearchToJSON(value?: EntitiesScansSortedSearch | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -71,8 +66,7 @@ export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
         return null;
     }
     return {
-        ignored_by_channelfile: value.ignoredByChannelfile,
-        interval: value.interval,
-        start_timestamp: value.startTimestamp,
+        filter: value.filter,
+        sort: value.sort,
     };
 }

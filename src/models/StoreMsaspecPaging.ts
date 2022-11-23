@@ -16,54 +16,57 @@ import { exists, mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface DomainSchedule
+ * @interface StoreMsaspecPaging
  */
-export interface DomainSchedule {
-    /**
-     *
-     * @type {boolean}
-     * @memberof DomainSchedule
-     */
-    ignoredByChannelfile?: boolean;
+export interface StoreMsaspecPaging {
     /**
      *
      * @type {number}
-     * @memberof DomainSchedule
+     * @memberof StoreMsaspecPaging
      */
-    interval?: number;
+    limit: number;
     /**
      *
-     * @type {string}
-     * @memberof DomainSchedule
+     * @type {number}
+     * @memberof StoreMsaspecPaging
      */
-    startTimestamp?: string;
+    offset: number;
+    /**
+     *
+     * @type {number}
+     * @memberof StoreMsaspecPaging
+     */
+    total: number;
 }
 
 /**
- * Check if a given object implements the DomainSchedule interface.
+ * Check if a given object implements the StoreMsaspecPaging interface.
  */
-export function instanceOfDomainSchedule(value: object): boolean {
+export function instanceOfStoreMsaspecPaging(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "limit" in value;
+    isInstance = isInstance && "offset" in value;
+    isInstance = isInstance && "total" in value;
 
     return isInstance;
 }
 
-export function DomainScheduleFromJSON(json: any): DomainSchedule {
-    return DomainScheduleFromJSONTyped(json, false);
+export function StoreMsaspecPagingFromJSON(json: any): StoreMsaspecPaging {
+    return StoreMsaspecPagingFromJSONTyped(json, false);
 }
 
-export function DomainScheduleFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainSchedule {
+export function StoreMsaspecPagingFromJSONTyped(json: any, ignoreDiscriminator: boolean): StoreMsaspecPaging {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        ignoredByChannelfile: !exists(json, "ignored_by_channelfile") ? undefined : json["ignored_by_channelfile"],
-        interval: !exists(json, "interval") ? undefined : json["interval"],
-        startTimestamp: !exists(json, "start_timestamp") ? undefined : json["start_timestamp"],
+        limit: json["limit"],
+        offset: json["offset"],
+        total: json["total"],
     };
 }
 
-export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
+export function StoreMsaspecPagingToJSON(value?: StoreMsaspecPaging | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -71,8 +74,8 @@ export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
         return null;
     }
     return {
-        ignored_by_channelfile: value.ignoredByChannelfile,
-        interval: value.interval,
-        start_timestamp: value.startTimestamp,
+        limit: value.limit,
+        offset: value.offset,
+        total: value.total,
     };
 }

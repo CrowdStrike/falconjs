@@ -16,54 +16,55 @@ import { exists, mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface DomainSchedule
+ * @interface DomainScanProfileMetadata
  */
-export interface DomainSchedule {
-    /**
-     *
-     * @type {boolean}
-     * @memberof DomainSchedule
-     */
-    ignoredByChannelfile?: boolean;
-    /**
-     *
-     * @type {number}
-     * @memberof DomainSchedule
-     */
-    interval?: number;
+export interface DomainScanProfileMetadata {
     /**
      *
      * @type {string}
-     * @memberof DomainSchedule
+     * @memberof DomainScanProfileMetadata
      */
-    startTimestamp?: string;
+    hostId: string;
+    /**
+     *
+     * @type {Date}
+     * @memberof DomainScanProfileMetadata
+     */
+    lastUpdated?: Date;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainScanProfileMetadata
+     */
+    status?: string;
 }
 
 /**
- * Check if a given object implements the DomainSchedule interface.
+ * Check if a given object implements the DomainScanProfileMetadata interface.
  */
-export function instanceOfDomainSchedule(value: object): boolean {
+export function instanceOfDomainScanProfileMetadata(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "hostId" in value;
 
     return isInstance;
 }
 
-export function DomainScheduleFromJSON(json: any): DomainSchedule {
-    return DomainScheduleFromJSONTyped(json, false);
+export function DomainScanProfileMetadataFromJSON(json: any): DomainScanProfileMetadata {
+    return DomainScanProfileMetadataFromJSONTyped(json, false);
 }
 
-export function DomainScheduleFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainSchedule {
+export function DomainScanProfileMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainScanProfileMetadata {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        ignoredByChannelfile: !exists(json, "ignored_by_channelfile") ? undefined : json["ignored_by_channelfile"],
-        interval: !exists(json, "interval") ? undefined : json["interval"],
-        startTimestamp: !exists(json, "start_timestamp") ? undefined : json["start_timestamp"],
+        hostId: json["host_id"],
+        lastUpdated: !exists(json, "last_updated") ? undefined : new Date(json["last_updated"]),
+        status: !exists(json, "status") ? undefined : json["status"],
     };
 }
 
-export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
+export function DomainScanProfileMetadataToJSON(value?: DomainScanProfileMetadata | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -71,8 +72,8 @@ export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
         return null;
     }
     return {
-        ignored_by_channelfile: value.ignoredByChannelfile,
-        interval: value.interval,
-        start_timestamp: value.startTimestamp,
+        host_id: value.hostId,
+        last_updated: value.lastUpdated === undefined ? undefined : value.lastUpdated.toISOString(),
+        status: value.status,
     };
 }

@@ -16,54 +16,61 @@ import { exists, mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface DomainSchedule
+ * @interface DomainFileCount
  */
-export interface DomainSchedule {
-    /**
-     *
-     * @type {boolean}
-     * @memberof DomainSchedule
-     */
-    ignoredByChannelfile?: boolean;
+export interface DomainFileCount {
     /**
      *
      * @type {number}
-     * @memberof DomainSchedule
+     * @memberof DomainFileCount
      */
-    interval?: number;
+    malicious?: number;
     /**
      *
-     * @type {string}
-     * @memberof DomainSchedule
+     * @type {number}
+     * @memberof DomainFileCount
      */
-    startTimestamp?: string;
+    quarantined?: number;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainFileCount
+     */
+    scanned?: number;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainFileCount
+     */
+    skipped?: number;
 }
 
 /**
- * Check if a given object implements the DomainSchedule interface.
+ * Check if a given object implements the DomainFileCount interface.
  */
-export function instanceOfDomainSchedule(value: object): boolean {
+export function instanceOfDomainFileCount(value: object): boolean {
     let isInstance = true;
 
     return isInstance;
 }
 
-export function DomainScheduleFromJSON(json: any): DomainSchedule {
-    return DomainScheduleFromJSONTyped(json, false);
+export function DomainFileCountFromJSON(json: any): DomainFileCount {
+    return DomainFileCountFromJSONTyped(json, false);
 }
 
-export function DomainScheduleFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainSchedule {
+export function DomainFileCountFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainFileCount {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        ignoredByChannelfile: !exists(json, "ignored_by_channelfile") ? undefined : json["ignored_by_channelfile"],
-        interval: !exists(json, "interval") ? undefined : json["interval"],
-        startTimestamp: !exists(json, "start_timestamp") ? undefined : json["start_timestamp"],
+        malicious: !exists(json, "malicious") ? undefined : json["malicious"],
+        quarantined: !exists(json, "quarantined") ? undefined : json["quarantined"],
+        scanned: !exists(json, "scanned") ? undefined : json["scanned"],
+        skipped: !exists(json, "skipped") ? undefined : json["skipped"],
     };
 }
 
-export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
+export function DomainFileCountToJSON(value?: DomainFileCount | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -71,8 +78,9 @@ export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
         return null;
     }
     return {
-        ignored_by_channelfile: value.ignoredByChannelfile,
-        interval: value.interval,
-        start_timestamp: value.startTimestamp,
+        malicious: value.malicious,
+        quarantined: value.quarantined,
+        scanned: value.scanned,
+        skipped: value.skipped,
     };
 }

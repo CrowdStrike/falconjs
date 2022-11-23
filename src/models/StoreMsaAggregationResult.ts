@@ -13,57 +13,62 @@
  */
 
 import { exists, mapValues } from "../runtime";
+import type { StoreMsaAggregationResultItem } from "./StoreMsaAggregationResultItem";
+import { StoreMsaAggregationResultItemFromJSON, StoreMsaAggregationResultItemFromJSONTyped, StoreMsaAggregationResultItemToJSON } from "./StoreMsaAggregationResultItem";
+
 /**
  *
  * @export
- * @interface DomainSchedule
+ * @interface StoreMsaAggregationResult
  */
-export interface DomainSchedule {
+export interface StoreMsaAggregationResult {
     /**
      *
-     * @type {boolean}
-     * @memberof DomainSchedule
+     * @type {Array<StoreMsaAggregationResultItem>}
+     * @memberof StoreMsaAggregationResult
      */
-    ignoredByChannelfile?: boolean;
-    /**
-     *
-     * @type {number}
-     * @memberof DomainSchedule
-     */
-    interval?: number;
+    buckets: Array<StoreMsaAggregationResultItem>;
     /**
      *
      * @type {string}
-     * @memberof DomainSchedule
+     * @memberof StoreMsaAggregationResult
      */
-    startTimestamp?: string;
+    name: string;
+    /**
+     *
+     * @type {number}
+     * @memberof StoreMsaAggregationResult
+     */
+    sumOtherDocCount?: number;
 }
 
 /**
- * Check if a given object implements the DomainSchedule interface.
+ * Check if a given object implements the StoreMsaAggregationResult interface.
  */
-export function instanceOfDomainSchedule(value: object): boolean {
+export function instanceOfStoreMsaAggregationResult(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "buckets" in value;
+    isInstance = isInstance && "name" in value;
 
     return isInstance;
 }
 
-export function DomainScheduleFromJSON(json: any): DomainSchedule {
-    return DomainScheduleFromJSONTyped(json, false);
+export function StoreMsaAggregationResultFromJSON(json: any): StoreMsaAggregationResult {
+    return StoreMsaAggregationResultFromJSONTyped(json, false);
 }
 
-export function DomainScheduleFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainSchedule {
+export function StoreMsaAggregationResultFromJSONTyped(json: any, ignoreDiscriminator: boolean): StoreMsaAggregationResult {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        ignoredByChannelfile: !exists(json, "ignored_by_channelfile") ? undefined : json["ignored_by_channelfile"],
-        interval: !exists(json, "interval") ? undefined : json["interval"],
-        startTimestamp: !exists(json, "start_timestamp") ? undefined : json["start_timestamp"],
+        buckets: (json["buckets"] as Array<any>).map(StoreMsaAggregationResultItemFromJSON),
+        name: json["name"],
+        sumOtherDocCount: !exists(json, "sum_other_doc_count") ? undefined : json["sum_other_doc_count"],
     };
 }
 
-export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
+export function StoreMsaAggregationResultToJSON(value?: StoreMsaAggregationResult | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -71,8 +76,8 @@ export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
         return null;
     }
     return {
-        ignored_by_channelfile: value.ignoredByChannelfile,
-        interval: value.interval,
-        start_timestamp: value.startTimestamp,
+        buckets: (value.buckets as Array<any>).map(StoreMsaAggregationResultItemToJSON),
+        name: value.name,
+        sum_other_doc_count: value.sumOtherDocCount,
     };
 }
