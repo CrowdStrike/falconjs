@@ -16,54 +16,47 @@ import { exists, mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface DomainSchedule
+ * @interface StoreDomainAppLinks
  */
-export interface DomainSchedule {
-    /**
-     *
-     * @type {boolean}
-     * @memberof DomainSchedule
-     */
-    ignoredByChannelfile?: boolean;
-    /**
-     *
-     * @type {number}
-     * @memberof DomainSchedule
-     */
-    interval?: number;
+export interface StoreDomainAppLinks {
     /**
      *
      * @type {string}
-     * @memberof DomainSchedule
+     * @memberof StoreDomainAppLinks
      */
-    startTimestamp?: string;
+    resourceUrl?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof StoreDomainAppLinks
+     */
+    title?: string;
 }
 
 /**
- * Check if a given object implements the DomainSchedule interface.
+ * Check if a given object implements the StoreDomainAppLinks interface.
  */
-export function instanceOfDomainSchedule(value: object): boolean {
+export function instanceOfStoreDomainAppLinks(value: object): boolean {
     let isInstance = true;
 
     return isInstance;
 }
 
-export function DomainScheduleFromJSON(json: any): DomainSchedule {
-    return DomainScheduleFromJSONTyped(json, false);
+export function StoreDomainAppLinksFromJSON(json: any): StoreDomainAppLinks {
+    return StoreDomainAppLinksFromJSONTyped(json, false);
 }
 
-export function DomainScheduleFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainSchedule {
+export function StoreDomainAppLinksFromJSONTyped(json: any, ignoreDiscriminator: boolean): StoreDomainAppLinks {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        ignoredByChannelfile: !exists(json, "ignored_by_channelfile") ? undefined : json["ignored_by_channelfile"],
-        interval: !exists(json, "interval") ? undefined : json["interval"],
-        startTimestamp: !exists(json, "start_timestamp") ? undefined : json["start_timestamp"],
+        resourceUrl: !exists(json, "resource_url") ? undefined : json["resource_url"],
+        title: !exists(json, "title") ? undefined : json["title"],
     };
 }
 
-export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
+export function StoreDomainAppLinksToJSON(value?: StoreDomainAppLinks | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -71,8 +64,7 @@ export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
         return null;
     }
     return {
-        ignored_by_channelfile: value.ignoredByChannelfile,
-        interval: value.interval,
-        start_timestamp: value.startTimestamp,
+        resource_url: value.resourceUrl,
+        title: value.title,
     };
 }

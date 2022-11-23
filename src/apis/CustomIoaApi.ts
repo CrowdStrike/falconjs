@@ -678,7 +678,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Find all rule groups matching the query with optional filter.
      */
-    async queryRuleGroupsFullRaw(requestParameters: QueryRuleGroupsFullRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryRuleGroupsFullRaw(requestParameters: QueryRuleGroupsFullRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRuleGroupsResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.sort !== undefined) {
@@ -718,7 +718,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiRuleGroupsResponseFromJSON(jsonValue));
     }
 
     /**
@@ -731,7 +731,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
         offset?: string,
         limit?: number,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<MsaQueryResponse> {
+    ): Promise<ApiRuleGroupsResponse> {
         const response = await this.queryRuleGroupsFullRaw({ sort: sort, filter: filter, q: q, offset: offset, limit: limit }, initOverrides);
         return await response.value();
     }

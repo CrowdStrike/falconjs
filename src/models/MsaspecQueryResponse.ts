@@ -13,57 +13,64 @@
  */
 
 import { exists, mapValues } from "../runtime";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+
 /**
  *
  * @export
- * @interface DomainSchedule
+ * @interface MsaspecQueryResponse
  */
-export interface DomainSchedule {
+export interface MsaspecQueryResponse {
     /**
      *
-     * @type {boolean}
-     * @memberof DomainSchedule
+     * @type {Array<MsaAPIError>}
+     * @memberof MsaspecQueryResponse
      */
-    ignoredByChannelfile?: boolean;
+    errors?: Array<MsaAPIError>;
     /**
      *
-     * @type {number}
-     * @memberof DomainSchedule
+     * @type {MsaMetaInfo}
+     * @memberof MsaspecQueryResponse
      */
-    interval?: number;
+    meta: MsaMetaInfo;
     /**
      *
-     * @type {string}
-     * @memberof DomainSchedule
+     * @type {Array<string>}
+     * @memberof MsaspecQueryResponse
      */
-    startTimestamp?: string;
+    resources: Array<string>;
 }
 
 /**
- * Check if a given object implements the DomainSchedule interface.
+ * Check if a given object implements the MsaspecQueryResponse interface.
  */
-export function instanceOfDomainSchedule(value: object): boolean {
+export function instanceOfMsaspecQueryResponse(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "meta" in value;
+    isInstance = isInstance && "resources" in value;
 
     return isInstance;
 }
 
-export function DomainScheduleFromJSON(json: any): DomainSchedule {
-    return DomainScheduleFromJSONTyped(json, false);
+export function MsaspecQueryResponseFromJSON(json: any): MsaspecQueryResponse {
+    return MsaspecQueryResponseFromJSONTyped(json, false);
 }
 
-export function DomainScheduleFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainSchedule {
+export function MsaspecQueryResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): MsaspecQueryResponse {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        ignoredByChannelfile: !exists(json, "ignored_by_channelfile") ? undefined : json["ignored_by_channelfile"],
-        interval: !exists(json, "interval") ? undefined : json["interval"],
-        startTimestamp: !exists(json, "start_timestamp") ? undefined : json["start_timestamp"],
+        errors: !exists(json, "errors") ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
+        meta: MsaMetaInfoFromJSON(json["meta"]),
+        resources: json["resources"],
     };
 }
 
-export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
+export function MsaspecQueryResponseToJSON(value?: MsaspecQueryResponse | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -71,8 +78,8 @@ export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
         return null;
     }
     return {
-        ignored_by_channelfile: value.ignoredByChannelfile,
-        interval: value.interval,
-        start_timestamp: value.startTimestamp,
+        errors: value.errors === undefined ? undefined : (value.errors as Array<any>).map(MsaAPIErrorToJSON),
+        meta: MsaMetaInfoToJSON(value.meta),
+        resources: value.resources,
     };
 }

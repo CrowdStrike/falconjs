@@ -13,57 +13,63 @@
  */
 
 import { exists, mapValues } from "../runtime";
+import type { EntitiesScansSortedSearch } from "./EntitiesScansSortedSearch";
+import { EntitiesScansSortedSearchFromJSON, EntitiesScansSortedSearchFromJSONTyped, EntitiesScansSortedSearchToJSON } from "./EntitiesScansSortedSearch";
+
 /**
  *
  * @export
- * @interface DomainSchedule
+ * @interface EntitiesScansReportRequest
  */
-export interface DomainSchedule {
+export interface EntitiesScansReportRequest {
     /**
      *
      * @type {boolean}
-     * @memberof DomainSchedule
+     * @memberof EntitiesScansReportRequest
      */
-    ignoredByChannelfile?: boolean;
-    /**
-     *
-     * @type {number}
-     * @memberof DomainSchedule
-     */
-    interval?: number;
+    isSchedule: boolean;
     /**
      *
      * @type {string}
-     * @memberof DomainSchedule
+     * @memberof EntitiesScansReportRequest
      */
-    startTimestamp?: string;
+    reportFormat: string;
+    /**
+     *
+     * @type {EntitiesScansSortedSearch}
+     * @memberof EntitiesScansReportRequest
+     */
+    search: EntitiesScansSortedSearch;
 }
 
 /**
- * Check if a given object implements the DomainSchedule interface.
+ * Check if a given object implements the EntitiesScansReportRequest interface.
  */
-export function instanceOfDomainSchedule(value: object): boolean {
+export function instanceOfEntitiesScansReportRequest(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "isSchedule" in value;
+    isInstance = isInstance && "reportFormat" in value;
+    isInstance = isInstance && "search" in value;
 
     return isInstance;
 }
 
-export function DomainScheduleFromJSON(json: any): DomainSchedule {
-    return DomainScheduleFromJSONTyped(json, false);
+export function EntitiesScansReportRequestFromJSON(json: any): EntitiesScansReportRequest {
+    return EntitiesScansReportRequestFromJSONTyped(json, false);
 }
 
-export function DomainScheduleFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainSchedule {
+export function EntitiesScansReportRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): EntitiesScansReportRequest {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        ignoredByChannelfile: !exists(json, "ignored_by_channelfile") ? undefined : json["ignored_by_channelfile"],
-        interval: !exists(json, "interval") ? undefined : json["interval"],
-        startTimestamp: !exists(json, "start_timestamp") ? undefined : json["start_timestamp"],
+        isSchedule: json["is_schedule"],
+        reportFormat: json["report_format"],
+        search: EntitiesScansSortedSearchFromJSON(json["search"]),
     };
 }
 
-export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
+export function EntitiesScansReportRequestToJSON(value?: EntitiesScansReportRequest | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -71,8 +77,8 @@ export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
         return null;
     }
     return {
-        ignored_by_channelfile: value.ignoredByChannelfile,
-        interval: value.interval,
-        start_timestamp: value.startTimestamp,
+        is_schedule: value.isSchedule,
+        report_format: value.reportFormat,
+        search: EntitiesScansSortedSearchToJSON(value.search),
     };
 }

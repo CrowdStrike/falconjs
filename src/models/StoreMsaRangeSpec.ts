@@ -16,54 +16,49 @@ import { exists, mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface DomainSchedule
+ * @interface StoreMsaRangeSpec
  */
-export interface DomainSchedule {
-    /**
-     *
-     * @type {boolean}
-     * @memberof DomainSchedule
-     */
-    ignoredByChannelfile?: boolean;
+export interface StoreMsaRangeSpec {
     /**
      *
      * @type {number}
-     * @memberof DomainSchedule
+     * @memberof StoreMsaRangeSpec
      */
-    interval?: number;
+    from: number;
     /**
      *
-     * @type {string}
-     * @memberof DomainSchedule
+     * @type {number}
+     * @memberof StoreMsaRangeSpec
      */
-    startTimestamp?: string;
+    to: number;
 }
 
 /**
- * Check if a given object implements the DomainSchedule interface.
+ * Check if a given object implements the StoreMsaRangeSpec interface.
  */
-export function instanceOfDomainSchedule(value: object): boolean {
+export function instanceOfStoreMsaRangeSpec(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "from" in value;
+    isInstance = isInstance && "to" in value;
 
     return isInstance;
 }
 
-export function DomainScheduleFromJSON(json: any): DomainSchedule {
-    return DomainScheduleFromJSONTyped(json, false);
+export function StoreMsaRangeSpecFromJSON(json: any): StoreMsaRangeSpec {
+    return StoreMsaRangeSpecFromJSONTyped(json, false);
 }
 
-export function DomainScheduleFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainSchedule {
+export function StoreMsaRangeSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): StoreMsaRangeSpec {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        ignoredByChannelfile: !exists(json, "ignored_by_channelfile") ? undefined : json["ignored_by_channelfile"],
-        interval: !exists(json, "interval") ? undefined : json["interval"],
-        startTimestamp: !exists(json, "start_timestamp") ? undefined : json["start_timestamp"],
+        from: json["From"],
+        to: json["To"],
     };
 }
 
-export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
+export function StoreMsaRangeSpecToJSON(value?: StoreMsaRangeSpec | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -71,8 +66,7 @@ export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
         return null;
     }
     return {
-        ignored_by_channelfile: value.ignoredByChannelfile,
-        interval: value.interval,
-        start_timestamp: value.startTimestamp,
+        From: value.from,
+        To: value.to,
     };
 }

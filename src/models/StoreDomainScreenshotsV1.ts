@@ -16,54 +16,48 @@ import { exists, mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface DomainSchedule
+ * @interface StoreDomainScreenshotsV1
  */
-export interface DomainSchedule {
-    /**
-     *
-     * @type {boolean}
-     * @memberof DomainSchedule
-     */
-    ignoredByChannelfile?: boolean;
-    /**
-     *
-     * @type {number}
-     * @memberof DomainSchedule
-     */
-    interval?: number;
+export interface StoreDomainScreenshotsV1 {
     /**
      *
      * @type {string}
-     * @memberof DomainSchedule
+     * @memberof StoreDomainScreenshotsV1
      */
-    startTimestamp?: string;
+    alt?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof StoreDomainScreenshotsV1
+     */
+    url: string;
 }
 
 /**
- * Check if a given object implements the DomainSchedule interface.
+ * Check if a given object implements the StoreDomainScreenshotsV1 interface.
  */
-export function instanceOfDomainSchedule(value: object): boolean {
+export function instanceOfStoreDomainScreenshotsV1(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "url" in value;
 
     return isInstance;
 }
 
-export function DomainScheduleFromJSON(json: any): DomainSchedule {
-    return DomainScheduleFromJSONTyped(json, false);
+export function StoreDomainScreenshotsV1FromJSON(json: any): StoreDomainScreenshotsV1 {
+    return StoreDomainScreenshotsV1FromJSONTyped(json, false);
 }
 
-export function DomainScheduleFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainSchedule {
+export function StoreDomainScreenshotsV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): StoreDomainScreenshotsV1 {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        ignoredByChannelfile: !exists(json, "ignored_by_channelfile") ? undefined : json["ignored_by_channelfile"],
-        interval: !exists(json, "interval") ? undefined : json["interval"],
-        startTimestamp: !exists(json, "start_timestamp") ? undefined : json["start_timestamp"],
+        alt: !exists(json, "alt") ? undefined : json["alt"],
+        url: json["url"],
     };
 }
 
-export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
+export function StoreDomainScreenshotsV1ToJSON(value?: StoreDomainScreenshotsV1 | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -71,8 +65,7 @@ export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
         return null;
     }
     return {
-        ignored_by_channelfile: value.ignoredByChannelfile,
-        interval: value.interval,
-        start_timestamp: value.startTimestamp,
+        alt: value.alt,
+        url: value.url,
     };
 }

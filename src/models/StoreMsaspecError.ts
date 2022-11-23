@@ -16,54 +16,56 @@ import { exists, mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface DomainSchedule
+ * @interface StoreMsaspecError
  */
-export interface DomainSchedule {
-    /**
-     *
-     * @type {boolean}
-     * @memberof DomainSchedule
-     */
-    ignoredByChannelfile?: boolean;
+export interface StoreMsaspecError {
     /**
      *
      * @type {number}
-     * @memberof DomainSchedule
+     * @memberof StoreMsaspecError
      */
-    interval?: number;
+    code: number;
     /**
      *
      * @type {string}
-     * @memberof DomainSchedule
+     * @memberof StoreMsaspecError
      */
-    startTimestamp?: string;
+    id?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof StoreMsaspecError
+     */
+    message: string;
 }
 
 /**
- * Check if a given object implements the DomainSchedule interface.
+ * Check if a given object implements the StoreMsaspecError interface.
  */
-export function instanceOfDomainSchedule(value: object): boolean {
+export function instanceOfStoreMsaspecError(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "code" in value;
+    isInstance = isInstance && "message" in value;
 
     return isInstance;
 }
 
-export function DomainScheduleFromJSON(json: any): DomainSchedule {
-    return DomainScheduleFromJSONTyped(json, false);
+export function StoreMsaspecErrorFromJSON(json: any): StoreMsaspecError {
+    return StoreMsaspecErrorFromJSONTyped(json, false);
 }
 
-export function DomainScheduleFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainSchedule {
+export function StoreMsaspecErrorFromJSONTyped(json: any, ignoreDiscriminator: boolean): StoreMsaspecError {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        ignoredByChannelfile: !exists(json, "ignored_by_channelfile") ? undefined : json["ignored_by_channelfile"],
-        interval: !exists(json, "interval") ? undefined : json["interval"],
-        startTimestamp: !exists(json, "start_timestamp") ? undefined : json["start_timestamp"],
+        code: json["code"],
+        id: !exists(json, "id") ? undefined : json["id"],
+        message: json["message"],
     };
 }
 
-export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
+export function StoreMsaspecErrorToJSON(value?: StoreMsaspecError | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -71,8 +73,8 @@ export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
         return null;
     }
     return {
-        ignored_by_channelfile: value.ignoredByChannelfile,
-        interval: value.interval,
-        start_timestamp: value.startTimestamp,
+        code: value.code,
+        id: value.id,
+        message: value.message,
     };
 }

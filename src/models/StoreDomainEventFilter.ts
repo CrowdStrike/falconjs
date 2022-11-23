@@ -16,54 +16,41 @@ import { exists, mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface DomainSchedule
+ * @interface StoreDomainEventFilter
  */
-export interface DomainSchedule {
+export interface StoreDomainEventFilter {
     /**
-     *
-     * @type {boolean}
-     * @memberof DomainSchedule
+     * list of event types the app processes from FDR. These correspond to the event_simpleName field seen within Insight
+     * @type {Array<string>}
+     * @memberof StoreDomainEventFilter
      */
-    ignoredByChannelfile?: boolean;
-    /**
-     *
-     * @type {number}
-     * @memberof DomainSchedule
-     */
-    interval?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof DomainSchedule
-     */
-    startTimestamp?: string;
+    types: Array<string>;
 }
 
 /**
- * Check if a given object implements the DomainSchedule interface.
+ * Check if a given object implements the StoreDomainEventFilter interface.
  */
-export function instanceOfDomainSchedule(value: object): boolean {
+export function instanceOfStoreDomainEventFilter(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "types" in value;
 
     return isInstance;
 }
 
-export function DomainScheduleFromJSON(json: any): DomainSchedule {
-    return DomainScheduleFromJSONTyped(json, false);
+export function StoreDomainEventFilterFromJSON(json: any): StoreDomainEventFilter {
+    return StoreDomainEventFilterFromJSONTyped(json, false);
 }
 
-export function DomainScheduleFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainSchedule {
+export function StoreDomainEventFilterFromJSONTyped(json: any, ignoreDiscriminator: boolean): StoreDomainEventFilter {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        ignoredByChannelfile: !exists(json, "ignored_by_channelfile") ? undefined : json["ignored_by_channelfile"],
-        interval: !exists(json, "interval") ? undefined : json["interval"],
-        startTimestamp: !exists(json, "start_timestamp") ? undefined : json["start_timestamp"],
+        types: json["types"],
     };
 }
 
-export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
+export function StoreDomainEventFilterToJSON(value?: StoreDomainEventFilter | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -71,8 +58,6 @@ export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
         return null;
     }
     return {
-        ignored_by_channelfile: value.ignoredByChannelfile,
-        interval: value.interval,
-        start_timestamp: value.startTimestamp,
+        types: value.types,
     };
 }
