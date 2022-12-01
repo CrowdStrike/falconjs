@@ -193,7 +193,7 @@ export class HostsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deprecated: Please use new GET or POST /devices/entities/devices/v2 endpoints.  This endpoint will be removed on or sometime after February 9, 2023.  Get details on one or more hosts by providing agent IDs (AID). You can get a host\'s agent IDs (AIDs) from the /devices/queries/devices/v1 endpoint, the Falcon console or the Streaming API
+     * Deprecated: Please use new methods: GetDeviceDetailsV2 or PostDeviceDetailsV2. This method now redirects to GetDeviceDetailsV2. The original API endpoint will be removed on or sometime after February 9, 2023.
      */
     async getDeviceDetailsRaw(
         requestParameters: GetDeviceDetailsRequest,
@@ -218,7 +218,7 @@ export class HostsApi extends runtime.BaseAPI {
 
         const response = await this.request(
             {
-                path: `/devices/entities/devices/v1`,
+                path: `/devices/entities/devices//v2`,
                 method: "GET",
                 headers: headerParameters,
                 query: queryParameters,
@@ -230,7 +230,7 @@ export class HostsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deprecated: Please use new GET or POST /devices/entities/devices/v2 endpoints.  This endpoint will be removed on or sometime after February 9, 2023.  Get details on one or more hosts by providing agent IDs (AID). You can get a host\'s agent IDs (AIDs) from the /devices/queries/devices/v1 endpoint, the Falcon console or the Streaming API
+     * Deprecated: Please use new methods: GetDeviceDetailsV2 or PostDeviceDetailsV2. This method now redirects to GetDeviceDetailsV2. The original API endpoint will be removed on or sometime after February 9, 2023.
      */
     async getDeviceDetails(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainDeviceDetailsResponseSwagger> {
         const response = await this.getDeviceDetailsRaw({ ids: ids }, initOverrides);
