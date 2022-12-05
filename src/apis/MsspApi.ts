@@ -633,7 +633,7 @@ export class MsspApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get CID groups by ID.
+     * Deprecated : Please use GET /mssp/entities/cid-groups/v2. Get CID groups by ID.
      */
     async getCIDGroupByIdRaw(requestParameters: GetCIDGroupByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainCIDGroupsResponseV1>> {
         if (requestParameters.cidGroupIds === null || requestParameters.cidGroupIds === undefined) {
@@ -667,7 +667,7 @@ export class MsspApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get CID groups by ID.
+     * Deprecated : Please use GET /mssp/entities/cid-groups/v2. Get CID groups by ID.
      */
     async getCIDGroupById(cidGroupIds: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainCIDGroupsResponseV1> {
         const response = await this.getCIDGroupByIdRaw({ cidGroupIds: cidGroupIds }, initOverrides);
@@ -675,7 +675,7 @@ export class MsspApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get CID Groups by ID. Identical to \'/entities/cid-groups/v1\' but accepts uniform \'ids\' parameter instead of \'cid_group_ids\'.
+     * Get CID Groups by ID.
      */
     async getCIDGroupByIdV2Raw(requestParameters: GetCIDGroupByIdV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainCIDGroupsResponseV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
@@ -709,7 +709,7 @@ export class MsspApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get CID Groups by ID. Identical to \'/entities/cid-groups/v1\' but accepts uniform \'ids\' parameter instead of \'cid_group_ids\'.
+     * Get CID Groups by ID.
      */
     async getCIDGroupByIdV2(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainCIDGroupsResponseV1> {
         const response = await this.getCIDGroupByIdV2Raw({ ids: ids }, initOverrides);
@@ -717,7 +717,7 @@ export class MsspApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get CID group members by CID group ID.
+     * Deprecated : Please use GET /mssp/entities/cid-group-members/v2. Get CID group members by CID group ID.
      */
     async getCIDGroupMembersByRaw(
         requestParameters: GetCIDGroupMembersByRequest,
@@ -754,7 +754,7 @@ export class MsspApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get CID group members by CID group ID.
+     * Deprecated : Please use GET /mssp/entities/cid-group-members/v2. Get CID group members by CID group ID.
      */
     async getCIDGroupMembersBy(cidGroupIds: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainCIDGroupMembersResponseV1> {
         const response = await this.getCIDGroupMembersByRaw({ cidGroupIds: cidGroupIds }, initOverrides);
@@ -762,7 +762,7 @@ export class MsspApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get CID group members by CID Group ID. Identical to \'/entities/cid-group-members/v1\' but accepts uniform \'ids\' parameter instead of \'cid_group_ids\'.
+     * Get CID group members by CID Group ID.
      */
     async getCIDGroupMembersByV2Raw(
         requestParameters: GetCIDGroupMembersByV2Request,
@@ -799,7 +799,7 @@ export class MsspApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get CID group members by CID Group ID. Identical to \'/entities/cid-group-members/v1\' but accepts uniform \'ids\' parameter instead of \'cid_group_ids\'.
+     * Get CID group members by CID Group ID.
      */
     async getCIDGroupMembersByV2(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainCIDGroupMembersResponseV1> {
         const response = await this.getCIDGroupMembersByV2Raw({ ids: ids }, initOverrides);
@@ -932,7 +932,7 @@ export class MsspApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get user group members by user group ID.
+     * Deprecated : Please use GET /mssp/entities/user-group-members/v2. Get user group members by user group ID.
      */
     async getUserGroupMembersByIDRaw(
         requestParameters: GetUserGroupMembersByIDRequest,
@@ -969,7 +969,7 @@ export class MsspApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get user group members by user group ID.
+     * Deprecated : Please use GET /mssp/entities/user-group-members/v2. Get user group members by user group ID.
      */
     async getUserGroupMembersByID(userGroupIds: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainUserGroupMembersResponseV1> {
         const response = await this.getUserGroupMembersByIDRaw({ userGroupIds: userGroupIds }, initOverrides);
@@ -977,7 +977,7 @@ export class MsspApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get user group members by user group ID. Identical to \'/entities/user-group-members/v1\' but accepts uniform \'ids\' parameter instead of \'user_group_ids\'.
+     * Get user group members by user group ID.
      */
     async getUserGroupMembersByIDV2Raw(
         requestParameters: GetUserGroupMembersByIDV2Request,
@@ -1014,7 +1014,7 @@ export class MsspApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get user group members by user group ID. Identical to \'/entities/user-group-members/v1\' but accepts uniform \'ids\' parameter instead of \'user_group_ids\'.
+     * Get user group members by user group ID.
      */
     async getUserGroupMembersByIDV2(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainUserGroupMembersResponseV1> {
         const response = await this.getUserGroupMembersByIDV2Raw({ ids: ids }, initOverrides);
@@ -1022,7 +1022,7 @@ export class MsspApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get user groups by ID.
+     * Deprecated : Please use GET /entities/user-groups/v2. Get user groups by ID.
      */
     async getUserGroupsByIDRaw(requestParameters: GetUserGroupsByIDRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainUserGroupsResponseV1>> {
         if (requestParameters.userGroupIds === null || requestParameters.userGroupIds === undefined) {
@@ -1056,7 +1056,7 @@ export class MsspApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get user groups by ID.
+     * Deprecated : Please use GET /entities/user-groups/v2. Get user groups by ID.
      */
     async getUserGroupsByID(userGroupIds: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainUserGroupsResponseV1> {
         const response = await this.getUserGroupsByIDRaw({ userGroupIds: userGroupIds }, initOverrides);
@@ -1064,7 +1064,7 @@ export class MsspApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get user groups by ID. Identical to \'/entities/user-groups/v1\' but accepts uniform \'ids\' parameter instead of \'user_group_ids\'.
+     * Get user groups by ID.
      */
     async getUserGroupsByIDV2Raw(requestParameters: GetUserGroupsByIDV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainUserGroupsResponseV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
@@ -1098,7 +1098,7 @@ export class MsspApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get user groups by ID. Identical to \'/entities/user-groups/v1\' but accepts uniform \'ids\' parameter instead of \'user_group_ids\'.
+     * Get user groups by ID.
      */
     async getUserGroupsByIDV2(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainUserGroupsResponseV1> {
         const response = await this.getUserGroupsByIDV2Raw({ ids: ids }, initOverrides);
