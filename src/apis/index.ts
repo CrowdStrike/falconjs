@@ -21,6 +21,7 @@ export * from "./HostsApi";
 export * from "./IdentityProtectionApi";
 export * from "./IncidentsApi";
 export * from "./InstallationTokensApi";
+export * from "./InstallationTokensSettingsApi";
 export * from "./IntelApi";
 export * from "./IoaExclusionsApi";
 export * from "./IocApi";

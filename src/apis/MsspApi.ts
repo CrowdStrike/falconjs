@@ -29,6 +29,8 @@ import type {
     MsaErrorsOnly,
     MsaQueryResponse,
     MsaReplyMetaOnly,
+    MsaspecIdsRequest,
+    MsaspecResponseFields,
 } from "../models";
 import {
     DomainCIDGroupMembersRequestV1FromJSON,
@@ -61,6 +63,10 @@ import {
     MsaQueryResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
+    MsaspecIdsRequestFromJSON,
+    MsaspecIdsRequestToJSON,
+    MsaspecResponseFieldsFromJSON,
+    MsaspecResponseFieldsToJSON,
 } from "../models";
 
 export interface AddCIDGroupMembersRequest {
@@ -107,12 +113,24 @@ export interface GetCIDGroupByIdRequest {
     cidGroupIds: Array<string>;
 }
 
+export interface GetCIDGroupByIdV2Request {
+    ids: Array<string>;
+}
+
 export interface GetCIDGroupMembersByRequest {
     cidGroupIds: Array<string>;
 }
 
+export interface GetCIDGroupMembersByV2Request {
+    ids: Array<string>;
+}
+
 export interface GetChildrenRequest {
     ids: Array<string>;
+}
+
+export interface GetChildrenV2Request {
+    body: MsaspecIdsRequest;
 }
 
 export interface GetRolesByIDRequest {
@@ -123,8 +141,16 @@ export interface GetUserGroupMembersByIDRequest {
     userGroupIds: Array<string>;
 }
 
+export interface GetUserGroupMembersByIDV2Request {
+    ids: Array<string>;
+}
+
 export interface GetUserGroupsByIDRequest {
     userGroupIds: Array<string>;
+}
+
+export interface GetUserGroupsByIDV2Request {
+    ids: Array<string>;
 }
 
 export interface QueryCIDGroupMembersRequest {
@@ -649,6 +675,48 @@ export class MsspApi extends runtime.BaseAPI {
     }
 
     /**
+     * Get CID Groups by ID. Identical to \'/entities/cid-groups/v1\' but accepts uniform \'ids\' parameter instead of \'cid_group_ids\'.
+     */
+    async getCIDGroupByIdV2Raw(requestParameters: GetCIDGroupByIdV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainCIDGroupsResponseV1>> {
+        if (requestParameters.ids === null || requestParameters.ids === undefined) {
+            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getCIDGroupByIdV2.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.ids) {
+            queryParameters["ids"] = requestParameters.ids;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["mssp:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/mssp/entities/cid-groups/v2`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainCIDGroupsResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Get CID Groups by ID. Identical to \'/entities/cid-groups/v1\' but accepts uniform \'ids\' parameter instead of \'cid_group_ids\'.
+     */
+    async getCIDGroupByIdV2(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainCIDGroupsResponseV1> {
+        const response = await this.getCIDGroupByIdV2Raw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Get CID group members by CID group ID.
      */
     async getCIDGroupMembersByRaw(
@@ -694,6 +762,51 @@ export class MsspApi extends runtime.BaseAPI {
     }
 
     /**
+     * Get CID group members by CID Group ID. Identical to \'/entities/cid-group-members/v1\' but accepts uniform \'ids\' parameter instead of \'cid_group_ids\'.
+     */
+    async getCIDGroupMembersByV2Raw(
+        requestParameters: GetCIDGroupMembersByV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainCIDGroupMembersResponseV1>> {
+        if (requestParameters.ids === null || requestParameters.ids === undefined) {
+            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getCIDGroupMembersByV2.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.ids) {
+            queryParameters["ids"] = requestParameters.ids;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["mssp:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/mssp/entities/cid-group-members/v2`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainCIDGroupMembersResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Get CID group members by CID Group ID. Identical to \'/entities/cid-group-members/v1\' but accepts uniform \'ids\' parameter instead of \'cid_group_ids\'.
+     */
+    async getCIDGroupMembersByV2(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainCIDGroupMembersResponseV1> {
+        const response = await this.getCIDGroupMembersByV2Raw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Get link to child customer by child CID(s)
      */
     async getChildrenRaw(requestParameters: GetChildrenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainChildrenResponseV1>> {
@@ -732,6 +845,47 @@ export class MsspApi extends runtime.BaseAPI {
      */
     async getChildren(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainChildrenResponseV1> {
         const response = await this.getChildrenRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get link to child customer by child CID(s)
+     */
+    async getChildrenV2Raw(requestParameters: GetChildrenV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainChildrenResponseV1>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling getChildrenV2.");
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["mssp:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/mssp/entities/children/GET/v2`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: MsaspecIdsRequestToJSON(requestParameters.body),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainChildrenResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Get link to child customer by child CID(s)
+     */
+    async getChildrenV2(body: MsaspecIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainChildrenResponseV1> {
+        const response = await this.getChildrenV2Raw({ body: body }, initOverrides);
         return await response.value();
     }
 
@@ -823,6 +977,51 @@ export class MsspApi extends runtime.BaseAPI {
     }
 
     /**
+     * Get user group members by user group ID. Identical to \'/entities/user-group-members/v1\' but accepts uniform \'ids\' parameter instead of \'user_group_ids\'.
+     */
+    async getUserGroupMembersByIDV2Raw(
+        requestParameters: GetUserGroupMembersByIDV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainUserGroupMembersResponseV1>> {
+        if (requestParameters.ids === null || requestParameters.ids === undefined) {
+            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getUserGroupMembersByIDV2.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.ids) {
+            queryParameters["ids"] = requestParameters.ids;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["mssp:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/mssp/entities/user-group-members/v2`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainUserGroupMembersResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Get user group members by user group ID. Identical to \'/entities/user-group-members/v1\' but accepts uniform \'ids\' parameter instead of \'user_group_ids\'.
+     */
+    async getUserGroupMembersByIDV2(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainUserGroupMembersResponseV1> {
+        const response = await this.getUserGroupMembersByIDV2Raw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Get user groups by ID.
      */
     async getUserGroupsByIDRaw(requestParameters: GetUserGroupsByIDRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainUserGroupsResponseV1>> {
@@ -861,6 +1060,48 @@ export class MsspApi extends runtime.BaseAPI {
      */
     async getUserGroupsByID(userGroupIds: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainUserGroupsResponseV1> {
         const response = await this.getUserGroupsByIDRaw({ userGroupIds: userGroupIds }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get user groups by ID. Identical to \'/entities/user-groups/v1\' but accepts uniform \'ids\' parameter instead of \'user_group_ids\'.
+     */
+    async getUserGroupsByIDV2Raw(requestParameters: GetUserGroupsByIDV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainUserGroupsResponseV1>> {
+        if (requestParameters.ids === null || requestParameters.ids === undefined) {
+            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getUserGroupsByIDV2.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.ids) {
+            queryParameters["ids"] = requestParameters.ids;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["mssp:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/mssp/entities/user-groups/v2`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainUserGroupsResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Get user groups by ID. Identical to \'/entities/user-groups/v1\' but accepts uniform \'ids\' parameter instead of \'user_group_ids\'.
+     */
+    async getUserGroupsByIDV2(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainUserGroupsResponseV1> {
+        const response = await this.getUserGroupsByIDV2Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
 

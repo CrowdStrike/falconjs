@@ -168,7 +168,7 @@ export class BaseAPI {
                     })) || fetchParams;
             }
         }
-        let response = undefined;
+        let response: Response | undefined = undefined;
         try {
             response = await (this.configuration.fetchApi || fetch)(fetchParams.url, fetchParams.init);
         } catch (e) {
