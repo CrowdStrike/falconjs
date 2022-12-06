@@ -18,6 +18,12 @@ import type {
     FwmgrApiEventsResponse,
     FwmgrApiFilepathTestRequest,
     FwmgrApiFirewallFieldsResponse,
+    FwmgrApiNetworkLocationCreateRequestV1,
+    FwmgrApiNetworkLocationModifyMetadataRequestV1,
+    FwmgrApiNetworkLocationModifyPrecedenceRequestV1,
+    FwmgrApiNetworkLocationModifyRequestV1,
+    FwmgrApiNetworkLocationSummariesResponse,
+    FwmgrApiNetworkLocationsResponse,
     FwmgrApiPlatformsResponse,
     FwmgrApiPolicyContainerUpsertRequestV1,
     FwmgrApiPolicyContainersResponse,
@@ -30,6 +36,8 @@ import type {
     FwmgrMsaAggregateQueryRequest,
     FwmgrMsaQueryResponse,
     FwmgrMsaReplyMetaOnly,
+    FwmgrMsaspecQueryResponse,
+    FwmgrMsaspecResponseFields,
     MsaReplyMetaOnly,
 } from "../models";
 import {
@@ -41,6 +49,18 @@ import {
     FwmgrApiFilepathTestRequestToJSON,
     FwmgrApiFirewallFieldsResponseFromJSON,
     FwmgrApiFirewallFieldsResponseToJSON,
+    FwmgrApiNetworkLocationCreateRequestV1FromJSON,
+    FwmgrApiNetworkLocationCreateRequestV1ToJSON,
+    FwmgrApiNetworkLocationModifyMetadataRequestV1FromJSON,
+    FwmgrApiNetworkLocationModifyMetadataRequestV1ToJSON,
+    FwmgrApiNetworkLocationModifyPrecedenceRequestV1FromJSON,
+    FwmgrApiNetworkLocationModifyPrecedenceRequestV1ToJSON,
+    FwmgrApiNetworkLocationModifyRequestV1FromJSON,
+    FwmgrApiNetworkLocationModifyRequestV1ToJSON,
+    FwmgrApiNetworkLocationSummariesResponseFromJSON,
+    FwmgrApiNetworkLocationSummariesResponseToJSON,
+    FwmgrApiNetworkLocationsResponseFromJSON,
+    FwmgrApiNetworkLocationsResponseToJSON,
     FwmgrApiPlatformsResponseFromJSON,
     FwmgrApiPlatformsResponseToJSON,
     FwmgrApiPolicyContainerUpsertRequestV1FromJSON,
@@ -65,6 +85,10 @@ import {
     FwmgrMsaQueryResponseToJSON,
     FwmgrMsaReplyMetaOnlyFromJSON,
     FwmgrMsaReplyMetaOnlyToJSON,
+    FwmgrMsaspecQueryResponseFromJSON,
+    FwmgrMsaspecQueryResponseToJSON,
+    FwmgrMsaspecResponseFieldsFromJSON,
+    FwmgrMsaspecResponseFieldsToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
 } from "../models";
@@ -85,6 +109,13 @@ export interface AggregateRulesRequest {
     body: Array<FwmgrMsaAggregateQueryRequest>;
 }
 
+export interface CreateNetworkLocationsRequest {
+    body: FwmgrApiNetworkLocationCreateRequestV1;
+    cloneId?: string;
+    addFwRules?: boolean;
+    comment?: string;
+}
+
 export interface CreateRuleGroupRequest {
     body: FwmgrApiRuleGroupCreateRequestV1;
     cloneId?: string;
@@ -99,6 +130,10 @@ export interface CreateRuleGroupValidationRequest {
     comment?: string;
 }
 
+export interface DeleteNetworkLocationsRequest {
+    ids: Array<string>;
+}
+
 export interface DeleteRuleGroupsRequest {
     ids: Array<string>;
     comment?: string;
@@ -109,6 +144,14 @@ export interface GetEventsRequest {
 }
 
 export interface GetFirewallFieldsRequest {
+    ids: Array<string>;
+}
+
+export interface GetNetworkLocationsRequest {
+    ids: Array<string>;
+}
+
+export interface GetNetworkLocationsDetailsRequest {
     ids: Array<string>;
 }
 
@@ -140,6 +183,15 @@ export interface QueryEventsRequest {
 export interface QueryFirewallFieldsRequest {
     platformId?: string;
     offset?: string;
+    limit?: number;
+}
+
+export interface QueryNetworkLocationsRequest {
+    sort?: string;
+    filter?: string;
+    q?: string;
+    offset?: string;
+    after?: string;
     limit?: number;
 }
 
@@ -175,6 +227,21 @@ export interface QueryRulesRequest {
     limit?: number;
 }
 
+export interface UpdateNetworkLocationsRequest {
+    body: FwmgrApiNetworkLocationModifyRequestV1;
+    comment?: string;
+}
+
+export interface UpdateNetworkLocationsMetadataRequest {
+    body: FwmgrApiNetworkLocationModifyMetadataRequestV1;
+    comment?: string;
+}
+
+export interface UpdateNetworkLocationsPrecedenceRequest {
+    body: FwmgrApiNetworkLocationModifyPrecedenceRequestV1;
+    comment?: string;
+}
+
 export interface UpdatePolicyContainerRequest {
     body: FwmgrApiPolicyContainerUpsertRequestV1;
 }
@@ -190,6 +257,11 @@ export interface UpdateRuleGroupRequest {
 
 export interface UpdateRuleGroupValidationRequest {
     body: FwmgrApiRuleGroupModifyRequestV1;
+    comment?: string;
+}
+
+export interface UpsertNetworkLocationsRequest {
+    body: FwmgrApiNetworkLocationModifyRequestV1;
     comment?: string;
 }
 
@@ -369,6 +441,68 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     }
 
     /**
+     * Create new network locations provided, and return the ID.
+     */
+    async createNetworkLocationsRaw(
+        requestParameters: CreateNetworkLocationsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<FwmgrApiNetworkLocationsResponse>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createNetworkLocations.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.cloneId !== undefined) {
+            queryParameters["clone_id"] = requestParameters.cloneId;
+        }
+
+        if (requestParameters.addFwRules !== undefined) {
+            queryParameters["add_fw_rules"] = requestParameters.addFwRules;
+        }
+
+        if (requestParameters.comment !== undefined) {
+            queryParameters["comment"] = requestParameters.comment;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/fwmgr/entities/network-locations/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: FwmgrApiNetworkLocationCreateRequestV1ToJSON(requestParameters.body),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => FwmgrApiNetworkLocationsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Create new network locations provided, and return the ID.
+     */
+    async createNetworkLocations(
+        body: FwmgrApiNetworkLocationCreateRequestV1,
+        cloneId?: string,
+        addFwRules?: boolean,
+        comment?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<FwmgrApiNetworkLocationsResponse> {
+        const response = await this.createNetworkLocationsRaw({ body: body, cloneId: cloneId, addFwRules: addFwRules, comment: comment }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Create new rule group on a platform for a customer with a name and description, and return the ID
      */
     async createRuleGroupRaw(requestParameters: CreateRuleGroupRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FwmgrApiQueryResponse>> {
@@ -486,6 +620,51 @@ export class FirewallManagementApi extends runtime.BaseAPI {
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<FwmgrMsaQueryResponse> {
         const response = await this.createRuleGroupValidationRaw({ body: body, cloneId: cloneId, library: library, comment: comment }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Delete network location entities by ID.
+     */
+    async deleteNetworkLocationsRaw(
+        requestParameters: DeleteNetworkLocationsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<FwmgrMsaspecQueryResponse>> {
+        if (requestParameters.ids === null || requestParameters.ids === undefined) {
+            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling deleteNetworkLocations.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.ids) {
+            queryParameters["ids"] = requestParameters.ids;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/fwmgr/entities/network-locations/v1`,
+                method: "DELETE",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => FwmgrMsaspecQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Delete network location entities by ID.
+     */
+    async deleteNetworkLocations(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FwmgrMsaspecQueryResponse> {
+        const response = await this.deleteNetworkLocationsRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
 
@@ -616,6 +795,100 @@ export class FirewallManagementApi extends runtime.BaseAPI {
      */
     async getFirewallFields(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FwmgrApiFirewallFieldsResponse> {
         const response = await this.getFirewallFieldsRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This endpoint returns a summary of network locations that includes name, description, enabled/disabled status, a count of associated rules etc
+     * Get a summary of network locations entities by ID
+     */
+    async getNetworkLocationsRaw(
+        requestParameters: GetNetworkLocationsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<FwmgrApiNetworkLocationSummariesResponse>> {
+        if (requestParameters.ids === null || requestParameters.ids === undefined) {
+            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getNetworkLocations.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.ids) {
+            queryParameters["ids"] = requestParameters.ids;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/fwmgr/entities/network-locations/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => FwmgrApiNetworkLocationSummariesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * This endpoint returns a summary of network locations that includes name, description, enabled/disabled status, a count of associated rules etc
+     * Get a summary of network locations entities by ID
+     */
+    async getNetworkLocations(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FwmgrApiNetworkLocationSummariesResponse> {
+        const response = await this.getNetworkLocationsRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This endpoint returns the complete network locations objects that includes all the network location conditions.
+     * Get network locations entities by ID
+     */
+    async getNetworkLocationsDetailsRaw(
+        requestParameters: GetNetworkLocationsDetailsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<FwmgrApiNetworkLocationsResponse>> {
+        if (requestParameters.ids === null || requestParameters.ids === undefined) {
+            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getNetworkLocationsDetails.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.ids) {
+            queryParameters["ids"] = requestParameters.ids;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/fwmgr/entities/network-locations-details/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => FwmgrApiNetworkLocationsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * This endpoint returns the complete network locations objects that includes all the network location conditions.
+     * Get network locations entities by ID
+     */
+    async getNetworkLocationsDetails(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FwmgrApiNetworkLocationsResponse> {
+        const response = await this.getNetworkLocationsDetailsRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
 
@@ -903,6 +1176,74 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     }
 
     /**
+     * This endpoint returns a list of network location IDs based of query parameter.
+     * Get a list of network location IDs
+     */
+    async queryNetworkLocationsRaw(requestParameters: QueryNetworkLocationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FwmgrApiQueryResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.sort !== undefined) {
+            queryParameters["sort"] = requestParameters.sort;
+        }
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        if (requestParameters.q !== undefined) {
+            queryParameters["q"] = requestParameters.q;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        if (requestParameters.after !== undefined) {
+            queryParameters["after"] = requestParameters.after;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/fwmgr/queries/network-locations/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => FwmgrApiQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * This endpoint returns a list of network location IDs based of query parameter.
+     * Get a list of network location IDs
+     */
+    async queryNetworkLocations(
+        sort?: string,
+        filter?: string,
+        q?: string,
+        offset?: string,
+        after?: string,
+        limit?: number,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<FwmgrApiQueryResponse> {
+        const response = await this.queryNetworkLocationsRaw({ sort: sort, filter: filter, q: q, offset: offset, after: after, limit: limit }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Get the list of platform names
      */
     async queryPlatformsRaw(requestParameters: QueryPlatformsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FwmgrMsaQueryResponse>> {
@@ -1143,6 +1484,158 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     }
 
     /**
+     * Updates the network locations provided, and return the ID.
+     */
+    async updateNetworkLocationsRaw(
+        requestParameters: UpdateNetworkLocationsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<FwmgrMsaspecQueryResponse>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateNetworkLocations.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.comment !== undefined) {
+            queryParameters["comment"] = requestParameters.comment;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/fwmgr/entities/network-locations/v1`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+                body: FwmgrApiNetworkLocationModifyRequestV1ToJSON(requestParameters.body),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => FwmgrMsaspecQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Updates the network locations provided, and return the ID.
+     */
+    async updateNetworkLocations(body: FwmgrApiNetworkLocationModifyRequestV1, comment?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FwmgrMsaspecQueryResponse> {
+        const response = await this.updateNetworkLocationsRaw({ body: body, comment: comment }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Updates the network locations metadata such as polling_intervals for the cid
+     */
+    async updateNetworkLocationsMetadataRaw(
+        requestParameters: UpdateNetworkLocationsMetadataRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<FwmgrMsaspecQueryResponse>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateNetworkLocationsMetadata.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.comment !== undefined) {
+            queryParameters["comment"] = requestParameters.comment;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/fwmgr/entities/network-locations-metadata/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: FwmgrApiNetworkLocationModifyMetadataRequestV1ToJSON(requestParameters.body),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => FwmgrMsaspecQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Updates the network locations metadata such as polling_intervals for the cid
+     */
+    async updateNetworkLocationsMetadata(
+        body: FwmgrApiNetworkLocationModifyMetadataRequestV1,
+        comment?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<FwmgrMsaspecQueryResponse> {
+        const response = await this.updateNetworkLocationsMetadataRaw({ body: body, comment: comment }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Updates the network locations precedence according to the list of ids provided.
+     */
+    async updateNetworkLocationsPrecedenceRaw(
+        requestParameters: UpdateNetworkLocationsPrecedenceRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<FwmgrMsaspecQueryResponse>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateNetworkLocationsPrecedence.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.comment !== undefined) {
+            queryParameters["comment"] = requestParameters.comment;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/fwmgr/entities/network-locations-precedence/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: FwmgrApiNetworkLocationModifyPrecedenceRequestV1ToJSON(requestParameters.body),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => FwmgrMsaspecQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Updates the network locations precedence according to the list of ids provided.
+     */
+    async updateNetworkLocationsPrecedence(
+        body: FwmgrApiNetworkLocationModifyPrecedenceRequestV1,
+        comment?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<FwmgrMsaspecQueryResponse> {
+        const response = await this.updateNetworkLocationsPrecedenceRaw({ body: body, comment: comment }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Update an identified policy container, including local logging functionality.
      */
     async updatePolicyContainerRaw(requestParameters: UpdatePolicyContainerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FwmgrMsaReplyMetaOnly>> {
@@ -1317,6 +1810,54 @@ export class FirewallManagementApi extends runtime.BaseAPI {
      */
     async updateRuleGroupValidation(body: FwmgrApiRuleGroupModifyRequestV1, comment?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FwmgrMsaQueryResponse> {
         const response = await this.updateRuleGroupValidationRaw({ body: body, comment: comment }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Updates the network locations provided, and return the ID.
+     */
+    async upsertNetworkLocationsRaw(
+        requestParameters: UpsertNetworkLocationsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<FwmgrMsaspecQueryResponse>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling upsertNetworkLocations.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.comment !== undefined) {
+            queryParameters["comment"] = requestParameters.comment;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/fwmgr/entities/network-locations/v1`,
+                method: "PUT",
+                headers: headerParameters,
+                query: queryParameters,
+                body: FwmgrApiNetworkLocationModifyRequestV1ToJSON(requestParameters.body),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => FwmgrMsaspecQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Updates the network locations provided, and return the ID.
+     */
+    async upsertNetworkLocations(body: FwmgrApiNetworkLocationModifyRequestV1, comment?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FwmgrMsaspecQueryResponse> {
+        const response = await this.upsertNetworkLocationsRaw({ body: body, comment: comment }, initOverrides);
         return await response.value();
     }
 
