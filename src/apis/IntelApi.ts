@@ -13,7 +13,17 @@
  */
 
 import * as runtime from "../runtime";
-import type { DomainActorsResponse, DomainNewsResponse, DomainPublicIndicatorsV3Response, DomainRulesResponse, MsaErrorsOnly, MsaIdsRequest, MsaQueryResponse, MsaReplyMetaOnly } from "../models";
+import type {
+    DomainActorsResponse,
+    DomainNewsResponse,
+    DomainPublicIndicatorsV3Response,
+    DomainRulesResponse,
+    DomainVulnerabilityResponse,
+    MsaErrorsOnly,
+    MsaIdsRequest,
+    MsaQueryResponse,
+    MsaReplyMetaOnly,
+} from "../models";
 import {
     DomainActorsResponseFromJSON,
     DomainActorsResponseToJSON,
@@ -23,6 +33,8 @@ import {
     DomainPublicIndicatorsV3ResponseToJSON,
     DomainRulesResponseFromJSON,
     DomainRulesResponseToJSON,
+    DomainVulnerabilityResponseFromJSON,
+    DomainVulnerabilityResponseToJSON,
     MsaErrorsOnlyFromJSON,
     MsaErrorsOnlyToJSON,
     MsaIdsRequestFromJSON,
@@ -66,6 +78,10 @@ export interface GetLatestIntelRuleFileRequest {
     accept?: string;
     format?: string;
     ifModifiedSince?: string;
+}
+
+export interface GetVulnerabilitiesRequest {
+    body: MsaIdsRequest;
 }
 
 export interface QueryIntelActorEntitiesRequest {
@@ -132,6 +148,14 @@ export interface QueryIntelRuleIdsRequest {
     tags?: Array<string>;
     minCreatedDate?: number;
     maxCreatedDate?: string;
+    q?: string;
+}
+
+export interface QueryVulnerabilitiesRequest {
+    offset?: string;
+    limit?: number;
+    sort?: string;
+    filter?: string;
     q?: string;
 }
 
@@ -460,6 +484,47 @@ export class IntelApi extends runtime.BaseAPI {
      */
     async getLatestIntelRuleFile(type: string, accept?: string, format?: string, ifModifiedSince?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
         const response = await this.getLatestIntelRuleFileRaw({ type: type, accept: accept, format: format, ifModifiedSince: ifModifiedSince }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get vulnerabilities
+     */
+    async getVulnerabilitiesRaw(requestParameters: GetVulnerabilitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainVulnerabilityResponse>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling getVulnerabilities.");
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["intel-vulnerabilities:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/intel/entities/vulnerabilities/GET/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: MsaIdsRequestToJSON(requestParameters.body),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainVulnerabilityResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get vulnerabilities
+     */
+    async getVulnerabilities(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainVulnerabilityResponse> {
+        const response = await this.getVulnerabilitiesRaw({ body: body }, initOverrides);
         return await response.value();
     }
 
@@ -950,6 +1015,60 @@ export class IntelApi extends runtime.BaseAPI {
             { type: type, offset: offset, limit: limit, sort: sort, name: name, description: description, tags: tags, minCreatedDate: minCreatedDate, maxCreatedDate: maxCreatedDate, q: q },
             initOverrides
         );
+        return await response.value();
+    }
+
+    /**
+     * Get vulnerabilities IDs
+     */
+    async queryVulnerabilitiesRaw(requestParameters: QueryVulnerabilitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        if (requestParameters.sort !== undefined) {
+            queryParameters["sort"] = requestParameters.sort;
+        }
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        if (requestParameters.q !== undefined) {
+            queryParameters["q"] = requestParameters.q;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["intel-vulnerabilities:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/intel/queries/vulnerabilities/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get vulnerabilities IDs
+     */
+    async queryVulnerabilities(offset?: string, limit?: number, sort?: string, filter?: string, q?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
+        const response = await this.queryVulnerabilitiesRaw({ offset: offset, limit: limit, sort: sort, filter: filter, q: q }, initOverrides);
         return await response.value();
     }
 }
