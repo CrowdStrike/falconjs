@@ -45,10 +45,10 @@ import {
     SensorDownloadApi,
     SensorUpdatePoliciesApi,
     SensorVisibilityExclusionsApi,
-    SpotlightVulnerabilitiesApi,
     UserManagementApi,
     ZeroTrustAssessmentApi,
 } from "./apis";
+import { SpotlightVulnerabilitiesApi } from "./apis/SpotlightVulnerabilitiesApi";
 
 export interface FalconClientOptions {
     /** override for fetch implementation (on node use node-fetch or cross-fetch) */

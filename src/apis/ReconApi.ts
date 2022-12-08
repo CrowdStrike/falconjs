@@ -14,9 +14,14 @@
 
 import * as runtime from "../runtime";
 import type {
+    ApiNotificationExposedDataRecordEntitiesResponseV1,
     DomainActionEntitiesResponseV1,
     DomainAggregatesResponse,
     DomainErrorsOnly,
+    DomainExportJobEntitiesResponseV1,
+    DomainExportJobIDResponseV1,
+    DomainLaunchExportJobRequestV1,
+    DomainLaunchExportJobResponseV1,
     DomainNotificationDetailsResponseV1,
     DomainNotificationEntitiesResponseV1,
     DomainNotificationIDResponse,
@@ -31,15 +36,26 @@ import type {
     MsaAggregateQueryRequest,
     MsaErrorsOnly,
     MsaReplyMetaOnly,
+    MsaspecResponseFields,
     SadomainCreateRuleRequestV1,
 } from "../models";
 import {
+    ApiNotificationExposedDataRecordEntitiesResponseV1FromJSON,
+    ApiNotificationExposedDataRecordEntitiesResponseV1ToJSON,
     DomainActionEntitiesResponseV1FromJSON,
     DomainActionEntitiesResponseV1ToJSON,
     DomainAggregatesResponseFromJSON,
     DomainAggregatesResponseToJSON,
     DomainErrorsOnlyFromJSON,
     DomainErrorsOnlyToJSON,
+    DomainExportJobEntitiesResponseV1FromJSON,
+    DomainExportJobEntitiesResponseV1ToJSON,
+    DomainExportJobIDResponseV1FromJSON,
+    DomainExportJobIDResponseV1ToJSON,
+    DomainLaunchExportJobRequestV1FromJSON,
+    DomainLaunchExportJobRequestV1ToJSON,
+    DomainLaunchExportJobResponseV1FromJSON,
+    DomainLaunchExportJobResponseV1ToJSON,
     DomainNotificationDetailsResponseV1FromJSON,
     DomainNotificationDetailsResponseV1ToJSON,
     DomainNotificationEntitiesResponseV1FromJSON,
@@ -68,9 +84,15 @@ import {
     MsaErrorsOnlyToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
+    MsaspecResponseFieldsFromJSON,
+    MsaspecResponseFieldsToJSON,
     SadomainCreateRuleRequestV1FromJSON,
     SadomainCreateRuleRequestV1ToJSON,
 } from "../models";
+
+export interface AggregateNotificationsExposedDataRecordsV1Request {
+    body: Array<MsaAggregateQueryRequest>;
+}
 
 export interface AggregateNotificationsV1Request {
     body: Array<MsaAggregateQueryRequest>;
@@ -80,12 +102,20 @@ export interface CreateActionsV1Request {
     body: DomainRegisterActionsRequest;
 }
 
+export interface CreateExportJobsV1Request {
+    body: Array<DomainLaunchExportJobRequestV1>;
+}
+
 export interface CreateRulesV1Request {
     body: Array<SadomainCreateRuleRequestV1>;
 }
 
 export interface DeleteActionV1Request {
     id: string;
+}
+
+export interface DeleteExportJobsV1Request {
+    ids: Array<string>;
 }
 
 export interface DeleteNotificationsV1Request {
@@ -100,11 +130,23 @@ export interface GetActionsV1Request {
     ids: Array<string>;
 }
 
+export interface GetExportJobsV1Request {
+    ids: Array<string>;
+}
+
+export interface GetFileContentForExportJobsV1Request {
+    id: string;
+}
+
 export interface GetNotificationsDetailedTranslatedV1Request {
     ids: Array<string>;
 }
 
 export interface GetNotificationsDetailedV1Request {
+    ids: Array<string>;
+}
+
+export interface GetNotificationsExposedDataRecordsV1Request {
     ids: Array<string>;
 }
 
@@ -125,6 +167,14 @@ export interface PreviewRuleV1Request {
 }
 
 export interface QueryActionsV1Request {
+    offset?: number;
+    limit?: number;
+    sort?: string;
+    filter?: string;
+    q?: string;
+}
+
+export interface QueryNotificationsExposedDataRecordsV1Request {
     offset?: number;
     limit?: number;
     sort?: string;
@@ -164,6 +214,50 @@ export interface UpdateRulesV1Request {
  *
  */
 export class ReconApi extends runtime.BaseAPI {
+    /**
+     * Get notification exposed data record aggregates as specified via JSON in request body. The valid aggregation fields are: [notification_id created_date rule.id rule.name rule.topic source_category site author]
+     */
+    async aggregateNotificationsExposedDataRecordsV1Raw(
+        requestParameters: AggregateNotificationsExposedDataRecordsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainAggregatesResponse>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling aggregateNotificationsExposedDataRecordsV1.");
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/recon/aggregates/notifications-exposed-data-records/GET/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: requestParameters.body.map(MsaAggregateQueryRequestToJSON),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregatesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get notification exposed data record aggregates as specified via JSON in request body. The valid aggregation fields are: [notification_id created_date rule.id rule.name rule.topic source_category site author]
+     */
+    async aggregateNotificationsExposedDataRecordsV1(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainAggregatesResponse> {
+        const response = await this.aggregateNotificationsExposedDataRecordsV1Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
     /**
      * Get notification aggregates as specified via JSON in request body.
      */
@@ -250,6 +344,50 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
+     * Launch asynchronous export job. Use the job ID to poll the status of the job using GET /entities/exports/v1.
+     */
+    async createExportJobsV1Raw(
+        requestParameters: CreateExportJobsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainLaunchExportJobResponseV1>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createExportJobsV1.");
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/recon/entities/exports/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: requestParameters.body.map(DomainLaunchExportJobRequestV1ToJSON),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainLaunchExportJobResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Launch asynchronous export job. Use the job ID to poll the status of the job using GET /entities/exports/v1.
+     */
+    async createExportJobsV1(body: Array<DomainLaunchExportJobRequestV1>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainLaunchExportJobResponseV1> {
+        const response = await this.createExportJobsV1Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Create monitoring rules.
      */
     async createRulesV1Raw(requestParameters: CreateRulesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRulesEntitiesResponseV1>> {
@@ -329,6 +467,48 @@ export class ReconApi extends runtime.BaseAPI {
      */
     async deleteActionV1(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainQueryResponse> {
         const response = await this.deleteActionV1Raw({ id: id }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Delete export jobs (and their associated file(s)) based on their IDs.
+     */
+    async deleteExportJobsV1Raw(requestParameters: DeleteExportJobsV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainExportJobIDResponseV1>> {
+        if (requestParameters.ids === null || requestParameters.ids === undefined) {
+            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling deleteExportJobsV1.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.ids) {
+            queryParameters["ids"] = requestParameters.ids;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/recon/entities/exports/v1`,
+                method: "DELETE",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainExportJobIDResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Delete export jobs (and their associated file(s)) based on their IDs.
+     */
+    async deleteExportJobsV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainExportJobIDResponseV1> {
+        const response = await this.deleteExportJobsV1Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
 
@@ -462,6 +642,93 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
+     * Get the status of export jobs based on their IDs. Export jobs can be launched by calling POST /entities/exports/v1. When a job is complete, use the job ID to download the file(s) associated with it using GET entities/export-files/v1.
+     */
+    async getExportJobsV1Raw(requestParameters: GetExportJobsV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainExportJobEntitiesResponseV1>> {
+        if (requestParameters.ids === null || requestParameters.ids === undefined) {
+            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getExportJobsV1.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.ids) {
+            queryParameters["ids"] = requestParameters.ids;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/recon/entities/exports/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainExportJobEntitiesResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Get the status of export jobs based on their IDs. Export jobs can be launched by calling POST /entities/exports/v1. When a job is complete, use the job ID to download the file(s) associated with it using GET entities/export-files/v1.
+     */
+    async getExportJobsV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainExportJobEntitiesResponseV1> {
+        const response = await this.getExportJobsV1Raw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Download the file associated with a job ID.
+     */
+    async getFileContentForExportJobsV1Raw(
+        requestParameters: GetFileContentForExportJobsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<Array<number>>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id", "Required parameter requestParameters.id was null or undefined when calling getFileContentForExportJobsV1.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.id !== undefined) {
+            queryParameters["id"] = requestParameters.id;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/recon/entities/export-files/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse<any>(response);
+    }
+
+    /**
+     * Download the file associated with a job ID.
+     */
+    async getFileContentForExportJobsV1(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<number>> {
+        const response = await this.getFileContentForExportJobsV1Raw({ id: id }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Get detailed notifications based on their IDs. These include the raw intelligence content that generated the match.This endpoint will return translated notification content. The only target language available is English. A single notification can be translated per request
      */
     async getNotificationsDetailedTranslatedV1Raw(
@@ -548,6 +815,51 @@ export class ReconApi extends runtime.BaseAPI {
      */
     async getNotificationsDetailedV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainNotificationDetailsResponseV1> {
         const response = await this.getNotificationsDetailedV1Raw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get notifications exposed data records based on their IDs. IDs can be retrieved using the GET /queries/notifications-exposed-data-records/v1 endpoint. The associate notification can be fetched using the /entities/notifications/v* endpoints
+     */
+    async getNotificationsExposedDataRecordsV1Raw(
+        requestParameters: GetNotificationsExposedDataRecordsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ApiNotificationExposedDataRecordEntitiesResponseV1>> {
+        if (requestParameters.ids === null || requestParameters.ids === undefined) {
+            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getNotificationsExposedDataRecordsV1.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.ids) {
+            queryParameters["ids"] = requestParameters.ids;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/recon/entities/notifications-exposed-data-records/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiNotificationExposedDataRecordEntitiesResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Get notifications exposed data records based on their IDs. IDs can be retrieved using the GET /queries/notifications-exposed-data-records/v1 endpoint. The associate notification can be fetched using the /entities/notifications/v* endpoints
+     */
+    async getNotificationsExposedDataRecordsV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiNotificationExposedDataRecordEntitiesResponseV1> {
+        const response = await this.getNotificationsExposedDataRecordsV1Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
 
@@ -775,6 +1087,70 @@ export class ReconApi extends runtime.BaseAPI {
      */
     async queryActionsV1(offset?: number, limit?: number, sort?: string, filter?: string, q?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainQueryResponse> {
         const response = await this.queryActionsV1Raw({ offset: offset, limit: limit, sort: sort, filter: filter, q: q }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Query notifications exposed data records based on provided criteria. Use the IDs from this response to get the notification +entities on GET /entities/notifications-exposed-data-records/v1
+     */
+    async queryNotificationsExposedDataRecordsV1Raw(
+        requestParameters: QueryNotificationsExposedDataRecordsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainQueryResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        if (requestParameters.sort !== undefined) {
+            queryParameters["sort"] = requestParameters.sort;
+        }
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        if (requestParameters.q !== undefined) {
+            queryParameters["q"] = requestParameters.q;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/recon/queries/notifications-exposed-data-records/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Query notifications exposed data records based on provided criteria. Use the IDs from this response to get the notification +entities on GET /entities/notifications-exposed-data-records/v1
+     */
+    async queryNotificationsExposedDataRecordsV1(
+        offset?: number,
+        limit?: number,
+        sort?: string,
+        filter?: string,
+        q?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<DomainQueryResponse> {
+        const response = await this.queryNotificationsExposedDataRecordsV1Raw({ offset: offset, limit: limit, sort: sort, filter: filter, q: q }, initOverrides);
         return await response.value();
     }
 
