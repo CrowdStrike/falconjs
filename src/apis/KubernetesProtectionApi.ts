@@ -15,7 +15,10 @@
 import * as runtime from "../runtime";
 import type {
     K8sregCreateAWSAccReq,
+    K8sregCreateAzureSubReq,
     K8sregGetAWSAccountsResp,
+    K8sregGetAzureSubscriptionsResp,
+    K8sregGetAzureTenantConfigResp,
     K8sregGetClustersResp,
     K8sregGetLocationsResp,
     K8sregRegenAPIKeyResp,
@@ -26,8 +29,14 @@ import type {
 import {
     K8sregCreateAWSAccReqFromJSON,
     K8sregCreateAWSAccReqToJSON,
+    K8sregCreateAzureSubReqFromJSON,
+    K8sregCreateAzureSubReqToJSON,
     K8sregGetAWSAccountsRespFromJSON,
     K8sregGetAWSAccountsRespToJSON,
+    K8sregGetAzureSubscriptionsRespFromJSON,
+    K8sregGetAzureSubscriptionsRespToJSON,
+    K8sregGetAzureTenantConfigRespFromJSON,
+    K8sregGetAzureTenantConfigRespToJSON,
     K8sregGetClustersRespFromJSON,
     K8sregGetClustersRespToJSON,
     K8sregGetLocationsRespFromJSON,
@@ -46,8 +55,16 @@ export interface CreateAWSAccountRequest {
     body: K8sregCreateAWSAccReq;
 }
 
+export interface CreateAzureSubscriptionRequest {
+    body: K8sregCreateAzureSubReq;
+}
+
 export interface DeleteAWSAccountsMixin0Request {
     ids: Array<string>;
+}
+
+export interface DeleteAzureSubscriptionRequest {
+    ids?: Array<string>;
 }
 
 export interface GetAWSAccountsMixin0Request {
@@ -72,6 +89,20 @@ export interface GetHelmValuesYamlRequest {
 
 export interface GetLocationsRequest {
     clouds?: GetLocationsCloudsEnum;
+}
+
+export interface ListAzureAccountsRequest {
+    ids?: Array<string>;
+    subscriptionId?: Array<string>;
+    status?: ListAzureAccountsStatusEnum;
+    isHorizonAcct?: ListAzureAccountsIsHorizonAcctEnum;
+    limit?: number;
+    offset?: number;
+}
+
+export interface PatchAzureServicePrincipalRequest {
+    id: string;
+    clientId: string;
 }
 
 export interface TriggerScanRequest {
@@ -129,6 +160,50 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates a new Azure Subscription in our system
+     */
+    async createAzureSubscriptionRaw(
+        requestParameters: CreateAzureSubscriptionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaBaseEntitiesResponse>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createAzureSubscription.");
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/kubernetes-protection/entities/accounts/azure/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: K8sregCreateAzureSubReqToJSON(requestParameters.body),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaBaseEntitiesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Creates a new Azure Subscription in our system
+     */
+    async createAzureSubscription(body: K8sregCreateAzureSubReq, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaBaseEntitiesResponse> {
+        const response = await this.createAzureSubscriptionRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Delete AWS accounts.
      */
     async deleteAWSAccountsMixin0Raw(requestParameters: DeleteAWSAccountsMixin0Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaMetaInfo>> {
@@ -167,6 +242,47 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async deleteAWSAccountsMixin0(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaMetaInfo> {
         const response = await this.deleteAWSAccountsMixin0Raw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Deletes a new Azure Subscription in our system
+     */
+    async deleteAzureSubscriptionRaw(
+        requestParameters: DeleteAzureSubscriptionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaBaseEntitiesResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.ids) {
+            queryParameters["ids"] = requestParameters.ids.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/kubernetes-protection/entities/accounts/azure/v1`,
+                method: "DELETE",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaBaseEntitiesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Deletes a new Azure Subscription in our system
+     */
+    async deleteAzureSubscription(ids?: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaBaseEntitiesResponse> {
+        const response = await this.deleteAzureSubscriptionRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
 
@@ -370,6 +486,125 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     }
 
     /**
+     * Provides the azure subscriptions registered to Kubernetes Protection
+     */
+    async listAzureAccountsRaw(requestParameters: ListAzureAccountsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<K8sregGetAzureSubscriptionsResp>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.ids) {
+            queryParameters["ids"] = requestParameters.ids.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters.subscriptionId) {
+            queryParameters["subscription_id"] = requestParameters.subscriptionId.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters.status !== undefined) {
+            queryParameters["status"] = requestParameters.status;
+        }
+
+        if (requestParameters.isHorizonAcct !== undefined) {
+            queryParameters["is_horizon_acct"] = requestParameters.isHorizonAcct;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/kubernetes-protection/entities/accounts/azure/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => K8sregGetAzureSubscriptionsRespFromJSON(jsonValue));
+    }
+
+    /**
+     * Provides the azure subscriptions registered to Kubernetes Protection
+     */
+    async listAzureAccounts(
+        ids?: Array<string>,
+        subscriptionId?: Array<string>,
+        status?: ListAzureAccountsStatusEnum,
+        isHorizonAcct?: ListAzureAccountsIsHorizonAcctEnum,
+        limit?: number,
+        offset?: number,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<K8sregGetAzureSubscriptionsResp> {
+        const response = await this.listAzureAccountsRaw({ ids: ids, subscriptionId: subscriptionId, status: status, isHorizonAcct: isHorizonAcct, limit: limit, offset: offset }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Adds the client ID for the given tenant ID to our system
+     */
+    async patchAzureServicePrincipalRaw(
+        requestParameters: PatchAzureServicePrincipalRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<K8sregGetAzureTenantConfigResp>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id", "Required parameter requestParameters.id was null or undefined when calling patchAzureServicePrincipal.");
+        }
+
+        if (requestParameters.clientId === null || requestParameters.clientId === undefined) {
+            throw new runtime.RequiredError("clientId", "Required parameter requestParameters.clientId was null or undefined when calling patchAzureServicePrincipal.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.id !== undefined) {
+            queryParameters["id"] = requestParameters.id;
+        }
+
+        if (requestParameters.clientId !== undefined) {
+            queryParameters["client_id"] = requestParameters.clientId;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/kubernetes-protection/entities/service-principal/azure/v1`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => K8sregGetAzureTenantConfigRespFromJSON(jsonValue));
+    }
+
+    /**
+     * Adds the client ID for the given tenant ID to our system
+     */
+    async patchAzureServicePrincipal(id: string, clientId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<K8sregGetAzureTenantConfigResp> {
+        const response = await this.patchAzureServicePrincipalRaw({ id: id, clientId: clientId }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Regenerate API key for docker registry integrations
      */
     async regenerateAPIKeyRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<K8sregRegenAPIKeyResp>> {
@@ -504,6 +739,22 @@ export type GetClustersClusterServiceEnum = typeof GetClustersClusterServiceEnum
  */
 export const GetLocationsCloudsEnum = {} as const;
 export type GetLocationsCloudsEnum = Array<String>;
+/**
+ * @export
+ */
+export const ListAzureAccountsStatusEnum = {
+    Operational: "operational",
+    Provisioned: "provisioned",
+} as const;
+export type ListAzureAccountsStatusEnum = typeof ListAzureAccountsStatusEnum[keyof typeof ListAzureAccountsStatusEnum];
+/**
+ * @export
+ */
+export const ListAzureAccountsIsHorizonAcctEnum = {
+    False: "false",
+    True: "true",
+} as const;
+export type ListAzureAccountsIsHorizonAcctEnum = typeof ListAzureAccountsIsHorizonAcctEnum[keyof typeof ListAzureAccountsIsHorizonAcctEnum];
 /**
  * @export
  */
