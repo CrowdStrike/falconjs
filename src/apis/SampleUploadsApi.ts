@@ -57,6 +57,14 @@ export interface ArchiveListV1Request {
     offset?: string;
 }
 
+export interface ArchiveUploadV1Request {
+    name: string;
+    body: Array<number>;
+    password?: string;
+    isConfidential?: boolean;
+    comment?: string;
+}
+
 export interface ArchiveUploadV2Request {
     file: Blob;
     name: string;
@@ -234,6 +242,74 @@ export class SampleUploadsApi extends runtime.BaseAPI {
      */
     async archiveListV1(id: string, limit?: number, offset?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClientArchiveListFilesResponseV1> {
         const response = await this.archiveListV1Raw({ id: id, limit: limit, offset: offset }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Uploads an archive and extracts files list from it. Operation is asynchronous use `/archives/entities/archives/v1` to check the status. After uploading, use `/archives/entities/extractions/v1` to copy the file to internal storage making it available for content analysis. This method is deprecated in favor of `/archives/entities/archives/v2`
+     */
+    async archiveUploadV1Raw(requestParameters: ArchiveUploadV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClientArchiveCreateResponseV1>> {
+        if (requestParameters.name === null || requestParameters.name === undefined) {
+            throw new runtime.RequiredError("name", "Required parameter requestParameters.name was null or undefined when calling archiveUploadV1.");
+        }
+
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling archiveUploadV1.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.name !== undefined) {
+            queryParameters["name"] = requestParameters.name;
+        }
+
+        if (requestParameters.password !== undefined) {
+            queryParameters["password"] = requestParameters.password;
+        }
+
+        if (requestParameters.isConfidential !== undefined) {
+            queryParameters["is_confidential"] = requestParameters.isConfidential;
+        }
+
+        if (requestParameters.comment !== undefined) {
+            queryParameters["comment"] = requestParameters.comment;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/octet-stream";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["samplestore:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/archives/entities/archives/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: requestParameters.body,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ClientArchiveCreateResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Uploads an archive and extracts files list from it. Operation is asynchronous use `/archives/entities/archives/v1` to check the status. After uploading, use `/archives/entities/extractions/v1` to copy the file to internal storage making it available for content analysis. This method is deprecated in favor of `/archives/entities/archives/v2`
+     */
+    async archiveUploadV1(
+        name: string,
+        body: Array<number>,
+        password?: string,
+        isConfidential?: boolean,
+        comment?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<ClientArchiveCreateResponseV1> {
+        const response = await this.archiveUploadV1Raw({ name: name, body: body, password: password, isConfidential: isConfidential, comment: comment }, initOverrides);
         return await response.value();
     }
 
