@@ -14,6 +14,8 @@
 
 import * as runtime from "../runtime";
 import type {
+    DeviceControlReqUpdateDefaultDCPolicyV1,
+    DeviceControlRespV1,
     MsaEntityActionRequestV2,
     MsaErrorsOnly,
     MsaQueryResponse,
@@ -25,6 +27,10 @@ import type {
     ResponsesPolicyMembersRespV1,
 } from "../models";
 import {
+    DeviceControlReqUpdateDefaultDCPolicyV1FromJSON,
+    DeviceControlReqUpdateDefaultDCPolicyV1ToJSON,
+    DeviceControlRespV1FromJSON,
+    DeviceControlRespV1ToJSON,
     MsaEntityActionRequestV2FromJSON,
     MsaEntityActionRequestV2ToJSON,
     MsaErrorsOnlyFromJSON,
@@ -94,6 +100,10 @@ export interface QueryDeviceControlPolicyMembersRequest {
 
 export interface SetDeviceControlPoliciesPrecedenceRequest {
     body: RequestsSetPolicyPrecedenceReqV1;
+}
+
+export interface UpdateDefaultDeviceControlPoliciesRequest {
+    body: DeviceControlReqUpdateDefaultDCPolicyV1;
 }
 
 export interface UpdateDeviceControlPoliciesRequest {
@@ -190,6 +200,40 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
      */
     async deleteDeviceControlPolicies(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.deleteDeviceControlPoliciesRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve the configuration for a Default Device Control Policy
+     */
+    async getDefaultDeviceControlPoliciesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeviceControlRespV1>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/policy/entities/default-device-control/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DeviceControlRespV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve the configuration for a Default Device Control Policy
+     */
+    async getDefaultDeviceControlPolicies(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeviceControlRespV1> {
+        const response = await this.getDefaultDeviceControlPoliciesRaw(initOverrides);
         return await response.value();
     }
 
@@ -581,6 +625,50 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
      */
     async setDeviceControlPoliciesPrecedence(body: RequestsSetPolicyPrecedenceReqV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.setDeviceControlPoliciesPrecedenceRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Update the configuration for a Default Device Control Policy
+     */
+    async updateDefaultDeviceControlPoliciesRaw(
+        requestParameters: UpdateDefaultDeviceControlPoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DeviceControlRespV1>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateDefaultDeviceControlPolicies.");
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/policy/entities/default-device-control/v1`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+                body: DeviceControlReqUpdateDefaultDCPolicyV1ToJSON(requestParameters.body),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DeviceControlRespV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Update the configuration for a Default Device Control Policy
+     */
+    async updateDefaultDeviceControlPolicies(body: DeviceControlReqUpdateDefaultDCPolicyV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeviceControlRespV1> {
+        const response = await this.updateDefaultDeviceControlPoliciesRaw({ body: body }, initOverrides);
         return await response.value();
     }
 

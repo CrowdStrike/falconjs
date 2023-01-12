@@ -13,8 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import type { DomainJobWithLink } from "./DomainJobWithLink";
-import { DomainJobWithLinkFromJSON, DomainJobWithLinkFromJSONTyped, DomainJobWithLinkToJSON } from "./DomainJobWithLink";
+import type { DeviceControlPolicyV1 } from "./DeviceControlPolicyV1";
+import { DeviceControlPolicyV1FromJSON, DeviceControlPolicyV1FromJSONTyped, DeviceControlPolicyV1ToJSON } from "./DeviceControlPolicyV1";
 import type { MsaAPIError } from "./MsaAPIError";
 import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
@@ -23,56 +23,57 @@ import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from
 /**
  *
  * @export
- * @interface EntitiesODSReportResponse
+ * @interface DeviceControlRespV1
  */
-export interface EntitiesODSReportResponse {
+export interface DeviceControlRespV1 {
     /**
-     *
+     * A collection of any errors which occurred during execution of the request
      * @type {Array<MsaAPIError>}
-     * @memberof EntitiesODSReportResponse
+     * @memberof DeviceControlRespV1
      */
-    errors?: Array<MsaAPIError>;
+    errors: Array<MsaAPIError>;
     /**
      *
      * @type {MsaMetaInfo}
-     * @memberof EntitiesODSReportResponse
+     * @memberof DeviceControlRespV1
      */
     meta: MsaMetaInfo;
     /**
      *
-     * @type {Array<DomainJobWithLink>}
-     * @memberof EntitiesODSReportResponse
+     * @type {Array<DeviceControlPolicyV1>}
+     * @memberof DeviceControlRespV1
      */
-    resources: Array<DomainJobWithLink>;
+    resources: Array<DeviceControlPolicyV1>;
 }
 
 /**
- * Check if a given object implements the EntitiesODSReportResponse interface.
+ * Check if a given object implements the DeviceControlRespV1 interface.
  */
-export function instanceOfEntitiesODSReportResponse(value: object): boolean {
+export function instanceOfDeviceControlRespV1(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "errors" in value;
     isInstance = isInstance && "meta" in value;
     isInstance = isInstance && "resources" in value;
 
     return isInstance;
 }
 
-export function EntitiesODSReportResponseFromJSON(json: any): EntitiesODSReportResponse {
-    return EntitiesODSReportResponseFromJSONTyped(json, false);
+export function DeviceControlRespV1FromJSON(json: any): DeviceControlRespV1 {
+    return DeviceControlRespV1FromJSONTyped(json, false);
 }
 
-export function EntitiesODSReportResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): EntitiesODSReportResponse {
+export function DeviceControlRespV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): DeviceControlRespV1 {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        errors: !exists(json, "errors") ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
+        errors: (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
-        resources: (json["resources"] as Array<any>).map(DomainJobWithLinkFromJSON),
+        resources: (json["resources"] as Array<any>).map(DeviceControlPolicyV1FromJSON),
     };
 }
 
-export function EntitiesODSReportResponseToJSON(value?: EntitiesODSReportResponse | null): any {
+export function DeviceControlRespV1ToJSON(value?: DeviceControlRespV1 | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -80,8 +81,8 @@ export function EntitiesODSReportResponseToJSON(value?: EntitiesODSReportRespons
         return null;
     }
     return {
-        errors: value.errors === undefined ? undefined : (value.errors as Array<any>).map(MsaAPIErrorToJSON),
+        errors: (value.errors as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value.meta),
-        resources: (value.resources as Array<any>).map(DomainJobWithLinkToJSON),
+        resources: (value.resources as Array<any>).map(DeviceControlPolicyV1ToJSON),
     };
 }
