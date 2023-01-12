@@ -15,14 +15,12 @@
 import * as runtime from "../runtime";
 import type {
     EntitiesODSCancelScanRequest,
-    EntitiesODSReportResponse,
     EntitiesODSScanHostResponse,
     EntitiesODSScanMaliciousFileResponse,
     EntitiesODSScanRequest,
     EntitiesODSScanResponse,
     EntitiesODSScheduleScanRequest,
     EntitiesODSScheduleScanResponse,
-    EntitiesScansReportRequest,
     MsaAggregateQueryRequest,
     MsaAggregatesResponse,
     MsaReplyMetaOnly,
@@ -32,8 +30,6 @@ import type {
 import {
     EntitiesODSCancelScanRequestFromJSON,
     EntitiesODSCancelScanRequestToJSON,
-    EntitiesODSReportResponseFromJSON,
-    EntitiesODSReportResponseToJSON,
     EntitiesODSScanHostResponseFromJSON,
     EntitiesODSScanHostResponseToJSON,
     EntitiesODSScanMaliciousFileResponseFromJSON,
@@ -46,8 +42,6 @@ import {
     EntitiesODSScheduleScanRequestToJSON,
     EntitiesODSScheduleScanResponseFromJSON,
     EntitiesODSScheduleScanResponseToJSON,
-    EntitiesScansReportRequestFromJSON,
-    EntitiesScansReportRequestToJSON,
     MsaAggregateQueryRequestFromJSON,
     MsaAggregateQueryRequestToJSON,
     MsaAggregatesResponseFromJSON,
@@ -123,10 +117,6 @@ export interface QueryScheduledScansRequest {
     offset?: number;
     limit?: number;
     sort?: QueryScheduledScansSortEnum;
-}
-
-export interface ScansReportRequest {
-    body: EntitiesScansReportRequest;
 }
 
 export interface ScheduleScanRequest {
@@ -742,47 +732,6 @@ export class OdsApi extends runtime.BaseAPI {
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<MsaspecQueryResponse> {
         const response = await this.queryScheduledScansRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Launch a scans report creation job
-     */
-    async scansReportRaw(requestParameters: ScansReportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EntitiesODSReportResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling scansReport.");
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters["Content-Type"] = "application/json";
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:write"]);
-        }
-
-        const response = await this.request(
-            {
-                path: `/ods/entities/scans-reports/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: EntitiesScansReportRequestToJSON(requestParameters.body),
-            },
-            initOverrides
-        );
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => EntitiesODSReportResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * Launch a scans report creation job
-     */
-    async scansReport(body: EntitiesScansReportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EntitiesODSReportResponse> {
-        const response = await this.scansReportRaw({ body: body }, initOverrides);
         return await response.value();
     }
 

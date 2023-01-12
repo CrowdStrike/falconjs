@@ -13,52 +13,46 @@
  */
 
 import { exists, mapValues } from "../runtime";
+import type { DeviceControlUSBCustomNotifications } from "./DeviceControlUSBCustomNotifications";
+import { DeviceControlUSBCustomNotificationsFromJSON, DeviceControlUSBCustomNotificationsFromJSONTyped, DeviceControlUSBCustomNotificationsToJSON } from "./DeviceControlUSBCustomNotifications";
+
 /**
  *
  * @export
- * @interface DomainJobWithLink
+ * @interface DeviceControlReqUpdateDefaultDCPolicyV1
  */
-export interface DomainJobWithLink {
+export interface DeviceControlReqUpdateDefaultDCPolicyV1 {
     /**
      *
-     * @type {string}
-     * @memberof DomainJobWithLink
+     * @type {DeviceControlUSBCustomNotifications}
+     * @memberof DeviceControlReqUpdateDefaultDCPolicyV1
      */
-    href: string;
-    /**
-     *
-     * @type {string}
-     * @memberof DomainJobWithLink
-     */
-    id: string;
+    customNotifications?: DeviceControlUSBCustomNotifications;
 }
 
 /**
- * Check if a given object implements the DomainJobWithLink interface.
+ * Check if a given object implements the DeviceControlReqUpdateDefaultDCPolicyV1 interface.
  */
-export function instanceOfDomainJobWithLink(value: object): boolean {
+export function instanceOfDeviceControlReqUpdateDefaultDCPolicyV1(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "href" in value;
-    isInstance = isInstance && "id" in value;
 
     return isInstance;
 }
 
-export function DomainJobWithLinkFromJSON(json: any): DomainJobWithLink {
-    return DomainJobWithLinkFromJSONTyped(json, false);
+export function DeviceControlReqUpdateDefaultDCPolicyV1FromJSON(json: any): DeviceControlReqUpdateDefaultDCPolicyV1 {
+    return DeviceControlReqUpdateDefaultDCPolicyV1FromJSONTyped(json, false);
 }
 
-export function DomainJobWithLinkFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainJobWithLink {
+export function DeviceControlReqUpdateDefaultDCPolicyV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): DeviceControlReqUpdateDefaultDCPolicyV1 {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        href: json["href"],
-        id: json["id"],
+        customNotifications: !exists(json, "custom_notifications") ? undefined : DeviceControlUSBCustomNotificationsFromJSON(json["custom_notifications"]),
     };
 }
 
-export function DomainJobWithLinkToJSON(value?: DomainJobWithLink | null): any {
+export function DeviceControlReqUpdateDefaultDCPolicyV1ToJSON(value?: DeviceControlReqUpdateDefaultDCPolicyV1 | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -66,7 +60,6 @@ export function DomainJobWithLinkToJSON(value?: DomainJobWithLink | null): any {
         return null;
     }
     return {
-        href: value.href,
-        id: value.id,
+        custom_notifications: DeviceControlUSBCustomNotificationsToJSON(value.customNotifications),
     };
 }

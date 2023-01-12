@@ -13,63 +13,52 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import type { EntitiesScansSortedSearch } from "./EntitiesScansSortedSearch";
-import { EntitiesScansSortedSearchFromJSON, EntitiesScansSortedSearchFromJSONTyped, EntitiesScansSortedSearchToJSON } from "./EntitiesScansSortedSearch";
-
 /**
  *
  * @export
- * @interface EntitiesScansReportRequest
+ * @interface DeviceControlUSBCustomNotification
  */
-export interface EntitiesScansReportRequest {
+export interface DeviceControlUSBCustomNotification {
     /**
-     *
-     * @type {boolean}
-     * @memberof EntitiesScansReportRequest
-     */
-    isSchedule: boolean;
-    /**
-     *
+     * The notification to be displayed to the end-user
      * @type {string}
-     * @memberof EntitiesScansReportRequest
+     * @memberof DeviceControlUSBCustomNotification
      */
-    reportFormat: string;
+    customMessage: string;
     /**
-     *
-     * @type {EntitiesScansSortedSearch}
-     * @memberof EntitiesScansReportRequest
+     * If the custom notification or the default notification is in-use
+     * @type {boolean}
+     * @memberof DeviceControlUSBCustomNotification
      */
-    search: EntitiesScansSortedSearch;
+    useCustom: boolean;
 }
 
 /**
- * Check if a given object implements the EntitiesScansReportRequest interface.
+ * Check if a given object implements the DeviceControlUSBCustomNotification interface.
  */
-export function instanceOfEntitiesScansReportRequest(value: object): boolean {
+export function instanceOfDeviceControlUSBCustomNotification(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "isSchedule" in value;
-    isInstance = isInstance && "reportFormat" in value;
-    isInstance = isInstance && "search" in value;
+    isInstance = isInstance && "customMessage" in value;
+    isInstance = isInstance && "useCustom" in value;
 
     return isInstance;
 }
 
-export function EntitiesScansReportRequestFromJSON(json: any): EntitiesScansReportRequest {
-    return EntitiesScansReportRequestFromJSONTyped(json, false);
+export function DeviceControlUSBCustomNotificationFromJSON(json: any): DeviceControlUSBCustomNotification {
+    return DeviceControlUSBCustomNotificationFromJSONTyped(json, false);
 }
 
-export function EntitiesScansReportRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): EntitiesScansReportRequest {
+export function DeviceControlUSBCustomNotificationFromJSONTyped(json: any, ignoreDiscriminator: boolean): DeviceControlUSBCustomNotification {
     if (json === undefined || json === null) {
         return json;
     }
     return {
-        isSchedule: json["is_schedule"],
-        reportFormat: json["report_format"],
-        search: EntitiesScansSortedSearchFromJSON(json["search"]),
+        customMessage: json["custom_message"],
+        useCustom: json["use_custom"],
     };
 }
 
-export function EntitiesScansReportRequestToJSON(value?: EntitiesScansReportRequest | null): any {
+export function DeviceControlUSBCustomNotificationToJSON(value?: DeviceControlUSBCustomNotification | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -77,8 +66,7 @@ export function EntitiesScansReportRequestToJSON(value?: EntitiesScansReportRequ
         return null;
     }
     return {
-        is_schedule: value.isSchedule,
-        report_format: value.reportFormat,
-        search: EntitiesScansSortedSearchToJSON(value.search),
+        custom_message: value.customMessage,
+        use_custom: value.useCustom,
     };
 }

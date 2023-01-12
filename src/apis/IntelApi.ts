@@ -80,7 +80,16 @@ export interface GetLatestIntelRuleFileRequest {
     ifModifiedSince?: string;
 }
 
+export interface GetMitreReportRequest {
+    actorId: string;
+    format: string;
+}
+
 export interface GetVulnerabilitiesRequest {
+    body: MsaIdsRequest;
+}
+
+export interface PostMitreAttacksRequest {
     body: MsaIdsRequest;
 }
 
@@ -149,6 +158,10 @@ export interface QueryIntelRuleIdsRequest {
     minCreatedDate?: number;
     maxCreatedDate?: string;
     q?: string;
+}
+
+export interface QueryMitreAttacksRequest {
+    id: string;
 }
 
 export interface QueryVulnerabilitiesRequest {
@@ -488,6 +501,55 @@ export class IntelApi extends runtime.BaseAPI {
     }
 
     /**
+     * Export Mitre ATT&CK information for a given actor.
+     */
+    async getMitreReportRaw(requestParameters: GetMitreReportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.actorId === null || requestParameters.actorId === undefined) {
+            throw new runtime.RequiredError("actorId", "Required parameter requestParameters.actorId was null or undefined when calling getMitreReport.");
+        }
+
+        if (requestParameters.format === null || requestParameters.format === undefined) {
+            throw new runtime.RequiredError("format", "Required parameter requestParameters.format was null or undefined when calling getMitreReport.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.actorId !== undefined) {
+            queryParameters["actor_id"] = requestParameters.actorId;
+        }
+
+        if (requestParameters.format !== undefined) {
+            queryParameters["format"] = requestParameters.format;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-actors:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/intel/entities/mitre-reports/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Export Mitre ATT&CK information for a given actor.
+     */
+    async getMitreReport(actorId: string, format: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.getMitreReportRaw({ actorId: actorId, format: format }, initOverrides);
+    }
+
+    /**
      * Get vulnerabilities
      */
     async getVulnerabilitiesRaw(requestParameters: GetVulnerabilitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainVulnerabilityResponse>> {
@@ -526,6 +588,46 @@ export class IntelApi extends runtime.BaseAPI {
     async getVulnerabilities(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainVulnerabilityResponse> {
         const response = await this.getVulnerabilitiesRaw({ body: body }, initOverrides);
         return await response.value();
+    }
+
+    /**
+     * Retrieves report and observable IDs associated with the given actor and attacks
+     */
+    async postMitreAttacksRaw(requestParameters: PostMitreAttacksRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling postMitreAttacks.");
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-actors:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/intel/entities/mitre/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: MsaIdsRequestToJSON(requestParameters.body),
+            },
+            initOverrides
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Retrieves report and observable IDs associated with the given actor and attacks
+     */
+    async postMitreAttacks(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.postMitreAttacksRaw({ body: body }, initOverrides);
     }
 
     /**
@@ -1016,6 +1118,47 @@ export class IntelApi extends runtime.BaseAPI {
             initOverrides
         );
         return await response.value();
+    }
+
+    /**
+     * Gets MITRE tactics and techniques for the given actor
+     */
+    async queryMitreAttacksRaw(requestParameters: QueryMitreAttacksRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id", "Required parameter requestParameters.id was null or undefined when calling queryMitreAttacks.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.id !== undefined) {
+            queryParameters["id"] = requestParameters.id;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-actors:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/intel/queries/mitre/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Gets MITRE tactics and techniques for the given actor
+     */
+    async queryMitreAttacks(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.queryMitreAttacksRaw({ id: id }, initOverrides);
     }
 
     /**
