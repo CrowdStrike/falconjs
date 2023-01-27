@@ -13,10 +13,18 @@
  */
 
 import { exists, mapValues } from "../runtime";
+import type { DomainDiscoverAPIBiosHashesData } from "./DomainDiscoverAPIBiosHashesData";
+import { DomainDiscoverAPIBiosHashesDataFromJSON, DomainDiscoverAPIBiosHashesDataFromJSONTyped, DomainDiscoverAPIBiosHashesDataToJSON } from "./DomainDiscoverAPIBiosHashesData";
+import type { DomainDiscoverAPIDiskSize } from "./DomainDiscoverAPIDiskSize";
+import { DomainDiscoverAPIDiskSizeFromJSON, DomainDiscoverAPIDiskSizeFromJSONTyped, DomainDiscoverAPIDiskSizeToJSON } from "./DomainDiscoverAPIDiskSize";
 import type { DomainDiscoverAPIFieldMetadata } from "./DomainDiscoverAPIFieldMetadata";
 import { DomainDiscoverAPIFieldMetadataFromJSON, DomainDiscoverAPIFieldMetadataFromJSONTyped, DomainDiscoverAPIFieldMetadataToJSON } from "./DomainDiscoverAPIFieldMetadata";
+import type { DomainDiscoverAPIMountStorageInfo } from "./DomainDiscoverAPIMountStorageInfo";
+import { DomainDiscoverAPIMountStorageInfoFromJSON, DomainDiscoverAPIMountStorageInfoFromJSONTyped, DomainDiscoverAPIMountStorageInfoToJSON } from "./DomainDiscoverAPIMountStorageInfo";
 import type { DomainDiscoverAPINetworkInterface } from "./DomainDiscoverAPINetworkInterface";
 import { DomainDiscoverAPINetworkInterfaceFromJSON, DomainDiscoverAPINetworkInterfaceFromJSONTyped, DomainDiscoverAPINetworkInterfaceToJSON } from "./DomainDiscoverAPINetworkInterface";
+import type { DomainDiscoverAPIOsSecurity } from "./DomainDiscoverAPIOsSecurity";
+import { DomainDiscoverAPIOsSecurityFromJSON, DomainDiscoverAPIOsSecurityFromJSONTyped, DomainDiscoverAPIOsSecurityToJSON } from "./DomainDiscoverAPIOsSecurity";
 
 /**
  * Represents information about a managed, an unmanaged or an unsupported asset.
@@ -54,6 +62,48 @@ export interface DomainDiscoverAPIHost {
      * @memberof DomainDiscoverAPIHost
      */
     assignedTo?: string;
+    /**
+     * The available disk space in the last 15 minutes on the host
+     * @type {number}
+     * @memberof DomainDiscoverAPIHost
+     */
+    availableDiskSpace?: number;
+    /**
+     * The available disk space percent in the last 15 minutes on the host
+     * @type {number}
+     * @memberof DomainDiscoverAPIHost
+     */
+    availableDiskSpacePct?: number;
+    /**
+     * The average memory usage in the last 15 minutes on the host
+     * @type {number}
+     * @memberof DomainDiscoverAPIHost
+     */
+    averageMemoryUsage?: number;
+    /**
+     * The average memory usage percent in the last 15 minutes on the host
+     * @type {number}
+     * @memberof DomainDiscoverAPIHost
+     */
+    averageMemoryUsagePct?: number;
+    /**
+     * The average processor usage in the last 15 minutes on the host
+     * @type {number}
+     * @memberof DomainDiscoverAPIHost
+     */
+    averageProcessorUsage?: number;
+    /**
+     * The list of found sha256 and their measurement types
+     * @type {Array<DomainDiscoverAPIBiosHashesData>}
+     * @memberof DomainDiscoverAPIHost
+     */
+    biosHashesData?: Array<DomainDiscoverAPIBiosHashesData>;
+    /**
+     * The id of the bios on the host
+     * @type {string}
+     * @memberof DomainDiscoverAPIHost
+     */
+    biosId?: string;
     /**
      * The name of the asset's BIOS manufacturer.
      * @type {string}
@@ -102,6 +152,12 @@ export interface DomainDiscoverAPIHost {
      * @memberof DomainDiscoverAPIHost
      */
     cpuManufacturer?: string;
+    /**
+     * The name of the processor on the system
+     * @type {string}
+     * @memberof DomainDiscoverAPIHost
+     */
+    cpuProcessorName?: string;
     /**
      * The time the asset was created in Active Directory, according to LDAP info.
      * @type {string}
@@ -169,11 +225,35 @@ export interface DomainDiscoverAPIHost {
      */
     discovererTags?: Array<string>;
     /**
+     * The names and sizes of the disks on the asset
+     * @type {Array<DomainDiscoverAPIDiskSize>}
+     * @memberof DomainDiscoverAPIHost
+     */
+    diskSizes?: Array<DomainDiscoverAPIDiskSize>;
+    /**
      * The email of the asset as listed in Active Directory.
      * @type {string}
      * @memberof DomainDiscoverAPIHost
      */
     email?: string;
+    /**
+     * The list of encrypted drives on the host
+     * @type {Array<string>}
+     * @memberof DomainDiscoverAPIHost
+     */
+    encryptedDrives?: Array<string>;
+    /**
+     * The count of encrypted drives on the host
+     * @type {number}
+     * @memberof DomainDiscoverAPIHost
+     */
+    encryptedDrivesCount?: number;
+    /**
+     * The encryption status of the host
+     * @type {string}
+     * @memberof DomainDiscoverAPIHost
+     */
+    encryptionStatus?: string;
     /**
      * The type of asset (managed, unmanaged, unsupported).
      * @type {string}
@@ -271,6 +351,12 @@ export interface DomainDiscoverAPIHost {
      */
     location?: string;
     /**
+     * The number of logical cores available on the system
+     * @type {number}
+     * @memberof DomainDiscoverAPIHost
+     */
+    logicalCoreCount?: number;
+    /**
      * Historical MAC addresses associated with the asset.
      * @type {Array<string>}
      * @memberof DomainDiscoverAPIHost
@@ -288,6 +374,30 @@ export interface DomainDiscoverAPIHost {
      * @memberof DomainDiscoverAPIHost
      */
     managedBy?: string;
+    /**
+     * The max memory usage in the last 15 minutes on the host
+     * @type {number}
+     * @memberof DomainDiscoverAPIHost
+     */
+    maxMemoryUsage?: number;
+    /**
+     * The max memory usage percent in the last 15 minutes on the host
+     * @type {number}
+     * @memberof DomainDiscoverAPIHost
+     */
+    maxMemoryUsagePct?: number;
+    /**
+     * The max processor usage in the last 15 minutes on the host
+     * @type {number}
+     * @memberof DomainDiscoverAPIHost
+     */
+    maxProcessorUsage?: number;
+    /**
+     * The path, used and available space on mounted disks
+     * @type {Array<DomainDiscoverAPIMountStorageInfo>}
+     * @memberof DomainDiscoverAPIHost
+     */
+    mountStorageInfo?: Array<DomainDiscoverAPIMountStorageInfo>;
     /**
      * The asset's network interfaces (Cannot be used for filtering, sorting, or querying).
      * @type {Array<DomainDiscoverAPINetworkInterface>}
@@ -318,6 +428,12 @@ export interface DomainDiscoverAPIHost {
      * @memberof DomainDiscoverAPIHost
      */
     osIsEol?: string;
+    /**
+     *
+     * @type {DomainDiscoverAPIOsSecurity}
+     * @memberof DomainDiscoverAPIHost
+     */
+    osSecurity?: DomainDiscoverAPIOsSecurity;
     /**
      * The OS service pack on the asset.
      * @type {string}
@@ -421,6 +537,48 @@ export interface DomainDiscoverAPIHost {
      */
     tags?: Array<string>;
     /**
+     * The count of bios files measured by the firmware image
+     * @type {number}
+     * @memberof DomainDiscoverAPIHost
+     */
+    totalBiosFiles?: number;
+    /**
+     * Total amount of disk space available on the system
+     * @type {number}
+     * @memberof DomainDiscoverAPIHost
+     */
+    totalDiskSpace?: number;
+    /**
+     * The total memory of the asset
+     * @type {number}
+     * @memberof DomainDiscoverAPIHost
+     */
+    totalMemory?: number;
+    /**
+     * The list of unencrypted drives on the host
+     * @type {Array<string>}
+     * @memberof DomainDiscoverAPIHost
+     */
+    unencryptedDrives?: Array<string>;
+    /**
+     * The count of unencrypted drives on the host
+     * @type {number}
+     * @memberof DomainDiscoverAPIHost
+     */
+    unencryptedDrivesCount?: number;
+    /**
+     * The used disk space in the last 15 minutes on the host
+     * @type {number}
+     * @memberof DomainDiscoverAPIHost
+     */
+    usedDiskSpace?: number;
+    /**
+     * The used disk space percent in the last 15 minutes on the host
+     * @type {number}
+     * @memberof DomainDiscoverAPIHost
+     */
+    usedDiskSpacePct?: number;
+    /**
      * What the asset is used for, such as production, staging, or QA.
      * @type {string}
      * @memberof DomainDiscoverAPIHost
@@ -453,6 +611,13 @@ export function DomainDiscoverAPIHostFromJSONTyped(json: any, ignoreDiscriminato
         agentVersion: !exists(json, "agent_version") ? undefined : json["agent_version"],
         aid: !exists(json, "aid") ? undefined : json["aid"],
         assignedTo: !exists(json, "assigned_to") ? undefined : json["assigned_to"],
+        availableDiskSpace: !exists(json, "available_disk_space") ? undefined : json["available_disk_space"],
+        availableDiskSpacePct: !exists(json, "available_disk_space_pct") ? undefined : json["available_disk_space_pct"],
+        averageMemoryUsage: !exists(json, "average_memory_usage") ? undefined : json["average_memory_usage"],
+        averageMemoryUsagePct: !exists(json, "average_memory_usage_pct") ? undefined : json["average_memory_usage_pct"],
+        averageProcessorUsage: !exists(json, "average_processor_usage") ? undefined : json["average_processor_usage"],
+        biosHashesData: !exists(json, "bios_hashes_data") ? undefined : (json["bios_hashes_data"] as Array<any>).map(DomainDiscoverAPIBiosHashesDataFromJSON),
+        biosId: !exists(json, "bios_id") ? undefined : json["bios_id"],
         biosManufacturer: !exists(json, "bios_manufacturer") ? undefined : json["bios_manufacturer"],
         biosVersion: !exists(json, "bios_version") ? undefined : json["bios_version"],
         cid: json["cid"],
@@ -461,6 +626,7 @@ export function DomainDiscoverAPIHostFromJSONTyped(json: any, ignoreDiscriminato
         confidence: !exists(json, "confidence") ? undefined : json["confidence"],
         country: !exists(json, "country") ? undefined : json["country"],
         cpuManufacturer: !exists(json, "cpu_manufacturer") ? undefined : json["cpu_manufacturer"],
+        cpuProcessorName: !exists(json, "cpu_processor_name") ? undefined : json["cpu_processor_name"],
         creationTimestamp: !exists(json, "creation_timestamp") ? undefined : json["creation_timestamp"],
         currentLocalIp: !exists(json, "current_local_ip") ? undefined : json["current_local_ip"],
         dataProviders: !exists(json, "data_providers") ? undefined : json["data_providers"],
@@ -472,7 +638,11 @@ export function DomainDiscoverAPIHostFromJSONTyped(json: any, ignoreDiscriminato
         discovererPlatformNames: !exists(json, "discoverer_platform_names") ? undefined : json["discoverer_platform_names"],
         discovererProductTypeDescs: !exists(json, "discoverer_product_type_descs") ? undefined : json["discoverer_product_type_descs"],
         discovererTags: !exists(json, "discoverer_tags") ? undefined : json["discoverer_tags"],
+        diskSizes: !exists(json, "disk_sizes") ? undefined : (json["disk_sizes"] as Array<any>).map(DomainDiscoverAPIDiskSizeFromJSON),
         email: !exists(json, "email") ? undefined : json["email"],
+        encryptedDrives: !exists(json, "encrypted_drives") ? undefined : json["encrypted_drives"],
+        encryptedDrivesCount: !exists(json, "encrypted_drives_count") ? undefined : json["encrypted_drives_count"],
+        encryptionStatus: !exists(json, "encryption_status") ? undefined : json["encryption_status"],
         entityType: !exists(json, "entity_type") ? undefined : json["entity_type"],
         externalIp: !exists(json, "external_ip") ? undefined : json["external_ip"],
         fieldMetadata: !exists(json, "field_metadata") ? undefined : mapValues(json["field_metadata"], DomainDiscoverAPIFieldMetadataFromJSON),
@@ -489,14 +659,20 @@ export function DomainDiscoverAPIHostFromJSONTyped(json: any, ignoreDiscriminato
         localIpAddresses: !exists(json, "local_ip_addresses") ? undefined : json["local_ip_addresses"],
         localIpsCount: !exists(json, "local_ips_count") ? undefined : json["local_ips_count"],
         location: !exists(json, "location") ? undefined : json["location"],
+        logicalCoreCount: !exists(json, "logical_core_count") ? undefined : json["logical_core_count"],
         macAddresses: !exists(json, "mac_addresses") ? undefined : json["mac_addresses"],
         machineDomain: !exists(json, "machine_domain") ? undefined : json["machine_domain"],
         managedBy: !exists(json, "managed_by") ? undefined : json["managed_by"],
+        maxMemoryUsage: !exists(json, "max_memory_usage") ? undefined : json["max_memory_usage"],
+        maxMemoryUsagePct: !exists(json, "max_memory_usage_pct") ? undefined : json["max_memory_usage_pct"],
+        maxProcessorUsage: !exists(json, "max_processor_usage") ? undefined : json["max_processor_usage"],
+        mountStorageInfo: !exists(json, "mount_storage_info") ? undefined : (json["mount_storage_info"] as Array<any>).map(DomainDiscoverAPIMountStorageInfoFromJSON),
         networkInterfaces: !exists(json, "network_interfaces") ? undefined : (json["network_interfaces"] as Array<any>).map(DomainDiscoverAPINetworkInterfaceFromJSON),
         numberOfDiskDrives: !exists(json, "number_of_disk_drives") ? undefined : json["number_of_disk_drives"],
         objectGuid: !exists(json, "object_guid") ? undefined : json["object_guid"],
         objectSid: !exists(json, "object_sid") ? undefined : json["object_sid"],
         osIsEol: !exists(json, "os_is_eol") ? undefined : json["os_is_eol"],
+        osSecurity: !exists(json, "os_security") ? undefined : DomainDiscoverAPIOsSecurityFromJSON(json["os_security"]),
         osServicePack: !exists(json, "os_service_pack") ? undefined : json["os_service_pack"],
         osVersion: !exists(json, "os_version") ? undefined : json["os_version"],
         ou: !exists(json, "ou") ? undefined : json["ou"],
@@ -514,6 +690,13 @@ export function DomainDiscoverAPIHostFromJSONTyped(json: any, ignoreDiscriminato
         systemProductName: !exists(json, "system_product_name") ? undefined : json["system_product_name"],
         systemSerialNumber: !exists(json, "system_serial_number") ? undefined : json["system_serial_number"],
         tags: !exists(json, "tags") ? undefined : json["tags"],
+        totalBiosFiles: !exists(json, "total_bios_files") ? undefined : json["total_bios_files"],
+        totalDiskSpace: !exists(json, "total_disk_space") ? undefined : json["total_disk_space"],
+        totalMemory: !exists(json, "total_memory") ? undefined : json["total_memory"],
+        unencryptedDrives: !exists(json, "unencrypted_drives") ? undefined : json["unencrypted_drives"],
+        unencryptedDrivesCount: !exists(json, "unencrypted_drives_count") ? undefined : json["unencrypted_drives_count"],
+        usedDiskSpace: !exists(json, "used_disk_space") ? undefined : json["used_disk_space"],
+        usedDiskSpacePct: !exists(json, "used_disk_space_pct") ? undefined : json["used_disk_space_pct"],
         usedFor: !exists(json, "used_for") ? undefined : json["used_for"],
     };
 }
@@ -531,6 +714,13 @@ export function DomainDiscoverAPIHostToJSON(value?: DomainDiscoverAPIHost | null
         agent_version: value.agentVersion,
         aid: value.aid,
         assigned_to: value.assignedTo,
+        available_disk_space: value.availableDiskSpace,
+        available_disk_space_pct: value.availableDiskSpacePct,
+        average_memory_usage: value.averageMemoryUsage,
+        average_memory_usage_pct: value.averageMemoryUsagePct,
+        average_processor_usage: value.averageProcessorUsage,
+        bios_hashes_data: value.biosHashesData === undefined ? undefined : (value.biosHashesData as Array<any>).map(DomainDiscoverAPIBiosHashesDataToJSON),
+        bios_id: value.biosId,
         bios_manufacturer: value.biosManufacturer,
         bios_version: value.biosVersion,
         cid: value.cid,
@@ -539,6 +729,7 @@ export function DomainDiscoverAPIHostToJSON(value?: DomainDiscoverAPIHost | null
         confidence: value.confidence,
         country: value.country,
         cpu_manufacturer: value.cpuManufacturer,
+        cpu_processor_name: value.cpuProcessorName,
         creation_timestamp: value.creationTimestamp,
         current_local_ip: value.currentLocalIp,
         data_providers: value.dataProviders,
@@ -550,7 +741,11 @@ export function DomainDiscoverAPIHostToJSON(value?: DomainDiscoverAPIHost | null
         discoverer_platform_names: value.discovererPlatformNames,
         discoverer_product_type_descs: value.discovererProductTypeDescs,
         discoverer_tags: value.discovererTags,
+        disk_sizes: value.diskSizes === undefined ? undefined : (value.diskSizes as Array<any>).map(DomainDiscoverAPIDiskSizeToJSON),
         email: value.email,
+        encrypted_drives: value.encryptedDrives,
+        encrypted_drives_count: value.encryptedDrivesCount,
+        encryption_status: value.encryptionStatus,
         entity_type: value.entityType,
         external_ip: value.externalIp,
         field_metadata: value.fieldMetadata === undefined ? undefined : mapValues(value.fieldMetadata, DomainDiscoverAPIFieldMetadataToJSON),
@@ -567,14 +762,20 @@ export function DomainDiscoverAPIHostToJSON(value?: DomainDiscoverAPIHost | null
         local_ip_addresses: value.localIpAddresses,
         local_ips_count: value.localIpsCount,
         location: value.location,
+        logical_core_count: value.logicalCoreCount,
         mac_addresses: value.macAddresses,
         machine_domain: value.machineDomain,
         managed_by: value.managedBy,
+        max_memory_usage: value.maxMemoryUsage,
+        max_memory_usage_pct: value.maxMemoryUsagePct,
+        max_processor_usage: value.maxProcessorUsage,
+        mount_storage_info: value.mountStorageInfo === undefined ? undefined : (value.mountStorageInfo as Array<any>).map(DomainDiscoverAPIMountStorageInfoToJSON),
         network_interfaces: value.networkInterfaces === undefined ? undefined : (value.networkInterfaces as Array<any>).map(DomainDiscoverAPINetworkInterfaceToJSON),
         number_of_disk_drives: value.numberOfDiskDrives,
         object_guid: value.objectGuid,
         object_sid: value.objectSid,
         os_is_eol: value.osIsEol,
+        os_security: DomainDiscoverAPIOsSecurityToJSON(value.osSecurity),
         os_service_pack: value.osServicePack,
         os_version: value.osVersion,
         ou: value.ou,
@@ -592,6 +793,13 @@ export function DomainDiscoverAPIHostToJSON(value?: DomainDiscoverAPIHost | null
         system_product_name: value.systemProductName,
         system_serial_number: value.systemSerialNumber,
         tags: value.tags,
+        total_bios_files: value.totalBiosFiles,
+        total_disk_space: value.totalDiskSpace,
+        total_memory: value.totalMemory,
+        unencrypted_drives: value.unencryptedDrives,
+        unencrypted_drives_count: value.unencryptedDrivesCount,
+        used_disk_space: value.usedDiskSpace,
+        used_disk_space_pct: value.usedDiskSpacePct,
         used_for: value.usedFor,
     };
 }
