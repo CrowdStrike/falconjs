@@ -15,6 +15,7 @@
 import * as runtime from "../runtime";
 import type {
     DomainDiscoverAPIAccountEntitiesResponse,
+    DomainDiscoverAPIApplicationEntitiesResponse,
     DomainDiscoverAPIHostEntitiesResponse,
     DomainDiscoverAPILoginEntitiesResponse,
     MsaQueryResponse,
@@ -25,6 +26,8 @@ import type {
 import {
     DomainDiscoverAPIAccountEntitiesResponseFromJSON,
     DomainDiscoverAPIAccountEntitiesResponseToJSON,
+    DomainDiscoverAPIApplicationEntitiesResponseFromJSON,
+    DomainDiscoverAPIApplicationEntitiesResponseToJSON,
     DomainDiscoverAPIHostEntitiesResponseFromJSON,
     DomainDiscoverAPIHostEntitiesResponseToJSON,
     DomainDiscoverAPILoginEntitiesResponseFromJSON,
@@ -43,6 +46,10 @@ export interface GetAccountsRequest {
     ids: Array<string>;
 }
 
+export interface GetApplicationsRequest {
+    ids: Array<string>;
+}
+
 export interface GetHostsRequest {
     ids: Array<string>;
 }
@@ -52,6 +59,13 @@ export interface GetLoginsRequest {
 }
 
 export interface QueryAccountsRequest {
+    offset?: number;
+    limit?: number;
+    sort?: string;
+    filter?: string;
+}
+
+export interface QueryApplicationsRequest {
     offset?: number;
     limit?: number;
     sort?: string;
@@ -115,6 +129,51 @@ export class DiscoverApi extends runtime.BaseAPI {
      */
     async getAccounts(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainDiscoverAPIAccountEntitiesResponse> {
         const response = await this.getAccountsRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get details on applications by providing one or more IDs.
+     */
+    async getApplicationsRaw(
+        requestParameters: GetApplicationsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainDiscoverAPIApplicationEntitiesResponse>> {
+        if (requestParameters.ids === null || requestParameters.ids === undefined) {
+            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getApplications.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.ids) {
+            queryParameters["ids"] = requestParameters.ids;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/discover/entities/applications/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainDiscoverAPIApplicationEntitiesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get details on applications by providing one or more IDs.
+     */
+    async getApplications(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainDiscoverAPIApplicationEntitiesResponse> {
+        const response = await this.getApplicationsRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
 
@@ -249,6 +308,56 @@ export class DiscoverApi extends runtime.BaseAPI {
      */
     async queryAccounts(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryAccountsRaw({ offset: offset, limit: limit, sort: sort, filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Search for applications in your environment by providing an FQL filter and paging details. returns a set of application IDs which match the filter criteria.
+     */
+    async queryApplicationsRaw(requestParameters: QueryApplicationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        if (requestParameters.sort !== undefined) {
+            queryParameters["sort"] = requestParameters.sort;
+        }
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/discover/queries/applications/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Search for applications in your environment by providing an FQL filter and paging details. returns a set of application IDs which match the filter criteria.
+     */
+    async queryApplications(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
+        const response = await this.queryApplicationsRaw({ offset: offset, limit: limit, sort: sort, filter: filter }, initOverrides);
         return await response.value();
     }
 
