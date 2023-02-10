@@ -1042,17 +1042,17 @@ export type GetClustersClusterServiceEnum = (typeof GetClustersClusterServiceEnu
  * @export
  */
 export const GetCombinedCloudClustersClusterServiceEnum = {} as const;
-export type GetCombinedCloudClustersClusterServiceEnum = Array<String>;
+export type GetCombinedCloudClustersClusterServiceEnum = (typeof GetCombinedCloudClustersClusterServiceEnum)[keyof typeof GetCombinedCloudClustersClusterServiceEnum];
 /**
  * @export
  */
 export const GetCombinedCloudClustersClusterStatusEnum = {} as const;
-export type GetCombinedCloudClustersClusterStatusEnum = Array<String>;
+export type GetCombinedCloudClustersClusterStatusEnum = (typeof GetCombinedCloudClustersClusterStatusEnum)[keyof typeof GetCombinedCloudClustersClusterStatusEnum];
 /**
  * @export
  */
 export const GetLocationsCloudsEnum = {} as const;
-export type GetLocationsCloudsEnum = Array<String>;
+export type GetLocationsCloudsEnum = (typeof GetLocationsCloudsEnum)[keyof typeof GetLocationsCloudsEnum];
 /**
  * @export
  */
