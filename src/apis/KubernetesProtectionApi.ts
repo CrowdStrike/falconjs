@@ -1042,12 +1042,12 @@ export type GetClustersClusterServiceEnum = typeof GetClustersClusterServiceEnum
  * @export
  */
 export const GetCombinedCloudClustersClusterServiceEnum = {} as const;
-export type GetCombinedCloudClustersClusterServiceEnum = typeof GetCombinedCloudClustersClusterServiceEnum[keyof typeof GetCombinedCloudClustersClusterServiceEnum];
+export type GetCombinedCloudClustersClusterServiceEnum = Array<String>;
 /**
  * @export
  */
 export const GetCombinedCloudClustersClusterStatusEnum = {} as const;
-export type GetCombinedCloudClustersClusterStatusEnum = typeof GetCombinedCloudClustersClusterStatusEnum[keyof typeof GetCombinedCloudClustersClusterStatusEnum];
+export type GetCombinedCloudClustersClusterStatusEnum = Array<String>;
 /**
  * @export
  */
