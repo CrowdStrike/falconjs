@@ -17,10 +17,14 @@ import type {
     K8sregCreateAWSAccReq,
     K8sregCreateAzureSubReq,
     K8sregGetAWSAccountsResp,
+    K8sregGetAzureBashScriptResp,
     K8sregGetAzureSubscriptionsResp,
     K8sregGetAzureTenantConfigResp,
+    K8sregGetAzureTenantInfoResp,
     K8sregGetClustersResp,
     K8sregGetLocationsResp,
+    K8sregGetScriptsResp,
+    K8sregListClusterCloudResp,
     K8sregRegenAPIKeyResp,
     MsaBaseEntitiesResponse,
     MsaMetaInfo,
@@ -33,14 +37,22 @@ import {
     K8sregCreateAzureSubReqToJSON,
     K8sregGetAWSAccountsRespFromJSON,
     K8sregGetAWSAccountsRespToJSON,
+    K8sregGetAzureBashScriptRespFromJSON,
+    K8sregGetAzureBashScriptRespToJSON,
     K8sregGetAzureSubscriptionsRespFromJSON,
     K8sregGetAzureSubscriptionsRespToJSON,
     K8sregGetAzureTenantConfigRespFromJSON,
     K8sregGetAzureTenantConfigRespToJSON,
+    K8sregGetAzureTenantInfoRespFromJSON,
+    K8sregGetAzureTenantInfoRespToJSON,
     K8sregGetClustersRespFromJSON,
     K8sregGetClustersRespToJSON,
     K8sregGetLocationsRespFromJSON,
     K8sregGetLocationsRespToJSON,
+    K8sregGetScriptsRespFromJSON,
+    K8sregGetScriptsRespToJSON,
+    K8sregListClusterCloudRespFromJSON,
+    K8sregListClusterCloudRespToJSON,
     K8sregRegenAPIKeyRespFromJSON,
     K8sregRegenAPIKeyRespToJSON,
     MsaBaseEntitiesResponseFromJSON,
@@ -74,11 +86,38 @@ export interface GetAWSAccountsMixin0Request {
     offset?: number;
 }
 
+export interface GetAzureInstallScriptRequest {
+    id?: string;
+    subscriptionId?: Array<string>;
+}
+
+export interface GetAzureTenantConfigRequest {
+    ids?: Array<string>;
+    limit?: number;
+    offset?: number;
+}
+
+export interface GetAzureTenantIDsRequest {
+    ids?: Array<string>;
+    status?: GetAzureTenantIDsStatusEnum;
+    limit?: number;
+    offset?: number;
+}
+
 export interface GetClustersRequest {
     clusterNames?: Array<string>;
     accountIds?: Array<string>;
     locations?: Array<string>;
     clusterService?: GetClustersClusterServiceEnum;
+    limit?: number;
+    offset?: number;
+}
+
+export interface GetCombinedCloudClustersRequest {
+    locations?: Array<string>;
+    ids?: Array<string>;
+    clusterService?: GetCombinedCloudClustersClusterServiceEnum;
+    clusterStatus?: GetCombinedCloudClustersClusterStatusEnum;
     limit?: number;
     offset?: number;
 }
@@ -337,6 +376,156 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     }
 
     /**
+     * Provides the script to run for a given tenant id and subscription IDs
+     */
+    async getAzureInstallScriptRaw(
+        requestParameters: GetAzureInstallScriptRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<K8sregGetAzureBashScriptResp>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.id !== undefined) {
+            queryParameters["id"] = requestParameters.id;
+        }
+
+        if (requestParameters.subscriptionId) {
+            queryParameters["subscription_id"] = requestParameters.subscriptionId.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/kubernetes-protection/entities/user-script/azure/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => K8sregGetAzureBashScriptRespFromJSON(jsonValue));
+    }
+
+    /**
+     * Provides the script to run for a given tenant id and subscription IDs
+     */
+    async getAzureInstallScript(id?: string, subscriptionId?: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<K8sregGetAzureBashScriptResp> {
+        const response = await this.getAzureInstallScriptRaw({ id: id, subscriptionId: subscriptionId }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Gets the Azure tenant Config
+     */
+    async getAzureTenantConfigRaw(
+        requestParameters: GetAzureTenantConfigRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<K8sregGetAzureTenantConfigResp>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.ids) {
+            queryParameters["ids"] = requestParameters.ids.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/kubernetes-protection/entities/config/azure/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => K8sregGetAzureTenantConfigRespFromJSON(jsonValue));
+    }
+
+    /**
+     * Gets the Azure tenant Config
+     */
+    async getAzureTenantConfig(ids?: Array<string>, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<K8sregGetAzureTenantConfigResp> {
+        const response = await this.getAzureTenantConfigRaw({ ids: ids, limit: limit, offset: offset }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Provides all the azure subscriptions and tenants
+     */
+    async getAzureTenantIDsRaw(requestParameters: GetAzureTenantIDsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<K8sregGetAzureTenantInfoResp>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.ids) {
+            queryParameters["ids"] = requestParameters.ids.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters.status !== undefined) {
+            queryParameters["status"] = requestParameters.status;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/kubernetes-protection/entities/tenants/azure/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => K8sregGetAzureTenantInfoRespFromJSON(jsonValue));
+    }
+
+    /**
+     * Provides all the azure subscriptions and tenants
+     */
+    async getAzureTenantIDs(
+        ids?: Array<string>,
+        status?: GetAzureTenantIDsStatusEnum,
+        limit?: number,
+        offset?: number,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<K8sregGetAzureTenantInfoResp> {
+        const response = await this.getAzureTenantIDsRaw({ ids: ids, status: status, limit: limit, offset: offset }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Provides the clusters acknowledged by the Kubernetes Protection service
      */
     async getClustersRaw(requestParameters: GetClustersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<K8sregGetClustersResp>> {
@@ -400,6 +589,78 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     ): Promise<K8sregGetClustersResp> {
         const response = await this.getClustersRaw(
             { clusterNames: clusterNames, accountIds: accountIds, locations: locations, clusterService: clusterService, limit: limit, offset: offset },
+            initOverrides
+        );
+        return await response.value();
+    }
+
+    /**
+     * Returns a combined list of provisioned cloud accounts and known kubernetes clusters
+     */
+    async getCombinedCloudClustersRaw(
+        requestParameters: GetCombinedCloudClustersRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<K8sregListClusterCloudResp>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.locations) {
+            queryParameters["locations"] = requestParameters.locations.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters.ids) {
+            queryParameters["ids"] = requestParameters.ids.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters.clusterService) {
+            queryParameters["cluster_service"] = requestParameters.clusterService.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters.clusterStatus) {
+            queryParameters["cluster_status"] = requestParameters.clusterStatus.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/kubernetes-protection/entities/cloud_cluster/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => K8sregListClusterCloudRespFromJSON(jsonValue));
+    }
+
+    /**
+     * Returns a combined list of provisioned cloud accounts and known kubernetes clusters
+     */
+    async getCombinedCloudClusters(
+        locations?: Array<string>,
+        ids?: Array<string>,
+        clusterService?: GetCombinedCloudClustersClusterServiceEnum,
+        clusterStatus?: GetCombinedCloudClustersClusterStatusEnum,
+        limit?: number,
+        offset?: number,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<K8sregListClusterCloudResp> {
+        const response = await this.getCombinedCloudClustersRaw(
+            { locations: locations, ids: ids, clusterService: clusterService, clusterStatus: clusterStatus, limit: limit, offset: offset },
             initOverrides
         );
         return await response.value();
@@ -482,6 +743,40 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async getLocations(clouds?: GetLocationsCloudsEnum, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<K8sregGetLocationsResp> {
         const response = await this.getLocationsRaw({ clouds: clouds }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Gets static bash scripts that are used during registration
+     */
+    async getStaticScriptsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<K8sregGetScriptsResp>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/kubernetes-protection/entities/gen/scripts/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => K8sregGetScriptsRespFromJSON(jsonValue));
+    }
+
+    /**
+     * Gets static bash scripts that are used during registration
+     */
+    async getStaticScripts(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<K8sregGetScriptsResp> {
+        const response = await this.getStaticScriptsRaw(initOverrides);
         return await response.value();
     }
 
@@ -730,10 +1025,29 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 /**
  * @export
  */
+export const GetAzureTenantIDsStatusEnum = {
+    NotInstalled: "Not Installed",
+    Running: "Running",
+    Stopped: "Stopped",
+} as const;
+export type GetAzureTenantIDsStatusEnum = typeof GetAzureTenantIDsStatusEnum[keyof typeof GetAzureTenantIDsStatusEnum];
+/**
+ * @export
+ */
 export const GetClustersClusterServiceEnum = {
     Eks: "eks",
 } as const;
 export type GetClustersClusterServiceEnum = typeof GetClustersClusterServiceEnum[keyof typeof GetClustersClusterServiceEnum];
+/**
+ * @export
+ */
+export const GetCombinedCloudClustersClusterServiceEnum = {} as const;
+export type GetCombinedCloudClustersClusterServiceEnum = Array<String>;
+/**
+ * @export
+ */
+export const GetCombinedCloudClustersClusterStatusEnum = {} as const;
+export type GetCombinedCloudClustersClusterStatusEnum = Array<String>;
 /**
  * @export
  */
