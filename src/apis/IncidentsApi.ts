@@ -368,7 +368,7 @@ export const CrowdScoreSortEnum = {
     TimestampAsc: "timestamp.asc",
     TimestampDesc: "timestamp.desc",
 } as const;
-export type CrowdScoreSortEnum = typeof CrowdScoreSortEnum[keyof typeof CrowdScoreSortEnum];
+export type CrowdScoreSortEnum = (typeof CrowdScoreSortEnum)[keyof typeof CrowdScoreSortEnum];
 /**
  * @export
  */
@@ -376,7 +376,7 @@ export const QueryBehaviorsSortEnum = {
     Asc: "timestamp.asc",
     Desc: "timestamp.desc",
 } as const;
-export type QueryBehaviorsSortEnum = typeof QueryBehaviorsSortEnum[keyof typeof QueryBehaviorsSortEnum];
+export type QueryBehaviorsSortEnum = (typeof QueryBehaviorsSortEnum)[keyof typeof QueryBehaviorsSortEnum];
 /**
  * @export
  */
@@ -400,4 +400,4 @@ export const QueryIncidentsSortEnum = {
     StatusAsc: "status.asc",
     StatusDesc: "status.desc",
 } as const;
-export type QueryIncidentsSortEnum = typeof QueryIncidentsSortEnum[keyof typeof QueryIncidentsSortEnum];
+export type QueryIncidentsSortEnum = (typeof QueryIncidentsSortEnum)[keyof typeof QueryIncidentsSortEnum];

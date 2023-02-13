@@ -54,7 +54,7 @@ export const ResponsesDeviceControlPolicyClassSettingsV1ActionEnum = {
     FullBlock: "FULL_BLOCK",
     ReadOnly: "READ_ONLY",
 } as const;
-export type ResponsesDeviceControlPolicyClassSettingsV1ActionEnum = typeof ResponsesDeviceControlPolicyClassSettingsV1ActionEnum[keyof typeof ResponsesDeviceControlPolicyClassSettingsV1ActionEnum];
+export type ResponsesDeviceControlPolicyClassSettingsV1ActionEnum = (typeof ResponsesDeviceControlPolicyClassSettingsV1ActionEnum)[keyof typeof ResponsesDeviceControlPolicyClassSettingsV1ActionEnum];
 
 /**
  * Check if a given object implements the ResponsesDeviceControlPolicyClassSettingsV1 interface.

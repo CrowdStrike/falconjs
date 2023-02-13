@@ -110,7 +110,7 @@ export const ResponsesFirewallPolicyV1PlatformNameEnum = {
     Mac: "Mac",
     Linux: "Linux",
 } as const;
-export type ResponsesFirewallPolicyV1PlatformNameEnum = typeof ResponsesFirewallPolicyV1PlatformNameEnum[keyof typeof ResponsesFirewallPolicyV1PlatformNameEnum];
+export type ResponsesFirewallPolicyV1PlatformNameEnum = (typeof ResponsesFirewallPolicyV1PlatformNameEnum)[keyof typeof ResponsesFirewallPolicyV1PlatformNameEnum];
 
 /**
  * Check if a given object implements the ResponsesFirewallPolicyV1 interface.

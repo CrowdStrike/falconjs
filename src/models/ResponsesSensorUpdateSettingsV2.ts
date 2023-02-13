@@ -58,7 +58,8 @@ export const ResponsesSensorUpdateSettingsV2UninstallProtectionEnum = {
     Ignore: "IGNORE",
     Unknown: "UNKNOWN",
 } as const;
-export type ResponsesSensorUpdateSettingsV2UninstallProtectionEnum = typeof ResponsesSensorUpdateSettingsV2UninstallProtectionEnum[keyof typeof ResponsesSensorUpdateSettingsV2UninstallProtectionEnum];
+export type ResponsesSensorUpdateSettingsV2UninstallProtectionEnum =
+    (typeof ResponsesSensorUpdateSettingsV2UninstallProtectionEnum)[keyof typeof ResponsesSensorUpdateSettingsV2UninstallProtectionEnum];
 
 /**
  * Check if a given object implements the ResponsesSensorUpdateSettingsV2 interface.

@@ -1030,14 +1030,14 @@ export const GetAzureTenantIDsStatusEnum = {
     Running: "Running",
     Stopped: "Stopped",
 } as const;
-export type GetAzureTenantIDsStatusEnum = typeof GetAzureTenantIDsStatusEnum[keyof typeof GetAzureTenantIDsStatusEnum];
+export type GetAzureTenantIDsStatusEnum = (typeof GetAzureTenantIDsStatusEnum)[keyof typeof GetAzureTenantIDsStatusEnum];
 /**
  * @export
  */
 export const GetClustersClusterServiceEnum = {
     Eks: "eks",
 } as const;
-export type GetClustersClusterServiceEnum = typeof GetClustersClusterServiceEnum[keyof typeof GetClustersClusterServiceEnum];
+export type GetClustersClusterServiceEnum = (typeof GetClustersClusterServiceEnum)[keyof typeof GetClustersClusterServiceEnum];
 /**
  * @export
  */
@@ -1060,7 +1060,7 @@ export const ListAzureAccountsStatusEnum = {
     Operational: "operational",
     Provisioned: "provisioned",
 } as const;
-export type ListAzureAccountsStatusEnum = typeof ListAzureAccountsStatusEnum[keyof typeof ListAzureAccountsStatusEnum];
+export type ListAzureAccountsStatusEnum = (typeof ListAzureAccountsStatusEnum)[keyof typeof ListAzureAccountsStatusEnum];
 /**
  * @export
  */
@@ -1068,7 +1068,7 @@ export const ListAzureAccountsIsHorizonAcctEnum = {
     False: "false",
     True: "true",
 } as const;
-export type ListAzureAccountsIsHorizonAcctEnum = typeof ListAzureAccountsIsHorizonAcctEnum[keyof typeof ListAzureAccountsIsHorizonAcctEnum];
+export type ListAzureAccountsIsHorizonAcctEnum = (typeof ListAzureAccountsIsHorizonAcctEnum)[keyof typeof ListAzureAccountsIsHorizonAcctEnum];
 /**
  * @export
  */
@@ -1077,4 +1077,4 @@ export const TriggerScanScanTypeEnum = {
     DryRun: "dry-run",
     Full: "full",
 } as const;
-export type TriggerScanScanTypeEnum = typeof TriggerScanScanTypeEnum[keyof typeof TriggerScanScanTypeEnum];
+export type TriggerScanScanTypeEnum = (typeof TriggerScanScanTypeEnum)[keyof typeof TriggerScanScanTypeEnum];

@@ -311,4 +311,4 @@ export const QueryIOAExclusionsV1SortEnum = {
     PatternNameAsc: "pattern_name.asc",
     PatternNameDesc: "pattern_name.desc",
 } as const;
-export type QueryIOAExclusionsV1SortEnum = typeof QueryIOAExclusionsV1SortEnum[keyof typeof QueryIOAExclusionsV1SortEnum];
+export type QueryIOAExclusionsV1SortEnum = (typeof QueryIOAExclusionsV1SortEnum)[keyof typeof QueryIOAExclusionsV1SortEnum];

@@ -62,7 +62,7 @@ export const RequestsCreatePreventionPolicyV1PlatformNameEnum = {
     Mac: "Mac",
     Linux: "Linux",
 } as const;
-export type RequestsCreatePreventionPolicyV1PlatformNameEnum = typeof RequestsCreatePreventionPolicyV1PlatformNameEnum[keyof typeof RequestsCreatePreventionPolicyV1PlatformNameEnum];
+export type RequestsCreatePreventionPolicyV1PlatformNameEnum = (typeof RequestsCreatePreventionPolicyV1PlatformNameEnum)[keyof typeof RequestsCreatePreventionPolicyV1PlatformNameEnum];
 
 /**
  * Check if a given object implements the RequestsCreatePreventionPolicyV1 interface.

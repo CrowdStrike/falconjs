@@ -634,7 +634,7 @@ export const PerformFirewallPoliciesActionActionNameEnum = {
     Enable: "enable",
     RemoveHostGroup: "remove-host-group",
 } as const;
-export type PerformFirewallPoliciesActionActionNameEnum = typeof PerformFirewallPoliciesActionActionNameEnum[keyof typeof PerformFirewallPoliciesActionActionNameEnum];
+export type PerformFirewallPoliciesActionActionNameEnum = (typeof PerformFirewallPoliciesActionActionNameEnum)[keyof typeof PerformFirewallPoliciesActionActionNameEnum];
 /**
  * @export
  */
@@ -656,7 +656,7 @@ export const QueryCombinedFirewallPoliciesSortEnum = {
     PrecedenceAsc: "precedence.asc",
     PrecedenceDesc: "precedence.desc",
 } as const;
-export type QueryCombinedFirewallPoliciesSortEnum = typeof QueryCombinedFirewallPoliciesSortEnum[keyof typeof QueryCombinedFirewallPoliciesSortEnum];
+export type QueryCombinedFirewallPoliciesSortEnum = (typeof QueryCombinedFirewallPoliciesSortEnum)[keyof typeof QueryCombinedFirewallPoliciesSortEnum];
 /**
  * @export
  */
@@ -678,4 +678,4 @@ export const QueryFirewallPoliciesSortEnum = {
     PrecedenceAsc: "precedence.asc",
     PrecedenceDesc: "precedence.desc",
 } as const;
-export type QueryFirewallPoliciesSortEnum = typeof QueryFirewallPoliciesSortEnum[keyof typeof QueryFirewallPoliciesSortEnum];
+export type QueryFirewallPoliciesSortEnum = (typeof QueryFirewallPoliciesSortEnum)[keyof typeof QueryFirewallPoliciesSortEnum];

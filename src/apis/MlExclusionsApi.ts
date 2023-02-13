@@ -310,4 +310,4 @@ export const QueryMLExclusionsV1SortEnum = {
     ValueAsc: "value.asc",
     ValueDesc: "value.desc",
 } as const;
-export type QueryMLExclusionsV1SortEnum = typeof QueryMLExclusionsV1SortEnum[keyof typeof QueryMLExclusionsV1SortEnum];
+export type QueryMLExclusionsV1SortEnum = (typeof QueryMLExclusionsV1SortEnum)[keyof typeof QueryMLExclusionsV1SortEnum];

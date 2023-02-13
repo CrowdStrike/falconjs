@@ -711,4 +711,4 @@ export const EntitiesPerformActionActionNameEnum = {
     RemoveAll: "remove_all",
     RemoveGroupMember: "remove_group_member",
 } as const;
-export type EntitiesPerformActionActionNameEnum = typeof EntitiesPerformActionActionNameEnum[keyof typeof EntitiesPerformActionActionNameEnum];
+export type EntitiesPerformActionActionNameEnum = (typeof EntitiesPerformActionActionNameEnum)[keyof typeof EntitiesPerformActionActionNameEnum];

@@ -610,7 +610,7 @@ export const QueryActivityByCaseIDSortEnum = {
     TypeAsc: "activity.type.asc",
     TypeDesc: "activity.type.desc",
 } as const;
-export type QueryActivityByCaseIDSortEnum = typeof QueryActivityByCaseIDSortEnum[keyof typeof QueryActivityByCaseIDSortEnum];
+export type QueryActivityByCaseIDSortEnum = (typeof QueryActivityByCaseIDSortEnum)[keyof typeof QueryActivityByCaseIDSortEnum];
 /**
  * @export
  */
@@ -626,4 +626,4 @@ export const QueryCasesIdsByFilterSortEnum = {
     TypeAsc: "case.type.asc",
     TypeDesc: "case.type.desc",
 } as const;
-export type QueryCasesIdsByFilterSortEnum = typeof QueryCasesIdsByFilterSortEnum[keyof typeof QueryCasesIdsByFilterSortEnum];
+export type QueryCasesIdsByFilterSortEnum = (typeof QueryCasesIdsByFilterSortEnum)[keyof typeof QueryCasesIdsByFilterSortEnum];

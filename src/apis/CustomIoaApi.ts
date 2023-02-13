@@ -1035,7 +1035,7 @@ export const QueryRuleGroupsFullSortEnum = {
     ModifiedOn: "modified_on",
     Name: "name",
 } as const;
-export type QueryRuleGroupsFullSortEnum = typeof QueryRuleGroupsFullSortEnum[keyof typeof QueryRuleGroupsFullSortEnum];
+export type QueryRuleGroupsFullSortEnum = (typeof QueryRuleGroupsFullSortEnum)[keyof typeof QueryRuleGroupsFullSortEnum];
 /**
  * @export
  */
@@ -1047,7 +1047,7 @@ export const QueryRuleGroupsMixin0SortEnum = {
     ModifiedOn: "modified_on",
     Name: "name",
 } as const;
-export type QueryRuleGroupsMixin0SortEnum = typeof QueryRuleGroupsMixin0SortEnum[keyof typeof QueryRuleGroupsMixin0SortEnum];
+export type QueryRuleGroupsMixin0SortEnum = (typeof QueryRuleGroupsMixin0SortEnum)[keyof typeof QueryRuleGroupsMixin0SortEnum];
 /**
  * @export
  */
@@ -1063,4 +1063,4 @@ export const QueryRulesMixin0SortEnum = {
     Enabled: "rules.enabled",
     RuletypeName: "rules.ruletype_name",
 } as const;
-export type QueryRulesMixin0SortEnum = typeof QueryRulesMixin0SortEnum[keyof typeof QueryRulesMixin0SortEnum];
+export type QueryRulesMixin0SortEnum = (typeof QueryRulesMixin0SortEnum)[keyof typeof QueryRulesMixin0SortEnum];

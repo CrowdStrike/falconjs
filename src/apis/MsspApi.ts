@@ -1527,7 +1527,7 @@ export const QueryCIDGroupMembersSortEnum = {
     Asc: "last_modified_timestamp|asc",
     Desc: "last_modified_timestamp|desc",
 } as const;
-export type QueryCIDGroupMembersSortEnum = typeof QueryCIDGroupMembersSortEnum[keyof typeof QueryCIDGroupMembersSortEnum];
+export type QueryCIDGroupMembersSortEnum = (typeof QueryCIDGroupMembersSortEnum)[keyof typeof QueryCIDGroupMembersSortEnum];
 /**
  * @export
  */
@@ -1535,14 +1535,14 @@ export const QueryCIDGroupsSortEnum = {
     LastModifiedTimestamp: "last_modified_timestamp",
     Name: "name",
 } as const;
-export type QueryCIDGroupsSortEnum = typeof QueryCIDGroupsSortEnum[keyof typeof QueryCIDGroupsSortEnum];
+export type QueryCIDGroupsSortEnum = (typeof QueryCIDGroupsSortEnum)[keyof typeof QueryCIDGroupsSortEnum];
 /**
  * @export
  */
 export const QueryChildrenSortEnum = {
     LastModifiedTimestamp: "last_modified_timestamp",
 } as const;
-export type QueryChildrenSortEnum = typeof QueryChildrenSortEnum[keyof typeof QueryChildrenSortEnum];
+export type QueryChildrenSortEnum = (typeof QueryChildrenSortEnum)[keyof typeof QueryChildrenSortEnum];
 /**
  * @export
  */
@@ -1550,14 +1550,14 @@ export const QueryRolesSortEnum = {
     Asc: "last_modified_timestamp|asc",
     Desc: "last_modified_timestamp|desc",
 } as const;
-export type QueryRolesSortEnum = typeof QueryRolesSortEnum[keyof typeof QueryRolesSortEnum];
+export type QueryRolesSortEnum = (typeof QueryRolesSortEnum)[keyof typeof QueryRolesSortEnum];
 /**
  * @export
  */
 export const QueryUserGroupMembersSortEnum = {
     LastModifiedTimestamp: "last_modified_timestamp",
 } as const;
-export type QueryUserGroupMembersSortEnum = typeof QueryUserGroupMembersSortEnum[keyof typeof QueryUserGroupMembersSortEnum];
+export type QueryUserGroupMembersSortEnum = (typeof QueryUserGroupMembersSortEnum)[keyof typeof QueryUserGroupMembersSortEnum];
 /**
  * @export
  */
@@ -1565,4 +1565,4 @@ export const QueryUserGroupsSortEnum = {
     LastModifiedTimestamp: "last_modified_timestamp",
     Name: "name",
 } as const;
-export type QueryUserGroupsSortEnum = typeof QueryUserGroupsSortEnum[keyof typeof QueryUserGroupsSortEnum];
+export type QueryUserGroupsSortEnum = (typeof QueryUserGroupsSortEnum)[keyof typeof QueryUserGroupsSortEnum];

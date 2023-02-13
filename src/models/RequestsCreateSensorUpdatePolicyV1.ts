@@ -56,7 +56,7 @@ export const RequestsCreateSensorUpdatePolicyV1PlatformNameEnum = {
     Mac: "Mac",
     Linux: "Linux",
 } as const;
-export type RequestsCreateSensorUpdatePolicyV1PlatformNameEnum = typeof RequestsCreateSensorUpdatePolicyV1PlatformNameEnum[keyof typeof RequestsCreateSensorUpdatePolicyV1PlatformNameEnum];
+export type RequestsCreateSensorUpdatePolicyV1PlatformNameEnum = (typeof RequestsCreateSensorUpdatePolicyV1PlatformNameEnum)[keyof typeof RequestsCreateSensorUpdatePolicyV1PlatformNameEnum];
 
 /**
  * Check if a given object implements the RequestsCreateSensorUpdatePolicyV1 interface.

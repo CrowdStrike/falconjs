@@ -58,7 +58,7 @@ export const ResponsesPreventionSettingV1TypeEnum = {
     Toggle: "toggle",
     Mlslider: "mlslider",
 } as const;
-export type ResponsesPreventionSettingV1TypeEnum = typeof ResponsesPreventionSettingV1TypeEnum[keyof typeof ResponsesPreventionSettingV1TypeEnum];
+export type ResponsesPreventionSettingV1TypeEnum = (typeof ResponsesPreventionSettingV1TypeEnum)[keyof typeof ResponsesPreventionSettingV1TypeEnum];
 
 /**
  * Check if a given object implements the ResponsesPreventionSettingV1 interface.

@@ -634,7 +634,7 @@ export const PerformRTResponsePoliciesActionActionNameEnum = {
     RemoveHostGroup: "remove-host-group",
     RemoveRuleGroup: "remove-rule-group",
 } as const;
-export type PerformRTResponsePoliciesActionActionNameEnum = typeof PerformRTResponsePoliciesActionActionNameEnum[keyof typeof PerformRTResponsePoliciesActionActionNameEnum];
+export type PerformRTResponsePoliciesActionActionNameEnum = (typeof PerformRTResponsePoliciesActionActionNameEnum)[keyof typeof PerformRTResponsePoliciesActionActionNameEnum];
 /**
  * @export
  */
@@ -656,7 +656,7 @@ export const QueryCombinedRTResponsePoliciesSortEnum = {
     PrecedenceAsc: "precedence.asc",
     PrecedenceDesc: "precedence.desc",
 } as const;
-export type QueryCombinedRTResponsePoliciesSortEnum = typeof QueryCombinedRTResponsePoliciesSortEnum[keyof typeof QueryCombinedRTResponsePoliciesSortEnum];
+export type QueryCombinedRTResponsePoliciesSortEnum = (typeof QueryCombinedRTResponsePoliciesSortEnum)[keyof typeof QueryCombinedRTResponsePoliciesSortEnum];
 /**
  * @export
  */
@@ -678,4 +678,4 @@ export const QueryRTResponsePoliciesSortEnum = {
     PrecedenceAsc: "precedence.asc",
     PrecedenceDesc: "precedence.desc",
 } as const;
-export type QueryRTResponsePoliciesSortEnum = typeof QueryRTResponsePoliciesSortEnum[keyof typeof QueryRTResponsePoliciesSortEnum];
+export type QueryRTResponsePoliciesSortEnum = (typeof QueryRTResponsePoliciesSortEnum)[keyof typeof QueryRTResponsePoliciesSortEnum];

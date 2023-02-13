@@ -1084,7 +1084,7 @@ export const PerformSensorUpdatePoliciesActionActionNameEnum = {
     Enable: "enable",
     RemoveHostGroup: "remove-host-group",
 } as const;
-export type PerformSensorUpdatePoliciesActionActionNameEnum = typeof PerformSensorUpdatePoliciesActionActionNameEnum[keyof typeof PerformSensorUpdatePoliciesActionActionNameEnum];
+export type PerformSensorUpdatePoliciesActionActionNameEnum = (typeof PerformSensorUpdatePoliciesActionActionNameEnum)[keyof typeof PerformSensorUpdatePoliciesActionActionNameEnum];
 /**
  * @export
  */
@@ -1093,7 +1093,7 @@ export const QueryCombinedSensorUpdateBuildsPlatformEnum = {
     Mac: "mac",
     Windows: "windows",
 } as const;
-export type QueryCombinedSensorUpdateBuildsPlatformEnum = typeof QueryCombinedSensorUpdateBuildsPlatformEnum[keyof typeof QueryCombinedSensorUpdateBuildsPlatformEnum];
+export type QueryCombinedSensorUpdateBuildsPlatformEnum = (typeof QueryCombinedSensorUpdateBuildsPlatformEnum)[keyof typeof QueryCombinedSensorUpdateBuildsPlatformEnum];
 /**
  * @export
  */
@@ -1115,7 +1115,7 @@ export const QueryCombinedSensorUpdatePoliciesSortEnum = {
     PrecedenceAsc: "precedence.asc",
     PrecedenceDesc: "precedence.desc",
 } as const;
-export type QueryCombinedSensorUpdatePoliciesSortEnum = typeof QueryCombinedSensorUpdatePoliciesSortEnum[keyof typeof QueryCombinedSensorUpdatePoliciesSortEnum];
+export type QueryCombinedSensorUpdatePoliciesSortEnum = (typeof QueryCombinedSensorUpdatePoliciesSortEnum)[keyof typeof QueryCombinedSensorUpdatePoliciesSortEnum];
 /**
  * @export
  */
@@ -1137,7 +1137,7 @@ export const QueryCombinedSensorUpdatePoliciesV2SortEnum = {
     PrecedenceAsc: "precedence.asc",
     PrecedenceDesc: "precedence.desc",
 } as const;
-export type QueryCombinedSensorUpdatePoliciesV2SortEnum = typeof QueryCombinedSensorUpdatePoliciesV2SortEnum[keyof typeof QueryCombinedSensorUpdatePoliciesV2SortEnum];
+export type QueryCombinedSensorUpdatePoliciesV2SortEnum = (typeof QueryCombinedSensorUpdatePoliciesV2SortEnum)[keyof typeof QueryCombinedSensorUpdatePoliciesV2SortEnum];
 /**
  * @export
  */
@@ -1159,4 +1159,4 @@ export const QuerySensorUpdatePoliciesSortEnum = {
     PrecedenceAsc: "precedence.asc",
     PrecedenceDesc: "precedence.desc",
 } as const;
-export type QuerySensorUpdatePoliciesSortEnum = typeof QuerySensorUpdatePoliciesSortEnum[keyof typeof QuerySensorUpdatePoliciesSortEnum];
+export type QuerySensorUpdatePoliciesSortEnum = (typeof QuerySensorUpdatePoliciesSortEnum)[keyof typeof QuerySensorUpdatePoliciesSortEnum];

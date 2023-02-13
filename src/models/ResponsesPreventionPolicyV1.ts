@@ -114,7 +114,7 @@ export const ResponsesPreventionPolicyV1PlatformNameEnum = {
     Mac: "Mac",
     Linux: "Linux",
 } as const;
-export type ResponsesPreventionPolicyV1PlatformNameEnum = typeof ResponsesPreventionPolicyV1PlatformNameEnum[keyof typeof ResponsesPreventionPolicyV1PlatformNameEnum];
+export type ResponsesPreventionPolicyV1PlatformNameEnum = (typeof ResponsesPreventionPolicyV1PlatformNameEnum)[keyof typeof ResponsesPreventionPolicyV1PlatformNameEnum];
 
 /**
  * Check if a given object implements the ResponsesPreventionPolicyV1 interface.
