@@ -1502,7 +1502,7 @@ export const AzureDownloadCertificateRefreshEnum = {
     False: "false",
     True: "true",
 } as const;
-export type AzureDownloadCertificateRefreshEnum = typeof AzureDownloadCertificateRefreshEnum[keyof typeof AzureDownloadCertificateRefreshEnum];
+export type AzureDownloadCertificateRefreshEnum = (typeof AzureDownloadCertificateRefreshEnum)[keyof typeof AzureDownloadCertificateRefreshEnum];
 /**
  * @export
  */
@@ -1510,7 +1510,7 @@ export const GetBehaviorDetectionsCloudProviderEnum = {
     Aws: "aws",
     Azure: "azure",
 } as const;
-export type GetBehaviorDetectionsCloudProviderEnum = typeof GetBehaviorDetectionsCloudProviderEnum[keyof typeof GetBehaviorDetectionsCloudProviderEnum];
+export type GetBehaviorDetectionsCloudProviderEnum = (typeof GetBehaviorDetectionsCloudProviderEnum)[keyof typeof GetBehaviorDetectionsCloudProviderEnum];
 /**
  * @export
  */
@@ -1570,7 +1570,7 @@ export const GetBehaviorDetectionsServiceEnum = {
     VirtualMachine: "VirtualMachine",
     VirtualNetwork: "VirtualNetwork",
 } as const;
-export type GetBehaviorDetectionsServiceEnum = typeof GetBehaviorDetectionsServiceEnum[keyof typeof GetBehaviorDetectionsServiceEnum];
+export type GetBehaviorDetectionsServiceEnum = (typeof GetBehaviorDetectionsServiceEnum)[keyof typeof GetBehaviorDetectionsServiceEnum];
 /**
  * @export
  */
@@ -1578,7 +1578,7 @@ export const GetBehaviorDetectionsStateEnum = {
     Closed: "closed",
     Open: "open",
 } as const;
-export type GetBehaviorDetectionsStateEnum = typeof GetBehaviorDetectionsStateEnum[keyof typeof GetBehaviorDetectionsStateEnum];
+export type GetBehaviorDetectionsStateEnum = (typeof GetBehaviorDetectionsStateEnum)[keyof typeof GetBehaviorDetectionsStateEnum];
 /**
  * @export
  */
@@ -1587,14 +1587,14 @@ export const GetBehaviorDetectionsSeverityEnum = {
     Informational: "Informational",
     Medium: "Medium",
 } as const;
-export type GetBehaviorDetectionsSeverityEnum = typeof GetBehaviorDetectionsSeverityEnum[keyof typeof GetBehaviorDetectionsSeverityEnum];
+export type GetBehaviorDetectionsSeverityEnum = (typeof GetBehaviorDetectionsSeverityEnum)[keyof typeof GetBehaviorDetectionsSeverityEnum];
 /**
  * @export
  */
 export const GetCSPMAwsAccountGroupByEnum = {
     Organization: "organization",
 } as const;
-export type GetCSPMAwsAccountGroupByEnum = typeof GetCSPMAwsAccountGroupByEnum[keyof typeof GetCSPMAwsAccountGroupByEnum];
+export type GetCSPMAwsAccountGroupByEnum = (typeof GetCSPMAwsAccountGroupByEnum)[keyof typeof GetCSPMAwsAccountGroupByEnum];
 /**
  * @export
  */
@@ -1645,7 +1645,7 @@ export const GetCSPMPolicySettingsServiceEnum = {
     VirtualMachine: "VirtualMachine",
     VirtualNetwork: "VirtualNetwork",
 } as const;
-export type GetCSPMPolicySettingsServiceEnum = typeof GetCSPMPolicySettingsServiceEnum[keyof typeof GetCSPMPolicySettingsServiceEnum];
+export type GetCSPMPolicySettingsServiceEnum = (typeof GetCSPMPolicySettingsServiceEnum)[keyof typeof GetCSPMPolicySettingsServiceEnum];
 /**
  * @export
  */
@@ -1654,7 +1654,7 @@ export const GetCSPMPolicySettingsCloudPlatformEnum = {
     Azure: "azure",
     Gcp: "gcp",
 } as const;
-export type GetCSPMPolicySettingsCloudPlatformEnum = typeof GetCSPMPolicySettingsCloudPlatformEnum[keyof typeof GetCSPMPolicySettingsCloudPlatformEnum];
+export type GetCSPMPolicySettingsCloudPlatformEnum = (typeof GetCSPMPolicySettingsCloudPlatformEnum)[keyof typeof GetCSPMPolicySettingsCloudPlatformEnum];
 /**
  * @export
  */
@@ -1663,7 +1663,7 @@ export const GetConfigurationDetectionsCloudProviderEnum = {
     Azure: "azure",
     Gcp: "gcp",
 } as const;
-export type GetConfigurationDetectionsCloudProviderEnum = typeof GetConfigurationDetectionsCloudProviderEnum[keyof typeof GetConfigurationDetectionsCloudProviderEnum];
+export type GetConfigurationDetectionsCloudProviderEnum = (typeof GetConfigurationDetectionsCloudProviderEnum)[keyof typeof GetConfigurationDetectionsCloudProviderEnum];
 /**
  * @export
  */
@@ -1672,7 +1672,7 @@ export const GetConfigurationDetectionsStatusEnum = {
     New: "new",
     Reoccurring: "reoccurring",
 } as const;
-export type GetConfigurationDetectionsStatusEnum = typeof GetConfigurationDetectionsStatusEnum[keyof typeof GetConfigurationDetectionsStatusEnum];
+export type GetConfigurationDetectionsStatusEnum = (typeof GetConfigurationDetectionsStatusEnum)[keyof typeof GetConfigurationDetectionsStatusEnum];
 /**
  * @export
  */
@@ -1681,7 +1681,7 @@ export const GetConfigurationDetectionsSeverityEnum = {
     Informational: "Informational",
     Medium: "Medium",
 } as const;
-export type GetConfigurationDetectionsSeverityEnum = typeof GetConfigurationDetectionsSeverityEnum[keyof typeof GetConfigurationDetectionsSeverityEnum];
+export type GetConfigurationDetectionsSeverityEnum = (typeof GetConfigurationDetectionsSeverityEnum)[keyof typeof GetConfigurationDetectionsSeverityEnum];
 /**
  * @export
  */
@@ -1741,4 +1741,4 @@ export const GetConfigurationDetectionsServiceEnum = {
     VirtualMachine: "VirtualMachine",
     VirtualNetwork: "VirtualNetwork",
 } as const;
-export type GetConfigurationDetectionsServiceEnum = typeof GetConfigurationDetectionsServiceEnum[keyof typeof GetConfigurationDetectionsServiceEnum];
+export type GetConfigurationDetectionsServiceEnum = (typeof GetConfigurationDetectionsServiceEnum)[keyof typeof GetConfigurationDetectionsServiceEnum];

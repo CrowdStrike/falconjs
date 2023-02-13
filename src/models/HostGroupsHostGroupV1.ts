@@ -83,7 +83,7 @@ export const HostGroupsHostGroupV1GroupTypeEnum = {
     Dynamic: "dynamic",
     StaticById: "staticByID",
 } as const;
-export type HostGroupsHostGroupV1GroupTypeEnum = typeof HostGroupsHostGroupV1GroupTypeEnum[keyof typeof HostGroupsHostGroupV1GroupTypeEnum];
+export type HostGroupsHostGroupV1GroupTypeEnum = (typeof HostGroupsHostGroupV1GroupTypeEnum)[keyof typeof HostGroupsHostGroupV1GroupTypeEnum];
 
 /**
  * Check if a given object implements the HostGroupsHostGroupV1 interface.

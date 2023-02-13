@@ -66,7 +66,7 @@ export const RequestsCreateDeviceControlPolicyV1PlatformNameEnum = {
     Mac: "Mac",
     Linux: "Linux",
 } as const;
-export type RequestsCreateDeviceControlPolicyV1PlatformNameEnum = typeof RequestsCreateDeviceControlPolicyV1PlatformNameEnum[keyof typeof RequestsCreateDeviceControlPolicyV1PlatformNameEnum];
+export type RequestsCreateDeviceControlPolicyV1PlatformNameEnum = (typeof RequestsCreateDeviceControlPolicyV1PlatformNameEnum)[keyof typeof RequestsCreateDeviceControlPolicyV1PlatformNameEnum];
 
 /**
  * Check if a given object implements the RequestsCreateDeviceControlPolicyV1 interface.

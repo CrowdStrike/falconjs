@@ -106,7 +106,7 @@ export const DeviceControlPolicyV1PlatformNameEnum = {
     Mac: "Mac",
     Linux: "Linux",
 } as const;
-export type DeviceControlPolicyV1PlatformNameEnum = typeof DeviceControlPolicyV1PlatformNameEnum[keyof typeof DeviceControlPolicyV1PlatformNameEnum];
+export type DeviceControlPolicyV1PlatformNameEnum = (typeof DeviceControlPolicyV1PlatformNameEnum)[keyof typeof DeviceControlPolicyV1PlatformNameEnum];
 
 /**
  * Check if a given object implements the DeviceControlPolicyV1 interface.

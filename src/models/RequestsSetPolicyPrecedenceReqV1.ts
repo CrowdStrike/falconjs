@@ -41,7 +41,7 @@ export const RequestsSetPolicyPrecedenceReqV1PlatformNameEnum = {
     Mac: "Mac",
     Linux: "Linux",
 } as const;
-export type RequestsSetPolicyPrecedenceReqV1PlatformNameEnum = typeof RequestsSetPolicyPrecedenceReqV1PlatformNameEnum[keyof typeof RequestsSetPolicyPrecedenceReqV1PlatformNameEnum];
+export type RequestsSetPolicyPrecedenceReqV1PlatformNameEnum = (typeof RequestsSetPolicyPrecedenceReqV1PlatformNameEnum)[keyof typeof RequestsSetPolicyPrecedenceReqV1PlatformNameEnum];
 
 /**
  * Check if a given object implements the RequestsSetPolicyPrecedenceReqV1 interface.

@@ -54,7 +54,7 @@ export const ResponsesDeviceControlSettingsV1EndUserNotificationEnum = {
     NotifyUser: "NOTIFY_USER",
 } as const;
 export type ResponsesDeviceControlSettingsV1EndUserNotificationEnum =
-    typeof ResponsesDeviceControlSettingsV1EndUserNotificationEnum[keyof typeof ResponsesDeviceControlSettingsV1EndUserNotificationEnum];
+    (typeof ResponsesDeviceControlSettingsV1EndUserNotificationEnum)[keyof typeof ResponsesDeviceControlSettingsV1EndUserNotificationEnum];
 
 /**
  * @export
@@ -64,7 +64,7 @@ export const ResponsesDeviceControlSettingsV1EnforcementModeEnum = {
     MonitorEnforce: "MONITOR_ENFORCE",
     Off: "OFF",
 } as const;
-export type ResponsesDeviceControlSettingsV1EnforcementModeEnum = typeof ResponsesDeviceControlSettingsV1EnforcementModeEnum[keyof typeof ResponsesDeviceControlSettingsV1EnforcementModeEnum];
+export type ResponsesDeviceControlSettingsV1EnforcementModeEnum = (typeof ResponsesDeviceControlSettingsV1EnforcementModeEnum)[keyof typeof ResponsesDeviceControlSettingsV1EnforcementModeEnum];
 
 /**
  * Check if a given object implements the ResponsesDeviceControlSettingsV1 interface.

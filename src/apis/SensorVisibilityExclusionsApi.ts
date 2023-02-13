@@ -326,4 +326,4 @@ export const QuerySensorVisibilityExclusionsV1SortEnum = {
     ValueAsc: "value.asc",
     ValueDesc: "value.desc",
 } as const;
-export type QuerySensorVisibilityExclusionsV1SortEnum = typeof QuerySensorVisibilityExclusionsV1SortEnum[keyof typeof QuerySensorVisibilityExclusionsV1SortEnum];
+export type QuerySensorVisibilityExclusionsV1SortEnum = (typeof QuerySensorVisibilityExclusionsV1SortEnum)[keyof typeof QuerySensorVisibilityExclusionsV1SortEnum];

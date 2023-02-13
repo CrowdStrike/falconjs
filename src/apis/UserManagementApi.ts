@@ -1156,7 +1156,7 @@ export const CombinedUserRolesV1SortEnum = {
     TypeAsc: "type|asc",
     TypeDesc: "type|desc",
 } as const;
-export type CombinedUserRolesV1SortEnum = typeof CombinedUserRolesV1SortEnum[keyof typeof CombinedUserRolesV1SortEnum];
+export type CombinedUserRolesV1SortEnum = (typeof CombinedUserRolesV1SortEnum)[keyof typeof CombinedUserRolesV1SortEnum];
 /**
  * @export
  */
@@ -1170,4 +1170,4 @@ export const QueryUserV1SortEnum = {
     UidAsc: "uid|asc",
     UidDesc: "uid|desc",
 } as const;
-export type QueryUserV1SortEnum = typeof QueryUserV1SortEnum[keyof typeof QueryUserV1SortEnum];
+export type QueryUserV1SortEnum = (typeof QueryUserV1SortEnum)[keyof typeof QueryUserV1SortEnum];

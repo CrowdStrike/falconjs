@@ -40,7 +40,7 @@ export const DomainUserActionActionNameEnum = {
     Password: "reset_password",
     _2fa: "reset_2fa",
 } as const;
-export type DomainUserActionActionNameEnum = typeof DomainUserActionActionNameEnum[keyof typeof DomainUserActionActionNameEnum];
+export type DomainUserActionActionNameEnum = (typeof DomainUserActionActionNameEnum)[keyof typeof DomainUserActionActionNameEnum];
 
 /**
  * Check if a given object implements the DomainUserAction interface.

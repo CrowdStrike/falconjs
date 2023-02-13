@@ -849,7 +849,7 @@ export const DiscoverCloudAzureDownloadCertificateRefreshEnum = {
     False: "false",
     True: "true",
 } as const;
-export type DiscoverCloudAzureDownloadCertificateRefreshEnum = typeof DiscoverCloudAzureDownloadCertificateRefreshEnum[keyof typeof DiscoverCloudAzureDownloadCertificateRefreshEnum];
+export type DiscoverCloudAzureDownloadCertificateRefreshEnum = (typeof DiscoverCloudAzureDownloadCertificateRefreshEnum)[keyof typeof DiscoverCloudAzureDownloadCertificateRefreshEnum];
 /**
  * @export
  */
@@ -857,7 +857,7 @@ export const GetD4CAwsAccountMigratedEnum = {
     False: "false",
     True: "true",
 } as const;
-export type GetD4CAwsAccountMigratedEnum = typeof GetD4CAwsAccountMigratedEnum[keyof typeof GetD4CAwsAccountMigratedEnum];
+export type GetD4CAwsAccountMigratedEnum = (typeof GetD4CAwsAccountMigratedEnum)[keyof typeof GetD4CAwsAccountMigratedEnum];
 /**
  * @export
  */
@@ -865,7 +865,7 @@ export const GetHorizonD4CScriptsSingleAccountEnum = {
     False: "false",
     True: "true",
 } as const;
-export type GetHorizonD4CScriptsSingleAccountEnum = typeof GetHorizonD4CScriptsSingleAccountEnum[keyof typeof GetHorizonD4CScriptsSingleAccountEnum];
+export type GetHorizonD4CScriptsSingleAccountEnum = (typeof GetHorizonD4CScriptsSingleAccountEnum)[keyof typeof GetHorizonD4CScriptsSingleAccountEnum];
 /**
  * @export
  */
@@ -873,7 +873,7 @@ export const GetHorizonD4CScriptsDeleteEnum = {
     False: "false",
     True: "true",
 } as const;
-export type GetHorizonD4CScriptsDeleteEnum = typeof GetHorizonD4CScriptsDeleteEnum[keyof typeof GetHorizonD4CScriptsDeleteEnum];
+export type GetHorizonD4CScriptsDeleteEnum = (typeof GetHorizonD4CScriptsDeleteEnum)[keyof typeof GetHorizonD4CScriptsDeleteEnum];
 /**
  * @export
  */
@@ -881,4 +881,4 @@ export const GetHorizonD4CScriptsAccountTypeEnum = {
     Commercial: "commercial",
     Gov: "gov",
 } as const;
-export type GetHorizonD4CScriptsAccountTypeEnum = typeof GetHorizonD4CScriptsAccountTypeEnum[keyof typeof GetHorizonD4CScriptsAccountTypeEnum];
+export type GetHorizonD4CScriptsAccountTypeEnum = (typeof GetHorizonD4CScriptsAccountTypeEnum)[keyof typeof GetHorizonD4CScriptsAccountTypeEnum];

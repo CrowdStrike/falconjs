@@ -769,7 +769,7 @@ export const IndicatorCombinedV1SortEnum = {
     Type: "type",
     Value: "value",
 } as const;
-export type IndicatorCombinedV1SortEnum = typeof IndicatorCombinedV1SortEnum[keyof typeof IndicatorCombinedV1SortEnum];
+export type IndicatorCombinedV1SortEnum = (typeof IndicatorCombinedV1SortEnum)[keyof typeof IndicatorCombinedV1SortEnum];
 /**
  * @export
  */
@@ -793,4 +793,4 @@ export const IndicatorSearchV1SortEnum = {
     Type: "type",
     Value: "value",
 } as const;
-export type IndicatorSearchV1SortEnum = typeof IndicatorSearchV1SortEnum[keyof typeof IndicatorSearchV1SortEnum];
+export type IndicatorSearchV1SortEnum = (typeof IndicatorSearchV1SortEnum)[keyof typeof IndicatorSearchV1SortEnum];

@@ -52,7 +52,7 @@ export const RequestsSensorUpdateSettingsV2UninstallProtectionEnum = {
     Ignore: "IGNORE",
     Unknown: "UNKNOWN",
 } as const;
-export type RequestsSensorUpdateSettingsV2UninstallProtectionEnum = typeof RequestsSensorUpdateSettingsV2UninstallProtectionEnum[keyof typeof RequestsSensorUpdateSettingsV2UninstallProtectionEnum];
+export type RequestsSensorUpdateSettingsV2UninstallProtectionEnum = (typeof RequestsSensorUpdateSettingsV2UninstallProtectionEnum)[keyof typeof RequestsSensorUpdateSettingsV2UninstallProtectionEnum];
 
 /**
  * Check if a given object implements the RequestsSensorUpdateSettingsV2 interface.

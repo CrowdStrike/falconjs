@@ -489,4 +489,4 @@ export const ProvisionAWSAccountsModeEnum = {
     Cloudformation: "cloudformation",
     Manual: "manual",
 } as const;
-export type ProvisionAWSAccountsModeEnum = typeof ProvisionAWSAccountsModeEnum[keyof typeof ProvisionAWSAccountsModeEnum];
+export type ProvisionAWSAccountsModeEnum = (typeof ProvisionAWSAccountsModeEnum)[keyof typeof ProvisionAWSAccountsModeEnum];

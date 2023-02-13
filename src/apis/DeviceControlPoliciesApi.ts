@@ -726,7 +726,7 @@ export const PerformDeviceControlPoliciesActionActionNameEnum = {
     Enable: "enable",
     RemoveHostGroup: "remove-host-group",
 } as const;
-export type PerformDeviceControlPoliciesActionActionNameEnum = typeof PerformDeviceControlPoliciesActionActionNameEnum[keyof typeof PerformDeviceControlPoliciesActionActionNameEnum];
+export type PerformDeviceControlPoliciesActionActionNameEnum = (typeof PerformDeviceControlPoliciesActionActionNameEnum)[keyof typeof PerformDeviceControlPoliciesActionActionNameEnum];
 /**
  * @export
  */
@@ -748,7 +748,7 @@ export const QueryCombinedDeviceControlPoliciesSortEnum = {
     PrecedenceAsc: "precedence.asc",
     PrecedenceDesc: "precedence.desc",
 } as const;
-export type QueryCombinedDeviceControlPoliciesSortEnum = typeof QueryCombinedDeviceControlPoliciesSortEnum[keyof typeof QueryCombinedDeviceControlPoliciesSortEnum];
+export type QueryCombinedDeviceControlPoliciesSortEnum = (typeof QueryCombinedDeviceControlPoliciesSortEnum)[keyof typeof QueryCombinedDeviceControlPoliciesSortEnum];
 /**
  * @export
  */
@@ -770,4 +770,4 @@ export const QueryDeviceControlPoliciesSortEnum = {
     PrecedenceAsc: "precedence.asc",
     PrecedenceDesc: "precedence.desc",
 } as const;
-export type QueryDeviceControlPoliciesSortEnum = typeof QueryDeviceControlPoliciesSortEnum[keyof typeof QueryDeviceControlPoliciesSortEnum];
+export type QueryDeviceControlPoliciesSortEnum = (typeof QueryDeviceControlPoliciesSortEnum)[keyof typeof QueryDeviceControlPoliciesSortEnum];

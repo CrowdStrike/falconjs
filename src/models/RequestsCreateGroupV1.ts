@@ -53,7 +53,7 @@ export const RequestsCreateGroupV1GroupTypeEnum = {
     Dynamic: "dynamic",
     StaticById: "staticByID",
 } as const;
-export type RequestsCreateGroupV1GroupTypeEnum = typeof RequestsCreateGroupV1GroupTypeEnum[keyof typeof RequestsCreateGroupV1GroupTypeEnum];
+export type RequestsCreateGroupV1GroupTypeEnum = (typeof RequestsCreateGroupV1GroupTypeEnum)[keyof typeof RequestsCreateGroupV1GroupTypeEnum];
 
 /**
  * Check if a given object implements the RequestsCreateGroupV1 interface.

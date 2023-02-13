@@ -557,7 +557,7 @@ export const PerformGroupActionActionNameEnum = {
     AddHosts: "add-hosts",
     RemoveHosts: "remove-hosts",
 } as const;
-export type PerformGroupActionActionNameEnum = typeof PerformGroupActionActionNameEnum[keyof typeof PerformGroupActionActionNameEnum];
+export type PerformGroupActionActionNameEnum = (typeof PerformGroupActionActionNameEnum)[keyof typeof PerformGroupActionActionNameEnum];
 /**
  * @export
  */
@@ -575,7 +575,7 @@ export const QueryCombinedHostGroupsSortEnum = {
     NameAsc: "name.asc",
     NameDesc: "name.desc",
 } as const;
-export type QueryCombinedHostGroupsSortEnum = typeof QueryCombinedHostGroupsSortEnum[keyof typeof QueryCombinedHostGroupsSortEnum];
+export type QueryCombinedHostGroupsSortEnum = (typeof QueryCombinedHostGroupsSortEnum)[keyof typeof QueryCombinedHostGroupsSortEnum];
 /**
  * @export
  */
@@ -593,4 +593,4 @@ export const QueryHostGroupsSortEnum = {
     NameAsc: "name.asc",
     NameDesc: "name.desc",
 } as const;
-export type QueryHostGroupsSortEnum = typeof QueryHostGroupsSortEnum[keyof typeof QueryHostGroupsSortEnum];
+export type QueryHostGroupsSortEnum = (typeof QueryHostGroupsSortEnum)[keyof typeof QueryHostGroupsSortEnum];

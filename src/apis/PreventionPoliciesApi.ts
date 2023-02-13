@@ -634,7 +634,7 @@ export const PerformPreventionPoliciesActionActionNameEnum = {
     RemoveHostGroup: "remove-host-group",
     RemoveRuleGroup: "remove-rule-group",
 } as const;
-export type PerformPreventionPoliciesActionActionNameEnum = typeof PerformPreventionPoliciesActionActionNameEnum[keyof typeof PerformPreventionPoliciesActionActionNameEnum];
+export type PerformPreventionPoliciesActionActionNameEnum = (typeof PerformPreventionPoliciesActionActionNameEnum)[keyof typeof PerformPreventionPoliciesActionActionNameEnum];
 /**
  * @export
  */
@@ -656,7 +656,7 @@ export const QueryCombinedPreventionPoliciesSortEnum = {
     PrecedenceAsc: "precedence.asc",
     PrecedenceDesc: "precedence.desc",
 } as const;
-export type QueryCombinedPreventionPoliciesSortEnum = typeof QueryCombinedPreventionPoliciesSortEnum[keyof typeof QueryCombinedPreventionPoliciesSortEnum];
+export type QueryCombinedPreventionPoliciesSortEnum = (typeof QueryCombinedPreventionPoliciesSortEnum)[keyof typeof QueryCombinedPreventionPoliciesSortEnum];
 /**
  * @export
  */
@@ -678,4 +678,4 @@ export const QueryPreventionPoliciesSortEnum = {
     PrecedenceAsc: "precedence.asc",
     PrecedenceDesc: "precedence.desc",
 } as const;
-export type QueryPreventionPoliciesSortEnum = typeof QueryPreventionPoliciesSortEnum[keyof typeof QueryPreventionPoliciesSortEnum];
+export type QueryPreventionPoliciesSortEnum = (typeof QueryPreventionPoliciesSortEnum)[keyof typeof QueryPreventionPoliciesSortEnum];

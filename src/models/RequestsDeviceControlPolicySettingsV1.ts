@@ -60,7 +60,7 @@ export const RequestsDeviceControlPolicySettingsV1EndUserNotificationEnum = {
     NotifyUser: "NOTIFY_USER",
 } as const;
 export type RequestsDeviceControlPolicySettingsV1EndUserNotificationEnum =
-    typeof RequestsDeviceControlPolicySettingsV1EndUserNotificationEnum[keyof typeof RequestsDeviceControlPolicySettingsV1EndUserNotificationEnum];
+    (typeof RequestsDeviceControlPolicySettingsV1EndUserNotificationEnum)[keyof typeof RequestsDeviceControlPolicySettingsV1EndUserNotificationEnum];
 
 /**
  * @export
@@ -70,7 +70,7 @@ export const RequestsDeviceControlPolicySettingsV1EnforcementModeEnum = {
     Enforce: "MONITOR_ENFORCE",
 } as const;
 export type RequestsDeviceControlPolicySettingsV1EnforcementModeEnum =
-    typeof RequestsDeviceControlPolicySettingsV1EnforcementModeEnum[keyof typeof RequestsDeviceControlPolicySettingsV1EnforcementModeEnum];
+    (typeof RequestsDeviceControlPolicySettingsV1EnforcementModeEnum)[keyof typeof RequestsDeviceControlPolicySettingsV1EnforcementModeEnum];
 
 /**
  * Check if a given object implements the RequestsDeviceControlPolicySettingsV1 interface.

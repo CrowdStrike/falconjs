@@ -100,4 +100,4 @@ export const RequestDeviceEnrollmentV3ActionNameEnum = {
     Enroll: "enroll",
     ReEnroll: "re-enroll",
 } as const;
-export type RequestDeviceEnrollmentV3ActionNameEnum = typeof RequestDeviceEnrollmentV3ActionNameEnum[keyof typeof RequestDeviceEnrollmentV3ActionNameEnum];
+export type RequestDeviceEnrollmentV3ActionNameEnum = (typeof RequestDeviceEnrollmentV3ActionNameEnum)[keyof typeof RequestDeviceEnrollmentV3ActionNameEnum];

@@ -50,7 +50,7 @@ export const DeviceControlUSBClassExceptionsResponseActionEnum = {
     FullBlock: "FULL_BLOCK",
     ReadOnly: "READ_ONLY",
 } as const;
-export type DeviceControlUSBClassExceptionsResponseActionEnum = typeof DeviceControlUSBClassExceptionsResponseActionEnum[keyof typeof DeviceControlUSBClassExceptionsResponseActionEnum];
+export type DeviceControlUSBClassExceptionsResponseActionEnum = (typeof DeviceControlUSBClassExceptionsResponseActionEnum)[keyof typeof DeviceControlUSBClassExceptionsResponseActionEnum];
 
 /**
  * Check if a given object implements the DeviceControlUSBClassExceptionsResponse interface.

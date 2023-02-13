@@ -800,7 +800,7 @@ export const QueryMaliciousFilesSortEnum = {
     LastUpdatedAsc: "last_updated|asc",
     LastUpdatedDesc: "last_updated|desc",
 } as const;
-export type QueryMaliciousFilesSortEnum = typeof QueryMaliciousFilesSortEnum[keyof typeof QueryMaliciousFilesSortEnum];
+export type QueryMaliciousFilesSortEnum = (typeof QueryMaliciousFilesSortEnum)[keyof typeof QueryMaliciousFilesSortEnum];
 /**
  * @export
  */
@@ -830,7 +830,7 @@ export const QueryScanHostMetadataSortEnum = {
     LastUpdatedAsc: "last_updated|asc",
     LastUpdatedDesc: "last_updated|desc",
 } as const;
-export type QueryScanHostMetadataSortEnum = typeof QueryScanHostMetadataSortEnum[keyof typeof QueryScanHostMetadataSortEnum];
+export type QueryScanHostMetadataSortEnum = (typeof QueryScanHostMetadataSortEnum)[keyof typeof QueryScanHostMetadataSortEnum];
 /**
  * @export
  */
@@ -866,7 +866,7 @@ export const QueryScansSortEnum = {
     LastUpdatedAsc: "last_updated|asc",
     LastUpdatedDesc: "last_updated|desc",
 } as const;
-export type QueryScansSortEnum = typeof QueryScansSortEnum[keyof typeof QueryScansSortEnum];
+export type QueryScansSortEnum = (typeof QueryScansSortEnum)[keyof typeof QueryScansSortEnum];
 /**
  * @export
  */
@@ -888,4 +888,4 @@ export const QueryScheduledScansSortEnum = {
     LastUpdatedAsc: "last_updated|asc",
     LastUpdatedDesc: "last_updated|desc",
 } as const;
-export type QueryScheduledScansSortEnum = typeof QueryScheduledScansSortEnum[keyof typeof QueryScheduledScansSortEnum];
+export type QueryScheduledScansSortEnum = (typeof QueryScheduledScansSortEnum)[keyof typeof QueryScheduledScansSortEnum];

@@ -62,7 +62,7 @@ export const RequestsCreateRTResponsePolicyV1PlatformNameEnum = {
     Mac: "Mac",
     Linux: "Linux",
 } as const;
-export type RequestsCreateRTResponsePolicyV1PlatformNameEnum = typeof RequestsCreateRTResponsePolicyV1PlatformNameEnum[keyof typeof RequestsCreateRTResponsePolicyV1PlatformNameEnum];
+export type RequestsCreateRTResponsePolicyV1PlatformNameEnum = (typeof RequestsCreateRTResponsePolicyV1PlatformNameEnum)[keyof typeof RequestsCreateRTResponsePolicyV1PlatformNameEnum];
 
 /**
  * Check if a given object implements the RequestsCreateRTResponsePolicyV1 interface.
