@@ -13,6 +13,13 @@
  */
 
 import { exists, mapValues } from "../runtime";
+import type { DomainAPIEvaluationLogicComparisonsV1 } from "./DomainAPIEvaluationLogicComparisonsV1";
+import {
+    DomainAPIEvaluationLogicComparisonsV1FromJSON,
+    DomainAPIEvaluationLogicComparisonsV1FromJSONTyped,
+    DomainAPIEvaluationLogicComparisonsV1ToJSON,
+} from "./DomainAPIEvaluationLogicComparisonsV1";
+
 /**
  *
  * @export
@@ -21,10 +28,46 @@ import { exists, mapValues } from "../runtime";
 export interface DomainAPIEvaluationLogicItemV1 {
     /**
      *
+     * @type {string}
+     * @memberof DomainAPIEvaluationLogicItemV1
+     */
+    comparisonCheck?: string;
+    /**
+     *
+     * @type {DomainAPIEvaluationLogicComparisonsV1}
+     * @memberof DomainAPIEvaluationLogicItemV1
+     */
+    comparisons?: DomainAPIEvaluationLogicComparisonsV1;
+    /**
+     *
+     * @type {boolean}
+     * @memberof DomainAPIEvaluationLogicItemV1
+     */
+    determinedByComparison?: boolean;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainAPIEvaluationLogicItemV1
+     */
+    existenceCheck?: string;
+    /**
+     *
      * @type {number}
      * @memberof DomainAPIEvaluationLogicItemV1
      */
-    id: number;
+    id?: number;
+    /**
+     *
+     * @type {Array<object>}
+     * @memberof DomainAPIEvaluationLogicItemV1
+     */
+    items?: Array<object>;
+    /**
+     *
+     * @type {boolean}
+     * @memberof DomainAPIEvaluationLogicItemV1
+     */
+    negate?: boolean;
     /**
      *
      * @type {string}
@@ -44,7 +87,6 @@ export interface DomainAPIEvaluationLogicItemV1 {
  */
 export function instanceOfDomainAPIEvaluationLogicItemV1(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "id" in value;
     isInstance = isInstance && "title" in value;
     isInstance = isInstance && "type" in value;
 
@@ -60,7 +102,13 @@ export function DomainAPIEvaluationLogicItemV1FromJSONTyped(json: any, ignoreDis
         return json;
     }
     return {
-        id: json["id"],
+        comparisonCheck: !exists(json, "comparison_check") ? undefined : json["comparison_check"],
+        comparisons: !exists(json, "comparisons") ? undefined : DomainAPIEvaluationLogicComparisonsV1FromJSON(json["comparisons"]),
+        determinedByComparison: !exists(json, "determined_by_comparison") ? undefined : json["determined_by_comparison"],
+        existenceCheck: !exists(json, "existence_check") ? undefined : json["existence_check"],
+        id: !exists(json, "id") ? undefined : json["id"],
+        items: !exists(json, "items") ? undefined : json["items"],
+        negate: !exists(json, "negate") ? undefined : json["negate"],
         title: json["title"],
         type: json["type"],
     };
@@ -74,7 +122,13 @@ export function DomainAPIEvaluationLogicItemV1ToJSON(value?: DomainAPIEvaluation
         return null;
     }
     return {
+        comparison_check: value.comparisonCheck,
+        comparisons: DomainAPIEvaluationLogicComparisonsV1ToJSON(value.comparisons),
+        determined_by_comparison: value.determinedByComparison,
+        existence_check: value.existenceCheck,
         id: value.id,
+        items: value.items,
+        negate: value.negate,
         title: value.title,
         type: value.type,
     };
