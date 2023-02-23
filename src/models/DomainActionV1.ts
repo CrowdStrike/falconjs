@@ -26,7 +26,7 @@ export interface DomainActionV1 {
      */
     cid: string;
     /**
-     * The level of detail in which the content will be delivered
+     * The level of detail in which the content will be delivered. It can be either 'standard' or 'enhanced'
      * @type {string}
      * @memberof DomainActionV1
      */
@@ -38,7 +38,7 @@ export interface DomainActionV1 {
      */
     createdTimestamp: Date;
     /**
-     * The time interval between the action's triggers
+     * The time interval between the action's triggers. It can be one of the values: 'asap', 'daily' or 'weekly'
      * @type {string}
      * @memberof DomainActionV1
      */
