@@ -30,7 +30,10 @@ export class EventStream {
                 this.refreshActiveSessionWorker();
                 return response.body;
             })
+            /* eslint-disable @typescript-eslint/no-explicit-any */ /* A different type may be returned in browser vs node. Type will be dependent on fetchApi implementation  */
             .then((res: any) => {
+                /* eslint-enable */
+
                 if (res.getReader) {
                     // We run inside a browser
                     console.log("TODO: figure this out");
