@@ -18,3 +18,9 @@ NAME=sensor_download
 
 Run the example:
  - point your web browser to the html file
+
+
+## Other Examples
+
+Exemplary [Chrome Extension](https://github.com/isimluk/crowdstrike-chrome-extension) exists to show case use of FalconJS inside a browser.
+

@@ -11,7 +11,6 @@ VERSION=0.2.5 # Target version of FalconJS
 PATCHED_SWAGGER_FILE=./specs/swagger-patched.json # Obtain swagger file and then patch it with gofalcon pipeline
 
 mkdir -p specs
-# cp ../gofalcon/specs/swagger-patched.json ./specs/
 
 jq '.info.version="rolling"' ${PATCHED_SWAGGER_FILE} > ./specs/final.json
 
