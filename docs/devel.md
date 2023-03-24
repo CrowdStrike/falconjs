@@ -53,6 +53,10 @@ After placing this into `./example.ts` you can execute it under node with
 tsc && node ./build/example.js
 ```
 
+## How to update to the latest swagger
+
+- read & run `./rebuild.sh` script
+
 ## How to release falconjs
 
 - bump version in `package.json` (`npm version patch`)
