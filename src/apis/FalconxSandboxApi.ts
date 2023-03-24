@@ -322,7 +322,11 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.TextApiResponse(response) as any;
+        if (this.isJsonMime(response.headers.get("content-type"))) {
+            return new runtime.JSONApiResponse<string>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
     }
 
     /**
