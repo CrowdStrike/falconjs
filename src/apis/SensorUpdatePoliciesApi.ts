@@ -1105,7 +1105,7 @@ export type QueryCombinedSensorUpdateBuildsPlatformEnum = (typeof QueryCombinedS
  * @export
  */
 export const QueryCombinedSensorUpdateBuildsStageEnum = {} as const;
-export type QueryCombinedSensorUpdateBuildsStageEnum = (typeof QueryCombinedSensorUpdateBuildsStageEnum)[keyof typeof QueryCombinedSensorUpdateBuildsStageEnum];
+export type QueryCombinedSensorUpdateBuildsStageEnum = Array<String>;
 /**
  * @export
  */

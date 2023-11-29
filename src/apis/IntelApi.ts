@@ -91,7 +91,7 @@ export interface GetMitreReportRequest {
     format: string;
 }
 
-export interface GetVulnerabilitiesRequest {
+export interface IntelApiGetVulnerabilitiesRequest {
     body: MsaIdsRequest;
 }
 
@@ -171,7 +171,7 @@ export interface QueryMitreAttacksRequest {
     ids?: Array<string>;
 }
 
-export interface QueryVulnerabilitiesRequest {
+export interface IntelApiQueryVulnerabilitiesRequest {
     offset?: string;
     limit?: number;
     sort?: string;
@@ -578,7 +578,10 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Get vulnerabilities
      */
-    async getVulnerabilitiesRaw(requestParameters: GetVulnerabilitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainVulnerabilityResponse>> {
+    async getVulnerabilitiesRaw(
+        requestParameters: IntelApiGetVulnerabilitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainVulnerabilityResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling getVulnerabilities.");
         }
@@ -1191,7 +1194,7 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Get vulnerabilities IDs
      */
-    async queryVulnerabilitiesRaw(requestParameters: QueryVulnerabilitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryVulnerabilitiesRaw(requestParameters: IntelApiQueryVulnerabilitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.offset !== undefined) {

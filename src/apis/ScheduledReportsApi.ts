@@ -27,7 +27,7 @@ import {
     MsaReplyMetaOnlyToJSON,
 } from "../models/index";
 
-export interface ExecuteRequest {
+export interface ScheduledReportsApiExecuteRequest {
     body: Array<DomainReportExecutionLaunchRequestV1>;
 }
 
@@ -50,7 +50,7 @@ export class ScheduledReportsApi extends runtime.BaseAPI {
     /**
      * Launch scheduled reports executions for the provided report IDs.
      */
-    async executeRaw(requestParameters: ExecuteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainReportExecutionsResponseV1>> {
+    async executeRaw(requestParameters: ScheduledReportsApiExecuteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainReportExecutionsResponseV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling execute.");
         }

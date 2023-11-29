@@ -49,7 +49,7 @@ export interface DeprovisionSystemDefinitionRequest {
     body: ClientSystemDefinitionDeProvisionRequest;
 }
 
-export interface ExecuteRequest {
+export interface WorkflowsApiExecuteRequest {
     body: object;
     definitionId?: Array<string>;
     name?: string;
@@ -126,7 +126,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
     /**
      * Executes an on-demand Workflow, the body is JSON used to trigger the execution, the response the execution ID(s)
      */
-    async executeRaw(requestParameters: ExecuteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiResourceIDsResponse>> {
+    async executeRaw(requestParameters: WorkflowsApiExecuteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiResourceIDsResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling execute.");
         }

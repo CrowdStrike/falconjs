@@ -1074,7 +1074,7 @@ export * from "./UnidentifiedcontainersUnidentifiedContainersCountValue";
 export * from "./UninstallTokenRespV1";
 export * from "./UninstallTokenRevealUninstallTokenReqV1";
 export * from "./UninstallTokenUninstallTokenV1";
-export * from "./UploadSampleV2Request";
+// export * from "./UploadSampleV2Request";
 export * from "./VulnerabilitiesApiCombinedVulnerability";
 export * from "./VulnerabilitiesApiCombinedVulnerabilityDetails";
 export * from "./VulnerabilitiesApiCombinedVulnerabilityInfo";

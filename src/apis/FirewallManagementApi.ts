@@ -128,7 +128,7 @@ export interface DeleteNetworkLocationsRequest {
     ids: Array<string>;
 }
 
-export interface DeleteRuleGroupsRequest {
+export interface FirewallManagementApiDeleteRuleGroupsRequest {
     ids: Array<string>;
     comment?: string;
 }
@@ -157,11 +157,11 @@ export interface GetPolicyContainersRequest {
     ids: Array<string>;
 }
 
-export interface GetRuleGroupsRequest {
+export interface FirewallManagementApiGetRuleGroupsRequest {
     ids: Array<string>;
 }
 
-export interface GetRulesRequest {
+export interface FirewallManagementApiGetRulesRequest {
     ids: Array<string>;
 }
 
@@ -203,7 +203,7 @@ export interface QueryPolicyRulesRequest {
     limit?: number;
 }
 
-export interface QueryRuleGroupsRequest {
+export interface FirewallManagementApiQueryRuleGroupsRequest {
     sort?: string;
     filter?: string;
     q?: string;
@@ -665,7 +665,10 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Delete rule group entities by ID
      */
-    async deleteRuleGroupsRaw(requestParameters: DeleteRuleGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FwmgrApiQueryResponse>> {
+    async deleteRuleGroupsRaw(
+        requestParameters: FirewallManagementApiDeleteRuleGroupsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<FwmgrApiQueryResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling deleteRuleGroups.");
         }
@@ -976,7 +979,10 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Get rule group entities by ID. These groups do not contain their rule entites, just the rule IDs in precedence order.
      */
-    async getRuleGroupsRaw(requestParameters: GetRuleGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FwmgrApiRuleGroupsResponse>> {
+    async getRuleGroupsRaw(
+        requestParameters: FirewallManagementApiGetRuleGroupsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<FwmgrApiRuleGroupsResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getRuleGroups.");
         }
@@ -1018,7 +1024,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Get rule entities by ID (64-bit unsigned int as decimal string) or Family ID (32-character hexadecimal string)
      */
-    async getRulesRaw(requestParameters: GetRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FwmgrApiRulesResponse>> {
+    async getRulesRaw(requestParameters: FirewallManagementApiGetRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FwmgrApiRulesResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getRules.");
         }
@@ -1348,7 +1354,10 @@ export class FirewallManagementApi extends runtime.BaseAPI {
     /**
      * Find all rule group IDs matching the query with filter
      */
-    async queryRuleGroupsRaw(requestParameters: QueryRuleGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FwmgrApiQueryResponse>> {
+    async queryRuleGroupsRaw(
+        requestParameters: FirewallManagementApiQueryRuleGroupsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<FwmgrApiQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.sort !== undefined) {

@@ -203,7 +203,7 @@ export interface GetHelmValuesYamlRequest {
 }
 
 export interface GetLocationsRequest {
-    clouds?: GetLocationsCloudsEnum;
+    clouds?: Array<String>;
 }
 
 export interface GroupContainersByManagedRequest {
@@ -1104,7 +1104,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     /**
      * Provides the cloud locations acknowledged by the Kubernetes Protection service
      */
-    async getLocations(clouds?: GetLocationsCloudsEnum, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<K8sregGetLocationsResp> {
+    async getLocations(clouds?: Array<String>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<K8sregGetLocationsResp> {
         const response = await this.getLocationsRaw({ clouds: clouds }, initOverrides);
         return await response.value();
     }
@@ -3117,7 +3117,7 @@ export type GetAzureTenantIDsStatusEnum = (typeof GetAzureTenantIDsStatusEnum)[k
  * @export
  */
 export const GetClustersStatusEnum = {} as const;
-export type GetClustersStatusEnum = (typeof GetClustersStatusEnum)[keyof typeof GetClustersStatusEnum];
+export type GetClustersStatusEnum = Array<String>;
 /**
  * @export
  */
@@ -3130,17 +3130,16 @@ export type GetClustersClusterServiceEnum = (typeof GetClustersClusterServiceEnu
  * @export
  */
 export const GetCombinedCloudClustersClusterServiceEnum = {} as const;
-export type GetCombinedCloudClustersClusterServiceEnum = (typeof GetCombinedCloudClustersClusterServiceEnum)[keyof typeof GetCombinedCloudClustersClusterServiceEnum];
+export type GetCombinedCloudClustersClusterServiceEnum = Array<String>;
 /**
  * @export
  */
 export const GetCombinedCloudClustersClusterStatusEnum = {} as const;
-export type GetCombinedCloudClustersClusterStatusEnum = (typeof GetCombinedCloudClustersClusterStatusEnum)[keyof typeof GetCombinedCloudClustersClusterStatusEnum];
+export type GetCombinedCloudClustersClusterStatusEnum = Array<String>;
 /**
  * @export
  */
-export const GetLocationsCloudsEnum = {} as const;
-export type GetLocationsCloudsEnum = (typeof GetLocationsCloudsEnum)[keyof typeof GetLocationsCloudsEnum];
+export type GetLocationsCloudsEnum = Array<String>;
 /**
  * @export
  */

@@ -45,11 +45,11 @@ export interface GetRemediationsV2Request {
     ids: Array<string>;
 }
 
-export interface GetVulnerabilitiesRequest {
+export interface VulnerabilitiesApiGetVulnerabilitiesRequest {
     ids: Array<string>;
 }
 
-export interface QueryVulnerabilitiesRequest {
+export interface VulnerabilitiesApiQueryVulnerabilitiesRequest {
     filter: string;
     after?: string;
     limit?: number;
@@ -177,7 +177,7 @@ export class VulnerabilitiesApi extends runtime.BaseAPI {
      * Get details on vulnerabilities by providing one or more IDs
      */
     async getVulnerabilitiesRaw(
-        requestParameters: GetVulnerabilitiesRequest,
+        requestParameters: VulnerabilitiesApiGetVulnerabilitiesRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainSPAPIVulnerabilitiesEntitiesResponseV2>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
@@ -221,7 +221,10 @@ export class VulnerabilitiesApi extends runtime.BaseAPI {
     /**
      * Search for Vulnerabilities in your environment by providing an FQL filter and paging details. Returns a set of Vulnerability IDs which match the filter criteria
      */
-    async queryVulnerabilitiesRaw(requestParameters: QueryVulnerabilitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainSPAPIQueryResponse>> {
+    async queryVulnerabilitiesRaw(
+        requestParameters: VulnerabilitiesApiQueryVulnerabilitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainSPAPIQueryResponse>> {
         if (requestParameters.filter === null || requestParameters.filter === undefined) {
             throw new runtime.RequiredError("filter", "Required parameter requestParameters.filter was null or undefined when calling queryVulnerabilities.");
         }

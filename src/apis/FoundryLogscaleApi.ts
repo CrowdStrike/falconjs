@@ -60,7 +60,7 @@ export interface CreateSavedSearchesIngestV1Request {
     appId?: string;
 }
 
-export interface ExecuteRequest {
+export interface FoundryLogscaleApiExecuteRequest {
     body: ApidomainSavedSearchExecuteRequestV1;
     appId?: string;
     detailed?: boolean;
@@ -312,7 +312,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
     /**
      * Execute a saved search
      */
-    async executeRaw(requestParameters: ExecuteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApidomainQueryResponseWrapperV1>> {
+    async executeRaw(requestParameters: FoundryLogscaleApiExecuteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApidomainQueryResponseWrapperV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling execute.");
         }

@@ -16,7 +16,7 @@ import * as runtime from "../runtime";
 import type { DomainAccessTokenResponseV1, MsaReplyMetaOnly } from "../models/index";
 import { DomainAccessTokenResponseV1FromJSON, DomainAccessTokenResponseV1ToJSON, MsaReplyMetaOnlyFromJSON, MsaReplyMetaOnlyToJSON } from "../models/index";
 
-export interface Oauth2AccessTokenRequest {
+interface Oauth2AccessTokenRequest {
     clientId: string;
     clientSecret: string;
     memberCid?: string;

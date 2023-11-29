@@ -95,11 +95,11 @@ export interface DeletePoliciesRequest {
     ids: Array<string>;
 }
 
-export interface DeleteRuleGroupsRequest {
+export interface FilevantageApiDeleteRuleGroupsRequest {
     ids: Array<string>;
 }
 
-export interface DeleteRulesRequest {
+export interface FilevantageApiDeleteRulesRequest {
     ruleGroupId: string;
     ids: Array<string>;
 }
@@ -117,11 +117,11 @@ export interface GetPoliciesRequest {
     ids: Array<string>;
 }
 
-export interface GetRuleGroupsRequest {
+export interface FilevantageApiGetRuleGroupsRequest {
     ids: Array<string>;
 }
 
-export interface GetRulesRequest {
+export interface FilevantageApiGetRulesRequest {
     ruleGroupId: string;
     ids: Array<string>;
 }
@@ -152,7 +152,7 @@ export interface QueryPoliciesRequest {
     sort?: string;
 }
 
-export interface QueryRuleGroupsRequest {
+export interface FilevantageApiQueryRuleGroupsRequest {
     type: string;
     offset?: number;
     limit?: number;
@@ -193,7 +193,7 @@ export interface UpdateRuleGroupsRequest {
     body: RulegroupsUpdateRequest;
 }
 
-export interface UpdateRulesRequest {
+export interface FilevantageApiUpdateRulesRequest {
     body: RulegroupsRule;
 }
 
@@ -428,7 +428,10 @@ export class FilevantageApi extends runtime.BaseAPI {
      * The rule groups represented by the provided ids and all rules that they contain will be deleted.   Rule groups can only be deleted if they are not assigned to a policy.
      * Deletes 1 or more rule groups
      */
-    async deleteRuleGroupsRaw(requestParameters: DeleteRuleGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RulegroupsDeleteResponse>> {
+    async deleteRuleGroupsRaw(
+        requestParameters: FilevantageApiDeleteRuleGroupsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<RulegroupsDeleteResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling deleteRuleGroups.");
         }
@@ -472,7 +475,7 @@ export class FilevantageApi extends runtime.BaseAPI {
      * Rules that match a provided id will be deleted from the provided rule group id.
      * Deletes 1 or more rules from the specified rule group.
      */
-    async deleteRulesRaw(requestParameters: DeleteRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async deleteRulesRaw(requestParameters: FilevantageApiDeleteRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
         if (requestParameters.ruleGroupId === null || requestParameters.ruleGroupId === undefined) {
             throw new runtime.RequiredError("ruleGroupId", "Required parameter requestParameters.ruleGroupId was null or undefined when calling deleteRules.");
         }
@@ -667,7 +670,7 @@ export class FilevantageApi extends runtime.BaseAPI {
      * Full details of each rule group that matches a provided id will be returned in the response
      * Retrieves the rule group details for 1 or more rule groups.
      */
-    async getRuleGroupsRaw(requestParameters: GetRuleGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RulegroupsResponse>> {
+    async getRuleGroupsRaw(requestParameters: FilevantageApiGetRuleGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RulegroupsResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getRuleGroups.");
         }
@@ -711,7 +714,7 @@ export class FilevantageApi extends runtime.BaseAPI {
      * Rules within the provided rule group id that match a provided id will be returned within the response.
      * Retrieves the configuration for 1 or more rules.
      */
-    async getRulesRaw(requestParameters: GetRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RulegroupsRulesResponse>> {
+    async getRulesRaw(requestParameters: FilevantageApiGetRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RulegroupsRulesResponse>> {
         if (requestParameters.ruleGroupId === null || requestParameters.ruleGroupId === undefined) {
             throw new runtime.RequiredError("ruleGroupId", "Required parameter requestParameters.ruleGroupId was null or undefined when calling getRules.");
         }
@@ -981,7 +984,7 @@ export class FilevantageApi extends runtime.BaseAPI {
      * Rule group ids will be returned sorted by `created_timestamp` order if a `sort` parameter is not provided
      * Retrieve the ids of all rule groups that are of the provided rule group type.
      */
-    async queryRuleGroupsRaw(requestParameters: QueryRuleGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queryRuleGroupsRaw(requestParameters: FilevantageApiQueryRuleGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
         if (requestParameters.type === null || requestParameters.type === undefined) {
             throw new runtime.RequiredError("type", "Required parameter requestParameters.type was null or undefined when calling queryRuleGroups.");
         }
@@ -1400,7 +1403,7 @@ export class FilevantageApi extends runtime.BaseAPI {
      * The rule must currently exist within the specified rule group.
      * Updates the provided rule configuration within the specified rule group.
      */
-    async updateRulesRaw(requestParameters: UpdateRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RulegroupsRulesResponse>> {
+    async updateRulesRaw(requestParameters: FilevantageApiUpdateRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RulegroupsRulesResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateRules.");
         }

@@ -73,7 +73,7 @@ export interface DeleteRuleGroupsMixin0Request {
     comment?: string;
 }
 
-export interface DeleteRulesRequest {
+export interface CustomIoaApiDeleteRulesRequest {
     ruleGroupId: string;
     ids: Array<string>;
     comment?: string;
@@ -146,7 +146,7 @@ export interface UpdateRuleGroupMixin0Request {
     body: ApiRuleGroupModifyRequestV1;
 }
 
-export interface UpdateRulesRequest {
+export interface CustomIoaApiUpdateRulesRequest {
     body: ApiRuleUpdatesRequestV1;
 }
 
@@ -289,7 +289,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Delete rules from a rule group by ID.
      */
-    async deleteRulesRaw(requestParameters: DeleteRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async deleteRulesRaw(requestParameters: CustomIoaApiDeleteRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
         if (requestParameters.ruleGroupId === null || requestParameters.ruleGroupId === undefined) {
             throw new runtime.RequiredError("ruleGroupId", "Required parameter requestParameters.ruleGroupId was null or undefined when calling deleteRules.");
         }
@@ -944,7 +944,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Update rules within a rule group. Return the updated rules.
      */
-    async updateRulesRaw(requestParameters: UpdateRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRulesResponse>> {
+    async updateRulesRaw(requestParameters: CustomIoaApiUpdateRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRulesResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateRules.");
         }
