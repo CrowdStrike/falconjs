@@ -59,6 +59,10 @@ export class OAuth2 {
         });
         const api = new Oauth2Api(config);
         const response = await api.oauth2AccessToken(this.options.clientId, this.options.clientSecret, this.options.memberCid);
+        if (!response.accessToken) {
+            console.log("Error inside refreshTokenInternal");
+            throw new Error("Unable to refresh the access token");
+        }
         return {
             accessToken: response.accessToken,
             expiresAt: response.expiresIn ? Date.now() + response.expiresIn * 1000 : null,

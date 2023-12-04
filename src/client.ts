@@ -50,11 +50,9 @@ import {
     SensorDownloadApi,
     SensorUpdatePoliciesApi,
     SensorVisibilityExclusionsApi,
-    SpotlightEvaluationLogicApi,
     UserManagementApi,
     ZeroTrustAssessmentApi,
 } from "./apis";
-import { SpotlightVulnerabilitiesApi } from "./apis/SpotlightVulnerabilitiesApi";
 import { D4cRegistrationApi } from "./apis/D4cRegistrationApi";
 import { TailoredIntelligenceApi } from "./apis/TailoredIntelligenceApi";
 
@@ -125,8 +123,6 @@ export class FalconClient {
     sensorDownload: SensorDownloadApi;
     sensorUpdatePolicies: SensorUpdatePoliciesApi;
     sensorVisibilityExclusions: SensorVisibilityExclusionsApi;
-    spotlightEvaluationLogic: SpotlightEvaluationLogicApi;
-    spotlightVulnerabilities: SpotlightVulnerabilitiesApi;
     tailoredIntelligenceapi: TailoredIntelligenceApi;
     userManagement: UserManagementApi;
     zeroTrustAssessment: ZeroTrustAssessmentApi;
@@ -193,8 +189,6 @@ export class FalconClient {
         this.sensorDownload = new SensorDownloadApi(this.config);
         this.sensorUpdatePolicies = new SensorUpdatePoliciesApi(this.config);
         this.sensorVisibilityExclusions = new SensorVisibilityExclusionsApi(this.config);
-        this.spotlightEvaluationLogic = new SpotlightEvaluationLogicApi(this.config);
-        this.spotlightVulnerabilities = new SpotlightVulnerabilitiesApi(this.config);
         this.tailoredIntelligenceapi = new TailoredIntelligenceApi(this.config);
         this.userManagement = new UserManagementApi(this.config);
         this.zeroTrustAssessment = new ZeroTrustAssessmentApi(this.config);
