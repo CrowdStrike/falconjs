@@ -34,7 +34,7 @@ function falconClientFromEnv() {
 
 const client = falconClientFromEnv();
 const response = client.hosts
-    .getDeviceDetailsV2([process.env.FALCON_DEVICE_HOST_ID!])
+    .getDeviceDetailsV2([process.env.FALCON_DEVICE_HOST_ID as string])
     .then((value) => {
         console.log("Device details: ", value);
     })

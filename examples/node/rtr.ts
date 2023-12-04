@@ -2,7 +2,6 @@
 
 import fetch from "cross-fetch";
 import { FalconClient, FalconErrorExplain, FalconClientOptions } from "../../src";
-import { run } from "node:test";
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -27,7 +26,7 @@ function falconClientFromEnv() {
     if (!process.env.FALCON_DEVICE_HOST_ID) {
         throw new Error("Missing FALCON_DEVICE_HOST_ID environment variable. Please provide a host ID to fetch device details for.");
     }
-    let clientConfig: FalconClientOptions = {
+    const clientConfig: FalconClientOptions = {
         fetchApi: fetch,
         cloud: cloud,
         clientId: process.env.FALCON_CLIENT_ID,
@@ -44,14 +43,14 @@ function falconClientFromEnv() {
 const client = falconClientFromEnv();
 
 try {
-    const startSession = await client.realTimeResponse.rTRInitSession({ deviceId: process.env.FALCON_DEVICE_HOST_ID!, origin: "", queueOffline: true }, 300);
+    const startSession = await client.realTimeResponse.rTRInitSession({ deviceId: process.env.FALCON_DEVICE_HOST_ID as string, origin: "", queueOffline: true }, 300);
     console.log("Session ID: ", startSession.resources[0].sessionId);
 
     const runLsCmd = await client.realTimeResponseAdmin.rTRExecuteAdminCommand({
         baseCommand: "ls",
         commandString: "ls /Users",
         id: 0,
-        deviceId: process.env.FALCON_DEVICE_HOST_ID!,
+        deviceId: process.env.FALCON_DEVICE_HOST_ID as string,
         persist: true,
         sessionId: startSession.resources[0].sessionId,
     });
@@ -69,7 +68,7 @@ try {
         baseCommand: "get",
         commandString: "get '/System/Library/Fonts/NewYork.ttf'",
         id: 1,
-        deviceId: process.env.FALCON_DEVICE_HOST_ID!,
+        deviceId: process.env.FALCON_DEVICE_HOST_ID as string,
         persist: true,
         sessionId: startSession.resources[0].sessionId,
     });
