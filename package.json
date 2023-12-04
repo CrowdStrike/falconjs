@@ -1,6 +1,6 @@
 {
     "name": "crowdstrike-falcon",
-    "version": "0.2.4",
+    "version": "0.3.0",
     "description": "CrowdStrike Falcon API library for browser and node",
     "sideEffects": false,
     "devDependencies": {
@@ -37,7 +37,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/crowdstrike/falconjs.git"
+        "url": "git+https://github.com/clburlison/falconjs.git"
     },
     "keywords": [
         "CrowdStrike",
@@ -47,7 +47,7 @@
     "author": "Simon Lukasik",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/crowdstrike/falconjs/issues"
+        "url": "https://github.com/clburlison/falconjs/issues"
     },
-    "homepage": "https://github.com/crowdstrike/falconjs#readme"
+    "homepage": "https://github.com/clburlison/falconjs#readme"
 }

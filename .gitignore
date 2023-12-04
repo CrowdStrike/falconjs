@@ -1,5 +1,7 @@
-/dist
-/node_modules/
-/specs
+dist/*
+node_modules/*
+specs/*
+!specs/transformation_local.jq
 typings
 *.js
+.env
