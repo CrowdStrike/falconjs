@@ -1,0 +1,5 @@
+FALCON_CLIENT_ID="xxxx" # API key
+FALCON_CLIENT_SECRET="xxxxx" # API secret
+FALCON_CLOUD="us-1" # Region
+# FALCON_MEMBER_CID="5kA34nWzrqSRCsdypdGDuUMz1UM6Q34S" # If using multi-tenant
+FALCON_DEVICE_HOST_ID="IfxfuamVqKUykQB3Nf8dU9QxxBqWg2sF" # Agent ID
