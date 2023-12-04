@@ -2,16 +2,17 @@
 
 set -e -o pipefail -x
 
-VERSION=0.2.5 # Target version of FalconJS
-
-# TODO: obtain swagger
-# TODO: obtain transformation.jq from gofalcon repo
-# jq -f ./specs/transformation.jq $ORIGINAL_SWAGGER > ${PATCHED_SWAGGER_FILE}
-
-PATCHED_SWAGGER_FILE=./specs/swagger-patched.json # Obtain swagger file and then patch it with gofalcon pipeline
+VERSION="0.3.0" # Target version of FalconJS
+PATCHED_SWAGGER_FILE=./specs/swagger-patched.json
+ORIGINAL_SWAGGER=./specs/swagger.json
 
 mkdir -p specs
 
+# obtain swagger https://assets.falcon.crowdstrike.com/support/api/swagger.json
+[ ! -f "$ORIGINAL_SWAGGER" ] && echo "File $ORIGINAL_SWAGGER not found. Please manually download it." && exit 1
+
+curl -o ./specs/transformation.jq https://raw.githubusercontent.com/crowdstrike/gofalcon/main/specs/transformation.jq
+jq -f ./specs/transformation.jq ${ORIGINAL_SWAGGER} | jq -f ./specs/transformation_local.jq > ${PATCHED_SWAGGER_FILE}
 jq '.info.version="rolling"' ${PATCHED_SWAGGER_FILE} > ./specs/final.json
 
 typ=typescript-fetch
@@ -48,16 +49,14 @@ cp -a ./${build_dir}/src/* ./src/
 
 npm run format:fix
 
-PATCH=5ad9def830f472a2e4e1e3e33007b677b42f2b1
+PATCH=7fc61ee76869bb3bd8f3173348c26949f35c2cbd
 git format-patch ${PATCH}^..${PATCH}
-git apply 0001-Quick-dirty-plug-of-build-failures.patch
-rm 0001-Quick-dirty-plug-of-build-failures.patch
+git apply 0001-fix-Resolve-build-errors-from-codegen.patch
+rm 0001-fix-Resolve-build-errors-from-codegen.patch
 
-git checkout -p src/index.ts
-
-git diff
-
-git add -p
+# git checkout -p src/index.ts
+# git diff
+# git add -p
 git add src/
 git commit -m "Re-generate the codebase using the latest swagger"
 
