@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -13,6 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
+import type { DomainAPIEvaluationLogicHostInfoV1 } from "./DomainAPIEvaluationLogicHostInfoV1";
+import { DomainAPIEvaluationLogicHostInfoV1FromJSON, DomainAPIEvaluationLogicHostInfoV1FromJSONTyped, DomainAPIEvaluationLogicHostInfoV1ToJSON } from "./DomainAPIEvaluationLogicHostInfoV1";
 import type { DomainAPIEvaluationLogicItemV1 } from "./DomainAPIEvaluationLogicItemV1";
 import { DomainAPIEvaluationLogicItemV1FromJSON, DomainAPIEvaluationLogicItemV1FromJSONTyped, DomainAPIEvaluationLogicItemV1ToJSON } from "./DomainAPIEvaluationLogicItemV1";
 
@@ -23,37 +25,55 @@ import { DomainAPIEvaluationLogicItemV1FromJSON, DomainAPIEvaluationLogicItemV1F
  */
 export interface DomainAPIEvaluationLogicV1 {
     /**
-     *
+     * Refers to an asset identifier
      * @type {string}
      * @memberof DomainAPIEvaluationLogicV1
      */
     aid?: string;
     /**
-     *
+     * Refers to a customer identifier
      * @type {string}
      * @memberof DomainAPIEvaluationLogicV1
      */
     cid?: string;
     /**
-     *
+     * Refers to a point in time when evaluation logic data was created in the system
      * @type {string}
      * @memberof DomainAPIEvaluationLogicV1
      */
     createdTimestamp?: string;
     /**
+     * Refers to a label given to the entity that provided this data
+     * @type {string}
+     * @memberof DomainAPIEvaluationLogicV1
+     */
+    dataProvider?: string;
+    /**
      *
+     * @type {DomainAPIEvaluationLogicHostInfoV1}
+     * @memberof DomainAPIEvaluationLogicV1
+     */
+    hostInfo?: DomainAPIEvaluationLogicHostInfoV1;
+    /**
+     * Contains a unique identifier for the evaluation logic
      * @type {string}
      * @memberof DomainAPIEvaluationLogicV1
      */
     id: string;
     /**
-     *
+     * Refers to the actual evaluation logic data
      * @type {Array<DomainAPIEvaluationLogicItemV1>}
      * @memberof DomainAPIEvaluationLogicV1
      */
     logic?: Array<DomainAPIEvaluationLogicItemV1>;
     /**
-     *
+     * Refers to the identifier of the scanner that generated the evaluation logic
+     * @type {string}
+     * @memberof DomainAPIEvaluationLogicV1
+     */
+    scannerId?: string;
+    /**
+     * Refers to a point in time when evaluation logic data was updated in the system
      * @type {string}
      * @memberof DomainAPIEvaluationLogicV1
      */
@@ -82,8 +102,11 @@ export function DomainAPIEvaluationLogicV1FromJSONTyped(json: any, ignoreDiscrim
         aid: !exists(json, "aid") ? undefined : json["aid"],
         cid: !exists(json, "cid") ? undefined : json["cid"],
         createdTimestamp: !exists(json, "created_timestamp") ? undefined : json["created_timestamp"],
+        dataProvider: !exists(json, "data_provider") ? undefined : json["data_provider"],
+        hostInfo: !exists(json, "host_info") ? undefined : DomainAPIEvaluationLogicHostInfoV1FromJSON(json["host_info"]),
         id: json["id"],
         logic: !exists(json, "logic") ? undefined : (json["logic"] as Array<any>).map(DomainAPIEvaluationLogicItemV1FromJSON),
+        scannerId: !exists(json, "scanner_id") ? undefined : json["scanner_id"],
         updatedTimestamp: !exists(json, "updated_timestamp") ? undefined : json["updated_timestamp"],
     };
 }
@@ -99,8 +122,11 @@ export function DomainAPIEvaluationLogicV1ToJSON(value?: DomainAPIEvaluationLogi
         aid: value.aid,
         cid: value.cid,
         created_timestamp: value.createdTimestamp,
+        data_provider: value.dataProvider,
+        host_info: DomainAPIEvaluationLogicHostInfoV1ToJSON(value.hostInfo),
         id: value.id,
         logic: value.logic === undefined ? undefined : (value.logic as Array<any>).map(DomainAPIEvaluationLogicItemV1ToJSON),
+        scanner_id: value.scannerId,
         updated_timestamp: value.updatedTimestamp,
     };
 }

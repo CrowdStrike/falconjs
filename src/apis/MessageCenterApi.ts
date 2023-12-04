@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -14,52 +14,55 @@
 
 import * as runtime from "../runtime";
 import type {
-    ApiActivityCreationRequest,
-    ApiCaseCreationRequest,
-    ApiCaseUpdateRequest,
     ApiMessageCenterActivityResponse,
     ApiMessageCenterAttachmentUploadResponse,
     ApiMessageCenterCasesResponse,
+    DomainActivityCreationRequest,
+    DomainCaseCreationRequest,
+    DomainCaseCreationRequestV2,
     MsaAggregateQueryRequest,
     MsaAggregatesResponse,
     MsaIdsRequest,
-    MsaQueryResponse,
     MsaReplyAffectedEntities,
     MsaReplyMetaOnly,
-} from "../models";
+    MsaspecQueryResponse,
+    MsaspecResponseFields,
+} from "../models/index";
 import {
-    ApiActivityCreationRequestFromJSON,
-    ApiActivityCreationRequestToJSON,
-    ApiCaseCreationRequestFromJSON,
-    ApiCaseCreationRequestToJSON,
-    ApiCaseUpdateRequestFromJSON,
-    ApiCaseUpdateRequestToJSON,
     ApiMessageCenterActivityResponseFromJSON,
     ApiMessageCenterActivityResponseToJSON,
     ApiMessageCenterAttachmentUploadResponseFromJSON,
     ApiMessageCenterAttachmentUploadResponseToJSON,
     ApiMessageCenterCasesResponseFromJSON,
     ApiMessageCenterCasesResponseToJSON,
+    DomainActivityCreationRequestFromJSON,
+    DomainActivityCreationRequestToJSON,
+    DomainCaseCreationRequestFromJSON,
+    DomainCaseCreationRequestToJSON,
+    DomainCaseCreationRequestV2FromJSON,
+    DomainCaseCreationRequestV2ToJSON,
     MsaAggregateQueryRequestFromJSON,
     MsaAggregateQueryRequestToJSON,
     MsaAggregatesResponseFromJSON,
     MsaAggregatesResponseToJSON,
     MsaIdsRequestFromJSON,
     MsaIdsRequestToJSON,
-    MsaQueryResponseFromJSON,
-    MsaQueryResponseToJSON,
     MsaReplyAffectedEntitiesFromJSON,
     MsaReplyAffectedEntitiesToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-} from "../models";
+    MsaspecQueryResponseFromJSON,
+    MsaspecQueryResponseToJSON,
+    MsaspecResponseFieldsFromJSON,
+    MsaspecResponseFieldsToJSON,
+} from "../models/index";
 
 export interface AggregateCasesRequest {
     body: Array<MsaAggregateQueryRequest>;
 }
 
 export interface CaseAddActivityRequest {
-    body: ApiActivityCreationRequest;
+    body: DomainActivityCreationRequest;
 }
 
 export interface CaseAddAttachmentRequest {
@@ -73,7 +76,11 @@ export interface CaseDownloadAttachmentRequest {
 }
 
 export interface CreateCaseRequest {
-    body: ApiCaseCreationRequest;
+    body: DomainCaseCreationRequest;
+}
+
+export interface CreateCaseV2Request {
+    body: DomainCaseCreationRequestV2;
 }
 
 export interface GetCaseActivityByIdsRequest {
@@ -99,10 +106,6 @@ export interface QueryCasesIdsByFilterRequest {
     offset?: string;
 }
 
-export interface UpdateCaseRequest {
-    body: ApiCaseUpdateRequest;
-}
-
 /**
  *
  */
@@ -123,7 +126,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["message-center:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -151,7 +154,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
     /**
      * Add an activity to case. Only activities of type comment are allowed via API
      */
-    async caseAddActivityRaw(requestParameters: CaseAddActivityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async caseAddActivityRaw(requestParameters: CaseAddActivityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling caseAddActivity.");
         }
@@ -164,7 +167,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["message-center:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -173,18 +176,18 @@ export class MessageCenterApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: ApiActivityCreationRequestToJSON(requestParameters.body),
+                body: DomainActivityCreationRequestToJSON(requestParameters.body),
             },
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecResponseFieldsFromJSON(jsonValue));
     }
 
     /**
      * Add an activity to case. Only activities of type comment are allowed via API
      */
-    async caseAddActivity(body: ApiActivityCreationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyMetaOnly> {
+    async caseAddActivity(body: DomainActivityCreationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecResponseFields> {
         const response = await this.caseAddActivityRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -215,7 +218,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["message-center:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const consumes: runtime.Consume[] = [{ contentType: "multipart/form-data" }];
@@ -285,7 +288,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["message-center:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -315,6 +318,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
 
     /**
      * create a new case
+     * @deprecated
      */
     async createCaseRaw(requestParameters: CreateCaseRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyAffectedEntities>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
@@ -329,7 +333,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["message-center:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -338,7 +342,49 @@ export class MessageCenterApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: ApiCaseCreationRequestToJSON(requestParameters.body),
+                body: DomainCaseCreationRequestToJSON(requestParameters.body),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyAffectedEntitiesFromJSON(jsonValue));
+    }
+
+    /**
+     * create a new case
+     * @deprecated
+     */
+    async createCase(body: DomainCaseCreationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyAffectedEntities> {
+        const response = await this.createCaseRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * create a new case
+     */
+    async createCaseV2Raw(requestParameters: CreateCaseV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyAffectedEntities>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createCaseV2.");
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/message-center/entities/case/v2`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: DomainCaseCreationRequestV2ToJSON(requestParameters.body),
             },
             initOverrides
         );
@@ -349,8 +395,8 @@ export class MessageCenterApi extends runtime.BaseAPI {
     /**
      * create a new case
      */
-    async createCase(body: ApiCaseCreationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyAffectedEntities> {
-        const response = await this.createCaseRaw({ body: body }, initOverrides);
+    async createCaseV2(body: DomainCaseCreationRequestV2, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyAffectedEntities> {
+        const response = await this.createCaseV2Raw({ body: body }, initOverrides);
         return await response.value();
     }
 
@@ -373,7 +419,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["message-center:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -417,7 +463,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["message-center:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -445,7 +491,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
     /**
      * Retrieve activities id\'s for a case
      */
-    async queryActivityByCaseIDRaw(requestParameters: QueryActivityByCaseIDRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryActivityByCaseIDRaw(requestParameters: QueryActivityByCaseIDRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
         if (requestParameters.caseId === null || requestParameters.caseId === undefined) {
             throw new runtime.RequiredError("caseId", "Required parameter requestParameters.caseId was null or undefined when calling queryActivityByCaseID.");
         }
@@ -476,7 +522,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["message-center:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -489,7 +535,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
 
     /**
@@ -502,7 +548,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
         filter?: string,
         offset?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<MsaQueryResponse> {
+    ): Promise<MsaspecQueryResponse> {
         const response = await this.queryActivityByCaseIDRaw({ caseId: caseId, limit: limit, sort: sort, filter: filter, offset: offset }, initOverrides);
         return await response.value();
     }
@@ -510,7 +556,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
     /**
      * Retrieve case id\'s that match the provided filter criteria
      */
-    async queryCasesIdsByFilterRaw(requestParameters: QueryCasesIdsByFilterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryCasesIdsByFilterRaw(requestParameters: QueryCasesIdsByFilterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.limit !== undefined) {
@@ -533,7 +579,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["message-center:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -546,7 +592,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
 
     /**
@@ -558,49 +604,8 @@ export class MessageCenterApi extends runtime.BaseAPI {
         filter?: string,
         offset?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<MsaQueryResponse> {
+    ): Promise<MsaspecQueryResponse> {
         const response = await this.queryCasesIdsByFilterRaw({ limit: limit, sort: sort, filter: filter, offset: offset }, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * update an existing case
-     */
-    async updateCaseRaw(requestParameters: UpdateCaseRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyAffectedEntities>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateCase.");
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters["Content-Type"] = "application/json";
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["message-center:write"]);
-        }
-
-        const response = await this.request(
-            {
-                path: `/message-center/entities/case/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiCaseUpdateRequestToJSON(requestParameters.body),
-            },
-            initOverrides
-        );
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyAffectedEntitiesFromJSON(jsonValue));
-    }
-
-    /**
-     * update an existing case
-     */
-    async updateCase(body: ApiCaseUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyAffectedEntities> {
-        const response = await this.updateCaseRaw({ body: body }, initOverrides);
         return await response.value();
     }
 }
@@ -609,25 +614,15 @@ export class MessageCenterApi extends runtime.BaseAPI {
  * @export
  */
 export const QueryActivityByCaseIDSortEnum = {
-    CreatedTimeAsc: "activity.created_time.asc",
-    CreatedTimeDesc: "activity.created_time.desc",
-    TypeAsc: "activity.type.asc",
-    TypeDesc: "activity.type.desc",
+    Asc: "activity.created_time.asc",
+    Desc: "activity.created_time.desc",
 } as const;
 export type QueryActivityByCaseIDSortEnum = (typeof QueryActivityByCaseIDSortEnum)[keyof typeof QueryActivityByCaseIDSortEnum];
 /**
  * @export
  */
 export const QueryCasesIdsByFilterSortEnum = {
-    CreatedTimeAsc: "case.created_time.asc",
-    CreatedTimeDesc: "case.created_time.desc",
-    IdAsc: "case.id.asc",
-    IdDesc: "case.id.desc",
-    LastModifiedTimeAsc: "case.last_modified_time.asc",
-    LastModifiedTimeDesc: "case.last_modified_time.desc",
-    StatusAsc: "case.status.asc",
-    StatusDesc: "case.status.desc",
-    TypeAsc: "case.type.asc",
-    TypeDesc: "case.type.desc",
+    Asc: "case.id.asc",
+    Desc: "case.id.desc",
 } as const;
 export type QueryCasesIdsByFilterSortEnum = (typeof QueryCasesIdsByFilterSortEnum)[keyof typeof QueryCasesIdsByFilterSortEnum];

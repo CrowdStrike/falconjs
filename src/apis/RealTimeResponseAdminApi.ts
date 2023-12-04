@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -14,23 +14,23 @@
 
 import * as runtime from "../runtime";
 import type {
-    BinservclientMsaPFResponse,
-    BinservclientMsaPutFileResponse,
+    BinservapiMsaPutFileResponse,
     DomainAPIError,
     DomainBatchExecuteCommandRequest,
     DomainCommandExecuteRequest,
     DomainCommandExecuteResponseWrapper,
-    DomainMsaPFResponseV2,
     DomainMultiCommandExecuteResponseWrapper,
     DomainStatusResponseWrapper,
+    EmpowerapiMsaFalconScriptResponse,
+    EmpowerapiMsaIDListResponse,
+    EmpowerapiMsaPFResponseV1,
+    EmpowerapiMsaPFResponseV2,
     MsaErrorsOnly,
     MsaReplyMetaOnly,
-} from "../models";
+} from "../models/index";
 import {
-    BinservclientMsaPFResponseFromJSON,
-    BinservclientMsaPFResponseToJSON,
-    BinservclientMsaPutFileResponseFromJSON,
-    BinservclientMsaPutFileResponseToJSON,
+    BinservapiMsaPutFileResponseFromJSON,
+    BinservapiMsaPutFileResponseToJSON,
     DomainAPIErrorFromJSON,
     DomainAPIErrorToJSON,
     DomainBatchExecuteCommandRequestFromJSON,
@@ -39,17 +39,23 @@ import {
     DomainCommandExecuteRequestToJSON,
     DomainCommandExecuteResponseWrapperFromJSON,
     DomainCommandExecuteResponseWrapperToJSON,
-    DomainMsaPFResponseV2FromJSON,
-    DomainMsaPFResponseV2ToJSON,
     DomainMultiCommandExecuteResponseWrapperFromJSON,
     DomainMultiCommandExecuteResponseWrapperToJSON,
     DomainStatusResponseWrapperFromJSON,
     DomainStatusResponseWrapperToJSON,
+    EmpowerapiMsaFalconScriptResponseFromJSON,
+    EmpowerapiMsaFalconScriptResponseToJSON,
+    EmpowerapiMsaIDListResponseFromJSON,
+    EmpowerapiMsaIDListResponseToJSON,
+    EmpowerapiMsaPFResponseV1FromJSON,
+    EmpowerapiMsaPFResponseV1ToJSON,
+    EmpowerapiMsaPFResponseV2FromJSON,
+    EmpowerapiMsaPFResponseV2ToJSON,
     MsaErrorsOnlyFromJSON,
     MsaErrorsOnlyToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-} from "../models";
+} from "../models/index";
 
 export interface BatchAdminCmdRequest {
     body: DomainBatchExecuteCommandRequest;
@@ -92,6 +98,10 @@ export interface RTRExecuteAdminCommandRequest {
     body: DomainCommandExecuteRequest;
 }
 
+export interface RTRGetFalconScriptsRequest {
+    ids: Array<string>;
+}
+
 export interface RTRGetPutFilesRequest {
     ids: Array<string>;
 }
@@ -106,6 +116,13 @@ export interface RTRGetScriptsRequest {
 
 export interface RTRGetScriptsV2Request {
     ids: Array<string>;
+}
+
+export interface RTRListFalconScriptsRequest {
+    filter?: string;
+    offset?: number;
+    limit?: number;
+    sort?: RTRListFalconScriptsSortEnum;
 }
 
 export interface RTRListPutFilesRequest {
@@ -168,7 +185,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -228,7 +245,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -270,7 +287,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const consumes: runtime.Consume[] = [{ contentType: "multipart/form-data" }];
@@ -343,7 +360,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const consumes: runtime.Consume[] = [{ contentType: "multipart/form-data" }];
@@ -440,7 +457,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -482,7 +499,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -525,7 +542,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -551,9 +568,54 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     }
 
     /**
+     * Get Falcon scripts with metadata and content of script
+     */
+    async rTRGetFalconScriptsRaw(
+        requestParameters: RTRGetFalconScriptsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<EmpowerapiMsaFalconScriptResponse>> {
+        if (requestParameters.ids === null || requestParameters.ids === undefined) {
+            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling rTRGetFalconScripts.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.ids) {
+            queryParameters["ids"] = requestParameters.ids;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/real-time-response/entities/falcon-scripts/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => EmpowerapiMsaFalconScriptResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get Falcon scripts with metadata and content of script
+     */
+    async rTRGetFalconScripts(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EmpowerapiMsaFalconScriptResponse> {
+        const response = await this.rTRGetFalconScriptsRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Get put-files based on the ID\'s given. These are used for the RTR `put` command.
      */
-    async rTRGetPutFilesRaw(requestParameters: RTRGetPutFilesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BinservclientMsaPFResponse>> {
+    async rTRGetPutFilesRaw(requestParameters: RTRGetPutFilesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EmpowerapiMsaPFResponseV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling rTRGetPutFiles.");
         }
@@ -568,7 +630,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -581,13 +643,13 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => BinservclientMsaPFResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => EmpowerapiMsaPFResponseV1FromJSON(jsonValue));
     }
 
     /**
      * Get put-files based on the ID\'s given. These are used for the RTR `put` command.
      */
-    async rTRGetPutFiles(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BinservclientMsaPFResponse> {
+    async rTRGetPutFiles(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EmpowerapiMsaPFResponseV1> {
         const response = await this.rTRGetPutFilesRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -595,7 +657,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     /**
      * Get put-files based on the ID\'s given. These are used for the RTR `put` command.
      */
-    async rTRGetPutFilesV2Raw(requestParameters: RTRGetPutFilesV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainMsaPFResponseV2>> {
+    async rTRGetPutFilesV2Raw(requestParameters: RTRGetPutFilesV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EmpowerapiMsaPFResponseV2>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling rTRGetPutFilesV2.");
         }
@@ -610,7 +672,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -623,13 +685,13 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaPFResponseV2FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => EmpowerapiMsaPFResponseV2FromJSON(jsonValue));
     }
 
     /**
      * Get put-files based on the ID\'s given. These are used for the RTR `put` command.
      */
-    async rTRGetPutFilesV2(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainMsaPFResponseV2> {
+    async rTRGetPutFilesV2(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EmpowerapiMsaPFResponseV2> {
         const response = await this.rTRGetPutFilesV2Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -637,7 +699,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     /**
      * Get custom-scripts based on the ID\'s given. These are used for the RTR `runscript` command.
      */
-    async rTRGetScriptsRaw(requestParameters: RTRGetScriptsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BinservclientMsaPFResponse>> {
+    async rTRGetScriptsRaw(requestParameters: RTRGetScriptsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EmpowerapiMsaPFResponseV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling rTRGetScripts.");
         }
@@ -652,7 +714,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -665,13 +727,13 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => BinservclientMsaPFResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => EmpowerapiMsaPFResponseV1FromJSON(jsonValue));
     }
 
     /**
      * Get custom-scripts based on the ID\'s given. These are used for the RTR `runscript` command.
      */
-    async rTRGetScripts(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BinservclientMsaPFResponse> {
+    async rTRGetScripts(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EmpowerapiMsaPFResponseV1> {
         const response = await this.rTRGetScriptsRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -679,7 +741,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     /**
      * Get custom-scripts based on the ID\'s given. These are used for the RTR `runscript` command.
      */
-    async rTRGetScriptsV2Raw(requestParameters: RTRGetScriptsV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainMsaPFResponseV2>> {
+    async rTRGetScriptsV2Raw(requestParameters: RTRGetScriptsV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EmpowerapiMsaPFResponseV2>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling rTRGetScriptsV2.");
         }
@@ -694,7 +756,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -707,21 +769,24 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaPFResponseV2FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => EmpowerapiMsaPFResponseV2FromJSON(jsonValue));
     }
 
     /**
      * Get custom-scripts based on the ID\'s given. These are used for the RTR `runscript` command.
      */
-    async rTRGetScriptsV2(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainMsaPFResponseV2> {
+    async rTRGetScriptsV2(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EmpowerapiMsaPFResponseV2> {
         const response = await this.rTRGetScriptsV2Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
 
     /**
-     * Get a list of put-file ID\'s that are available to the user for the `put` command.
+     * Get a list of Falcon script IDs available to the user to run
      */
-    async rTRListPutFilesRaw(requestParameters: RTRListPutFilesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BinservclientMsaPutFileResponse>> {
+    async rTRListFalconScriptsRaw(
+        requestParameters: RTRListFalconScriptsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<EmpowerapiMsaIDListResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -744,7 +809,63 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/real-time-response/queries/falcon-scripts/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => EmpowerapiMsaIDListResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get a list of Falcon script IDs available to the user to run
+     */
+    async rTRListFalconScripts(
+        filter?: string,
+        offset?: number,
+        limit?: number,
+        sort?: RTRListFalconScriptsSortEnum,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<EmpowerapiMsaIDListResponse> {
+        const response = await this.rTRListFalconScriptsRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get a list of put-file ID\'s that are available to the user for the `put` command.
+     */
+    async rTRListPutFilesRaw(requestParameters: RTRListPutFilesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BinservapiMsaPutFileResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        if (requestParameters.sort !== undefined) {
+            queryParameters["sort"] = requestParameters.sort;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -757,13 +878,13 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => BinservclientMsaPutFileResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => BinservapiMsaPutFileResponseFromJSON(jsonValue));
     }
 
     /**
      * Get a list of put-file ID\'s that are available to the user for the `put` command.
      */
-    async rTRListPutFiles(filter?: string, offset?: string, limit?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BinservclientMsaPutFileResponse> {
+    async rTRListPutFiles(filter?: string, offset?: string, limit?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BinservapiMsaPutFileResponse> {
         const response = await this.rTRListPutFilesRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
@@ -771,7 +892,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     /**
      * Get a list of custom-script ID\'s that are available to the user for the `runscript` command.
      */
-    async rTRListScriptsRaw(requestParameters: RTRListScriptsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BinservclientMsaPutFileResponse>> {
+    async rTRListScriptsRaw(requestParameters: RTRListScriptsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BinservapiMsaPutFileResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -794,7 +915,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -807,13 +928,13 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => BinservclientMsaPutFileResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => BinservapiMsaPutFileResponseFromJSON(jsonValue));
     }
 
     /**
      * Get a list of custom-script ID\'s that are available to the user for the `runscript` command.
      */
-    async rTRListScripts(filter?: string, offset?: string, limit?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BinservclientMsaPutFileResponse> {
+    async rTRListScripts(filter?: string, offset?: string, limit?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BinservapiMsaPutFileResponse> {
         const response = await this.rTRListScriptsRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
@@ -832,7 +953,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const consumes: runtime.Consume[] = [{ contentType: "multipart/form-data" }];
@@ -916,3 +1037,13 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
         return await response.value();
     }
 }
+
+/**
+ * @export
+ */
+export const RTRListFalconScriptsSortEnum = {
+    CreatedTimestamp: "created_timestamp",
+    ModifiedTimestamp: "modified_timestamp",
+    Name: "name",
+} as const;
+export type RTRListFalconScriptsSortEnum = (typeof RTRListFalconScriptsSortEnum)[keyof typeof RTRListFalconScriptsSortEnum];

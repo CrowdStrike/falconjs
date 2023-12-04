@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -13,10 +13,14 @@
  */
 
 import { exists, mapValues } from "../runtime";
+import type { FalconxAMSICall } from "./FalconxAMSICall";
+import { FalconxAMSICallFromJSON, FalconxAMSICallFromJSONTyped, FalconxAMSICallToJSON } from "./FalconxAMSICall";
 import type { FalconxFileAccess } from "./FalconxFileAccess";
 import { FalconxFileAccessFromJSON, FalconxFileAccessFromJSONTyped, FalconxFileAccessToJSON } from "./FalconxFileAccess";
 import type { FalconxHandle } from "./FalconxHandle";
 import { FalconxHandleFromJSON, FalconxHandleFromJSONTyped, FalconxHandleToJSON } from "./FalconxHandle";
+import type { FalconxModule } from "./FalconxModule";
+import { FalconxModuleFromJSON, FalconxModuleFromJSONTyped, FalconxModuleToJSON } from "./FalconxModule";
 import type { FalconxProcessFlag } from "./FalconxProcessFlag";
 import { FalconxProcessFlagFromJSON, FalconxProcessFlagFromJSONTyped, FalconxProcessFlagToJSON } from "./FalconxProcessFlag";
 import type { FalconxRegistry } from "./FalconxRegistry";
@@ -32,6 +36,12 @@ import { FalconxStreamFromJSON, FalconxStreamFromJSONTyped, FalconxStreamToJSON 
  * @interface FalconxProcess
  */
 export interface FalconxProcess {
+    /**
+     *
+     * @type {Array<FalconxAMSICall>}
+     * @memberof FalconxProcess
+     */
+    amsiCalls?: Array<FalconxAMSICall>;
     /**
      *
      * @type {string}
@@ -56,6 +66,12 @@ export interface FalconxProcess {
      * @memberof FalconxProcess
      */
     iconArtifactId?: string;
+    /**
+     *
+     * @type {Array<FalconxModule>}
+     * @memberof FalconxProcess
+     */
+    modules?: Array<FalconxModule>;
     /**
      *
      * @type {Array<string>}
@@ -142,10 +158,12 @@ export function FalconxProcessFromJSONTyped(json: any, ignoreDiscriminator: bool
         return json;
     }
     return {
+        amsiCalls: !exists(json, "amsi_calls") ? undefined : (json["amsi_calls"] as Array<any>).map(FalconxAMSICallFromJSON),
         commandLine: !exists(json, "command_line") ? undefined : json["command_line"],
         fileAccesses: !exists(json, "file_accesses") ? undefined : (json["file_accesses"] as Array<any>).map(FalconxFileAccessFromJSON),
         handles: !exists(json, "handles") ? undefined : (json["handles"] as Array<any>).map(FalconxHandleFromJSON),
         iconArtifactId: !exists(json, "icon_artifact_id") ? undefined : json["icon_artifact_id"],
+        modules: !exists(json, "modules") ? undefined : (json["modules"] as Array<any>).map(FalconxModuleFromJSON),
         mutants: !exists(json, "mutants") ? undefined : json["mutants"],
         name: !exists(json, "name") ? undefined : json["name"],
         normalizedPath: !exists(json, "normalized_path") ? undefined : json["normalized_path"],
@@ -168,10 +186,12 @@ export function FalconxProcessToJSON(value?: FalconxProcess | null): any {
         return null;
     }
     return {
+        amsi_calls: value.amsiCalls === undefined ? undefined : (value.amsiCalls as Array<any>).map(FalconxAMSICallToJSON),
         command_line: value.commandLine,
         file_accesses: value.fileAccesses === undefined ? undefined : (value.fileAccesses as Array<any>).map(FalconxFileAccessToJSON),
         handles: value.handles === undefined ? undefined : (value.handles as Array<any>).map(FalconxHandleToJSON),
         icon_artifact_id: value.iconArtifactId,
+        modules: value.modules === undefined ? undefined : (value.modules as Array<any>).map(FalconxModuleToJSON),
         mutants: value.mutants,
         name: value.name,
         normalized_path: value.normalizedPath,

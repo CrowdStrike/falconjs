@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -13,6 +13,9 @@
  */
 
 import { exists, mapValues } from "../runtime";
+import type { FalconxMITREAttackParent } from "./FalconxMITREAttackParent";
+import { FalconxMITREAttackParentFromJSON, FalconxMITREAttackParentFromJSONTyped, FalconxMITREAttackParentToJSON } from "./FalconxMITREAttackParent";
+
 /**
  *
  * @export
@@ -27,6 +30,12 @@ export interface FalconxMITREAttack {
     attackId?: string;
     /**
      *
+     * @type {string}
+     * @memberof FalconxMITREAttack
+     */
+    attackIdWiki?: string;
+    /**
+     *
      * @type {Array<string>}
      * @memberof FalconxMITREAttack
      */
@@ -37,6 +46,12 @@ export interface FalconxMITREAttack {
      * @memberof FalconxMITREAttack
      */
     maliciousIdentifiers?: Array<string>;
+    /**
+     *
+     * @type {FalconxMITREAttackParent}
+     * @memberof FalconxMITREAttack
+     */
+    parent?: FalconxMITREAttackParent;
     /**
      *
      * @type {Array<string>}
@@ -76,8 +91,10 @@ export function FalconxMITREAttackFromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         attackId: !exists(json, "attack_id") ? undefined : json["attack_id"],
+        attackIdWiki: !exists(json, "attack_id_wiki") ? undefined : json["attack_id_wiki"],
         informativeIdentifiers: !exists(json, "informative_identifiers") ? undefined : json["informative_identifiers"],
         maliciousIdentifiers: !exists(json, "malicious_identifiers") ? undefined : json["malicious_identifiers"],
+        parent: !exists(json, "parent") ? undefined : FalconxMITREAttackParentFromJSON(json["parent"]),
         suspiciousIdentifiers: !exists(json, "suspicious_identifiers") ? undefined : json["suspicious_identifiers"],
         tactic: !exists(json, "tactic") ? undefined : json["tactic"],
         technique: !exists(json, "technique") ? undefined : json["technique"],
@@ -93,8 +110,10 @@ export function FalconxMITREAttackToJSON(value?: FalconxMITREAttack | null): any
     }
     return {
         attack_id: value.attackId,
+        attack_id_wiki: value.attackIdWiki,
         informative_identifiers: value.informativeIdentifiers,
         malicious_identifiers: value.maliciousIdentifiers,
+        parent: FalconxMITREAttackParentToJSON(value.parent),
         suspicious_identifiers: value.suspiciousIdentifiers,
         tactic: value.tactic,
         technique: value.technique,

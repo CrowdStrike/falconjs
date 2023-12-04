@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -38,6 +38,12 @@ export interface DomainAPIEvaluationLogicItemV1 {
      * @memberof DomainAPIEvaluationLogicItemV1
      */
     comparisons?: DomainAPIEvaluationLogicComparisonsV1;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainAPIEvaluationLogicItemV1
+     */
+    description?: string;
     /**
      *
      * @type {boolean}
@@ -104,6 +110,7 @@ export function DomainAPIEvaluationLogicItemV1FromJSONTyped(json: any, ignoreDis
     return {
         comparisonCheck: !exists(json, "comparison_check") ? undefined : json["comparison_check"],
         comparisons: !exists(json, "comparisons") ? undefined : DomainAPIEvaluationLogicComparisonsV1FromJSON(json["comparisons"]),
+        description: !exists(json, "description") ? undefined : json["description"],
         determinedByComparison: !exists(json, "determined_by_comparison") ? undefined : json["determined_by_comparison"],
         existenceCheck: !exists(json, "existence_check") ? undefined : json["existence_check"],
         id: !exists(json, "id") ? undefined : json["id"],
@@ -124,6 +131,7 @@ export function DomainAPIEvaluationLogicItemV1ToJSON(value?: DomainAPIEvaluation
     return {
         comparison_check: value.comparisonCheck,
         comparisons: DomainAPIEvaluationLogicComparisonsV1ToJSON(value.comparisons),
+        description: value.description,
         determined_by_comparison: value.determinedByComparison,
         existence_check: value.existenceCheck,
         id: value.id,

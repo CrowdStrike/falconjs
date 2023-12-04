@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -24,7 +24,9 @@ import type {
     FalconxSummaryReportV1Response,
     MsaQueryResponse,
     MsaReplyMetaOnly,
-} from "../models";
+    MsaspecQueryResponse,
+    MsaspecResponseFields,
+} from "../models/index";
 import {
     ClientQuerySamplesRequestFromJSON,
     ClientQuerySamplesRequestToJSON,
@@ -46,7 +48,11 @@ import {
     MsaQueryResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-} from "../models";
+    MsaspecQueryResponseFromJSON,
+    MsaspecQueryResponseToJSON,
+    MsaspecResponseFieldsFromJSON,
+    MsaspecResponseFieldsToJSON,
+} from "../models/index";
 
 export interface DeleteReportRequest {
     ids: string;
@@ -57,6 +63,24 @@ export interface DeleteSampleV2Request {
 }
 
 export interface GetArtifactsRequest {
+    id: string;
+    name?: string;
+    acceptEncoding?: string;
+}
+
+export interface GetMemoryDumpRequest {
+    id: string;
+    name?: string;
+    acceptEncoding?: string;
+}
+
+export interface GetMemoryDumpExtractedStringsRequest {
+    id: string;
+    name?: string;
+    acceptEncoding?: string;
+}
+
+export interface GetMemoryDumpHexDumpRequest {
     id: string;
     name?: string;
     acceptEncoding?: string;
@@ -130,7 +154,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -172,7 +196,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -199,7 +223,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
     /**
      * Download IOC packs, PCAP files, memory dumps, and other analysis artifacts.
      */
-    async getArtifactsRaw(requestParameters: GetArtifactsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async getArtifactsRaw(requestParameters: GetArtifactsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
             throw new runtime.RequiredError("id", "Required parameter requestParameters.id was null or undefined when calling getArtifacts.");
         }
@@ -222,7 +246,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -235,14 +259,168 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.VoidApiResponse(response);
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
 
     /**
      * Download IOC packs, PCAP files, memory dumps, and other analysis artifacts.
      */
-    async getArtifacts(id: string, name?: string, acceptEncoding?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.getArtifactsRaw({ id: id, name: name, acceptEncoding: acceptEncoding }, initOverrides);
+    async getArtifacts(id: string, name?: string, acceptEncoding?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
+        const response = await this.getArtifactsRaw({ id: id, name: name, acceptEncoding: acceptEncoding }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get memory dump content, as binary
+     */
+    async getMemoryDumpRaw(requestParameters: GetMemoryDumpRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id", "Required parameter requestParameters.id was null or undefined when calling getMemoryDump.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.id !== undefined) {
+            queryParameters["id"] = requestParameters.id;
+        }
+
+        if (requestParameters.name !== undefined) {
+            queryParameters["name"] = requestParameters.name;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.acceptEncoding !== undefined && requestParameters.acceptEncoding !== null) {
+            headerParameters["Accept-Encoding"] = String(requestParameters.acceptEncoding);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/falconx/entities/memory-dump/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get memory dump content, as binary
+     */
+    async getMemoryDump(id: string, name?: string, acceptEncoding?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
+        const response = await this.getMemoryDumpRaw({ id: id, name: name, acceptEncoding: acceptEncoding }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get extracted strings from a memory dump
+     */
+    async getMemoryDumpExtractedStringsRaw(
+        requestParameters: GetMemoryDumpExtractedStringsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id", "Required parameter requestParameters.id was null or undefined when calling getMemoryDumpExtractedStrings.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.id !== undefined) {
+            queryParameters["id"] = requestParameters.id;
+        }
+
+        if (requestParameters.name !== undefined) {
+            queryParameters["name"] = requestParameters.name;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.acceptEncoding !== undefined && requestParameters.acceptEncoding !== null) {
+            headerParameters["Accept-Encoding"] = String(requestParameters.acceptEncoding);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/falconx/entities/memory-dump/extracted-strings/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get extracted strings from a memory dump
+     */
+    async getMemoryDumpExtractedStrings(id: string, name?: string, acceptEncoding?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
+        const response = await this.getMemoryDumpExtractedStringsRaw({ id: id, name: name, acceptEncoding: acceptEncoding }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get hex view of a memory dump
+     */
+    async getMemoryDumpHexDumpRaw(requestParameters: GetMemoryDumpHexDumpRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError("id", "Required parameter requestParameters.id was null or undefined when calling getMemoryDumpHexDump.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.id !== undefined) {
+            queryParameters["id"] = requestParameters.id;
+        }
+
+        if (requestParameters.name !== undefined) {
+            queryParameters["name"] = requestParameters.name;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.acceptEncoding !== undefined && requestParameters.acceptEncoding !== null) {
+            headerParameters["Accept-Encoding"] = String(requestParameters.acceptEncoding);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/falconx/entities/memory-dump/hex-dump/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get hex view of a memory dump
+     */
+    async getMemoryDumpHexDump(id: string, name?: string, acceptEncoding?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
+        const response = await this.getMemoryDumpHexDumpRaw({ id: id, name: name, acceptEncoding: acceptEncoding }, initOverrides);
+        return await response.value();
     }
 
     /**
@@ -263,7 +441,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -309,7 +487,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -355,7 +533,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -397,7 +575,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -424,7 +602,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
     /**
      * Find sandbox reports by providing an FQL filter and paging details. Returns a set of report IDs that match your criteria.
      */
-    async queryReportsRaw(requestParameters: QueryReportsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryReportsRaw(requestParameters: QueryReportsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -447,7 +625,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -460,13 +638,13 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
 
     /**
      * Find sandbox reports by providing an FQL filter and paging details. Returns a set of report IDs that match your criteria.
      */
-    async queryReports(filter?: string, offset?: string, limit?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
+    async queryReports(filter?: string, offset?: string, limit?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
         const response = await this.queryReportsRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
@@ -487,7 +665,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -515,7 +693,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
     /**
      * Find submission IDs for uploaded files by providing an FQL filter and paging details. Returns a set of submission IDs that match your criteria.
      */
-    async querySubmissionsRaw(requestParameters: QuerySubmissionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async querySubmissionsRaw(requestParameters: QuerySubmissionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -538,7 +716,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -551,13 +729,13 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
 
     /**
      * Find submission IDs for uploaded files by providing an FQL filter and paging details. Returns a set of submission IDs that match your criteria.
      */
-    async querySubmissions(filter?: string, offset?: string, limit?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
+    async querySubmissions(filter?: string, offset?: string, limit?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
         const response = await this.querySubmissionsRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
@@ -578,7 +756,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -621,7 +799,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const consumes: runtime.Consume[] = [{ contentType: "multipart/form-data" }, { contentType: "application/octet-stream" }];

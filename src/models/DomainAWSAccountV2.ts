@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -15,6 +15,10 @@
 import { exists, mapValues } from "../runtime";
 import type { DomainAWSD4CAccountV1 } from "./DomainAWSD4CAccountV1";
 import { DomainAWSD4CAccountV1FromJSON, DomainAWSD4CAccountV1FromJSONTyped, DomainAWSD4CAccountV1ToJSON } from "./DomainAWSD4CAccountV1";
+import type { DomainCloudScope } from "./DomainCloudScope";
+import { DomainCloudScopeFromJSON, DomainCloudScopeFromJSONTyped, DomainCloudScopeToJSON } from "./DomainCloudScope";
+import type { DomainCondition } from "./DomainCondition";
+import { DomainConditionFromJSON, DomainConditionFromJSONTyped, DomainConditionToJSON } from "./DomainCondition";
 import type { DomainPermission } from "./DomainPermission";
 import { DomainPermissionFromJSON, DomainPermissionFromJSONTyped, DomainPermissionToJSON } from "./DomainPermission";
 
@@ -55,11 +59,23 @@ export interface DomainAWSAccountV2 {
      */
     accountId?: string;
     /**
+     * AWS account name
+     * @type {string}
+     * @memberof DomainAWSAccountV2
+     */
+    accountName?: string;
+    /**
      *
      * @type {string}
      * @memberof DomainAWSAccountV2
      */
     accountType?: string;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof DomainAWSAccountV2
+     */
+    activeRegions?: Array<string>;
     /**
      * AWS CloudTrail bucket name to store logs.
      * @type {string}
@@ -98,10 +114,28 @@ export interface DomainAWSAccountV2 {
     cid?: string;
     /**
      *
+     * @type {Array<DomainCloudScope>}
+     * @memberof DomainAWSAccountV2
+     */
+    cloudScopes?: Array<DomainCloudScope>;
+    /**
+     *
      * @type {string}
      * @memberof DomainAWSAccountV2
      */
     cloudformationUrl?: string;
+    /**
+     *
+     * @type {Array<DomainCondition>}
+     * @memberof DomainAWSAccountV2
+     */
+    conditions?: Array<DomainCondition>;
+    /**
+     *
+     * @type {boolean}
+     * @memberof DomainAWSAccountV2
+     */
+    cspmEnabled?: boolean;
     /**
      *
      * @type {DomainAWSD4CAccountV1}
@@ -114,6 +148,12 @@ export interface DomainAWSAccountV2 {
      * @memberof DomainAWSAccountV2
      */
     d4cMigrated?: boolean;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainAWSAccountV2
+     */
+    environment?: string;
     /**
      *
      * @type {string}
@@ -194,10 +234,16 @@ export interface DomainAWSAccountV2 {
     secondaryRoleArn?: string;
     /**
      *
-     * @type {string}
+     * @type {boolean}
      * @memberof DomainAWSAccountV2
      */
-    settings?: string;
+    sensorManagementEnabled: boolean;
+    /**
+     *
+     * @type {object}
+     * @memberof DomainAWSAccountV2
+     */
+    settings?: object;
     /**
      * Account registration status.
      * @type {string}
@@ -229,6 +275,7 @@ export function instanceOfDomainAWSAccountV2(value: object): boolean {
     isInstance = isInstance && "updatedAt" in value;
     isInstance = isInstance && "awsPermissionsStatus" in value;
     isInstance = isInstance && "isCustomRolename" in value;
+    isInstance = isInstance && "sensorManagementEnabled" in value;
 
     return isInstance;
 }
@@ -247,16 +294,22 @@ export function DomainAWSAccountV2FromJSONTyped(json: any, ignoreDiscriminator: 
         iD: json["ID"],
         updatedAt: new Date(json["UpdatedAt"]),
         accountId: !exists(json, "account_id") ? undefined : json["account_id"],
+        accountName: !exists(json, "account_name") ? undefined : json["account_name"],
         accountType: !exists(json, "account_type") ? undefined : json["account_type"],
+        activeRegions: !exists(json, "active_regions") ? undefined : json["active_regions"],
         awsCloudtrailBucketName: !exists(json, "aws_cloudtrail_bucket_name") ? undefined : json["aws_cloudtrail_bucket_name"],
         awsCloudtrailRegion: !exists(json, "aws_cloudtrail_region") ? undefined : json["aws_cloudtrail_region"],
         awsEventbusArn: !exists(json, "aws_eventbus_arn") ? undefined : json["aws_eventbus_arn"],
         awsPermissionsStatus: (json["aws_permissions_status"] as Array<any>).map(DomainPermissionFromJSON),
         behaviorAssessmentEnabled: !exists(json, "behavior_assessment_enabled") ? undefined : json["behavior_assessment_enabled"],
         cid: !exists(json, "cid") ? undefined : json["cid"],
+        cloudScopes: !exists(json, "cloud_scopes") ? undefined : (json["cloud_scopes"] as Array<any>).map(DomainCloudScopeFromJSON),
         cloudformationUrl: !exists(json, "cloudformation_url") ? undefined : json["cloudformation_url"],
+        conditions: !exists(json, "conditions") ? undefined : (json["conditions"] as Array<any>).map(DomainConditionFromJSON),
+        cspmEnabled: !exists(json, "cspm_enabled") ? undefined : json["cspm_enabled"],
         d4c: !exists(json, "d4c") ? undefined : DomainAWSD4CAccountV1FromJSON(json["d4c"]),
         d4cMigrated: !exists(json, "d4c_migrated") ? undefined : json["d4c_migrated"],
+        environment: !exists(json, "environment") ? undefined : json["environment"],
         eventbusName: !exists(json, "eventbus_name") ? undefined : json["eventbus_name"],
         externalId: !exists(json, "external_id") ? undefined : json["external_id"],
         iamRoleArn: !exists(json, "iam_role_arn") ? undefined : json["iam_role_arn"],
@@ -270,6 +323,7 @@ export function DomainAWSAccountV2FromJSONTyped(json: any, ignoreDiscriminator: 
         rootAccountId: !exists(json, "root_account_id") ? undefined : json["root_account_id"],
         rootIamRole: !exists(json, "root_iam_role") ? undefined : json["root_iam_role"],
         secondaryRoleArn: !exists(json, "secondary_role_arn") ? undefined : json["secondary_role_arn"],
+        sensorManagementEnabled: json["sensor_management_enabled"],
         settings: !exists(json, "settings") ? undefined : json["settings"],
         status: !exists(json, "status") ? undefined : json["status"],
         useExistingCloudtrail: !exists(json, "use_existing_cloudtrail") ? undefined : json["use_existing_cloudtrail"],
@@ -290,16 +344,22 @@ export function DomainAWSAccountV2ToJSON(value?: DomainAWSAccountV2 | null): any
         ID: value.iD,
         UpdatedAt: value.updatedAt.toISOString(),
         account_id: value.accountId,
+        account_name: value.accountName,
         account_type: value.accountType,
+        active_regions: value.activeRegions,
         aws_cloudtrail_bucket_name: value.awsCloudtrailBucketName,
         aws_cloudtrail_region: value.awsCloudtrailRegion,
         aws_eventbus_arn: value.awsEventbusArn,
         aws_permissions_status: (value.awsPermissionsStatus as Array<any>).map(DomainPermissionToJSON),
         behavior_assessment_enabled: value.behaviorAssessmentEnabled,
         cid: value.cid,
+        cloud_scopes: value.cloudScopes === undefined ? undefined : (value.cloudScopes as Array<any>).map(DomainCloudScopeToJSON),
         cloudformation_url: value.cloudformationUrl,
+        conditions: value.conditions === undefined ? undefined : (value.conditions as Array<any>).map(DomainConditionToJSON),
+        cspm_enabled: value.cspmEnabled,
         d4c: DomainAWSD4CAccountV1ToJSON(value.d4c),
         d4c_migrated: value.d4cMigrated,
+        environment: value.environment,
         eventbus_name: value.eventbusName,
         external_id: value.externalId,
         iam_role_arn: value.iamRoleArn,
@@ -313,6 +373,7 @@ export function DomainAWSAccountV2ToJSON(value?: DomainAWSAccountV2 | null): any
         root_account_id: value.rootAccountId,
         root_iam_role: value.rootIamRole,
         secondary_role_arn: value.secondaryRoleArn,
+        sensor_management_enabled: value.sensorManagementEnabled,
         settings: value.settings,
         status: value.status,
         use_existing_cloudtrail: value.useExistingCloudtrail,

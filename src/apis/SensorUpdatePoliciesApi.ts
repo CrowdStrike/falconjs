@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -14,24 +14,28 @@
 
 import * as runtime from "../runtime";
 import type {
+    BasePolicyMembersRespV1,
+    BaseSetPolicyPrecedenceReqV1,
     MsaEntityActionRequestV2,
     MsaErrorsOnly,
     MsaQueryResponse,
     MsaReplyMetaOnly,
-    RequestsCreateSensorUpdatePoliciesV1,
-    RequestsCreateSensorUpdatePoliciesV2,
-    RequestsRevealUninstallTokenV1,
-    RequestsSetPolicyPrecedenceReqV1,
-    RequestsUpdateSensorUpdatePoliciesV1,
-    RequestsUpdateSensorUpdatePoliciesV2,
-    ResponsesPolicyMembersRespV1,
-    ResponsesRevealUninstallTokenRespV1,
-    ResponsesSensorUpdateBuildsV1,
-    ResponsesSensorUpdateKernelsV1,
-    ResponsesSensorUpdatePoliciesV1,
-    ResponsesSensorUpdatePoliciesV2,
-} from "../models";
+    SensorUpdateBuildsRespV1,
+    SensorUpdateCreatePoliciesReqV1,
+    SensorUpdateCreatePoliciesReqV2,
+    SensorUpdateKernelsRespV1,
+    SensorUpdateRespV1,
+    SensorUpdateRespV2,
+    SensorUpdateUpdatePoliciesReqV1,
+    SensorUpdateUpdatePoliciesReqV2,
+    UninstallTokenRespV1,
+    UninstallTokenRevealUninstallTokenReqV1,
+} from "../models/index";
 import {
+    BasePolicyMembersRespV1FromJSON,
+    BasePolicyMembersRespV1ToJSON,
+    BaseSetPolicyPrecedenceReqV1FromJSON,
+    BaseSetPolicyPrecedenceReqV1ToJSON,
     MsaEntityActionRequestV2FromJSON,
     MsaEntityActionRequestV2ToJSON,
     MsaErrorsOnlyFromJSON,
@@ -40,38 +44,34 @@ import {
     MsaQueryResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-    RequestsCreateSensorUpdatePoliciesV1FromJSON,
-    RequestsCreateSensorUpdatePoliciesV1ToJSON,
-    RequestsCreateSensorUpdatePoliciesV2FromJSON,
-    RequestsCreateSensorUpdatePoliciesV2ToJSON,
-    RequestsRevealUninstallTokenV1FromJSON,
-    RequestsRevealUninstallTokenV1ToJSON,
-    RequestsSetPolicyPrecedenceReqV1FromJSON,
-    RequestsSetPolicyPrecedenceReqV1ToJSON,
-    RequestsUpdateSensorUpdatePoliciesV1FromJSON,
-    RequestsUpdateSensorUpdatePoliciesV1ToJSON,
-    RequestsUpdateSensorUpdatePoliciesV2FromJSON,
-    RequestsUpdateSensorUpdatePoliciesV2ToJSON,
-    ResponsesPolicyMembersRespV1FromJSON,
-    ResponsesPolicyMembersRespV1ToJSON,
-    ResponsesRevealUninstallTokenRespV1FromJSON,
-    ResponsesRevealUninstallTokenRespV1ToJSON,
-    ResponsesSensorUpdateBuildsV1FromJSON,
-    ResponsesSensorUpdateBuildsV1ToJSON,
-    ResponsesSensorUpdateKernelsV1FromJSON,
-    ResponsesSensorUpdateKernelsV1ToJSON,
-    ResponsesSensorUpdatePoliciesV1FromJSON,
-    ResponsesSensorUpdatePoliciesV1ToJSON,
-    ResponsesSensorUpdatePoliciesV2FromJSON,
-    ResponsesSensorUpdatePoliciesV2ToJSON,
-} from "../models";
+    SensorUpdateBuildsRespV1FromJSON,
+    SensorUpdateBuildsRespV1ToJSON,
+    SensorUpdateCreatePoliciesReqV1FromJSON,
+    SensorUpdateCreatePoliciesReqV1ToJSON,
+    SensorUpdateCreatePoliciesReqV2FromJSON,
+    SensorUpdateCreatePoliciesReqV2ToJSON,
+    SensorUpdateKernelsRespV1FromJSON,
+    SensorUpdateKernelsRespV1ToJSON,
+    SensorUpdateRespV1FromJSON,
+    SensorUpdateRespV1ToJSON,
+    SensorUpdateRespV2FromJSON,
+    SensorUpdateRespV2ToJSON,
+    SensorUpdateUpdatePoliciesReqV1FromJSON,
+    SensorUpdateUpdatePoliciesReqV1ToJSON,
+    SensorUpdateUpdatePoliciesReqV2FromJSON,
+    SensorUpdateUpdatePoliciesReqV2ToJSON,
+    UninstallTokenRespV1FromJSON,
+    UninstallTokenRespV1ToJSON,
+    UninstallTokenRevealUninstallTokenReqV1FromJSON,
+    UninstallTokenRevealUninstallTokenReqV1ToJSON,
+} from "../models/index";
 
 export interface CreateSensorUpdatePoliciesRequest {
-    body: RequestsCreateSensorUpdatePoliciesV1;
+    body: SensorUpdateCreatePoliciesReqV1;
 }
 
 export interface CreateSensorUpdatePoliciesV2Request {
-    body: RequestsCreateSensorUpdatePoliciesV2;
+    body: SensorUpdateCreatePoliciesReqV2;
 }
 
 export interface DeleteSensorUpdatePoliciesRequest {
@@ -93,6 +93,7 @@ export interface PerformSensorUpdatePoliciesActionRequest {
 
 export interface QueryCombinedSensorUpdateBuildsRequest {
     platform?: QueryCombinedSensorUpdateBuildsPlatformEnum;
+    stage?: QueryCombinedSensorUpdateBuildsStageEnum;
 }
 
 export interface QueryCombinedSensorUpdateKernelsRequest {
@@ -146,19 +147,19 @@ export interface QuerySensorUpdatePolicyMembersRequest {
 }
 
 export interface RevealUninstallTokenRequest {
-    body: RequestsRevealUninstallTokenV1;
+    body: UninstallTokenRevealUninstallTokenReqV1;
 }
 
 export interface SetSensorUpdatePoliciesPrecedenceRequest {
-    body: RequestsSetPolicyPrecedenceReqV1;
+    body: BaseSetPolicyPrecedenceReqV1;
 }
 
 export interface UpdateSensorUpdatePoliciesRequest {
-    body: RequestsUpdateSensorUpdatePoliciesV1;
+    body: SensorUpdateUpdatePoliciesReqV1;
 }
 
 export interface UpdateSensorUpdatePoliciesV2Request {
-    body: RequestsUpdateSensorUpdatePoliciesV2;
+    body: SensorUpdateUpdatePoliciesReqV2;
 }
 
 /**
@@ -171,7 +172,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
     async createSensorUpdatePoliciesRaw(
         requestParameters: CreateSensorUpdatePoliciesRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ResponsesSensorUpdatePoliciesV1>> {
+    ): Promise<runtime.ApiResponse<SensorUpdateRespV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createSensorUpdatePolicies.");
         }
@@ -184,7 +185,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -193,18 +194,18 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: RequestsCreateSensorUpdatePoliciesV1ToJSON(requestParameters.body),
+                body: SensorUpdateCreatePoliciesReqV1ToJSON(requestParameters.body),
             },
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesSensorUpdatePoliciesV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => SensorUpdateRespV1FromJSON(jsonValue));
     }
 
     /**
      * Create Sensor Update Policies by specifying details about the policy to create
      */
-    async createSensorUpdatePolicies(body: RequestsCreateSensorUpdatePoliciesV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesSensorUpdatePoliciesV1> {
+    async createSensorUpdatePolicies(body: SensorUpdateCreatePoliciesReqV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SensorUpdateRespV1> {
         const response = await this.createSensorUpdatePoliciesRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -215,7 +216,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
     async createSensorUpdatePoliciesV2Raw(
         requestParameters: CreateSensorUpdatePoliciesV2Request,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ResponsesSensorUpdatePoliciesV2>> {
+    ): Promise<runtime.ApiResponse<SensorUpdateRespV2>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createSensorUpdatePoliciesV2.");
         }
@@ -228,7 +229,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -237,18 +238,18 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: RequestsCreateSensorUpdatePoliciesV2ToJSON(requestParameters.body),
+                body: SensorUpdateCreatePoliciesReqV2ToJSON(requestParameters.body),
             },
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesSensorUpdatePoliciesV2FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => SensorUpdateRespV2FromJSON(jsonValue));
     }
 
     /**
      * Create Sensor Update Policies by specifying details about the policy to create with additional support for uninstall protection
      */
-    async createSensorUpdatePoliciesV2(body: RequestsCreateSensorUpdatePoliciesV2, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesSensorUpdatePoliciesV2> {
+    async createSensorUpdatePoliciesV2(body: SensorUpdateCreatePoliciesReqV2, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SensorUpdateRespV2> {
         const response = await this.createSensorUpdatePoliciesV2Raw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -274,7 +275,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -301,10 +302,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
     /**
      * Retrieve a set of Sensor Update Policies by specifying their IDs
      */
-    async getSensorUpdatePoliciesRaw(
-        requestParameters: GetSensorUpdatePoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ResponsesSensorUpdatePoliciesV1>> {
+    async getSensorUpdatePoliciesRaw(requestParameters: GetSensorUpdatePoliciesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SensorUpdateRespV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getSensorUpdatePolicies.");
         }
@@ -319,7 +317,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -332,13 +330,13 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesSensorUpdatePoliciesV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => SensorUpdateRespV1FromJSON(jsonValue));
     }
 
     /**
      * Retrieve a set of Sensor Update Policies by specifying their IDs
      */
-    async getSensorUpdatePolicies(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesSensorUpdatePoliciesV1> {
+    async getSensorUpdatePolicies(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SensorUpdateRespV1> {
         const response = await this.getSensorUpdatePoliciesRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -349,7 +347,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
     async getSensorUpdatePoliciesV2Raw(
         requestParameters: GetSensorUpdatePoliciesV2Request,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ResponsesSensorUpdatePoliciesV2>> {
+    ): Promise<runtime.ApiResponse<SensorUpdateRespV2>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getSensorUpdatePoliciesV2.");
         }
@@ -364,7 +362,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -377,13 +375,13 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesSensorUpdatePoliciesV2FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => SensorUpdateRespV2FromJSON(jsonValue));
     }
 
     /**
      * Retrieve a set of Sensor Update Policies with additional support for uninstall protection by specifying their IDs
      */
-    async getSensorUpdatePoliciesV2(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesSensorUpdatePoliciesV2> {
+    async getSensorUpdatePoliciesV2(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SensorUpdateRespV2> {
         const response = await this.getSensorUpdatePoliciesV2Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -394,7 +392,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
     async performSensorUpdatePoliciesActionRaw(
         requestParameters: PerformSensorUpdatePoliciesActionRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ResponsesSensorUpdatePoliciesV1>> {
+    ): Promise<runtime.ApiResponse<SensorUpdateRespV1>> {
         if (requestParameters.actionName === null || requestParameters.actionName === undefined) {
             throw new runtime.RequiredError("actionName", "Required parameter requestParameters.actionName was null or undefined when calling performSensorUpdatePoliciesAction.");
         }
@@ -415,7 +413,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -429,7 +427,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesSensorUpdatePoliciesV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => SensorUpdateRespV1FromJSON(jsonValue));
     }
 
     /**
@@ -439,7 +437,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
         actionName: PerformSensorUpdatePoliciesActionActionNameEnum,
         body: MsaEntityActionRequestV2,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<ResponsesSensorUpdatePoliciesV1> {
+    ): Promise<SensorUpdateRespV1> {
         const response = await this.performSensorUpdatePoliciesActionRaw({ actionName: actionName, body: body }, initOverrides);
         return await response.value();
     }
@@ -450,18 +448,22 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
     async queryCombinedSensorUpdateBuildsRaw(
         requestParameters: QueryCombinedSensorUpdateBuildsRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ResponsesSensorUpdateBuildsV1>> {
+    ): Promise<runtime.ApiResponse<SensorUpdateBuildsRespV1>> {
         const queryParameters: any = {};
 
         if (requestParameters.platform !== undefined) {
             queryParameters["platform"] = requestParameters.platform;
         }
 
+        if (requestParameters.stage) {
+            queryParameters["stage"] = requestParameters.stage.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -474,14 +476,18 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesSensorUpdateBuildsV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => SensorUpdateBuildsRespV1FromJSON(jsonValue));
     }
 
     /**
      * Retrieve available builds for use with Sensor Update Policies
      */
-    async queryCombinedSensorUpdateBuilds(platform?: QueryCombinedSensorUpdateBuildsPlatformEnum, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesSensorUpdateBuildsV1> {
-        const response = await this.queryCombinedSensorUpdateBuildsRaw({ platform: platform }, initOverrides);
+    async queryCombinedSensorUpdateBuilds(
+        platform?: QueryCombinedSensorUpdateBuildsPlatformEnum,
+        stage?: QueryCombinedSensorUpdateBuildsStageEnum,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<SensorUpdateBuildsRespV1> {
+        const response = await this.queryCombinedSensorUpdateBuildsRaw({ platform: platform, stage: stage }, initOverrides);
         return await response.value();
     }
 
@@ -491,7 +497,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
     async queryCombinedSensorUpdateKernelsRaw(
         requestParameters: QueryCombinedSensorUpdateKernelsRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ResponsesSensorUpdateKernelsV1>> {
+    ): Promise<runtime.ApiResponse<SensorUpdateKernelsRespV1>> {
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -510,7 +516,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -523,13 +529,13 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesSensorUpdateKernelsV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => SensorUpdateKernelsRespV1FromJSON(jsonValue));
     }
 
     /**
      * Retrieve kernel compatibility info for Sensor Update Builds
      */
-    async queryCombinedSensorUpdateKernels(filter?: string, offset?: number, limit?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesSensorUpdateKernelsV1> {
+    async queryCombinedSensorUpdateKernels(filter?: string, offset?: number, limit?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SensorUpdateKernelsRespV1> {
         const response = await this.queryCombinedSensorUpdateKernelsRaw({ filter: filter, offset: offset, limit: limit }, initOverrides);
         return await response.value();
     }
@@ -540,7 +546,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
     async queryCombinedSensorUpdatePoliciesRaw(
         requestParameters: QueryCombinedSensorUpdatePoliciesRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ResponsesSensorUpdatePoliciesV1>> {
+    ): Promise<runtime.ApiResponse<SensorUpdateRespV1>> {
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -563,7 +569,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -576,7 +582,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesSensorUpdatePoliciesV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => SensorUpdateRespV1FromJSON(jsonValue));
     }
 
     /**
@@ -588,7 +594,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
         limit?: number,
         sort?: QueryCombinedSensorUpdatePoliciesSortEnum,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<ResponsesSensorUpdatePoliciesV1> {
+    ): Promise<SensorUpdateRespV1> {
         const response = await this.queryCombinedSensorUpdatePoliciesRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
@@ -599,7 +605,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
     async queryCombinedSensorUpdatePoliciesV2Raw(
         requestParameters: QueryCombinedSensorUpdatePoliciesV2Request,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ResponsesSensorUpdatePoliciesV2>> {
+    ): Promise<runtime.ApiResponse<SensorUpdateRespV2>> {
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -622,7 +628,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -635,7 +641,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesSensorUpdatePoliciesV2FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => SensorUpdateRespV2FromJSON(jsonValue));
     }
 
     /**
@@ -647,7 +653,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
         limit?: number,
         sort?: QueryCombinedSensorUpdatePoliciesV2SortEnum,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<ResponsesSensorUpdatePoliciesV2> {
+    ): Promise<SensorUpdateRespV2> {
         const response = await this.queryCombinedSensorUpdatePoliciesV2Raw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
@@ -658,7 +664,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
     async queryCombinedSensorUpdatePolicyMembersRaw(
         requestParameters: QueryCombinedSensorUpdatePolicyMembersRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ResponsesPolicyMembersRespV1>> {
+    ): Promise<runtime.ApiResponse<BasePolicyMembersRespV1>> {
         const queryParameters: any = {};
 
         if (requestParameters.id !== undefined) {
@@ -685,7 +691,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -698,7 +704,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesPolicyMembersRespV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => BasePolicyMembersRespV1FromJSON(jsonValue));
     }
 
     /**
@@ -711,7 +717,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
         limit?: number,
         sort?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<ResponsesPolicyMembersRespV1> {
+    ): Promise<BasePolicyMembersRespV1> {
         const response = await this.queryCombinedSensorUpdatePolicyMembersRaw({ id: id, filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
@@ -745,7 +751,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -804,7 +810,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -867,7 +873,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -901,10 +907,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
     /**
      * Reveals an uninstall token for a specific device. To retrieve the bulk maintenance token pass the value \'MAINTENANCE\' as the value for \'device_id\'
      */
-    async revealUninstallTokenRaw(
-        requestParameters: RevealUninstallTokenRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ResponsesRevealUninstallTokenRespV1>> {
+    async revealUninstallTokenRaw(requestParameters: RevealUninstallTokenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UninstallTokenRespV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling revealUninstallToken.");
         }
@@ -917,7 +920,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -926,18 +929,18 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: RequestsRevealUninstallTokenV1ToJSON(requestParameters.body),
+                body: UninstallTokenRevealUninstallTokenReqV1ToJSON(requestParameters.body),
             },
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesRevealUninstallTokenRespV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => UninstallTokenRespV1FromJSON(jsonValue));
     }
 
     /**
      * Reveals an uninstall token for a specific device. To retrieve the bulk maintenance token pass the value \'MAINTENANCE\' as the value for \'device_id\'
      */
-    async revealUninstallToken(body: RequestsRevealUninstallTokenV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesRevealUninstallTokenRespV1> {
+    async revealUninstallToken(body: UninstallTokenRevealUninstallTokenReqV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UninstallTokenRespV1> {
         const response = await this.revealUninstallTokenRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -961,7 +964,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -970,7 +973,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: RequestsSetPolicyPrecedenceReqV1ToJSON(requestParameters.body),
+                body: BaseSetPolicyPrecedenceReqV1ToJSON(requestParameters.body),
             },
             initOverrides
         );
@@ -981,7 +984,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
     /**
      * Sets the precedence of Sensor Update Policies based on the order of IDs specified in the request. The first ID specified will have the highest precedence and the last ID specified will have the lowest. You must specify all non-Default Policies for a platform when updating precedence
      */
-    async setSensorUpdatePoliciesPrecedence(body: RequestsSetPolicyPrecedenceReqV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
+    async setSensorUpdatePoliciesPrecedence(body: BaseSetPolicyPrecedenceReqV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.setSensorUpdatePoliciesPrecedenceRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -992,7 +995,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
     async updateSensorUpdatePoliciesRaw(
         requestParameters: UpdateSensorUpdatePoliciesRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ResponsesSensorUpdatePoliciesV1>> {
+    ): Promise<runtime.ApiResponse<SensorUpdateRespV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateSensorUpdatePolicies.");
         }
@@ -1005,7 +1008,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -1014,18 +1017,18 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
                 method: "PATCH",
                 headers: headerParameters,
                 query: queryParameters,
-                body: RequestsUpdateSensorUpdatePoliciesV1ToJSON(requestParameters.body),
+                body: SensorUpdateUpdatePoliciesReqV1ToJSON(requestParameters.body),
             },
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesSensorUpdatePoliciesV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => SensorUpdateRespV1FromJSON(jsonValue));
     }
 
     /**
      * Update Sensor Update Policies by specifying the ID of the policy and details to update
      */
-    async updateSensorUpdatePolicies(body: RequestsUpdateSensorUpdatePoliciesV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesSensorUpdatePoliciesV1> {
+    async updateSensorUpdatePolicies(body: SensorUpdateUpdatePoliciesReqV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SensorUpdateRespV1> {
         const response = await this.updateSensorUpdatePoliciesRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -1036,7 +1039,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
     async updateSensorUpdatePoliciesV2Raw(
         requestParameters: UpdateSensorUpdatePoliciesV2Request,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ResponsesSensorUpdatePoliciesV2>> {
+    ): Promise<runtime.ApiResponse<SensorUpdateRespV2>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateSensorUpdatePoliciesV2.");
         }
@@ -1049,7 +1052,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -1058,18 +1061,18 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
                 method: "PATCH",
                 headers: headerParameters,
                 query: queryParameters,
-                body: RequestsUpdateSensorUpdatePoliciesV2ToJSON(requestParameters.body),
+                body: SensorUpdateUpdatePoliciesReqV2ToJSON(requestParameters.body),
             },
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesSensorUpdatePoliciesV2FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => SensorUpdateRespV2FromJSON(jsonValue));
     }
 
     /**
      * Update Sensor Update Policies by specifying the ID of the policy and details to update with additional support for uninstall protection
      */
-    async updateSensorUpdatePoliciesV2(body: RequestsUpdateSensorUpdatePoliciesV2, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesSensorUpdatePoliciesV2> {
+    async updateSensorUpdatePoliciesV2(body: SensorUpdateUpdatePoliciesReqV2, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SensorUpdateRespV2> {
         const response = await this.updateSensorUpdatePoliciesV2Raw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -1080,9 +1083,11 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
  */
 export const PerformSensorUpdatePoliciesActionActionNameEnum = {
     AddHostGroup: "add-host-group",
+    AddRuleGroup: "add-rule-group",
     Disable: "disable",
     Enable: "enable",
     RemoveHostGroup: "remove-host-group",
+    RemoveRuleGroup: "remove-rule-group",
 } as const;
 export type PerformSensorUpdatePoliciesActionActionNameEnum = (typeof PerformSensorUpdatePoliciesActionActionNameEnum)[keyof typeof PerformSensorUpdatePoliciesActionActionNameEnum];
 /**
@@ -1090,10 +1095,17 @@ export type PerformSensorUpdatePoliciesActionActionNameEnum = (typeof PerformSen
  */
 export const QueryCombinedSensorUpdateBuildsPlatformEnum = {
     Linux: "linux",
+    Linuxarm64: "linuxarm64",
     Mac: "mac",
     Windows: "windows",
+    Zlinux: "zlinux",
 } as const;
 export type QueryCombinedSensorUpdateBuildsPlatformEnum = (typeof QueryCombinedSensorUpdateBuildsPlatformEnum)[keyof typeof QueryCombinedSensorUpdateBuildsPlatformEnum];
+/**
+ * @export
+ */
+export const QueryCombinedSensorUpdateBuildsStageEnum = {} as const;
+export type QueryCombinedSensorUpdateBuildsStageEnum = (typeof QueryCombinedSensorUpdateBuildsStageEnum)[keyof typeof QueryCombinedSensorUpdateBuildsStageEnum];
 /**
  * @export
  */

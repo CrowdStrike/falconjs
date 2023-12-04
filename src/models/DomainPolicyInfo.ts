@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -48,6 +48,12 @@ export interface DomainPolicyInfo {
      * @type {string}
      * @memberof DomainPolicyInfo
      */
+    accountScope: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainPolicyInfo
+     */
     alertLogic?: string;
     /**
      *
@@ -57,10 +63,52 @@ export interface DomainPolicyInfo {
     apiCommand?: string;
     /**
      *
+     * @type {number}
+     * @memberof DomainPolicyInfo
+     */
+    assetTypeId?: number;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainPolicyInfo
+     */
+    attackTool?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainPolicyInfo
+     */
+    attackToolCommand?: string;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof DomainPolicyInfo
+     */
+    attackTypes?: Array<string>;
+    /**
+     *
+     * @type {Array<number>}
+     * @memberof DomainPolicyInfo
+     */
+    cisBenchmarkIds?: Array<number>;
+    /**
+     *
+     * @type {Array<number>}
+     * @memberof DomainPolicyInfo
+     */
+    cisaBenchmarkIds?: Array<number>;
+    /**
+     *
      * @type {string}
      * @memberof DomainPolicyInfo
      */
     cliCommand?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainPolicyInfo
+     */
+    cloudAssetType?: string;
     /**
      *
      * @type {string}
@@ -108,6 +156,12 @@ export interface DomainPolicyInfo {
      * @type {string}
      * @memberof DomainPolicyInfo
      */
+    confidence?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainPolicyInfo
+     */
     defaultSeverity?: string;
     /**
      *
@@ -126,6 +180,48 @@ export interface DomainPolicyInfo {
      * @type {string}
      * @memberof DomainPolicyInfo
      */
+    fqlPolicy?: string;
+    /**
+     *
+     * @type {Array<number>}
+     * @memberof DomainPolicyInfo
+     */
+    hipaaBenchmarkIds?: Array<number>;
+    /**
+     *
+     * @type {Array<number>}
+     * @memberof DomainPolicyInfo
+     */
+    hitrustBenchmarkIds?: Array<number>;
+    /**
+     *
+     * @type {boolean}
+     * @memberof DomainPolicyInfo
+     */
+    internalOnly?: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof DomainPolicyInfo
+     */
+    isEnabled: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof DomainPolicyInfo
+     */
+    isRemediable: boolean;
+    /**
+     *
+     * @type {Array<number>}
+     * @memberof DomainPolicyInfo
+     */
+    isoBenchmarkIds?: Array<number>;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainPolicyInfo
+     */
     mitreAttackCloudMatrix?: string;
     /**
      *
@@ -133,6 +229,24 @@ export interface DomainPolicyInfo {
      * @memberof DomainPolicyInfo
      */
     mitreAttackCloudSubtype?: string;
+    /**
+     *
+     * @type {Array<number>}
+     * @memberof DomainPolicyInfo
+     */
+    nistBenchmarkIds?: Array<number>;
+    /**
+     *
+     * @type {Array<number>}
+     * @memberof DomainPolicyInfo
+     */
+    pciBenchmarkIds?: Array<number>;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainPolicyInfo
+     */
+    policyConfidenceScore?: number;
     /**
      *
      * @type {string}
@@ -159,10 +273,70 @@ export interface DomainPolicyInfo {
     policySeverity?: number;
     /**
      *
+     * @type {number}
+     * @memberof DomainPolicyInfo
+     */
+    policySeverityScore?: number;
+    /**
+     *
      * @type {string}
      * @memberof DomainPolicyInfo
      */
     policyStatement?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainPolicyInfo
+     */
+    policyType?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainPolicyInfo
+     */
+    remediationSummary?: string;
+    /**
+     *
+     * @type {Array<number>}
+     * @memberof DomainPolicyInfo
+     */
+    soc2BenchmarkIds?: Array<number>;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainPolicyInfo
+     */
+    tactic?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainPolicyInfo
+     */
+    tacticId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainPolicyInfo
+     */
+    tacticUrl?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainPolicyInfo
+     */
+    technique?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainPolicyInfo
+     */
+    techniqueId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainPolicyInfo
+     */
+    techniqueUrl?: string;
 }
 
 /**
@@ -174,6 +348,9 @@ export function instanceOfDomainPolicyInfo(value: object): boolean {
     isInstance = isInstance && "deletedAt" in value;
     isInstance = isInstance && "iD" in value;
     isInstance = isInstance && "updatedAt" in value;
+    isInstance = isInstance && "accountScope" in value;
+    isInstance = isInstance && "isEnabled" in value;
+    isInstance = isInstance && "isRemediable" in value;
 
     return isInstance;
 }
@@ -191,9 +368,17 @@ export function DomainPolicyInfoFromJSONTyped(json: any, ignoreDiscriminator: bo
         deletedAt: new Date(json["DeletedAt"]),
         iD: json["ID"],
         updatedAt: new Date(json["UpdatedAt"]),
+        accountScope: json["account_scope"],
         alertLogic: !exists(json, "alert_logic") ? undefined : json["alert_logic"],
         apiCommand: !exists(json, "api_command") ? undefined : json["api_command"],
+        assetTypeId: !exists(json, "asset_type_id") ? undefined : json["asset_type_id"],
+        attackTool: !exists(json, "attack_tool") ? undefined : json["attack_tool"],
+        attackToolCommand: !exists(json, "attack_tool_command") ? undefined : json["attack_tool_command"],
+        attackTypes: !exists(json, "attack_types") ? undefined : json["attack_types"],
+        cisBenchmarkIds: !exists(json, "cis_benchmark_ids") ? undefined : json["cis_benchmark_ids"],
+        cisaBenchmarkIds: !exists(json, "cisa_benchmark_ids") ? undefined : json["cisa_benchmark_ids"],
         cliCommand: !exists(json, "cli_command") ? undefined : json["cli_command"],
+        cloudAssetType: !exists(json, "cloud_asset_type") ? undefined : json["cloud_asset_type"],
         cloudDocument: !exists(json, "cloud_document") ? undefined : json["cloud_document"],
         cloudPlatform: !exists(json, "cloud_platform") ? undefined : json["cloud_platform"],
         cloudPlatformType: !exists(json, "cloud_platform_type") ? undefined : json["cloud_platform_type"],
@@ -201,16 +386,37 @@ export function DomainPolicyInfoFromJSONTyped(json: any, ignoreDiscriminator: bo
         cloudServiceFriendly: !exists(json, "cloud_service_friendly") ? undefined : json["cloud_service_friendly"],
         cloudServiceSubtype: !exists(json, "cloud_service_subtype") ? undefined : json["cloud_service_subtype"],
         cloudServiceType: !exists(json, "cloud_service_type") ? undefined : json["cloud_service_type"],
+        confidence: !exists(json, "confidence") ? undefined : json["confidence"],
         defaultSeverity: !exists(json, "default_severity") ? undefined : json["default_severity"],
         description: !exists(json, "description") ? undefined : json["description"],
         eventType: !exists(json, "event_type") ? undefined : json["event_type"],
+        fqlPolicy: !exists(json, "fql_policy") ? undefined : json["fql_policy"],
+        hipaaBenchmarkIds: !exists(json, "hipaa_benchmark_ids") ? undefined : json["hipaa_benchmark_ids"],
+        hitrustBenchmarkIds: !exists(json, "hitrust_benchmark_ids") ? undefined : json["hitrust_benchmark_ids"],
+        internalOnly: !exists(json, "internal_only") ? undefined : json["internal_only"],
+        isEnabled: json["is_enabled"],
+        isRemediable: json["is_remediable"],
+        isoBenchmarkIds: !exists(json, "iso_benchmark_ids") ? undefined : json["iso_benchmark_ids"],
         mitreAttackCloudMatrix: !exists(json, "mitre_attack_cloud_matrix") ? undefined : json["mitre_attack_cloud_matrix"],
         mitreAttackCloudSubtype: !exists(json, "mitre_attack_cloud_subtype") ? undefined : json["mitre_attack_cloud_subtype"],
+        nistBenchmarkIds: !exists(json, "nist_benchmark_ids") ? undefined : json["nist_benchmark_ids"],
+        pciBenchmarkIds: !exists(json, "pci_benchmark_ids") ? undefined : json["pci_benchmark_ids"],
+        policyConfidenceScore: !exists(json, "policy_confidence_score") ? undefined : json["policy_confidence_score"],
         policyFailQuery: !exists(json, "policy_fail_query") ? undefined : json["policy_fail_query"],
         policyPassQuery: !exists(json, "policy_pass_query") ? undefined : json["policy_pass_query"],
         policyRemediation: !exists(json, "policy_remediation") ? undefined : json["policy_remediation"],
         policySeverity: !exists(json, "policy_severity") ? undefined : json["policy_severity"],
+        policySeverityScore: !exists(json, "policy_severity_score") ? undefined : json["policy_severity_score"],
         policyStatement: !exists(json, "policy_statement") ? undefined : json["policy_statement"],
+        policyType: !exists(json, "policy_type") ? undefined : json["policy_type"],
+        remediationSummary: !exists(json, "remediation_summary") ? undefined : json["remediation_summary"],
+        soc2BenchmarkIds: !exists(json, "soc2_benchmark_ids") ? undefined : json["soc2_benchmark_ids"],
+        tactic: !exists(json, "tactic") ? undefined : json["tactic"],
+        tacticId: !exists(json, "tactic_id") ? undefined : json["tactic_id"],
+        tacticUrl: !exists(json, "tactic_url") ? undefined : json["tactic_url"],
+        technique: !exists(json, "technique") ? undefined : json["technique"],
+        techniqueId: !exists(json, "technique_id") ? undefined : json["technique_id"],
+        techniqueUrl: !exists(json, "technique_url") ? undefined : json["technique_url"],
     };
 }
 
@@ -226,9 +432,17 @@ export function DomainPolicyInfoToJSON(value?: DomainPolicyInfo | null): any {
         DeletedAt: value.deletedAt.toISOString(),
         ID: value.iD,
         UpdatedAt: value.updatedAt.toISOString(),
+        account_scope: value.accountScope,
         alert_logic: value.alertLogic,
         api_command: value.apiCommand,
+        asset_type_id: value.assetTypeId,
+        attack_tool: value.attackTool,
+        attack_tool_command: value.attackToolCommand,
+        attack_types: value.attackTypes,
+        cis_benchmark_ids: value.cisBenchmarkIds,
+        cisa_benchmark_ids: value.cisaBenchmarkIds,
         cli_command: value.cliCommand,
+        cloud_asset_type: value.cloudAssetType,
         cloud_document: value.cloudDocument,
         cloud_platform: value.cloudPlatform,
         cloud_platform_type: value.cloudPlatformType,
@@ -236,15 +450,36 @@ export function DomainPolicyInfoToJSON(value?: DomainPolicyInfo | null): any {
         cloud_service_friendly: value.cloudServiceFriendly,
         cloud_service_subtype: value.cloudServiceSubtype,
         cloud_service_type: value.cloudServiceType,
+        confidence: value.confidence,
         default_severity: value.defaultSeverity,
         description: value.description,
         event_type: value.eventType,
+        fql_policy: value.fqlPolicy,
+        hipaa_benchmark_ids: value.hipaaBenchmarkIds,
+        hitrust_benchmark_ids: value.hitrustBenchmarkIds,
+        internal_only: value.internalOnly,
+        is_enabled: value.isEnabled,
+        is_remediable: value.isRemediable,
+        iso_benchmark_ids: value.isoBenchmarkIds,
         mitre_attack_cloud_matrix: value.mitreAttackCloudMatrix,
         mitre_attack_cloud_subtype: value.mitreAttackCloudSubtype,
+        nist_benchmark_ids: value.nistBenchmarkIds,
+        pci_benchmark_ids: value.pciBenchmarkIds,
+        policy_confidence_score: value.policyConfidenceScore,
         policy_fail_query: value.policyFailQuery,
         policy_pass_query: value.policyPassQuery,
         policy_remediation: value.policyRemediation,
         policy_severity: value.policySeverity,
+        policy_severity_score: value.policySeverityScore,
         policy_statement: value.policyStatement,
+        policy_type: value.policyType,
+        remediation_summary: value.remediationSummary,
+        soc2_benchmark_ids: value.soc2BenchmarkIds,
+        tactic: value.tactic,
+        tactic_id: value.tacticId,
+        tactic_url: value.tacticUrl,
+        technique: value.technique,
+        technique_id: value.techniqueId,
+        technique_url: value.techniqueUrl,
     };
 }

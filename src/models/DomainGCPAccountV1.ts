@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -13,6 +13,11 @@
  */
 
 import { exists, mapValues } from "../runtime";
+import type { DomainCloudScope } from "./DomainCloudScope";
+import { DomainCloudScopeFromJSON, DomainCloudScopeFromJSONTyped, DomainCloudScopeToJSON } from "./DomainCloudScope";
+import type { DomainPermission } from "./DomainPermission";
+import { DomainPermissionFromJSON, DomainPermissionFromJSONTyped, DomainPermissionToJSON } from "./DomainPermission";
+
 /**
  *
  * @export
@@ -21,16 +26,130 @@ import { exists, mapValues } from "../runtime";
 export interface DomainGCPAccountV1 {
     /**
      *
+     * @type {Date}
+     * @memberof DomainGCPAccountV1
+     */
+    createdAt: Date;
+    /**
+     *
+     * @type {Date}
+     * @memberof DomainGCPAccountV1
+     */
+    deletedAt: Date;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainGCPAccountV1
+     */
+    iD: number;
+    /**
+     *
+     * @type {Date}
+     * @memberof DomainGCPAccountV1
+     */
+    updatedAt: Date;
+    /**
+     *
      * @type {string}
      * @memberof DomainGCPAccountV1
      */
     cid: string;
     /**
-     * GCP ParentID.
+     *
+     * @type {Array<DomainCloudScope>}
+     * @memberof DomainGCPAccountV1
+     */
+    cloudScopes?: Array<DomainCloudScope>;
+    /**
+     *
+     * @type {boolean}
+     * @memberof DomainGCPAccountV1
+     */
+    cspmEnabled: boolean;
+    /**
+     * GCP Display Name
+     * @type {string}
+     * @memberof DomainGCPAccountV1
+     */
+    displayName?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainGCPAccountV1
+     */
+    environment?: string;
+    /**
+     * GCP folder ID
+     * @type {string}
+     * @memberof DomainGCPAccountV1
+     */
+    folderId?: string;
+    /**
+     * GCP folder Name
+     * @type {string}
+     * @memberof DomainGCPAccountV1
+     */
+    folderName?: string;
+    /**
+     * Permissions status returned via API.
+     * @type {Array<DomainPermission>}
+     * @memberof DomainGCPAccountV1
+     */
+    gcpPermissionsStatus: Array<DomainPermission>;
+    /**
+     * GCP organization ID
+     * @type {string}
+     * @memberof DomainGCPAccountV1
+     */
+    organizationId?: string;
+    /**
+     * GCP organization name
+     * @type {string}
+     * @memberof DomainGCPAccountV1
+     */
+    organizationName?: string;
+    /**
+     * GCP Account ID for organization/folder/projects.
      * @type {string}
      * @memberof DomainGCPAccountV1
      */
     parentId: string;
+    /**
+     * GCP Parent Type.
+     * @type {string}
+     * @memberof DomainGCPAccountV1
+     */
+    parentType?: string;
+    /**
+     * GCP Project ID
+     * @type {string}
+     * @memberof DomainGCPAccountV1
+     */
+    projectId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainGCPAccountV1
+     */
+    serviceAccountClientEmail?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainGCPAccountV1
+     */
+    serviceAccountClientId?: string;
+    /**
+     * GCP service account ID
+     * @type {number}
+     * @memberof DomainGCPAccountV1
+     */
+    serviceAccountId?: number;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainGCPAccountV1
+     */
+    serviceAccountPrivateKeyId?: string;
     /**
      * Account registration status.
      * @type {string}
@@ -44,7 +163,13 @@ export interface DomainGCPAccountV1 {
  */
 export function instanceOfDomainGCPAccountV1(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "createdAt" in value;
+    isInstance = isInstance && "deletedAt" in value;
+    isInstance = isInstance && "iD" in value;
+    isInstance = isInstance && "updatedAt" in value;
     isInstance = isInstance && "cid" in value;
+    isInstance = isInstance && "cspmEnabled" in value;
+    isInstance = isInstance && "gcpPermissionsStatus" in value;
     isInstance = isInstance && "parentId" in value;
 
     return isInstance;
@@ -59,8 +184,27 @@ export function DomainGCPAccountV1FromJSONTyped(json: any, ignoreDiscriminator: 
         return json;
     }
     return {
+        createdAt: new Date(json["CreatedAt"]),
+        deletedAt: new Date(json["DeletedAt"]),
+        iD: json["ID"],
+        updatedAt: new Date(json["UpdatedAt"]),
         cid: json["cid"],
+        cloudScopes: !exists(json, "cloud_scopes") ? undefined : (json["cloud_scopes"] as Array<any>).map(DomainCloudScopeFromJSON),
+        cspmEnabled: json["cspm_enabled"],
+        displayName: !exists(json, "display_name") ? undefined : json["display_name"],
+        environment: !exists(json, "environment") ? undefined : json["environment"],
+        folderId: !exists(json, "folder_id") ? undefined : json["folder_id"],
+        folderName: !exists(json, "folder_name") ? undefined : json["folder_name"],
+        gcpPermissionsStatus: (json["gcp_permissions_status"] as Array<any>).map(DomainPermissionFromJSON),
+        organizationId: !exists(json, "organization_id") ? undefined : json["organization_id"],
+        organizationName: !exists(json, "organization_name") ? undefined : json["organization_name"],
         parentId: json["parent_id"],
+        parentType: !exists(json, "parent_type") ? undefined : json["parent_type"],
+        projectId: !exists(json, "project_id") ? undefined : json["project_id"],
+        serviceAccountClientEmail: !exists(json, "service_account_client_email") ? undefined : json["service_account_client_email"],
+        serviceAccountClientId: !exists(json, "service_account_client_id") ? undefined : json["service_account_client_id"],
+        serviceAccountId: !exists(json, "service_account_id") ? undefined : json["service_account_id"],
+        serviceAccountPrivateKeyId: !exists(json, "service_account_private_key_id") ? undefined : json["service_account_private_key_id"],
         status: !exists(json, "status") ? undefined : json["status"],
     };
 }
@@ -73,8 +217,27 @@ export function DomainGCPAccountV1ToJSON(value?: DomainGCPAccountV1 | null): any
         return null;
     }
     return {
+        CreatedAt: value.createdAt.toISOString(),
+        DeletedAt: value.deletedAt.toISOString(),
+        ID: value.iD,
+        UpdatedAt: value.updatedAt.toISOString(),
         cid: value.cid,
+        cloud_scopes: value.cloudScopes === undefined ? undefined : (value.cloudScopes as Array<any>).map(DomainCloudScopeToJSON),
+        cspm_enabled: value.cspmEnabled,
+        display_name: value.displayName,
+        environment: value.environment,
+        folder_id: value.folderId,
+        folder_name: value.folderName,
+        gcp_permissions_status: (value.gcpPermissionsStatus as Array<any>).map(DomainPermissionToJSON),
+        organization_id: value.organizationId,
+        organization_name: value.organizationName,
         parent_id: value.parentId,
+        parent_type: value.parentType,
+        project_id: value.projectId,
+        service_account_client_email: value.serviceAccountClientEmail,
+        service_account_client_id: value.serviceAccountClientId,
+        service_account_id: value.serviceAccountId,
+        service_account_private_key_id: value.serviceAccountPrivateKeyId,
         status: value.status,
     };
 }

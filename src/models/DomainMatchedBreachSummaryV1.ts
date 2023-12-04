@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -34,6 +34,24 @@ export interface DomainMatchedBreachSummaryV1 {
      * @memberof DomainMatchedBreachSummaryV1
      */
     confidenceLevel?: string;
+    /**
+     * A list of statuses for the exposed data records contained in the notification. Possible values: 'newly_detected', 'previously_reported' and/or 'other'
+     * @type {Array<string>}
+     * @memberof DomainMatchedBreachSummaryV1
+     */
+    credentialStatuses?: Array<string>;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof DomainMatchedBreachSummaryV1
+     */
+    credentialsDomains?: Array<string>;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof DomainMatchedBreachSummaryV1
+     */
+    credentialsIps?: Array<string>;
     /**
      * The description of the breach
      * @type {string}
@@ -71,17 +89,23 @@ export interface DomainMatchedBreachSummaryV1 {
      */
     files?: Array<DomainFileDetailsV1>;
     /**
-     * Where the exposed data event happened. (e.g. LinkedIn or linkedin[.]com)
-     * @type {Array<string>}
+     *
+     * @type {Date}
      * @memberof DomainMatchedBreachSummaryV1
      */
-    impactedDomains?: Array<string>;
+    idpSendDate?: Date;
     /**
-     * Where the exposed data event happened
-     * @type {Array<string>}
+     *
+     * @type {string}
      * @memberof DomainMatchedBreachSummaryV1
      */
-    impactedIps?: Array<string>;
+    idpSendStatus?: string;
+    /**
+     * (Boolean) If the notification was processed before the introduction of exposed data deduplication
+     * @type {boolean}
+     * @memberof DomainMatchedBreachSummaryV1
+     */
+    isRetroactivelyDeduped: boolean;
     /**
      * The name of the breach
      * @type {string}
@@ -109,6 +133,7 @@ export function instanceOfDomainMatchedBreachSummaryV1(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "description" in value;
     isInstance = isInstance && "fields" in value;
+    isInstance = isInstance && "isRetroactivelyDeduped" in value;
     isInstance = isInstance && "name" in value;
 
     return isInstance;
@@ -125,14 +150,18 @@ export function DomainMatchedBreachSummaryV1FromJSONTyped(json: any, ignoreDiscr
     return {
         communityName: !exists(json, "community_name") ? undefined : json["community_name"],
         confidenceLevel: !exists(json, "confidence_level") ? undefined : json["confidence_level"],
+        credentialStatuses: !exists(json, "credential_statuses") ? undefined : json["credential_statuses"],
+        credentialsDomains: !exists(json, "credentials_domains") ? undefined : json["credentials_domains"],
+        credentialsIps: !exists(json, "credentials_ips") ? undefined : json["credentials_ips"],
         description: json["description"],
         eventDate: !exists(json, "event_date") ? undefined : json["event_date"],
         eventId: !exists(json, "event_id") ? undefined : json["event_id"],
         exposureDate: !exists(json, "exposure_date") ? undefined : new Date(json["exposure_date"]),
         fields: json["fields"],
         files: !exists(json, "files") ? undefined : (json["files"] as Array<any>).map(DomainFileDetailsV1FromJSON),
-        impactedDomains: !exists(json, "impacted_domains") ? undefined : json["impacted_domains"],
-        impactedIps: !exists(json, "impacted_ips") ? undefined : json["impacted_ips"],
+        idpSendDate: !exists(json, "idp_send_date") ? undefined : new Date(json["idp_send_date"]),
+        idpSendStatus: !exists(json, "idp_send_status") ? undefined : json["idp_send_status"],
+        isRetroactivelyDeduped: json["is_retroactively_deduped"],
         name: json["name"],
         obtainedBy: !exists(json, "obtained_by") ? undefined : json["obtained_by"],
         url: !exists(json, "url") ? undefined : json["url"],
@@ -149,14 +178,18 @@ export function DomainMatchedBreachSummaryV1ToJSON(value?: DomainMatchedBreachSu
     return {
         community_name: value.communityName,
         confidence_level: value.confidenceLevel,
+        credential_statuses: value.credentialStatuses,
+        credentials_domains: value.credentialsDomains,
+        credentials_ips: value.credentialsIps,
         description: value.description,
         event_date: value.eventDate,
         event_id: value.eventId,
         exposure_date: value.exposureDate === undefined ? undefined : value.exposureDate.toISOString(),
         fields: value.fields,
         files: value.files === undefined ? undefined : (value.files as Array<any>).map(DomainFileDetailsV1ToJSON),
-        impacted_domains: value.impactedDomains,
-        impacted_ips: value.impactedIps,
+        idp_send_date: value.idpSendDate === undefined ? undefined : value.idpSendDate.toISOString(),
+        idp_send_status: value.idpSendStatus,
+        is_retroactively_deduped: value.isRetroactivelyDeduped,
         name: value.name,
         obtained_by: value.obtainedBy,
         url: value.url,

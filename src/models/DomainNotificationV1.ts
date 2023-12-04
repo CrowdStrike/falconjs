@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -15,6 +15,8 @@
 import { exists, mapValues } from "../runtime";
 import type { DomainMatchedBreachSummaryV1 } from "./DomainMatchedBreachSummaryV1";
 import { DomainMatchedBreachSummaryV1FromJSON, DomainMatchedBreachSummaryV1FromJSONTyped, DomainMatchedBreachSummaryV1ToJSON } from "./DomainMatchedBreachSummaryV1";
+import type { SadomainNotificationLog } from "./SadomainNotificationLog";
+import { SadomainNotificationLogFromJSON, SadomainNotificationLogFromJSONTyped, SadomainNotificationLogToJSON } from "./SadomainNotificationLog";
 import type { SadomainTyposquattingComponent } from "./SadomainTyposquattingComponent";
 import { SadomainTyposquattingComponentFromJSON, SadomainTyposquattingComponentFromJSONTyped, SadomainTyposquattingComponentToJSON } from "./SadomainTyposquattingComponent";
 
@@ -24,6 +26,12 @@ import { SadomainTyposquattingComponentFromJSON, SadomainTyposquattingComponentF
  * @interface DomainNotificationV1
  */
 export interface DomainNotificationV1 {
+    /**
+     *
+     * @type {string}
+     * @memberof DomainNotificationV1
+     */
+    actorSlug: string;
     /**
      * The email of the user who is assigned to this notification
      * @type {string}
@@ -115,6 +123,12 @@ export interface DomainNotificationV1 {
      */
     itemType: string;
     /**
+     *
+     * @type {Array<SadomainNotificationLog>}
+     * @memberof DomainNotificationV1
+     */
+    logs?: Array<SadomainNotificationLog>;
+    /**
      * ID of the raw intel item that matched the rule
      * @type {string}
      * @memberof DomainNotificationV1
@@ -175,6 +189,7 @@ export interface DomainNotificationV1 {
  */
 export function instanceOfDomainNotificationV1(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "actorSlug" in value;
     isInstance = isInstance && "cid" in value;
     isInstance = isInstance && "createdDate" in value;
     isInstance = isInstance && "id" in value;
@@ -201,6 +216,7 @@ export function DomainNotificationV1FromJSONTyped(json: any, ignoreDiscriminator
         return json;
     }
     return {
+        actorSlug: json["actor_slug"],
         assignedToUid: !exists(json, "assigned_to_uid") ? undefined : json["assigned_to_uid"],
         assignedToUsername: !exists(json, "assigned_to_username") ? undefined : json["assigned_to_username"],
         assignedToUuid: !exists(json, "assigned_to_uuid") ? undefined : json["assigned_to_uuid"],
@@ -216,6 +232,7 @@ export function DomainNotificationV1FromJSONTyped(json: any, ignoreDiscriminator
         itemSite: !exists(json, "item_site") ? undefined : json["item_site"],
         itemSiteId: !exists(json, "item_site_id") ? undefined : json["item_site_id"],
         itemType: json["item_type"],
+        logs: !exists(json, "logs") ? undefined : (json["logs"] as Array<any>).map(SadomainNotificationLogFromJSON),
         rawIntelId: json["raw_intel_id"],
         ruleId: json["rule_id"],
         ruleName: json["rule_name"],
@@ -236,6 +253,7 @@ export function DomainNotificationV1ToJSON(value?: DomainNotificationV1 | null):
         return null;
     }
     return {
+        actor_slug: value.actorSlug,
         assigned_to_uid: value.assignedToUid,
         assigned_to_username: value.assignedToUsername,
         assigned_to_uuid: value.assignedToUuid,
@@ -251,6 +269,7 @@ export function DomainNotificationV1ToJSON(value?: DomainNotificationV1 | null):
         item_site: value.itemSite,
         item_site_id: value.itemSiteId,
         item_type: value.itemType,
+        logs: value.logs === undefined ? undefined : (value.logs as Array<any>).map(SadomainNotificationLogToJSON),
         raw_intel_id: value.rawIntelId,
         rule_id: value.ruleId,
         rule_name: value.ruleName,

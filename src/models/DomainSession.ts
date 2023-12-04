@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -41,7 +41,7 @@ export interface DomainSession {
      * @type {{ [key: string]: object; }}
      * @memberof DomainSession
      */
-    commands: { [key: string]: object };
+    commands?: { [key: string]: object };
     /**
      *
      * @type {boolean}
@@ -65,7 +65,7 @@ export interface DomainSession {
      * @type {DomainDevice}
      * @memberof DomainSession
      */
-    deviceDetails: DomainDevice;
+    deviceDetails?: DomainDevice;
     /**
      *
      * @type {string}
@@ -113,19 +113,19 @@ export interface DomainSession {
      * @type {number}
      * @memberof DomainSession
      */
-    platformId: number;
+    platformId?: number;
     /**
      *
      * @type {string}
      * @memberof DomainSession
      */
-    platformName: string;
+    platformName?: string;
     /**
      *
      * @type {string}
      * @memberof DomainSession
      */
-    pwd: string;
+    pwd?: string;
     /**
      *
      * @type {Date}
@@ -153,11 +153,9 @@ export function instanceOfDomainSession(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "cid" in value;
     isInstance = isInstance && "cloudRequestIds" in value;
-    isInstance = isInstance && "commands" in value;
     isInstance = isInstance && "commandsQueued" in value;
     isInstance = isInstance && "createdAt" in value;
     isInstance = isInstance && "deletedAt" in value;
-    isInstance = isInstance && "deviceDetails" in value;
     isInstance = isInstance && "deviceId" in value;
     isInstance = isInstance && "duration" in value;
     isInstance = isInstance && "hostname" in value;
@@ -165,9 +163,6 @@ export function instanceOfDomainSession(value: object): boolean {
     isInstance = isInstance && "logs" in value;
     isInstance = isInstance && "offlineQueued" in value;
     isInstance = isInstance && "origin" in value;
-    isInstance = isInstance && "platformId" in value;
-    isInstance = isInstance && "platformName" in value;
-    isInstance = isInstance && "pwd" in value;
     isInstance = isInstance && "updatedAt" in value;
     isInstance = isInstance && "userId" in value;
     isInstance = isInstance && "userUuid" in value;
@@ -186,11 +181,11 @@ export function DomainSessionFromJSONTyped(json: any, ignoreDiscriminator: boole
     return {
         cid: json["cid"],
         cloudRequestIds: json["cloud_request_ids"],
-        commands: json["commands"],
+        commands: !exists(json, "commands") ? undefined : json["commands"],
         commandsQueued: json["commands_queued"],
         createdAt: new Date(json["created_at"]),
         deletedAt: new Date(json["deleted_at"]),
-        deviceDetails: DomainDeviceFromJSON(json["device_details"]),
+        deviceDetails: !exists(json, "device_details") ? undefined : DomainDeviceFromJSON(json["device_details"]),
         deviceId: json["device_id"],
         duration: json["duration"],
         hostname: json["hostname"],
@@ -198,9 +193,9 @@ export function DomainSessionFromJSONTyped(json: any, ignoreDiscriminator: boole
         logs: (json["logs"] as Array<any>).map(ModelSessionLogFromJSON),
         offlineQueued: json["offline_queued"],
         origin: json["origin"],
-        platformId: json["platform_id"],
-        platformName: json["platform_name"],
-        pwd: json["pwd"],
+        platformId: !exists(json, "platform_id") ? undefined : json["platform_id"],
+        platformName: !exists(json, "platform_name") ? undefined : json["platform_name"],
+        pwd: !exists(json, "pwd") ? undefined : json["pwd"],
         updatedAt: new Date(json["updated_at"]),
         userId: json["user_id"],
         userUuid: json["user_uuid"],

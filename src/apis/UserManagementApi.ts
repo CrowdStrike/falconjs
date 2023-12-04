@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -19,20 +19,21 @@ import type {
     ApiUserRoleResponse,
     DomainActionUserRolesRequest,
     DomainCreateUserRequest,
-    DomainMsaEntitiesRolesResponse,
-    DomainMsaEntitiesUsersResponse,
-    DomainMsaUserGrantsResponse,
     DomainRoleIDs,
     DomainUpdateUserFields,
     DomainUpdateUserRequest,
     DomainUserActionRequest,
     DomainUserCreateRequest,
+    FlightcontrolapiGetRolesResponse,
+    FlightcontrolapiUserGrantResponse,
+    FlightcontrolapiUserResponse,
     MsaEntitiesResponse,
-    MsaErrorsOnly,
-    MsaIdsRequest,
     MsaQueryResponse,
     MsaReplyMetaOnly,
-} from "../models";
+    MsaspecIdsRequest,
+    MsaspecQueryResponse,
+    MsaspecResponseFields,
+} from "../models/index";
 import {
     ApiUserMetadataResponseFromJSON,
     ApiUserMetadataResponseToJSON,
@@ -44,12 +45,6 @@ import {
     DomainActionUserRolesRequestToJSON,
     DomainCreateUserRequestFromJSON,
     DomainCreateUserRequestToJSON,
-    DomainMsaEntitiesRolesResponseFromJSON,
-    DomainMsaEntitiesRolesResponseToJSON,
-    DomainMsaEntitiesUsersResponseFromJSON,
-    DomainMsaEntitiesUsersResponseToJSON,
-    DomainMsaUserGrantsResponseFromJSON,
-    DomainMsaUserGrantsResponseToJSON,
     DomainRoleIDsFromJSON,
     DomainRoleIDsToJSON,
     DomainUpdateUserFieldsFromJSON,
@@ -60,17 +55,25 @@ import {
     DomainUserActionRequestToJSON,
     DomainUserCreateRequestFromJSON,
     DomainUserCreateRequestToJSON,
+    FlightcontrolapiGetRolesResponseFromJSON,
+    FlightcontrolapiGetRolesResponseToJSON,
+    FlightcontrolapiUserGrantResponseFromJSON,
+    FlightcontrolapiUserGrantResponseToJSON,
+    FlightcontrolapiUserResponseFromJSON,
+    FlightcontrolapiUserResponseToJSON,
     MsaEntitiesResponseFromJSON,
     MsaEntitiesResponseToJSON,
-    MsaErrorsOnlyFromJSON,
-    MsaErrorsOnlyToJSON,
-    MsaIdsRequestFromJSON,
-    MsaIdsRequestToJSON,
     MsaQueryResponseFromJSON,
     MsaQueryResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-} from "../models";
+    MsaspecIdsRequestFromJSON,
+    MsaspecIdsRequestToJSON,
+    MsaspecQueryResponseFromJSON,
+    MsaspecQueryResponseToJSON,
+    MsaspecResponseFieldsFromJSON,
+    MsaspecResponseFieldsToJSON,
+} from "../models/index";
 
 export interface CombinedUserRolesV1Request {
     userUuid: string;
@@ -120,6 +123,7 @@ export interface GrantUserRoleIdsRequest {
 export interface QueriesRolesV1Request {
     cid?: string;
     userUuid?: string;
+    action?: string;
 }
 
 export interface QueryUserV1Request {
@@ -138,7 +142,7 @@ export interface RetrieveUserUUIDRequest {
 }
 
 export interface RetrieveUsersGETV1Request {
-    body: MsaIdsRequest;
+    body: MsaspecIdsRequest;
 }
 
 export interface RevokeUserRoleIdsRequest {
@@ -171,7 +175,10 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * Get User Grant(s). This endpoint lists both direct as well as flight control grants between a User and a Customer.
      */
-    async combinedUserRolesV1Raw(requestParameters: CombinedUserRolesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainMsaUserGrantsResponse>> {
+    async combinedUserRolesV1Raw(
+        requestParameters: CombinedUserRolesV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<FlightcontrolapiUserGrantResponse>> {
         if (requestParameters.userUuid === null || requestParameters.userUuid === undefined) {
             throw new runtime.RequiredError("userUuid", "Required parameter requestParameters.userUuid was null or undefined when calling combinedUserRolesV1.");
         }
@@ -210,7 +217,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -223,7 +230,7 @@ export class UserManagementApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaUserGrantsResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => FlightcontrolapiUserGrantResponseFromJSON(jsonValue));
     }
 
     /**
@@ -238,13 +245,14 @@ export class UserManagementApi extends runtime.BaseAPI {
         limit?: number,
         sort?: CombinedUserRolesV1SortEnum,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<DomainMsaUserGrantsResponse> {
+    ): Promise<FlightcontrolapiUserGrantResponse> {
         const response = await this.combinedUserRolesV1Raw({ userUuid: userUuid, cid: cid, directOnly: directOnly, filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
 
     /**
      * Deprecated : Please use POST /user-management/entities/users/v1. Create a new user. After creating a user, assign one or more roles with POST /user-roles/entities/user-roles/v1
+     * @deprecated
      */
     async createUserRaw(requestParameters: CreateUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiUserMetadataResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
@@ -259,7 +267,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -278,6 +286,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
     /**
      * Deprecated : Please use POST /user-management/entities/users/v1. Create a new user. After creating a user, assign one or more roles with POST /user-roles/entities/user-roles/v1
+     * @deprecated
      */
     async createUser(body: DomainUserCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiUserMetadataResponse> {
         const response = await this.createUserRaw({ body: body }, initOverrides);
@@ -287,7 +296,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * Create a new user. After creating a user, assign one or more roles with POST \'/user-management/entities/user-role-actions/v1\'
      */
-    async createUserV1Raw(requestParameters: CreateUserV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainMsaEntitiesUsersResponse>> {
+    async createUserV1Raw(requestParameters: CreateUserV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FlightcontrolapiUserResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createUserV1.");
         }
@@ -304,7 +313,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -318,19 +327,20 @@ export class UserManagementApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaEntitiesUsersResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => FlightcontrolapiUserResponseFromJSON(jsonValue));
     }
 
     /**
      * Create a new user. After creating a user, assign one or more roles with POST \'/user-management/entities/user-role-actions/v1\'
      */
-    async createUserV1(body: DomainCreateUserRequest, validateOnly?: boolean, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainMsaEntitiesUsersResponse> {
+    async createUserV1(body: DomainCreateUserRequest, validateOnly?: boolean, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FlightcontrolapiUserResponse> {
         const response = await this.createUserV1Raw({ body: body, validateOnly: validateOnly }, initOverrides);
         return await response.value();
     }
 
     /**
      * Deprecated : Please use DELETE /user-management/entities/users/v1. Delete a user permanently
+     * @deprecated
      */
     async deleteUserRaw(requestParameters: DeleteUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
         if (requestParameters.userUuid === null || requestParameters.userUuid === undefined) {
@@ -347,7 +357,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -365,6 +375,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
     /**
      * Deprecated : Please use DELETE /user-management/entities/users/v1. Delete a user permanently
+     * @deprecated
      */
     async deleteUser(userUuid: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyMetaOnly> {
         const response = await this.deleteUserRaw({ userUuid: userUuid }, initOverrides);
@@ -374,7 +385,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * Delete a user permanently.
      */
-    async deleteUserV1Raw(requestParameters: DeleteUserV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async deleteUserV1Raw(requestParameters: DeleteUserV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
         if (requestParameters.userUuid === null || requestParameters.userUuid === undefined) {
             throw new runtime.RequiredError("userUuid", "Required parameter requestParameters.userUuid was null or undefined when calling deleteUserV1.");
         }
@@ -389,7 +400,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -402,13 +413,13 @@ export class UserManagementApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecResponseFieldsFromJSON(jsonValue));
     }
 
     /**
      * Delete a user permanently.
      */
-    async deleteUserV1(userUuid: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyMetaOnly> {
+    async deleteUserV1(userUuid: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecResponseFields> {
         const response = await this.deleteUserV1Raw({ userUuid: userUuid }, initOverrides);
         return await response.value();
     }
@@ -416,7 +427,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * Get info about a role
      */
-    async entitiesRolesV1Raw(requestParameters: EntitiesRolesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainMsaEntitiesRolesResponse>> {
+    async entitiesRolesV1Raw(requestParameters: EntitiesRolesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FlightcontrolapiGetRolesResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling entitiesRolesV1.");
         }
@@ -435,7 +446,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -448,19 +459,20 @@ export class UserManagementApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaEntitiesRolesResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => FlightcontrolapiGetRolesResponseFromJSON(jsonValue));
     }
 
     /**
      * Get info about a role
      */
-    async entitiesRolesV1(ids: Array<string>, cid?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainMsaEntitiesRolesResponse> {
+    async entitiesRolesV1(ids: Array<string>, cid?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FlightcontrolapiGetRolesResponse> {
         const response = await this.entitiesRolesV1Raw({ ids: ids, cid: cid }, initOverrides);
         return await response.value();
     }
 
     /**
      * Deprecated : Please use GET /user-management/queries/roles/v1. Show role IDs for all roles available in your customer account. For more information on each role, provide the role ID to `/customer/entities/roles/v1`.
+     * @deprecated
      */
     async getAvailableRoleIdsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
@@ -469,7 +481,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -487,6 +499,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
     /**
      * Deprecated : Please use GET /user-management/queries/roles/v1. Show role IDs for all roles available in your customer account. For more information on each role, provide the role ID to `/customer/entities/roles/v1`.
+     * @deprecated
      */
     async getAvailableRoleIds(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.getAvailableRoleIdsRaw(initOverrides);
@@ -495,6 +508,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
     /**
      * Deprecated : Please use GET /user-management/entities/roles/v1. Get info about a role
+     * @deprecated
      */
     async getRolesRaw(requestParameters: GetRolesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiUserRoleResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
@@ -511,7 +525,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -529,6 +543,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
     /**
      * Deprecated : Please use GET /user-management/entities/roles/v1. Get info about a role
+     * @deprecated
      */
     async getRoles(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiUserRoleResponse> {
         const response = await this.getRolesRaw({ ids: ids }, initOverrides);
@@ -537,6 +552,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
     /**
      * Deprecated : Please use GET /user-management/combined/user-roles/v1. Show role IDs of roles assigned to a user. For more information on each role, provide the role ID to `/customer/entities/roles/v1`.
+     * @deprecated
      */
     async getUserRoleIdsRaw(requestParameters: GetUserRoleIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         if (requestParameters.userUuid === null || requestParameters.userUuid === undefined) {
@@ -553,7 +569,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -571,6 +587,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
     /**
      * Deprecated : Please use GET /user-management/combined/user-roles/v1. Show role IDs of roles assigned to a user. For more information on each role, provide the role ID to `/customer/entities/roles/v1`.
+     * @deprecated
      */
     async getUserRoleIds(userUuid: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.getUserRoleIdsRaw({ userUuid: userUuid }, initOverrides);
@@ -579,6 +596,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
     /**
      * Deprecated : Please use POST /user-management/entities/user-role-actions/v1. Assign one or more roles to a user
+     * @deprecated
      */
     async grantUserRoleIdsRaw(requestParameters: GrantUserRoleIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiUserRoleIDsResponse>> {
         if (requestParameters.userUuid === null || requestParameters.userUuid === undefined) {
@@ -601,7 +619,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -620,6 +638,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
     /**
      * Deprecated : Please use POST /user-management/entities/user-role-actions/v1. Assign one or more roles to a user
+     * @deprecated
      */
     async grantUserRoleIds(userUuid: string, body: DomainRoleIDs, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiUserRoleIDsResponse> {
         const response = await this.grantUserRoleIdsRaw({ userUuid: userUuid, body: body }, initOverrides);
@@ -629,7 +648,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * Show role IDs for all roles available in your customer account. For more information on each role, provide the role ID to `/user-management/entities/roles/v1`.
      */
-    async queriesRolesV1Raw(requestParameters: QueriesRolesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queriesRolesV1Raw(requestParameters: QueriesRolesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.cid !== undefined) {
@@ -640,11 +659,15 @@ export class UserManagementApi extends runtime.BaseAPI {
             queryParameters["user_uuid"] = requestParameters.userUuid;
         }
 
+        if (requestParameters.action !== undefined) {
+            queryParameters["action"] = requestParameters.action;
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -657,21 +680,21 @@ export class UserManagementApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
 
     /**
      * Show role IDs for all roles available in your customer account. For more information on each role, provide the role ID to `/user-management/entities/roles/v1`.
      */
-    async queriesRolesV1(cid?: string, userUuid?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
-        const response = await this.queriesRolesV1Raw({ cid: cid, userUuid: userUuid }, initOverrides);
+    async queriesRolesV1(cid?: string, userUuid?: string, action?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
+        const response = await this.queriesRolesV1Raw({ cid: cid, userUuid: userUuid, action: action }, initOverrides);
         return await response.value();
     }
 
     /**
      * List user IDs for all users in your customer account. For more information on each user, provide the user ID to `/user-management/entities/users/GET/v1`.
      */
-    async queryUserV1Raw(requestParameters: QueryUserV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryUserV1Raw(requestParameters: QueryUserV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -694,7 +717,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -707,19 +730,20 @@ export class UserManagementApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
 
     /**
      * List user IDs for all users in your customer account. For more information on each user, provide the user ID to `/user-management/entities/users/GET/v1`.
      */
-    async queryUserV1(filter?: string, offset?: number, limit?: number, sort?: QueryUserV1SortEnum, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
+    async queryUserV1(filter?: string, offset?: number, limit?: number, sort?: QueryUserV1SortEnum, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
         const response = await this.queryUserV1Raw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
 
     /**
      * Deprecated : Please use POST /user-management/entities/users/GET/v1. List the usernames (usually an email address) for all users in your customer account
+     * @deprecated
      */
     async retrieveEmailsByCIDRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
@@ -728,7 +752,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -746,6 +770,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
     /**
      * Deprecated : Please use POST /user-management/entities/users/GET/v1. List the usernames (usually an email address) for all users in your customer account
+     * @deprecated
      */
     async retrieveEmailsByCID(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.retrieveEmailsByCIDRaw(initOverrides);
@@ -754,6 +779,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
     /**
      * Deprecated : Please use POST /user-management/entities/users/GET/v1. Get info about a user
+     * @deprecated
      */
     async retrieveUserRaw(requestParameters: RetrieveUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiUserMetadataResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
@@ -770,7 +796,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -788,6 +814,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
     /**
      * Deprecated : Please use POST /user-management/entities/users/GET/v1. Get info about a user
+     * @deprecated
      */
     async retrieveUser(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiUserMetadataResponse> {
         const response = await this.retrieveUserRaw({ ids: ids }, initOverrides);
@@ -796,6 +823,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
     /**
      * Deprecated : Please use GET /user-management/queries/users/v1. Get a user\'s ID by providing a username (usually an email address)
+     * @deprecated
      */
     async retrieveUserUUIDRaw(requestParameters: RetrieveUserUUIDRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         if (requestParameters.uid === null || requestParameters.uid === undefined) {
@@ -812,7 +840,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -830,6 +858,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
     /**
      * Deprecated : Please use GET /user-management/queries/users/v1. Get a user\'s ID by providing a username (usually an email address)
+     * @deprecated
      */
     async retrieveUserUUID(uid: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.retrieveUserUUIDRaw({ uid: uid }, initOverrides);
@@ -838,6 +867,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
     /**
      * Deprecated : Please use GET /user-management/queries/users/v1. List user IDs for all users in your customer account. For more information on each user, provide the user ID to `/users/entities/user/v1`.
+     * @deprecated
      */
     async retrieveUserUUIDsByCIDRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
@@ -846,7 +876,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -864,6 +894,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
     /**
      * Deprecated : Please use GET /user-management/queries/users/v1. List user IDs for all users in your customer account. For more information on each user, provide the user ID to `/users/entities/user/v1`.
+     * @deprecated
      */
     async retrieveUserUUIDsByCID(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.retrieveUserUUIDsByCIDRaw(initOverrides);
@@ -873,10 +904,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * Get info about users including their name, UID and CID by providing user UUIDs
      */
-    async retrieveUsersGETV1Raw(
-        requestParameters: RetrieveUsersGETV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<DomainMsaEntitiesUsersResponse>> {
+    async retrieveUsersGETV1Raw(requestParameters: RetrieveUsersGETV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FlightcontrolapiUserResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling retrieveUsersGETV1.");
         }
@@ -889,7 +917,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -898,24 +926,25 @@ export class UserManagementApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: MsaIdsRequestToJSON(requestParameters.body),
+                body: MsaspecIdsRequestToJSON(requestParameters.body),
             },
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaEntitiesUsersResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => FlightcontrolapiUserResponseFromJSON(jsonValue));
     }
 
     /**
      * Get info about users including their name, UID and CID by providing user UUIDs
      */
-    async retrieveUsersGETV1(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainMsaEntitiesUsersResponse> {
+    async retrieveUsersGETV1(body: MsaspecIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FlightcontrolapiUserResponse> {
         const response = await this.retrieveUsersGETV1Raw({ body: body }, initOverrides);
         return await response.value();
     }
 
     /**
      * Deprecated : Please use POST /user-management/entities/user-role-actions/v1. Revoke one or more roles from a user
+     * @deprecated
      */
     async revokeUserRoleIdsRaw(requestParameters: RevokeUserRoleIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiUserRoleIDsResponse>> {
         if (requestParameters.userUuid === null || requestParameters.userUuid === undefined) {
@@ -940,7 +969,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -958,6 +987,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
     /**
      * Deprecated : Please use POST /user-management/entities/user-role-actions/v1. Revoke one or more roles from a user
+     * @deprecated
      */
     async revokeUserRoleIds(userUuid: string, ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiUserRoleIDsResponse> {
         const response = await this.revokeUserRoleIdsRaw({ userUuid: userUuid, ids: ids }, initOverrides);
@@ -966,6 +996,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
     /**
      * Deprecated : Please use PATCH /user-management/entities/users/v1. Modify an existing user\'s first or last name
+     * @deprecated
      */
     async updateUserRaw(requestParameters: UpdateUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiUserMetadataResponse>> {
         if (requestParameters.userUuid === null || requestParameters.userUuid === undefined) {
@@ -988,7 +1019,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -1007,6 +1038,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
     /**
      * Deprecated : Please use PATCH /user-management/entities/users/v1. Modify an existing user\'s first or last name
+     * @deprecated
      */
     async updateUser(userUuid: string, body: DomainUpdateUserFields, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiUserMetadataResponse> {
         const response = await this.updateUserRaw({ userUuid: userUuid, body: body }, initOverrides);
@@ -1016,7 +1048,7 @@ export class UserManagementApi extends runtime.BaseAPI {
     /**
      * Modify an existing user\'s first or last name.
      */
-    async updateUserV1Raw(requestParameters: UpdateUserV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainMsaEntitiesUsersResponse>> {
+    async updateUserV1Raw(requestParameters: UpdateUserV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FlightcontrolapiUserResponse>> {
         if (requestParameters.userUuid === null || requestParameters.userUuid === undefined) {
             throw new runtime.RequiredError("userUuid", "Required parameter requestParameters.userUuid was null or undefined when calling updateUserV1.");
         }
@@ -1037,7 +1069,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -1051,21 +1083,21 @@ export class UserManagementApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaEntitiesUsersResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => FlightcontrolapiUserResponseFromJSON(jsonValue));
     }
 
     /**
      * Modify an existing user\'s first or last name.
      */
-    async updateUserV1(userUuid: string, body: DomainUpdateUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainMsaEntitiesUsersResponse> {
+    async updateUserV1(userUuid: string, body: DomainUpdateUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FlightcontrolapiUserResponse> {
         const response = await this.updateUserV1Raw({ userUuid: userUuid, body: body }, initOverrides);
         return await response.value();
     }
 
     /**
-     * Apply actions to one or more User. Available action names: reset_2fa, reset_password.
+     * Apply actions to one or more User. Available action names: reset_2fa, reset_password. User UUIDs can be provided in `ids` param as part of request payload.
      */
-    async userActionV1Raw(requestParameters: UserActionV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async userActionV1Raw(requestParameters: UserActionV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling userActionV1.");
         }
@@ -1078,7 +1110,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -1092,21 +1124,21 @@ export class UserManagementApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecResponseFieldsFromJSON(jsonValue));
     }
 
     /**
-     * Apply actions to one or more User. Available action names: reset_2fa, reset_password.
+     * Apply actions to one or more User. Available action names: reset_2fa, reset_password. User UUIDs can be provided in `ids` param as part of request payload.
      */
-    async userActionV1(body: DomainUserActionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyMetaOnly> {
+    async userActionV1(body: DomainUserActionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecResponseFields> {
         const response = await this.userActionV1Raw({ body: body }, initOverrides);
         return await response.value();
     }
 
     /**
-     * Grant or Revoke one or more role(s) to a user against a CID.
+     * Grant or Revoke one or more role(s) to a user against a CID. User UUID, CID and Role ID(s) can be provided in request payload. Available Action(s) : grant, revoke
      */
-    async userRolesActionV1Raw(requestParameters: UserRolesActionV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async userRolesActionV1Raw(requestParameters: UserRolesActionV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling userRolesActionV1.");
         }
@@ -1119,7 +1151,7 @@ export class UserManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -1133,13 +1165,13 @@ export class UserManagementApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecResponseFieldsFromJSON(jsonValue));
     }
 
     /**
-     * Grant or Revoke one or more role(s) to a user against a CID.
+     * Grant or Revoke one or more role(s) to a user against a CID. User UUID, CID and Role ID(s) can be provided in request payload. Available Action(s) : grant, revoke
      */
-    async userRolesActionV1(body: DomainActionUserRolesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyMetaOnly> {
+    async userRolesActionV1(body: DomainActionUserRolesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecResponseFields> {
         const response = await this.userRolesActionV1Raw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -1161,8 +1193,14 @@ export type CombinedUserRolesV1SortEnum = (typeof CombinedUserRolesV1SortEnum)[k
  * @export
  */
 export const QueryUserV1SortEnum = {
+    CidNameAsc: "cid_name|asc",
+    CidNameDesc: "cid_name|desc",
+    CreatedAtAsc: "created_at|asc",
+    CreatedAtDesc: "created_at|desc",
     FirstNameAsc: "first_name|asc",
     FirstNameDesc: "first_name|desc",
+    LastLoginAtAsc: "last_login_at|asc",
+    LastLoginAtDesc: "last_login_at|desc",
     LastNameAsc: "last_name|asc",
     LastNameDesc: "last_name|desc",
     NameAsc: "name|asc",

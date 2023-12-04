@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -70,6 +70,12 @@ export interface FalconxSandboxSummaryReportV1 {
      * @memberof FalconxSandboxSummaryReportV1
      */
     incidents?: Array<FalconxIncident>;
+    /**
+     *
+     * @type {string}
+     * @memberof FalconxSandboxSummaryReportV1
+     */
+    networkSettings?: string;
     /**
      *
      * @type {Array<string>}
@@ -140,6 +146,7 @@ export function FalconxSandboxSummaryReportV1FromJSONTyped(json: any, ignoreDisc
         errorType: !exists(json, "error_type") ? undefined : json["error_type"],
         fileType: !exists(json, "file_type") ? undefined : json["file_type"],
         incidents: !exists(json, "incidents") ? undefined : (json["incidents"] as Array<any>).map(FalconxIncidentFromJSON),
+        networkSettings: !exists(json, "network_settings") ? undefined : json["network_settings"],
         sampleFlags: !exists(json, "sample_flags") ? undefined : json["sample_flags"],
         sha256: !exists(json, "sha256") ? undefined : json["sha256"],
         submissionType: !exists(json, "submission_type") ? undefined : json["submission_type"],
@@ -166,6 +173,7 @@ export function FalconxSandboxSummaryReportV1ToJSON(value?: FalconxSandboxSummar
         error_type: value.errorType,
         file_type: value.fileType,
         incidents: value.incidents === undefined ? undefined : (value.incidents as Array<any>).map(FalconxIncidentToJSON),
+        network_settings: value.networkSettings,
         sample_flags: value.sampleFlags,
         sha256: value.sha256,
         submission_type: value.submissionType,

@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -15,19 +15,24 @@
 import * as runtime from "../runtime";
 import type {
     ApiActionRespV1,
+    ApiDevicesRanOnRespV1,
     ApiIndicatorCreateReqsV1,
     ApiIndicatorQueryRespV1,
     ApiIndicatorRespV1,
     ApiIndicatorUpdateReqsV1,
     ApiIndicatorsReportRequest,
+    ApiProcessesRanOnRespV1,
     MsaAggregateQueryRequest,
     MsaAggregatesResponse,
     MsaEntitiesResponse,
     MsaReplyMetaOnly,
-} from "../models";
+    MsaspecResponseFields,
+} from "../models/index";
 import {
     ApiActionRespV1FromJSON,
     ApiActionRespV1ToJSON,
+    ApiDevicesRanOnRespV1FromJSON,
+    ApiDevicesRanOnRespV1ToJSON,
     ApiIndicatorCreateReqsV1FromJSON,
     ApiIndicatorCreateReqsV1ToJSON,
     ApiIndicatorQueryRespV1FromJSON,
@@ -38,6 +43,8 @@ import {
     ApiIndicatorUpdateReqsV1ToJSON,
     ApiIndicatorsReportRequestFromJSON,
     ApiIndicatorsReportRequestToJSON,
+    ApiProcessesRanOnRespV1FromJSON,
+    ApiProcessesRanOnRespV1ToJSON,
     MsaAggregateQueryRequestFromJSON,
     MsaAggregateQueryRequestToJSON,
     MsaAggregatesResponseFromJSON,
@@ -46,7 +53,9 @@ import {
     MsaEntitiesResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-} from "../models";
+    MsaspecResponseFieldsFromJSON,
+    MsaspecResponseFieldsToJSON,
+} from "../models/index";
 
 export interface ActionGetV1Request {
     ids?: Array<string>;
@@ -89,6 +98,21 @@ export interface IndicatorDeleteV1Request {
     fromParent?: boolean;
 }
 
+export interface IndicatorGetDevicesRanOnV1Request {
+    type: string;
+    value: string;
+    limit?: string;
+    offset?: string;
+}
+
+export interface IndicatorGetProcessesRanOnV1Request {
+    type: string;
+    value: string;
+    deviceId: string;
+    limit?: string;
+    offset?: string;
+}
+
 export interface IndicatorGetV1Request {
     ids: Array<string>;
 }
@@ -99,6 +123,7 @@ export interface IndicatorSearchV1Request {
     limit?: number;
     sort?: IndicatorSearchV1SortEnum;
     after?: string;
+    fromParent?: boolean;
 }
 
 export interface IndicatorUpdateV1Request {
@@ -133,14 +158,14 @@ export class IocApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids.join(runtime.COLLECTION_FORMATS["csv"]);
+            queryParameters["ids"] = requestParameters.ids;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -182,7 +207,7 @@ export class IocApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -222,7 +247,7 @@ export class IocApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -271,7 +296,7 @@ export class IocApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -330,7 +355,7 @@ export class IocApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -386,7 +411,7 @@ export class IocApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -422,7 +447,7 @@ export class IocApi extends runtime.BaseAPI {
         }
 
         if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids.join(runtime.COLLECTION_FORMATS["csv"]);
+            queryParameters["ids"] = requestParameters.ids;
         }
 
         if (requestParameters.comment !== undefined) {
@@ -437,7 +462,7 @@ export class IocApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -468,6 +493,143 @@ export class IocApi extends runtime.BaseAPI {
     }
 
     /**
+     * Get the number of devices the indicator has run on
+     */
+    async indicatorGetDevicesRanOnV1Raw(
+        requestParameters: IndicatorGetDevicesRanOnV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ApiDevicesRanOnRespV1>> {
+        if (requestParameters.type === null || requestParameters.type === undefined) {
+            throw new runtime.RequiredError("type", "Required parameter requestParameters.type was null or undefined when calling indicatorGetDevicesRanOnV1.");
+        }
+
+        if (requestParameters.value === null || requestParameters.value === undefined) {
+            throw new runtime.RequiredError("value", "Required parameter requestParameters.value was null or undefined when calling indicatorGetDevicesRanOnV1.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.type !== undefined) {
+            queryParameters["type"] = requestParameters.type;
+        }
+
+        if (requestParameters.value !== undefined) {
+            queryParameters["value"] = requestParameters.value;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/iocs/queries/indicators/devices/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiDevicesRanOnRespV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Get the number of devices the indicator has run on
+     */
+    async indicatorGetDevicesRanOnV1(type: string, value: string, limit?: string, offset?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiDevicesRanOnRespV1> {
+        const response = await this.indicatorGetDevicesRanOnV1Raw({ type: type, value: value, limit: limit, offset: offset }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get the number of processes the indicator has run on
+     */
+    async indicatorGetProcessesRanOnV1Raw(
+        requestParameters: IndicatorGetProcessesRanOnV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ApiProcessesRanOnRespV1>> {
+        if (requestParameters.type === null || requestParameters.type === undefined) {
+            throw new runtime.RequiredError("type", "Required parameter requestParameters.type was null or undefined when calling indicatorGetProcessesRanOnV1.");
+        }
+
+        if (requestParameters.value === null || requestParameters.value === undefined) {
+            throw new runtime.RequiredError("value", "Required parameter requestParameters.value was null or undefined when calling indicatorGetProcessesRanOnV1.");
+        }
+
+        if (requestParameters.deviceId === null || requestParameters.deviceId === undefined) {
+            throw new runtime.RequiredError("deviceId", "Required parameter requestParameters.deviceId was null or undefined when calling indicatorGetProcessesRanOnV1.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.type !== undefined) {
+            queryParameters["type"] = requestParameters.type;
+        }
+
+        if (requestParameters.value !== undefined) {
+            queryParameters["value"] = requestParameters.value;
+        }
+
+        if (requestParameters.deviceId !== undefined) {
+            queryParameters["device_id"] = requestParameters.deviceId;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/iocs/queries/indicators/processes/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiProcessesRanOnRespV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Get the number of processes the indicator has run on
+     */
+    async indicatorGetProcessesRanOnV1(
+        type: string,
+        value: string,
+        deviceId: string,
+        limit?: string,
+        offset?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<ApiProcessesRanOnRespV1> {
+        const response = await this.indicatorGetProcessesRanOnV1Raw({ type: type, value: value, deviceId: deviceId, limit: limit, offset: offset }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Get Indicators by ids.
      */
     async indicatorGetV1Raw(requestParameters: IndicatorGetV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorRespV1>> {
@@ -478,14 +640,14 @@ export class IocApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids.join(runtime.COLLECTION_FORMATS["csv"]);
+            queryParameters["ids"] = requestParameters.ids;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -535,11 +697,15 @@ export class IocApi extends runtime.BaseAPI {
             queryParameters["after"] = requestParameters.after;
         }
 
+        if (requestParameters.fromParent !== undefined) {
+            queryParameters["from_parent"] = requestParameters.fromParent;
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -564,9 +730,10 @@ export class IocApi extends runtime.BaseAPI {
         limit?: number,
         sort?: IndicatorSearchV1SortEnum,
         after?: string,
+        fromParent?: boolean,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<ApiIndicatorQueryRespV1> {
-        const response = await this.indicatorSearchV1Raw({ filter: filter, offset: offset, limit: limit, sort: sort, after: after }, initOverrides);
+        const response = await this.indicatorSearchV1Raw({ filter: filter, offset: offset, limit: limit, sort: sort, after: after, fromParent: fromParent }, initOverrides);
         return await response.value();
     }
 
@@ -594,7 +761,7 @@ export class IocApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -637,7 +804,7 @@ export class IocApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -679,7 +846,7 @@ export class IocApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -721,7 +888,7 @@ export class IocApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(

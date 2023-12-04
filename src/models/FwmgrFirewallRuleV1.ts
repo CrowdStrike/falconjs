@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -98,6 +98,18 @@ export interface FwmgrFirewallRuleV1 {
      * @memberof FwmgrFirewallRuleV1
      */
     fields: Array<FwmgrFirewallFieldValue>;
+    /**
+     *
+     * @type {string}
+     * @memberof FwmgrFirewallRuleV1
+     */
+    fqdn: string;
+    /**
+     *
+     * @type {boolean}
+     * @memberof FwmgrFirewallRuleV1
+     */
+    fqdnEnabled: boolean;
     /**
      *
      * @type {FwmgrFirewallICMP}
@@ -199,6 +211,8 @@ export function instanceOfFwmgrFirewallRuleV1(value: object): boolean {
     isInstance = isInstance && "enabled" in value;
     isInstance = isInstance && "family" in value;
     isInstance = isInstance && "fields" in value;
+    isInstance = isInstance && "fqdn" in value;
+    isInstance = isInstance && "fqdnEnabled" in value;
     isInstance = isInstance && "icmp" in value;
     isInstance = isInstance && "id" in value;
     isInstance = isInstance && "localAddress" in value;
@@ -235,6 +249,8 @@ export function FwmgrFirewallRuleV1FromJSONTyped(json: any, ignoreDiscriminator:
         enabled: json["enabled"],
         family: json["family"],
         fields: (json["fields"] as Array<any>).map(FwmgrFirewallFieldValueFromJSON),
+        fqdn: json["fqdn"],
+        fqdnEnabled: json["fqdn_enabled"],
         icmp: FwmgrFirewallICMPFromJSON(json["icmp"]),
         id: json["id"],
         localAddress: (json["local_address"] as Array<any>).map(FwmgrFirewallAddressRangeFromJSON),
@@ -271,6 +287,8 @@ export function FwmgrFirewallRuleV1ToJSON(value?: FwmgrFirewallRuleV1 | null): a
         enabled: value.enabled,
         family: value.family,
         fields: (value.fields as Array<any>).map(FwmgrFirewallFieldValueToJSON),
+        fqdn: value.fqdn,
+        fqdn_enabled: value.fqdnEnabled,
         icmp: FwmgrFirewallICMPToJSON(value.icmp),
         id: value.id,
         local_address: (value.localAddress as Array<any>).map(FwmgrFirewallAddressRangeToJSON),

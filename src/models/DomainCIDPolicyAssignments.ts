@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -13,30 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import type { DomainCIDPolicyAssignmentsCisBenchmark } from "./DomainCIDPolicyAssignmentsCisBenchmark";
-import {
-    DomainCIDPolicyAssignmentsCisBenchmarkFromJSON,
-    DomainCIDPolicyAssignmentsCisBenchmarkFromJSONTyped,
-    DomainCIDPolicyAssignmentsCisBenchmarkToJSON,
-} from "./DomainCIDPolicyAssignmentsCisBenchmark";
-import type { DomainCIDPolicyAssignmentsNistBenchmark } from "./DomainCIDPolicyAssignmentsNistBenchmark";
-import {
-    DomainCIDPolicyAssignmentsNistBenchmarkFromJSON,
-    DomainCIDPolicyAssignmentsNistBenchmarkFromJSONTyped,
-    DomainCIDPolicyAssignmentsNistBenchmarkToJSON,
-} from "./DomainCIDPolicyAssignmentsNistBenchmark";
-import type { DomainCIDPolicyAssignmentsPciBenchmark } from "./DomainCIDPolicyAssignmentsPciBenchmark";
-import {
-    DomainCIDPolicyAssignmentsPciBenchmarkFromJSON,
-    DomainCIDPolicyAssignmentsPciBenchmarkFromJSONTyped,
-    DomainCIDPolicyAssignmentsPciBenchmarkToJSON,
-} from "./DomainCIDPolicyAssignmentsPciBenchmark";
-import type { DomainCIDPolicyAssignmentsSoc2Benchmark } from "./DomainCIDPolicyAssignmentsSoc2Benchmark";
-import {
-    DomainCIDPolicyAssignmentsSoc2BenchmarkFromJSON,
-    DomainCIDPolicyAssignmentsSoc2BenchmarkFromJSONTyped,
-    DomainCIDPolicyAssignmentsSoc2BenchmarkToJSON,
-} from "./DomainCIDPolicyAssignmentsSoc2Benchmark";
+import type { DomainBenchmark } from "./DomainBenchmark";
+import { DomainBenchmarkFromJSON, DomainBenchmarkFromJSONTyped, DomainBenchmarkToJSON } from "./DomainBenchmark";
 import type { DomainPolicySettingByAccountAndRegion } from "./DomainPolicySettingByAccountAndRegion";
 import {
     DomainPolicySettingByAccountAndRegionFromJSON,
@@ -55,19 +33,49 @@ export interface DomainCIDPolicyAssignments {
      * @type {string}
      * @memberof DomainCIDPolicyAssignments
      */
+    accountScope?: string;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof DomainCIDPolicyAssignments
+     */
+    attackTypes?: Array<string>;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainCIDPolicyAssignments
+     */
     cid?: string;
     /**
      *
-     * @type {Array<DomainCIDPolicyAssignmentsCisBenchmark>}
+     * @type {Array<DomainBenchmark>}
      * @memberof DomainCIDPolicyAssignments
      */
-    cisBenchmark?: Array<DomainCIDPolicyAssignmentsCisBenchmark>;
+    cisBenchmark?: Array<DomainBenchmark>;
+    /**
+     *
+     * @type {Array<DomainBenchmark>}
+     * @memberof DomainCIDPolicyAssignments
+     */
+    cisaBenchmark?: Array<DomainBenchmark>;
     /**
      *
      * @type {string}
      * @memberof DomainCIDPolicyAssignments
      */
     cloudAssetType?: string;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainCIDPolicyAssignments
+     */
+    cloudAssetTypeId?: number;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainCIDPolicyAssignments
+     */
+    cloudProvider?: string;
     /**
      *
      * @type {string}
@@ -79,7 +87,19 @@ export interface DomainCIDPolicyAssignments {
      * @type {string}
      * @memberof DomainCIDPolicyAssignments
      */
+    cloudServiceFriendly?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainCIDPolicyAssignments
+     */
     cloudServiceSubtype?: string;
+    /**
+     *
+     * @type {Date}
+     * @memberof DomainCIDPolicyAssignments
+     */
+    createdAt?: Date;
     /**
      *
      * @type {string}
@@ -94,22 +114,34 @@ export interface DomainCIDPolicyAssignments {
     fqlPolicy?: string;
     /**
      *
+     * @type {boolean}
+     * @memberof DomainCIDPolicyAssignments
+     */
+    isRemediable: boolean;
+    /**
+     *
+     * @type {Array<DomainBenchmark>}
+     * @memberof DomainCIDPolicyAssignments
+     */
+    isoBenchmark?: Array<DomainBenchmark>;
+    /**
+     *
      * @type {string}
      * @memberof DomainCIDPolicyAssignments
      */
     name?: string;
     /**
      *
-     * @type {Array<DomainCIDPolicyAssignmentsNistBenchmark>}
+     * @type {Array<DomainBenchmark>}
      * @memberof DomainCIDPolicyAssignments
      */
-    nistBenchmark?: Array<DomainCIDPolicyAssignmentsNistBenchmark>;
+    nistBenchmark?: Array<DomainBenchmark>;
     /**
      *
-     * @type {Array<DomainCIDPolicyAssignmentsPciBenchmark>}
+     * @type {Array<DomainBenchmark>}
      * @memberof DomainCIDPolicyAssignments
      */
-    pciBenchmark?: Array<DomainCIDPolicyAssignmentsPciBenchmark>;
+    pciBenchmark?: Array<DomainBenchmark>;
     /**
      *
      * @type {number}
@@ -136,10 +168,22 @@ export interface DomainCIDPolicyAssignments {
     policyType?: string;
     /**
      *
-     * @type {Array<DomainCIDPolicyAssignmentsSoc2Benchmark>}
+     * @type {string}
      * @memberof DomainCIDPolicyAssignments
      */
-    soc2Benchmark?: Array<DomainCIDPolicyAssignmentsSoc2Benchmark>;
+    remediationSummary?: string;
+    /**
+     *
+     * @type {Array<DomainBenchmark>}
+     * @memberof DomainCIDPolicyAssignments
+     */
+    soc2Benchmark?: Array<DomainBenchmark>;
+    /**
+     *
+     * @type {Date}
+     * @memberof DomainCIDPolicyAssignments
+     */
+    updatedAt?: Date;
 }
 
 /**
@@ -147,6 +191,7 @@ export interface DomainCIDPolicyAssignments {
  */
 export function instanceOfDomainCIDPolicyAssignments(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "isRemediable" in value;
 
     return isInstance;
 }
@@ -160,21 +205,32 @@ export function DomainCIDPolicyAssignmentsFromJSONTyped(json: any, ignoreDiscrim
         return json;
     }
     return {
+        accountScope: !exists(json, "account_scope") ? undefined : json["account_scope"],
+        attackTypes: !exists(json, "attack_types") ? undefined : json["attack_types"],
         cid: !exists(json, "cid") ? undefined : json["cid"],
-        cisBenchmark: !exists(json, "cis_benchmark") ? undefined : (json["cis_benchmark"] as Array<any>).map(DomainCIDPolicyAssignmentsCisBenchmarkFromJSON),
+        cisBenchmark: !exists(json, "cis_benchmark") ? undefined : (json["cis_benchmark"] as Array<any>).map(DomainBenchmarkFromJSON),
+        cisaBenchmark: !exists(json, "cisa_benchmark") ? undefined : (json["cisa_benchmark"] as Array<any>).map(DomainBenchmarkFromJSON),
         cloudAssetType: !exists(json, "cloud_asset_type") ? undefined : json["cloud_asset_type"],
+        cloudAssetTypeId: !exists(json, "cloud_asset_type_id") ? undefined : json["cloud_asset_type_id"],
+        cloudProvider: !exists(json, "cloud_provider") ? undefined : json["cloud_provider"],
         cloudService: !exists(json, "cloud_service") ? undefined : json["cloud_service"],
+        cloudServiceFriendly: !exists(json, "cloud_service_friendly") ? undefined : json["cloud_service_friendly"],
         cloudServiceSubtype: !exists(json, "cloud_service_subtype") ? undefined : json["cloud_service_subtype"],
+        createdAt: !exists(json, "created_at") ? undefined : new Date(json["created_at"]),
         defaultSeverity: !exists(json, "default_severity") ? undefined : json["default_severity"],
         fqlPolicy: !exists(json, "fql_policy") ? undefined : json["fql_policy"],
+        isRemediable: json["is_remediable"],
+        isoBenchmark: !exists(json, "iso_benchmark") ? undefined : (json["iso_benchmark"] as Array<any>).map(DomainBenchmarkFromJSON),
         name: !exists(json, "name") ? undefined : json["name"],
-        nistBenchmark: !exists(json, "nist_benchmark") ? undefined : (json["nist_benchmark"] as Array<any>).map(DomainCIDPolicyAssignmentsNistBenchmarkFromJSON),
-        pciBenchmark: !exists(json, "pci_benchmark") ? undefined : (json["pci_benchmark"] as Array<any>).map(DomainCIDPolicyAssignmentsPciBenchmarkFromJSON),
+        nistBenchmark: !exists(json, "nist_benchmark") ? undefined : (json["nist_benchmark"] as Array<any>).map(DomainBenchmarkFromJSON),
+        pciBenchmark: !exists(json, "pci_benchmark") ? undefined : (json["pci_benchmark"] as Array<any>).map(DomainBenchmarkFromJSON),
         policyId: !exists(json, "policy_id") ? undefined : json["policy_id"],
         policySettings: !exists(json, "policy_settings") ? undefined : (json["policy_settings"] as Array<any>).map(DomainPolicySettingByAccountAndRegionFromJSON),
         policyTimestamp: !exists(json, "policy_timestamp") ? undefined : new Date(json["policy_timestamp"]),
         policyType: !exists(json, "policy_type") ? undefined : json["policy_type"],
-        soc2Benchmark: !exists(json, "soc2_benchmark") ? undefined : (json["soc2_benchmark"] as Array<any>).map(DomainCIDPolicyAssignmentsSoc2BenchmarkFromJSON),
+        remediationSummary: !exists(json, "remediation_summary") ? undefined : json["remediation_summary"],
+        soc2Benchmark: !exists(json, "soc2_benchmark") ? undefined : (json["soc2_benchmark"] as Array<any>).map(DomainBenchmarkFromJSON),
+        updatedAt: !exists(json, "updated_at") ? undefined : new Date(json["updated_at"]),
     };
 }
 
@@ -186,20 +242,31 @@ export function DomainCIDPolicyAssignmentsToJSON(value?: DomainCIDPolicyAssignme
         return null;
     }
     return {
+        account_scope: value.accountScope,
+        attack_types: value.attackTypes,
         cid: value.cid,
-        cis_benchmark: value.cisBenchmark === undefined ? undefined : (value.cisBenchmark as Array<any>).map(DomainCIDPolicyAssignmentsCisBenchmarkToJSON),
+        cis_benchmark: value.cisBenchmark === undefined ? undefined : (value.cisBenchmark as Array<any>).map(DomainBenchmarkToJSON),
+        cisa_benchmark: value.cisaBenchmark === undefined ? undefined : (value.cisaBenchmark as Array<any>).map(DomainBenchmarkToJSON),
         cloud_asset_type: value.cloudAssetType,
+        cloud_asset_type_id: value.cloudAssetTypeId,
+        cloud_provider: value.cloudProvider,
         cloud_service: value.cloudService,
+        cloud_service_friendly: value.cloudServiceFriendly,
         cloud_service_subtype: value.cloudServiceSubtype,
+        created_at: value.createdAt === undefined ? undefined : value.createdAt.toISOString(),
         default_severity: value.defaultSeverity,
         fql_policy: value.fqlPolicy,
+        is_remediable: value.isRemediable,
+        iso_benchmark: value.isoBenchmark === undefined ? undefined : (value.isoBenchmark as Array<any>).map(DomainBenchmarkToJSON),
         name: value.name,
-        nist_benchmark: value.nistBenchmark === undefined ? undefined : (value.nistBenchmark as Array<any>).map(DomainCIDPolicyAssignmentsNistBenchmarkToJSON),
-        pci_benchmark: value.pciBenchmark === undefined ? undefined : (value.pciBenchmark as Array<any>).map(DomainCIDPolicyAssignmentsPciBenchmarkToJSON),
+        nist_benchmark: value.nistBenchmark === undefined ? undefined : (value.nistBenchmark as Array<any>).map(DomainBenchmarkToJSON),
+        pci_benchmark: value.pciBenchmark === undefined ? undefined : (value.pciBenchmark as Array<any>).map(DomainBenchmarkToJSON),
         policy_id: value.policyId,
         policy_settings: value.policySettings === undefined ? undefined : (value.policySettings as Array<any>).map(DomainPolicySettingByAccountAndRegionToJSON),
         policy_timestamp: value.policyTimestamp === undefined ? undefined : value.policyTimestamp.toISOString(),
         policy_type: value.policyType,
-        soc2_benchmark: value.soc2Benchmark === undefined ? undefined : (value.soc2Benchmark as Array<any>).map(DomainCIDPolicyAssignmentsSoc2BenchmarkToJSON),
+        remediation_summary: value.remediationSummary,
+        soc2_benchmark: value.soc2Benchmark === undefined ? undefined : (value.soc2Benchmark as Array<any>).map(DomainBenchmarkToJSON),
+        updated_at: value.updatedAt === undefined ? undefined : value.updatedAt.toISOString(),
     };
 }

@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -15,13 +15,12 @@
 import * as runtime from "../runtime";
 import type {
     DeviceapiDeviceDetailsResponseSwagger,
+    DeviceapiDeviceResponse,
     DeviceapiGroupsResponseV1,
     DeviceapiLoginHistoryResponseV1,
     DeviceapiNetworkAddressHistoryResponseV1,
     DeviceapiUpdateDeviceTagsRequestV1,
     DeviceapiUpdateDeviceTagsSwaggerV1,
-    DomainDeviceDetailsResponseSwagger,
-    DomainDeviceResponse,
     MsaEntityActionRequest,
     MsaEntityActionRequestV2,
     MsaIdsRequest,
@@ -29,10 +28,12 @@ import type {
     MsaReplyAffectedEntities,
     MsaReplyMetaOnly,
     StateOnlineStateRespV1,
-} from "../models";
+} from "../models/index";
 import {
     DeviceapiDeviceDetailsResponseSwaggerFromJSON,
     DeviceapiDeviceDetailsResponseSwaggerToJSON,
+    DeviceapiDeviceResponseFromJSON,
+    DeviceapiDeviceResponseToJSON,
     DeviceapiGroupsResponseV1FromJSON,
     DeviceapiGroupsResponseV1ToJSON,
     DeviceapiLoginHistoryResponseV1FromJSON,
@@ -43,10 +44,6 @@ import {
     DeviceapiUpdateDeviceTagsRequestV1ToJSON,
     DeviceapiUpdateDeviceTagsSwaggerV1FromJSON,
     DeviceapiUpdateDeviceTagsSwaggerV1ToJSON,
-    DomainDeviceDetailsResponseSwaggerFromJSON,
-    DomainDeviceDetailsResponseSwaggerToJSON,
-    DomainDeviceResponseFromJSON,
-    DomainDeviceResponseToJSON,
     MsaEntityActionRequestFromJSON,
     MsaEntityActionRequestToJSON,
     MsaEntityActionRequestV2FromJSON,
@@ -61,16 +58,13 @@ import {
     MsaReplyMetaOnlyToJSON,
     StateOnlineStateRespV1FromJSON,
     StateOnlineStateRespV1ToJSON,
-} from "../models";
+} from "../models/index";
 
 export interface EntitiesPerformActionRequest {
     ids: Array<string>;
     actionName: EntitiesPerformActionActionNameEnum;
     body: MsaEntityActionRequest;
-}
-
-export interface GetDeviceDetailsRequest {
-    ids: Array<string>;
+    disableHostnameCheck?: boolean;
 }
 
 export interface GetDeviceDetailsV2Request {
@@ -91,6 +85,10 @@ export interface PostDeviceDetailsV2Request {
 }
 
 export interface QueryDeviceLoginHistoryRequest {
+    body: MsaIdsRequest;
+}
+
+export interface QueryDeviceLoginHistoryV2Request {
     body: MsaIdsRequest;
 }
 
@@ -128,7 +126,7 @@ export interface UpdateDeviceTagsRequest {
  */
 export class HostsApi extends runtime.BaseAPI {
     /**
-     * Performs the specified action on the provided prevention policy IDs.
+     * Performs the specified action on the provided group IDs.
      */
     async entitiesPerformActionRaw(
         requestParameters: EntitiesPerformActionRequest,
@@ -156,13 +154,17 @@ export class HostsApi extends runtime.BaseAPI {
             queryParameters["action_name"] = requestParameters.actionName;
         }
 
+        if (requestParameters.disableHostnameCheck !== undefined) {
+            queryParameters["disable_hostname_check"] = requestParameters.disableHostnameCheck;
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters["Content-Type"] = "application/json";
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -180,60 +182,16 @@ export class HostsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Performs the specified action on the provided prevention policy IDs.
+     * Performs the specified action on the provided group IDs.
      */
     async entitiesPerformAction(
         ids: Array<string>,
         actionName: EntitiesPerformActionActionNameEnum,
         body: MsaEntityActionRequest,
+        disableHostnameCheck?: boolean,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<DeviceapiGroupsResponseV1> {
-        const response = await this.entitiesPerformActionRaw({ ids: ids, actionName: actionName, body: body }, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Deprecated: Please use new methods: GetDeviceDetailsV2 or PostDeviceDetailsV2. This method now redirects to GetDeviceDetailsV2. The original API endpoint will be removed on or sometime after February 9, 2023.
-     */
-    async getDeviceDetailsRaw(
-        requestParameters: GetDeviceDetailsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<DomainDeviceDetailsResponseSwagger>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getDeviceDetails.");
-        }
-
-        const queryParameters: any = {};
-
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:read"]);
-        }
-
-        const response = await this.request(
-            {
-                path: `/devices/entities/devices//v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides
-        );
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainDeviceDetailsResponseSwaggerFromJSON(jsonValue));
-    }
-
-    /**
-     * Deprecated: Please use new methods: GetDeviceDetailsV2 or PostDeviceDetailsV2. This method now redirects to GetDeviceDetailsV2. The original API endpoint will be removed on or sometime after February 9, 2023.
-     */
-    async getDeviceDetails(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainDeviceDetailsResponseSwagger> {
-        const response = await this.getDeviceDetailsRaw({ ids: ids }, initOverrides);
+        const response = await this.entitiesPerformActionRaw({ ids: ids, actionName: actionName, body: body, disableHostnameCheck: disableHostnameCheck }, initOverrides);
         return await response.value();
     }
 
@@ -258,7 +216,7 @@ export class HostsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -300,7 +258,7 @@ export class HostsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -348,7 +306,7 @@ export class HostsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -392,7 +350,7 @@ export class HostsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -436,7 +394,7 @@ export class HostsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -458,6 +416,50 @@ export class HostsApi extends runtime.BaseAPI {
      */
     async queryDeviceLoginHistory(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeviceapiLoginHistoryResponseV1> {
         const response = await this.queryDeviceLoginHistoryRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve details about recent interactive login sessions for a set of devices powered by the Host Timeline. A max of 10 device ids can be specified
+     */
+    async queryDeviceLoginHistoryV2Raw(
+        requestParameters: QueryDeviceLoginHistoryV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DeviceapiLoginHistoryResponseV1>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling queryDeviceLoginHistoryV2.");
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/devices/combined/devices/login-history/v2`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: MsaIdsRequestToJSON(requestParameters.body),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DeviceapiLoginHistoryResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve details about recent interactive login sessions for a set of devices powered by the Host Timeline. A max of 10 device ids can be specified
+     */
+    async queryDeviceLoginHistoryV2(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeviceapiLoginHistoryResponseV1> {
+        const response = await this.queryDeviceLoginHistoryV2Raw({ body: body }, initOverrides);
         return await response.value();
     }
 
@@ -487,7 +489,7 @@ export class HostsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -517,7 +519,7 @@ export class HostsApi extends runtime.BaseAPI {
     async queryDevicesByFilterScrollRaw(
         requestParameters: QueryDevicesByFilterScrollRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<DomainDeviceResponse>> {
+    ): Promise<runtime.ApiResponse<DeviceapiDeviceResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.offset !== undefined) {
@@ -540,7 +542,7 @@ export class HostsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -553,13 +555,13 @@ export class HostsApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainDeviceResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => DeviceapiDeviceResponseFromJSON(jsonValue));
     }
 
     /**
      * Search for hosts in your environment by platform, hostname, IP, and other criteria with continuous pagination capability (based on offset pointer which expires after 2 minutes with no maximum limit)
      */
-    async queryDevicesByFilterScroll(offset?: string, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainDeviceResponse> {
+    async queryDevicesByFilterScroll(offset?: string, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeviceapiDeviceResponse> {
         const response = await this.queryDevicesByFilterScrollRaw({ offset: offset, limit: limit, sort: sort, filter: filter }, initOverrides);
         return await response.value();
     }
@@ -583,7 +585,7 @@ export class HostsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -634,7 +636,7 @@ export class HostsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -677,7 +679,7 @@ export class HostsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(

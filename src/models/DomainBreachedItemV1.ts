@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -13,6 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
+import type { DomainExposedDataRecordBotV1 } from "./DomainExposedDataRecordBotV1";
+import { DomainExposedDataRecordBotV1FromJSON, DomainExposedDataRecordBotV1FromJSONTyped, DomainExposedDataRecordBotV1ToJSON } from "./DomainExposedDataRecordBotV1";
 import type { DomainExposedDataRecordFinancialV1 } from "./DomainExposedDataRecordFinancialV1";
 import { DomainExposedDataRecordFinancialV1FromJSON, DomainExposedDataRecordFinancialV1FromJSONTyped, DomainExposedDataRecordFinancialV1ToJSON } from "./DomainExposedDataRecordFinancialV1";
 import type { DomainExposedDataRecordLocationV1 } from "./DomainExposedDataRecordLocationV1";
@@ -28,24 +30,42 @@ import { DomainExposedDataRecordSocialV1FromJSON, DomainExposedDataRecordSocialV
 export interface DomainBreachedItemV1 {
     /**
      *
+     * @type {DomainExposedDataRecordBotV1}
+     * @memberof DomainBreachedItemV1
+     */
+    bot?: DomainExposedDataRecordBotV1;
+    /**
+     * The company of the user
      * @type {string}
      * @memberof DomainBreachedItemV1
      */
     company?: string;
     /**
-     *
+     * The status set after deduplication. Possible values: 'newly_detected', 'previously_reported', 'other'
+     * @type {string}
+     * @memberof DomainBreachedItemV1
+     */
+    credentialStatus?: string;
+    /**
+     * The domain where the credentials are valid
+     * @type {string}
+     * @memberof DomainBreachedItemV1
+     */
+    credentialsDomain?: string;
+    /**
+     * The IP where the credentials are valid
      * @type {string}
      * @memberof DomainBreachedItemV1
      */
     credentialsIp?: string;
     /**
-     *
+     * The URL where the credentials are valid
      * @type {string}
      * @memberof DomainBreachedItemV1
      */
     credentialsUrl?: string;
     /**
-     *
+     * The nickname of the user on the impacted site
      * @type {string}
      * @memberof DomainBreachedItemV1
      */
@@ -75,7 +95,7 @@ export interface DomainBreachedItemV1 {
      */
     hashType: string;
     /**
-     *
+     * The user's job at the company
      * @type {string}
      * @memberof DomainBreachedItemV1
      */
@@ -93,6 +113,12 @@ export interface DomainBreachedItemV1 {
      */
     loginId: string;
     /**
+     * The stealer log bot malware family
+     * @type {string}
+     * @memberof DomainBreachedItemV1
+     */
+    malwareFamily?: string;
+    /**
      * The name of the person associated with the breached account.
      * @type {string}
      * @memberof DomainBreachedItemV1
@@ -105,13 +131,13 @@ export interface DomainBreachedItemV1 {
      */
     password: string;
     /**
-     *
+     * The password hash
      * @type {string}
      * @memberof DomainBreachedItemV1
      */
     passwordHash?: string;
     /**
-     *
+     * The password salt
      * @type {string}
      * @memberof DomainBreachedItemV1
      */
@@ -129,13 +155,13 @@ export interface DomainBreachedItemV1 {
      */
     social?: DomainExposedDataRecordSocialV1;
     /**
-     *
+     * The ID of the user on the impacted site
      * @type {string}
      * @memberof DomainBreachedItemV1
      */
     userId?: string;
     /**
-     *
+     * The IP of the user on the impacted site
      * @type {string}
      * @memberof DomainBreachedItemV1
      */
@@ -167,7 +193,10 @@ export function DomainBreachedItemV1FromJSONTyped(json: any, ignoreDiscriminator
         return json;
     }
     return {
+        bot: !exists(json, "bot") ? undefined : DomainExposedDataRecordBotV1FromJSON(json["bot"]),
         company: !exists(json, "company") ? undefined : json["company"],
+        credentialStatus: !exists(json, "credential_status") ? undefined : json["credential_status"],
+        credentialsDomain: !exists(json, "credentials_domain") ? undefined : json["credentials_domain"],
         credentialsIp: !exists(json, "credentials_ip") ? undefined : json["credentials_ip"],
         credentialsUrl: !exists(json, "credentials_url") ? undefined : json["credentials_url"],
         displayName: !exists(json, "display_name") ? undefined : json["display_name"],
@@ -178,6 +207,7 @@ export function DomainBreachedItemV1FromJSONTyped(json: any, ignoreDiscriminator
         jobPosition: !exists(json, "job_position") ? undefined : json["job_position"],
         location: !exists(json, "location") ? undefined : DomainExposedDataRecordLocationV1FromJSON(json["location"]),
         loginId: json["login_id"],
+        malwareFamily: !exists(json, "malware_family") ? undefined : json["malware_family"],
         name: json["name"],
         password: json["password"],
         passwordHash: !exists(json, "password_hash") ? undefined : json["password_hash"],
@@ -197,7 +227,10 @@ export function DomainBreachedItemV1ToJSON(value?: DomainBreachedItemV1 | null):
         return null;
     }
     return {
+        bot: DomainExposedDataRecordBotV1ToJSON(value.bot),
         company: value.company,
+        credential_status: value.credentialStatus,
+        credentials_domain: value.credentialsDomain,
         credentials_ip: value.credentialsIp,
         credentials_url: value.credentialsUrl,
         display_name: value.displayName,
@@ -208,6 +241,7 @@ export function DomainBreachedItemV1ToJSON(value?: DomainBreachedItemV1 | null):
         job_position: value.jobPosition,
         location: DomainExposedDataRecordLocationV1ToJSON(value.location),
         login_id: value.loginId,
+        malware_family: value.malwareFamily,
         name: value.name,
         password: value.password,
         password_hash: value.passwordHash,

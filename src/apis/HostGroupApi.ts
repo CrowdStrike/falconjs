@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -14,16 +14,24 @@
 
 import * as runtime from "../runtime";
 import type {
+    HostGroupsCreateGroupsReqV1,
+    HostGroupsMembersRespV1,
+    HostGroupsRespV1,
+    HostGroupsUpdateGroupsReqV1,
     MsaEntityActionRequestV2,
     MsaErrorsOnly,
     MsaQueryResponse,
     MsaReplyMetaOnly,
-    RequestsCreateGroupsV1,
-    RequestsUpdateGroupsV1,
-    ResponsesHostGroupMembersV1,
-    ResponsesHostGroupsV1,
-} from "../models";
+} from "../models/index";
 import {
+    HostGroupsCreateGroupsReqV1FromJSON,
+    HostGroupsCreateGroupsReqV1ToJSON,
+    HostGroupsMembersRespV1FromJSON,
+    HostGroupsMembersRespV1ToJSON,
+    HostGroupsRespV1FromJSON,
+    HostGroupsRespV1ToJSON,
+    HostGroupsUpdateGroupsReqV1FromJSON,
+    HostGroupsUpdateGroupsReqV1ToJSON,
     MsaEntityActionRequestV2FromJSON,
     MsaEntityActionRequestV2ToJSON,
     MsaErrorsOnlyFromJSON,
@@ -32,18 +40,10 @@ import {
     MsaQueryResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-    RequestsCreateGroupsV1FromJSON,
-    RequestsCreateGroupsV1ToJSON,
-    RequestsUpdateGroupsV1FromJSON,
-    RequestsUpdateGroupsV1ToJSON,
-    ResponsesHostGroupMembersV1FromJSON,
-    ResponsesHostGroupMembersV1ToJSON,
-    ResponsesHostGroupsV1FromJSON,
-    ResponsesHostGroupsV1ToJSON,
-} from "../models";
+} from "../models/index";
 
 export interface CreateHostGroupsRequest {
-    body: RequestsCreateGroupsV1;
+    body: HostGroupsCreateGroupsReqV1;
 }
 
 export interface DeleteHostGroupsRequest {
@@ -91,7 +91,7 @@ export interface QueryHostGroupsRequest {
 }
 
 export interface UpdateHostGroupsRequest {
-    body: RequestsUpdateGroupsV1;
+    body: HostGroupsUpdateGroupsReqV1;
 }
 
 /**
@@ -101,7 +101,7 @@ export class HostGroupApi extends runtime.BaseAPI {
     /**
      * Create Host Groups by specifying details about the group to create
      */
-    async createHostGroupsRaw(requestParameters: CreateHostGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponsesHostGroupsV1>> {
+    async createHostGroupsRaw(requestParameters: CreateHostGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<HostGroupsRespV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createHostGroups.");
         }
@@ -114,7 +114,7 @@ export class HostGroupApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-group:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -123,18 +123,18 @@ export class HostGroupApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: RequestsCreateGroupsV1ToJSON(requestParameters.body),
+                body: HostGroupsCreateGroupsReqV1ToJSON(requestParameters.body),
             },
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesHostGroupsV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => HostGroupsRespV1FromJSON(jsonValue));
     }
 
     /**
      * Create Host Groups by specifying details about the group to create
      */
-    async createHostGroups(body: RequestsCreateGroupsV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesHostGroupsV1> {
+    async createHostGroups(body: HostGroupsCreateGroupsReqV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<HostGroupsRespV1> {
         const response = await this.createHostGroupsRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -157,7 +157,7 @@ export class HostGroupApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-group:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -184,7 +184,7 @@ export class HostGroupApi extends runtime.BaseAPI {
     /**
      * Retrieve a set of Host Groups by specifying their IDs
      */
-    async getHostGroupsRaw(requestParameters: GetHostGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponsesHostGroupsV1>> {
+    async getHostGroupsRaw(requestParameters: GetHostGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<HostGroupsRespV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getHostGroups.");
         }
@@ -199,7 +199,7 @@ export class HostGroupApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-group:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -212,13 +212,13 @@ export class HostGroupApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesHostGroupsV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => HostGroupsRespV1FromJSON(jsonValue));
     }
 
     /**
      * Retrieve a set of Host Groups by specifying their IDs
      */
-    async getHostGroups(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesHostGroupsV1> {
+    async getHostGroups(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<HostGroupsRespV1> {
         const response = await this.getHostGroupsRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -226,7 +226,7 @@ export class HostGroupApi extends runtime.BaseAPI {
     /**
      * Perform the specified action on the Host Groups specified in the request
      */
-    async performGroupActionRaw(requestParameters: PerformGroupActionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponsesHostGroupsV1>> {
+    async performGroupActionRaw(requestParameters: PerformGroupActionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<HostGroupsRespV1>> {
         if (requestParameters.actionName === null || requestParameters.actionName === undefined) {
             throw new runtime.RequiredError("actionName", "Required parameter requestParameters.actionName was null or undefined when calling performGroupAction.");
         }
@@ -251,7 +251,7 @@ export class HostGroupApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-group:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -265,7 +265,7 @@ export class HostGroupApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesHostGroupsV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => HostGroupsRespV1FromJSON(jsonValue));
     }
 
     /**
@@ -276,7 +276,7 @@ export class HostGroupApi extends runtime.BaseAPI {
         body: MsaEntityActionRequestV2,
         disableHostnameCheck?: boolean,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<ResponsesHostGroupsV1> {
+    ): Promise<HostGroupsRespV1> {
         const response = await this.performGroupActionRaw({ actionName: actionName, body: body, disableHostnameCheck: disableHostnameCheck }, initOverrides);
         return await response.value();
     }
@@ -287,7 +287,7 @@ export class HostGroupApi extends runtime.BaseAPI {
     async queryCombinedGroupMembersRaw(
         requestParameters: QueryCombinedGroupMembersRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ResponsesHostGroupMembersV1>> {
+    ): Promise<runtime.ApiResponse<HostGroupsMembersRespV1>> {
         const queryParameters: any = {};
 
         if (requestParameters.id !== undefined) {
@@ -314,7 +314,7 @@ export class HostGroupApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-group:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -327,7 +327,7 @@ export class HostGroupApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesHostGroupMembersV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => HostGroupsMembersRespV1FromJSON(jsonValue));
     }
 
     /**
@@ -340,7 +340,7 @@ export class HostGroupApi extends runtime.BaseAPI {
         limit?: number,
         sort?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<ResponsesHostGroupMembersV1> {
+    ): Promise<HostGroupsMembersRespV1> {
         const response = await this.queryCombinedGroupMembersRaw({ id: id, filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
@@ -348,10 +348,7 @@ export class HostGroupApi extends runtime.BaseAPI {
     /**
      * Search for Host Groups in your environment by providing an FQL filter and paging details. Returns a set of Host Groups which match the filter criteria
      */
-    async queryCombinedHostGroupsRaw(
-        requestParameters: QueryCombinedHostGroupsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ResponsesHostGroupsV1>> {
+    async queryCombinedHostGroupsRaw(requestParameters: QueryCombinedHostGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<HostGroupsRespV1>> {
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -374,7 +371,7 @@ export class HostGroupApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-group:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -387,7 +384,7 @@ export class HostGroupApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesHostGroupsV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => HostGroupsRespV1FromJSON(jsonValue));
     }
 
     /**
@@ -399,7 +396,7 @@ export class HostGroupApi extends runtime.BaseAPI {
         limit?: number,
         sort?: QueryCombinedHostGroupsSortEnum,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<ResponsesHostGroupsV1> {
+    ): Promise<HostGroupsRespV1> {
         const response = await this.queryCombinedHostGroupsRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
@@ -434,7 +431,7 @@ export class HostGroupApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-group:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -484,7 +481,7 @@ export class HostGroupApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-group:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -511,7 +508,7 @@ export class HostGroupApi extends runtime.BaseAPI {
     /**
      * Update Host Groups by specifying the ID of the group and details to update
      */
-    async updateHostGroupsRaw(requestParameters: UpdateHostGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponsesHostGroupsV1>> {
+    async updateHostGroupsRaw(requestParameters: UpdateHostGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<HostGroupsRespV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateHostGroups.");
         }
@@ -524,7 +521,7 @@ export class HostGroupApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-group:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -533,18 +530,18 @@ export class HostGroupApi extends runtime.BaseAPI {
                 method: "PATCH",
                 headers: headerParameters,
                 query: queryParameters,
-                body: RequestsUpdateGroupsV1ToJSON(requestParameters.body),
+                body: HostGroupsUpdateGroupsReqV1ToJSON(requestParameters.body),
             },
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesHostGroupsV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => HostGroupsRespV1FromJSON(jsonValue));
     }
 
     /**
      * Update Host Groups by specifying the ID of the group and details to update
      */
-    async updateHostGroups(body: RequestsUpdateGroupsV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesHostGroupsV1> {
+    async updateHostGroups(body: HostGroupsUpdateGroupsReqV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<HostGroupsRespV1> {
         const response = await this.updateHostGroupsRaw({ body: body }, initOverrides);
         return await response.value();
     }

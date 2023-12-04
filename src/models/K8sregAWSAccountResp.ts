@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -13,8 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import type { K8sregAWSAccountPermissionsStatus } from "./K8sregAWSAccountPermissionsStatus";
-import { K8sregAWSAccountPermissionsStatusFromJSON, K8sregAWSAccountPermissionsStatusFromJSONTyped, K8sregAWSAccountPermissionsStatusToJSON } from "./K8sregAWSAccountPermissionsStatus";
+import type { K8sregAccountPermissionsStatus } from "./K8sregAccountPermissionsStatus";
+import { K8sregAccountPermissionsStatusFromJSON, K8sregAccountPermissionsStatusFromJSONTyped, K8sregAccountPermissionsStatusToJSON } from "./K8sregAccountPermissionsStatus";
 
 /**
  *
@@ -30,10 +30,10 @@ export interface K8sregAWSAccountResp {
     accountId: string;
     /**
      *
-     * @type {Array<K8sregAWSAccountPermissionsStatus>}
+     * @type {Array<K8sregAccountPermissionsStatus>}
      * @memberof K8sregAWSAccountResp
      */
-    awsPermissionsStatus: Array<K8sregAWSAccountPermissionsStatus>;
+    awsPermissionsStatus: Array<K8sregAccountPermissionsStatus>;
     /**
      *
      * @type {string}
@@ -124,7 +124,7 @@ export function K8sregAWSAccountRespFromJSONTyped(json: any, ignoreDiscriminator
     }
     return {
         accountId: json["account_id"],
-        awsPermissionsStatus: (json["aws_permissions_status"] as Array<any>).map(K8sregAWSAccountPermissionsStatusFromJSON),
+        awsPermissionsStatus: (json["aws_permissions_status"] as Array<any>).map(K8sregAccountPermissionsStatusFromJSON),
         cid: json["cid"],
         cloudformationUrl: !exists(json, "cloudformation_url") ? undefined : json["cloudformation_url"],
         createdAt: new Date(json["created_at"]),
@@ -147,7 +147,7 @@ export function K8sregAWSAccountRespToJSON(value?: K8sregAWSAccountResp | null):
     }
     return {
         account_id: value.accountId,
-        aws_permissions_status: (value.awsPermissionsStatus as Array<any>).map(K8sregAWSAccountPermissionsStatusToJSON),
+        aws_permissions_status: (value.awsPermissionsStatus as Array<any>).map(K8sregAccountPermissionsStatusToJSON),
         cid: value.cid,
         cloudformation_url: value.cloudformationUrl,
         created_at: value.createdAt.toISOString(),

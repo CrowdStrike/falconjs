@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -19,6 +19,12 @@ import { exists, mapValues } from "../runtime";
  * @interface PatterndispositionPatternDisposition
  */
 export interface PatterndispositionPatternDisposition {
+    /**
+     *
+     * @type {boolean}
+     * @memberof PatterndispositionPatternDisposition
+     */
+    blockingUnsupportedOrDisabled: boolean;
     /**
      *
      * @type {boolean}
@@ -61,6 +67,12 @@ export interface PatterndispositionPatternDisposition {
      * @memberof PatterndispositionPatternDisposition
      */
     indicator: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof PatterndispositionPatternDisposition
+     */
+    killActionFailed: boolean;
     /**
      *
      * @type {boolean}
@@ -127,6 +139,18 @@ export interface PatterndispositionPatternDisposition {
      * @memberof PatterndispositionPatternDisposition
      */
     sensorOnly: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof PatterndispositionPatternDisposition
+     */
+    suspendParent: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof PatterndispositionPatternDisposition
+     */
+    suspendProcess: boolean;
 }
 
 /**
@@ -134,6 +158,7 @@ export interface PatterndispositionPatternDisposition {
  */
 export function instanceOfPatterndispositionPatternDisposition(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "blockingUnsupportedOrDisabled" in value;
     isInstance = isInstance && "bootupSafeguardEnabled" in value;
     isInstance = isInstance && "criticalProcessDisabled" in value;
     isInstance = isInstance && "detect" in value;
@@ -141,6 +166,7 @@ export function instanceOfPatterndispositionPatternDisposition(value: object): b
     isInstance = isInstance && "handleOperationDowngraded" in value;
     isInstance = isInstance && "inddetMask" in value;
     isInstance = isInstance && "indicator" in value;
+    isInstance = isInstance && "killActionFailed" in value;
     isInstance = isInstance && "killParent" in value;
     isInstance = isInstance && "killProcess" in value;
     isInstance = isInstance && "killSubprocess" in value;
@@ -152,6 +178,8 @@ export function instanceOfPatterndispositionPatternDisposition(value: object): b
     isInstance = isInstance && "registryOperationBlocked" in value;
     isInstance = isInstance && "rooting" in value;
     isInstance = isInstance && "sensorOnly" in value;
+    isInstance = isInstance && "suspendParent" in value;
+    isInstance = isInstance && "suspendProcess" in value;
 
     return isInstance;
 }
@@ -165,6 +193,7 @@ export function PatterndispositionPatternDispositionFromJSONTyped(json: any, ign
         return json;
     }
     return {
+        blockingUnsupportedOrDisabled: json["blocking_unsupported_or_disabled"],
         bootupSafeguardEnabled: json["bootup_safeguard_enabled"],
         criticalProcessDisabled: json["critical_process_disabled"],
         detect: json["detect"],
@@ -172,6 +201,7 @@ export function PatterndispositionPatternDispositionFromJSONTyped(json: any, ign
         handleOperationDowngraded: json["handle_operation_downgraded"],
         inddetMask: json["inddet_mask"],
         indicator: json["indicator"],
+        killActionFailed: json["kill_action_failed"],
         killParent: json["kill_parent"],
         killProcess: json["kill_process"],
         killSubprocess: json["kill_subprocess"],
@@ -183,6 +213,8 @@ export function PatterndispositionPatternDispositionFromJSONTyped(json: any, ign
         registryOperationBlocked: json["registry_operation_blocked"],
         rooting: json["rooting"],
         sensorOnly: json["sensor_only"],
+        suspendParent: json["suspend_parent"],
+        suspendProcess: json["suspend_process"],
     };
 }
 
@@ -194,6 +226,7 @@ export function PatterndispositionPatternDispositionToJSON(value?: Patterndispos
         return null;
     }
     return {
+        blocking_unsupported_or_disabled: value.blockingUnsupportedOrDisabled,
         bootup_safeguard_enabled: value.bootupSafeguardEnabled,
         critical_process_disabled: value.criticalProcessDisabled,
         detect: value.detect,
@@ -201,6 +234,7 @@ export function PatterndispositionPatternDispositionToJSON(value?: Patterndispos
         handle_operation_downgraded: value.handleOperationDowngraded,
         inddet_mask: value.inddetMask,
         indicator: value.indicator,
+        kill_action_failed: value.killActionFailed,
         kill_parent: value.killParent,
         kill_process: value.killProcess,
         kill_subprocess: value.killSubprocess,
@@ -212,5 +246,7 @@ export function PatterndispositionPatternDispositionToJSON(value?: Patterndispos
         registry_operation_blocked: value.registryOperationBlocked,
         rooting: value.rooting,
         sensor_only: value.sensorOnly,
+        suspend_parent: value.suspendParent,
+        suspend_process: value.suspendProcess,
     };
 }

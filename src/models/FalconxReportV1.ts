@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -15,6 +15,8 @@
 import { exists, mapValues } from "../runtime";
 import type { FalconxIntelReportV1 } from "./FalconxIntelReportV1";
 import { FalconxIntelReportV1FromJSON, FalconxIntelReportV1FromJSONTyped, FalconxIntelReportV1ToJSON } from "./FalconxIntelReportV1";
+import type { FalconxIntelXReportV1 } from "./FalconxIntelXReportV1";
+import { FalconxIntelXReportV1FromJSON, FalconxIntelXReportV1FromJSONTyped, FalconxIntelXReportV1ToJSON } from "./FalconxIntelXReportV1";
 import type { FalconxMalqueryReportV1 } from "./FalconxMalqueryReportV1";
 import { FalconxMalqueryReportV1FromJSON, FalconxMalqueryReportV1FromJSONTyped, FalconxMalqueryReportV1ToJSON } from "./FalconxMalqueryReportV1";
 import type { FalconxSandboxReportV1 } from "./FalconxSandboxReportV1";
@@ -48,10 +50,22 @@ export interface FalconxReportV1 {
     id?: string;
     /**
      *
+     * @type {string}
+     * @memberof FalconxReportV1
+     */
+    indexTimestamp?: string;
+    /**
+     *
      * @type {Array<FalconxIntelReportV1>}
      * @memberof FalconxReportV1
      */
     intel?: Array<FalconxIntelReportV1>;
+    /**
+     *
+     * @type {FalconxIntelXReportV1}
+     * @memberof FalconxReportV1
+     */
+    intelx?: FalconxIntelXReportV1;
     /**
      *
      * @type {string}
@@ -183,7 +197,9 @@ export function FalconxReportV1FromJSONTyped(json: any, ignoreDiscriminator: boo
         cid: !exists(json, "cid") ? undefined : json["cid"],
         createdTimestamp: !exists(json, "created_timestamp") ? undefined : json["created_timestamp"],
         id: !exists(json, "id") ? undefined : json["id"],
+        indexTimestamp: !exists(json, "index_timestamp") ? undefined : json["index_timestamp"],
         intel: !exists(json, "intel") ? undefined : (json["intel"] as Array<any>).map(FalconxIntelReportV1FromJSON),
+        intelx: !exists(json, "intelx") ? undefined : FalconxIntelXReportV1FromJSON(json["intelx"]),
         iocReportBroadCsvArtifactId: !exists(json, "ioc_report_broad_csv_artifact_id") ? undefined : json["ioc_report_broad_csv_artifact_id"],
         iocReportBroadJsonArtifactId: !exists(json, "ioc_report_broad_json_artifact_id") ? undefined : json["ioc_report_broad_json_artifact_id"],
         iocReportBroadMaecArtifactId: !exists(json, "ioc_report_broad_maec_artifact_id") ? undefined : json["ioc_report_broad_maec_artifact_id"],
@@ -216,7 +232,9 @@ export function FalconxReportV1ToJSON(value?: FalconxReportV1 | null): any {
         cid: value.cid,
         created_timestamp: value.createdTimestamp,
         id: value.id,
+        index_timestamp: value.indexTimestamp,
         intel: value.intel === undefined ? undefined : (value.intel as Array<any>).map(FalconxIntelReportV1ToJSON),
+        intelx: FalconxIntelXReportV1ToJSON(value.intelx),
         ioc_report_broad_csv_artifact_id: value.iocReportBroadCsvArtifactId,
         ioc_report_broad_json_artifact_id: value.iocReportBroadJsonArtifactId,
         ioc_report_broad_maec_artifact_id: value.iocReportBroadMaecArtifactId,

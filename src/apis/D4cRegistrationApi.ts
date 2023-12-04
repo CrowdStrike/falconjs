@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -24,12 +24,13 @@ import type {
     RegistrationAzureAccountResponseV1,
     RegistrationAzureDownloadCertificateResponseV1,
     RegistrationAzureProvisionGetUserScriptResponseV1,
-    RegistrationAzureServicePrincipalResponseV1,
+    RegistrationAzureTenantConfigurationResponseV1,
+    RegistrationAzureTenantIDsResponseV1,
     RegistrationGCPAccountCreateRequestExtV1,
     RegistrationGCPAccountResponseV1,
     RegistrationGCPProvisionGetUserScriptResponseV1,
     RegistrationStaticScriptsResponse,
-} from "../models";
+} from "../models/index";
 import {
     MsaBaseEntitiesResponseFromJSON,
     MsaBaseEntitiesResponseToJSON,
@@ -51,8 +52,10 @@ import {
     RegistrationAzureDownloadCertificateResponseV1ToJSON,
     RegistrationAzureProvisionGetUserScriptResponseV1FromJSON,
     RegistrationAzureProvisionGetUserScriptResponseV1ToJSON,
-    RegistrationAzureServicePrincipalResponseV1FromJSON,
-    RegistrationAzureServicePrincipalResponseV1ToJSON,
+    RegistrationAzureTenantConfigurationResponseV1FromJSON,
+    RegistrationAzureTenantConfigurationResponseV1ToJSON,
+    RegistrationAzureTenantIDsResponseV1FromJSON,
+    RegistrationAzureTenantIDsResponseV1ToJSON,
     RegistrationGCPAccountCreateRequestExtV1FromJSON,
     RegistrationGCPAccountCreateRequestExtV1ToJSON,
     RegistrationGCPAccountResponseV1FromJSON,
@@ -61,18 +64,18 @@ import {
     RegistrationGCPProvisionGetUserScriptResponseV1ToJSON,
     RegistrationStaticScriptsResponseFromJSON,
     RegistrationStaticScriptsResponseToJSON,
-} from "../models";
-
-export interface CreateCSPMAzureAccountRequest {
-    body: RegistrationAzureAccountCreateRequestExternalV1;
-}
-
-export interface CreateCSPMGCPAccountRequest {
-    body: RegistrationGCPAccountCreateRequestExtV1;
-}
+} from "../models/index";
 
 export interface CreateD4CAwsAccountRequest {
     body: RegistrationAWSAccountCreateRequestD4CExtV2;
+}
+
+export interface CreateD4CGcpAccountRequest {
+    body: RegistrationGCPAccountCreateRequestExtV1;
+}
+
+export interface CreateDiscoverCloudAzureAccountRequest {
+    body: RegistrationAzureAccountCreateRequestExternalV1;
 }
 
 export interface DeleteD4CAwsAccountRequest {
@@ -82,17 +85,8 @@ export interface DeleteD4CAwsAccountRequest {
 
 export interface DiscoverCloudAzureDownloadCertificateRequest {
     tenantId: Array<string>;
-    refresh?: DiscoverCloudAzureDownloadCertificateRefreshEnum;
-}
-
-export interface GetCSPMAzureAccountRequest {
-    ids?: Array<string>;
-    scanType?: string;
-}
-
-export interface GetCSPMCGPAccountRequest {
-    scanType?: string;
-    ids?: Array<string>;
+    refresh?: boolean;
+    yearsValid?: string;
 }
 
 export interface GetD4CAWSAccountScriptsAttachmentRequest {
@@ -113,6 +107,35 @@ export interface GetD4CAwsConsoleSetupURLsRequest {
     region?: string;
 }
 
+export interface GetD4CGcpAccountRequest {
+    parentType?: GetD4CGcpAccountParentTypeEnum;
+    ids?: Array<string>;
+    scanType?: GetD4CGcpAccountScanTypeEnum;
+    status?: GetD4CGcpAccountStatusEnum;
+    limit?: number;
+    offset?: number;
+    sort?: string;
+}
+
+export interface GetD4CGcpUserScriptsRequest {
+    parentType?: GetD4CGcpUserScriptsParentTypeEnum;
+}
+
+export interface GetDiscoverCloudAzureAccountRequest {
+    ids?: Array<string>;
+    tenantIds?: Array<string>;
+    scanType?: string;
+    status?: string;
+    limit?: number;
+    offset?: number;
+}
+
+export interface GetDiscoverCloudAzureUserScriptsAttachmentRequest {
+    tenantId: Array<string>;
+    subscriptionIds?: Array<string>;
+    template?: string;
+}
+
 export interface GetHorizonD4CScriptsRequest {
     singleAccount?: GetHorizonD4CScriptsSingleAccountEnum;
     organizationId?: string;
@@ -120,102 +143,16 @@ export interface GetHorizonD4CScriptsRequest {
     accountType?: GetHorizonD4CScriptsAccountTypeEnum;
 }
 
-export interface UpdateCSPMAzureAccountClientIDRequest {
+export interface UpdateDiscoverCloudAzureAccountClientIDRequest {
     id: string;
+    objectId?: string;
+    tenantId?: string;
 }
 
 /**
  *
  */
 export class D4cRegistrationApi extends runtime.BaseAPI {
-    /**
-     * Creates a new account in our system for a customer and generates a script for them to run in their cloud environment to grant us access.
-     */
-    async createCSPMAzureAccountRaw(
-        requestParameters: CreateCSPMAzureAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<RegistrationAzureAccountResponseV1>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createCSPMAzureAccount.");
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters["Content-Type"] = "application/json";
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:write"]);
-        }
-
-        const response = await this.request(
-            {
-                path: `/cloud-connect-azure/entities/account/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RegistrationAzureAccountCreateRequestExternalV1ToJSON(requestParameters.body),
-            },
-            initOverrides
-        );
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureAccountResponseV1FromJSON(jsonValue));
-    }
-
-    /**
-     * Creates a new account in our system for a customer and generates a script for them to run in their cloud environment to grant us access.
-     */
-    async createCSPMAzureAccount(body: RegistrationAzureAccountCreateRequestExternalV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationAzureAccountResponseV1> {
-        const response = await this.createCSPMAzureAccountRaw({ body: body }, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Creates a new account in our system for a customer and generates a new service account for them to add access to in their GCP environment to grant us access.
-     */
-    async createCSPMGCPAccountRaw(
-        requestParameters: CreateCSPMGCPAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<RegistrationGCPAccountResponseV1>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createCSPMGCPAccount.");
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters["Content-Type"] = "application/json";
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:write"]);
-        }
-
-        const response = await this.request(
-            {
-                path: `/cloud-connect-gcp/entities/account/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RegistrationGCPAccountCreateRequestExtV1ToJSON(requestParameters.body),
-            },
-            initOverrides
-        );
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationGCPAccountResponseV1FromJSON(jsonValue));
-    }
-
-    /**
-     * Creates a new account in our system for a customer and generates a new service account for them to add access to in their GCP environment to grant us access.
-     */
-    async createCSPMGCPAccount(body: RegistrationGCPAccountCreateRequestExtV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationGCPAccountResponseV1> {
-        const response = await this.createCSPMGCPAccountRaw({ body: body }, initOverrides);
-        return await response.value();
-    }
-
     /**
      * Creates a new account in our system for a customer and generates a script for them to run in their AWS cloud environment to grant us access.
      */
@@ -235,7 +172,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -261,6 +198,97 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates a new account in our system for a customer and generates a new service account for them to add access to in their GCP environment to grant us access.
+     */
+    async createD4CGcpAccountRaw(
+        requestParameters: CreateD4CGcpAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<RegistrationGCPAccountResponseV1>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createD4CGcpAccount.");
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cloud-connect-gcp/entities/account/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: RegistrationGCPAccountCreateRequestExtV1ToJSON(requestParameters.body),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationGCPAccountResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Creates a new account in our system for a customer and generates a new service account for them to add access to in their GCP environment to grant us access.
+     */
+    async createD4CGcpAccount(body: RegistrationGCPAccountCreateRequestExtV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationGCPAccountResponseV1> {
+        const response = await this.createD4CGcpAccountRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates a new account in our system for a customer and generates a script for them to run in their cloud environment to grant us access.
+     */
+    async createDiscoverCloudAzureAccountRaw(
+        requestParameters: CreateDiscoverCloudAzureAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<RegistrationAzureAccountResponseV1>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createDiscoverCloudAzureAccount.");
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cloud-connect-azure/entities/account/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: RegistrationAzureAccountCreateRequestExternalV1ToJSON(requestParameters.body),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureAccountResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Creates a new account in our system for a customer and generates a script for them to run in their cloud environment to grant us access.
+     */
+    async createDiscoverCloudAzureAccount(
+        body: RegistrationAzureAccountCreateRequestExternalV1,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<RegistrationAzureAccountResponseV1> {
+        const response = await this.createDiscoverCloudAzureAccountRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Deletes an existing AWS account or organization in our system.
      */
     async deleteD4CAwsAccountRaw(requestParameters: DeleteD4CAwsAccountRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaBaseEntitiesResponse>> {
@@ -278,7 +306,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -323,11 +351,15 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
             queryParameters["refresh"] = requestParameters.refresh;
         }
 
+        if (requestParameters.yearsValid !== undefined) {
+            queryParameters["years_valid"] = requestParameters.yearsValid;
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -348,236 +380,11 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
      */
     async discoverCloudAzureDownloadCertificate(
         tenantId: Array<string>,
-        refresh?: DiscoverCloudAzureDownloadCertificateRefreshEnum,
+        refresh?: boolean,
+        yearsValid?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<RegistrationAzureDownloadCertificateResponseV1> {
-        const response = await this.discoverCloudAzureDownloadCertificateRaw({ tenantId: tenantId, refresh: refresh }, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Return information about Azure account registration
-     */
-    async getCSPMAzureAccountRaw(
-        requestParameters: GetCSPMAzureAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<RegistrationAzureAccountResponseV1>> {
-        const queryParameters: any = {};
-
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
-        }
-
-        if (requestParameters.scanType !== undefined) {
-            queryParameters["scan-type"] = requestParameters.scanType;
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
-        }
-
-        const response = await this.request(
-            {
-                path: `/cloud-connect-azure/entities/account/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides
-        );
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureAccountResponseV1FromJSON(jsonValue));
-    }
-
-    /**
-     * Return information about Azure account registration
-     */
-    async getCSPMAzureAccount(ids?: Array<string>, scanType?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationAzureAccountResponseV1> {
-        const response = await this.getCSPMAzureAccountRaw({ ids: ids, scanType: scanType }, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Return a script for customer to run in their cloud environment to grant us access to their Azure environment
-     */
-    async getCSPMAzureUserScriptsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RegistrationAzureProvisionGetUserScriptResponseV1>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
-        }
-
-        const response = await this.request(
-            {
-                path: `/cloud-connect-azure/entities/user-scripts/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides
-        );
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureProvisionGetUserScriptResponseV1FromJSON(jsonValue));
-    }
-
-    /**
-     * Return a script for customer to run in their cloud environment to grant us access to their Azure environment
-     */
-    async getCSPMAzureUserScripts(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationAzureProvisionGetUserScriptResponseV1> {
-        const response = await this.getCSPMAzureUserScriptsRaw(initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Return a script for customer to run in their cloud environment to grant us access to their Azure environment as a downloadable attachment
-     */
-    async getCSPMAzureUserScriptsAttachmentRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RegistrationAzureProvisionGetUserScriptResponseV1>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
-        }
-
-        const response = await this.request(
-            {
-                path: `/cloud-connect-azure/entities/user-scripts-download/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides
-        );
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureProvisionGetUserScriptResponseV1FromJSON(jsonValue));
-    }
-
-    /**
-     * Return a script for customer to run in their cloud environment to grant us access to their Azure environment as a downloadable attachment
-     */
-    async getCSPMAzureUserScriptsAttachment(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationAzureProvisionGetUserScriptResponseV1> {
-        const response = await this.getCSPMAzureUserScriptsAttachmentRaw(initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Returns information about the current status of an GCP account.
-     */
-    async getCSPMCGPAccountRaw(
-        requestParameters: GetCSPMCGPAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<RegistrationGCPAccountResponseV1>> {
-        const queryParameters: any = {};
-
-        if (requestParameters.scanType !== undefined) {
-            queryParameters["scan-type"] = requestParameters.scanType;
-        }
-
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
-        }
-
-        const response = await this.request(
-            {
-                path: `/cloud-connect-gcp/entities/account/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides
-        );
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationGCPAccountResponseV1FromJSON(jsonValue));
-    }
-
-    /**
-     * Returns information about the current status of an GCP account.
-     */
-    async getCSPMCGPAccount(scanType?: string, ids?: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationGCPAccountResponseV1> {
-        const response = await this.getCSPMCGPAccountRaw({ scanType: scanType, ids: ids }, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Return a script for customer to run in their cloud environment to grant us access to their GCP environment
-     */
-    async getCSPMGCPUserScriptsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RegistrationGCPProvisionGetUserScriptResponseV1>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
-        }
-
-        const response = await this.request(
-            {
-                path: `/cloud-connect-gcp/entities/user-scripts/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides
-        );
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationGCPProvisionGetUserScriptResponseV1FromJSON(jsonValue));
-    }
-
-    /**
-     * Return a script for customer to run in their cloud environment to grant us access to their GCP environment
-     */
-    async getCSPMGCPUserScripts(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationGCPProvisionGetUserScriptResponseV1> {
-        const response = await this.getCSPMGCPUserScriptsRaw(initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Return a script for customer to run in their cloud environment to grant us access to their GCP environment as a downloadable attachment
-     */
-    async getCSPMGCPUserScriptsAttachmentRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RegistrationGCPProvisionGetUserScriptResponseV1>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
-        }
-
-        const response = await this.request(
-            {
-                path: `/cloud-connect-gcp/entities/user-scripts-download/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides
-        );
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationGCPProvisionGetUserScriptResponseV1FromJSON(jsonValue));
-    }
-
-    /**
-     * Return a script for customer to run in their cloud environment to grant us access to their GCP environment as a downloadable attachment
-     */
-    async getCSPMGCPUserScriptsAttachment(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationGCPProvisionGetUserScriptResponseV1> {
-        const response = await this.getCSPMGCPUserScriptsAttachmentRaw(initOverrides);
+        const response = await this.discoverCloudAzureDownloadCertificateRaw({ tenantId: tenantId, refresh: refresh, yearsValid: yearsValid }, initOverrides);
         return await response.value();
     }
 
@@ -598,7 +405,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -660,7 +467,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -713,7 +520,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -734,6 +541,313 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
      */
     async getD4CAwsConsoleSetupURLs(region?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationAWSAccountConsoleURL> {
         const response = await this.getD4CAwsConsoleSetupURLsRaw({ region: region }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Returns information about the current status of an GCP account.
+     */
+    async getD4CGcpAccountRaw(requestParameters: GetD4CGcpAccountRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RegistrationGCPAccountResponseV1>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.parentType !== undefined) {
+            queryParameters["parent_type"] = requestParameters.parentType;
+        }
+
+        if (requestParameters.ids) {
+            queryParameters["ids"] = requestParameters.ids;
+        }
+
+        if (requestParameters.scanType !== undefined) {
+            queryParameters["scan-type"] = requestParameters.scanType;
+        }
+
+        if (requestParameters.status !== undefined) {
+            queryParameters["status"] = requestParameters.status;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        if (requestParameters.sort !== undefined) {
+            queryParameters["sort"] = requestParameters.sort;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cloud-connect-gcp/entities/account/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationGCPAccountResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Returns information about the current status of an GCP account.
+     */
+    async getD4CGcpAccount(
+        parentType?: GetD4CGcpAccountParentTypeEnum,
+        ids?: Array<string>,
+        scanType?: GetD4CGcpAccountScanTypeEnum,
+        status?: GetD4CGcpAccountStatusEnum,
+        limit?: number,
+        offset?: number,
+        sort?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<RegistrationGCPAccountResponseV1> {
+        const response = await this.getD4CGcpAccountRaw({ parentType: parentType, ids: ids, scanType: scanType, status: status, limit: limit, offset: offset, sort: sort }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Return a script for customer to run in their cloud environment to grant us access to their GCP environment
+     */
+    async getD4CGcpUserScriptsRaw(
+        requestParameters: GetD4CGcpUserScriptsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<RegistrationGCPProvisionGetUserScriptResponseV1>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.parentType !== undefined) {
+            queryParameters["parent_type"] = requestParameters.parentType;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cloud-connect-gcp/entities/user-scripts/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationGCPProvisionGetUserScriptResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Return a script for customer to run in their cloud environment to grant us access to their GCP environment
+     */
+    async getD4CGcpUserScripts(parentType?: GetD4CGcpUserScriptsParentTypeEnum, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationGCPProvisionGetUserScriptResponseV1> {
+        const response = await this.getD4CGcpUserScriptsRaw({ parentType: parentType }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Return information about Azure account registration
+     */
+    async getDiscoverCloudAzureAccountRaw(
+        requestParameters: GetDiscoverCloudAzureAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<RegistrationAzureAccountResponseV1>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.ids) {
+            queryParameters["ids"] = requestParameters.ids;
+        }
+
+        if (requestParameters.tenantIds) {
+            queryParameters["tenant_ids"] = requestParameters.tenantIds;
+        }
+
+        if (requestParameters.scanType !== undefined) {
+            queryParameters["scan-type"] = requestParameters.scanType;
+        }
+
+        if (requestParameters.status !== undefined) {
+            queryParameters["status"] = requestParameters.status;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cloud-connect-azure/entities/account/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureAccountResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Return information about Azure account registration
+     */
+    async getDiscoverCloudAzureAccount(
+        ids?: Array<string>,
+        tenantIds?: Array<string>,
+        scanType?: string,
+        status?: string,
+        limit?: number,
+        offset?: number,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<RegistrationAzureAccountResponseV1> {
+        const response = await this.getDiscoverCloudAzureAccountRaw({ ids: ids, tenantIds: tenantIds, scanType: scanType, status: status, limit: limit, offset: offset }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Return available tenant ids for discover for cloud
+     */
+    async getDiscoverCloudAzureTenantIDsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RegistrationAzureTenantIDsResponseV1>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cloud-connect-azure/entities/tenant-id/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureTenantIDsResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Return available tenant ids for discover for cloud
+     */
+    async getDiscoverCloudAzureTenantIDs(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationAzureTenantIDsResponseV1> {
+        const response = await this.getDiscoverCloudAzureTenantIDsRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Return a script for customer to run in their cloud environment to grant us access to their Azure environment
+     */
+    async getDiscoverCloudAzureUserScriptsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RegistrationAzureProvisionGetUserScriptResponseV1>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cloud-connect-azure/entities/user-scripts/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureProvisionGetUserScriptResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Return a script for customer to run in their cloud environment to grant us access to their Azure environment
+     */
+    async getDiscoverCloudAzureUserScripts(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationAzureProvisionGetUserScriptResponseV1> {
+        const response = await this.getDiscoverCloudAzureUserScriptsRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Return a script for customer to run in their cloud environment to grant us access to their Azure environment as a downloadable attachment
+     */
+    async getDiscoverCloudAzureUserScriptsAttachmentRaw(
+        requestParameters: GetDiscoverCloudAzureUserScriptsAttachmentRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<RegistrationAzureProvisionGetUserScriptResponseV1>> {
+        if (requestParameters.tenantId === null || requestParameters.tenantId === undefined) {
+            throw new runtime.RequiredError("tenantId", "Required parameter requestParameters.tenantId was null or undefined when calling getDiscoverCloudAzureUserScriptsAttachment.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.tenantId) {
+            queryParameters["tenant-id"] = requestParameters.tenantId.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters.subscriptionIds) {
+            queryParameters["subscription_ids"] = requestParameters.subscriptionIds.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters.template !== undefined) {
+            queryParameters["template"] = requestParameters.template;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cloud-connect-azure/entities/user-scripts-download/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureProvisionGetUserScriptResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Return a script for customer to run in their cloud environment to grant us access to their Azure environment as a downloadable attachment
+     */
+    async getDiscoverCloudAzureUserScriptsAttachment(
+        tenantId: Array<string>,
+        subscriptionIds?: Array<string>,
+        template?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<RegistrationAzureProvisionGetUserScriptResponseV1> {
+        const response = await this.getDiscoverCloudAzureUserScriptsAttachmentRaw({ tenantId: tenantId, subscriptionIds: subscriptionIds, template: template }, initOverrides);
         return await response.value();
     }
 
@@ -766,7 +880,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -799,12 +913,12 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     /**
      * Update an Azure service account in our system by with the user-created client_id created with the public key we\'ve provided
      */
-    async updateCSPMAzureAccountClientIDRaw(
-        requestParameters: UpdateCSPMAzureAccountClientIDRequest,
+    async updateDiscoverCloudAzureAccountClientIDRaw(
+        requestParameters: UpdateDiscoverCloudAzureAccountClientIDRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<RegistrationAzureServicePrincipalResponseV1>> {
+    ): Promise<runtime.ApiResponse<RegistrationAzureTenantConfigurationResponseV1>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError("id", "Required parameter requestParameters.id was null or undefined when calling updateCSPMAzureAccountClientID.");
+            throw new runtime.RequiredError("id", "Required parameter requestParameters.id was null or undefined when calling updateDiscoverCloudAzureAccountClientID.");
         }
 
         const queryParameters: any = {};
@@ -813,11 +927,19 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
             queryParameters["id"] = requestParameters.id;
         }
 
+        if (requestParameters.objectId !== undefined) {
+            queryParameters["object_id"] = requestParameters.objectId;
+        }
+
+        if (requestParameters.tenantId !== undefined) {
+            queryParameters["tenant-id"] = requestParameters.tenantId;
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -830,26 +952,23 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureServicePrincipalResponseV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureTenantConfigurationResponseV1FromJSON(jsonValue));
     }
 
     /**
      * Update an Azure service account in our system by with the user-created client_id created with the public key we\'ve provided
      */
-    async updateCSPMAzureAccountClientID(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationAzureServicePrincipalResponseV1> {
-        const response = await this.updateCSPMAzureAccountClientIDRaw({ id: id }, initOverrides);
+    async updateDiscoverCloudAzureAccountClientID(
+        id: string,
+        objectId?: string,
+        tenantId?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<RegistrationAzureTenantConfigurationResponseV1> {
+        const response = await this.updateDiscoverCloudAzureAccountClientIDRaw({ id: id, objectId: objectId, tenantId: tenantId }, initOverrides);
         return await response.value();
     }
 }
 
-/**
- * @export
- */
-export const DiscoverCloudAzureDownloadCertificateRefreshEnum = {
-    False: "false",
-    True: "true",
-} as const;
-export type DiscoverCloudAzureDownloadCertificateRefreshEnum = (typeof DiscoverCloudAzureDownloadCertificateRefreshEnum)[keyof typeof DiscoverCloudAzureDownloadCertificateRefreshEnum];
 /**
  * @export
  */
@@ -858,6 +977,40 @@ export const GetD4CAwsAccountMigratedEnum = {
     True: "true",
 } as const;
 export type GetD4CAwsAccountMigratedEnum = (typeof GetD4CAwsAccountMigratedEnum)[keyof typeof GetD4CAwsAccountMigratedEnum];
+/**
+ * @export
+ */
+export const GetD4CGcpAccountParentTypeEnum = {
+    Folder: "Folder",
+    Organization: "Organization",
+    Project: "Project",
+} as const;
+export type GetD4CGcpAccountParentTypeEnum = (typeof GetD4CGcpAccountParentTypeEnum)[keyof typeof GetD4CGcpAccountParentTypeEnum];
+/**
+ * @export
+ */
+export const GetD4CGcpAccountScanTypeEnum = {
+    Dry: "dry",
+    Full: "full",
+} as const;
+export type GetD4CGcpAccountScanTypeEnum = (typeof GetD4CGcpAccountScanTypeEnum)[keyof typeof GetD4CGcpAccountScanTypeEnum];
+/**
+ * @export
+ */
+export const GetD4CGcpAccountStatusEnum = {
+    Operational: "operational",
+    Provisioned: "provisioned",
+} as const;
+export type GetD4CGcpAccountStatusEnum = (typeof GetD4CGcpAccountStatusEnum)[keyof typeof GetD4CGcpAccountStatusEnum];
+/**
+ * @export
+ */
+export const GetD4CGcpUserScriptsParentTypeEnum = {
+    Folder: "Folder",
+    Organization: "Organization",
+    Project: "Project",
+} as const;
+export type GetD4CGcpUserScriptsParentTypeEnum = (typeof GetD4CGcpUserScriptsParentTypeEnum)[keyof typeof GetD4CGcpUserScriptsParentTypeEnum];
 /**
  * @export
  */

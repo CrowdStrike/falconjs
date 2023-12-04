@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -13,6 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
+import type { SadomainSubmissionInformation } from "./SadomainSubmissionInformation";
+import { SadomainSubmissionInformationFromJSON, SadomainSubmissionInformationFromJSONTyped, SadomainSubmissionInformationToJSON } from "./SadomainSubmissionInformation";
 import type { SadomainTyposquattingBaseDomain } from "./SadomainTyposquattingBaseDomain";
 import { SadomainTyposquattingBaseDomainFromJSON, SadomainTyposquattingBaseDomainFromJSONTyped, SadomainTyposquattingBaseDomainToJSON } from "./SadomainTyposquattingBaseDomain";
 import type { SadomainTyposquattingParentDomain } from "./SadomainTyposquattingParentDomain";
@@ -49,6 +51,18 @@ export interface SadomainTyposquattingComponent {
      */
     punycodeFormat: string;
     /**
+     *
+     * @type {SadomainSubmissionInformation}
+     * @memberof SadomainTyposquattingComponent
+     */
+    submitForBlockingInfo?: SadomainSubmissionInformation;
+    /**
+     *
+     * @type {SadomainSubmissionInformation}
+     * @memberof SadomainTyposquattingComponent
+     */
+    submitForTakedownInfo?: SadomainSubmissionInformation;
+    /**
      * The Unicode representation of the infrastructure component
      * @type {string}
      * @memberof SadomainTyposquattingComponent
@@ -83,6 +97,8 @@ export function SadomainTyposquattingComponentFromJSONTyped(json: any, ignoreDis
         id: json["id"],
         parentDomain: SadomainTyposquattingParentDomainFromJSON(json["parent_domain"]),
         punycodeFormat: json["punycode_format"],
+        submitForBlockingInfo: !exists(json, "submit_for_blocking_info") ? undefined : SadomainSubmissionInformationFromJSON(json["submit_for_blocking_info"]),
+        submitForTakedownInfo: !exists(json, "submit_for_takedown_info") ? undefined : SadomainSubmissionInformationFromJSON(json["submit_for_takedown_info"]),
         unicodeFormat: json["unicode_format"],
     };
 }
@@ -99,6 +115,8 @@ export function SadomainTyposquattingComponentToJSON(value?: SadomainTyposquatti
         id: value.id,
         parent_domain: SadomainTyposquattingParentDomainToJSON(value.parentDomain),
         punycode_format: value.punycodeFormat,
+        submit_for_blocking_info: SadomainSubmissionInformationToJSON(value.submitForBlockingInfo),
+        submit_for_takedown_info: SadomainSubmissionInformationToJSON(value.submitForTakedownInfo),
         unicode_format: value.unicodeFormat,
     };
 }

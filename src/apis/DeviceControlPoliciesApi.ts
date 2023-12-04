@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -14,23 +14,33 @@
 
 import * as runtime from "../runtime";
 import type {
+    BasePolicyMembersRespV1,
+    BaseSetPolicyPrecedenceReqV1,
+    DeviceControlCreatePoliciesV1,
     DeviceControlReqUpdateDefaultDCPolicyV1,
     DeviceControlRespV1,
+    DeviceControlRespV2,
+    DeviceControlUpdatePoliciesReqV1,
     MsaEntityActionRequestV2,
     MsaErrorsOnly,
     MsaQueryResponse,
     MsaReplyMetaOnly,
-    RequestsCreateDeviceControlPoliciesV1,
-    RequestsSetPolicyPrecedenceReqV1,
-    RequestsUpdateDeviceControlPoliciesV1,
-    ResponsesDeviceControlPoliciesV1,
-    ResponsesPolicyMembersRespV1,
-} from "../models";
+} from "../models/index";
 import {
+    BasePolicyMembersRespV1FromJSON,
+    BasePolicyMembersRespV1ToJSON,
+    BaseSetPolicyPrecedenceReqV1FromJSON,
+    BaseSetPolicyPrecedenceReqV1ToJSON,
+    DeviceControlCreatePoliciesV1FromJSON,
+    DeviceControlCreatePoliciesV1ToJSON,
     DeviceControlReqUpdateDefaultDCPolicyV1FromJSON,
     DeviceControlReqUpdateDefaultDCPolicyV1ToJSON,
     DeviceControlRespV1FromJSON,
     DeviceControlRespV1ToJSON,
+    DeviceControlRespV2FromJSON,
+    DeviceControlRespV2ToJSON,
+    DeviceControlUpdatePoliciesReqV1FromJSON,
+    DeviceControlUpdatePoliciesReqV1ToJSON,
     MsaEntityActionRequestV2FromJSON,
     MsaEntityActionRequestV2ToJSON,
     MsaErrorsOnlyFromJSON,
@@ -39,20 +49,10 @@ import {
     MsaQueryResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-    RequestsCreateDeviceControlPoliciesV1FromJSON,
-    RequestsCreateDeviceControlPoliciesV1ToJSON,
-    RequestsSetPolicyPrecedenceReqV1FromJSON,
-    RequestsSetPolicyPrecedenceReqV1ToJSON,
-    RequestsUpdateDeviceControlPoliciesV1FromJSON,
-    RequestsUpdateDeviceControlPoliciesV1ToJSON,
-    ResponsesDeviceControlPoliciesV1FromJSON,
-    ResponsesDeviceControlPoliciesV1ToJSON,
-    ResponsesPolicyMembersRespV1FromJSON,
-    ResponsesPolicyMembersRespV1ToJSON,
-} from "../models";
+} from "../models/index";
 
 export interface CreateDeviceControlPoliciesRequest {
-    body: RequestsCreateDeviceControlPoliciesV1;
+    body: DeviceControlCreatePoliciesV1;
 }
 
 export interface DeleteDeviceControlPoliciesRequest {
@@ -99,7 +99,7 @@ export interface QueryDeviceControlPolicyMembersRequest {
 }
 
 export interface SetDeviceControlPoliciesPrecedenceRequest {
-    body: RequestsSetPolicyPrecedenceReqV1;
+    body: BaseSetPolicyPrecedenceReqV1;
 }
 
 export interface UpdateDefaultDeviceControlPoliciesRequest {
@@ -107,7 +107,7 @@ export interface UpdateDefaultDeviceControlPoliciesRequest {
 }
 
 export interface UpdateDeviceControlPoliciesRequest {
-    body: RequestsUpdateDeviceControlPoliciesV1;
+    body: DeviceControlUpdatePoliciesReqV1;
 }
 
 /**
@@ -120,7 +120,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
     async createDeviceControlPoliciesRaw(
         requestParameters: CreateDeviceControlPoliciesRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ResponsesDeviceControlPoliciesV1>> {
+    ): Promise<runtime.ApiResponse<DeviceControlRespV2>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createDeviceControlPolicies.");
         }
@@ -133,7 +133,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -142,18 +142,18 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: RequestsCreateDeviceControlPoliciesV1ToJSON(requestParameters.body),
+                body: DeviceControlCreatePoliciesV1ToJSON(requestParameters.body),
             },
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesDeviceControlPoliciesV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => DeviceControlRespV2FromJSON(jsonValue));
     }
 
     /**
      * Create Device Control Policies by specifying details about the policy to create
      */
-    async createDeviceControlPolicies(body: RequestsCreateDeviceControlPoliciesV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesDeviceControlPoliciesV1> {
+    async createDeviceControlPolicies(body: DeviceControlCreatePoliciesV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeviceControlRespV2> {
         const response = await this.createDeviceControlPoliciesRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -179,7 +179,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -213,7 +213,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -243,7 +243,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
     async getDeviceControlPoliciesRaw(
         requestParameters: GetDeviceControlPoliciesRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ResponsesDeviceControlPoliciesV1>> {
+    ): Promise<runtime.ApiResponse<DeviceControlRespV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getDeviceControlPolicies.");
         }
@@ -258,7 +258,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -271,13 +271,13 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesDeviceControlPoliciesV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => DeviceControlRespV1FromJSON(jsonValue));
     }
 
     /**
      * Retrieve a set of Device Control Policies by specifying their IDs
      */
-    async getDeviceControlPolicies(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesDeviceControlPoliciesV1> {
+    async getDeviceControlPolicies(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeviceControlRespV1> {
         const response = await this.getDeviceControlPoliciesRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -288,7 +288,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
     async performDeviceControlPoliciesActionRaw(
         requestParameters: PerformDeviceControlPoliciesActionRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ResponsesDeviceControlPoliciesV1>> {
+    ): Promise<runtime.ApiResponse<DeviceControlRespV1>> {
         if (requestParameters.actionName === null || requestParameters.actionName === undefined) {
             throw new runtime.RequiredError("actionName", "Required parameter requestParameters.actionName was null or undefined when calling performDeviceControlPoliciesAction.");
         }
@@ -309,7 +309,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -323,7 +323,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesDeviceControlPoliciesV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => DeviceControlRespV1FromJSON(jsonValue));
     }
 
     /**
@@ -333,7 +333,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
         actionName: PerformDeviceControlPoliciesActionActionNameEnum,
         body: MsaEntityActionRequestV2,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<ResponsesDeviceControlPoliciesV1> {
+    ): Promise<DeviceControlRespV1> {
         const response = await this.performDeviceControlPoliciesActionRaw({ actionName: actionName, body: body }, initOverrides);
         return await response.value();
     }
@@ -344,7 +344,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
     async queryCombinedDeviceControlPoliciesRaw(
         requestParameters: QueryCombinedDeviceControlPoliciesRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ResponsesDeviceControlPoliciesV1>> {
+    ): Promise<runtime.ApiResponse<DeviceControlRespV1>> {
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -367,7 +367,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -380,7 +380,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesDeviceControlPoliciesV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => DeviceControlRespV1FromJSON(jsonValue));
     }
 
     /**
@@ -392,7 +392,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
         limit?: number,
         sort?: QueryCombinedDeviceControlPoliciesSortEnum,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<ResponsesDeviceControlPoliciesV1> {
+    ): Promise<DeviceControlRespV1> {
         const response = await this.queryCombinedDeviceControlPoliciesRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
@@ -403,7 +403,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
     async queryCombinedDeviceControlPolicyMembersRaw(
         requestParameters: QueryCombinedDeviceControlPolicyMembersRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ResponsesPolicyMembersRespV1>> {
+    ): Promise<runtime.ApiResponse<BasePolicyMembersRespV1>> {
         const queryParameters: any = {};
 
         if (requestParameters.id !== undefined) {
@@ -430,7 +430,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -443,7 +443,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesPolicyMembersRespV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => BasePolicyMembersRespV1FromJSON(jsonValue));
     }
 
     /**
@@ -456,7 +456,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
         limit?: number,
         sort?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<ResponsesPolicyMembersRespV1> {
+    ): Promise<BasePolicyMembersRespV1> {
         const response = await this.queryCombinedDeviceControlPolicyMembersRaw({ id: id, filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
@@ -490,7 +490,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -553,7 +553,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -603,7 +603,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -612,7 +612,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: RequestsSetPolicyPrecedenceReqV1ToJSON(requestParameters.body),
+                body: BaseSetPolicyPrecedenceReqV1ToJSON(requestParameters.body),
             },
             initOverrides
         );
@@ -623,7 +623,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
     /**
      * Sets the precedence of Device Control Policies based on the order of IDs specified in the request. The first ID specified will have the highest precedence and the last ID specified will have the lowest. You must specify all non-Default Policies for a platform when updating precedence
      */
-    async setDeviceControlPoliciesPrecedence(body: RequestsSetPolicyPrecedenceReqV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
+    async setDeviceControlPoliciesPrecedence(body: BaseSetPolicyPrecedenceReqV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.setDeviceControlPoliciesPrecedenceRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -647,7 +647,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -678,7 +678,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
     async updateDeviceControlPoliciesRaw(
         requestParameters: UpdateDeviceControlPoliciesRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ResponsesDeviceControlPoliciesV1>> {
+    ): Promise<runtime.ApiResponse<DeviceControlRespV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateDeviceControlPolicies.");
         }
@@ -691,7 +691,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -700,18 +700,18 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
                 method: "PATCH",
                 headers: headerParameters,
                 query: queryParameters,
-                body: RequestsUpdateDeviceControlPoliciesV1ToJSON(requestParameters.body),
+                body: DeviceControlUpdatePoliciesReqV1ToJSON(requestParameters.body),
             },
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesDeviceControlPoliciesV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => DeviceControlRespV1FromJSON(jsonValue));
     }
 
     /**
      * Update Device Control Policies by specifying the ID of the policy and details to update
      */
-    async updateDeviceControlPolicies(body: RequestsUpdateDeviceControlPoliciesV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesDeviceControlPoliciesV1> {
+    async updateDeviceControlPolicies(body: DeviceControlUpdatePoliciesReqV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeviceControlRespV1> {
         const response = await this.updateDeviceControlPoliciesRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -722,9 +722,11 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
  */
 export const PerformDeviceControlPoliciesActionActionNameEnum = {
     AddHostGroup: "add-host-group",
+    AddRuleGroup: "add-rule-group",
     Disable: "disable",
     Enable: "enable",
     RemoveHostGroup: "remove-host-group",
+    RemoveRuleGroup: "remove-rule-group",
 } as const;
 export type PerformDeviceControlPoliciesActionActionNameEnum = (typeof PerformDeviceControlPoliciesActionActionNameEnum)[keyof typeof PerformDeviceControlPoliciesActionActionNameEnum];
 /**

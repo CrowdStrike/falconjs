@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -19,6 +19,7 @@ import type {
     EntitiesODSScanMaliciousFileResponse,
     EntitiesODSScanRequest,
     EntitiesODSScanResponse,
+    EntitiesODSScanResponseV2,
     EntitiesODSScheduleScanRequest,
     EntitiesODSScheduleScanResponse,
     MsaAggregateQueryRequest,
@@ -26,7 +27,7 @@ import type {
     MsaReplyMetaOnly,
     MsaspecQueryResponse,
     MsaspecResponseFields,
-} from "../models";
+} from "../models/index";
 import {
     EntitiesODSCancelScanRequestFromJSON,
     EntitiesODSCancelScanRequestToJSON,
@@ -38,6 +39,8 @@ import {
     EntitiesODSScanRequestToJSON,
     EntitiesODSScanResponseFromJSON,
     EntitiesODSScanResponseToJSON,
+    EntitiesODSScanResponseV2FromJSON,
+    EntitiesODSScanResponseV2ToJSON,
     EntitiesODSScheduleScanRequestFromJSON,
     EntitiesODSScheduleScanRequestToJSON,
     EntitiesODSScheduleScanResponseFromJSON,
@@ -52,46 +55,66 @@ import {
     MsaspecQueryResponseToJSON,
     MsaspecResponseFieldsFromJSON,
     MsaspecResponseFieldsToJSON,
-} from "../models";
+} from "../models/index";
+
+export interface AggregateQueryScanHostMetadataRequest {
+    xCSUSERUUID: string;
+    body: Array<MsaAggregateQueryRequest>;
+}
 
 export interface AggregateScansRequest {
+    xCSUSERUUID: string;
     body: Array<MsaAggregateQueryRequest>;
 }
 
 export interface AggregateScheduledScansRequest {
+    xCSUSERUUID: string;
     body: Array<MsaAggregateQueryRequest>;
 }
 
 export interface CancelScansRequest {
+    xCSUSERUUID: string;
     body: EntitiesODSCancelScanRequest;
 }
 
 export interface CreateScanRequest {
+    xCSUSERUUID: string;
     body: EntitiesODSScanRequest;
 }
 
 export interface DeleteScheduledScansRequest {
+    xCSUSERUUID: string;
     ids: Array<string>;
     filter?: string;
 }
 
 export interface GetMaliciousFilesByIdsRequest {
+    xCSUSERUUID: string;
     ids: Array<string>;
 }
 
 export interface GetScanHostMetadataByIdsRequest {
+    xCSUSERUUID: string;
     ids: Array<string>;
 }
 
 export interface GetScansByScanIdsRequest {
+    xCSUSERUUID: string;
+    ids: Array<string>;
+}
+
+export interface GetScansByScanIdsV2Request {
+    xCSUSERUUID: string;
     ids: Array<string>;
 }
 
 export interface GetScheduledScansByScanIdsRequest {
+    xCSUSERUUID: string;
     ids: Array<string>;
 }
 
 export interface QueryMaliciousFilesRequest {
+    xCSUSERUUID: string;
     filter?: string;
     offset?: number;
     limit?: number;
@@ -99,6 +122,7 @@ export interface QueryMaliciousFilesRequest {
 }
 
 export interface QueryScanHostMetadataRequest {
+    xCSUSERUUID: string;
     filter?: string;
     offset?: number;
     limit?: number;
@@ -106,6 +130,7 @@ export interface QueryScanHostMetadataRequest {
 }
 
 export interface QueryScansRequest {
+    xCSUSERUUID: string;
     filter?: string;
     offset?: number;
     limit?: number;
@@ -113,6 +138,7 @@ export interface QueryScansRequest {
 }
 
 export interface QueryScheduledScansRequest {
+    xCSUSERUUID: string;
     filter?: string;
     offset?: number;
     limit?: number;
@@ -120,6 +146,7 @@ export interface QueryScheduledScansRequest {
 }
 
 export interface ScheduleScanRequest {
+    xCSUSERUUID: string;
     body: EntitiesODSScheduleScanRequest;
 }
 
@@ -128,9 +155,65 @@ export interface ScheduleScanRequest {
  */
 export class OdsApi extends runtime.BaseAPI {
     /**
+     * Get aggregates on ODS scan-hosts data.
+     */
+    async aggregateQueryScanHostMetadataRaw(
+        requestParameters: AggregateQueryScanHostMetadataRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        if (requestParameters.xCSUSERUUID === null || requestParameters.xCSUSERUUID === undefined) {
+            throw new runtime.RequiredError("xCSUSERUUID", "Required parameter requestParameters.xCSUSERUUID was null or undefined when calling aggregateQueryScanHostMetadata.");
+        }
+
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling aggregateQueryScanHostMetadata.");
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (requestParameters.xCSUSERUUID !== undefined && requestParameters.xCSUSERUUID !== null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters.xCSUSERUUID);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ods/aggregates/scan-hosts/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: requestParameters.body.map(MsaAggregateQueryRequestToJSON),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get aggregates on ODS scan-hosts data.
+     */
+    async aggregateQueryScanHostMetadata(xCSUSERUUID: string, body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaAggregatesResponse> {
+        const response = await this.aggregateQueryScanHostMetadataRaw({ xCSUSERUUID: xCSUSERUUID, body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Get aggregates on ODS scan data.
      */
     async aggregateScansRaw(requestParameters: AggregateScansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        if (requestParameters.xCSUSERUUID === null || requestParameters.xCSUSERUUID === undefined) {
+            throw new runtime.RequiredError("xCSUSERUUID", "Required parameter requestParameters.xCSUSERUUID was null or undefined when calling aggregateScans.");
+        }
+
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling aggregateScans.");
         }
@@ -141,9 +224,13 @@ export class OdsApi extends runtime.BaseAPI {
 
         headerParameters["Content-Type"] = "application/json";
 
+        if (requestParameters.xCSUSERUUID !== undefined && requestParameters.xCSUSERUUID !== null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters.xCSUSERUUID);
+        }
+
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -163,8 +250,8 @@ export class OdsApi extends runtime.BaseAPI {
     /**
      * Get aggregates on ODS scan data.
      */
-    async aggregateScans(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaAggregatesResponse> {
-        const response = await this.aggregateScansRaw({ body: body }, initOverrides);
+    async aggregateScans(xCSUSERUUID: string, body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaAggregatesResponse> {
+        const response = await this.aggregateScansRaw({ xCSUSERUUID: xCSUSERUUID, body: body }, initOverrides);
         return await response.value();
     }
 
@@ -175,6 +262,10 @@ export class OdsApi extends runtime.BaseAPI {
         requestParameters: AggregateScheduledScansRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        if (requestParameters.xCSUSERUUID === null || requestParameters.xCSUSERUUID === undefined) {
+            throw new runtime.RequiredError("xCSUSERUUID", "Required parameter requestParameters.xCSUSERUUID was null or undefined when calling aggregateScheduledScans.");
+        }
+
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling aggregateScheduledScans.");
         }
@@ -185,9 +276,13 @@ export class OdsApi extends runtime.BaseAPI {
 
         headerParameters["Content-Type"] = "application/json";
 
+        if (requestParameters.xCSUSERUUID !== undefined && requestParameters.xCSUSERUUID !== null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters.xCSUSERUUID);
+        }
+
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -207,8 +302,8 @@ export class OdsApi extends runtime.BaseAPI {
     /**
      * Get aggregates on ODS scheduled-scan data.
      */
-    async aggregateScheduledScans(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaAggregatesResponse> {
-        const response = await this.aggregateScheduledScansRaw({ body: body }, initOverrides);
+    async aggregateScheduledScans(xCSUSERUUID: string, body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaAggregatesResponse> {
+        const response = await this.aggregateScheduledScansRaw({ xCSUSERUUID: xCSUSERUUID, body: body }, initOverrides);
         return await response.value();
     }
 
@@ -216,6 +311,10 @@ export class OdsApi extends runtime.BaseAPI {
      * Cancel ODS scans for the given scan ids.
      */
     async cancelScansRaw(requestParameters: CancelScansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        if (requestParameters.xCSUSERUUID === null || requestParameters.xCSUSERUUID === undefined) {
+            throw new runtime.RequiredError("xCSUSERUUID", "Required parameter requestParameters.xCSUSERUUID was null or undefined when calling cancelScans.");
+        }
+
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling cancelScans.");
         }
@@ -226,9 +325,13 @@ export class OdsApi extends runtime.BaseAPI {
 
         headerParameters["Content-Type"] = "application/json";
 
+        if (requestParameters.xCSUSERUUID !== undefined && requestParameters.xCSUSERUUID !== null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters.xCSUSERUUID);
+        }
+
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -248,8 +351,8 @@ export class OdsApi extends runtime.BaseAPI {
     /**
      * Cancel ODS scans for the given scan ids.
      */
-    async cancelScans(body: EntitiesODSCancelScanRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
-        const response = await this.cancelScansRaw({ body: body }, initOverrides);
+    async cancelScans(xCSUSERUUID: string, body: EntitiesODSCancelScanRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
+        const response = await this.cancelScansRaw({ xCSUSERUUID: xCSUSERUUID, body: body }, initOverrides);
         return await response.value();
     }
 
@@ -257,6 +360,10 @@ export class OdsApi extends runtime.BaseAPI {
      * Create ODS scan and start or schedule scan for the given scan request.
      */
     async createScanRaw(requestParameters: CreateScanRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EntitiesODSScanResponse>> {
+        if (requestParameters.xCSUSERUUID === null || requestParameters.xCSUSERUUID === undefined) {
+            throw new runtime.RequiredError("xCSUSERUUID", "Required parameter requestParameters.xCSUSERUUID was null or undefined when calling createScan.");
+        }
+
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createScan.");
         }
@@ -267,9 +374,13 @@ export class OdsApi extends runtime.BaseAPI {
 
         headerParameters["Content-Type"] = "application/json";
 
+        if (requestParameters.xCSUSERUUID !== undefined && requestParameters.xCSUSERUUID !== null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters.xCSUSERUUID);
+        }
+
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -289,8 +400,8 @@ export class OdsApi extends runtime.BaseAPI {
     /**
      * Create ODS scan and start or schedule scan for the given scan request.
      */
-    async createScan(body: EntitiesODSScanRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EntitiesODSScanResponse> {
-        const response = await this.createScanRaw({ body: body }, initOverrides);
+    async createScan(xCSUSERUUID: string, body: EntitiesODSScanRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EntitiesODSScanResponse> {
+        const response = await this.createScanRaw({ xCSUSERUUID: xCSUSERUUID, body: body }, initOverrides);
         return await response.value();
     }
 
@@ -298,6 +409,10 @@ export class OdsApi extends runtime.BaseAPI {
      * Delete ODS scheduled-scans for the given scheduled-scan ids.
      */
     async deleteScheduledScansRaw(requestParameters: DeleteScheduledScansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        if (requestParameters.xCSUSERUUID === null || requestParameters.xCSUSERUUID === undefined) {
+            throw new runtime.RequiredError("xCSUSERUUID", "Required parameter requestParameters.xCSUSERUUID was null or undefined when calling deleteScheduledScans.");
+        }
+
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling deleteScheduledScans.");
         }
@@ -314,9 +429,13 @@ export class OdsApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (requestParameters.xCSUSERUUID !== undefined && requestParameters.xCSUSERUUID !== null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters.xCSUSERUUID);
+        }
+
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -335,8 +454,8 @@ export class OdsApi extends runtime.BaseAPI {
     /**
      * Delete ODS scheduled-scans for the given scheduled-scan ids.
      */
-    async deleteScheduledScans(ids: Array<string>, filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
-        const response = await this.deleteScheduledScansRaw({ ids: ids, filter: filter }, initOverrides);
+    async deleteScheduledScans(xCSUSERUUID: string, ids: Array<string>, filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
+        const response = await this.deleteScheduledScansRaw({ xCSUSERUUID: xCSUSERUUID, ids: ids, filter: filter }, initOverrides);
         return await response.value();
     }
 
@@ -347,6 +466,10 @@ export class OdsApi extends runtime.BaseAPI {
         requestParameters: GetMaliciousFilesByIdsRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<EntitiesODSScanMaliciousFileResponse>> {
+        if (requestParameters.xCSUSERUUID === null || requestParameters.xCSUSERUUID === undefined) {
+            throw new runtime.RequiredError("xCSUSERUUID", "Required parameter requestParameters.xCSUSERUUID was null or undefined when calling getMaliciousFilesByIds.");
+        }
+
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getMaliciousFilesByIds.");
         }
@@ -359,9 +482,13 @@ export class OdsApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (requestParameters.xCSUSERUUID !== undefined && requestParameters.xCSUSERUUID !== null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters.xCSUSERUUID);
+        }
+
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -380,8 +507,8 @@ export class OdsApi extends runtime.BaseAPI {
     /**
      * Get malicious files by ids.
      */
-    async getMaliciousFilesByIds(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EntitiesODSScanMaliciousFileResponse> {
-        const response = await this.getMaliciousFilesByIdsRaw({ ids: ids }, initOverrides);
+    async getMaliciousFilesByIds(xCSUSERUUID: string, ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EntitiesODSScanMaliciousFileResponse> {
+        const response = await this.getMaliciousFilesByIdsRaw({ xCSUSERUUID: xCSUSERUUID, ids: ids }, initOverrides);
         return await response.value();
     }
 
@@ -392,6 +519,10 @@ export class OdsApi extends runtime.BaseAPI {
         requestParameters: GetScanHostMetadataByIdsRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<EntitiesODSScanHostResponse>> {
+        if (requestParameters.xCSUSERUUID === null || requestParameters.xCSUSERUUID === undefined) {
+            throw new runtime.RequiredError("xCSUSERUUID", "Required parameter requestParameters.xCSUSERUUID was null or undefined when calling getScanHostMetadataByIds.");
+        }
+
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getScanHostMetadataByIds.");
         }
@@ -404,9 +535,13 @@ export class OdsApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (requestParameters.xCSUSERUUID !== undefined && requestParameters.xCSUSERUUID !== null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters.xCSUSERUUID);
+        }
+
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -425,8 +560,8 @@ export class OdsApi extends runtime.BaseAPI {
     /**
      * Get scan hosts by ids.
      */
-    async getScanHostMetadataByIds(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EntitiesODSScanHostResponse> {
-        const response = await this.getScanHostMetadataByIdsRaw({ ids: ids }, initOverrides);
+    async getScanHostMetadataByIds(xCSUSERUUID: string, ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EntitiesODSScanHostResponse> {
+        const response = await this.getScanHostMetadataByIdsRaw({ xCSUSERUUID: xCSUSERUUID, ids: ids }, initOverrides);
         return await response.value();
     }
 
@@ -434,6 +569,10 @@ export class OdsApi extends runtime.BaseAPI {
      * Get Scans by IDs.
      */
     async getScansByScanIdsRaw(requestParameters: GetScansByScanIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EntitiesODSScanResponse>> {
+        if (requestParameters.xCSUSERUUID === null || requestParameters.xCSUSERUUID === undefined) {
+            throw new runtime.RequiredError("xCSUSERUUID", "Required parameter requestParameters.xCSUSERUUID was null or undefined when calling getScansByScanIds.");
+        }
+
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getScansByScanIds.");
         }
@@ -446,9 +585,13 @@ export class OdsApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (requestParameters.xCSUSERUUID !== undefined && requestParameters.xCSUSERUUID !== null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters.xCSUSERUUID);
+        }
+
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -467,8 +610,58 @@ export class OdsApi extends runtime.BaseAPI {
     /**
      * Get Scans by IDs.
      */
-    async getScansByScanIds(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EntitiesODSScanResponse> {
-        const response = await this.getScansByScanIdsRaw({ ids: ids }, initOverrides);
+    async getScansByScanIds(xCSUSERUUID: string, ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EntitiesODSScanResponse> {
+        const response = await this.getScansByScanIdsRaw({ xCSUSERUUID: xCSUSERUUID, ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get Scans by IDs.
+     */
+    async getScansByScanIdsV2Raw(requestParameters: GetScansByScanIdsV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EntitiesODSScanResponseV2>> {
+        if (requestParameters.xCSUSERUUID === null || requestParameters.xCSUSERUUID === undefined) {
+            throw new runtime.RequiredError("xCSUSERUUID", "Required parameter requestParameters.xCSUSERUUID was null or undefined when calling getScansByScanIdsV2.");
+        }
+
+        if (requestParameters.ids === null || requestParameters.ids === undefined) {
+            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getScansByScanIdsV2.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.ids) {
+            queryParameters["ids"] = requestParameters.ids;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.xCSUSERUUID !== undefined && requestParameters.xCSUSERUUID !== null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters.xCSUSERUUID);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ods/entities/scans/v2`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => EntitiesODSScanResponseV2FromJSON(jsonValue));
+    }
+
+    /**
+     * Get Scans by IDs.
+     */
+    async getScansByScanIdsV2(xCSUSERUUID: string, ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EntitiesODSScanResponseV2> {
+        const response = await this.getScansByScanIdsV2Raw({ xCSUSERUUID: xCSUSERUUID, ids: ids }, initOverrides);
         return await response.value();
     }
 
@@ -479,6 +672,10 @@ export class OdsApi extends runtime.BaseAPI {
         requestParameters: GetScheduledScansByScanIdsRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<EntitiesODSScheduleScanResponse>> {
+        if (requestParameters.xCSUSERUUID === null || requestParameters.xCSUSERUUID === undefined) {
+            throw new runtime.RequiredError("xCSUSERUUID", "Required parameter requestParameters.xCSUSERUUID was null or undefined when calling getScheduledScansByScanIds.");
+        }
+
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getScheduledScansByScanIds.");
         }
@@ -491,9 +688,13 @@ export class OdsApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (requestParameters.xCSUSERUUID !== undefined && requestParameters.xCSUSERUUID !== null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters.xCSUSERUUID);
+        }
+
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -512,8 +713,8 @@ export class OdsApi extends runtime.BaseAPI {
     /**
      * Get ScheduledScans by IDs.
      */
-    async getScheduledScansByScanIds(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EntitiesODSScheduleScanResponse> {
-        const response = await this.getScheduledScansByScanIdsRaw({ ids: ids }, initOverrides);
+    async getScheduledScansByScanIds(xCSUSERUUID: string, ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EntitiesODSScheduleScanResponse> {
+        const response = await this.getScheduledScansByScanIdsRaw({ xCSUSERUUID: xCSUSERUUID, ids: ids }, initOverrides);
         return await response.value();
     }
 
@@ -521,6 +722,10 @@ export class OdsApi extends runtime.BaseAPI {
      * Query malicious files.
      */
     async queryMaliciousFilesRaw(requestParameters: QueryMaliciousFilesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        if (requestParameters.xCSUSERUUID === null || requestParameters.xCSUSERUUID === undefined) {
+            throw new runtime.RequiredError("xCSUSERUUID", "Required parameter requestParameters.xCSUSERUUID was null or undefined when calling queryMaliciousFiles.");
+        }
+
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -541,9 +746,13 @@ export class OdsApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (requestParameters.xCSUSERUUID !== undefined && requestParameters.xCSUSERUUID !== null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters.xCSUSERUUID);
+        }
+
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -563,13 +772,14 @@ export class OdsApi extends runtime.BaseAPI {
      * Query malicious files.
      */
     async queryMaliciousFiles(
+        xCSUSERUUID: string,
         filter?: string,
         offset?: number,
         limit?: number,
         sort?: QueryMaliciousFilesSortEnum,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<MsaspecQueryResponse> {
-        const response = await this.queryMaliciousFilesRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
+        const response = await this.queryMaliciousFilesRaw({ xCSUSERUUID: xCSUSERUUID, filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
 
@@ -577,6 +787,10 @@ export class OdsApi extends runtime.BaseAPI {
      * Query scan hosts.
      */
     async queryScanHostMetadataRaw(requestParameters: QueryScanHostMetadataRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        if (requestParameters.xCSUSERUUID === null || requestParameters.xCSUSERUUID === undefined) {
+            throw new runtime.RequiredError("xCSUSERUUID", "Required parameter requestParameters.xCSUSERUUID was null or undefined when calling queryScanHostMetadata.");
+        }
+
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -597,9 +811,13 @@ export class OdsApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (requestParameters.xCSUSERUUID !== undefined && requestParameters.xCSUSERUUID !== null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters.xCSUSERUUID);
+        }
+
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -619,13 +837,14 @@ export class OdsApi extends runtime.BaseAPI {
      * Query scan hosts.
      */
     async queryScanHostMetadata(
+        xCSUSERUUID: string,
         filter?: string,
         offset?: number,
         limit?: number,
         sort?: QueryScanHostMetadataSortEnum,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<MsaspecQueryResponse> {
-        const response = await this.queryScanHostMetadataRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
+        const response = await this.queryScanHostMetadataRaw({ xCSUSERUUID: xCSUSERUUID, filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
 
@@ -633,6 +852,10 @@ export class OdsApi extends runtime.BaseAPI {
      * Query Scans.
      */
     async queryScansRaw(requestParameters: QueryScansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        if (requestParameters.xCSUSERUUID === null || requestParameters.xCSUSERUUID === undefined) {
+            throw new runtime.RequiredError("xCSUSERUUID", "Required parameter requestParameters.xCSUSERUUID was null or undefined when calling queryScans.");
+        }
+
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -653,9 +876,13 @@ export class OdsApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (requestParameters.xCSUSERUUID !== undefined && requestParameters.xCSUSERUUID !== null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters.xCSUSERUUID);
+        }
+
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -674,8 +901,15 @@ export class OdsApi extends runtime.BaseAPI {
     /**
      * Query Scans.
      */
-    async queryScans(filter?: string, offset?: number, limit?: number, sort?: QueryScansSortEnum, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
-        const response = await this.queryScansRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
+    async queryScans(
+        xCSUSERUUID: string,
+        filter?: string,
+        offset?: number,
+        limit?: number,
+        sort?: QueryScansSortEnum,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<MsaspecQueryResponse> {
+        const response = await this.queryScansRaw({ xCSUSERUUID: xCSUSERUUID, filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
 
@@ -683,6 +917,10 @@ export class OdsApi extends runtime.BaseAPI {
      * Query ScheduledScans.
      */
     async queryScheduledScansRaw(requestParameters: QueryScheduledScansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        if (requestParameters.xCSUSERUUID === null || requestParameters.xCSUSERUUID === undefined) {
+            throw new runtime.RequiredError("xCSUSERUUID", "Required parameter requestParameters.xCSUSERUUID was null or undefined when calling queryScheduledScans.");
+        }
+
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -703,9 +941,13 @@ export class OdsApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (requestParameters.xCSUSERUUID !== undefined && requestParameters.xCSUSERUUID !== null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters.xCSUSERUUID);
+        }
+
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -725,13 +967,14 @@ export class OdsApi extends runtime.BaseAPI {
      * Query ScheduledScans.
      */
     async queryScheduledScans(
+        xCSUSERUUID: string,
         filter?: string,
         offset?: number,
         limit?: number,
         sort?: QueryScheduledScansSortEnum,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<MsaspecQueryResponse> {
-        const response = await this.queryScheduledScansRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
+        const response = await this.queryScheduledScansRaw({ xCSUSERUUID: xCSUSERUUID, filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
 
@@ -739,6 +982,10 @@ export class OdsApi extends runtime.BaseAPI {
      * Create ODS scan and start or schedule scan for the given scan request.
      */
     async scheduleScanRaw(requestParameters: ScheduleScanRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EntitiesODSScheduleScanResponse>> {
+        if (requestParameters.xCSUSERUUID === null || requestParameters.xCSUSERUUID === undefined) {
+            throw new runtime.RequiredError("xCSUSERUUID", "Required parameter requestParameters.xCSUSERUUID was null or undefined when calling scheduleScan.");
+        }
+
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling scheduleScan.");
         }
@@ -749,9 +996,13 @@ export class OdsApi extends runtime.BaseAPI {
 
         headerParameters["Content-Type"] = "application/json";
 
+        if (requestParameters.xCSUSERUUID !== undefined && requestParameters.xCSUSERUUID !== null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters.xCSUSERUUID);
+        }
+
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -771,8 +1022,8 @@ export class OdsApi extends runtime.BaseAPI {
     /**
      * Create ODS scan and start or schedule scan for the given scan request.
      */
-    async scheduleScan(body: EntitiesODSScheduleScanRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EntitiesODSScheduleScanResponse> {
-        const response = await this.scheduleScanRaw({ body: body }, initOverrides);
+    async scheduleScan(xCSUSERUUID: string, body: EntitiesODSScheduleScanRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EntitiesODSScheduleScanResponse> {
+        const response = await this.scheduleScanRaw({ xCSUSERUUID: xCSUSERUUID, body: body }, initOverrides);
         return await response.value();
     }
 }
@@ -829,6 +1080,8 @@ export const QueryScanHostMetadataSortEnum = {
     CompletedOnDesc: "completed_on|desc",
     LastUpdatedAsc: "last_updated|asc",
     LastUpdatedDesc: "last_updated|desc",
+    ScanControlReasonKeywordAsc: "scan_control_reason.keyword|asc",
+    ScanControlReasonKeywordDesc: "scan_control_reason.keyword|desc",
 } as const;
 export type QueryScanHostMetadataSortEnum = (typeof QueryScanHostMetadataSortEnum)[keyof typeof QueryScanHostMetadataSortEnum];
 /**
@@ -865,6 +1118,10 @@ export const QueryScansSortEnum = {
     CreatedByDesc: "created_by|desc",
     LastUpdatedAsc: "last_updated|asc",
     LastUpdatedDesc: "last_updated|desc",
+    TargetedHostCountAsc: "targeted_host_count|asc",
+    TargetedHostCountDesc: "targeted_host_count|desc",
+    MissingHostCountAsc: "missing_host_count|asc",
+    MissingHostCountDesc: "missing_host_count|desc",
 } as const;
 export type QueryScansSortEnum = (typeof QueryScansSortEnum)[keyof typeof QueryScansSortEnum];
 /**

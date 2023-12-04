@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -24,7 +24,7 @@ export interface DomainUserGrants {
      * @type {string}
      * @memberof DomainUserGrants
      */
-    cid: string;
+    cid?: string;
     /**
      *
      * @type {string}
@@ -42,7 +42,7 @@ export interface DomainUserGrants {
      * @type {string}
      * @memberof DomainUserGrants
      */
-    grantType: string;
+    grantType?: string;
     /**
      *
      * @type {string}
@@ -60,7 +60,7 @@ export interface DomainUserGrants {
      * @type {string}
      * @memberof DomainUserGrants
      */
-    roleName: string;
+    roleName?: string;
     /**
      *
      * @type {string}
@@ -78,7 +78,7 @@ export interface DomainUserGrants {
      * @type {string}
      * @memberof DomainUserGrants
      */
-    uuid: string;
+    uuid?: string;
 }
 
 /**
@@ -86,11 +86,7 @@ export interface DomainUserGrants {
  */
 export function instanceOfDomainUserGrants(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "cid" in value;
-    isInstance = isInstance && "grantType" in value;
     isInstance = isInstance && "roleId" in value;
-    isInstance = isInstance && "roleName" in value;
-    isInstance = isInstance && "uuid" in value;
 
     return isInstance;
 }
@@ -104,16 +100,16 @@ export function DomainUserGrantsFromJSONTyped(json: any, ignoreDiscriminator: bo
         return json;
     }
     return {
-        cid: json["cid"],
+        cid: !exists(json, "cid") ? undefined : json["cid"],
         cidGroupId: !exists(json, "cid_group_id") ? undefined : json["cid_group_id"],
         cidGroupName: !exists(json, "cid_group_name") ? undefined : json["cid_group_name"],
-        grantType: json["grant_type"],
+        grantType: !exists(json, "grant_type") ? undefined : json["grant_type"],
         parentCid: !exists(json, "parent_cid") ? undefined : json["parent_cid"],
         roleId: json["role_id"],
-        roleName: json["role_name"],
+        roleName: !exists(json, "role_name") ? undefined : json["role_name"],
         userGroupId: !exists(json, "user_group_id") ? undefined : json["user_group_id"],
         userGroupName: !exists(json, "user_group_name") ? undefined : json["user_group_name"],
-        uuid: json["uuid"],
+        uuid: !exists(json, "uuid") ? undefined : json["uuid"],
     };
 }
 

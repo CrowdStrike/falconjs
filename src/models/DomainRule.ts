@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -20,53 +20,59 @@ import { exists, mapValues } from "../runtime";
  */
 export interface DomainRule {
     /**
-     * The categories associated with the rule
-     * @type {Array<string>}
+     *
+     * @type {number}
      * @memberof DomainRule
      */
-    categories: Array<string>;
+    createdDate: number;
     /**
-     * UTC timestamp when rule was created
+     *
      * @type {string}
      * @memberof DomainRule
      */
-    createdDate: string;
+    description: string;
     /**
-     * The ID of the customer
-     * @type {string}
+     *
+     * @type {number}
      * @memberof DomainRule
      */
-    customerId: string;
+    id: number;
     /**
-     * The ID of the rule
-     * @type {string}
+     *
+     * @type {number}
      * @memberof DomainRule
      */
-    id: string;
+    lastModifiedDate: number;
     /**
-     * The name of the rule
+     *
      * @type {string}
      * @memberof DomainRule
      */
     name: string;
     /**
-     * The type of the rule
+     *
      * @type {string}
      * @memberof DomainRule
      */
-    ruleType: string;
+    richTextDescription: string;
     /**
-     * UTC timestamp when rule was last updated
+     *
      * @type {string}
      * @memberof DomainRule
      */
-    updatedDate: string;
+    shortDescription: string;
     /**
-     * The value of the rule
+     *
+     * @type {Array<string>}
+     * @memberof DomainRule
+     */
+    tags: Array<string>;
+    /**
+     *
      * @type {string}
      * @memberof DomainRule
      */
-    value: string;
+    type: string;
 }
 
 /**
@@ -74,14 +80,15 @@ export interface DomainRule {
  */
 export function instanceOfDomainRule(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "categories" in value;
     isInstance = isInstance && "createdDate" in value;
-    isInstance = isInstance && "customerId" in value;
+    isInstance = isInstance && "description" in value;
     isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "lastModifiedDate" in value;
     isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "ruleType" in value;
-    isInstance = isInstance && "updatedDate" in value;
-    isInstance = isInstance && "value" in value;
+    isInstance = isInstance && "richTextDescription" in value;
+    isInstance = isInstance && "shortDescription" in value;
+    isInstance = isInstance && "tags" in value;
+    isInstance = isInstance && "type" in value;
 
     return isInstance;
 }
@@ -95,14 +102,15 @@ export function DomainRuleFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         return json;
     }
     return {
-        categories: json["categories"],
         createdDate: json["created_date"],
-        customerId: json["customer_id"],
+        description: json["description"],
         id: json["id"],
+        lastModifiedDate: json["last_modified_date"],
         name: json["name"],
-        ruleType: json["rule_type"],
-        updatedDate: json["updated_date"],
-        value: json["value"],
+        richTextDescription: json["rich_text_description"],
+        shortDescription: json["short_description"],
+        tags: json["tags"],
+        type: json["type"],
     };
 }
 
@@ -114,13 +122,14 @@ export function DomainRuleToJSON(value?: DomainRule | null): any {
         return null;
     }
     return {
-        categories: value.categories,
         created_date: value.createdDate,
-        customer_id: value.customerId,
+        description: value.description,
         id: value.id,
+        last_modified_date: value.lastModifiedDate,
         name: value.name,
-        rule_type: value.ruleType,
-        updated_date: value.updatedDate,
-        value: value.value,
+        rich_text_description: value.richTextDescription,
+        short_description: value.shortDescription,
+        tags: value.tags,
+        type: value.type,
     };
 }

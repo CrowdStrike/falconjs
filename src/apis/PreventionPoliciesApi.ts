@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -14,17 +14,21 @@
 
 import * as runtime from "../runtime";
 import type {
+    BasePolicyMembersRespV1,
+    BaseSetPolicyPrecedenceReqV1,
     MsaEntityActionRequestV2,
     MsaErrorsOnly,
     MsaQueryResponse,
     MsaReplyMetaOnly,
-    RequestsCreatePreventionPoliciesV1,
-    RequestsSetPolicyPrecedenceReqV1,
-    RequestsUpdatePreventionPoliciesV1,
-    ResponsesPolicyMembersRespV1,
-    ResponsesPreventionPoliciesV1,
-} from "../models";
+    PreventionCreatePoliciesReqV1,
+    PreventionRespV1,
+    PreventionUpdatePoliciesReqV1,
+} from "../models/index";
 import {
+    BasePolicyMembersRespV1FromJSON,
+    BasePolicyMembersRespV1ToJSON,
+    BaseSetPolicyPrecedenceReqV1FromJSON,
+    BaseSetPolicyPrecedenceReqV1ToJSON,
     MsaEntityActionRequestV2FromJSON,
     MsaEntityActionRequestV2ToJSON,
     MsaErrorsOnlyFromJSON,
@@ -33,20 +37,16 @@ import {
     MsaQueryResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-    RequestsCreatePreventionPoliciesV1FromJSON,
-    RequestsCreatePreventionPoliciesV1ToJSON,
-    RequestsSetPolicyPrecedenceReqV1FromJSON,
-    RequestsSetPolicyPrecedenceReqV1ToJSON,
-    RequestsUpdatePreventionPoliciesV1FromJSON,
-    RequestsUpdatePreventionPoliciesV1ToJSON,
-    ResponsesPolicyMembersRespV1FromJSON,
-    ResponsesPolicyMembersRespV1ToJSON,
-    ResponsesPreventionPoliciesV1FromJSON,
-    ResponsesPreventionPoliciesV1ToJSON,
-} from "../models";
+    PreventionCreatePoliciesReqV1FromJSON,
+    PreventionCreatePoliciesReqV1ToJSON,
+    PreventionRespV1FromJSON,
+    PreventionRespV1ToJSON,
+    PreventionUpdatePoliciesReqV1FromJSON,
+    PreventionUpdatePoliciesReqV1ToJSON,
+} from "../models/index";
 
 export interface CreatePreventionPoliciesRequest {
-    body: RequestsCreatePreventionPoliciesV1;
+    body: PreventionCreatePoliciesReqV1;
 }
 
 export interface DeletePreventionPoliciesRequest {
@@ -93,11 +93,11 @@ export interface QueryPreventionPolicyMembersRequest {
 }
 
 export interface SetPreventionPoliciesPrecedenceRequest {
-    body: RequestsSetPolicyPrecedenceReqV1;
+    body: BaseSetPolicyPrecedenceReqV1;
 }
 
 export interface UpdatePreventionPoliciesRequest {
-    body: RequestsUpdatePreventionPoliciesV1;
+    body: PreventionUpdatePoliciesReqV1;
 }
 
 /**
@@ -107,10 +107,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     /**
      * Create Prevention Policies by specifying details about the policy to create
      */
-    async createPreventionPoliciesRaw(
-        requestParameters: CreatePreventionPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ResponsesPreventionPoliciesV1>> {
+    async createPreventionPoliciesRaw(requestParameters: CreatePreventionPoliciesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PreventionRespV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createPreventionPolicies.");
         }
@@ -123,7 +120,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["prevention-policies:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -132,18 +129,18 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: RequestsCreatePreventionPoliciesV1ToJSON(requestParameters.body),
+                body: PreventionCreatePoliciesReqV1ToJSON(requestParameters.body),
             },
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesPreventionPoliciesV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => PreventionRespV1FromJSON(jsonValue));
     }
 
     /**
      * Create Prevention Policies by specifying details about the policy to create
      */
-    async createPreventionPolicies(body: RequestsCreatePreventionPoliciesV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesPreventionPoliciesV1> {
+    async createPreventionPolicies(body: PreventionCreatePoliciesReqV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PreventionRespV1> {
         const response = await this.createPreventionPoliciesRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -166,7 +163,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["prevention-policies:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -193,10 +190,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     /**
      * Retrieve a set of Prevention Policies by specifying their IDs
      */
-    async getPreventionPoliciesRaw(
-        requestParameters: GetPreventionPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ResponsesPreventionPoliciesV1>> {
+    async getPreventionPoliciesRaw(requestParameters: GetPreventionPoliciesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PreventionRespV1>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
             throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getPreventionPolicies.");
         }
@@ -211,7 +205,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["prevention-policies:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -224,13 +218,13 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesPreventionPoliciesV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => PreventionRespV1FromJSON(jsonValue));
     }
 
     /**
      * Retrieve a set of Prevention Policies by specifying their IDs
      */
-    async getPreventionPolicies(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesPreventionPoliciesV1> {
+    async getPreventionPolicies(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PreventionRespV1> {
         const response = await this.getPreventionPoliciesRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -241,7 +235,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     async performPreventionPoliciesActionRaw(
         requestParameters: PerformPreventionPoliciesActionRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ResponsesPreventionPoliciesV1>> {
+    ): Promise<runtime.ApiResponse<PreventionRespV1>> {
         if (requestParameters.actionName === null || requestParameters.actionName === undefined) {
             throw new runtime.RequiredError("actionName", "Required parameter requestParameters.actionName was null or undefined when calling performPreventionPoliciesAction.");
         }
@@ -262,7 +256,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["prevention-policies:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -276,7 +270,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesPreventionPoliciesV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => PreventionRespV1FromJSON(jsonValue));
     }
 
     /**
@@ -286,7 +280,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
         actionName: PerformPreventionPoliciesActionActionNameEnum,
         body: MsaEntityActionRequestV2,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<ResponsesPreventionPoliciesV1> {
+    ): Promise<PreventionRespV1> {
         const response = await this.performPreventionPoliciesActionRaw({ actionName: actionName, body: body }, initOverrides);
         return await response.value();
     }
@@ -297,7 +291,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     async queryCombinedPreventionPoliciesRaw(
         requestParameters: QueryCombinedPreventionPoliciesRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ResponsesPreventionPoliciesV1>> {
+    ): Promise<runtime.ApiResponse<PreventionRespV1>> {
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -320,7 +314,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["prevention-policies:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -333,7 +327,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesPreventionPoliciesV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => PreventionRespV1FromJSON(jsonValue));
     }
 
     /**
@@ -345,7 +339,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
         limit?: number,
         sort?: QueryCombinedPreventionPoliciesSortEnum,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<ResponsesPreventionPoliciesV1> {
+    ): Promise<PreventionRespV1> {
         const response = await this.queryCombinedPreventionPoliciesRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
@@ -356,7 +350,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     async queryCombinedPreventionPolicyMembersRaw(
         requestParameters: QueryCombinedPreventionPolicyMembersRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ResponsesPolicyMembersRespV1>> {
+    ): Promise<runtime.ApiResponse<BasePolicyMembersRespV1>> {
         const queryParameters: any = {};
 
         if (requestParameters.id !== undefined) {
@@ -383,7 +377,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["prevention-policies:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -396,7 +390,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesPolicyMembersRespV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => BasePolicyMembersRespV1FromJSON(jsonValue));
     }
 
     /**
@@ -409,7 +403,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
         limit?: number,
         sort?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<ResponsesPolicyMembersRespV1> {
+    ): Promise<BasePolicyMembersRespV1> {
         const response = await this.queryCombinedPreventionPolicyMembersRaw({ id: id, filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
@@ -440,7 +434,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["prevention-policies:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -503,7 +497,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["prevention-policies:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -553,7 +547,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["prevention-policies:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -562,7 +556,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: RequestsSetPolicyPrecedenceReqV1ToJSON(requestParameters.body),
+                body: BaseSetPolicyPrecedenceReqV1ToJSON(requestParameters.body),
             },
             initOverrides
         );
@@ -573,7 +567,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     /**
      * Sets the precedence of Prevention Policies based on the order of IDs specified in the request. The first ID specified will have the highest precedence and the last ID specified will have the lowest. You must specify all non-Default Policies for a platform when updating precedence
      */
-    async setPreventionPoliciesPrecedence(body: RequestsSetPolicyPrecedenceReqV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
+    async setPreventionPoliciesPrecedence(body: BaseSetPolicyPrecedenceReqV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.setPreventionPoliciesPrecedenceRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -581,10 +575,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     /**
      * Update Prevention Policies by specifying the ID of the policy and details to update
      */
-    async updatePreventionPoliciesRaw(
-        requestParameters: UpdatePreventionPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ResponsesPreventionPoliciesV1>> {
+    async updatePreventionPoliciesRaw(requestParameters: UpdatePreventionPoliciesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PreventionRespV1>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updatePreventionPolicies.");
         }
@@ -597,7 +588,7 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["prevention-policies:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -606,18 +597,18 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
                 method: "PATCH",
                 headers: headerParameters,
                 query: queryParameters,
-                body: RequestsUpdatePreventionPoliciesV1ToJSON(requestParameters.body),
+                body: PreventionUpdatePoliciesReqV1ToJSON(requestParameters.body),
             },
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesPreventionPoliciesV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => PreventionRespV1FromJSON(jsonValue));
     }
 
     /**
      * Update Prevention Policies by specifying the ID of the policy and details to update
      */
-    async updatePreventionPolicies(body: RequestsUpdatePreventionPoliciesV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesPreventionPoliciesV1> {
+    async updatePreventionPolicies(body: PreventionUpdatePoliciesReqV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PreventionRespV1> {
         const response = await this.updatePreventionPoliciesRaw({ body: body }, initOverrides);
         return await response.value();
     }

@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -54,19 +54,31 @@ export interface RegistrationIOMEvent {
      * @type {string}
      * @memberof RegistrationIOMEvent
      */
+    customPolicyId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof RegistrationIOMEvent
+     */
     finding: string;
     /**
      *
      * @type {string}
      * @memberof RegistrationIOMEvent
      */
-    policyId: string;
+    policyId?: string;
     /**
      *
      * @type {string}
      * @memberof RegistrationIOMEvent
      */
     policyStatement: string;
+    /**
+     *
+     * @type {string}
+     * @memberof RegistrationIOMEvent
+     */
+    policyType?: string;
     /**
      *
      * @type {string}
@@ -146,7 +158,6 @@ export function instanceOfRegistrationIOMEvent(value: object): boolean {
     isInstance = isInstance && "cid" in value;
     isInstance = isInstance && "cloudProvider" in value;
     isInstance = isInstance && "finding" in value;
-    isInstance = isInstance && "policyId" in value;
     isInstance = isInstance && "policyStatement" in value;
     isInstance = isInstance && "region" in value;
     isInstance = isInstance && "reportDateTime" in value;
@@ -177,9 +188,11 @@ export function RegistrationIOMEventFromJSONTyped(json: any, ignoreDiscriminator
         azureTenantId: json["azure_tenant_id"],
         cid: json["cid"],
         cloudProvider: json["cloud_provider"],
+        customPolicyId: !exists(json, "custom_policy_id") ? undefined : json["custom_policy_id"],
         finding: json["finding"],
-        policyId: json["policy_id"],
+        policyId: !exists(json, "policy_id") ? undefined : json["policy_id"],
         policyStatement: json["policy_statement"],
+        policyType: !exists(json, "policy_type") ? undefined : json["policy_type"],
         region: json["region"],
         reportDateTime: json["report_date_time"],
         resourceAttributes: json["resource_attributes"],
@@ -207,9 +220,11 @@ export function RegistrationIOMEventToJSON(value?: RegistrationIOMEvent | null):
         azure_tenant_id: value.azureTenantId,
         cid: value.cid,
         cloud_provider: value.cloudProvider,
+        custom_policy_id: value.customPolicyId,
         finding: value.finding,
         policy_id: value.policyId,
         policy_statement: value.policyStatement,
+        policy_type: value.policyType,
         region: value.region,
         report_date_time: value.reportDateTime,
         resource_attributes: value.resourceAttributes,

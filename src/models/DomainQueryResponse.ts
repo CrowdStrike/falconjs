@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -13,10 +13,10 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import type { DomainMsaMetaInfo } from "./DomainMsaMetaInfo";
-import { DomainMsaMetaInfoFromJSON, DomainMsaMetaInfoFromJSONTyped, DomainMsaMetaInfoToJSON } from "./DomainMsaMetaInfo";
-import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { DomainReconAPIError } from "./DomainReconAPIError";
+import { DomainReconAPIErrorFromJSON, DomainReconAPIErrorFromJSONTyped, DomainReconAPIErrorToJSON } from "./DomainReconAPIError";
+import type { MsaMetaInfo } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *
@@ -26,16 +26,16 @@ import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from
 export interface DomainQueryResponse {
     /**
      *
-     * @type {Array<MsaAPIError>}
+     * @type {Array<DomainReconAPIError>}
      * @memberof DomainQueryResponse
      */
-    errors?: Array<MsaAPIError>;
+    errors: Array<DomainReconAPIError> | null;
     /**
      *
-     * @type {DomainMsaMetaInfo}
+     * @type {MsaMetaInfo}
      * @memberof DomainQueryResponse
      */
-    meta: DomainMsaMetaInfo;
+    meta: MsaMetaInfo;
     /**
      *
      * @type {Array<string>}
@@ -49,6 +49,7 @@ export interface DomainQueryResponse {
  */
 export function instanceOfDomainQueryResponse(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "errors" in value;
     isInstance = isInstance && "meta" in value;
     isInstance = isInstance && "resources" in value;
 
@@ -64,8 +65,8 @@ export function DomainQueryResponseFromJSONTyped(json: any, ignoreDiscriminator:
         return json;
     }
     return {
-        errors: !exists(json, "errors") ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
-        meta: DomainMsaMetaInfoFromJSON(json["meta"]),
+        errors: json["errors"] === null ? null : (json["errors"] as Array<any>).map(DomainReconAPIErrorFromJSON),
+        meta: MsaMetaInfoFromJSON(json["meta"]),
         resources: json["resources"],
     };
 }
@@ -78,8 +79,8 @@ export function DomainQueryResponseToJSON(value?: DomainQueryResponse | null): a
         return null;
     }
     return {
-        errors: value.errors === undefined ? undefined : (value.errors as Array<any>).map(MsaAPIErrorToJSON),
-        meta: DomainMsaMetaInfoToJSON(value.meta),
+        errors: value.errors === null ? null : (value.errors as Array<any>).map(DomainReconAPIErrorToJSON),
+        meta: MsaMetaInfoToJSON(value.meta),
         resources: value.resources,
     };
 }

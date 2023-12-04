@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import type { DomainCloudAccountID } from "./DomainCloudAccountID";
-import { DomainCloudAccountIDFromJSON, DomainCloudAccountIDFromJSONTyped, DomainCloudAccountIDToJSON } from "./DomainCloudAccountID";
-import type { DomainIOAEnrichments } from "./DomainIOAEnrichments";
-import { DomainIOAEnrichmentsFromJSON, DomainIOAEnrichmentsFromJSONTyped, DomainIOAEnrichmentsToJSON } from "./DomainIOAEnrichments";
-import type { DomainIOAEventAggregate } from "./DomainIOAEventAggregate";
-import { DomainIOAEventAggregateFromJSON, DomainIOAEventAggregateFromJSONTyped, DomainIOAEventAggregateToJSON } from "./DomainIOAEventAggregate";
+import type { IoaCloudAccountID } from "./IoaCloudAccountID";
+import { IoaCloudAccountIDFromJSON, IoaCloudAccountIDFromJSONTyped, IoaCloudAccountIDToJSON } from "./IoaCloudAccountID";
+import type { IoaEnrichments } from "./IoaEnrichments";
+import { IoaEnrichmentsFromJSON, IoaEnrichmentsFromJSONTyped, IoaEnrichmentsToJSON } from "./IoaEnrichments";
+import type { IoaEventAggregate } from "./IoaEventAggregate";
+import { IoaEventAggregateFromJSON, IoaEventAggregateFromJSONTyped, IoaEventAggregateToJSON } from "./IoaEventAggregate";
 
 /**
  *
@@ -34,10 +34,10 @@ export interface RegistrationIOAEvent {
     additionalEventData?: string;
     /**
      *
-     * @type {DomainIOAEventAggregate}
+     * @type {IoaEventAggregate}
      * @memberof RegistrationIOAEvent
      */
-    aggregate?: DomainIOAEventAggregate;
+    aggregate?: IoaEventAggregate;
     /**
      *
      * @type {string}
@@ -52,10 +52,10 @@ export interface RegistrationIOAEvent {
     cid: string;
     /**
      *
-     * @type {DomainCloudAccountID}
+     * @type {IoaCloudAccountID}
      * @memberof RegistrationIOAEvent
      */
-    cloudAccountId?: DomainCloudAccountID;
+    cloudAccountId?: IoaCloudAccountID;
     /**
      *
      * @type {string}
@@ -70,10 +70,10 @@ export interface RegistrationIOAEvent {
     cloudRegion?: string;
     /**
      *
-     * @type {DomainIOAEnrichments}
+     * @type {IoaEnrichments}
      * @memberof RegistrationIOAEvent
      */
-    enrichments?: DomainIOAEnrichments;
+    enrichments?: IoaEnrichments;
     /**
      *
      * @type {string}
@@ -166,22 +166,22 @@ export interface RegistrationIOAEvent {
     requestId?: string;
     /**
      *
-     * @type {string}
+     * @type {object}
      * @memberof RegistrationIOAEvent
      */
-    requestParameters?: string;
+    requestParameters?: object;
     /**
      *
-     * @type {string}
+     * @type {Array<object>}
      * @memberof RegistrationIOAEvent
      */
-    resources?: string;
+    resources?: Array<object>;
     /**
      *
-     * @type {string}
+     * @type {object}
      * @memberof RegistrationIOAEvent
      */
-    responseElements?: string;
+    responseElements?: object;
     /**
      *
      * @type {string}
@@ -232,10 +232,10 @@ export interface RegistrationIOAEvent {
     userId?: string;
     /**
      *
-     * @type {string}
+     * @type {object}
      * @memberof RegistrationIOAEvent
      */
-    userIdentity?: string;
+    userIdentity?: object;
     /**
      *
      * @type {string}
@@ -284,13 +284,13 @@ export function RegistrationIOAEventFromJSONTyped(json: any, ignoreDiscriminator
     }
     return {
         additionalEventData: !exists(json, "additional_event_data") ? undefined : json["additional_event_data"],
-        aggregate: !exists(json, "aggregate") ? undefined : DomainIOAEventAggregateFromJSON(json["aggregate"]),
+        aggregate: !exists(json, "aggregate") ? undefined : IoaEventAggregateFromJSON(json["aggregate"]),
         apiVersion: !exists(json, "api_version") ? undefined : json["api_version"],
         cid: json["cid"],
-        cloudAccountId: !exists(json, "cloud_account_id") ? undefined : DomainCloudAccountIDFromJSON(json["cloud_account_id"]),
+        cloudAccountId: !exists(json, "cloud_account_id") ? undefined : IoaCloudAccountIDFromJSON(json["cloud_account_id"]),
         cloudProvider: json["cloud_provider"],
         cloudRegion: !exists(json, "cloud_region") ? undefined : json["cloud_region"],
-        enrichments: !exists(json, "enrichments") ? undefined : DomainIOAEnrichmentsFromJSON(json["enrichments"]),
+        enrichments: !exists(json, "enrichments") ? undefined : IoaEnrichmentsFromJSON(json["enrichments"]),
         errorCode: !exists(json, "error_code") ? undefined : json["error_code"],
         errorMessage: !exists(json, "error_message") ? undefined : json["error_message"],
         eventCategory: !exists(json, "event_category") ? undefined : json["event_category"],
@@ -333,13 +333,13 @@ export function RegistrationIOAEventToJSON(value?: RegistrationIOAEvent | null):
     }
     return {
         additional_event_data: value.additionalEventData,
-        aggregate: DomainIOAEventAggregateToJSON(value.aggregate),
+        aggregate: IoaEventAggregateToJSON(value.aggregate),
         api_version: value.apiVersion,
         cid: value.cid,
-        cloud_account_id: DomainCloudAccountIDToJSON(value.cloudAccountId),
+        cloud_account_id: IoaCloudAccountIDToJSON(value.cloudAccountId),
         cloud_provider: value.cloudProvider,
         cloud_region: value.cloudRegion,
-        enrichments: DomainIOAEnrichmentsToJSON(value.enrichments),
+        enrichments: IoaEnrichmentsToJSON(value.enrichments),
         error_code: value.errorCode,
         error_message: value.errorMessage,
         event_category: value.eventCategory,

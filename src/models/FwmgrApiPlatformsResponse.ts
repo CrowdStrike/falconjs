@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -15,10 +15,10 @@
 import { exists, mapValues } from "../runtime";
 import type { FwmgrDomainPlatform } from "./FwmgrDomainPlatform";
 import { FwmgrDomainPlatformFromJSON, FwmgrDomainPlatformFromJSONTyped, FwmgrDomainPlatformToJSON } from "./FwmgrDomainPlatform";
-import type { FwmgrMsaAPIError } from "./FwmgrMsaAPIError";
-import { FwmgrMsaAPIErrorFromJSON, FwmgrMsaAPIErrorFromJSONTyped, FwmgrMsaAPIErrorToJSON } from "./FwmgrMsaAPIError";
-import type { FwmgrMsaMetaInfo } from "./FwmgrMsaMetaInfo";
-import { FwmgrMsaMetaInfoFromJSON, FwmgrMsaMetaInfoFromJSONTyped, FwmgrMsaMetaInfoToJSON } from "./FwmgrMsaMetaInfo";
+import type { FwmgrMsaspecError } from "./FwmgrMsaspecError";
+import { FwmgrMsaspecErrorFromJSON, FwmgrMsaspecErrorFromJSONTyped, FwmgrMsaspecErrorToJSON } from "./FwmgrMsaspecError";
+import type { FwmgrMsaspecMetaInfo } from "./FwmgrMsaspecMetaInfo";
+import { FwmgrMsaspecMetaInfoFromJSON, FwmgrMsaspecMetaInfoFromJSONTyped, FwmgrMsaspecMetaInfoToJSON } from "./FwmgrMsaspecMetaInfo";
 
 /**
  *
@@ -28,16 +28,16 @@ import { FwmgrMsaMetaInfoFromJSON, FwmgrMsaMetaInfoFromJSONTyped, FwmgrMsaMetaIn
 export interface FwmgrApiPlatformsResponse {
     /**
      *
-     * @type {Array<FwmgrMsaAPIError>}
+     * @type {Array<FwmgrMsaspecError>}
      * @memberof FwmgrApiPlatformsResponse
      */
-    errors?: Array<FwmgrMsaAPIError>;
+    errors?: Array<FwmgrMsaspecError> | null;
     /**
      *
-     * @type {FwmgrMsaMetaInfo}
+     * @type {FwmgrMsaspecMetaInfo}
      * @memberof FwmgrApiPlatformsResponse
      */
-    meta: FwmgrMsaMetaInfo;
+    meta: FwmgrMsaspecMetaInfo;
     /**
      *
      * @type {Array<FwmgrDomainPlatform>}
@@ -66,8 +66,8 @@ export function FwmgrApiPlatformsResponseFromJSONTyped(json: any, ignoreDiscrimi
         return json;
     }
     return {
-        errors: !exists(json, "errors") ? undefined : (json["errors"] as Array<any>).map(FwmgrMsaAPIErrorFromJSON),
-        meta: FwmgrMsaMetaInfoFromJSON(json["meta"]),
+        errors: !exists(json, "errors") ? undefined : json["errors"] === null ? null : (json["errors"] as Array<any>).map(FwmgrMsaspecErrorFromJSON),
+        meta: FwmgrMsaspecMetaInfoFromJSON(json["meta"]),
         resources: (json["resources"] as Array<any>).map(FwmgrDomainPlatformFromJSON),
     };
 }
@@ -80,8 +80,8 @@ export function FwmgrApiPlatformsResponseToJSON(value?: FwmgrApiPlatformsRespons
         return null;
     }
     return {
-        errors: value.errors === undefined ? undefined : (value.errors as Array<any>).map(FwmgrMsaAPIErrorToJSON),
-        meta: FwmgrMsaMetaInfoToJSON(value.meta),
+        errors: value.errors === undefined ? undefined : value.errors === null ? null : (value.errors as Array<any>).map(FwmgrMsaspecErrorToJSON),
+        meta: FwmgrMsaspecMetaInfoToJSON(value.meta),
         resources: (value.resources as Array<any>).map(FwmgrDomainPlatformToJSON),
     };
 }

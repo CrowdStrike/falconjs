@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import type { DomainAzureAccountV1 } from "./DomainAzureAccountV1";
-import { DomainAzureAccountV1FromJSON, DomainAzureAccountV1FromJSONTyped, DomainAzureAccountV1ToJSON } from "./DomainAzureAccountV1";
 import type { MsaAPIError } from "./MsaAPIError";
 import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
 import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import type { RegistrationAzureAccountV1Ext } from "./RegistrationAzureAccountV1Ext";
+import { RegistrationAzureAccountV1ExtFromJSON, RegistrationAzureAccountV1ExtFromJSONTyped, RegistrationAzureAccountV1ExtToJSON } from "./RegistrationAzureAccountV1Ext";
 
 /**
  *
@@ -31,7 +31,7 @@ export interface RegistrationAzureAccountResponseV1 {
      * @type {Array<MsaAPIError>}
      * @memberof RegistrationAzureAccountResponseV1
      */
-    errors: Array<MsaAPIError>;
+    errors: Array<MsaAPIError> | null;
     /**
      *
      * @type {MsaMetaInfo}
@@ -40,10 +40,10 @@ export interface RegistrationAzureAccountResponseV1 {
     meta: MsaMetaInfo;
     /**
      *
-     * @type {Array<DomainAzureAccountV1>}
+     * @type {Array<RegistrationAzureAccountV1Ext>}
      * @memberof RegistrationAzureAccountResponseV1
      */
-    resources: Array<DomainAzureAccountV1>;
+    resources: Array<RegistrationAzureAccountV1Ext>;
 }
 
 /**
@@ -67,9 +67,9 @@ export function RegistrationAzureAccountResponseV1FromJSONTyped(json: any, ignor
         return json;
     }
     return {
-        errors: (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
+        errors: json["errors"] === null ? null : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
-        resources: (json["resources"] as Array<any>).map(DomainAzureAccountV1FromJSON),
+        resources: (json["resources"] as Array<any>).map(RegistrationAzureAccountV1ExtFromJSON),
     };
 }
 
@@ -81,8 +81,8 @@ export function RegistrationAzureAccountResponseV1ToJSON(value?: RegistrationAzu
         return null;
     }
     return {
-        errors: (value.errors as Array<any>).map(MsaAPIErrorToJSON),
+        errors: value.errors === null ? null : (value.errors as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value.meta),
-        resources: (value.resources as Array<any>).map(DomainAzureAccountV1ToJSON),
+        resources: (value.resources as Array<any>).map(RegistrationAzureAccountV1ExtToJSON),
     };
 }

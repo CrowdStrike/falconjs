@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -19,6 +19,8 @@ import type { DomainFile } from "./DomainFile";
 import { DomainFileFromJSON, DomainFileFromJSONTyped, DomainFileToJSON } from "./DomainFile";
 import type { DomainImage } from "./DomainImage";
 import { DomainImageFromJSON, DomainImageFromJSONTyped, DomainImageToJSON } from "./DomainImage";
+import type { DomainReportMalware } from "./DomainReportMalware";
+import { DomainReportMalwareFromJSON, DomainReportMalwareFromJSONTyped, DomainReportMalwareToJSON } from "./DomainReportMalware";
 import type { DomainSimpleActor } from "./DomainSimpleActor";
 import { DomainSimpleActorFromJSON, DomainSimpleActorFromJSONTyped, DomainSimpleActorToJSON } from "./DomainSimpleActor";
 
@@ -29,43 +31,43 @@ import { DomainSimpleActorFromJSON, DomainSimpleActorFromJSONTyped, DomainSimple
  */
 export interface DomainNewsDocument {
     /**
-     *
+     * legacy field, not used
      * @type {boolean}
      * @memberof DomainNewsDocument
      */
     active?: boolean;
     /**
-     *
+     * Actors mentioned, related or referenced in the news/report
      * @type {Array<DomainSimpleActor>}
      * @memberof DomainNewsDocument
      */
     actors: Array<DomainSimpleActor>;
     /**
-     *
+     * News attachment, containing either pdf url or feeds zip and/or gzip archive
      * @type {Array<DomainFile>}
      * @memberof DomainNewsDocument
      */
     attachments?: Array<DomainFile>;
     /**
-     *
+     * Date of the news document creation, unix timestampt
      * @type {number}
      * @memberof DomainNewsDocument
      */
     createdDate: number;
     /**
-     *
+     * Full report description, extracted from the document
      * @type {string}
      * @memberof DomainNewsDocument
      */
     description?: string;
     /**
-     *
+     * internal property used for permissions check of access, not returned or explicitly filterable
      * @type {Array<DomainEntity>}
      * @memberof DomainNewsDocument
      */
     entitlements?: Array<DomainEntity>;
     /**
-     *
+     * Integer ID of the News document
      * @type {number}
      * @memberof DomainNewsDocument
      */
@@ -77,43 +79,49 @@ export interface DomainNewsDocument {
      */
     image?: DomainImage;
     /**
-     *
+     * Date of the news document last modification, unix timestampt
      * @type {number}
      * @memberof DomainNewsDocument
      */
     lastModifiedDate: number;
     /**
-     *
+     * Malware mentioned, related or referenced in the news/report
+     * @type {Array<DomainReportMalware>}
+     * @memberof DomainNewsDocument
+     */
+    malware?: Array<DomainReportMalware>;
+    /**
+     * News mentioned motivation or motivation of related actors and malware families
      * @type {Array<DomainEntity>}
      * @memberof DomainNewsDocument
      */
     motivations: Array<DomainEntity>;
     /**
-     *
+     * News title
      * @type {string}
      * @memberof DomainNewsDocument
      */
     name: string;
     /**
-     *
+     * internal field, not used
      * @type {boolean}
      * @memberof DomainNewsDocument
      */
     notifyUsers?: boolean;
     /**
-     *
+     * Rich text description with markup
      * @type {string}
      * @memberof DomainNewsDocument
      */
     richTextDescription?: string;
     /**
-     *
+     * Short description of the report content
      * @type {string}
      * @memberof DomainNewsDocument
      */
     shortDescription?: string;
     /**
-     *
+     * News title in a url friendly way, which is title in lowercase and special characters including space replaced with dash
      * @type {string}
      * @memberof DomainNewsDocument
      */
@@ -125,19 +133,19 @@ export interface DomainNewsDocument {
      */
     subType?: DomainEntity;
     /**
-     *
+     * News tags, which contains MITRE, Vulnerability community identifiers, capabilities, malware family name, customer target, activity cluster, notable event, geopolitical issue
      * @type {Array<DomainEntity>}
      * @memberof DomainNewsDocument
      */
     tags: Array<DomainEntity>;
     /**
-     *
+     * News mentioned target countries or related actor's target countries
      * @type {Array<DomainEntity>}
      * @memberof DomainNewsDocument
      */
     targetCountries: Array<DomainEntity>;
     /**
-     *
+     * News mentioned target industries or related actor's target industries
      * @type {Array<DomainEntity>}
      * @memberof DomainNewsDocument
      */
@@ -161,7 +169,7 @@ export interface DomainNewsDocument {
      */
     type?: DomainEntity;
     /**
-     *
+     * URL of the news document where it can be accessed in the Falcon Portal
      * @type {string}
      * @memberof DomainNewsDocument
      */
@@ -206,6 +214,7 @@ export function DomainNewsDocumentFromJSONTyped(json: any, ignoreDiscriminator: 
         id: json["id"],
         image: !exists(json, "image") ? undefined : DomainImageFromJSON(json["image"]),
         lastModifiedDate: json["last_modified_date"],
+        malware: !exists(json, "malware") ? undefined : (json["malware"] as Array<any>).map(DomainReportMalwareFromJSON),
         motivations: (json["motivations"] as Array<any>).map(DomainEntityFromJSON),
         name: json["name"],
         notifyUsers: !exists(json, "notify_users") ? undefined : json["notify_users"],
@@ -240,6 +249,7 @@ export function DomainNewsDocumentToJSON(value?: DomainNewsDocument | null): any
         id: value.id,
         image: DomainImageToJSON(value.image),
         last_modified_date: value.lastModifiedDate,
+        malware: value.malware === undefined ? undefined : (value.malware as Array<any>).map(DomainReportMalwareToJSON),
         motivations: (value.motivations as Array<any>).map(DomainEntityToJSON),
         name: value.name,
         notify_users: value.notifyUsers,

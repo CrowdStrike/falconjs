@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -28,6 +28,12 @@ export interface QuarantineQuarantinedFile {
      * @memberof QuarantineQuarantinedFile
      */
     aid?: string;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof QuarantineQuarantinedFile
+     */
+    alertIds?: Array<string>;
     /**
      *
      * @type {string}
@@ -72,6 +78,12 @@ export interface QuarantineQuarantinedFile {
     id?: string;
     /**
      *
+     * @type {boolean}
+     * @memberof QuarantineQuarantinedFile
+     */
+    isOnRemovableDisk?: boolean;
+    /**
+     *
      * @type {Array<QuarantineQuarantinedFilePath>}
      * @memberof QuarantineQuarantinedFile
      */
@@ -82,6 +94,12 @@ export interface QuarantineQuarantinedFile {
      * @memberof QuarantineQuarantinedFile
      */
     primaryModule?: boolean;
+    /**
+     *
+     * @type {string}
+     * @memberof QuarantineQuarantinedFile
+     */
+    releasePathForRemovableMedia?: string;
     /**
      *
      * @type {string}
@@ -133,6 +151,7 @@ export function QuarantineQuarantinedFileFromJSONTyped(json: any, ignoreDiscrimi
     }
     return {
         aid: !exists(json, "aid") ? undefined : json["aid"],
+        alertIds: !exists(json, "alert_ids") ? undefined : json["alert_ids"],
         cid: !exists(json, "cid") ? undefined : json["cid"],
         dateCreated: !exists(json, "date_created") ? undefined : json["date_created"],
         dateUpdated: !exists(json, "date_updated") ? undefined : json["date_updated"],
@@ -140,8 +159,10 @@ export function QuarantineQuarantinedFileFromJSONTyped(json: any, ignoreDiscrimi
         extracted: !exists(json, "extracted") ? undefined : json["extracted"],
         hostname: !exists(json, "hostname") ? undefined : json["hostname"],
         id: !exists(json, "id") ? undefined : json["id"],
+        isOnRemovableDisk: !exists(json, "is_on_removable_disk") ? undefined : json["is_on_removable_disk"],
         paths: !exists(json, "paths") ? undefined : (json["paths"] as Array<any>).map(QuarantineQuarantinedFilePathFromJSON),
         primaryModule: !exists(json, "primary_module") ? undefined : json["primary_module"],
+        releasePathForRemovableMedia: !exists(json, "release_path_for_removable_media") ? undefined : json["release_path_for_removable_media"],
         sandboxReportId: !exists(json, "sandbox_report_id") ? undefined : json["sandbox_report_id"],
         sandboxReportState: !exists(json, "sandbox_report_state") ? undefined : json["sandbox_report_state"],
         sha256: !exists(json, "sha256") ? undefined : json["sha256"],
@@ -159,6 +180,7 @@ export function QuarantineQuarantinedFileToJSON(value?: QuarantineQuarantinedFil
     }
     return {
         aid: value.aid,
+        alert_ids: value.alertIds,
         cid: value.cid,
         date_created: value.dateCreated,
         date_updated: value.dateUpdated,
@@ -166,8 +188,10 @@ export function QuarantineQuarantinedFileToJSON(value?: QuarantineQuarantinedFil
         extracted: value.extracted,
         hostname: value.hostname,
         id: value.id,
+        is_on_removable_disk: value.isOnRemovableDisk,
         paths: value.paths === undefined ? undefined : (value.paths as Array<any>).map(QuarantineQuarantinedFilePathToJSON),
         primary_module: value.primaryModule,
+        release_path_for_removable_media: value.releasePathForRemovableMedia,
         sandbox_report_id: value.sandboxReportId,
         sandbox_report_state: value.sandboxReportState,
         sha256: value.sha256,

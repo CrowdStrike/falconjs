@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -69,6 +69,18 @@ export interface DeviceDevice {
      * @type {string}
      * @memberof DeviceDevice
      */
+    chassisType?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceDevice
+     */
+    chassisTypeDesc?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceDevice
+     */
     cid: string;
     /**
      *
@@ -93,7 +105,31 @@ export interface DeviceDevice {
      * @type {string}
      * @memberof DeviceDevice
      */
+    connectionIp?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceDevice
+     */
+    connectionMacAddress?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceDevice
+     */
     cpuSignature?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceDevice
+     */
+    defaultGatewayIp?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceDevice
+     */
+    deploymentType?: string;
     /**
      *
      * @type {string}
@@ -165,6 +201,12 @@ export interface DeviceDevice {
      * @type {string}
      * @memberof DeviceDevice
      */
+    hostUtcOffset?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceDevice
+     */
     hostname?: string;
     /**
      *
@@ -172,6 +214,36 @@ export interface DeviceDevice {
      * @memberof DeviceDevice
      */
     instanceId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceDevice
+     */
+    internetExposure?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceDevice
+     */
+    k8sClusterGitVersion?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceDevice
+     */
+    k8sClusterId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceDevice
+     */
+    k8sClusterVersion?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceDevice
+     */
+    kernelVersion?: string;
     /**
      *
      * @type {string}
@@ -189,7 +261,19 @@ export interface DeviceDevice {
      * @type {string}
      * @memberof DeviceDevice
      */
+    lastReboot?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceDevice
+     */
     lastSeen?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceDevice
+     */
+    linuxSensorMode?: string;
     /**
      *
      * @type {string}
@@ -250,6 +334,12 @@ export interface DeviceDevice {
      * @memberof DeviceDevice
      */
     osBuild?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceDevice
+     */
+    osProductName?: string;
     /**
      *
      * @type {string}
@@ -482,11 +572,17 @@ export function DeviceDeviceFromJSONTyped(json: any, ignoreDiscriminator: boolea
         biosManufacturer: !exists(json, "bios_manufacturer") ? undefined : json["bios_manufacturer"],
         biosVersion: !exists(json, "bios_version") ? undefined : json["bios_version"],
         buildNumber: !exists(json, "build_number") ? undefined : json["build_number"],
+        chassisType: !exists(json, "chassis_type") ? undefined : json["chassis_type"],
+        chassisTypeDesc: !exists(json, "chassis_type_desc") ? undefined : json["chassis_type_desc"],
         cid: json["cid"],
         configIdBase: !exists(json, "config_id_base") ? undefined : json["config_id_base"],
         configIdBuild: !exists(json, "config_id_build") ? undefined : json["config_id_build"],
         configIdPlatform: !exists(json, "config_id_platform") ? undefined : json["config_id_platform"],
+        connectionIp: !exists(json, "connection_ip") ? undefined : json["connection_ip"],
+        connectionMacAddress: !exists(json, "connection_mac_address") ? undefined : json["connection_mac_address"],
         cpuSignature: !exists(json, "cpu_signature") ? undefined : json["cpu_signature"],
+        defaultGatewayIp: !exists(json, "default_gateway_ip") ? undefined : json["default_gateway_ip"],
+        deploymentType: !exists(json, "deployment_type") ? undefined : json["deployment_type"],
         detectionSuppressionStatus: !exists(json, "detection_suppression_status") ? undefined : json["detection_suppression_status"],
         deviceId: json["device_id"],
         devicePolicies: !exists(json, "device_policies") ? undefined : DeviceMappedDevicePoliciesFromJSON(json["device_policies"]),
@@ -498,11 +594,19 @@ export function DeviceDeviceFromJSONTyped(json: any, ignoreDiscriminator: boolea
         groupHash: !exists(json, "group_hash") ? undefined : json["group_hash"],
         groups: !exists(json, "groups") ? undefined : json["groups"],
         hostHiddenStatus: !exists(json, "host_hidden_status") ? undefined : json["host_hidden_status"],
+        hostUtcOffset: !exists(json, "host_utc_offset") ? undefined : json["host_utc_offset"],
         hostname: !exists(json, "hostname") ? undefined : json["hostname"],
         instanceId: !exists(json, "instance_id") ? undefined : json["instance_id"],
+        internetExposure: !exists(json, "internet_exposure") ? undefined : json["internet_exposure"],
+        k8sClusterGitVersion: !exists(json, "k8s_cluster_git_version") ? undefined : json["k8s_cluster_git_version"],
+        k8sClusterId: !exists(json, "k8s_cluster_id") ? undefined : json["k8s_cluster_id"],
+        k8sClusterVersion: !exists(json, "k8s_cluster_version") ? undefined : json["k8s_cluster_version"],
+        kernelVersion: !exists(json, "kernel_version") ? undefined : json["kernel_version"],
         lastLoginTimestamp: !exists(json, "last_login_timestamp") ? undefined : json["last_login_timestamp"],
         lastLoginUser: !exists(json, "last_login_user") ? undefined : json["last_login_user"],
+        lastReboot: !exists(json, "last_reboot") ? undefined : json["last_reboot"],
         lastSeen: !exists(json, "last_seen") ? undefined : json["last_seen"],
+        linuxSensorMode: !exists(json, "linux_sensor_mode") ? undefined : json["linux_sensor_mode"],
         localIp: !exists(json, "local_ip") ? undefined : json["local_ip"],
         macAddress: !exists(json, "mac_address") ? undefined : json["mac_address"],
         machineDomain: !exists(json, "machine_domain") ? undefined : json["machine_domain"],
@@ -513,6 +617,7 @@ export function DeviceDeviceFromJSONTyped(json: any, ignoreDiscriminator: boolea
         modifiedTimestamp: !exists(json, "modified_timestamp") ? undefined : json["modified_timestamp"],
         notes: !exists(json, "notes") ? undefined : json["notes"],
         osBuild: !exists(json, "os_build") ? undefined : json["os_build"],
+        osProductName: !exists(json, "os_product_name") ? undefined : json["os_product_name"],
         osVersion: !exists(json, "os_version") ? undefined : json["os_version"],
         ou: !exists(json, "ou") ? undefined : json["ou"],
         platformId: !exists(json, "platform_id") ? undefined : json["platform_id"],
@@ -564,11 +669,17 @@ export function DeviceDeviceToJSON(value?: DeviceDevice | null): any {
         bios_manufacturer: value.biosManufacturer,
         bios_version: value.biosVersion,
         build_number: value.buildNumber,
+        chassis_type: value.chassisType,
+        chassis_type_desc: value.chassisTypeDesc,
         cid: value.cid,
         config_id_base: value.configIdBase,
         config_id_build: value.configIdBuild,
         config_id_platform: value.configIdPlatform,
+        connection_ip: value.connectionIp,
+        connection_mac_address: value.connectionMacAddress,
         cpu_signature: value.cpuSignature,
+        default_gateway_ip: value.defaultGatewayIp,
+        deployment_type: value.deploymentType,
         detection_suppression_status: value.detectionSuppressionStatus,
         device_id: value.deviceId,
         device_policies: DeviceMappedDevicePoliciesToJSON(value.devicePolicies),
@@ -580,11 +691,19 @@ export function DeviceDeviceToJSON(value?: DeviceDevice | null): any {
         group_hash: value.groupHash,
         groups: value.groups,
         host_hidden_status: value.hostHiddenStatus,
+        host_utc_offset: value.hostUtcOffset,
         hostname: value.hostname,
         instance_id: value.instanceId,
+        internet_exposure: value.internetExposure,
+        k8s_cluster_git_version: value.k8sClusterGitVersion,
+        k8s_cluster_id: value.k8sClusterId,
+        k8s_cluster_version: value.k8sClusterVersion,
+        kernel_version: value.kernelVersion,
         last_login_timestamp: value.lastLoginTimestamp,
         last_login_user: value.lastLoginUser,
+        last_reboot: value.lastReboot,
         last_seen: value.lastSeen,
+        linux_sensor_mode: value.linuxSensorMode,
         local_ip: value.localIp,
         mac_address: value.macAddress,
         machine_domain: value.machineDomain,
@@ -595,6 +714,7 @@ export function DeviceDeviceToJSON(value?: DeviceDevice | null): any {
         modified_timestamp: value.modifiedTimestamp,
         notes: value.notes,
         os_build: value.osBuild,
+        os_product_name: value.osProductName,
         os_version: value.osVersion,
         ou: value.ou,
         platform_id: value.platformId,

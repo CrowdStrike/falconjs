@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -13,12 +13,16 @@
  */
 
 import { exists, mapValues } from "../runtime";
+import type { DomainDiscoverAPIActiveDiscoveryHost } from "./DomainDiscoverAPIActiveDiscoveryHost";
+import { DomainDiscoverAPIActiveDiscoveryHostFromJSON, DomainDiscoverAPIActiveDiscoveryHostFromJSONTyped, DomainDiscoverAPIActiveDiscoveryHostToJSON } from "./DomainDiscoverAPIActiveDiscoveryHost";
 import type { DomainDiscoverAPIBiosHashesData } from "./DomainDiscoverAPIBiosHashesData";
 import { DomainDiscoverAPIBiosHashesDataFromJSON, DomainDiscoverAPIBiosHashesDataFromJSONTyped, DomainDiscoverAPIBiosHashesDataToJSON } from "./DomainDiscoverAPIBiosHashesData";
 import type { DomainDiscoverAPIDiskSize } from "./DomainDiscoverAPIDiskSize";
 import { DomainDiscoverAPIDiskSizeFromJSON, DomainDiscoverAPIDiskSizeFromJSONTyped, DomainDiscoverAPIDiskSizeToJSON } from "./DomainDiscoverAPIDiskSize";
 import type { DomainDiscoverAPIFieldMetadata } from "./DomainDiscoverAPIFieldMetadata";
 import { DomainDiscoverAPIFieldMetadataFromJSON, DomainDiscoverAPIFieldMetadataFromJSONTyped, DomainDiscoverAPIFieldMetadataToJSON } from "./DomainDiscoverAPIFieldMetadata";
+import type { DomainDiscoverAPIHostTriage } from "./DomainDiscoverAPIHostTriage";
+import { DomainDiscoverAPIHostTriageFromJSON, DomainDiscoverAPIHostTriageFromJSONTyped, DomainDiscoverAPIHostTriageToJSON } from "./DomainDiscoverAPIHostTriage";
 import type { DomainDiscoverAPIMountStorageInfo } from "./DomainDiscoverAPIMountStorageInfo";
 import { DomainDiscoverAPIMountStorageInfoFromJSON, DomainDiscoverAPIMountStorageInfoFromJSONTyped, DomainDiscoverAPIMountStorageInfoToJSON } from "./DomainDiscoverAPIMountStorageInfo";
 import type { DomainDiscoverAPINetworkInterface } from "./DomainDiscoverAPINetworkInterface";
@@ -39,6 +43,12 @@ export interface DomainDiscoverAPIHost {
      */
     accountEnabled?: string;
     /**
+     *
+     * @type {DomainDiscoverAPIActiveDiscoveryHost}
+     * @memberof DomainDiscoverAPIHost
+     */
+    activeDiscovery?: DomainDiscoverAPIActiveDiscoveryHost;
+    /**
      * The user account control properties in Active Directory.
      * @type {number}
      * @memberof DomainDiscoverAPIHost
@@ -56,6 +66,12 @@ export interface DomainDiscoverAPIHost {
      * @memberof DomainDiscoverAPIHost
      */
     aid?: string;
+    /**
+     * The asset role or roles currently assigned to the asset either automatically or by a user (Jump host, Highly connected, Highly active, Server by behavior, DHCP server, DNS server, FTP server, SSH server, or Web server).
+     * @type {Array<string>}
+     * @memberof DomainDiscoverAPIHost
+     */
+    assetRoles?: Array<string>;
     /**
      * The first and last name of the person who is assigned to this asset.
      * @type {string}
@@ -135,6 +151,66 @@ export interface DomainDiscoverAPIHost {
      */
     classification?: string;
     /**
+     * The cloud provider assigned identifier of the cloud account the instance is located in.
+     * @type {string}
+     * @memberof DomainDiscoverAPIHost
+     */
+    cloudAccountId?: string;
+    /**
+     * The id of the cloud instance.
+     * @type {string}
+     * @memberof DomainDiscoverAPIHost
+     */
+    cloudInstanceId?: string;
+    /**
+     * The cloud provider environment the instance is located in (AWS/Azure/GCP).
+     * @type {string}
+     * @memberof DomainDiscoverAPIHost
+     */
+    cloudProvider?: string;
+    /**
+     * The cloud provider assigned identifier of the cloud region the instance is located in (e.g. “us-west-1”, “westeurope”, “asia-northeast1)
+     * @type {string}
+     * @memberof DomainDiscoverAPIHost
+     */
+    cloudRegion?: string;
+    /**
+     * Whether or not the instance is located in a cloud account registered with cloud security posture.
+     * @type {boolean}
+     * @memberof DomainDiscoverAPIHost
+     */
+    cloudRegistered?: boolean;
+    /**
+     * The cloud provider assigned identifier of the instance.
+     * @type {string}
+     * @memberof DomainDiscoverAPIHost
+     */
+    cloudResourceId?: string;
+    /**
+     * The asset role or roles assigned to the asset automatically (Jump host, Highly connected, Highly active, Server by behavior, DHCP server, DNS server, FTP server, SSH server, or Web server).
+     * @type {Array<string>}
+     * @memberof DomainDiscoverAPIHost
+     */
+    computedAssetRoles?: Array<string>;
+    /**
+     * Whether the asset is exposed to the internet as determined automatically (Yes, No, or Pending).
+     * @type {string}
+     * @memberof DomainDiscoverAPIHost
+     */
+    computedInternetExposure?: string;
+    /**
+     * External IP exposed to the internet.
+     * @type {string}
+     * @memberof DomainDiscoverAPIHost
+     */
+    computedInternetExposureExternalIp?: string;
+    /**
+     * When the asset was last seen as internet exposed.
+     * @type {string}
+     * @memberof DomainDiscoverAPIHost
+     */
+    computedInternetExposureLastSeen?: string;
+    /**
      * The level of confidence that the asset is a corporate asset (25 = low confidence, 50 = medium confidence, 75 = high confidence).
      * @type {number}
      * @memberof DomainDiscoverAPIHost
@@ -165,11 +241,47 @@ export interface DomainDiscoverAPIHost {
      */
     creationTimestamp?: string;
     /**
+     * The criticality level of the asset (Critical, High, Noncritical, or Unassigned)
+     * @type {string}
+     * @memberof DomainDiscoverAPIHost
+     */
+    criticality?: string;
+    /**
+     * The description the user entered when manually assigning a criticality level
+     * @type {string}
+     * @memberof DomainDiscoverAPIHost
+     */
+    criticalityDescription?: string;
+    /**
+     * The ID of the criticality rule that has most recently applied to the asset.
+     * @type {string}
+     * @memberof DomainDiscoverAPIHost
+     */
+    criticalityRuleId?: string;
+    /**
+     * The date and time the criticality level was manually assigned
+     * @type {string}
+     * @memberof DomainDiscoverAPIHost
+     */
+    criticalityTimestamp?: string;
+    /**
+     * The username of the account that manually assigned the criticality level
+     * @type {string}
+     * @memberof DomainDiscoverAPIHost
+     */
+    criticalityUsername?: string;
+    /**
      * The last seen local IPv4 address of the asset.
      * @type {string}
      * @memberof DomainDiscoverAPIHost
      */
     currentLocalIp?: string;
+    /**
+     * The last seen network prefix of the asset.
+     * @type {string}
+     * @memberof DomainDiscoverAPIHost
+     */
+    currentNetworkPrefix?: string;
     /**
      * Where the data about the asset came from (such as CrowdStrike, ServiceNow, or Active Directory).
      * @type {Array<string>}
@@ -207,6 +319,18 @@ export interface DomainDiscoverAPIHost {
      */
     discovererCount?: number;
     /**
+     * The criticalities of the sources that discovered the asset
+     * @type {Array<string>}
+     * @memberof DomainDiscoverAPIHost
+     */
+    discovererCriticalities?: Array<string>;
+    /**
+     * The hostnames of the sources that discovered the asset.
+     * @type {Array<string>}
+     * @memberof DomainDiscoverAPIHost
+     */
+    discovererHostnames?: Array<string>;
+    /**
      * The platform names of the sources that discovered the asset.
      * @type {Array<string>}
      * @memberof DomainDiscoverAPIHost
@@ -224,6 +348,12 @@ export interface DomainDiscoverAPIHost {
      * @memberof DomainDiscoverAPIHost
      */
     discovererTags?: Array<string>;
+    /**
+     * Represents the status of a managed host (“Not Discovering“, “Passive“, “Active“ or both).
+     * @type {Array<string>}
+     * @memberof DomainDiscoverAPIHost
+     */
+    discoveringBy?: Array<string>;
     /**
      * The names and sizes of the disks on the asset
      * @type {Array<DomainDiscoverAPIDiskSize>}
@@ -285,6 +415,12 @@ export interface DomainDiscoverAPIHost {
      */
     firstSeenTimestamp?: string;
     /**
+     * The form factor of the host
+     * @type {string}
+     * @memberof DomainDiscoverAPIHost
+     */
+    formFactor?: string;
+    /**
      * The fully qualified domain name of the asset.
      * @type {string}
      * @memberof DomainDiscoverAPIHost
@@ -309,11 +445,29 @@ export interface DomainDiscoverAPIHost {
      */
     id: string;
     /**
-     * Whether the asset is exposed to the internet (Yes or Unknown).
+     * Whether the asset is exposed to the internet (Yes, No or Pending).
      * @type {string}
      * @memberof DomainDiscoverAPIHost
      */
     internetExposure?: string;
+    /**
+     * The description the user entered when manually assigning a internet exposure level
+     * @type {string}
+     * @memberof DomainDiscoverAPIHost
+     */
+    internetExposureDescription?: string;
+    /**
+     * The date and time the internet exposure level was manually assigned
+     * @type {string}
+     * @memberof DomainDiscoverAPIHost
+     */
+    internetExposureTimestamp?: string;
+    /**
+     * The username of the account that manually assigned the internet exposure level
+     * @type {string}
+     * @memberof DomainDiscoverAPIHost
+     */
+    internetExposureUsername?: string;
     /**
      * For Linux and Mac hosts: the major version, minor version, and patch version of the kernel for the asset. For Windows hosts: the build number of the asset.
      * @type {string}
@@ -326,6 +480,12 @@ export interface DomainDiscoverAPIHost {
      * @memberof DomainDiscoverAPIHost
      */
     lastDiscovererAid?: string;
+    /**
+     * The hostname of the last source that discovered the asset.
+     * @type {string}
+     * @memberof DomainDiscoverAPIHost
+     */
+    lastDiscovererHostname?: string;
     /**
      * The most recent time the asset was seen in your environment.
      * @type {string}
@@ -453,6 +613,24 @@ export interface DomainDiscoverAPIHost {
      */
     ou?: string;
     /**
+     * Whether a user overrode automatically assigned asset roles to manually assign a role to the asset (true or false).
+     * @type {boolean}
+     * @memberof DomainDiscoverAPIHost
+     */
+    overrideAssetRoles?: boolean;
+    /**
+     * Whether a user overrode a criticality rule to manually assign a criticality level on the asset (true or false).
+     * @type {boolean}
+     * @memberof DomainDiscoverAPIHost
+     */
+    overrideCriticalityRules?: boolean;
+    /**
+     * Whether a user overrode the automatically assigned internet exposure (True or False).
+     * @type {boolean}
+     * @memberof DomainDiscoverAPIHost
+     */
+    overrideInternetExposure?: boolean;
+    /**
      * The first and last name of the person who owns this asset.
      * @type {string}
      * @memberof DomainDiscoverAPIHost
@@ -537,6 +715,12 @@ export interface DomainDiscoverAPIHost {
      */
     tags?: Array<string>;
     /**
+     * Represents the unique identifier of an asset reported by Tenable
+     * @type {string}
+     * @memberof DomainDiscoverAPIHost
+     */
+    tenableioId?: string;
+    /**
      * The count of bios files measured by the firmware image
      * @type {number}
      * @memberof DomainDiscoverAPIHost
@@ -554,6 +738,12 @@ export interface DomainDiscoverAPIHost {
      * @memberof DomainDiscoverAPIHost
      */
     totalMemory?: number;
+    /**
+     *
+     * @type {DomainDiscoverAPIHostTriage}
+     * @memberof DomainDiscoverAPIHost
+     */
+    triage?: DomainDiscoverAPIHostTriage;
     /**
      * The list of unencrypted drives on the host
      * @type {Array<string>}
@@ -584,6 +774,18 @@ export interface DomainDiscoverAPIHost {
      * @memberof DomainDiscoverAPIHost
      */
     usedFor?: string;
+    /**
+     * The asset role or roles manually assigned to the asset.
+     * @type {Array<string>}
+     * @memberof DomainDiscoverAPIHost
+     */
+    userAssetRoles?: Array<string>;
+    /**
+     * The internet exposure manually assigned to the asset
+     * @type {string}
+     * @memberof DomainDiscoverAPIHost
+     */
+    userInternetExposure?: string;
 }
 
 /**
@@ -607,9 +809,11 @@ export function DomainDiscoverAPIHostFromJSONTyped(json: any, ignoreDiscriminato
     }
     return {
         accountEnabled: !exists(json, "account_enabled") ? undefined : json["account_enabled"],
+        activeDiscovery: !exists(json, "active_discovery") ? undefined : DomainDiscoverAPIActiveDiscoveryHostFromJSON(json["active_discovery"]),
         adUserAccountControl: !exists(json, "ad_user_account_control") ? undefined : json["ad_user_account_control"],
         agentVersion: !exists(json, "agent_version") ? undefined : json["agent_version"],
         aid: !exists(json, "aid") ? undefined : json["aid"],
+        assetRoles: !exists(json, "asset_roles") ? undefined : json["asset_roles"],
         assignedTo: !exists(json, "assigned_to") ? undefined : json["assigned_to"],
         availableDiskSpace: !exists(json, "available_disk_space") ? undefined : json["available_disk_space"],
         availableDiskSpacePct: !exists(json, "available_disk_space_pct") ? undefined : json["available_disk_space_pct"],
@@ -623,21 +827,40 @@ export function DomainDiscoverAPIHostFromJSONTyped(json: any, ignoreDiscriminato
         cid: json["cid"],
         city: !exists(json, "city") ? undefined : json["city"],
         classification: !exists(json, "classification") ? undefined : json["classification"],
+        cloudAccountId: !exists(json, "cloud_account_id") ? undefined : json["cloud_account_id"],
+        cloudInstanceId: !exists(json, "cloud_instance_id") ? undefined : json["cloud_instance_id"],
+        cloudProvider: !exists(json, "cloud_provider") ? undefined : json["cloud_provider"],
+        cloudRegion: !exists(json, "cloud_region") ? undefined : json["cloud_region"],
+        cloudRegistered: !exists(json, "cloud_registered") ? undefined : json["cloud_registered"],
+        cloudResourceId: !exists(json, "cloud_resource_id") ? undefined : json["cloud_resource_id"],
+        computedAssetRoles: !exists(json, "computed_asset_roles") ? undefined : json["computed_asset_roles"],
+        computedInternetExposure: !exists(json, "computed_internet_exposure") ? undefined : json["computed_internet_exposure"],
+        computedInternetExposureExternalIp: !exists(json, "computed_internet_exposure_external_ip") ? undefined : json["computed_internet_exposure_external_ip"],
+        computedInternetExposureLastSeen: !exists(json, "computed_internet_exposure_last_seen") ? undefined : json["computed_internet_exposure_last_seen"],
         confidence: !exists(json, "confidence") ? undefined : json["confidence"],
         country: !exists(json, "country") ? undefined : json["country"],
         cpuManufacturer: !exists(json, "cpu_manufacturer") ? undefined : json["cpu_manufacturer"],
         cpuProcessorName: !exists(json, "cpu_processor_name") ? undefined : json["cpu_processor_name"],
         creationTimestamp: !exists(json, "creation_timestamp") ? undefined : json["creation_timestamp"],
+        criticality: !exists(json, "criticality") ? undefined : json["criticality"],
+        criticalityDescription: !exists(json, "criticality_description") ? undefined : json["criticality_description"],
+        criticalityRuleId: !exists(json, "criticality_rule_id") ? undefined : json["criticality_rule_id"],
+        criticalityTimestamp: !exists(json, "criticality_timestamp") ? undefined : json["criticality_timestamp"],
+        criticalityUsername: !exists(json, "criticality_username") ? undefined : json["criticality_username"],
         currentLocalIp: !exists(json, "current_local_ip") ? undefined : json["current_local_ip"],
+        currentNetworkPrefix: !exists(json, "current_network_prefix") ? undefined : json["current_network_prefix"],
         dataProviders: !exists(json, "data_providers") ? undefined : json["data_providers"],
         dataProvidersCount: !exists(json, "data_providers_count") ? undefined : json["data_providers_count"],
         department: !exists(json, "department") ? undefined : json["department"],
         descriptions: !exists(json, "descriptions") ? undefined : json["descriptions"],
         discovererAids: !exists(json, "discoverer_aids") ? undefined : json["discoverer_aids"],
         discovererCount: !exists(json, "discoverer_count") ? undefined : json["discoverer_count"],
+        discovererCriticalities: !exists(json, "discoverer_criticalities") ? undefined : json["discoverer_criticalities"],
+        discovererHostnames: !exists(json, "discoverer_hostnames") ? undefined : json["discoverer_hostnames"],
         discovererPlatformNames: !exists(json, "discoverer_platform_names") ? undefined : json["discoverer_platform_names"],
         discovererProductTypeDescs: !exists(json, "discoverer_product_type_descs") ? undefined : json["discoverer_product_type_descs"],
         discovererTags: !exists(json, "discoverer_tags") ? undefined : json["discoverer_tags"],
+        discoveringBy: !exists(json, "discovering_by") ? undefined : json["discovering_by"],
         diskSizes: !exists(json, "disk_sizes") ? undefined : (json["disk_sizes"] as Array<any>).map(DomainDiscoverAPIDiskSizeFromJSON),
         email: !exists(json, "email") ? undefined : json["email"],
         encryptedDrives: !exists(json, "encrypted_drives") ? undefined : json["encrypted_drives"],
@@ -648,13 +871,18 @@ export function DomainDiscoverAPIHostFromJSONTyped(json: any, ignoreDiscriminato
         fieldMetadata: !exists(json, "field_metadata") ? undefined : mapValues(json["field_metadata"], DomainDiscoverAPIFieldMetadataFromJSON),
         firstDiscovererAid: !exists(json, "first_discoverer_aid") ? undefined : json["first_discoverer_aid"],
         firstSeenTimestamp: !exists(json, "first_seen_timestamp") ? undefined : json["first_seen_timestamp"],
+        formFactor: !exists(json, "form_factor") ? undefined : json["form_factor"],
         fqdn: !exists(json, "fqdn") ? undefined : json["fqdn"],
         groups: !exists(json, "groups") ? undefined : json["groups"],
         hostname: !exists(json, "hostname") ? undefined : json["hostname"],
         id: json["id"],
         internetExposure: !exists(json, "internet_exposure") ? undefined : json["internet_exposure"],
+        internetExposureDescription: !exists(json, "internet_exposure_description") ? undefined : json["internet_exposure_description"],
+        internetExposureTimestamp: !exists(json, "internet_exposure_timestamp") ? undefined : json["internet_exposure_timestamp"],
+        internetExposureUsername: !exists(json, "internet_exposure_username") ? undefined : json["internet_exposure_username"],
         kernelVersion: !exists(json, "kernel_version") ? undefined : json["kernel_version"],
         lastDiscovererAid: !exists(json, "last_discoverer_aid") ? undefined : json["last_discoverer_aid"],
+        lastDiscovererHostname: !exists(json, "last_discoverer_hostname") ? undefined : json["last_discoverer_hostname"],
         lastSeenTimestamp: !exists(json, "last_seen_timestamp") ? undefined : json["last_seen_timestamp"],
         localIpAddresses: !exists(json, "local_ip_addresses") ? undefined : json["local_ip_addresses"],
         localIpsCount: !exists(json, "local_ips_count") ? undefined : json["local_ips_count"],
@@ -676,6 +904,9 @@ export function DomainDiscoverAPIHostFromJSONTyped(json: any, ignoreDiscriminato
         osServicePack: !exists(json, "os_service_pack") ? undefined : json["os_service_pack"],
         osVersion: !exists(json, "os_version") ? undefined : json["os_version"],
         ou: !exists(json, "ou") ? undefined : json["ou"],
+        overrideAssetRoles: !exists(json, "override_asset_roles") ? undefined : json["override_asset_roles"],
+        overrideCriticalityRules: !exists(json, "override_criticality_rules") ? undefined : json["override_criticality_rules"],
+        overrideInternetExposure: !exists(json, "override_internet_exposure") ? undefined : json["override_internet_exposure"],
         ownedBy: !exists(json, "owned_by") ? undefined : json["owned_by"],
         physicalCoreCount: !exists(json, "physical_core_count") ? undefined : json["physical_core_count"],
         platformName: !exists(json, "platform_name") ? undefined : json["platform_name"],
@@ -690,14 +921,18 @@ export function DomainDiscoverAPIHostFromJSONTyped(json: any, ignoreDiscriminato
         systemProductName: !exists(json, "system_product_name") ? undefined : json["system_product_name"],
         systemSerialNumber: !exists(json, "system_serial_number") ? undefined : json["system_serial_number"],
         tags: !exists(json, "tags") ? undefined : json["tags"],
+        tenableioId: !exists(json, "tenableio_id") ? undefined : json["tenableio_id"],
         totalBiosFiles: !exists(json, "total_bios_files") ? undefined : json["total_bios_files"],
         totalDiskSpace: !exists(json, "total_disk_space") ? undefined : json["total_disk_space"],
         totalMemory: !exists(json, "total_memory") ? undefined : json["total_memory"],
+        triage: !exists(json, "triage") ? undefined : DomainDiscoverAPIHostTriageFromJSON(json["triage"]),
         unencryptedDrives: !exists(json, "unencrypted_drives") ? undefined : json["unencrypted_drives"],
         unencryptedDrivesCount: !exists(json, "unencrypted_drives_count") ? undefined : json["unencrypted_drives_count"],
         usedDiskSpace: !exists(json, "used_disk_space") ? undefined : json["used_disk_space"],
         usedDiskSpacePct: !exists(json, "used_disk_space_pct") ? undefined : json["used_disk_space_pct"],
         usedFor: !exists(json, "used_for") ? undefined : json["used_for"],
+        userAssetRoles: !exists(json, "user_asset_roles") ? undefined : json["user_asset_roles"],
+        userInternetExposure: !exists(json, "user_internet_exposure") ? undefined : json["user_internet_exposure"],
     };
 }
 
@@ -710,9 +945,11 @@ export function DomainDiscoverAPIHostToJSON(value?: DomainDiscoverAPIHost | null
     }
     return {
         account_enabled: value.accountEnabled,
+        active_discovery: DomainDiscoverAPIActiveDiscoveryHostToJSON(value.activeDiscovery),
         ad_user_account_control: value.adUserAccountControl,
         agent_version: value.agentVersion,
         aid: value.aid,
+        asset_roles: value.assetRoles,
         assigned_to: value.assignedTo,
         available_disk_space: value.availableDiskSpace,
         available_disk_space_pct: value.availableDiskSpacePct,
@@ -726,21 +963,40 @@ export function DomainDiscoverAPIHostToJSON(value?: DomainDiscoverAPIHost | null
         cid: value.cid,
         city: value.city,
         classification: value.classification,
+        cloud_account_id: value.cloudAccountId,
+        cloud_instance_id: value.cloudInstanceId,
+        cloud_provider: value.cloudProvider,
+        cloud_region: value.cloudRegion,
+        cloud_registered: value.cloudRegistered,
+        cloud_resource_id: value.cloudResourceId,
+        computed_asset_roles: value.computedAssetRoles,
+        computed_internet_exposure: value.computedInternetExposure,
+        computed_internet_exposure_external_ip: value.computedInternetExposureExternalIp,
+        computed_internet_exposure_last_seen: value.computedInternetExposureLastSeen,
         confidence: value.confidence,
         country: value.country,
         cpu_manufacturer: value.cpuManufacturer,
         cpu_processor_name: value.cpuProcessorName,
         creation_timestamp: value.creationTimestamp,
+        criticality: value.criticality,
+        criticality_description: value.criticalityDescription,
+        criticality_rule_id: value.criticalityRuleId,
+        criticality_timestamp: value.criticalityTimestamp,
+        criticality_username: value.criticalityUsername,
         current_local_ip: value.currentLocalIp,
+        current_network_prefix: value.currentNetworkPrefix,
         data_providers: value.dataProviders,
         data_providers_count: value.dataProvidersCount,
         department: value.department,
         descriptions: value.descriptions,
         discoverer_aids: value.discovererAids,
         discoverer_count: value.discovererCount,
+        discoverer_criticalities: value.discovererCriticalities,
+        discoverer_hostnames: value.discovererHostnames,
         discoverer_platform_names: value.discovererPlatformNames,
         discoverer_product_type_descs: value.discovererProductTypeDescs,
         discoverer_tags: value.discovererTags,
+        discovering_by: value.discoveringBy,
         disk_sizes: value.diskSizes === undefined ? undefined : (value.diskSizes as Array<any>).map(DomainDiscoverAPIDiskSizeToJSON),
         email: value.email,
         encrypted_drives: value.encryptedDrives,
@@ -751,13 +1007,18 @@ export function DomainDiscoverAPIHostToJSON(value?: DomainDiscoverAPIHost | null
         field_metadata: value.fieldMetadata === undefined ? undefined : mapValues(value.fieldMetadata, DomainDiscoverAPIFieldMetadataToJSON),
         first_discoverer_aid: value.firstDiscovererAid,
         first_seen_timestamp: value.firstSeenTimestamp,
+        form_factor: value.formFactor,
         fqdn: value.fqdn,
         groups: value.groups,
         hostname: value.hostname,
         id: value.id,
         internet_exposure: value.internetExposure,
+        internet_exposure_description: value.internetExposureDescription,
+        internet_exposure_timestamp: value.internetExposureTimestamp,
+        internet_exposure_username: value.internetExposureUsername,
         kernel_version: value.kernelVersion,
         last_discoverer_aid: value.lastDiscovererAid,
+        last_discoverer_hostname: value.lastDiscovererHostname,
         last_seen_timestamp: value.lastSeenTimestamp,
         local_ip_addresses: value.localIpAddresses,
         local_ips_count: value.localIpsCount,
@@ -779,6 +1040,9 @@ export function DomainDiscoverAPIHostToJSON(value?: DomainDiscoverAPIHost | null
         os_service_pack: value.osServicePack,
         os_version: value.osVersion,
         ou: value.ou,
+        override_asset_roles: value.overrideAssetRoles,
+        override_criticality_rules: value.overrideCriticalityRules,
+        override_internet_exposure: value.overrideInternetExposure,
         owned_by: value.ownedBy,
         physical_core_count: value.physicalCoreCount,
         platform_name: value.platformName,
@@ -793,13 +1057,17 @@ export function DomainDiscoverAPIHostToJSON(value?: DomainDiscoverAPIHost | null
         system_product_name: value.systemProductName,
         system_serial_number: value.systemSerialNumber,
         tags: value.tags,
+        tenableio_id: value.tenableioId,
         total_bios_files: value.totalBiosFiles,
         total_disk_space: value.totalDiskSpace,
         total_memory: value.totalMemory,
+        triage: DomainDiscoverAPIHostTriageToJSON(value.triage),
         unencrypted_drives: value.unencryptedDrives,
         unencrypted_drives_count: value.unencryptedDrivesCount,
         used_disk_space: value.usedDiskSpace,
         used_disk_space_pct: value.usedDiskSpacePct,
         used_for: value.usedFor,
+        user_asset_roles: value.userAssetRoles,
+        user_internet_exposure: value.userInternetExposure,
     };
 }

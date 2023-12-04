@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -17,13 +17,14 @@ import type {
     DomainActorsResponse,
     DomainNewsResponse,
     DomainPublicIndicatorsV3Response,
+    DomainQueryMitreAttacksResponse,
     DomainRulesResponse,
     DomainVulnerabilityResponse,
     MsaErrorsOnly,
     MsaIdsRequest,
     MsaQueryResponse,
     MsaReplyMetaOnly,
-} from "../models";
+} from "../models/index";
 import {
     DomainActorsResponseFromJSON,
     DomainActorsResponseToJSON,
@@ -31,6 +32,8 @@ import {
     DomainNewsResponseToJSON,
     DomainPublicIndicatorsV3ResponseFromJSON,
     DomainPublicIndicatorsV3ResponseToJSON,
+    DomainQueryMitreAttacksResponseFromJSON,
+    DomainQueryMitreAttacksResponseToJSON,
     DomainRulesResponseFromJSON,
     DomainRulesResponseToJSON,
     DomainVulnerabilityResponseFromJSON,
@@ -43,7 +46,7 @@ import {
     MsaQueryResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-} from "../models";
+} from "../models/index";
 
 export interface GetIntelActorEntitiesRequest {
     ids: Array<string>;
@@ -60,7 +63,8 @@ export interface GetIntelReportEntitiesRequest {
 }
 
 export interface GetIntelReportPDFRequest {
-    id: string;
+    id?: string;
+    ids?: string;
 }
 
 export interface GetIntelRuleEntitiesRequest {
@@ -76,8 +80,10 @@ export interface GetIntelRuleFileRequest {
 export interface GetLatestIntelRuleFileRequest {
     type: string;
     accept?: string;
-    format?: string;
+    ifNoneMatch?: string;
     ifModifiedSince?: string;
+    format?: string;
+    ifModifiedSince2?: string;
 }
 
 export interface GetMitreReportRequest {
@@ -161,7 +167,8 @@ export interface QueryIntelRuleIdsRequest {
 }
 
 export interface QueryMitreAttacksRequest {
-    id: string;
+    id?: string;
+    ids?: Array<string>;
 }
 
 export interface QueryVulnerabilitiesRequest {
@@ -198,7 +205,7 @@ export class IntelApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-actors:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -241,7 +248,7 @@ export class IntelApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-indicators:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -288,7 +295,7 @@ export class IntelApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-reports:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -316,21 +323,21 @@ export class IntelApi extends runtime.BaseAPI {
      * Return a Report PDF attachment
      */
     async getIntelReportPDFRaw(requestParameters: GetIntelReportPDFRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError("id", "Required parameter requestParameters.id was null or undefined when calling getIntelReportPDF.");
-        }
-
         const queryParameters: any = {};
 
         if (requestParameters.id !== undefined) {
             queryParameters["id"] = requestParameters.id;
         }
 
+        if (requestParameters.ids !== undefined) {
+            queryParameters["ids"] = requestParameters.ids;
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-reports:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -349,8 +356,8 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Return a Report PDF attachment
      */
-    async getIntelReportPDF(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
-        const response = await this.getIntelReportPDFRaw({ id: id }, initOverrides);
+    async getIntelReportPDF(id?: string, ids?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
+        const response = await this.getIntelReportPDFRaw({ id: id, ids: ids }, initOverrides);
         return await response.value();
     }
 
@@ -372,7 +379,7 @@ export class IntelApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-rules:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -422,7 +429,7 @@ export class IntelApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-rules:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -470,13 +477,21 @@ export class IntelApi extends runtime.BaseAPI {
             headerParameters["Accept"] = String(requestParameters.accept);
         }
 
+        if (requestParameters.ifNoneMatch !== undefined && requestParameters.ifNoneMatch !== null) {
+            headerParameters["If-None-Match"] = String(requestParameters.ifNoneMatch);
+        }
+
         if (requestParameters.ifModifiedSince !== undefined && requestParameters.ifModifiedSince !== null) {
             headerParameters["If-Modified-Since"] = String(requestParameters.ifModifiedSince);
         }
 
+        if (requestParameters.ifModifiedSince2 !== undefined && requestParameters.ifModifiedSince2 !== null) {
+            headerParameters["If-Modified-Since"] = String(requestParameters.ifModifiedSince2);
+        }
+
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-rules:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -495,8 +510,19 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Download the latest rule set.
      */
-    async getLatestIntelRuleFile(type: string, accept?: string, format?: string, ifModifiedSince?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
-        const response = await this.getLatestIntelRuleFileRaw({ type: type, accept: accept, format: format, ifModifiedSince: ifModifiedSince }, initOverrides);
+    async getLatestIntelRuleFile(
+        type: string,
+        accept?: string,
+        ifNoneMatch?: string,
+        ifModifiedSince?: string,
+        format?: string,
+        ifModifiedSince2?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<Blob> {
+        const response = await this.getLatestIntelRuleFileRaw(
+            { type: type, accept: accept, ifNoneMatch: ifNoneMatch, ifModifiedSince: ifModifiedSince, format: format, ifModifiedSince2: ifModifiedSince2 },
+            initOverrides
+        );
         return await response.value();
     }
 
@@ -526,7 +552,7 @@ export class IntelApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-actors:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -565,7 +591,7 @@ export class IntelApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["intel-vulnerabilities:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -606,7 +632,7 @@ export class IntelApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-actors:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -667,7 +693,7 @@ export class IntelApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-actors:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -729,7 +755,7 @@ export class IntelApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-actors:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -794,7 +820,7 @@ export class IntelApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-indicators:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -868,7 +894,7 @@ export class IntelApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-indicators:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -941,7 +967,7 @@ export class IntelApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-reports:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -1003,7 +1029,7 @@ export class IntelApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-reports:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -1081,7 +1107,7 @@ export class IntelApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-rules:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -1121,24 +1147,24 @@ export class IntelApi extends runtime.BaseAPI {
     }
 
     /**
-     * Gets MITRE tactics and techniques for the given actor
+     * Gets MITRE tactics and techniques for the given actor, returning concatenation of id and tactic and technique ids, example: fancy-bear_TA0011_T1071
      */
-    async queryMitreAttacksRaw(requestParameters: QueryMitreAttacksRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError("id", "Required parameter requestParameters.id was null or undefined when calling queryMitreAttacks.");
-        }
-
+    async queryMitreAttacksRaw(requestParameters: QueryMitreAttacksRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainQueryMitreAttacksResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.id !== undefined) {
             queryParameters["id"] = requestParameters.id;
         }
 
+        if (requestParameters.ids) {
+            queryParameters["ids"] = requestParameters.ids;
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-actors:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -1151,14 +1177,15 @@ export class IntelApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.VoidApiResponse(response);
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainQueryMitreAttacksResponseFromJSON(jsonValue));
     }
 
     /**
-     * Gets MITRE tactics and techniques for the given actor
+     * Gets MITRE tactics and techniques for the given actor, returning concatenation of id and tactic and technique ids, example: fancy-bear_TA0011_T1071
      */
-    async queryMitreAttacks(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.queryMitreAttacksRaw({ id: id }, initOverrides);
+    async queryMitreAttacks(id?: string, ids?: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainQueryMitreAttacksResponse> {
+        const response = await this.queryMitreAttacksRaw({ id: id, ids: ids }, initOverrides);
+        return await response.value();
     }
 
     /**
@@ -1191,7 +1218,7 @@ export class IntelApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["intel-vulnerabilities:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(

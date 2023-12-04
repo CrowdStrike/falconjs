@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -13,8 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import type { CloudontologyPatternDisposition } from "./CloudontologyPatternDisposition";
-import { CloudontologyPatternDispositionFromJSON, CloudontologyPatternDispositionFromJSONTyped, CloudontologyPatternDispositionToJSON } from "./CloudontologyPatternDisposition";
+import type { PatterndispositionPatternDisposition } from "./PatterndispositionPatternDisposition";
+import { PatterndispositionPatternDispositionFromJSON, PatterndispositionPatternDispositionFromJSONTyped, PatterndispositionPatternDispositionToJSON } from "./PatterndispositionPatternDisposition";
 
 /**
  *
@@ -28,6 +28,12 @@ export interface DomainBehavior {
      * @memberof DomainBehavior
      */
     aid?: string;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof DomainBehavior
+     */
+    alertIds?: Array<string>;
     /**
      *
      * @type {string}
@@ -54,16 +60,28 @@ export interface DomainBehavior {
     compoundTto?: string;
     /**
      *
+     * @type {Array<string>}
+     * @memberof DomainBehavior
+     */
+    detectionIds?: Array<string>;
+    /**
+     *
      * @type {string}
      * @memberof DomainBehavior
      */
-    detectionId?: string;
+    displayName?: string;
     /**
      *
      * @type {string}
      * @memberof DomainBehavior
      */
     domain?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainBehavior
+     */
+    exclusionType?: string;
     /**
      *
      * @type {string}
@@ -114,10 +132,10 @@ export interface DomainBehavior {
     patternDisposition?: number;
     /**
      *
-     * @type {CloudontologyPatternDisposition}
+     * @type {PatterndispositionPatternDisposition}
      * @memberof DomainBehavior
      */
-    patternDispositionDetails?: CloudontologyPatternDisposition;
+    patternDispositionDetails?: PatterndispositionPatternDisposition;
     /**
      *
      * @type {number}
@@ -141,7 +159,19 @@ export interface DomainBehavior {
      * @type {string}
      * @memberof DomainBehavior
      */
+    tacticId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainBehavior
+     */
     technique?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainBehavior
+     */
+    techniqueId?: string;
     /**
      *
      * @type {number}
@@ -184,12 +214,15 @@ export function DomainBehaviorFromJSONTyped(json: any, ignoreDiscriminator: bool
     }
     return {
         aid: !exists(json, "aid") ? undefined : json["aid"],
+        alertIds: !exists(json, "alert_ids") ? undefined : json["alert_ids"],
         behaviorId: !exists(json, "behavior_id") ? undefined : json["behavior_id"],
         cid: !exists(json, "cid") ? undefined : json["cid"],
         cmdline: !exists(json, "cmdline") ? undefined : json["cmdline"],
         compoundTto: !exists(json, "compound_tto") ? undefined : json["compound_tto"],
-        detectionId: !exists(json, "detection_id") ? undefined : json["detection_id"],
+        detectionIds: !exists(json, "detection_ids") ? undefined : json["detection_ids"],
+        displayName: !exists(json, "display_name") ? undefined : json["display_name"],
         domain: !exists(json, "domain") ? undefined : json["domain"],
+        exclusionType: !exists(json, "exclusion_type") ? undefined : json["exclusion_type"],
         filepath: !exists(json, "filepath") ? undefined : json["filepath"],
         incidentId: !exists(json, "incident_id") ? undefined : json["incident_id"],
         incidentIds: !exists(json, "incident_ids") ? undefined : json["incident_ids"],
@@ -198,11 +231,13 @@ export function DomainBehaviorFromJSONTyped(json: any, ignoreDiscriminator: bool
         iocValue: !exists(json, "ioc_value") ? undefined : json["ioc_value"],
         objective: !exists(json, "objective") ? undefined : json["objective"],
         patternDisposition: !exists(json, "pattern_disposition") ? undefined : json["pattern_disposition"],
-        patternDispositionDetails: !exists(json, "pattern_disposition_details") ? undefined : CloudontologyPatternDispositionFromJSON(json["pattern_disposition_details"]),
+        patternDispositionDetails: !exists(json, "pattern_disposition_details") ? undefined : PatterndispositionPatternDispositionFromJSON(json["pattern_disposition_details"]),
         patternId: json["pattern_id"],
         sha256: !exists(json, "sha256") ? undefined : json["sha256"],
         tactic: !exists(json, "tactic") ? undefined : json["tactic"],
+        tacticId: !exists(json, "tactic_id") ? undefined : json["tactic_id"],
         technique: !exists(json, "technique") ? undefined : json["technique"],
+        techniqueId: !exists(json, "technique_id") ? undefined : json["technique_id"],
         templateInstanceId: json["template_instance_id"],
         timestamp: new Date(json["timestamp"]),
         userName: !exists(json, "user_name") ? undefined : json["user_name"],
@@ -218,12 +253,15 @@ export function DomainBehaviorToJSON(value?: DomainBehavior | null): any {
     }
     return {
         aid: value.aid,
+        alert_ids: value.alertIds,
         behavior_id: value.behaviorId,
         cid: value.cid,
         cmdline: value.cmdline,
         compound_tto: value.compoundTto,
-        detection_id: value.detectionId,
+        detection_ids: value.detectionIds,
+        display_name: value.displayName,
         domain: value.domain,
+        exclusion_type: value.exclusionType,
         filepath: value.filepath,
         incident_id: value.incidentId,
         incident_ids: value.incidentIds,
@@ -232,11 +270,13 @@ export function DomainBehaviorToJSON(value?: DomainBehavior | null): any {
         ioc_value: value.iocValue,
         objective: value.objective,
         pattern_disposition: value.patternDisposition,
-        pattern_disposition_details: CloudontologyPatternDispositionToJSON(value.patternDispositionDetails),
+        pattern_disposition_details: PatterndispositionPatternDispositionToJSON(value.patternDispositionDetails),
         pattern_id: value.patternId,
         sha256: value.sha256,
         tactic: value.tactic,
+        tactic_id: value.tacticId,
         technique: value.technique,
+        technique_id: value.techniqueId,
         template_instance_id: value.templateInstanceId,
         timestamp: value.timestamp.toISOString(),
         user_name: value.userName,

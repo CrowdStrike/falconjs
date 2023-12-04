@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -14,7 +14,19 @@
 
 import * as runtime from "../runtime";
 import type {
+    CommonCountResponse,
+    CommonGenericEntityResponseString,
+    CoreEntitiesResponse,
+    K8sassetsClusterEnrichmentResponse,
+    K8sassetsContainerEnrichmentResponse,
+    K8sassetsDeploymentEnrichmentResponse,
+    K8sassetsNodeEnrichmentResponse,
+    K8sassetsPodEnrichmentResponse,
+    K8siomsKubernetesIOMCountValue,
+    K8siomsKubernetesIOMEntityResponse,
+    K8siomsKubernetesIOMFieldValue,
     K8sregCreateAWSAccReq,
+    K8sregCreateAWSAccResp,
     K8sregCreateAzureSubReq,
     K8sregGetAWSAccountsResp,
     K8sregGetAzureBashScriptResp,
@@ -26,13 +38,47 @@ import type {
     K8sregGetScriptsResp,
     K8sregListClusterCloudResp,
     K8sregRegenAPIKeyResp,
+    ModelsAPIFilterResponse,
+    ModelsAggregateValuesByFieldResponse,
+    ModelsClusterEntityResponse,
+    ModelsContainerCoverageResponseEntity,
+    ModelsContainerEntityResponse,
+    ModelsContainerImage,
+    ModelsContainerRuntimePivotResponse,
+    ModelsDeploymentEntityResponse,
+    ModelsNodeEntityResponse,
+    ModelsPodEntityResponse,
     MsaBaseEntitiesResponse,
     MsaMetaInfo,
     MsaReplyMetaOnly,
-} from "../models";
+} from "../models/index";
 import {
+    CommonCountResponseFromJSON,
+    CommonCountResponseToJSON,
+    CommonGenericEntityResponseStringFromJSON,
+    CommonGenericEntityResponseStringToJSON,
+    CoreEntitiesResponseFromJSON,
+    CoreEntitiesResponseToJSON,
+    K8sassetsClusterEnrichmentResponseFromJSON,
+    K8sassetsClusterEnrichmentResponseToJSON,
+    K8sassetsContainerEnrichmentResponseFromJSON,
+    K8sassetsContainerEnrichmentResponseToJSON,
+    K8sassetsDeploymentEnrichmentResponseFromJSON,
+    K8sassetsDeploymentEnrichmentResponseToJSON,
+    K8sassetsNodeEnrichmentResponseFromJSON,
+    K8sassetsNodeEnrichmentResponseToJSON,
+    K8sassetsPodEnrichmentResponseFromJSON,
+    K8sassetsPodEnrichmentResponseToJSON,
+    K8siomsKubernetesIOMCountValueFromJSON,
+    K8siomsKubernetesIOMCountValueToJSON,
+    K8siomsKubernetesIOMEntityResponseFromJSON,
+    K8siomsKubernetesIOMEntityResponseToJSON,
+    K8siomsKubernetesIOMFieldValueFromJSON,
+    K8siomsKubernetesIOMFieldValueToJSON,
     K8sregCreateAWSAccReqFromJSON,
     K8sregCreateAWSAccReqToJSON,
+    K8sregCreateAWSAccRespFromJSON,
+    K8sregCreateAWSAccRespToJSON,
     K8sregCreateAzureSubReqFromJSON,
     K8sregCreateAzureSubReqToJSON,
     K8sregGetAWSAccountsRespFromJSON,
@@ -55,13 +101,33 @@ import {
     K8sregListClusterCloudRespToJSON,
     K8sregRegenAPIKeyRespFromJSON,
     K8sregRegenAPIKeyRespToJSON,
+    ModelsAPIFilterResponseFromJSON,
+    ModelsAPIFilterResponseToJSON,
+    ModelsAggregateValuesByFieldResponseFromJSON,
+    ModelsAggregateValuesByFieldResponseToJSON,
+    ModelsClusterEntityResponseFromJSON,
+    ModelsClusterEntityResponseToJSON,
+    ModelsContainerCoverageResponseEntityFromJSON,
+    ModelsContainerCoverageResponseEntityToJSON,
+    ModelsContainerEntityResponseFromJSON,
+    ModelsContainerEntityResponseToJSON,
+    ModelsContainerImageFromJSON,
+    ModelsContainerImageToJSON,
+    ModelsContainerRuntimePivotResponseFromJSON,
+    ModelsContainerRuntimePivotResponseToJSON,
+    ModelsDeploymentEntityResponseFromJSON,
+    ModelsDeploymentEntityResponseToJSON,
+    ModelsNodeEntityResponseFromJSON,
+    ModelsNodeEntityResponseToJSON,
+    ModelsPodEntityResponseFromJSON,
+    ModelsPodEntityResponseToJSON,
     MsaBaseEntitiesResponseFromJSON,
     MsaBaseEntitiesResponseToJSON,
     MsaMetaInfoFromJSON,
     MsaMetaInfoToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-} from "../models";
+} from "../models/index";
 
 export interface CreateAWSAccountRequest {
     body: K8sregCreateAWSAccReq;
@@ -79,9 +145,17 @@ export interface DeleteAzureSubscriptionRequest {
     ids?: Array<string>;
 }
 
+export interface FindContainersByContainerRunTimeVersionRequest {
+    limit?: number;
+    offset?: number;
+    sort?: string;
+    filter?: string;
+}
+
 export interface GetAWSAccountsMixin0Request {
     ids?: Array<string>;
-    status?: string;
+    isHorizonAcct?: GetAWSAccountsMixin0IsHorizonAcctEnum;
+    status?: GetAWSAccountsMixin0StatusEnum;
     limit?: number;
     offset?: number;
 }
@@ -106,6 +180,7 @@ export interface GetAzureTenantIDsRequest {
 
 export interface GetClustersRequest {
     clusterNames?: Array<string>;
+    status?: GetClustersStatusEnum;
     accountIds?: Array<string>;
     locations?: Array<string>;
     clusterService?: GetClustersClusterServiceEnum;
@@ -124,10 +199,15 @@ export interface GetCombinedCloudClustersRequest {
 
 export interface GetHelmValuesYamlRequest {
     clusterName: string;
+    isSelfManagedCluster?: boolean;
 }
 
 export interface GetLocationsRequest {
     clouds?: GetLocationsCloudsEnum;
+}
+
+export interface GroupContainersByManagedRequest {
+    filter?: string;
 }
 
 export interface ListAzureAccountsRequest {
@@ -142,6 +222,176 @@ export interface ListAzureAccountsRequest {
 export interface PatchAzureServicePrincipalRequest {
     id: string;
     clientId: string;
+}
+
+export interface ReadClusterCombinedRequest {
+    filter?: string;
+    limit?: number;
+    offset?: number;
+    sort?: string;
+}
+
+export interface ReadClusterCountRequest {
+    filter?: string;
+}
+
+export interface ReadClusterEnrichmentRequest {
+    clusterId: Array<string>;
+    filter?: string;
+}
+
+export interface ReadClustersByKubernetesVersionCountRequest {
+    filter?: string;
+}
+
+export interface ReadClustersByStatusCountRequest {
+    filter?: string;
+}
+
+export interface ReadContainerCombinedRequest {
+    filter?: string;
+    limit?: number;
+    offset?: number;
+    sort?: string;
+}
+
+export interface ReadContainerCountRequest {
+    filter?: string;
+}
+
+export interface ReadContainerCountByRegistryRequest {
+    underAssessment?: boolean;
+    limit?: number;
+}
+
+export interface ReadContainerEnrichmentRequest {
+    containerId: Array<string>;
+    filter?: string;
+}
+
+export interface ReadContainerImageDetectionsCountByDateRequest {
+    filter?: string;
+}
+
+export interface ReadContainerImagesByMostUsedRequest {
+    filter?: string;
+}
+
+export interface ReadContainerImagesByStateRequest {
+    filter?: string;
+}
+
+export interface ReadContainerVulnerabilitiesBySeverityCountRequest {
+    filter?: string;
+}
+
+export interface ReadContainersByDateRangeCountRequest {
+    filter?: string;
+}
+
+export interface ReadContainersSensorCoverageRequest {
+    filter?: string;
+}
+
+export interface ReadDeploymentCombinedRequest {
+    filter?: string;
+    limit?: number;
+    offset?: number;
+    sort?: string;
+}
+
+export interface ReadDeploymentCountRequest {
+    filter?: string;
+}
+
+export interface ReadDeploymentEnrichmentRequest {
+    deploymentId: Array<string>;
+    filter?: string;
+}
+
+export interface ReadDistinctContainerImageCountRequest {
+    filter?: string;
+}
+
+export interface ReadKubernetesIomByDateRangeRequest {
+    filter?: string;
+}
+
+export interface ReadKubernetesIomCountRequest {
+    filter?: string;
+}
+
+export interface ReadKubernetesIomEntitiesRequest {
+    ids?: Array<string>;
+}
+
+export interface ReadNodeCombinedRequest {
+    filter?: string;
+    limit?: number;
+    offset?: number;
+    sort?: string;
+}
+
+export interface ReadNodeCountRequest {
+    filter?: string;
+}
+
+export interface ReadNodeEnrichmentRequest {
+    nodeName: Array<string>;
+    filter?: string;
+}
+
+export interface ReadNodesByCloudCountRequest {
+    filter?: string;
+}
+
+export interface ReadNodesByContainerEngineVersionCountRequest {
+    filter?: string;
+}
+
+export interface ReadNodesByDateRangeCountRequest {
+    filter?: string;
+}
+
+export interface ReadPodCombinedRequest {
+    filter?: string;
+    limit?: number;
+    offset?: number;
+    sort?: string;
+}
+
+export interface ReadPodCountRequest {
+    filter?: string;
+}
+
+export interface ReadPodEnrichmentRequest {
+    podId: Array<string>;
+    filter?: string;
+}
+
+export interface ReadRunningContainerImagesRequest {
+    filter?: string;
+    limit?: number;
+    offset?: number;
+    sort?: string;
+}
+
+export interface ReadVulnerableContainerImageCountRequest {
+    filter?: string;
+}
+
+export interface SearchAndReadKubernetesIomEntitiesRequest {
+    filter?: string;
+    limit?: number;
+    offset?: number;
+    sort?: string;
+}
+
+export interface SearchKubernetesIomsRequest {
+    filter?: string;
+    limit?: number;
+    offset?: number;
+    sort?: string;
 }
 
 export interface TriggerScanRequest {
@@ -160,7 +410,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     /**
      * Creates a new AWS account in our system for a customer and generates the installation script
      */
-    async createAWSAccountRaw(requestParameters: CreateAWSAccountRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<K8sregCreateAWSAccReq>> {
+    async createAWSAccountRaw(requestParameters: CreateAWSAccountRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<K8sregCreateAWSAccResp>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createAWSAccount.");
         }
@@ -173,7 +423,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -187,13 +437,13 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => K8sregCreateAWSAccReqFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => K8sregCreateAWSAccRespFromJSON(jsonValue));
     }
 
     /**
      * Creates a new AWS account in our system for a customer and generates the installation script
      */
-    async createAWSAccount(body: K8sregCreateAWSAccReq, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<K8sregCreateAWSAccReq> {
+    async createAWSAccount(body: K8sregCreateAWSAccReq, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<K8sregCreateAWSAccResp> {
         const response = await this.createAWSAccountRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -217,7 +467,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -260,7 +510,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -301,7 +551,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -326,6 +576,99 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     }
 
     /**
+     * Retrieve containers by container_runtime_version
+     */
+    async findContainersByContainerRunTimeVersionRaw(
+        requestParameters: FindContainersByContainerRunTimeVersionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ModelsContainerRuntimePivotResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        if (requestParameters.sort !== undefined) {
+            queryParameters["sort"] = requestParameters.sort;
+        }
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/containers/find-by-runtimeversion/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelsContainerRuntimePivotResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve containers by container_runtime_version
+     */
+    async findContainersByContainerRunTimeVersion(
+        limit?: number,
+        offset?: number,
+        sort?: string,
+        filter?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<ModelsContainerRuntimePivotResponse> {
+        const response = await this.findContainersByContainerRunTimeVersionRaw({ limit: limit, offset: offset, sort: sort, filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve containers count affected by zero day vulnerabilities
+     */
+    async findContainersCountAffectedByZeroDayVulnerabilitiesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CommonCountResponse>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/containers/count-by-zero-day/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CommonCountResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve containers count affected by zero day vulnerabilities
+     */
+    async findContainersCountAffectedByZeroDayVulnerabilities(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CommonCountResponse> {
+        const response = await this.findContainersCountAffectedByZeroDayVulnerabilitiesRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Provides a list of AWS accounts.
      */
     async getAWSAccountsMixin0Raw(requestParameters: GetAWSAccountsMixin0Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<K8sregGetAWSAccountsResp>> {
@@ -333,6 +676,10 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (requestParameters.ids) {
             queryParameters["ids"] = requestParameters.ids.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters.isHorizonAcct !== undefined) {
+            queryParameters["is_horizon_acct"] = requestParameters.isHorizonAcct;
         }
 
         if (requestParameters.status !== undefined) {
@@ -351,7 +698,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -370,8 +717,15 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     /**
      * Provides a list of AWS accounts.
      */
-    async getAWSAccountsMixin0(ids?: Array<string>, status?: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<K8sregGetAWSAccountsResp> {
-        const response = await this.getAWSAccountsMixin0Raw({ ids: ids, status: status, limit: limit, offset: offset }, initOverrides);
+    async getAWSAccountsMixin0(
+        ids?: Array<string>,
+        isHorizonAcct?: GetAWSAccountsMixin0IsHorizonAcctEnum,
+        status?: GetAWSAccountsMixin0StatusEnum,
+        limit?: number,
+        offset?: number,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<K8sregGetAWSAccountsResp> {
+        const response = await this.getAWSAccountsMixin0Raw({ ids: ids, isHorizonAcct: isHorizonAcct, status: status, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }
 
@@ -396,7 +750,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -445,7 +799,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -495,7 +849,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -535,6 +889,10 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
             queryParameters["cluster_names"] = requestParameters.clusterNames.join(runtime.COLLECTION_FORMATS["csv"]);
         }
 
+        if (requestParameters.status) {
+            queryParameters["status"] = requestParameters.status.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
         if (requestParameters.accountIds) {
             queryParameters["account_ids"] = requestParameters.accountIds.join(runtime.COLLECTION_FORMATS["csv"]);
         }
@@ -559,7 +917,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -580,6 +938,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async getClusters(
         clusterNames?: Array<string>,
+        status?: GetClustersStatusEnum,
         accountIds?: Array<string>,
         locations?: Array<string>,
         clusterService?: GetClustersClusterServiceEnum,
@@ -588,7 +947,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<K8sregGetClustersResp> {
         const response = await this.getClustersRaw(
-            { clusterNames: clusterNames, accountIds: accountIds, locations: locations, clusterService: clusterService, limit: limit, offset: offset },
+            { clusterNames: clusterNames, status: status, accountIds: accountIds, locations: locations, clusterService: clusterService, limit: limit, offset: offset },
             initOverrides
         );
         return await response.value();
@@ -631,7 +990,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -680,11 +1039,15 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
             queryParameters["cluster_name"] = requestParameters.clusterName;
         }
 
+        if (requestParameters.isSelfManagedCluster !== undefined) {
+            queryParameters["is_self_managed_cluster"] = requestParameters.isSelfManagedCluster;
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -703,8 +1066,8 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     /**
      * Provides a sample Helm values.yaml file for a customer to install alongside the agent Helm chart
      */
-    async getHelmValuesYaml(clusterName: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<object> {
-        const response = await this.getHelmValuesYamlRaw({ clusterName: clusterName }, initOverrides);
+    async getHelmValuesYaml(clusterName: string, isSelfManagedCluster?: boolean, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<object> {
+        const response = await this.getHelmValuesYamlRaw({ clusterName: clusterName, isSelfManagedCluster: isSelfManagedCluster }, initOverrides);
         return await response.value();
     }
 
@@ -722,7 +1085,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -756,7 +1119,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -777,6 +1140,47 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async getStaticScripts(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<K8sregGetScriptsResp> {
         const response = await this.getStaticScriptsRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Group the containers by Managed
+     */
+    async groupContainersByManagedRaw(
+        requestParameters: GroupContainersByManagedRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ModelsContainerCoverageResponseEntity>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/containers/group-by-managed/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelsContainerCoverageResponseEntityFromJSON(jsonValue));
+    }
+
+    /**
+     * Group the containers by Managed
+     */
+    async groupContainersByManaged(filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsContainerCoverageResponseEntity> {
+        const response = await this.groupContainersByManagedRaw({ filter: filter }, initOverrides);
         return await response.value();
     }
 
@@ -814,7 +1218,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -875,7 +1279,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -900,6 +1304,1550 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     }
 
     /**
+     * Retrieve kubernetes clusters identified by the provided filter criteria
+     */
+    async readClusterCombinedRaw(requestParameters: ReadClusterCombinedRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsClusterEntityResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        if (requestParameters.sort !== undefined) {
+            queryParameters["sort"] = requestParameters.sort;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/combined/clusters/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelsClusterEntityResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve kubernetes clusters identified by the provided filter criteria
+     */
+    async readClusterCombined(filter?: string, limit?: number, offset?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsClusterEntityResponse> {
+        const response = await this.readClusterCombinedRaw({ filter: filter, limit: limit, offset: offset, sort: sort }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve cluster counts
+     */
+    async readClusterCountRaw(requestParameters: ReadClusterCountRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CommonCountResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/clusters/count/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CommonCountResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve cluster counts
+     */
+    async readClusterCount(filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CommonCountResponse> {
+        const response = await this.readClusterCountRaw({ filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve cluster enrichment data
+     */
+    async readClusterEnrichmentRaw(
+        requestParameters: ReadClusterEnrichmentRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<K8sassetsClusterEnrichmentResponse>> {
+        if (requestParameters.clusterId === null || requestParameters.clusterId === undefined) {
+            throw new runtime.RequiredError("clusterId", "Required parameter requestParameters.clusterId was null or undefined when calling readClusterEnrichment.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.clusterId) {
+            queryParameters["cluster_id"] = requestParameters.clusterId.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/enrichment/clusters/entities/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => K8sassetsClusterEnrichmentResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve cluster enrichment data
+     */
+    async readClusterEnrichment(clusterId: Array<string>, filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<K8sassetsClusterEnrichmentResponse> {
+        const response = await this.readClusterEnrichmentRaw({ clusterId: clusterId, filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve clusters by date range counts
+     */
+    async readClustersByDateRangeCountRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsAggregateValuesByFieldResponse>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/clusters/count-by-date/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAggregateValuesByFieldResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve clusters by date range counts
+     */
+    async readClustersByDateRangeCount(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsAggregateValuesByFieldResponse> {
+        const response = await this.readClustersByDateRangeCountRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Bucket clusters by kubernetes version
+     */
+    async readClustersByKubernetesVersionCountRaw(
+        requestParameters: ReadClustersByKubernetesVersionCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ModelsAggregateValuesByFieldResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/clusters/count-by-kubernetes-version/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAggregateValuesByFieldResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Bucket clusters by kubernetes version
+     */
+    async readClustersByKubernetesVersionCount(filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsAggregateValuesByFieldResponse> {
+        const response = await this.readClustersByKubernetesVersionCountRaw({ filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Bucket clusters by status
+     */
+    async readClustersByStatusCountRaw(
+        requestParameters: ReadClustersByStatusCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ModelsAggregateValuesByFieldResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/clusters/count-by-status/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAggregateValuesByFieldResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Bucket clusters by status
+     */
+    async readClustersByStatusCount(filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsAggregateValuesByFieldResponse> {
+        const response = await this.readClustersByStatusCountRaw({ filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve containers identified by the provided filter criteria
+     */
+    async readContainerCombinedRaw(
+        requestParameters: ReadContainerCombinedRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ModelsContainerEntityResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        if (requestParameters.sort !== undefined) {
+            queryParameters["sort"] = requestParameters.sort;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/combined/containers/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelsContainerEntityResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve containers identified by the provided filter criteria
+     */
+    async readContainerCombined(filter?: string, limit?: number, offset?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsContainerEntityResponse> {
+        const response = await this.readContainerCombinedRaw({ filter: filter, limit: limit, offset: offset, sort: sort }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve container counts
+     */
+    async readContainerCountRaw(requestParameters: ReadContainerCountRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CommonCountResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/containers/count/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CommonCountResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve container counts
+     */
+    async readContainerCount(filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CommonCountResponse> {
+        const response = await this.readContainerCountRaw({ filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve top container image registries
+     */
+    async readContainerCountByRegistryRaw(
+        requestParameters: ReadContainerCountByRegistryRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ModelsAPIFilterResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.underAssessment !== undefined) {
+            queryParameters["under_assessment"] = requestParameters.underAssessment;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/containers/count-by-registry/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAPIFilterResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve top container image registries
+     */
+    async readContainerCountByRegistry(underAssessment?: boolean, limit?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsAPIFilterResponse> {
+        const response = await this.readContainerCountByRegistryRaw({ underAssessment: underAssessment, limit: limit }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve container enrichment data
+     */
+    async readContainerEnrichmentRaw(
+        requestParameters: ReadContainerEnrichmentRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<K8sassetsContainerEnrichmentResponse>> {
+        if (requestParameters.containerId === null || requestParameters.containerId === undefined) {
+            throw new runtime.RequiredError("containerId", "Required parameter requestParameters.containerId was null or undefined when calling readContainerEnrichment.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.containerId) {
+            queryParameters["container_id"] = requestParameters.containerId.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/enrichment/containers/entities/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => K8sassetsContainerEnrichmentResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve container enrichment data
+     */
+    async readContainerEnrichment(containerId: Array<string>, filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<K8sassetsContainerEnrichmentResponse> {
+        const response = await this.readContainerEnrichmentRaw({ containerId: containerId, filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve count of image assessment detections on running containers over a period of time
+     */
+    async readContainerImageDetectionsCountByDateRaw(
+        requestParameters: ReadContainerImageDetectionsCountByDateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ModelsAPIFilterResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/containers/image-detections-count-by-date/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAPIFilterResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve count of image assessment detections on running containers over a period of time
+     */
+    async readContainerImageDetectionsCountByDate(filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsAPIFilterResponse> {
+        const response = await this.readContainerImageDetectionsCountByDateRaw({ filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Bucket container by image-digest
+     */
+    async readContainerImagesByMostUsedRaw(
+        requestParameters: ReadContainerImagesByMostUsedRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ModelsAggregateValuesByFieldResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/images/most-used/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAggregateValuesByFieldResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Bucket container by image-digest
+     */
+    async readContainerImagesByMostUsed(filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsAggregateValuesByFieldResponse> {
+        const response = await this.readContainerImagesByMostUsedRaw({ filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve count of image states running on containers
+     */
+    async readContainerImagesByStateRaw(
+        requestParameters: ReadContainerImagesByStateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ModelsAPIFilterResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/containers/images-by-state/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAPIFilterResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve count of image states running on containers
+     */
+    async readContainerImagesByState(filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsAPIFilterResponse> {
+        const response = await this.readContainerImagesByStateRaw({ filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve container vulnerabilities by severity counts
+     */
+    async readContainerVulnerabilitiesBySeverityCountRaw(
+        requestParameters: ReadContainerVulnerabilitiesBySeverityCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ModelsAggregateValuesByFieldResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/containers/vulnerability-count-by-severity/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAggregateValuesByFieldResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve container vulnerabilities by severity counts
+     */
+    async readContainerVulnerabilitiesBySeverityCount(filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsAggregateValuesByFieldResponse> {
+        const response = await this.readContainerVulnerabilitiesBySeverityCountRaw({ filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve containers by date range counts
+     */
+    async readContainersByDateRangeCountRaw(
+        requestParameters: ReadContainersByDateRangeCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ModelsAggregateValuesByFieldResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/containers/count-by-date/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAggregateValuesByFieldResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve containers by date range counts
+     */
+    async readContainersByDateRangeCount(filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsAggregateValuesByFieldResponse> {
+        const response = await this.readContainersByDateRangeCountRaw({ filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Bucket containers by agent type and calculate sensor coverage
+     */
+    async readContainersSensorCoverageRaw(
+        requestParameters: ReadContainersSensorCoverageRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ModelsAggregateValuesByFieldResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/containers/sensor-coverage/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAggregateValuesByFieldResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Bucket containers by agent type and calculate sensor coverage
+     */
+    async readContainersSensorCoverage(filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsAggregateValuesByFieldResponse> {
+        const response = await this.readContainersSensorCoverageRaw({ filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve kubernetes deployments identified by the provided filter criteria
+     */
+    async readDeploymentCombinedRaw(
+        requestParameters: ReadDeploymentCombinedRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ModelsDeploymentEntityResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        if (requestParameters.sort !== undefined) {
+            queryParameters["sort"] = requestParameters.sort;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/combined/deployments/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelsDeploymentEntityResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve kubernetes deployments identified by the provided filter criteria
+     */
+    async readDeploymentCombined(filter?: string, limit?: number, offset?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsDeploymentEntityResponse> {
+        const response = await this.readDeploymentCombinedRaw({ filter: filter, limit: limit, offset: offset, sort: sort }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve deployment counts
+     */
+    async readDeploymentCountRaw(requestParameters: ReadDeploymentCountRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CommonCountResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/deployments/count/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CommonCountResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve deployment counts
+     */
+    async readDeploymentCount(filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CommonCountResponse> {
+        const response = await this.readDeploymentCountRaw({ filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve deployment enrichment data
+     */
+    async readDeploymentEnrichmentRaw(
+        requestParameters: ReadDeploymentEnrichmentRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<K8sassetsDeploymentEnrichmentResponse>> {
+        if (requestParameters.deploymentId === null || requestParameters.deploymentId === undefined) {
+            throw new runtime.RequiredError("deploymentId", "Required parameter requestParameters.deploymentId was null or undefined when calling readDeploymentEnrichment.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.deploymentId) {
+            queryParameters["deployment_id"] = requestParameters.deploymentId.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/enrichment/deployments/entities/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => K8sassetsDeploymentEnrichmentResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve deployment enrichment data
+     */
+    async readDeploymentEnrichment(deploymentId: Array<string>, filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<K8sassetsDeploymentEnrichmentResponse> {
+        const response = await this.readDeploymentEnrichmentRaw({ deploymentId: deploymentId, filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve deployments by date range counts
+     */
+    async readDeploymentsByDateRangeCountRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsAggregateValuesByFieldResponse>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/deployments/count-by-date/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAggregateValuesByFieldResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve deployments by date range counts
+     */
+    async readDeploymentsByDateRangeCount(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsAggregateValuesByFieldResponse> {
+        const response = await this.readDeploymentsByDateRangeCountRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve count of distinct images running on containers
+     */
+    async readDistinctContainerImageCountRaw(
+        requestParameters: ReadDistinctContainerImageCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ModelsAPIFilterResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/images/count-by-distinct/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAPIFilterResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve count of distinct images running on containers
+     */
+    async readDistinctContainerImageCount(filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsAPIFilterResponse> {
+        const response = await this.readDistinctContainerImageCountRaw({ filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Returns the count of Kubernetes IOMs by the date. by default it\'s for 7 days.
+     */
+    async readKubernetesIomByDateRangeRaw(
+        requestParameters: ReadKubernetesIomByDateRangeRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<K8siomsKubernetesIOMFieldValue>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/kubernetes-ioms/count-by-date/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => K8siomsKubernetesIOMFieldValueFromJSON(jsonValue));
+    }
+
+    /**
+     * Returns the count of Kubernetes IOMs by the date. by default it\'s for 7 days.
+     */
+    async readKubernetesIomByDateRange(filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<K8siomsKubernetesIOMFieldValue> {
+        const response = await this.readKubernetesIomByDateRangeRaw({ filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Returns the total count of Kubernetes IOMs over the past seven days
+     */
+    async readKubernetesIomCountRaw(
+        requestParameters: ReadKubernetesIomCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<K8siomsKubernetesIOMCountValue>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/kubernetes-ioms/count/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => K8siomsKubernetesIOMCountValueFromJSON(jsonValue));
+    }
+
+    /**
+     * Returns the total count of Kubernetes IOMs over the past seven days
+     */
+    async readKubernetesIomCount(filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<K8siomsKubernetesIOMCountValue> {
+        const response = await this.readKubernetesIomCountRaw({ filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve Kubernetes IOM entities identified by the provided IDs
+     */
+    async readKubernetesIomEntitiesRaw(
+        requestParameters: ReadKubernetesIomEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<K8siomsKubernetesIOMEntityResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.ids) {
+            queryParameters["ids"] = requestParameters.ids.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/entities/kubernetes-ioms/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => K8siomsKubernetesIOMEntityResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve Kubernetes IOM entities identified by the provided IDs
+     */
+    async readKubernetesIomEntities(ids?: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<K8siomsKubernetesIOMEntityResponse> {
+        const response = await this.readKubernetesIomEntitiesRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve kubernetes nodes identified by the provided filter criteria
+     */
+    async readNodeCombinedRaw(requestParameters: ReadNodeCombinedRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsNodeEntityResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        if (requestParameters.sort !== undefined) {
+            queryParameters["sort"] = requestParameters.sort;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/combined/nodes/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelsNodeEntityResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve kubernetes nodes identified by the provided filter criteria
+     */
+    async readNodeCombined(filter?: string, limit?: number, offset?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsNodeEntityResponse> {
+        const response = await this.readNodeCombinedRaw({ filter: filter, limit: limit, offset: offset, sort: sort }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve node counts
+     */
+    async readNodeCountRaw(requestParameters: ReadNodeCountRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CommonCountResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/nodes/count/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CommonCountResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve node counts
+     */
+    async readNodeCount(filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CommonCountResponse> {
+        const response = await this.readNodeCountRaw({ filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve node enrichment data
+     */
+    async readNodeEnrichmentRaw(
+        requestParameters: ReadNodeEnrichmentRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<K8sassetsNodeEnrichmentResponse>> {
+        if (requestParameters.nodeName === null || requestParameters.nodeName === undefined) {
+            throw new runtime.RequiredError("nodeName", "Required parameter requestParameters.nodeName was null or undefined when calling readNodeEnrichment.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.nodeName) {
+            queryParameters["node_name"] = requestParameters.nodeName.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/enrichment/nodes/entities/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => K8sassetsNodeEnrichmentResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve node enrichment data
+     */
+    async readNodeEnrichment(nodeName: Array<string>, filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<K8sassetsNodeEnrichmentResponse> {
+        const response = await this.readNodeEnrichmentRaw({ nodeName: nodeName, filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Bucket nodes by cloud providers
+     */
+    async readNodesByCloudCountRaw(
+        requestParameters: ReadNodesByCloudCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ModelsAggregateValuesByFieldResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/nodes/count-by-cloud/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAggregateValuesByFieldResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Bucket nodes by cloud providers
+     */
+    async readNodesByCloudCount(filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsAggregateValuesByFieldResponse> {
+        const response = await this.readNodesByCloudCountRaw({ filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Bucket nodes by their container engine version
+     */
+    async readNodesByContainerEngineVersionCountRaw(
+        requestParameters: ReadNodesByContainerEngineVersionCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ModelsAggregateValuesByFieldResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/nodes/count-by-container-engine-version/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAggregateValuesByFieldResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Bucket nodes by their container engine version
+     */
+    async readNodesByContainerEngineVersionCount(filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsAggregateValuesByFieldResponse> {
+        const response = await this.readNodesByContainerEngineVersionCountRaw({ filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve nodes by date range counts
+     */
+    async readNodesByDateRangeCountRaw(
+        requestParameters: ReadNodesByDateRangeCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ModelsAggregateValuesByFieldResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/nodes/count-by-date/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAggregateValuesByFieldResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve nodes by date range counts
+     */
+    async readNodesByDateRangeCount(filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsAggregateValuesByFieldResponse> {
+        const response = await this.readNodesByDateRangeCountRaw({ filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve kubernetes pods identified by the provided filter criteria
+     */
+    async readPodCombinedRaw(requestParameters: ReadPodCombinedRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsPodEntityResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        if (requestParameters.sort !== undefined) {
+            queryParameters["sort"] = requestParameters.sort;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/combined/pods/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelsPodEntityResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve kubernetes pods identified by the provided filter criteria
+     */
+    async readPodCombined(filter?: string, limit?: number, offset?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsPodEntityResponse> {
+        const response = await this.readPodCombinedRaw({ filter: filter, limit: limit, offset: offset, sort: sort }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve pod counts
+     */
+    async readPodCountRaw(requestParameters: ReadPodCountRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CommonCountResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/pods/count/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CommonCountResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve pod counts
+     */
+    async readPodCount(filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CommonCountResponse> {
+        const response = await this.readPodCountRaw({ filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve pod enrichment data
+     */
+    async readPodEnrichmentRaw(requestParameters: ReadPodEnrichmentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<K8sassetsPodEnrichmentResponse>> {
+        if (requestParameters.podId === null || requestParameters.podId === undefined) {
+            throw new runtime.RequiredError("podId", "Required parameter requestParameters.podId was null or undefined when calling readPodEnrichment.");
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.podId) {
+            queryParameters["pod_id"] = requestParameters.podId.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/enrichment/pods/entities/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => K8sassetsPodEnrichmentResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve pod enrichment data
+     */
+    async readPodEnrichment(podId: Array<string>, filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<K8sassetsPodEnrichmentResponse> {
+        const response = await this.readPodEnrichmentRaw({ podId: podId, filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve pods by date range counts
+     */
+    async readPodsByDateRangeCountRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsAggregateValuesByFieldResponse>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/pods/count-by-date/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAggregateValuesByFieldResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve pods by date range counts
+     */
+    async readPodsByDateRangeCount(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsAggregateValuesByFieldResponse> {
+        const response = await this.readPodsByDateRangeCountRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve images on running containers
+     */
+    async readRunningContainerImagesRaw(
+        requestParameters: ReadRunningContainerImagesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ModelsContainerImage>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        if (requestParameters.sort !== undefined) {
+            queryParameters["sort"] = requestParameters.sort;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/combined/container-images/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelsContainerImageFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve images on running containers
+     */
+    async readRunningContainerImages(filter?: string, limit?: number, offset?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsContainerImage> {
+        const response = await this.readRunningContainerImagesRaw({ filter: filter, limit: limit, offset: offset, sort: sort }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve count of vulnerable images running on containers
+     */
+    async readVulnerableContainerImageCountRaw(
+        requestParameters: ReadVulnerableContainerImageCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ModelsAPIFilterResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/containers/count-vulnerable-images/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAPIFilterResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve count of vulnerable images running on containers
+     */
+    async readVulnerableContainerImageCount(filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsAPIFilterResponse> {
+        const response = await this.readVulnerableContainerImageCountRaw({ filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Regenerate API key for docker registry integrations
      */
     async regenerateAPIKeyRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<K8sregRegenAPIKeyResp>> {
@@ -909,7 +2857,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -934,6 +2882,124 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     }
 
     /**
+     * Search Kubernetes IOM by the provided search criteria
+     */
+    async searchAndReadKubernetesIomEntitiesRaw(
+        requestParameters: SearchAndReadKubernetesIomEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<K8siomsKubernetesIOMEntityResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        if (requestParameters.sort !== undefined) {
+            queryParameters["sort"] = requestParameters.sort;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/combined/kubernetes-ioms/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => K8siomsKubernetesIOMEntityResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Search Kubernetes IOM by the provided search criteria
+     */
+    async searchAndReadKubernetesIomEntities(
+        filter?: string,
+        limit?: number,
+        offset?: number,
+        sort?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<K8siomsKubernetesIOMEntityResponse> {
+        const response = await this.searchAndReadKubernetesIomEntitiesRaw({ filter: filter, limit: limit, offset: offset, sort: sort }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Search Kubernetes IOMs by the provided search criteria. this endpoint returns a list of Kubernetes IOM UUIDs matching the query
+     */
+    async searchKubernetesIomsRaw(
+        requestParameters: SearchKubernetesIomsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<CommonGenericEntityResponseString>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.filter !== undefined) {
+            queryParameters["filter"] = requestParameters.filter;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters["limit"] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters["offset"] = requestParameters.offset;
+        }
+
+        if (requestParameters.sort !== undefined) {
+            queryParameters["sort"] = requestParameters.sort;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/queries/kubernetes-ioms/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CommonGenericEntityResponseStringFromJSON(jsonValue));
+    }
+
+    /**
+     * Search Kubernetes IOMs by the provided search criteria. this endpoint returns a list of Kubernetes IOM UUIDs matching the query
+     */
+    async searchKubernetesIoms(
+        filter?: string,
+        limit?: number,
+        offset?: number,
+        sort?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<CommonGenericEntityResponseString> {
+        const response = await this.searchKubernetesIomsRaw({ filter: filter, limit: limit, offset: offset, sort: sort }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Triggers a dry run or a full scan of a customer\'s kubernetes footprint
      */
     async triggerScanRaw(requestParameters: TriggerScanRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaBaseEntitiesResponse>> {
@@ -951,7 +3017,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -997,7 +3063,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -1025,6 +3091,22 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 /**
  * @export
  */
+export const GetAWSAccountsMixin0IsHorizonAcctEnum = {
+    False: "false",
+    True: "true",
+} as const;
+export type GetAWSAccountsMixin0IsHorizonAcctEnum = (typeof GetAWSAccountsMixin0IsHorizonAcctEnum)[keyof typeof GetAWSAccountsMixin0IsHorizonAcctEnum];
+/**
+ * @export
+ */
+export const GetAWSAccountsMixin0StatusEnum = {
+    Operational: "operational",
+    Provisioned: "provisioned",
+} as const;
+export type GetAWSAccountsMixin0StatusEnum = (typeof GetAWSAccountsMixin0StatusEnum)[keyof typeof GetAWSAccountsMixin0StatusEnum];
+/**
+ * @export
+ */
 export const GetAzureTenantIDsStatusEnum = {
     NotInstalled: "Not Installed",
     Running: "Running",
@@ -1034,7 +3116,13 @@ export type GetAzureTenantIDsStatusEnum = (typeof GetAzureTenantIDsStatusEnum)[k
 /**
  * @export
  */
+export const GetClustersStatusEnum = {} as const;
+export type GetClustersStatusEnum = (typeof GetClustersStatusEnum)[keyof typeof GetClustersStatusEnum];
+/**
+ * @export
+ */
 export const GetClustersClusterServiceEnum = {
+    Aks: "aks",
     Eks: "eks",
 } as const;
 export type GetClustersClusterServiceEnum = (typeof GetClustersClusterServiceEnum)[keyof typeof GetClustersClusterServiceEnum];
@@ -1042,17 +3130,17 @@ export type GetClustersClusterServiceEnum = (typeof GetClustersClusterServiceEnu
  * @export
  */
 export const GetCombinedCloudClustersClusterServiceEnum = {} as const;
-export type GetCombinedCloudClustersClusterServiceEnum = Array<String>;
+export type GetCombinedCloudClustersClusterServiceEnum = (typeof GetCombinedCloudClustersClusterServiceEnum)[keyof typeof GetCombinedCloudClustersClusterServiceEnum];
 /**
  * @export
  */
 export const GetCombinedCloudClustersClusterStatusEnum = {} as const;
-export type GetCombinedCloudClustersClusterStatusEnum = Array<String>;
+export type GetCombinedCloudClustersClusterStatusEnum = (typeof GetCombinedCloudClustersClusterStatusEnum)[keyof typeof GetCombinedCloudClustersClusterStatusEnum];
 /**
  * @export
  */
 export const GetLocationsCloudsEnum = {} as const;
-export type GetLocationsCloudsEnum = Array<String>;
+export type GetLocationsCloudsEnum = (typeof GetLocationsCloudsEnum)[keyof typeof GetLocationsCloudsEnum];
 /**
  * @export
  */

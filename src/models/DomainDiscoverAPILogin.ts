@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -104,6 +104,12 @@ export interface DomainDiscoverAPILogin {
      */
     isSuspicious?: boolean;
     /**
+     * Whether the account has local administrator privileges (Yes, No).
+     * @type {string}
+     * @memberof DomainDiscoverAPILogin
+     */
+    localAdminPrivileges?: string;
+    /**
      * The external IP address of the asset where the login took place.
      * @type {string}
      * @memberof DomainDiscoverAPILogin
@@ -194,6 +200,7 @@ export function DomainDiscoverAPILoginFromJSONTyped(json: any, ignoreDiscriminat
         hostname: !exists(json, "hostname") ? undefined : json["hostname"],
         id: !exists(json, "id") ? undefined : json["id"],
         isSuspicious: !exists(json, "is_suspicious") ? undefined : json["is_suspicious"],
+        localAdminPrivileges: !exists(json, "local_admin_privileges") ? undefined : json["local_admin_privileges"],
         localIp: !exists(json, "local_ip") ? undefined : json["local_ip"],
         loginDomain: !exists(json, "login_domain") ? undefined : json["login_domain"],
         loginEventCount: !exists(json, "login_event_count") ? undefined : json["login_event_count"],
@@ -228,6 +235,7 @@ export function DomainDiscoverAPILoginToJSON(value?: DomainDiscoverAPILogin | nu
         hostname: value.hostname,
         id: value.id,
         is_suspicious: value.isSuspicious,
+        local_admin_privileges: value.localAdminPrivileges,
         local_ip: value.localIp,
         login_domain: value.loginDomain,
         login_event_count: value.loginEventCount,

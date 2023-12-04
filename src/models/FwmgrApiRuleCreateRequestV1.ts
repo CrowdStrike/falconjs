@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -66,6 +66,18 @@ export interface FwmgrApiRuleCreateRequestV1 {
      * @memberof FwmgrApiRuleCreateRequestV1
      */
     fields: Array<FwmgrApiWorkaroundUIFieldValue>;
+    /**
+     *
+     * @type {string}
+     * @memberof FwmgrApiRuleCreateRequestV1
+     */
+    fqdn: string;
+    /**
+     *
+     * @type {boolean}
+     * @memberof FwmgrApiRuleCreateRequestV1
+     */
+    fqdnEnabled: boolean;
     /**
      *
      * @type {FwmgrDomainICMP}
@@ -139,6 +151,8 @@ export function instanceOfFwmgrApiRuleCreateRequestV1(value: object): boolean {
     isInstance = isInstance && "direction" in value;
     isInstance = isInstance && "enabled" in value;
     isInstance = isInstance && "fields" in value;
+    isInstance = isInstance && "fqdn" in value;
+    isInstance = isInstance && "fqdnEnabled" in value;
     isInstance = isInstance && "icmp" in value;
     isInstance = isInstance && "localAddress" in value;
     isInstance = isInstance && "localPort" in value;
@@ -168,6 +182,8 @@ export function FwmgrApiRuleCreateRequestV1FromJSONTyped(json: any, ignoreDiscri
         direction: json["direction"],
         enabled: json["enabled"],
         fields: (json["fields"] as Array<any>).map(FwmgrApiWorkaroundUIFieldValueFromJSON),
+        fqdn: json["fqdn"],
+        fqdnEnabled: json["fqdn_enabled"],
         icmp: FwmgrDomainICMPFromJSON(json["icmp"]),
         localAddress: (json["local_address"] as Array<any>).map(FwmgrDomainAddressRangeFromJSON),
         localPort: (json["local_port"] as Array<any>).map(FwmgrDomainPortRangeFromJSON),
@@ -195,6 +211,8 @@ export function FwmgrApiRuleCreateRequestV1ToJSON(value?: FwmgrApiRuleCreateRequ
         direction: value.direction,
         enabled: value.enabled,
         fields: (value.fields as Array<any>).map(FwmgrApiWorkaroundUIFieldValueToJSON),
+        fqdn: value.fqdn,
+        fqdn_enabled: value.fqdnEnabled,
         icmp: FwmgrDomainICMPToJSON(value.icmp),
         local_address: (value.localAddress as Array<any>).map(FwmgrDomainAddressRangeToJSON),
         local_port: (value.localPort as Array<any>).map(FwmgrDomainPortRangeToJSON),

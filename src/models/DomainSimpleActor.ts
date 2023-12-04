@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -13,6 +13,8 @@
  */
 
 import { exists, mapValues } from "../runtime";
+import type { DomainEntity } from "./DomainEntity";
+import { DomainEntityFromJSON, DomainEntityFromJSONTyped, DomainEntityToJSON } from "./DomainEntity";
 import type { DomainImage } from "./DomainImage";
 import { DomainImageFromJSON, DomainImageFromJSONTyped, DomainImageToJSON } from "./DomainImage";
 
@@ -22,6 +24,12 @@ import { DomainImageFromJSON, DomainImageFromJSONTyped, DomainImageToJSON } from
  * @interface DomainSimpleActor
  */
 export interface DomainSimpleActor {
+    /**
+     *
+     * @type {Array<DomainEntity>}
+     * @memberof DomainSimpleActor
+     */
+    entitlements?: Array<DomainEntity>;
     /**
      *
      * @type {number}
@@ -73,6 +81,7 @@ export function DomainSimpleActorFromJSONTyped(json: any, ignoreDiscriminator: b
         return json;
     }
     return {
+        entitlements: !exists(json, "entitlements") ? undefined : (json["entitlements"] as Array<any>).map(DomainEntityFromJSON),
         id: json["id"],
         name: !exists(json, "name") ? undefined : json["name"],
         slug: !exists(json, "slug") ? undefined : json["slug"],
@@ -89,6 +98,7 @@ export function DomainSimpleActorToJSON(value?: DomainSimpleActor | null): any {
         return null;
     }
     return {
+        entitlements: value.entitlements === undefined ? undefined : (value.entitlements as Array<any>).map(DomainEntityToJSON),
         id: value.id,
         name: value.name,
         slug: value.slug,

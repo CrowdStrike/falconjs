@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -32,23 +32,11 @@ export interface DomainDiscoverAPIApplicationHost {
      */
     aid?: string;
     /**
-     * The name of the asset's BIOS manufacturer.
-     * @type {string}
-     * @memberof DomainDiscoverAPIApplicationHost
-     */
-    biosManufacturer?: string;
-    /**
      * The name of the country where the asset is located.
      * @type {string}
      * @memberof DomainDiscoverAPIApplicationHost
      */
     country?: string;
-    /**
-     * The last seen local IPv4 address of the asset.
-     * @type {string}
-     * @memberof DomainDiscoverAPIApplicationHost
-     */
-    currentLocalIp?: string;
     /**
      * The last seen MAC address of the asset.
      * @type {string}
@@ -122,12 +110,6 @@ export interface DomainDiscoverAPIApplicationHost {
      */
     platformName?: string;
     /**
-     * The product type of the asset represented as a number (1 = Workstation, 2 = Domain Controller, 3 = Server).
-     * @type {string}
-     * @memberof DomainDiscoverAPIApplicationHost
-     */
-    productType?: string;
-    /**
      * The product type of the asset (Workstation, Domain Controller, Server).
      * @type {string}
      * @memberof DomainDiscoverAPIApplicationHost
@@ -145,18 +127,6 @@ export interface DomainDiscoverAPIApplicationHost {
      * @memberof DomainDiscoverAPIApplicationHost
      */
     systemManufacturer?: string;
-    /**
-     * The asset's system product name.
-     * @type {string}
-     * @memberof DomainDiscoverAPIApplicationHost
-     */
-    systemProductName?: string;
-    /**
-     * The asset's system serial number.
-     * @type {string}
-     * @memberof DomainDiscoverAPIApplicationHost
-     */
-    systemSerialNumber?: string;
     /**
      * The sensor and cloud tags of the asset.
      * @type {Array<string>}
@@ -186,9 +156,7 @@ export function DomainDiscoverAPIApplicationHostFromJSONTyped(json: any, ignoreD
     return {
         agentVersion: !exists(json, "agent_version") ? undefined : json["agent_version"],
         aid: !exists(json, "aid") ? undefined : json["aid"],
-        biosManufacturer: !exists(json, "bios_manufacturer") ? undefined : json["bios_manufacturer"],
         country: !exists(json, "country") ? undefined : json["country"],
-        currentLocalIp: !exists(json, "current_local_ip") ? undefined : json["current_local_ip"],
         currentMacAddress: !exists(json, "current_mac_address") ? undefined : json["current_mac_address"],
         currentNetworkPrefix: !exists(json, "current_network_prefix") ? undefined : json["current_network_prefix"],
         externalIp: !exists(json, "external_ip") ? undefined : json["external_ip"],
@@ -201,12 +169,9 @@ export function DomainDiscoverAPIApplicationHostFromJSONTyped(json: any, ignoreD
         osVersion: !exists(json, "os_version") ? undefined : json["os_version"],
         ou: !exists(json, "ou") ? undefined : json["ou"],
         platformName: !exists(json, "platform_name") ? undefined : json["platform_name"],
-        productType: !exists(json, "product_type") ? undefined : json["product_type"],
         productTypeDesc: !exists(json, "product_type_desc") ? undefined : json["product_type_desc"],
         siteName: !exists(json, "site_name") ? undefined : json["site_name"],
         systemManufacturer: !exists(json, "system_manufacturer") ? undefined : json["system_manufacturer"],
-        systemProductName: !exists(json, "system_product_name") ? undefined : json["system_product_name"],
-        systemSerialNumber: !exists(json, "system_serial_number") ? undefined : json["system_serial_number"],
         tags: !exists(json, "tags") ? undefined : json["tags"],
     };
 }
@@ -221,9 +186,7 @@ export function DomainDiscoverAPIApplicationHostToJSON(value?: DomainDiscoverAPI
     return {
         agent_version: value.agentVersion,
         aid: value.aid,
-        bios_manufacturer: value.biosManufacturer,
         country: value.country,
-        current_local_ip: value.currentLocalIp,
         current_mac_address: value.currentMacAddress,
         current_network_prefix: value.currentNetworkPrefix,
         external_ip: value.externalIp,
@@ -236,12 +199,9 @@ export function DomainDiscoverAPIApplicationHostToJSON(value?: DomainDiscoverAPI
         os_version: value.osVersion,
         ou: value.ou,
         platform_name: value.platformName,
-        product_type: value.productType,
         product_type_desc: value.productTypeDesc,
         site_name: value.siteName,
         system_manufacturer: value.systemManufacturer,
-        system_product_name: value.systemProductName,
-        system_serial_number: value.systemSerialNumber,
         tags: value.tags,
     };
 }

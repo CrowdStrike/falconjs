@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -13,6 +13,9 @@
  */
 
 import { exists, mapValues } from "../runtime";
+import type { DomainValueItem } from "./DomainValueItem";
+import { DomainValueItemFromJSON, DomainValueItemFromJSONTyped, DomainValueItemToJSON } from "./DomainValueItem";
+
 /**
  *
  * @export
@@ -24,13 +27,25 @@ export interface DomainField {
      * @type {string}
      * @memberof DomainField
      */
-    name: string;
+    label: string;
     /**
      *
      * @type {string}
      * @memberof DomainField
      */
-    value: string;
+    name: string;
+    /**
+     *
+     * @type {Array<DomainValueItem>}
+     * @memberof DomainField
+     */
+    options: Array<DomainValueItem>;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainField
+     */
+    type: string;
 }
 
 /**
@@ -38,8 +53,10 @@ export interface DomainField {
  */
 export function instanceOfDomainField(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "label" in value;
     isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "value" in value;
+    isInstance = isInstance && "options" in value;
+    isInstance = isInstance && "type" in value;
 
     return isInstance;
 }
@@ -53,8 +70,10 @@ export function DomainFieldFromJSONTyped(json: any, ignoreDiscriminator: boolean
         return json;
     }
     return {
+        label: json["label"],
         name: json["name"],
-        value: json["value"],
+        options: (json["options"] as Array<any>).map(DomainValueItemFromJSON),
+        type: json["type"],
     };
 }
 
@@ -66,7 +85,9 @@ export function DomainFieldToJSON(value?: DomainField | null): any {
         return null;
     }
     return {
+        label: value.label,
         name: value.name,
-        value: value.value,
+        options: (value.options as Array<any>).map(DomainValueItemToJSON),
+        type: value.type,
     };
 }

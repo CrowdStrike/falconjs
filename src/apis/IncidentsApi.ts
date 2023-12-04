@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -14,37 +14,40 @@
 
 import * as runtime from "../runtime";
 import type {
-    ApiMsaEnvironmentScoreResponse,
-    ApiMsaExternalBehaviorResponse,
-    ApiMsaExternalIncidentResponse,
-    ApiMsaIncidentQueryResponse,
-    MsaEntityActionRequestV2,
+    DomainEntityActionRequest,
+    DomainMsaEnvironmentScoreResponse,
+    DomainMsaExternalBehaviorResponse,
+    DomainMsaExternalIncidentResponse,
+    DomainMsaIncidentPerformActionResponse,
+    DomainMsaIncidentQueryResponse,
     MsaIdsRequest,
     MsaQueryResponse,
     MsaReplyMetaOnly,
-} from "../models";
+} from "../models/index";
 import {
-    ApiMsaEnvironmentScoreResponseFromJSON,
-    ApiMsaEnvironmentScoreResponseToJSON,
-    ApiMsaExternalBehaviorResponseFromJSON,
-    ApiMsaExternalBehaviorResponseToJSON,
-    ApiMsaExternalIncidentResponseFromJSON,
-    ApiMsaExternalIncidentResponseToJSON,
-    ApiMsaIncidentQueryResponseFromJSON,
-    ApiMsaIncidentQueryResponseToJSON,
-    MsaEntityActionRequestV2FromJSON,
-    MsaEntityActionRequestV2ToJSON,
+    DomainEntityActionRequestFromJSON,
+    DomainEntityActionRequestToJSON,
+    DomainMsaEnvironmentScoreResponseFromJSON,
+    DomainMsaEnvironmentScoreResponseToJSON,
+    DomainMsaExternalBehaviorResponseFromJSON,
+    DomainMsaExternalBehaviorResponseToJSON,
+    DomainMsaExternalIncidentResponseFromJSON,
+    DomainMsaExternalIncidentResponseToJSON,
+    DomainMsaIncidentPerformActionResponseFromJSON,
+    DomainMsaIncidentPerformActionResponseToJSON,
+    DomainMsaIncidentQueryResponseFromJSON,
+    DomainMsaIncidentQueryResponseToJSON,
     MsaIdsRequestFromJSON,
     MsaIdsRequestToJSON,
     MsaQueryResponseFromJSON,
     MsaQueryResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-} from "../models";
+} from "../models/index";
 
 export interface CrowdScoreRequest {
     filter?: string;
-    offset?: string;
+    offset?: number;
     limit?: number;
     sort?: CrowdScoreSortEnum;
 }
@@ -58,12 +61,14 @@ export interface GetIncidentsRequest {
 }
 
 export interface PerformIncidentActionRequest {
-    body: MsaEntityActionRequestV2;
+    body: DomainEntityActionRequest;
+    updateDetects?: boolean;
+    overwriteDetects?: boolean;
 }
 
 export interface QueryBehaviorsRequest {
     filter?: string;
-    offset?: string;
+    offset?: number;
     limit?: number;
     sort?: QueryBehaviorsSortEnum;
 }
@@ -71,7 +76,7 @@ export interface QueryBehaviorsRequest {
 export interface QueryIncidentsRequest {
     sort?: QueryIncidentsSortEnum;
     filter?: string;
-    offset?: string;
+    offset?: number;
     limit?: number;
 }
 
@@ -82,7 +87,7 @@ export class IncidentsApi extends runtime.BaseAPI {
     /**
      * Query environment wide CrowdScore and return the entity data
      */
-    async crowdScoreRaw(requestParameters: CrowdScoreRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiMsaEnvironmentScoreResponse>> {
+    async crowdScoreRaw(requestParameters: CrowdScoreRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainMsaEnvironmentScoreResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.filter !== undefined) {
@@ -105,7 +110,7 @@ export class IncidentsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["incidents:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -118,13 +123,19 @@ export class IncidentsApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ApiMsaEnvironmentScoreResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaEnvironmentScoreResponseFromJSON(jsonValue));
     }
 
     /**
      * Query environment wide CrowdScore and return the entity data
      */
-    async crowdScore(filter?: string, offset?: string, limit?: number, sort?: CrowdScoreSortEnum, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiMsaEnvironmentScoreResponse> {
+    async crowdScore(
+        filter?: string,
+        offset?: number,
+        limit?: number,
+        sort?: CrowdScoreSortEnum,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<DomainMsaEnvironmentScoreResponse> {
         const response = await this.crowdScoreRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
@@ -132,7 +143,7 @@ export class IncidentsApi extends runtime.BaseAPI {
     /**
      * Get details on behaviors by providing behavior IDs
      */
-    async getBehaviorsRaw(requestParameters: GetBehaviorsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiMsaExternalBehaviorResponse>> {
+    async getBehaviorsRaw(requestParameters: GetBehaviorsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainMsaExternalBehaviorResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling getBehaviors.");
         }
@@ -145,7 +156,7 @@ export class IncidentsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["incidents:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -159,13 +170,13 @@ export class IncidentsApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ApiMsaExternalBehaviorResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaExternalBehaviorResponseFromJSON(jsonValue));
     }
 
     /**
      * Get details on behaviors by providing behavior IDs
      */
-    async getBehaviors(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiMsaExternalBehaviorResponse> {
+    async getBehaviors(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainMsaExternalBehaviorResponse> {
         const response = await this.getBehaviorsRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -173,7 +184,7 @@ export class IncidentsApi extends runtime.BaseAPI {
     /**
      * Get details on incidents by providing incident IDs
      */
-    async getIncidentsRaw(requestParameters: GetIncidentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiMsaExternalIncidentResponse>> {
+    async getIncidentsRaw(requestParameters: GetIncidentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainMsaExternalIncidentResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling getIncidents.");
         }
@@ -186,7 +197,7 @@ export class IncidentsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["incidents:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -200,13 +211,13 @@ export class IncidentsApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ApiMsaExternalIncidentResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaExternalIncidentResponseFromJSON(jsonValue));
     }
 
     /**
      * Get details on incidents by providing incident IDs
      */
-    async getIncidents(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiMsaExternalIncidentResponse> {
+    async getIncidents(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainMsaExternalIncidentResponse> {
         const response = await this.getIncidentsRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -214,12 +225,23 @@ export class IncidentsApi extends runtime.BaseAPI {
     /**
      * Perform a set of actions on one or more incidents, such as adding tags or comments or updating the incident name or description
      */
-    async performIncidentActionRaw(requestParameters: PerformIncidentActionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async performIncidentActionRaw(
+        requestParameters: PerformIncidentActionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainMsaIncidentPerformActionResponse>> {
         if (requestParameters.body === null || requestParameters.body === undefined) {
             throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling performIncidentAction.");
         }
 
         const queryParameters: any = {};
+
+        if (requestParameters.updateDetects !== undefined) {
+            queryParameters["update_detects"] = requestParameters.updateDetects;
+        }
+
+        if (requestParameters.overwriteDetects !== undefined) {
+            queryParameters["overwrite_detects"] = requestParameters.overwriteDetects;
+        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -227,7 +249,7 @@ export class IncidentsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["incidents:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -236,19 +258,24 @@ export class IncidentsApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: MsaEntityActionRequestV2ToJSON(requestParameters.body),
+                body: DomainEntityActionRequestToJSON(requestParameters.body),
             },
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaIncidentPerformActionResponseFromJSON(jsonValue));
     }
 
     /**
      * Perform a set of actions on one or more incidents, such as adding tags or comments or updating the incident name or description
      */
-    async performIncidentAction(body: MsaEntityActionRequestV2, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyMetaOnly> {
-        const response = await this.performIncidentActionRaw({ body: body }, initOverrides);
+    async performIncidentAction(
+        body: DomainEntityActionRequest,
+        updateDetects?: boolean,
+        overwriteDetects?: boolean,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<DomainMsaIncidentPerformActionResponse> {
+        const response = await this.performIncidentActionRaw({ body: body, updateDetects: updateDetects, overwriteDetects: overwriteDetects }, initOverrides);
         return await response.value();
     }
 
@@ -278,7 +305,7 @@ export class IncidentsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["incidents:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -297,7 +324,7 @@ export class IncidentsApi extends runtime.BaseAPI {
     /**
      * Search for behaviors by providing an FQL filter, sorting, and paging details
      */
-    async queryBehaviors(filter?: string, offset?: string, limit?: number, sort?: QueryBehaviorsSortEnum, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
+    async queryBehaviors(filter?: string, offset?: number, limit?: number, sort?: QueryBehaviorsSortEnum, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryBehaviorsRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
@@ -305,7 +332,7 @@ export class IncidentsApi extends runtime.BaseAPI {
     /**
      * Search for incidents by providing an FQL filter, sorting, and paging details
      */
-    async queryIncidentsRaw(requestParameters: QueryIncidentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiMsaIncidentQueryResponse>> {
+    async queryIncidentsRaw(requestParameters: QueryIncidentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainMsaIncidentQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters.sort !== undefined) {
@@ -328,7 +355,7 @@ export class IncidentsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["incidents:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -341,7 +368,7 @@ export class IncidentsApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ApiMsaIncidentQueryResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaIncidentQueryResponseFromJSON(jsonValue));
     }
 
     /**
@@ -350,10 +377,10 @@ export class IncidentsApi extends runtime.BaseAPI {
     async queryIncidents(
         sort?: QueryIncidentsSortEnum,
         filter?: string,
-        offset?: string,
+        offset?: number,
         limit?: number,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<ApiMsaIncidentQueryResponse> {
+    ): Promise<DomainMsaIncidentQueryResponse> {
         const response = await this.queryIncidentsRaw({ sort: sort, filter: filter, offset: offset, limit: limit }, initOverrides);
         return await response.value();
     }
@@ -363,6 +390,8 @@ export class IncidentsApi extends runtime.BaseAPI {
  * @export
  */
 export const CrowdScoreSortEnum = {
+    AdjustedScoreAsc: "adjusted_score.asc",
+    AdjustedScoreDesc: "adjusted_score.desc",
     ScoreAsc: "score.asc",
     ScoreDesc: "score.desc",
     TimestampAsc: "timestamp.asc",
@@ -373,8 +402,20 @@ export type CrowdScoreSortEnum = (typeof CrowdScoreSortEnum)[keyof typeof CrowdS
  * @export
  */
 export const QueryBehaviorsSortEnum = {
-    Asc: "timestamp.asc",
-    Desc: "timestamp.desc",
+    AlertIdsAsc: "alert_ids.asc",
+    AlertIdsDesc: "alert_ids.desc",
+    CmdlineAsc: "cmdline.asc",
+    CmdlineDesc: "cmdline.desc",
+    DetectionIdsAsc: "detection_ids.asc",
+    DetectionIdsDesc: "detection_ids.desc",
+    DisplayNameAsc: "display_name.asc",
+    DisplayNameDesc: "display_name.desc",
+    DomainAsc: "domain.asc",
+    DomainDesc: "domain.desc",
+    FilepathAsc: "filepath.asc",
+    FilepathDesc: "filepath.desc",
+    TimestampAsc: "timestamp.asc",
+    TimestampDesc: "timestamp.desc",
 } as const;
 export type QueryBehaviorsSortEnum = (typeof QueryBehaviorsSortEnum)[keyof typeof QueryBehaviorsSortEnum];
 /**
