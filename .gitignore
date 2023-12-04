@@ -5,3 +5,4 @@ specs/*
 typings
 *.js
 .env
+*.tgz

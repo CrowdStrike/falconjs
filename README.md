@@ -1,8 +1,12 @@
+> [!CAUTION]
+> This is a fork of the CrowdStrike git repo. If the vendor ever brings back a maintainer I will most likely delete this fork. Use at your own risk.
+
 # falconjs
-[![Version](https://img.shields.io/npm/v/crowdstrike-falcon.svg)](https://www.npmjs.com/package/crowdstrike-falcon)
-[![Build](https://github.com/CrowdStrike/falconjs/actions/workflows/sanity_check.yaml/badge.svg)](https://github.com/CrowdStrike/falconjs/actions/workflows/sanity_check.yaml)
-[![Maintenance](https://img.shields.io/maintenance/yes/2023.svg)](https://github.com/crowdstrike/falconjs/graphs/commit-activity)
-[![License](https://img.shields.io/github/license/crowdstrike/falconjs.svg)](https://github.com/crowdstrike/falconjs/blob/main/LICENSE)
+
+[![Version](https://img.shields.io/npm/v/@clburlison/crowdstrike-falcon.svg)](https://www.npmjs.com/package/@clburlison/crowdstrike-falcon)
+[![Build](https://github.com/clburlison/falconjs/actions/workflows/sanity_check.yaml/badge.svg)](https://github.com/clburlison/falconjs/actions/workflows/sanity_check.yaml)
+[![Maintenance](https://img.shields.io/maintenance/yes/2023.svg)](https://github.com/clburlison/falconjs/graphs/commit-activity)
+[![License](https://img.shields.io/github/license/clburlison/falconjs.svg)](https://github.com/clburlison/falconjs/blob/main/LICENSE)
 
 [![NPM](https://nodei.co/npm/crowdstrike-falcon.png?mini=true)](https://npmjs.org/package/crowdstrike-falcon)
 
@@ -15,7 +19,7 @@ CrowdStrike Falcon API JS library for the browser and Node
 ## Installation
 
 ```
-npm install crowdstrike-falcon
+npm install @clburlison/crowdstrike-falcon
 ```
 
 ## Exemplary use
@@ -41,7 +45,7 @@ await client.sensorDownload
 
 ## Documentation
 
- - [Example usage under nodejs](examples/node/README.md)
- - [Example usage inside browser](examples/browser/README.md)
+-   [Example usage under nodejs](examples/node/README.md)
+-   [Example usage inside browser](examples/browser/README.md)
 
- - [SDK Developer documentation](docs/devel.md)
+-   [SDK Developer documentation](docs/devel.md)

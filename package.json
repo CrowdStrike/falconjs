@@ -1,5 +1,5 @@
 {
-    "name": "crowdstrike-falcon",
+    "name": "@clburlison/crowdstrike-falcon",
     "version": "0.3.0",
     "description": "CrowdStrike Falcon API library for browser and node",
     "sideEffects": false,
@@ -24,15 +24,16 @@
         "LICENSE"
     ],
     "scripts": {
-        "clean": "rm -fr ./dist",
-        "build": "tsc",
-        "build:devel": "tsc -p ./tsconfig.devel.json",
         "build:browser": "esbuild src/index.ts --bundle --minify --sourcemap=external --format=cjs --outfile=dist/esbuild/browser.js",
-        "lint": "eslint . --ext .ts",
-        "lint:fix": "eslint . --ext .ts --fix",
-        "format:fix": "prettier --config .prettierrc 'src/**/*.ts' --write",
-        "prepare": "npm run build",
+        "build:devel": "tsc -p ./tsconfig.devel.json",
         "build:release": "npm run lint:fix && npm run format:fix && npm run clean && npm run build && npm run build:browser && npm pack",
+        "build": "tsc",
+        "clean": "rm -fr ./dist",
+        "format:fix": "prettier --config .prettierrc 'src/**/*.ts' --write",
+        "lint:fix": "eslint . --ext .ts --fix",
+        "lint": "eslint . --ext .ts",
+        "prepare": "npm run build",
+        "publish": "npm publish --access public",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
