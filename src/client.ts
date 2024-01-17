@@ -1,6 +1,6 @@
 import { Configuration, FetchAPI } from "./runtime";
 import { EventStream } from "./event_stream";
-import { FalconCloud } from "./FalconCloud";
+import { FalconCloud, CloudBasePath } from "./FalconCloud";
 import { OAuth2, UserAgent } from "./middleware";
 import {
     AlertsApi,
@@ -144,6 +144,7 @@ export class FalconClient {
             fetchApi: options.fetchApi,
             accessToken: oauth2.accessToken.bind(oauth2),
             middleware: [new UserAgent()],
+            basePath: CloudBasePath(options.cloud),
         });
         this.alerts = new AlertsApi(this.config);
         this.cloudConnectAws = new CloudConnectAwsApi(this.config);
