@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -e -o pipefail -x
+set -euxo pipefail
 
 VERSION=0.3.0 # Target version of FalconJS
 
@@ -31,12 +31,8 @@ typ=typescript-fetch
 build_dir="specs/out/$typ"
 rm -rf "./$build_dir"
 
-if [ -z "$1" ]; then
-   BUILD_CONTAINER="openapitools/openapi-generator-cli:v7.7.0"
-   $CONTAINER_TOOL pull "$BUILD_CONTAINER"
-else
-   BUILD_CONTAINER="$1"
-fi
+BUILD_CONTAINER="openapitools/openapi-generator-cli:v7.7.0"
+$CONTAINER_TOOL pull "$BUILD_CONTAINER"
 
 $CONTAINER_TOOL run --rm \
        -v "$PWD":/falcon-js "$BUILD_CONTAINER" generate \
@@ -65,5 +61,8 @@ npm run lint:fix
 npm run lint
 npm run build
 
-git add src/
-git commit -m "Re-generate the codebase using swagger $SPEC_VERSION"
+cat << EOF
+✅ Rebuild complete. If everything looks good and you're ready to commit:
+  git add src/
+  git commit -m "Re-generate the codebase using swagger $SPEC_VERSION"
+EOF
