@@ -88,7 +88,7 @@ import {
     UnidentifiedContainersApi,
     UserManagementApi,
     WorkflowsApi,
-    ZeroTrustAssessmentApi
+    ZeroTrustAssessmentApi,
 } from "./apis";
 
 export interface FalconClientOptions {
