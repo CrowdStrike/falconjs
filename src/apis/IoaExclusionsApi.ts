@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -13,44 +13,44 @@
  */
 
 import * as runtime from "../runtime";
-import type { MsaErrorsOnly, MsaQueryResponse, MsaReplyMetaOnly, RequestsIoaExclusionCreateReqV1, RequestsIoaExclusionUpdateReqV1, ResponsesIoaExclusionRespV1 } from "../models";
+import type { IoaExclusionsIoaExclusionCreateReqV1, IoaExclusionsIoaExclusionUpdateReqV1, IoaExclusionsIoaExclusionsRespV1, MsaErrorsOnly, MsaQueryResponse, MsaReplyMetaOnly } from "../models/index";
 import {
+    IoaExclusionsIoaExclusionCreateReqV1FromJSON,
+    IoaExclusionsIoaExclusionCreateReqV1ToJSON,
+    IoaExclusionsIoaExclusionUpdateReqV1FromJSON,
+    IoaExclusionsIoaExclusionUpdateReqV1ToJSON,
+    IoaExclusionsIoaExclusionsRespV1FromJSON,
+    IoaExclusionsIoaExclusionsRespV1ToJSON,
     MsaErrorsOnlyFromJSON,
     MsaErrorsOnlyToJSON,
     MsaQueryResponseFromJSON,
     MsaQueryResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-    RequestsIoaExclusionCreateReqV1FromJSON,
-    RequestsIoaExclusionCreateReqV1ToJSON,
-    RequestsIoaExclusionUpdateReqV1FromJSON,
-    RequestsIoaExclusionUpdateReqV1ToJSON,
-    ResponsesIoaExclusionRespV1FromJSON,
-    ResponsesIoaExclusionRespV1ToJSON,
-} from "../models";
+} from "../models/index";
 
-export interface CreateIOAExclusionsV1Request {
-    body: RequestsIoaExclusionCreateReqV1;
+export interface IoaExclusionsApiCreateIOAExclusionsV1Request {
+    body: IoaExclusionsIoaExclusionCreateReqV1;
 }
 
-export interface DeleteIOAExclusionsV1Request {
+export interface IoaExclusionsApiDeleteIOAExclusionsV1Request {
     ids: Array<string>;
     comment?: string;
 }
 
-export interface GetIOAExclusionsV1Request {
+export interface IoaExclusionsApiGetIOAExclusionsV1Request {
     ids: Array<string>;
 }
 
-export interface QueryIOAExclusionsV1Request {
+export interface IoaExclusionsApiQueryIOAExclusionsV1Request {
     filter?: string;
     offset?: number;
     limit?: number;
     sort?: QueryIOAExclusionsV1SortEnum;
 }
 
-export interface UpdateIOAExclusionsV1Request {
-    body: RequestsIoaExclusionUpdateReqV1;
+export interface IoaExclusionsApiUpdateIOAExclusionsV1Request {
+    body: IoaExclusionsIoaExclusionUpdateReqV1;
 }
 
 /**
@@ -61,11 +61,11 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
      * Create the IOA exclusions
      */
     async createIOAExclusionsV1Raw(
-        requestParameters: CreateIOAExclusionsV1Request,
+        requestParameters: IoaExclusionsApiCreateIOAExclusionsV1Request,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ResponsesIoaExclusionRespV1>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createIOAExclusionsV1.");
+    ): Promise<runtime.ApiResponse<IoaExclusionsIoaExclusionsRespV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createIOAExclusionsV1().');
         }
 
         const queryParameters: any = {};
@@ -76,7 +76,7 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -85,18 +85,18 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: RequestsIoaExclusionCreateReqV1ToJSON(requestParameters.body),
+                body: IoaExclusionsIoaExclusionCreateReqV1ToJSON(requestParameters["body"]),
             },
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesIoaExclusionRespV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => IoaExclusionsIoaExclusionsRespV1FromJSON(jsonValue));
     }
 
     /**
      * Create the IOA exclusions
      */
-    async createIOAExclusionsV1(body: RequestsIoaExclusionCreateReqV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesIoaExclusionRespV1> {
+    async createIOAExclusionsV1(body: IoaExclusionsIoaExclusionCreateReqV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<IoaExclusionsIoaExclusionsRespV1> {
         const response = await this.createIOAExclusionsV1Raw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -104,26 +104,29 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
     /**
      * Delete the IOA exclusions by id
      */
-    async deleteIOAExclusionsV1Raw(requestParameters: DeleteIOAExclusionsV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling deleteIOAExclusionsV1.");
+    async deleteIOAExclusionsV1Raw(
+        requestParameters: IoaExclusionsApiDeleteIOAExclusionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteIOAExclusionsV1().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
-        if (requestParameters.comment !== undefined) {
-            queryParameters["comment"] = requestParameters.comment;
+        if (requestParameters["comment"] != null) {
+            queryParameters["comment"] = requestParameters["comment"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -150,22 +153,25 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
     /**
      * Get a set of IOA Exclusions by specifying their IDs
      */
-    async getIOAExclusionsV1Raw(requestParameters: GetIOAExclusionsV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponsesIoaExclusionRespV1>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getIOAExclusionsV1.");
+    async getIOAExclusionsV1Raw(
+        requestParameters: IoaExclusionsApiGetIOAExclusionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<IoaExclusionsIoaExclusionsRespV1>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getIOAExclusionsV1().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -178,13 +184,13 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesIoaExclusionRespV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => IoaExclusionsIoaExclusionsRespV1FromJSON(jsonValue));
     }
 
     /**
      * Get a set of IOA Exclusions by specifying their IDs
      */
-    async getIOAExclusionsV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesIoaExclusionRespV1> {
+    async getIOAExclusionsV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<IoaExclusionsIoaExclusionsRespV1> {
         const response = await this.getIOAExclusionsV1Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -192,30 +198,33 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
     /**
      * Search for IOA exclusions.
      */
-    async queryIOAExclusionsV1Raw(requestParameters: QueryIOAExclusionsV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryIOAExclusionsV1Raw(
+        requestParameters: IoaExclusionsApiQueryIOAExclusionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -249,11 +258,11 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
      * Update the IOA exclusions
      */
     async updateIOAExclusionsV1Raw(
-        requestParameters: UpdateIOAExclusionsV1Request,
+        requestParameters: IoaExclusionsApiUpdateIOAExclusionsV1Request,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ResponsesIoaExclusionRespV1>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateIOAExclusionsV1.");
+    ): Promise<runtime.ApiResponse<IoaExclusionsIoaExclusionsRespV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateIOAExclusionsV1().');
         }
 
         const queryParameters: any = {};
@@ -264,7 +273,7 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -273,18 +282,18 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
                 method: "PATCH",
                 headers: headerParameters,
                 query: queryParameters,
-                body: RequestsIoaExclusionUpdateReqV1ToJSON(requestParameters.body),
+                body: IoaExclusionsIoaExclusionUpdateReqV1ToJSON(requestParameters["body"]),
             },
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesIoaExclusionRespV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => IoaExclusionsIoaExclusionsRespV1FromJSON(jsonValue));
     }
 
     /**
      * Update the IOA exclusions
      */
-    async updateIOAExclusionsV1(body: RequestsIoaExclusionUpdateReqV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponsesIoaExclusionRespV1> {
+    async updateIOAExclusionsV1(body: IoaExclusionsIoaExclusionUpdateReqV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<IoaExclusionsIoaExclusionsRespV1> {
         const response = await this.updateIOAExclusionsV1Raw({ body: body }, initOverrides);
         return await response.value();
     }

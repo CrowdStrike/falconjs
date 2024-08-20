@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -13,7 +13,7 @@
  */
 
 import * as runtime from "../runtime";
-import type { MsaAggregateQueryRequest, MsaAggregatesResponse, MsaQueryResponse, MsaReplyMetaOnly } from "../models";
+import type { MsaAggregateQueryRequest, MsaAggregatesResponse, MsaQueryResponse, MsaReplyMetaOnly, MsaspecResponseFields } from "../models/index";
 import {
     MsaAggregateQueryRequestFromJSON,
     MsaAggregateQueryRequestToJSON,
@@ -23,79 +23,108 @@ import {
     MsaQueryResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-} from "../models";
+    MsaspecResponseFieldsFromJSON,
+    MsaspecResponseFieldsToJSON,
+} from "../models/index";
 
-export interface AggregateAllowListRequest {
+export interface FalconCompleteDashboardApiAggregateAlertsRequest {
     body: Array<MsaAggregateQueryRequest>;
 }
 
-export interface AggregateBlockListRequest {
+export interface FalconCompleteDashboardApiAggregateAllowListRequest {
     body: Array<MsaAggregateQueryRequest>;
 }
 
-export interface AggregateDetectionsRequest {
+export interface FalconCompleteDashboardApiAggregateBlockListRequest {
     body: Array<MsaAggregateQueryRequest>;
 }
 
-export interface AggregateDeviceCountCollectionRequest {
+export interface FalconCompleteDashboardApiAggregateDetectionsRequest {
     body: Array<MsaAggregateQueryRequest>;
 }
 
-export interface AggregateEscalationsRequest {
+export interface FalconCompleteDashboardApiAggregateDeviceCountCollectionRequest {
     body: Array<MsaAggregateQueryRequest>;
 }
 
-export interface AggregateFCIncidentsRequest {
+export interface FalconCompleteDashboardApiAggregateEscalationsRequest {
     body: Array<MsaAggregateQueryRequest>;
 }
 
-export interface AggregateRemediationsRequest {
+export interface FalconCompleteDashboardApiAggregateFCIncidentsRequest {
     body: Array<MsaAggregateQueryRequest>;
 }
 
-export interface GetDeviceCountCollectionQueriesByFilterRequest {
+export interface FalconCompleteDashboardApiAggregatePreventionPolicyRequest {
+    body: Array<MsaAggregateQueryRequest>;
+}
+
+export interface FalconCompleteDashboardApiAggregateRemediationsRequest {
+    body: Array<MsaAggregateQueryRequest>;
+}
+
+export interface FalconCompleteDashboardApiAggregateSensorUpdatePolicyRequest {
+    body: Array<MsaAggregateQueryRequest>;
+}
+
+export interface FalconCompleteDashboardApiAggregateSupportIssuesRequest {
+    body: Array<MsaAggregateQueryRequest>;
+}
+
+export interface FalconCompleteDashboardApiAggregateTotalDeviceCountsRequest {
+    body: Array<MsaAggregateQueryRequest>;
+}
+
+export interface FalconCompleteDashboardApiGetDeviceCountCollectionQueriesByFilterRequest {
     limit?: number;
     sort?: string;
     filter?: string;
     offset?: string;
 }
 
-export interface QueryAllowListFilterRequest {
+export interface FalconCompleteDashboardApiQueryAlertIdsByFilterRequest {
     limit?: number;
     sort?: string;
     filter?: string;
     offset?: string;
 }
 
-export interface QueryBlockListFilterRequest {
+export interface FalconCompleteDashboardApiQueryAllowListFilterRequest {
     limit?: number;
     sort?: string;
     filter?: string;
     offset?: string;
 }
 
-export interface QueryDetectionIdsByFilterRequest {
+export interface FalconCompleteDashboardApiQueryBlockListFilterRequest {
     limit?: number;
     sort?: string;
     filter?: string;
     offset?: string;
 }
 
-export interface QueryEscalationsFilterRequest {
+export interface FalconCompleteDashboardApiQueryDetectionIdsByFilterRequest {
     limit?: number;
     sort?: string;
     filter?: string;
     offset?: string;
 }
 
-export interface QueryIncidentIdsByFilterRequest {
+export interface FalconCompleteDashboardApiQueryEscalationsFilterRequest {
     limit?: number;
     sort?: string;
     filter?: string;
     offset?: string;
 }
 
-export interface QueryRemediationsFilterRequest {
+export interface FalconCompleteDashboardApiQueryIncidentIdsByFilterRequest {
+    limit?: number;
+    sort?: string;
+    filter?: string;
+    offset?: string;
+}
+
+export interface FalconCompleteDashboardApiQueryRemediationsFilterRequest {
     limit?: number;
     sort?: string;
     filter?: string;
@@ -107,11 +136,14 @@ export interface QueryRemediationsFilterRequest {
  */
 export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
-     * Retrieve aggregate allowlist ticket values based on the matched filter
+     * Retrieve aggregate alerts values based on the matched filter
      */
-    async aggregateAllowListRaw(requestParameters: AggregateAllowListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling aggregateAllowList.");
+    async aggregateAlertsRaw(
+        requestParameters: FalconCompleteDashboardApiAggregateAlertsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateAlerts().');
         }
 
         const queryParameters: any = {};
@@ -122,7 +154,51 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconcomplete-dashboard:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/falcon-complete-dashboards/aggregates/alerts/GET/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve aggregate alerts values based on the matched filter
+     */
+    async aggregateAlerts(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaAggregatesResponse> {
+        const response = await this.aggregateAlertsRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve aggregate allowlist ticket values based on the matched filter
+     */
+    async aggregateAllowListRaw(
+        requestParameters: FalconCompleteDashboardApiAggregateAllowListRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateAllowList().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -131,7 +207,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: requestParameters.body.map(MsaAggregateQueryRequestToJSON),
+                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
             initOverrides
         );
@@ -150,9 +226,12 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve aggregate blocklist ticket values based on the matched filter
      */
-    async aggregateBlockListRaw(requestParameters: AggregateBlockListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling aggregateBlockList.");
+    async aggregateBlockListRaw(
+        requestParameters: FalconCompleteDashboardApiAggregateBlockListRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateBlockList().');
         }
 
         const queryParameters: any = {};
@@ -163,7 +242,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconcomplete-dashboard:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -172,7 +251,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: requestParameters.body.map(MsaAggregateQueryRequestToJSON),
+                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
             initOverrides
         );
@@ -192,9 +271,12 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
      * Fields allowed to aggregate on:  - indexed_time   - created_time   - detect_time   - ldt   - cid   - aid   - platform_name   - os_version   - device_tags   - host_name   - status   - severity   - adversary_ids   - behavior_ids   - behavior_names   - num_blocked_processes   - num_quarantined_files   - pattern_ids   - first_behavior_time   - last_behavior_time   - show_in_ui   - seconds_to_triaged   - seconds_to_resolved   - assigned_to_uid   - public_tags   - vertical_tags
      * Retrieve aggregate detection values based on the matched filter
      */
-    async aggregateDetectionsRaw(requestParameters: AggregateDetectionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling aggregateDetections.");
+    async aggregateDetectionsRaw(
+        requestParameters: FalconCompleteDashboardApiAggregateDetectionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateDetections().');
         }
 
         const queryParameters: any = {};
@@ -205,7 +287,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconcomplete-dashboard:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -214,7 +296,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: requestParameters.body.map(MsaAggregateQueryRequestToJSON),
+                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
             initOverrides
         );
@@ -235,11 +317,11 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
      * Retrieve aggregate host/devices count based on the matched filter
      */
     async aggregateDeviceCountCollectionRaw(
-        requestParameters: AggregateDeviceCountCollectionRequest,
+        requestParameters: FalconCompleteDashboardApiAggregateDeviceCountCollectionRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling aggregateDeviceCountCollection.");
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateDeviceCountCollection().');
         }
 
         const queryParameters: any = {};
@@ -250,7 +332,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconcomplete-dashboard:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -259,7 +341,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: requestParameters.body.map(MsaAggregateQueryRequestToJSON),
+                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
             initOverrides
         );
@@ -278,9 +360,12 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve aggregate escalation ticket values based on the matched filter
      */
-    async aggregateEscalationsRaw(requestParameters: AggregateEscalationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling aggregateEscalations.");
+    async aggregateEscalationsRaw(
+        requestParameters: FalconCompleteDashboardApiAggregateEscalationsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateEscalations().');
         }
 
         const queryParameters: any = {};
@@ -291,7 +376,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconcomplete-dashboard:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -300,7 +385,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: requestParameters.body.map(MsaAggregateQueryRequestToJSON),
+                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
             initOverrides
         );
@@ -319,9 +404,12 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve aggregate incident values based on the matched filter
      */
-    async aggregateFCIncidentsRaw(requestParameters: AggregateFCIncidentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling aggregateFCIncidents.");
+    async aggregateFCIncidentsRaw(
+        requestParameters: FalconCompleteDashboardApiAggregateFCIncidentsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateFCIncidents().');
         }
 
         const queryParameters: any = {};
@@ -332,7 +420,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconcomplete-dashboard:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -341,7 +429,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: requestParameters.body.map(MsaAggregateQueryRequestToJSON),
+                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
             initOverrides
         );
@@ -358,11 +446,14 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve aggregate remediation ticket values based on the matched filter
+     * Retrieve prevention policies aggregate values based on the matched filter
      */
-    async aggregateRemediationsRaw(requestParameters: AggregateRemediationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling aggregateRemediations.");
+    async aggregatePreventionPolicyRaw(
+        requestParameters: FalconCompleteDashboardApiAggregatePreventionPolicyRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregatePreventionPolicy().');
         }
 
         const queryParameters: any = {};
@@ -373,7 +464,51 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconcomplete-dashboard:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/falcon-complete-dashboards/aggregates/prevention-policies/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve prevention policies aggregate values based on the matched filter
+     */
+    async aggregatePreventionPolicy(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaAggregatesResponse> {
+        const response = await this.aggregatePreventionPolicyRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve aggregate remediation ticket values based on the matched filter
+     */
+    async aggregateRemediationsRaw(
+        requestParameters: FalconCompleteDashboardApiAggregateRemediationsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateRemediations().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -382,7 +517,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: requestParameters.body.map(MsaAggregateQueryRequestToJSON),
+                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
             initOverrides
         );
@@ -399,35 +534,167 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     }
 
     /**
+     * Retrieve sensor update policies aggregate values
+     */
+    async aggregateSensorUpdatePolicyRaw(
+        requestParameters: FalconCompleteDashboardApiAggregateSensorUpdatePolicyRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateSensorUpdatePolicy().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/falcon-complete-dashboards/aggregates/sensor-update-policies/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve sensor update policies aggregate values
+     */
+    async aggregateSensorUpdatePolicy(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaAggregatesResponse> {
+        const response = await this.aggregateSensorUpdatePolicyRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve aggregate support issue ticket values based on the matched filter
+     */
+    async aggregateSupportIssuesRaw(
+        requestParameters: FalconCompleteDashboardApiAggregateSupportIssuesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateSupportIssues().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/falcon-complete-dashboards/aggregates/support-issues/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve aggregate support issue ticket values based on the matched filter
+     */
+    async aggregateSupportIssues(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaAggregatesResponse> {
+        const response = await this.aggregateSupportIssuesRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve aggregate total host/devices based on the matched filter
+     */
+    async aggregateTotalDeviceCountsRaw(
+        requestParameters: FalconCompleteDashboardApiAggregateTotalDeviceCountsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateTotalDeviceCounts().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/falcon-complete-dashboards/aggregates/total-device-counts/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve aggregate total host/devices based on the matched filter
+     */
+    async aggregateTotalDeviceCounts(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaAggregatesResponse> {
+        const response = await this.aggregateTotalDeviceCountsRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Retrieve device count collection Ids that match the provided FQL filter, criteria with scrolling enabled
      */
     async getDeviceCountCollectionQueriesByFilterRaw(
-        requestParameters: GetDeviceCountCollectionQueriesByFilterRequest,
+        requestParameters: FalconCompleteDashboardApiGetDeviceCountCollectionQueriesByFilterRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconcomplete-dashboard:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -458,32 +725,88 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve allowlist tickets that match the provided filter criteria with scrolling enabled
+     * Retrieve Alerts Ids that match the provided FQL filter criteria with scrolling enabled
      */
-    async queryAllowListFilterRaw(requestParameters: QueryAllowListFilterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryAlertIdsByFilterRaw(
+        requestParameters: FalconCompleteDashboardApiQueryAlertIdsByFilterRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconcomplete-dashboard:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/falcon-complete-dashboards/queries/alerts/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve Alerts Ids that match the provided FQL filter criteria with scrolling enabled
+     */
+    async queryAlertIdsByFilter(limit?: number, sort?: string, filter?: string, offset?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
+        const response = await this.queryAlertIdsByFilterRaw({ limit: limit, sort: sort, filter: filter, offset: offset }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve allowlist tickets that match the provided filter criteria with scrolling enabled
+     */
+    async queryAllowListFilterRaw(
+        requestParameters: FalconCompleteDashboardApiQueryAllowListFilterRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -510,30 +833,33 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve block listtickets that match the provided filter criteria with scrolling enabled
      */
-    async queryBlockListFilterRaw(requestParameters: QueryBlockListFilterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryBlockListFilterRaw(
+        requestParameters: FalconCompleteDashboardApiQueryBlockListFilterRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconcomplete-dashboard:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -561,32 +887,32 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
      * Retrieve DetectionsIds that match the provided FQL filter, criteria with scrolling enabled
      */
     async queryDetectionIdsByFilterRaw(
-        requestParameters: QueryDetectionIdsByFilterRequest,
+        requestParameters: FalconCompleteDashboardApiQueryDetectionIdsByFilterRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconcomplete-dashboard:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -613,30 +939,33 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve escalation tickets that match the provided filter criteria with scrolling enabled
      */
-    async queryEscalationsFilterRaw(requestParameters: QueryEscalationsFilterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryEscalationsFilterRaw(
+        requestParameters: FalconCompleteDashboardApiQueryEscalationsFilterRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconcomplete-dashboard:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -663,30 +992,33 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve incidents that match the provided filter criteria with scrolling enabled
      */
-    async queryIncidentIdsByFilterRaw(requestParameters: QueryIncidentIdsByFilterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryIncidentIdsByFilterRaw(
+        requestParameters: FalconCompleteDashboardApiQueryIncidentIdsByFilterRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconcomplete-dashboard:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -713,30 +1045,33 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
     /**
      * Retrieve remediation tickets that match the provided filter criteria with scrolling enabled
      */
-    async queryRemediationsFilterRaw(requestParameters: QueryRemediationsFilterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryRemediationsFilterRaw(
+        requestParameters: FalconCompleteDashboardApiQueryRemediationsFilterRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconcomplete-dashboard:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(

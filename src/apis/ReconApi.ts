@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -34,11 +34,10 @@ import type {
     DomainUpdateNotificationRequestV1,
     DomainUpdateRuleRequestV1,
     MsaAggregateQueryRequest,
-    MsaErrorsOnly,
     MsaReplyMetaOnly,
     MsaspecResponseFields,
     SadomainCreateRuleRequestV1,
-} from "../models";
+} from "../models/index";
 import {
     ApiNotificationExposedDataRecordEntitiesResponseV1FromJSON,
     ApiNotificationExposedDataRecordEntitiesResponseV1ToJSON,
@@ -80,93 +79,92 @@ import {
     DomainUpdateRuleRequestV1ToJSON,
     MsaAggregateQueryRequestFromJSON,
     MsaAggregateQueryRequestToJSON,
-    MsaErrorsOnlyFromJSON,
-    MsaErrorsOnlyToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
     MsaspecResponseFieldsFromJSON,
     MsaspecResponseFieldsToJSON,
     SadomainCreateRuleRequestV1FromJSON,
     SadomainCreateRuleRequestV1ToJSON,
-} from "../models";
+} from "../models/index";
 
-export interface AggregateNotificationsExposedDataRecordsV1Request {
+export interface ReconApiAggregateNotificationsExposedDataRecordsV1Request {
     body: Array<MsaAggregateQueryRequest>;
 }
 
-export interface AggregateNotificationsV1Request {
+export interface ReconApiAggregateNotificationsV1Request {
     body: Array<MsaAggregateQueryRequest>;
 }
 
-export interface CreateActionsV1Request {
+export interface ReconApiCreateActionsV1Request {
     body: DomainRegisterActionsRequest;
 }
 
-export interface CreateExportJobsV1Request {
+export interface ReconApiCreateExportJobsV1Request {
     body: Array<DomainLaunchExportJobRequestV1>;
 }
 
-export interface CreateRulesV1Request {
+export interface ReconApiCreateRulesV1Request {
     body: Array<SadomainCreateRuleRequestV1>;
 }
 
-export interface DeleteActionV1Request {
+export interface ReconApiDeleteActionV1Request {
     id: string;
 }
 
-export interface DeleteExportJobsV1Request {
+export interface ReconApiDeleteExportJobsV1Request {
     ids: Array<string>;
 }
 
-export interface DeleteNotificationsV1Request {
+export interface ReconApiDeleteNotificationsV1Request {
     ids: Array<string>;
 }
 
-export interface DeleteRulesV1Request {
+export interface ReconApiDeleteRulesV1Request {
+    ids: Array<string>;
+    notificationsDeletionRequested?: boolean;
+}
+
+export interface ReconApiGetActionsV1Request {
     ids: Array<string>;
 }
 
-export interface GetActionsV1Request {
+export interface ReconApiGetExportJobsV1Request {
     ids: Array<string>;
 }
 
-export interface GetExportJobsV1Request {
-    ids: Array<string>;
-}
-
-export interface GetFileContentForExportJobsV1Request {
+export interface ReconApiGetFileContentForExportJobsV1Request {
     id: string;
 }
 
-export interface GetNotificationsDetailedTranslatedV1Request {
+export interface ReconApiGetNotificationsDetailedTranslatedV1Request {
     ids: Array<string>;
 }
 
-export interface GetNotificationsDetailedV1Request {
+export interface ReconApiGetNotificationsDetailedV1Request {
     ids: Array<string>;
 }
 
-export interface GetNotificationsExposedDataRecordsV1Request {
+export interface ReconApiGetNotificationsExposedDataRecordsV1Request {
     ids: Array<string>;
 }
 
-export interface GetNotificationsTranslatedV1Request {
+export interface ReconApiGetNotificationsTranslatedV1Request {
     ids: Array<string>;
 }
 
-export interface GetNotificationsV1Request {
+export interface ReconApiGetNotificationsV1Request {
     ids: Array<string>;
 }
 
-export interface GetRulesV1Request {
+export interface ReconApiGetRulesV1Request {
     ids: Array<string>;
 }
 
-export interface PreviewRuleV1Request {
+export interface ReconApiPreviewRuleV1Request {
     body: DomainRulePreviewRequest;
 }
 
-export interface QueryActionsV1Request {
+export interface ReconApiQueryActionsV1Request {
     offset?: number;
     limit?: number;
     sort?: string;
@@ -174,7 +172,7 @@ export interface QueryActionsV1Request {
     q?: string;
 }
 
-export interface QueryNotificationsExposedDataRecordsV1Request {
+export interface ReconApiQueryNotificationsExposedDataRecordsV1Request {
     offset?: number;
     limit?: number;
     sort?: string;
@@ -182,7 +180,7 @@ export interface QueryNotificationsExposedDataRecordsV1Request {
     q?: string;
 }
 
-export interface QueryNotificationsV1Request {
+export interface ReconApiQueryNotificationsV1Request {
     offset?: number;
     limit?: number;
     sort?: string;
@@ -190,23 +188,24 @@ export interface QueryNotificationsV1Request {
     q?: string;
 }
 
-export interface QueryRulesV1Request {
+export interface ReconApiQueryRulesV1Request {
     offset?: number;
     limit?: number;
     sort?: string;
     filter?: string;
     q?: string;
+    secondarySort?: string;
 }
 
-export interface UpdateActionV1Request {
+export interface ReconApiUpdateActionV1Request {
     body: DomainUpdateActionRequest;
 }
 
-export interface UpdateNotificationsV1Request {
+export interface ReconApiUpdateNotificationsV1Request {
     body: Array<DomainUpdateNotificationRequestV1>;
 }
 
-export interface UpdateRulesV1Request {
+export interface ReconApiUpdateRulesV1Request {
     body: Array<DomainUpdateRuleRequestV1>;
 }
 
@@ -215,14 +214,14 @@ export interface UpdateRulesV1Request {
  */
 export class ReconApi extends runtime.BaseAPI {
     /**
-     * Get notification exposed data record aggregates as specified via JSON in request body. The valid aggregation fields are: [notification_id created_date rule.id rule.name rule.topic source_category site author]
+     * Get notification exposed data record aggregates as specified via JSON in request body. The valid aggregation fields are: [cid notification_id created_date rule.id rule.name rule.topic source_category site author file.name credential_status bot.operating_system.hardware_id bot.bot_id]
      */
     async aggregateNotificationsExposedDataRecordsV1Raw(
-        requestParameters: AggregateNotificationsExposedDataRecordsV1Request,
+        requestParameters: ReconApiAggregateNotificationsExposedDataRecordsV1Request,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainAggregatesResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling aggregateNotificationsExposedDataRecordsV1.");
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateNotificationsExposedDataRecordsV1().');
         }
 
         const queryParameters: any = {};
@@ -242,7 +241,7 @@ export class ReconApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: requestParameters.body.map(MsaAggregateQueryRequestToJSON),
+                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
             initOverrides
         );
@@ -251,7 +250,7 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get notification exposed data record aggregates as specified via JSON in request body. The valid aggregation fields are: [notification_id created_date rule.id rule.name rule.topic source_category site author]
+     * Get notification exposed data record aggregates as specified via JSON in request body. The valid aggregation fields are: [cid notification_id created_date rule.id rule.name rule.topic source_category site author file.name credential_status bot.operating_system.hardware_id bot.bot_id]
      */
     async aggregateNotificationsExposedDataRecordsV1(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainAggregatesResponse> {
         const response = await this.aggregateNotificationsExposedDataRecordsV1Raw({ body: body }, initOverrides);
@@ -262,11 +261,11 @@ export class ReconApi extends runtime.BaseAPI {
      * Get notification aggregates as specified via JSON in request body.
      */
     async aggregateNotificationsV1Raw(
-        requestParameters: AggregateNotificationsV1Request,
+        requestParameters: ReconApiAggregateNotificationsV1Request,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainAggregatesResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling aggregateNotificationsV1.");
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateNotificationsV1().');
         }
 
         const queryParameters: any = {};
@@ -286,7 +285,7 @@ export class ReconApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: requestParameters.body.map(MsaAggregateQueryRequestToJSON),
+                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
             initOverrides
         );
@@ -305,9 +304,12 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Create actions for a monitoring rule. Accepts a list of actions that will be attached to the monitoring rule.
      */
-    async createActionsV1Raw(requestParameters: CreateActionsV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainActionEntitiesResponseV1>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createActionsV1.");
+    async createActionsV1Raw(
+        requestParameters: ReconApiCreateActionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainActionEntitiesResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createActionsV1().');
         }
 
         const queryParameters: any = {};
@@ -327,7 +329,7 @@ export class ReconApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: DomainRegisterActionsRequestToJSON(requestParameters.body),
+                body: DomainRegisterActionsRequestToJSON(requestParameters["body"]),
             },
             initOverrides
         );
@@ -347,11 +349,11 @@ export class ReconApi extends runtime.BaseAPI {
      * Launch asynchronous export job. Use the job ID to poll the status of the job using GET /entities/exports/v1.
      */
     async createExportJobsV1Raw(
-        requestParameters: CreateExportJobsV1Request,
+        requestParameters: ReconApiCreateExportJobsV1Request,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainLaunchExportJobResponseV1>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createExportJobsV1.");
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createExportJobsV1().');
         }
 
         const queryParameters: any = {};
@@ -371,7 +373,7 @@ export class ReconApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: requestParameters.body.map(DomainLaunchExportJobRequestV1ToJSON),
+                body: requestParameters["body"]!.map(DomainLaunchExportJobRequestV1ToJSON),
             },
             initOverrides
         );
@@ -390,9 +392,9 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Create monitoring rules.
      */
-    async createRulesV1Raw(requestParameters: CreateRulesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRulesEntitiesResponseV1>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createRulesV1.");
+    async createRulesV1Raw(requestParameters: ReconApiCreateRulesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRulesEntitiesResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createRulesV1().');
         }
 
         const queryParameters: any = {};
@@ -412,7 +414,7 @@ export class ReconApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: requestParameters.body.map(SadomainCreateRuleRequestV1ToJSON),
+                body: requestParameters["body"]!.map(SadomainCreateRuleRequestV1ToJSON),
             },
             initOverrides
         );
@@ -431,15 +433,15 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Delete an action from a monitoring rule based on the action ID.
      */
-    async deleteActionV1Raw(requestParameters: DeleteActionV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainQueryResponse>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError("id", "Required parameter requestParameters.id was null or undefined when calling deleteActionV1.");
+    async deleteActionV1Raw(requestParameters: ReconApiDeleteActionV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainQueryResponse>> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling deleteActionV1().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.id !== undefined) {
-            queryParameters["id"] = requestParameters.id;
+        if (requestParameters["id"] != null) {
+            queryParameters["id"] = requestParameters["id"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -473,15 +475,18 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Delete export jobs (and their associated file(s)) based on their IDs.
      */
-    async deleteExportJobsV1Raw(requestParameters: DeleteExportJobsV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainExportJobIDResponseV1>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling deleteExportJobsV1.");
+    async deleteExportJobsV1Raw(
+        requestParameters: ReconApiDeleteExportJobsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainExportJobIDResponseV1>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteExportJobsV1().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -516,17 +521,17 @@ export class ReconApi extends runtime.BaseAPI {
      * Delete notifications based on IDs. Notifications cannot be recovered after they are deleted.
      */
     async deleteNotificationsV1Raw(
-        requestParameters: DeleteNotificationsV1Request,
+        requestParameters: ReconApiDeleteNotificationsV1Request,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainNotificationIDResponse>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling deleteNotificationsV1.");
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteNotificationsV1().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -560,15 +565,19 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Delete monitoring rules.
      */
-    async deleteRulesV1Raw(requestParameters: DeleteRulesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRuleQueryResponseV1>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling deleteRulesV1.");
+    async deleteRulesV1Raw(requestParameters: ReconApiDeleteRulesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRuleQueryResponseV1>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteRulesV1().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        if (requestParameters["notificationsDeletionRequested"] != null) {
+            queryParameters["notificationsDeletionRequested"] = requestParameters["notificationsDeletionRequested"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -594,23 +603,23 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Delete monitoring rules.
      */
-    async deleteRulesV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainRuleQueryResponseV1> {
-        const response = await this.deleteRulesV1Raw({ ids: ids }, initOverrides);
+    async deleteRulesV1(ids: Array<string>, notificationsDeletionRequested?: boolean, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainRuleQueryResponseV1> {
+        const response = await this.deleteRulesV1Raw({ ids: ids, notificationsDeletionRequested: notificationsDeletionRequested }, initOverrides);
         return await response.value();
     }
 
     /**
      * Get actions based on their IDs. IDs can be retrieved using the GET /queries/actions/v1 endpoint.
      */
-    async getActionsV1Raw(requestParameters: GetActionsV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainActionEntitiesResponseV1>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getActionsV1.");
+    async getActionsV1Raw(requestParameters: ReconApiGetActionsV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainActionEntitiesResponseV1>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getActionsV1().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -644,15 +653,18 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Get the status of export jobs based on their IDs. Export jobs can be launched by calling POST /entities/exports/v1. When a job is complete, use the job ID to download the file(s) associated with it using GET entities/export-files/v1.
      */
-    async getExportJobsV1Raw(requestParameters: GetExportJobsV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainExportJobEntitiesResponseV1>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getExportJobsV1.");
+    async getExportJobsV1Raw(
+        requestParameters: ReconApiGetExportJobsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainExportJobEntitiesResponseV1>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getExportJobsV1().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -687,17 +699,17 @@ export class ReconApi extends runtime.BaseAPI {
      * Download the file associated with a job ID.
      */
     async getFileContentForExportJobsV1Raw(
-        requestParameters: GetFileContentForExportJobsV1Request,
+        requestParameters: ReconApiGetFileContentForExportJobsV1Request,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<Array<number>>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError("id", "Required parameter requestParameters.id was null or undefined when calling getFileContentForExportJobsV1.");
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling getFileContentForExportJobsV1().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.id !== undefined) {
-            queryParameters["id"] = requestParameters.id;
+        if (requestParameters["id"] != null) {
+            queryParameters["id"] = requestParameters["id"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -729,20 +741,21 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get detailed notifications based on their IDs. These include the raw intelligence content that generated the match.This endpoint will return translated notification content. The only target language available is English. A single notification can be translated per request
+     * Get detailed notifications based on their IDs. These include the translated raw intelligence content that generated the match or part of it. This API endpoint will return translated notification content. The only target language available is English. A single notification can be translated per request. In case the item\'s content is only partial, a URL is provided under the resource\'s \'details.full_content_url\' path, but the content available at this URL will be the original one.
+     * Get detailed notifications based on their IDs. These include the translated raw intelligence content that generated the match or part of it.
      */
     async getNotificationsDetailedTranslatedV1Raw(
-        requestParameters: GetNotificationsDetailedTranslatedV1Request,
+        requestParameters: ReconApiGetNotificationsDetailedTranslatedV1Request,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainNotificationDetailsResponseV1>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getNotificationsDetailedTranslatedV1.");
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getNotificationsDetailedTranslatedV1().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -766,7 +779,8 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get detailed notifications based on their IDs. These include the raw intelligence content that generated the match.This endpoint will return translated notification content. The only target language available is English. A single notification can be translated per request
+     * Get detailed notifications based on their IDs. These include the translated raw intelligence content that generated the match or part of it. This API endpoint will return translated notification content. The only target language available is English. A single notification can be translated per request. In case the item\'s content is only partial, a URL is provided under the resource\'s \'details.full_content_url\' path, but the content available at this URL will be the original one.
+     * Get detailed notifications based on their IDs. These include the translated raw intelligence content that generated the match or part of it.
      */
     async getNotificationsDetailedTranslatedV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainNotificationDetailsResponseV1> {
         const response = await this.getNotificationsDetailedTranslatedV1Raw({ ids: ids }, initOverrides);
@@ -774,20 +788,21 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get detailed notifications based on their IDs. These include the raw intelligence content that generated the match.
+     * Get detailed notifications based on their IDs. These include the raw intelligence content that generated the match or part of it. In case the content is only partial, a URL is provided under the resource\'s \'details.full_content_url\' path. When present, use this URL to retrieve the full raw text content of the item. Please note this URL has a limited TTL. To get a fresh valid one, perform a new call to this API endpoint.
+     * Get detailed notifications based on their IDs. These include the raw intelligence content that generated the match or part of it.
      */
     async getNotificationsDetailedV1Raw(
-        requestParameters: GetNotificationsDetailedV1Request,
+        requestParameters: ReconApiGetNotificationsDetailedV1Request,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainNotificationDetailsResponseV1>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getNotificationsDetailedV1.");
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getNotificationsDetailedV1().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -811,7 +826,8 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get detailed notifications based on their IDs. These include the raw intelligence content that generated the match.
+     * Get detailed notifications based on their IDs. These include the raw intelligence content that generated the match or part of it. In case the content is only partial, a URL is provided under the resource\'s \'details.full_content_url\' path. When present, use this URL to retrieve the full raw text content of the item. Please note this URL has a limited TTL. To get a fresh valid one, perform a new call to this API endpoint.
+     * Get detailed notifications based on their IDs. These include the raw intelligence content that generated the match or part of it.
      */
     async getNotificationsDetailedV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainNotificationDetailsResponseV1> {
         const response = await this.getNotificationsDetailedV1Raw({ ids: ids }, initOverrides);
@@ -822,17 +838,17 @@ export class ReconApi extends runtime.BaseAPI {
      * Get notifications exposed data records based on their IDs. IDs can be retrieved using the GET /queries/notifications-exposed-data-records/v1 endpoint. The associate notification can be fetched using the /entities/notifications/v* endpoints
      */
     async getNotificationsExposedDataRecordsV1Raw(
-        requestParameters: GetNotificationsExposedDataRecordsV1Request,
+        requestParameters: ReconApiGetNotificationsExposedDataRecordsV1Request,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<ApiNotificationExposedDataRecordEntitiesResponseV1>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getNotificationsExposedDataRecordsV1.");
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getNotificationsExposedDataRecordsV1().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -867,17 +883,17 @@ export class ReconApi extends runtime.BaseAPI {
      * Get notifications based on their IDs. IDs can be retrieved using the GET /queries/notifications/v1 endpoint. This endpoint will return translated notification content. The only target language available is English.
      */
     async getNotificationsTranslatedV1Raw(
-        requestParameters: GetNotificationsTranslatedV1Request,
+        requestParameters: ReconApiGetNotificationsTranslatedV1Request,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainNotificationEntitiesResponseV1>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getNotificationsTranslatedV1.");
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getNotificationsTranslatedV1().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -912,17 +928,17 @@ export class ReconApi extends runtime.BaseAPI {
      * Get notifications based on their IDs. IDs can be retrieved using the GET /queries/notifications/v1 endpoint.
      */
     async getNotificationsV1Raw(
-        requestParameters: GetNotificationsV1Request,
+        requestParameters: ReconApiGetNotificationsV1Request,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainNotificationEntitiesResponseV1>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getNotificationsV1.");
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getNotificationsV1().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -956,15 +972,15 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Get monitoring rules based on their IDs. IDs can be retrieved using the GET /queries/rules/v1 endpoint.
      */
-    async getRulesV1Raw(requestParameters: GetRulesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRulesEntitiesResponseV1>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getRulesV1.");
+    async getRulesV1Raw(requestParameters: ReconApiGetRulesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRulesEntitiesResponseV1>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getRulesV1().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -998,9 +1014,9 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Preview rules notification count and distribution. This will return aggregations on: channel, count, site.
      */
-    async previewRuleV1Raw(requestParameters: PreviewRuleV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainAggregatesResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling previewRuleV1.");
+    async previewRuleV1Raw(requestParameters: ReconApiPreviewRuleV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainAggregatesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling previewRuleV1().');
         }
 
         const queryParameters: any = {};
@@ -1020,7 +1036,7 @@ export class ReconApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: DomainRulePreviewRequestToJSON(requestParameters.body),
+                body: DomainRulePreviewRequestToJSON(requestParameters["body"]),
             },
             initOverrides
         );
@@ -1039,27 +1055,27 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Query actions based on provided criteria. Use the IDs from this response to get the action entities on GET /entities/actions/v1.
      */
-    async queryActionsV1Raw(requestParameters: QueryActionsV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainQueryResponse>> {
+    async queryActionsV1Raw(requestParameters: ReconApiQueryActionsV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
-        if (requestParameters.q !== undefined) {
-            queryParameters["q"] = requestParameters.q;
+        if (requestParameters["q"] != null) {
+            queryParameters["q"] = requestParameters["q"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1094,29 +1110,29 @@ export class ReconApi extends runtime.BaseAPI {
      * Query notifications exposed data records based on provided criteria. Use the IDs from this response to get the notification +entities on GET /entities/notifications-exposed-data-records/v1
      */
     async queryNotificationsExposedDataRecordsV1Raw(
-        requestParameters: QueryNotificationsExposedDataRecordsV1Request,
+        requestParameters: ReconApiQueryNotificationsExposedDataRecordsV1Request,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
-        if (requestParameters.q !== undefined) {
-            queryParameters["q"] = requestParameters.q;
+        if (requestParameters["q"] != null) {
+            queryParameters["q"] = requestParameters["q"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1157,27 +1173,30 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Query notifications based on provided criteria. Use the IDs from this response to get the notification +entities on GET /entities/notifications/v1, GET /entities/notifications-detailed/v1, +GET /entities/notifications-translated/v1 or GET /entities/notifications-detailed-translated/v1.
      */
-    async queryNotificationsV1Raw(requestParameters: QueryNotificationsV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainQueryResponse>> {
+    async queryNotificationsV1Raw(
+        requestParameters: ReconApiQueryNotificationsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
-        if (requestParameters.q !== undefined) {
-            queryParameters["q"] = requestParameters.q;
+        if (requestParameters["q"] != null) {
+            queryParameters["q"] = requestParameters["q"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1211,27 +1230,31 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Query monitoring rules based on provided criteria. Use the IDs from this response to fetch the rules on /entities/rules/v1.
      */
-    async queryRulesV1Raw(requestParameters: QueryRulesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRuleQueryResponseV1>> {
+    async queryRulesV1Raw(requestParameters: ReconApiQueryRulesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRuleQueryResponseV1>> {
         const queryParameters: any = {};
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
-        if (requestParameters.q !== undefined) {
-            queryParameters["q"] = requestParameters.q;
+        if (requestParameters["q"] != null) {
+            queryParameters["q"] = requestParameters["q"];
+        }
+
+        if (requestParameters["secondarySort"] != null) {
+            queryParameters["secondarySort"] = requestParameters["secondarySort"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1257,17 +1280,28 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Query monitoring rules based on provided criteria. Use the IDs from this response to fetch the rules on /entities/rules/v1.
      */
-    async queryRulesV1(offset?: number, limit?: number, sort?: string, filter?: string, q?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainRuleQueryResponseV1> {
-        const response = await this.queryRulesV1Raw({ offset: offset, limit: limit, sort: sort, filter: filter, q: q }, initOverrides);
+    async queryRulesV1(
+        offset?: number,
+        limit?: number,
+        sort?: string,
+        filter?: string,
+        q?: string,
+        secondarySort?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<DomainRuleQueryResponseV1> {
+        const response = await this.queryRulesV1Raw({ offset: offset, limit: limit, sort: sort, filter: filter, q: q, secondarySort: secondarySort }, initOverrides);
         return await response.value();
     }
 
     /**
      * Update an action for a monitoring rule.
      */
-    async updateActionV1Raw(requestParameters: UpdateActionV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainActionEntitiesResponseV1>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateActionV1.");
+    async updateActionV1Raw(
+        requestParameters: ReconApiUpdateActionV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainActionEntitiesResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateActionV1().');
         }
 
         const queryParameters: any = {};
@@ -1287,7 +1321,7 @@ export class ReconApi extends runtime.BaseAPI {
                 method: "PATCH",
                 headers: headerParameters,
                 query: queryParameters,
-                body: DomainUpdateActionRequestToJSON(requestParameters.body),
+                body: DomainUpdateActionRequestToJSON(requestParameters["body"]),
             },
             initOverrides
         );
@@ -1307,11 +1341,11 @@ export class ReconApi extends runtime.BaseAPI {
      * Update notification status or assignee. Accepts bulk requests
      */
     async updateNotificationsV1Raw(
-        requestParameters: UpdateNotificationsV1Request,
+        requestParameters: ReconApiUpdateNotificationsV1Request,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainNotificationEntitiesResponseV1>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateNotificationsV1.");
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateNotificationsV1().');
         }
 
         const queryParameters: any = {};
@@ -1331,7 +1365,7 @@ export class ReconApi extends runtime.BaseAPI {
                 method: "PATCH",
                 headers: headerParameters,
                 query: queryParameters,
-                body: requestParameters.body.map(DomainUpdateNotificationRequestV1ToJSON),
+                body: requestParameters["body"]!.map(DomainUpdateNotificationRequestV1ToJSON),
             },
             initOverrides
         );
@@ -1350,9 +1384,9 @@ export class ReconApi extends runtime.BaseAPI {
     /**
      * Update monitoring rules.
      */
-    async updateRulesV1Raw(requestParameters: UpdateRulesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRulesEntitiesResponseV1>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateRulesV1.");
+    async updateRulesV1Raw(requestParameters: ReconApiUpdateRulesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRulesEntitiesResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateRulesV1().');
         }
 
         const queryParameters: any = {};
@@ -1372,7 +1406,7 @@ export class ReconApi extends runtime.BaseAPI {
                 method: "PATCH",
                 headers: headerParameters,
                 query: queryParameters,
-                body: requestParameters.body.map(DomainUpdateRuleRequestV1ToJSON),
+                body: requestParameters["body"]!.map(DomainUpdateRuleRequestV1ToJSON),
             },
             initOverrides
         );

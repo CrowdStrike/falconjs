@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,15 +12,15 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
-import type { MessagesAttachment } from "./MessagesAttachment";
-import { MessagesAttachmentFromJSON, MessagesAttachmentFromJSONTyped, MessagesAttachmentToJSON } from "./MessagesAttachment";
+import { mapValues } from "../runtime";
 import type { MessagesAuthor } from "./MessagesAuthor";
 import { MessagesAuthorFromJSON, MessagesAuthorFromJSONTyped, MessagesAuthorToJSON } from "./MessagesAuthor";
-import type { MessagesDetection } from "./MessagesDetection";
-import { MessagesDetectionFromJSON, MessagesDetectionFromJSONTyped, MessagesDetectionToJSON } from "./MessagesDetection";
+import type { MessagesAttachment } from "./MessagesAttachment";
+import { MessagesAttachmentFromJSON, MessagesAttachmentFromJSONTyped, MessagesAttachmentToJSON } from "./MessagesAttachment";
 import type { MessagesIncident } from "./MessagesIncident";
 import { MessagesIncidentFromJSON, MessagesIncidentFromJSONTyped, MessagesIncidentToJSON } from "./MessagesIncident";
+import type { MessagesDetection } from "./MessagesDetection";
+import { MessagesDetectionFromJSON, MessagesDetectionFromJSONTyped, MessagesDetectionToJSON } from "./MessagesDetection";
 
 /**
  *
@@ -129,26 +129,24 @@ export interface MessagesCase {
 /**
  * Check if a given object implements the MessagesCase interface.
  */
-export function instanceOfMessagesCase(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "aids" in value;
-    isInstance = isInstance && "assigner" in value;
-    isInstance = isInstance && "attachments" in value;
-    isInstance = isInstance && "body" in value;
-    isInstance = isInstance && "cid" in value;
-    isInstance = isInstance && "createdTime" in value;
-    isInstance = isInstance && "detections" in value;
-    isInstance = isInstance && "hosts" in value;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "incidents" in value;
-    isInstance = isInstance && "ipAddresses" in value;
-    isInstance = isInstance && "key" in value;
-    isInstance = isInstance && "lastModifiedTime" in value;
-    isInstance = isInstance && "status" in value;
-    isInstance = isInstance && "title" in value;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfMessagesCase(value: object): value is MessagesCase {
+    if (!("aids" in value) || value["aids"] === undefined) return false;
+    if (!("assigner" in value) || value["assigner"] === undefined) return false;
+    if (!("attachments" in value) || value["attachments"] === undefined) return false;
+    if (!("body" in value) || value["body"] === undefined) return false;
+    if (!("cid" in value) || value["cid"] === undefined) return false;
+    if (!("createdTime" in value) || value["createdTime"] === undefined) return false;
+    if (!("detections" in value) || value["detections"] === undefined) return false;
+    if (!("hosts" in value) || value["hosts"] === undefined) return false;
+    if (!("id" in value) || value["id"] === undefined) return false;
+    if (!("incidents" in value) || value["incidents"] === undefined) return false;
+    if (!("ipAddresses" in value) || value["ipAddresses"] === undefined) return false;
+    if (!("key" in value) || value["key"] === undefined) return false;
+    if (!("lastModifiedTime" in value) || value["lastModifiedTime"] === undefined) return false;
+    if (!("status" in value) || value["status"] === undefined) return false;
+    if (!("title" in value) || value["title"] === undefined) return false;
+    if (!("type" in value) || value["type"] === undefined) return false;
+    return true;
 }
 
 export function MessagesCaseFromJSON(json: any): MessagesCase {
@@ -156,7 +154,7 @@ export function MessagesCaseFromJSON(json: any): MessagesCase {
 }
 
 export function MessagesCaseFromJSONTyped(json: any, ignoreDiscriminator: boolean): MessagesCase {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
@@ -180,28 +178,25 @@ export function MessagesCaseFromJSONTyped(json: any, ignoreDiscriminator: boolea
 }
 
 export function MessagesCaseToJSON(value?: MessagesCase | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        aids: value.aids,
-        assigner: MessagesAuthorToJSON(value.assigner),
-        attachments: (value.attachments as Array<any>).map(MessagesAttachmentToJSON),
-        body: value.body,
-        cid: value.cid,
-        created_time: value.createdTime,
-        detections: (value.detections as Array<any>).map(MessagesDetectionToJSON),
-        hosts: value.hosts,
-        id: value.id,
-        incidents: (value.incidents as Array<any>).map(MessagesIncidentToJSON),
-        ip_addresses: value.ipAddresses,
-        key: value.key,
-        last_modified_time: value.lastModifiedTime,
-        status: value.status,
-        title: value.title,
-        type: value.type,
+        aids: value["aids"],
+        assigner: MessagesAuthorToJSON(value["assigner"]),
+        attachments: (value["attachments"] as Array<any>).map(MessagesAttachmentToJSON),
+        body: value["body"],
+        cid: value["cid"],
+        created_time: value["createdTime"],
+        detections: (value["detections"] as Array<any>).map(MessagesDetectionToJSON),
+        hosts: value["hosts"],
+        id: value["id"],
+        incidents: (value["incidents"] as Array<any>).map(MessagesIncidentToJSON),
+        ip_addresses: value["ipAddresses"],
+        key: value["key"],
+        last_modified_time: value["lastModifiedTime"],
+        status: value["status"],
+        title: value["title"],
+        type: value["type"],
     };
 }

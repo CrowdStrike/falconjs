@@ -206,7 +206,7 @@
 
 | .info.version="rolling"
 
-# Fix array of enums who define the enum outside of items
+# Fix array of enums who define the enum outside of items - CSPG-45254
 | .paths."/kubernetes-protection/entities/kubernetes/clusters/v1".get.parameters[1].items.enum = .paths."/kubernetes-protection/entities/kubernetes/clusters/v1".get.parameters[1].enum
 | del(.paths."/kubernetes-protection/entities/kubernetes/clusters/v1".get.parameters[1].enum)
 
@@ -219,6 +219,7 @@
 | .paths."/kubernetes-protection/entities/cloud-locations/v1".get.parameters[0].items.enum = .paths."/kubernetes-protection/entities/cloud-locations/v1".get.parameters[0].enum
 | del(.paths."/kubernetes-protection/entities/cloud-locations/v1".get.parameters[0].enum)
 
+# PLATFORMPG-770333
 | .paths."/policy/combined/sensor-update-builds/v1".get.parameters[1].items.enum = .paths."/policy/combined/sensor-update-builds/v1".get.parameters[1].enum
 | del(.paths."/policy/combined/sensor-update-builds/v1".get.parameters[1].enum)
 

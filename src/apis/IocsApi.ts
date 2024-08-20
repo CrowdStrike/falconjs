@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -13,37 +13,37 @@
  */
 
 import * as runtime from "../runtime";
-import type { ApiMsaProcessDetailResponse, ApiMsaReplyDevicesRanOn, ApiMsaReplyIOCDevicesCount, ApiMsaReplyProcessesRanOn, MsaReplyMetaOnly } from "../models";
+import type { IocapiMsaReplyDevicesRanOn, IocapiMsaReplyIOCDevicesCount, IocapiMsaReplyProcessesRanOn, MsaReplyMetaOnly, ProcessesapiMsaProcessDetailResponse } from "../models/index";
 import {
-    ApiMsaProcessDetailResponseFromJSON,
-    ApiMsaProcessDetailResponseToJSON,
-    ApiMsaReplyDevicesRanOnFromJSON,
-    ApiMsaReplyDevicesRanOnToJSON,
-    ApiMsaReplyIOCDevicesCountFromJSON,
-    ApiMsaReplyIOCDevicesCountToJSON,
-    ApiMsaReplyProcessesRanOnFromJSON,
-    ApiMsaReplyProcessesRanOnToJSON,
+    IocapiMsaReplyDevicesRanOnFromJSON,
+    IocapiMsaReplyDevicesRanOnToJSON,
+    IocapiMsaReplyIOCDevicesCountFromJSON,
+    IocapiMsaReplyIOCDevicesCountToJSON,
+    IocapiMsaReplyProcessesRanOnFromJSON,
+    IocapiMsaReplyProcessesRanOnToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-} from "../models";
+    ProcessesapiMsaProcessDetailResponseFromJSON,
+    ProcessesapiMsaProcessDetailResponseToJSON,
+} from "../models/index";
 
-export interface DevicesCountRequest {
+export interface IocsApiDevicesCountRequest {
     type: string;
     value: string;
 }
 
-export interface DevicesRanOnRequest {
+export interface IocsApiDevicesRanOnRequest {
     type: string;
     value: string;
     limit?: string;
     offset?: string;
 }
 
-export interface EntitiesProcessesRequest {
+export interface IocsApiEntitiesProcessesRequest {
     ids: Array<string>;
 }
 
-export interface ProcessesRanOnRequest {
+export interface IocsApiProcessesRanOnRequest {
     type: string;
     value: string;
     deviceId: string;
@@ -58,30 +58,30 @@ export class IocsApi extends runtime.BaseAPI {
     /**
      * Number of hosts in your customer account that have observed a given custom IOC
      */
-    async devicesCountRaw(requestParameters: DevicesCountRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiMsaReplyIOCDevicesCount>> {
-        if (requestParameters.type === null || requestParameters.type === undefined) {
-            throw new runtime.RequiredError("type", "Required parameter requestParameters.type was null or undefined when calling devicesCount.");
+    async devicesCountRaw(requestParameters: IocsApiDevicesCountRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<IocapiMsaReplyIOCDevicesCount>> {
+        if (requestParameters["type"] == null) {
+            throw new runtime.RequiredError("type", 'Required parameter "type" was null or undefined when calling devicesCount().');
         }
 
-        if (requestParameters.value === null || requestParameters.value === undefined) {
-            throw new runtime.RequiredError("value", "Required parameter requestParameters.value was null or undefined when calling devicesCount.");
+        if (requestParameters["value"] == null) {
+            throw new runtime.RequiredError("value", 'Required parameter "value" was null or undefined when calling devicesCount().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.type !== undefined) {
-            queryParameters["type"] = requestParameters.type;
+        if (requestParameters["type"] != null) {
+            queryParameters["type"] = requestParameters["type"];
         }
 
-        if (requestParameters.value !== undefined) {
-            queryParameters["value"] = requestParameters.value;
+        if (requestParameters["value"] != null) {
+            queryParameters["value"] = requestParameters["value"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["iocs:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -94,13 +94,13 @@ export class IocsApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ApiMsaReplyIOCDevicesCountFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => IocapiMsaReplyIOCDevicesCountFromJSON(jsonValue));
     }
 
     /**
      * Number of hosts in your customer account that have observed a given custom IOC
      */
-    async devicesCount(type: string, value: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiMsaReplyIOCDevicesCount> {
+    async devicesCount(type: string, value: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<IocapiMsaReplyIOCDevicesCount> {
         const response = await this.devicesCountRaw({ type: type, value: value }, initOverrides);
         return await response.value();
     }
@@ -108,38 +108,38 @@ export class IocsApi extends runtime.BaseAPI {
     /**
      * Find hosts that have observed a given custom IOC. For details about those hosts, use GET /devices/entities/devices/v1
      */
-    async devicesRanOnRaw(requestParameters: DevicesRanOnRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiMsaReplyDevicesRanOn>> {
-        if (requestParameters.type === null || requestParameters.type === undefined) {
-            throw new runtime.RequiredError("type", "Required parameter requestParameters.type was null or undefined when calling devicesRanOn.");
+    async devicesRanOnRaw(requestParameters: IocsApiDevicesRanOnRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<IocapiMsaReplyDevicesRanOn>> {
+        if (requestParameters["type"] == null) {
+            throw new runtime.RequiredError("type", 'Required parameter "type" was null or undefined when calling devicesRanOn().');
         }
 
-        if (requestParameters.value === null || requestParameters.value === undefined) {
-            throw new runtime.RequiredError("value", "Required parameter requestParameters.value was null or undefined when calling devicesRanOn.");
+        if (requestParameters["value"] == null) {
+            throw new runtime.RequiredError("value", 'Required parameter "value" was null or undefined when calling devicesRanOn().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.type !== undefined) {
-            queryParameters["type"] = requestParameters.type;
+        if (requestParameters["type"] != null) {
+            queryParameters["type"] = requestParameters["type"];
         }
 
-        if (requestParameters.value !== undefined) {
-            queryParameters["value"] = requestParameters.value;
+        if (requestParameters["value"] != null) {
+            queryParameters["value"] = requestParameters["value"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["iocs:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -152,13 +152,13 @@ export class IocsApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ApiMsaReplyDevicesRanOnFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => IocapiMsaReplyDevicesRanOnFromJSON(jsonValue));
     }
 
     /**
      * Find hosts that have observed a given custom IOC. For details about those hosts, use GET /devices/entities/devices/v1
      */
-    async devicesRanOn(type: string, value: string, limit?: string, offset?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiMsaReplyDevicesRanOn> {
+    async devicesRanOn(type: string, value: string, limit?: string, offset?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<IocapiMsaReplyDevicesRanOn> {
         const response = await this.devicesRanOnRaw({ type: type, value: value, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }
@@ -166,22 +166,25 @@ export class IocsApi extends runtime.BaseAPI {
     /**
      * For the provided ProcessID retrieve the process details
      */
-    async entitiesProcessesRaw(requestParameters: EntitiesProcessesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiMsaProcessDetailResponse>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling entitiesProcesses.");
+    async entitiesProcessesRaw(
+        requestParameters: IocsApiEntitiesProcessesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ProcessesapiMsaProcessDetailResponse>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesProcesses().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["iocs:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -194,13 +197,13 @@ export class IocsApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ApiMsaProcessDetailResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ProcessesapiMsaProcessDetailResponseFromJSON(jsonValue));
     }
 
     /**
      * For the provided ProcessID retrieve the process details
      */
-    async entitiesProcesses(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiMsaProcessDetailResponse> {
+    async entitiesProcesses(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ProcessesapiMsaProcessDetailResponse> {
         const response = await this.entitiesProcessesRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -208,46 +211,46 @@ export class IocsApi extends runtime.BaseAPI {
     /**
      * Search for processes associated with a custom IOC
      */
-    async processesRanOnRaw(requestParameters: ProcessesRanOnRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiMsaReplyProcessesRanOn>> {
-        if (requestParameters.type === null || requestParameters.type === undefined) {
-            throw new runtime.RequiredError("type", "Required parameter requestParameters.type was null or undefined when calling processesRanOn.");
+    async processesRanOnRaw(requestParameters: IocsApiProcessesRanOnRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<IocapiMsaReplyProcessesRanOn>> {
+        if (requestParameters["type"] == null) {
+            throw new runtime.RequiredError("type", 'Required parameter "type" was null or undefined when calling processesRanOn().');
         }
 
-        if (requestParameters.value === null || requestParameters.value === undefined) {
-            throw new runtime.RequiredError("value", "Required parameter requestParameters.value was null or undefined when calling processesRanOn.");
+        if (requestParameters["value"] == null) {
+            throw new runtime.RequiredError("value", 'Required parameter "value" was null or undefined when calling processesRanOn().');
         }
 
-        if (requestParameters.deviceId === null || requestParameters.deviceId === undefined) {
-            throw new runtime.RequiredError("deviceId", "Required parameter requestParameters.deviceId was null or undefined when calling processesRanOn.");
+        if (requestParameters["deviceId"] == null) {
+            throw new runtime.RequiredError("deviceId", 'Required parameter "deviceId" was null or undefined when calling processesRanOn().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.type !== undefined) {
-            queryParameters["type"] = requestParameters.type;
+        if (requestParameters["type"] != null) {
+            queryParameters["type"] = requestParameters["type"];
         }
 
-        if (requestParameters.value !== undefined) {
-            queryParameters["value"] = requestParameters.value;
+        if (requestParameters["value"] != null) {
+            queryParameters["value"] = requestParameters["value"];
         }
 
-        if (requestParameters.deviceId !== undefined) {
-            queryParameters["device_id"] = requestParameters.deviceId;
+        if (requestParameters["deviceId"] != null) {
+            queryParameters["device_id"] = requestParameters["deviceId"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["iocs:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -260,7 +263,7 @@ export class IocsApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ApiMsaReplyProcessesRanOnFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => IocapiMsaReplyProcessesRanOnFromJSON(jsonValue));
     }
 
     /**
@@ -273,7 +276,7 @@ export class IocsApi extends runtime.BaseAPI {
         limit?: string,
         offset?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<ApiMsaReplyProcessesRanOn> {
+    ): Promise<IocapiMsaReplyProcessesRanOn> {
         const response = await this.processesRanOnRaw({ type: type, value: value, deviceId: deviceId, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }

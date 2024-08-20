@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -13,7 +13,7 @@
  */
 
 import * as runtime from "../runtime";
-import type { MsaAggregateQueryRequest, MsaAggregatesResponse, MsaFacetsResponse, MsaReplyMetaOnly } from "../models";
+import type { MsaAggregateQueryRequest, MsaAggregatesResponse, MsaFacetsResponse, MsaReplyMetaOnly } from "../models/index";
 import {
     MsaAggregateQueryRequestFromJSON,
     MsaAggregateQueryRequestToJSON,
@@ -23,25 +23,25 @@ import {
     MsaFacetsResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-} from "../models";
+} from "../models/index";
 
-export interface AggregatesDetectionsGlobalCountsRequest {
+export interface OverwatchDashboardApiAggregatesDetectionsGlobalCountsRequest {
     filter: string;
 }
 
-export interface AggregatesEventsRequest {
+export interface OverwatchDashboardApiAggregatesEventsRequest {
     body: Array<MsaAggregateQueryRequest>;
 }
 
-export interface AggregatesEventsCollectionsRequest {
+export interface OverwatchDashboardApiAggregatesEventsCollectionsRequest {
     body: Array<MsaAggregateQueryRequest>;
 }
 
-export interface AggregatesIncidentsGlobalCountsRequest {
+export interface OverwatchDashboardApiAggregatesIncidentsGlobalCountsRequest {
     filter: string;
 }
 
-export interface AggregatesOWEventsGlobalCountsRequest {
+export interface OverwatchDashboardApiAggregatesOWEventsGlobalCountsRequest {
     filter: string;
 }
 
@@ -53,24 +53,24 @@ export class OverwatchDashboardApi extends runtime.BaseAPI {
      * Get the total number of detections pushed across all customers
      */
     async aggregatesDetectionsGlobalCountsRaw(
-        requestParameters: AggregatesDetectionsGlobalCountsRequest,
+        requestParameters: OverwatchDashboardApiAggregatesDetectionsGlobalCountsRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<MsaFacetsResponse>> {
-        if (requestParameters.filter === null || requestParameters.filter === undefined) {
-            throw new runtime.RequiredError("filter", "Required parameter requestParameters.filter was null or undefined when calling aggregatesDetectionsGlobalCounts.");
+        if (requestParameters["filter"] == null) {
+            throw new runtime.RequiredError("filter", 'Required parameter "filter" was null or undefined when calling aggregatesDetectionsGlobalCounts().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["overwatch-dashboard:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -97,9 +97,12 @@ export class OverwatchDashboardApi extends runtime.BaseAPI {
     /**
      * Get aggregate OverWatch detection event info by providing an aggregate query
      */
-    async aggregatesEventsRaw(requestParameters: AggregatesEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling aggregatesEvents.");
+    async aggregatesEventsRaw(
+        requestParameters: OverwatchDashboardApiAggregatesEventsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregatesEvents().');
         }
 
         const queryParameters: any = {};
@@ -110,7 +113,7 @@ export class OverwatchDashboardApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["overwatch-dashboard:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -119,7 +122,7 @@ export class OverwatchDashboardApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: requestParameters.body.map(MsaAggregateQueryRequestToJSON),
+                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
             initOverrides
         );
@@ -139,11 +142,11 @@ export class OverwatchDashboardApi extends runtime.BaseAPI {
      * Get OverWatch detection event collection info by providing an aggregate query
      */
     async aggregatesEventsCollectionsRaw(
-        requestParameters: AggregatesEventsCollectionsRequest,
+        requestParameters: OverwatchDashboardApiAggregatesEventsCollectionsRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling aggregatesEventsCollections.");
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregatesEventsCollections().');
         }
 
         const queryParameters: any = {};
@@ -154,7 +157,7 @@ export class OverwatchDashboardApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["overwatch-dashboard:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -163,7 +166,7 @@ export class OverwatchDashboardApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: requestParameters.body.map(MsaAggregateQueryRequestToJSON),
+                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
             initOverrides
         );
@@ -183,24 +186,24 @@ export class OverwatchDashboardApi extends runtime.BaseAPI {
      * Get the total number of incidents pushed across all customers
      */
     async aggregatesIncidentsGlobalCountsRaw(
-        requestParameters: AggregatesIncidentsGlobalCountsRequest,
+        requestParameters: OverwatchDashboardApiAggregatesIncidentsGlobalCountsRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<MsaFacetsResponse>> {
-        if (requestParameters.filter === null || requestParameters.filter === undefined) {
-            throw new runtime.RequiredError("filter", "Required parameter requestParameters.filter was null or undefined when calling aggregatesIncidentsGlobalCounts.");
+        if (requestParameters["filter"] == null) {
+            throw new runtime.RequiredError("filter", 'Required parameter "filter" was null or undefined when calling aggregatesIncidentsGlobalCounts().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["overwatch-dashboard:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -228,24 +231,24 @@ export class OverwatchDashboardApi extends runtime.BaseAPI {
      * Get the total number of OverWatch events across all customers
      */
     async aggregatesOWEventsGlobalCountsRaw(
-        requestParameters: AggregatesOWEventsGlobalCountsRequest,
+        requestParameters: OverwatchDashboardApiAggregatesOWEventsGlobalCountsRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<MsaFacetsResponse>> {
-        if (requestParameters.filter === null || requestParameters.filter === undefined) {
-            throw new runtime.RequiredError("filter", "Required parameter requestParameters.filter was null or undefined when calling aggregatesOWEventsGlobalCounts.");
+        if (requestParameters["filter"] == null) {
+            throw new runtime.RequiredError("filter", 'Required parameter "filter" was null or undefined when calling aggregatesOWEventsGlobalCounts().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["overwatch-dashboard:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(

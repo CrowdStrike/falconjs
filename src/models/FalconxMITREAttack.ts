@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,10 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
+import type { FalconxMITREAttackParent } from "./FalconxMITREAttackParent";
+import { FalconxMITREAttackParentFromJSON, FalconxMITREAttackParentFromJSONTyped, FalconxMITREAttackParentToJSON } from "./FalconxMITREAttackParent";
+
 /**
  *
  * @export
@@ -27,6 +30,12 @@ export interface FalconxMITREAttack {
     attackId?: string;
     /**
      *
+     * @type {string}
+     * @memberof FalconxMITREAttack
+     */
+    attackIdWiki?: string;
+    /**
+     *
      * @type {Array<string>}
      * @memberof FalconxMITREAttack
      */
@@ -37,6 +46,12 @@ export interface FalconxMITREAttack {
      * @memberof FalconxMITREAttack
      */
     maliciousIdentifiers?: Array<string>;
+    /**
+     *
+     * @type {FalconxMITREAttackParent}
+     * @memberof FalconxMITREAttack
+     */
+    parent?: FalconxMITREAttackParent;
     /**
      *
      * @type {Array<string>}
@@ -60,10 +75,8 @@ export interface FalconxMITREAttack {
 /**
  * Check if a given object implements the FalconxMITREAttack interface.
  */
-export function instanceOfFalconxMITREAttack(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfFalconxMITREAttack(value: object): value is FalconxMITREAttack {
+    return true;
 }
 
 export function FalconxMITREAttackFromJSON(json: any): FalconxMITREAttack {
@@ -71,32 +84,33 @@ export function FalconxMITREAttackFromJSON(json: any): FalconxMITREAttack {
 }
 
 export function FalconxMITREAttackFromJSONTyped(json: any, ignoreDiscriminator: boolean): FalconxMITREAttack {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
-        attackId: !exists(json, "attack_id") ? undefined : json["attack_id"],
-        informativeIdentifiers: !exists(json, "informative_identifiers") ? undefined : json["informative_identifiers"],
-        maliciousIdentifiers: !exists(json, "malicious_identifiers") ? undefined : json["malicious_identifiers"],
-        suspiciousIdentifiers: !exists(json, "suspicious_identifiers") ? undefined : json["suspicious_identifiers"],
-        tactic: !exists(json, "tactic") ? undefined : json["tactic"],
-        technique: !exists(json, "technique") ? undefined : json["technique"],
+        attackId: json["attack_id"] == null ? undefined : json["attack_id"],
+        attackIdWiki: json["attack_id_wiki"] == null ? undefined : json["attack_id_wiki"],
+        informativeIdentifiers: json["informative_identifiers"] == null ? undefined : json["informative_identifiers"],
+        maliciousIdentifiers: json["malicious_identifiers"] == null ? undefined : json["malicious_identifiers"],
+        parent: json["parent"] == null ? undefined : FalconxMITREAttackParentFromJSON(json["parent"]),
+        suspiciousIdentifiers: json["suspicious_identifiers"] == null ? undefined : json["suspicious_identifiers"],
+        tactic: json["tactic"] == null ? undefined : json["tactic"],
+        technique: json["technique"] == null ? undefined : json["technique"],
     };
 }
 
 export function FalconxMITREAttackToJSON(value?: FalconxMITREAttack | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        attack_id: value.attackId,
-        informative_identifiers: value.informativeIdentifiers,
-        malicious_identifiers: value.maliciousIdentifiers,
-        suspicious_identifiers: value.suspiciousIdentifiers,
-        tactic: value.tactic,
-        technique: value.technique,
+        attack_id: value["attackId"],
+        attack_id_wiki: value["attackIdWiki"],
+        informative_identifiers: value["informativeIdentifiers"],
+        malicious_identifiers: value["maliciousIdentifiers"],
+        parent: FalconxMITREAttackParentToJSON(value["parent"]),
+        suspicious_identifiers: value["suspiciousIdentifiers"],
+        tactic: value["tactic"],
+        technique: value["technique"],
     };
 }

@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 /**
  *
  * @export
@@ -78,19 +78,17 @@ export interface ApiTokenDetailsResourceV1 {
 /**
  * Check if a given object implements the ApiTokenDetailsResourceV1 interface.
  */
-export function instanceOfApiTokenDetailsResourceV1(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "createdTimestamp" in value;
-    isInstance = isInstance && "expiresTimestamp" in value;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "label" in value;
-    isInstance = isInstance && "lastUsedTimestamp" in value;
-    isInstance = isInstance && "revokedTimestamp" in value;
-    isInstance = isInstance && "status" in value;
-    isInstance = isInstance && "type" in value;
-    isInstance = isInstance && "value" in value;
-
-    return isInstance;
+export function instanceOfApiTokenDetailsResourceV1(value: object): value is ApiTokenDetailsResourceV1 {
+    if (!("createdTimestamp" in value) || value["createdTimestamp"] === undefined) return false;
+    if (!("expiresTimestamp" in value) || value["expiresTimestamp"] === undefined) return false;
+    if (!("id" in value) || value["id"] === undefined) return false;
+    if (!("label" in value) || value["label"] === undefined) return false;
+    if (!("lastUsedTimestamp" in value) || value["lastUsedTimestamp"] === undefined) return false;
+    if (!("revokedTimestamp" in value) || value["revokedTimestamp"] === undefined) return false;
+    if (!("status" in value) || value["status"] === undefined) return false;
+    if (!("type" in value) || value["type"] === undefined) return false;
+    if (!("value" in value) || value["value"] === undefined) return false;
+    return true;
 }
 
 export function ApiTokenDetailsResourceV1FromJSON(json: any): ApiTokenDetailsResourceV1 {
@@ -98,7 +96,7 @@ export function ApiTokenDetailsResourceV1FromJSON(json: any): ApiTokenDetailsRes
 }
 
 export function ApiTokenDetailsResourceV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): ApiTokenDetailsResourceV1 {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
@@ -115,21 +113,18 @@ export function ApiTokenDetailsResourceV1FromJSONTyped(json: any, ignoreDiscrimi
 }
 
 export function ApiTokenDetailsResourceV1ToJSON(value?: ApiTokenDetailsResourceV1 | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        created_timestamp: value.createdTimestamp.toISOString(),
-        expires_timestamp: value.expiresTimestamp.toISOString(),
-        id: value.id,
-        label: value.label,
-        last_used_timestamp: value.lastUsedTimestamp.toISOString(),
-        revoked_timestamp: value.revokedTimestamp.toISOString(),
-        status: value.status,
-        type: value.type,
-        value: value.value,
+        created_timestamp: value["createdTimestamp"].toISOString(),
+        expires_timestamp: value["expiresTimestamp"].toISOString(),
+        id: value["id"],
+        label: value["label"],
+        last_used_timestamp: value["lastUsedTimestamp"].toISOString(),
+        revoked_timestamp: value["revokedTimestamp"].toISOString(),
+        status: value["status"],
+        type: value["type"],
+        value: value["value"],
     };
 }

@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 /**
  *
  * @export
@@ -54,13 +54,11 @@ export interface ClientExtractionFileResultV1 {
 /**
  * Check if a given object implements the ClientExtractionFileResultV1 interface.
  */
-export function instanceOfClientExtractionFileResultV1(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "extractTimestamp" in value;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "status" in value;
-
-    return isInstance;
+export function instanceOfClientExtractionFileResultV1(value: object): value is ClientExtractionFileResultV1 {
+    if (!("extractTimestamp" in value) || value["extractTimestamp"] === undefined) return false;
+    if (!("name" in value) || value["name"] === undefined) return false;
+    if (!("status" in value) || value["status"] === undefined) return false;
+    return true;
 }
 
 export function ClientExtractionFileResultV1FromJSON(json: any): ClientExtractionFileResultV1 {
@@ -68,30 +66,27 @@ export function ClientExtractionFileResultV1FromJSON(json: any): ClientExtractio
 }
 
 export function ClientExtractionFileResultV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): ClientExtractionFileResultV1 {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
-        error: !exists(json, "error") ? undefined : json["error"],
+        error: json["error"] == null ? undefined : json["error"],
         extractTimestamp: json["extract_timestamp"],
         name: json["name"],
-        sha256: !exists(json, "sha256") ? undefined : json["sha256"],
+        sha256: json["sha256"] == null ? undefined : json["sha256"],
         status: json["status"],
     };
 }
 
 export function ClientExtractionFileResultV1ToJSON(value?: ClientExtractionFileResultV1 | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        error: value.error,
-        extract_timestamp: value.extractTimestamp,
-        name: value.name,
-        sha256: value.sha256,
-        status: value.status,
+        error: value["error"],
+        extract_timestamp: value["extractTimestamp"],
+        name: value["name"],
+        sha256: value["sha256"],
+        status: value["status"],
     };
 }

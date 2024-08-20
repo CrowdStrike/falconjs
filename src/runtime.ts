@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -21,7 +21,7 @@ export interface ConfigurationParameters {
     queryParamsStringify?: (params: HTTPQuery) => string; // stringify function for query strings
     username?: string; // parameter for basic security
     password?: string; // parameter for basic security
-    apiKey?: string | ((name: string) => string); // parameter for apiKey security
+    apiKey?: string | Promise<string> | ((name: string) => string | Promise<string>); // parameter for apiKey security
     accessToken?: string | Promise<string> | ((name?: string, scopes?: string[]) => string | Promise<string>); // parameter for oauth2 security
     headers?: HTTPHeaders; //header params we want to use on every request
     credentials?: RequestCredentials; //value for the credentials param we want to use on each request
@@ -58,7 +58,7 @@ export class Configuration {
         return this.configuration.password;
     }
 
-    get apiKey(): ((name: string) => string) | undefined {
+    get apiKey(): ((name: string) => string | Promise<string>) | undefined {
         const apiKey = this.configuration.apiKey;
         if (apiKey) {
             return typeof apiKey === "function" ? apiKey : () => apiKey;
@@ -167,9 +167,18 @@ export class BaseAPI {
             })),
         };
 
+        let body: any;
+        if (isFormData(overriddenInit.body) || overriddenInit.body instanceof URLSearchParams || isBlob(overriddenInit.body)) {
+            body = overriddenInit.body;
+        } else if (this.isJsonMime(headers["Content-Type"])) {
+            body = JSON.stringify(overriddenInit.body);
+        } else {
+            body = overriddenInit.body;
+        }
+
         const init: RequestInit = {
             ...overriddenInit,
-            body: isFormData(overriddenInit.body) || overriddenInit.body instanceof URLSearchParams || isBlob(overriddenInit.body) ? overriddenInit.body : JSON.stringify(overriddenInit.body),
+            body,
         };
 
         return { url, init };
@@ -295,11 +304,6 @@ export interface RequestOpts {
     headers: HTTPHeaders;
     query?: HTTPQuery;
     body?: HTTPBody;
-}
-
-export function exists(json: any, key: string) {
-    const value = json[key];
-    return value !== null && value !== undefined;
 }
 
 export function querystring(params: HTTPQuery, prefix: string = ""): string {

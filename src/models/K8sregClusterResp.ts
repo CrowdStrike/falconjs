@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 import type { K8sregVersionResp } from "./K8sregVersionResp";
 import { K8sregVersionRespFromJSON, K8sregVersionRespFromJSONTyped, K8sregVersionRespToJSON } from "./K8sregVersionResp";
 
@@ -105,23 +105,21 @@ export interface K8sregClusterResp {
 /**
  * Check if a given object implements the K8sregClusterResp interface.
  */
-export function instanceOfK8sregClusterResp(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "accountId" in value;
-    isInstance = isInstance && "agentVersion" in value;
-    isInstance = isInstance && "cid" in value;
-    isInstance = isInstance && "clusterId" in value;
-    isInstance = isInstance && "clusterName" in value;
-    isInstance = isInstance && "clusterService" in value;
-    isInstance = isInstance && "createdAt" in value;
-    isInstance = isInstance && "helmVersion" in value;
-    isInstance = isInstance && "k8sVersion" in value;
-    isInstance = isInstance && "lastHeartbeatAt" in value;
-    isInstance = isInstance && "location" in value;
-    isInstance = isInstance && "status" in value;
-    isInstance = isInstance && "updatedAt" in value;
-
-    return isInstance;
+export function instanceOfK8sregClusterResp(value: object): value is K8sregClusterResp {
+    if (!("accountId" in value) || value["accountId"] === undefined) return false;
+    if (!("agentVersion" in value) || value["agentVersion"] === undefined) return false;
+    if (!("cid" in value) || value["cid"] === undefined) return false;
+    if (!("clusterId" in value) || value["clusterId"] === undefined) return false;
+    if (!("clusterName" in value) || value["clusterName"] === undefined) return false;
+    if (!("clusterService" in value) || value["clusterService"] === undefined) return false;
+    if (!("createdAt" in value) || value["createdAt"] === undefined) return false;
+    if (!("helmVersion" in value) || value["helmVersion"] === undefined) return false;
+    if (!("k8sVersion" in value) || value["k8sVersion"] === undefined) return false;
+    if (!("lastHeartbeatAt" in value) || value["lastHeartbeatAt"] === undefined) return false;
+    if (!("location" in value) || value["location"] === undefined) return false;
+    if (!("status" in value) || value["status"] === undefined) return false;
+    if (!("updatedAt" in value) || value["updatedAt"] === undefined) return false;
+    return true;
 }
 
 export function K8sregClusterRespFromJSON(json: any): K8sregClusterResp {
@@ -129,7 +127,7 @@ export function K8sregClusterRespFromJSON(json: any): K8sregClusterResp {
 }
 
 export function K8sregClusterRespFromJSONTyped(json: any, ignoreDiscriminator: boolean): K8sregClusterResp {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
@@ -150,25 +148,22 @@ export function K8sregClusterRespFromJSONTyped(json: any, ignoreDiscriminator: b
 }
 
 export function K8sregClusterRespToJSON(value?: K8sregClusterResp | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        account_id: value.accountId,
-        agent_version: K8sregVersionRespToJSON(value.agentVersion),
-        cid: value.cid,
-        cluster_id: value.clusterId,
-        cluster_name: value.clusterName,
-        cluster_service: value.clusterService,
-        created_at: value.createdAt.toISOString(),
-        helm_version: K8sregVersionRespToJSON(value.helmVersion),
-        k8s_version: K8sregVersionRespToJSON(value.k8sVersion),
-        last_heartbeat_at: value.lastHeartbeatAt.toISOString(),
-        location: value.location,
-        status: value.status,
-        updated_at: value.updatedAt.toISOString(),
+        account_id: value["accountId"],
+        agent_version: K8sregVersionRespToJSON(value["agentVersion"]),
+        cid: value["cid"],
+        cluster_id: value["clusterId"],
+        cluster_name: value["clusterName"],
+        cluster_service: value["clusterService"],
+        created_at: value["createdAt"].toISOString(),
+        helm_version: K8sregVersionRespToJSON(value["helmVersion"]),
+        k8s_version: K8sregVersionRespToJSON(value["k8sVersion"]),
+        last_heartbeat_at: value["lastHeartbeatAt"].toISOString(),
+        location: value["location"],
+        status: value["status"],
+        updated_at: value["updatedAt"].toISOString(),
     };
 }

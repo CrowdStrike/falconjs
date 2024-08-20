@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,10 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
+import type { DomainMappedDevicePolicies } from "./DomainMappedDevicePolicies";
+import { DomainMappedDevicePoliciesFromJSON, DomainMappedDevicePoliciesFromJSONTyped, DomainMappedDevicePoliciesToJSON } from "./DomainMappedDevicePolicies";
+
 /**
  *
  * @export
@@ -24,7 +27,7 @@ export interface DomainDevice {
      * @type {number}
      * @memberof DomainDevice
      */
-    platformIDNumeric: number;
+    u: number;
     /**
      *
      * @type {string}
@@ -55,6 +58,12 @@ export interface DomainDevice {
      * @memberof DomainDevice
      */
     deviceId: string;
+    /**
+     *
+     * @type {DomainMappedDevicePolicies}
+     * @memberof DomainDevice
+     */
+    devicePolicies?: DomainMappedDevicePolicies;
     /**
      *
      * @type {string}
@@ -228,12 +237,10 @@ export interface DomainDevice {
 /**
  * Check if a given object implements the DomainDevice interface.
  */
-export function instanceOfDomainDevice(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "platformIDNumeric" in value;
-    isInstance = isInstance && "deviceId" in value;
-
-    return isInstance;
+export function instanceOfDomainDevice(value: object): value is DomainDevice {
+    if (!("u" in value) || value["u"] === undefined) return false;
+    if (!("deviceId" in value) || value["deviceId"] === undefined) return false;
+    return true;
 }
 
 export function DomainDeviceFromJSON(json: any): DomainDevice {
@@ -241,88 +248,87 @@ export function DomainDeviceFromJSON(json: any): DomainDevice {
 }
 
 export function DomainDeviceFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainDevice {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
-        platformIDNumeric: json["PlatformIDNumeric"],
-        agentVersion: !exists(json, "agent_version") ? undefined : json["agent_version"],
-        configIdBase: !exists(json, "config_id_base") ? undefined : json["config_id_base"],
-        configIdBuild: !exists(json, "config_id_build") ? undefined : json["config_id_build"],
-        configIdPlatform: !exists(json, "config_id_platform") ? undefined : json["config_id_platform"],
+        u: json["_"],
+        agentVersion: json["agent_version"] == null ? undefined : json["agent_version"],
+        configIdBase: json["config_id_base"] == null ? undefined : json["config_id_base"],
+        configIdBuild: json["config_id_build"] == null ? undefined : json["config_id_build"],
+        configIdPlatform: json["config_id_platform"] == null ? undefined : json["config_id_platform"],
         deviceId: json["device_id"],
-        externalIp: !exists(json, "external_ip") ? undefined : json["external_ip"],
-        firstLoginTimestamp: !exists(json, "first_login_timestamp") ? undefined : json["first_login_timestamp"],
-        firstLoginUser: !exists(json, "first_login_user") ? undefined : json["first_login_user"],
-        firstSeen: !exists(json, "first_seen") ? undefined : json["first_seen"],
-        hostname: !exists(json, "hostname") ? undefined : json["hostname"],
-        lastLoginTimestamp: !exists(json, "last_login_timestamp") ? undefined : json["last_login_timestamp"],
-        lastLoginUser: !exists(json, "last_login_user") ? undefined : json["last_login_user"],
-        lastSeen: !exists(json, "last_seen") ? undefined : json["last_seen"],
-        lastSeenAgoSeconds: !exists(json, "last_seen_ago_seconds") ? undefined : json["last_seen_ago_seconds"],
-        localIp: !exists(json, "local_ip") ? undefined : json["local_ip"],
-        macAddress: !exists(json, "mac_address") ? undefined : json["mac_address"],
-        machineDomain: !exists(json, "machine_domain") ? undefined : json["machine_domain"],
-        majorVersion: !exists(json, "major_version") ? undefined : json["major_version"],
-        minorVersion: !exists(json, "minor_version") ? undefined : json["minor_version"],
-        modifiedTimestamp: !exists(json, "modified_timestamp") ? undefined : json["modified_timestamp"],
-        notes: !exists(json, "notes") ? undefined : json["notes"],
-        osVersion: !exists(json, "os_version") ? undefined : json["os_version"],
-        ou: !exists(json, "ou") ? undefined : json["ou"],
-        platformId: !exists(json, "platform_id") ? undefined : json["platform_id"],
-        platformName: !exists(json, "platform_name") ? undefined : json["platform_name"],
-        productType: !exists(json, "product_type") ? undefined : json["product_type"],
-        productTypeDesc: !exists(json, "product_type_desc") ? undefined : json["product_type_desc"],
-        releaseGroup: !exists(json, "release_group") ? undefined : json["release_group"],
-        siteName: !exists(json, "site_name") ? undefined : json["site_name"],
-        status: !exists(json, "status") ? undefined : json["status"],
-        systemManufacturer: !exists(json, "system_manufacturer") ? undefined : json["system_manufacturer"],
-        systemProductName: !exists(json, "system_product_name") ? undefined : json["system_product_name"],
-        tags: !exists(json, "tags") ? undefined : json["tags"],
+        devicePolicies: json["device_policies"] == null ? undefined : DomainMappedDevicePoliciesFromJSON(json["device_policies"]),
+        externalIp: json["external_ip"] == null ? undefined : json["external_ip"],
+        firstLoginTimestamp: json["first_login_timestamp"] == null ? undefined : json["first_login_timestamp"],
+        firstLoginUser: json["first_login_user"] == null ? undefined : json["first_login_user"],
+        firstSeen: json["first_seen"] == null ? undefined : json["first_seen"],
+        hostname: json["hostname"] == null ? undefined : json["hostname"],
+        lastLoginTimestamp: json["last_login_timestamp"] == null ? undefined : json["last_login_timestamp"],
+        lastLoginUser: json["last_login_user"] == null ? undefined : json["last_login_user"],
+        lastSeen: json["last_seen"] == null ? undefined : json["last_seen"],
+        lastSeenAgoSeconds: json["last_seen_ago_seconds"] == null ? undefined : json["last_seen_ago_seconds"],
+        localIp: json["local_ip"] == null ? undefined : json["local_ip"],
+        macAddress: json["mac_address"] == null ? undefined : json["mac_address"],
+        machineDomain: json["machine_domain"] == null ? undefined : json["machine_domain"],
+        majorVersion: json["major_version"] == null ? undefined : json["major_version"],
+        minorVersion: json["minor_version"] == null ? undefined : json["minor_version"],
+        modifiedTimestamp: json["modified_timestamp"] == null ? undefined : json["modified_timestamp"],
+        notes: json["notes"] == null ? undefined : json["notes"],
+        osVersion: json["os_version"] == null ? undefined : json["os_version"],
+        ou: json["ou"] == null ? undefined : json["ou"],
+        platformId: json["platform_id"] == null ? undefined : json["platform_id"],
+        platformName: json["platform_name"] == null ? undefined : json["platform_name"],
+        productType: json["product_type"] == null ? undefined : json["product_type"],
+        productTypeDesc: json["product_type_desc"] == null ? undefined : json["product_type_desc"],
+        releaseGroup: json["release_group"] == null ? undefined : json["release_group"],
+        siteName: json["site_name"] == null ? undefined : json["site_name"],
+        status: json["status"] == null ? undefined : json["status"],
+        systemManufacturer: json["system_manufacturer"] == null ? undefined : json["system_manufacturer"],
+        systemProductName: json["system_product_name"] == null ? undefined : json["system_product_name"],
+        tags: json["tags"] == null ? undefined : json["tags"],
     };
 }
 
 export function DomainDeviceToJSON(value?: DomainDevice | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        PlatformIDNumeric: value.platformIDNumeric,
-        agent_version: value.agentVersion,
-        config_id_base: value.configIdBase,
-        config_id_build: value.configIdBuild,
-        config_id_platform: value.configIdPlatform,
-        device_id: value.deviceId,
-        external_ip: value.externalIp,
-        first_login_timestamp: value.firstLoginTimestamp,
-        first_login_user: value.firstLoginUser,
-        first_seen: value.firstSeen,
-        hostname: value.hostname,
-        last_login_timestamp: value.lastLoginTimestamp,
-        last_login_user: value.lastLoginUser,
-        last_seen: value.lastSeen,
-        last_seen_ago_seconds: value.lastSeenAgoSeconds,
-        local_ip: value.localIp,
-        mac_address: value.macAddress,
-        machine_domain: value.machineDomain,
-        major_version: value.majorVersion,
-        minor_version: value.minorVersion,
-        modified_timestamp: value.modifiedTimestamp,
-        notes: value.notes,
-        os_version: value.osVersion,
-        ou: value.ou,
-        platform_id: value.platformId,
-        platform_name: value.platformName,
-        product_type: value.productType,
-        product_type_desc: value.productTypeDesc,
-        release_group: value.releaseGroup,
-        site_name: value.siteName,
-        status: value.status,
-        system_manufacturer: value.systemManufacturer,
-        system_product_name: value.systemProductName,
-        tags: value.tags,
+        _: value["u"],
+        agent_version: value["agentVersion"],
+        config_id_base: value["configIdBase"],
+        config_id_build: value["configIdBuild"],
+        config_id_platform: value["configIdPlatform"],
+        device_id: value["deviceId"],
+        device_policies: DomainMappedDevicePoliciesToJSON(value["devicePolicies"]),
+        external_ip: value["externalIp"],
+        first_login_timestamp: value["firstLoginTimestamp"],
+        first_login_user: value["firstLoginUser"],
+        first_seen: value["firstSeen"],
+        hostname: value["hostname"],
+        last_login_timestamp: value["lastLoginTimestamp"],
+        last_login_user: value["lastLoginUser"],
+        last_seen: value["lastSeen"],
+        last_seen_ago_seconds: value["lastSeenAgoSeconds"],
+        local_ip: value["localIp"],
+        mac_address: value["macAddress"],
+        machine_domain: value["machineDomain"],
+        major_version: value["majorVersion"],
+        minor_version: value["minorVersion"],
+        modified_timestamp: value["modifiedTimestamp"],
+        notes: value["notes"],
+        os_version: value["osVersion"],
+        ou: value["ou"],
+        platform_id: value["platformId"],
+        platform_name: value["platformName"],
+        product_type: value["productType"],
+        product_type_desc: value["productTypeDesc"],
+        release_group: value["releaseGroup"],
+        site_name: value["siteName"],
+        status: value["status"],
+        system_manufacturer: value["systemManufacturer"],
+        system_product_name: value["systemProductName"],
+        tags: value["tags"],
     };
 }

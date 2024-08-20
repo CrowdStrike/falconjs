@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 /**
  *
  * @export
@@ -72,18 +72,16 @@ export interface ModelSessionLog {
 /**
  * Check if a given object implements the ModelSessionLog interface.
  */
-export function instanceOfModelSessionLog(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "baseCommand" in value;
-    isInstance = isInstance && "cloudRequestId" in value;
-    isInstance = isInstance && "commandString" in value;
-    isInstance = isInstance && "createdAt" in value;
-    isInstance = isInstance && "currentDirectory" in value;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "sessionId" in value;
-    isInstance = isInstance && "updatedAt" in value;
-
-    return isInstance;
+export function instanceOfModelSessionLog(value: object): value is ModelSessionLog {
+    if (!("baseCommand" in value) || value["baseCommand"] === undefined) return false;
+    if (!("cloudRequestId" in value) || value["cloudRequestId"] === undefined) return false;
+    if (!("commandString" in value) || value["commandString"] === undefined) return false;
+    if (!("createdAt" in value) || value["createdAt"] === undefined) return false;
+    if (!("currentDirectory" in value) || value["currentDirectory"] === undefined) return false;
+    if (!("id" in value) || value["id"] === undefined) return false;
+    if (!("sessionId" in value) || value["sessionId"] === undefined) return false;
+    if (!("updatedAt" in value) || value["updatedAt"] === undefined) return false;
+    return true;
 }
 
 export function ModelSessionLogFromJSON(json: any): ModelSessionLog {
@@ -91,7 +89,7 @@ export function ModelSessionLogFromJSON(json: any): ModelSessionLog {
 }
 
 export function ModelSessionLogFromJSONTyped(json: any, ignoreDiscriminator: boolean): ModelSessionLog {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
@@ -107,20 +105,17 @@ export function ModelSessionLogFromJSONTyped(json: any, ignoreDiscriminator: boo
 }
 
 export function ModelSessionLogToJSON(value?: ModelSessionLog | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        base_command: value.baseCommand,
-        cloud_request_id: value.cloudRequestId,
-        command_string: value.commandString,
-        created_at: value.createdAt.toISOString(),
-        current_directory: value.currentDirectory,
-        id: value.id,
-        session_id: value.sessionId,
-        updated_at: value.updatedAt.toISOString(),
+        base_command: value["baseCommand"],
+        cloud_request_id: value["cloudRequestId"],
+        command_string: value["commandString"],
+        created_at: value["createdAt"].toISOString(),
+        current_directory: value["currentDirectory"],
+        id: value["id"],
+        session_id: value["sessionId"],
+        updated_at: value["updatedAt"].toISOString(),
     };
 }

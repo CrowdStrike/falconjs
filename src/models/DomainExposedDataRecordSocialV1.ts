@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 /**
  *
  * @export
@@ -67,23 +67,28 @@ export interface DomainExposedDataRecordSocialV1 {
      * @memberof DomainExposedDataRecordSocialV1
      */
     vkId: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainExposedDataRecordSocialV1
+     */
+    vkToken: string;
 }
 
 /**
  * Check if a given object implements the DomainExposedDataRecordSocialV1 interface.
  */
-export function instanceOfDomainExposedDataRecordSocialV1(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "aimId" in value;
-    isInstance = isInstance && "facebookId" in value;
-    isInstance = isInstance && "icqId" in value;
-    isInstance = isInstance && "instagramId" in value;
-    isInstance = isInstance && "msnId" in value;
-    isInstance = isInstance && "skypeId" in value;
-    isInstance = isInstance && "twitterId" in value;
-    isInstance = isInstance && "vkId" in value;
-
-    return isInstance;
+export function instanceOfDomainExposedDataRecordSocialV1(value: object): value is DomainExposedDataRecordSocialV1 {
+    if (!("aimId" in value) || value["aimId"] === undefined) return false;
+    if (!("facebookId" in value) || value["facebookId"] === undefined) return false;
+    if (!("icqId" in value) || value["icqId"] === undefined) return false;
+    if (!("instagramId" in value) || value["instagramId"] === undefined) return false;
+    if (!("msnId" in value) || value["msnId"] === undefined) return false;
+    if (!("skypeId" in value) || value["skypeId"] === undefined) return false;
+    if (!("twitterId" in value) || value["twitterId"] === undefined) return false;
+    if (!("vkId" in value) || value["vkId"] === undefined) return false;
+    if (!("vkToken" in value) || value["vkToken"] === undefined) return false;
+    return true;
 }
 
 export function DomainExposedDataRecordSocialV1FromJSON(json: any): DomainExposedDataRecordSocialV1 {
@@ -91,7 +96,7 @@ export function DomainExposedDataRecordSocialV1FromJSON(json: any): DomainExpose
 }
 
 export function DomainExposedDataRecordSocialV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainExposedDataRecordSocialV1 {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
@@ -103,24 +108,23 @@ export function DomainExposedDataRecordSocialV1FromJSONTyped(json: any, ignoreDi
         skypeId: json["skype_id"],
         twitterId: json["twitter_id"],
         vkId: json["vk_id"],
+        vkToken: json["vk_token"],
     };
 }
 
 export function DomainExposedDataRecordSocialV1ToJSON(value?: DomainExposedDataRecordSocialV1 | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        aim_id: value.aimId,
-        facebook_id: value.facebookId,
-        icq_id: value.icqId,
-        instagram_id: value.instagramId,
-        msn_id: value.msnId,
-        skype_id: value.skypeId,
-        twitter_id: value.twitterId,
-        vk_id: value.vkId,
+        aim_id: value["aimId"],
+        facebook_id: value["facebookId"],
+        icq_id: value["icqId"],
+        instagram_id: value["instagramId"],
+        msn_id: value["msnId"],
+        skype_id: value["skypeId"],
+        twitter_id: value["twitterId"],
+        vk_id: value["vkId"],
+        vk_token: value["vkToken"],
     };
 }

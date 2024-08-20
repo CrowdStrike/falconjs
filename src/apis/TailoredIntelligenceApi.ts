@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -13,7 +13,7 @@
  */
 
 import * as runtime from "../runtime";
-import type { DomainEventEntitiesResponse, DomainQueryResponse, DomainRuleEntitiesResponse, MsaIdsRequest, MsaReplyMetaOnly } from "../models";
+import type { DomainEventEntitiesResponse, DomainQueryResponse, DomainRuleEntitiesResponse, MsaIdsRequest, MsaReplyMetaOnly } from "../models/index";
 import {
     DomainEventEntitiesResponseFromJSON,
     DomainEventEntitiesResponseToJSON,
@@ -25,21 +25,21 @@ import {
     MsaIdsRequestToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-} from "../models";
+} from "../models/index";
 
-export interface GetEventsBodyRequest {
+export interface TailoredIntelligenceApiGetEventsBodyRequest {
     id: string;
 }
 
-export interface GetEventsEntitiesRequest {
+export interface TailoredIntelligenceApiGetEventsEntitiesRequest {
     body: MsaIdsRequest;
 }
 
-export interface GetRulesEntitiesRequest {
+export interface TailoredIntelligenceApiGetRulesEntitiesRequest {
     body: MsaIdsRequest;
 }
 
-export interface QueryEventsRequest {
+export interface TailoredIntelligenceApiQueryEventsRequest {
     offset?: string;
     limit?: number;
     sort?: string;
@@ -47,7 +47,7 @@ export interface QueryEventsRequest {
     q?: string;
 }
 
-export interface QueryRulesRequest {
+export interface TailoredIntelligenceApiQueryRulesRequest {
     offset?: string;
     limit?: number;
     sort?: string;
@@ -62,22 +62,22 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
     /**
      * Get event body for the provided event ID
      */
-    async getEventsBodyRaw(requestParameters: GetEventsBodyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<number>>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError("id", "Required parameter requestParameters.id was null or undefined when calling getEventsBody.");
+    async getEventsBodyRaw(requestParameters: TailoredIntelligenceApiGetEventsBodyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<number>>> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling getEventsBody().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.id !== undefined) {
-            queryParameters["id"] = requestParameters.id;
+        if (requestParameters["id"] != null) {
+            queryParameters["id"] = requestParameters["id"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["tailored-intelligence:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -104,9 +104,12 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
     /**
      * Get events entities for specified ids.
      */
-    async getEventsEntitiesRaw(requestParameters: GetEventsEntitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainEventEntitiesResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling getEventsEntities.");
+    async getEventsEntitiesRaw(
+        requestParameters: TailoredIntelligenceApiGetEventsEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainEventEntitiesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getEventsEntities().');
         }
 
         const queryParameters: any = {};
@@ -117,7 +120,7 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["tailored-intelligence:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -126,7 +129,7 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: MsaIdsRequestToJSON(requestParameters.body),
+                body: MsaIdsRequestToJSON(requestParameters["body"]),
             },
             initOverrides
         );
@@ -145,9 +148,12 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
     /**
      * Get rules entities for specified ids.
      */
-    async getRulesEntitiesRaw(requestParameters: GetRulesEntitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRuleEntitiesResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling getRulesEntities.");
+    async getRulesEntitiesRaw(
+        requestParameters: TailoredIntelligenceApiGetRulesEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainRuleEntitiesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getRulesEntities().');
         }
 
         const queryParameters: any = {};
@@ -158,7 +164,7 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["tailored-intelligence:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -167,7 +173,7 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: MsaIdsRequestToJSON(requestParameters.body),
+                body: MsaIdsRequestToJSON(requestParameters["body"]),
             },
             initOverrides
         );
@@ -186,34 +192,34 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
     /**
      * Get events ids that match the provided filter criteria.
      */
-    async queryEventsRaw(requestParameters: QueryEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainQueryResponse>> {
+    async queryEventsRaw(requestParameters: TailoredIntelligenceApiQueryEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
-        if (requestParameters.q !== undefined) {
-            queryParameters["q"] = requestParameters.q;
+        if (requestParameters["q"] != null) {
+            queryParameters["q"] = requestParameters["q"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["tailored-intelligence:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -240,34 +246,34 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
     /**
      * Get rules ids that match the provided filter criteria.
      */
-    async queryRulesRaw(requestParameters: QueryRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainQueryResponse>> {
+    async queryRulesRaw(requestParameters: TailoredIntelligenceApiQueryRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
-        if (requestParameters.q !== undefined) {
-            queryParameters["q"] = requestParameters.q;
+        if (requestParameters["q"] != null) {
+            queryParameters["q"] = requestParameters["q"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["tailored-intelligence:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(

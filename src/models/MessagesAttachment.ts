@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 /**
  *
  * @export
@@ -60,16 +60,14 @@ export interface MessagesAttachment {
 /**
  * Check if a given object implements the MessagesAttachment interface.
  */
-export function instanceOfMessagesAttachment(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "createdBy" in value;
-    isInstance = isInstance && "createdTime" in value;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "mimeType" in value;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "size" in value;
-
-    return isInstance;
+export function instanceOfMessagesAttachment(value: object): value is MessagesAttachment {
+    if (!("createdBy" in value) || value["createdBy"] === undefined) return false;
+    if (!("createdTime" in value) || value["createdTime"] === undefined) return false;
+    if (!("id" in value) || value["id"] === undefined) return false;
+    if (!("mimeType" in value) || value["mimeType"] === undefined) return false;
+    if (!("name" in value) || value["name"] === undefined) return false;
+    if (!("size" in value) || value["size"] === undefined) return false;
+    return true;
 }
 
 export function MessagesAttachmentFromJSON(json: any): MessagesAttachment {
@@ -77,7 +75,7 @@ export function MessagesAttachmentFromJSON(json: any): MessagesAttachment {
 }
 
 export function MessagesAttachmentFromJSONTyped(json: any, ignoreDiscriminator: boolean): MessagesAttachment {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
@@ -91,18 +89,15 @@ export function MessagesAttachmentFromJSONTyped(json: any, ignoreDiscriminator: 
 }
 
 export function MessagesAttachmentToJSON(value?: MessagesAttachment | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        created_by: value.createdBy,
-        created_time: value.createdTime,
-        id: value.id,
-        mime_type: value.mimeType,
-        name: value.name,
-        size: value.size,
+        created_by: value["createdBy"],
+        created_time: value["createdTime"],
+        id: value["id"],
+        mime_type: value["mimeType"],
+        name: value["name"],
+        size: value["size"],
     };
 }

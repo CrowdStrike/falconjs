@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 import type { DomainScanProfileMetadata } from "./DomainScanProfileMetadata";
 import { DomainScanProfileMetadataFromJSON, DomainScanProfileMetadataFromJSONTyped, DomainScanProfileMetadataToJSON } from "./DomainScanProfileMetadata";
 import type { DomainSchedule } from "./DomainSchedule";
@@ -192,17 +192,21 @@ export interface DomainScanProfile {
      * @memberof DomainScanProfile
      */
     status?: string;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainScanProfile
+     */
+    targetedHostCount?: number;
 }
 
 /**
  * Check if a given object implements the DomainScanProfile interface.
  */
-export function instanceOfDomainScanProfile(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "deleted" in value;
-    isInstance = isInstance && "id" in value;
-
-    return isInstance;
+export function instanceOfDomainScanProfile(value: object): value is DomainScanProfile {
+    if (!("deleted" in value) || value["deleted"] === undefined) return false;
+    if (!("id" in value) || value["id"] === undefined) return false;
+    return true;
 }
 
 export function DomainScanProfileFromJSON(json: any): DomainScanProfile {
@@ -210,76 +214,75 @@ export function DomainScanProfileFromJSON(json: any): DomainScanProfile {
 }
 
 export function DomainScanProfileFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainScanProfile {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
-        cid: !exists(json, "cid") ? undefined : json["cid"],
-        cloudMlLevelDetection: !exists(json, "cloud_ml_level_detection") ? undefined : json["cloud_ml_level_detection"],
-        cloudMlLevelPrevention: !exists(json, "cloud_ml_level_prevention") ? undefined : json["cloud_ml_level_prevention"],
-        cpuPriority: !exists(json, "cpu_priority") ? undefined : json["cpu_priority"],
-        createdBy: !exists(json, "created_by") ? undefined : json["created_by"],
-        createdOn: !exists(json, "created_on") ? undefined : new Date(json["created_on"]),
+        cid: json["cid"] == null ? undefined : json["cid"],
+        cloudMlLevelDetection: json["cloud_ml_level_detection"] == null ? undefined : json["cloud_ml_level_detection"],
+        cloudMlLevelPrevention: json["cloud_ml_level_prevention"] == null ? undefined : json["cloud_ml_level_prevention"],
+        cpuPriority: json["cpu_priority"] == null ? undefined : json["cpu_priority"],
+        createdBy: json["created_by"] == null ? undefined : json["created_by"],
+        createdOn: json["created_on"] == null ? undefined : new Date(json["created_on"]),
         deleted: json["deleted"],
-        description: !exists(json, "description") ? undefined : json["description"],
-        endpointNotification: !exists(json, "endpoint_notification") ? undefined : json["endpoint_notification"],
-        filePaths: !exists(json, "file_paths") ? undefined : json["file_paths"],
-        hostGroups: !exists(json, "host_groups") ? undefined : json["host_groups"],
-        hosts: !exists(json, "hosts") ? undefined : json["hosts"],
+        description: json["description"] == null ? undefined : json["description"],
+        endpointNotification: json["endpoint_notification"] == null ? undefined : json["endpoint_notification"],
+        filePaths: json["file_paths"] == null ? undefined : json["file_paths"],
+        hostGroups: json["host_groups"] == null ? undefined : json["host_groups"],
+        hosts: json["hosts"] == null ? undefined : json["hosts"],
         id: json["id"],
-        initiatedFrom: !exists(json, "initiated_from") ? undefined : json["initiated_from"],
-        lastUpdated: !exists(json, "last_updated") ? undefined : new Date(json["last_updated"]),
-        maxDuration: !exists(json, "max_duration") ? undefined : json["max_duration"],
-        maxFileSize: !exists(json, "max_file_size") ? undefined : json["max_file_size"],
-        metadata: !exists(json, "metadata") ? undefined : (json["metadata"] as Array<any>).map(DomainScanProfileMetadataFromJSON),
-        pauseDuration: !exists(json, "pause_duration") ? undefined : json["pause_duration"],
-        policySetting: !exists(json, "policy_setting") ? undefined : json["policy_setting"],
-        preemptionPriority: !exists(json, "preemption_priority") ? undefined : json["preemption_priority"],
-        quarantine: !exists(json, "quarantine") ? undefined : json["quarantine"],
-        scanExclusions: !exists(json, "scan_exclusions") ? undefined : json["scan_exclusions"],
-        scanInclusions: !exists(json, "scan_inclusions") ? undefined : json["scan_inclusions"],
-        schedule: !exists(json, "schedule") ? undefined : DomainScheduleFromJSON(json["schedule"]),
-        sensorMlLevelDetection: !exists(json, "sensor_ml_level_detection") ? undefined : json["sensor_ml_level_detection"],
-        sensorMlLevelPrevention: !exists(json, "sensor_ml_level_prevention") ? undefined : json["sensor_ml_level_prevention"],
-        status: !exists(json, "status") ? undefined : json["status"],
+        initiatedFrom: json["initiated_from"] == null ? undefined : json["initiated_from"],
+        lastUpdated: json["last_updated"] == null ? undefined : new Date(json["last_updated"]),
+        maxDuration: json["max_duration"] == null ? undefined : json["max_duration"],
+        maxFileSize: json["max_file_size"] == null ? undefined : json["max_file_size"],
+        metadata: json["metadata"] == null ? undefined : (json["metadata"] as Array<any>).map(DomainScanProfileMetadataFromJSON),
+        pauseDuration: json["pause_duration"] == null ? undefined : json["pause_duration"],
+        policySetting: json["policy_setting"] == null ? undefined : json["policy_setting"],
+        preemptionPriority: json["preemption_priority"] == null ? undefined : json["preemption_priority"],
+        quarantine: json["quarantine"] == null ? undefined : json["quarantine"],
+        scanExclusions: json["scan_exclusions"] == null ? undefined : json["scan_exclusions"],
+        scanInclusions: json["scan_inclusions"] == null ? undefined : json["scan_inclusions"],
+        schedule: json["schedule"] == null ? undefined : DomainScheduleFromJSON(json["schedule"]),
+        sensorMlLevelDetection: json["sensor_ml_level_detection"] == null ? undefined : json["sensor_ml_level_detection"],
+        sensorMlLevelPrevention: json["sensor_ml_level_prevention"] == null ? undefined : json["sensor_ml_level_prevention"],
+        status: json["status"] == null ? undefined : json["status"],
+        targetedHostCount: json["targeted_host_count"] == null ? undefined : json["targeted_host_count"],
     };
 }
 
 export function DomainScanProfileToJSON(value?: DomainScanProfile | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        cid: value.cid,
-        cloud_ml_level_detection: value.cloudMlLevelDetection,
-        cloud_ml_level_prevention: value.cloudMlLevelPrevention,
-        cpu_priority: value.cpuPriority,
-        created_by: value.createdBy,
-        created_on: value.createdOn === undefined ? undefined : value.createdOn.toISOString(),
-        deleted: value.deleted,
-        description: value.description,
-        endpoint_notification: value.endpointNotification,
-        file_paths: value.filePaths,
-        host_groups: value.hostGroups,
-        hosts: value.hosts,
-        id: value.id,
-        initiated_from: value.initiatedFrom,
-        last_updated: value.lastUpdated === undefined ? undefined : value.lastUpdated.toISOString(),
-        max_duration: value.maxDuration,
-        max_file_size: value.maxFileSize,
-        metadata: value.metadata === undefined ? undefined : (value.metadata as Array<any>).map(DomainScanProfileMetadataToJSON),
-        pause_duration: value.pauseDuration,
-        policy_setting: value.policySetting,
-        preemption_priority: value.preemptionPriority,
-        quarantine: value.quarantine,
-        scan_exclusions: value.scanExclusions,
-        scan_inclusions: value.scanInclusions,
-        schedule: DomainScheduleToJSON(value.schedule),
-        sensor_ml_level_detection: value.sensorMlLevelDetection,
-        sensor_ml_level_prevention: value.sensorMlLevelPrevention,
-        status: value.status,
+        cid: value["cid"],
+        cloud_ml_level_detection: value["cloudMlLevelDetection"],
+        cloud_ml_level_prevention: value["cloudMlLevelPrevention"],
+        cpu_priority: value["cpuPriority"],
+        created_by: value["createdBy"],
+        created_on: value["createdOn"] == null ? undefined : value["createdOn"].toISOString(),
+        deleted: value["deleted"],
+        description: value["description"],
+        endpoint_notification: value["endpointNotification"],
+        file_paths: value["filePaths"],
+        host_groups: value["hostGroups"],
+        hosts: value["hosts"],
+        id: value["id"],
+        initiated_from: value["initiatedFrom"],
+        last_updated: value["lastUpdated"] == null ? undefined : value["lastUpdated"].toISOString(),
+        max_duration: value["maxDuration"],
+        max_file_size: value["maxFileSize"],
+        metadata: value["metadata"] == null ? undefined : (value["metadata"] as Array<any>).map(DomainScanProfileMetadataToJSON),
+        pause_duration: value["pauseDuration"],
+        policy_setting: value["policySetting"],
+        preemption_priority: value["preemptionPriority"],
+        quarantine: value["quarantine"],
+        scan_exclusions: value["scanExclusions"],
+        scan_inclusions: value["scanInclusions"],
+        schedule: DomainScheduleToJSON(value["schedule"]),
+        sensor_ml_level_detection: value["sensorMlLevelDetection"],
+        sensor_ml_level_prevention: value["sensorMlLevelPrevention"],
+        status: value["status"],
+        targeted_host_count: value["targetedHostCount"],
     };
 }

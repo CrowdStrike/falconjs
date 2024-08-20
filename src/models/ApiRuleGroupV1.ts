@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 import type { ApiRuleV1 } from "./ApiRuleV1";
 import { ApiRuleV1FromJSON, ApiRuleV1FromJSONTyped, ApiRuleV1ToJSON } from "./ApiRuleV1";
 
@@ -123,26 +123,24 @@ export interface ApiRuleGroupV1 {
 /**
  * Check if a given object implements the ApiRuleGroupV1 interface.
  */
-export function instanceOfApiRuleGroupV1(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "comment" in value;
-    isInstance = isInstance && "committedOn" in value;
-    isInstance = isInstance && "createdBy" in value;
-    isInstance = isInstance && "createdOn" in value;
-    isInstance = isInstance && "customerId" in value;
-    isInstance = isInstance && "deleted" in value;
-    isInstance = isInstance && "description" in value;
-    isInstance = isInstance && "enabled" in value;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "modifiedBy" in value;
-    isInstance = isInstance && "modifiedOn" in value;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "platform" in value;
-    isInstance = isInstance && "ruleIds" in value;
-    isInstance = isInstance && "rules" in value;
-    isInstance = isInstance && "version" in value;
-
-    return isInstance;
+export function instanceOfApiRuleGroupV1(value: object): value is ApiRuleGroupV1 {
+    if (!("comment" in value) || value["comment"] === undefined) return false;
+    if (!("committedOn" in value) || value["committedOn"] === undefined) return false;
+    if (!("createdBy" in value) || value["createdBy"] === undefined) return false;
+    if (!("createdOn" in value) || value["createdOn"] === undefined) return false;
+    if (!("customerId" in value) || value["customerId"] === undefined) return false;
+    if (!("deleted" in value) || value["deleted"] === undefined) return false;
+    if (!("description" in value) || value["description"] === undefined) return false;
+    if (!("enabled" in value) || value["enabled"] === undefined) return false;
+    if (!("id" in value) || value["id"] === undefined) return false;
+    if (!("modifiedBy" in value) || value["modifiedBy"] === undefined) return false;
+    if (!("modifiedOn" in value) || value["modifiedOn"] === undefined) return false;
+    if (!("name" in value) || value["name"] === undefined) return false;
+    if (!("platform" in value) || value["platform"] === undefined) return false;
+    if (!("ruleIds" in value) || value["ruleIds"] === undefined) return false;
+    if (!("rules" in value) || value["rules"] === undefined) return false;
+    if (!("version" in value) || value["version"] === undefined) return false;
+    return true;
 }
 
 export function ApiRuleGroupV1FromJSON(json: any): ApiRuleGroupV1 {
@@ -150,7 +148,7 @@ export function ApiRuleGroupV1FromJSON(json: any): ApiRuleGroupV1 {
 }
 
 export function ApiRuleGroupV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): ApiRuleGroupV1 {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
@@ -174,28 +172,25 @@ export function ApiRuleGroupV1FromJSONTyped(json: any, ignoreDiscriminator: bool
 }
 
 export function ApiRuleGroupV1ToJSON(value?: ApiRuleGroupV1 | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        comment: value.comment,
-        committed_on: value.committedOn.toISOString(),
-        created_by: value.createdBy,
-        created_on: value.createdOn.toISOString(),
-        customer_id: value.customerId,
-        deleted: value.deleted,
-        description: value.description,
-        enabled: value.enabled,
-        id: value.id,
-        modified_by: value.modifiedBy,
-        modified_on: value.modifiedOn.toISOString(),
-        name: value.name,
-        platform: value.platform,
-        rule_ids: value.ruleIds,
-        rules: (value.rules as Array<any>).map(ApiRuleV1ToJSON),
-        version: value.version,
+        comment: value["comment"],
+        committed_on: value["committedOn"].toISOString(),
+        created_by: value["createdBy"],
+        created_on: value["createdOn"].toISOString(),
+        customer_id: value["customerId"],
+        deleted: value["deleted"],
+        description: value["description"],
+        enabled: value["enabled"],
+        id: value["id"],
+        modified_by: value["modifiedBy"],
+        modified_on: value["modifiedOn"].toISOString(),
+        name: value["name"],
+        platform: value["platform"],
+        rule_ids: value["ruleIds"],
+        rules: (value["rules"] as Array<any>).map(ApiRuleV1ToJSON),
+        version: value["version"],
     };
 }

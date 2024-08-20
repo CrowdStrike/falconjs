@@ -1,6 +1,6 @@
 /dist
 /node_modules/
 /specs/*
-!/specs/transformation.jq
+!/specs/transformation.*
 typings
 *.js

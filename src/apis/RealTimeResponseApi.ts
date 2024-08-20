@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -39,7 +39,7 @@ import type {
     MsaErrorsOnly,
     MsaIdsRequest,
     MsaReplyMetaOnly,
-} from "../models";
+} from "../models/index";
 import {
     DomainAPIErrorFromJSON,
     DomainAPIErrorToJSON,
@@ -91,125 +91,125 @@ import {
     MsaIdsRequestToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-} from "../models";
+} from "../models/index";
 
-export interface BatchActiveResponderCmdRequest {
+export interface RealTimeResponseApiBatchActiveResponderCmdRequest {
     body: DomainBatchExecuteCommandRequest;
     timeout?: number;
     timeoutDuration?: string;
     hostTimeoutDuration?: string;
 }
 
-export interface BatchCmdRequest {
+export interface RealTimeResponseApiBatchCmdRequest {
     body: DomainBatchExecuteCommandRequest;
     timeout?: number;
     timeoutDuration?: string;
     hostTimeoutDuration?: string;
 }
 
-export interface BatchGetCmdRequest {
+export interface RealTimeResponseApiBatchGetCmdRequest {
     body: DomainBatchGetCommandRequest;
     timeout?: number;
     timeoutDuration?: string;
     hostTimeoutDuration?: string;
 }
 
-export interface BatchGetCmdStatusRequest {
+export interface RealTimeResponseApiBatchGetCmdStatusRequest {
     batchGetCmdReqId: string;
     timeout?: number;
     timeoutDuration?: string;
 }
 
-export interface BatchInitSessionsRequest {
+export interface RealTimeResponseApiBatchInitSessionsRequest {
     body: DomainBatchInitSessionRequest;
     timeout?: number;
     timeoutDuration?: string;
     hostTimeoutDuration?: string;
 }
 
-export interface BatchRefreshSessionsRequest {
+export interface RealTimeResponseApiBatchRefreshSessionsRequest {
     body: DomainBatchRefreshSessionRequest;
     timeout?: number;
     timeoutDuration?: string;
 }
 
-export interface RTRAggregateSessionsRequest {
+export interface RealTimeResponseApiRTRAggregateSessionsRequest {
     body: Array<MsaAggregateQueryRequest>;
 }
 
-export interface RTRCheckActiveResponderCommandStatusRequest {
+export interface RealTimeResponseApiRTRCheckActiveResponderCommandStatusRequest {
     cloudRequestId: string;
     sequenceId: number;
 }
 
-export interface RTRCheckCommandStatusRequest {
+export interface RealTimeResponseApiRTRCheckCommandStatusRequest {
     cloudRequestId: string;
     sequenceId: number;
 }
 
-export interface RTRDeleteFileRequest {
+export interface RealTimeResponseApiRTRDeleteFileRequest {
     ids: string;
     sessionId: string;
 }
 
-export interface RTRDeleteFileV2Request {
+export interface RealTimeResponseApiRTRDeleteFileV2Request {
     ids: string;
     sessionId: string;
 }
 
-export interface RTRDeleteQueuedSessionRequest {
+export interface RealTimeResponseApiRTRDeleteQueuedSessionRequest {
     sessionId: string;
     cloudRequestId: string;
 }
 
-export interface RTRDeleteSessionRequest {
+export interface RealTimeResponseApiRTRDeleteSessionRequest {
     sessionId: string;
 }
 
-export interface RTRExecuteActiveResponderCommandRequest {
+export interface RealTimeResponseApiRTRExecuteActiveResponderCommandRequest {
     body: DomainCommandExecuteRequest;
 }
 
-export interface RTRExecuteCommandRequest {
+export interface RealTimeResponseApiRTRExecuteCommandRequest {
     body: DomainCommandExecuteRequest;
 }
 
-export interface RTRGetExtractedFileContentsRequest {
+export interface RealTimeResponseApiRTRGetExtractedFileContentsRequest {
     sessionId: string;
     sha256: string;
     filename?: string;
 }
 
-export interface RTRInitSessionRequest {
+export interface RealTimeResponseApiRTRInitSessionRequest {
     body: DomainInitRequest;
     timeout?: number;
     timeoutDuration?: string;
 }
 
-export interface RTRListAllSessionsRequest {
+export interface RealTimeResponseApiRTRListAllSessionsRequest {
     offset?: string;
     limit?: number;
     sort?: string;
     filter?: string;
 }
 
-export interface RTRListFilesRequest {
+export interface RealTimeResponseApiRTRListFilesRequest {
     sessionId: string;
 }
 
-export interface RTRListFilesV2Request {
+export interface RealTimeResponseApiRTRListFilesV2Request {
     sessionId: string;
 }
 
-export interface RTRListQueuedSessionsRequest {
+export interface RealTimeResponseApiRTRListQueuedSessionsRequest {
     body: MsaIdsRequest;
 }
 
-export interface RTRListSessionsRequest {
+export interface RealTimeResponseApiRTRListSessionsRequest {
     body: MsaIdsRequest;
 }
 
-export interface RTRPulseSessionRequest {
+export interface RealTimeResponseApiRTRPulseSessionRequest {
     body: DomainInitRequest;
 }
 
@@ -221,25 +221,25 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
      * Batch executes a RTR active-responder command across the hosts mapped to the given batch ID.
      */
     async batchActiveResponderCmdRaw(
-        requestParameters: BatchActiveResponderCmdRequest,
+        requestParameters: RealTimeResponseApiBatchActiveResponderCmdRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainMultiCommandExecuteResponseWrapper>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling batchActiveResponderCmd.");
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling batchActiveResponderCmd().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.timeout !== undefined) {
-            queryParameters["timeout"] = requestParameters.timeout;
+        if (requestParameters["timeout"] != null) {
+            queryParameters["timeout"] = requestParameters["timeout"];
         }
 
-        if (requestParameters.timeoutDuration !== undefined) {
-            queryParameters["timeout_duration"] = requestParameters.timeoutDuration;
+        if (requestParameters["timeoutDuration"] != null) {
+            queryParameters["timeout_duration"] = requestParameters["timeoutDuration"];
         }
 
-        if (requestParameters.hostTimeoutDuration !== undefined) {
-            queryParameters["host_timeout_duration"] = requestParameters.hostTimeoutDuration;
+        if (requestParameters["hostTimeoutDuration"] != null) {
+            queryParameters["host_timeout_duration"] = requestParameters["hostTimeoutDuration"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -248,7 +248,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -257,7 +257,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: DomainBatchExecuteCommandRequestToJSON(requestParameters.body),
+                body: DomainBatchExecuteCommandRequestToJSON(requestParameters["body"]),
             },
             initOverrides
         );
@@ -282,23 +282,26 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     /**
      * Batch executes a RTR read-only command across the hosts mapped to the given batch ID.
      */
-    async batchCmdRaw(requestParameters: BatchCmdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainMultiCommandExecuteResponseWrapper>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling batchCmd.");
+    async batchCmdRaw(
+        requestParameters: RealTimeResponseApiBatchCmdRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainMultiCommandExecuteResponseWrapper>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling batchCmd().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.timeout !== undefined) {
-            queryParameters["timeout"] = requestParameters.timeout;
+        if (requestParameters["timeout"] != null) {
+            queryParameters["timeout"] = requestParameters["timeout"];
         }
 
-        if (requestParameters.timeoutDuration !== undefined) {
-            queryParameters["timeout_duration"] = requestParameters.timeoutDuration;
+        if (requestParameters["timeoutDuration"] != null) {
+            queryParameters["timeout_duration"] = requestParameters["timeoutDuration"];
         }
 
-        if (requestParameters.hostTimeoutDuration !== undefined) {
-            queryParameters["host_timeout_duration"] = requestParameters.hostTimeoutDuration;
+        if (requestParameters["hostTimeoutDuration"] != null) {
+            queryParameters["host_timeout_duration"] = requestParameters["hostTimeoutDuration"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -307,7 +310,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -316,7 +319,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: DomainBatchExecuteCommandRequestToJSON(requestParameters.body),
+                body: DomainBatchExecuteCommandRequestToJSON(requestParameters["body"]),
             },
             initOverrides
         );
@@ -341,23 +344,26 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     /**
      * Batch executes `get` command across hosts to retrieve files. After this call is made `GET /real-time-response/combined/batch-get-command/v1` is used to query for the results.
      */
-    async batchGetCmdRaw(requestParameters: BatchGetCmdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainBatchGetCommandResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling batchGetCmd.");
+    async batchGetCmdRaw(
+        requestParameters: RealTimeResponseApiBatchGetCmdRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainBatchGetCommandResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling batchGetCmd().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.timeout !== undefined) {
-            queryParameters["timeout"] = requestParameters.timeout;
+        if (requestParameters["timeout"] != null) {
+            queryParameters["timeout"] = requestParameters["timeout"];
         }
 
-        if (requestParameters.timeoutDuration !== undefined) {
-            queryParameters["timeout_duration"] = requestParameters.timeoutDuration;
+        if (requestParameters["timeoutDuration"] != null) {
+            queryParameters["timeout_duration"] = requestParameters["timeoutDuration"];
         }
 
-        if (requestParameters.hostTimeoutDuration !== undefined) {
-            queryParameters["host_timeout_duration"] = requestParameters.hostTimeoutDuration;
+        if (requestParameters["hostTimeoutDuration"] != null) {
+            queryParameters["host_timeout_duration"] = requestParameters["hostTimeoutDuration"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -366,7 +372,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -375,7 +381,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: DomainBatchGetCommandRequestToJSON(requestParameters.body),
+                body: DomainBatchGetCommandRequestToJSON(requestParameters["body"]),
             },
             initOverrides
         );
@@ -400,30 +406,33 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     /**
      * Retrieves the status of the specified batch get command.  Will return successful files when they are finished processing.
      */
-    async batchGetCmdStatusRaw(requestParameters: BatchGetCmdStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainBatchGetCmdStatusResponse>> {
-        if (requestParameters.batchGetCmdReqId === null || requestParameters.batchGetCmdReqId === undefined) {
-            throw new runtime.RequiredError("batchGetCmdReqId", "Required parameter requestParameters.batchGetCmdReqId was null or undefined when calling batchGetCmdStatus.");
+    async batchGetCmdStatusRaw(
+        requestParameters: RealTimeResponseApiBatchGetCmdStatusRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainBatchGetCmdStatusResponse>> {
+        if (requestParameters["batchGetCmdReqId"] == null) {
+            throw new runtime.RequiredError("batchGetCmdReqId", 'Required parameter "batchGetCmdReqId" was null or undefined when calling batchGetCmdStatus().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.timeout !== undefined) {
-            queryParameters["timeout"] = requestParameters.timeout;
+        if (requestParameters["timeout"] != null) {
+            queryParameters["timeout"] = requestParameters["timeout"];
         }
 
-        if (requestParameters.timeoutDuration !== undefined) {
-            queryParameters["timeout_duration"] = requestParameters.timeoutDuration;
+        if (requestParameters["timeoutDuration"] != null) {
+            queryParameters["timeout_duration"] = requestParameters["timeoutDuration"];
         }
 
-        if (requestParameters.batchGetCmdReqId !== undefined) {
-            queryParameters["batch_get_cmd_req_id"] = requestParameters.batchGetCmdReqId;
+        if (requestParameters["batchGetCmdReqId"] != null) {
+            queryParameters["batch_get_cmd_req_id"] = requestParameters["batchGetCmdReqId"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -455,23 +464,26 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     /**
      * Batch initialize a RTR session on multiple hosts.  Before any RTR commands can be used, an active session is needed on the host.
      */
-    async batchInitSessionsRaw(requestParameters: BatchInitSessionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainBatchInitSessionResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling batchInitSessions.");
+    async batchInitSessionsRaw(
+        requestParameters: RealTimeResponseApiBatchInitSessionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainBatchInitSessionResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling batchInitSessions().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.timeout !== undefined) {
-            queryParameters["timeout"] = requestParameters.timeout;
+        if (requestParameters["timeout"] != null) {
+            queryParameters["timeout"] = requestParameters["timeout"];
         }
 
-        if (requestParameters.timeoutDuration !== undefined) {
-            queryParameters["timeout_duration"] = requestParameters.timeoutDuration;
+        if (requestParameters["timeoutDuration"] != null) {
+            queryParameters["timeout_duration"] = requestParameters["timeoutDuration"];
         }
 
-        if (requestParameters.hostTimeoutDuration !== undefined) {
-            queryParameters["host_timeout_duration"] = requestParameters.hostTimeoutDuration;
+        if (requestParameters["hostTimeoutDuration"] != null) {
+            queryParameters["host_timeout_duration"] = requestParameters["hostTimeoutDuration"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -480,7 +492,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -489,7 +501,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: DomainBatchInitSessionRequestToJSON(requestParameters.body),
+                body: DomainBatchInitSessionRequestToJSON(requestParameters["body"]),
             },
             initOverrides
         );
@@ -515,21 +527,21 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
      * Batch refresh a RTR session on multiple hosts. RTR sessions will expire after 10 minutes unless refreshed.
      */
     async batchRefreshSessionsRaw(
-        requestParameters: BatchRefreshSessionsRequest,
+        requestParameters: RealTimeResponseApiBatchRefreshSessionsRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainBatchRefreshSessionResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling batchRefreshSessions.");
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling batchRefreshSessions().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.timeout !== undefined) {
-            queryParameters["timeout"] = requestParameters.timeout;
+        if (requestParameters["timeout"] != null) {
+            queryParameters["timeout"] = requestParameters["timeout"];
         }
 
-        if (requestParameters.timeoutDuration !== undefined) {
-            queryParameters["timeout_duration"] = requestParameters.timeoutDuration;
+        if (requestParameters["timeoutDuration"] != null) {
+            queryParameters["timeout_duration"] = requestParameters["timeoutDuration"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -538,7 +550,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -547,7 +559,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: DomainBatchRefreshSessionRequestToJSON(requestParameters.body),
+                body: DomainBatchRefreshSessionRequestToJSON(requestParameters["body"]),
             },
             initOverrides
         );
@@ -571,9 +583,12 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     /**
      * Get aggregates on session data.
      */
-    async rTRAggregateSessionsRaw(requestParameters: RTRAggregateSessionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling rTRAggregateSessions.");
+    async rTRAggregateSessionsRaw(
+        requestParameters: RealTimeResponseApiRTRAggregateSessionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling rTRAggregateSessions().');
         }
 
         const queryParameters: any = {};
@@ -584,7 +599,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -593,7 +608,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: requestParameters.body.map(MsaAggregateQueryRequestToJSON),
+                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
             initOverrides
         );
@@ -613,32 +628,32 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
      * Get status of an executed active-responder command on a single host.
      */
     async rTRCheckActiveResponderCommandStatusRaw(
-        requestParameters: RTRCheckActiveResponderCommandStatusRequest,
+        requestParameters: RealTimeResponseApiRTRCheckActiveResponderCommandStatusRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainStatusResponseWrapper>> {
-        if (requestParameters.cloudRequestId === null || requestParameters.cloudRequestId === undefined) {
-            throw new runtime.RequiredError("cloudRequestId", "Required parameter requestParameters.cloudRequestId was null or undefined when calling rTRCheckActiveResponderCommandStatus.");
+        if (requestParameters["cloudRequestId"] == null) {
+            throw new runtime.RequiredError("cloudRequestId", 'Required parameter "cloudRequestId" was null or undefined when calling rTRCheckActiveResponderCommandStatus().');
         }
 
-        if (requestParameters.sequenceId === null || requestParameters.sequenceId === undefined) {
-            throw new runtime.RequiredError("sequenceId", "Required parameter requestParameters.sequenceId was null or undefined when calling rTRCheckActiveResponderCommandStatus.");
+        if (requestParameters["sequenceId"] == null) {
+            throw new runtime.RequiredError("sequenceId", 'Required parameter "sequenceId" was null or undefined when calling rTRCheckActiveResponderCommandStatus().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.cloudRequestId !== undefined) {
-            queryParameters["cloud_request_id"] = requestParameters.cloudRequestId;
+        if (requestParameters["cloudRequestId"] != null) {
+            queryParameters["cloud_request_id"] = requestParameters["cloudRequestId"];
         }
 
-        if (requestParameters.sequenceId !== undefined) {
-            queryParameters["sequence_id"] = requestParameters.sequenceId;
+        if (requestParameters["sequenceId"] != null) {
+            queryParameters["sequence_id"] = requestParameters["sequenceId"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -666,32 +681,32 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
      * Get status of an executed command on a single host.
      */
     async rTRCheckCommandStatusRaw(
-        requestParameters: RTRCheckCommandStatusRequest,
+        requestParameters: RealTimeResponseApiRTRCheckCommandStatusRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainStatusResponseWrapper>> {
-        if (requestParameters.cloudRequestId === null || requestParameters.cloudRequestId === undefined) {
-            throw new runtime.RequiredError("cloudRequestId", "Required parameter requestParameters.cloudRequestId was null or undefined when calling rTRCheckCommandStatus.");
+        if (requestParameters["cloudRequestId"] == null) {
+            throw new runtime.RequiredError("cloudRequestId", 'Required parameter "cloudRequestId" was null or undefined when calling rTRCheckCommandStatus().');
         }
 
-        if (requestParameters.sequenceId === null || requestParameters.sequenceId === undefined) {
-            throw new runtime.RequiredError("sequenceId", "Required parameter requestParameters.sequenceId was null or undefined when calling rTRCheckCommandStatus.");
+        if (requestParameters["sequenceId"] == null) {
+            throw new runtime.RequiredError("sequenceId", 'Required parameter "sequenceId" was null or undefined when calling rTRCheckCommandStatus().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.cloudRequestId !== undefined) {
-            queryParameters["cloud_request_id"] = requestParameters.cloudRequestId;
+        if (requestParameters["cloudRequestId"] != null) {
+            queryParameters["cloud_request_id"] = requestParameters["cloudRequestId"];
         }
 
-        if (requestParameters.sequenceId !== undefined) {
-            queryParameters["sequence_id"] = requestParameters.sequenceId;
+        if (requestParameters["sequenceId"] != null) {
+            queryParameters["sequence_id"] = requestParameters["sequenceId"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -718,30 +733,30 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     /**
      * Delete a RTR session file.
      */
-    async rTRDeleteFileRaw(requestParameters: RTRDeleteFileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling rTRDeleteFile.");
+    async rTRDeleteFileRaw(requestParameters: RealTimeResponseApiRTRDeleteFileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling rTRDeleteFile().');
         }
 
-        if (requestParameters.sessionId === null || requestParameters.sessionId === undefined) {
-            throw new runtime.RequiredError("sessionId", "Required parameter requestParameters.sessionId was null or undefined when calling rTRDeleteFile.");
+        if (requestParameters["sessionId"] == null) {
+            throw new runtime.RequiredError("sessionId", 'Required parameter "sessionId" was null or undefined when calling rTRDeleteFile().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids !== undefined) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
-        if (requestParameters.sessionId !== undefined) {
-            queryParameters["session_id"] = requestParameters.sessionId;
+        if (requestParameters["sessionId"] != null) {
+            queryParameters["session_id"] = requestParameters["sessionId"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -768,30 +783,30 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     /**
      * Delete a RTR session file.
      */
-    async rTRDeleteFileV2Raw(requestParameters: RTRDeleteFileV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling rTRDeleteFileV2.");
+    async rTRDeleteFileV2Raw(requestParameters: RealTimeResponseApiRTRDeleteFileV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling rTRDeleteFileV2().');
         }
 
-        if (requestParameters.sessionId === null || requestParameters.sessionId === undefined) {
-            throw new runtime.RequiredError("sessionId", "Required parameter requestParameters.sessionId was null or undefined when calling rTRDeleteFileV2.");
+        if (requestParameters["sessionId"] == null) {
+            throw new runtime.RequiredError("sessionId", 'Required parameter "sessionId" was null or undefined when calling rTRDeleteFileV2().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids !== undefined) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
-        if (requestParameters.sessionId !== undefined) {
-            queryParameters["session_id"] = requestParameters.sessionId;
+        if (requestParameters["sessionId"] != null) {
+            queryParameters["session_id"] = requestParameters["sessionId"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -818,30 +833,33 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     /**
      * Delete a queued session command
      */
-    async rTRDeleteQueuedSessionRaw(requestParameters: RTRDeleteQueuedSessionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
-        if (requestParameters.sessionId === null || requestParameters.sessionId === undefined) {
-            throw new runtime.RequiredError("sessionId", "Required parameter requestParameters.sessionId was null or undefined when calling rTRDeleteQueuedSession.");
+    async rTRDeleteQueuedSessionRaw(
+        requestParameters: RealTimeResponseApiRTRDeleteQueuedSessionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+        if (requestParameters["sessionId"] == null) {
+            throw new runtime.RequiredError("sessionId", 'Required parameter "sessionId" was null or undefined when calling rTRDeleteQueuedSession().');
         }
 
-        if (requestParameters.cloudRequestId === null || requestParameters.cloudRequestId === undefined) {
-            throw new runtime.RequiredError("cloudRequestId", "Required parameter requestParameters.cloudRequestId was null or undefined when calling rTRDeleteQueuedSession.");
+        if (requestParameters["cloudRequestId"] == null) {
+            throw new runtime.RequiredError("cloudRequestId", 'Required parameter "cloudRequestId" was null or undefined when calling rTRDeleteQueuedSession().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.sessionId !== undefined) {
-            queryParameters["session_id"] = requestParameters.sessionId;
+        if (requestParameters["sessionId"] != null) {
+            queryParameters["session_id"] = requestParameters["sessionId"];
         }
 
-        if (requestParameters.cloudRequestId !== undefined) {
-            queryParameters["cloud_request_id"] = requestParameters.cloudRequestId;
+        if (requestParameters["cloudRequestId"] != null) {
+            queryParameters["cloud_request_id"] = requestParameters["cloudRequestId"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -868,22 +886,25 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     /**
      * Delete a session.
      */
-    async rTRDeleteSessionRaw(requestParameters: RTRDeleteSessionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
-        if (requestParameters.sessionId === null || requestParameters.sessionId === undefined) {
-            throw new runtime.RequiredError("sessionId", "Required parameter requestParameters.sessionId was null or undefined when calling rTRDeleteSession.");
+    async rTRDeleteSessionRaw(
+        requestParameters: RealTimeResponseApiRTRDeleteSessionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+        if (requestParameters["sessionId"] == null) {
+            throw new runtime.RequiredError("sessionId", 'Required parameter "sessionId" was null or undefined when calling rTRDeleteSession().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.sessionId !== undefined) {
-            queryParameters["session_id"] = requestParameters.sessionId;
+        if (requestParameters["sessionId"] != null) {
+            queryParameters["session_id"] = requestParameters["sessionId"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -911,11 +932,11 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
      * Execute an active responder command on a single host.
      */
     async rTRExecuteActiveResponderCommandRaw(
-        requestParameters: RTRExecuteActiveResponderCommandRequest,
+        requestParameters: RealTimeResponseApiRTRExecuteActiveResponderCommandRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainCommandExecuteResponseWrapper>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling rTRExecuteActiveResponderCommand.");
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling rTRExecuteActiveResponderCommand().');
         }
 
         const queryParameters: any = {};
@@ -926,7 +947,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -935,7 +956,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: DomainCommandExecuteRequestToJSON(requestParameters.body),
+                body: DomainCommandExecuteRequestToJSON(requestParameters["body"]),
             },
             initOverrides
         );
@@ -955,11 +976,11 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
      * Execute a command on a single host.
      */
     async rTRExecuteCommandRaw(
-        requestParameters: RTRExecuteCommandRequest,
+        requestParameters: RealTimeResponseApiRTRExecuteCommandRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainCommandExecuteResponseWrapper>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling rTRExecuteCommand.");
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling rTRExecuteCommand().');
         }
 
         const queryParameters: any = {};
@@ -970,7 +991,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -979,7 +1000,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: DomainCommandExecuteRequestToJSON(requestParameters.body),
+                body: DomainCommandExecuteRequestToJSON(requestParameters["body"]),
             },
             initOverrides
         );
@@ -998,34 +1019,37 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     /**
      * Get RTR extracted file contents for specified session and sha256.
      */
-    async rTRGetExtractedFileContentsRaw(requestParameters: RTRGetExtractedFileContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
-        if (requestParameters.sessionId === null || requestParameters.sessionId === undefined) {
-            throw new runtime.RequiredError("sessionId", "Required parameter requestParameters.sessionId was null or undefined when calling rTRGetExtractedFileContents.");
+    async rTRGetExtractedFileContentsRaw(
+        requestParameters: RealTimeResponseApiRTRGetExtractedFileContentsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<Blob>> {
+        if (requestParameters["sessionId"] == null) {
+            throw new runtime.RequiredError("sessionId", 'Required parameter "sessionId" was null or undefined when calling rTRGetExtractedFileContents().');
         }
 
-        if (requestParameters.sha256 === null || requestParameters.sha256 === undefined) {
-            throw new runtime.RequiredError("sha256", "Required parameter requestParameters.sha256 was null or undefined when calling rTRGetExtractedFileContents.");
+        if (requestParameters["sha256"] == null) {
+            throw new runtime.RequiredError("sha256", 'Required parameter "sha256" was null or undefined when calling rTRGetExtractedFileContents().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.sessionId !== undefined) {
-            queryParameters["session_id"] = requestParameters.sessionId;
+        if (requestParameters["sessionId"] != null) {
+            queryParameters["session_id"] = requestParameters["sessionId"];
         }
 
-        if (requestParameters.sha256 !== undefined) {
-            queryParameters["sha256"] = requestParameters.sha256;
+        if (requestParameters["sha256"] != null) {
+            queryParameters["sha256"] = requestParameters["sha256"];
         }
 
-        if (requestParameters.filename !== undefined) {
-            queryParameters["filename"] = requestParameters.filename;
+        if (requestParameters["filename"] != null) {
+            queryParameters["filename"] = requestParameters["filename"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -1052,19 +1076,22 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     /**
      * Initialize a new session with the RTR cloud.
      */
-    async rTRInitSessionRaw(requestParameters: RTRInitSessionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainInitResponseWrapper>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling rTRInitSession.");
+    async rTRInitSessionRaw(
+        requestParameters: RealTimeResponseApiRTRInitSessionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainInitResponseWrapper>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling rTRInitSession().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.timeout !== undefined) {
-            queryParameters["timeout"] = requestParameters.timeout;
+        if (requestParameters["timeout"] != null) {
+            queryParameters["timeout"] = requestParameters["timeout"];
         }
 
-        if (requestParameters.timeoutDuration !== undefined) {
-            queryParameters["timeout_duration"] = requestParameters.timeoutDuration;
+        if (requestParameters["timeoutDuration"] != null) {
+            queryParameters["timeout_duration"] = requestParameters["timeoutDuration"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1073,7 +1100,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -1082,7 +1109,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: DomainInitRequestToJSON(requestParameters.body),
+                body: DomainInitRequestToJSON(requestParameters["body"]),
             },
             initOverrides
         );
@@ -1101,30 +1128,33 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     /**
      * Get a list of session_ids.
      */
-    async rTRListAllSessionsRaw(requestParameters: RTRListAllSessionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainListSessionsResponseMsa>> {
+    async rTRListAllSessionsRaw(
+        requestParameters: RealTimeResponseApiRTRListAllSessionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainListSessionsResponseMsa>> {
         const queryParameters: any = {};
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -1151,22 +1181,25 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     /**
      * Get a list of files for the specified RTR session.
      */
-    async rTRListFilesRaw(requestParameters: RTRListFilesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainListFilesResponseWrapper>> {
-        if (requestParameters.sessionId === null || requestParameters.sessionId === undefined) {
-            throw new runtime.RequiredError("sessionId", "Required parameter requestParameters.sessionId was null or undefined when calling rTRListFiles.");
+    async rTRListFilesRaw(
+        requestParameters: RealTimeResponseApiRTRListFilesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainListFilesResponseWrapper>> {
+        if (requestParameters["sessionId"] == null) {
+            throw new runtime.RequiredError("sessionId", 'Required parameter "sessionId" was null or undefined when calling rTRListFiles().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.sessionId !== undefined) {
-            queryParameters["session_id"] = requestParameters.sessionId;
+        if (requestParameters["sessionId"] != null) {
+            queryParameters["session_id"] = requestParameters["sessionId"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -1193,22 +1226,25 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     /**
      * Get a list of files for the specified RTR session.
      */
-    async rTRListFilesV2Raw(requestParameters: RTRListFilesV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainListFilesV2ResponseWrapper>> {
-        if (requestParameters.sessionId === null || requestParameters.sessionId === undefined) {
-            throw new runtime.RequiredError("sessionId", "Required parameter requestParameters.sessionId was null or undefined when calling rTRListFilesV2.");
+    async rTRListFilesV2Raw(
+        requestParameters: RealTimeResponseApiRTRListFilesV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainListFilesV2ResponseWrapper>> {
+        if (requestParameters["sessionId"] == null) {
+            throw new runtime.RequiredError("sessionId", 'Required parameter "sessionId" was null or undefined when calling rTRListFilesV2().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.sessionId !== undefined) {
-            queryParameters["session_id"] = requestParameters.sessionId;
+        if (requestParameters["sessionId"] != null) {
+            queryParameters["session_id"] = requestParameters["sessionId"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -1236,11 +1272,11 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
      * Get queued session metadata by session ID.
      */
     async rTRListQueuedSessionsRaw(
-        requestParameters: RTRListQueuedSessionsRequest,
+        requestParameters: RealTimeResponseApiRTRListQueuedSessionsRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainQueuedSessionResponseWrapper>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling rTRListQueuedSessions.");
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling rTRListQueuedSessions().');
         }
 
         const queryParameters: any = {};
@@ -1251,7 +1287,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -1260,7 +1296,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: MsaIdsRequestToJSON(requestParameters.body),
+                body: MsaIdsRequestToJSON(requestParameters["body"]),
             },
             initOverrides
         );
@@ -1279,9 +1315,12 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     /**
      * Get session metadata by session id.
      */
-    async rTRListSessionsRaw(requestParameters: RTRListSessionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainSessionResponseWrapper>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling rTRListSessions.");
+    async rTRListSessionsRaw(
+        requestParameters: RealTimeResponseApiRTRListSessionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainSessionResponseWrapper>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling rTRListSessions().');
         }
 
         const queryParameters: any = {};
@@ -1292,7 +1331,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -1301,7 +1340,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: MsaIdsRequestToJSON(requestParameters.body),
+                body: MsaIdsRequestToJSON(requestParameters["body"]),
             },
             initOverrides
         );
@@ -1320,9 +1359,12 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     /**
      * Refresh a session timeout on a single host.
      */
-    async rTRPulseSessionRaw(requestParameters: RTRPulseSessionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainInitResponseWrapper>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling rTRPulseSession.");
+    async rTRPulseSessionRaw(
+        requestParameters: RealTimeResponseApiRTRPulseSessionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainInitResponseWrapper>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling rTRPulseSession().');
         }
 
         const queryParameters: any = {};
@@ -1333,7 +1375,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -1342,7 +1384,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: DomainInitRequestToJSON(requestParameters.body),
+                body: DomainInitRequestToJSON(requestParameters["body"]),
             },
             initOverrides
         );

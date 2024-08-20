@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -13,27 +13,27 @@
  */
 
 import * as runtime from "../runtime";
-import type { ApiReportExecutionRetryRequestV1, ApiReportExecutionsResponseV1, MsaQueryResponse, MsaReplyMetaOnly } from "../models";
+import type { DomainReportExecutionRetryRequestV1, DomainReportExecutionsResponseV1, MsaQueryResponse, MsaReplyMetaOnly } from "../models/index";
 import {
-    ApiReportExecutionRetryRequestV1FromJSON,
-    ApiReportExecutionRetryRequestV1ToJSON,
-    ApiReportExecutionsResponseV1FromJSON,
-    ApiReportExecutionsResponseV1ToJSON,
+    DomainReportExecutionRetryRequestV1FromJSON,
+    DomainReportExecutionRetryRequestV1ToJSON,
+    DomainReportExecutionsResponseV1FromJSON,
+    DomainReportExecutionsResponseV1ToJSON,
     MsaQueryResponseFromJSON,
     MsaQueryResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-} from "../models";
+} from "../models/index";
 
-export interface ReportExecutionsDownloadGetRequest {
+export interface ReportExecutionsApiReportExecutionsDownloadGetRequest {
     ids: string;
 }
 
-export interface ReportExecutionsGetRequest {
+export interface ReportExecutionsApiReportExecutionsGetRequest {
     ids: Array<string>;
 }
 
-export interface ReportExecutionsQueryRequest {
+export interface ReportExecutionsApiReportExecutionsQueryRequest {
     sort?: string;
     filter?: string;
     q?: string;
@@ -41,8 +41,8 @@ export interface ReportExecutionsQueryRequest {
     limit?: number;
 }
 
-export interface ReportExecutionsRetryRequest {
-    body: Array<ApiReportExecutionRetryRequestV1>;
+export interface ReportExecutionsApiReportExecutionsRetryRequest {
+    body: Array<DomainReportExecutionRetryRequestV1>;
 }
 
 /**
@@ -53,24 +53,24 @@ export class ReportExecutionsApi extends runtime.BaseAPI {
      * Get report entity download
      */
     async reportExecutionsDownloadGetRaw(
-        requestParameters: ReportExecutionsDownloadGetRequest,
+        requestParameters: ReportExecutionsApiReportExecutionsDownloadGetRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<Array<number>>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling reportExecutionsDownloadGet.");
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling reportExecutionsDownloadGet().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids !== undefined) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["scheduled-report:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -98,24 +98,24 @@ export class ReportExecutionsApi extends runtime.BaseAPI {
      * Retrieve report details for the provided report IDs.
      */
     async reportExecutionsGetRaw(
-        requestParameters: ReportExecutionsGetRequest,
+        requestParameters: ReportExecutionsApiReportExecutionsGetRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ApiReportExecutionsResponseV1>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling reportExecutionsGet.");
+    ): Promise<runtime.ApiResponse<DomainReportExecutionsResponseV1>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling reportExecutionsGet().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["scheduled-report:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -128,13 +128,13 @@ export class ReportExecutionsApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ApiReportExecutionsResponseV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainReportExecutionsResponseV1FromJSON(jsonValue));
     }
 
     /**
      * Retrieve report details for the provided report IDs.
      */
-    async reportExecutionsGet(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiReportExecutionsResponseV1> {
+    async reportExecutionsGet(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainReportExecutionsResponseV1> {
         const response = await this.reportExecutionsGetRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -142,34 +142,37 @@ export class ReportExecutionsApi extends runtime.BaseAPI {
     /**
      * Find all report execution IDs matching the query with filter
      */
-    async reportExecutionsQueryRaw(requestParameters: ReportExecutionsQueryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async reportExecutionsQueryRaw(
+        requestParameters: ReportExecutionsApiReportExecutionsQueryRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
-        if (requestParameters.q !== undefined) {
-            queryParameters["q"] = requestParameters.q;
+        if (requestParameters["q"] != null) {
+            queryParameters["q"] = requestParameters["q"];
         }
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["scheduled-report:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -197,11 +200,11 @@ export class ReportExecutionsApi extends runtime.BaseAPI {
      * This endpoint will be used to retry report executions
      */
     async reportExecutionsRetryRaw(
-        requestParameters: ReportExecutionsRetryRequest,
+        requestParameters: ReportExecutionsApiReportExecutionsRetryRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<ApiReportExecutionsResponseV1>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling reportExecutionsRetry.");
+    ): Promise<runtime.ApiResponse<DomainReportExecutionsResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling reportExecutionsRetry().');
         }
 
         const queryParameters: any = {};
@@ -212,7 +215,7 @@ export class ReportExecutionsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["scheduled-report:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -221,18 +224,18 @@ export class ReportExecutionsApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: requestParameters.body.map(ApiReportExecutionRetryRequestV1ToJSON),
+                body: requestParameters["body"]!.map(DomainReportExecutionRetryRequestV1ToJSON),
             },
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ApiReportExecutionsResponseV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainReportExecutionsResponseV1FromJSON(jsonValue));
     }
 
     /**
      * This endpoint will be used to retry report executions
      */
-    async reportExecutionsRetry(body: Array<ApiReportExecutionRetryRequestV1>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiReportExecutionsResponseV1> {
+    async reportExecutionsRetry(body: Array<DomainReportExecutionRetryRequestV1>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainReportExecutionsResponseV1> {
         const response = await this.reportExecutionsRetryRaw({ body: body }, initOverrides);
         return await response.value();
     }

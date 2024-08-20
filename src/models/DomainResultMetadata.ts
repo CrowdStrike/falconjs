@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 /**
  *
  * @export
@@ -96,22 +96,20 @@ export interface DomainResultMetadata {
 /**
  * Check if a given object implements the DomainResultMetadata interface.
  */
-export function instanceOfDomainResultMetadata(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "executionDelay" in value;
-    isInstance = isInstance && "executionDuration" in value;
-    isInstance = isInstance && "executionFinish" in value;
-    isInstance = isInstance && "executionStart" in value;
-    isInstance = isInstance && "queueDuration" in value;
-    isInstance = isInstance && "queueStart" in value;
-    isInstance = isInstance && "reportFileName" in value;
-    isInstance = isInstance && "reportFinish" in value;
-    isInstance = isInstance && "resultCount" in value;
-    isInstance = isInstance && "resultId" in value;
-    isInstance = isInstance && "searchWindowEnd" in value;
-    isInstance = isInstance && "searchWindowStart" in value;
-
-    return isInstance;
+export function instanceOfDomainResultMetadata(value: object): value is DomainResultMetadata {
+    if (!("executionDelay" in value) || value["executionDelay"] === undefined) return false;
+    if (!("executionDuration" in value) || value["executionDuration"] === undefined) return false;
+    if (!("executionFinish" in value) || value["executionFinish"] === undefined) return false;
+    if (!("executionStart" in value) || value["executionStart"] === undefined) return false;
+    if (!("queueDuration" in value) || value["queueDuration"] === undefined) return false;
+    if (!("queueStart" in value) || value["queueStart"] === undefined) return false;
+    if (!("reportFileName" in value) || value["reportFileName"] === undefined) return false;
+    if (!("reportFinish" in value) || value["reportFinish"] === undefined) return false;
+    if (!("resultCount" in value) || value["resultCount"] === undefined) return false;
+    if (!("resultId" in value) || value["resultId"] === undefined) return false;
+    if (!("searchWindowEnd" in value) || value["searchWindowEnd"] === undefined) return false;
+    if (!("searchWindowStart" in value) || value["searchWindowStart"] === undefined) return false;
+    return true;
 }
 
 export function DomainResultMetadataFromJSON(json: any): DomainResultMetadata {
@@ -119,7 +117,7 @@ export function DomainResultMetadataFromJSON(json: any): DomainResultMetadata {
 }
 
 export function DomainResultMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainResultMetadata {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
@@ -139,24 +137,21 @@ export function DomainResultMetadataFromJSONTyped(json: any, ignoreDiscriminator
 }
 
 export function DomainResultMetadataToJSON(value?: DomainResultMetadata | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        execution_delay: value.executionDelay,
-        execution_duration: value.executionDuration,
-        execution_finish: value.executionFinish.toISOString(),
-        execution_start: value.executionStart.toISOString(),
-        queue_duration: value.queueDuration,
-        queue_start: value.queueStart.toISOString(),
-        report_file_name: value.reportFileName,
-        report_finish: value.reportFinish.toISOString(),
-        result_count: value.resultCount,
-        result_id: value.resultId,
-        search_window_end: value.searchWindowEnd.toISOString(),
-        search_window_start: value.searchWindowStart.toISOString(),
+        execution_delay: value["executionDelay"],
+        execution_duration: value["executionDuration"],
+        execution_finish: value["executionFinish"].toISOString(),
+        execution_start: value["executionStart"].toISOString(),
+        queue_duration: value["queueDuration"],
+        queue_start: value["queueStart"].toISOString(),
+        report_file_name: value["reportFileName"],
+        report_finish: value["reportFinish"].toISOString(),
+        result_count: value["resultCount"],
+        result_id: value["resultId"],
+        search_window_end: value["searchWindowEnd"].toISOString(),
+        search_window_start: value["searchWindowStart"].toISOString(),
     };
 }

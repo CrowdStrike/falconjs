@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,13 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 /**
  *
  * @export
  * @interface DomainUpdateRuleRequestV1
  */
 export interface DomainUpdateRuleRequestV1 {
+    /**
+     * Monitor only for breach data. Must be accompanied by breach_monitoring_enabled:true.
+     * @type {boolean}
+     * @memberof DomainUpdateRuleRequestV1
+     */
+    breachMonitorOnly: boolean;
     /**
      * Whether to monitor for breach data. Available only for `Company Domains` and `Email addresses` rule topics. When enabled, ownership of the monitored domains or emails is required
      * @type {boolean}
@@ -44,13 +50,13 @@ export interface DomainUpdateRuleRequestV1 {
      */
     name: string;
     /**
-     * The permissions for a given rule which specifies the rule's access by other users. Possible values: `public`, `private`
+     * The permissions for a given rule which specifies the rule's access by other users. Possible values: [`public`, `private`]
      * @type {string}
      * @memberof DomainUpdateRuleRequestV1
      */
     permissions: string;
     /**
-     * The priority for a given rule. Possible values: `low`, `medium`, `high`
+     * The priority for a given rule. Possible values: [`low`, `medium`, `high`]
      * @type {string}
      * @memberof DomainUpdateRuleRequestV1
      */
@@ -66,17 +72,16 @@ export interface DomainUpdateRuleRequestV1 {
 /**
  * Check if a given object implements the DomainUpdateRuleRequestV1 interface.
  */
-export function instanceOfDomainUpdateRuleRequestV1(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "breachMonitoringEnabled" in value;
-    isInstance = isInstance && "filter" in value;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "permissions" in value;
-    isInstance = isInstance && "priority" in value;
-    isInstance = isInstance && "substringMatchingEnabled" in value;
-
-    return isInstance;
+export function instanceOfDomainUpdateRuleRequestV1(value: object): value is DomainUpdateRuleRequestV1 {
+    if (!("breachMonitorOnly" in value) || value["breachMonitorOnly"] === undefined) return false;
+    if (!("breachMonitoringEnabled" in value) || value["breachMonitoringEnabled"] === undefined) return false;
+    if (!("filter" in value) || value["filter"] === undefined) return false;
+    if (!("id" in value) || value["id"] === undefined) return false;
+    if (!("name" in value) || value["name"] === undefined) return false;
+    if (!("permissions" in value) || value["permissions"] === undefined) return false;
+    if (!("priority" in value) || value["priority"] === undefined) return false;
+    if (!("substringMatchingEnabled" in value) || value["substringMatchingEnabled"] === undefined) return false;
+    return true;
 }
 
 export function DomainUpdateRuleRequestV1FromJSON(json: any): DomainUpdateRuleRequestV1 {
@@ -84,10 +89,11 @@ export function DomainUpdateRuleRequestV1FromJSON(json: any): DomainUpdateRuleRe
 }
 
 export function DomainUpdateRuleRequestV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainUpdateRuleRequestV1 {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
+        breachMonitorOnly: json["breach_monitor_only"],
         breachMonitoringEnabled: json["breach_monitoring_enabled"],
         filter: json["filter"],
         id: json["id"],
@@ -99,19 +105,17 @@ export function DomainUpdateRuleRequestV1FromJSONTyped(json: any, ignoreDiscrimi
 }
 
 export function DomainUpdateRuleRequestV1ToJSON(value?: DomainUpdateRuleRequestV1 | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        breach_monitoring_enabled: value.breachMonitoringEnabled,
-        filter: value.filter,
-        id: value.id,
-        name: value.name,
-        permissions: value.permissions,
-        priority: value.priority,
-        substring_matching_enabled: value.substringMatchingEnabled,
+        breach_monitor_only: value["breachMonitorOnly"],
+        breach_monitoring_enabled: value["breachMonitoringEnabled"],
+        filter: value["filter"],
+        id: value["id"],
+        name: value["name"],
+        permissions: value["permissions"],
+        priority: value["priority"],
+        substring_matching_enabled: value["substringMatchingEnabled"],
     };
 }

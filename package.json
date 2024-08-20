@@ -44,7 +44,7 @@
         "Falcon",
         "SDK"
     ],
-    "author": "Simon Lukasik",
+    "author": "CrowdStrike Solution Architecture",
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/crowdstrike/falconjs/issues"

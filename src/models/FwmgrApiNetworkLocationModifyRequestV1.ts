@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,15 +12,15 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
-import type { FwmgrDomainConnectionType } from "./FwmgrDomainConnectionType";
-import { FwmgrDomainConnectionTypeFromJSON, FwmgrDomainConnectionTypeFromJSONTyped, FwmgrDomainConnectionTypeToJSON } from "./FwmgrDomainConnectionType";
-import type { FwmgrDomainDNSResolutionTargets } from "./FwmgrDomainDNSResolutionTargets";
-import { FwmgrDomainDNSResolutionTargetsFromJSON, FwmgrDomainDNSResolutionTargetsFromJSONTyped, FwmgrDomainDNSResolutionTargetsToJSON } from "./FwmgrDomainDNSResolutionTargets";
-import type { FwmgrDomainHTTPSHosts } from "./FwmgrDomainHTTPSHosts";
-import { FwmgrDomainHTTPSHostsFromJSON, FwmgrDomainHTTPSHostsFromJSONTyped, FwmgrDomainHTTPSHostsToJSON } from "./FwmgrDomainHTTPSHosts";
+import { mapValues } from "../runtime";
 import type { FwmgrDomainICMPTargets } from "./FwmgrDomainICMPTargets";
 import { FwmgrDomainICMPTargetsFromJSON, FwmgrDomainICMPTargetsFromJSONTyped, FwmgrDomainICMPTargetsToJSON } from "./FwmgrDomainICMPTargets";
+import type { FwmgrDomainConnectionType } from "./FwmgrDomainConnectionType";
+import { FwmgrDomainConnectionTypeFromJSON, FwmgrDomainConnectionTypeFromJSONTyped, FwmgrDomainConnectionTypeToJSON } from "./FwmgrDomainConnectionType";
+import type { FwmgrDomainHTTPSHosts } from "./FwmgrDomainHTTPSHosts";
+import { FwmgrDomainHTTPSHostsFromJSON, FwmgrDomainHTTPSHostsFromJSONTyped, FwmgrDomainHTTPSHostsToJSON } from "./FwmgrDomainHTTPSHosts";
+import type { FwmgrDomainDNSResolutionTargets } from "./FwmgrDomainDNSResolutionTargets";
+import { FwmgrDomainDNSResolutionTargetsFromJSON, FwmgrDomainDNSResolutionTargetsFromJSONTyped, FwmgrDomainDNSResolutionTargetsToJSON } from "./FwmgrDomainDNSResolutionTargets";
 
 /**
  *
@@ -129,22 +129,20 @@ export interface FwmgrApiNetworkLocationModifyRequestV1 {
 /**
  * Check if a given object implements the FwmgrApiNetworkLocationModifyRequestV1 interface.
  */
-export function instanceOfFwmgrApiNetworkLocationModifyRequestV1(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "connectionTypes" in value;
-    isInstance = isInstance && "defaultGateways" in value;
-    isInstance = isInstance && "description" in value;
-    isInstance = isInstance && "dhcpServers" in value;
-    isInstance = isInstance && "dnsResolutionTargets" in value;
-    isInstance = isInstance && "dnsServers" in value;
-    isInstance = isInstance && "enabled" in value;
-    isInstance = isInstance && "hostAddresses" in value;
-    isInstance = isInstance && "httpsReachableHosts" in value;
-    isInstance = isInstance && "icmpRequestTargets" in value;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfFwmgrApiNetworkLocationModifyRequestV1(value: object): value is FwmgrApiNetworkLocationModifyRequestV1 {
+    if (!("connectionTypes" in value) || value["connectionTypes"] === undefined) return false;
+    if (!("defaultGateways" in value) || value["defaultGateways"] === undefined) return false;
+    if (!("description" in value) || value["description"] === undefined) return false;
+    if (!("dhcpServers" in value) || value["dhcpServers"] === undefined) return false;
+    if (!("dnsResolutionTargets" in value) || value["dnsResolutionTargets"] === undefined) return false;
+    if (!("dnsServers" in value) || value["dnsServers"] === undefined) return false;
+    if (!("enabled" in value) || value["enabled"] === undefined) return false;
+    if (!("hostAddresses" in value) || value["hostAddresses"] === undefined) return false;
+    if (!("httpsReachableHosts" in value) || value["httpsReachableHosts"] === undefined) return false;
+    if (!("icmpRequestTargets" in value) || value["icmpRequestTargets"] === undefined) return false;
+    if (!("id" in value) || value["id"] === undefined) return false;
+    if (!("name" in value) || value["name"] === undefined) return false;
+    return true;
 }
 
 export function FwmgrApiNetworkLocationModifyRequestV1FromJSON(json: any): FwmgrApiNetworkLocationModifyRequestV1 {
@@ -152,13 +150,13 @@ export function FwmgrApiNetworkLocationModifyRequestV1FromJSON(json: any): Fwmgr
 }
 
 export function FwmgrApiNetworkLocationModifyRequestV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): FwmgrApiNetworkLocationModifyRequestV1 {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
         connectionTypes: FwmgrDomainConnectionTypeFromJSON(json["connection_types"]),
-        createdBy: !exists(json, "created_by") ? undefined : json["created_by"],
-        createdOn: !exists(json, "created_on") ? undefined : json["created_on"],
+        createdBy: json["created_by"] == null ? undefined : json["created_by"],
+        createdOn: json["created_on"] == null ? undefined : json["created_on"],
         defaultGateways: json["default_gateways"],
         description: json["description"],
         dhcpServers: json["dhcp_servers"],
@@ -169,35 +167,32 @@ export function FwmgrApiNetworkLocationModifyRequestV1FromJSONTyped(json: any, i
         httpsReachableHosts: FwmgrDomainHTTPSHostsFromJSON(json["https_reachable_hosts"]),
         icmpRequestTargets: FwmgrDomainICMPTargetsFromJSON(json["icmp_request_targets"]),
         id: json["id"],
-        modifiedBy: !exists(json, "modified_by") ? undefined : json["modified_by"],
-        modifiedOn: !exists(json, "modified_on") ? undefined : json["modified_on"],
+        modifiedBy: json["modified_by"] == null ? undefined : json["modified_by"],
+        modifiedOn: json["modified_on"] == null ? undefined : json["modified_on"],
         name: json["name"],
     };
 }
 
 export function FwmgrApiNetworkLocationModifyRequestV1ToJSON(value?: FwmgrApiNetworkLocationModifyRequestV1 | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        connection_types: FwmgrDomainConnectionTypeToJSON(value.connectionTypes),
-        created_by: value.createdBy,
-        created_on: value.createdOn,
-        default_gateways: value.defaultGateways,
-        description: value.description,
-        dhcp_servers: value.dhcpServers,
-        dns_resolution_targets: FwmgrDomainDNSResolutionTargetsToJSON(value.dnsResolutionTargets),
-        dns_servers: value.dnsServers,
-        enabled: value.enabled,
-        host_addresses: value.hostAddresses,
-        https_reachable_hosts: FwmgrDomainHTTPSHostsToJSON(value.httpsReachableHosts),
-        icmp_request_targets: FwmgrDomainICMPTargetsToJSON(value.icmpRequestTargets),
-        id: value.id,
-        modified_by: value.modifiedBy,
-        modified_on: value.modifiedOn,
-        name: value.name,
+        connection_types: FwmgrDomainConnectionTypeToJSON(value["connectionTypes"]),
+        created_by: value["createdBy"],
+        created_on: value["createdOn"],
+        default_gateways: value["defaultGateways"],
+        description: value["description"],
+        dhcp_servers: value["dhcpServers"],
+        dns_resolution_targets: FwmgrDomainDNSResolutionTargetsToJSON(value["dnsResolutionTargets"]),
+        dns_servers: value["dnsServers"],
+        enabled: value["enabled"],
+        host_addresses: value["hostAddresses"],
+        https_reachable_hosts: FwmgrDomainHTTPSHostsToJSON(value["httpsReachableHosts"]),
+        icmp_request_targets: FwmgrDomainICMPTargetsToJSON(value["icmpRequestTargets"]),
+        id: value["id"],
+        modified_by: value["modifiedBy"],
+        modified_on: value["modifiedOn"],
+        name: value["name"],
     };
 }

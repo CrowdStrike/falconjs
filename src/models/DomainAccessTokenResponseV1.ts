@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 /**
  *
  * @export
@@ -30,25 +30,45 @@ export interface DomainAccessTokenResponseV1 {
      * @type {number}
      * @memberof DomainAccessTokenResponseV1
      */
-    expiresIn: number;
+    expiresIn?: number;
     /**
      *
      * @type {string}
      * @memberof DomainAccessTokenResponseV1
      */
-    tokenType: string;
+    idToken?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainAccessTokenResponseV1
+     */
+    issuedTokenType?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainAccessTokenResponseV1
+     */
+    refreshToken?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainAccessTokenResponseV1
+     */
+    scope?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainAccessTokenResponseV1
+     */
+    tokenType?: string;
 }
 
 /**
  * Check if a given object implements the DomainAccessTokenResponseV1 interface.
  */
-export function instanceOfDomainAccessTokenResponseV1(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "accessToken" in value;
-    isInstance = isInstance && "expiresIn" in value;
-    isInstance = isInstance && "tokenType" in value;
-
-    return isInstance;
+export function instanceOfDomainAccessTokenResponseV1(value: object): value is DomainAccessTokenResponseV1 {
+    if (!("accessToken" in value) || value["accessToken"] === undefined) return false;
+    return true;
 }
 
 export function DomainAccessTokenResponseV1FromJSON(json: any): DomainAccessTokenResponseV1 {
@@ -56,26 +76,31 @@ export function DomainAccessTokenResponseV1FromJSON(json: any): DomainAccessToke
 }
 
 export function DomainAccessTokenResponseV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainAccessTokenResponseV1 {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
         accessToken: json["access_token"],
-        expiresIn: json["expires_in"],
-        tokenType: json["token_type"],
+        expiresIn: json["expires_in"] == null ? undefined : json["expires_in"],
+        idToken: json["id_token"] == null ? undefined : json["id_token"],
+        issuedTokenType: json["issued_token_type"] == null ? undefined : json["issued_token_type"],
+        refreshToken: json["refresh_token"] == null ? undefined : json["refresh_token"],
+        scope: json["scope"] == null ? undefined : json["scope"],
+        tokenType: json["token_type"] == null ? undefined : json["token_type"],
     };
 }
 
 export function DomainAccessTokenResponseV1ToJSON(value?: DomainAccessTokenResponseV1 | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        access_token: value.accessToken,
-        expires_in: value.expiresIn,
-        token_type: value.tokenType,
+        access_token: value["accessToken"],
+        expires_in: value["expiresIn"],
+        id_token: value["idToken"],
+        issued_token_type: value["issuedTokenType"],
+        refresh_token: value["refreshToken"],
+        scope: value["scope"],
+        token_type: value["tokenType"],
     };
 }

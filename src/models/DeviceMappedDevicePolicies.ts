@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 import type { DeviceDevicePolicy } from "./DeviceDevicePolicy";
 import { DeviceDevicePolicyFromJSON, DeviceDevicePolicyFromJSONTyped, DeviceDevicePolicyToJSON } from "./DeviceDevicePolicy";
 
@@ -39,7 +39,31 @@ export interface DeviceMappedDevicePolicies {
      * @type {DeviceDevicePolicy}
      * @memberof DeviceMappedDevicePolicies
      */
+    awsVerifiedAccess?: DeviceDevicePolicy;
+    /**
+     *
+     * @type {DeviceDevicePolicy}
+     * @memberof DeviceMappedDevicePolicies
+     */
+    customerEntitlements?: DeviceDevicePolicy;
+    /**
+     *
+     * @type {DeviceDevicePolicy}
+     * @memberof DeviceMappedDevicePolicies
+     */
+    dataProtection?: DeviceDevicePolicy;
+    /**
+     *
+     * @type {DeviceDevicePolicy}
+     * @memberof DeviceMappedDevicePolicies
+     */
     deviceControl?: DeviceDevicePolicy;
+    /**
+     *
+     * @type {DeviceDevicePolicy}
+     * @memberof DeviceMappedDevicePolicies
+     */
+    falconForIt?: DeviceDevicePolicy;
     /**
      *
      * @type {DeviceDevicePolicy}
@@ -63,6 +87,12 @@ export interface DeviceMappedDevicePolicies {
      * @type {DeviceDevicePolicy}
      * @memberof DeviceMappedDevicePolicies
      */
+    hostRetention?: DeviceDevicePolicy;
+    /**
+     *
+     * @type {DeviceDevicePolicy}
+     * @memberof DeviceMappedDevicePolicies
+     */
     identityProtection?: DeviceDevicePolicy;
     /**
      *
@@ -70,6 +100,18 @@ export interface DeviceMappedDevicePolicies {
      * @memberof DeviceMappedDevicePolicies
      */
     jumpcloud?: DeviceDevicePolicy;
+    /**
+     *
+     * @type {DeviceDevicePolicy}
+     * @memberof DeviceMappedDevicePolicies
+     */
+    kubernetesAdmissionControl?: DeviceDevicePolicy;
+    /**
+     *
+     * @type {DeviceDevicePolicy}
+     * @memberof DeviceMappedDevicePolicies
+     */
+    legacyOs?: DeviceDevicePolicy;
     /**
      *
      * @type {DeviceDevicePolicy}
@@ -99,16 +141,38 @@ export interface DeviceMappedDevicePolicies {
      * @type {DeviceDevicePolicy}
      * @memberof DeviceMappedDevicePolicies
      */
+    sca?: DeviceDevicePolicy;
+    /**
+     *
+     * @type {DeviceDevicePolicy}
+     * @memberof DeviceMappedDevicePolicies
+     */
     sensorUpdate?: DeviceDevicePolicy;
+    /**
+     *
+     * @type {DeviceDevicePolicy}
+     * @memberof DeviceMappedDevicePolicies
+     */
+    systemTray?: DeviceDevicePolicy;
+    /**
+     *
+     * @type {DeviceDevicePolicy}
+     * @memberof DeviceMappedDevicePolicies
+     */
+    vulnerabilityManagement?: DeviceDevicePolicy;
+    /**
+     *
+     * @type {DeviceDevicePolicy}
+     * @memberof DeviceMappedDevicePolicies
+     */
+    ztl?: DeviceDevicePolicy;
 }
 
 /**
  * Check if a given object implements the DeviceMappedDevicePolicies interface.
  */
-export function instanceOfDeviceMappedDevicePolicies(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfDeviceMappedDevicePolicies(value: object): value is DeviceMappedDevicePolicies {
+    return true;
 }
 
 export function DeviceMappedDevicePoliciesFromJSON(json: any): DeviceMappedDevicePolicies {
@@ -116,46 +180,65 @@ export function DeviceMappedDevicePoliciesFromJSON(json: any): DeviceMappedDevic
 }
 
 export function DeviceMappedDevicePoliciesFromJSONTyped(json: any, ignoreDiscriminator: boolean): DeviceMappedDevicePolicies {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
-        airlock: !exists(json, "airlock") ? undefined : DeviceDevicePolicyFromJSON(json["airlock"]),
-        automox: !exists(json, "automox") ? undefined : DeviceDevicePolicyFromJSON(json["automox"]),
-        deviceControl: !exists(json, "device_control") ? undefined : DeviceDevicePolicyFromJSON(json["device_control"]),
-        fim: !exists(json, "fim") ? undefined : DeviceDevicePolicyFromJSON(json["fim"]),
-        firewall: !exists(json, "firewall") ? undefined : DeviceDevicePolicyFromJSON(json["firewall"]),
-        globalConfig: !exists(json, "global_config") ? undefined : DeviceDevicePolicyFromJSON(json["global_config"]),
-        identityProtection: !exists(json, "identity-protection") ? undefined : DeviceDevicePolicyFromJSON(json["identity-protection"]),
-        jumpcloud: !exists(json, "jumpcloud") ? undefined : DeviceDevicePolicyFromJSON(json["jumpcloud"]),
-        mobile: !exists(json, "mobile") ? undefined : DeviceDevicePolicyFromJSON(json["mobile"]),
-        netskope: !exists(json, "netskope") ? undefined : DeviceDevicePolicyFromJSON(json["netskope"]),
-        prevention: !exists(json, "prevention") ? undefined : DeviceDevicePolicyFromJSON(json["prevention"]),
-        remoteResponse: !exists(json, "remote_response") ? undefined : DeviceDevicePolicyFromJSON(json["remote_response"]),
-        sensorUpdate: !exists(json, "sensor_update") ? undefined : DeviceDevicePolicyFromJSON(json["sensor_update"]),
+        airlock: json["airlock"] == null ? undefined : DeviceDevicePolicyFromJSON(json["airlock"]),
+        automox: json["automox"] == null ? undefined : DeviceDevicePolicyFromJSON(json["automox"]),
+        awsVerifiedAccess: json["aws-verified-access"] == null ? undefined : DeviceDevicePolicyFromJSON(json["aws-verified-access"]),
+        customerEntitlements: json["customer-entitlements"] == null ? undefined : DeviceDevicePolicyFromJSON(json["customer-entitlements"]),
+        dataProtection: json["data-protection"] == null ? undefined : DeviceDevicePolicyFromJSON(json["data-protection"]),
+        deviceControl: json["device_control"] == null ? undefined : DeviceDevicePolicyFromJSON(json["device_control"]),
+        falconForIt: json["falcon-for-it"] == null ? undefined : DeviceDevicePolicyFromJSON(json["falcon-for-it"]),
+        fim: json["fim"] == null ? undefined : DeviceDevicePolicyFromJSON(json["fim"]),
+        firewall: json["firewall"] == null ? undefined : DeviceDevicePolicyFromJSON(json["firewall"]),
+        globalConfig: json["global_config"] == null ? undefined : DeviceDevicePolicyFromJSON(json["global_config"]),
+        hostRetention: json["host-retention"] == null ? undefined : DeviceDevicePolicyFromJSON(json["host-retention"]),
+        identityProtection: json["identity-protection"] == null ? undefined : DeviceDevicePolicyFromJSON(json["identity-protection"]),
+        jumpcloud: json["jumpcloud"] == null ? undefined : DeviceDevicePolicyFromJSON(json["jumpcloud"]),
+        kubernetesAdmissionControl: json["kubernetes-admission-control"] == null ? undefined : DeviceDevicePolicyFromJSON(json["kubernetes-admission-control"]),
+        legacyOs: json["legacy-os"] == null ? undefined : DeviceDevicePolicyFromJSON(json["legacy-os"]),
+        mobile: json["mobile"] == null ? undefined : DeviceDevicePolicyFromJSON(json["mobile"]),
+        netskope: json["netskope"] == null ? undefined : DeviceDevicePolicyFromJSON(json["netskope"]),
+        prevention: json["prevention"] == null ? undefined : DeviceDevicePolicyFromJSON(json["prevention"]),
+        remoteResponse: json["remote_response"] == null ? undefined : DeviceDevicePolicyFromJSON(json["remote_response"]),
+        sca: json["sca"] == null ? undefined : DeviceDevicePolicyFromJSON(json["sca"]),
+        sensorUpdate: json["sensor_update"] == null ? undefined : DeviceDevicePolicyFromJSON(json["sensor_update"]),
+        systemTray: json["system-tray"] == null ? undefined : DeviceDevicePolicyFromJSON(json["system-tray"]),
+        vulnerabilityManagement: json["vulnerability-management"] == null ? undefined : DeviceDevicePolicyFromJSON(json["vulnerability-management"]),
+        ztl: json["ztl"] == null ? undefined : DeviceDevicePolicyFromJSON(json["ztl"]),
     };
 }
 
 export function DeviceMappedDevicePoliciesToJSON(value?: DeviceMappedDevicePolicies | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        airlock: DeviceDevicePolicyToJSON(value.airlock),
-        automox: DeviceDevicePolicyToJSON(value.automox),
-        device_control: DeviceDevicePolicyToJSON(value.deviceControl),
-        fim: DeviceDevicePolicyToJSON(value.fim),
-        firewall: DeviceDevicePolicyToJSON(value.firewall),
-        global_config: DeviceDevicePolicyToJSON(value.globalConfig),
-        "identity-protection": DeviceDevicePolicyToJSON(value.identityProtection),
-        jumpcloud: DeviceDevicePolicyToJSON(value.jumpcloud),
-        mobile: DeviceDevicePolicyToJSON(value.mobile),
-        netskope: DeviceDevicePolicyToJSON(value.netskope),
-        prevention: DeviceDevicePolicyToJSON(value.prevention),
-        remote_response: DeviceDevicePolicyToJSON(value.remoteResponse),
-        sensor_update: DeviceDevicePolicyToJSON(value.sensorUpdate),
+        airlock: DeviceDevicePolicyToJSON(value["airlock"]),
+        automox: DeviceDevicePolicyToJSON(value["automox"]),
+        "aws-verified-access": DeviceDevicePolicyToJSON(value["awsVerifiedAccess"]),
+        "customer-entitlements": DeviceDevicePolicyToJSON(value["customerEntitlements"]),
+        "data-protection": DeviceDevicePolicyToJSON(value["dataProtection"]),
+        device_control: DeviceDevicePolicyToJSON(value["deviceControl"]),
+        "falcon-for-it": DeviceDevicePolicyToJSON(value["falconForIt"]),
+        fim: DeviceDevicePolicyToJSON(value["fim"]),
+        firewall: DeviceDevicePolicyToJSON(value["firewall"]),
+        global_config: DeviceDevicePolicyToJSON(value["globalConfig"]),
+        "host-retention": DeviceDevicePolicyToJSON(value["hostRetention"]),
+        "identity-protection": DeviceDevicePolicyToJSON(value["identityProtection"]),
+        jumpcloud: DeviceDevicePolicyToJSON(value["jumpcloud"]),
+        "kubernetes-admission-control": DeviceDevicePolicyToJSON(value["kubernetesAdmissionControl"]),
+        "legacy-os": DeviceDevicePolicyToJSON(value["legacyOs"]),
+        mobile: DeviceDevicePolicyToJSON(value["mobile"]),
+        netskope: DeviceDevicePolicyToJSON(value["netskope"]),
+        prevention: DeviceDevicePolicyToJSON(value["prevention"]),
+        remote_response: DeviceDevicePolicyToJSON(value["remoteResponse"]),
+        sca: DeviceDevicePolicyToJSON(value["sca"]),
+        sensor_update: DeviceDevicePolicyToJSON(value["sensorUpdate"]),
+        "system-tray": DeviceDevicePolicyToJSON(value["systemTray"]),
+        "vulnerability-management": DeviceDevicePolicyToJSON(value["vulnerabilityManagement"]),
+        ztl: DeviceDevicePolicyToJSON(value["ztl"]),
     };
 }

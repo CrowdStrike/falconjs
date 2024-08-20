@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,15 +12,15 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
+import type { DeviceMappedDevicePolicies } from "./DeviceMappedDevicePolicies";
+import { DeviceMappedDevicePoliciesFromJSON, DeviceMappedDevicePoliciesFromJSONTyped, DeviceMappedDevicePoliciesToJSON } from "./DeviceMappedDevicePolicies";
+import type { DeviceManagedApps } from "./DeviceManagedApps";
+import { DeviceManagedAppsFromJSON, DeviceManagedAppsFromJSONTyped, DeviceManagedAppsToJSON } from "./DeviceManagedApps";
 import type { DeviceDeviceMeta } from "./DeviceDeviceMeta";
 import { DeviceDeviceMetaFromJSON, DeviceDeviceMetaFromJSONTyped, DeviceDeviceMetaToJSON } from "./DeviceDeviceMeta";
 import type { DeviceDevicePolicy } from "./DeviceDevicePolicy";
 import { DeviceDevicePolicyFromJSON, DeviceDevicePolicyFromJSONTyped, DeviceDevicePolicyToJSON } from "./DeviceDevicePolicy";
-import type { DeviceManagedApps } from "./DeviceManagedApps";
-import { DeviceManagedAppsFromJSON, DeviceManagedAppsFromJSONTyped, DeviceManagedAppsToJSON } from "./DeviceManagedApps";
-import type { DeviceMappedDevicePolicies } from "./DeviceMappedDevicePolicies";
-import { DeviceMappedDevicePoliciesFromJSON, DeviceMappedDevicePoliciesFromJSONTyped, DeviceMappedDevicePoliciesToJSON } from "./DeviceMappedDevicePolicies";
 
 /**
  *
@@ -51,6 +51,12 @@ export interface DeviceapiDeviceSwagger {
      * @type {string}
      * @memberof DeviceapiDeviceSwagger
      */
+    baseImageVersion?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceapiDeviceSwagger
+     */
     biosManufacturer?: string;
     /**
      *
@@ -64,6 +70,18 @@ export interface DeviceapiDeviceSwagger {
      * @memberof DeviceapiDeviceSwagger
      */
     buildNumber?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceapiDeviceSwagger
+     */
+    chassisType?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceapiDeviceSwagger
+     */
+    chassisTypeDesc?: string;
     /**
      *
      * @type {string}
@@ -93,7 +111,37 @@ export interface DeviceapiDeviceSwagger {
      * @type {string}
      * @memberof DeviceapiDeviceSwagger
      */
+    connectionIp?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceapiDeviceSwagger
+     */
+    connectionMacAddress?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceapiDeviceSwagger
+     */
     cpuSignature?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceapiDeviceSwagger
+     */
+    cpuVendor?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceapiDeviceSwagger
+     */
+    defaultGatewayIp?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceapiDeviceSwagger
+     */
+    deploymentType?: string;
     /**
      *
      * @type {string}
@@ -129,6 +177,12 @@ export interface DeviceapiDeviceSwagger {
      * @type {string}
      * @memberof DeviceapiDeviceSwagger
      */
+    filesystemContainmentStatus?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceapiDeviceSwagger
+     */
     firstLoginTimestamp?: string;
     /**
      *
@@ -159,6 +213,12 @@ export interface DeviceapiDeviceSwagger {
      * @type {string}
      * @memberof DeviceapiDeviceSwagger
      */
+    hostUtcOffset?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceapiDeviceSwagger
+     */
     hostname?: string;
     /**
      *
@@ -177,6 +237,24 @@ export interface DeviceapiDeviceSwagger {
      * @type {string}
      * @memberof DeviceapiDeviceSwagger
      */
+    k8sClusterGitVersion?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceapiDeviceSwagger
+     */
+    k8sClusterId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceapiDeviceSwagger
+     */
+    k8sClusterVersion?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceapiDeviceSwagger
+     */
     kernelVersion?: string;
     /**
      *
@@ -189,7 +267,37 @@ export interface DeviceapiDeviceSwagger {
      * @type {string}
      * @memberof DeviceapiDeviceSwagger
      */
+    lastLoginUid?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceapiDeviceSwagger
+     */
+    lastLoginUser?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceapiDeviceSwagger
+     */
+    lastLoginUserSid?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceapiDeviceSwagger
+     */
+    lastReboot?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceapiDeviceSwagger
+     */
     lastSeen?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceapiDeviceSwagger
+     */
+    linuxSensorMode?: string;
     /**
      *
      * @type {string}
@@ -231,6 +339,12 @@ export interface DeviceapiDeviceSwagger {
      * @type {string}
      * @memberof DeviceapiDeviceSwagger
      */
+    migrationCompletedTime?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceapiDeviceSwagger
+     */
     minorVersion?: string;
     /**
      *
@@ -250,6 +364,12 @@ export interface DeviceapiDeviceSwagger {
      * @memberof DeviceapiDeviceSwagger
      */
     osBuild?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceapiDeviceSwagger
+     */
+    osProductName?: string;
     /**
      *
      * @type {string}
@@ -387,6 +507,12 @@ export interface DeviceapiDeviceSwagger {
      * @type {string}
      * @memberof DeviceapiDeviceSwagger
      */
+    rtrState?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceapiDeviceSwagger
+     */
     serialNumber?: string;
     /**
      *
@@ -453,12 +579,10 @@ export interface DeviceapiDeviceSwagger {
 /**
  * Check if a given object implements the DeviceapiDeviceSwagger interface.
  */
-export function instanceOfDeviceapiDeviceSwagger(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "cid" in value;
-    isInstance = isInstance && "deviceId" in value;
-
-    return isInstance;
+export function instanceOfDeviceapiDeviceSwagger(value: object): value is DeviceapiDeviceSwagger {
+    if (!("cid" in value) || value["cid"] === undefined) return false;
+    if (!("deviceId" in value) || value["deviceId"] === undefined) return false;
+    return true;
 }
 
 export function DeviceapiDeviceSwaggerFromJSON(json: any): DeviceapiDeviceSwagger {
@@ -466,160 +590,199 @@ export function DeviceapiDeviceSwaggerFromJSON(json: any): DeviceapiDeviceSwagge
 }
 
 export function DeviceapiDeviceSwaggerFromJSONTyped(json: any, ignoreDiscriminator: boolean): DeviceapiDeviceSwagger {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
-        agentLoadFlags: !exists(json, "agent_load_flags") ? undefined : json["agent_load_flags"],
-        agentLocalTime: !exists(json, "agent_local_time") ? undefined : json["agent_local_time"],
-        agentVersion: !exists(json, "agent_version") ? undefined : json["agent_version"],
-        biosManufacturer: !exists(json, "bios_manufacturer") ? undefined : json["bios_manufacturer"],
-        biosVersion: !exists(json, "bios_version") ? undefined : json["bios_version"],
-        buildNumber: !exists(json, "build_number") ? undefined : json["build_number"],
+        agentLoadFlags: json["agent_load_flags"] == null ? undefined : json["agent_load_flags"],
+        agentLocalTime: json["agent_local_time"] == null ? undefined : json["agent_local_time"],
+        agentVersion: json["agent_version"] == null ? undefined : json["agent_version"],
+        baseImageVersion: json["base_image_version"] == null ? undefined : json["base_image_version"],
+        biosManufacturer: json["bios_manufacturer"] == null ? undefined : json["bios_manufacturer"],
+        biosVersion: json["bios_version"] == null ? undefined : json["bios_version"],
+        buildNumber: json["build_number"] == null ? undefined : json["build_number"],
+        chassisType: json["chassis_type"] == null ? undefined : json["chassis_type"],
+        chassisTypeDesc: json["chassis_type_desc"] == null ? undefined : json["chassis_type_desc"],
         cid: json["cid"],
-        configIdBase: !exists(json, "config_id_base") ? undefined : json["config_id_base"],
-        configIdBuild: !exists(json, "config_id_build") ? undefined : json["config_id_build"],
-        configIdPlatform: !exists(json, "config_id_platform") ? undefined : json["config_id_platform"],
-        cpuSignature: !exists(json, "cpu_signature") ? undefined : json["cpu_signature"],
-        detectionSuppressionStatus: !exists(json, "detection_suppression_status") ? undefined : json["detection_suppression_status"],
+        configIdBase: json["config_id_base"] == null ? undefined : json["config_id_base"],
+        configIdBuild: json["config_id_build"] == null ? undefined : json["config_id_build"],
+        configIdPlatform: json["config_id_platform"] == null ? undefined : json["config_id_platform"],
+        connectionIp: json["connection_ip"] == null ? undefined : json["connection_ip"],
+        connectionMacAddress: json["connection_mac_address"] == null ? undefined : json["connection_mac_address"],
+        cpuSignature: json["cpu_signature"] == null ? undefined : json["cpu_signature"],
+        cpuVendor: json["cpu_vendor"] == null ? undefined : json["cpu_vendor"],
+        defaultGatewayIp: json["default_gateway_ip"] == null ? undefined : json["default_gateway_ip"],
+        deploymentType: json["deployment_type"] == null ? undefined : json["deployment_type"],
+        detectionSuppressionStatus: json["detection_suppression_status"] == null ? undefined : json["detection_suppression_status"],
         deviceId: json["device_id"],
-        devicePolicies: !exists(json, "device_policies") ? undefined : DeviceMappedDevicePoliciesFromJSON(json["device_policies"]),
-        email: !exists(json, "email") ? undefined : json["email"],
-        externalIp: !exists(json, "external_ip") ? undefined : json["external_ip"],
-        firstLoginTimestamp: !exists(json, "first_login_timestamp") ? undefined : json["first_login_timestamp"],
-        firstSeen: !exists(json, "first_seen") ? undefined : json["first_seen"],
-        groupHash: !exists(json, "group_hash") ? undefined : json["group_hash"],
-        groups: !exists(json, "groups") ? undefined : json["groups"],
-        hostHiddenStatus: !exists(json, "host_hidden_status") ? undefined : json["host_hidden_status"],
-        hostname: !exists(json, "hostname") ? undefined : json["hostname"],
-        instanceId: !exists(json, "instance_id") ? undefined : json["instance_id"],
-        internetExposure: !exists(json, "internet_exposure") ? undefined : json["internet_exposure"],
-        kernelVersion: !exists(json, "kernel_version") ? undefined : json["kernel_version"],
-        lastLoginTimestamp: !exists(json, "last_login_timestamp") ? undefined : json["last_login_timestamp"],
-        lastSeen: !exists(json, "last_seen") ? undefined : json["last_seen"],
-        localIp: !exists(json, "local_ip") ? undefined : json["local_ip"],
-        macAddress: !exists(json, "mac_address") ? undefined : json["mac_address"],
-        machineDomain: !exists(json, "machine_domain") ? undefined : json["machine_domain"],
-        majorVersion: !exists(json, "major_version") ? undefined : json["major_version"],
-        managedApps: !exists(json, "managed_apps") ? undefined : DeviceManagedAppsFromJSON(json["managed_apps"]),
-        meta: !exists(json, "meta") ? undefined : DeviceDeviceMetaFromJSON(json["meta"]),
-        minorVersion: !exists(json, "minor_version") ? undefined : json["minor_version"],
-        modifiedTimestamp: !exists(json, "modified_timestamp") ? undefined : json["modified_timestamp"],
-        notes: !exists(json, "notes") ? undefined : json["notes"],
-        osBuild: !exists(json, "os_build") ? undefined : json["os_build"],
-        osVersion: !exists(json, "os_version") ? undefined : json["os_version"],
-        ou: !exists(json, "ou") ? undefined : json["ou"],
-        platformId: !exists(json, "platform_id") ? undefined : json["platform_id"],
-        platformName: !exists(json, "platform_name") ? undefined : json["platform_name"],
-        podAnnotations: !exists(json, "pod_annotations") ? undefined : json["pod_annotations"],
-        podHostIp4: !exists(json, "pod_host_ip4") ? undefined : json["pod_host_ip4"],
-        podHostIp6: !exists(json, "pod_host_ip6") ? undefined : json["pod_host_ip6"],
-        podHostname: !exists(json, "pod_hostname") ? undefined : json["pod_hostname"],
-        podId: !exists(json, "pod_id") ? undefined : json["pod_id"],
-        podIp4: !exists(json, "pod_ip4") ? undefined : json["pod_ip4"],
-        podIp6: !exists(json, "pod_ip6") ? undefined : json["pod_ip6"],
-        podLabels: !exists(json, "pod_labels") ? undefined : json["pod_labels"],
-        podName: !exists(json, "pod_name") ? undefined : json["pod_name"],
-        podNamespace: !exists(json, "pod_namespace") ? undefined : json["pod_namespace"],
-        podServiceAccountName: !exists(json, "pod_service_account_name") ? undefined : json["pod_service_account_name"],
-        pointerSize: !exists(json, "pointer_size") ? undefined : json["pointer_size"],
-        policies: !exists(json, "policies") ? undefined : (json["policies"] as Array<any>).map(DeviceDevicePolicyFromJSON),
-        productType: !exists(json, "product_type") ? undefined : json["product_type"],
-        productTypeDesc: !exists(json, "product_type_desc") ? undefined : json["product_type_desc"],
-        provisionStatus: !exists(json, "provision_status") ? undefined : json["provision_status"],
-        reducedFunctionalityMode: !exists(json, "reduced_functionality_mode") ? undefined : json["reduced_functionality_mode"],
-        releaseGroup: !exists(json, "release_group") ? undefined : json["release_group"],
-        serialNumber: !exists(json, "serial_number") ? undefined : json["serial_number"],
-        servicePackMajor: !exists(json, "service_pack_major") ? undefined : json["service_pack_major"],
-        servicePackMinor: !exists(json, "service_pack_minor") ? undefined : json["service_pack_minor"],
-        serviceProvider: !exists(json, "service_provider") ? undefined : json["service_provider"],
-        serviceProviderAccountId: !exists(json, "service_provider_account_id") ? undefined : json["service_provider_account_id"],
-        siteName: !exists(json, "site_name") ? undefined : json["site_name"],
-        status: !exists(json, "status") ? undefined : json["status"],
-        systemManufacturer: !exists(json, "system_manufacturer") ? undefined : json["system_manufacturer"],
-        systemProductName: !exists(json, "system_product_name") ? undefined : json["system_product_name"],
-        tags: !exists(json, "tags") ? undefined : json["tags"],
-        zoneGroup: !exists(json, "zone_group") ? undefined : json["zone_group"],
+        devicePolicies: json["device_policies"] == null ? undefined : DeviceMappedDevicePoliciesFromJSON(json["device_policies"]),
+        email: json["email"] == null ? undefined : json["email"],
+        externalIp: json["external_ip"] == null ? undefined : json["external_ip"],
+        filesystemContainmentStatus: json["filesystem_containment_status"] == null ? undefined : json["filesystem_containment_status"],
+        firstLoginTimestamp: json["first_login_timestamp"] == null ? undefined : json["first_login_timestamp"],
+        firstSeen: json["first_seen"] == null ? undefined : json["first_seen"],
+        groupHash: json["group_hash"] == null ? undefined : json["group_hash"],
+        groups: json["groups"] == null ? undefined : json["groups"],
+        hostHiddenStatus: json["host_hidden_status"] == null ? undefined : json["host_hidden_status"],
+        hostUtcOffset: json["host_utc_offset"] == null ? undefined : json["host_utc_offset"],
+        hostname: json["hostname"] == null ? undefined : json["hostname"],
+        instanceId: json["instance_id"] == null ? undefined : json["instance_id"],
+        internetExposure: json["internet_exposure"] == null ? undefined : json["internet_exposure"],
+        k8sClusterGitVersion: json["k8s_cluster_git_version"] == null ? undefined : json["k8s_cluster_git_version"],
+        k8sClusterId: json["k8s_cluster_id"] == null ? undefined : json["k8s_cluster_id"],
+        k8sClusterVersion: json["k8s_cluster_version"] == null ? undefined : json["k8s_cluster_version"],
+        kernelVersion: json["kernel_version"] == null ? undefined : json["kernel_version"],
+        lastLoginTimestamp: json["last_login_timestamp"] == null ? undefined : json["last_login_timestamp"],
+        lastLoginUid: json["last_login_uid"] == null ? undefined : json["last_login_uid"],
+        lastLoginUser: json["last_login_user"] == null ? undefined : json["last_login_user"],
+        lastLoginUserSid: json["last_login_user_sid"] == null ? undefined : json["last_login_user_sid"],
+        lastReboot: json["last_reboot"] == null ? undefined : json["last_reboot"],
+        lastSeen: json["last_seen"] == null ? undefined : json["last_seen"],
+        linuxSensorMode: json["linux_sensor_mode"] == null ? undefined : json["linux_sensor_mode"],
+        localIp: json["local_ip"] == null ? undefined : json["local_ip"],
+        macAddress: json["mac_address"] == null ? undefined : json["mac_address"],
+        machineDomain: json["machine_domain"] == null ? undefined : json["machine_domain"],
+        majorVersion: json["major_version"] == null ? undefined : json["major_version"],
+        managedApps: json["managed_apps"] == null ? undefined : DeviceManagedAppsFromJSON(json["managed_apps"]),
+        meta: json["meta"] == null ? undefined : DeviceDeviceMetaFromJSON(json["meta"]),
+        migrationCompletedTime: json["migration_completed_time"] == null ? undefined : json["migration_completed_time"],
+        minorVersion: json["minor_version"] == null ? undefined : json["minor_version"],
+        modifiedTimestamp: json["modified_timestamp"] == null ? undefined : json["modified_timestamp"],
+        notes: json["notes"] == null ? undefined : json["notes"],
+        osBuild: json["os_build"] == null ? undefined : json["os_build"],
+        osProductName: json["os_product_name"] == null ? undefined : json["os_product_name"],
+        osVersion: json["os_version"] == null ? undefined : json["os_version"],
+        ou: json["ou"] == null ? undefined : json["ou"],
+        platformId: json["platform_id"] == null ? undefined : json["platform_id"],
+        platformName: json["platform_name"] == null ? undefined : json["platform_name"],
+        podAnnotations: json["pod_annotations"] == null ? undefined : json["pod_annotations"],
+        podHostIp4: json["pod_host_ip4"] == null ? undefined : json["pod_host_ip4"],
+        podHostIp6: json["pod_host_ip6"] == null ? undefined : json["pod_host_ip6"],
+        podHostname: json["pod_hostname"] == null ? undefined : json["pod_hostname"],
+        podId: json["pod_id"] == null ? undefined : json["pod_id"],
+        podIp4: json["pod_ip4"] == null ? undefined : json["pod_ip4"],
+        podIp6: json["pod_ip6"] == null ? undefined : json["pod_ip6"],
+        podLabels: json["pod_labels"] == null ? undefined : json["pod_labels"],
+        podName: json["pod_name"] == null ? undefined : json["pod_name"],
+        podNamespace: json["pod_namespace"] == null ? undefined : json["pod_namespace"],
+        podServiceAccountName: json["pod_service_account_name"] == null ? undefined : json["pod_service_account_name"],
+        pointerSize: json["pointer_size"] == null ? undefined : json["pointer_size"],
+        policies: json["policies"] == null ? undefined : (json["policies"] as Array<any>).map(DeviceDevicePolicyFromJSON),
+        productType: json["product_type"] == null ? undefined : json["product_type"],
+        productTypeDesc: json["product_type_desc"] == null ? undefined : json["product_type_desc"],
+        provisionStatus: json["provision_status"] == null ? undefined : json["provision_status"],
+        reducedFunctionalityMode: json["reduced_functionality_mode"] == null ? undefined : json["reduced_functionality_mode"],
+        releaseGroup: json["release_group"] == null ? undefined : json["release_group"],
+        rtrState: json["rtr_state"] == null ? undefined : json["rtr_state"],
+        serialNumber: json["serial_number"] == null ? undefined : json["serial_number"],
+        servicePackMajor: json["service_pack_major"] == null ? undefined : json["service_pack_major"],
+        servicePackMinor: json["service_pack_minor"] == null ? undefined : json["service_pack_minor"],
+        serviceProvider: json["service_provider"] == null ? undefined : json["service_provider"],
+        serviceProviderAccountId: json["service_provider_account_id"] == null ? undefined : json["service_provider_account_id"],
+        siteName: json["site_name"] == null ? undefined : json["site_name"],
+        status: json["status"] == null ? undefined : json["status"],
+        systemManufacturer: json["system_manufacturer"] == null ? undefined : json["system_manufacturer"],
+        systemProductName: json["system_product_name"] == null ? undefined : json["system_product_name"],
+        tags: json["tags"] == null ? undefined : json["tags"],
+        zoneGroup: json["zone_group"] == null ? undefined : json["zone_group"],
     };
 }
 
 export function DeviceapiDeviceSwaggerToJSON(value?: DeviceapiDeviceSwagger | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        agent_load_flags: value.agentLoadFlags,
-        agent_local_time: value.agentLocalTime,
-        agent_version: value.agentVersion,
-        bios_manufacturer: value.biosManufacturer,
-        bios_version: value.biosVersion,
-        build_number: value.buildNumber,
-        cid: value.cid,
-        config_id_base: value.configIdBase,
-        config_id_build: value.configIdBuild,
-        config_id_platform: value.configIdPlatform,
-        cpu_signature: value.cpuSignature,
-        detection_suppression_status: value.detectionSuppressionStatus,
-        device_id: value.deviceId,
-        device_policies: DeviceMappedDevicePoliciesToJSON(value.devicePolicies),
-        email: value.email,
-        external_ip: value.externalIp,
-        first_login_timestamp: value.firstLoginTimestamp,
-        first_seen: value.firstSeen,
-        group_hash: value.groupHash,
-        groups: value.groups,
-        host_hidden_status: value.hostHiddenStatus,
-        hostname: value.hostname,
-        instance_id: value.instanceId,
-        internet_exposure: value.internetExposure,
-        kernel_version: value.kernelVersion,
-        last_login_timestamp: value.lastLoginTimestamp,
-        last_seen: value.lastSeen,
-        local_ip: value.localIp,
-        mac_address: value.macAddress,
-        machine_domain: value.machineDomain,
-        major_version: value.majorVersion,
-        managed_apps: DeviceManagedAppsToJSON(value.managedApps),
-        meta: DeviceDeviceMetaToJSON(value.meta),
-        minor_version: value.minorVersion,
-        modified_timestamp: value.modifiedTimestamp,
-        notes: value.notes,
-        os_build: value.osBuild,
-        os_version: value.osVersion,
-        ou: value.ou,
-        platform_id: value.platformId,
-        platform_name: value.platformName,
-        pod_annotations: value.podAnnotations,
-        pod_host_ip4: value.podHostIp4,
-        pod_host_ip6: value.podHostIp6,
-        pod_hostname: value.podHostname,
-        pod_id: value.podId,
-        pod_ip4: value.podIp4,
-        pod_ip6: value.podIp6,
-        pod_labels: value.podLabels,
-        pod_name: value.podName,
-        pod_namespace: value.podNamespace,
-        pod_service_account_name: value.podServiceAccountName,
-        pointer_size: value.pointerSize,
-        policies: value.policies === undefined ? undefined : (value.policies as Array<any>).map(DeviceDevicePolicyToJSON),
-        product_type: value.productType,
-        product_type_desc: value.productTypeDesc,
-        provision_status: value.provisionStatus,
-        reduced_functionality_mode: value.reducedFunctionalityMode,
-        release_group: value.releaseGroup,
-        serial_number: value.serialNumber,
-        service_pack_major: value.servicePackMajor,
-        service_pack_minor: value.servicePackMinor,
-        service_provider: value.serviceProvider,
-        service_provider_account_id: value.serviceProviderAccountId,
-        site_name: value.siteName,
-        status: value.status,
-        system_manufacturer: value.systemManufacturer,
-        system_product_name: value.systemProductName,
-        tags: value.tags,
-        zone_group: value.zoneGroup,
+        agent_load_flags: value["agentLoadFlags"],
+        agent_local_time: value["agentLocalTime"],
+        agent_version: value["agentVersion"],
+        base_image_version: value["baseImageVersion"],
+        bios_manufacturer: value["biosManufacturer"],
+        bios_version: value["biosVersion"],
+        build_number: value["buildNumber"],
+        chassis_type: value["chassisType"],
+        chassis_type_desc: value["chassisTypeDesc"],
+        cid: value["cid"],
+        config_id_base: value["configIdBase"],
+        config_id_build: value["configIdBuild"],
+        config_id_platform: value["configIdPlatform"],
+        connection_ip: value["connectionIp"],
+        connection_mac_address: value["connectionMacAddress"],
+        cpu_signature: value["cpuSignature"],
+        cpu_vendor: value["cpuVendor"],
+        default_gateway_ip: value["defaultGatewayIp"],
+        deployment_type: value["deploymentType"],
+        detection_suppression_status: value["detectionSuppressionStatus"],
+        device_id: value["deviceId"],
+        device_policies: DeviceMappedDevicePoliciesToJSON(value["devicePolicies"]),
+        email: value["email"],
+        external_ip: value["externalIp"],
+        filesystem_containment_status: value["filesystemContainmentStatus"],
+        first_login_timestamp: value["firstLoginTimestamp"],
+        first_seen: value["firstSeen"],
+        group_hash: value["groupHash"],
+        groups: value["groups"],
+        host_hidden_status: value["hostHiddenStatus"],
+        host_utc_offset: value["hostUtcOffset"],
+        hostname: value["hostname"],
+        instance_id: value["instanceId"],
+        internet_exposure: value["internetExposure"],
+        k8s_cluster_git_version: value["k8sClusterGitVersion"],
+        k8s_cluster_id: value["k8sClusterId"],
+        k8s_cluster_version: value["k8sClusterVersion"],
+        kernel_version: value["kernelVersion"],
+        last_login_timestamp: value["lastLoginTimestamp"],
+        last_login_uid: value["lastLoginUid"],
+        last_login_user: value["lastLoginUser"],
+        last_login_user_sid: value["lastLoginUserSid"],
+        last_reboot: value["lastReboot"],
+        last_seen: value["lastSeen"],
+        linux_sensor_mode: value["linuxSensorMode"],
+        local_ip: value["localIp"],
+        mac_address: value["macAddress"],
+        machine_domain: value["machineDomain"],
+        major_version: value["majorVersion"],
+        managed_apps: DeviceManagedAppsToJSON(value["managedApps"]),
+        meta: DeviceDeviceMetaToJSON(value["meta"]),
+        migration_completed_time: value["migrationCompletedTime"],
+        minor_version: value["minorVersion"],
+        modified_timestamp: value["modifiedTimestamp"],
+        notes: value["notes"],
+        os_build: value["osBuild"],
+        os_product_name: value["osProductName"],
+        os_version: value["osVersion"],
+        ou: value["ou"],
+        platform_id: value["platformId"],
+        platform_name: value["platformName"],
+        pod_annotations: value["podAnnotations"],
+        pod_host_ip4: value["podHostIp4"],
+        pod_host_ip6: value["podHostIp6"],
+        pod_hostname: value["podHostname"],
+        pod_id: value["podId"],
+        pod_ip4: value["podIp4"],
+        pod_ip6: value["podIp6"],
+        pod_labels: value["podLabels"],
+        pod_name: value["podName"],
+        pod_namespace: value["podNamespace"],
+        pod_service_account_name: value["podServiceAccountName"],
+        pointer_size: value["pointerSize"],
+        policies: value["policies"] == null ? undefined : (value["policies"] as Array<any>).map(DeviceDevicePolicyToJSON),
+        product_type: value["productType"],
+        product_type_desc: value["productTypeDesc"],
+        provision_status: value["provisionStatus"],
+        reduced_functionality_mode: value["reducedFunctionalityMode"],
+        release_group: value["releaseGroup"],
+        rtr_state: value["rtrState"],
+        serial_number: value["serialNumber"],
+        service_pack_major: value["servicePackMajor"],
+        service_pack_minor: value["servicePackMinor"],
+        service_provider: value["serviceProvider"],
+        service_provider_account_id: value["serviceProviderAccountId"],
+        site_name: value["siteName"],
+        status: value["status"],
+        system_manufacturer: value["systemManufacturer"],
+        system_product_name: value["systemProductName"],
+        tags: value["tags"],
+        zone_group: value["zoneGroup"],
     };
 }

@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 /**
  *
  * @export
@@ -96,22 +96,20 @@ export interface DomainActionV1 {
 /**
  * Check if a given object implements the DomainActionV1 interface.
  */
-export function instanceOfDomainActionV1(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "cid" in value;
-    isInstance = isInstance && "contentFormat" in value;
-    isInstance = isInstance && "createdTimestamp" in value;
-    isInstance = isInstance && "frequency" in value;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "recipients" in value;
-    isInstance = isInstance && "ruleId" in value;
-    isInstance = isInstance && "status" in value;
-    isInstance = isInstance && "triggerMatchless" in value;
-    isInstance = isInstance && "type" in value;
-    isInstance = isInstance && "updatedTimestamp" in value;
-    isInstance = isInstance && "userUuid" in value;
-
-    return isInstance;
+export function instanceOfDomainActionV1(value: object): value is DomainActionV1 {
+    if (!("cid" in value) || value["cid"] === undefined) return false;
+    if (!("contentFormat" in value) || value["contentFormat"] === undefined) return false;
+    if (!("createdTimestamp" in value) || value["createdTimestamp"] === undefined) return false;
+    if (!("frequency" in value) || value["frequency"] === undefined) return false;
+    if (!("id" in value) || value["id"] === undefined) return false;
+    if (!("recipients" in value) || value["recipients"] === undefined) return false;
+    if (!("ruleId" in value) || value["ruleId"] === undefined) return false;
+    if (!("status" in value) || value["status"] === undefined) return false;
+    if (!("triggerMatchless" in value) || value["triggerMatchless"] === undefined) return false;
+    if (!("type" in value) || value["type"] === undefined) return false;
+    if (!("updatedTimestamp" in value) || value["updatedTimestamp"] === undefined) return false;
+    if (!("userUuid" in value) || value["userUuid"] === undefined) return false;
+    return true;
 }
 
 export function DomainActionV1FromJSON(json: any): DomainActionV1 {
@@ -119,7 +117,7 @@ export function DomainActionV1FromJSON(json: any): DomainActionV1 {
 }
 
 export function DomainActionV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainActionV1 {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
@@ -139,24 +137,21 @@ export function DomainActionV1FromJSONTyped(json: any, ignoreDiscriminator: bool
 }
 
 export function DomainActionV1ToJSON(value?: DomainActionV1 | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        cid: value.cid,
-        content_format: value.contentFormat,
-        created_timestamp: value.createdTimestamp.toISOString(),
-        frequency: value.frequency,
-        id: value.id,
-        recipients: value.recipients,
-        rule_id: value.ruleId,
-        status: value.status,
-        trigger_matchless: value.triggerMatchless,
-        type: value.type,
-        updated_timestamp: value.updatedTimestamp.toISOString(),
-        user_uuid: value.userUuid,
+        cid: value["cid"],
+        content_format: value["contentFormat"],
+        created_timestamp: value["createdTimestamp"].toISOString(),
+        frequency: value["frequency"],
+        id: value["id"],
+        recipients: value["recipients"],
+        rule_id: value["ruleId"],
+        status: value["status"],
+        trigger_matchless: value["triggerMatchless"],
+        type: value["type"],
+        updated_timestamp: value["updatedTimestamp"].toISOString(),
+        user_uuid: value["userUuid"],
     };
 }

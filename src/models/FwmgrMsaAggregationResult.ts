@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 import type { FwmgrMsaAggregationResultItem } from "./FwmgrMsaAggregationResultItem";
 import { FwmgrMsaAggregationResultItemFromJSON, FwmgrMsaAggregationResultItemFromJSONTyped, FwmgrMsaAggregationResultItemToJSON } from "./FwmgrMsaAggregationResultItem";
 
@@ -27,7 +27,13 @@ export interface FwmgrMsaAggregationResult {
      * @type {Array<FwmgrMsaAggregationResultItem>}
      * @memberof FwmgrMsaAggregationResult
      */
-    buckets: Array<FwmgrMsaAggregationResultItem>;
+    buckets?: Array<FwmgrMsaAggregationResultItem>;
+    /**
+     *
+     * @type {number}
+     * @memberof FwmgrMsaAggregationResult
+     */
+    docCountErrorUpperBound?: number;
     /**
      *
      * @type {string}
@@ -45,12 +51,9 @@ export interface FwmgrMsaAggregationResult {
 /**
  * Check if a given object implements the FwmgrMsaAggregationResult interface.
  */
-export function instanceOfFwmgrMsaAggregationResult(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "buckets" in value;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfFwmgrMsaAggregationResult(value: object): value is FwmgrMsaAggregationResult {
+    if (!("name" in value) || value["name"] === undefined) return false;
+    return true;
 }
 
 export function FwmgrMsaAggregationResultFromJSON(json: any): FwmgrMsaAggregationResult {
@@ -58,26 +61,25 @@ export function FwmgrMsaAggregationResultFromJSON(json: any): FwmgrMsaAggregatio
 }
 
 export function FwmgrMsaAggregationResultFromJSONTyped(json: any, ignoreDiscriminator: boolean): FwmgrMsaAggregationResult {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
-        buckets: (json["buckets"] as Array<any>).map(FwmgrMsaAggregationResultItemFromJSON),
+        buckets: json["buckets"] == null ? undefined : (json["buckets"] as Array<any>).map(FwmgrMsaAggregationResultItemFromJSON),
+        docCountErrorUpperBound: json["doc_count_error_upper_bound"] == null ? undefined : json["doc_count_error_upper_bound"],
         name: json["name"],
-        sumOtherDocCount: !exists(json, "sum_other_doc_count") ? undefined : json["sum_other_doc_count"],
+        sumOtherDocCount: json["sum_other_doc_count"] == null ? undefined : json["sum_other_doc_count"],
     };
 }
 
 export function FwmgrMsaAggregationResultToJSON(value?: FwmgrMsaAggregationResult | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        buckets: (value.buckets as Array<any>).map(FwmgrMsaAggregationResultItemToJSON),
-        name: value.name,
-        sum_other_doc_count: value.sumOtherDocCount,
+        buckets: value["buckets"] == null ? undefined : (value["buckets"] as Array<any>).map(FwmgrMsaAggregationResultItemToJSON),
+        doc_count_error_upper_bound: value["docCountErrorUpperBound"],
+        name: value["name"],
+        sum_other_doc_count: value["sumOtherDocCount"],
     };
 }

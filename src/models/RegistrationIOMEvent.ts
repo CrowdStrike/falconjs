@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 /**
  *
  * @export
@@ -54,19 +54,31 @@ export interface RegistrationIOMEvent {
      * @type {string}
      * @memberof RegistrationIOMEvent
      */
+    customPolicyId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof RegistrationIOMEvent
+     */
     finding: string;
     /**
      *
      * @type {string}
      * @memberof RegistrationIOMEvent
      */
-    policyId: string;
+    policyId?: string;
     /**
      *
      * @type {string}
      * @memberof RegistrationIOMEvent
      */
     policyStatement: string;
+    /**
+     *
+     * @type {string}
+     * @memberof RegistrationIOMEvent
+     */
+    policyType?: string;
     /**
      *
      * @type {string}
@@ -138,29 +150,26 @@ export interface RegistrationIOMEvent {
 /**
  * Check if a given object implements the RegistrationIOMEvent interface.
  */
-export function instanceOfRegistrationIOMEvent(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "accountId" in value;
-    isInstance = isInstance && "accountName" in value;
-    isInstance = isInstance && "azureTenantId" in value;
-    isInstance = isInstance && "cid" in value;
-    isInstance = isInstance && "cloudProvider" in value;
-    isInstance = isInstance && "finding" in value;
-    isInstance = isInstance && "policyId" in value;
-    isInstance = isInstance && "policyStatement" in value;
-    isInstance = isInstance && "region" in value;
-    isInstance = isInstance && "reportDateTime" in value;
-    isInstance = isInstance && "resourceAttributes" in value;
-    isInstance = isInstance && "resourceCreateTime" in value;
-    isInstance = isInstance && "resourceId" in value;
-    isInstance = isInstance && "resourceIdType" in value;
-    isInstance = isInstance && "resourceUrl" in value;
-    isInstance = isInstance && "service" in value;
-    isInstance = isInstance && "severity" in value;
-    isInstance = isInstance && "status" in value;
-    isInstance = isInstance && "tags" in value;
-
-    return isInstance;
+export function instanceOfRegistrationIOMEvent(value: object): value is RegistrationIOMEvent {
+    if (!("accountId" in value) || value["accountId"] === undefined) return false;
+    if (!("accountName" in value) || value["accountName"] === undefined) return false;
+    if (!("azureTenantId" in value) || value["azureTenantId"] === undefined) return false;
+    if (!("cid" in value) || value["cid"] === undefined) return false;
+    if (!("cloudProvider" in value) || value["cloudProvider"] === undefined) return false;
+    if (!("finding" in value) || value["finding"] === undefined) return false;
+    if (!("policyStatement" in value) || value["policyStatement"] === undefined) return false;
+    if (!("region" in value) || value["region"] === undefined) return false;
+    if (!("reportDateTime" in value) || value["reportDateTime"] === undefined) return false;
+    if (!("resourceAttributes" in value) || value["resourceAttributes"] === undefined) return false;
+    if (!("resourceCreateTime" in value) || value["resourceCreateTime"] === undefined) return false;
+    if (!("resourceId" in value) || value["resourceId"] === undefined) return false;
+    if (!("resourceIdType" in value) || value["resourceIdType"] === undefined) return false;
+    if (!("resourceUrl" in value) || value["resourceUrl"] === undefined) return false;
+    if (!("service" in value) || value["service"] === undefined) return false;
+    if (!("severity" in value) || value["severity"] === undefined) return false;
+    if (!("status" in value) || value["status"] === undefined) return false;
+    if (!("tags" in value) || value["tags"] === undefined) return false;
+    return true;
 }
 
 export function RegistrationIOMEventFromJSON(json: any): RegistrationIOMEvent {
@@ -168,7 +177,7 @@ export function RegistrationIOMEventFromJSON(json: any): RegistrationIOMEvent {
 }
 
 export function RegistrationIOMEventFromJSONTyped(json: any, ignoreDiscriminator: boolean): RegistrationIOMEvent {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
@@ -177,9 +186,11 @@ export function RegistrationIOMEventFromJSONTyped(json: any, ignoreDiscriminator
         azureTenantId: json["azure_tenant_id"],
         cid: json["cid"],
         cloudProvider: json["cloud_provider"],
+        customPolicyId: json["custom_policy_id"] == null ? undefined : json["custom_policy_id"],
         finding: json["finding"],
-        policyId: json["policy_id"],
+        policyId: json["policy_id"] == null ? undefined : json["policy_id"],
         policyStatement: json["policy_statement"],
+        policyType: json["policy_type"] == null ? undefined : json["policy_type"],
         region: json["region"],
         reportDateTime: json["report_date_time"],
         resourceAttributes: json["resource_attributes"],
@@ -195,31 +206,30 @@ export function RegistrationIOMEventFromJSONTyped(json: any, ignoreDiscriminator
 }
 
 export function RegistrationIOMEventToJSON(value?: RegistrationIOMEvent | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        account_id: value.accountId,
-        account_name: value.accountName,
-        azure_tenant_id: value.azureTenantId,
-        cid: value.cid,
-        cloud_provider: value.cloudProvider,
-        finding: value.finding,
-        policy_id: value.policyId,
-        policy_statement: value.policyStatement,
-        region: value.region,
-        report_date_time: value.reportDateTime,
-        resource_attributes: value.resourceAttributes,
-        resource_create_time: value.resourceCreateTime,
-        resource_id: value.resourceId,
-        resource_id_type: value.resourceIdType,
-        resource_url: value.resourceUrl,
-        service: value.service,
-        severity: value.severity,
-        status: value.status,
-        tags: value.tags,
+        account_id: value["accountId"],
+        account_name: value["accountName"],
+        azure_tenant_id: value["azureTenantId"],
+        cid: value["cid"],
+        cloud_provider: value["cloudProvider"],
+        custom_policy_id: value["customPolicyId"],
+        finding: value["finding"],
+        policy_id: value["policyId"],
+        policy_statement: value["policyStatement"],
+        policy_type: value["policyType"],
+        region: value["region"],
+        report_date_time: value["reportDateTime"],
+        resource_attributes: value["resourceAttributes"],
+        resource_create_time: value["resourceCreateTime"],
+        resource_id: value["resourceId"],
+        resource_id_type: value["resourceIdType"],
+        resource_url: value["resourceUrl"],
+        service: value["service"],
+        severity: value["severity"],
+        status: value["status"],
+        tags: value["tags"],
     };
 }

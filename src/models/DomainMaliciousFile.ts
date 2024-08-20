@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 /**
  *
  * @export
@@ -96,11 +96,9 @@ export interface DomainMaliciousFile {
 /**
  * Check if a given object implements the DomainMaliciousFile interface.
  */
-export function instanceOfDomainMaliciousFile(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-
-    return isInstance;
+export function instanceOfDomainMaliciousFile(value: object): value is DomainMaliciousFile {
+    if (!("id" in value) || value["id"] === undefined) return false;
+    return true;
 }
 
 export function DomainMaliciousFileFromJSON(json: any): DomainMaliciousFile {
@@ -108,44 +106,41 @@ export function DomainMaliciousFileFromJSON(json: any): DomainMaliciousFile {
 }
 
 export function DomainMaliciousFileFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainMaliciousFile {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
-        cid: !exists(json, "cid") ? undefined : json["cid"],
-        filename: !exists(json, "filename") ? undefined : json["filename"],
-        filepath: !exists(json, "filepath") ? undefined : json["filepath"],
-        hash: !exists(json, "hash") ? undefined : json["hash"],
-        hostId: !exists(json, "host_id") ? undefined : json["host_id"],
-        hostScanId: !exists(json, "host_scan_id") ? undefined : json["host_scan_id"],
+        cid: json["cid"] == null ? undefined : json["cid"],
+        filename: json["filename"] == null ? undefined : json["filename"],
+        filepath: json["filepath"] == null ? undefined : json["filepath"],
+        hash: json["hash"] == null ? undefined : json["hash"],
+        hostId: json["host_id"] == null ? undefined : json["host_id"],
+        hostScanId: json["host_scan_id"] == null ? undefined : json["host_scan_id"],
         id: json["id"],
-        lastUpdated: !exists(json, "last_updated") ? undefined : new Date(json["last_updated"]),
-        patternId: !exists(json, "pattern_id") ? undefined : json["pattern_id"],
-        quarantined: !exists(json, "quarantined") ? undefined : json["quarantined"],
-        scanId: !exists(json, "scan_id") ? undefined : json["scan_id"],
-        severity: !exists(json, "severity") ? undefined : json["severity"],
+        lastUpdated: json["last_updated"] == null ? undefined : new Date(json["last_updated"]),
+        patternId: json["pattern_id"] == null ? undefined : json["pattern_id"],
+        quarantined: json["quarantined"] == null ? undefined : json["quarantined"],
+        scanId: json["scan_id"] == null ? undefined : json["scan_id"],
+        severity: json["severity"] == null ? undefined : json["severity"],
     };
 }
 
 export function DomainMaliciousFileToJSON(value?: DomainMaliciousFile | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        cid: value.cid,
-        filename: value.filename,
-        filepath: value.filepath,
-        hash: value.hash,
-        host_id: value.hostId,
-        host_scan_id: value.hostScanId,
-        id: value.id,
-        last_updated: value.lastUpdated === undefined ? undefined : value.lastUpdated.toISOString(),
-        pattern_id: value.patternId,
-        quarantined: value.quarantined,
-        scan_id: value.scanId,
-        severity: value.severity,
+        cid: value["cid"],
+        filename: value["filename"],
+        filepath: value["filepath"],
+        hash: value["hash"],
+        host_id: value["hostId"],
+        host_scan_id: value["hostScanId"],
+        id: value["id"],
+        last_updated: value["lastUpdated"] == null ? undefined : value["lastUpdated"].toISOString(),
+        pattern_id: value["patternId"],
+        quarantined: value["quarantined"],
+        scan_id: value["scanId"],
+        severity: value["severity"],
     };
 }

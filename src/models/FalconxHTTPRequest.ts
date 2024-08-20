@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 /**
  *
  * @export
@@ -72,10 +72,8 @@ export interface FalconxHTTPRequest {
 /**
  * Check if a given object implements the FalconxHTTPRequest interface.
  */
-export function instanceOfFalconxHTTPRequest(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfFalconxHTTPRequest(value: object): value is FalconxHTTPRequest {
+    return true;
 }
 
 export function FalconxHTTPRequestFromJSON(json: any): FalconxHTTPRequest {
@@ -83,36 +81,33 @@ export function FalconxHTTPRequestFromJSON(json: any): FalconxHTTPRequest {
 }
 
 export function FalconxHTTPRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): FalconxHTTPRequest {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
-        header: !exists(json, "header") ? undefined : json["header"],
-        host: !exists(json, "host") ? undefined : json["host"],
-        hostIp: !exists(json, "host_ip") ? undefined : json["host_ip"],
-        hostPort: !exists(json, "host_port") ? undefined : json["host_port"],
-        method: !exists(json, "method") ? undefined : json["method"],
-        responseCode: !exists(json, "response_code") ? undefined : json["response_code"],
-        responsePhrase: !exists(json, "response_phrase") ? undefined : json["response_phrase"],
-        url: !exists(json, "url") ? undefined : json["url"],
+        header: json["header"] == null ? undefined : json["header"],
+        host: json["host"] == null ? undefined : json["host"],
+        hostIp: json["host_ip"] == null ? undefined : json["host_ip"],
+        hostPort: json["host_port"] == null ? undefined : json["host_port"],
+        method: json["method"] == null ? undefined : json["method"],
+        responseCode: json["response_code"] == null ? undefined : json["response_code"],
+        responsePhrase: json["response_phrase"] == null ? undefined : json["response_phrase"],
+        url: json["url"] == null ? undefined : json["url"],
     };
 }
 
 export function FalconxHTTPRequestToJSON(value?: FalconxHTTPRequest | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        header: value.header,
-        host: value.host,
-        host_ip: value.hostIp,
-        host_port: value.hostPort,
-        method: value.method,
-        response_code: value.responseCode,
-        response_phrase: value.responsePhrase,
-        url: value.url,
+        header: value["header"],
+        host: value["host"],
+        host_ip: value["hostIp"],
+        host_port: value["hostPort"],
+        method: value["method"],
+        response_code: value["responseCode"],
+        response_phrase: value["responsePhrase"],
+        url: value["url"],
     };
 }
