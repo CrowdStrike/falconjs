@@ -1,6 +1,6 @@
 {
     "name": "crowdstrike-falcon",
-    "version": "0.2.4",
+    "version": "0.3.0",
     "description": "CrowdStrike Falcon API library for browser and node",
     "sideEffects": false,
     "devDependencies": {
@@ -28,8 +28,8 @@
         "build": "tsc",
         "build:devel": "tsc -p ./tsconfig.devel.json",
         "build:browser": "esbuild src/index.ts --bundle --minify --sourcemap=external --format=cjs --outfile=dist/esbuild/browser.js",
-        "lint": "eslint . --ext .ts",
-        "lint:fix": "eslint . --ext .ts --fix",
+        "lint": "eslint src --ext .ts",
+        "lint:fix": "eslint src --ext .ts --fix",
         "format:fix": "prettier --config .prettierrc 'src/**/*.ts' --write",
         "prepare": "npm run build",
         "build:release": "npm run lint:fix && npm run format:fix && npm run clean && npm run build && npm run build:browser && npm pack",
