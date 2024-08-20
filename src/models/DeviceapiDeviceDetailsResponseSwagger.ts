@@ -31,7 +31,7 @@ export interface DeviceapiDeviceDetailsResponseSwagger {
      * @type {Array<MsaAPIError>}
      * @memberof DeviceapiDeviceDetailsResponseSwagger
      */
-    errors: Array<MsaAPIError>;
+    errors?: Array<MsaAPIError>;
     /**
      *
      * @type {MsaMetaInfo}
@@ -50,7 +50,6 @@ export interface DeviceapiDeviceDetailsResponseSwagger {
  * Check if a given object implements the DeviceapiDeviceDetailsResponseSwagger interface.
  */
 export function instanceOfDeviceapiDeviceDetailsResponseSwagger(value: object): value is DeviceapiDeviceDetailsResponseSwagger {
-    if (!("errors" in value) || value["errors"] === undefined) return false;
     if (!("meta" in value) || value["meta"] === undefined) return false;
     if (!("resources" in value) || value["resources"] === undefined) return false;
     return true;
@@ -65,7 +64,7 @@ export function DeviceapiDeviceDetailsResponseSwaggerFromJSONTyped(json: any, ig
         return json;
     }
     return {
-        errors: (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
+        errors: json["errors"] == null ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
         resources: (json["resources"] as Array<any>).map(DeviceapiDeviceSwaggerFromJSON),
     };
@@ -76,7 +75,7 @@ export function DeviceapiDeviceDetailsResponseSwaggerToJSON(value?: DeviceapiDev
         return value;
     }
     return {
-        errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
+        errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
         resources: (value["resources"] as Array<any>).map(DeviceapiDeviceSwaggerToJSON),
     };

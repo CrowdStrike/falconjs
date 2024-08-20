@@ -228,3 +228,6 @@
 
 # Ensure access token is required
 | .definitions."domain.AccessTokenResponseV1".required = ["access_token"]
+
+# device details may return null for errors
+| .definitions."deviceapi.DeviceDetailsResponseSwagger".required = ["resources", "meta"]
