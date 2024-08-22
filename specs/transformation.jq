@@ -231,3 +231,6 @@
 
 # device details may return null for errors
 | .definitions."deviceapi.DeviceDetailsResponseSwagger".required = ["resources", "meta"]
+
+# allow modern Alerts to have product-specific fields not defined in the ExternalAlert spec (e.g. cmdline for EPP alerts)
+| .definitions."detects.ExternalAlert".additionalProperties = true

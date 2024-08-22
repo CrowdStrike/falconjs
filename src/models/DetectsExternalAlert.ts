@@ -19,6 +19,7 @@ import { mapValues } from "../runtime";
  * @interface DetectsExternalAlert
  */
 export interface DetectsExternalAlert {
+    [key: string]: any | any;
     /**
      * Device or sensor ID for which the Alert was generated
      * @type {string}
@@ -303,6 +304,7 @@ export function DetectsExternalAlertFromJSONTyped(json: any, ignoreDiscriminator
         return json;
     }
     return {
+        ...json,
         agentId: json["agent_id"],
         aggregateId: json["aggregate_id"],
         assignedToName: json["assigned_to_name"],
@@ -349,6 +351,7 @@ export function DetectsExternalAlertToJSON(value?: DetectsExternalAlert | null):
         return value;
     }
     return {
+        ...value,
         agent_id: value["agentId"],
         aggregate_id: value["aggregateId"],
         assigned_to_name: value["assignedToName"],
