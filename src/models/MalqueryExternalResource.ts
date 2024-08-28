@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 import type { MalquerySampleMetadata } from "./MalquerySampleMetadata";
 import { MalquerySampleMetadataFromJSON, MalquerySampleMetadataFromJSONTyped, MalquerySampleMetadataToJSON } from "./MalquerySampleMetadata";
 
@@ -123,11 +123,9 @@ export interface MalqueryExternalResource {
 /**
  * Check if a given object implements the MalqueryExternalResource interface.
  */
-export function instanceOfMalqueryExternalResource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "samples" in value;
-
-    return isInstance;
+export function instanceOfMalqueryExternalResource(value: object): value is MalqueryExternalResource {
+    if (!("samples" in value) || value["samples"] === undefined) return false;
+    return true;
 }
 
 export function MalqueryExternalResourceFromJSON(json: any): MalqueryExternalResource {
@@ -135,52 +133,49 @@ export function MalqueryExternalResourceFromJSON(json: any): MalqueryExternalRes
 }
 
 export function MalqueryExternalResourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): MalqueryExternalResource {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
-        family: !exists(json, "family") ? undefined : json["family"],
-        filesize: !exists(json, "filesize") ? undefined : json["filesize"],
-        filetype: !exists(json, "filetype") ? undefined : json["filetype"],
-        firstSeen: !exists(json, "first_seen") ? undefined : json["first_seen"],
-        ignoreReason: !exists(json, "ignore_reason") ? undefined : json["ignore_reason"],
-        label: !exists(json, "label") ? undefined : json["label"],
-        labelConfidence: !exists(json, "label_confidence") ? undefined : json["label_confidence"],
-        md5: !exists(json, "md5") ? undefined : json["md5"],
-        pattern: !exists(json, "pattern") ? undefined : json["pattern"],
-        patternType: !exists(json, "pattern_type") ? undefined : json["pattern_type"],
+        family: json["family"] == null ? undefined : json["family"],
+        filesize: json["filesize"] == null ? undefined : json["filesize"],
+        filetype: json["filetype"] == null ? undefined : json["filetype"],
+        firstSeen: json["first_seen"] == null ? undefined : json["first_seen"],
+        ignoreReason: json["ignore_reason"] == null ? undefined : json["ignore_reason"],
+        label: json["label"] == null ? undefined : json["label"],
+        labelConfidence: json["label_confidence"] == null ? undefined : json["label_confidence"],
+        md5: json["md5"] == null ? undefined : json["md5"],
+        pattern: json["pattern"] == null ? undefined : json["pattern"],
+        patternType: json["pattern_type"] == null ? undefined : json["pattern_type"],
         samples: (json["samples"] as Array<any>).map(MalquerySampleMetadataFromJSON),
-        sha1: !exists(json, "sha1") ? undefined : json["sha1"],
-        sha256: !exists(json, "sha256") ? undefined : json["sha256"],
-        tags: !exists(json, "tags") ? undefined : json["tags"],
-        yaraRule: !exists(json, "yara_rule") ? undefined : json["yara_rule"],
-        yaraRules: !exists(json, "yara_rules") ? undefined : json["yara_rules"],
+        sha1: json["sha1"] == null ? undefined : json["sha1"],
+        sha256: json["sha256"] == null ? undefined : json["sha256"],
+        tags: json["tags"] == null ? undefined : json["tags"],
+        yaraRule: json["yara_rule"] == null ? undefined : json["yara_rule"],
+        yaraRules: json["yara_rules"] == null ? undefined : json["yara_rules"],
     };
 }
 
 export function MalqueryExternalResourceToJSON(value?: MalqueryExternalResource | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        family: value.family,
-        filesize: value.filesize,
-        filetype: value.filetype,
-        first_seen: value.firstSeen,
-        ignore_reason: value.ignoreReason,
-        label: value.label,
-        label_confidence: value.labelConfidence,
-        md5: value.md5,
-        pattern: value.pattern,
-        pattern_type: value.patternType,
-        samples: (value.samples as Array<any>).map(MalquerySampleMetadataToJSON),
-        sha1: value.sha1,
-        sha256: value.sha256,
-        tags: value.tags,
-        yara_rule: value.yaraRule,
-        yara_rules: value.yaraRules,
+        family: value["family"],
+        filesize: value["filesize"],
+        filetype: value["filetype"],
+        first_seen: value["firstSeen"],
+        ignore_reason: value["ignoreReason"],
+        label: value["label"],
+        label_confidence: value["labelConfidence"],
+        md5: value["md5"],
+        pattern: value["pattern"],
+        pattern_type: value["patternType"],
+        samples: (value["samples"] as Array<any>).map(MalquerySampleMetadataToJSON),
+        sha1: value["sha1"],
+        sha256: value["sha256"],
+        tags: value["tags"],
+        yara_rule: value["yaraRule"],
+        yara_rules: value["yaraRules"],
     };
 }

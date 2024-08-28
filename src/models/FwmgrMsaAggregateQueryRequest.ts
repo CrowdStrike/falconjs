@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,11 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 import type { FwmgrMsaDateRangeSpec } from "./FwmgrMsaDateRangeSpec";
 import { FwmgrMsaDateRangeSpecFromJSON, FwmgrMsaDateRangeSpecFromJSONTyped, FwmgrMsaDateRangeSpecToJSON } from "./FwmgrMsaDateRangeSpec";
 import type { FwmgrMsaRangeSpec } from "./FwmgrMsaRangeSpec";
 import { FwmgrMsaRangeSpecFromJSON, FwmgrMsaRangeSpecFromJSONTyped, FwmgrMsaRangeSpecToJSON } from "./FwmgrMsaRangeSpec";
+import type { FwmgrMsaExtendedBoundsSpec } from "./FwmgrMsaExtendedBoundsSpec";
+import { FwmgrMsaExtendedBoundsSpecFromJSON, FwmgrMsaExtendedBoundsSpecFromJSONTyped, FwmgrMsaExtendedBoundsSpecToJSON } from "./FwmgrMsaExtendedBoundsSpec";
 
 /**
  *
@@ -30,6 +32,18 @@ export interface FwmgrMsaAggregateQueryRequest {
      * @memberof FwmgrMsaAggregateQueryRequest
      */
     dateRanges: Array<FwmgrMsaDateRangeSpec>;
+    /**
+     *
+     * @type {string}
+     * @memberof FwmgrMsaAggregateQueryRequest
+     */
+    exclude: string;
+    /**
+     *
+     * @type {FwmgrMsaExtendedBoundsSpec}
+     * @memberof FwmgrMsaAggregateQueryRequest
+     */
+    extendedBounds?: FwmgrMsaExtendedBoundsSpec;
     /**
      *
      * @type {string}
@@ -65,7 +79,13 @@ export interface FwmgrMsaAggregateQueryRequest {
      * @type {number}
      * @memberof FwmgrMsaAggregateQueryRequest
      */
-    minDocCount: number;
+    maxDocCount?: number;
+    /**
+     *
+     * @type {number}
+     * @memberof FwmgrMsaAggregateQueryRequest
+     */
+    minDocCount?: number;
     /**
      *
      * @type {string}
@@ -125,26 +145,24 @@ export interface FwmgrMsaAggregateQueryRequest {
 /**
  * Check if a given object implements the FwmgrMsaAggregateQueryRequest interface.
  */
-export function instanceOfFwmgrMsaAggregateQueryRequest(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "dateRanges" in value;
-    isInstance = isInstance && "field" in value;
-    isInstance = isInstance && "filter" in value;
-    isInstance = isInstance && "from" in value;
-    isInstance = isInstance && "include" in value;
-    isInstance = isInstance && "interval" in value;
-    isInstance = isInstance && "minDocCount" in value;
-    isInstance = isInstance && "missing" in value;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "q" in value;
-    isInstance = isInstance && "ranges" in value;
-    isInstance = isInstance && "size" in value;
-    isInstance = isInstance && "sort" in value;
-    isInstance = isInstance && "subAggregates" in value;
-    isInstance = isInstance && "timeZone" in value;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfFwmgrMsaAggregateQueryRequest(value: object): value is FwmgrMsaAggregateQueryRequest {
+    if (!("dateRanges" in value) || value["dateRanges"] === undefined) return false;
+    if (!("exclude" in value) || value["exclude"] === undefined) return false;
+    if (!("field" in value) || value["field"] === undefined) return false;
+    if (!("filter" in value) || value["filter"] === undefined) return false;
+    if (!("from" in value) || value["from"] === undefined) return false;
+    if (!("include" in value) || value["include"] === undefined) return false;
+    if (!("interval" in value) || value["interval"] === undefined) return false;
+    if (!("missing" in value) || value["missing"] === undefined) return false;
+    if (!("name" in value) || value["name"] === undefined) return false;
+    if (!("q" in value) || value["q"] === undefined) return false;
+    if (!("ranges" in value) || value["ranges"] === undefined) return false;
+    if (!("size" in value) || value["size"] === undefined) return false;
+    if (!("sort" in value) || value["sort"] === undefined) return false;
+    if (!("subAggregates" in value) || value["subAggregates"] === undefined) return false;
+    if (!("timeZone" in value) || value["timeZone"] === undefined) return false;
+    if (!("type" in value) || value["type"] === undefined) return false;
+    return true;
 }
 
 export function FwmgrMsaAggregateQueryRequestFromJSON(json: any): FwmgrMsaAggregateQueryRequest {
@@ -152,17 +170,20 @@ export function FwmgrMsaAggregateQueryRequestFromJSON(json: any): FwmgrMsaAggreg
 }
 
 export function FwmgrMsaAggregateQueryRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): FwmgrMsaAggregateQueryRequest {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
         dateRanges: (json["date_ranges"] as Array<any>).map(FwmgrMsaDateRangeSpecFromJSON),
+        exclude: json["exclude"],
+        extendedBounds: json["extended_bounds"] == null ? undefined : FwmgrMsaExtendedBoundsSpecFromJSON(json["extended_bounds"]),
         field: json["field"],
         filter: json["filter"],
         from: json["from"],
         include: json["include"],
         interval: json["interval"],
-        minDocCount: json["min_doc_count"],
+        maxDocCount: json["max_doc_count"] == null ? undefined : json["max_doc_count"],
+        minDocCount: json["min_doc_count"] == null ? undefined : json["min_doc_count"],
         missing: json["missing"],
         name: json["name"],
         q: json["q"],
@@ -176,28 +197,28 @@ export function FwmgrMsaAggregateQueryRequestFromJSONTyped(json: any, ignoreDisc
 }
 
 export function FwmgrMsaAggregateQueryRequestToJSON(value?: FwmgrMsaAggregateQueryRequest | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        date_ranges: (value.dateRanges as Array<any>).map(FwmgrMsaDateRangeSpecToJSON),
-        field: value.field,
-        filter: value.filter,
-        from: value.from,
-        include: value.include,
-        interval: value.interval,
-        min_doc_count: value.minDocCount,
-        missing: value.missing,
-        name: value.name,
-        q: value.q,
-        ranges: (value.ranges as Array<any>).map(FwmgrMsaRangeSpecToJSON),
-        size: value.size,
-        sort: value.sort,
-        sub_aggregates: (value.subAggregates as Array<any>).map(FwmgrMsaAggregateQueryRequestToJSON),
-        time_zone: value.timeZone,
-        type: value.type,
+        date_ranges: (value["dateRanges"] as Array<any>).map(FwmgrMsaDateRangeSpecToJSON),
+        exclude: value["exclude"],
+        extended_bounds: FwmgrMsaExtendedBoundsSpecToJSON(value["extendedBounds"]),
+        field: value["field"],
+        filter: value["filter"],
+        from: value["from"],
+        include: value["include"],
+        interval: value["interval"],
+        max_doc_count: value["maxDocCount"],
+        min_doc_count: value["minDocCount"],
+        missing: value["missing"],
+        name: value["name"],
+        q: value["q"],
+        ranges: (value["ranges"] as Array<any>).map(FwmgrMsaRangeSpecToJSON),
+        size: value["size"],
+        sort: value["sort"],
+        sub_aggregates: (value["subAggregates"] as Array<any>).map(FwmgrMsaAggregateQueryRequestToJSON),
+        time_zone: value["timeZone"],
+        type: value["type"],
     };
 }

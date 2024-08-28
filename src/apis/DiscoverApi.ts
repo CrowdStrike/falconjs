@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -16,18 +16,24 @@ import * as runtime from "../runtime";
 import type {
     DomainDiscoverAPIAccountEntitiesResponse,
     DomainDiscoverAPIApplicationEntitiesResponse,
+    DomainDiscoverAPICombinedApplicationsResponse,
+    DomainDiscoverAPICombinedHostsResponse,
     DomainDiscoverAPIHostEntitiesResponse,
     DomainDiscoverAPILoginEntitiesResponse,
     MsaQueryResponse,
     MsaReplyMetaOnly,
     MsaspecQueryResponse,
     MsaspecResponseFields,
-} from "../models";
+} from "../models/index";
 import {
     DomainDiscoverAPIAccountEntitiesResponseFromJSON,
     DomainDiscoverAPIAccountEntitiesResponseToJSON,
     DomainDiscoverAPIApplicationEntitiesResponseFromJSON,
     DomainDiscoverAPIApplicationEntitiesResponseToJSON,
+    DomainDiscoverAPICombinedApplicationsResponseFromJSON,
+    DomainDiscoverAPICombinedApplicationsResponseToJSON,
+    DomainDiscoverAPICombinedHostsResponseFromJSON,
+    DomainDiscoverAPICombinedHostsResponseToJSON,
     DomainDiscoverAPIHostEntitiesResponseFromJSON,
     DomainDiscoverAPIHostEntitiesResponseToJSON,
     DomainDiscoverAPILoginEntitiesResponseFromJSON,
@@ -40,46 +46,62 @@ import {
     MsaspecQueryResponseToJSON,
     MsaspecResponseFieldsFromJSON,
     MsaspecResponseFieldsToJSON,
-} from "../models";
+} from "../models/index";
 
-export interface GetAccountsRequest {
+export interface DiscoverApiCombinedApplicationsRequest {
+    filter: string;
+    after?: string;
+    limit?: number;
+    sort?: string;
+    facet?: Array<string>;
+}
+
+export interface DiscoverApiCombinedHostsRequest {
+    filter: string;
+    after?: string;
+    limit?: number;
+    sort?: string;
+    facet?: Array<string>;
+}
+
+export interface DiscoverApiGetAccountsRequest {
     ids: Array<string>;
 }
 
-export interface GetApplicationsRequest {
+export interface DiscoverApiGetApplicationsRequest {
     ids: Array<string>;
 }
 
-export interface GetHostsRequest {
+export interface DiscoverApiGetHostsRequest {
     ids: Array<string>;
 }
 
-export interface GetLoginsRequest {
+export interface DiscoverApiGetLoginsRequest {
     ids: Array<string>;
 }
 
-export interface QueryAccountsRequest {
+export interface DiscoverApiQueryAccountsRequest {
     offset?: number;
     limit?: number;
     sort?: string;
     filter?: string;
 }
 
-export interface QueryApplicationsRequest {
+export interface DiscoverApiQueryApplicationsRequest {
     offset?: number;
     limit?: number;
     sort?: string;
     filter?: string;
 }
 
-export interface QueryHostsRequest {
+export interface DiscoverApiQueryHostsRequest {
     offset?: number;
     limit?: number;
     sort?: string;
     filter?: string;
 }
 
-export interface QueryLoginsRequest {
+export interface DiscoverApiQueryLoginsRequest {
     offset?: number;
     limit?: number;
     sort?: string;
@@ -91,24 +113,163 @@ export interface QueryLoginsRequest {
  */
 export class DiscoverApi extends runtime.BaseAPI {
     /**
-     * Get details on accounts by providing one or more IDs.
+     * Search for applications in your environment by providing an FQL filter and paging details. Returns details on applications which match the filter criteria.
      */
-    async getAccountsRaw(requestParameters: GetAccountsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainDiscoverAPIAccountEntitiesResponse>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getAccounts.");
+    async combinedApplicationsRaw(
+        requestParameters: DiscoverApiCombinedApplicationsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainDiscoverAPICombinedApplicationsResponse>> {
+        if (requestParameters["filter"] == null) {
+            throw new runtime.RequiredError("filter", 'Required parameter "filter" was null or undefined when calling combinedApplications().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["after"] != null) {
+            queryParameters["after"] = requestParameters["after"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["facet"] != null) {
+            queryParameters["facet"] = requestParameters["facet"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/discover/combined/applications/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainDiscoverAPICombinedApplicationsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Search for applications in your environment by providing an FQL filter and paging details. Returns details on applications which match the filter criteria.
+     */
+    async combinedApplications(
+        filter: string,
+        after?: string,
+        limit?: number,
+        sort?: string,
+        facet?: Array<string>,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<DomainDiscoverAPICombinedApplicationsResponse> {
+        const response = await this.combinedApplicationsRaw({ filter: filter, after: after, limit: limit, sort: sort, facet: facet }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Search for assets in your environment by providing an FQL (Falcon Query Language) filter and paging details. Returns details on assets which match the filter criteria.
+     */
+    async combinedHostsRaw(
+        requestParameters: DiscoverApiCombinedHostsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainDiscoverAPICombinedHostsResponse>> {
+        if (requestParameters["filter"] == null) {
+            throw new runtime.RequiredError("filter", 'Required parameter "filter" was null or undefined when calling combinedHosts().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["after"] != null) {
+            queryParameters["after"] = requestParameters["after"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["facet"] != null) {
+            queryParameters["facet"] = requestParameters["facet"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/discover/combined/hosts/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainDiscoverAPICombinedHostsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Search for assets in your environment by providing an FQL (Falcon Query Language) filter and paging details. Returns details on assets which match the filter criteria.
+     */
+    async combinedHosts(
+        filter: string,
+        after?: string,
+        limit?: number,
+        sort?: string,
+        facet?: Array<string>,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<DomainDiscoverAPICombinedHostsResponse> {
+        const response = await this.combinedHostsRaw({ filter: filter, after: after, limit: limit, sort: sort, facet: facet }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get details on accounts by providing one or more IDs.
+     */
+    async getAccountsRaw(
+        requestParameters: DiscoverApiGetAccountsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainDiscoverAPIAccountEntitiesResponse>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getAccounts().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -136,24 +297,24 @@ export class DiscoverApi extends runtime.BaseAPI {
      * Get details on applications by providing one or more IDs.
      */
     async getApplicationsRaw(
-        requestParameters: GetApplicationsRequest,
+        requestParameters: DiscoverApiGetApplicationsRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainDiscoverAPIApplicationEntitiesResponse>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getApplications.");
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getApplications().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -180,22 +341,22 @@ export class DiscoverApi extends runtime.BaseAPI {
     /**
      * Get details on assets by providing one or more IDs.
      */
-    async getHostsRaw(requestParameters: GetHostsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainDiscoverAPIHostEntitiesResponse>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getHosts.");
+    async getHostsRaw(requestParameters: DiscoverApiGetHostsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainDiscoverAPIHostEntitiesResponse>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getHosts().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -222,22 +383,25 @@ export class DiscoverApi extends runtime.BaseAPI {
     /**
      * Get details on logins by providing one or more IDs.
      */
-    async getLoginsRaw(requestParameters: GetLoginsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainDiscoverAPILoginEntitiesResponse>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getLogins.");
+    async getLoginsRaw(
+        requestParameters: DiscoverApiGetLoginsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainDiscoverAPILoginEntitiesResponse>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getLogins().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -264,30 +428,30 @@ export class DiscoverApi extends runtime.BaseAPI {
     /**
      * Search for accounts in your environment by providing an FQL (Falcon Query Language) filter and paging details. Returns a set of account IDs which match the filter criteria.
      */
-    async queryAccountsRaw(requestParameters: QueryAccountsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryAccountsRaw(requestParameters: DiscoverApiQueryAccountsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -314,30 +478,30 @@ export class DiscoverApi extends runtime.BaseAPI {
     /**
      * Search for applications in your environment by providing an FQL filter and paging details. returns a set of application IDs which match the filter criteria.
      */
-    async queryApplicationsRaw(requestParameters: QueryApplicationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queryApplicationsRaw(requestParameters: DiscoverApiQueryApplicationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -364,30 +528,30 @@ export class DiscoverApi extends runtime.BaseAPI {
     /**
      * Search for assets in your environment by providing an FQL (Falcon Query Language) filter and paging details. Returns a set of asset IDs which match the filter criteria.
      */
-    async queryHostsRaw(requestParameters: QueryHostsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queryHostsRaw(requestParameters: DiscoverApiQueryHostsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -414,30 +578,30 @@ export class DiscoverApi extends runtime.BaseAPI {
     /**
      * Search for logins in your environment by providing an FQL (Falcon Query Language) filter and paging details. Returns a set of login IDs which match the filter criteria.
      */
-    async queryLoginsRaw(requestParameters: QueryLoginsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryLoginsRaw(requestParameters: DiscoverApiQueryLoginsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(

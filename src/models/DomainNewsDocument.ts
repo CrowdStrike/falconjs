@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,15 +12,15 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
-import type { DomainEntity } from "./DomainEntity";
-import { DomainEntityFromJSON, DomainEntityFromJSONTyped, DomainEntityToJSON } from "./DomainEntity";
-import type { DomainFile } from "./DomainFile";
-import { DomainFileFromJSON, DomainFileFromJSONTyped, DomainFileToJSON } from "./DomainFile";
+import { mapValues } from "../runtime";
 import type { DomainImage } from "./DomainImage";
 import { DomainImageFromJSON, DomainImageFromJSONTyped, DomainImageToJSON } from "./DomainImage";
 import type { DomainSimpleActor } from "./DomainSimpleActor";
 import { DomainSimpleActorFromJSON, DomainSimpleActorFromJSONTyped, DomainSimpleActorToJSON } from "./DomainSimpleActor";
+import type { DomainReportMalware } from "./DomainReportMalware";
+import { DomainReportMalwareFromJSON, DomainReportMalwareFromJSONTyped, DomainReportMalwareToJSON } from "./DomainReportMalware";
+import type { DomainFile } from "./DomainFile";
+import { DomainFileFromJSON, DomainFileFromJSONTyped, DomainFileToJSON } from "./DomainFile";
 
 /**
  *
@@ -29,43 +29,43 @@ import { DomainSimpleActorFromJSON, DomainSimpleActorFromJSONTyped, DomainSimple
  */
 export interface DomainNewsDocument {
     /**
-     *
+     * legacy field, not used
      * @type {boolean}
      * @memberof DomainNewsDocument
      */
     active?: boolean;
     /**
-     *
+     * Actors mentioned, related or referenced in the news/report
      * @type {Array<DomainSimpleActor>}
      * @memberof DomainNewsDocument
      */
     actors: Array<DomainSimpleActor>;
     /**
-     *
+     * News attachment, containing either pdf url or feeds zip and/or gzip archive
      * @type {Array<DomainFile>}
      * @memberof DomainNewsDocument
      */
     attachments?: Array<DomainFile>;
     /**
-     *
+     * Date of the news document creation, unix timestampt
      * @type {number}
      * @memberof DomainNewsDocument
      */
     createdDate: number;
     /**
-     *
+     * Full report description, extracted from the document
      * @type {string}
      * @memberof DomainNewsDocument
      */
     description?: string;
     /**
-     *
-     * @type {Array<DomainEntity>}
+     * internal property used for permissions check of access, not returned or explicitly filterable
+     * @type {Array<object>}
      * @memberof DomainNewsDocument
      */
-    entitlements?: Array<DomainEntity>;
+    entitlements?: Array<object>;
     /**
-     *
+     * Integer ID of the News document
      * @type {number}
      * @memberof DomainNewsDocument
      */
@@ -77,71 +77,77 @@ export interface DomainNewsDocument {
      */
     image?: DomainImage;
     /**
-     *
+     * Date of the news document last modification, unix timestampt
      * @type {number}
      * @memberof DomainNewsDocument
      */
     lastModifiedDate: number;
     /**
-     *
-     * @type {Array<DomainEntity>}
+     * Malware mentioned, related or referenced in the news/report
+     * @type {Array<DomainReportMalware>}
      * @memberof DomainNewsDocument
      */
-    motivations: Array<DomainEntity>;
+    malware?: Array<DomainReportMalware>;
     /**
-     *
+     * News mentioned motivation or motivation of related actors and malware families
+     * @type {Array<object>}
+     * @memberof DomainNewsDocument
+     */
+    motivations: Array<object>;
+    /**
+     * News title
      * @type {string}
      * @memberof DomainNewsDocument
      */
     name: string;
     /**
-     *
+     * internal field, not used
      * @type {boolean}
      * @memberof DomainNewsDocument
      */
     notifyUsers?: boolean;
     /**
-     *
+     * Rich text description with markup
      * @type {string}
      * @memberof DomainNewsDocument
      */
     richTextDescription?: string;
     /**
-     *
+     * Short description of the report content
      * @type {string}
      * @memberof DomainNewsDocument
      */
     shortDescription?: string;
     /**
-     *
+     * News title in a url friendly way, which is title in lowercase and special characters including space replaced with dash
      * @type {string}
      * @memberof DomainNewsDocument
      */
     slug: string;
     /**
      *
-     * @type {DomainEntity}
+     * @type {object}
      * @memberof DomainNewsDocument
      */
-    subType?: DomainEntity;
+    subType?: object;
     /**
-     *
-     * @type {Array<DomainEntity>}
+     * News tags, which contains MITRE, Vulnerability community identifiers, capabilities, malware family name, customer target, activity cluster, notable event, geopolitical issue
+     * @type {Array<object>}
      * @memberof DomainNewsDocument
      */
-    tags: Array<DomainEntity>;
+    tags: Array<object>;
     /**
-     *
-     * @type {Array<DomainEntity>}
+     * News mentioned target countries or related actor's target countries
+     * @type {Array<object>}
      * @memberof DomainNewsDocument
      */
-    targetCountries: Array<DomainEntity>;
+    targetCountries: Array<object>;
     /**
-     *
-     * @type {Array<DomainEntity>}
+     * News mentioned target industries or related actor's target industries
+     * @type {Array<object>}
      * @memberof DomainNewsDocument
      */
-    targetIndustries: Array<DomainEntity>;
+    targetIndustries: Array<object>;
     /**
      *
      * @type {DomainImage}
@@ -150,18 +156,18 @@ export interface DomainNewsDocument {
     thumbnail: DomainImage;
     /**
      *
-     * @type {DomainEntity}
+     * @type {object}
      * @memberof DomainNewsDocument
      */
-    topic?: DomainEntity;
+    topic?: object;
     /**
      *
-     * @type {DomainEntity}
+     * @type {object}
      * @memberof DomainNewsDocument
      */
-    type?: DomainEntity;
+    type?: object;
     /**
-     *
+     * URL of the news document where it can be accessed in the Falcon Portal
      * @type {string}
      * @memberof DomainNewsDocument
      */
@@ -171,21 +177,19 @@ export interface DomainNewsDocument {
 /**
  * Check if a given object implements the DomainNewsDocument interface.
  */
-export function instanceOfDomainNewsDocument(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "actors" in value;
-    isInstance = isInstance && "createdDate" in value;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "lastModifiedDate" in value;
-    isInstance = isInstance && "motivations" in value;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "slug" in value;
-    isInstance = isInstance && "tags" in value;
-    isInstance = isInstance && "targetCountries" in value;
-    isInstance = isInstance && "targetIndustries" in value;
-    isInstance = isInstance && "thumbnail" in value;
-
-    return isInstance;
+export function instanceOfDomainNewsDocument(value: object): value is DomainNewsDocument {
+    if (!("actors" in value) || value["actors"] === undefined) return false;
+    if (!("createdDate" in value) || value["createdDate"] === undefined) return false;
+    if (!("id" in value) || value["id"] === undefined) return false;
+    if (!("lastModifiedDate" in value) || value["lastModifiedDate"] === undefined) return false;
+    if (!("motivations" in value) || value["motivations"] === undefined) return false;
+    if (!("name" in value) || value["name"] === undefined) return false;
+    if (!("slug" in value) || value["slug"] === undefined) return false;
+    if (!("tags" in value) || value["tags"] === undefined) return false;
+    if (!("targetCountries" in value) || value["targetCountries"] === undefined) return false;
+    if (!("targetIndustries" in value) || value["targetIndustries"] === undefined) return false;
+    if (!("thumbnail" in value) || value["thumbnail"] === undefined) return false;
+    return true;
 }
 
 export function DomainNewsDocumentFromJSON(json: any): DomainNewsDocument {
@@ -193,66 +197,65 @@ export function DomainNewsDocumentFromJSON(json: any): DomainNewsDocument {
 }
 
 export function DomainNewsDocumentFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainNewsDocument {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
-        active: !exists(json, "active") ? undefined : json["active"],
+        active: json["active"] == null ? undefined : json["active"],
         actors: (json["actors"] as Array<any>).map(DomainSimpleActorFromJSON),
-        attachments: !exists(json, "attachments") ? undefined : (json["attachments"] as Array<any>).map(DomainFileFromJSON),
+        attachments: json["attachments"] == null ? undefined : (json["attachments"] as Array<any>).map(DomainFileFromJSON),
         createdDate: json["created_date"],
-        description: !exists(json, "description") ? undefined : json["description"],
-        entitlements: !exists(json, "entitlements") ? undefined : (json["entitlements"] as Array<any>).map(DomainEntityFromJSON),
+        description: json["description"] == null ? undefined : json["description"],
+        entitlements: json["entitlements"] == null ? undefined : json["entitlements"],
         id: json["id"],
-        image: !exists(json, "image") ? undefined : DomainImageFromJSON(json["image"]),
+        image: json["image"] == null ? undefined : DomainImageFromJSON(json["image"]),
         lastModifiedDate: json["last_modified_date"],
-        motivations: (json["motivations"] as Array<any>).map(DomainEntityFromJSON),
+        malware: json["malware"] == null ? undefined : (json["malware"] as Array<any>).map(DomainReportMalwareFromJSON),
+        motivations: json["motivations"],
         name: json["name"],
-        notifyUsers: !exists(json, "notify_users") ? undefined : json["notify_users"],
-        richTextDescription: !exists(json, "rich_text_description") ? undefined : json["rich_text_description"],
-        shortDescription: !exists(json, "short_description") ? undefined : json["short_description"],
+        notifyUsers: json["notify_users"] == null ? undefined : json["notify_users"],
+        richTextDescription: json["rich_text_description"] == null ? undefined : json["rich_text_description"],
+        shortDescription: json["short_description"] == null ? undefined : json["short_description"],
         slug: json["slug"],
-        subType: !exists(json, "sub_type") ? undefined : DomainEntityFromJSON(json["sub_type"]),
-        tags: (json["tags"] as Array<any>).map(DomainEntityFromJSON),
-        targetCountries: (json["target_countries"] as Array<any>).map(DomainEntityFromJSON),
-        targetIndustries: (json["target_industries"] as Array<any>).map(DomainEntityFromJSON),
+        subType: json["sub_type"] == null ? undefined : json["sub_type"],
+        tags: json["tags"],
+        targetCountries: json["target_countries"],
+        targetIndustries: json["target_industries"],
         thumbnail: DomainImageFromJSON(json["thumbnail"]),
-        topic: !exists(json, "topic") ? undefined : DomainEntityFromJSON(json["topic"]),
-        type: !exists(json, "type") ? undefined : DomainEntityFromJSON(json["type"]),
-        url: !exists(json, "url") ? undefined : json["url"],
+        topic: json["topic"] == null ? undefined : json["topic"],
+        type: json["type"] == null ? undefined : json["type"],
+        url: json["url"] == null ? undefined : json["url"],
     };
 }
 
 export function DomainNewsDocumentToJSON(value?: DomainNewsDocument | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        active: value.active,
-        actors: (value.actors as Array<any>).map(DomainSimpleActorToJSON),
-        attachments: value.attachments === undefined ? undefined : (value.attachments as Array<any>).map(DomainFileToJSON),
-        created_date: value.createdDate,
-        description: value.description,
-        entitlements: value.entitlements === undefined ? undefined : (value.entitlements as Array<any>).map(DomainEntityToJSON),
-        id: value.id,
-        image: DomainImageToJSON(value.image),
-        last_modified_date: value.lastModifiedDate,
-        motivations: (value.motivations as Array<any>).map(DomainEntityToJSON),
-        name: value.name,
-        notify_users: value.notifyUsers,
-        rich_text_description: value.richTextDescription,
-        short_description: value.shortDescription,
-        slug: value.slug,
-        sub_type: DomainEntityToJSON(value.subType),
-        tags: (value.tags as Array<any>).map(DomainEntityToJSON),
-        target_countries: (value.targetCountries as Array<any>).map(DomainEntityToJSON),
-        target_industries: (value.targetIndustries as Array<any>).map(DomainEntityToJSON),
-        thumbnail: DomainImageToJSON(value.thumbnail),
-        topic: DomainEntityToJSON(value.topic),
-        type: DomainEntityToJSON(value.type),
-        url: value.url,
+        active: value["active"],
+        actors: (value["actors"] as Array<any>).map(DomainSimpleActorToJSON),
+        attachments: value["attachments"] == null ? undefined : (value["attachments"] as Array<any>).map(DomainFileToJSON),
+        created_date: value["createdDate"],
+        description: value["description"],
+        entitlements: value["entitlements"],
+        id: value["id"],
+        image: DomainImageToJSON(value["image"]),
+        last_modified_date: value["lastModifiedDate"],
+        malware: value["malware"] == null ? undefined : (value["malware"] as Array<any>).map(DomainReportMalwareToJSON),
+        motivations: value["motivations"],
+        name: value["name"],
+        notify_users: value["notifyUsers"],
+        rich_text_description: value["richTextDescription"],
+        short_description: value["shortDescription"],
+        slug: value["slug"],
+        sub_type: value["subType"],
+        tags: value["tags"],
+        target_countries: value["targetCountries"],
+        target_industries: value["targetIndustries"],
+        thumbnail: DomainImageToJSON(value["thumbnail"]),
+        topic: value["topic"],
+        type: value["type"],
+        url: value["url"],
     };
 }

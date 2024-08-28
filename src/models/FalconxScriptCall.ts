@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 import type { FalconxParameter } from "./FalconxParameter";
 import { FalconxParameterFromJSON, FalconxParameterFromJSONTyped, FalconxParameterToJSON } from "./FalconxParameter";
 
@@ -63,10 +63,8 @@ export interface FalconxScriptCall {
 /**
  * Check if a given object implements the FalconxScriptCall interface.
  */
-export function instanceOfFalconxScriptCall(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfFalconxScriptCall(value: object): value is FalconxScriptCall {
+    return true;
 }
 
 export function FalconxScriptCallFromJSON(json: any): FalconxScriptCall {
@@ -74,32 +72,29 @@ export function FalconxScriptCallFromJSON(json: any): FalconxScriptCall {
 }
 
 export function FalconxScriptCallFromJSONTyped(json: any, ignoreDiscriminator: boolean): FalconxScriptCall {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
-        clsId: !exists(json, "cls_id") ? undefined : json["cls_id"],
-        dispatchId: !exists(json, "dispatch_id") ? undefined : json["dispatch_id"],
-        matchedMaliciousSignatures: !exists(json, "matched_malicious_signatures") ? undefined : json["matched_malicious_signatures"],
-        parameters: !exists(json, "parameters") ? undefined : (json["parameters"] as Array<any>).map(FalconxParameterFromJSON),
-        result: !exists(json, "result") ? undefined : json["result"],
-        status: !exists(json, "status") ? undefined : json["status"],
+        clsId: json["cls_id"] == null ? undefined : json["cls_id"],
+        dispatchId: json["dispatch_id"] == null ? undefined : json["dispatch_id"],
+        matchedMaliciousSignatures: json["matched_malicious_signatures"] == null ? undefined : json["matched_malicious_signatures"],
+        parameters: json["parameters"] == null ? undefined : (json["parameters"] as Array<any>).map(FalconxParameterFromJSON),
+        result: json["result"] == null ? undefined : json["result"],
+        status: json["status"] == null ? undefined : json["status"],
     };
 }
 
 export function FalconxScriptCallToJSON(value?: FalconxScriptCall | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        cls_id: value.clsId,
-        dispatch_id: value.dispatchId,
-        matched_malicious_signatures: value.matchedMaliciousSignatures,
-        parameters: value.parameters === undefined ? undefined : (value.parameters as Array<any>).map(FalconxParameterToJSON),
-        result: value.result,
-        status: value.status,
+        cls_id: value["clsId"],
+        dispatch_id: value["dispatchId"],
+        matched_malicious_signatures: value["matchedMaliciousSignatures"],
+        parameters: value["parameters"] == null ? undefined : (value["parameters"] as Array<any>).map(FalconxParameterToJSON),
+        result: value["result"],
+        status: value["status"],
     };
 }

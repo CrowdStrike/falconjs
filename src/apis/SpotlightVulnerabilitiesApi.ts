@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -19,7 +19,7 @@ import type {
     DomainSPAPIRemediationEntitiesResponseV2,
     DomainSPAPIVulnerabilitiesEntitiesResponseV2,
     MsaReplyMetaOnly,
-} from "../models";
+} from "../models/index";
 import {
     DomainSPAPICombinedVulnerabilitiesResponseFromJSON,
     DomainSPAPICombinedVulnerabilitiesResponseToJSON,
@@ -31,9 +31,9 @@ import {
     DomainSPAPIVulnerabilitiesEntitiesResponseV2ToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-} from "../models";
+} from "../models/index";
 
-export interface CombinedQueryVulnerabilitiesRequest {
+export interface SpotlightVulnerabilitiesApiCombinedQueryVulnerabilitiesRequest {
     filter: string;
     after?: string;
     limit?: number;
@@ -41,15 +41,15 @@ export interface CombinedQueryVulnerabilitiesRequest {
     facet?: Array<string>;
 }
 
-export interface GetRemediationsV2Request {
+export interface SpotlightVulnerabilitiesApiGetRemediationsV2Request {
     ids: Array<string>;
 }
 
-export interface GetVulnerabilitiesRequest {
+export interface SpotlightVulnerabilitiesApiGetVulnerabilitiesRequest {
     ids: Array<string>;
 }
 
-export interface QueryVulnerabilitiesRequest {
+export interface SpotlightVulnerabilitiesApiQueryVulnerabilitiesRequest {
     filter: string;
     after?: string;
     limit?: number;
@@ -64,40 +64,40 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
      * Search for Vulnerabilities in your environment by providing an FQL filter and paging details. Returns a set of Vulnerability entities which match the filter criteria
      */
     async combinedQueryVulnerabilitiesRaw(
-        requestParameters: CombinedQueryVulnerabilitiesRequest,
+        requestParameters: SpotlightVulnerabilitiesApiCombinedQueryVulnerabilitiesRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainSPAPICombinedVulnerabilitiesResponse>> {
-        if (requestParameters.filter === null || requestParameters.filter === undefined) {
-            throw new runtime.RequiredError("filter", "Required parameter requestParameters.filter was null or undefined when calling combinedQueryVulnerabilities.");
+        if (requestParameters["filter"] == null) {
+            throw new runtime.RequiredError("filter", 'Required parameter "filter" was null or undefined when calling combinedQueryVulnerabilities().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.after !== undefined) {
-            queryParameters["after"] = requestParameters.after;
+        if (requestParameters["after"] != null) {
+            queryParameters["after"] = requestParameters["after"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
-        if (requestParameters.facet) {
-            queryParameters["facet"] = requestParameters.facet;
+        if (requestParameters["facet"] != null) {
+            queryParameters["facet"] = requestParameters["facet"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["spotlight-vulnerabilities:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -132,24 +132,24 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
      * Get details on remediation by providing one or more IDs
      */
     async getRemediationsV2Raw(
-        requestParameters: GetRemediationsV2Request,
+        requestParameters: SpotlightVulnerabilitiesApiGetRemediationsV2Request,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainSPAPIRemediationEntitiesResponseV2>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getRemediationsV2.");
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getRemediationsV2().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["spotlight-vulnerabilities:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -177,24 +177,24 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
      * Get details on vulnerabilities by providing one or more IDs
      */
     async getVulnerabilitiesRaw(
-        requestParameters: GetVulnerabilitiesRequest,
+        requestParameters: SpotlightVulnerabilitiesApiGetVulnerabilitiesRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainSPAPIVulnerabilitiesEntitiesResponseV2>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getVulnerabilities.");
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getVulnerabilities().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["spotlight-vulnerabilities:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -221,34 +221,37 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
     /**
      * Search for Vulnerabilities in your environment by providing an FQL filter and paging details. Returns a set of Vulnerability IDs which match the filter criteria
      */
-    async queryVulnerabilitiesRaw(requestParameters: QueryVulnerabilitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainSPAPIQueryResponse>> {
-        if (requestParameters.filter === null || requestParameters.filter === undefined) {
-            throw new runtime.RequiredError("filter", "Required parameter requestParameters.filter was null or undefined when calling queryVulnerabilities.");
+    async queryVulnerabilitiesRaw(
+        requestParameters: SpotlightVulnerabilitiesApiQueryVulnerabilitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainSPAPIQueryResponse>> {
+        if (requestParameters["filter"] == null) {
+            throw new runtime.RequiredError("filter", 'Required parameter "filter" was null or undefined when calling queryVulnerabilities().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.after !== undefined) {
-            queryParameters["after"] = requestParameters.after;
+        if (requestParameters["after"] != null) {
+            queryParameters["after"] = requestParameters["after"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["spotlight-vulnerabilities:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(

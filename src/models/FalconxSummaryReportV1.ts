@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 import type { FalconxIntelSummaryReportV1 } from "./FalconxIntelSummaryReportV1";
 import { FalconxIntelSummaryReportV1FromJSON, FalconxIntelSummaryReportV1FromJSONTyped, FalconxIntelSummaryReportV1ToJSON } from "./FalconxIntelSummaryReportV1";
 import type { FalconxSandboxSummaryReportV1 } from "./FalconxSandboxSummaryReportV1";
@@ -36,6 +36,12 @@ export interface FalconxSummaryReportV1 {
      * @memberof FalconxSummaryReportV1
      */
     createdTimestamp?: string;
+    /**
+     *
+     * @type {boolean}
+     * @memberof FalconxSummaryReportV1
+     */
+    hasRecording?: boolean;
     /**
      *
      * @type {string}
@@ -143,10 +149,8 @@ export interface FalconxSummaryReportV1 {
 /**
  * Check if a given object implements the FalconxSummaryReportV1 interface.
  */
-export function instanceOfFalconxSummaryReportV1(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfFalconxSummaryReportV1(value: object): value is FalconxSummaryReportV1 {
+    return true;
 }
 
 export function FalconxSummaryReportV1FromJSON(json: any): FalconxSummaryReportV1 {
@@ -154,58 +158,57 @@ export function FalconxSummaryReportV1FromJSON(json: any): FalconxSummaryReportV
 }
 
 export function FalconxSummaryReportV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): FalconxSummaryReportV1 {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
-        cid: !exists(json, "cid") ? undefined : json["cid"],
-        createdTimestamp: !exists(json, "created_timestamp") ? undefined : json["created_timestamp"],
-        id: !exists(json, "id") ? undefined : json["id"],
-        intel: !exists(json, "intel") ? undefined : (json["intel"] as Array<any>).map(FalconxIntelSummaryReportV1FromJSON),
-        iocReportBroadCsvArtifactId: !exists(json, "ioc_report_broad_csv_artifact_id") ? undefined : json["ioc_report_broad_csv_artifact_id"],
-        iocReportBroadJsonArtifactId: !exists(json, "ioc_report_broad_json_artifact_id") ? undefined : json["ioc_report_broad_json_artifact_id"],
-        iocReportBroadMaecArtifactId: !exists(json, "ioc_report_broad_maec_artifact_id") ? undefined : json["ioc_report_broad_maec_artifact_id"],
-        iocReportBroadStixArtifactId: !exists(json, "ioc_report_broad_stix_artifact_id") ? undefined : json["ioc_report_broad_stix_artifact_id"],
-        iocReportStrictCsvArtifactId: !exists(json, "ioc_report_strict_csv_artifact_id") ? undefined : json["ioc_report_strict_csv_artifact_id"],
-        iocReportStrictJsonArtifactId: !exists(json, "ioc_report_strict_json_artifact_id") ? undefined : json["ioc_report_strict_json_artifact_id"],
-        iocReportStrictMaecArtifactId: !exists(json, "ioc_report_strict_maec_artifact_id") ? undefined : json["ioc_report_strict_maec_artifact_id"],
-        iocReportStrictStixArtifactId: !exists(json, "ioc_report_strict_stix_artifact_id") ? undefined : json["ioc_report_strict_stix_artifact_id"],
-        origin: !exists(json, "origin") ? undefined : json["origin"],
-        sandbox: !exists(json, "sandbox") ? undefined : (json["sandbox"] as Array<any>).map(FalconxSandboxSummaryReportV1FromJSON),
-        tags: !exists(json, "tags") ? undefined : json["tags"],
-        userId: !exists(json, "user_id") ? undefined : json["user_id"],
-        userName: !exists(json, "user_name") ? undefined : json["user_name"],
-        userTags: !exists(json, "user_tags") ? undefined : json["user_tags"],
-        verdict: !exists(json, "verdict") ? undefined : json["verdict"],
+        cid: json["cid"] == null ? undefined : json["cid"],
+        createdTimestamp: json["created_timestamp"] == null ? undefined : json["created_timestamp"],
+        hasRecording: json["has_recording"] == null ? undefined : json["has_recording"],
+        id: json["id"] == null ? undefined : json["id"],
+        intel: json["intel"] == null ? undefined : (json["intel"] as Array<any>).map(FalconxIntelSummaryReportV1FromJSON),
+        iocReportBroadCsvArtifactId: json["ioc_report_broad_csv_artifact_id"] == null ? undefined : json["ioc_report_broad_csv_artifact_id"],
+        iocReportBroadJsonArtifactId: json["ioc_report_broad_json_artifact_id"] == null ? undefined : json["ioc_report_broad_json_artifact_id"],
+        iocReportBroadMaecArtifactId: json["ioc_report_broad_maec_artifact_id"] == null ? undefined : json["ioc_report_broad_maec_artifact_id"],
+        iocReportBroadStixArtifactId: json["ioc_report_broad_stix_artifact_id"] == null ? undefined : json["ioc_report_broad_stix_artifact_id"],
+        iocReportStrictCsvArtifactId: json["ioc_report_strict_csv_artifact_id"] == null ? undefined : json["ioc_report_strict_csv_artifact_id"],
+        iocReportStrictJsonArtifactId: json["ioc_report_strict_json_artifact_id"] == null ? undefined : json["ioc_report_strict_json_artifact_id"],
+        iocReportStrictMaecArtifactId: json["ioc_report_strict_maec_artifact_id"] == null ? undefined : json["ioc_report_strict_maec_artifact_id"],
+        iocReportStrictStixArtifactId: json["ioc_report_strict_stix_artifact_id"] == null ? undefined : json["ioc_report_strict_stix_artifact_id"],
+        origin: json["origin"] == null ? undefined : json["origin"],
+        sandbox: json["sandbox"] == null ? undefined : (json["sandbox"] as Array<any>).map(FalconxSandboxSummaryReportV1FromJSON),
+        tags: json["tags"] == null ? undefined : json["tags"],
+        userId: json["user_id"] == null ? undefined : json["user_id"],
+        userName: json["user_name"] == null ? undefined : json["user_name"],
+        userTags: json["user_tags"] == null ? undefined : json["user_tags"],
+        verdict: json["verdict"] == null ? undefined : json["verdict"],
     };
 }
 
 export function FalconxSummaryReportV1ToJSON(value?: FalconxSummaryReportV1 | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        cid: value.cid,
-        created_timestamp: value.createdTimestamp,
-        id: value.id,
-        intel: value.intel === undefined ? undefined : (value.intel as Array<any>).map(FalconxIntelSummaryReportV1ToJSON),
-        ioc_report_broad_csv_artifact_id: value.iocReportBroadCsvArtifactId,
-        ioc_report_broad_json_artifact_id: value.iocReportBroadJsonArtifactId,
-        ioc_report_broad_maec_artifact_id: value.iocReportBroadMaecArtifactId,
-        ioc_report_broad_stix_artifact_id: value.iocReportBroadStixArtifactId,
-        ioc_report_strict_csv_artifact_id: value.iocReportStrictCsvArtifactId,
-        ioc_report_strict_json_artifact_id: value.iocReportStrictJsonArtifactId,
-        ioc_report_strict_maec_artifact_id: value.iocReportStrictMaecArtifactId,
-        ioc_report_strict_stix_artifact_id: value.iocReportStrictStixArtifactId,
-        origin: value.origin,
-        sandbox: value.sandbox === undefined ? undefined : (value.sandbox as Array<any>).map(FalconxSandboxSummaryReportV1ToJSON),
-        tags: value.tags,
-        user_id: value.userId,
-        user_name: value.userName,
-        user_tags: value.userTags,
-        verdict: value.verdict,
+        cid: value["cid"],
+        created_timestamp: value["createdTimestamp"],
+        has_recording: value["hasRecording"],
+        id: value["id"],
+        intel: value["intel"] == null ? undefined : (value["intel"] as Array<any>).map(FalconxIntelSummaryReportV1ToJSON),
+        ioc_report_broad_csv_artifact_id: value["iocReportBroadCsvArtifactId"],
+        ioc_report_broad_json_artifact_id: value["iocReportBroadJsonArtifactId"],
+        ioc_report_broad_maec_artifact_id: value["iocReportBroadMaecArtifactId"],
+        ioc_report_broad_stix_artifact_id: value["iocReportBroadStixArtifactId"],
+        ioc_report_strict_csv_artifact_id: value["iocReportStrictCsvArtifactId"],
+        ioc_report_strict_json_artifact_id: value["iocReportStrictJsonArtifactId"],
+        ioc_report_strict_maec_artifact_id: value["iocReportStrictMaecArtifactId"],
+        ioc_report_strict_stix_artifact_id: value["iocReportStrictStixArtifactId"],
+        origin: value["origin"],
+        sandbox: value["sandbox"] == null ? undefined : (value["sandbox"] as Array<any>).map(FalconxSandboxSummaryReportV1ToJSON),
+        tags: value["tags"],
+        user_id: value["userId"],
+        user_name: value["userName"],
+        user_tags: value["userTags"],
+        verdict: value["verdict"],
     };
 }

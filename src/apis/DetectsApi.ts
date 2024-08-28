@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -21,7 +21,7 @@ import type {
     MsaIdsRequest,
     MsaQueryResponse,
     MsaReplyMetaOnly,
-} from "../models";
+} from "../models/index";
 import {
     DomainDetectsEntitiesPatchRequestFromJSON,
     DomainDetectsEntitiesPatchRequestToJSON,
@@ -37,17 +37,17 @@ import {
     MsaQueryResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-} from "../models";
+} from "../models/index";
 
-export interface GetAggregateDetectsRequest {
+export interface DetectsApiGetAggregateDetectsRequest {
     body: Array<MsaAggregateQueryRequest>;
 }
 
-export interface GetDetectSummariesRequest {
+export interface DetectsApiGetDetectSummariesRequest {
     body: MsaIdsRequest;
 }
 
-export interface QueryDetectsRequest {
+export interface DetectsApiQueryDetectsRequest {
     offset?: number;
     limit?: number;
     sort?: string;
@@ -55,7 +55,7 @@ export interface QueryDetectsRequest {
     q?: string;
 }
 
-export interface UpdateDetectsByIdsV2Request {
+export interface DetectsApiUpdateDetectsByIdsV2Request {
     body: DomainDetectsEntitiesPatchRequest;
 }
 
@@ -66,9 +66,12 @@ export class DetectsApi extends runtime.BaseAPI {
     /**
      * Get detect aggregates as specified via json in request body.
      */
-    async getAggregateDetectsRaw(requestParameters: GetAggregateDetectsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling getAggregateDetects.");
+    async getAggregateDetectsRaw(
+        requestParameters: DetectsApiGetAggregateDetectsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getAggregateDetects().');
         }
 
         const queryParameters: any = {};
@@ -79,7 +82,7 @@ export class DetectsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["detects:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -88,7 +91,7 @@ export class DetectsApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: requestParameters.body.map(MsaAggregateQueryRequestToJSON),
+                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
             initOverrides
         );
@@ -108,11 +111,11 @@ export class DetectsApi extends runtime.BaseAPI {
      * View information about detections
      */
     async getDetectSummariesRaw(
-        requestParameters: GetDetectSummariesRequest,
+        requestParameters: DetectsApiGetDetectSummariesRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainMsaDetectSummariesResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling getDetectSummaries.");
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getDetectSummaries().');
         }
 
         const queryParameters: any = {};
@@ -123,7 +126,7 @@ export class DetectsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["detects:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -132,7 +135,7 @@ export class DetectsApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: MsaIdsRequestToJSON(requestParameters.body),
+                body: MsaIdsRequestToJSON(requestParameters["body"]),
             },
             initOverrides
         );
@@ -151,34 +154,34 @@ export class DetectsApi extends runtime.BaseAPI {
     /**
      * Search for detection IDs that match a given query
      */
-    async queryDetectsRaw(requestParameters: QueryDetectsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryDetectsRaw(requestParameters: DetectsApiQueryDetectsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
-        if (requestParameters.q !== undefined) {
-            queryParameters["q"] = requestParameters.q;
+        if (requestParameters["q"] != null) {
+            queryParameters["q"] = requestParameters["q"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["detects:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -205,9 +208,12 @@ export class DetectsApi extends runtime.BaseAPI {
     /**
      * Modify the state, assignee, and visibility of detections
      */
-    async updateDetectsByIdsV2Raw(requestParameters: UpdateDetectsByIdsV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateDetectsByIdsV2.");
+    async updateDetectsByIdsV2Raw(
+        requestParameters: DetectsApiUpdateDetectsByIdsV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateDetectsByIdsV2().');
         }
 
         const queryParameters: any = {};
@@ -218,7 +224,7 @@ export class DetectsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["detects:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -227,7 +233,7 @@ export class DetectsApi extends runtime.BaseAPI {
                 method: "PATCH",
                 headers: headerParameters,
                 query: queryParameters,
-                body: DomainDetectsEntitiesPatchRequestToJSON(requestParameters.body),
+                body: DomainDetectsEntitiesPatchRequestToJSON(requestParameters["body"]),
             },
             initOverrides
         );

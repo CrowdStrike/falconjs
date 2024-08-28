@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 /**
  * A host group which targets a set of devices either through a dynamic assignment rule or a static set of hosts
  * @export
@@ -88,17 +88,15 @@ export type HostGroupsHostGroupV1GroupTypeEnum = (typeof HostGroupsHostGroupV1Gr
 /**
  * Check if a given object implements the HostGroupsHostGroupV1 interface.
  */
-export function instanceOfHostGroupsHostGroupV1(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "createdBy" in value;
-    isInstance = isInstance && "createdTimestamp" in value;
-    isInstance = isInstance && "description" in value;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "modifiedBy" in value;
-    isInstance = isInstance && "modifiedTimestamp" in value;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfHostGroupsHostGroupV1(value: object): value is HostGroupsHostGroupV1 {
+    if (!("createdBy" in value) || value["createdBy"] === undefined) return false;
+    if (!("createdTimestamp" in value) || value["createdTimestamp"] === undefined) return false;
+    if (!("description" in value) || value["description"] === undefined) return false;
+    if (!("id" in value) || value["id"] === undefined) return false;
+    if (!("modifiedBy" in value) || value["modifiedBy"] === undefined) return false;
+    if (!("modifiedTimestamp" in value) || value["modifiedTimestamp"] === undefined) return false;
+    if (!("name" in value) || value["name"] === undefined) return false;
+    return true;
 }
 
 export function HostGroupsHostGroupV1FromJSON(json: any): HostGroupsHostGroupV1 {
@@ -106,15 +104,15 @@ export function HostGroupsHostGroupV1FromJSON(json: any): HostGroupsHostGroupV1 
 }
 
 export function HostGroupsHostGroupV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): HostGroupsHostGroupV1 {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
-        assignmentRule: !exists(json, "assignment_rule") ? undefined : json["assignment_rule"],
+        assignmentRule: json["assignment_rule"] == null ? undefined : json["assignment_rule"],
         createdBy: json["created_by"],
         createdTimestamp: new Date(json["created_timestamp"]),
         description: json["description"],
-        groupType: !exists(json, "group_type") ? undefined : json["group_type"],
+        groupType: json["group_type"] == null ? undefined : json["group_type"],
         id: json["id"],
         modifiedBy: json["modified_by"],
         modifiedTimestamp: new Date(json["modified_timestamp"]),
@@ -123,21 +121,18 @@ export function HostGroupsHostGroupV1FromJSONTyped(json: any, ignoreDiscriminato
 }
 
 export function HostGroupsHostGroupV1ToJSON(value?: HostGroupsHostGroupV1 | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        assignment_rule: value.assignmentRule,
-        created_by: value.createdBy,
-        created_timestamp: value.createdTimestamp.toISOString(),
-        description: value.description,
-        group_type: value.groupType,
-        id: value.id,
-        modified_by: value.modifiedBy,
-        modified_timestamp: value.modifiedTimestamp.toISOString(),
-        name: value.name,
+        assignment_rule: value["assignmentRule"],
+        created_by: value["createdBy"],
+        created_timestamp: value["createdTimestamp"].toISOString(),
+        description: value["description"],
+        group_type: value["groupType"],
+        id: value["id"],
+        modified_by: value["modifiedBy"],
+        modified_timestamp: value["modifiedTimestamp"].toISOString(),
+        name: value["name"],
     };
 }

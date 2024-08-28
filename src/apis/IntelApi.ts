@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -15,22 +15,32 @@
 import * as runtime from "../runtime";
 import type {
     DomainActorsResponse,
+    DomainMalwareResponse,
     DomainNewsResponse,
     DomainPublicIndicatorsV3Response,
+    DomainQueryMitreAttacksResponse,
+    DomainQueryResponse,
     DomainRulesResponse,
     DomainVulnerabilityResponse,
     MsaErrorsOnly,
     MsaIdsRequest,
     MsaQueryResponse,
     MsaReplyMetaOnly,
-} from "../models";
+    MsaspecResponseFields,
+} from "../models/index";
 import {
     DomainActorsResponseFromJSON,
     DomainActorsResponseToJSON,
+    DomainMalwareResponseFromJSON,
+    DomainMalwareResponseToJSON,
     DomainNewsResponseFromJSON,
     DomainNewsResponseToJSON,
     DomainPublicIndicatorsV3ResponseFromJSON,
     DomainPublicIndicatorsV3ResponseToJSON,
+    DomainQueryMitreAttacksResponseFromJSON,
+    DomainQueryMitreAttacksResponseToJSON,
+    DomainQueryResponseFromJSON,
+    DomainQueryResponseToJSON,
     DomainRulesResponseFromJSON,
     DomainRulesResponseToJSON,
     DomainVulnerabilityResponseFromJSON,
@@ -43,57 +53,66 @@ import {
     MsaQueryResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-} from "../models";
+    MsaspecResponseFieldsFromJSON,
+    MsaspecResponseFieldsToJSON,
+} from "../models/index";
 
-export interface GetIntelActorEntitiesRequest {
+export interface IntelApiGetIntelActorEntitiesRequest {
     ids: Array<string>;
     fields?: Array<string>;
 }
 
-export interface GetIntelIndicatorEntitiesRequest {
+export interface IntelApiGetIntelIndicatorEntitiesRequest {
     body: MsaIdsRequest;
 }
 
-export interface GetIntelReportEntitiesRequest {
+export interface IntelApiGetIntelReportEntitiesRequest {
     ids: Array<string>;
     fields?: Array<string>;
 }
 
-export interface GetIntelReportPDFRequest {
-    id: string;
+export interface IntelApiGetIntelReportPDFRequest {
+    id?: string;
+    ids?: string;
 }
 
-export interface GetIntelRuleEntitiesRequest {
+export interface IntelApiGetIntelRuleEntitiesRequest {
     ids: Array<string>;
 }
 
-export interface GetIntelRuleFileRequest {
+export interface IntelApiGetIntelRuleFileRequest {
     id: number;
     accept?: string;
     format?: string;
 }
 
-export interface GetLatestIntelRuleFileRequest {
+export interface IntelApiGetLatestIntelRuleFileRequest {
     type: string;
     accept?: string;
-    format?: string;
+    ifNoneMatch?: string;
     ifModifiedSince?: string;
+    format?: string;
+    ifModifiedSince2?: string;
 }
 
-export interface GetMitreReportRequest {
+export interface IntelApiGetMalwareEntitiesRequest {
+    ids: Array<string>;
+}
+
+export interface IntelApiGetMitreReportRequest {
     actorId: string;
     format: string;
 }
 
-export interface GetVulnerabilitiesRequest {
+export interface IntelApiGetVulnerabilitiesRequest {
     body: MsaIdsRequest;
 }
 
-export interface PostMitreAttacksRequest {
+export interface IntelApiPostMitreAttacksRequest {
     body: MsaIdsRequest;
 }
 
-export interface QueryIntelActorEntitiesRequest {
+export interface IntelApiQueryIntelActorEntitiesRequest {
     offset?: number;
     limit?: number;
     sort?: string;
@@ -102,7 +121,7 @@ export interface QueryIntelActorEntitiesRequest {
     fields?: Array<string>;
 }
 
-export interface QueryIntelActorIdsRequest {
+export interface IntelApiQueryIntelActorIdsRequest {
     offset?: number;
     limit?: number;
     sort?: string;
@@ -110,7 +129,7 @@ export interface QueryIntelActorIdsRequest {
     q?: string;
 }
 
-export interface QueryIntelIndicatorEntitiesRequest {
+export interface IntelApiQueryIntelIndicatorEntitiesRequest {
     offset?: number;
     limit?: number;
     sort?: string;
@@ -120,7 +139,7 @@ export interface QueryIntelIndicatorEntitiesRequest {
     includeRelations?: boolean;
 }
 
-export interface QueryIntelIndicatorIdsRequest {
+export interface IntelApiQueryIntelIndicatorIdsRequest {
     offset?: number;
     limit?: number;
     sort?: string;
@@ -130,7 +149,7 @@ export interface QueryIntelIndicatorIdsRequest {
     includeRelations?: boolean;
 }
 
-export interface QueryIntelReportEntitiesRequest {
+export interface IntelApiQueryIntelReportEntitiesRequest {
     offset?: number;
     limit?: number;
     sort?: string;
@@ -139,7 +158,7 @@ export interface QueryIntelReportEntitiesRequest {
     fields?: Array<string>;
 }
 
-export interface QueryIntelReportIdsRequest {
+export interface IntelApiQueryIntelReportIdsRequest {
     offset?: number;
     limit?: number;
     sort?: string;
@@ -147,7 +166,7 @@ export interface QueryIntelReportIdsRequest {
     q?: string;
 }
 
-export interface QueryIntelRuleIdsRequest {
+export interface IntelApiQueryIntelRuleIdsRequest {
     type: string;
     offset?: number;
     limit?: number;
@@ -160,11 +179,24 @@ export interface QueryIntelRuleIdsRequest {
     q?: string;
 }
 
-export interface QueryMitreAttacksRequest {
-    id: string;
+export interface IntelApiQueryMalwareRequest {
+    offset?: number;
+    limit?: number;
+    sort?: string;
+    filter?: string;
+    q?: string;
 }
 
-export interface QueryVulnerabilitiesRequest {
+export interface IntelApiQueryMitreAttacksRequest {
+    id?: string;
+    ids?: Array<string>;
+}
+
+export interface IntelApiQueryMitreAttacksForMalwareRequest {
+    ids: Array<string>;
+}
+
+export interface IntelApiQueryVulnerabilitiesRequest {
     offset?: string;
     limit?: number;
     sort?: string;
@@ -179,26 +211,29 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Retrieve specific actors using their actor IDs.
      */
-    async getIntelActorEntitiesRaw(requestParameters: GetIntelActorEntitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainActorsResponse>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getIntelActorEntities.");
+    async getIntelActorEntitiesRaw(
+        requestParameters: IntelApiGetIntelActorEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainActorsResponse>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getIntelActorEntities().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
-        if (requestParameters.fields) {
-            queryParameters["fields"] = requestParameters.fields;
+        if (requestParameters["fields"] != null) {
+            queryParameters["fields"] = requestParameters["fields"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-actors:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -226,11 +261,11 @@ export class IntelApi extends runtime.BaseAPI {
      * Retrieve specific indicators using their indicator IDs.
      */
     async getIntelIndicatorEntitiesRaw(
-        requestParameters: GetIntelIndicatorEntitiesRequest,
+        requestParameters: IntelApiGetIntelIndicatorEntitiesRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainPublicIndicatorsV3Response>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling getIntelIndicatorEntities.");
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getIntelIndicatorEntities().');
         }
 
         const queryParameters: any = {};
@@ -241,7 +276,7 @@ export class IntelApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-indicators:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -250,7 +285,7 @@ export class IntelApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: MsaIdsRequestToJSON(requestParameters.body),
+                body: MsaIdsRequestToJSON(requestParameters["body"]),
             },
             initOverrides
         );
@@ -269,26 +304,29 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Retrieve specific reports using their report IDs.
      */
-    async getIntelReportEntitiesRaw(requestParameters: GetIntelReportEntitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainNewsResponse>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getIntelReportEntities.");
+    async getIntelReportEntitiesRaw(
+        requestParameters: IntelApiGetIntelReportEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainNewsResponse>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getIntelReportEntities().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
-        if (requestParameters.fields) {
-            queryParameters["fields"] = requestParameters.fields;
+        if (requestParameters["fields"] != null) {
+            queryParameters["fields"] = requestParameters["fields"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-reports:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -315,22 +353,22 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Return a Report PDF attachment
      */
-    async getIntelReportPDFRaw(requestParameters: GetIntelReportPDFRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError("id", "Required parameter requestParameters.id was null or undefined when calling getIntelReportPDF.");
-        }
-
+    async getIntelReportPDFRaw(requestParameters: IntelApiGetIntelReportPDFRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
         const queryParameters: any = {};
 
-        if (requestParameters.id !== undefined) {
-            queryParameters["id"] = requestParameters.id;
+        if (requestParameters["id"] != null) {
+            queryParameters["id"] = requestParameters["id"];
+        }
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-reports:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -349,30 +387,33 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Return a Report PDF attachment
      */
-    async getIntelReportPDF(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
-        const response = await this.getIntelReportPDFRaw({ id: id }, initOverrides);
+    async getIntelReportPDF(id?: string, ids?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
+        const response = await this.getIntelReportPDFRaw({ id: id, ids: ids }, initOverrides);
         return await response.value();
     }
 
     /**
      * Retrieve details for rule sets for the specified ids.
      */
-    async getIntelRuleEntitiesRaw(requestParameters: GetIntelRuleEntitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRulesResponse>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getIntelRuleEntities.");
+    async getIntelRuleEntitiesRaw(
+        requestParameters: IntelApiGetIntelRuleEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainRulesResponse>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getIntelRuleEntities().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-rules:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -399,30 +440,30 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Download earlier rule sets.
      */
-    async getIntelRuleFileRaw(requestParameters: GetIntelRuleFileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError("id", "Required parameter requestParameters.id was null or undefined when calling getIntelRuleFile.");
+    async getIntelRuleFileRaw(requestParameters: IntelApiGetIntelRuleFileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling getIntelRuleFile().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.id !== undefined) {
-            queryParameters["id"] = requestParameters.id;
+        if (requestParameters["id"] != null) {
+            queryParameters["id"] = requestParameters["id"];
         }
 
-        if (requestParameters.format !== undefined) {
-            queryParameters["format"] = requestParameters.format;
+        if (requestParameters["format"] != null) {
+            queryParameters["format"] = requestParameters["format"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters.accept !== undefined && requestParameters.accept !== null) {
-            headerParameters["Accept"] = String(requestParameters.accept);
+        if (requestParameters["accept"] != null) {
+            headerParameters["Accept"] = String(requestParameters["accept"]);
         }
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-rules:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -449,34 +490,42 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Download the latest rule set.
      */
-    async getLatestIntelRuleFileRaw(requestParameters: GetLatestIntelRuleFileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
-        if (requestParameters.type === null || requestParameters.type === undefined) {
-            throw new runtime.RequiredError("type", "Required parameter requestParameters.type was null or undefined when calling getLatestIntelRuleFile.");
+    async getLatestIntelRuleFileRaw(requestParameters: IntelApiGetLatestIntelRuleFileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+        if (requestParameters["type"] == null) {
+            throw new runtime.RequiredError("type", 'Required parameter "type" was null or undefined when calling getLatestIntelRuleFile().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.type !== undefined) {
-            queryParameters["type"] = requestParameters.type;
+        if (requestParameters["type"] != null) {
+            queryParameters["type"] = requestParameters["type"];
         }
 
-        if (requestParameters.format !== undefined) {
-            queryParameters["format"] = requestParameters.format;
+        if (requestParameters["format"] != null) {
+            queryParameters["format"] = requestParameters["format"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters.accept !== undefined && requestParameters.accept !== null) {
-            headerParameters["Accept"] = String(requestParameters.accept);
+        if (requestParameters["accept"] != null) {
+            headerParameters["Accept"] = String(requestParameters["accept"]);
         }
 
-        if (requestParameters.ifModifiedSince !== undefined && requestParameters.ifModifiedSince !== null) {
-            headerParameters["If-Modified-Since"] = String(requestParameters.ifModifiedSince);
+        if (requestParameters["ifNoneMatch"] != null) {
+            headerParameters["If-None-Match"] = String(requestParameters["ifNoneMatch"]);
+        }
+
+        if (requestParameters["ifModifiedSince"] != null) {
+            headerParameters["If-Modified-Since"] = String(requestParameters["ifModifiedSince"]);
+        }
+
+        if (requestParameters["ifModifiedSince2"] != null) {
+            headerParameters["If-Modified-Since"] = String(requestParameters["ifModifiedSince2"]);
         }
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-rules:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -495,38 +544,91 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Download the latest rule set.
      */
-    async getLatestIntelRuleFile(type: string, accept?: string, format?: string, ifModifiedSince?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
-        const response = await this.getLatestIntelRuleFileRaw({ type: type, accept: accept, format: format, ifModifiedSince: ifModifiedSince }, initOverrides);
+    async getLatestIntelRuleFile(
+        type: string,
+        accept?: string,
+        ifNoneMatch?: string,
+        ifModifiedSince?: string,
+        format?: string,
+        ifModifiedSince2?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<Blob> {
+        const response = await this.getLatestIntelRuleFileRaw(
+            { type: type, accept: accept, ifNoneMatch: ifNoneMatch, ifModifiedSince: ifModifiedSince, format: format, ifModifiedSince2: ifModifiedSince2 },
+            initOverrides
+        );
         return await response.value();
     }
 
     /**
-     * Export Mitre ATT&CK information for a given actor.
+     * Get malware entities for specified ids.
      */
-    async getMitreReportRaw(requestParameters: GetMitreReportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.actorId === null || requestParameters.actorId === undefined) {
-            throw new runtime.RequiredError("actorId", "Required parameter requestParameters.actorId was null or undefined when calling getMitreReport.");
-        }
-
-        if (requestParameters.format === null || requestParameters.format === undefined) {
-            throw new runtime.RequiredError("format", "Required parameter requestParameters.format was null or undefined when calling getMitreReport.");
+    async getMalwareEntitiesRaw(requestParameters: IntelApiGetMalwareEntitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainMalwareResponse>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getMalwareEntities().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.actorId !== undefined) {
-            queryParameters["actor_id"] = requestParameters.actorId;
-        }
-
-        if (requestParameters.format !== undefined) {
-            queryParameters["format"] = requestParameters.format;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-actors:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/intel/entities/malware/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainMalwareResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get malware entities for specified ids.
+     */
+    async getMalwareEntities(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainMalwareResponse> {
+        const response = await this.getMalwareEntitiesRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Export Mitre ATT&CK information for a given actor.
+     */
+    async getMitreReportRaw(requestParameters: IntelApiGetMitreReportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters["actorId"] == null) {
+            throw new runtime.RequiredError("actorId", 'Required parameter "actorId" was null or undefined when calling getMitreReport().');
+        }
+
+        if (requestParameters["format"] == null) {
+            throw new runtime.RequiredError("format", 'Required parameter "format" was null or undefined when calling getMitreReport().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["actorId"] != null) {
+            queryParameters["actor_id"] = requestParameters["actorId"];
+        }
+
+        if (requestParameters["format"] != null) {
+            queryParameters["format"] = requestParameters["format"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -552,9 +654,12 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Get vulnerabilities
      */
-    async getVulnerabilitiesRaw(requestParameters: GetVulnerabilitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainVulnerabilityResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling getVulnerabilities.");
+    async getVulnerabilitiesRaw(
+        requestParameters: IntelApiGetVulnerabilitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainVulnerabilityResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getVulnerabilities().');
         }
 
         const queryParameters: any = {};
@@ -565,7 +670,7 @@ export class IntelApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["intel-vulnerabilities:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -574,7 +679,7 @@ export class IntelApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: MsaIdsRequestToJSON(requestParameters.body),
+                body: MsaIdsRequestToJSON(requestParameters["body"]),
             },
             initOverrides
         );
@@ -593,9 +698,9 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Retrieves report and observable IDs associated with the given actor and attacks
      */
-    async postMitreAttacksRaw(requestParameters: PostMitreAttacksRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling postMitreAttacks.");
+    async postMitreAttacksRaw(requestParameters: IntelApiPostMitreAttacksRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postMitreAttacks().');
         }
 
         const queryParameters: any = {};
@@ -606,7 +711,7 @@ export class IntelApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-actors:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -615,7 +720,7 @@ export class IntelApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: MsaIdsRequestToJSON(requestParameters.body),
+                body: MsaIdsRequestToJSON(requestParameters["body"]),
             },
             initOverrides
         );
@@ -634,40 +739,40 @@ export class IntelApi extends runtime.BaseAPI {
      * Get info about actors that match provided FQL filters.
      */
     async queryIntelActorEntitiesRaw(
-        requestParameters: QueryIntelActorEntitiesRequest,
+        requestParameters: IntelApiQueryIntelActorEntitiesRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainActorsResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
-        if (requestParameters.q !== undefined) {
-            queryParameters["q"] = requestParameters.q;
+        if (requestParameters["q"] != null) {
+            queryParameters["q"] = requestParameters["q"];
         }
 
-        if (requestParameters.fields) {
-            queryParameters["fields"] = requestParameters.fields;
+        if (requestParameters["fields"] != null) {
+            queryParameters["fields"] = requestParameters["fields"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-actors:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -702,34 +807,34 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Get actor IDs that match provided FQL filters.
      */
-    async queryIntelActorIdsRaw(requestParameters: QueryIntelActorIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryIntelActorIdsRaw(requestParameters: IntelApiQueryIntelActorIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
-        if (requestParameters.q !== undefined) {
-            queryParameters["q"] = requestParameters.q;
+        if (requestParameters["q"] != null) {
+            queryParameters["q"] = requestParameters["q"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-actors:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -757,44 +862,44 @@ export class IntelApi extends runtime.BaseAPI {
      * Get info about indicators that match provided FQL filters.
      */
     async queryIntelIndicatorEntitiesRaw(
-        requestParameters: QueryIntelIndicatorEntitiesRequest,
+        requestParameters: IntelApiQueryIntelIndicatorEntitiesRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainPublicIndicatorsV3Response>> {
         const queryParameters: any = {};
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
-        if (requestParameters.q !== undefined) {
-            queryParameters["q"] = requestParameters.q;
+        if (requestParameters["q"] != null) {
+            queryParameters["q"] = requestParameters["q"];
         }
 
-        if (requestParameters.includeDeleted !== undefined) {
-            queryParameters["include_deleted"] = requestParameters.includeDeleted;
+        if (requestParameters["includeDeleted"] != null) {
+            queryParameters["include_deleted"] = requestParameters["includeDeleted"];
         }
 
-        if (requestParameters.includeRelations !== undefined) {
-            queryParameters["include_relations"] = requestParameters.includeRelations;
+        if (requestParameters["includeRelations"] != null) {
+            queryParameters["include_relations"] = requestParameters["includeRelations"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-indicators:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -833,42 +938,45 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Get indicators IDs that match provided FQL filters.
      */
-    async queryIntelIndicatorIdsRaw(requestParameters: QueryIntelIndicatorIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryIntelIndicatorIdsRaw(
+        requestParameters: IntelApiQueryIntelIndicatorIdsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
-        if (requestParameters.q !== undefined) {
-            queryParameters["q"] = requestParameters.q;
+        if (requestParameters["q"] != null) {
+            queryParameters["q"] = requestParameters["q"];
         }
 
-        if (requestParameters.includeDeleted !== undefined) {
-            queryParameters["include_deleted"] = requestParameters.includeDeleted;
+        if (requestParameters["includeDeleted"] != null) {
+            queryParameters["include_deleted"] = requestParameters["includeDeleted"];
         }
 
-        if (requestParameters.includeRelations !== undefined) {
-            queryParameters["include_relations"] = requestParameters.includeRelations;
+        if (requestParameters["includeRelations"] != null) {
+            queryParameters["include_relations"] = requestParameters["includeRelations"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-indicators:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -908,40 +1016,40 @@ export class IntelApi extends runtime.BaseAPI {
      * Get info about reports that match provided FQL filters.
      */
     async queryIntelReportEntitiesRaw(
-        requestParameters: QueryIntelReportEntitiesRequest,
+        requestParameters: IntelApiQueryIntelReportEntitiesRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<DomainNewsResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
-        if (requestParameters.q !== undefined) {
-            queryParameters["q"] = requestParameters.q;
+        if (requestParameters["q"] != null) {
+            queryParameters["q"] = requestParameters["q"];
         }
 
-        if (requestParameters.fields) {
-            queryParameters["fields"] = requestParameters.fields;
+        if (requestParameters["fields"] != null) {
+            queryParameters["fields"] = requestParameters["fields"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-reports:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -976,34 +1084,34 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Get report IDs that match provided FQL filters.
      */
-    async queryIntelReportIdsRaw(requestParameters: QueryIntelReportIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryIntelReportIdsRaw(requestParameters: IntelApiQueryIntelReportIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
-        if (requestParameters.q !== undefined) {
-            queryParameters["q"] = requestParameters.q;
+        if (requestParameters["q"] != null) {
+            queryParameters["q"] = requestParameters["q"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-reports:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -1030,58 +1138,58 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Search for rule IDs that match provided filter criteria.
      */
-    async queryIntelRuleIdsRaw(requestParameters: QueryIntelRuleIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
-        if (requestParameters.type === null || requestParameters.type === undefined) {
-            throw new runtime.RequiredError("type", "Required parameter requestParameters.type was null or undefined when calling queryIntelRuleIds.");
+    async queryIntelRuleIdsRaw(requestParameters: IntelApiQueryIntelRuleIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        if (requestParameters["type"] == null) {
+            throw new runtime.RequiredError("type", 'Required parameter "type" was null or undefined when calling queryIntelRuleIds().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.name) {
-            queryParameters["name"] = requestParameters.name.join(runtime.COLLECTION_FORMATS["csv"]);
+        if (requestParameters["name"] != null) {
+            queryParameters["name"] = requestParameters["name"]!.join(runtime.COLLECTION_FORMATS["csv"]);
         }
 
-        if (requestParameters.type !== undefined) {
-            queryParameters["type"] = requestParameters.type;
+        if (requestParameters["type"] != null) {
+            queryParameters["type"] = requestParameters["type"];
         }
 
-        if (requestParameters.description) {
-            queryParameters["description"] = requestParameters.description.join(runtime.COLLECTION_FORMATS["csv"]);
+        if (requestParameters["description"] != null) {
+            queryParameters["description"] = requestParameters["description"]!.join(runtime.COLLECTION_FORMATS["csv"]);
         }
 
-        if (requestParameters.tags) {
-            queryParameters["tags"] = requestParameters.tags.join(runtime.COLLECTION_FORMATS["csv"]);
+        if (requestParameters["tags"] != null) {
+            queryParameters["tags"] = requestParameters["tags"]!.join(runtime.COLLECTION_FORMATS["csv"]);
         }
 
-        if (requestParameters.minCreatedDate !== undefined) {
-            queryParameters["min_created_date"] = requestParameters.minCreatedDate;
+        if (requestParameters["minCreatedDate"] != null) {
+            queryParameters["min_created_date"] = requestParameters["minCreatedDate"];
         }
 
-        if (requestParameters.maxCreatedDate !== undefined) {
-            queryParameters["max_created_date"] = requestParameters.maxCreatedDate;
+        if (requestParameters["maxCreatedDate"] != null) {
+            queryParameters["max_created_date"] = requestParameters["maxCreatedDate"];
         }
 
-        if (requestParameters.q !== undefined) {
-            queryParameters["q"] = requestParameters.q;
+        if (requestParameters["q"] != null) {
+            queryParameters["q"] = requestParameters["q"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-rules:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -1121,24 +1229,81 @@ export class IntelApi extends runtime.BaseAPI {
     }
 
     /**
-     * Gets MITRE tactics and techniques for the given actor
+     * Get malware family names that match provided FQL filters.
      */
-    async queryMitreAttacksRaw(requestParameters: QueryMitreAttacksRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError("id", "Required parameter requestParameters.id was null or undefined when calling queryMitreAttacks.");
-        }
-
+    async queryMalwareRaw(requestParameters: IntelApiQueryMalwareRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.id !== undefined) {
-            queryParameters["id"] = requestParameters.id;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["q"] != null) {
+            queryParameters["q"] = requestParameters["q"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-actors:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/intel/queries/malware/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get malware family names that match provided FQL filters.
+     */
+    async queryMalware(offset?: number, limit?: number, sort?: string, filter?: string, q?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainQueryResponse> {
+        const response = await this.queryMalwareRaw({ offset: offset, limit: limit, sort: sort, filter: filter, q: q }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Gets MITRE tactics and techniques for the given actor, returning concatenation of id and tactic and technique ids, example: fancy-bear_TA0011_T1071
+     */
+    async queryMitreAttacksRaw(
+        requestParameters: IntelApiQueryMitreAttacksRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainQueryMitreAttacksResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["id"] != null) {
+            queryParameters["id"] = requestParameters["id"];
+        }
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -1151,47 +1316,93 @@ export class IntelApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.VoidApiResponse(response);
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainQueryMitreAttacksResponseFromJSON(jsonValue));
     }
 
     /**
-     * Gets MITRE tactics and techniques for the given actor
+     * Gets MITRE tactics and techniques for the given actor, returning concatenation of id and tactic and technique ids, example: fancy-bear_TA0011_T1071
      */
-    async queryMitreAttacks(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.queryMitreAttacksRaw({ id: id }, initOverrides);
+    async queryMitreAttacks(id?: string, ids?: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainQueryMitreAttacksResponse> {
+        const response = await this.queryMitreAttacksRaw({ id: id, ids: ids }, initOverrides);
+        return await response.value();
     }
 
     /**
-     * Get vulnerabilities IDs
+     * Gets MITRE tactics and techniques for the given malware
      */
-    async queryVulnerabilitiesRaw(requestParameters: QueryVulnerabilitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryMitreAttacksForMalwareRaw(
+        requestParameters: IntelApiQueryMitreAttacksForMalwareRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<DomainQueryResponse>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling queryMitreAttacksForMalware().');
+        }
+
         const queryParameters: any = {};
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
-        }
-
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
-        }
-
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
-        }
-
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
-        }
-
-        if (requestParameters.q !== undefined) {
-            queryParameters["q"] = requestParameters.q;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["intel-vulnerabilities:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/intel/queries/mitre-malware/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Gets MITRE tactics and techniques for the given malware
+     */
+    async queryMitreAttacksForMalware(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainQueryResponse> {
+        const response = await this.queryMitreAttacksForMalwareRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get vulnerabilities IDs
+     */
+    async queryVulnerabilitiesRaw(requestParameters: IntelApiQueryVulnerabilitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["q"] != null) {
+            queryParameters["q"] = requestParameters["q"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(

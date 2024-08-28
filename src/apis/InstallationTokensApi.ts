@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -19,9 +19,10 @@ import type {
     ApiTokenCreateRequestV1,
     ApiTokenDetailsResponseV1,
     ApiTokenPatchRequestV1,
-    MsaQueryResponse,
     MsaReplyMetaOnly,
-} from "../models";
+    MsaspecQueryResponse,
+    MsaspecResponseFields,
+} from "../models/index";
 import {
     ApiAuditEventDetailsResponseV1FromJSON,
     ApiAuditEventDetailsResponseV1ToJSON,
@@ -33,43 +34,45 @@ import {
     ApiTokenDetailsResponseV1ToJSON,
     ApiTokenPatchRequestV1FromJSON,
     ApiTokenPatchRequestV1ToJSON,
-    MsaQueryResponseFromJSON,
-    MsaQueryResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-} from "../models";
+    MsaspecQueryResponseFromJSON,
+    MsaspecQueryResponseToJSON,
+    MsaspecResponseFieldsFromJSON,
+    MsaspecResponseFieldsToJSON,
+} from "../models/index";
 
-export interface AuditEventsQueryRequest {
+export interface InstallationTokensApiAuditEventsQueryRequest {
     offset?: number;
     limit?: number;
     sort?: string;
     filter?: string;
 }
 
-export interface AuditEventsReadRequest {
+export interface InstallationTokensApiAuditEventsReadRequest {
     ids?: Array<string>;
 }
 
-export interface TokensCreateRequest {
+export interface InstallationTokensApiTokensCreateRequest {
     body: ApiTokenCreateRequestV1;
 }
 
-export interface TokensDeleteRequest {
+export interface InstallationTokensApiTokensDeleteRequest {
     ids: Array<string>;
 }
 
-export interface TokensQueryRequest {
+export interface InstallationTokensApiTokensQueryRequest {
     offset?: number;
     limit?: number;
     sort?: string;
     filter?: string;
 }
 
-export interface TokensReadRequest {
+export interface InstallationTokensApiTokensReadRequest {
     ids?: Array<string>;
 }
 
-export interface TokensUpdateRequest {
+export interface InstallationTokensApiTokensUpdateRequest {
     ids: Array<string>;
     body: ApiTokenPatchRequestV1;
 }
@@ -81,30 +84,33 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     /**
      * Search for audit events by providing an FQL filter and paging details.
      */
-    async auditEventsQueryRaw(requestParameters: AuditEventsQueryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async auditEventsQueryRaw(
+        requestParameters: InstallationTokensApiAuditEventsQueryRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["installation-tokens:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -117,13 +123,13 @@ export class InstallationTokensApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
 
     /**
      * Search for audit events by providing an FQL filter and paging details.
      */
-    async auditEventsQuery(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
+    async auditEventsQuery(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
         const response = await this.auditEventsQueryRaw({ offset: offset, limit: limit, sort: sort, filter: filter }, initOverrides);
         return await response.value();
     }
@@ -131,18 +137,21 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     /**
      * Gets the details of one or more audit events by id.
      */
-    async auditEventsReadRaw(requestParameters: AuditEventsReadRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiAuditEventDetailsResponseV1>> {
+    async auditEventsReadRaw(
+        requestParameters: InstallationTokensApiAuditEventsReadRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ApiAuditEventDetailsResponseV1>> {
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["installation-tokens:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -176,7 +185,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["installation-tokens:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -203,9 +212,12 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     /**
      * Creates a token.
      */
-    async tokensCreateRaw(requestParameters: TokensCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiTokenDetailsResponseV1>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling tokensCreate.");
+    async tokensCreateRaw(
+        requestParameters: InstallationTokensApiTokensCreateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ApiTokenDetailsResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling tokensCreate().');
         }
 
         const queryParameters: any = {};
@@ -216,7 +228,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["installation-tokens:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -225,7 +237,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: ApiTokenCreateRequestV1ToJSON(requestParameters.body),
+                body: ApiTokenCreateRequestV1ToJSON(requestParameters["body"]),
             },
             initOverrides
         );
@@ -244,22 +256,25 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     /**
      * Deletes a token immediately. To revoke a token, use PATCH /installation-tokens/entities/tokens/v1 instead.
      */
-    async tokensDeleteRaw(requestParameters: TokensDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling tokensDelete.");
+    async tokensDeleteRaw(
+        requestParameters: InstallationTokensApiTokensDeleteRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling tokensDelete().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids.join(runtime.COLLECTION_FORMATS["csv"]);
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"]!.join(runtime.COLLECTION_FORMATS["csv"]);
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["installation-tokens:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -272,13 +287,13 @@ export class InstallationTokensApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecResponseFieldsFromJSON(jsonValue));
     }
 
     /**
      * Deletes a token immediately. To revoke a token, use PATCH /installation-tokens/entities/tokens/v1 instead.
      */
-    async tokensDelete(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyMetaOnly> {
+    async tokensDelete(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecResponseFields> {
         const response = await this.tokensDeleteRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -286,30 +301,30 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     /**
      * Search for tokens by providing an FQL filter and paging details.
      */
-    async tokensQueryRaw(requestParameters: TokensQueryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async tokensQueryRaw(requestParameters: InstallationTokensApiTokensQueryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["installation-tokens:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -322,13 +337,13 @@ export class InstallationTokensApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
 
     /**
      * Search for tokens by providing an FQL filter and paging details.
      */
-    async tokensQuery(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
+    async tokensQuery(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
         const response = await this.tokensQueryRaw({ offset: offset, limit: limit, sort: sort, filter: filter }, initOverrides);
         return await response.value();
     }
@@ -336,18 +351,21 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     /**
      * Gets the details of one or more tokens by id.
      */
-    async tokensReadRaw(requestParameters: TokensReadRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiTokenDetailsResponseV1>> {
+    async tokensReadRaw(
+        requestParameters: InstallationTokensApiTokensReadRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ApiTokenDetailsResponseV1>> {
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["installation-tokens:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -374,19 +392,19 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     /**
      * Updates one or more tokens. Use this endpoint to edit labels, change expiration, revoke, or restore.
      */
-    async tokensUpdateRaw(requestParameters: TokensUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling tokensUpdate.");
+    async tokensUpdateRaw(requestParameters: InstallationTokensApiTokensUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling tokensUpdate().');
         }
 
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling tokensUpdate.");
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling tokensUpdate().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids.join(runtime.COLLECTION_FORMATS["csv"]);
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"]!.join(runtime.COLLECTION_FORMATS["csv"]);
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -395,7 +413,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["installation-tokens:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -404,18 +422,18 @@ export class InstallationTokensApi extends runtime.BaseAPI {
                 method: "PATCH",
                 headers: headerParameters,
                 query: queryParameters,
-                body: ApiTokenPatchRequestV1ToJSON(requestParameters.body),
+                body: ApiTokenPatchRequestV1ToJSON(requestParameters["body"]),
             },
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
 
     /**
      * Updates one or more tokens. Use this endpoint to edit labels, change expiration, revoke, or restore.
      */
-    async tokensUpdate(ids: Array<string>, body: ApiTokenPatchRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
+    async tokensUpdate(ids: Array<string>, body: ApiTokenPatchRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
         const response = await this.tokensUpdateRaw({ ids: ids, body: body }, initOverrides);
         return await response.value();
     }

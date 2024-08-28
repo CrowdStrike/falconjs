@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
-import type { FwmgrFirewallAddressRange } from "./FwmgrFirewallAddressRange";
-import { FwmgrFirewallAddressRangeFromJSON, FwmgrFirewallAddressRangeFromJSONTyped, FwmgrFirewallAddressRangeToJSON } from "./FwmgrFirewallAddressRange";
+import { mapValues } from "../runtime";
+import type { FwmgrFirewallMonitoring } from "./FwmgrFirewallMonitoring";
+import { FwmgrFirewallMonitoringFromJSON, FwmgrFirewallMonitoringFromJSONTyped, FwmgrFirewallMonitoringToJSON } from "./FwmgrFirewallMonitoring";
+import type { FwmgrFirewallRuleGroupSummaryV1 } from "./FwmgrFirewallRuleGroupSummaryV1";
+import { FwmgrFirewallRuleGroupSummaryV1FromJSON, FwmgrFirewallRuleGroupSummaryV1FromJSONTyped, FwmgrFirewallRuleGroupSummaryV1ToJSON } from "./FwmgrFirewallRuleGroupSummaryV1";
+import type { FwmgrFirewallPortRange } from "./FwmgrFirewallPortRange";
+import { FwmgrFirewallPortRangeFromJSON, FwmgrFirewallPortRangeFromJSONTyped, FwmgrFirewallPortRangeToJSON } from "./FwmgrFirewallPortRange";
 import type { FwmgrFirewallFieldValue } from "./FwmgrFirewallFieldValue";
 import { FwmgrFirewallFieldValueFromJSON, FwmgrFirewallFieldValueFromJSONTyped, FwmgrFirewallFieldValueToJSON } from "./FwmgrFirewallFieldValue";
 import type { FwmgrFirewallICMP } from "./FwmgrFirewallICMP";
 import { FwmgrFirewallICMPFromJSON, FwmgrFirewallICMPFromJSONTyped, FwmgrFirewallICMPToJSON } from "./FwmgrFirewallICMP";
-import type { FwmgrFirewallMonitoring } from "./FwmgrFirewallMonitoring";
-import { FwmgrFirewallMonitoringFromJSON, FwmgrFirewallMonitoringFromJSONTyped, FwmgrFirewallMonitoringToJSON } from "./FwmgrFirewallMonitoring";
-import type { FwmgrFirewallPortRange } from "./FwmgrFirewallPortRange";
-import { FwmgrFirewallPortRangeFromJSON, FwmgrFirewallPortRangeFromJSONTyped, FwmgrFirewallPortRangeToJSON } from "./FwmgrFirewallPortRange";
-import type { FwmgrFirewallRuleGroupSummaryV1 } from "./FwmgrFirewallRuleGroupSummaryV1";
-import { FwmgrFirewallRuleGroupSummaryV1FromJSON, FwmgrFirewallRuleGroupSummaryV1FromJSONTyped, FwmgrFirewallRuleGroupSummaryV1ToJSON } from "./FwmgrFirewallRuleGroupSummaryV1";
+import type { FwmgrFirewallAddressRange } from "./FwmgrFirewallAddressRange";
+import { FwmgrFirewallAddressRangeFromJSON, FwmgrFirewallAddressRangeFromJSONTyped, FwmgrFirewallAddressRangeToJSON } from "./FwmgrFirewallAddressRange";
 
 /**
  *
@@ -98,6 +98,18 @@ export interface FwmgrFirewallRuleV1 {
      * @memberof FwmgrFirewallRuleV1
      */
     fields: Array<FwmgrFirewallFieldValue>;
+    /**
+     *
+     * @type {string}
+     * @memberof FwmgrFirewallRuleV1
+     */
+    fqdn: string;
+    /**
+     *
+     * @type {boolean}
+     * @memberof FwmgrFirewallRuleV1
+     */
+    fqdnEnabled: boolean;
     /**
      *
      * @type {FwmgrFirewallICMP}
@@ -187,32 +199,32 @@ export interface FwmgrFirewallRuleV1 {
 /**
  * Check if a given object implements the FwmgrFirewallRuleV1 interface.
  */
-export function instanceOfFwmgrFirewallRuleV1(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "action" in value;
-    isInstance = isInstance && "addressFamily" in value;
-    isInstance = isInstance && "createdBy" in value;
-    isInstance = isInstance && "createdOn" in value;
-    isInstance = isInstance && "deleted" in value;
-    isInstance = isInstance && "description" in value;
-    isInstance = isInstance && "direction" in value;
-    isInstance = isInstance && "enabled" in value;
-    isInstance = isInstance && "family" in value;
-    isInstance = isInstance && "fields" in value;
-    isInstance = isInstance && "icmp" in value;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "localAddress" in value;
-    isInstance = isInstance && "localPort" in value;
-    isInstance = isInstance && "monitor" in value;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "platformIds" in value;
-    isInstance = isInstance && "protocol" in value;
-    isInstance = isInstance && "remoteAddress" in value;
-    isInstance = isInstance && "remotePort" in value;
-    isInstance = isInstance && "ruleGroup" in value;
-    isInstance = isInstance && "version" in value;
-
-    return isInstance;
+export function instanceOfFwmgrFirewallRuleV1(value: object): value is FwmgrFirewallRuleV1 {
+    if (!("action" in value) || value["action"] === undefined) return false;
+    if (!("addressFamily" in value) || value["addressFamily"] === undefined) return false;
+    if (!("createdBy" in value) || value["createdBy"] === undefined) return false;
+    if (!("createdOn" in value) || value["createdOn"] === undefined) return false;
+    if (!("deleted" in value) || value["deleted"] === undefined) return false;
+    if (!("description" in value) || value["description"] === undefined) return false;
+    if (!("direction" in value) || value["direction"] === undefined) return false;
+    if (!("enabled" in value) || value["enabled"] === undefined) return false;
+    if (!("family" in value) || value["family"] === undefined) return false;
+    if (!("fields" in value) || value["fields"] === undefined) return false;
+    if (!("fqdn" in value) || value["fqdn"] === undefined) return false;
+    if (!("fqdnEnabled" in value) || value["fqdnEnabled"] === undefined) return false;
+    if (!("icmp" in value) || value["icmp"] === undefined) return false;
+    if (!("id" in value) || value["id"] === undefined) return false;
+    if (!("localAddress" in value) || value["localAddress"] === undefined) return false;
+    if (!("localPort" in value) || value["localPort"] === undefined) return false;
+    if (!("monitor" in value) || value["monitor"] === undefined) return false;
+    if (!("name" in value) || value["name"] === undefined) return false;
+    if (!("platformIds" in value) || value["platformIds"] === undefined) return false;
+    if (!("protocol" in value) || value["protocol"] === undefined) return false;
+    if (!("remoteAddress" in value) || value["remoteAddress"] === undefined) return false;
+    if (!("remotePort" in value) || value["remotePort"] === undefined) return false;
+    if (!("ruleGroup" in value) || value["ruleGroup"] === undefined) return false;
+    if (!("version" in value) || value["version"] === undefined) return false;
+    return true;
 }
 
 export function FwmgrFirewallRuleV1FromJSON(json: any): FwmgrFirewallRuleV1 {
@@ -220,7 +232,7 @@ export function FwmgrFirewallRuleV1FromJSON(json: any): FwmgrFirewallRuleV1 {
 }
 
 export function FwmgrFirewallRuleV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): FwmgrFirewallRuleV1 {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
@@ -228,19 +240,21 @@ export function FwmgrFirewallRuleV1FromJSONTyped(json: any, ignoreDiscriminator:
         addressFamily: json["address_family"],
         createdBy: json["created_by"],
         createdOn: json["created_on"],
-        customerId: !exists(json, "customer_id") ? undefined : json["customer_id"],
+        customerId: json["customer_id"] == null ? undefined : json["customer_id"],
         deleted: json["deleted"],
         description: json["description"],
         direction: json["direction"],
         enabled: json["enabled"],
         family: json["family"],
         fields: (json["fields"] as Array<any>).map(FwmgrFirewallFieldValueFromJSON),
+        fqdn: json["fqdn"],
+        fqdnEnabled: json["fqdn_enabled"],
         icmp: FwmgrFirewallICMPFromJSON(json["icmp"]),
         id: json["id"],
         localAddress: (json["local_address"] as Array<any>).map(FwmgrFirewallAddressRangeFromJSON),
         localPort: (json["local_port"] as Array<any>).map(FwmgrFirewallPortRangeFromJSON),
-        modifiedBy: !exists(json, "modified_by") ? undefined : json["modified_by"],
-        modifiedOn: !exists(json, "modified_on") ? undefined : json["modified_on"],
+        modifiedBy: json["modified_by"] == null ? undefined : json["modified_by"],
+        modifiedOn: json["modified_on"] == null ? undefined : json["modified_on"],
         monitor: FwmgrFirewallMonitoringFromJSON(json["monitor"]),
         name: json["name"],
         platformIds: json["platform_ids"],
@@ -253,37 +267,36 @@ export function FwmgrFirewallRuleV1FromJSONTyped(json: any, ignoreDiscriminator:
 }
 
 export function FwmgrFirewallRuleV1ToJSON(value?: FwmgrFirewallRuleV1 | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        action: value.action,
-        address_family: value.addressFamily,
-        created_by: value.createdBy,
-        created_on: value.createdOn,
-        customer_id: value.customerId,
-        deleted: value.deleted,
-        description: value.description,
-        direction: value.direction,
-        enabled: value.enabled,
-        family: value.family,
-        fields: (value.fields as Array<any>).map(FwmgrFirewallFieldValueToJSON),
-        icmp: FwmgrFirewallICMPToJSON(value.icmp),
-        id: value.id,
-        local_address: (value.localAddress as Array<any>).map(FwmgrFirewallAddressRangeToJSON),
-        local_port: (value.localPort as Array<any>).map(FwmgrFirewallPortRangeToJSON),
-        modified_by: value.modifiedBy,
-        modified_on: value.modifiedOn,
-        monitor: FwmgrFirewallMonitoringToJSON(value.monitor),
-        name: value.name,
-        platform_ids: value.platformIds,
-        protocol: value.protocol,
-        remote_address: (value.remoteAddress as Array<any>).map(FwmgrFirewallAddressRangeToJSON),
-        remote_port: (value.remotePort as Array<any>).map(FwmgrFirewallPortRangeToJSON),
-        rule_group: FwmgrFirewallRuleGroupSummaryV1ToJSON(value.ruleGroup),
-        version: value.version,
+        action: value["action"],
+        address_family: value["addressFamily"],
+        created_by: value["createdBy"],
+        created_on: value["createdOn"],
+        customer_id: value["customerId"],
+        deleted: value["deleted"],
+        description: value["description"],
+        direction: value["direction"],
+        enabled: value["enabled"],
+        family: value["family"],
+        fields: (value["fields"] as Array<any>).map(FwmgrFirewallFieldValueToJSON),
+        fqdn: value["fqdn"],
+        fqdn_enabled: value["fqdnEnabled"],
+        icmp: FwmgrFirewallICMPToJSON(value["icmp"]),
+        id: value["id"],
+        local_address: (value["localAddress"] as Array<any>).map(FwmgrFirewallAddressRangeToJSON),
+        local_port: (value["localPort"] as Array<any>).map(FwmgrFirewallPortRangeToJSON),
+        modified_by: value["modifiedBy"],
+        modified_on: value["modifiedOn"],
+        monitor: FwmgrFirewallMonitoringToJSON(value["monitor"]),
+        name: value["name"],
+        platform_ids: value["platformIds"],
+        protocol: value["protocol"],
+        remote_address: (value["remoteAddress"] as Array<any>).map(FwmgrFirewallAddressRangeToJSON),
+        remote_port: (value["remotePort"] as Array<any>).map(FwmgrFirewallPortRangeToJSON),
+        rule_group: FwmgrFirewallRuleGroupSummaryV1ToJSON(value["ruleGroup"]),
+        version: value["version"],
     };
 }

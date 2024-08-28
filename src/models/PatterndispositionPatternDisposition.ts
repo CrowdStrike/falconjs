@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,13 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 /**
  *
  * @export
  * @interface PatterndispositionPatternDisposition
  */
 export interface PatterndispositionPatternDisposition {
+    /**
+     *
+     * @type {boolean}
+     * @memberof PatterndispositionPatternDisposition
+     */
+    blockingUnsupportedOrDisabled: boolean;
     /**
      *
      * @type {boolean}
@@ -61,6 +67,12 @@ export interface PatterndispositionPatternDisposition {
      * @memberof PatterndispositionPatternDisposition
      */
     indicator: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof PatterndispositionPatternDisposition
+     */
+    killActionFailed: boolean;
     /**
      *
      * @type {boolean}
@@ -127,33 +139,47 @@ export interface PatterndispositionPatternDisposition {
      * @memberof PatterndispositionPatternDisposition
      */
     sensorOnly: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof PatterndispositionPatternDisposition
+     */
+    suspendParent: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof PatterndispositionPatternDisposition
+     */
+    suspendProcess: boolean;
 }
 
 /**
  * Check if a given object implements the PatterndispositionPatternDisposition interface.
  */
-export function instanceOfPatterndispositionPatternDisposition(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "bootupSafeguardEnabled" in value;
-    isInstance = isInstance && "criticalProcessDisabled" in value;
-    isInstance = isInstance && "detect" in value;
-    isInstance = isInstance && "fsOperationBlocked" in value;
-    isInstance = isInstance && "handleOperationDowngraded" in value;
-    isInstance = isInstance && "inddetMask" in value;
-    isInstance = isInstance && "indicator" in value;
-    isInstance = isInstance && "killParent" in value;
-    isInstance = isInstance && "killProcess" in value;
-    isInstance = isInstance && "killSubprocess" in value;
-    isInstance = isInstance && "operationBlocked" in value;
-    isInstance = isInstance && "policyDisabled" in value;
-    isInstance = isInstance && "processBlocked" in value;
-    isInstance = isInstance && "quarantineFile" in value;
-    isInstance = isInstance && "quarantineMachine" in value;
-    isInstance = isInstance && "registryOperationBlocked" in value;
-    isInstance = isInstance && "rooting" in value;
-    isInstance = isInstance && "sensorOnly" in value;
-
-    return isInstance;
+export function instanceOfPatterndispositionPatternDisposition(value: object): value is PatterndispositionPatternDisposition {
+    if (!("blockingUnsupportedOrDisabled" in value) || value["blockingUnsupportedOrDisabled"] === undefined) return false;
+    if (!("bootupSafeguardEnabled" in value) || value["bootupSafeguardEnabled"] === undefined) return false;
+    if (!("criticalProcessDisabled" in value) || value["criticalProcessDisabled"] === undefined) return false;
+    if (!("detect" in value) || value["detect"] === undefined) return false;
+    if (!("fsOperationBlocked" in value) || value["fsOperationBlocked"] === undefined) return false;
+    if (!("handleOperationDowngraded" in value) || value["handleOperationDowngraded"] === undefined) return false;
+    if (!("inddetMask" in value) || value["inddetMask"] === undefined) return false;
+    if (!("indicator" in value) || value["indicator"] === undefined) return false;
+    if (!("killActionFailed" in value) || value["killActionFailed"] === undefined) return false;
+    if (!("killParent" in value) || value["killParent"] === undefined) return false;
+    if (!("killProcess" in value) || value["killProcess"] === undefined) return false;
+    if (!("killSubprocess" in value) || value["killSubprocess"] === undefined) return false;
+    if (!("operationBlocked" in value) || value["operationBlocked"] === undefined) return false;
+    if (!("policyDisabled" in value) || value["policyDisabled"] === undefined) return false;
+    if (!("processBlocked" in value) || value["processBlocked"] === undefined) return false;
+    if (!("quarantineFile" in value) || value["quarantineFile"] === undefined) return false;
+    if (!("quarantineMachine" in value) || value["quarantineMachine"] === undefined) return false;
+    if (!("registryOperationBlocked" in value) || value["registryOperationBlocked"] === undefined) return false;
+    if (!("rooting" in value) || value["rooting"] === undefined) return false;
+    if (!("sensorOnly" in value) || value["sensorOnly"] === undefined) return false;
+    if (!("suspendParent" in value) || value["suspendParent"] === undefined) return false;
+    if (!("suspendProcess" in value) || value["suspendProcess"] === undefined) return false;
+    return true;
 }
 
 export function PatterndispositionPatternDispositionFromJSON(json: any): PatterndispositionPatternDisposition {
@@ -161,10 +187,11 @@ export function PatterndispositionPatternDispositionFromJSON(json: any): Pattern
 }
 
 export function PatterndispositionPatternDispositionFromJSONTyped(json: any, ignoreDiscriminator: boolean): PatterndispositionPatternDisposition {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
+        blockingUnsupportedOrDisabled: json["blocking_unsupported_or_disabled"],
         bootupSafeguardEnabled: json["bootup_safeguard_enabled"],
         criticalProcessDisabled: json["critical_process_disabled"],
         detect: json["detect"],
@@ -172,6 +199,7 @@ export function PatterndispositionPatternDispositionFromJSONTyped(json: any, ign
         handleOperationDowngraded: json["handle_operation_downgraded"],
         inddetMask: json["inddet_mask"],
         indicator: json["indicator"],
+        killActionFailed: json["kill_action_failed"],
         killParent: json["kill_parent"],
         killProcess: json["kill_process"],
         killSubprocess: json["kill_subprocess"],
@@ -183,34 +211,37 @@ export function PatterndispositionPatternDispositionFromJSONTyped(json: any, ign
         registryOperationBlocked: json["registry_operation_blocked"],
         rooting: json["rooting"],
         sensorOnly: json["sensor_only"],
+        suspendParent: json["suspend_parent"],
+        suspendProcess: json["suspend_process"],
     };
 }
 
 export function PatterndispositionPatternDispositionToJSON(value?: PatterndispositionPatternDisposition | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        bootup_safeguard_enabled: value.bootupSafeguardEnabled,
-        critical_process_disabled: value.criticalProcessDisabled,
-        detect: value.detect,
-        fs_operation_blocked: value.fsOperationBlocked,
-        handle_operation_downgraded: value.handleOperationDowngraded,
-        inddet_mask: value.inddetMask,
-        indicator: value.indicator,
-        kill_parent: value.killParent,
-        kill_process: value.killProcess,
-        kill_subprocess: value.killSubprocess,
-        operation_blocked: value.operationBlocked,
-        policy_disabled: value.policyDisabled,
-        process_blocked: value.processBlocked,
-        quarantine_file: value.quarantineFile,
-        quarantine_machine: value.quarantineMachine,
-        registry_operation_blocked: value.registryOperationBlocked,
-        rooting: value.rooting,
-        sensor_only: value.sensorOnly,
+        blocking_unsupported_or_disabled: value["blockingUnsupportedOrDisabled"],
+        bootup_safeguard_enabled: value["bootupSafeguardEnabled"],
+        critical_process_disabled: value["criticalProcessDisabled"],
+        detect: value["detect"],
+        fs_operation_blocked: value["fsOperationBlocked"],
+        handle_operation_downgraded: value["handleOperationDowngraded"],
+        inddet_mask: value["inddetMask"],
+        indicator: value["indicator"],
+        kill_action_failed: value["killActionFailed"],
+        kill_parent: value["killParent"],
+        kill_process: value["killProcess"],
+        kill_subprocess: value["killSubprocess"],
+        operation_blocked: value["operationBlocked"],
+        policy_disabled: value["policyDisabled"],
+        process_blocked: value["processBlocked"],
+        quarantine_file: value["quarantineFile"],
+        quarantine_machine: value["quarantineMachine"],
+        registry_operation_blocked: value["registryOperationBlocked"],
+        rooting: value["rooting"],
+        sensor_only: value["sensorOnly"],
+        suspend_parent: value["suspendParent"],
+        suspend_process: value["suspendProcess"],
     };
 }

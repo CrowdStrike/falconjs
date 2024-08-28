@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,13 +12,30 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
+import type { DomainAzureResourcePermission } from "./DomainAzureResourcePermission";
+import { DomainAzureResourcePermissionFromJSON, DomainAzureResourcePermissionFromJSONTyped, DomainAzureResourcePermissionToJSON } from "./DomainAzureResourcePermission";
+import type { DomainCondition } from "./DomainCondition";
+import { DomainConditionFromJSON, DomainConditionFromJSONTyped, DomainConditionToJSON } from "./DomainCondition";
+
 /**
  *
  * @export
  * @interface DomainAzureClientServicePrincipalV1
  */
 export interface DomainAzureClientServicePrincipalV1 {
+    /**
+     *
+     * @type {string}
+     * @memberof DomainAzureClientServicePrincipalV1
+     */
+    accountType?: string;
+    /**
+     *
+     * @type {boolean}
+     * @memberof DomainAzureClientServicePrincipalV1
+     */
+    behaviorAssessmentOverride?: boolean;
     /**
      *
      * @type {string}
@@ -33,6 +50,24 @@ export interface DomainAzureClientServicePrincipalV1 {
     clientId?: string;
     /**
      *
+     * @type {Array<DomainCondition>}
+     * @memberof DomainAzureClientServicePrincipalV1
+     */
+    conditions?: Array<DomainCondition>;
+    /**
+     * If the account has CSPM enabled.
+     * @type {boolean}
+     * @memberof DomainAzureClientServicePrincipalV1
+     */
+    cspmEnabled: boolean;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainAzureClientServicePrincipalV1
+     */
+    defaultSubscriptionId?: string;
+    /**
+     *
      * @type {string}
      * @memberof DomainAzureClientServicePrincipalV1
      */
@@ -42,7 +77,19 @@ export interface DomainAzureClientServicePrincipalV1 {
      * @type {string}
      * @memberof DomainAzureClientServicePrincipalV1
      */
+    objectId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainAzureClientServicePrincipalV1
+     */
     publicCertificate?: string;
+    /**
+     *
+     * @type {Array<DomainAzureResourcePermission>}
+     * @memberof DomainAzureClientServicePrincipalV1
+     */
+    resourcePermissions?: Array<DomainAzureResourcePermission>;
     /**
      *
      * @type {string}
@@ -60,12 +107,11 @@ export interface DomainAzureClientServicePrincipalV1 {
 /**
  * Check if a given object implements the DomainAzureClientServicePrincipalV1 interface.
  */
-export function instanceOfDomainAzureClientServicePrincipalV1(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "cid" in value;
-    isInstance = isInstance && "tenantId" in value;
-
-    return isInstance;
+export function instanceOfDomainAzureClientServicePrincipalV1(value: object): value is DomainAzureClientServicePrincipalV1 {
+    if (!("cid" in value) || value["cid"] === undefined) return false;
+    if (!("cspmEnabled" in value) || value["cspmEnabled"] === undefined) return false;
+    if (!("tenantId" in value) || value["tenantId"] === undefined) return false;
+    return true;
 }
 
 export function DomainAzureClientServicePrincipalV1FromJSON(json: any): DomainAzureClientServicePrincipalV1 {
@@ -73,32 +119,43 @@ export function DomainAzureClientServicePrincipalV1FromJSON(json: any): DomainAz
 }
 
 export function DomainAzureClientServicePrincipalV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainAzureClientServicePrincipalV1 {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
+        accountType: json["account_type"] == null ? undefined : json["account_type"],
+        behaviorAssessmentOverride: json["behavior_assessment_override"] == null ? undefined : json["behavior_assessment_override"],
         cid: json["cid"],
-        clientId: !exists(json, "client_id") ? undefined : json["client_id"],
-        encryptedPrivateKey: !exists(json, "encrypted_private_key") ? undefined : json["encrypted_private_key"],
-        publicCertificate: !exists(json, "public_certificate") ? undefined : json["public_certificate"],
+        clientId: json["client_id"] == null ? undefined : json["client_id"],
+        conditions: json["conditions"] == null ? undefined : (json["conditions"] as Array<any>).map(DomainConditionFromJSON),
+        cspmEnabled: json["cspm_enabled"],
+        defaultSubscriptionId: json["default_subscription_id"] == null ? undefined : json["default_subscription_id"],
+        encryptedPrivateKey: json["encrypted_private_key"] == null ? undefined : json["encrypted_private_key"],
+        objectId: json["object_id"] == null ? undefined : json["object_id"],
+        publicCertificate: json["public_certificate"] == null ? undefined : json["public_certificate"],
+        resourcePermissions: json["resource_permissions"] == null ? undefined : (json["resource_permissions"] as Array<any>).map(DomainAzureResourcePermissionFromJSON),
         tenantId: json["tenant_id"],
-        x5t: !exists(json, "x5t") ? undefined : json["x5t"],
+        x5t: json["x5t"] == null ? undefined : json["x5t"],
     };
 }
 
 export function DomainAzureClientServicePrincipalV1ToJSON(value?: DomainAzureClientServicePrincipalV1 | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        cid: value.cid,
-        client_id: value.clientId,
-        encrypted_private_key: value.encryptedPrivateKey,
-        public_certificate: value.publicCertificate,
-        tenant_id: value.tenantId,
-        x5t: value.x5t,
+        account_type: value["accountType"],
+        behavior_assessment_override: value["behaviorAssessmentOverride"],
+        cid: value["cid"],
+        client_id: value["clientId"],
+        conditions: value["conditions"] == null ? undefined : (value["conditions"] as Array<any>).map(DomainConditionToJSON),
+        cspm_enabled: value["cspmEnabled"],
+        default_subscription_id: value["defaultSubscriptionId"],
+        encrypted_private_key: value["encryptedPrivateKey"],
+        object_id: value["objectId"],
+        public_certificate: value["publicCertificate"],
+        resource_permissions: value["resourcePermissions"] == null ? undefined : (value["resourcePermissions"] as Array<any>).map(DomainAzureResourcePermissionToJSON),
+        tenant_id: value["tenantId"],
+        x5t: value["x5t"],
     };
 }

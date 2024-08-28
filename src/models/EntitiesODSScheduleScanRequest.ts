@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 import type { DomainSchedule } from "./DomainSchedule";
 import { DomainScheduleFromJSON, DomainScheduleFromJSONTyped, DomainScheduleToJSON } from "./DomainSchedule";
 
@@ -102,6 +102,12 @@ export interface EntitiesODSScheduleScanRequest {
     scanExclusions: Array<string>;
     /**
      *
+     * @type {Array<string>}
+     * @memberof EntitiesODSScheduleScanRequest
+     */
+    scanInclusions: Array<string>;
+    /**
+     *
      * @type {DomainSchedule}
      * @memberof EntitiesODSScheduleScanRequest
      */
@@ -123,26 +129,25 @@ export interface EntitiesODSScheduleScanRequest {
 /**
  * Check if a given object implements the EntitiesODSScheduleScanRequest interface.
  */
-export function instanceOfEntitiesODSScheduleScanRequest(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "cloudMlLevelDetection" in value;
-    isInstance = isInstance && "cloudMlLevelPrevention" in value;
-    isInstance = isInstance && "cpuPriority" in value;
-    isInstance = isInstance && "description" in value;
-    isInstance = isInstance && "endpointNotification" in value;
-    isInstance = isInstance && "filePaths" in value;
-    isInstance = isInstance && "hostGroups" in value;
-    isInstance = isInstance && "initiatedFrom" in value;
-    isInstance = isInstance && "maxDuration" in value;
-    isInstance = isInstance && "maxFileSize" in value;
-    isInstance = isInstance && "pauseDuration" in value;
-    isInstance = isInstance && "quarantine" in value;
-    isInstance = isInstance && "scanExclusions" in value;
-    isInstance = isInstance && "schedule" in value;
-    isInstance = isInstance && "sensorMlLevelDetection" in value;
-    isInstance = isInstance && "sensorMlLevelPrevention" in value;
-
-    return isInstance;
+export function instanceOfEntitiesODSScheduleScanRequest(value: object): value is EntitiesODSScheduleScanRequest {
+    if (!("cloudMlLevelDetection" in value) || value["cloudMlLevelDetection"] === undefined) return false;
+    if (!("cloudMlLevelPrevention" in value) || value["cloudMlLevelPrevention"] === undefined) return false;
+    if (!("cpuPriority" in value) || value["cpuPriority"] === undefined) return false;
+    if (!("description" in value) || value["description"] === undefined) return false;
+    if (!("endpointNotification" in value) || value["endpointNotification"] === undefined) return false;
+    if (!("filePaths" in value) || value["filePaths"] === undefined) return false;
+    if (!("hostGroups" in value) || value["hostGroups"] === undefined) return false;
+    if (!("initiatedFrom" in value) || value["initiatedFrom"] === undefined) return false;
+    if (!("maxDuration" in value) || value["maxDuration"] === undefined) return false;
+    if (!("maxFileSize" in value) || value["maxFileSize"] === undefined) return false;
+    if (!("pauseDuration" in value) || value["pauseDuration"] === undefined) return false;
+    if (!("quarantine" in value) || value["quarantine"] === undefined) return false;
+    if (!("scanExclusions" in value) || value["scanExclusions"] === undefined) return false;
+    if (!("scanInclusions" in value) || value["scanInclusions"] === undefined) return false;
+    if (!("schedule" in value) || value["schedule"] === undefined) return false;
+    if (!("sensorMlLevelDetection" in value) || value["sensorMlLevelDetection"] === undefined) return false;
+    if (!("sensorMlLevelPrevention" in value) || value["sensorMlLevelPrevention"] === undefined) return false;
+    return true;
 }
 
 export function EntitiesODSScheduleScanRequestFromJSON(json: any): EntitiesODSScheduleScanRequest {
@@ -150,7 +155,7 @@ export function EntitiesODSScheduleScanRequestFromJSON(json: any): EntitiesODSSc
 }
 
 export function EntitiesODSScheduleScanRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): EntitiesODSScheduleScanRequest {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
@@ -167,6 +172,7 @@ export function EntitiesODSScheduleScanRequestFromJSONTyped(json: any, ignoreDis
         pauseDuration: json["pause_duration"],
         quarantine: json["quarantine"],
         scanExclusions: json["scan_exclusions"],
+        scanInclusions: json["scan_inclusions"],
         schedule: DomainScheduleFromJSON(json["schedule"]),
         sensorMlLevelDetection: json["sensor_ml_level_detection"],
         sensorMlLevelPrevention: json["sensor_ml_level_prevention"],
@@ -174,28 +180,26 @@ export function EntitiesODSScheduleScanRequestFromJSONTyped(json: any, ignoreDis
 }
 
 export function EntitiesODSScheduleScanRequestToJSON(value?: EntitiesODSScheduleScanRequest | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        cloud_ml_level_detection: value.cloudMlLevelDetection,
-        cloud_ml_level_prevention: value.cloudMlLevelPrevention,
-        cpu_priority: value.cpuPriority,
-        description: value.description,
-        endpoint_notification: value.endpointNotification,
-        file_paths: value.filePaths,
-        host_groups: value.hostGroups,
-        initiated_from: value.initiatedFrom,
-        max_duration: value.maxDuration,
-        max_file_size: value.maxFileSize,
-        pause_duration: value.pauseDuration,
-        quarantine: value.quarantine,
-        scan_exclusions: value.scanExclusions,
-        schedule: DomainScheduleToJSON(value.schedule),
-        sensor_ml_level_detection: value.sensorMlLevelDetection,
-        sensor_ml_level_prevention: value.sensorMlLevelPrevention,
+        cloud_ml_level_detection: value["cloudMlLevelDetection"],
+        cloud_ml_level_prevention: value["cloudMlLevelPrevention"],
+        cpu_priority: value["cpuPriority"],
+        description: value["description"],
+        endpoint_notification: value["endpointNotification"],
+        file_paths: value["filePaths"],
+        host_groups: value["hostGroups"],
+        initiated_from: value["initiatedFrom"],
+        max_duration: value["maxDuration"],
+        max_file_size: value["maxFileSize"],
+        pause_duration: value["pauseDuration"],
+        quarantine: value["quarantine"],
+        scan_exclusions: value["scanExclusions"],
+        scan_inclusions: value["scanInclusions"],
+        schedule: DomainScheduleToJSON(value["schedule"]),
+        sensor_ml_level_detection: value["sensorMlLevelDetection"],
+        sensor_ml_level_prevention: value["sensorMlLevelPrevention"],
     };
 }

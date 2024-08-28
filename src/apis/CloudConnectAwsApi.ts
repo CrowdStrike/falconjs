@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -23,7 +23,7 @@ import type {
     ModelsVerifyAccessResponseV1,
     MsaQueryResponse,
     MsaReplyMetaOnly,
-} from "../models";
+} from "../models/index";
 import {
     ModelsAWSAccountsV1FromJSON,
     ModelsAWSAccountsV1ToJSON,
@@ -43,44 +43,44 @@ import {
     MsaQueryResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-} from "../models";
+} from "../models/index";
 
-export interface CreateOrUpdateAWSSettingsRequest {
+export interface CloudConnectAwsApiCreateOrUpdateAWSSettingsRequest {
     body: ModelsModifyAWSCustomerSettingsV1;
 }
 
-export interface DeleteAWSAccountsRequest {
+export interface CloudConnectAwsApiDeleteAWSAccountsRequest {
     ids: Array<string>;
 }
 
-export interface GetAWSAccountsRequest {
+export interface CloudConnectAwsApiGetAWSAccountsRequest {
     ids: Array<string>;
 }
 
-export interface ProvisionAWSAccountsRequest {
+export interface CloudConnectAwsApiProvisionAWSAccountsRequest {
     body: ModelsCreateAWSAccountsV1;
     mode?: ProvisionAWSAccountsModeEnum;
 }
 
-export interface QueryAWSAccountsRequest {
+export interface CloudConnectAwsApiQueryAWSAccountsRequest {
     limit?: number;
     offset?: number;
     sort?: string;
     filter?: string;
 }
 
-export interface QueryAWSAccountsForIDsRequest {
+export interface CloudConnectAwsApiQueryAWSAccountsForIDsRequest {
     limit?: number;
     offset?: number;
     sort?: string;
     filter?: string;
 }
 
-export interface UpdateAWSAccountsRequest {
+export interface CloudConnectAwsApiUpdateAWSAccountsRequest {
     body: ModelsUpdateAWSAccountsV1;
 }
 
-export interface VerifyAWSAccountAccessRequest {
+export interface CloudConnectAwsApiVerifyAWSAccountAccessRequest {
     ids: Array<string>;
 }
 
@@ -92,11 +92,11 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
      * Create or update Global Settings which are applicable to all provisioned AWS accounts
      */
     async createOrUpdateAWSSettingsRaw(
-        requestParameters: CreateOrUpdateAWSSettingsRequest,
+        requestParameters: CloudConnectAwsApiCreateOrUpdateAWSSettingsRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<ModelsCustomerConfigurationsV1>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createOrUpdateAWSSettings.");
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createOrUpdateAWSSettings().');
         }
 
         const queryParameters: any = {};
@@ -107,7 +107,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-connect-aws:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -116,7 +116,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: ModelsModifyAWSCustomerSettingsV1ToJSON(requestParameters.body),
+                body: ModelsModifyAWSCustomerSettingsV1ToJSON(requestParameters["body"]),
             },
             initOverrides
         );
@@ -135,22 +135,25 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
     /**
      * Delete a set of AWS Accounts by specifying their IDs
      */
-    async deleteAWSAccountsRaw(requestParameters: DeleteAWSAccountsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsBaseResponseV1>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling deleteAWSAccounts.");
+    async deleteAWSAccountsRaw(
+        requestParameters: CloudConnectAwsApiDeleteAWSAccountsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ModelsBaseResponseV1>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteAWSAccounts().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-connect-aws:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -177,22 +180,22 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
     /**
      * Retrieve a set of AWS Accounts by specifying their IDs
      */
-    async getAWSAccountsRaw(requestParameters: GetAWSAccountsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsAWSAccountsV1>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getAWSAccounts.");
+    async getAWSAccountsRaw(requestParameters: CloudConnectAwsApiGetAWSAccountsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsAWSAccountsV1>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getAWSAccounts().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-connect-aws:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -226,7 +229,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-connect-aws:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -253,15 +256,18 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
     /**
      * Provision AWS Accounts by specifying details about the accounts to provision
      */
-    async provisionAWSAccountsRaw(requestParameters: ProvisionAWSAccountsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsAWSAccountsV1>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling provisionAWSAccounts.");
+    async provisionAWSAccountsRaw(
+        requestParameters: CloudConnectAwsApiProvisionAWSAccountsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ModelsAWSAccountsV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling provisionAWSAccounts().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.mode !== undefined) {
-            queryParameters["mode"] = requestParameters.mode;
+        if (requestParameters["mode"] != null) {
+            queryParameters["mode"] = requestParameters["mode"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -270,7 +276,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-connect-aws:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -279,7 +285,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: ModelsCreateAWSAccountsV1ToJSON(requestParameters.body),
+                body: ModelsCreateAWSAccountsV1ToJSON(requestParameters["body"]),
             },
             initOverrides
         );
@@ -298,30 +304,33 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
     /**
      * Search for provisioned AWS Accounts by providing an FQL filter and paging details. Returns a set of AWS accounts which match the filter criteria
      */
-    async queryAWSAccountsRaw(requestParameters: QueryAWSAccountsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsAWSAccountsV1>> {
+    async queryAWSAccountsRaw(
+        requestParameters: CloudConnectAwsApiQueryAWSAccountsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ModelsAWSAccountsV1>> {
         const queryParameters: any = {};
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-connect-aws:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -348,30 +357,33 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
     /**
      * Search for provisioned AWS Accounts by providing an FQL filter and paging details. Returns a set of AWS account IDs which match the filter criteria
      */
-    async queryAWSAccountsForIDsRaw(requestParameters: QueryAWSAccountsForIDsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryAWSAccountsForIDsRaw(
+        requestParameters: CloudConnectAwsApiQueryAWSAccountsForIDsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-connect-aws:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -398,9 +410,12 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
     /**
      * Update AWS Accounts by specifying the ID of the account and details to update
      */
-    async updateAWSAccountsRaw(requestParameters: UpdateAWSAccountsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsAWSAccountsV1>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateAWSAccounts.");
+    async updateAWSAccountsRaw(
+        requestParameters: CloudConnectAwsApiUpdateAWSAccountsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ModelsAWSAccountsV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateAWSAccounts().');
         }
 
         const queryParameters: any = {};
@@ -411,7 +426,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-connect-aws:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -420,7 +435,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
                 method: "PATCH",
                 headers: headerParameters,
                 query: queryParameters,
-                body: ModelsUpdateAWSAccountsV1ToJSON(requestParameters.body),
+                body: ModelsUpdateAWSAccountsV1ToJSON(requestParameters["body"]),
             },
             initOverrides
         );
@@ -440,24 +455,24 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
      * Performs an Access Verification check on the specified AWS Account IDs
      */
     async verifyAWSAccountAccessRaw(
-        requestParameters: VerifyAWSAccountAccessRequest,
+        requestParameters: CloudConnectAwsApiVerifyAWSAccountAccessRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
     ): Promise<runtime.ApiResponse<ModelsVerifyAccessResponseV1>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling verifyAWSAccountAccess.");
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling verifyAWSAccountAccess().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-connect-aws:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(

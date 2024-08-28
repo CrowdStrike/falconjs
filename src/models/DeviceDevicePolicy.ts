@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 /**
  *
  * @export
@@ -84,12 +84,10 @@ export interface DeviceDevicePolicy {
 /**
  * Check if a given object implements the DeviceDevicePolicy interface.
  */
-export function instanceOfDeviceDevicePolicy(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "policyId" in value;
-    isInstance = isInstance && "policyType" in value;
-
-    return isInstance;
+export function instanceOfDeviceDevicePolicy(value: object): value is DeviceDevicePolicy {
+    if (!("policyId" in value) || value["policyId"] === undefined) return false;
+    if (!("policyType" in value) || value["policyType"] === undefined) return false;
+    return true;
 }
 
 export function DeviceDevicePolicyFromJSON(json: any): DeviceDevicePolicy {
@@ -97,40 +95,37 @@ export function DeviceDevicePolicyFromJSON(json: any): DeviceDevicePolicy {
 }
 
 export function DeviceDevicePolicyFromJSONTyped(json: any, ignoreDiscriminator: boolean): DeviceDevicePolicy {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
-        applied: !exists(json, "applied") ? undefined : json["applied"],
-        appliedDate: !exists(json, "applied_date") ? undefined : new Date(json["applied_date"]),
-        assignedDate: !exists(json, "assigned_date") ? undefined : new Date(json["assigned_date"]),
-        exempt: !exists(json, "exempt") ? undefined : json["exempt"],
+        applied: json["applied"] == null ? undefined : json["applied"],
+        appliedDate: json["applied_date"] == null ? undefined : new Date(json["applied_date"]),
+        assignedDate: json["assigned_date"] == null ? undefined : new Date(json["assigned_date"]),
+        exempt: json["exempt"] == null ? undefined : json["exempt"],
         policyId: json["policy_id"],
         policyType: json["policy_type"],
-        ruleGroups: !exists(json, "rule_groups") ? undefined : json["rule_groups"],
-        ruleSetId: !exists(json, "rule_set_id") ? undefined : json["rule_set_id"],
-        settingsHash: !exists(json, "settings_hash") ? undefined : json["settings_hash"],
-        uninstallProtection: !exists(json, "uninstall_protection") ? undefined : json["uninstall_protection"],
+        ruleGroups: json["rule_groups"] == null ? undefined : json["rule_groups"],
+        ruleSetId: json["rule_set_id"] == null ? undefined : json["rule_set_id"],
+        settingsHash: json["settings_hash"] == null ? undefined : json["settings_hash"],
+        uninstallProtection: json["uninstall_protection"] == null ? undefined : json["uninstall_protection"],
     };
 }
 
 export function DeviceDevicePolicyToJSON(value?: DeviceDevicePolicy | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        applied: value.applied,
-        applied_date: value.appliedDate === undefined ? undefined : value.appliedDate.toISOString(),
-        assigned_date: value.assignedDate === undefined ? undefined : value.assignedDate.toISOString(),
-        exempt: value.exempt,
-        policy_id: value.policyId,
-        policy_type: value.policyType,
-        rule_groups: value.ruleGroups,
-        rule_set_id: value.ruleSetId,
-        settings_hash: value.settingsHash,
-        uninstall_protection: value.uninstallProtection,
+        applied: value["applied"],
+        applied_date: value["appliedDate"] == null ? undefined : value["appliedDate"].toISOString(),
+        assigned_date: value["assignedDate"] == null ? undefined : value["assignedDate"].toISOString(),
+        exempt: value["exempt"],
+        policy_id: value["policyId"],
+        policy_type: value["policyType"],
+        rule_groups: value["ruleGroups"],
+        rule_set_id: value["ruleSetId"],
+        settings_hash: value["settingsHash"],
+        uninstall_protection: value["uninstallProtection"],
     };
 }

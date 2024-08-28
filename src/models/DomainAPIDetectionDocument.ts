@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,15 +12,15 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
-import type { DetectsBehavior } from "./DetectsBehavior";
-import { DetectsBehaviorFromJSON, DetectsBehaviorFromJSONTyped, DetectsBehaviorToJSON } from "./DetectsBehavior";
+import { mapValues } from "../runtime";
 import type { DetectsDeviceDetailIndexed } from "./DetectsDeviceDetailIndexed";
 import { DetectsDeviceDetailIndexedFromJSON, DetectsDeviceDetailIndexedFromJSONTyped, DetectsDeviceDetailIndexedToJSON } from "./DetectsDeviceDetailIndexed";
 import type { DetectsHostInfo } from "./DetectsHostInfo";
 import { DetectsHostInfoFromJSON, DetectsHostInfoFromJSONTyped, DetectsHostInfoToJSON } from "./DetectsHostInfo";
 import type { DetectsQuarantinedFile } from "./DetectsQuarantinedFile";
 import { DetectsQuarantinedFileFromJSON, DetectsQuarantinedFileFromJSONTyped, DetectsQuarantinedFileToJSON } from "./DetectsQuarantinedFile";
+import type { DetectsBehavior } from "./DetectsBehavior";
+import { DetectsBehaviorFromJSON, DetectsBehaviorFromJSONTyped, DetectsBehaviorToJSON } from "./DetectsBehavior";
 
 /**
  *
@@ -70,6 +70,12 @@ export interface DomainAPIDetectionDocument {
      * @memberof DomainAPIDetectionDocument
      */
     createdTimestamp: Date;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainAPIDetectionDocument
+     */
+    dateUpdated?: string;
     /**
      *
      * @type {string}
@@ -165,26 +171,24 @@ export interface DomainAPIDetectionDocument {
 /**
  * Check if a given object implements the DomainAPIDetectionDocument interface.
  */
-export function instanceOfDomainAPIDetectionDocument(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "behaviorsProcessed" in value;
-    isInstance = isInstance && "cid" in value;
-    isInstance = isInstance && "createdTimestamp" in value;
-    isInstance = isInstance && "detectionId" in value;
-    isInstance = isInstance && "device" in value;
-    isInstance = isInstance && "emailSent" in value;
-    isInstance = isInstance && "firstBehavior" in value;
-    isInstance = isInstance && "hostinfo" in value;
-    isInstance = isInstance && "lastBehavior" in value;
-    isInstance = isInstance && "maxConfidence" in value;
-    isInstance = isInstance && "maxSeverity" in value;
-    isInstance = isInstance && "maxSeverityDisplayname" in value;
-    isInstance = isInstance && "secondsToResolved" in value;
-    isInstance = isInstance && "secondsToTriaged" in value;
-    isInstance = isInstance && "showInUi" in value;
-    isInstance = isInstance && "status" in value;
-
-    return isInstance;
+export function instanceOfDomainAPIDetectionDocument(value: object): value is DomainAPIDetectionDocument {
+    if (!("behaviorsProcessed" in value) || value["behaviorsProcessed"] === undefined) return false;
+    if (!("cid" in value) || value["cid"] === undefined) return false;
+    if (!("createdTimestamp" in value) || value["createdTimestamp"] === undefined) return false;
+    if (!("detectionId" in value) || value["detectionId"] === undefined) return false;
+    if (!("device" in value) || value["device"] === undefined) return false;
+    if (!("emailSent" in value) || value["emailSent"] === undefined) return false;
+    if (!("firstBehavior" in value) || value["firstBehavior"] === undefined) return false;
+    if (!("hostinfo" in value) || value["hostinfo"] === undefined) return false;
+    if (!("lastBehavior" in value) || value["lastBehavior"] === undefined) return false;
+    if (!("maxConfidence" in value) || value["maxConfidence"] === undefined) return false;
+    if (!("maxSeverity" in value) || value["maxSeverity"] === undefined) return false;
+    if (!("maxSeverityDisplayname" in value) || value["maxSeverityDisplayname"] === undefined) return false;
+    if (!("secondsToResolved" in value) || value["secondsToResolved"] === undefined) return false;
+    if (!("secondsToTriaged" in value) || value["secondsToTriaged"] === undefined) return false;
+    if (!("showInUi" in value) || value["showInUi"] === undefined) return false;
+    if (!("status" in value) || value["status"] === undefined) return false;
+    return true;
 }
 
 export function DomainAPIDetectionDocumentFromJSON(json: any): DomainAPIDetectionDocument {
@@ -192,17 +196,18 @@ export function DomainAPIDetectionDocumentFromJSON(json: any): DomainAPIDetectio
 }
 
 export function DomainAPIDetectionDocumentFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainAPIDetectionDocument {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
-        adversaryIds: !exists(json, "adversary_ids") ? undefined : json["adversary_ids"],
-        assignedToName: !exists(json, "assigned_to_name") ? undefined : json["assigned_to_name"],
-        assignedToUid: !exists(json, "assigned_to_uid") ? undefined : json["assigned_to_uid"],
-        behaviors: !exists(json, "behaviors") ? undefined : (json["behaviors"] as Array<any>).map(DetectsBehaviorFromJSON),
+        adversaryIds: json["adversary_ids"] == null ? undefined : json["adversary_ids"],
+        assignedToName: json["assigned_to_name"] == null ? undefined : json["assigned_to_name"],
+        assignedToUid: json["assigned_to_uid"] == null ? undefined : json["assigned_to_uid"],
+        behaviors: json["behaviors"] == null ? undefined : (json["behaviors"] as Array<any>).map(DetectsBehaviorFromJSON),
         behaviorsProcessed: json["behaviors_processed"],
         cid: json["cid"],
         createdTimestamp: new Date(json["created_timestamp"]),
+        dateUpdated: json["date_updated"] == null ? undefined : json["date_updated"],
         detectionId: json["detection_id"],
         device: DetectsDeviceDetailIndexedFromJSON(json["device"]),
         emailSent: json["email_sent"],
@@ -212,8 +217,8 @@ export function DomainAPIDetectionDocumentFromJSONTyped(json: any, ignoreDiscrim
         maxConfidence: json["max_confidence"],
         maxSeverity: json["max_severity"],
         maxSeverityDisplayname: json["max_severity_displayname"],
-        overwatchNotes: !exists(json, "overwatch_notes") ? undefined : json["overwatch_notes"],
-        quarantinedFiles: !exists(json, "quarantined_files") ? undefined : (json["quarantined_files"] as Array<any>).map(DetectsQuarantinedFileFromJSON),
+        overwatchNotes: json["overwatch_notes"] == null ? undefined : json["overwatch_notes"],
+        quarantinedFiles: json["quarantined_files"] == null ? undefined : (json["quarantined_files"] as Array<any>).map(DetectsQuarantinedFileFromJSON),
         secondsToResolved: json["seconds_to_resolved"],
         secondsToTriaged: json["seconds_to_triaged"],
         showInUi: json["show_in_ui"],
@@ -222,34 +227,32 @@ export function DomainAPIDetectionDocumentFromJSONTyped(json: any, ignoreDiscrim
 }
 
 export function DomainAPIDetectionDocumentToJSON(value?: DomainAPIDetectionDocument | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        adversary_ids: value.adversaryIds,
-        assigned_to_name: value.assignedToName,
-        assigned_to_uid: value.assignedToUid,
-        behaviors: value.behaviors === undefined ? undefined : (value.behaviors as Array<any>).map(DetectsBehaviorToJSON),
-        behaviors_processed: value.behaviorsProcessed,
-        cid: value.cid,
-        created_timestamp: value.createdTimestamp.toISOString(),
-        detection_id: value.detectionId,
-        device: DetectsDeviceDetailIndexedToJSON(value.device),
-        email_sent: value.emailSent,
-        first_behavior: value.firstBehavior.toISOString(),
-        hostinfo: DetectsHostInfoToJSON(value.hostinfo),
-        last_behavior: value.lastBehavior.toISOString(),
-        max_confidence: value.maxConfidence,
-        max_severity: value.maxSeverity,
-        max_severity_displayname: value.maxSeverityDisplayname,
-        overwatch_notes: value.overwatchNotes,
-        quarantined_files: value.quarantinedFiles === undefined ? undefined : (value.quarantinedFiles as Array<any>).map(DetectsQuarantinedFileToJSON),
-        seconds_to_resolved: value.secondsToResolved,
-        seconds_to_triaged: value.secondsToTriaged,
-        show_in_ui: value.showInUi,
-        status: value.status,
+        adversary_ids: value["adversaryIds"],
+        assigned_to_name: value["assignedToName"],
+        assigned_to_uid: value["assignedToUid"],
+        behaviors: value["behaviors"] == null ? undefined : (value["behaviors"] as Array<any>).map(DetectsBehaviorToJSON),
+        behaviors_processed: value["behaviorsProcessed"],
+        cid: value["cid"],
+        created_timestamp: value["createdTimestamp"].toISOString(),
+        date_updated: value["dateUpdated"],
+        detection_id: value["detectionId"],
+        device: DetectsDeviceDetailIndexedToJSON(value["device"]),
+        email_sent: value["emailSent"],
+        first_behavior: value["firstBehavior"].toISOString(),
+        hostinfo: DetectsHostInfoToJSON(value["hostinfo"]),
+        last_behavior: value["lastBehavior"].toISOString(),
+        max_confidence: value["maxConfidence"],
+        max_severity: value["maxSeverity"],
+        max_severity_displayname: value["maxSeverityDisplayname"],
+        overwatch_notes: value["overwatchNotes"],
+        quarantined_files: value["quarantinedFiles"] == null ? undefined : (value["quarantinedFiles"] as Array<any>).map(DetectsQuarantinedFileToJSON),
+        seconds_to_resolved: value["secondsToResolved"],
+        seconds_to_triaged: value["secondsToTriaged"],
+        show_in_ui: value["showInUi"],
+        status: value["status"],
     };
 }

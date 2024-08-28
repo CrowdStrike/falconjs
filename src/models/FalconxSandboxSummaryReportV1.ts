@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 import type { FalconxIncident } from "./FalconxIncident";
 import { FalconxIncidentFromJSON, FalconxIncidentFromJSONTyped, FalconxIncidentToJSON } from "./FalconxIncident";
 
@@ -72,6 +72,12 @@ export interface FalconxSandboxSummaryReportV1 {
     incidents?: Array<FalconxIncident>;
     /**
      *
+     * @type {string}
+     * @memberof FalconxSandboxSummaryReportV1
+     */
+    networkSettings?: string;
+    /**
+     *
      * @type {Array<string>}
      * @memberof FalconxSandboxSummaryReportV1
      */
@@ -117,10 +123,8 @@ export interface FalconxSandboxSummaryReportV1 {
 /**
  * Check if a given object implements the FalconxSandboxSummaryReportV1 interface.
  */
-export function instanceOfFalconxSandboxSummaryReportV1(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfFalconxSandboxSummaryReportV1(value: object): value is FalconxSandboxSummaryReportV1 {
+    return true;
 }
 
 export function FalconxSandboxSummaryReportV1FromJSON(json: any): FalconxSandboxSummaryReportV1 {
@@ -128,50 +132,49 @@ export function FalconxSandboxSummaryReportV1FromJSON(json: any): FalconxSandbox
 }
 
 export function FalconxSandboxSummaryReportV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): FalconxSandboxSummaryReportV1 {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
-        classificationTags: !exists(json, "classification_tags") ? undefined : json["classification_tags"],
-        environmentDescription: !exists(json, "environment_description") ? undefined : json["environment_description"],
-        environmentId: !exists(json, "environment_id") ? undefined : json["environment_id"],
-        errorMessage: !exists(json, "error_message") ? undefined : json["error_message"],
-        errorOrigin: !exists(json, "error_origin") ? undefined : json["error_origin"],
-        errorType: !exists(json, "error_type") ? undefined : json["error_type"],
-        fileType: !exists(json, "file_type") ? undefined : json["file_type"],
-        incidents: !exists(json, "incidents") ? undefined : (json["incidents"] as Array<any>).map(FalconxIncidentFromJSON),
-        sampleFlags: !exists(json, "sample_flags") ? undefined : json["sample_flags"],
-        sha256: !exists(json, "sha256") ? undefined : json["sha256"],
-        submissionType: !exists(json, "submission_type") ? undefined : json["submission_type"],
-        submitName: !exists(json, "submit_name") ? undefined : json["submit_name"],
-        submitUrl: !exists(json, "submit_url") ? undefined : json["submit_url"],
-        threatScore: !exists(json, "threat_score") ? undefined : json["threat_score"],
-        verdict: !exists(json, "verdict") ? undefined : json["verdict"],
+        classificationTags: json["classification_tags"] == null ? undefined : json["classification_tags"],
+        environmentDescription: json["environment_description"] == null ? undefined : json["environment_description"],
+        environmentId: json["environment_id"] == null ? undefined : json["environment_id"],
+        errorMessage: json["error_message"] == null ? undefined : json["error_message"],
+        errorOrigin: json["error_origin"] == null ? undefined : json["error_origin"],
+        errorType: json["error_type"] == null ? undefined : json["error_type"],
+        fileType: json["file_type"] == null ? undefined : json["file_type"],
+        incidents: json["incidents"] == null ? undefined : (json["incidents"] as Array<any>).map(FalconxIncidentFromJSON),
+        networkSettings: json["network_settings"] == null ? undefined : json["network_settings"],
+        sampleFlags: json["sample_flags"] == null ? undefined : json["sample_flags"],
+        sha256: json["sha256"] == null ? undefined : json["sha256"],
+        submissionType: json["submission_type"] == null ? undefined : json["submission_type"],
+        submitName: json["submit_name"] == null ? undefined : json["submit_name"],
+        submitUrl: json["submit_url"] == null ? undefined : json["submit_url"],
+        threatScore: json["threat_score"] == null ? undefined : json["threat_score"],
+        verdict: json["verdict"] == null ? undefined : json["verdict"],
     };
 }
 
 export function FalconxSandboxSummaryReportV1ToJSON(value?: FalconxSandboxSummaryReportV1 | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        classification_tags: value.classificationTags,
-        environment_description: value.environmentDescription,
-        environment_id: value.environmentId,
-        error_message: value.errorMessage,
-        error_origin: value.errorOrigin,
-        error_type: value.errorType,
-        file_type: value.fileType,
-        incidents: value.incidents === undefined ? undefined : (value.incidents as Array<any>).map(FalconxIncidentToJSON),
-        sample_flags: value.sampleFlags,
-        sha256: value.sha256,
-        submission_type: value.submissionType,
-        submit_name: value.submitName,
-        submit_url: value.submitUrl,
-        threat_score: value.threatScore,
-        verdict: value.verdict,
+        classification_tags: value["classificationTags"],
+        environment_description: value["environmentDescription"],
+        environment_id: value["environmentId"],
+        error_message: value["errorMessage"],
+        error_origin: value["errorOrigin"],
+        error_type: value["errorType"],
+        file_type: value["fileType"],
+        incidents: value["incidents"] == null ? undefined : (value["incidents"] as Array<any>).map(FalconxIncidentToJSON),
+        network_settings: value["networkSettings"],
+        sample_flags: value["sampleFlags"],
+        sha256: value["sha256"],
+        submission_type: value["submissionType"],
+        submit_name: value["submitName"],
+        submit_url: value["submitUrl"],
+        threat_score: value["threatScore"],
+        verdict: value["verdict"],
     };
 }

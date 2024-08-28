@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -13,37 +13,37 @@
  */
 
 import * as runtime from "../runtime";
-import type { MlscannerQueryResponse, MlscannerSamplesScanParameters, MlscannerScanV1Response, MsaAggregateQueryRequest, MsaReplyMetaOnly } from "../models";
+import type { MlscannerapiQueryResponse, MlscannerapiSamplesScanParameters, MlscannerapiScanV1Response, MsaAggregateQueryRequest, MsaReplyMetaOnly } from "../models/index";
 import {
-    MlscannerQueryResponseFromJSON,
-    MlscannerQueryResponseToJSON,
-    MlscannerSamplesScanParametersFromJSON,
-    MlscannerSamplesScanParametersToJSON,
-    MlscannerScanV1ResponseFromJSON,
-    MlscannerScanV1ResponseToJSON,
+    MlscannerapiQueryResponseFromJSON,
+    MlscannerapiQueryResponseToJSON,
+    MlscannerapiSamplesScanParametersFromJSON,
+    MlscannerapiSamplesScanParametersToJSON,
+    MlscannerapiScanV1ResponseFromJSON,
+    MlscannerapiScanV1ResponseToJSON,
     MsaAggregateQueryRequestFromJSON,
     MsaAggregateQueryRequestToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-} from "../models";
+} from "../models/index";
 
-export interface GetScansRequest {
+export interface QuickScanApiGetScansRequest {
     ids: Array<string>;
 }
 
-export interface GetScansAggregatesRequest {
+export interface QuickScanApiGetScansAggregatesRequest {
     body: MsaAggregateQueryRequest;
 }
 
-export interface QuerySubmissionsMixin0Request {
+export interface QuickScanApiQuerySubmissionsMixin0Request {
     filter?: string;
     offset?: string;
     limit?: number;
     sort?: string;
 }
 
-export interface ScanSamplesRequest {
-    body: MlscannerSamplesScanParameters;
+export interface QuickScanApiScanSamplesRequest {
+    body: MlscannerapiSamplesScanParameters;
 }
 
 /**
@@ -53,22 +53,22 @@ export class QuickScanApi extends runtime.BaseAPI {
     /**
      * Check the status of a volume scan. Time required for analysis increases with the number of samples in a volume but usually it should take less than 1 minute
      */
-    async getScansRaw(requestParameters: GetScansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MlscannerScanV1Response>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getScans.");
+    async getScansRaw(requestParameters: QuickScanApiGetScansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MlscannerapiScanV1Response>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getScans().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids.join(runtime.COLLECTION_FORMATS["csv"]);
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"]!.join(runtime.COLLECTION_FORMATS["csv"]);
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["quick-scan:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -81,13 +81,13 @@ export class QuickScanApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MlscannerScanV1ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MlscannerapiScanV1ResponseFromJSON(jsonValue));
     }
 
     /**
      * Check the status of a volume scan. Time required for analysis increases with the number of samples in a volume but usually it should take less than 1 minute
      */
-    async getScans(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MlscannerScanV1Response> {
+    async getScans(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MlscannerapiScanV1Response> {
         const response = await this.getScansRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -95,9 +95,9 @@ export class QuickScanApi extends runtime.BaseAPI {
     /**
      * Get scans aggregations as specified via json in request body.
      */
-    async getScansAggregatesRaw(requestParameters: GetScansAggregatesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling getScansAggregates.");
+    async getScansAggregatesRaw(requestParameters: QuickScanApiGetScansAggregatesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getScansAggregates().');
         }
 
         const queryParameters: any = {};
@@ -108,7 +108,7 @@ export class QuickScanApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["quick-scan:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -117,7 +117,7 @@ export class QuickScanApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: MsaAggregateQueryRequestToJSON(requestParameters.body),
+                body: MsaAggregateQueryRequestToJSON(requestParameters["body"]),
             },
             initOverrides
         );
@@ -136,32 +136,32 @@ export class QuickScanApi extends runtime.BaseAPI {
      * Find IDs for submitted scans by providing an FQL filter and paging details. Returns a set of volume IDs that match your criteria.
      */
     async querySubmissionsMixin0Raw(
-        requestParameters: QuerySubmissionsMixin0Request,
+        requestParameters: QuickScanApiQuerySubmissionsMixin0Request,
         initOverrides?: RequestInit | runtime.InitOverrideFunction
-    ): Promise<runtime.ApiResponse<MlscannerQueryResponse>> {
+    ): Promise<runtime.ApiResponse<MlscannerapiQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["quick-scan:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -174,13 +174,13 @@ export class QuickScanApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MlscannerQueryResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MlscannerapiQueryResponseFromJSON(jsonValue));
     }
 
     /**
      * Find IDs for submitted scans by providing an FQL filter and paging details. Returns a set of volume IDs that match your criteria.
      */
-    async querySubmissionsMixin0(filter?: string, offset?: string, limit?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MlscannerQueryResponse> {
+    async querySubmissionsMixin0(filter?: string, offset?: string, limit?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MlscannerapiQueryResponse> {
         const response = await this.querySubmissionsMixin0Raw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
@@ -188,9 +188,9 @@ export class QuickScanApi extends runtime.BaseAPI {
     /**
      * Submit a volume of files for ml scanning. Time required for analysis increases with the number of samples in a volume but usually it should take less than 1 minute
      */
-    async scanSamplesRaw(requestParameters: ScanSamplesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MlscannerQueryResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling scanSamples.");
+    async scanSamplesRaw(requestParameters: QuickScanApiScanSamplesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MlscannerapiQueryResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling scanSamples().');
         }
 
         const queryParameters: any = {};
@@ -201,7 +201,7 @@ export class QuickScanApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["quick-scan:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -210,18 +210,18 @@ export class QuickScanApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: MlscannerSamplesScanParametersToJSON(requestParameters.body),
+                body: MlscannerapiSamplesScanParametersToJSON(requestParameters["body"]),
             },
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MlscannerQueryResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MlscannerapiQueryResponseFromJSON(jsonValue));
     }
 
     /**
      * Submit a volume of files for ml scanning. Time required for analysis increases with the number of samples in a volume but usually it should take less than 1 minute
      */
-    async scanSamples(body: MlscannerSamplesScanParameters, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MlscannerQueryResponse> {
+    async scanSamples(body: MlscannerapiSamplesScanParameters, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MlscannerapiQueryResponse> {
         const response = await this.scanSamplesRaw({ body: body }, initOverrides);
         return await response.value();
     }

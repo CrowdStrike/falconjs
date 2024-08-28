@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 import type { DeviceControlSettingsRespV1 } from "./DeviceControlSettingsRespV1";
 import { DeviceControlSettingsRespV1FromJSON, DeviceControlSettingsRespV1FromJSONTyped, DeviceControlSettingsRespV1ToJSON } from "./DeviceControlSettingsRespV1";
 import type { HostGroupsHostGroupV1 } from "./HostGroupsHostGroupV1";
@@ -111,22 +111,20 @@ export type DeviceControlPolicyV1PlatformNameEnum = (typeof DeviceControlPolicyV
 /**
  * Check if a given object implements the DeviceControlPolicyV1 interface.
  */
-export function instanceOfDeviceControlPolicyV1(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "cid" in value;
-    isInstance = isInstance && "createdBy" in value;
-    isInstance = isInstance && "createdTimestamp" in value;
-    isInstance = isInstance && "description" in value;
-    isInstance = isInstance && "enabled" in value;
-    isInstance = isInstance && "groups" in value;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "modifiedBy" in value;
-    isInstance = isInstance && "modifiedTimestamp" in value;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "platformName" in value;
-    isInstance = isInstance && "settings" in value;
-
-    return isInstance;
+export function instanceOfDeviceControlPolicyV1(value: object): value is DeviceControlPolicyV1 {
+    if (!("cid" in value) || value["cid"] === undefined) return false;
+    if (!("createdBy" in value) || value["createdBy"] === undefined) return false;
+    if (!("createdTimestamp" in value) || value["createdTimestamp"] === undefined) return false;
+    if (!("description" in value) || value["description"] === undefined) return false;
+    if (!("enabled" in value) || value["enabled"] === undefined) return false;
+    if (!("groups" in value) || value["groups"] === undefined) return false;
+    if (!("id" in value) || value["id"] === undefined) return false;
+    if (!("modifiedBy" in value) || value["modifiedBy"] === undefined) return false;
+    if (!("modifiedTimestamp" in value) || value["modifiedTimestamp"] === undefined) return false;
+    if (!("name" in value) || value["name"] === undefined) return false;
+    if (!("platformName" in value) || value["platformName"] === undefined) return false;
+    if (!("settings" in value) || value["settings"] === undefined) return false;
+    return true;
 }
 
 export function DeviceControlPolicyV1FromJSON(json: any): DeviceControlPolicyV1 {
@@ -134,7 +132,7 @@ export function DeviceControlPolicyV1FromJSON(json: any): DeviceControlPolicyV1 
 }
 
 export function DeviceControlPolicyV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): DeviceControlPolicyV1 {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
@@ -154,24 +152,21 @@ export function DeviceControlPolicyV1FromJSONTyped(json: any, ignoreDiscriminato
 }
 
 export function DeviceControlPolicyV1ToJSON(value?: DeviceControlPolicyV1 | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        cid: value.cid,
-        created_by: value.createdBy,
-        created_timestamp: value.createdTimestamp.toISOString(),
-        description: value.description,
-        enabled: value.enabled,
-        groups: (value.groups as Array<any>).map(HostGroupsHostGroupV1ToJSON),
-        id: value.id,
-        modified_by: value.modifiedBy,
-        modified_timestamp: value.modifiedTimestamp.toISOString(),
-        name: value.name,
-        platform_name: value.platformName,
-        settings: DeviceControlSettingsRespV1ToJSON(value.settings),
+        cid: value["cid"],
+        created_by: value["createdBy"],
+        created_timestamp: value["createdTimestamp"].toISOString(),
+        description: value["description"],
+        enabled: value["enabled"],
+        groups: (value["groups"] as Array<any>).map(HostGroupsHostGroupV1ToJSON),
+        id: value["id"],
+        modified_by: value["modifiedBy"],
+        modified_timestamp: value["modifiedTimestamp"].toISOString(),
+        name: value["name"],
+        platform_name: value["platformName"],
+        settings: DeviceControlSettingsRespV1ToJSON(value["settings"]),
     };
 }

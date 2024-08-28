@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 import type { DomainFileCount } from "./DomainFileCount";
 import { DomainFileCountFromJSON, DomainFileCountFromJSONTyped, DomainFileCountToJSON } from "./DomainFileCount";
 import type { DomainScanMetadata } from "./DomainScanMetadata";
@@ -48,6 +48,12 @@ export interface DomainScan {
      * @memberof DomainScan
      */
     cloudMlLevelPrevention?: number;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainScan
+     */
+    completedHostCount?: number;
     /**
      *
      * @type {number}
@@ -110,6 +116,12 @@ export interface DomainScan {
     id: string;
     /**
      *
+     * @type {number}
+     * @memberof DomainScan
+     */
+    incompleteHostCount?: number;
+    /**
+     *
      * @type {string}
      * @memberof DomainScan
      */
@@ -128,16 +140,22 @@ export interface DomainScan {
     maxDuration?: number;
     /**
      *
-     * @type {number}
-     * @memberof DomainScan
-     */
-    maxFileSize?: number;
-    /**
-     *
      * @type {Array<DomainScanMetadata>}
      * @memberof DomainScan
      */
     metadata?: Array<DomainScanMetadata>;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainScan
+     */
+    missingHostCount?: number;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainScan
+     */
+    notStartedHostCount?: number;
     /**
      *
      * @type {number}
@@ -191,6 +209,12 @@ export interface DomainScan {
      * @type {Date}
      * @memberof DomainScan
      */
+    scanScheduledOn?: Date;
+    /**
+     *
+     * @type {Date}
+     * @memberof DomainScan
+     */
     scanStartedOn?: Date;
     /**
      *
@@ -212,20 +236,30 @@ export interface DomainScan {
     severity?: number;
     /**
      *
+     * @type {number}
+     * @memberof DomainScan
+     */
+    startedHostCount?: number;
+    /**
+     *
      * @type {string}
      * @memberof DomainScan
      */
     status?: string;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainScan
+     */
+    targetedHostCount?: number;
 }
 
 /**
  * Check if a given object implements the DomainScan interface.
  */
-export function instanceOfDomainScan(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-
-    return isInstance;
+export function instanceOfDomainScan(value: object): value is DomainScan {
+    if (!("id" in value) || value["id"] === undefined) return false;
+    return true;
 }
 
 export function DomainScanFromJSON(json: any): DomainScan {
@@ -233,84 +267,93 @@ export function DomainScanFromJSON(json: any): DomainScan {
 }
 
 export function DomainScanFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainScan {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
-        affectedHostsCount: !exists(json, "affected_hosts_count") ? undefined : json["affected_hosts_count"],
-        cid: !exists(json, "cid") ? undefined : json["cid"],
-        cloudMlLevelDetection: !exists(json, "cloud_ml_level_detection") ? undefined : json["cloud_ml_level_detection"],
-        cloudMlLevelPrevention: !exists(json, "cloud_ml_level_prevention") ? undefined : json["cloud_ml_level_prevention"],
-        cpuPriority: !exists(json, "cpu_priority") ? undefined : json["cpu_priority"],
-        createdBy: !exists(json, "created_by") ? undefined : json["created_by"],
-        createdOn: !exists(json, "created_on") ? undefined : new Date(json["created_on"]),
-        description: !exists(json, "description") ? undefined : json["description"],
-        endpointNotification: !exists(json, "endpoint_notification") ? undefined : json["endpoint_notification"],
-        filePaths: !exists(json, "file_paths") ? undefined : json["file_paths"],
-        filecount: !exists(json, "filecount") ? undefined : DomainFileCountFromJSON(json["filecount"]),
-        hostGroups: !exists(json, "host_groups") ? undefined : json["host_groups"],
-        hosts: !exists(json, "hosts") ? undefined : json["hosts"],
+        affectedHostsCount: json["affected_hosts_count"] == null ? undefined : json["affected_hosts_count"],
+        cid: json["cid"] == null ? undefined : json["cid"],
+        cloudMlLevelDetection: json["cloud_ml_level_detection"] == null ? undefined : json["cloud_ml_level_detection"],
+        cloudMlLevelPrevention: json["cloud_ml_level_prevention"] == null ? undefined : json["cloud_ml_level_prevention"],
+        completedHostCount: json["completed_host_count"] == null ? undefined : json["completed_host_count"],
+        cpuPriority: json["cpu_priority"] == null ? undefined : json["cpu_priority"],
+        createdBy: json["created_by"] == null ? undefined : json["created_by"],
+        createdOn: json["created_on"] == null ? undefined : new Date(json["created_on"]),
+        description: json["description"] == null ? undefined : json["description"],
+        endpointNotification: json["endpoint_notification"] == null ? undefined : json["endpoint_notification"],
+        filePaths: json["file_paths"] == null ? undefined : json["file_paths"],
+        filecount: json["filecount"] == null ? undefined : DomainFileCountFromJSON(json["filecount"]),
+        hostGroups: json["host_groups"] == null ? undefined : json["host_groups"],
+        hosts: json["hosts"] == null ? undefined : json["hosts"],
         id: json["id"],
-        initiatedFrom: !exists(json, "initiated_from") ? undefined : json["initiated_from"],
-        lastUpdated: !exists(json, "last_updated") ? undefined : new Date(json["last_updated"]),
-        maxDuration: !exists(json, "max_duration") ? undefined : json["max_duration"],
-        maxFileSize: !exists(json, "max_file_size") ? undefined : json["max_file_size"],
-        metadata: !exists(json, "metadata") ? undefined : (json["metadata"] as Array<any>).map(DomainScanMetadataFromJSON),
-        pauseDuration: !exists(json, "pause_duration") ? undefined : json["pause_duration"],
-        policySetting: !exists(json, "policy_setting") ? undefined : json["policy_setting"],
-        preemptionPriority: !exists(json, "preemption_priority") ? undefined : json["preemption_priority"],
-        profileId: !exists(json, "profile_id") ? undefined : json["profile_id"],
-        quarantine: !exists(json, "quarantine") ? undefined : json["quarantine"],
-        scanCompletedOn: !exists(json, "scan_completed_on") ? undefined : new Date(json["scan_completed_on"]),
-        scanExclusions: !exists(json, "scan_exclusions") ? undefined : json["scan_exclusions"],
-        scanInclusions: !exists(json, "scan_inclusions") ? undefined : json["scan_inclusions"],
-        scanStartedOn: !exists(json, "scan_started_on") ? undefined : new Date(json["scan_started_on"]),
-        sensorMlLevelDetection: !exists(json, "sensor_ml_level_detection") ? undefined : json["sensor_ml_level_detection"],
-        sensorMlLevelPrevention: !exists(json, "sensor_ml_level_prevention") ? undefined : json["sensor_ml_level_prevention"],
-        severity: !exists(json, "severity") ? undefined : json["severity"],
-        status: !exists(json, "status") ? undefined : json["status"],
+        incompleteHostCount: json["incomplete_host_count"] == null ? undefined : json["incomplete_host_count"],
+        initiatedFrom: json["initiated_from"] == null ? undefined : json["initiated_from"],
+        lastUpdated: json["last_updated"] == null ? undefined : new Date(json["last_updated"]),
+        maxDuration: json["max_duration"] == null ? undefined : json["max_duration"],
+        metadata: json["metadata"] == null ? undefined : (json["metadata"] as Array<any>).map(DomainScanMetadataFromJSON),
+        missingHostCount: json["missing_host_count"] == null ? undefined : json["missing_host_count"],
+        notStartedHostCount: json["not_started_host_count"] == null ? undefined : json["not_started_host_count"],
+        pauseDuration: json["pause_duration"] == null ? undefined : json["pause_duration"],
+        policySetting: json["policy_setting"] == null ? undefined : json["policy_setting"],
+        preemptionPriority: json["preemption_priority"] == null ? undefined : json["preemption_priority"],
+        profileId: json["profile_id"] == null ? undefined : json["profile_id"],
+        quarantine: json["quarantine"] == null ? undefined : json["quarantine"],
+        scanCompletedOn: json["scan_completed_on"] == null ? undefined : new Date(json["scan_completed_on"]),
+        scanExclusions: json["scan_exclusions"] == null ? undefined : json["scan_exclusions"],
+        scanInclusions: json["scan_inclusions"] == null ? undefined : json["scan_inclusions"],
+        scanScheduledOn: json["scan_scheduled_on"] == null ? undefined : new Date(json["scan_scheduled_on"]),
+        scanStartedOn: json["scan_started_on"] == null ? undefined : new Date(json["scan_started_on"]),
+        sensorMlLevelDetection: json["sensor_ml_level_detection"] == null ? undefined : json["sensor_ml_level_detection"],
+        sensorMlLevelPrevention: json["sensor_ml_level_prevention"] == null ? undefined : json["sensor_ml_level_prevention"],
+        severity: json["severity"] == null ? undefined : json["severity"],
+        startedHostCount: json["started_host_count"] == null ? undefined : json["started_host_count"],
+        status: json["status"] == null ? undefined : json["status"],
+        targetedHostCount: json["targeted_host_count"] == null ? undefined : json["targeted_host_count"],
     };
 }
 
 export function DomainScanToJSON(value?: DomainScan | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        affected_hosts_count: value.affectedHostsCount,
-        cid: value.cid,
-        cloud_ml_level_detection: value.cloudMlLevelDetection,
-        cloud_ml_level_prevention: value.cloudMlLevelPrevention,
-        cpu_priority: value.cpuPriority,
-        created_by: value.createdBy,
-        created_on: value.createdOn === undefined ? undefined : value.createdOn.toISOString(),
-        description: value.description,
-        endpoint_notification: value.endpointNotification,
-        file_paths: value.filePaths,
-        filecount: DomainFileCountToJSON(value.filecount),
-        host_groups: value.hostGroups,
-        hosts: value.hosts,
-        id: value.id,
-        initiated_from: value.initiatedFrom,
-        last_updated: value.lastUpdated === undefined ? undefined : value.lastUpdated.toISOString(),
-        max_duration: value.maxDuration,
-        max_file_size: value.maxFileSize,
-        metadata: value.metadata === undefined ? undefined : (value.metadata as Array<any>).map(DomainScanMetadataToJSON),
-        pause_duration: value.pauseDuration,
-        policy_setting: value.policySetting,
-        preemption_priority: value.preemptionPriority,
-        profile_id: value.profileId,
-        quarantine: value.quarantine,
-        scan_completed_on: value.scanCompletedOn === undefined ? undefined : value.scanCompletedOn.toISOString(),
-        scan_exclusions: value.scanExclusions,
-        scan_inclusions: value.scanInclusions,
-        scan_started_on: value.scanStartedOn === undefined ? undefined : value.scanStartedOn.toISOString(),
-        sensor_ml_level_detection: value.sensorMlLevelDetection,
-        sensor_ml_level_prevention: value.sensorMlLevelPrevention,
-        severity: value.severity,
-        status: value.status,
+        affected_hosts_count: value["affectedHostsCount"],
+        cid: value["cid"],
+        cloud_ml_level_detection: value["cloudMlLevelDetection"],
+        cloud_ml_level_prevention: value["cloudMlLevelPrevention"],
+        completed_host_count: value["completedHostCount"],
+        cpu_priority: value["cpuPriority"],
+        created_by: value["createdBy"],
+        created_on: value["createdOn"] == null ? undefined : value["createdOn"].toISOString(),
+        description: value["description"],
+        endpoint_notification: value["endpointNotification"],
+        file_paths: value["filePaths"],
+        filecount: DomainFileCountToJSON(value["filecount"]),
+        host_groups: value["hostGroups"],
+        hosts: value["hosts"],
+        id: value["id"],
+        incomplete_host_count: value["incompleteHostCount"],
+        initiated_from: value["initiatedFrom"],
+        last_updated: value["lastUpdated"] == null ? undefined : value["lastUpdated"].toISOString(),
+        max_duration: value["maxDuration"],
+        metadata: value["metadata"] == null ? undefined : (value["metadata"] as Array<any>).map(DomainScanMetadataToJSON),
+        missing_host_count: value["missingHostCount"],
+        not_started_host_count: value["notStartedHostCount"],
+        pause_duration: value["pauseDuration"],
+        policy_setting: value["policySetting"],
+        preemption_priority: value["preemptionPriority"],
+        profile_id: value["profileId"],
+        quarantine: value["quarantine"],
+        scan_completed_on: value["scanCompletedOn"] == null ? undefined : value["scanCompletedOn"].toISOString(),
+        scan_exclusions: value["scanExclusions"],
+        scan_inclusions: value["scanInclusions"],
+        scan_scheduled_on: value["scanScheduledOn"] == null ? undefined : value["scanScheduledOn"].toISOString(),
+        scan_started_on: value["scanStartedOn"] == null ? undefined : value["scanStartedOn"].toISOString(),
+        sensor_ml_level_detection: value["sensorMlLevelDetection"],
+        sensor_ml_level_prevention: value["sensorMlLevelPrevention"],
+        severity: value["severity"],
+        started_host_count: value["startedHostCount"],
+        status: value["status"],
+        targeted_host_count: value["targetedHostCount"],
     };
 }

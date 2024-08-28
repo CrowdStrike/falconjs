@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 /**
  *
  * @export
@@ -108,24 +108,22 @@ export interface DomainFileV2 {
 /**
  * Check if a given object implements the DomainFileV2 interface.
  */
-export function instanceOfDomainFileV2(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "cloudRequestId" in value;
-    isInstance = isInstance && "complete" in value;
-    isInstance = isInstance && "createdAt" in value;
-    isInstance = isInstance && "deletedAt" in value;
-    isInstance = isInstance && "errorMessage" in value;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "progress" in value;
-    isInstance = isInstance && "sessionId" in value;
-    isInstance = isInstance && "sha256" in value;
-    isInstance = isInstance && "size" in value;
-    isInstance = isInstance && "stage" in value;
-    isInstance = isInstance && "status" in value;
-    isInstance = isInstance && "updatedAt" in value;
-
-    return isInstance;
+export function instanceOfDomainFileV2(value: object): value is DomainFileV2 {
+    if (!("cloudRequestId" in value) || value["cloudRequestId"] === undefined) return false;
+    if (!("complete" in value) || value["complete"] === undefined) return false;
+    if (!("createdAt" in value) || value["createdAt"] === undefined) return false;
+    if (!("deletedAt" in value) || value["deletedAt"] === undefined) return false;
+    if (!("errorMessage" in value) || value["errorMessage"] === undefined) return false;
+    if (!("id" in value) || value["id"] === undefined) return false;
+    if (!("name" in value) || value["name"] === undefined) return false;
+    if (!("progress" in value) || value["progress"] === undefined) return false;
+    if (!("sessionId" in value) || value["sessionId"] === undefined) return false;
+    if (!("sha256" in value) || value["sha256"] === undefined) return false;
+    if (!("size" in value) || value["size"] === undefined) return false;
+    if (!("stage" in value) || value["stage"] === undefined) return false;
+    if (!("status" in value) || value["status"] === undefined) return false;
+    if (!("updatedAt" in value) || value["updatedAt"] === undefined) return false;
+    return true;
 }
 
 export function DomainFileV2FromJSON(json: any): DomainFileV2 {
@@ -133,7 +131,7 @@ export function DomainFileV2FromJSON(json: any): DomainFileV2 {
 }
 
 export function DomainFileV2FromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainFileV2 {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
@@ -155,26 +153,23 @@ export function DomainFileV2FromJSONTyped(json: any, ignoreDiscriminator: boolea
 }
 
 export function DomainFileV2ToJSON(value?: DomainFileV2 | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        cloud_request_id: value.cloudRequestId,
-        complete: value.complete,
-        created_at: value.createdAt.toISOString(),
-        deleted_at: value.deletedAt.toISOString(),
-        error_message: value.errorMessage,
-        id: value.id,
-        name: value.name,
-        progress: value.progress,
-        session_id: value.sessionId,
-        sha256: value.sha256,
-        size: value.size,
-        stage: value.stage,
-        status: value.status,
-        updated_at: value.updatedAt.toISOString(),
+        cloud_request_id: value["cloudRequestId"],
+        complete: value["complete"],
+        created_at: value["createdAt"].toISOString(),
+        deleted_at: value["deletedAt"].toISOString(),
+        error_message: value["errorMessage"],
+        id: value["id"],
+        name: value["name"],
+        progress: value["progress"],
+        session_id: value["sessionId"],
+        sha256: value["sha256"],
+        size: value["size"],
+        stage: value["stage"],
+        status: value["status"],
+        updated_at: value["updatedAt"].toISOString(),
     };
 }

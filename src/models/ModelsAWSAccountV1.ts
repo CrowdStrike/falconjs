@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 import type { ModelsAwsAccountAccessHealth } from "./ModelsAwsAccountAccessHealth";
 import { ModelsAwsAccountAccessHealthFromJSON, ModelsAwsAccountAccessHealthFromJSONTyped, ModelsAwsAccountAccessHealthToJSON } from "./ModelsAwsAccountAccessHealth";
 
@@ -135,10 +135,8 @@ export interface ModelsAWSAccountV1 {
 /**
  * Check if a given object implements the ModelsAWSAccountV1 interface.
  */
-export function instanceOfModelsAWSAccountV1(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfModelsAWSAccountV1(value: object): value is ModelsAWSAccountV1 {
+    return true;
 }
 
 export function ModelsAWSAccountV1FromJSON(json: any): ModelsAWSAccountV1 {
@@ -146,56 +144,53 @@ export function ModelsAWSAccountV1FromJSON(json: any): ModelsAWSAccountV1 {
 }
 
 export function ModelsAWSAccountV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): ModelsAWSAccountV1 {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
-        accessHealth: !exists(json, "access_health") ? undefined : ModelsAwsAccountAccessHealthFromJSON(json["access_health"]),
-        alias: !exists(json, "alias") ? undefined : json["alias"],
-        cid: !exists(json, "cid") ? undefined : json["cid"],
-        cloudformationStackId: !exists(json, "cloudformation_stack_id") ? undefined : json["cloudformation_stack_id"],
-        cloudformationUrl: !exists(json, "cloudformation_url") ? undefined : json["cloudformation_url"],
-        cloudtrailBucketOwnerId: !exists(json, "cloudtrail_bucket_owner_id") ? undefined : json["cloudtrail_bucket_owner_id"],
-        cloudtrailBucketRegion: !exists(json, "cloudtrail_bucket_region") ? undefined : json["cloudtrail_bucket_region"],
-        createdTimestamp: !exists(json, "created_timestamp") ? undefined : json["created_timestamp"],
-        externalId: !exists(json, "external_id") ? undefined : json["external_id"],
-        iamRoleArn: !exists(json, "iam_role_arn") ? undefined : json["iam_role_arn"],
-        id: !exists(json, "id") ? undefined : json["id"],
-        lastModifiedTimestamp: !exists(json, "last_modified_timestamp") ? undefined : json["last_modified_timestamp"],
-        lastScannedTimestamp: !exists(json, "last_scanned_timestamp") ? undefined : json["last_scanned_timestamp"],
-        policyVersion: !exists(json, "policy_version") ? undefined : json["policy_version"],
-        provisioningState: !exists(json, "provisioning_state") ? undefined : json["provisioning_state"],
-        rateLimitReqs: !exists(json, "rate_limit_reqs") ? undefined : json["rate_limit_reqs"],
-        rateLimitTime: !exists(json, "rate_limit_time") ? undefined : json["rate_limit_time"],
-        templateVersion: !exists(json, "template_version") ? undefined : json["template_version"],
+        accessHealth: json["access_health"] == null ? undefined : ModelsAwsAccountAccessHealthFromJSON(json["access_health"]),
+        alias: json["alias"] == null ? undefined : json["alias"],
+        cid: json["cid"] == null ? undefined : json["cid"],
+        cloudformationStackId: json["cloudformation_stack_id"] == null ? undefined : json["cloudformation_stack_id"],
+        cloudformationUrl: json["cloudformation_url"] == null ? undefined : json["cloudformation_url"],
+        cloudtrailBucketOwnerId: json["cloudtrail_bucket_owner_id"] == null ? undefined : json["cloudtrail_bucket_owner_id"],
+        cloudtrailBucketRegion: json["cloudtrail_bucket_region"] == null ? undefined : json["cloudtrail_bucket_region"],
+        createdTimestamp: json["created_timestamp"] == null ? undefined : json["created_timestamp"],
+        externalId: json["external_id"] == null ? undefined : json["external_id"],
+        iamRoleArn: json["iam_role_arn"] == null ? undefined : json["iam_role_arn"],
+        id: json["id"] == null ? undefined : json["id"],
+        lastModifiedTimestamp: json["last_modified_timestamp"] == null ? undefined : json["last_modified_timestamp"],
+        lastScannedTimestamp: json["last_scanned_timestamp"] == null ? undefined : json["last_scanned_timestamp"],
+        policyVersion: json["policy_version"] == null ? undefined : json["policy_version"],
+        provisioningState: json["provisioning_state"] == null ? undefined : json["provisioning_state"],
+        rateLimitReqs: json["rate_limit_reqs"] == null ? undefined : json["rate_limit_reqs"],
+        rateLimitTime: json["rate_limit_time"] == null ? undefined : json["rate_limit_time"],
+        templateVersion: json["template_version"] == null ? undefined : json["template_version"],
     };
 }
 
 export function ModelsAWSAccountV1ToJSON(value?: ModelsAWSAccountV1 | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        access_health: ModelsAwsAccountAccessHealthToJSON(value.accessHealth),
-        alias: value.alias,
-        cid: value.cid,
-        cloudformation_stack_id: value.cloudformationStackId,
-        cloudformation_url: value.cloudformationUrl,
-        cloudtrail_bucket_owner_id: value.cloudtrailBucketOwnerId,
-        cloudtrail_bucket_region: value.cloudtrailBucketRegion,
-        created_timestamp: value.createdTimestamp,
-        external_id: value.externalId,
-        iam_role_arn: value.iamRoleArn,
-        id: value.id,
-        last_modified_timestamp: value.lastModifiedTimestamp,
-        last_scanned_timestamp: value.lastScannedTimestamp,
-        policy_version: value.policyVersion,
-        provisioning_state: value.provisioningState,
-        rate_limit_reqs: value.rateLimitReqs,
-        rate_limit_time: value.rateLimitTime,
-        template_version: value.templateVersion,
+        access_health: ModelsAwsAccountAccessHealthToJSON(value["accessHealth"]),
+        alias: value["alias"],
+        cid: value["cid"],
+        cloudformation_stack_id: value["cloudformationStackId"],
+        cloudformation_url: value["cloudformationUrl"],
+        cloudtrail_bucket_owner_id: value["cloudtrailBucketOwnerId"],
+        cloudtrail_bucket_region: value["cloudtrailBucketRegion"],
+        created_timestamp: value["createdTimestamp"],
+        external_id: value["externalId"],
+        iam_role_arn: value["iamRoleArn"],
+        id: value["id"],
+        last_modified_timestamp: value["lastModifiedTimestamp"],
+        last_scanned_timestamp: value["lastScannedTimestamp"],
+        policy_version: value["policyVersion"],
+        provisioning_state: value["provisioningState"],
+        rate_limit_reqs: value["rateLimitReqs"],
+        rate_limit_time: value["rateLimitTime"],
+        template_version: value["templateVersion"],
     };
 }

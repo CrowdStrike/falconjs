@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 import type { DomainImage } from "./DomainImage";
 import { DomainImageFromJSON, DomainImageFromJSONTyped, DomainImageToJSON } from "./DomainImage";
 
@@ -22,6 +22,12 @@ import { DomainImageFromJSON, DomainImageFromJSONTyped, DomainImageToJSON } from
  * @interface DomainSimpleActor
  */
 export interface DomainSimpleActor {
+    /**
+     *
+     * @type {Array<object>}
+     * @memberof DomainSimpleActor
+     */
+    entitlements?: Array<object>;
     /**
      *
      * @type {number}
@@ -57,11 +63,9 @@ export interface DomainSimpleActor {
 /**
  * Check if a given object implements the DomainSimpleActor interface.
  */
-export function instanceOfDomainSimpleActor(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-
-    return isInstance;
+export function instanceOfDomainSimpleActor(value: object): value is DomainSimpleActor {
+    if (!("id" in value) || value["id"] === undefined) return false;
+    return true;
 }
 
 export function DomainSimpleActorFromJSON(json: any): DomainSimpleActor {
@@ -69,30 +73,29 @@ export function DomainSimpleActorFromJSON(json: any): DomainSimpleActor {
 }
 
 export function DomainSimpleActorFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainSimpleActor {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
+        entitlements: json["entitlements"] == null ? undefined : json["entitlements"],
         id: json["id"],
-        name: !exists(json, "name") ? undefined : json["name"],
-        slug: !exists(json, "slug") ? undefined : json["slug"],
-        thumbnail: !exists(json, "thumbnail") ? undefined : DomainImageFromJSON(json["thumbnail"]),
-        url: !exists(json, "url") ? undefined : json["url"],
+        name: json["name"] == null ? undefined : json["name"],
+        slug: json["slug"] == null ? undefined : json["slug"],
+        thumbnail: json["thumbnail"] == null ? undefined : DomainImageFromJSON(json["thumbnail"]),
+        url: json["url"] == null ? undefined : json["url"],
     };
 }
 
 export function DomainSimpleActorToJSON(value?: DomainSimpleActor | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        id: value.id,
-        name: value.name,
-        slug: value.slug,
-        thumbnail: DomainImageToJSON(value.thumbnail),
-        url: value.url,
+        entitlements: value["entitlements"],
+        id: value["id"],
+        name: value["name"],
+        slug: value["slug"],
+        thumbnail: DomainImageToJSON(value["thumbnail"]),
+        url: value["url"],
     };
 }

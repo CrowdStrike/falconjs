@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 import type { DomainCSIXLabel } from "./DomainCSIXLabel";
 import { DomainCSIXLabelFromJSON, DomainCSIXLabelFromJSONTyped, DomainCSIXLabelToJSON } from "./DomainCSIXLabel";
 import type { DomainCSIXRelation } from "./DomainCSIXRelation";
@@ -143,29 +143,27 @@ export interface DomainPublicIndicatorV3 {
 /**
  * Check if a given object implements the DomainPublicIndicatorV3 interface.
  */
-export function instanceOfDomainPublicIndicatorV3(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "marker" in value;
-    isInstance = isInstance && "actors" in value;
-    isInstance = isInstance && "deleted" in value;
-    isInstance = isInstance && "domainTypes" in value;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "indicator" in value;
-    isInstance = isInstance && "ipAddressTypes" in value;
-    isInstance = isInstance && "killChains" in value;
-    isInstance = isInstance && "labels" in value;
-    isInstance = isInstance && "lastUpdated" in value;
-    isInstance = isInstance && "maliciousConfidence" in value;
-    isInstance = isInstance && "malwareFamilies" in value;
-    isInstance = isInstance && "publishedDate" in value;
-    isInstance = isInstance && "relations" in value;
-    isInstance = isInstance && "reports" in value;
-    isInstance = isInstance && "targets" in value;
-    isInstance = isInstance && "threatTypes" in value;
-    isInstance = isInstance && "type" in value;
-    isInstance = isInstance && "vulnerabilities" in value;
-
-    return isInstance;
+export function instanceOfDomainPublicIndicatorV3(value: object): value is DomainPublicIndicatorV3 {
+    if (!("marker" in value) || value["marker"] === undefined) return false;
+    if (!("actors" in value) || value["actors"] === undefined) return false;
+    if (!("deleted" in value) || value["deleted"] === undefined) return false;
+    if (!("domainTypes" in value) || value["domainTypes"] === undefined) return false;
+    if (!("id" in value) || value["id"] === undefined) return false;
+    if (!("indicator" in value) || value["indicator"] === undefined) return false;
+    if (!("ipAddressTypes" in value) || value["ipAddressTypes"] === undefined) return false;
+    if (!("killChains" in value) || value["killChains"] === undefined) return false;
+    if (!("labels" in value) || value["labels"] === undefined) return false;
+    if (!("lastUpdated" in value) || value["lastUpdated"] === undefined) return false;
+    if (!("maliciousConfidence" in value) || value["maliciousConfidence"] === undefined) return false;
+    if (!("malwareFamilies" in value) || value["malwareFamilies"] === undefined) return false;
+    if (!("publishedDate" in value) || value["publishedDate"] === undefined) return false;
+    if (!("relations" in value) || value["relations"] === undefined) return false;
+    if (!("reports" in value) || value["reports"] === undefined) return false;
+    if (!("targets" in value) || value["targets"] === undefined) return false;
+    if (!("threatTypes" in value) || value["threatTypes"] === undefined) return false;
+    if (!("type" in value) || value["type"] === undefined) return false;
+    if (!("vulnerabilities" in value) || value["vulnerabilities"] === undefined) return false;
+    return true;
 }
 
 export function DomainPublicIndicatorV3FromJSON(json: any): DomainPublicIndicatorV3 {
@@ -173,7 +171,7 @@ export function DomainPublicIndicatorV3FromJSON(json: any): DomainPublicIndicato
 }
 
 export function DomainPublicIndicatorV3FromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainPublicIndicatorV3 {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
@@ -200,31 +198,28 @@ export function DomainPublicIndicatorV3FromJSONTyped(json: any, ignoreDiscrimina
 }
 
 export function DomainPublicIndicatorV3ToJSON(value?: DomainPublicIndicatorV3 | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        _marker: value.marker,
-        actors: value.actors,
-        deleted: value.deleted,
-        domain_types: value.domainTypes,
-        id: value.id,
-        indicator: value.indicator,
-        ip_address_types: value.ipAddressTypes,
-        kill_chains: value.killChains,
-        labels: (value.labels as Array<any>).map(DomainCSIXLabelToJSON),
-        last_updated: value.lastUpdated,
-        malicious_confidence: value.maliciousConfidence,
-        malware_families: value.malwareFamilies,
-        published_date: value.publishedDate,
-        relations: (value.relations as Array<any>).map(DomainCSIXRelationToJSON),
-        reports: value.reports,
-        targets: value.targets,
-        threat_types: value.threatTypes,
-        type: value.type,
-        vulnerabilities: value.vulnerabilities,
+        _marker: value["marker"],
+        actors: value["actors"],
+        deleted: value["deleted"],
+        domain_types: value["domainTypes"],
+        id: value["id"],
+        indicator: value["indicator"],
+        ip_address_types: value["ipAddressTypes"],
+        kill_chains: value["killChains"],
+        labels: (value["labels"] as Array<any>).map(DomainCSIXLabelToJSON),
+        last_updated: value["lastUpdated"],
+        malicious_confidence: value["maliciousConfidence"],
+        malware_families: value["malwareFamilies"],
+        published_date: value["publishedDate"],
+        relations: (value["relations"] as Array<any>).map(DomainCSIXRelationToJSON),
+        reports: value["reports"],
+        targets: value["targets"],
+        threat_types: value["threatTypes"],
+        type: value["type"],
+        vulnerabilities: value["vulnerabilities"],
     };
 }

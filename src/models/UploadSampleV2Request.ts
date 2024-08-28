@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 /**
  *
  * @export
@@ -75,12 +75,10 @@ export interface UploadSampleV2Request {
 /**
  * Check if a given object implements the UploadSampleV2Request interface.
  */
-export function instanceOfUploadSampleV2Request(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "sample" in value;
-    isInstance = isInstance && "fileName" in value;
-
-    return isInstance;
+export function instanceOfUploadSampleV2Request(value: object): value is UploadSampleV2Request {
+    if (!("sample" in value) || value["sample"] === undefined) return false;
+    if (!("fileName" in value) || value["fileName"] === undefined) return false;
+    return true;
 }
 
 export function UploadSampleV2RequestFromJSON(json: any): UploadSampleV2Request {
@@ -88,28 +86,25 @@ export function UploadSampleV2RequestFromJSON(json: any): UploadSampleV2Request 
 }
 
 export function UploadSampleV2RequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): UploadSampleV2Request {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
         sample: json["sample"],
         fileName: json["file_name"],
-        comment: !exists(json, "comment") ? undefined : json["comment"],
-        isConfidential: !exists(json, "is_confidential") ? undefined : json["is_confidential"],
+        comment: json["comment"] == null ? undefined : json["comment"],
+        isConfidential: json["is_confidential"] == null ? undefined : json["is_confidential"],
     };
 }
 
 export function UploadSampleV2RequestToJSON(value?: UploadSampleV2Request | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        sample: value.sample,
-        file_name: value.fileName,
-        comment: value.comment,
-        is_confidential: value.isConfidential,
+        sample: value["sample"],
+        file_name: value["fileName"],
+        comment: value["comment"],
+        is_confidential: value["isConfidential"],
     };
 }

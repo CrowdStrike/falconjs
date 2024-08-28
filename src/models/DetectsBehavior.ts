@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 import type { DetectsParentDetails } from "./DetectsParentDetails";
 import { DetectsParentDetailsFromJSON, DetectsParentDetailsFromJSONTyped, DetectsParentDetailsToJSON } from "./DetectsParentDetails";
 import type { PatterndispositionPatternDisposition } from "./PatterndispositionPatternDisposition";
@@ -233,40 +233,38 @@ export interface DetectsBehavior {
 /**
  * Check if a given object implements the DetectsBehavior interface.
  */
-export function instanceOfDetectsBehavior(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "allegedFiletype" in value;
-    isInstance = isInstance && "behaviorId" in value;
-    isInstance = isInstance && "cmdline" in value;
-    isInstance = isInstance && "confidence" in value;
-    isInstance = isInstance && "controlGraphId" in value;
-    isInstance = isInstance && "description" in value;
-    isInstance = isInstance && "deviceId" in value;
-    isInstance = isInstance && "displayName" in value;
-    isInstance = isInstance && "filename" in value;
-    isInstance = isInstance && "filepath" in value;
-    isInstance = isInstance && "iocDescription" in value;
-    isInstance = isInstance && "iocSource" in value;
-    isInstance = isInstance && "iocType" in value;
-    isInstance = isInstance && "iocValue" in value;
-    isInstance = isInstance && "md5" in value;
-    isInstance = isInstance && "objective" in value;
-    isInstance = isInstance && "parentDetails" in value;
-    isInstance = isInstance && "patternDisposition" in value;
-    isInstance = isInstance && "patternDispositionDetails" in value;
-    isInstance = isInstance && "scenario" in value;
-    isInstance = isInstance && "severity" in value;
-    isInstance = isInstance && "sha256" in value;
-    isInstance = isInstance && "tactic" in value;
-    isInstance = isInstance && "tacticId" in value;
-    isInstance = isInstance && "technique" in value;
-    isInstance = isInstance && "techniqueId" in value;
-    isInstance = isInstance && "timestamp" in value;
-    isInstance = isInstance && "triggeringProcessGraphId" in value;
-    isInstance = isInstance && "userId" in value;
-    isInstance = isInstance && "userName" in value;
-
-    return isInstance;
+export function instanceOfDetectsBehavior(value: object): value is DetectsBehavior {
+    if (!("allegedFiletype" in value) || value["allegedFiletype"] === undefined) return false;
+    if (!("behaviorId" in value) || value["behaviorId"] === undefined) return false;
+    if (!("cmdline" in value) || value["cmdline"] === undefined) return false;
+    if (!("confidence" in value) || value["confidence"] === undefined) return false;
+    if (!("controlGraphId" in value) || value["controlGraphId"] === undefined) return false;
+    if (!("description" in value) || value["description"] === undefined) return false;
+    if (!("deviceId" in value) || value["deviceId"] === undefined) return false;
+    if (!("displayName" in value) || value["displayName"] === undefined) return false;
+    if (!("filename" in value) || value["filename"] === undefined) return false;
+    if (!("filepath" in value) || value["filepath"] === undefined) return false;
+    if (!("iocDescription" in value) || value["iocDescription"] === undefined) return false;
+    if (!("iocSource" in value) || value["iocSource"] === undefined) return false;
+    if (!("iocType" in value) || value["iocType"] === undefined) return false;
+    if (!("iocValue" in value) || value["iocValue"] === undefined) return false;
+    if (!("md5" in value) || value["md5"] === undefined) return false;
+    if (!("objective" in value) || value["objective"] === undefined) return false;
+    if (!("parentDetails" in value) || value["parentDetails"] === undefined) return false;
+    if (!("patternDisposition" in value) || value["patternDisposition"] === undefined) return false;
+    if (!("patternDispositionDetails" in value) || value["patternDispositionDetails"] === undefined) return false;
+    if (!("scenario" in value) || value["scenario"] === undefined) return false;
+    if (!("severity" in value) || value["severity"] === undefined) return false;
+    if (!("sha256" in value) || value["sha256"] === undefined) return false;
+    if (!("tactic" in value) || value["tactic"] === undefined) return false;
+    if (!("tacticId" in value) || value["tacticId"] === undefined) return false;
+    if (!("technique" in value) || value["technique"] === undefined) return false;
+    if (!("techniqueId" in value) || value["techniqueId"] === undefined) return false;
+    if (!("timestamp" in value) || value["timestamp"] === undefined) return false;
+    if (!("triggeringProcessGraphId" in value) || value["triggeringProcessGraphId"] === undefined) return false;
+    if (!("userId" in value) || value["userId"] === undefined) return false;
+    if (!("userName" in value) || value["userName"] === undefined) return false;
+    return true;
 }
 
 export function DetectsBehaviorFromJSON(json: any): DetectsBehavior {
@@ -274,7 +272,7 @@ export function DetectsBehaviorFromJSON(json: any): DetectsBehavior {
 }
 
 export function DetectsBehaviorFromJSONTyped(json: any, ignoreDiscriminator: boolean): DetectsBehavior {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
@@ -282,7 +280,7 @@ export function DetectsBehaviorFromJSONTyped(json: any, ignoreDiscriminator: boo
         behaviorId: json["behavior_id"],
         cmdline: json["cmdline"],
         confidence: json["confidence"],
-        containerId: !exists(json, "container_id") ? undefined : json["container_id"],
+        containerId: json["container_id"] == null ? undefined : json["container_id"],
         controlGraphId: json["control_graph_id"],
         description: json["description"],
         deviceId: json["device_id"],
@@ -298,8 +296,8 @@ export function DetectsBehaviorFromJSONTyped(json: any, ignoreDiscriminator: boo
         parentDetails: DetectsParentDetailsFromJSON(json["parent_details"]),
         patternDisposition: json["pattern_disposition"],
         patternDispositionDetails: PatterndispositionPatternDispositionFromJSON(json["pattern_disposition_details"]),
-        ruleInstanceId: !exists(json, "rule_instance_id") ? undefined : json["rule_instance_id"],
-        ruleInstanceVersion: !exists(json, "rule_instance_version") ? undefined : json["rule_instance_version"],
+        ruleInstanceId: json["rule_instance_id"] == null ? undefined : json["rule_instance_id"],
+        ruleInstanceVersion: json["rule_instance_version"] == null ? undefined : json["rule_instance_version"],
         scenario: json["scenario"],
         severity: json["severity"],
         sha256: json["sha256"],
@@ -307,7 +305,7 @@ export function DetectsBehaviorFromJSONTyped(json: any, ignoreDiscriminator: boo
         tacticId: json["tactic_id"],
         technique: json["technique"],
         techniqueId: json["technique_id"],
-        templateInstanceId: !exists(json, "template_instance_id") ? undefined : json["template_instance_id"],
+        templateInstanceId: json["template_instance_id"] == null ? undefined : json["template_instance_id"],
         timestamp: new Date(json["timestamp"]),
         triggeringProcessGraphId: json["triggering_process_graph_id"],
         userId: json["user_id"],
@@ -316,46 +314,43 @@ export function DetectsBehaviorFromJSONTyped(json: any, ignoreDiscriminator: boo
 }
 
 export function DetectsBehaviorToJSON(value?: DetectsBehavior | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        alleged_filetype: value.allegedFiletype,
-        behavior_id: value.behaviorId,
-        cmdline: value.cmdline,
-        confidence: value.confidence,
-        container_id: value.containerId,
-        control_graph_id: value.controlGraphId,
-        description: value.description,
-        device_id: value.deviceId,
-        display_name: value.displayName,
-        filename: value.filename,
-        filepath: value.filepath,
-        ioc_description: value.iocDescription,
-        ioc_source: value.iocSource,
-        ioc_type: value.iocType,
-        ioc_value: value.iocValue,
-        md5: value.md5,
-        objective: value.objective,
-        parent_details: DetectsParentDetailsToJSON(value.parentDetails),
-        pattern_disposition: value.patternDisposition,
-        pattern_disposition_details: PatterndispositionPatternDispositionToJSON(value.patternDispositionDetails),
-        rule_instance_id: value.ruleInstanceId,
-        rule_instance_version: value.ruleInstanceVersion,
-        scenario: value.scenario,
-        severity: value.severity,
-        sha256: value.sha256,
-        tactic: value.tactic,
-        tactic_id: value.tacticId,
-        technique: value.technique,
-        technique_id: value.techniqueId,
-        template_instance_id: value.templateInstanceId,
-        timestamp: value.timestamp.toISOString(),
-        triggering_process_graph_id: value.triggeringProcessGraphId,
-        user_id: value.userId,
-        user_name: value.userName,
+        alleged_filetype: value["allegedFiletype"],
+        behavior_id: value["behaviorId"],
+        cmdline: value["cmdline"],
+        confidence: value["confidence"],
+        container_id: value["containerId"],
+        control_graph_id: value["controlGraphId"],
+        description: value["description"],
+        device_id: value["deviceId"],
+        display_name: value["displayName"],
+        filename: value["filename"],
+        filepath: value["filepath"],
+        ioc_description: value["iocDescription"],
+        ioc_source: value["iocSource"],
+        ioc_type: value["iocType"],
+        ioc_value: value["iocValue"],
+        md5: value["md5"],
+        objective: value["objective"],
+        parent_details: DetectsParentDetailsToJSON(value["parentDetails"]),
+        pattern_disposition: value["patternDisposition"],
+        pattern_disposition_details: PatterndispositionPatternDispositionToJSON(value["patternDispositionDetails"]),
+        rule_instance_id: value["ruleInstanceId"],
+        rule_instance_version: value["ruleInstanceVersion"],
+        scenario: value["scenario"],
+        severity: value["severity"],
+        sha256: value["sha256"],
+        tactic: value["tactic"],
+        tactic_id: value["tacticId"],
+        technique: value["technique"],
+        technique_id: value["techniqueId"],
+        template_instance_id: value["templateInstanceId"],
+        timestamp: value["timestamp"].toISOString(),
+        triggering_process_graph_id: value["triggeringProcessGraphId"],
+        user_id: value["userId"],
+        user_name: value["userName"],
     };
 }

@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 /**
  * Represents information about an account.
  * @export
@@ -68,7 +68,7 @@ export interface DomainDiscoverAPIAccount {
      */
     lastFailedLoginTimestamp?: string;
     /**
-     * The type of the account's most recent failed login. <ul><li>Interactive</li><li>Network</li><li>Batch</li><li>Service</li><li>Unlock</li><li>Network cleartext</li><li>New credentials</li><li>Terminal server</li><li>Cached credentials</li><li>Auditing</li></ul>
+     * The type of the account's most recent failed login. <ul><li>Interactive</li><li>Network</li><li>Batch</li><li>Service</li><li>Unlock</li><li>Network cleartext</li><li>New credentials</li><li>Remote interactive</li><li>Cached credentials</li><li>Auditing</li></ul>
      * @type {string}
      * @memberof DomainDiscoverAPIAccount
      */
@@ -104,11 +104,17 @@ export interface DomainDiscoverAPIAccount {
      */
     lastSuccessfulLoginTimestamp?: string;
     /**
-     * The type of the account's most recent successful login. <ul><li>Interactive</li><li>Service</li><li>Terminal server</li><li>Cached credentials</li><li>Auditing</li></ul>
+     * The type of the account's most recent successful login. <ul><li>Interactive</li><li>Network</li><li>Service</li><li>Remote interactive</li><li>Cached credentials</li><li>Auditing</li></ul>
      * @type {string}
      * @memberof DomainDiscoverAPIAccount
      */
     lastSuccessfulLoginType?: string;
+    /**
+     * Whether the account has local administrator privileges (Yes, No).
+     * @type {string}
+     * @memberof DomainDiscoverAPIAccount
+     */
+    localAdminPrivileges?: string;
     /**
      * The domain of the asset the account successfully logged in to.
      * @type {string}
@@ -138,12 +144,10 @@ export interface DomainDiscoverAPIAccount {
 /**
  * Check if a given object implements the DomainDiscoverAPIAccount interface.
  */
-export function instanceOfDomainDiscoverAPIAccount(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "cid" in value;
-    isInstance = isInstance && "id" in value;
-
-    return isInstance;
+export function instanceOfDomainDiscoverAPIAccount(value: object): value is DomainDiscoverAPIAccount {
+    if (!("cid" in value) || value["cid"] === undefined) return false;
+    if (!("id" in value) || value["id"] === undefined) return false;
+    return true;
 }
 
 export function DomainDiscoverAPIAccountFromJSON(json: any): DomainDiscoverAPIAccount {
@@ -151,58 +155,57 @@ export function DomainDiscoverAPIAccountFromJSON(json: any): DomainDiscoverAPIAc
 }
 
 export function DomainDiscoverAPIAccountFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainDiscoverAPIAccount {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
-        accountName: !exists(json, "account_name") ? undefined : json["account_name"],
-        accountType: !exists(json, "account_type") ? undefined : json["account_type"],
-        adminPrivileges: !exists(json, "admin_privileges") ? undefined : json["admin_privileges"],
+        accountName: json["account_name"] == null ? undefined : json["account_name"],
+        accountType: json["account_type"] == null ? undefined : json["account_type"],
+        adminPrivileges: json["admin_privileges"] == null ? undefined : json["admin_privileges"],
         cid: json["cid"],
-        firstSeenTimestamp: !exists(json, "first_seen_timestamp") ? undefined : json["first_seen_timestamp"],
+        firstSeenTimestamp: json["first_seen_timestamp"] == null ? undefined : json["first_seen_timestamp"],
         id: json["id"],
-        lastFailedLoginHostname: !exists(json, "last_failed_login_hostname") ? undefined : json["last_failed_login_hostname"],
-        lastFailedLoginTimestamp: !exists(json, "last_failed_login_timestamp") ? undefined : json["last_failed_login_timestamp"],
-        lastFailedLoginType: !exists(json, "last_failed_login_type") ? undefined : json["last_failed_login_type"],
-        lastSuccessfulLoginHostCity: !exists(json, "last_successful_login_host_city") ? undefined : json["last_successful_login_host_city"],
-        lastSuccessfulLoginHostCountry: !exists(json, "last_successful_login_host_country") ? undefined : json["last_successful_login_host_country"],
-        lastSuccessfulLoginHostname: !exists(json, "last_successful_login_hostname") ? undefined : json["last_successful_login_hostname"],
-        lastSuccessfulLoginRemoteIp: !exists(json, "last_successful_login_remote_ip") ? undefined : json["last_successful_login_remote_ip"],
-        lastSuccessfulLoginTimestamp: !exists(json, "last_successful_login_timestamp") ? undefined : json["last_successful_login_timestamp"],
-        lastSuccessfulLoginType: !exists(json, "last_successful_login_type") ? undefined : json["last_successful_login_type"],
-        loginDomain: !exists(json, "login_domain") ? undefined : json["login_domain"],
-        passwordLastSetTimestamp: !exists(json, "password_last_set_timestamp") ? undefined : json["password_last_set_timestamp"],
-        userSid: !exists(json, "user_sid") ? undefined : json["user_sid"],
-        username: !exists(json, "username") ? undefined : json["username"],
+        lastFailedLoginHostname: json["last_failed_login_hostname"] == null ? undefined : json["last_failed_login_hostname"],
+        lastFailedLoginTimestamp: json["last_failed_login_timestamp"] == null ? undefined : json["last_failed_login_timestamp"],
+        lastFailedLoginType: json["last_failed_login_type"] == null ? undefined : json["last_failed_login_type"],
+        lastSuccessfulLoginHostCity: json["last_successful_login_host_city"] == null ? undefined : json["last_successful_login_host_city"],
+        lastSuccessfulLoginHostCountry: json["last_successful_login_host_country"] == null ? undefined : json["last_successful_login_host_country"],
+        lastSuccessfulLoginHostname: json["last_successful_login_hostname"] == null ? undefined : json["last_successful_login_hostname"],
+        lastSuccessfulLoginRemoteIp: json["last_successful_login_remote_ip"] == null ? undefined : json["last_successful_login_remote_ip"],
+        lastSuccessfulLoginTimestamp: json["last_successful_login_timestamp"] == null ? undefined : json["last_successful_login_timestamp"],
+        lastSuccessfulLoginType: json["last_successful_login_type"] == null ? undefined : json["last_successful_login_type"],
+        localAdminPrivileges: json["local_admin_privileges"] == null ? undefined : json["local_admin_privileges"],
+        loginDomain: json["login_domain"] == null ? undefined : json["login_domain"],
+        passwordLastSetTimestamp: json["password_last_set_timestamp"] == null ? undefined : json["password_last_set_timestamp"],
+        userSid: json["user_sid"] == null ? undefined : json["user_sid"],
+        username: json["username"] == null ? undefined : json["username"],
     };
 }
 
 export function DomainDiscoverAPIAccountToJSON(value?: DomainDiscoverAPIAccount | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        account_name: value.accountName,
-        account_type: value.accountType,
-        admin_privileges: value.adminPrivileges,
-        cid: value.cid,
-        first_seen_timestamp: value.firstSeenTimestamp,
-        id: value.id,
-        last_failed_login_hostname: value.lastFailedLoginHostname,
-        last_failed_login_timestamp: value.lastFailedLoginTimestamp,
-        last_failed_login_type: value.lastFailedLoginType,
-        last_successful_login_host_city: value.lastSuccessfulLoginHostCity,
-        last_successful_login_host_country: value.lastSuccessfulLoginHostCountry,
-        last_successful_login_hostname: value.lastSuccessfulLoginHostname,
-        last_successful_login_remote_ip: value.lastSuccessfulLoginRemoteIp,
-        last_successful_login_timestamp: value.lastSuccessfulLoginTimestamp,
-        last_successful_login_type: value.lastSuccessfulLoginType,
-        login_domain: value.loginDomain,
-        password_last_set_timestamp: value.passwordLastSetTimestamp,
-        user_sid: value.userSid,
-        username: value.username,
+        account_name: value["accountName"],
+        account_type: value["accountType"],
+        admin_privileges: value["adminPrivileges"],
+        cid: value["cid"],
+        first_seen_timestamp: value["firstSeenTimestamp"],
+        id: value["id"],
+        last_failed_login_hostname: value["lastFailedLoginHostname"],
+        last_failed_login_timestamp: value["lastFailedLoginTimestamp"],
+        last_failed_login_type: value["lastFailedLoginType"],
+        last_successful_login_host_city: value["lastSuccessfulLoginHostCity"],
+        last_successful_login_host_country: value["lastSuccessfulLoginHostCountry"],
+        last_successful_login_hostname: value["lastSuccessfulLoginHostname"],
+        last_successful_login_remote_ip: value["lastSuccessfulLoginRemoteIp"],
+        last_successful_login_timestamp: value["lastSuccessfulLoginTimestamp"],
+        last_successful_login_type: value["lastSuccessfulLoginType"],
+        local_admin_privileges: value["localAdminPrivileges"],
+        login_domain: value["loginDomain"],
+        password_last_set_timestamp: value["passwordLastSetTimestamp"],
+        user_sid: value["userSid"],
+        username: value["username"],
     };
 }

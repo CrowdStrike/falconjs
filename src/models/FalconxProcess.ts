@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,17 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
-import type { FalconxFileAccess } from "./FalconxFileAccess";
-import { FalconxFileAccessFromJSON, FalconxFileAccessFromJSONTyped, FalconxFileAccessToJSON } from "./FalconxFileAccess";
-import type { FalconxHandle } from "./FalconxHandle";
-import { FalconxHandleFromJSON, FalconxHandleFromJSONTyped, FalconxHandleToJSON } from "./FalconxHandle";
-import type { FalconxProcessFlag } from "./FalconxProcessFlag";
-import { FalconxProcessFlagFromJSON, FalconxProcessFlagFromJSONTyped, FalconxProcessFlagToJSON } from "./FalconxProcessFlag";
+import { mapValues } from "../runtime";
 import type { FalconxRegistry } from "./FalconxRegistry";
 import { FalconxRegistryFromJSON, FalconxRegistryFromJSONTyped, FalconxRegistryToJSON } from "./FalconxRegistry";
+import type { FalconxProcessFlag } from "./FalconxProcessFlag";
+import { FalconxProcessFlagFromJSON, FalconxProcessFlagFromJSONTyped, FalconxProcessFlagToJSON } from "./FalconxProcessFlag";
 import type { FalconxScriptCall } from "./FalconxScriptCall";
 import { FalconxScriptCallFromJSON, FalconxScriptCallFromJSONTyped, FalconxScriptCallToJSON } from "./FalconxScriptCall";
+import type { FalconxAMSICall } from "./FalconxAMSICall";
+import { FalconxAMSICallFromJSON, FalconxAMSICallFromJSONTyped, FalconxAMSICallToJSON } from "./FalconxAMSICall";
+import type { FalconxHandle } from "./FalconxHandle";
+import { FalconxHandleFromJSON, FalconxHandleFromJSONTyped, FalconxHandleToJSON } from "./FalconxHandle";
+import type { FalconxFileAccess } from "./FalconxFileAccess";
+import { FalconxFileAccessFromJSON, FalconxFileAccessFromJSONTyped, FalconxFileAccessToJSON } from "./FalconxFileAccess";
+import type { FalconxModule } from "./FalconxModule";
+import { FalconxModuleFromJSON, FalconxModuleFromJSONTyped, FalconxModuleToJSON } from "./FalconxModule";
 import type { FalconxStream } from "./FalconxStream";
 import { FalconxStreamFromJSON, FalconxStreamFromJSONTyped, FalconxStreamToJSON } from "./FalconxStream";
 
@@ -32,6 +36,12 @@ import { FalconxStreamFromJSON, FalconxStreamFromJSONTyped, FalconxStreamToJSON 
  * @interface FalconxProcess
  */
 export interface FalconxProcess {
+    /**
+     *
+     * @type {Array<FalconxAMSICall>}
+     * @memberof FalconxProcess
+     */
+    amsiCalls?: Array<FalconxAMSICall>;
     /**
      *
      * @type {string}
@@ -56,6 +66,12 @@ export interface FalconxProcess {
      * @memberof FalconxProcess
      */
     iconArtifactId?: string;
+    /**
+     *
+     * @type {Array<FalconxModule>}
+     * @memberof FalconxProcess
+     */
+    modules?: Array<FalconxModule>;
     /**
      *
      * @type {Array<string>}
@@ -127,10 +143,8 @@ export interface FalconxProcess {
 /**
  * Check if a given object implements the FalconxProcess interface.
  */
-export function instanceOfFalconxProcess(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfFalconxProcess(value: object): value is FalconxProcess {
+    return true;
 }
 
 export function FalconxProcessFromJSON(json: any): FalconxProcess {
@@ -138,50 +152,51 @@ export function FalconxProcessFromJSON(json: any): FalconxProcess {
 }
 
 export function FalconxProcessFromJSONTyped(json: any, ignoreDiscriminator: boolean): FalconxProcess {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
-        commandLine: !exists(json, "command_line") ? undefined : json["command_line"],
-        fileAccesses: !exists(json, "file_accesses") ? undefined : (json["file_accesses"] as Array<any>).map(FalconxFileAccessFromJSON),
-        handles: !exists(json, "handles") ? undefined : (json["handles"] as Array<any>).map(FalconxHandleFromJSON),
-        iconArtifactId: !exists(json, "icon_artifact_id") ? undefined : json["icon_artifact_id"],
-        mutants: !exists(json, "mutants") ? undefined : json["mutants"],
-        name: !exists(json, "name") ? undefined : json["name"],
-        normalizedPath: !exists(json, "normalized_path") ? undefined : json["normalized_path"],
-        parentUid: !exists(json, "parent_uid") ? undefined : json["parent_uid"],
-        pid: !exists(json, "pid") ? undefined : json["pid"],
-        processFlags: !exists(json, "process_flags") ? undefined : (json["process_flags"] as Array<any>).map(FalconxProcessFlagFromJSON),
-        registry: !exists(json, "registry") ? undefined : (json["registry"] as Array<any>).map(FalconxRegistryFromJSON),
-        scriptCalls: !exists(json, "script_calls") ? undefined : (json["script_calls"] as Array<any>).map(FalconxScriptCallFromJSON),
-        sha256: !exists(json, "sha256") ? undefined : json["sha256"],
-        streams: !exists(json, "streams") ? undefined : (json["streams"] as Array<any>).map(FalconxStreamFromJSON),
-        uid: !exists(json, "uid") ? undefined : json["uid"],
+        amsiCalls: json["amsi_calls"] == null ? undefined : (json["amsi_calls"] as Array<any>).map(FalconxAMSICallFromJSON),
+        commandLine: json["command_line"] == null ? undefined : json["command_line"],
+        fileAccesses: json["file_accesses"] == null ? undefined : (json["file_accesses"] as Array<any>).map(FalconxFileAccessFromJSON),
+        handles: json["handles"] == null ? undefined : (json["handles"] as Array<any>).map(FalconxHandleFromJSON),
+        iconArtifactId: json["icon_artifact_id"] == null ? undefined : json["icon_artifact_id"],
+        modules: json["modules"] == null ? undefined : (json["modules"] as Array<any>).map(FalconxModuleFromJSON),
+        mutants: json["mutants"] == null ? undefined : json["mutants"],
+        name: json["name"] == null ? undefined : json["name"],
+        normalizedPath: json["normalized_path"] == null ? undefined : json["normalized_path"],
+        parentUid: json["parent_uid"] == null ? undefined : json["parent_uid"],
+        pid: json["pid"] == null ? undefined : json["pid"],
+        processFlags: json["process_flags"] == null ? undefined : (json["process_flags"] as Array<any>).map(FalconxProcessFlagFromJSON),
+        registry: json["registry"] == null ? undefined : (json["registry"] as Array<any>).map(FalconxRegistryFromJSON),
+        scriptCalls: json["script_calls"] == null ? undefined : (json["script_calls"] as Array<any>).map(FalconxScriptCallFromJSON),
+        sha256: json["sha256"] == null ? undefined : json["sha256"],
+        streams: json["streams"] == null ? undefined : (json["streams"] as Array<any>).map(FalconxStreamFromJSON),
+        uid: json["uid"] == null ? undefined : json["uid"],
     };
 }
 
 export function FalconxProcessToJSON(value?: FalconxProcess | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        command_line: value.commandLine,
-        file_accesses: value.fileAccesses === undefined ? undefined : (value.fileAccesses as Array<any>).map(FalconxFileAccessToJSON),
-        handles: value.handles === undefined ? undefined : (value.handles as Array<any>).map(FalconxHandleToJSON),
-        icon_artifact_id: value.iconArtifactId,
-        mutants: value.mutants,
-        name: value.name,
-        normalized_path: value.normalizedPath,
-        parent_uid: value.parentUid,
-        pid: value.pid,
-        process_flags: value.processFlags === undefined ? undefined : (value.processFlags as Array<any>).map(FalconxProcessFlagToJSON),
-        registry: value.registry === undefined ? undefined : (value.registry as Array<any>).map(FalconxRegistryToJSON),
-        script_calls: value.scriptCalls === undefined ? undefined : (value.scriptCalls as Array<any>).map(FalconxScriptCallToJSON),
-        sha256: value.sha256,
-        streams: value.streams === undefined ? undefined : (value.streams as Array<any>).map(FalconxStreamToJSON),
-        uid: value.uid,
+        amsi_calls: value["amsiCalls"] == null ? undefined : (value["amsiCalls"] as Array<any>).map(FalconxAMSICallToJSON),
+        command_line: value["commandLine"],
+        file_accesses: value["fileAccesses"] == null ? undefined : (value["fileAccesses"] as Array<any>).map(FalconxFileAccessToJSON),
+        handles: value["handles"] == null ? undefined : (value["handles"] as Array<any>).map(FalconxHandleToJSON),
+        icon_artifact_id: value["iconArtifactId"],
+        modules: value["modules"] == null ? undefined : (value["modules"] as Array<any>).map(FalconxModuleToJSON),
+        mutants: value["mutants"],
+        name: value["name"],
+        normalized_path: value["normalizedPath"],
+        parent_uid: value["parentUid"],
+        pid: value["pid"],
+        process_flags: value["processFlags"] == null ? undefined : (value["processFlags"] as Array<any>).map(FalconxProcessFlagToJSON),
+        registry: value["registry"] == null ? undefined : (value["registry"] as Array<any>).map(FalconxRegistryToJSON),
+        script_calls: value["scriptCalls"] == null ? undefined : (value["scriptCalls"] as Array<any>).map(FalconxScriptCallToJSON),
+        sha256: value["sha256"],
+        streams: value["streams"] == null ? undefined : (value["streams"] as Array<any>).map(FalconxStreamToJSON),
+        uid: value["uid"],
     };
 }

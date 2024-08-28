@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -22,13 +22,15 @@ import type {
     ApiRuleGroupsResponse,
     ApiRuleTypesResponse,
     ApiRuleUpdatesRequestV1,
+    ApiRuleUpdatesRequestV2,
     ApiRulesGetRequestV1,
     ApiRulesResponse,
     ApiValidationRequestV1,
     ApiValidationResponseV1,
     MsaQueryResponse,
     MsaReplyMetaOnly,
-} from "../models";
+    MsaspecResponseFields,
+} from "../models/index";
 import {
     ApiPatternsResponseFromJSON,
     ApiPatternsResponseToJSON,
@@ -46,6 +48,8 @@ import {
     ApiRuleTypesResponseToJSON,
     ApiRuleUpdatesRequestV1FromJSON,
     ApiRuleUpdatesRequestV1ToJSON,
+    ApiRuleUpdatesRequestV2FromJSON,
+    ApiRuleUpdatesRequestV2ToJSON,
     ApiRulesGetRequestV1FromJSON,
     ApiRulesGetRequestV1ToJSON,
     ApiRulesResponseFromJSON,
@@ -58,62 +62,64 @@ import {
     MsaQueryResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-} from "../models";
+    MsaspecResponseFieldsFromJSON,
+    MsaspecResponseFieldsToJSON,
+} from "../models/index";
 
-export interface CreateRuleRequest {
+export interface CustomIoaApiCreateRuleRequest {
     body: ApiRuleCreateV1;
 }
 
-export interface CreateRuleGroupMixin0Request {
+export interface CustomIoaApiCreateRuleGroupMixin0Request {
     body: ApiRuleGroupCreateRequestV1;
 }
 
-export interface DeleteRuleGroupsMixin0Request {
+export interface CustomIoaApiDeleteRuleGroupsMixin0Request {
     ids: Array<string>;
     comment?: string;
 }
 
-export interface DeleteRulesRequest {
+export interface CustomIoaApiDeleteRulesRequest {
     ruleGroupId: string;
     ids: Array<string>;
     comment?: string;
 }
 
-export interface GetPatternsRequest {
+export interface CustomIoaApiGetPatternsRequest {
     ids: Array<string>;
 }
 
-export interface GetPlatformsMixin0Request {
+export interface CustomIoaApiGetPlatformsMixin0Request {
     ids: Array<string>;
 }
 
-export interface GetRuleGroupsMixin0Request {
+export interface CustomIoaApiGetRuleGroupsMixin0Request {
     ids: Array<string>;
 }
 
-export interface GetRuleTypesRequest {
+export interface CustomIoaApiGetRuleTypesRequest {
     ids: Array<string>;
 }
 
-export interface GetRulesGetRequest {
+export interface CustomIoaApiGetRulesGetRequest {
     body: ApiRulesGetRequestV1;
 }
 
-export interface GetRulesMixin0Request {
+export interface CustomIoaApiGetRulesMixin0Request {
     ids: Array<string>;
 }
 
-export interface QueryPatternsRequest {
+export interface CustomIoaApiQueryPatternsRequest {
     offset?: string;
     limit?: number;
 }
 
-export interface QueryPlatformsMixin0Request {
+export interface CustomIoaApiQueryPlatformsMixin0Request {
     offset?: string;
     limit?: number;
 }
 
-export interface QueryRuleGroupsFullRequest {
+export interface CustomIoaApiQueryRuleGroupsFullRequest {
     sort?: QueryRuleGroupsFullSortEnum;
     filter?: string;
     q?: string;
@@ -121,7 +127,7 @@ export interface QueryRuleGroupsFullRequest {
     limit?: number;
 }
 
-export interface QueryRuleGroupsMixin0Request {
+export interface CustomIoaApiQueryRuleGroupsMixin0Request {
     sort?: QueryRuleGroupsMixin0SortEnum;
     filter?: string;
     q?: string;
@@ -129,12 +135,12 @@ export interface QueryRuleGroupsMixin0Request {
     limit?: number;
 }
 
-export interface QueryRuleTypesRequest {
+export interface CustomIoaApiQueryRuleTypesRequest {
     offset?: string;
     limit?: number;
 }
 
-export interface QueryRulesMixin0Request {
+export interface CustomIoaApiQueryRulesMixin0Request {
     sort?: QueryRulesMixin0SortEnum;
     filter?: string;
     q?: string;
@@ -142,15 +148,19 @@ export interface QueryRulesMixin0Request {
     limit?: number;
 }
 
-export interface UpdateRuleGroupMixin0Request {
+export interface CustomIoaApiUpdateRuleGroupMixin0Request {
     body: ApiRuleGroupModifyRequestV1;
 }
 
-export interface UpdateRulesRequest {
+export interface CustomIoaApiUpdateRulesRequest {
     body: ApiRuleUpdatesRequestV1;
 }
 
-export interface ValidateRequest {
+export interface CustomIoaApiUpdateRulesV2Request {
+    body: ApiRuleUpdatesRequestV2;
+}
+
+export interface CustomIoaApiValidateRequest {
     body: ApiValidationRequestV1;
 }
 
@@ -161,9 +171,9 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Create a rule within a rule group. Returns the rule.
      */
-    async createRuleRaw(requestParameters: CreateRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRulesResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createRule.");
+    async createRuleRaw(requestParameters: CustomIoaApiCreateRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRulesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createRule().');
         }
 
         const queryParameters: any = {};
@@ -174,7 +184,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -183,7 +193,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: ApiRuleCreateV1ToJSON(requestParameters.body),
+                body: ApiRuleCreateV1ToJSON(requestParameters["body"]),
             },
             initOverrides
         );
@@ -202,9 +212,12 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Create a rule group for a platform with a name and an optional description. Returns the rule group.
      */
-    async createRuleGroupMixin0Raw(requestParameters: CreateRuleGroupMixin0Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRuleGroupsResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling createRuleGroupMixin0.");
+    async createRuleGroupMixin0Raw(
+        requestParameters: CustomIoaApiCreateRuleGroupMixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ApiRuleGroupsResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createRuleGroupMixin0().');
         }
 
         const queryParameters: any = {};
@@ -215,7 +228,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -224,7 +237,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: ApiRuleGroupCreateRequestV1ToJSON(requestParameters.body),
+                body: ApiRuleGroupCreateRequestV1ToJSON(requestParameters["body"]),
             },
             initOverrides
         );
@@ -243,26 +256,29 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Delete rule groups by ID.
      */
-    async deleteRuleGroupsMixin0Raw(requestParameters: DeleteRuleGroupsMixin0Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling deleteRuleGroupsMixin0.");
+    async deleteRuleGroupsMixin0Raw(
+        requestParameters: CustomIoaApiDeleteRuleGroupsMixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteRuleGroupsMixin0().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.comment !== undefined) {
-            queryParameters["comment"] = requestParameters.comment;
+        if (requestParameters["comment"] != null) {
+            queryParameters["comment"] = requestParameters["comment"];
         }
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -289,34 +305,34 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Delete rules from a rule group by ID.
      */
-    async deleteRulesRaw(requestParameters: DeleteRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
-        if (requestParameters.ruleGroupId === null || requestParameters.ruleGroupId === undefined) {
-            throw new runtime.RequiredError("ruleGroupId", "Required parameter requestParameters.ruleGroupId was null or undefined when calling deleteRules.");
+    async deleteRulesRaw(requestParameters: CustomIoaApiDeleteRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+        if (requestParameters["ruleGroupId"] == null) {
+            throw new runtime.RequiredError("ruleGroupId", 'Required parameter "ruleGroupId" was null or undefined when calling deleteRules().');
         }
 
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling deleteRules.");
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteRules().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ruleGroupId !== undefined) {
-            queryParameters["rule_group_id"] = requestParameters.ruleGroupId;
+        if (requestParameters["ruleGroupId"] != null) {
+            queryParameters["rule_group_id"] = requestParameters["ruleGroupId"];
         }
 
-        if (requestParameters.comment !== undefined) {
-            queryParameters["comment"] = requestParameters.comment;
+        if (requestParameters["comment"] != null) {
+            queryParameters["comment"] = requestParameters["comment"];
         }
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -343,22 +359,22 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Get pattern severities by ID.
      */
-    async getPatternsRaw(requestParameters: GetPatternsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiPatternsResponse>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getPatterns.");
+    async getPatternsRaw(requestParameters: CustomIoaApiGetPatternsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiPatternsResponse>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getPatterns().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -385,22 +401,25 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Get platforms by ID.
      */
-    async getPlatformsMixin0Raw(requestParameters: GetPlatformsMixin0Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiPlatformsResponse>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getPlatformsMixin0.");
+    async getPlatformsMixin0Raw(
+        requestParameters: CustomIoaApiGetPlatformsMixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ApiPlatformsResponse>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getPlatformsMixin0().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -427,22 +446,25 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Get rule groups by ID.
      */
-    async getRuleGroupsMixin0Raw(requestParameters: GetRuleGroupsMixin0Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRuleGroupsResponse>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getRuleGroupsMixin0.");
+    async getRuleGroupsMixin0Raw(
+        requestParameters: CustomIoaApiGetRuleGroupsMixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ApiRuleGroupsResponse>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getRuleGroupsMixin0().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -469,22 +491,22 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Get rule types by ID.
      */
-    async getRuleTypesRaw(requestParameters: GetRuleTypesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRuleTypesResponse>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getRuleTypes.");
+    async getRuleTypesRaw(requestParameters: CustomIoaApiGetRuleTypesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRuleTypesResponse>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getRuleTypes().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -509,11 +531,11 @@ export class CustomIoaApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get rules by ID and optionally version in the following format: `ID[:version]`.
+     * Get rules by ID and optionally with cid and/or version in the following format: `[cid:]ID[:version]`.
      */
-    async getRulesGetRaw(requestParameters: GetRulesGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRulesResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling getRulesGet.");
+    async getRulesGetRaw(requestParameters: CustomIoaApiGetRulesGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRulesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getRulesGet().');
         }
 
         const queryParameters: any = {};
@@ -524,7 +546,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -533,7 +555,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: ApiRulesGetRequestV1ToJSON(requestParameters.body),
+                body: ApiRulesGetRequestV1ToJSON(requestParameters["body"]),
             },
             initOverrides
         );
@@ -542,7 +564,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get rules by ID and optionally version in the following format: `ID[:version]`.
+     * Get rules by ID and optionally with cid and/or version in the following format: `[cid:]ID[:version]`.
      */
     async getRulesGet(body: ApiRulesGetRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiRulesResponse> {
         const response = await this.getRulesGetRaw({ body: body }, initOverrides);
@@ -550,24 +572,24 @@ export class CustomIoaApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get rules by ID and optionally version in the following format: `ID[:version]`. The max number of IDs is constrained by URL size.
+     * Get rules by ID and optionally with cid and/or version in the following format: `[cid:]ID[:version]`. The max number of IDs is constrained by URL size.
      */
-    async getRulesMixin0Raw(requestParameters: GetRulesMixin0Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRulesResponse>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getRulesMixin0.");
+    async getRulesMixin0Raw(requestParameters: CustomIoaApiGetRulesMixin0Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRulesResponse>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getRulesMixin0().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -584,7 +606,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get rules by ID and optionally version in the following format: `ID[:version]`. The max number of IDs is constrained by URL size.
+     * Get rules by ID and optionally with cid and/or version in the following format: `[cid:]ID[:version]`. The max number of IDs is constrained by URL size.
      */
     async getRulesMixin0(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiRulesResponse> {
         const response = await this.getRulesMixin0Raw({ ids: ids }, initOverrides);
@@ -594,22 +616,22 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Get all pattern severity IDs.
      */
-    async queryPatternsRaw(requestParameters: QueryPatternsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryPatternsRaw(requestParameters: CustomIoaApiQueryPatternsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -636,22 +658,25 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Get all platform IDs.
      */
-    async queryPlatformsMixin0Raw(requestParameters: QueryPlatformsMixin0Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryPlatformsMixin0Raw(
+        requestParameters: CustomIoaApiQueryPlatformsMixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -678,34 +703,37 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Find all rule groups matching the query with optional filter.
      */
-    async queryRuleGroupsFullRaw(requestParameters: QueryRuleGroupsFullRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRuleGroupsResponse>> {
+    async queryRuleGroupsFullRaw(
+        requestParameters: CustomIoaApiQueryRuleGroupsFullRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ApiRuleGroupsResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
-        if (requestParameters.q !== undefined) {
-            queryParameters["q"] = requestParameters.q;
+        if (requestParameters["q"] != null) {
+            queryParameters["q"] = requestParameters["q"];
         }
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -739,34 +767,37 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Finds all rule group IDs matching the query with optional filter.
      */
-    async queryRuleGroupsMixin0Raw(requestParameters: QueryRuleGroupsMixin0Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryRuleGroupsMixin0Raw(
+        requestParameters: CustomIoaApiQueryRuleGroupsMixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
-        if (requestParameters.q !== undefined) {
-            queryParameters["q"] = requestParameters.q;
+        if (requestParameters["q"] != null) {
+            queryParameters["q"] = requestParameters["q"];
         }
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -800,22 +831,22 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Get all rule type IDs.
      */
-    async queryRuleTypesRaw(requestParameters: QueryRuleTypesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryRuleTypesRaw(requestParameters: CustomIoaApiQueryRuleTypesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -842,34 +873,34 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Finds all rule IDs matching the query with optional filter.
      */
-    async queryRulesMixin0Raw(requestParameters: QueryRulesMixin0Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryRulesMixin0Raw(requestParameters: CustomIoaApiQueryRulesMixin0Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
-        if (requestParameters.q !== undefined) {
-            queryParameters["q"] = requestParameters.q;
+        if (requestParameters["q"] != null) {
+            queryParameters["q"] = requestParameters["q"];
         }
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -903,9 +934,12 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Update a rule group. The following properties can be modified: name, description, enabled.
      */
-    async updateRuleGroupMixin0Raw(requestParameters: UpdateRuleGroupMixin0Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRuleGroupsResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateRuleGroupMixin0.");
+    async updateRuleGroupMixin0Raw(
+        requestParameters: CustomIoaApiUpdateRuleGroupMixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ApiRuleGroupsResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateRuleGroupMixin0().');
         }
 
         const queryParameters: any = {};
@@ -916,7 +950,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -925,7 +959,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
                 method: "PATCH",
                 headers: headerParameters,
                 query: queryParameters,
-                body: ApiRuleGroupModifyRequestV1ToJSON(requestParameters.body),
+                body: ApiRuleGroupModifyRequestV1ToJSON(requestParameters["body"]),
             },
             initOverrides
         );
@@ -944,9 +978,9 @@ export class CustomIoaApi extends runtime.BaseAPI {
     /**
      * Update rules within a rule group. Return the updated rules.
      */
-    async updateRulesRaw(requestParameters: UpdateRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRulesResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling updateRules.");
+    async updateRulesRaw(requestParameters: CustomIoaApiUpdateRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRulesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateRules().');
         }
 
         const queryParameters: any = {};
@@ -957,7 +991,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -966,7 +1000,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
                 method: "PATCH",
                 headers: headerParameters,
                 query: queryParameters,
-                body: ApiRuleUpdatesRequestV1ToJSON(requestParameters.body),
+                body: ApiRuleUpdatesRequestV1ToJSON(requestParameters["body"]),
             },
             initOverrides
         );
@@ -983,11 +1017,11 @@ export class CustomIoaApi extends runtime.BaseAPI {
     }
 
     /**
-     * Validates field values and checks for matches if a test string is provided.
+     * Update name, description, enabled or field_values for individual rules within a rule group. The v1 flavor of this call requires the caller to specify the complete state for all the rules in the rule group, instead the v2 flavor will accept the subset of rules in the rule group and apply the attribute updates to the subset of rules in the rule group.Return the updated rules.
      */
-    async validateRaw(requestParameters: ValidateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiValidationResponseV1>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError("body", "Required parameter requestParameters.body was null or undefined when calling validate.");
+    async updateRulesV2Raw(requestParameters: CustomIoaApiUpdateRulesV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRulesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateRulesV2().');
         }
 
         const queryParameters: any = {};
@@ -998,7 +1032,48 @@ export class CustomIoaApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ioarules/entities/rules/v2`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiRuleUpdatesRequestV2ToJSON(requestParameters["body"]),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiRulesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Update name, description, enabled or field_values for individual rules within a rule group. The v1 flavor of this call requires the caller to specify the complete state for all the rules in the rule group, instead the v2 flavor will accept the subset of rules in the rule group and apply the attribute updates to the subset of rules in the rule group.Return the updated rules.
+     */
+    async updateRulesV2(body: ApiRuleUpdatesRequestV2, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiRulesResponse> {
+        const response = await this.updateRulesV2Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Validates field values and checks for matches if a test string is provided.
+     */
+    async validateRaw(requestParameters: CustomIoaApiValidateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiValidationResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling validate().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
         const response = await this.request(
@@ -1007,7 +1082,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: ApiValidationRequestV1ToJSON(requestParameters.body),
+                body: ApiValidationRequestV1ToJSON(requestParameters["body"]),
             },
             initOverrides
         );

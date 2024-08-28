@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -13,18 +13,234 @@
  */
 
 import * as runtime from "../runtime";
-import type { ExternalGetChangesResponse, MsaQueryResponse, MsaReplyMetaOnly } from "../models";
-import { ExternalGetChangesResponseFromJSON, ExternalGetChangesResponseToJSON, MsaQueryResponseFromJSON, MsaQueryResponseToJSON, MsaReplyMetaOnlyFromJSON, MsaReplyMetaOnlyToJSON } from "../models";
+import type {
+    ActionsActionResponse,
+    ActionsCreateActionRequest,
+    ActionsGetActionResponse,
+    ChangesHighVolumeQueryResponse,
+    ContentchangesChangeContentsResponse,
+    MsaReplyMetaOnly,
+    MsaspecQueryResponse,
+    MsaspecResponseFields,
+    PoliciesCreateRequest,
+    PoliciesDeleteResponse,
+    PoliciesPrecedenceResponse,
+    PoliciesResponse,
+    PoliciesUpdateRequest,
+    PublicGetChangesResponse,
+    RulegroupsCreateRequest,
+    RulegroupsDeleteResponse,
+    RulegroupsResponse,
+    RulegroupsRule,
+    RulegroupsRulesResponse,
+    RulegroupsUpdateRequest,
+    ScheduledexclusionsCreateRequest,
+    ScheduledexclusionsResponse,
+    ScheduledexclusionsUpdateRequest,
+    WorkflowRequest,
+    WorkflowResponse,
+} from "../models/index";
+import {
+    ActionsActionResponseFromJSON,
+    ActionsActionResponseToJSON,
+    ActionsCreateActionRequestFromJSON,
+    ActionsCreateActionRequestToJSON,
+    ActionsGetActionResponseFromJSON,
+    ActionsGetActionResponseToJSON,
+    ChangesHighVolumeQueryResponseFromJSON,
+    ChangesHighVolumeQueryResponseToJSON,
+    ContentchangesChangeContentsResponseFromJSON,
+    ContentchangesChangeContentsResponseToJSON,
+    MsaReplyMetaOnlyFromJSON,
+    MsaReplyMetaOnlyToJSON,
+    MsaspecQueryResponseFromJSON,
+    MsaspecQueryResponseToJSON,
+    MsaspecResponseFieldsFromJSON,
+    MsaspecResponseFieldsToJSON,
+    PoliciesCreateRequestFromJSON,
+    PoliciesCreateRequestToJSON,
+    PoliciesDeleteResponseFromJSON,
+    PoliciesDeleteResponseToJSON,
+    PoliciesPrecedenceResponseFromJSON,
+    PoliciesPrecedenceResponseToJSON,
+    PoliciesResponseFromJSON,
+    PoliciesResponseToJSON,
+    PoliciesUpdateRequestFromJSON,
+    PoliciesUpdateRequestToJSON,
+    PublicGetChangesResponseFromJSON,
+    PublicGetChangesResponseToJSON,
+    RulegroupsCreateRequestFromJSON,
+    RulegroupsCreateRequestToJSON,
+    RulegroupsDeleteResponseFromJSON,
+    RulegroupsDeleteResponseToJSON,
+    RulegroupsResponseFromJSON,
+    RulegroupsResponseToJSON,
+    RulegroupsRuleFromJSON,
+    RulegroupsRuleToJSON,
+    RulegroupsRulesResponseFromJSON,
+    RulegroupsRulesResponseToJSON,
+    RulegroupsUpdateRequestFromJSON,
+    RulegroupsUpdateRequestToJSON,
+    ScheduledexclusionsCreateRequestFromJSON,
+    ScheduledexclusionsCreateRequestToJSON,
+    ScheduledexclusionsResponseFromJSON,
+    ScheduledexclusionsResponseToJSON,
+    ScheduledexclusionsUpdateRequestFromJSON,
+    ScheduledexclusionsUpdateRequestToJSON,
+    WorkflowRequestFromJSON,
+    WorkflowRequestToJSON,
+    WorkflowResponseFromJSON,
+    WorkflowResponseToJSON,
+} from "../models/index";
 
-export interface GetChangesRequest {
+export interface FilevantageApiCreatePoliciesRequest {
+    body: PoliciesCreateRequest;
+}
+
+export interface FilevantageApiCreateRuleGroupsRequest {
+    body: RulegroupsCreateRequest;
+}
+
+export interface FilevantageApiCreateRulesRequest {
+    body: RulegroupsRule;
+}
+
+export interface FilevantageApiCreateScheduledExclusionsRequest {
+    body: ScheduledexclusionsCreateRequest;
+}
+
+export interface FilevantageApiDeletePoliciesRequest {
     ids: Array<string>;
 }
 
-export interface QueryChangesRequest {
+export interface FilevantageApiDeleteRuleGroupsRequest {
+    ids: Array<string>;
+}
+
+export interface FilevantageApiDeleteRulesRequest {
+    ruleGroupId: string;
+    ids: Array<string>;
+}
+
+export interface FilevantageApiDeleteScheduledExclusionsRequest {
+    policyId: string;
+    ids: Array<string>;
+}
+
+export interface FilevantageApiGetActionsMixin0Request {
+    ids: Array<string>;
+}
+
+export interface FilevantageApiGetChangesRequest {
+    ids: Array<string>;
+}
+
+export interface FilevantageApiGetContentsRequest {
+    id: string;
+    acceptEncoding?: string;
+}
+
+export interface FilevantageApiGetPoliciesRequest {
+    ids: Array<string>;
+}
+
+export interface FilevantageApiGetRuleGroupsRequest {
+    ids: Array<string>;
+}
+
+export interface FilevantageApiGetRulesRequest {
+    ruleGroupId: string;
+    ids: Array<string>;
+}
+
+export interface FilevantageApiGetScheduledExclusionsRequest {
+    policyId: string;
+    ids: Array<string>;
+}
+
+export interface FilevantageApiHighVolumeQueryChangesRequest {
+    after?: string;
+    limit?: number;
+    sort?: string;
+    filter?: string;
+}
+
+export interface FilevantageApiQueryActionsMixin0Request {
     offset?: number;
     limit?: number;
     sort?: string;
     filter?: string;
+}
+
+export interface FilevantageApiQueryChangesRequest {
+    offset?: number;
+    limit?: number;
+    sort?: string;
+    filter?: string;
+}
+
+export interface FilevantageApiQueryPoliciesRequest {
+    type: string;
+    offset?: number;
+    limit?: number;
+    sort?: string;
+}
+
+export interface FilevantageApiQueryRuleGroupsRequest {
+    type: string;
+    offset?: number;
+    limit?: number;
+    sort?: string;
+}
+
+export interface FilevantageApiQueryScheduledExclusionsRequest {
+    policyId: string;
+}
+
+export interface FilevantageApiSignalChangesExternalRequest {
+    body: WorkflowRequest;
+}
+
+export interface FilevantageApiStartActionsRequest {
+    body: ActionsCreateActionRequest;
+}
+
+export interface FilevantageApiUpdatePoliciesRequest {
+    body: PoliciesUpdateRequest;
+}
+
+export interface FilevantageApiUpdatePolicyHostGroupsRequest {
+    policyId: string;
+    action: string;
+    ids: Array<string>;
+}
+
+export interface FilevantageApiUpdatePolicyPrecedenceRequest {
+    ids: Array<string>;
+    type: string;
+}
+
+export interface FilevantageApiUpdatePolicyRuleGroupsRequest {
+    policyId: string;
+    action: string;
+    ids: Array<string>;
+}
+
+export interface FilevantageApiUpdateRuleGroupPrecedenceRequest {
+    ruleGroupId: string;
+    ids: Array<string>;
+}
+
+export interface FilevantageApiUpdateRuleGroupsRequest {
+    body: RulegroupsUpdateRequest;
+}
+
+export interface FilevantageApiUpdateRulesRequest {
+    body: RulegroupsRule;
+}
+
+export interface FilevantageApiUpdateScheduledExclusionsRequest {
+    body: ScheduledexclusionsUpdateRequest;
 }
 
 /**
@@ -32,18 +248,438 @@ export interface QueryChangesRequest {
  */
 export class FilevantageApi extends runtime.BaseAPI {
     /**
-     * Retrieve key attributes of Falcon FileVantage changes for the specified ids.
-     * Retrieve information on changes
+     * After they are created, host and rule groups can be assigned, scheduled exclusions can be defined, and policy precedence can be set.
+     * Creates a new policy of the specified type. New policies are always added at the end of the precedence list for the provided policy type.
      */
-    async getChangesRaw(requestParameters: GetChangesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ExternalGetChangesResponse>> {
-        if (requestParameters.ids === null || requestParameters.ids === undefined) {
-            throw new runtime.RequiredError("ids", "Required parameter requestParameters.ids was null or undefined when calling getChanges.");
+    async createPoliciesRaw(requestParameters: FilevantageApiCreatePoliciesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PoliciesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createPolicies().');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.ids) {
-            queryParameters["ids"] = requestParameters.ids;
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/filevantage/entities/policies/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: PoliciesCreateRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => PoliciesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * After they are created, host and rule groups can be assigned, scheduled exclusions can be defined, and policy precedence can be set.
+     * Creates a new policy of the specified type. New policies are always added at the end of the precedence list for the provided policy type.
+     */
+    async createPolicies(body: PoliciesCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PoliciesResponse> {
+        const response = await this.createPoliciesRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Individual rules can be assigned to a rule group after it has been created.
+     * Creates a new rule group of the specified type.
+     */
+    async createRuleGroupsRaw(requestParameters: FilevantageApiCreateRuleGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RulegroupsResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createRuleGroups().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/filevantage/entities/rule-groups/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: RulegroupsCreateRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RulegroupsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Individual rules can be assigned to a rule group after it has been created.
+     * Creates a new rule group of the specified type.
+     */
+    async createRuleGroups(body: RulegroupsCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RulegroupsResponse> {
+        const response = await this.createRuleGroupsRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates a new rule configuration within the specified rule group.
+     * Creates a new rule configuration within the specified rule group.
+     */
+    async createRulesRaw(requestParameters: FilevantageApiCreateRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RulegroupsRulesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createRules().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/filevantage/entities/rule-groups-rules/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: RulegroupsRuleToJSON(requestParameters["body"]),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RulegroupsRulesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Creates a new rule configuration within the specified rule group.
+     * Creates a new rule configuration within the specified rule group.
+     */
+    async createRules(body: RulegroupsRule, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RulegroupsRulesResponse> {
+        const response = await this.createRulesRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates a new scheduled exclusion configuration for the provided policy id.
+     * Creates a new scheduled exclusion configuration for the provided policy id.
+     */
+    async createScheduledExclusionsRaw(
+        requestParameters: FilevantageApiCreateScheduledExclusionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ScheduledexclusionsResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createScheduledExclusions().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/filevantage/entities/policy-scheduled-exclusions/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ScheduledexclusionsCreateRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ScheduledexclusionsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Creates a new scheduled exclusion configuration for the provided policy id.
+     * Creates a new scheduled exclusion configuration for the provided policy id.
+     */
+    async createScheduledExclusions(body: ScheduledexclusionsCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ScheduledexclusionsResponse> {
+        const response = await this.createScheduledExclusionsRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Only disabled policies are allowed to be deleted.
+     * Deletes 1 or more policies.
+     */
+    async deletePoliciesRaw(requestParameters: FilevantageApiDeletePoliciesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PoliciesDeleteResponse>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deletePolicies().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/filevantage/entities/policies/v1`,
+                method: "DELETE",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => PoliciesDeleteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Only disabled policies are allowed to be deleted.
+     * Deletes 1 or more policies.
+     */
+    async deletePolicies(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PoliciesDeleteResponse> {
+        const response = await this.deletePoliciesRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * The rule groups represented by the provided ids and all rules that they contain will be deleted.   Rule groups can only be deleted if they are not assigned to a policy.
+     * Deletes 1 or more rule groups
+     */
+    async deleteRuleGroupsRaw(
+        requestParameters: FilevantageApiDeleteRuleGroupsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<RulegroupsDeleteResponse>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteRuleGroups().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/filevantage/entities/rule-groups/v1`,
+                method: "DELETE",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RulegroupsDeleteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * The rule groups represented by the provided ids and all rules that they contain will be deleted.   Rule groups can only be deleted if they are not assigned to a policy.
+     * Deletes 1 or more rule groups
+     */
+    async deleteRuleGroups(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RulegroupsDeleteResponse> {
+        const response = await this.deleteRuleGroupsRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Rules that match a provided id will be deleted from the provided rule group id.
+     * Deletes 1 or more rules from the specified rule group.
+     */
+    async deleteRulesRaw(requestParameters: FilevantageApiDeleteRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        if (requestParameters["ruleGroupId"] == null) {
+            throw new runtime.RequiredError("ruleGroupId", 'Required parameter "ruleGroupId" was null or undefined when calling deleteRules().');
+        }
+
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteRules().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ruleGroupId"] != null) {
+            queryParameters["rule_group_id"] = requestParameters["ruleGroupId"];
+        }
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/filevantage/entities/rule-groups-rules/v1`,
+                method: "DELETE",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Rules that match a provided id will be deleted from the provided rule group id.
+     * Deletes 1 or more rules from the specified rule group.
+     */
+    async deleteRules(ruleGroupId: string, ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
+        const response = await this.deleteRulesRaw({ ruleGroupId: ruleGroupId, ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Scheduled exclusions that match a provided id will be deleted from the provided policy id.
+     * Deletes 1 or more scheduled exclusions from the provided policy id.
+     */
+    async deleteScheduledExclusionsRaw(
+        requestParameters: FilevantageApiDeleteScheduledExclusionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        if (requestParameters["policyId"] == null) {
+            throw new runtime.RequiredError("policyId", 'Required parameter "policyId" was null or undefined when calling deleteScheduledExclusions().');
+        }
+
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteScheduledExclusions().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["policyId"] != null) {
+            queryParameters["policy_id"] = requestParameters["policyId"];
+        }
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/filevantage/entities/policy-scheduled-exclusions/v1`,
+                method: "DELETE",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Scheduled exclusions that match a provided id will be deleted from the provided policy id.
+     * Deletes 1 or more scheduled exclusions from the provided policy id.
+     */
+    async deleteScheduledExclusions(policyId: string, ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
+        const response = await this.deleteScheduledExclusionsRaw({ policyId: policyId, ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * The processing results of each action that match the provided ids will be returned.
+     * Retrieves the processing results for 1 or more actions.
+     */
+    async getActionsMixin0Raw(
+        requestParameters: FilevantageApiGetActionsMixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ActionsGetActionResponse>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getActionsMixin0().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/filevantage/entities/actions/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ActionsGetActionResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * The processing results of each action that match the provided ids will be returned.
+     * Retrieves the processing results for 1 or more actions.
+     */
+    async getActionsMixin0(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ActionsGetActionResponse> {
+        const response = await this.getActionsMixin0Raw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve key attributes of Falcon FileVantage changes for the specified ids.
+     * Retrieve information on changes
+     */
+    async getChangesRaw(requestParameters: FilevantageApiGetChangesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PublicGetChangesResponse>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getChanges().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -63,39 +699,395 @@ export class FilevantageApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ExternalGetChangesResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => PublicGetChangesResponseFromJSON(jsonValue));
     }
 
     /**
      * Retrieve key attributes of Falcon FileVantage changes for the specified ids.
      * Retrieve information on changes
      */
-    async getChanges(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ExternalGetChangesResponse> {
+    async getChanges(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PublicGetChangesResponse> {
         const response = await this.getChangesRaw({ ids: ids }, initOverrides);
         return await response.value();
     }
 
     /**
-     * Returns a list of Falcon FileVantage change IDs filtered, sorted and limited by the query parameters provided
-     * Returns one or more change IDs
+     * Retrieves the before and after change content for the provided change id.
+     * Retrieves the content captured for the provided change id
      */
-    async queryChangesRaw(requestParameters: QueryChangesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async getContentsRaw(
+        requestParameters: FilevantageApiGetContentsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ContentchangesChangeContentsResponse>> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling getContents().');
+        }
+
         const queryParameters: any = {};
 
-        if (requestParameters.offset !== undefined) {
-            queryParameters["offset"] = requestParameters.offset;
+        if (requestParameters["id"] != null) {
+            queryParameters["id"] = requestParameters["id"];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters["limit"] = requestParameters.limit;
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters["acceptEncoding"] != null) {
+            headerParameters["Accept-Encoding"] = String(requestParameters["acceptEncoding"]);
         }
 
-        if (requestParameters.sort !== undefined) {
-            queryParameters["sort"] = requestParameters.sort;
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
         }
 
-        if (requestParameters.filter !== undefined) {
-            queryParameters["filter"] = requestParameters.filter;
+        const response = await this.request(
+            {
+                path: `/filevantage/entities/change-content/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ContentchangesChangeContentsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieves the before and after change content for the provided change id.
+     * Retrieves the content captured for the provided change id
+     */
+    async getContents(id: string, acceptEncoding?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentchangesChangeContentsResponse> {
+        const response = await this.getContentsRaw({ id: id, acceptEncoding: acceptEncoding }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * The configuration of each policy that match the provided id will be returned.
+     * Retrieves the configuration for 1 or more policies.
+     */
+    async getPoliciesRaw(requestParameters: FilevantageApiGetPoliciesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PoliciesResponse>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getPolicies().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/filevantage/entities/policies/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => PoliciesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * The configuration of each policy that match the provided id will be returned.
+     * Retrieves the configuration for 1 or more policies.
+     */
+    async getPolicies(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PoliciesResponse> {
+        const response = await this.getPoliciesRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Full details of each rule group that matches a provided id will be returned in the response
+     * Retrieves the rule group details for 1 or more rule groups.
+     */
+    async getRuleGroupsRaw(requestParameters: FilevantageApiGetRuleGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RulegroupsResponse>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getRuleGroups().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/filevantage/entities/rule-groups/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RulegroupsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Full details of each rule group that matches a provided id will be returned in the response
+     * Retrieves the rule group details for 1 or more rule groups.
+     */
+    async getRuleGroups(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RulegroupsResponse> {
+        const response = await this.getRuleGroupsRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Rules within the provided rule group id that match a provided id will be returned within the response.
+     * Retrieves the configuration for 1 or more rules.
+     */
+    async getRulesRaw(requestParameters: FilevantageApiGetRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RulegroupsRulesResponse>> {
+        if (requestParameters["ruleGroupId"] == null) {
+            throw new runtime.RequiredError("ruleGroupId", 'Required parameter "ruleGroupId" was null or undefined when calling getRules().');
+        }
+
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getRules().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ruleGroupId"] != null) {
+            queryParameters["rule_group_id"] = requestParameters["ruleGroupId"];
+        }
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/filevantage/entities/rule-groups-rules/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RulegroupsRulesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Rules within the provided rule group id that match a provided id will be returned within the response.
+     * Retrieves the configuration for 1 or more rules.
+     */
+    async getRules(ruleGroupId: string, ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RulegroupsRulesResponse> {
+        const response = await this.getRulesRaw({ ruleGroupId: ruleGroupId, ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Full details of each each scheduled exclusion that match a provided id will be returned in the response.
+     * Retrieves the configuration of 1 or more scheduled exclusions from the provided policy id.
+     */
+    async getScheduledExclusionsRaw(
+        requestParameters: FilevantageApiGetScheduledExclusionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ScheduledexclusionsResponse>> {
+        if (requestParameters["policyId"] == null) {
+            throw new runtime.RequiredError("policyId", 'Required parameter "policyId" was null or undefined when calling getScheduledExclusions().');
+        }
+
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getScheduledExclusions().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["policyId"] != null) {
+            queryParameters["policy_id"] = requestParameters["policyId"];
+        }
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/filevantage/entities/policy-scheduled-exclusions/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ScheduledexclusionsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Full details of each each scheduled exclusion that match a provided id will be returned in the response.
+     * Retrieves the configuration of 1 or more scheduled exclusions from the provided policy id.
+     */
+    async getScheduledExclusions(policyId: string, ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ScheduledexclusionsResponse> {
+        const response = await this.getScheduledExclusionsRaw({ policyId: policyId, ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Returns a list of Falcon FileVantage change ids filtered, sorted and limited by the query parameters provided. It can retrieve an unlimited number of results using multiple requests.
+     * Returns 1 or more change ids
+     */
+    async highVolumeQueryChangesRaw(
+        requestParameters: FilevantageApiHighVolumeQueryChangesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ChangesHighVolumeQueryResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["after"] != null) {
+            queryParameters["after"] = requestParameters["after"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/filevantage/queries/changes/v3`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ChangesHighVolumeQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Returns a list of Falcon FileVantage change ids filtered, sorted and limited by the query parameters provided. It can retrieve an unlimited number of results using multiple requests.
+     * Returns 1 or more change ids
+     */
+    async highVolumeQueryChanges(after?: string, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ChangesHighVolumeQueryResponse> {
+        const response = await this.highVolumeQueryChangesRaw({ after: after, limit: limit, sort: sort, filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Returns the list of action ids filtered, sorted, and limited to the query parameters provided.
+     * Returns one or more action ids
+     */
+    async queryActionsMixin0Raw(
+        requestParameters: FilevantageApiQueryActionsMixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/filevantage/queries/actions/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Returns the list of action ids filtered, sorted, and limited to the query parameters provided.
+     * Returns one or more action ids
+     */
+    async queryActionsMixin0(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
+        const response = await this.queryActionsMixin0Raw({ offset: offset, limit: limit, sort: sort, filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Returns a list of Falcon FileVantage change ids filtered, sorted and limited by the query parameters provided. Using this endpoint you can retrieve up to `10000` results by using pagination with multiple requests. If you need to retrieve more than `10000` results consider using the `/queries/changes/v3` endpoint
+     * Returns 1 or more change ids
+     */
+    async queryChangesRaw(requestParameters: FilevantageApiQueryChangesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -115,15 +1107,674 @@ export class FilevantageApi extends runtime.BaseAPI {
             initOverrides
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
 
     /**
-     * Returns a list of Falcon FileVantage change IDs filtered, sorted and limited by the query parameters provided
-     * Returns one or more change IDs
+     * Returns a list of Falcon FileVantage change ids filtered, sorted and limited by the query parameters provided. Using this endpoint you can retrieve up to `10000` results by using pagination with multiple requests. If you need to retrieve more than `10000` results consider using the `/queries/changes/v3` endpoint
+     * Returns 1 or more change ids
      */
-    async queryChanges(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
+    async queryChanges(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
         const response = await this.queryChangesRaw({ offset: offset, limit: limit, sort: sort, filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Policy ids will be returned sorted by a `precedence` order of ascending when a `sort` parameter is not provided.
+     * Retrieve the ids of all policies that are assigned the provided policy type.
+     */
+    async queryPoliciesRaw(requestParameters: FilevantageApiQueryPoliciesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        if (requestParameters["type"] == null) {
+            throw new runtime.RequiredError("type", 'Required parameter "type" was null or undefined when calling queryPolicies().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        if (requestParameters["type"] != null) {
+            queryParameters["type"] = requestParameters["type"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/filevantage/queries/policies/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Policy ids will be returned sorted by a `precedence` order of ascending when a `sort` parameter is not provided.
+     * Retrieve the ids of all policies that are assigned the provided policy type.
+     */
+    async queryPolicies(type: string, offset?: number, limit?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
+        const response = await this.queryPoliciesRaw({ type: type, offset: offset, limit: limit, sort: sort }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Rule group ids will be returned sorted by `created_timestamp` order if a `sort` parameter is not provided
+     * Retrieve the ids of all rule groups that are of the provided rule group type.
+     */
+    async queryRuleGroupsRaw(requestParameters: FilevantageApiQueryRuleGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        if (requestParameters["type"] == null) {
+            throw new runtime.RequiredError("type", 'Required parameter "type" was null or undefined when calling queryRuleGroups().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        if (requestParameters["type"] != null) {
+            queryParameters["type"] = requestParameters["type"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/filevantage/queries/rule-groups/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Rule group ids will be returned sorted by `created_timestamp` order if a `sort` parameter is not provided
+     * Retrieve the ids of all rule groups that are of the provided rule group type.
+     */
+    async queryRuleGroups(type: string, offset?: number, limit?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
+        const response = await this.queryRuleGroupsRaw({ type: type, offset: offset, limit: limit, sort: sort }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve the ids of all scheduled exclusions contained within the provided policy id
+     * Retrieve the ids of all scheduled exclusions contained within the provided policy id.
+     */
+    async queryScheduledExclusionsRaw(
+        requestParameters: FilevantageApiQueryScheduledExclusionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        if (requestParameters["policyId"] == null) {
+            throw new runtime.RequiredError("policyId", 'Required parameter "policyId" was null or undefined when calling queryScheduledExclusions().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["policyId"] != null) {
+            queryParameters["policy_id"] = requestParameters["policyId"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/filevantage/queries/policy-scheduled-exclusions/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve the ids of all scheduled exclusions contained within the provided policy id
+     * Retrieve the ids of all scheduled exclusions contained within the provided policy id.
+     */
+    async queryScheduledExclusions(policyId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
+        const response = await this.queryScheduledExclusionsRaw({ policyId: policyId }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Provides the ability to initiate workflows for the specified change ids. Only 100 change ids can be provided per workflow request.
+     * Initiates workflows for the provided change ids
+     */
+    async signalChangesExternalRaw(
+        requestParameters: FilevantageApiSignalChangesExternalRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<WorkflowResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling signalChangesExternal().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/filevantage/entities/workflow/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: WorkflowRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => WorkflowResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Provides the ability to initiate workflows for the specified change ids. Only 100 change ids can be provided per workflow request.
+     * Initiates workflows for the provided change ids
+     */
+    async signalChangesExternal(body: WorkflowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkflowResponse> {
+        const response = await this.signalChangesExternalRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Initiates the suppression, unsuppression, or purging of the provided change ids. Note that only 1 action may be initiated and active at a time.
+     * Initiates the specified action on the provided change ids
+     */
+    async startActionsRaw(requestParameters: FilevantageApiStartActionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ActionsActionResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling startActions().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/filevantage/entities/actions/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ActionsCreateActionRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ActionsActionResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Initiates the suppression, unsuppression, or purging of the provided change ids. Note that only 1 action may be initiated and active at a time.
+     * Initiates the specified action on the provided change ids
+     */
+    async startActions(body: ActionsCreateActionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ActionsActionResponse> {
+        const response = await this.startActionsRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Only name, description, and enabled status of the policy is allowed to be update. Rule and host group assignment is performed via their respective patch end points.
+     * Updates the general information of the provided policy.
+     */
+    async updatePoliciesRaw(requestParameters: FilevantageApiUpdatePoliciesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PoliciesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updatePolicies().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/filevantage/entities/policies/v1`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+                body: PoliciesUpdateRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => PoliciesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Only name, description, and enabled status of the policy is allowed to be update. Rule and host group assignment is performed via their respective patch end points.
+     * Updates the general information of the provided policy.
+     */
+    async updatePolicies(body: PoliciesUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PoliciesResponse> {
+        const response = await this.updatePoliciesRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Manage host groups assigned to a policy.
+     * Manage host groups assigned to a policy.
+     */
+    async updatePolicyHostGroupsRaw(
+        requestParameters: FilevantageApiUpdatePolicyHostGroupsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<PoliciesResponse>> {
+        if (requestParameters["policyId"] == null) {
+            throw new runtime.RequiredError("policyId", 'Required parameter "policyId" was null or undefined when calling updatePolicyHostGroups().');
+        }
+
+        if (requestParameters["action"] == null) {
+            throw new runtime.RequiredError("action", 'Required parameter "action" was null or undefined when calling updatePolicyHostGroups().');
+        }
+
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling updatePolicyHostGroups().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["policyId"] != null) {
+            queryParameters["policy_id"] = requestParameters["policyId"];
+        }
+
+        if (requestParameters["action"] != null) {
+            queryParameters["action"] = requestParameters["action"];
+        }
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/filevantage/entities/policies-host-groups/v1`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => PoliciesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Manage host groups assigned to a policy.
+     * Manage host groups assigned to a policy.
+     */
+    async updatePolicyHostGroups(policyId: string, action: string, ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PoliciesResponse> {
+        const response = await this.updatePolicyHostGroupsRaw({ policyId: policyId, action: action, ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Requests that do not represent all ids of the provided policy type will not be processed.
+     * Updates the policy precedence for all policies of a specific type.
+     */
+    async updatePolicyPrecedenceRaw(
+        requestParameters: FilevantageApiUpdatePolicyPrecedenceRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<PoliciesPrecedenceResponse>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling updatePolicyPrecedence().');
+        }
+
+        if (requestParameters["type"] == null) {
+            throw new runtime.RequiredError("type", 'Required parameter "type" was null or undefined when calling updatePolicyPrecedence().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        if (requestParameters["type"] != null) {
+            queryParameters["type"] = requestParameters["type"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/filevantage/entities/policies-precedence/v1`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => PoliciesPrecedenceResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Requests that do not represent all ids of the provided policy type will not be processed.
+     * Updates the policy precedence for all policies of a specific type.
+     */
+    async updatePolicyPrecedence(ids: Array<string>, type: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PoliciesPrecedenceResponse> {
+        const response = await this.updatePolicyPrecedenceRaw({ ids: ids, type: type }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Manage the rule groups assigned to the policy.   Rule groups must be of the same type as the policy they are being added:   * `WindowsRegistry` and `WindowsFiles` groups can only be added to a `Windows` policy.   * `LinuxFiles` groups can only be added to a `Linux` policy.   * `MacFiles` groups can only be added to a `Mac` policy.  When setting rule group precedence, the precedence for `all` rule group ids within the policy must be provided.
+     * Manage the rule groups assigned to the policy or set the rule group precedence for all rule groups within the policy.
+     */
+    async updatePolicyRuleGroupsRaw(
+        requestParameters: FilevantageApiUpdatePolicyRuleGroupsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<PoliciesResponse>> {
+        if (requestParameters["policyId"] == null) {
+            throw new runtime.RequiredError("policyId", 'Required parameter "policyId" was null or undefined when calling updatePolicyRuleGroups().');
+        }
+
+        if (requestParameters["action"] == null) {
+            throw new runtime.RequiredError("action", 'Required parameter "action" was null or undefined when calling updatePolicyRuleGroups().');
+        }
+
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling updatePolicyRuleGroups().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["policyId"] != null) {
+            queryParameters["policy_id"] = requestParameters["policyId"];
+        }
+
+        if (requestParameters["action"] != null) {
+            queryParameters["action"] = requestParameters["action"];
+        }
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/filevantage/entities/policies-rule-groups/v1`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => PoliciesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Manage the rule groups assigned to the policy.   Rule groups must be of the same type as the policy they are being added:   * `WindowsRegistry` and `WindowsFiles` groups can only be added to a `Windows` policy.   * `LinuxFiles` groups can only be added to a `Linux` policy.   * `MacFiles` groups can only be added to a `Mac` policy.  When setting rule group precedence, the precedence for `all` rule group ids within the policy must be provided.
+     * Manage the rule groups assigned to the policy or set the rule group precedence for all rule groups within the policy.
+     */
+    async updatePolicyRuleGroups(policyId: string, action: string, ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PoliciesResponse> {
+        const response = await this.updatePolicyRuleGroupsRaw({ policyId: policyId, action: action, ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * The ids for `all` rules contained within the rule group must be specified in the desired precedence order. Requests that do not represent all ids will not be processed.
+     * Updates the rule precedence for all rules in the identified rule group.
+     */
+    async updateRuleGroupPrecedenceRaw(
+        requestParameters: FilevantageApiUpdateRuleGroupPrecedenceRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<RulegroupsResponse>> {
+        if (requestParameters["ruleGroupId"] == null) {
+            throw new runtime.RequiredError("ruleGroupId", 'Required parameter "ruleGroupId" was null or undefined when calling updateRuleGroupPrecedence().');
+        }
+
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling updateRuleGroupPrecedence().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ruleGroupId"] != null) {
+            queryParameters["rule_group_id"] = requestParameters["ruleGroupId"];
+        }
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/filevantage/entities/rule-groups-rule-precedence/v1`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RulegroupsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * The ids for `all` rules contained within the rule group must be specified in the desired precedence order. Requests that do not represent all ids will not be processed.
+     * Updates the rule precedence for all rules in the identified rule group.
+     */
+    async updateRuleGroupPrecedence(ruleGroupId: string, ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RulegroupsResponse> {
+        const response = await this.updateRuleGroupPrecedenceRaw({ ruleGroupId: ruleGroupId, ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Provides the ability to update the name and description of the rule group.
+     * Updates the provided rule group.
+     */
+    async updateRuleGroupsRaw(requestParameters: FilevantageApiUpdateRuleGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RulegroupsResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateRuleGroups().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/filevantage/entities/rule-groups/v1`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+                body: RulegroupsUpdateRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RulegroupsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Provides the ability to update the name and description of the rule group.
+     * Updates the provided rule group.
+     */
+    async updateRuleGroups(body: RulegroupsUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RulegroupsResponse> {
+        const response = await this.updateRuleGroupsRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * The rule must currently exist within the specified rule group.
+     * Updates the provided rule configuration within the specified rule group.
+     */
+    async updateRulesRaw(requestParameters: FilevantageApiUpdateRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RulegroupsRulesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateRules().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/filevantage/entities/rule-groups-rules/v1`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+                body: RulegroupsRuleToJSON(requestParameters["body"]),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RulegroupsRulesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * The rule must currently exist within the specified rule group.
+     * Updates the provided rule configuration within the specified rule group.
+     */
+    async updateRules(body: RulegroupsRule, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RulegroupsRulesResponse> {
+        const response = await this.updateRulesRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Updates the provided scheduled exclusion configuration within the provided policy.
+     * Updates the provided scheduled exclusion configuration within the provided policy.
+     */
+    async updateScheduledExclusionsRaw(
+        requestParameters: FilevantageApiUpdateScheduledExclusionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction
+    ): Promise<runtime.ApiResponse<ScheduledexclusionsResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateScheduledExclusions().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+        }
+
+        const response = await this.request(
+            {
+                path: `/filevantage/entities/policy-scheduled-exclusions/v1`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ScheduledexclusionsUpdateRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ScheduledexclusionsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Updates the provided scheduled exclusion configuration within the provided policy.
+     * Updates the provided scheduled exclusion configuration within the provided policy.
+     */
+    async updateScheduledExclusions(body: ScheduledexclusionsUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ScheduledexclusionsResponse> {
+        const response = await this.updateScheduledExclusionsRaw({ body: body }, initOverrides);
         return await response.value();
     }
 }

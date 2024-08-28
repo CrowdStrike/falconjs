@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CrowdStrike API Specification
- * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and more information about API endpoints that don\'t yet support OAuth2, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation). To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`. Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
+ * Use this API specification as a reference for the API endpoints you can use to interact with your Falcon environment. These endpoints support authentication via OAuth2 and interact with detections and network containment. For detailed usage guides and examples, see our [documentation inside the Falcon console](https://falcon.crowdstrike.com/support/documentation).     To use the APIs described below, combine the base URL with the path shown for each API endpoint. For commercial cloud customers, your base URL is `https://api.crowdstrike.com`.    Each API endpoint requires authorization via an OAuth2 token. Your first API request should retrieve an OAuth2 token using the `oauth2/token` endpoint, such as `https://api.crowdstrike.com/oauth2/token`. For subsequent requests, include the OAuth2 token in an HTTP authorization header. Tokens expire after 30 minutes, after which you should make a new token request to continue making API requests.
  *
  * The version of the OpenAPI document: rolling
  *
@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { mapValues } from "../runtime";
 import type { K8sregAccountPermissionsStatus } from "./K8sregAccountPermissionsStatus";
 import { K8sregAccountPermissionsStatusFromJSON, K8sregAccountPermissionsStatusFromJSONTyped, K8sregAccountPermissionsStatusToJSON } from "./K8sregAccountPermissionsStatus";
 
@@ -69,17 +69,15 @@ export interface K8sregAzureSubscriptionResp {
 /**
  * Check if a given object implements the K8sregAzureSubscriptionResp interface.
  */
-export function instanceOfK8sregAzureSubscriptionResp(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "azurePermissionsStatus" in value;
-    isInstance = isInstance && "createdAt" in value;
-    isInstance = isInstance && "fromCspm" in value;
-    isInstance = isInstance && "status" in value;
-    isInstance = isInstance && "subscriptionId" in value;
-    isInstance = isInstance && "tenantId" in value;
-    isInstance = isInstance && "updatedAt" in value;
-
-    return isInstance;
+export function instanceOfK8sregAzureSubscriptionResp(value: object): value is K8sregAzureSubscriptionResp {
+    if (!("azurePermissionsStatus" in value) || value["azurePermissionsStatus"] === undefined) return false;
+    if (!("createdAt" in value) || value["createdAt"] === undefined) return false;
+    if (!("fromCspm" in value) || value["fromCspm"] === undefined) return false;
+    if (!("status" in value) || value["status"] === undefined) return false;
+    if (!("subscriptionId" in value) || value["subscriptionId"] === undefined) return false;
+    if (!("tenantId" in value) || value["tenantId"] === undefined) return false;
+    if (!("updatedAt" in value) || value["updatedAt"] === undefined) return false;
+    return true;
 }
 
 export function K8sregAzureSubscriptionRespFromJSON(json: any): K8sregAzureSubscriptionResp {
@@ -87,7 +85,7 @@ export function K8sregAzureSubscriptionRespFromJSON(json: any): K8sregAzureSubsc
 }
 
 export function K8sregAzureSubscriptionRespFromJSONTyped(json: any, ignoreDiscriminator: boolean): K8sregAzureSubscriptionResp {
-    if (json === undefined || json === null) {
+    if (json == null) {
         return json;
     }
     return {
@@ -102,19 +100,16 @@ export function K8sregAzureSubscriptionRespFromJSONTyped(json: any, ignoreDiscri
 }
 
 export function K8sregAzureSubscriptionRespToJSON(value?: K8sregAzureSubscriptionResp | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
-        azure_permissions_status: (value.azurePermissionsStatus as Array<any>).map(K8sregAccountPermissionsStatusToJSON),
-        created_at: value.createdAt.toISOString(),
-        from_cspm: value.fromCspm,
-        status: value.status,
-        subscription_id: value.subscriptionId,
-        tenant_id: value.tenantId,
-        updated_at: value.updatedAt.toISOString(),
+        azure_permissions_status: (value["azurePermissionsStatus"] as Array<any>).map(K8sregAccountPermissionsStatusToJSON),
+        created_at: value["createdAt"].toISOString(),
+        from_cspm: value["fromCspm"],
+        status: value["status"],
+        subscription_id: value["subscriptionId"],
+        tenant_id: value["tenantId"],
+        updated_at: value["updatedAt"].toISOString(),
     };
 }
