@@ -1,6 +1,6 @@
 {
     "name": "crowdstrike-falcon",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "description": "CrowdStrike Falcon API library for browser and node",
     "sideEffects": false,
     "devDependencies": {
