@@ -6,3 +6,4 @@
 /src/test.ts
 typings
 *.js
+.DS_Store
