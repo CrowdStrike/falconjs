@@ -64,7 +64,7 @@ export function PackagesApiPackagesByVulnCountFromJSONTyped(json: any, ignoreDis
         return json;
     }
     return {
-        resources: (json["Resources"] as Array<any>).map(ModelsAPIPackagesByVulnCountFromJSON),
+        resources: (json["resources"] as Array<any>).map(ModelsAPIPackagesByVulnCountFromJSON),
         errors: json["errors"] == null ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
     };
@@ -75,7 +75,7 @@ export function PackagesApiPackagesByVulnCountToJSON(value?: PackagesApiPackages
         return value;
     }
     return {
-        Resources: (value["resources"] as Array<any>).map(ModelsAPIPackagesByVulnCountToJSON),
+        resources: (value["resources"] as Array<any>).map(ModelsAPIPackagesByVulnCountToJSON),
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
     };

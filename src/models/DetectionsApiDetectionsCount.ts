@@ -64,7 +64,7 @@ export function DetectionsApiDetectionsCountFromJSONTyped(json: any, ignoreDiscr
         return json;
     }
     return {
-        resources: (json["Resources"] as Array<any>).map(ModelsAPIDetectionCountFromJSON),
+        resources: (json["resources"] as Array<any>).map(ModelsAPIDetectionCountFromJSON),
         errors: json["errors"] == null ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
     };
@@ -75,7 +75,7 @@ export function DetectionsApiDetectionsCountToJSON(value?: DetectionsApiDetectio
         return value;
     }
     return {
-        Resources: (value["resources"] as Array<any>).map(ModelsAPIDetectionCountToJSON),
+        resources: (value["resources"] as Array<any>).map(ModelsAPIDetectionCountToJSON),
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
     };

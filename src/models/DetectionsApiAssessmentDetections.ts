@@ -64,7 +64,7 @@ export function DetectionsApiAssessmentDetectionsFromJSONTyped(json: any, ignore
         return json;
     }
     return {
-        resources: (json["Resources"] as Array<any>).map(ModelsAPIAssessmentDetectionsFromJSON),
+        resources: (json["resources"] as Array<any>).map(ModelsAPIAssessmentDetectionsFromJSON),
         errors: json["errors"] == null ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
     };
@@ -75,7 +75,7 @@ export function DetectionsApiAssessmentDetectionsToJSON(value?: DetectionsApiAss
         return value;
     }
     return {
-        Resources: (value["resources"] as Array<any>).map(ModelsAPIAssessmentDetectionsToJSON),
+        resources: (value["resources"] as Array<any>).map(ModelsAPIAssessmentDetectionsToJSON),
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
     };

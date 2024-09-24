@@ -64,7 +64,7 @@ export function DetectionsApiCombinedDetectionsFromJSONTyped(json: any, ignoreDi
         return json;
     }
     return {
-        resources: (json["Resources"] as Array<any>).map(ModelsAPICombinedDetectionsFromJSON),
+        resources: (json["resources"] as Array<any>).map(ModelsAPICombinedDetectionsFromJSON),
         errors: json["errors"] == null ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
     };
@@ -75,7 +75,7 @@ export function DetectionsApiCombinedDetectionsToJSON(value?: DetectionsApiCombi
         return value;
     }
     return {
-        Resources: (value["resources"] as Array<any>).map(ModelsAPICombinedDetectionsToJSON),
+        resources: (value["resources"] as Array<any>).map(ModelsAPICombinedDetectionsToJSON),
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
     };
