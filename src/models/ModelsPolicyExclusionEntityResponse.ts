@@ -64,7 +64,7 @@ export function ModelsPolicyExclusionEntityResponseFromJSONTyped(json: any, igno
         return json;
     }
     return {
-        resources: (json["Resources"] as Array<any>).map(ModelsAPIPolicyExclusionFromJSON),
+        resources: (json["resources"] as Array<any>).map(ModelsAPIPolicyExclusionFromJSON),
         errors: json["errors"] == null ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
     };
@@ -75,7 +75,7 @@ export function ModelsPolicyExclusionEntityResponseToJSON(value?: ModelsPolicyEx
         return value;
     }
     return {
-        Resources: (value["resources"] as Array<any>).map(ModelsAPIPolicyExclusionToJSON),
+        resources: (value["resources"] as Array<any>).map(ModelsAPIPolicyExclusionToJSON),
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
     };

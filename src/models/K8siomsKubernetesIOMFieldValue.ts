@@ -64,7 +64,7 @@ export function K8siomsKubernetesIOMFieldValueFromJSONTyped(json: any, ignoreDis
         return json;
     }
     return {
-        resources: (json["Resources"] as Array<any>).map(ModelsAPIFilterResponseFromJSON),
+        resources: (json["resources"] as Array<any>).map(ModelsAPIFilterResponseFromJSON),
         errors: json["errors"] == null ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
     };
@@ -75,7 +75,7 @@ export function K8siomsKubernetesIOMFieldValueToJSON(value?: K8siomsKubernetesIO
         return value;
     }
     return {
-        Resources: (value["resources"] as Array<any>).map(ModelsAPIFilterResponseToJSON),
+        resources: (value["resources"] as Array<any>).map(ModelsAPIFilterResponseToJSON),
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
     };

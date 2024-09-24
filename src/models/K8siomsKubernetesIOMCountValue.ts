@@ -64,7 +64,7 @@ export function K8siomsKubernetesIOMCountValueFromJSONTyped(json: any, ignoreDis
         return json;
     }
     return {
-        resources: (json["Resources"] as Array<any>).map(CommonCountAsResourceFromJSON),
+        resources: (json["resources"] as Array<any>).map(CommonCountAsResourceFromJSON),
         errors: json["errors"] == null ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
     };
@@ -75,7 +75,7 @@ export function K8siomsKubernetesIOMCountValueToJSON(value?: K8siomsKubernetesIO
         return value;
     }
     return {
-        Resources: (value["resources"] as Array<any>).map(CommonCountAsResourceToJSON),
+        resources: (value["resources"] as Array<any>).map(CommonCountAsResourceToJSON),
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
     };

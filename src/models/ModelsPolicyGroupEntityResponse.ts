@@ -64,7 +64,7 @@ export function ModelsPolicyGroupEntityResponseFromJSONTyped(json: any, ignoreDi
         return json;
     }
     return {
-        resources: (json["Resources"] as Array<any>).map(ModelsAPIPolicyGroupFromJSON),
+        resources: (json["resources"] as Array<any>).map(ModelsAPIPolicyGroupFromJSON),
         errors: json["errors"] == null ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
     };
@@ -75,7 +75,7 @@ export function ModelsPolicyGroupEntityResponseToJSON(value?: ModelsPolicyGroupE
         return value;
     }
     return {
-        Resources: (value["resources"] as Array<any>).map(ModelsAPIPolicyGroupToJSON),
+        resources: (value["resources"] as Array<any>).map(ModelsAPIPolicyGroupToJSON),
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
     };

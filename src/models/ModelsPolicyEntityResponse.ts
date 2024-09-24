@@ -64,7 +64,7 @@ export function ModelsPolicyEntityResponseFromJSONTyped(json: any, ignoreDiscrim
         return json;
     }
     return {
-        resources: (json["Resources"] as Array<any>).map(ModelsAPIPolicyEntityFromJSON),
+        resources: (json["resources"] as Array<any>).map(ModelsAPIPolicyEntityFromJSON),
         errors: json["errors"] == null ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
     };
@@ -75,7 +75,7 @@ export function ModelsPolicyEntityResponseToJSON(value?: ModelsPolicyEntityRespo
         return value;
     }
     return {
-        Resources: (value["resources"] as Array<any>).map(ModelsAPIPolicyEntityToJSON),
+        resources: (value["resources"] as Array<any>).map(ModelsAPIPolicyEntityToJSON),
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
     };

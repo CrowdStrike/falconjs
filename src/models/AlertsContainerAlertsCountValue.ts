@@ -64,7 +64,7 @@ export function AlertsContainerAlertsCountValueFromJSONTyped(json: any, ignoreDi
         return json;
     }
     return {
-        resources: (json["Resources"] as Array<any>).map(CommonCountAsResourceFromJSON),
+        resources: (json["resources"] as Array<any>).map(CommonCountAsResourceFromJSON),
         errors: json["errors"] == null ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
     };
@@ -75,7 +75,7 @@ export function AlertsContainerAlertsCountValueToJSON(value?: AlertsContainerAle
         return value;
     }
     return {
-        Resources: (value["resources"] as Array<any>).map(CommonCountAsResourceToJSON),
+        resources: (value["resources"] as Array<any>).map(CommonCountAsResourceToJSON),
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
     };
