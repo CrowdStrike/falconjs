@@ -8,4 +8,4 @@ export * from "./client";
 export * from "./error";
 export * from "./event_stream";
 export * from "./FalconCloud";
-export * from "./falcon"
+export * from "./falcon";
