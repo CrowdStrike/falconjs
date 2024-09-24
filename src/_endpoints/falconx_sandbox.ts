@@ -2,7 +2,7 @@
  * contains all method definitions for API: falconx sandbox
  * consumed and interpreted by Falcon.command(...)
  */
-export var _falconx_sandbox_endpoints: Array<any> = [
+export const _falconx_sandbox_endpoints: Array<any> = [
     ["GetArtifacts", "GET", "/falconx/entities/artifacts/v1", "Download IOC packs, PCAP files, and other analysis artifacts.", "falconx_sandbox", [{
         "type": "string",
         "description": "ID of an artifact, such as an IOC pack, PCAP file, or actor image. Find an artifact ID in a report or summary.",
@@ -100,7 +100,7 @@ export var _falconx_sandbox_endpoints: Array<any> = [
         "in": "query",
         "required": 1
     }]],
-    ["GetSubmissions", "GET", "/falconx/entities/submissions/v1", "Check the status of a sandbox analysis. Time required for analysis varies but is usually less than 15 minutes.", "falconx_sandbox", [{
+    ["GetSubmissions", "GET", "/falconx/entities/submissions/v1", "Check the status of a sandbox analysis. Time required for analysis consties but is usually less than 15 minutes.", "falconx_sandbox", [{
         "type": "array",
         "items": {
             "type": "string"
@@ -111,7 +111,7 @@ export var _falconx_sandbox_endpoints: Array<any> = [
         "in": "query",
         "required": 1
     }]],
-    ["Submit", "POST", "/falconx/entities/submissions/v1", "Submit an uploaded file or a URL for sandbox analysis. Time required for analysis varies but is usually less than 15 minutes.", "falconx_sandbox", [{
+    ["Submit", "POST", "/falconx/entities/submissions/v1", "Submit an uploaded file or a URL for sandbox analysis. Time required for analysis consties but is usually less than 15 minutes.", "falconx_sandbox", [{
         "description": "Submit either a URL or a sample SHA256 for sandbox analysis. The sample file must have been previously uploaded through `/samples/entities/samples/v2`. You must specify a JSON object that includes the `falconx.SubmissionParametersV1` key/value pairs shown below.\n\n**`environment_id`**: Specifies the sandbox environment used for analysis. Values:\n\n- `300`: Linux Ubuntu 16.04, 64-bit\n- `200`: Android (static analysis)\n- `160`: Windows 10, 64-bit\n- `110`: Windows 7, 64-bit\n- `100`: Windows 7, 32-bit\n\n**`sha256`** ID of the sample, which is a SHA256 hash value. Find a sample ID from the response when uploading a malware sample or search with `/falconx/queries/submissions/v1`.The `url` parameter must be unset if `sha256` is used.\n\n**`url`** A web page or file URL. It can be HTTP(S) or FTP. The `sha256` parameter must be unset if `url` is used.\n\n**`action_script`** (optional): Runtime script for sandbox analysis. Values:\n\n- `default`\n- `default_maxantievasion`\n- `default_randomfiles`\n- `default_randomtheme`\n- `default_openie`\n\n**`command_line`** (optional): Command line script passed to the submitted file at runtime. Max length: 2048 characters\n\n**`document_password`** (optional): Auto-filled for Adobe or Office files that prompt for a password. Max length: 32 characters\n\n**`enable_tor`** (optional): If `true`, sandbox analysis routes network traffic via TOR. Default: `false`.\n\n**`submit_name`** (optional): Name of the malware sample that's used for file type detection and analysis\n\n**`system_date`** (optional): Set a custom date in the format `yyyy-MM-dd` for the sandbox environment\n\n**`system_time`** (optional): Set a custom time in the format `HH:mm` for the sandbox environment.",
         "name": "body",
         "in": "body",

@@ -2,7 +2,7 @@
  * contains all method definitions for API: foundry logscale
  * consumed and interpreted by Falcon.command(...)
  */
-export var _foundry_logscale_endpoints: Array<any> = [
+export const _foundry_logscale_endpoints: Array<any> = [
     ["ListReposV1", "GET", "/loggingapi/combined/repos/v1", "Lists available repositories and views", "foundry_logscale", []],
     ["IngestDataV1", "POST", "/loggingapi/entities/data-ingestion/ingest/v1", "Ingest data into the application repository", "foundry_logscale", [{
         "type": "file",

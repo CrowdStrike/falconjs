@@ -2,7 +2,7 @@
  * contains all method definitions for API: mobile enrollment
  * consumed and interpreted by Falcon.command(...)
  */
-export var _mobile_enrollment_endpoints: Array<any> = [
+export const _mobile_enrollment_endpoints: Array<any> = [
     ["RequestDeviceEnrollmentV3", "POST", "/enrollments/entities/details/v3", "Trigger on-boarding process for a mobile device", "mobile_enrollment", [{
         "enum": ["enroll", "re-enroll"],
         "type": "string",

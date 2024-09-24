@@ -2,7 +2,7 @@
  * contains all method definitions for API: spotlight vulnerabilities
  * consumed and interpreted by Falcon.command(...)
  */
-export var _spotlight_vulnerabilities_endpoints: Array<any> = [
+export const _spotlight_vulnerabilities_endpoints: Array<any> = [
     ["combinedQueryVulnerabilities", "GET", "/spotlight/combined/vulnerabilities/v1", "Search for Vulnerabilities in your environment by providing an FQL filter and paging details. Returns a set of Vulnerability entities which match the filter criteria", "spotlight_vulnerabilities", [{
         "type": "string",
         "description": "A pagination token used with the `limit` parameter to manage pagination of results. On your first request, don't provide an `after` token. On subsequent requests, provide the `after` token from the previous response to continue from that place in the results.",
@@ -32,7 +32,7 @@ export var _spotlight_vulnerabilities_endpoints: Array<any> = [
             "type": "string"
         },
         "collectionFormat": "multi",
-        "description": "Select various details blocks to be returned for each vulnerability entity. Supported values:\n\n<ul><li>host_info</li><li>remediation</li><li>cve</li><li>evaluation_logic</li></ul>",
+        "description": "Select constious details blocks to be returned for each vulnerability entity. Supported values:\n\n<ul><li>host_info</li><li>remediation</li><li>cve</li><li>evaluation_logic</li></ul>",
         "name": "facet",
         "in": "query"
     }]],

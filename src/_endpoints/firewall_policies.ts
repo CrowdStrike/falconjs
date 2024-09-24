@@ -2,7 +2,7 @@
  * contains all method definitions for API: firewall policies
  * consumed and interpreted by Falcon.command(...)
  */
-export var _firewall_policies_endpoints: Array<any> = [
+export const _firewall_policies_endpoints: Array<any> = [
     ["queryCombinedFirewallPolicyMembers", "GET", "/policy/combined/firewall-members/v1", "Search for members of a Firewall Policy in your environment by providing an FQL filter and paging details. Returns a set of host details which match the filter criteria", "firewall_policies", [{
         "type": "string",
         "description": "The ID of the Firewall Policy to search for members of",

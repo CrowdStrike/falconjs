@@ -2,7 +2,7 @@
  * contains all method definitions for API: fdr
  * consumed and interpreted by Falcon.command(...)
  */
-export var _fdr_endpoints: Array<any> = [
+export const _fdr_endpoints: Array<any> = [
     ["fdrschema_combined_event_get", "GET", "/fdr/combined/schema-members/v1", "Fetch combined schema", "event_schema", []],
     ["fdrschema_entities_event_get", "GET", "/fdr/entities/schema-events/v1", "Fetch event schema by ID", "event_schema", [{
         "type": "array",

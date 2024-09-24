@@ -2,7 +2,7 @@
  * contains all method definitions for API: kubernetes protection
  * consumed and interpreted by Falcon.command(...)
  */
-export var _kubernetes_protection_endpoints: Array<any> = [
+export const _kubernetes_protection_endpoints: Array<any> = [
     ["GetAWSAccountsMixin0", "GET", "/kubernetes-protection/entities/accounts/aws/v1", "Provides a list of AWS accounts.", "kubernetes_protection", [{
         "type": "array",
         "items": {

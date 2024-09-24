@@ -2,7 +2,7 @@
  * contains all method definitions for API: real time response audit
  * consumed and interpreted by Falcon.command(...)
  */
-export var _real_time_response_audit_endpoints: Array<any> = [
+export const _real_time_response_audit_endpoints: Array<any> = [
     ["RTRAuditSessions", "GET", "/real-time-response-audit/combined/sessions/v1", "Get all the RTR sessions created for a customer in a specified duration", "real_time_response_audit", [{
         "type": "string",
         "description": "Optional filter criteria in the form of an FQL query. For more information about FQL queries, see our [FQL documentation in Falcon](https://falcon.crowdstrike.com/support/documentation/45/falcon-query-language-feature-guide).",

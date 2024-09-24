@@ -2,7 +2,7 @@
  * contains all method definitions for API: falcon complete dashboard
  * consumed and interpreted by Falcon.command(...)
  */
-export var _falcon_complete_dashboard_endpoints: Array<any> = [
+export const _falcon_complete_dashboard_endpoints: Array<any> = [
     ["AggregateAlerts", "POST", "/falcon-complete-dashboards/aggregates/alerts/GET/v1", "Retrieve aggregate alerts values based on the matched filter", "falcon_complete_dashboard", [{
         "name": "body",
         "in": "body",

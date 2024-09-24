@@ -1,4 +1,4 @@
-export var _incidents_endpoints: Array<any> = [
+export const _incidents_endpoints: Array<any> = [
     ["CrowdScore", "GET", "/incidents/combined/crowdscores/v1", "Query environment wide CrowdScore and return the entity data", "incidents", [{
         "type": "string",
         "description": "Optional filter and sort criteria in the form of an FQL query. For more information about FQL queries, see [our FQL documentation in Falcon](https://falcon.crowdstrike.com/support/documentation/45/falcon-query-language-feature-guide).",

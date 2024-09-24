@@ -2,7 +2,7 @@
  * contains all method definitions for API: recon
  * consumed and interpreted by Falcon.command(...)
  */
-export var _recon_endpoints: Array<any> = [
+export const _recon_endpoints: Array<any> = [
     ["AggregateNotificationsExposedDataRecordsV1", "POST", "/recon/aggregates/notifications-exposed-data-records/GET/v1", "Get notification exposed data record aggregates as specified via JSON in request body. The valid aggregation fields are: [notification_id created_date rule.id rule.name rule.topic source_category site author]", "recon", [{
         "name": "body",
         "in": "body",

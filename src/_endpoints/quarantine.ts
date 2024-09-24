@@ -2,7 +2,7 @@
  * contains all method definitions for API: quarantine
  * consumed and interpreted by Falcon.command(...)
  */
-export var _quarantine_endpoints: Array<any> = [
+export const _quarantine_endpoints: Array<any> = [
     ["ActionUpdateCount", "GET", "/quarantine/aggregates/action-update-count/v1", "Returns count of potentially affected quarantined files for each action.", "quarantine", [{
         "type": "string",
         "description": "FQL specifying filter parameters.",

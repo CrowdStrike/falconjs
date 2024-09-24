@@ -2,7 +2,7 @@
  * contains all method definitions for API: mssp
  * consumed and interpreted by Falcon.command(...)
  */
-export var _mssp_endpoints: Array<any> = [
+export const _mssp_endpoints: Array<any> = [
     ["getChildrenV2", "POST", "/mssp/entities/children/GET/v2", "Get link to child customer by child CID(s)", "mssp", [{
         "name": "body",
         "in": "body",

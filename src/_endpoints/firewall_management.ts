@@ -2,7 +2,7 @@
  * contains all method definitions for API: firewall management
  * consumed and interpreted by Falcon.command(...)
  */
-export var _firewall_management_endpoints: Array<any> = [
+export const _firewall_management_endpoints: Array<any> = [
     ["aggregate_events", "POST", "/fwmgr/aggregates/events/GET/v1", "Aggregate events for customer", "firewall_management", [{
         "description": "Query criteria and settings",
         "name": "body",

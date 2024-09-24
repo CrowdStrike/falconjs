@@ -1,4 +1,4 @@
-export var _zero_trust_assessment_endpoints: Array<any> = [
+export const _zero_trust_assessment_endpoints: Array<any> = [
   [
     "getAssessmentV1",
     "GET",
@@ -113,7 +113,7 @@ export var _zero_trust_assessment_endpoints: Array<any> = [
           "type": "string"
         },
         "collectionFormat": "multi",
-        "description": "Select various details blocks to be returned for each assessment entity. " +
+        "description": "Select constious details blocks to be returned for each assessment entity. " +
         "Supported values:\n\n<ul><li>host</li><li>finding.rule</li></ul>",
         "name": "facet",
         "in": "query"

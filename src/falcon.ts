@@ -1,4 +1,4 @@
-import axios, { Axios } from "axios";
+import axios from "axios";
 import { api_endpoints } from "./endpoints"
 
 /**
@@ -104,21 +104,20 @@ export class Falcon {
     * @return {Promise<any>}            response data
     */
     public async command(args: CommandArguments): Promise<any> {
-        let cmd = args["commandName"]
-        let params = args["params"]
-        let body = args["body"]
-        for (let i of this.endpoints) {
+        const cmd = args["commandName"]
+        const params = args["params"]
+        const body = args["body"]
+        for (const i of this.endpoints) {
             if (i[0] == cmd) {
-                let url = this.baseUrl + i[2]
-                let method = i[1].toLowerCase()
-                let p = params ? params : null
-                let b = body ? body : null
-                var headers: { [key: string]: string }
-                headers = {
+                const url = this.baseUrl + i[2]
+                const method = i[1].toLowerCase()
+                const p = params ? params : null
+                const b = body ? body : null
+                const headers = {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + this.token,
                 }
-                let response = await axios({
+                const response = await axios({
                     method: method,
                     url: url,
                     data: b,
@@ -127,7 +126,6 @@ export class Falcon {
                     paramsSerializer: { indexes: null }
 
                 });
-                if (cmd=="getAssessmentV1")console.log(response)
                 return response["data"]["resources"]
                 
             }

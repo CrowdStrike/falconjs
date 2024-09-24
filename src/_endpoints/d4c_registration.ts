@@ -2,7 +2,7 @@
  * contains all method definitions for API: d4c registration
  * consumed and interpreted by Falcon.command(...)
  */
-export var _d4c_registration_endpoints: Array<any> = [
+export const _d4c_registration_endpoints: Array<any> = [
     ["GetD4CAwsAccount", "GET", "/cloud-connect-aws/entities/account/v2", "Returns information about the current status of an AWS account.", "d4c_registration", [{
         "maxLength": 4,
         "minLength": 3,

@@ -2,7 +2,7 @@
  * contains all method definitions for API: sensor download
  * consumed and interpreted by Falcon.command(...)
  */
-export var _sensor_download_endpoints: Array<any> = [
+export const _sensor_download_endpoints: Array<any> = [
     ["GetCombinedSensorInstallersByQuery", "GET", "/sensors/combined/installers/v1", "Get sensor installer details by provided query", "sensor_download", [{
         "type": "integer",
         "description": "The first item to return, where 0 is the latest item. Use with the limit parameter to manage pagination of results.",

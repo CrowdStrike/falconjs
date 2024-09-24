@@ -2,7 +2,7 @@
  * contains all method definitions for API: prevention policies
  * consumed and interpreted by Falcon.command(...)
  */
-export var _prevention_policies_endpoints: Array<any> = [
+export const _prevention_policies_endpoints: Array<any> = [
     ["queryCombinedPreventionPolicyMembers", "GET", "/policy/combined/prevention-members/v1", "Search for members of a Prevention Policy in your environment by providing an FQL filter and paging details. Returns a set of host details which match the filter criteria", "prevention_policies", [{
         "type": "string",
         "description": "The ID of the Prevention Policy to search for members of",

@@ -2,7 +2,7 @@
  * contains all method definitions for API: detects 
  * consumed and interpreted by Falcon.command(...) 
  */
-export var _detects_endpoints: Array<any> = [
+export const _detects_endpoints: Array<any> = [
   [
     "GetAggregateDetects",
     "POST",

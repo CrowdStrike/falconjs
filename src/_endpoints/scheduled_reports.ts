@@ -2,7 +2,7 @@
  * contains all method definitions for API: scheduled reports
  * consumed and interpreted by Falcon.command(...)
  */
-export var _scheduled_reports_endpoints: Array<any> = [
+export const _scheduled_reports_endpoints: Array<any> = [
     ["scheduled_reports_launch", "POST", "/reports/entities/scheduled-reports/execution/v1", "Launch scheduled reports executions for the provided report IDs.", "scheduled_reports", [{
         "name": "body",
         "in": "body",

@@ -2,7 +2,7 @@
  * contains all method definitions for API: cloud snapshots
  * consumed and interpreted by Falcon.command(...)
  */
-export var _cloud_snapshots_endpoints: Array<any> = [
+export const _cloud_snapshots_endpoints: Array<any> = [
     ["CreateInventory", "POST", "/snapshots/entities/inventories/v1", "Create inventory from data received from snapshot", "inventories", [{
         "name": "body",
         "in": "body",

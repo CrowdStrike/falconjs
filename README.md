@@ -44,11 +44,9 @@ await client.sensorDownload
 ## Falcon
 when using request body properties:
 ```js
-const commandName = "GetDetectSummaries"
 const body = { ids: ["123", "456", "789"]}
-const args = { commandName: commandName, body: body }
 try {
-    detDetails = await falcon.command(args)
+    detDetails = await falcon.command("GetDetectSummaries", body)
     return detDetails
 } catch (error) {
     console.log(error)
@@ -58,9 +56,8 @@ try {
 
 when using query params:
 ```js
-const commandName = "getAssessmentsByScoreV1"
 const params = { filter: "score:<=75"}
-const args = { commandName: commandName, params: params }
+const args = {"getAssessmentsByScoreV1", params }
 try {
     ztaDetails = await falcon.command(args)
     return ztaDetails

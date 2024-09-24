@@ -2,7 +2,7 @@
  * contains all method definitions for API: sensor visibility exclusions
  * consumed and interpreted by Falcon.command(...)
  */
-export var _sensor_visibility_exclusions_endpoints: Array<any> = [
+export const _sensor_visibility_exclusions_endpoints: Array<any> = [
     ["getSensorVisibilityExclusionsV1", "GET", "/policy/entities/sv-exclusions/v1", "Get a set of Sensor Visibility Exclusions by specifying their IDs", "sensor_visibility_exclusions", [{
         "type": "array",
         "items": {

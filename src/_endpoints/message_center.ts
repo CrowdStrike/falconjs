@@ -2,7 +2,7 @@
  * contains all method definitions for API: message center
  * consumed and interpreted by Falcon.command(...)
  */
-export var _message_center_endpoints: Array<any> = [
+export const _message_center_endpoints: Array<any> = [
     ["AggregateCases", "POST", "/message-center/aggregates/cases/GET/v1", "Retrieve aggregate case values based on the matched filter", "message_center", [{
         "name": "body",
         "in": "body",

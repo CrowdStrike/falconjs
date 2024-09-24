@@ -2,7 +2,7 @@
  * contains all method definitions for API: identity protection
  * consumed and interpreted by Falcon.command(...)
  */
-export var _identity_protection_endpoints: Array<any> = [
+export const _identity_protection_endpoints: Array<any> = [
     ["api_preempt_proxy_post_graphql", "POST", "/identity-protection/combined/graphql/v1", "Identity Protection GraphQL API. Allows to retrieve entities, timeline activities, identity-based incidents and security assessment. Allows to perform actions on entities and identity-based incidents.", "identity_protection", [{
         "type": "string",
         "description": "Authorization Header",

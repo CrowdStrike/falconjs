@@ -2,7 +2,7 @@
  * contains all method definitions for API: ioc
  * consumed and interpreted by Falcon.command(...)
  */
-export var _ioc_endpoints: Array<any> = [
+export const _ioc_endpoints: Array<any> = [
     ["indicator_aggregate_v1", "POST", "/iocs/aggregates/indicators/v1", "Get Indicators aggregates as specified via json in the request body.", "ioc", [{
         "type": "string",
         "description": "The filter to narrow down the aggregation data",

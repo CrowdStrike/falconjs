@@ -2,7 +2,7 @@
  * contains all method definitions for API: event streams
  * consumed and interpreted by Falcon.command(...)
  */
-export var _event_streams_endpoints: Array<any> = [
+export const _event_streams_endpoints: Array<any> = [
     ["refreshActiveStreamSession", "POST", "/sensors/entities/datafeed-actions/v1/{}", "Refresh an active event stream. Use the URL shown in a GET /sensors/entities/datafeed/v2 response.", "event_streams", [{
         "type": "string",
         "description": "Action name. Allowed value is refresh_active_stream_session.",

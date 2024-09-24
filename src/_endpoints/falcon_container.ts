@@ -2,7 +2,7 @@
  * contains all method definitions for API: falcon container
  * consumed and interpreted by Falcon.command(...)
  */
-export var _falcon_container_endpoints: Array<any> = [
+export const _falcon_container_endpoints: Array<any> = [
     ["GetCredentials", "GET", "/container-security/entities/image-registry-credentials/v1", "Gets the registry credentials", "falcon_container", []],
     ["GetCombinedImages", "GET", "/container-security/combined/image-assessment/images/v1", "Get image assessment results by providing an FQL filter and paging details", "falcon_container_image", [{
         "type": "string",

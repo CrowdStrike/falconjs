@@ -2,7 +2,7 @@
  * contains all method definitions for API: custom ioa
  * consumed and interpreted by Falcon.command(...)
  */
-export var _custom_ioa_endpoints: Array<any> = [
+export const _custom_ioa_endpoints: Array<any> = [
     ["get_patterns", "GET", "/ioarules/entities/pattern-severities/v1", "Get pattern severities by ID.", "custom_ioa", [{
         "type": "array",
         "items": {

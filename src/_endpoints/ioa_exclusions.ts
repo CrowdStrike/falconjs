@@ -2,7 +2,7 @@
  * contains all method definitions for API: ioa exclusions
  * consumed and interpreted by Falcon.command(...)
  */
-export var _ioa_exclusions_endpoints: Array<any> = [
+export const _ioa_exclusions_endpoints: Array<any> = [
     ["getIOAExclusionsV1", "GET", "/policy/entities/ioa-exclusions/v1", "Get a set of IOA Exclusions by specifying their IDs", "ioa_exclusions", [{
         "type": "array",
         "items": {

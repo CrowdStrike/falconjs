@@ -2,7 +2,7 @@
  * contains all method definitions for API: sensor update policies
  * consumed and interpreted by Falcon.command(...)
  */
-export var _sensor_update_policies_endpoints: Array<any> = [
+export const _sensor_update_policies_endpoints: Array<any> = [
     ["revealUninstallToken", "POST", "/policy/combined/reveal-uninstall-token/v1", "Reveals an uninstall token for a specific device. To retrieve the bulk maintenance token pass the value 'MAINTENANCE' as the value for 'device_id'", "sensor_update_policies", [{
         "name": "body",
         "in": "body",

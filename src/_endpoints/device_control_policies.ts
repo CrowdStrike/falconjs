@@ -2,7 +2,7 @@
  * contains all method definitions for API: device control policies
  * consumed and interpreted by Falcon.command(...)
  */
-export var _device_control_policies_endpoints: Array<any> = [
+export const _device_control_policies_endpoints: Array<any> = [
     ["queryCombinedDeviceControlPolicyMembers", "GET", "/policy/combined/device-control-members/v1", "Search for members of a Device Control Policy in your environment by providing an FQL filter and paging details. Returns a set of host details which match the filter criteria", "device_control_policies", [{
         "type": "string",
         "description": "The ID of the Device Control Policy to search for members of",

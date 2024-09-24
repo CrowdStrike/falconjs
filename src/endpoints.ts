@@ -57,7 +57,7 @@ import { _real_time_response_admin_endpoints } from "./_endpoints/real_time_resp
 import { _alerts_endpoints } from "./_endpoints/alerts"
 
 /** aggregates ./endpoints into one array for Falcon.command(...) */
-export var api_endpoints: Array<any> = [
+export const api_endpoints: Array<any> = [
     _hosts_endpoints
         .concat(_detects_endpoints)
         .concat(_zero_trust_assessment_endpoints)

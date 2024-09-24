@@ -2,7 +2,7 @@
  * contains all method definitions for API: response policies
  * consumed and interpreted by Falcon.command(...)
  */
-export var _response_policies_endpoints: Array<any> = [
+export const _response_policies_endpoints: Array<any> = [
     ["queryCombinedRTResponsePolicyMembers", "GET", "/policy/combined/response-members/v1", "Search for members of a Response policy in your environment by providing an FQL filter and paging details.Returns a set of host details which match the filter criteria", "response_policies", [{
         "type": "string",
         "description": "The ID of the Response policy to search for members of",

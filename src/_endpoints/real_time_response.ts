@@ -2,7 +2,7 @@
  * contains all method definitions for API: real time response
  * consumed and interpreted by Falcon.command(...)
  */
-export var _real_time_response_endpoints: Array<any> = [
+export const _real_time_response_endpoints: Array<any> = [
     ["RTR_AggregateSessions", "POST", "/real-time-response/aggregates/sessions/GET/v1", "Get aggregates on session data.", "real_time_response", [{
         "description": "Supported aggregations: \n- `term`\n- `date_range`\n\nSupported aggregation members:\n\n**`date_ranges`** If peforming a date range query specify the **`from`** and **`to`** date ranges.  These can be in common date formats like `2019-07-18` or `now`\n**`field`** Term you want to aggregate on.  If doing a `date_range` query, this is the date field you want to apply the date ranges to\n**`filter`** Optional filter criteria in the form of an FQL query. For more information about FQL queries, see our [FQL documentation in Falcon](https://falcon.crowdstrike.com/support/documentation/45/falcon-query-language-feature-guide).\n**`name`** Name of the aggregation\n**`size`** Size limit to apply to the queries.",
         "name": "body",

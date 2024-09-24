@@ -2,7 +2,7 @@
  * contains all method definitions for API: intel
  * consumed and interpreted by Falcon.command(...)
  */
-export var _intel_endpoints: Array<any> = [
+export const _intel_endpoints: Array<any> = [
     ["QueryIntelActorEntities", "GET", "/intel/combined/actors/v1", "Get info about actors that match provided FQL filters.", "intel", [{
         "type": "integer",
         "description": "Set the starting row number to return actors from. Defaults to 0.",

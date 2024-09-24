@@ -2,7 +2,7 @@
  * contains all method definitions for API: custom storage
  * consumed and interpreted by Falcon.command(...)
  */
-export var _custom_storage_endpoints: Array<any> = [
+export const _custom_storage_endpoints: Array<any> = [
     ["ListObjects", "GET", "/customobjects/v1/collections/{collection_name}/objects", "List the object keys in the specified collection in alphabetical order", "custom_storage", [{
         "maxLength": 32,
         "minLength": 32,

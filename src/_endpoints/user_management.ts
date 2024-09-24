@@ -2,7 +2,7 @@
  * contains all method definitions for API: user management
  * consumed and interpreted by Falcon.command(...)
  */
-export var _user_management_endpoints: Array<any> = [
+export const _user_management_endpoints: Array<any> = [
     ["combinedUserRolesV1", "GET", "/user-management/combined/user-roles/v1", "Get User Grant(s). This endpoint lists both direct as well as flight control grants between a User and a Customer.", "user_management", [{
         "type": "string",
         "description": "User UUID to get available roles for.",
@@ -250,7 +250,7 @@ export var _user_management_endpoints: Array<any> = [
             "type": "string"
         },
         "collectionFormat": "multi",
-        "description": "A username. This is usually the user's email address, but may vary based on your configuration.",
+        "description": "A username. This is usually the user's email address, but may consty based on your configuration.",
         "name": "uid",
         "in": "query",
         "required": 1

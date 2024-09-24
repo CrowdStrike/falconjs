@@ -2,7 +2,7 @@
  * contains all method definitions for API: sample uploads
  * consumed and interpreted by Falcon.command(...)
  */
-export var _sample_uploads_endpoints: Array<any> = [
+export const _sample_uploads_endpoints: Array<any> = [
     ["ArchiveListV1", "GET", "/archives/entities/archive-files/v1", "Retrieves the archives files in chunks.", "sample_uploads", [{
         "type": "string",
         "description": "The archive SHA256.",

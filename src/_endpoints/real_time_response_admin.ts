@@ -2,7 +2,7 @@
  * contains all method definitions for API: real time response admin
  * consumed and interpreted by Falcon.command(...)
  */
-export var _real_time_response_admin_endpoints: Array<any> = [
+export const _real_time_response_admin_endpoints: Array<any> = [
     ["BatchAdminCmd", "POST", "/real-time-response/combined/batch-admin-command/v1", "Batch executes a RTR administrator command across the hosts mapped to the given batch ID.", "real_time_response_admin", [{
         "type": "integer",
         "default": 30,

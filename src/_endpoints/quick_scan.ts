@@ -2,7 +2,7 @@
  * contains all method definitions for API: quick scan
  * consumed and interpreted by Falcon.command(...)
  */
-export var _quick_scan_endpoints: Array<any> = [
+export const _quick_scan_endpoints: Array<any> = [
     ["GetScansAggregates", "POST", "/scanner/aggregates/scans/GET/v1", "Get scans aggregations as specified via json in request body.", "quick_scan", [{
         "name": "body",
         "in": "body",

@@ -2,7 +2,7 @@
  * contains all method definitions for API: cspm registration
  * consumed and interpreted by Falcon.command(...)
  */
-export var _cspm_registration_endpoints: Array<any> = [
+export const _cspm_registration_endpoints: Array<any> = [
     ["GetCSPMAwsAccount", "GET", "/cloud-connect-cspm-aws/entities/account/v1", "Returns information about the current status of an AWS account.", "cspm_registration", [{
         "maxLength": 4,
         "minLength": 3,

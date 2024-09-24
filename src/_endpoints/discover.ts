@@ -2,7 +2,7 @@
  * contains all method definitions for API: discover
  * consumed and interpreted by Falcon.command(...)
  */
-export var _discover_endpoints: Array<any> = [
+export const _discover_endpoints: Array<any> = [
     ["get_accounts", "GET", "/discover/entities/accounts/v1", "Get details on accounts by providing one or more IDs.", "discover", [{
         "type": "array",
         "items": {

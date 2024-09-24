@@ -2,7 +2,7 @@
  * contains all method definitions for API: overwatch dashboard
  * consumed and interpreted by Falcon.command(...)
  */
-export var _overwatch_dashboard_endpoints: Array<any> = [
+export const _overwatch_dashboard_endpoints: Array<any> = [
     ["AggregatesDetectionsGlobalCounts", "GET", "/overwatch-dashboards/aggregates/detections-global-counts/v1", "Get the total number of detections pushed across all customers", "overwatch_dashboard", [{
         "type": "string",
         "description": "An FQL filter string",

@@ -2,7 +2,7 @@
  * contains all method definitions for API: malquery
  * consumed and interpreted by Falcon.command(...)
  */
-export var _malquery_endpoints: Array<any> = [
+export const _malquery_endpoints: Array<any> = [
     ["GetMalQueryQuotasV1", "GET", "/malquery/aggregates/quotas/v1", "Get information about search and download quotas in your environment", "malquery", []],
     ["PostMalQueryFuzzySearchV1", "POST", "/malquery/combined/fuzzy-search/v1", "Search Falcon MalQuery quickly, but with more potential for false positives. Search for a combination of hex patterns and strings in order to identify samples based upon file content at byte level granularity.", "malquery", [{
         "description": "Fuzzy search parameters. See model for more details.",

@@ -1,4 +1,4 @@
-export var _host_group_endpoints: Array<any> = [
+export const _host_group_endpoints: Array<any> = [
     [
       "queryCombinedGroupMembers",
       "GET",

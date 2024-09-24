@@ -2,7 +2,7 @@
  * contains all method definitions for API: filevantage
  * consumed and interpreted by Falcon.command(...)
  */
-export var _filevantage_endpoints: Array<any> = [
+export const _filevantage_endpoints: Array<any> = [
     ["getChanges", "GET", "/filevantage/entities/changes/v2", "Retrieve information on changes", "filevantage", [{
         "maxItems": 500,
         "minItems": 1,

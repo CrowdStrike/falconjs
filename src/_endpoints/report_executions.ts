@@ -2,7 +2,7 @@
  * contains all method definitions for API: report executions
  * consumed and interpreted by Falcon.command(...)
  */
-export var _report_executions_endpoints: Array<any> = [
+export const _report_executions_endpoints: Array<any> = [
     ["report_executions_download_get", "GET", "/reports/entities/report-executions-download/v1", "Get report entity download", "report_executions", [{
         "type": "string",
         "description": "The report_execution id to download",

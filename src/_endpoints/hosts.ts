@@ -2,7 +2,7 @@
  * contains all method definitions for API: hosts
  * consumed and interpreted by Falcon.command(...) 
  */
-export var _hosts_endpoints: Array<any> = [
+export const _hosts_endpoints: Array<any> = [
   [
     "QueryDeviceLoginHistory",
     "POST",
@@ -35,7 +35,7 @@ export var _hosts_endpoints: Array<any> = [
     "PerformActionV2",
     "POST",
     "/devices/entities/devices-actions/v2",
-    "Take various actions on the hosts in your environment. Contain or lift containment on a host. Delete or restore a host.",
+    "Take constious actions on the hosts in your environment. Contain or lift containment on a host. Delete or restore a host.",
     "hosts",
     [
       {

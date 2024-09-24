@@ -2,7 +2,7 @@
  * contains all method definitions for API: workflows
  * consumed and interpreted by Falcon.command(...)
  */
-export var _workflows_endpoints: Array<any> = [
+export const _workflows_endpoints: Array<any> = [
     ["WorkflowExecute", "POST", "/workflows/entities/execute/v1", "Executes an on-demand Workflow, the body is JSON used to trigger the execution, the response the execution ID(s)", "workflows", [{
         "type": "array",
         "items": {

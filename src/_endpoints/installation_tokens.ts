@@ -2,7 +2,7 @@
  * contains all method definitions for API: installation tokens
  * consumed and interpreted by Falcon.command(...)
  */
-export var _installation_tokens_endpoints: Array<any> = [
+export const _installation_tokens_endpoints: Array<any> = [
     ["audit_events_read", "GET", "/installation-tokens/entities/audit-events/v1", "Gets the details of one or more audit events by id.", "installation_tokens", [{
         "type": "array",
         "items": {

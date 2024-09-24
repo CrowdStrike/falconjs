@@ -2,7 +2,7 @@
  * contains all method definitions for API: alerts
  * consumed and interpreted by Falcon.command(...)
  */
-export var _alerts_endpoints: Array<any> = [
+export const _alerts_endpoints: Array<any> = [
     ["PostAggregatesAlertsV1", "POST", "/alerts/aggregates/alerts/v1", "retrieves aggregates for Alerts across all CIDs", "alerts", [{
         "description": "request body takes a list of aggregation query requests",
         "name": "body",

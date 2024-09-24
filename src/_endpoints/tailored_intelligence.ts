@@ -2,7 +2,7 @@
  * contains all method definitions for API: tailored intelligence
  * consumed and interpreted by Falcon.command(...)
  */
-export var _tailored_intelligence_endpoints: Array<any> = [
+export const _tailored_intelligence_endpoints: Array<any> = [
     ["GetEventsBody", "GET", "/ti/events/entities/events-full-body/v2", "Get event body for the provided event ID", "tailored_intelligence", [{
         "type": "string",
         "description": "Return the event body for event id.",

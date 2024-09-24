@@ -2,7 +2,7 @@
  * contains all method definitions for API: ml exclusions
  * consumed and interpreted by Falcon.command(...)
  */
-export var _ml_exclusions_endpoints: Array<any> = [
+export const _ml_exclusions_endpoints: Array<any> = [
     ["getMLExclusionsV1", "GET", "/policy/entities/ml-exclusions/v1", "Get a set of ML Exclusions by specifying their IDs", "ml_exclusions", [{
         "type": "array",
         "items": {

@@ -2,7 +2,7 @@
  * contains all method definitions for API: cloud connect aws
  * consumed and interpreted by Falcon.command(...)
  */
-export var _cloud_connect_aws_endpoints: Array<any> = [
+export const _cloud_connect_aws_endpoints: Array<any> = [
     ["QueryAWSAccounts", "GET", "/cloud-connect-aws/combined/accounts/v1", "Search for provisioned AWS Accounts by providing an FQL filter and paging details. Returns a set of AWS accounts which match the filter criteria", "cloud_connect_aws", [{
         "maxLength": 1000,
         "minLength": 1,

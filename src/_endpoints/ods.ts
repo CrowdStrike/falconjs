@@ -2,7 +2,7 @@
  * contains all method definitions for API: ods
  * consumed and interpreted by Falcon.command(...)
  */
-export var _ods_endpoints: Array<any> = [
+export const _ods_endpoints: Array<any> = [
     ["aggregate_query_scan_host_metadata", "POST", "/ods/aggregates/scan-hosts/v1", "Get aggregates on ODS scan-hosts data.", "ods", [{
         "name": "body",
         "in": "body",

@@ -2,7 +2,7 @@
  * contains all method definitions for API: spotlight evaluation logic
  * consumed and interpreted by Falcon.command(...)
  */
-export var _spotlight_evaluation_logic_endpoints: Array<any> = [
+export const _spotlight_evaluation_logic_endpoints: Array<any> = [
     ["combinedQueryEvaluationLogic", "GET", "/spotlight/combined/evaluation-logic/v1", "Search for evaluation logic in your environment by providing a FQL filter and paging details. Returns a set of evaluation logic entities which match the filter criteria.", "spotlight_evaluation_logic", [{
         "type": "string",
         "description": "A pagination token used with the `limit` parameter to manage pagination of results. On your first request, don't provide an `after` token. On subsequent requests, provide the `after` token from the previous response to continue from that place in the results.",
