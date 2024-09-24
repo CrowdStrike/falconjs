@@ -2,5 +2,8 @@
 /node_modules/
 /specs/*
 !/specs/transformation.*
+/src/tests/*
+/src/test.ts
 typings
 *.js
+.DS_Store
