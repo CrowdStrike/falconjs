@@ -5,6 +5,9 @@ type CloudUsGov1 = "us-gov-1";
 
 export type FalconCloud = CloudUs1 | CloudUs2 | CloudEu1 | CloudUsGov1;
 
+export type CloudAutoDiscover = "autodiscover";
+export type FalconCloudInput = FalconCloud | CloudAutoDiscover;
+
 const CloudHost = {
     "us-1": "api.crowdstrike.com",
     "us-2": "api.us-2.crowdstrike.com",
