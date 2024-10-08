@@ -115,7 +115,7 @@ export class MalqueryApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.VoidApiResponse(response);
@@ -133,7 +133,7 @@ export class MalqueryApi extends runtime.BaseAPI {
      */
     async getMalQueryEntitiesSamplesFetchV1Raw(
         requestParameters: MalqueryApiGetMalQueryEntitiesSamplesFetchV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<void>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getMalQueryEntitiesSamplesFetchV1().');
@@ -159,7 +159,7 @@ export class MalqueryApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.VoidApiResponse(response);
@@ -177,7 +177,7 @@ export class MalqueryApi extends runtime.BaseAPI {
      */
     async getMalQueryMetadataV1Raw(
         requestParameters: MalqueryApiGetMalQueryMetadataV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MalquerySampleMetadataResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getMalQueryMetadataV1().');
@@ -203,7 +203,7 @@ export class MalqueryApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MalquerySampleMetadataResponseFromJSON(jsonValue));
@@ -237,7 +237,7 @@ export class MalqueryApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MalqueryRateLimitsResponseFromJSON(jsonValue));
@@ -256,7 +256,7 @@ export class MalqueryApi extends runtime.BaseAPI {
      */
     async getMalQueryRequestV1Raw(
         requestParameters: MalqueryApiGetMalQueryRequestV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MalqueryRequestResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getMalQueryRequestV1().');
@@ -282,7 +282,7 @@ export class MalqueryApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MalqueryRequestResponseFromJSON(jsonValue));
@@ -301,7 +301,7 @@ export class MalqueryApi extends runtime.BaseAPI {
      */
     async postMalQueryEntitiesSamplesMultidownloadV1Raw(
         requestParameters: MalqueryApiPostMalQueryEntitiesSamplesMultidownloadV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MalqueryExternalQueryResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postMalQueryEntitiesSamplesMultidownloadV1().');
@@ -326,7 +326,7 @@ export class MalqueryApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MalqueryMultiDownloadRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MalqueryExternalQueryResponseFromJSON(jsonValue));
@@ -345,7 +345,7 @@ export class MalqueryApi extends runtime.BaseAPI {
      */
     async postMalQueryExactSearchV1Raw(
         requestParameters: MalqueryApiPostMalQueryExactSearchV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MalqueryExternalQueryResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postMalQueryExactSearchV1().');
@@ -370,7 +370,7 @@ export class MalqueryApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MalqueryExternalExactSearchParametersV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MalqueryExternalQueryResponseFromJSON(jsonValue));
@@ -389,7 +389,7 @@ export class MalqueryApi extends runtime.BaseAPI {
      */
     async postMalQueryFuzzySearchV1Raw(
         requestParameters: MalqueryApiPostMalQueryFuzzySearchV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MalqueryFuzzySearchResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postMalQueryFuzzySearchV1().');
@@ -414,7 +414,7 @@ export class MalqueryApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MalqueryFuzzySearchParametersV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MalqueryFuzzySearchResponseFromJSON(jsonValue));
@@ -433,7 +433,7 @@ export class MalqueryApi extends runtime.BaseAPI {
      */
     async postMalQueryHuntV1Raw(
         requestParameters: MalqueryApiPostMalQueryHuntV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MalqueryExternalQueryResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postMalQueryHuntV1().');
@@ -458,7 +458,7 @@ export class MalqueryApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MalqueryExternalHuntParametersV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MalqueryExternalQueryResponseFromJSON(jsonValue));

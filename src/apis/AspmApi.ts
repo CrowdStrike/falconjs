@@ -234,7 +234,7 @@ export class AspmApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: TypesExecutorNodeToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesExecutorNodeFromJSON(jsonValue));
@@ -275,7 +275,7 @@ export class AspmApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: TypesCreateIntegrationRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesIntegrationResponseFromJSON(jsonValue));
@@ -294,7 +294,7 @@ export class AspmApi extends runtime.BaseAPI {
      */
     async createIntegrationTaskRaw(
         requestParameters: AspmApiCreateIntegrationTaskRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<TypesIntegrationTaskResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createIntegrationTask().');
@@ -319,7 +319,7 @@ export class AspmApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: TypesCreateIntegrationTaskRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesIntegrationTaskResponseFromJSON(jsonValue));
@@ -357,7 +357,7 @@ export class AspmApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.VoidApiResponse(response);
@@ -394,7 +394,7 @@ export class AspmApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.VoidApiResponse(response);
@@ -431,7 +431,7 @@ export class AspmApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.VoidApiResponse(response);
@@ -471,7 +471,7 @@ export class AspmApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: TypesEditTagRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.VoidApiResponse(response);
@@ -511,7 +511,7 @@ export class AspmApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: TypesQueryRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesQueryResultFromJSON(jsonValue));
@@ -530,7 +530,7 @@ export class AspmApi extends runtime.BaseAPI {
      */
     async getExecutorNodesRaw(
         requestParameters: AspmApiGetExecutorNodesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<TypesListExecutorNodesResponse>> {
         if (requestParameters["nodeType"] == null) {
             throw new runtime.RequiredError("nodeType", 'Required parameter "nodeType" was null or undefined when calling getExecutorNodes().');
@@ -560,7 +560,7 @@ export class AspmApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesListExecutorNodesResponseFromJSON(jsonValue));
@@ -579,7 +579,7 @@ export class AspmApi extends runtime.BaseAPI {
      */
     async getIntegrationTasksRaw(
         requestParameters: AspmApiGetIntegrationTasksRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<TypesListIntegrationTasksResponse>> {
         const queryParameters: any = {};
 
@@ -605,7 +605,7 @@ export class AspmApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesListIntegrationTasksResponseFromJSON(jsonValue));
@@ -639,7 +639,7 @@ export class AspmApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesListIntegrationTypesResponseFromJSON(jsonValue));
@@ -658,7 +658,7 @@ export class AspmApi extends runtime.BaseAPI {
      */
     async getIntegrationsRaw(
         requestParameters: AspmApiGetIntegrationsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<TypesListIntegrationsResponse>> {
         const queryParameters: any = {};
 
@@ -684,7 +684,7 @@ export class AspmApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesListIntegrationsResponseFromJSON(jsonValue));
@@ -703,7 +703,7 @@ export class AspmApi extends runtime.BaseAPI {
      */
     async getServiceViolationTypesRaw(
         requestParameters: AspmApiGetServiceViolationTypesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<TypesGetViolationTypesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getServiceViolationTypes().');
@@ -728,7 +728,7 @@ export class AspmApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: TypesGenericUserFacingRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesGetViolationTypesResponseFromJSON(jsonValue));
@@ -769,7 +769,7 @@ export class AspmApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: TypesGetServicesRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.VoidApiResponse(response);
@@ -822,7 +822,7 @@ export class AspmApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesTagsDataResponseFromJSON(jsonValue));
@@ -837,7 +837,7 @@ export class AspmApi extends runtime.BaseAPI {
         limit?: number,
         offset?: number,
         name?: Array<string>,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<TypesTagsDataResponse> {
         const response = await this.getTagsRaw({ isUnique: isUnique, tagName: tagName, limit: limit, offset: offset, name: name }, initOverrides);
         return await response.value();
@@ -848,7 +848,7 @@ export class AspmApi extends runtime.BaseAPI {
      */
     async runIntegrationTaskRaw(
         requestParameters: AspmApiRunIntegrationTaskRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<TypesIntegrationTaskTestConnectionResponse>> {
         if (requestParameters["iD"] == null) {
             throw new runtime.RequiredError("iD", 'Required parameter "iD" was null or undefined when calling runIntegrationTask().');
@@ -881,7 +881,7 @@ export class AspmApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: TypesRunIntegrationTaskRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesIntegrationTaskTestConnectionResponseFromJSON(jsonValue));
@@ -894,7 +894,7 @@ export class AspmApi extends runtime.BaseAPI {
         iD: number,
         body: TypesRunIntegrationTaskRequest,
         category?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<TypesIntegrationTaskTestConnectionResponse> {
         const response = await this.runIntegrationTaskRaw({ iD: iD, body: body, category: category }, initOverrides);
         return await response.value();
@@ -904,7 +904,7 @@ export class AspmApi extends runtime.BaseAPI {
      */
     async serviceNowGetDeploymentsRaw(
         requestParameters: AspmApiServiceNowGetDeploymentsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<TypesServiceNowDeploymentsResponse>> {
         const queryParameters: any = {};
 
@@ -942,7 +942,7 @@ export class AspmApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesServiceNowDeploymentsResponseFromJSON(jsonValue));
@@ -956,7 +956,7 @@ export class AspmApi extends runtime.BaseAPI {
         offset?: number,
         orderBy?: string,
         direction?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<TypesServiceNowDeploymentsResponse> {
         const response = await this.serviceNowGetDeploymentsRaw({ qlFilters: qlFilters, limit: limit, offset: offset, orderBy: orderBy, direction: direction }, initOverrides);
         return await response.value();
@@ -966,7 +966,7 @@ export class AspmApi extends runtime.BaseAPI {
      */
     async serviceNowGetServicesRaw(
         requestParameters: AspmApiServiceNowGetServicesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<TypesServiceNowServicesResponse>> {
         const queryParameters: any = {};
 
@@ -1004,7 +1004,7 @@ export class AspmApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesServiceNowServicesResponseFromJSON(jsonValue));
@@ -1018,7 +1018,7 @@ export class AspmApi extends runtime.BaseAPI {
         offset?: number,
         orderBy?: string,
         direction?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<TypesServiceNowServicesResponse> {
         const response = await this.serviceNowGetServicesRaw({ qlFilters: qlFilters, limit: limit, offset: offset, orderBy: orderBy, direction: direction }, initOverrides);
         return await response.value();
@@ -1051,7 +1051,7 @@ export class AspmApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: TypesExecutorNodeToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesExecutorNodeFromJSON(jsonValue));
@@ -1096,7 +1096,7 @@ export class AspmApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: TypesUpdateIntegrationRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesIntegrationResponseFromJSON(jsonValue));
@@ -1115,7 +1115,7 @@ export class AspmApi extends runtime.BaseAPI {
      */
     async updateIntegrationTaskRaw(
         requestParameters: AspmApiUpdateIntegrationTaskRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<TypesIntegrationTaskResponse>> {
         if (requestParameters["iD"] == null) {
             throw new runtime.RequiredError("iD", 'Required parameter "iD" was null or undefined when calling updateIntegrationTask().');
@@ -1144,7 +1144,7 @@ export class AspmApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: TypesUpdateIntegrationTaskRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesIntegrationTaskResponseFromJSON(jsonValue));
@@ -1185,7 +1185,7 @@ export class AspmApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: TypesUpsertBusinessApplicationRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.VoidApiResponse(response);
@@ -1225,7 +1225,7 @@ export class AspmApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: TypesEditUniqueTagRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.VoidApiResponse(response);

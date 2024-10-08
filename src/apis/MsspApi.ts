@@ -221,7 +221,7 @@ export class MsspApi extends runtime.BaseAPI {
      */
     async addCIDGroupMembersRaw(
         requestParameters: MsspApiAddCIDGroupMembersRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainCIDGroupMembersResponseV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling addCIDGroupMembers().');
@@ -246,7 +246,7 @@ export class MsspApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainCIDGroupMembersRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainCIDGroupMembersResponseV1FromJSON(jsonValue));
@@ -287,7 +287,7 @@ export class MsspApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainMSSPRoleRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainMSSPRoleResponseV1FromJSON(jsonValue));
@@ -306,7 +306,7 @@ export class MsspApi extends runtime.BaseAPI {
      */
     async addUserGroupMembersRaw(
         requestParameters: MsspApiAddUserGroupMembersRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainUserGroupMembersResponseV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling addUserGroupMembers().');
@@ -331,7 +331,7 @@ export class MsspApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainUserGroupMembersRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainUserGroupMembersResponseV1FromJSON(jsonValue));
@@ -372,7 +372,7 @@ export class MsspApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainCIDGroupsRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainCIDGroupsResponseV1FromJSON(jsonValue));
@@ -413,7 +413,7 @@ export class MsspApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainUserGroupsRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainUserGroupsResponseV1FromJSON(jsonValue));
@@ -433,7 +433,7 @@ export class MsspApi extends runtime.BaseAPI {
      */
     async deleteCIDGroupMembersRaw(
         requestParameters: MsspApiDeleteCIDGroupMembersRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainCIDGroupMembersResponseV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling deleteCIDGroupMembers().');
@@ -458,7 +458,7 @@ export class MsspApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainCIDGroupMembersRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainCIDGroupMembersResponseV1FromJSON(jsonValue));
@@ -478,7 +478,7 @@ export class MsspApi extends runtime.BaseAPI {
      */
     async deleteCIDGroupMembersV2Raw(
         requestParameters: MsspApiDeleteCIDGroupMembersV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainCIDGroupMembersResponseV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling deleteCIDGroupMembersV2().');
@@ -503,7 +503,7 @@ export class MsspApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainCIDGroupMembersRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainCIDGroupMembersResponseV1FromJSON(jsonValue));
@@ -545,7 +545,7 @@ export class MsspApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaEntitiesResponseFromJSON(jsonValue));
@@ -564,7 +564,7 @@ export class MsspApi extends runtime.BaseAPI {
      */
     async deleteUserGroupMembersRaw(
         requestParameters: MsspApiDeleteUserGroupMembersRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainUserGroupMembersResponseV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling deleteUserGroupMembers().');
@@ -589,7 +589,7 @@ export class MsspApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainUserGroupMembersRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainUserGroupMembersResponseV1FromJSON(jsonValue));
@@ -631,7 +631,7 @@ export class MsspApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaEntitiesResponseFromJSON(jsonValue));
@@ -672,7 +672,7 @@ export class MsspApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainMSSPRoleRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainMSSPRoleResponseV1FromJSON(jsonValue));
@@ -715,7 +715,7 @@ export class MsspApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainCIDGroupsResponseV1FromJSON(jsonValue));
@@ -735,7 +735,7 @@ export class MsspApi extends runtime.BaseAPI {
      */
     async getCIDGroupByIdV2Raw(
         requestParameters: MsspApiGetCIDGroupByIdV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainCIDGroupsResponseV1>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getCIDGroupByIdV2().');
@@ -761,7 +761,7 @@ export class MsspApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainCIDGroupsResponseV1FromJSON(jsonValue));
@@ -781,7 +781,7 @@ export class MsspApi extends runtime.BaseAPI {
      */
     async getCIDGroupMembersByRaw(
         requestParameters: MsspApiGetCIDGroupMembersByRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainCIDGroupMembersResponseV1>> {
         if (requestParameters["cidGroupIds"] == null) {
             throw new runtime.RequiredError("cidGroupIds", 'Required parameter "cidGroupIds" was null or undefined when calling getCIDGroupMembersBy().');
@@ -807,7 +807,7 @@ export class MsspApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainCIDGroupMembersResponseV1FromJSON(jsonValue));
@@ -827,7 +827,7 @@ export class MsspApi extends runtime.BaseAPI {
      */
     async getCIDGroupMembersByV2Raw(
         requestParameters: MsspApiGetCIDGroupMembersByV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainCIDGroupMembersResponseV1>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getCIDGroupMembersByV2().');
@@ -853,7 +853,7 @@ export class MsspApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainCIDGroupMembersResponseV1FromJSON(jsonValue));
@@ -895,7 +895,7 @@ export class MsspApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainChildrenResponseV1FromJSON(jsonValue));
@@ -936,7 +936,7 @@ export class MsspApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MsaspecIdsRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainChildrenResponseV1FromJSON(jsonValue));
@@ -978,7 +978,7 @@ export class MsspApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainMSSPRoleResponseV1FromJSON(jsonValue));
@@ -998,7 +998,7 @@ export class MsspApi extends runtime.BaseAPI {
      */
     async getUserGroupMembersByIDRaw(
         requestParameters: MsspApiGetUserGroupMembersByIDRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainUserGroupMembersResponseV1>> {
         if (requestParameters["userGroupIds"] == null) {
             throw new runtime.RequiredError("userGroupIds", 'Required parameter "userGroupIds" was null or undefined when calling getUserGroupMembersByID().');
@@ -1024,7 +1024,7 @@ export class MsspApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainUserGroupMembersResponseV1FromJSON(jsonValue));
@@ -1044,7 +1044,7 @@ export class MsspApi extends runtime.BaseAPI {
      */
     async getUserGroupMembersByIDV2Raw(
         requestParameters: MsspApiGetUserGroupMembersByIDV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainUserGroupMembersResponseV1>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getUserGroupMembersByIDV2().');
@@ -1070,7 +1070,7 @@ export class MsspApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainUserGroupMembersResponseV1FromJSON(jsonValue));
@@ -1090,7 +1090,7 @@ export class MsspApi extends runtime.BaseAPI {
      */
     async getUserGroupsByIDRaw(
         requestParameters: MsspApiGetUserGroupsByIDRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainUserGroupsResponseV1>> {
         if (requestParameters["userGroupIds"] == null) {
             throw new runtime.RequiredError("userGroupIds", 'Required parameter "userGroupIds" was null or undefined when calling getUserGroupsByID().');
@@ -1116,7 +1116,7 @@ export class MsspApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainUserGroupsResponseV1FromJSON(jsonValue));
@@ -1136,7 +1136,7 @@ export class MsspApi extends runtime.BaseAPI {
      */
     async getUserGroupsByIDV2Raw(
         requestParameters: MsspApiGetUserGroupsByIDV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainUserGroupsResponseV1>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getUserGroupsByIDV2().');
@@ -1162,7 +1162,7 @@ export class MsspApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainUserGroupsResponseV1FromJSON(jsonValue));
@@ -1216,7 +1216,7 @@ export class MsspApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -1230,7 +1230,7 @@ export class MsspApi extends runtime.BaseAPI {
         sort?: QueryCIDGroupMembersSortEnum,
         offset?: number,
         limit?: number,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<MsaQueryResponse> {
         const response = await this.queryCIDGroupMembersRaw({ cid: cid, sort: sort, offset: offset, limit: limit }, initOverrides);
         return await response.value();
@@ -1272,7 +1272,7 @@ export class MsspApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -1322,7 +1322,7 @@ export class MsspApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
@@ -1380,7 +1380,7 @@ export class MsspApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -1396,7 +1396,7 @@ export class MsspApi extends runtime.BaseAPI {
         sort?: QueryRolesSortEnum,
         offset?: number,
         limit?: number,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<MsaQueryResponse> {
         const response = await this.queryRolesRaw({ userGroupId: userGroupId, cidGroupId: cidGroupId, roleId: roleId, sort: sort, offset: offset, limit: limit }, initOverrides);
         return await response.value();
@@ -1442,7 +1442,7 @@ export class MsspApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -1456,7 +1456,7 @@ export class MsspApi extends runtime.BaseAPI {
         sort?: QueryUserGroupMembersSortEnum,
         offset?: number,
         limit?: number,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<MsaQueryResponse> {
         const response = await this.queryUserGroupMembersRaw({ userUuid: userUuid, sort: sort, offset: offset, limit: limit }, initOverrides);
         return await response.value();
@@ -1498,7 +1498,7 @@ export class MsspApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -1539,7 +1539,7 @@ export class MsspApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainCIDGroupsRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainCIDGroupsResponseV1FromJSON(jsonValue));
@@ -1580,7 +1580,7 @@ export class MsspApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainUserGroupsRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainUserGroupsResponseV1FromJSON(jsonValue));

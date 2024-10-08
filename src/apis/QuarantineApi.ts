@@ -79,7 +79,7 @@ export class QuarantineApi extends runtime.BaseAPI {
      */
     async actionUpdateCountRaw(
         requestParameters: QuarantineApiActionUpdateCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters["filter"] == null) {
             throw new runtime.RequiredError("filter", 'Required parameter "filter" was null or undefined when calling actionUpdateCount().');
@@ -105,7 +105,7 @@ export class QuarantineApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
@@ -124,7 +124,7 @@ export class QuarantineApi extends runtime.BaseAPI {
      */
     async getAggregateFilesRaw(
         requestParameters: QuarantineApiGetAggregateFilesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getAggregateFiles().');
@@ -149,7 +149,7 @@ export class QuarantineApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MsaAggregateQueryRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
@@ -168,7 +168,7 @@ export class QuarantineApi extends runtime.BaseAPI {
      */
     async getQuarantineFilesRaw(
         requestParameters: QuarantineApiGetQuarantineFilesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainMsaQfResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getQuarantineFiles().');
@@ -193,7 +193,7 @@ export class QuarantineApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MsaIdsRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaQfResponseFromJSON(jsonValue));
@@ -212,7 +212,7 @@ export class QuarantineApi extends runtime.BaseAPI {
      */
     async queryQuarantineFilesRaw(
         requestParameters: QuarantineApiQueryQuarantineFilesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
@@ -250,7 +250,7 @@ export class QuarantineApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -291,7 +291,7 @@ export class QuarantineApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainQueriesPatchRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
@@ -310,7 +310,7 @@ export class QuarantineApi extends runtime.BaseAPI {
      */
     async updateQuarantinedDetectsByIdsRaw(
         requestParameters: QuarantineApiUpdateQuarantinedDetectsByIdsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateQuarantinedDetectsByIds().');
@@ -335,7 +335,7 @@ export class QuarantineApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainEntitiesPatchRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));

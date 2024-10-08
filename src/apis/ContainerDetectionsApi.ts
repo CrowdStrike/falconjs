@@ -82,7 +82,7 @@ export class ContainerDetectionsApi extends runtime.BaseAPI {
      */
     async readCombinedDetectionsRaw(
         requestParameters: ContainerDetectionsApiReadCombinedDetectionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DetectionsApiCombinedDetections>> {
         const queryParameters: any = {};
 
@@ -116,7 +116,7 @@ export class ContainerDetectionsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DetectionsApiCombinedDetectionsFromJSON(jsonValue));
@@ -130,7 +130,7 @@ export class ContainerDetectionsApi extends runtime.BaseAPI {
         limit?: number,
         offset?: number,
         sort?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DetectionsApiCombinedDetections> {
         const response = await this.readCombinedDetectionsRaw({ filter: filter, limit: limit, offset: offset, sort: sort }, initOverrides);
         return await response.value();
@@ -141,7 +141,7 @@ export class ContainerDetectionsApi extends runtime.BaseAPI {
      */
     async readDetectionsRaw(
         requestParameters: ContainerDetectionsApiReadDetectionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DetectionsApiAssessmentDetections>> {
         const queryParameters: any = {};
 
@@ -171,7 +171,7 @@ export class ContainerDetectionsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DetectionsApiAssessmentDetectionsFromJSON(jsonValue));
@@ -190,7 +190,7 @@ export class ContainerDetectionsApi extends runtime.BaseAPI {
      */
     async readDetectionsCountRaw(
         requestParameters: ContainerDetectionsApiReadDetectionsCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DetectionsApiDetectionsCount>> {
         const queryParameters: any = {};
 
@@ -212,7 +212,7 @@ export class ContainerDetectionsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DetectionsApiDetectionsCountFromJSON(jsonValue));
@@ -231,7 +231,7 @@ export class ContainerDetectionsApi extends runtime.BaseAPI {
      */
     async readDetectionsCountBySeverityRaw(
         requestParameters: ContainerDetectionsApiReadDetectionsCountBySeverityRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DetectionsApiDetectionsBySeverity>> {
         const queryParameters: any = {};
 
@@ -253,7 +253,7 @@ export class ContainerDetectionsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DetectionsApiDetectionsBySeverityFromJSON(jsonValue));
@@ -272,7 +272,7 @@ export class ContainerDetectionsApi extends runtime.BaseAPI {
      */
     async readDetectionsCountByTypeRaw(
         requestParameters: ContainerDetectionsApiReadDetectionsCountByTypeRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DetectionsApiDetectionsByType>> {
         const queryParameters: any = {};
 
@@ -294,7 +294,7 @@ export class ContainerDetectionsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DetectionsApiDetectionsByTypeFromJSON(jsonValue));
@@ -313,7 +313,7 @@ export class ContainerDetectionsApi extends runtime.BaseAPI {
      */
     async searchDetectionsRaw(
         requestParameters: ContainerDetectionsApiSearchDetectionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<CommonGenericEntityResponseString>> {
         const queryParameters: any = {};
 
@@ -343,7 +343,7 @@ export class ContainerDetectionsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonGenericEntityResponseStringFromJSON(jsonValue));

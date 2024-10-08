@@ -62,7 +62,7 @@ export class MlExclusionsApi extends runtime.BaseAPI {
      */
     async createMLExclusionsV1Raw(
         requestParameters: MlExclusionsApiCreateMLExclusionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ExclusionsRespV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createMLExclusionsV1().');
@@ -87,7 +87,7 @@ export class MlExclusionsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ExclusionsCreateReqV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ExclusionsRespV1FromJSON(jsonValue));
@@ -106,7 +106,7 @@ export class MlExclusionsApi extends runtime.BaseAPI {
      */
     async deleteMLExclusionsV1Raw(
         requestParameters: MlExclusionsApiDeleteMLExclusionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ExclusionsRespV1>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteMLExclusionsV1().');
@@ -136,7 +136,7 @@ export class MlExclusionsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ExclusionsRespV1FromJSON(jsonValue));
@@ -178,7 +178,7 @@ export class MlExclusionsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ExclusionsRespV1FromJSON(jsonValue));
@@ -197,7 +197,7 @@ export class MlExclusionsApi extends runtime.BaseAPI {
      */
     async queryMLExclusionsV1Raw(
         requestParameters: MlExclusionsApiQueryMLExclusionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
@@ -231,7 +231,7 @@ export class MlExclusionsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -245,7 +245,7 @@ export class MlExclusionsApi extends runtime.BaseAPI {
         offset?: number,
         limit?: number,
         sort?: QueryMLExclusionsV1SortEnum,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<MsaQueryResponse> {
         const response = await this.queryMLExclusionsV1Raw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
@@ -256,7 +256,7 @@ export class MlExclusionsApi extends runtime.BaseAPI {
      */
     async updateMLExclusionsV1Raw(
         requestParameters: MlExclusionsApiUpdateMLExclusionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ExclusionsRespV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateMLExclusionsV1().');
@@ -281,7 +281,7 @@ export class MlExclusionsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: SvExclusionsUpdateReqV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ExclusionsRespV1FromJSON(jsonValue));

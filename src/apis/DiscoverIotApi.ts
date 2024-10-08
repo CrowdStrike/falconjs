@@ -54,7 +54,7 @@ export class DiscoverIotApi extends runtime.BaseAPI {
      */
     async getIotHostsRaw(
         requestParameters: DiscoverIotApiGetIotHostsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainDiscoverAPIIoTHostEntitiesResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getIotHosts().');
@@ -80,7 +80,7 @@ export class DiscoverIotApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainDiscoverAPIIoTHostEntitiesResponseFromJSON(jsonValue));
@@ -130,7 +130,7 @@ export class DiscoverIotApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
@@ -149,7 +149,7 @@ export class DiscoverIotApi extends runtime.BaseAPI {
      */
     async queryIotHostsV2Raw(
         requestParameters: DiscoverIotApiQueryIotHostsV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainDiscoverAPIResponse>> {
         const queryParameters: any = {};
 
@@ -183,7 +183,7 @@ export class DiscoverIotApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainDiscoverAPIResponseFromJSON(jsonValue));

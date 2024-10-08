@@ -53,7 +53,7 @@ export class DeliverySettingsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsDeliverySettingsEntityResponseFromJSON(jsonValue));
@@ -72,7 +72,7 @@ export class DeliverySettingsApi extends runtime.BaseAPI {
      */
     async postDeliverySettingsRaw(
         requestParameters: DeliverySettingsApiPostDeliverySettingsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsDeliverySettingsEntityResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postDeliverySettings().');
@@ -97,7 +97,7 @@ export class DeliverySettingsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ModelsDeliverySettingsRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsDeliverySettingsEntityResponseFromJSON(jsonValue));

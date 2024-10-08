@@ -140,7 +140,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
      */
     async aggregateAlertsRaw(
         requestParameters: FalconCompleteDashboardApiAggregateAlertsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateAlerts().');
@@ -165,7 +165,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
@@ -184,7 +184,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
      */
     async aggregateAllowListRaw(
         requestParameters: FalconCompleteDashboardApiAggregateAllowListRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateAllowList().');
@@ -209,7 +209,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
@@ -228,7 +228,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
      */
     async aggregateBlockListRaw(
         requestParameters: FalconCompleteDashboardApiAggregateBlockListRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateBlockList().');
@@ -253,7 +253,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
@@ -273,7 +273,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
      */
     async aggregateDetectionsRaw(
         requestParameters: FalconCompleteDashboardApiAggregateDetectionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateDetections().');
@@ -298,7 +298,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
@@ -318,7 +318,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
      */
     async aggregateDeviceCountCollectionRaw(
         requestParameters: FalconCompleteDashboardApiAggregateDeviceCountCollectionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateDeviceCountCollection().');
@@ -343,7 +343,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
@@ -362,7 +362,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
      */
     async aggregateEscalationsRaw(
         requestParameters: FalconCompleteDashboardApiAggregateEscalationsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateEscalations().');
@@ -387,7 +387,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
@@ -406,7 +406,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
      */
     async aggregateFCIncidentsRaw(
         requestParameters: FalconCompleteDashboardApiAggregateFCIncidentsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateFCIncidents().');
@@ -431,7 +431,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
@@ -450,7 +450,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
      */
     async aggregatePreventionPolicyRaw(
         requestParameters: FalconCompleteDashboardApiAggregatePreventionPolicyRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregatePreventionPolicy().');
@@ -475,7 +475,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
@@ -494,7 +494,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
      */
     async aggregateRemediationsRaw(
         requestParameters: FalconCompleteDashboardApiAggregateRemediationsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateRemediations().');
@@ -519,7 +519,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
@@ -538,7 +538,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
      */
     async aggregateSensorUpdatePolicyRaw(
         requestParameters: FalconCompleteDashboardApiAggregateSensorUpdatePolicyRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateSensorUpdatePolicy().');
@@ -563,7 +563,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
@@ -582,7 +582,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
      */
     async aggregateSupportIssuesRaw(
         requestParameters: FalconCompleteDashboardApiAggregateSupportIssuesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateSupportIssues().');
@@ -607,7 +607,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
@@ -626,7 +626,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
      */
     async aggregateTotalDeviceCountsRaw(
         requestParameters: FalconCompleteDashboardApiAggregateTotalDeviceCountsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateTotalDeviceCounts().');
@@ -651,7 +651,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
@@ -670,7 +670,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
      */
     async getDeviceCountCollectionQueriesByFilterRaw(
         requestParameters: FalconCompleteDashboardApiGetDeviceCountCollectionQueriesByFilterRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
@@ -704,7 +704,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -718,7 +718,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
         sort?: string,
         filter?: string,
         offset?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<MsaQueryResponse> {
         const response = await this.getDeviceCountCollectionQueriesByFilterRaw({ limit: limit, sort: sort, filter: filter, offset: offset }, initOverrides);
         return await response.value();
@@ -729,7 +729,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
      */
     async queryAlertIdsByFilterRaw(
         requestParameters: FalconCompleteDashboardApiQueryAlertIdsByFilterRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
@@ -763,7 +763,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -782,7 +782,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
      */
     async queryAllowListFilterRaw(
         requestParameters: FalconCompleteDashboardApiQueryAllowListFilterRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
@@ -816,7 +816,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -835,7 +835,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
      */
     async queryBlockListFilterRaw(
         requestParameters: FalconCompleteDashboardApiQueryBlockListFilterRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
@@ -869,7 +869,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -888,7 +888,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
      */
     async queryDetectionIdsByFilterRaw(
         requestParameters: FalconCompleteDashboardApiQueryDetectionIdsByFilterRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
@@ -922,7 +922,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -941,7 +941,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
      */
     async queryEscalationsFilterRaw(
         requestParameters: FalconCompleteDashboardApiQueryEscalationsFilterRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
@@ -975,7 +975,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -994,7 +994,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
      */
     async queryIncidentIdsByFilterRaw(
         requestParameters: FalconCompleteDashboardApiQueryIncidentIdsByFilterRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
@@ -1028,7 +1028,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -1047,7 +1047,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
      */
     async queryRemediationsFilterRaw(
         requestParameters: FalconCompleteDashboardApiQueryRemediationsFilterRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
@@ -1081,7 +1081,7 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));

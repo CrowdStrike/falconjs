@@ -34,7 +34,7 @@ export class DatascannerApi extends runtime.BaseAPI {
      */
     async getDataScannerTasksRaw(
         requestParameters: DatascannerApiGetDataScannerTasksRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<{ [key: string]: string }>> {
         if (requestParameters["xScannerId"] == null) {
             throw new runtime.RequiredError("xScannerId", 'Required parameter "xScannerId" was null or undefined when calling getDataScannerTasks().');
@@ -60,7 +60,7 @@ export class DatascannerApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse<any>(response);
@@ -94,7 +94,7 @@ export class DatascannerApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse<any>(response);
@@ -113,7 +113,7 @@ export class DatascannerApi extends runtime.BaseAPI {
      */
     async updateDataScannerTasksRaw(
         requestParameters: DatascannerApiUpdateDataScannerTasksRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<{ [key: string]: string }>> {
         if (requestParameters["xScannerId"] == null) {
             throw new runtime.RequiredError("xScannerId", 'Required parameter "xScannerId" was null or undefined when calling updateDataScannerTasks().');
@@ -147,7 +147,7 @@ export class DatascannerApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse<any>(response);

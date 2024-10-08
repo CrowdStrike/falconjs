@@ -52,7 +52,7 @@ export class SpotlightEvaluationLogicApi extends runtime.BaseAPI {
      */
     async combinedQueryEvaluationLogicRaw(
         requestParameters: SpotlightEvaluationLogicApiCombinedQueryEvaluationLogicRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainSPAPIEvaluationLogicCombinedResponseV1>> {
         if (requestParameters["filter"] == null) {
             throw new runtime.RequiredError("filter", 'Required parameter "filter" was null or undefined when calling combinedQueryEvaluationLogic().');
@@ -90,7 +90,7 @@ export class SpotlightEvaluationLogicApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainSPAPIEvaluationLogicCombinedResponseV1FromJSON(jsonValue));
@@ -104,7 +104,7 @@ export class SpotlightEvaluationLogicApi extends runtime.BaseAPI {
         after?: string,
         limit?: number,
         sort?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainSPAPIEvaluationLogicCombinedResponseV1> {
         const response = await this.combinedQueryEvaluationLogicRaw({ filter: filter, after: after, limit: limit, sort: sort }, initOverrides);
         return await response.value();
@@ -115,7 +115,7 @@ export class SpotlightEvaluationLogicApi extends runtime.BaseAPI {
      */
     async getEvaluationLogicRaw(
         requestParameters: SpotlightEvaluationLogicApiGetEvaluationLogicRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainSPAPIEvaluationLogicEntitiesResponseV1>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getEvaluationLogic().');
@@ -141,7 +141,7 @@ export class SpotlightEvaluationLogicApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainSPAPIEvaluationLogicEntitiesResponseV1FromJSON(jsonValue));
@@ -160,7 +160,7 @@ export class SpotlightEvaluationLogicApi extends runtime.BaseAPI {
      */
     async queryEvaluationLogicRaw(
         requestParameters: SpotlightEvaluationLogicApiQueryEvaluationLogicRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainSPAPIQueryResponse>> {
         if (requestParameters["filter"] == null) {
             throw new runtime.RequiredError("filter", 'Required parameter "filter" was null or undefined when calling queryEvaluationLogic().');
@@ -198,7 +198,7 @@ export class SpotlightEvaluationLogicApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainSPAPIQueryResponseFromJSON(jsonValue));

@@ -76,7 +76,7 @@ export class CertificateBasedExclusionsApi extends runtime.BaseAPI {
      */
     async cbExclusionsCreateV1Raw(
         requestParameters: CertificateBasedExclusionsApiCbExclusionsCreateV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiCertBasedExclusionRespV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling cbExclusionsCreateV1().');
@@ -101,7 +101,7 @@ export class CertificateBasedExclusionsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ApiCertBasedExclusionsCreateReqV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiCertBasedExclusionRespV1FromJSON(jsonValue));
@@ -120,7 +120,7 @@ export class CertificateBasedExclusionsApi extends runtime.BaseAPI {
      */
     async cbExclusionsDeleteV1Raw(
         requestParameters: CertificateBasedExclusionsApiCbExclusionsDeleteV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiCertBasedExclusionRespV1>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling cbExclusionsDeleteV1().');
@@ -150,7 +150,7 @@ export class CertificateBasedExclusionsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiCertBasedExclusionRespV1FromJSON(jsonValue));
@@ -169,7 +169,7 @@ export class CertificateBasedExclusionsApi extends runtime.BaseAPI {
      */
     async cbExclusionsGetV1Raw(
         requestParameters: CertificateBasedExclusionsApiCbExclusionsGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiCertBasedExclusionRespV1>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling cbExclusionsGetV1().');
@@ -195,7 +195,7 @@ export class CertificateBasedExclusionsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiCertBasedExclusionRespV1FromJSON(jsonValue));
@@ -214,7 +214,7 @@ export class CertificateBasedExclusionsApi extends runtime.BaseAPI {
      */
     async cbExclusionsQueryV1Raw(
         requestParameters: CertificateBasedExclusionsApiCbExclusionsQueryV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
         const queryParameters: any = {};
 
@@ -248,7 +248,7 @@ export class CertificateBasedExclusionsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
@@ -262,7 +262,7 @@ export class CertificateBasedExclusionsApi extends runtime.BaseAPI {
         offset?: number,
         limit?: number,
         sort?: CbExclusionsQueryV1SortEnum,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<MsaspecQueryResponse> {
         const response = await this.cbExclusionsQueryV1Raw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
@@ -273,7 +273,7 @@ export class CertificateBasedExclusionsApi extends runtime.BaseAPI {
      */
     async cbExclusionsUpdateV1Raw(
         requestParameters: CertificateBasedExclusionsApiCbExclusionsUpdateV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiCertBasedExclusionRespV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling cbExclusionsUpdateV1().');
@@ -298,7 +298,7 @@ export class CertificateBasedExclusionsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ApiCertBasedExclusionsUpdateReqV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiCertBasedExclusionRespV1FromJSON(jsonValue));
@@ -317,7 +317,7 @@ export class CertificateBasedExclusionsApi extends runtime.BaseAPI {
      */
     async certificatesGetV1Raw(
         requestParameters: CertificateBasedExclusionsApiCertificatesGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiRespCertificatesV1>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling certificatesGetV1().');
@@ -343,7 +343,7 @@ export class CertificateBasedExclusionsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiRespCertificatesV1FromJSON(jsonValue));

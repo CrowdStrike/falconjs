@@ -81,7 +81,7 @@ export class ExposureManagementApi extends runtime.BaseAPI {
      */
     async aggregateExternalAssetsRaw(
         requestParameters: ExposureManagementApiAggregateExternalAssetsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateExternalAssets().');
@@ -106,7 +106,7 @@ export class ExposureManagementApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
@@ -127,7 +127,7 @@ export class ExposureManagementApi extends runtime.BaseAPI {
      */
     async blobDownloadExternalAssetsRaw(
         requestParameters: ExposureManagementApiBlobDownloadExternalAssetsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<Array<number>>> {
         if (requestParameters["assetId"] == null) {
             throw new runtime.RequiredError("assetId", 'Required parameter "assetId" was null or undefined when calling blobDownloadExternalAssets().');
@@ -161,7 +161,7 @@ export class ExposureManagementApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse<any>(response);
@@ -182,7 +182,7 @@ export class ExposureManagementApi extends runtime.BaseAPI {
      */
     async blobPreviewExternalAssetsRaw(
         requestParameters: ExposureManagementApiBlobPreviewExternalAssetsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainExternalAssetsBlobAPITypeV1>> {
         if (requestParameters["assetId"] == null) {
             throw new runtime.RequiredError("assetId", 'Required parameter "assetId" was null or undefined when calling blobPreviewExternalAssets().');
@@ -216,7 +216,7 @@ export class ExposureManagementApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainExternalAssetsBlobAPITypeV1FromJSON(jsonValue));
@@ -236,7 +236,7 @@ export class ExposureManagementApi extends runtime.BaseAPI {
      */
     async getExternalAssetsRaw(
         requestParameters: ExposureManagementApiGetExternalAssetsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainExternalAssetsAPITypeV1>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getExternalAssets().');
@@ -262,7 +262,7 @@ export class ExposureManagementApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainExternalAssetsAPITypeV1FromJSON(jsonValue));
@@ -281,7 +281,7 @@ export class ExposureManagementApi extends runtime.BaseAPI {
      */
     async patchExternalAssetsRaw(
         requestParameters: ExposureManagementApiPatchExternalAssetsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainExternalAssetsAPITypeV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling patchExternalAssets().');
@@ -306,7 +306,7 @@ export class ExposureManagementApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainExternalAssetAPIPatchRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainExternalAssetsAPITypeV1FromJSON(jsonValue));
@@ -325,7 +325,7 @@ export class ExposureManagementApi extends runtime.BaseAPI {
      */
     async queryExternalAssetsRaw(
         requestParameters: ExposureManagementApiQueryExternalAssetsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
         const queryParameters: any = {};
 
@@ -359,7 +359,7 @@ export class ExposureManagementApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));

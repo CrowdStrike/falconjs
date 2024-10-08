@@ -70,7 +70,7 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
      */
     async readPackagesByFixableVulnCountRaw(
         requestParameters: ContainerPackagesApiReadPackagesByFixableVulnCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<PackagesApiPackagesByVulnCount>> {
         const queryParameters: any = {};
 
@@ -100,7 +100,7 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PackagesApiPackagesByVulnCountFromJSON(jsonValue));
@@ -119,7 +119,7 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
      */
     async readPackagesByVulnCountRaw(
         requestParameters: ContainerPackagesApiReadPackagesByVulnCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<PackagesApiPackagesByVulnCount>> {
         const queryParameters: any = {};
 
@@ -149,7 +149,7 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PackagesApiPackagesByVulnCountFromJSON(jsonValue));
@@ -168,7 +168,7 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
      */
     async readPackagesCombinedRaw(
         requestParameters: ContainerPackagesApiReadPackagesCombinedRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<PackagesApiCombinedPackage>> {
         const queryParameters: any = {};
 
@@ -206,7 +206,7 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PackagesApiCombinedPackageFromJSON(jsonValue));
@@ -221,7 +221,7 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
         limit?: number,
         offset?: number,
         sort?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<PackagesApiCombinedPackage> {
         const response = await this.readPackagesCombinedRaw({ filter: filter, onlyZeroDayAffected: onlyZeroDayAffected, limit: limit, offset: offset, sort: sort }, initOverrides);
         return await response.value();
@@ -232,7 +232,7 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
      */
     async readPackagesCombinedExportRaw(
         requestParameters: ContainerPackagesApiReadPackagesCombinedExportRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<PackagesApiCombinedPackageExport>> {
         const queryParameters: any = {};
 
@@ -270,7 +270,7 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PackagesApiCombinedPackageExportFromJSON(jsonValue));
@@ -285,7 +285,7 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
         limit?: number,
         offset?: number,
         sort?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<PackagesApiCombinedPackageExport> {
         const response = await this.readPackagesCombinedExportRaw({ filter: filter, onlyZeroDayAffected: onlyZeroDayAffected, limit: limit, offset: offset, sort: sort }, initOverrides);
         return await response.value();
@@ -296,7 +296,7 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
      */
     async readPackagesCountByZeroDayRaw(
         requestParameters: ContainerPackagesApiReadPackagesCountByZeroDayRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<CommonCountResponse>> {
         const queryParameters: any = {};
 
@@ -318,7 +318,7 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonCountResponseFromJSON(jsonValue));

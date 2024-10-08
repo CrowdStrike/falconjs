@@ -117,7 +117,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
      */
     async createMigrationV1Raw(
         requestParameters: HostMigrationApiCreateMigrationV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiCreateMigrationResponseV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createMigrationV1().');
@@ -142,7 +142,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ApiCreateMigrationRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiCreateMigrationResponseV1FromJSON(jsonValue));
@@ -163,7 +163,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
      */
     async getHostMigrationIDsV1Raw(
         requestParameters: HostMigrationApiGetHostMigrationIDsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling getHostMigrationIDsV1().');
@@ -205,7 +205,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
@@ -221,7 +221,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
         limit?: number,
         sort?: GetHostMigrationIDsV1SortEnum,
         filter?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<MsaspecQueryResponse> {
         const response = await this.getHostMigrationIDsV1Raw({ id: id, offset: offset, limit: limit, sort: sort, filter: filter }, initOverrides);
         return await response.value();
@@ -233,7 +233,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
      */
     async getHostMigrationsV1Raw(
         requestParameters: HostMigrationApiGetHostMigrationsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiGetHostMigrationResponseV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getHostMigrationsV1().');
@@ -258,7 +258,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MsaIdsRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiGetHostMigrationResponseV1FromJSON(jsonValue));
@@ -279,7 +279,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
      */
     async getMigrationDestinationsV1Raw(
         requestParameters: HostMigrationApiGetMigrationDestinationsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiGetMigrationDestinationsResponseV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getMigrationDestinationsV1().');
@@ -304,7 +304,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ApiGetMigrationDestinationsRequestBodyV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiGetMigrationDestinationsResponseV1FromJSON(jsonValue));
@@ -324,7 +324,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
      */
     async getMigrationIDsV1Raw(
         requestParameters: HostMigrationApiGetMigrationIDsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
         const queryParameters: any = {};
 
@@ -358,7 +358,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
@@ -372,7 +372,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
         limit?: number,
         sort?: GetMigrationIDsV1SortEnum,
         filter?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<MsaspecQueryResponse> {
         const response = await this.getMigrationIDsV1Raw({ offset: offset, limit: limit, sort: sort, filter: filter }, initOverrides);
         return await response.value();
@@ -383,7 +383,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
      */
     async getMigrationsV1Raw(
         requestParameters: HostMigrationApiGetMigrationsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiGetMigrationsResponseV1>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getMigrationsV1().');
@@ -409,7 +409,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiGetMigrationsResponseV1FromJSON(jsonValue));
@@ -429,7 +429,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
      */
     async hostMigrationAggregatesV1Raw(
         requestParameters: HostMigrationApiHostMigrationAggregatesV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling hostMigrationAggregatesV1().');
@@ -454,7 +454,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
@@ -475,7 +475,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
      */
     async hostMigrationsActionsV1Raw(
         requestParameters: HostMigrationApiHostMigrationsActionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling hostMigrationsActionsV1().');
@@ -516,7 +516,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MsaEntityActionRequestV3ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
@@ -530,7 +530,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
         id: string,
         actionName: HostMigrationsActionsV1ActionNameEnum,
         body: MsaEntityActionRequestV3,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<MsaspecQueryResponse> {
         const response = await this.hostMigrationsActionsV1Raw({ id: id, actionName: actionName, body: body }, initOverrides);
         return await response.value();
@@ -542,7 +542,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
      */
     async migrationAggregatesV1Raw(
         requestParameters: HostMigrationApiMigrationAggregatesV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling migrationAggregatesV1().');
@@ -567,7 +567,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
@@ -588,7 +588,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
      */
     async migrationsActionsV1Raw(
         requestParameters: HostMigrationApiMigrationsActionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
         if (requestParameters["actionName"] == null) {
             throw new runtime.RequiredError("actionName", 'Required parameter "actionName" was null or undefined when calling migrationsActionsV1().');
@@ -621,7 +621,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MsaEntityActionRequestV3ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
@@ -634,7 +634,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
     async migrationsActionsV1(
         actionName: MigrationsActionsV1ActionNameEnum,
         body: MsaEntityActionRequestV3,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<MsaspecQueryResponse> {
         const response = await this.migrationsActionsV1Raw({ actionName: actionName, body: body }, initOverrides);
         return await response.value();
