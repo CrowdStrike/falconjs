@@ -74,7 +74,7 @@ export class ScheduledReportsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"]!.map(DomainReportExecutionLaunchRequestV1ToJSON),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainReportExecutionsResponseV1FromJSON(jsonValue));
@@ -128,7 +128,7 @@ export class ScheduledReportsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -147,7 +147,7 @@ export class ScheduledReportsApi extends runtime.BaseAPI {
      */
     async queryByIdRaw(
         requestParameters: ScheduledReportsApiQueryByIdRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainScheduledReportsResultV1>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling queryById().');
@@ -173,7 +173,7 @@ export class ScheduledReportsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainScheduledReportsResultV1FromJSON(jsonValue));

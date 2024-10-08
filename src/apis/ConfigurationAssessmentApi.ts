@@ -44,7 +44,7 @@ export class ConfigurationAssessmentApi extends runtime.BaseAPI {
      */
     async getCombinedAssessmentsQueryRaw(
         requestParameters: ConfigurationAssessmentApiGetCombinedAssessmentsQueryRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainAPICombinedFindingsResponseV1>> {
         if (requestParameters["filter"] == null) {
             throw new runtime.RequiredError("filter", 'Required parameter "filter" was null or undefined when calling getCombinedAssessmentsQuery().');
@@ -86,7 +86,7 @@ export class ConfigurationAssessmentApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAPICombinedFindingsResponseV1FromJSON(jsonValue));
@@ -101,7 +101,7 @@ export class ConfigurationAssessmentApi extends runtime.BaseAPI {
         limit?: number,
         sort?: string,
         facet?: Array<string>,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainAPICombinedFindingsResponseV1> {
         const response = await this.getCombinedAssessmentsQueryRaw({ filter: filter, after: after, limit: limit, sort: sort, facet: facet }, initOverrides);
         return await response.value();
@@ -112,7 +112,7 @@ export class ConfigurationAssessmentApi extends runtime.BaseAPI {
      */
     async getRuleDetailsRaw(
         requestParameters: ConfigurationAssessmentApiGetRuleDetailsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainAPIRuleDetailsResponseV1>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getRuleDetails().');
@@ -138,7 +138,7 @@ export class ConfigurationAssessmentApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAPIRuleDetailsResponseV1FromJSON(jsonValue));

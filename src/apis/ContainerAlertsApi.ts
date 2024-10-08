@@ -49,7 +49,7 @@ export class ContainerAlertsApi extends runtime.BaseAPI {
      */
     async readContainerAlertsCountRaw(
         requestParameters: ContainerAlertsApiReadContainerAlertsCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<AlertsContainerAlertsCountValue>> {
         const queryParameters: any = {};
 
@@ -71,7 +71,7 @@ export class ContainerAlertsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AlertsContainerAlertsCountValueFromJSON(jsonValue));
@@ -90,7 +90,7 @@ export class ContainerAlertsApi extends runtime.BaseAPI {
      */
     async readContainerAlertsCountBySeverityRaw(
         requestParameters: ContainerAlertsApiReadContainerAlertsCountBySeverityRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<AlertsContainerAlertsCountValue>> {
         const queryParameters: any = {};
 
@@ -112,7 +112,7 @@ export class ContainerAlertsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AlertsContainerAlertsCountValueFromJSON(jsonValue));
@@ -131,7 +131,7 @@ export class ContainerAlertsApi extends runtime.BaseAPI {
      */
     async searchAndReadContainerAlertsRaw(
         requestParameters: ContainerAlertsApiSearchAndReadContainerAlertsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<AlertsContainerAlertsEntityResponse>> {
         const queryParameters: any = {};
 
@@ -165,7 +165,7 @@ export class ContainerAlertsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AlertsContainerAlertsEntityResponseFromJSON(jsonValue));
@@ -179,7 +179,7 @@ export class ContainerAlertsApi extends runtime.BaseAPI {
         limit?: number,
         offset?: number,
         sort?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<AlertsContainerAlertsEntityResponse> {
         const response = await this.searchAndReadContainerAlertsRaw({ filter: filter, limit: limit, offset: offset, sort: sort }, initOverrides);
         return await response.value();

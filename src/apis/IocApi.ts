@@ -183,7 +183,7 @@ export class IocApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiActionRespV1FromJSON(jsonValue));
@@ -225,7 +225,7 @@ export class IocApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiIndicatorQueryRespV1FromJSON(jsonValue));
@@ -266,7 +266,7 @@ export class IocApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ApiIndicatorsReportRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaEntitiesResponseFromJSON(jsonValue));
@@ -285,7 +285,7 @@ export class IocApi extends runtime.BaseAPI {
      */
     async indicatorAggregateV1Raw(
         requestParameters: IocApiIndicatorAggregateV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling indicatorAggregateV1().');
@@ -318,7 +318,7 @@ export class IocApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MsaAggregateQueryRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
@@ -376,7 +376,7 @@ export class IocApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiIndicatorRespV1FromJSON(jsonValue));
@@ -392,7 +392,7 @@ export class IocApi extends runtime.BaseAPI {
         sort?: IndicatorCombinedV1SortEnum,
         after?: string,
         fromParent?: boolean,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApiIndicatorRespV1> {
         const response = await this.indicatorCombinedV1Raw({ filter: filter, offset: offset, limit: limit, sort: sort, after: after, fromParent: fromParent }, initOverrides);
         return await response.value();
@@ -433,7 +433,7 @@ export class IocApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ApiIndicatorCreateReqsV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiIndicatorRespV1FromJSON(jsonValue));
@@ -483,7 +483,7 @@ export class IocApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiIndicatorQueryRespV1FromJSON(jsonValue));
@@ -497,7 +497,7 @@ export class IocApi extends runtime.BaseAPI {
         ids?: Array<string>,
         comment?: string,
         fromParent?: boolean,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApiIndicatorQueryRespV1> {
         const response = await this.indicatorDeleteV1Raw({ filter: filter, ids: ids, comment: comment, fromParent: fromParent }, initOverrides);
         return await response.value();
@@ -508,7 +508,7 @@ export class IocApi extends runtime.BaseAPI {
      */
     async indicatorGetDeviceCountV1Raw(
         requestParameters: IocApiIndicatorGetDeviceCountV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiDeviceCountRespV1>> {
         if (requestParameters["type"] == null) {
             throw new runtime.RequiredError("type", 'Required parameter "type" was null or undefined when calling indicatorGetDeviceCountV1().');
@@ -542,7 +542,7 @@ export class IocApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiDeviceCountRespV1FromJSON(jsonValue));
@@ -561,7 +561,7 @@ export class IocApi extends runtime.BaseAPI {
      */
     async indicatorGetDevicesRanOnV1Raw(
         requestParameters: IocApiIndicatorGetDevicesRanOnV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiDevicesRanOnRespV1>> {
         if (requestParameters["type"] == null) {
             throw new runtime.RequiredError("type", 'Required parameter "type" was null or undefined when calling indicatorGetDevicesRanOnV1().');
@@ -603,7 +603,7 @@ export class IocApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiDevicesRanOnRespV1FromJSON(jsonValue));
@@ -622,7 +622,7 @@ export class IocApi extends runtime.BaseAPI {
      */
     async indicatorGetProcessesRanOnV1Raw(
         requestParameters: IocApiIndicatorGetProcessesRanOnV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiProcessesRanOnRespV1>> {
         if (requestParameters["type"] == null) {
             throw new runtime.RequiredError("type", 'Required parameter "type" was null or undefined when calling indicatorGetProcessesRanOnV1().');
@@ -672,7 +672,7 @@ export class IocApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiProcessesRanOnRespV1FromJSON(jsonValue));
@@ -687,7 +687,7 @@ export class IocApi extends runtime.BaseAPI {
         deviceId: string,
         limit?: string,
         offset?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApiProcessesRanOnRespV1> {
         const response = await this.indicatorGetProcessesRanOnV1Raw({ type: type, value: value, deviceId: deviceId, limit: limit, offset: offset }, initOverrides);
         return await response.value();
@@ -721,7 +721,7 @@ export class IocApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiIndicatorRespV1FromJSON(jsonValue));
@@ -779,7 +779,7 @@ export class IocApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiIndicatorQueryRespV1FromJSON(jsonValue));
@@ -795,7 +795,7 @@ export class IocApi extends runtime.BaseAPI {
         sort?: IndicatorSearchV1SortEnum,
         after?: string,
         fromParent?: boolean,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApiIndicatorQueryRespV1> {
         const response = await this.indicatorSearchV1Raw({ filter: filter, offset: offset, limit: limit, sort: sort, after: after, fromParent: fromParent }, initOverrides);
         return await response.value();
@@ -836,7 +836,7 @@ export class IocApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ApiIndicatorUpdateReqsV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiIndicatorRespV1FromJSON(jsonValue));
@@ -878,7 +878,7 @@ export class IocApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiIndicatorQueryRespV1FromJSON(jsonValue));
@@ -920,7 +920,7 @@ export class IocApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiIndicatorQueryRespV1FromJSON(jsonValue));
@@ -962,7 +962,7 @@ export class IocApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiIndicatorQueryRespV1FromJSON(jsonValue));

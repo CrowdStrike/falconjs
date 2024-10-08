@@ -213,7 +213,7 @@ export class IntelApi extends runtime.BaseAPI {
      */
     async getIntelActorEntitiesRaw(
         requestParameters: IntelApiGetIntelActorEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainActorsResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getIntelActorEntities().');
@@ -243,7 +243,7 @@ export class IntelApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainActorsResponseFromJSON(jsonValue));
@@ -262,7 +262,7 @@ export class IntelApi extends runtime.BaseAPI {
      */
     async getIntelIndicatorEntitiesRaw(
         requestParameters: IntelApiGetIntelIndicatorEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainPublicIndicatorsV3Response>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getIntelIndicatorEntities().');
@@ -287,7 +287,7 @@ export class IntelApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MsaIdsRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainPublicIndicatorsV3ResponseFromJSON(jsonValue));
@@ -306,7 +306,7 @@ export class IntelApi extends runtime.BaseAPI {
      */
     async getIntelReportEntitiesRaw(
         requestParameters: IntelApiGetIntelReportEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainNewsResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getIntelReportEntities().');
@@ -336,7 +336,7 @@ export class IntelApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainNewsResponseFromJSON(jsonValue));
@@ -378,7 +378,7 @@ export class IntelApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.BlobApiResponse(response);
@@ -397,7 +397,7 @@ export class IntelApi extends runtime.BaseAPI {
      */
     async getIntelRuleEntitiesRaw(
         requestParameters: IntelApiGetIntelRuleEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainRulesResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getIntelRuleEntities().');
@@ -423,7 +423,7 @@ export class IntelApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainRulesResponseFromJSON(jsonValue));
@@ -473,7 +473,7 @@ export class IntelApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.BlobApiResponse(response);
@@ -535,7 +535,7 @@ export class IntelApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.BlobApiResponse(response);
@@ -551,11 +551,11 @@ export class IntelApi extends runtime.BaseAPI {
         ifModifiedSince?: string,
         format?: string,
         ifModifiedSince2?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<Blob> {
         const response = await this.getLatestIntelRuleFileRaw(
             { type: type, accept: accept, ifNoneMatch: ifNoneMatch, ifModifiedSince: ifModifiedSince, format: format, ifModifiedSince2: ifModifiedSince2 },
-            initOverrides
+            initOverrides,
         );
         return await response.value();
     }
@@ -588,7 +588,7 @@ export class IntelApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainMalwareResponseFromJSON(jsonValue));
@@ -638,7 +638,7 @@ export class IntelApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.VoidApiResponse(response);
@@ -656,7 +656,7 @@ export class IntelApi extends runtime.BaseAPI {
      */
     async getVulnerabilitiesRaw(
         requestParameters: IntelApiGetVulnerabilitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainVulnerabilityResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getVulnerabilities().');
@@ -681,7 +681,7 @@ export class IntelApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MsaIdsRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainVulnerabilityResponseFromJSON(jsonValue));
@@ -722,7 +722,7 @@ export class IntelApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MsaIdsRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.VoidApiResponse(response);
@@ -740,7 +740,7 @@ export class IntelApi extends runtime.BaseAPI {
      */
     async queryIntelActorEntitiesRaw(
         requestParameters: IntelApiQueryIntelActorEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainActorsResponse>> {
         const queryParameters: any = {};
 
@@ -782,7 +782,7 @@ export class IntelApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainActorsResponseFromJSON(jsonValue));
@@ -798,7 +798,7 @@ export class IntelApi extends runtime.BaseAPI {
         filter?: string,
         q?: string,
         fields?: Array<string>,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainActorsResponse> {
         const response = await this.queryIntelActorEntitiesRaw({ offset: offset, limit: limit, sort: sort, filter: filter, q: q, fields: fields }, initOverrides);
         return await response.value();
@@ -844,7 +844,7 @@ export class IntelApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -863,7 +863,7 @@ export class IntelApi extends runtime.BaseAPI {
      */
     async queryIntelIndicatorEntitiesRaw(
         requestParameters: IntelApiQueryIntelIndicatorEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainPublicIndicatorsV3Response>> {
         const queryParameters: any = {};
 
@@ -909,7 +909,7 @@ export class IntelApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainPublicIndicatorsV3ResponseFromJSON(jsonValue));
@@ -926,11 +926,11 @@ export class IntelApi extends runtime.BaseAPI {
         q?: string,
         includeDeleted?: boolean,
         includeRelations?: boolean,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainPublicIndicatorsV3Response> {
         const response = await this.queryIntelIndicatorEntitiesRaw(
             { offset: offset, limit: limit, sort: sort, filter: filter, q: q, includeDeleted: includeDeleted, includeRelations: includeRelations },
-            initOverrides
+            initOverrides,
         );
         return await response.value();
     }
@@ -940,7 +940,7 @@ export class IntelApi extends runtime.BaseAPI {
      */
     async queryIntelIndicatorIdsRaw(
         requestParameters: IntelApiQueryIntelIndicatorIdsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
@@ -986,7 +986,7 @@ export class IntelApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -1003,11 +1003,11 @@ export class IntelApi extends runtime.BaseAPI {
         q?: string,
         includeDeleted?: boolean,
         includeRelations?: boolean,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<MsaQueryResponse> {
         const response = await this.queryIntelIndicatorIdsRaw(
             { offset: offset, limit: limit, sort: sort, filter: filter, q: q, includeDeleted: includeDeleted, includeRelations: includeRelations },
-            initOverrides
+            initOverrides,
         );
         return await response.value();
     }
@@ -1017,7 +1017,7 @@ export class IntelApi extends runtime.BaseAPI {
      */
     async queryIntelReportEntitiesRaw(
         requestParameters: IntelApiQueryIntelReportEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainNewsResponse>> {
         const queryParameters: any = {};
 
@@ -1059,7 +1059,7 @@ export class IntelApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainNewsResponseFromJSON(jsonValue));
@@ -1075,7 +1075,7 @@ export class IntelApi extends runtime.BaseAPI {
         filter?: string,
         q?: string,
         fields?: Array<string>,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainNewsResponse> {
         const response = await this.queryIntelReportEntitiesRaw({ offset: offset, limit: limit, sort: sort, filter: filter, q: q, fields: fields }, initOverrides);
         return await response.value();
@@ -1121,7 +1121,7 @@ export class IntelApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -1199,7 +1199,7 @@ export class IntelApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -1219,11 +1219,11 @@ export class IntelApi extends runtime.BaseAPI {
         minCreatedDate?: number,
         maxCreatedDate?: string,
         q?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<MsaQueryResponse> {
         const response = await this.queryIntelRuleIdsRaw(
             { type: type, offset: offset, limit: limit, sort: sort, name: name, description: description, tags: tags, minCreatedDate: minCreatedDate, maxCreatedDate: maxCreatedDate, q: q },
-            initOverrides
+            initOverrides,
         );
         return await response.value();
     }
@@ -1268,7 +1268,7 @@ export class IntelApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainQueryResponseFromJSON(jsonValue));
@@ -1287,7 +1287,7 @@ export class IntelApi extends runtime.BaseAPI {
      */
     async queryMitreAttacksRaw(
         requestParameters: IntelApiQueryMitreAttacksRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainQueryMitreAttacksResponse>> {
         const queryParameters: any = {};
 
@@ -1313,7 +1313,7 @@ export class IntelApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainQueryMitreAttacksResponseFromJSON(jsonValue));
@@ -1332,7 +1332,7 @@ export class IntelApi extends runtime.BaseAPI {
      */
     async queryMitreAttacksForMalwareRaw(
         requestParameters: IntelApiQueryMitreAttacksForMalwareRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainQueryResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling queryMitreAttacksForMalware().');
@@ -1358,7 +1358,7 @@ export class IntelApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainQueryResponseFromJSON(jsonValue));
@@ -1412,7 +1412,7 @@ export class IntelApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));

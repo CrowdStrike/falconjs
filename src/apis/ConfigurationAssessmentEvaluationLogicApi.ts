@@ -29,7 +29,7 @@ export class ConfigurationAssessmentEvaluationLogicApi extends runtime.BaseAPI {
      */
     async getEvaluationLogicMixin0Raw(
         requestParameters: ConfigurationAssessmentEvaluationLogicApiGetEvaluationLogicMixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainAPIEvaluationLogicEntitiesResponseV1>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getEvaluationLogicMixin0().');
@@ -55,7 +55,7 @@ export class ConfigurationAssessmentEvaluationLogicApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAPIEvaluationLogicEntitiesResponseV1FromJSON(jsonValue));

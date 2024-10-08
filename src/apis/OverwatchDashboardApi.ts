@@ -54,7 +54,7 @@ export class OverwatchDashboardApi extends runtime.BaseAPI {
      */
     async aggregatesDetectionsGlobalCountsRaw(
         requestParameters: OverwatchDashboardApiAggregatesDetectionsGlobalCountsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaFacetsResponse>> {
         if (requestParameters["filter"] == null) {
             throw new runtime.RequiredError("filter", 'Required parameter "filter" was null or undefined when calling aggregatesDetectionsGlobalCounts().');
@@ -80,7 +80,7 @@ export class OverwatchDashboardApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaFacetsResponseFromJSON(jsonValue));
@@ -99,7 +99,7 @@ export class OverwatchDashboardApi extends runtime.BaseAPI {
      */
     async aggregatesEventsRaw(
         requestParameters: OverwatchDashboardApiAggregatesEventsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregatesEvents().');
@@ -124,7 +124,7 @@ export class OverwatchDashboardApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
@@ -143,7 +143,7 @@ export class OverwatchDashboardApi extends runtime.BaseAPI {
      */
     async aggregatesEventsCollectionsRaw(
         requestParameters: OverwatchDashboardApiAggregatesEventsCollectionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregatesEventsCollections().');
@@ -168,7 +168,7 @@ export class OverwatchDashboardApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
@@ -187,7 +187,7 @@ export class OverwatchDashboardApi extends runtime.BaseAPI {
      */
     async aggregatesIncidentsGlobalCountsRaw(
         requestParameters: OverwatchDashboardApiAggregatesIncidentsGlobalCountsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaFacetsResponse>> {
         if (requestParameters["filter"] == null) {
             throw new runtime.RequiredError("filter", 'Required parameter "filter" was null or undefined when calling aggregatesIncidentsGlobalCounts().');
@@ -213,7 +213,7 @@ export class OverwatchDashboardApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaFacetsResponseFromJSON(jsonValue));
@@ -232,7 +232,7 @@ export class OverwatchDashboardApi extends runtime.BaseAPI {
      */
     async aggregatesOWEventsGlobalCountsRaw(
         requestParameters: OverwatchDashboardApiAggregatesOWEventsGlobalCountsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaFacetsResponse>> {
         if (requestParameters["filter"] == null) {
             throw new runtime.RequiredError("filter", 'Required parameter "filter" was null or undefined when calling aggregatesOWEventsGlobalCounts().');
@@ -258,7 +258,7 @@ export class OverwatchDashboardApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaFacetsResponseFromJSON(jsonValue));

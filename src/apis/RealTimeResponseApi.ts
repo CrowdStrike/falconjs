@@ -222,7 +222,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
      */
     async batchActiveResponderCmdRaw(
         requestParameters: RealTimeResponseApiBatchActiveResponderCmdRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainMultiCommandExecuteResponseWrapper>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling batchActiveResponderCmd().');
@@ -259,7 +259,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainBatchExecuteCommandRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainMultiCommandExecuteResponseWrapperFromJSON(jsonValue));
@@ -273,7 +273,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
         timeout?: number,
         timeoutDuration?: string,
         hostTimeoutDuration?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainMultiCommandExecuteResponseWrapper> {
         const response = await this.batchActiveResponderCmdRaw({ body: body, timeout: timeout, timeoutDuration: timeoutDuration, hostTimeoutDuration: hostTimeoutDuration }, initOverrides);
         return await response.value();
@@ -284,7 +284,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
      */
     async batchCmdRaw(
         requestParameters: RealTimeResponseApiBatchCmdRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainMultiCommandExecuteResponseWrapper>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling batchCmd().');
@@ -321,7 +321,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainBatchExecuteCommandRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainMultiCommandExecuteResponseWrapperFromJSON(jsonValue));
@@ -335,7 +335,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
         timeout?: number,
         timeoutDuration?: string,
         hostTimeoutDuration?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainMultiCommandExecuteResponseWrapper> {
         const response = await this.batchCmdRaw({ body: body, timeout: timeout, timeoutDuration: timeoutDuration, hostTimeoutDuration: hostTimeoutDuration }, initOverrides);
         return await response.value();
@@ -346,7 +346,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
      */
     async batchGetCmdRaw(
         requestParameters: RealTimeResponseApiBatchGetCmdRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainBatchGetCommandResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling batchGetCmd().');
@@ -383,7 +383,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainBatchGetCommandRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainBatchGetCommandResponseFromJSON(jsonValue));
@@ -397,7 +397,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
         timeout?: number,
         timeoutDuration?: string,
         hostTimeoutDuration?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainBatchGetCommandResponse> {
         const response = await this.batchGetCmdRaw({ body: body, timeout: timeout, timeoutDuration: timeoutDuration, hostTimeoutDuration: hostTimeoutDuration }, initOverrides);
         return await response.value();
@@ -408,7 +408,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
      */
     async batchGetCmdStatusRaw(
         requestParameters: RealTimeResponseApiBatchGetCmdStatusRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainBatchGetCmdStatusResponse>> {
         if (requestParameters["batchGetCmdReqId"] == null) {
             throw new runtime.RequiredError("batchGetCmdReqId", 'Required parameter "batchGetCmdReqId" was null or undefined when calling batchGetCmdStatus().');
@@ -442,7 +442,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainBatchGetCmdStatusResponseFromJSON(jsonValue));
@@ -455,7 +455,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
         batchGetCmdReqId: string,
         timeout?: number,
         timeoutDuration?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainBatchGetCmdStatusResponse> {
         const response = await this.batchGetCmdStatusRaw({ batchGetCmdReqId: batchGetCmdReqId, timeout: timeout, timeoutDuration: timeoutDuration }, initOverrides);
         return await response.value();
@@ -466,7 +466,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
      */
     async batchInitSessionsRaw(
         requestParameters: RealTimeResponseApiBatchInitSessionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainBatchInitSessionResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling batchInitSessions().');
@@ -503,7 +503,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainBatchInitSessionRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainBatchInitSessionResponseFromJSON(jsonValue));
@@ -517,7 +517,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
         timeout?: number,
         timeoutDuration?: string,
         hostTimeoutDuration?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainBatchInitSessionResponse> {
         const response = await this.batchInitSessionsRaw({ body: body, timeout: timeout, timeoutDuration: timeoutDuration, hostTimeoutDuration: hostTimeoutDuration }, initOverrides);
         return await response.value();
@@ -528,7 +528,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
      */
     async batchRefreshSessionsRaw(
         requestParameters: RealTimeResponseApiBatchRefreshSessionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainBatchRefreshSessionResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling batchRefreshSessions().');
@@ -561,7 +561,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainBatchRefreshSessionRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainBatchRefreshSessionResponseFromJSON(jsonValue));
@@ -574,7 +574,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
         body: DomainBatchRefreshSessionRequest,
         timeout?: number,
         timeoutDuration?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainBatchRefreshSessionResponse> {
         const response = await this.batchRefreshSessionsRaw({ body: body, timeout: timeout, timeoutDuration: timeoutDuration }, initOverrides);
         return await response.value();
@@ -585,7 +585,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
      */
     async rTRAggregateSessionsRaw(
         requestParameters: RealTimeResponseApiRTRAggregateSessionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling rTRAggregateSessions().');
@@ -610,7 +610,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
@@ -629,7 +629,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
      */
     async rTRCheckActiveResponderCommandStatusRaw(
         requestParameters: RealTimeResponseApiRTRCheckActiveResponderCommandStatusRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainStatusResponseWrapper>> {
         if (requestParameters["cloudRequestId"] == null) {
             throw new runtime.RequiredError("cloudRequestId", 'Required parameter "cloudRequestId" was null or undefined when calling rTRCheckActiveResponderCommandStatus().');
@@ -663,7 +663,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainStatusResponseWrapperFromJSON(jsonValue));
@@ -682,7 +682,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
      */
     async rTRCheckCommandStatusRaw(
         requestParameters: RealTimeResponseApiRTRCheckCommandStatusRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainStatusResponseWrapper>> {
         if (requestParameters["cloudRequestId"] == null) {
             throw new runtime.RequiredError("cloudRequestId", 'Required parameter "cloudRequestId" was null or undefined when calling rTRCheckCommandStatus().');
@@ -716,7 +716,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainStatusResponseWrapperFromJSON(jsonValue));
@@ -766,7 +766,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
@@ -816,7 +816,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
@@ -835,7 +835,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
      */
     async rTRDeleteQueuedSessionRaw(
         requestParameters: RealTimeResponseApiRTRDeleteQueuedSessionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
         if (requestParameters["sessionId"] == null) {
             throw new runtime.RequiredError("sessionId", 'Required parameter "sessionId" was null or undefined when calling rTRDeleteQueuedSession().');
@@ -869,7 +869,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
@@ -888,7 +888,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
      */
     async rTRDeleteSessionRaw(
         requestParameters: RealTimeResponseApiRTRDeleteSessionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
         if (requestParameters["sessionId"] == null) {
             throw new runtime.RequiredError("sessionId", 'Required parameter "sessionId" was null or undefined when calling rTRDeleteSession().');
@@ -914,7 +914,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
@@ -933,7 +933,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
      */
     async rTRExecuteActiveResponderCommandRaw(
         requestParameters: RealTimeResponseApiRTRExecuteActiveResponderCommandRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainCommandExecuteResponseWrapper>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling rTRExecuteActiveResponderCommand().');
@@ -958,7 +958,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainCommandExecuteRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainCommandExecuteResponseWrapperFromJSON(jsonValue));
@@ -977,7 +977,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
      */
     async rTRExecuteCommandRaw(
         requestParameters: RealTimeResponseApiRTRExecuteCommandRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainCommandExecuteResponseWrapper>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling rTRExecuteCommand().');
@@ -1002,7 +1002,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainCommandExecuteRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainCommandExecuteResponseWrapperFromJSON(jsonValue));
@@ -1021,7 +1021,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
      */
     async rTRGetExtractedFileContentsRaw(
         requestParameters: RealTimeResponseApiRTRGetExtractedFileContentsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<Blob>> {
         if (requestParameters["sessionId"] == null) {
             throw new runtime.RequiredError("sessionId", 'Required parameter "sessionId" was null or undefined when calling rTRGetExtractedFileContents().');
@@ -1059,7 +1059,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.BlobApiResponse(response);
@@ -1078,7 +1078,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
      */
     async rTRInitSessionRaw(
         requestParameters: RealTimeResponseApiRTRInitSessionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainInitResponseWrapper>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling rTRInitSession().');
@@ -1111,7 +1111,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainInitRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainInitResponseWrapperFromJSON(jsonValue));
@@ -1130,7 +1130,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
      */
     async rTRListAllSessionsRaw(
         requestParameters: RealTimeResponseApiRTRListAllSessionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainListSessionsResponseMsa>> {
         const queryParameters: any = {};
 
@@ -1164,7 +1164,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainListSessionsResponseMsaFromJSON(jsonValue));
@@ -1183,7 +1183,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
      */
     async rTRListFilesRaw(
         requestParameters: RealTimeResponseApiRTRListFilesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainListFilesResponseWrapper>> {
         if (requestParameters["sessionId"] == null) {
             throw new runtime.RequiredError("sessionId", 'Required parameter "sessionId" was null or undefined when calling rTRListFiles().');
@@ -1209,7 +1209,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainListFilesResponseWrapperFromJSON(jsonValue));
@@ -1228,7 +1228,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
      */
     async rTRListFilesV2Raw(
         requestParameters: RealTimeResponseApiRTRListFilesV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainListFilesV2ResponseWrapper>> {
         if (requestParameters["sessionId"] == null) {
             throw new runtime.RequiredError("sessionId", 'Required parameter "sessionId" was null or undefined when calling rTRListFilesV2().');
@@ -1254,7 +1254,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainListFilesV2ResponseWrapperFromJSON(jsonValue));
@@ -1273,7 +1273,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
      */
     async rTRListQueuedSessionsRaw(
         requestParameters: RealTimeResponseApiRTRListQueuedSessionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainQueuedSessionResponseWrapper>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling rTRListQueuedSessions().');
@@ -1298,7 +1298,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MsaIdsRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainQueuedSessionResponseWrapperFromJSON(jsonValue));
@@ -1317,7 +1317,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
      */
     async rTRListSessionsRaw(
         requestParameters: RealTimeResponseApiRTRListSessionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainSessionResponseWrapper>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling rTRListSessions().');
@@ -1342,7 +1342,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MsaIdsRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainSessionResponseWrapperFromJSON(jsonValue));
@@ -1361,7 +1361,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
      */
     async rTRPulseSessionRaw(
         requestParameters: RealTimeResponseApiRTRPulseSessionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainInitResponseWrapper>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling rTRPulseSession().');
@@ -1386,7 +1386,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainInitRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainInitResponseWrapperFromJSON(jsonValue));

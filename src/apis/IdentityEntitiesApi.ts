@@ -53,7 +53,7 @@ export class IdentityEntitiesApi extends runtime.BaseAPI {
      */
     async getSensorAggregatesRaw(
         requestParameters: IdentityEntitiesApiGetSensorAggregatesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getSensorAggregates().');
@@ -78,7 +78,7 @@ export class IdentityEntitiesApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MsaAggregateQueryRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
@@ -97,7 +97,7 @@ export class IdentityEntitiesApi extends runtime.BaseAPI {
      */
     async getSensorDetailsRaw(
         requestParameters: IdentityEntitiesApiGetSensorDetailsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiSensorDetailsResponseSwagger>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getSensorDetails().');
@@ -122,7 +122,7 @@ export class IdentityEntitiesApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MsaIdsRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiSensorDetailsResponseSwaggerFromJSON(jsonValue));
@@ -141,7 +141,7 @@ export class IdentityEntitiesApi extends runtime.BaseAPI {
      */
     async querySensorsByFilterRaw(
         requestParameters: IdentityEntitiesApiQuerySensorsByFilterRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
         const queryParameters: any = {};
 
@@ -175,7 +175,7 @@ export class IdentityEntitiesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));

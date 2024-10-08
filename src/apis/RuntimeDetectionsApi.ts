@@ -39,7 +39,7 @@ export class RuntimeDetectionsApi extends runtime.BaseAPI {
      */
     async getRuntimeDetectionsCombinedV2Raw(
         requestParameters: RuntimeDetectionsApiGetRuntimeDetectionsCombinedV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<RuntimedetectionsDetectionsEntityResponse>> {
         const queryParameters: any = {};
 
@@ -73,7 +73,7 @@ export class RuntimeDetectionsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RuntimedetectionsDetectionsEntityResponseFromJSON(jsonValue));
@@ -87,7 +87,7 @@ export class RuntimeDetectionsApi extends runtime.BaseAPI {
         limit?: number,
         offset?: number,
         sort?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<RuntimedetectionsDetectionsEntityResponse> {
         const response = await this.getRuntimeDetectionsCombinedV2Raw({ filter: filter, limit: limit, offset: offset, sort: sort }, initOverrides);
         return await response.value();

@@ -120,7 +120,7 @@ export class IncidentsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaEnvironmentScoreResponseFromJSON(jsonValue));
@@ -134,7 +134,7 @@ export class IncidentsApi extends runtime.BaseAPI {
         offset?: number,
         limit?: number,
         sort?: CrowdScoreSortEnum,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainMsaEnvironmentScoreResponse> {
         const response = await this.crowdScoreRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
@@ -145,7 +145,7 @@ export class IncidentsApi extends runtime.BaseAPI {
      */
     async getBehaviorsRaw(
         requestParameters: IncidentsApiGetBehaviorsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainMsaExternalBehaviorResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getBehaviors().');
@@ -170,7 +170,7 @@ export class IncidentsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MsaIdsRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaExternalBehaviorResponseFromJSON(jsonValue));
@@ -189,7 +189,7 @@ export class IncidentsApi extends runtime.BaseAPI {
      */
     async getIncidentsRaw(
         requestParameters: IncidentsApiGetIncidentsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainMsaExternalIncidentResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getIncidents().');
@@ -214,7 +214,7 @@ export class IncidentsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MsaIdsRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaExternalIncidentResponseFromJSON(jsonValue));
@@ -233,7 +233,7 @@ export class IncidentsApi extends runtime.BaseAPI {
      */
     async performIncidentActionRaw(
         requestParameters: IncidentsApiPerformIncidentActionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainMsaIncidentPerformActionResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling performIncidentAction().');
@@ -266,7 +266,7 @@ export class IncidentsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainEntityActionRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaIncidentPerformActionResponseFromJSON(jsonValue));
@@ -279,7 +279,7 @@ export class IncidentsApi extends runtime.BaseAPI {
         body: DomainEntityActionRequest,
         updateDetects?: boolean,
         overwriteDetects?: boolean,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainMsaIncidentPerformActionResponse> {
         const response = await this.performIncidentActionRaw({ body: body, updateDetects: updateDetects, overwriteDetects: overwriteDetects }, initOverrides);
         return await response.value();
@@ -321,7 +321,7 @@ export class IncidentsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -340,7 +340,7 @@ export class IncidentsApi extends runtime.BaseAPI {
      */
     async queryIncidentsRaw(
         requestParameters: IncidentsApiQueryIncidentsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainMsaIncidentQueryResponse>> {
         const queryParameters: any = {};
 
@@ -374,7 +374,7 @@ export class IncidentsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaIncidentQueryResponseFromJSON(jsonValue));
@@ -388,7 +388,7 @@ export class IncidentsApi extends runtime.BaseAPI {
         filter?: string,
         offset?: number,
         limit?: number,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainMsaIncidentQueryResponse> {
         const response = await this.queryIncidentsRaw({ sort: sort, filter: filter, offset: offset, limit: limit }, initOverrides);
         return await response.value();

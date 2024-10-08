@@ -68,7 +68,7 @@ export class DetectsApi extends runtime.BaseAPI {
      */
     async getAggregateDetectsRaw(
         requestParameters: DetectsApiGetAggregateDetectsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getAggregateDetects().');
@@ -93,7 +93,7 @@ export class DetectsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
@@ -112,7 +112,7 @@ export class DetectsApi extends runtime.BaseAPI {
      */
     async getDetectSummariesRaw(
         requestParameters: DetectsApiGetDetectSummariesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainMsaDetectSummariesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getDetectSummaries().');
@@ -137,7 +137,7 @@ export class DetectsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MsaIdsRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaDetectSummariesResponseFromJSON(jsonValue));
@@ -191,7 +191,7 @@ export class DetectsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -210,7 +210,7 @@ export class DetectsApi extends runtime.BaseAPI {
      */
     async updateDetectsByIdsV2Raw(
         requestParameters: DetectsApiUpdateDetectsByIdsV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateDetectsByIdsV2().');
@@ -235,7 +235,7 @@ export class DetectsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainDetectsEntitiesPatchRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));

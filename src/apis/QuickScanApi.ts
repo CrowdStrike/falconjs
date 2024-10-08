@@ -78,7 +78,7 @@ export class QuickScanApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MlscannerapiScanV1ResponseFromJSON(jsonValue));
@@ -119,7 +119,7 @@ export class QuickScanApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MsaAggregateQueryRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.VoidApiResponse(response);
@@ -137,7 +137,7 @@ export class QuickScanApi extends runtime.BaseAPI {
      */
     async querySubmissionsMixin0Raw(
         requestParameters: QuickScanApiQuerySubmissionsMixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MlscannerapiQueryResponse>> {
         const queryParameters: any = {};
 
@@ -171,7 +171,7 @@ export class QuickScanApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MlscannerapiQueryResponseFromJSON(jsonValue));
@@ -212,7 +212,7 @@ export class QuickScanApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MlscannerapiSamplesScanParametersToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MlscannerapiQueryResponseFromJSON(jsonValue));

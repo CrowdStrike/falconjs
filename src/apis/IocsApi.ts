@@ -91,7 +91,7 @@ export class IocsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => IocapiMsaReplyIOCDevicesCountFromJSON(jsonValue));
@@ -149,7 +149,7 @@ export class IocsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => IocapiMsaReplyDevicesRanOnFromJSON(jsonValue));
@@ -168,7 +168,7 @@ export class IocsApi extends runtime.BaseAPI {
      */
     async entitiesProcessesRaw(
         requestParameters: IocsApiEntitiesProcessesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ProcessesapiMsaProcessDetailResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesProcesses().');
@@ -194,7 +194,7 @@ export class IocsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ProcessesapiMsaProcessDetailResponseFromJSON(jsonValue));
@@ -260,7 +260,7 @@ export class IocsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => IocapiMsaReplyProcessesRanOnFromJSON(jsonValue));
@@ -275,7 +275,7 @@ export class IocsApi extends runtime.BaseAPI {
         deviceId: string,
         limit?: string,
         offset?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<IocapiMsaReplyProcessesRanOn> {
         const response = await this.processesRanOnRaw({ type: type, value: value, deviceId: deviceId, limit: limit, offset: offset }, initOverrides);
         return await response.value();

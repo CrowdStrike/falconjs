@@ -416,7 +416,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async clusterCombinedRaw(
         requestParameters: KubernetesProtectionApiClusterCombinedRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsClusterEntityResponse>> {
         const queryParameters: any = {};
 
@@ -450,7 +450,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsClusterEntityResponseFromJSON(jsonValue));
@@ -469,7 +469,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async clusterCountRaw(
         requestParameters: KubernetesProtectionApiClusterCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<CommonCountResponse>> {
         const queryParameters: any = {};
 
@@ -491,7 +491,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonCountResponseFromJSON(jsonValue));
@@ -510,7 +510,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async clusterEnrichmentRaw(
         requestParameters: KubernetesProtectionApiClusterEnrichmentRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<K8sassetsClusterEnrichmentResponse>> {
         if (requestParameters["clusterId"] == null) {
             throw new runtime.RequiredError("clusterId", 'Required parameter "clusterId" was null or undefined when calling clusterEnrichment().');
@@ -540,7 +540,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => K8sassetsClusterEnrichmentResponseFromJSON(jsonValue));
@@ -574,7 +574,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAggregateValuesByFieldResponseFromJSON(jsonValue));
@@ -593,7 +593,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async clustersByKubernetesVersionCountRaw(
         requestParameters: KubernetesProtectionApiClustersByKubernetesVersionCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsAggregateValuesByFieldResponse>> {
         const queryParameters: any = {};
 
@@ -615,7 +615,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAggregateValuesByFieldResponseFromJSON(jsonValue));
@@ -634,7 +634,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async clustersByStatusCountRaw(
         requestParameters: KubernetesProtectionApiClustersByStatusCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsAggregateValuesByFieldResponse>> {
         const queryParameters: any = {};
 
@@ -656,7 +656,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAggregateValuesByFieldResponseFromJSON(jsonValue));
@@ -675,7 +675,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async containerCombinedRaw(
         requestParameters: KubernetesProtectionApiContainerCombinedRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsContainerEntityResponse>> {
         const queryParameters: any = {};
 
@@ -709,7 +709,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsContainerEntityResponseFromJSON(jsonValue));
@@ -728,7 +728,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async containerCountRaw(
         requestParameters: KubernetesProtectionApiContainerCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<CommonCountResponse>> {
         const queryParameters: any = {};
 
@@ -750,7 +750,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonCountResponseFromJSON(jsonValue));
@@ -769,7 +769,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async containerCountByRegistryRaw(
         requestParameters: KubernetesProtectionApiContainerCountByRegistryRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsAPIFilterResponse>> {
         const queryParameters: any = {};
 
@@ -795,7 +795,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAPIFilterResponseFromJSON(jsonValue));
@@ -814,7 +814,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async containerEnrichmentRaw(
         requestParameters: KubernetesProtectionApiContainerEnrichmentRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<K8sassetsContainerEnrichmentResponse>> {
         if (requestParameters["containerId"] == null) {
             throw new runtime.RequiredError("containerId", 'Required parameter "containerId" was null or undefined when calling containerEnrichment().');
@@ -844,7 +844,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => K8sassetsContainerEnrichmentResponseFromJSON(jsonValue));
@@ -863,7 +863,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async containerImageDetectionsCountByDateRaw(
         requestParameters: KubernetesProtectionApiContainerImageDetectionsCountByDateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsAPIFilterResponse>> {
         const queryParameters: any = {};
 
@@ -885,7 +885,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAPIFilterResponseFromJSON(jsonValue));
@@ -904,7 +904,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async containerImagesByMostUsedRaw(
         requestParameters: KubernetesProtectionApiContainerImagesByMostUsedRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsAggregateValuesByFieldResponse>> {
         const queryParameters: any = {};
 
@@ -926,7 +926,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAggregateValuesByFieldResponseFromJSON(jsonValue));
@@ -945,7 +945,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async containerImagesByStateRaw(
         requestParameters: KubernetesProtectionApiContainerImagesByStateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsAPIFilterResponse>> {
         const queryParameters: any = {};
 
@@ -967,7 +967,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAPIFilterResponseFromJSON(jsonValue));
@@ -986,7 +986,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async containerVulnerabilitiesBySeverityCountRaw(
         requestParameters: KubernetesProtectionApiContainerVulnerabilitiesBySeverityCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsAggregateValuesByFieldResponse>> {
         const queryParameters: any = {};
 
@@ -1008,7 +1008,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAggregateValuesByFieldResponseFromJSON(jsonValue));
@@ -1027,7 +1027,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async containersByDateRangeCountRaw(
         requestParameters: KubernetesProtectionApiContainersByDateRangeCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsAggregateValuesByFieldResponse>> {
         const queryParameters: any = {};
 
@@ -1049,7 +1049,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAggregateValuesByFieldResponseFromJSON(jsonValue));
@@ -1068,7 +1068,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async containersSensorCoverageRaw(
         requestParameters: KubernetesProtectionApiContainersSensorCoverageRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsAggregateValuesByFieldResponse>> {
         const queryParameters: any = {};
 
@@ -1090,7 +1090,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAggregateValuesByFieldResponseFromJSON(jsonValue));
@@ -1109,7 +1109,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async createAWSAccountRaw(
         requestParameters: KubernetesProtectionApiCreateAWSAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<K8sregCreateAWSAccResp>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createAWSAccount().');
@@ -1134,7 +1134,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: K8sregCreateAWSAccReqToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => K8sregCreateAWSAccRespFromJSON(jsonValue));
@@ -1153,7 +1153,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async createAzureSubscriptionRaw(
         requestParameters: KubernetesProtectionApiCreateAzureSubscriptionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaBaseEntitiesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createAzureSubscription().');
@@ -1178,7 +1178,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: K8sregCreateAzureSubReqToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaBaseEntitiesResponseFromJSON(jsonValue));
@@ -1197,7 +1197,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async deleteAWSAccountsMixin0Raw(
         requestParameters: KubernetesProtectionApiDeleteAWSAccountsMixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaMetaInfo>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteAWSAccountsMixin0().');
@@ -1223,7 +1223,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaMetaInfoFromJSON(jsonValue));
@@ -1242,7 +1242,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async deleteAzureSubscriptionRaw(
         requestParameters: KubernetesProtectionApiDeleteAzureSubscriptionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaBaseEntitiesResponse>> {
         const queryParameters: any = {};
 
@@ -1264,7 +1264,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaBaseEntitiesResponseFromJSON(jsonValue));
@@ -1283,7 +1283,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async deploymentCombinedRaw(
         requestParameters: KubernetesProtectionApiDeploymentCombinedRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsDeploymentEntityResponse>> {
         const queryParameters: any = {};
 
@@ -1317,7 +1317,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsDeploymentEntityResponseFromJSON(jsonValue));
@@ -1336,7 +1336,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async deploymentCountRaw(
         requestParameters: KubernetesProtectionApiDeploymentCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<CommonCountResponse>> {
         const queryParameters: any = {};
 
@@ -1358,7 +1358,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonCountResponseFromJSON(jsonValue));
@@ -1377,7 +1377,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async deploymentEnrichmentRaw(
         requestParameters: KubernetesProtectionApiDeploymentEnrichmentRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<K8sassetsDeploymentEnrichmentResponse>> {
         if (requestParameters["deploymentId"] == null) {
             throw new runtime.RequiredError("deploymentId", 'Required parameter "deploymentId" was null or undefined when calling deploymentEnrichment().');
@@ -1407,7 +1407,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => K8sassetsDeploymentEnrichmentResponseFromJSON(jsonValue));
@@ -1441,7 +1441,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAggregateValuesByFieldResponseFromJSON(jsonValue));
@@ -1460,7 +1460,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async distinctContainerImageCountRaw(
         requestParameters: KubernetesProtectionApiDistinctContainerImageCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsAPIFilterResponse>> {
         const queryParameters: any = {};
 
@@ -1482,7 +1482,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAPIFilterResponseFromJSON(jsonValue));
@@ -1501,7 +1501,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async findContainersByContainerRunTimeVersionRaw(
         requestParameters: KubernetesProtectionApiFindContainersByContainerRunTimeVersionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsContainerRuntimePivotResponse>> {
         const queryParameters: any = {};
 
@@ -1535,7 +1535,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsContainerRuntimePivotResponseFromJSON(jsonValue));
@@ -1549,7 +1549,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
         offset?: number,
         sort?: string,
         filter?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ModelsContainerRuntimePivotResponse> {
         const response = await this.findContainersByContainerRunTimeVersionRaw({ limit: limit, offset: offset, sort: sort, filter: filter }, initOverrides);
         return await response.value();
@@ -1575,7 +1575,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonCountResponseFromJSON(jsonValue));
@@ -1594,7 +1594,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async getAWSAccountsMixin0Raw(
         requestParameters: KubernetesProtectionApiGetAWSAccountsMixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<K8sregGetAWSAccountsResp>> {
         const queryParameters: any = {};
 
@@ -1632,7 +1632,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => K8sregGetAWSAccountsRespFromJSON(jsonValue));
@@ -1647,7 +1647,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
         status?: GetAWSAccountsMixin0StatusEnum,
         limit?: number,
         offset?: number,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<K8sregGetAWSAccountsResp> {
         const response = await this.getAWSAccountsMixin0Raw({ ids: ids, isHorizonAcct: isHorizonAcct, status: status, limit: limit, offset: offset }, initOverrides);
         return await response.value();
@@ -1658,7 +1658,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async getAzureInstallScriptRaw(
         requestParameters: KubernetesProtectionApiGetAzureInstallScriptRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<K8sregGetAzureBashScriptResp>> {
         const queryParameters: any = {};
 
@@ -1684,7 +1684,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => K8sregGetAzureBashScriptRespFromJSON(jsonValue));
@@ -1703,7 +1703,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async getAzureTenantConfigRaw(
         requestParameters: KubernetesProtectionApiGetAzureTenantConfigRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<K8sregGetAzureTenantConfigResp>> {
         const queryParameters: any = {};
 
@@ -1733,7 +1733,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => K8sregGetAzureTenantConfigRespFromJSON(jsonValue));
@@ -1752,7 +1752,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async getAzureTenantIDsRaw(
         requestParameters: KubernetesProtectionApiGetAzureTenantIDsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<K8sregGetAzureTenantInfoResp>> {
         const queryParameters: any = {};
 
@@ -1786,7 +1786,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => K8sregGetAzureTenantInfoRespFromJSON(jsonValue));
@@ -1800,7 +1800,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
         status?: GetAzureTenantIDsStatusEnum,
         limit?: number,
         offset?: number,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<K8sregGetAzureTenantInfoResp> {
         const response = await this.getAzureTenantIDsRaw({ ids: ids, status: status, limit: limit, offset: offset }, initOverrides);
         return await response.value();
@@ -1811,7 +1811,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async getClustersRaw(
         requestParameters: KubernetesProtectionApiGetClustersRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<K8sregGetClustersResp>> {
         const queryParameters: any = {};
 
@@ -1857,7 +1857,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => K8sregGetClustersRespFromJSON(jsonValue));
@@ -1874,11 +1874,11 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
         clusterService?: GetClustersClusterServiceEnum,
         limit?: number,
         offset?: number,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<K8sregGetClustersResp> {
         const response = await this.getClustersRaw(
             { clusterNames: clusterNames, status: status, accountIds: accountIds, locations: locations, clusterService: clusterService, limit: limit, offset: offset },
-            initOverrides
+            initOverrides,
         );
         return await response.value();
     }
@@ -1888,7 +1888,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async getCombinedCloudClustersRaw(
         requestParameters: KubernetesProtectionApiGetCombinedCloudClustersRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<K8sregListClusterCloudResp>> {
         const queryParameters: any = {};
 
@@ -1930,7 +1930,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => K8sregListClusterCloudRespFromJSON(jsonValue));
@@ -1946,11 +1946,11 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
         clusterStatus?: Array<GetCombinedCloudClustersClusterStatusEnum>,
         limit?: number,
         offset?: number,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<K8sregListClusterCloudResp> {
         const response = await this.getCombinedCloudClustersRaw(
             { locations: locations, ids: ids, clusterService: clusterService, clusterStatus: clusterStatus, limit: limit, offset: offset },
-            initOverrides
+            initOverrides,
         );
         return await response.value();
     }
@@ -1987,7 +1987,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse<any>(response);
@@ -2006,7 +2006,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async getLocationsRaw(
         requestParameters: KubernetesProtectionApiGetLocationsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<K8sregGetLocationsResp>> {
         const queryParameters: any = {};
 
@@ -2028,7 +2028,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => K8sregGetLocationsRespFromJSON(jsonValue));
@@ -2062,7 +2062,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => K8sregGetScriptsRespFromJSON(jsonValue));
@@ -2081,7 +2081,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async groupContainersByManagedRaw(
         requestParameters: KubernetesProtectionApiGroupContainersByManagedRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsContainerCoverageResponseEntity>> {
         const queryParameters: any = {};
 
@@ -2103,7 +2103,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsContainerCoverageResponseEntityFromJSON(jsonValue));
@@ -2122,7 +2122,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async kubernetesIomByDateRangeRaw(
         requestParameters: KubernetesProtectionApiKubernetesIomByDateRangeRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<K8siomsKubernetesIOMFieldValue>> {
         const queryParameters: any = {};
 
@@ -2144,7 +2144,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => K8siomsKubernetesIOMFieldValueFromJSON(jsonValue));
@@ -2163,7 +2163,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async kubernetesIomCountRaw(
         requestParameters: KubernetesProtectionApiKubernetesIomCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<K8siomsKubernetesIOMCountValue>> {
         const queryParameters: any = {};
 
@@ -2185,7 +2185,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => K8siomsKubernetesIOMCountValueFromJSON(jsonValue));
@@ -2204,7 +2204,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async kubernetesIomEntitiesRaw(
         requestParameters: KubernetesProtectionApiKubernetesIomEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<K8siomsKubernetesIOMEntityResponse>> {
         const queryParameters: any = {};
 
@@ -2226,7 +2226,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => K8siomsKubernetesIOMEntityResponseFromJSON(jsonValue));
@@ -2245,7 +2245,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async kubernetesIomEntitiesCombinedRaw(
         requestParameters: KubernetesProtectionApiKubernetesIomEntitiesCombinedRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<K8siomsKubernetesIOMEntityResponse>> {
         const queryParameters: any = {};
 
@@ -2279,7 +2279,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => K8siomsKubernetesIOMEntityResponseFromJSON(jsonValue));
@@ -2293,7 +2293,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
         limit?: number,
         offset?: number,
         sort?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<K8siomsKubernetesIOMEntityResponse> {
         const response = await this.kubernetesIomEntitiesCombinedRaw({ filter: filter, limit: limit, offset: offset, sort: sort }, initOverrides);
         return await response.value();
@@ -2304,7 +2304,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async listAzureAccountsRaw(
         requestParameters: KubernetesProtectionApiListAzureAccountsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<K8sregGetAzureSubscriptionsResp>> {
         const queryParameters: any = {};
 
@@ -2346,7 +2346,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => K8sregGetAzureSubscriptionsRespFromJSON(jsonValue));
@@ -2362,7 +2362,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
         isHorizonAcct?: ListAzureAccountsIsHorizonAcctEnum,
         limit?: number,
         offset?: number,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<K8sregGetAzureSubscriptionsResp> {
         const response = await this.listAzureAccountsRaw({ ids: ids, subscriptionId: subscriptionId, status: status, isHorizonAcct: isHorizonAcct, limit: limit, offset: offset }, initOverrides);
         return await response.value();
@@ -2373,7 +2373,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async nodeCombinedRaw(
         requestParameters: KubernetesProtectionApiNodeCombinedRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsNodeEntityResponse>> {
         const queryParameters: any = {};
 
@@ -2407,7 +2407,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsNodeEntityResponseFromJSON(jsonValue));
@@ -2445,7 +2445,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonCountResponseFromJSON(jsonValue));
@@ -2464,7 +2464,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async nodeEnrichmentRaw(
         requestParameters: KubernetesProtectionApiNodeEnrichmentRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<K8sassetsNodeEnrichmentResponse>> {
         if (requestParameters["nodeName"] == null) {
             throw new runtime.RequiredError("nodeName", 'Required parameter "nodeName" was null or undefined when calling nodeEnrichment().');
@@ -2494,7 +2494,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => K8sassetsNodeEnrichmentResponseFromJSON(jsonValue));
@@ -2513,7 +2513,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async nodesByCloudCountRaw(
         requestParameters: KubernetesProtectionApiNodesByCloudCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsAggregateValuesByFieldResponse>> {
         const queryParameters: any = {};
 
@@ -2535,7 +2535,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAggregateValuesByFieldResponseFromJSON(jsonValue));
@@ -2554,7 +2554,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async nodesByContainerEngineVersionCountRaw(
         requestParameters: KubernetesProtectionApiNodesByContainerEngineVersionCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsAggregateValuesByFieldResponse>> {
         const queryParameters: any = {};
 
@@ -2576,7 +2576,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAggregateValuesByFieldResponseFromJSON(jsonValue));
@@ -2595,7 +2595,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async nodesByDateRangeCountRaw(
         requestParameters: KubernetesProtectionApiNodesByDateRangeCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsAggregateValuesByFieldResponse>> {
         const queryParameters: any = {};
 
@@ -2617,7 +2617,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAggregateValuesByFieldResponseFromJSON(jsonValue));
@@ -2636,7 +2636,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async patchAzureServicePrincipalRaw(
         requestParameters: KubernetesProtectionApiPatchAzureServicePrincipalRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<K8sregGetAzureTenantConfigResp>> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling patchAzureServicePrincipal().');
@@ -2670,7 +2670,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => K8sregGetAzureTenantConfigRespFromJSON(jsonValue));
@@ -2689,7 +2689,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async podCombinedRaw(
         requestParameters: KubernetesProtectionApiPodCombinedRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsPodEntityResponse>> {
         const queryParameters: any = {};
 
@@ -2723,7 +2723,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsPodEntityResponseFromJSON(jsonValue));
@@ -2761,7 +2761,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonCountResponseFromJSON(jsonValue));
@@ -2780,7 +2780,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async podEnrichmentRaw(
         requestParameters: KubernetesProtectionApiPodEnrichmentRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<K8sassetsPodEnrichmentResponse>> {
         if (requestParameters["podId"] == null) {
             throw new runtime.RequiredError("podId", 'Required parameter "podId" was null or undefined when calling podEnrichment().');
@@ -2810,7 +2810,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => K8sassetsPodEnrichmentResponseFromJSON(jsonValue));
@@ -2844,7 +2844,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAggregateValuesByFieldResponseFromJSON(jsonValue));
@@ -2863,7 +2863,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async queryKubernetesIomsRaw(
         requestParameters: KubernetesProtectionApiQueryKubernetesIomsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<CommonGenericEntityResponseString>> {
         const queryParameters: any = {};
 
@@ -2897,7 +2897,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonGenericEntityResponseStringFromJSON(jsonValue));
@@ -2916,7 +2916,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async readNamespaceCountRaw(
         requestParameters: KubernetesProtectionApiReadNamespaceCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<CommonCountResponse>> {
         const queryParameters: any = {};
 
@@ -2938,7 +2938,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonCountResponseFromJSON(jsonValue));
@@ -2972,7 +2972,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAggregateValuesByFieldResponseFromJSON(jsonValue));
@@ -3006,7 +3006,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => K8sregRegenAPIKeyRespFromJSON(jsonValue));
@@ -3025,7 +3025,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async runningContainerImagesRaw(
         requestParameters: KubernetesProtectionApiRunningContainerImagesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsContainerImage>> {
         const queryParameters: any = {};
 
@@ -3059,7 +3059,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsContainerImageFromJSON(jsonValue));
@@ -3078,7 +3078,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async triggerScanRaw(
         requestParameters: KubernetesProtectionApiTriggerScanRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaBaseEntitiesResponse>> {
         if (requestParameters["scanType"] == null) {
             throw new runtime.RequiredError("scanType", 'Required parameter "scanType" was null or undefined when calling triggerScan().');
@@ -3104,7 +3104,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaBaseEntitiesResponseFromJSON(jsonValue));
@@ -3123,7 +3123,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async updateAWSAccountRaw(
         requestParameters: KubernetesProtectionApiUpdateAWSAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaBaseEntitiesResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling updateAWSAccount().');
@@ -3153,7 +3153,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaBaseEntitiesResponseFromJSON(jsonValue));
@@ -3172,7 +3172,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async vulnerableContainerImageCountRaw(
         requestParameters: KubernetesProtectionApiVulnerableContainerImageCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsAPIFilterResponse>> {
         const queryParameters: any = {};
 
@@ -3194,7 +3194,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAPIFilterResponseFromJSON(jsonValue));

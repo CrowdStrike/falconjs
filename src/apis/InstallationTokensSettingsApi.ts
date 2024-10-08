@@ -38,7 +38,7 @@ export class InstallationTokensSettingsApi extends runtime.BaseAPI {
      */
     async customerSettingsUpdateRaw(
         requestParameters: InstallationTokensSettingsApiCustomerSettingsUpdateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling customerSettingsUpdate().');
@@ -63,7 +63,7 @@ export class InstallationTokensSettingsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ApiCustomerSettingsPatchRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));

@@ -47,7 +47,7 @@ export class ApiIntegrationsApi extends runtime.BaseAPI {
      */
     async executeCommandRaw(
         requestParameters: ApiIntegrationsApiExecuteCommandRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainExecuteCommandResultsV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling executeCommand().');
@@ -72,7 +72,7 @@ export class ApiIntegrationsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainExecuteCommandRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainExecuteCommandResultsV1FromJSON(jsonValue));
@@ -91,7 +91,7 @@ export class ApiIntegrationsApi extends runtime.BaseAPI {
      */
     async getCombinedPluginConfigsRaw(
         requestParameters: ApiIntegrationsApiGetCombinedPluginConfigsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainConfigsV1>> {
         const queryParameters: any = {};
 
@@ -125,7 +125,7 @@ export class ApiIntegrationsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainConfigsV1FromJSON(jsonValue));

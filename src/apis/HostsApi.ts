@@ -130,7 +130,7 @@ export class HostsApi extends runtime.BaseAPI {
      */
     async entitiesPerformActionRaw(
         requestParameters: HostsApiEntitiesPerformActionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DeviceapiGroupsResponseV1>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesPerformAction().');
@@ -175,7 +175,7 @@ export class HostsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MsaEntityActionRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceapiGroupsResponseV1FromJSON(jsonValue));
@@ -189,7 +189,7 @@ export class HostsApi extends runtime.BaseAPI {
         actionName: EntitiesPerformActionActionNameEnum,
         body: MsaEntityActionRequest,
         disableHostnameCheck?: boolean,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DeviceapiGroupsResponseV1> {
         const response = await this.entitiesPerformActionRaw({ ids: ids, actionName: actionName, body: body, disableHostnameCheck: disableHostnameCheck }, initOverrides);
         return await response.value();
@@ -200,7 +200,7 @@ export class HostsApi extends runtime.BaseAPI {
      */
     async getDeviceDetailsV2Raw(
         requestParameters: HostsApiGetDeviceDetailsV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DeviceapiDeviceDetailsResponseSwagger>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getDeviceDetailsV2().');
@@ -226,7 +226,7 @@ export class HostsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceapiDeviceDetailsResponseSwaggerFromJSON(jsonValue));
@@ -268,7 +268,7 @@ export class HostsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => StateOnlineStateRespV1FromJSON(jsonValue));
@@ -317,7 +317,7 @@ export class HostsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MsaEntityActionRequestV2ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyAffectedEntitiesFromJSON(jsonValue));
@@ -336,7 +336,7 @@ export class HostsApi extends runtime.BaseAPI {
      */
     async postDeviceDetailsV2Raw(
         requestParameters: HostsApiPostDeviceDetailsV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DeviceapiDeviceDetailsResponseSwagger>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postDeviceDetailsV2().');
@@ -361,7 +361,7 @@ export class HostsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MsaIdsRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceapiDeviceDetailsResponseSwaggerFromJSON(jsonValue));
@@ -380,7 +380,7 @@ export class HostsApi extends runtime.BaseAPI {
      */
     async queryDeviceLoginHistoryRaw(
         requestParameters: HostsApiQueryDeviceLoginHistoryRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DeviceapiLoginHistoryResponseV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling queryDeviceLoginHistory().');
@@ -405,7 +405,7 @@ export class HostsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MsaIdsRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceapiLoginHistoryResponseV1FromJSON(jsonValue));
@@ -424,7 +424,7 @@ export class HostsApi extends runtime.BaseAPI {
      */
     async queryDeviceLoginHistoryV2Raw(
         requestParameters: HostsApiQueryDeviceLoginHistoryV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DeviceapiLoginHistoryResponseV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling queryDeviceLoginHistoryV2().');
@@ -449,7 +449,7 @@ export class HostsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MsaIdsRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceapiLoginHistoryResponseV1FromJSON(jsonValue));
@@ -499,7 +499,7 @@ export class HostsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -518,7 +518,7 @@ export class HostsApi extends runtime.BaseAPI {
      */
     async queryDevicesByFilterScrollRaw(
         requestParameters: HostsApiQueryDevicesByFilterScrollRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DeviceapiDeviceResponse>> {
         const queryParameters: any = {};
 
@@ -552,7 +552,7 @@ export class HostsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceapiDeviceResponseFromJSON(jsonValue));
@@ -571,7 +571,7 @@ export class HostsApi extends runtime.BaseAPI {
      */
     async queryGetNetworkAddressHistoryV1Raw(
         requestParameters: HostsApiQueryGetNetworkAddressHistoryV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DeviceapiNetworkAddressHistoryResponseV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling queryGetNetworkAddressHistoryV1().');
@@ -596,7 +596,7 @@ export class HostsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MsaIdsRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceapiNetworkAddressHistoryResponseV1FromJSON(jsonValue));
@@ -646,7 +646,7 @@ export class HostsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -665,7 +665,7 @@ export class HostsApi extends runtime.BaseAPI {
      */
     async updateDeviceTagsRaw(
         requestParameters: HostsApiUpdateDeviceTagsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DeviceapiUpdateDeviceTagsSwaggerV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateDeviceTags().');
@@ -690,7 +690,7 @@ export class HostsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DeviceapiUpdateDeviceTagsRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceapiUpdateDeviceTagsSwaggerV1FromJSON(jsonValue));

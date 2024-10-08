@@ -4,7 +4,11 @@ import * as runtime from "./runtime";
 type EventStreamCallback = (a: object) => void;
 
 export class EventStream {
-    constructor(private configuration: runtime.Configuration, private appName: string, private resource: MainAvailableStreamV2) {}
+    constructor(
+        private configuration: runtime.Configuration,
+        private appName: string,
+        private resource: MainAvailableStreamV2,
+    ) {}
 
     async process(callback: EventStreamCallback, offset?: number) {
         let url = this.resource.dataFeedURL;

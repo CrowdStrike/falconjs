@@ -43,7 +43,7 @@ export class Oauth2Api extends runtime.BaseAPI {
      */
     async oauth2AccessTokenRaw(
         requestParameters: Oauth2ApiOauth2AccessTokenRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainAccessTokenResponseV1>> {
         if (requestParameters["clientId"] == null) {
             throw new runtime.RequiredError("clientId", 'Required parameter "clientId" was null or undefined when calling oauth2AccessToken().');
@@ -92,7 +92,7 @@ export class Oauth2Api extends runtime.BaseAPI {
                 query: queryParameters,
                 body: formParams,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAccessTokenResponseV1FromJSON(jsonValue));
@@ -149,7 +149,7 @@ export class Oauth2Api extends runtime.BaseAPI {
                 query: queryParameters,
                 body: formParams,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecResponseFieldsFromJSON(jsonValue));

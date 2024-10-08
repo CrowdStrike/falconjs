@@ -65,7 +65,7 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
      */
     async combinedQueryVulnerabilitiesRaw(
         requestParameters: SpotlightVulnerabilitiesApiCombinedQueryVulnerabilitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainSPAPICombinedVulnerabilitiesResponse>> {
         if (requestParameters["filter"] == null) {
             throw new runtime.RequiredError("filter", 'Required parameter "filter" was null or undefined when calling combinedQueryVulnerabilities().');
@@ -107,7 +107,7 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainSPAPICombinedVulnerabilitiesResponseFromJSON(jsonValue));
@@ -122,7 +122,7 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
         limit?: number,
         sort?: string,
         facet?: Array<string>,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainSPAPICombinedVulnerabilitiesResponse> {
         const response = await this.combinedQueryVulnerabilitiesRaw({ filter: filter, after: after, limit: limit, sort: sort, facet: facet }, initOverrides);
         return await response.value();
@@ -133,7 +133,7 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
      */
     async getRemediationsV2Raw(
         requestParameters: SpotlightVulnerabilitiesApiGetRemediationsV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainSPAPIRemediationEntitiesResponseV2>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getRemediationsV2().');
@@ -159,7 +159,7 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainSPAPIRemediationEntitiesResponseV2FromJSON(jsonValue));
@@ -178,7 +178,7 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
      */
     async getVulnerabilitiesRaw(
         requestParameters: SpotlightVulnerabilitiesApiGetVulnerabilitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainSPAPIVulnerabilitiesEntitiesResponseV2>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getVulnerabilities().');
@@ -204,7 +204,7 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainSPAPIVulnerabilitiesEntitiesResponseV2FromJSON(jsonValue));
@@ -223,7 +223,7 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
      */
     async queryVulnerabilitiesRaw(
         requestParameters: SpotlightVulnerabilitiesApiQueryVulnerabilitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainSPAPIQueryResponse>> {
         if (requestParameters["filter"] == null) {
             throw new runtime.RequiredError("filter", 'Required parameter "filter" was null or undefined when calling queryVulnerabilities().');
@@ -261,7 +261,7 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainSPAPIQueryResponseFromJSON(jsonValue));

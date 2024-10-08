@@ -195,7 +195,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ApiRuleCreateV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiRulesResponseFromJSON(jsonValue));
@@ -214,7 +214,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
      */
     async createRuleGroupMixin0Raw(
         requestParameters: CustomIoaApiCreateRuleGroupMixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiRuleGroupsResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createRuleGroupMixin0().');
@@ -239,7 +239,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ApiRuleGroupCreateRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiRuleGroupsResponseFromJSON(jsonValue));
@@ -258,7 +258,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
      */
     async deleteRuleGroupsMixin0Raw(
         requestParameters: CustomIoaApiDeleteRuleGroupsMixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteRuleGroupsMixin0().');
@@ -288,7 +288,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
@@ -342,7 +342,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
@@ -384,7 +384,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiPatternsResponseFromJSON(jsonValue));
@@ -403,7 +403,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
      */
     async getPlatformsMixin0Raw(
         requestParameters: CustomIoaApiGetPlatformsMixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiPlatformsResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getPlatformsMixin0().');
@@ -429,7 +429,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiPlatformsResponseFromJSON(jsonValue));
@@ -448,7 +448,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
      */
     async getRuleGroupsMixin0Raw(
         requestParameters: CustomIoaApiGetRuleGroupsMixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiRuleGroupsResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getRuleGroupsMixin0().');
@@ -474,7 +474,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiRuleGroupsResponseFromJSON(jsonValue));
@@ -516,7 +516,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiRuleTypesResponseFromJSON(jsonValue));
@@ -557,7 +557,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ApiRulesGetRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiRulesResponseFromJSON(jsonValue));
@@ -599,7 +599,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiRulesResponseFromJSON(jsonValue));
@@ -641,7 +641,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -660,7 +660,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
      */
     async queryPlatformsMixin0Raw(
         requestParameters: CustomIoaApiQueryPlatformsMixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
@@ -686,7 +686,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -705,7 +705,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
      */
     async queryRuleGroupsFullRaw(
         requestParameters: CustomIoaApiQueryRuleGroupsFullRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiRuleGroupsResponse>> {
         const queryParameters: any = {};
 
@@ -743,7 +743,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiRuleGroupsResponseFromJSON(jsonValue));
@@ -758,7 +758,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
         q?: string,
         offset?: string,
         limit?: number,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApiRuleGroupsResponse> {
         const response = await this.queryRuleGroupsFullRaw({ sort: sort, filter: filter, q: q, offset: offset, limit: limit }, initOverrides);
         return await response.value();
@@ -769,7 +769,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
      */
     async queryRuleGroupsMixin0Raw(
         requestParameters: CustomIoaApiQueryRuleGroupsMixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
@@ -807,7 +807,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -822,7 +822,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
         q?: string,
         offset?: string,
         limit?: number,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<MsaQueryResponse> {
         const response = await this.queryRuleGroupsMixin0Raw({ sort: sort, filter: filter, q: q, offset: offset, limit: limit }, initOverrides);
         return await response.value();
@@ -856,7 +856,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -910,7 +910,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -925,7 +925,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
         q?: string,
         offset?: string,
         limit?: number,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<MsaQueryResponse> {
         const response = await this.queryRulesMixin0Raw({ sort: sort, filter: filter, q: q, offset: offset, limit: limit }, initOverrides);
         return await response.value();
@@ -936,7 +936,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
      */
     async updateRuleGroupMixin0Raw(
         requestParameters: CustomIoaApiUpdateRuleGroupMixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiRuleGroupsResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateRuleGroupMixin0().');
@@ -961,7 +961,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ApiRuleGroupModifyRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiRuleGroupsResponseFromJSON(jsonValue));
@@ -1002,7 +1002,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ApiRuleUpdatesRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiRulesResponseFromJSON(jsonValue));
@@ -1043,7 +1043,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ApiRuleUpdatesRequestV2ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiRulesResponseFromJSON(jsonValue));
@@ -1084,7 +1084,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ApiValidationRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiValidationResponseV1FromJSON(jsonValue));

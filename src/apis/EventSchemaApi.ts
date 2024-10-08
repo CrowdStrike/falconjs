@@ -58,7 +58,7 @@ export class EventSchemaApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SchemaSensorEventResponseV1FromJSON(jsonValue));
@@ -77,7 +77,7 @@ export class EventSchemaApi extends runtime.BaseAPI {
      */
     async fdrschemaEntitiesEventGetRaw(
         requestParameters: EventSchemaApiFdrschemaEntitiesEventGetRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<SchemaSensorEventResponseV1>> {
         const queryParameters: any = {};
 
@@ -99,7 +99,7 @@ export class EventSchemaApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SchemaSensorEventResponseV1FromJSON(jsonValue));
@@ -118,7 +118,7 @@ export class EventSchemaApi extends runtime.BaseAPI {
      */
     async fdrschemaQueriesEventGetRaw(
         requestParameters: EventSchemaApiFdrschemaQueriesEventGetRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
         const queryParameters: any = {};
 
@@ -152,7 +152,7 @@ export class EventSchemaApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));

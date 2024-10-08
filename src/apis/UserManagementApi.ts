@@ -177,7 +177,7 @@ export class UserManagementApi extends runtime.BaseAPI {
      */
     async combinedUserRolesV1Raw(
         requestParameters: UserManagementApiCombinedUserRolesV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<FlightcontrolapiUserGrantResponse>> {
         if (requestParameters["userUuid"] == null) {
             throw new runtime.RequiredError("userUuid", 'Required parameter "userUuid" was null or undefined when calling combinedUserRolesV1().');
@@ -227,7 +227,7 @@ export class UserManagementApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FlightcontrolapiUserGrantResponseFromJSON(jsonValue));
@@ -244,7 +244,7 @@ export class UserManagementApi extends runtime.BaseAPI {
         offset?: number,
         limit?: number,
         sort?: CombinedUserRolesV1SortEnum,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<FlightcontrolapiUserGrantResponse> {
         const response = await this.combinedUserRolesV1Raw({ userUuid: userUuid, cid: cid, directOnly: directOnly, filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
@@ -278,7 +278,7 @@ export class UserManagementApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainUserCreateRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiUserMetadataResponseFromJSON(jsonValue));
@@ -298,7 +298,7 @@ export class UserManagementApi extends runtime.BaseAPI {
      */
     async createUserV1Raw(
         requestParameters: UserManagementApiCreateUserV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<FlightcontrolapiUserResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createUserV1().');
@@ -327,7 +327,7 @@ export class UserManagementApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainCreateUserRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FlightcontrolapiUserResponseFromJSON(jsonValue));
@@ -370,7 +370,7 @@ export class UserManagementApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
@@ -413,7 +413,7 @@ export class UserManagementApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecResponseFieldsFromJSON(jsonValue));
@@ -432,7 +432,7 @@ export class UserManagementApi extends runtime.BaseAPI {
      */
     async entitiesRolesV1Raw(
         requestParameters: UserManagementApiEntitiesRolesV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<FlightcontrolapiGetRolesResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesRolesV1().');
@@ -462,7 +462,7 @@ export class UserManagementApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FlightcontrolapiGetRolesResponseFromJSON(jsonValue));
@@ -497,7 +497,7 @@ export class UserManagementApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -541,7 +541,7 @@ export class UserManagementApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiUserRoleResponseFromJSON(jsonValue));
@@ -585,7 +585,7 @@ export class UserManagementApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -606,7 +606,7 @@ export class UserManagementApi extends runtime.BaseAPI {
      */
     async grantUserRoleIdsRaw(
         requestParameters: UserManagementApiGrantUserRoleIdsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiUserRoleIDsResponse>> {
         if (requestParameters["userUuid"] == null) {
             throw new runtime.RequiredError("userUuid", 'Required parameter "userUuid" was null or undefined when calling grantUserRoleIds().');
@@ -639,7 +639,7 @@ export class UserManagementApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainRoleIDsToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiUserRoleIDsResponseFromJSON(jsonValue));
@@ -686,7 +686,7 @@ export class UserManagementApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
@@ -736,7 +736,7 @@ export class UserManagementApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
@@ -771,7 +771,7 @@ export class UserManagementApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -815,7 +815,7 @@ export class UserManagementApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiUserMetadataResponseFromJSON(jsonValue));
@@ -859,7 +859,7 @@ export class UserManagementApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -895,7 +895,7 @@ export class UserManagementApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -915,7 +915,7 @@ export class UserManagementApi extends runtime.BaseAPI {
      */
     async retrieveUsersGETV1Raw(
         requestParameters: UserManagementApiRetrieveUsersGETV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<FlightcontrolapiUserResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling retrieveUsersGETV1().');
@@ -940,7 +940,7 @@ export class UserManagementApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MsaspecIdsRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FlightcontrolapiUserResponseFromJSON(jsonValue));
@@ -960,7 +960,7 @@ export class UserManagementApi extends runtime.BaseAPI {
      */
     async revokeUserRoleIdsRaw(
         requestParameters: UserManagementApiRevokeUserRoleIdsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiUserRoleIDsResponse>> {
         if (requestParameters["userUuid"] == null) {
             throw new runtime.RequiredError("userUuid", 'Required parameter "userUuid" was null or undefined when calling revokeUserRoleIds().');
@@ -994,7 +994,7 @@ export class UserManagementApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiUserRoleIDsResponseFromJSON(jsonValue));
@@ -1045,7 +1045,7 @@ export class UserManagementApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainUpdateUserFieldsToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiUserMetadataResponseFromJSON(jsonValue));
@@ -1065,7 +1065,7 @@ export class UserManagementApi extends runtime.BaseAPI {
      */
     async updateUserV1Raw(
         requestParameters: UserManagementApiUpdateUserV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<FlightcontrolapiUserResponse>> {
         if (requestParameters["userUuid"] == null) {
             throw new runtime.RequiredError("userUuid", 'Required parameter "userUuid" was null or undefined when calling updateUserV1().');
@@ -1098,7 +1098,7 @@ export class UserManagementApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainUpdateUserRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FlightcontrolapiUserResponseFromJSON(jsonValue));
@@ -1139,7 +1139,7 @@ export class UserManagementApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainUserActionRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecResponseFieldsFromJSON(jsonValue));
@@ -1158,7 +1158,7 @@ export class UserManagementApi extends runtime.BaseAPI {
      */
     async userRolesActionV1Raw(
         requestParameters: UserManagementApiUserRolesActionV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling userRolesActionV1().');
@@ -1183,7 +1183,7 @@ export class UserManagementApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainActionUserRolesRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecResponseFieldsFromJSON(jsonValue));

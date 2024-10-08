@@ -68,7 +68,7 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
      */
     async createRegistryEntitiesRaw(
         requestParameters: FalconContainerImageApiCreateRegistryEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainExternalRegistryResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createRegistryEntities().');
@@ -93,7 +93,7 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: RegistryassessmentExternalRegistryPayloadToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainExternalRegistryResponseFromJSON(jsonValue));
@@ -112,7 +112,7 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
      */
     async deleteRegistryEntitiesRaw(
         requestParameters: FalconContainerImageApiDeleteRegistryEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainExternalRegistryListResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteRegistryEntities().');
@@ -138,7 +138,7 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainExternalRegistryListResponseFromJSON(jsonValue));
@@ -157,7 +157,7 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
      */
     async readRegistryEntitiesRaw(
         requestParameters: FalconContainerImageApiReadRegistryEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainExternalQueryResponse>> {
         const queryParameters: any = {};
 
@@ -187,7 +187,7 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainExternalQueryResponseFromJSON(jsonValue));
@@ -206,7 +206,7 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
      */
     async readRegistryEntitiesByUUIDRaw(
         requestParameters: FalconContainerImageApiReadRegistryEntitiesByUUIDRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainExternalRegistryListResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling readRegistryEntitiesByUUID().');
@@ -232,7 +232,7 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainExternalRegistryListResponseFromJSON(jsonValue));
@@ -251,7 +251,7 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
      */
     async updateRegistryEntitiesRaw(
         requestParameters: FalconContainerImageApiUpdateRegistryEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainExternalRegistryResponse>> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling updateRegistryEntities().');
@@ -284,7 +284,7 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: RegistryassessmentExternalRegistryPatchPayloadToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainExternalRegistryResponseFromJSON(jsonValue));
@@ -296,7 +296,7 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
     async updateRegistryEntities(
         id: string,
         body: RegistryassessmentExternalRegistryPatchPayload,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainExternalRegistryResponse> {
         const response = await this.updateRegistryEntitiesRaw({ id: id, body: body }, initOverrides);
         return await response.value();

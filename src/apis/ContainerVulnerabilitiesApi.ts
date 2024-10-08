@@ -125,7 +125,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
      */
     async readCombinedVulnerabilitiesRaw(
         requestParameters: ContainerVulnerabilitiesApiReadCombinedVulnerabilitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<VulnerabilitiesApiCombinedVulnerability>> {
         const queryParameters: any = {};
 
@@ -159,7 +159,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => VulnerabilitiesApiCombinedVulnerabilityFromJSON(jsonValue));
@@ -173,7 +173,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
         limit?: number,
         offset?: number,
         sort?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<VulnerabilitiesApiCombinedVulnerability> {
         const response = await this.readCombinedVulnerabilitiesRaw({ filter: filter, limit: limit, offset: offset, sort: sort }, initOverrides);
         return await response.value();
@@ -184,7 +184,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
      */
     async readCombinedVulnerabilitiesDetailsRaw(
         requestParameters: ContainerVulnerabilitiesApiReadCombinedVulnerabilitiesDetailsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<VulnerabilitiesApiCombinedVulnerabilityDetails>> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling readCombinedVulnerabilitiesDetails().');
@@ -222,7 +222,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => VulnerabilitiesApiCombinedVulnerabilityDetailsFromJSON(jsonValue));
@@ -236,7 +236,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
         filter?: string,
         limit?: number,
         offset?: number,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<VulnerabilitiesApiCombinedVulnerabilityDetails> {
         const response = await this.readCombinedVulnerabilitiesDetailsRaw({ id: id, filter: filter, limit: limit, offset: offset }, initOverrides);
         return await response.value();
@@ -247,7 +247,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
      */
     async readCombinedVulnerabilitiesInfoRaw(
         requestParameters: ContainerVulnerabilitiesApiReadCombinedVulnerabilitiesInfoRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<VulnerabilitiesApiCombinedVulnerabilityInfo>> {
         if (requestParameters["cveId"] == null) {
             throw new runtime.RequiredError("cveId", 'Required parameter "cveId" was null or undefined when calling readCombinedVulnerabilitiesInfo().');
@@ -281,7 +281,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => VulnerabilitiesApiCombinedVulnerabilityInfoFromJSON(jsonValue));
@@ -294,7 +294,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
         cveId: string,
         limit?: number,
         offset?: number,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<VulnerabilitiesApiCombinedVulnerabilityInfo> {
         const response = await this.readCombinedVulnerabilitiesInfoRaw({ cveId: cveId, limit: limit, offset: offset }, initOverrides);
         return await response.value();
@@ -305,7 +305,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
      */
     async readVulnerabilitiesByImageCountRaw(
         requestParameters: ContainerVulnerabilitiesApiReadVulnerabilitiesByImageCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<VulnerabilitiesApiVulnByImageCount>> {
         const queryParameters: any = {};
 
@@ -335,7 +335,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => VulnerabilitiesApiVulnByImageCountFromJSON(jsonValue));
@@ -354,7 +354,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
      */
     async readVulnerabilitiesPublicationDateRaw(
         requestParameters: ContainerVulnerabilitiesApiReadVulnerabilitiesPublicationDateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<VulnerabilitiesApiVulnByPublication>> {
         const queryParameters: any = {};
 
@@ -384,7 +384,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => VulnerabilitiesApiVulnByPublicationFromJSON(jsonValue));
@@ -397,7 +397,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
         filter?: string,
         limit?: number,
         offset?: number,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<VulnerabilitiesApiVulnByPublication> {
         const response = await this.readVulnerabilitiesPublicationDateRaw({ filter: filter, limit: limit, offset: offset }, initOverrides);
         return await response.value();
@@ -408,7 +408,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
      */
     async readVulnerabilityCountRaw(
         requestParameters: ContainerVulnerabilitiesApiReadVulnerabilityCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<VulnerabilitiesApiVulnCount>> {
         const queryParameters: any = {};
 
@@ -438,7 +438,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => VulnerabilitiesApiVulnCountFromJSON(jsonValue));
@@ -457,7 +457,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
      */
     async readVulnerabilityCountByActivelyExploitedRaw(
         requestParameters: ContainerVulnerabilitiesApiReadVulnerabilityCountByActivelyExploitedRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<VulnerabilitiesApiVulnCountByActivelyExploited>> {
         const queryParameters: any = {};
 
@@ -487,7 +487,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => VulnerabilitiesApiVulnCountByActivelyExploitedFromJSON(jsonValue));
@@ -500,7 +500,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
         filter?: string,
         limit?: number,
         offset?: number,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<VulnerabilitiesApiVulnCountByActivelyExploited> {
         const response = await this.readVulnerabilityCountByActivelyExploitedRaw({ filter: filter, limit: limit, offset: offset }, initOverrides);
         return await response.value();
@@ -511,7 +511,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
      */
     async readVulnerabilityCountByCPSRatingRaw(
         requestParameters: ContainerVulnerabilitiesApiReadVulnerabilityCountByCPSRatingRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<VulnerabilitiesApiVulnCountByCSPRating>> {
         const queryParameters: any = {};
 
@@ -541,7 +541,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => VulnerabilitiesApiVulnCountByCSPRatingFromJSON(jsonValue));
@@ -554,7 +554,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
         filter?: string,
         limit?: number,
         offset?: number,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<VulnerabilitiesApiVulnCountByCSPRating> {
         const response = await this.readVulnerabilityCountByCPSRatingRaw({ filter: filter, limit: limit, offset: offset }, initOverrides);
         return await response.value();
@@ -565,7 +565,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
      */
     async readVulnerabilityCountByCVSSScoreRaw(
         requestParameters: ContainerVulnerabilitiesApiReadVulnerabilityCountByCVSSScoreRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<VulnerabilitiesApiVulnCountByCVSSScore>> {
         const queryParameters: any = {};
 
@@ -595,7 +595,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => VulnerabilitiesApiVulnCountByCVSSScoreFromJSON(jsonValue));
@@ -608,7 +608,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
         filter?: string,
         limit?: number,
         offset?: number,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<VulnerabilitiesApiVulnCountByCVSSScore> {
         const response = await this.readVulnerabilityCountByCVSSScoreRaw({ filter: filter, limit: limit, offset: offset }, initOverrides);
         return await response.value();
@@ -619,7 +619,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
      */
     async readVulnerabilityCountBySeverityRaw(
         requestParameters: ContainerVulnerabilitiesApiReadVulnerabilityCountBySeverityRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<VulnerabilitiesApiVulnCountBySeverity>> {
         const queryParameters: any = {};
 
@@ -649,7 +649,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => VulnerabilitiesApiVulnCountBySeverityFromJSON(jsonValue));
@@ -662,7 +662,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
         filter?: string,
         limit?: number,
         offset?: number,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<VulnerabilitiesApiVulnCountBySeverity> {
         const response = await this.readVulnerabilityCountBySeverityRaw({ filter: filter, limit: limit, offset: offset }, initOverrides);
         return await response.value();

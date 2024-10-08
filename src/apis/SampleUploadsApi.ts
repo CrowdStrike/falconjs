@@ -136,7 +136,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.VoidApiResponse(response);
@@ -154,7 +154,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
      */
     async archiveGetV1Raw(
         requestParameters: SampleUploadsApiArchiveGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ClientArchiveCreateResponseV1>> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling archiveGetV1().');
@@ -184,7 +184,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientArchiveCreateResponseV1FromJSON(jsonValue));
@@ -203,7 +203,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
      */
     async archiveListV1Raw(
         requestParameters: SampleUploadsApiArchiveListV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ClientArchiveListFilesResponseV1>> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling archiveListV1().');
@@ -237,7 +237,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientArchiveListFilesResponseV1FromJSON(jsonValue));
@@ -257,7 +257,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
      */
     async archiveUploadV1Raw(
         requestParameters: SampleUploadsApiArchiveUploadV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ClientArchiveCreateResponseV1>> {
         if (requestParameters["name"] == null) {
             throw new runtime.RequiredError("name", 'Required parameter "name" was null or undefined when calling archiveUploadV1().');
@@ -302,7 +302,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"],
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientArchiveCreateResponseV1FromJSON(jsonValue));
@@ -318,7 +318,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
         password?: string,
         isConfidential?: boolean,
         comment?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ClientArchiveCreateResponseV1> {
         const response = await this.archiveUploadV1Raw({ name: name, body: body, password: password, isConfidential: isConfidential, comment: comment }, initOverrides);
         return await response.value();
@@ -329,7 +329,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
      */
     async archiveUploadV2Raw(
         requestParameters: SampleUploadsApiArchiveUploadV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ClientArchiveCreateResponseV1>> {
         if (requestParameters["file"] == null) {
             throw new runtime.RequiredError("file", 'Required parameter "file" was null or undefined when calling archiveUploadV2().');
@@ -390,7 +390,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: formParams,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientArchiveCreateResponseV1FromJSON(jsonValue));
@@ -405,7 +405,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
         password?: string,
         isConfidential?: boolean,
         comment?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ClientArchiveCreateResponseV1> {
         const response = await this.archiveUploadV2Raw({ file: file, name: name, password: password, isConfidential: isConfidential, comment: comment }, initOverrides);
         return await response.value();
@@ -439,7 +439,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -458,7 +458,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
      */
     async extractionCreateV1Raw(
         requestParameters: SampleUploadsApiExtractionCreateV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ClientExtractionCreateResponseV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling extractionCreateV1().');
@@ -483,7 +483,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ClientExtractionCreateRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientExtractionCreateResponseV1FromJSON(jsonValue));
@@ -502,7 +502,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
      */
     async extractionGetV1Raw(
         requestParameters: SampleUploadsApiExtractionGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ClientExtractionCreateResponseV1>> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling extractionGetV1().');
@@ -532,7 +532,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientExtractionCreateResponseV1FromJSON(jsonValue));
@@ -551,7 +551,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
      */
     async extractionListV1Raw(
         requestParameters: SampleUploadsApiExtractionListV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ClientExtractionListFilesResponseV1>> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling extractionListV1().');
@@ -585,7 +585,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientExtractionListFilesResponseV1FromJSON(jsonValue));
@@ -631,7 +631,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         if (this.isJsonMime(response.headers.get("content-type"))) {
@@ -654,7 +654,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
      */
     async uploadSampleV3Raw(
         requestParameters: SampleUploadsApiUploadSampleV3Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ClientSampleMetadataResponseV2>> {
         if (requestParameters["sample"] == null) {
             throw new runtime.RequiredError("sample", 'Required parameter "sample" was null or undefined when calling uploadSampleV3().');
@@ -711,7 +711,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: formParams,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientSampleMetadataResponseV2FromJSON(jsonValue));
@@ -725,7 +725,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
         fileName: string,
         comment?: string,
         isConfidential?: boolean,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ClientSampleMetadataResponseV2> {
         const response = await this.uploadSampleV3Raw({ sample: sample, fileName: fileName, comment: comment, isConfidential: isConfidential }, initOverrides);
         return await response.value();

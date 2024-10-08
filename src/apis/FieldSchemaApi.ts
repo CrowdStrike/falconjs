@@ -43,7 +43,7 @@ export class FieldSchemaApi extends runtime.BaseAPI {
      */
     async fdrschemaEntitiesFieldGetRaw(
         requestParameters: FieldSchemaApiFdrschemaEntitiesFieldGetRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<SchemaSensorFieldResponseV1>> {
         const queryParameters: any = {};
 
@@ -65,7 +65,7 @@ export class FieldSchemaApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SchemaSensorFieldResponseV1FromJSON(jsonValue));
@@ -84,7 +84,7 @@ export class FieldSchemaApi extends runtime.BaseAPI {
      */
     async fdrschemaQueriesFieldGetRaw(
         requestParameters: FieldSchemaApiFdrschemaQueriesFieldGetRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
         const queryParameters: any = {};
 
@@ -118,7 +118,7 @@ export class FieldSchemaApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));

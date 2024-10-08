@@ -100,7 +100,7 @@ export class CustomStorageApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CustomStorageResponseFromJSON(jsonValue));
@@ -144,7 +144,7 @@ export class CustomStorageApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.BlobApiResponse(response);
@@ -194,7 +194,7 @@ export class CustomStorageApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CustomStorageObjectKeysFromJSON(jsonValue));
@@ -238,7 +238,7 @@ export class CustomStorageApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CustomStorageResponseFromJSON(jsonValue));
@@ -296,7 +296,7 @@ export class CustomStorageApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CustomStorageResponseFromJSON(jsonValue));
@@ -355,7 +355,7 @@ export class CustomStorageApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"] as any,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CustomStorageResponseFromJSON(jsonValue));
@@ -370,7 +370,7 @@ export class CustomStorageApi extends runtime.BaseAPI {
         body: Blob,
         dryRun?: boolean,
         schemaVersion?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<CustomStorageResponse> {
         const response = await this.uploadRaw({ collectionName: collectionName, objectKey: objectKey, body: body, dryRun: dryRun, schemaVersion: schemaVersion }, initOverrides);
         return await response.value();

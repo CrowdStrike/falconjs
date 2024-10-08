@@ -184,7 +184,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
      */
     async deprovisionRaw(
         requestParameters: WorkflowsApiDeprovisionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ClientSystemDefinitionCreateResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling deprovision().');
@@ -209,7 +209,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ClientSystemDefinitionDeProvisionRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientSystemDefinitionCreateResponseFromJSON(jsonValue));
@@ -274,7 +274,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"] as any,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiResourceIDsResponseFromJSON(jsonValue));
@@ -291,11 +291,11 @@ export class WorkflowsApi extends runtime.BaseAPI {
         key?: string,
         depth?: number,
         sourceEventUrl?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApiResourceIDsResponse> {
         const response = await this.executeRaw(
             { body: body, executionCid: executionCid, definitionId: definitionId, name: name, key: key, depth: depth, sourceEventUrl: sourceEventUrl },
-            initOverrides
+            initOverrides,
         );
         return await response.value();
     }
@@ -305,7 +305,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
      */
     async executionActionRaw(
         requestParameters: WorkflowsApiExecutionActionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DefinitionsDefinitionEntitiesResponse>> {
         if (requestParameters["actionName"] == null) {
             throw new runtime.RequiredError("actionName", 'Required parameter "actionName" was null or undefined when calling executionAction().');
@@ -338,7 +338,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ClientActionRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DefinitionsDefinitionEntitiesResponseFromJSON(jsonValue));
@@ -350,7 +350,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
     async executionAction(
         actionName: ExecutionActionActionNameEnum,
         body: ClientActionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DefinitionsDefinitionEntitiesResponse> {
         const response = await this.executionActionRaw({ actionName: actionName, body: body }, initOverrides);
         return await response.value();
@@ -361,7 +361,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
      */
     async executionResultsRaw(
         requestParameters: WorkflowsApiExecutionResultsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiExecutionResultsResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling executionResults().');
@@ -387,7 +387,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiExecutionResultsResponseFromJSON(jsonValue));
@@ -428,7 +428,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ClientSystemDefinitionPromoteRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientSystemDefinitionCreateResponseFromJSON(jsonValue));
@@ -447,7 +447,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
      */
     async provisionRaw(
         requestParameters: WorkflowsApiProvisionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ClientSystemDefinitionCreateResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling provision().');
@@ -472,7 +472,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ClientSystemDefinitionProvisionRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientSystemDefinitionCreateResponseFromJSON(jsonValue));
@@ -491,7 +491,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
      */
     async workflowActivitiesCombinedRaw(
         requestParameters: WorkflowsApiWorkflowActivitiesCombinedRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ActivitiesActivityExternalResponse>> {
         const queryParameters: any = {};
 
@@ -525,7 +525,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ActivitiesActivityExternalResponseFromJSON(jsonValue));
@@ -539,7 +539,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
         offset?: string,
         limit?: number,
         sort?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ActivitiesActivityExternalResponse> {
         const response = await this.workflowActivitiesCombinedRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
@@ -550,7 +550,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
      */
     async workflowDefinitionsCombinedRaw(
         requestParameters: WorkflowsApiWorkflowDefinitionsCombinedRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DefinitionsDefinitionExternalResponse>> {
         const queryParameters: any = {};
 
@@ -584,7 +584,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DefinitionsDefinitionExternalResponseFromJSON(jsonValue));
@@ -598,7 +598,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
         offset?: string,
         limit?: number,
         sort?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DefinitionsDefinitionExternalResponse> {
         const response = await this.workflowDefinitionsCombinedRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
@@ -609,7 +609,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
      */
     async workflowDefinitionsExportRaw(
         requestParameters: WorkflowsApiWorkflowDefinitionsExportRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<Array<number>>> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling workflowDefinitionsExport().');
@@ -639,7 +639,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse<any>(response);
@@ -658,7 +658,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
      */
     async workflowDefinitionsImportRaw(
         requestParameters: WorkflowsApiWorkflowDefinitionsImportRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DefinitionsDefinitionImportResponse>> {
         if (requestParameters["dataFile"] == null) {
             throw new runtime.RequiredError("dataFile", 'Required parameter "dataFile" was null or undefined when calling workflowDefinitionsImport().');
@@ -707,7 +707,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: formParams,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DefinitionsDefinitionImportResponseFromJSON(jsonValue));
@@ -726,7 +726,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
      */
     async workflowDefinitionsUpdateRaw(
         requestParameters: WorkflowsApiWorkflowDefinitionsUpdateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiResourceIDsResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling workflowDefinitionsUpdate().');
@@ -755,7 +755,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ModelsDefinitionUpdateRequestV2ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiResourceIDsResponseFromJSON(jsonValue));
@@ -774,7 +774,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
      */
     async workflowExecuteInternalRaw(
         requestParameters: WorkflowsApiWorkflowExecuteInternalRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiResourceIDsResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling workflowExecuteInternal().');
@@ -827,7 +827,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"] as any,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiResourceIDsResponseFromJSON(jsonValue));
@@ -845,11 +845,11 @@ export class WorkflowsApi extends runtime.BaseAPI {
         depth?: number,
         batchSize?: number,
         sourceEventUrl?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApiResourceIDsResponse> {
         const response = await this.workflowExecuteInternalRaw(
             { body: body, executionCid: executionCid, definitionId: definitionId, name: name, key: key, depth: depth, batchSize: batchSize, sourceEventUrl: sourceEventUrl },
-            initOverrides
+            initOverrides,
         );
         return await response.value();
     }
@@ -859,7 +859,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
      */
     async workflowExecutionsCombinedRaw(
         requestParameters: WorkflowsApiWorkflowExecutionsCombinedRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiExecutionResultsResponse>> {
         const queryParameters: any = {};
 
@@ -893,7 +893,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiExecutionResultsResponseFromJSON(jsonValue));
@@ -907,7 +907,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
         offset?: string,
         limit?: number,
         sort?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApiExecutionResultsResponse> {
         const response = await this.workflowExecutionsCombinedRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
@@ -918,7 +918,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
      */
     async workflowGetHumanInputV1Raw(
         requestParameters: WorkflowsApiWorkflowGetHumanInputV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelUserInputReadResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling workflowGetHumanInputV1().');
@@ -944,7 +944,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelUserInputReadResponseFromJSON(jsonValue));
@@ -963,7 +963,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
      */
     async workflowMockExecuteRaw(
         requestParameters: WorkflowsApiWorkflowMockExecuteRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiResourceIDsResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling workflowMockExecute().');
@@ -1016,7 +1016,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ModelsMockExecutionCreateRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiResourceIDsResponseFromJSON(jsonValue));
@@ -1034,11 +1034,11 @@ export class WorkflowsApi extends runtime.BaseAPI {
         depth?: number,
         sourceEventUrl?: string,
         validateOnly?: boolean,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApiResourceIDsResponse> {
         const response = await this.workflowMockExecuteRaw(
             { body: body, executionCid: executionCid, definitionId: definitionId, name: name, key: key, depth: depth, sourceEventUrl: sourceEventUrl, validateOnly: validateOnly },
-            initOverrides
+            initOverrides,
         );
         return await response.value();
     }
@@ -1048,7 +1048,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
      */
     async workflowTriggersCombinedRaw(
         requestParameters: WorkflowsApiWorkflowTriggersCombinedRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<TriggersTriggerExternalResponse>> {
         const queryParameters: any = {};
 
@@ -1070,7 +1070,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TriggersTriggerExternalResponseFromJSON(jsonValue));
@@ -1089,7 +1089,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
      */
     async workflowUpdateHumanInputV1Raw(
         requestParameters: WorkflowsApiWorkflowUpdateHumanInputV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiResourceIDsResponse>> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling workflowUpdateHumanInputV1().');
@@ -1122,7 +1122,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ModelUserInputUpdateRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiResourceIDsResponseFromJSON(jsonValue));

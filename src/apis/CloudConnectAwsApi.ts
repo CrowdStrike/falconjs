@@ -93,7 +93,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
      */
     async createOrUpdateAWSSettingsRaw(
         requestParameters: CloudConnectAwsApiCreateOrUpdateAWSSettingsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsCustomerConfigurationsV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createOrUpdateAWSSettings().');
@@ -118,7 +118,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ModelsModifyAWSCustomerSettingsV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsCustomerConfigurationsV1FromJSON(jsonValue));
@@ -137,7 +137,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
      */
     async deleteAWSAccountsRaw(
         requestParameters: CloudConnectAwsApiDeleteAWSAccountsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsBaseResponseV1>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteAWSAccounts().');
@@ -163,7 +163,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsBaseResponseV1FromJSON(jsonValue));
@@ -205,7 +205,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAWSAccountsV1FromJSON(jsonValue));
@@ -239,7 +239,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsCustomerConfigurationsV1FromJSON(jsonValue));
@@ -258,7 +258,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
      */
     async provisionAWSAccountsRaw(
         requestParameters: CloudConnectAwsApiProvisionAWSAccountsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsAWSAccountsV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling provisionAWSAccounts().');
@@ -287,7 +287,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ModelsCreateAWSAccountsV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAWSAccountsV1FromJSON(jsonValue));
@@ -306,7 +306,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
      */
     async queryAWSAccountsRaw(
         requestParameters: CloudConnectAwsApiQueryAWSAccountsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsAWSAccountsV1>> {
         const queryParameters: any = {};
 
@@ -340,7 +340,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAWSAccountsV1FromJSON(jsonValue));
@@ -359,7 +359,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
      */
     async queryAWSAccountsForIDsRaw(
         requestParameters: CloudConnectAwsApiQueryAWSAccountsForIDsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
@@ -393,7 +393,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -412,7 +412,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
      */
     async updateAWSAccountsRaw(
         requestParameters: CloudConnectAwsApiUpdateAWSAccountsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsAWSAccountsV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateAWSAccounts().');
@@ -437,7 +437,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ModelsUpdateAWSAccountsV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAWSAccountsV1FromJSON(jsonValue));
@@ -456,7 +456,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
      */
     async verifyAWSAccountAccessRaw(
         requestParameters: CloudConnectAwsApiVerifyAWSAccountAccessRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsVerifyAccessResponseV1>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling verifyAWSAccountAccess().');
@@ -482,7 +482,7 @@ export class CloudConnectAwsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsVerifyAccessResponseV1FromJSON(jsonValue));

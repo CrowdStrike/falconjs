@@ -87,7 +87,7 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse<any>(response);
@@ -106,7 +106,7 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
      */
     async getEventsEntitiesRaw(
         requestParameters: TailoredIntelligenceApiGetEventsEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainEventEntitiesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getEventsEntities().');
@@ -131,7 +131,7 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MsaIdsRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainEventEntitiesResponseFromJSON(jsonValue));
@@ -150,7 +150,7 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
      */
     async getRulesEntitiesRaw(
         requestParameters: TailoredIntelligenceApiGetRulesEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainRuleEntitiesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getRulesEntities().');
@@ -175,7 +175,7 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MsaIdsRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainRuleEntitiesResponseFromJSON(jsonValue));
@@ -229,7 +229,7 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainQueryResponseFromJSON(jsonValue));
@@ -283,7 +283,7 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainQueryResponseFromJSON(jsonValue));

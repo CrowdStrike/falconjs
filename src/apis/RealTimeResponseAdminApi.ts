@@ -159,7 +159,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
      */
     async batchAdminCmdRaw(
         requestParameters: RealTimeResponseAdminApiBatchAdminCmdRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainMultiCommandExecuteResponseWrapper>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling batchAdminCmd().');
@@ -196,7 +196,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainBatchExecuteCommandRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainMultiCommandExecuteResponseWrapperFromJSON(jsonValue));
@@ -210,7 +210,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
         timeout?: number,
         timeoutDuration?: string,
         hostTimeoutDuration?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainMultiCommandExecuteResponseWrapper> {
         const response = await this.batchAdminCmdRaw({ body: body, timeout: timeout, timeoutDuration: timeoutDuration, hostTimeoutDuration: hostTimeoutDuration }, initOverrides);
         return await response.value();
@@ -221,7 +221,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
      */
     async rTRCheckAdminCommandStatusRaw(
         requestParameters: RealTimeResponseAdminApiRTRCheckAdminCommandStatusRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainStatusResponseWrapper>> {
         if (requestParameters["cloudRequestId"] == null) {
             throw new runtime.RequiredError("cloudRequestId", 'Required parameter "cloudRequestId" was null or undefined when calling rTRCheckAdminCommandStatus().');
@@ -255,7 +255,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainStatusResponseWrapperFromJSON(jsonValue));
@@ -274,7 +274,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
      */
     async rTRCreatePutFilesRaw(
         requestParameters: RealTimeResponseAdminApiRTRCreatePutFilesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
         if (requestParameters["file"] == null) {
             throw new runtime.RequiredError("file", 'Required parameter "file" was null or undefined when calling rTRCreatePutFiles().');
@@ -331,7 +331,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: formParams,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
@@ -350,7 +350,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
      */
     async rTRCreateScriptsRaw(
         requestParameters: RealTimeResponseAdminApiRTRCreateScriptsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
         if (requestParameters["description"] == null) {
             throw new runtime.RequiredError("description", 'Required parameter "description" was null or undefined when calling rTRCreateScripts().');
@@ -419,7 +419,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: formParams,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
@@ -436,11 +436,11 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
         commentsForAuditLog?: string,
         content?: string,
         platform?: Array<string>,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<MsaReplyMetaOnly> {
         const response = await this.rTRCreateScriptsRaw(
             { description: description, permissionType: permissionType, file: file, name: name, commentsForAuditLog: commentsForAuditLog, content: content, platform: platform },
-            initOverrides
+            initOverrides,
         );
         return await response.value();
     }
@@ -450,7 +450,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
      */
     async rTRDeletePutFilesRaw(
         requestParameters: RealTimeResponseAdminApiRTRDeletePutFilesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling rTRDeletePutFiles().');
@@ -476,7 +476,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
@@ -495,7 +495,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
      */
     async rTRDeleteScriptsRaw(
         requestParameters: RealTimeResponseAdminApiRTRDeleteScriptsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling rTRDeleteScripts().');
@@ -521,7 +521,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
@@ -540,7 +540,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
      */
     async rTRExecuteAdminCommandRaw(
         requestParameters: RealTimeResponseAdminApiRTRExecuteAdminCommandRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainCommandExecuteResponseWrapper>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling rTRExecuteAdminCommand().');
@@ -565,7 +565,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainCommandExecuteRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainCommandExecuteResponseWrapperFromJSON(jsonValue));
@@ -584,7 +584,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
      */
     async rTRGetFalconScriptsRaw(
         requestParameters: RealTimeResponseAdminApiRTRGetFalconScriptsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<EmpowerapiMsaFalconScriptResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling rTRGetFalconScripts().');
@@ -610,7 +610,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EmpowerapiMsaFalconScriptResponseFromJSON(jsonValue));
@@ -629,7 +629,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
      */
     async rTRGetPutFilesRaw(
         requestParameters: RealTimeResponseAdminApiRTRGetPutFilesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<EmpowerapiMsaPFResponseV1>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling rTRGetPutFiles().');
@@ -655,7 +655,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EmpowerapiMsaPFResponseV1FromJSON(jsonValue));
@@ -674,7 +674,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
      */
     async rTRGetPutFilesV2Raw(
         requestParameters: RealTimeResponseAdminApiRTRGetPutFilesV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<EmpowerapiMsaPFResponseV2>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling rTRGetPutFilesV2().');
@@ -700,7 +700,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EmpowerapiMsaPFResponseV2FromJSON(jsonValue));
@@ -719,7 +719,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
      */
     async rTRGetScriptsRaw(
         requestParameters: RealTimeResponseAdminApiRTRGetScriptsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<EmpowerapiMsaPFResponseV1>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling rTRGetScripts().');
@@ -745,7 +745,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EmpowerapiMsaPFResponseV1FromJSON(jsonValue));
@@ -764,7 +764,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
      */
     async rTRGetScriptsV2Raw(
         requestParameters: RealTimeResponseAdminApiRTRGetScriptsV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<EmpowerapiMsaPFResponseV2>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling rTRGetScriptsV2().');
@@ -790,7 +790,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EmpowerapiMsaPFResponseV2FromJSON(jsonValue));
@@ -809,7 +809,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
      */
     async rTRListFalconScriptsRaw(
         requestParameters: RealTimeResponseAdminApiRTRListFalconScriptsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<EmpowerapiMsaIDListResponse>> {
         const queryParameters: any = {};
 
@@ -843,7 +843,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EmpowerapiMsaIDListResponseFromJSON(jsonValue));
@@ -857,7 +857,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
         offset?: number,
         limit?: number,
         sort?: RTRListFalconScriptsSortEnum,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<EmpowerapiMsaIDListResponse> {
         const response = await this.rTRListFalconScriptsRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
@@ -868,7 +868,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
      */
     async rTRListPutFilesRaw(
         requestParameters: RealTimeResponseAdminApiRTRListPutFilesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<BinservapiMsaPutFileResponse>> {
         const queryParameters: any = {};
 
@@ -902,7 +902,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => BinservapiMsaPutFileResponseFromJSON(jsonValue));
@@ -921,7 +921,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
      */
     async rTRListScriptsRaw(
         requestParameters: RealTimeResponseAdminApiRTRListScriptsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<BinservapiMsaPutFileResponse>> {
         const queryParameters: any = {};
 
@@ -955,7 +955,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => BinservapiMsaPutFileResponseFromJSON(jsonValue));
@@ -974,7 +974,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
      */
     async rTRUpdateScriptsRaw(
         requestParameters: RealTimeResponseAdminApiRTRUpdateScriptsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling rTRUpdateScripts().');
@@ -1043,7 +1043,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: formParams,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
@@ -1061,11 +1061,11 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
         permissionType?: string,
         content?: string,
         platform?: Array<string>,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<MsaReplyMetaOnly> {
         const response = await this.rTRUpdateScriptsRaw(
             { id: id, file: file, description: description, name: name, commentsForAuditLog: commentsForAuditLog, permissionType: permissionType, content: content, platform: platform },
-            initOverrides
+            initOverrides,
         );
         return await response.value();
     }
