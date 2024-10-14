@@ -1,0 +1,38 @@
+<html>
+<head>
+    <title>CrowdStrike Falcon Sensor Download :: Falconjs Example</title>
+    <script src="event_stream.js"></script>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            border-style: dotted;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loginPopup">
+        <div id="popupForm">
+            <form action="javascript:event_stream.onLogin()" id="loginForm">
+                <h2>CrowdStrike API: Please Log in</h2>
+                <label for="clientId">
+                    <strong>Client Id</strong>
+                </label>
+                <input type="password" id="clientId" placeholder="Your API Client ID" name="clientId" required>
+                <br/>
+                <label for="clientSecret">
+                    <strong>Client Secret</strong>
+                </label>
+                <input type="password" id="clientId" placeholder="Your Api Client Secret" name="clientSecret" required>
+                <br/>
+                <button type="submit">Log in</button>
+            </form>
+        </div>
+    </div>
+
+
+</body>
+</html>
+
+
