@@ -218,7 +218,7 @@ export class ReconApi extends runtime.BaseAPI {
      */
     async aggregateNotificationsExposedDataRecordsV1Raw(
         requestParameters: ReconApiAggregateNotificationsExposedDataRecordsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainAggregatesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateNotificationsExposedDataRecordsV1().');
@@ -243,7 +243,7 @@ export class ReconApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregatesResponseFromJSON(jsonValue));
@@ -262,7 +262,7 @@ export class ReconApi extends runtime.BaseAPI {
      */
     async aggregateNotificationsV1Raw(
         requestParameters: ReconApiAggregateNotificationsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainAggregatesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateNotificationsV1().');
@@ -287,7 +287,7 @@ export class ReconApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregatesResponseFromJSON(jsonValue));
@@ -306,7 +306,7 @@ export class ReconApi extends runtime.BaseAPI {
      */
     async createActionsV1Raw(
         requestParameters: ReconApiCreateActionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainActionEntitiesResponseV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createActionsV1().');
@@ -331,7 +331,7 @@ export class ReconApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainRegisterActionsRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainActionEntitiesResponseV1FromJSON(jsonValue));
@@ -350,7 +350,7 @@ export class ReconApi extends runtime.BaseAPI {
      */
     async createExportJobsV1Raw(
         requestParameters: ReconApiCreateExportJobsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainLaunchExportJobResponseV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createExportJobsV1().');
@@ -375,7 +375,7 @@ export class ReconApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"]!.map(DomainLaunchExportJobRequestV1ToJSON),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainLaunchExportJobResponseV1FromJSON(jsonValue));
@@ -416,7 +416,7 @@ export class ReconApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"]!.map(SadomainCreateRuleRequestV1ToJSON),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainRulesEntitiesResponseV1FromJSON(jsonValue));
@@ -458,7 +458,7 @@ export class ReconApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainQueryResponseFromJSON(jsonValue));
@@ -477,7 +477,7 @@ export class ReconApi extends runtime.BaseAPI {
      */
     async deleteExportJobsV1Raw(
         requestParameters: ReconApiDeleteExportJobsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainExportJobIDResponseV1>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteExportJobsV1().');
@@ -503,7 +503,7 @@ export class ReconApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainExportJobIDResponseV1FromJSON(jsonValue));
@@ -522,7 +522,7 @@ export class ReconApi extends runtime.BaseAPI {
      */
     async deleteNotificationsV1Raw(
         requestParameters: ReconApiDeleteNotificationsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainNotificationIDResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteNotificationsV1().');
@@ -548,7 +548,7 @@ export class ReconApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainNotificationIDResponseFromJSON(jsonValue));
@@ -594,7 +594,7 @@ export class ReconApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainRuleQueryResponseV1FromJSON(jsonValue));
@@ -636,7 +636,7 @@ export class ReconApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainActionEntitiesResponseV1FromJSON(jsonValue));
@@ -655,7 +655,7 @@ export class ReconApi extends runtime.BaseAPI {
      */
     async getExportJobsV1Raw(
         requestParameters: ReconApiGetExportJobsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainExportJobEntitiesResponseV1>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getExportJobsV1().');
@@ -681,7 +681,7 @@ export class ReconApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainExportJobEntitiesResponseV1FromJSON(jsonValue));
@@ -700,7 +700,7 @@ export class ReconApi extends runtime.BaseAPI {
      */
     async getFileContentForExportJobsV1Raw(
         requestParameters: ReconApiGetFileContentForExportJobsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<Array<number>>> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling getFileContentForExportJobsV1().');
@@ -726,7 +726,7 @@ export class ReconApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse<any>(response);
@@ -746,7 +746,7 @@ export class ReconApi extends runtime.BaseAPI {
      */
     async getNotificationsDetailedTranslatedV1Raw(
         requestParameters: ReconApiGetNotificationsDetailedTranslatedV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainNotificationDetailsResponseV1>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getNotificationsDetailedTranslatedV1().');
@@ -772,7 +772,7 @@ export class ReconApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainNotificationDetailsResponseV1FromJSON(jsonValue));
@@ -793,7 +793,7 @@ export class ReconApi extends runtime.BaseAPI {
      */
     async getNotificationsDetailedV1Raw(
         requestParameters: ReconApiGetNotificationsDetailedV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainNotificationDetailsResponseV1>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getNotificationsDetailedV1().');
@@ -819,7 +819,7 @@ export class ReconApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainNotificationDetailsResponseV1FromJSON(jsonValue));
@@ -839,7 +839,7 @@ export class ReconApi extends runtime.BaseAPI {
      */
     async getNotificationsExposedDataRecordsV1Raw(
         requestParameters: ReconApiGetNotificationsExposedDataRecordsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiNotificationExposedDataRecordEntitiesResponseV1>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getNotificationsExposedDataRecordsV1().');
@@ -865,7 +865,7 @@ export class ReconApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiNotificationExposedDataRecordEntitiesResponseV1FromJSON(jsonValue));
@@ -884,7 +884,7 @@ export class ReconApi extends runtime.BaseAPI {
      */
     async getNotificationsTranslatedV1Raw(
         requestParameters: ReconApiGetNotificationsTranslatedV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainNotificationEntitiesResponseV1>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getNotificationsTranslatedV1().');
@@ -910,7 +910,7 @@ export class ReconApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainNotificationEntitiesResponseV1FromJSON(jsonValue));
@@ -929,7 +929,7 @@ export class ReconApi extends runtime.BaseAPI {
      */
     async getNotificationsV1Raw(
         requestParameters: ReconApiGetNotificationsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainNotificationEntitiesResponseV1>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getNotificationsV1().');
@@ -955,7 +955,7 @@ export class ReconApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainNotificationEntitiesResponseV1FromJSON(jsonValue));
@@ -997,7 +997,7 @@ export class ReconApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainRulesEntitiesResponseV1FromJSON(jsonValue));
@@ -1038,7 +1038,7 @@ export class ReconApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainRulePreviewRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregatesResponseFromJSON(jsonValue));
@@ -1092,7 +1092,7 @@ export class ReconApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainQueryResponseFromJSON(jsonValue));
@@ -1111,7 +1111,7 @@ export class ReconApi extends runtime.BaseAPI {
      */
     async queryNotificationsExposedDataRecordsV1Raw(
         requestParameters: ReconApiQueryNotificationsExposedDataRecordsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainQueryResponse>> {
         const queryParameters: any = {};
 
@@ -1149,7 +1149,7 @@ export class ReconApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainQueryResponseFromJSON(jsonValue));
@@ -1164,7 +1164,7 @@ export class ReconApi extends runtime.BaseAPI {
         sort?: string,
         filter?: string,
         q?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainQueryResponse> {
         const response = await this.queryNotificationsExposedDataRecordsV1Raw({ offset: offset, limit: limit, sort: sort, filter: filter, q: q }, initOverrides);
         return await response.value();
@@ -1175,7 +1175,7 @@ export class ReconApi extends runtime.BaseAPI {
      */
     async queryNotificationsV1Raw(
         requestParameters: ReconApiQueryNotificationsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainQueryResponse>> {
         const queryParameters: any = {};
 
@@ -1213,7 +1213,7 @@ export class ReconApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainQueryResponseFromJSON(jsonValue));
@@ -1271,7 +1271,7 @@ export class ReconApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainRuleQueryResponseV1FromJSON(jsonValue));
@@ -1287,7 +1287,7 @@ export class ReconApi extends runtime.BaseAPI {
         filter?: string,
         q?: string,
         secondarySort?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainRuleQueryResponseV1> {
         const response = await this.queryRulesV1Raw({ offset: offset, limit: limit, sort: sort, filter: filter, q: q, secondarySort: secondarySort }, initOverrides);
         return await response.value();
@@ -1298,7 +1298,7 @@ export class ReconApi extends runtime.BaseAPI {
      */
     async updateActionV1Raw(
         requestParameters: ReconApiUpdateActionV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainActionEntitiesResponseV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateActionV1().');
@@ -1323,7 +1323,7 @@ export class ReconApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DomainUpdateActionRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainActionEntitiesResponseV1FromJSON(jsonValue));
@@ -1342,7 +1342,7 @@ export class ReconApi extends runtime.BaseAPI {
      */
     async updateNotificationsV1Raw(
         requestParameters: ReconApiUpdateNotificationsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainNotificationEntitiesResponseV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateNotificationsV1().');
@@ -1367,7 +1367,7 @@ export class ReconApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"]!.map(DomainUpdateNotificationRequestV1ToJSON),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainNotificationEntitiesResponseV1FromJSON(jsonValue));
@@ -1408,7 +1408,7 @@ export class ReconApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"]!.map(DomainUpdateRuleRequestV1ToJSON),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainRulesEntitiesResponseV1FromJSON(jsonValue));

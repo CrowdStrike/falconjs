@@ -77,7 +77,7 @@ export class HumioAuthProxyApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.VoidApiResponse(response);
@@ -95,7 +95,7 @@ export class HumioAuthProxyApi extends runtime.BaseAPI {
      */
     async getLookupFromPackageWithNamespaceV1Raw(
         requestParameters: HumioAuthProxyApiGetLookupFromPackageWithNamespaceV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<void>> {
         if (requestParameters["repository"] == null) {
             throw new runtime.RequiredError("repository", 'Required parameter "repository" was null or undefined when calling getLookupFromPackageWithNamespaceV1().');
@@ -133,7 +133,7 @@ export class HumioAuthProxyApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.VoidApiResponse(response);
@@ -176,7 +176,7 @@ export class HumioAuthProxyApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.VoidApiResponse(response);
@@ -213,7 +213,7 @@ export class HumioAuthProxyApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.VoidApiResponse(response);

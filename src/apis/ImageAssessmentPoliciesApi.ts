@@ -94,7 +94,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
      */
     async createPoliciesRaw(
         requestParameters: ImageAssessmentPoliciesApiCreatePoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsPolicyEntityResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createPolicies().');
@@ -119,7 +119,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ModelsCreatePolicyRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsPolicyEntityResponseFromJSON(jsonValue));
@@ -138,7 +138,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
      */
     async createPolicyGroupsRaw(
         requestParameters: ImageAssessmentPoliciesApiCreatePolicyGroupsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsPolicyGroupEntityResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createPolicyGroups().');
@@ -163,7 +163,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ModelsCreateImageGroupRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsPolicyGroupEntityResponseFromJSON(jsonValue));
@@ -182,7 +182,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
      */
     async deletePolicyRaw(
         requestParameters: ImageAssessmentPoliciesApiDeletePolicyRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<CoreEntitiesResponse>> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling deletePolicy().');
@@ -208,7 +208,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CoreEntitiesResponseFromJSON(jsonValue));
@@ -227,7 +227,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
      */
     async deletePolicyGroupRaw(
         requestParameters: ImageAssessmentPoliciesApiDeletePolicyGroupRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<CoreEntitiesResponse>> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling deletePolicyGroup().');
@@ -253,7 +253,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CoreEntitiesResponseFromJSON(jsonValue));
@@ -287,7 +287,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsPolicyEntityResponseFromJSON(jsonValue));
@@ -321,7 +321,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsPolicyExclusionEntityResponseFromJSON(jsonValue));
@@ -355,7 +355,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsPolicyGroupEntityResponseFromJSON(jsonValue));
@@ -374,7 +374,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
      */
     async updatePoliciesRaw(
         requestParameters: ImageAssessmentPoliciesApiUpdatePoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsPolicyEntityResponse>> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling updatePolicies().');
@@ -407,7 +407,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ModelsPatchPolicyRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsPolicyEntityResponseFromJSON(jsonValue));
@@ -426,7 +426,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
      */
     async updatePolicyExclusionsRaw(
         requestParameters: ImageAssessmentPoliciesApiUpdatePolicyExclusionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsPolicyExclusionEntityResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updatePolicyExclusions().');
@@ -451,7 +451,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ModelsUpdateExclusionsRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsPolicyExclusionEntityResponseFromJSON(jsonValue));
@@ -470,7 +470,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
      */
     async updatePolicyGroupsRaw(
         requestParameters: ImageAssessmentPoliciesApiUpdatePolicyGroupsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsPolicyGroupEntityResponse>> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling updatePolicyGroups().');
@@ -503,7 +503,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ModelsPatchImageGroupRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsPolicyGroupEntityResponseFromJSON(jsonValue));
@@ -522,7 +522,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
      */
     async updatePolicyPrecedenceRaw(
         requestParameters: ImageAssessmentPoliciesApiUpdatePolicyPrecedenceRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsPolicyEntityResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updatePolicyPrecedence().');
@@ -547,7 +547,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ModelsAPIPrecedenceRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsPolicyEntityResponseFromJSON(jsonValue));

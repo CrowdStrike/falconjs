@@ -29,7 +29,7 @@ export class IdentityProtectionApi extends runtime.BaseAPI {
      */
     async apiPreemptProxyPostGraphqlRaw(
         requestParameters: IdentityProtectionApiApiPreemptProxyPostGraphqlRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<void>> {
         if (requestParameters["authorization"] == null) {
             throw new runtime.RequiredError("authorization", 'Required parameter "authorization" was null or undefined when calling apiPreemptProxyPostGraphql().');
@@ -55,7 +55,7 @@ export class IdentityProtectionApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.VoidApiResponse(response);

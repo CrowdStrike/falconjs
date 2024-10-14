@@ -77,7 +77,7 @@ export class CloudSnapshotsApi extends runtime.BaseAPI {
      */
     async createDeploymentEntityRaw(
         requestParameters: CloudSnapshotsApiCreateDeploymentEntityRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DeploymentsEntityResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createDeploymentEntity().');
@@ -102,7 +102,7 @@ export class CloudSnapshotsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ModelsCreateDeploymentInputToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeploymentsEntityResponseFromJSON(jsonValue));
@@ -136,7 +136,7 @@ export class CloudSnapshotsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsRegistryCredentialsResponseFromJSON(jsonValue));
@@ -155,7 +155,7 @@ export class CloudSnapshotsApi extends runtime.BaseAPI {
      */
     async getScanReportRaw(
         requestParameters: CloudSnapshotsApiGetScanReportRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ScanreportsEntitiesResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getScanReport().');
@@ -181,7 +181,7 @@ export class CloudSnapshotsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ScanreportsEntitiesResponseFromJSON(jsonValue));
@@ -200,7 +200,7 @@ export class CloudSnapshotsApi extends runtime.BaseAPI {
      */
     async readDeploymentsCombinedRaw(
         requestParameters: CloudSnapshotsApiReadDeploymentsCombinedRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DeploymentsEntityResponse>> {
         const queryParameters: any = {};
 
@@ -234,7 +234,7 @@ export class CloudSnapshotsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeploymentsEntityResponseFromJSON(jsonValue));
@@ -253,7 +253,7 @@ export class CloudSnapshotsApi extends runtime.BaseAPI {
      */
     async readDeploymentsEntitiesRaw(
         requestParameters: CloudSnapshotsApiReadDeploymentsEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DeploymentsEntityResponse>> {
         const queryParameters: any = {};
 
@@ -275,7 +275,7 @@ export class CloudSnapshotsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeploymentsEntityResponseFromJSON(jsonValue));
@@ -316,7 +316,7 @@ export class CloudSnapshotsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ModelsAccountEntitiesInputToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAccountStatusResponseFromJSON(jsonValue));

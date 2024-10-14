@@ -118,7 +118,7 @@ export class ThreatgraphApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.VoidApiResponse(response);
@@ -135,7 +135,7 @@ export class ThreatgraphApi extends runtime.BaseAPI {
         direction?: string,
         scope?: CombinedEdgesGetScopeEnum,
         nano?: boolean,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<void> {
         await this.combinedEdgesGetRaw({ ids: ids, edgeType: edgeType, limit: limit, offset: offset, direction: direction, scope: scope, nano: nano }, initOverrides);
     }
@@ -191,7 +191,7 @@ export class ThreatgraphApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.VoidApiResponse(response);
@@ -247,7 +247,7 @@ export class ThreatgraphApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.VoidApiResponse(response);
@@ -261,7 +261,7 @@ export class ThreatgraphApi extends runtime.BaseAPI {
         ids: Array<string>,
         scope?: CombinedSummaryGetScopeEnum,
         nano?: boolean,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<void> {
         await this.combinedSummaryGetRaw({ vertexType: vertexType, ids: ids, scope: scope, nano: nano }, initOverrides);
     }
@@ -271,7 +271,7 @@ export class ThreatgraphApi extends runtime.BaseAPI {
      */
     async entitiesVerticesGetRaw(
         requestParameters: ThreatgraphApiEntitiesVerticesGetRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ThreatgraphVertexDetailsResponse>> {
         if (requestParameters["vertexType"] == null) {
             throw new runtime.RequiredError("vertexType", 'Required parameter "vertexType" was null or undefined when calling entitiesVerticesGet().');
@@ -312,7 +312,7 @@ export class ThreatgraphApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ThreatgraphVertexDetailsResponseFromJSON(jsonValue));
@@ -326,7 +326,7 @@ export class ThreatgraphApi extends runtime.BaseAPI {
         ids: Array<string>,
         scope?: EntitiesVerticesGetScopeEnum,
         nano?: boolean,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ThreatgraphVertexDetailsResponse> {
         const response = await this.entitiesVerticesGetRaw({ vertexType: vertexType, ids: ids, scope: scope, nano: nano }, initOverrides);
         return await response.value();
@@ -337,7 +337,7 @@ export class ThreatgraphApi extends runtime.BaseAPI {
      */
     async entitiesVerticesGetv2Raw(
         requestParameters: ThreatgraphApiEntitiesVerticesGetv2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ThreatgraphVertexDetailsResponse>> {
         if (requestParameters["vertexType"] == null) {
             throw new runtime.RequiredError("vertexType", 'Required parameter "vertexType" was null or undefined when calling entitiesVerticesGetv2().');
@@ -378,7 +378,7 @@ export class ThreatgraphApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ThreatgraphVertexDetailsResponseFromJSON(jsonValue));
@@ -392,7 +392,7 @@ export class ThreatgraphApi extends runtime.BaseAPI {
         ids: Array<string>,
         scope?: EntitiesVerticesGetv2ScopeEnum,
         nano?: boolean,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ThreatgraphVertexDetailsResponse> {
         const response = await this.entitiesVerticesGetv2Raw({ vertexType: vertexType, ids: ids, scope: scope, nano: nano }, initOverrides);
         return await response.value();
@@ -421,7 +421,7 @@ export class ThreatgraphApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.VoidApiResponse(response);

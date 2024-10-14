@@ -57,7 +57,7 @@ export class UnidentifiedContainersApi extends runtime.BaseAPI {
      */
     async countRaw(
         requestParameters: UnidentifiedContainersApiCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<UnidentifiedcontainersUnidentifiedContainersCountValue>> {
         const queryParameters: any = {};
 
@@ -79,7 +79,7 @@ export class UnidentifiedContainersApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UnidentifiedcontainersUnidentifiedContainersCountValueFromJSON(jsonValue));
@@ -98,7 +98,7 @@ export class UnidentifiedContainersApi extends runtime.BaseAPI {
      */
     async countByDateRangeRaw(
         requestParameters: UnidentifiedContainersApiCountByDateRangeRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ModelsAggregateValuesByFieldResponse>> {
         const queryParameters: any = {};
 
@@ -120,7 +120,7 @@ export class UnidentifiedContainersApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAggregateValuesByFieldResponseFromJSON(jsonValue));
@@ -139,7 +139,7 @@ export class UnidentifiedContainersApi extends runtime.BaseAPI {
      */
     async searchRaw(
         requestParameters: UnidentifiedContainersApiSearchRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<UnidentifiedcontainersUnidentifiedContainerAPIResponse>> {
         const queryParameters: any = {};
 
@@ -173,7 +173,7 @@ export class UnidentifiedContainersApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UnidentifiedcontainersUnidentifiedContainerAPIResponseFromJSON(jsonValue));
@@ -187,7 +187,7 @@ export class UnidentifiedContainersApi extends runtime.BaseAPI {
         limit?: number,
         offset?: number,
         sort?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<UnidentifiedcontainersUnidentifiedContainerAPIResponse> {
         const response = await this.searchRaw({ filter: filter, limit: limit, offset: offset, sort: sort }, initOverrides);
         return await response.value();

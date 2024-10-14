@@ -103,7 +103,7 @@ export class ComplianceAssessmentsApi extends runtime.BaseAPI {
      */
     async extAggregateClusterAssessmentsRaw(
         requestParameters: ComplianceAssessmentsApiExtAggregateClusterAssessmentsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainAggregateClusterAssessmentsResponse>> {
         const queryParameters: any = {};
 
@@ -125,7 +125,7 @@ export class ComplianceAssessmentsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregateClusterAssessmentsResponseFromJSON(jsonValue));
@@ -144,7 +144,7 @@ export class ComplianceAssessmentsApi extends runtime.BaseAPI {
      */
     async extAggregateFailedContainersByRulesPathRaw(
         requestParameters: ComplianceAssessmentsApiExtAggregateFailedContainersByRulesPathRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainAggregateFailedAssetsByRulesResponse>> {
         const queryParameters: any = {};
 
@@ -166,7 +166,7 @@ export class ComplianceAssessmentsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregateFailedAssetsByRulesResponseFromJSON(jsonValue));
@@ -185,7 +185,7 @@ export class ComplianceAssessmentsApi extends runtime.BaseAPI {
      */
     async extAggregateFailedContainersCountBySeverityRaw(
         requestParameters: ComplianceAssessmentsApiExtAggregateFailedContainersCountBySeverityRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainAggregateFailedAssetCountBySeverityResponse>> {
         const queryParameters: any = {};
 
@@ -207,7 +207,7 @@ export class ComplianceAssessmentsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregateFailedAssetCountBySeverityResponseFromJSON(jsonValue));
@@ -226,7 +226,7 @@ export class ComplianceAssessmentsApi extends runtime.BaseAPI {
      */
     async extAggregateFailedImagesByRulesPathRaw(
         requestParameters: ComplianceAssessmentsApiExtAggregateFailedImagesByRulesPathRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainAggregateFailedAssetsByRulesResponse>> {
         const queryParameters: any = {};
 
@@ -248,7 +248,7 @@ export class ComplianceAssessmentsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregateFailedAssetsByRulesResponseFromJSON(jsonValue));
@@ -267,7 +267,7 @@ export class ComplianceAssessmentsApi extends runtime.BaseAPI {
      */
     async extAggregateFailedImagesCountBySeverityRaw(
         requestParameters: ComplianceAssessmentsApiExtAggregateFailedImagesCountBySeverityRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainAggregateFailedAssetCountBySeverityResponse>> {
         const queryParameters: any = {};
 
@@ -289,7 +289,7 @@ export class ComplianceAssessmentsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregateFailedAssetCountBySeverityResponseFromJSON(jsonValue));
@@ -308,7 +308,7 @@ export class ComplianceAssessmentsApi extends runtime.BaseAPI {
      */
     async extAggregateFailedRulesByClustersRaw(
         requestParameters: ComplianceAssessmentsApiExtAggregateFailedRulesByClustersRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainAggregateFailedRulesByClustersResponse>> {
         const queryParameters: any = {};
 
@@ -330,7 +330,7 @@ export class ComplianceAssessmentsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregateFailedRulesByClustersResponseFromJSON(jsonValue));
@@ -349,7 +349,7 @@ export class ComplianceAssessmentsApi extends runtime.BaseAPI {
      */
     async extAggregateFailedRulesByImagesRaw(
         requestParameters: ComplianceAssessmentsApiExtAggregateFailedRulesByImagesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainAggregateFailedRulesByImagesResponse>> {
         const queryParameters: any = {};
 
@@ -371,7 +371,7 @@ export class ComplianceAssessmentsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregateFailedRulesByImagesResponseFromJSON(jsonValue));
@@ -390,7 +390,7 @@ export class ComplianceAssessmentsApi extends runtime.BaseAPI {
      */
     async extAggregateFailedRulesCountBySeverityRaw(
         requestParameters: ComplianceAssessmentsApiExtAggregateFailedRulesCountBySeverityRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainAggregateFailedRulesCountBySeverityResponse>> {
         const queryParameters: any = {};
 
@@ -412,7 +412,7 @@ export class ComplianceAssessmentsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregateFailedRulesCountBySeverityResponseFromJSON(jsonValue));
@@ -431,7 +431,7 @@ export class ComplianceAssessmentsApi extends runtime.BaseAPI {
      */
     async extAggregateImageAssessmentsRaw(
         requestParameters: ComplianceAssessmentsApiExtAggregateImageAssessmentsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainAggregateImageAssessmentsResponse>> {
         const queryParameters: any = {};
 
@@ -461,7 +461,7 @@ export class ComplianceAssessmentsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregateImageAssessmentsResponseFromJSON(jsonValue));
@@ -480,7 +480,7 @@ export class ComplianceAssessmentsApi extends runtime.BaseAPI {
      */
     async extAggregateRulesAssessmentsRaw(
         requestParameters: ComplianceAssessmentsApiExtAggregateRulesAssessmentsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainAggregateRulesAssessmentsResponse>> {
         const queryParameters: any = {};
 
@@ -502,7 +502,7 @@ export class ComplianceAssessmentsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregateRulesAssessmentsResponseFromJSON(jsonValue));
@@ -521,7 +521,7 @@ export class ComplianceAssessmentsApi extends runtime.BaseAPI {
      */
     async extAggregateRulesByStatusRaw(
         requestParameters: ComplianceAssessmentsApiExtAggregateRulesByStatusRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainAggregateRulesByStatusResponse>> {
         const queryParameters: any = {};
 
@@ -543,7 +543,7 @@ export class ComplianceAssessmentsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregateRulesByStatusResponseFromJSON(jsonValue));

@@ -130,7 +130,7 @@ export class AlertsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"]!.map(DetectsapiAggregateAlertQueryRequestToJSON),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DetectsapiAggregatesResponseFromJSON(jsonValue));
@@ -142,7 +142,7 @@ export class AlertsApi extends runtime.BaseAPI {
     async getAggregateV2(
         body: Array<DetectsapiAggregateAlertQueryRequest>,
         includeHidden?: boolean,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DetectsapiAggregatesResponse> {
         const response = await this.getAggregateV2Raw({ body: body, includeHidden: includeHidden }, initOverrides);
         return await response.value();
@@ -153,7 +153,7 @@ export class AlertsApi extends runtime.BaseAPI {
      */
     async getQueriesAlertsV1Raw(
         requestParameters: AlertsApiGetQueriesAlertsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DetectsapiAlertQueryResponse>> {
         const queryParameters: any = {};
 
@@ -191,7 +191,7 @@ export class AlertsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DetectsapiAlertQueryResponseFromJSON(jsonValue));
@@ -206,7 +206,7 @@ export class AlertsApi extends runtime.BaseAPI {
         sort?: string,
         filter?: string,
         q?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DetectsapiAlertQueryResponse> {
         const response = await this.getQueriesAlertsV1Raw({ offset: offset, limit: limit, sort: sort, filter: filter, q: q }, initOverrides);
         return await response.value();
@@ -243,7 +243,7 @@ export class AlertsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DetectsapiPostEntitiesAlertsV2RequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DetectsapiPostEntitiesAlertsV2ResponseSwaggerFromJSON(jsonValue));
@@ -255,7 +255,7 @@ export class AlertsApi extends runtime.BaseAPI {
     async getV2(
         body: DetectsapiPostEntitiesAlertsV2Request,
         includeHidden?: boolean,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DetectsapiPostEntitiesAlertsV2ResponseSwagger> {
         const response = await this.getV2Raw({ body: body, includeHidden: includeHidden }, initOverrides);
         return await response.value();
@@ -266,7 +266,7 @@ export class AlertsApi extends runtime.BaseAPI {
      */
     async patchEntitiesAlertsV2Raw(
         requestParameters: AlertsApiPatchEntitiesAlertsV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DetectsapiResponseFields>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling patchEntitiesAlertsV2().');
@@ -291,7 +291,7 @@ export class AlertsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DetectsapiPatchEntitiesAlertsV2RequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DetectsapiResponseFieldsFromJSON(jsonValue));
@@ -310,7 +310,7 @@ export class AlertsApi extends runtime.BaseAPI {
      */
     async postAggregatesAlertsV1Raw(
         requestParameters: AlertsApiPostAggregatesAlertsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DetectsapiAggregatesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postAggregatesAlertsV1().');
@@ -335,7 +335,7 @@ export class AlertsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: requestParameters["body"]!.map(DetectsapiAggregateAlertQueryRequestToJSON),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DetectsapiAggregatesResponseFromJSON(jsonValue));
@@ -354,7 +354,7 @@ export class AlertsApi extends runtime.BaseAPI {
      */
     async postEntitiesAlertsV1Raw(
         requestParameters: AlertsApiPostEntitiesAlertsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DetectsapiPostEntitiesAlertsV1ResponseSwagger>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postEntitiesAlertsV1().');
@@ -379,7 +379,7 @@ export class AlertsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DetectsapiPostEntitiesAlertsV1RequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DetectsapiPostEntitiesAlertsV1ResponseSwaggerFromJSON(jsonValue));
@@ -437,7 +437,7 @@ export class AlertsApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DetectsapiAlertQueryResponseFromJSON(jsonValue));
@@ -453,7 +453,7 @@ export class AlertsApi extends runtime.BaseAPI {
         sort?: string,
         filter?: string,
         q?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DetectsapiAlertQueryResponse> {
         const response = await this.queryV2Raw({ includeHidden: includeHidden, offset: offset, limit: limit, sort: sort, filter: filter, q: q }, initOverrides);
         return await response.value();
@@ -490,7 +490,7 @@ export class AlertsApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DetectsapiPatchEntitiesAlertsV3RequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DetectsapiResponseFieldsFromJSON(jsonValue));

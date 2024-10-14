@@ -255,21 +255,30 @@ function isFormData(value: any): value is FormData {
 
 export class ResponseError extends Error {
     override name: "ResponseError" = "ResponseError";
-    constructor(public response: Response, msg?: string) {
+    constructor(
+        public response: Response,
+        msg?: string,
+    ) {
         super(msg);
     }
 }
 
 export class FetchError extends Error {
     override name: "FetchError" = "FetchError";
-    constructor(public cause: Error, msg?: string) {
+    constructor(
+        public cause: Error,
+        msg?: string,
+    ) {
         super(msg);
     }
 }
 
 export class RequiredError extends Error {
     override name: "RequiredError" = "RequiredError";
-    constructor(public field: string, msg?: string) {
+    constructor(
+        public field: string,
+        msg?: string,
+    ) {
         super(msg);
     }
 }
@@ -316,7 +325,7 @@ export function querystring(params: HTTPQuery, prefix: string = ""): string {
 function querystringSingleKey(
     key: string,
     value: string | number | null | undefined | boolean | Array<string | number | null | boolean> | Set<string | number | null | boolean> | HTTPQuery,
-    keyPrefix: string = ""
+    keyPrefix: string = "",
 ): string {
     const fullKey = keyPrefix + (keyPrefix.length ? `[${key}]` : key);
     if (value instanceof Array) {
@@ -390,7 +399,10 @@ export interface ResponseTransformer<T> {
 }
 
 export class JSONApiResponse<T> {
-    constructor(public raw: Response, private transformer: ResponseTransformer<T> = (jsonValue: any) => jsonValue) {}
+    constructor(
+        public raw: Response,
+        private transformer: ResponseTransformer<T> = (jsonValue: any) => jsonValue,
+    ) {}
 
     async value(): Promise<T> {
         return this.transformer(await this.raw.json());

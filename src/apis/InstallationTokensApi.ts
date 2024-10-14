@@ -86,7 +86,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
      */
     async auditEventsQueryRaw(
         requestParameters: InstallationTokensApiAuditEventsQueryRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
         const queryParameters: any = {};
 
@@ -120,7 +120,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
@@ -139,7 +139,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
      */
     async auditEventsReadRaw(
         requestParameters: InstallationTokensApiAuditEventsReadRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiAuditEventDetailsResponseV1>> {
         const queryParameters: any = {};
 
@@ -161,7 +161,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiAuditEventDetailsResponseV1FromJSON(jsonValue));
@@ -195,7 +195,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiCustomerSettingsResponseV1FromJSON(jsonValue));
@@ -214,7 +214,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
      */
     async tokensCreateRaw(
         requestParameters: InstallationTokensApiTokensCreateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiTokenDetailsResponseV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling tokensCreate().');
@@ -239,7 +239,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ApiTokenCreateRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiTokenDetailsResponseV1FromJSON(jsonValue));
@@ -258,7 +258,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
      */
     async tokensDeleteRaw(
         requestParameters: InstallationTokensApiTokensDeleteRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling tokensDelete().');
@@ -284,7 +284,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecResponseFieldsFromJSON(jsonValue));
@@ -334,7 +334,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
@@ -353,7 +353,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
      */
     async tokensReadRaw(
         requestParameters: InstallationTokensApiTokensReadRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApiTokenDetailsResponseV1>> {
         const queryParameters: any = {};
 
@@ -375,7 +375,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiTokenDetailsResponseV1FromJSON(jsonValue));
@@ -424,7 +424,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ApiTokenPatchRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));

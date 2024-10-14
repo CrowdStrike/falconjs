@@ -119,7 +119,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
      */
     async createDeviceControlPoliciesRaw(
         requestParameters: DeviceControlPoliciesApiCreateDeviceControlPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DeviceControlRespV2>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createDeviceControlPolicies().');
@@ -144,7 +144,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DeviceControlCreatePoliciesV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceControlRespV2FromJSON(jsonValue));
@@ -163,7 +163,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
      */
     async deleteDeviceControlPoliciesRaw(
         requestParameters: DeviceControlPoliciesApiDeleteDeviceControlPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteDeviceControlPolicies().');
@@ -189,7 +189,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -223,7 +223,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceControlRespV1FromJSON(jsonValue));
@@ -242,7 +242,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
      */
     async getDeviceControlPoliciesRaw(
         requestParameters: DeviceControlPoliciesApiGetDeviceControlPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DeviceControlRespV1>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getDeviceControlPolicies().');
@@ -268,7 +268,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceControlRespV1FromJSON(jsonValue));
@@ -287,7 +287,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
      */
     async performDeviceControlPoliciesActionRaw(
         requestParameters: DeviceControlPoliciesApiPerformDeviceControlPoliciesActionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DeviceControlRespV1>> {
         if (requestParameters["actionName"] == null) {
             throw new runtime.RequiredError("actionName", 'Required parameter "actionName" was null or undefined when calling performDeviceControlPoliciesAction().');
@@ -320,7 +320,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: MsaEntityActionRequestV2ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceControlRespV1FromJSON(jsonValue));
@@ -332,7 +332,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
     async performDeviceControlPoliciesAction(
         actionName: PerformDeviceControlPoliciesActionActionNameEnum,
         body: MsaEntityActionRequestV2,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DeviceControlRespV1> {
         const response = await this.performDeviceControlPoliciesActionRaw({ actionName: actionName, body: body }, initOverrides);
         return await response.value();
@@ -343,7 +343,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
      */
     async queryCombinedDeviceControlPoliciesRaw(
         requestParameters: DeviceControlPoliciesApiQueryCombinedDeviceControlPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DeviceControlRespV1>> {
         const queryParameters: any = {};
 
@@ -377,7 +377,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceControlRespV1FromJSON(jsonValue));
@@ -391,7 +391,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
         offset?: number,
         limit?: number,
         sort?: QueryCombinedDeviceControlPoliciesSortEnum,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DeviceControlRespV1> {
         const response = await this.queryCombinedDeviceControlPoliciesRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
@@ -402,7 +402,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
      */
     async queryCombinedDeviceControlPolicyMembersRaw(
         requestParameters: DeviceControlPoliciesApiQueryCombinedDeviceControlPolicyMembersRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<BasePolicyMembersRespV1>> {
         const queryParameters: any = {};
 
@@ -440,7 +440,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => BasePolicyMembersRespV1FromJSON(jsonValue));
@@ -455,7 +455,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
         offset?: number,
         limit?: number,
         sort?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<BasePolicyMembersRespV1> {
         const response = await this.queryCombinedDeviceControlPolicyMembersRaw({ id: id, filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
@@ -466,7 +466,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
      */
     async queryDeviceControlPoliciesRaw(
         requestParameters: DeviceControlPoliciesApiQueryDeviceControlPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
@@ -500,7 +500,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -514,7 +514,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
         offset?: number,
         limit?: number,
         sort?: QueryDeviceControlPoliciesSortEnum,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<MsaQueryResponse> {
         const response = await this.queryDeviceControlPoliciesRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
@@ -525,7 +525,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
      */
     async queryDeviceControlPolicyMembersRaw(
         requestParameters: DeviceControlPoliciesApiQueryDeviceControlPolicyMembersRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
 
@@ -563,7 +563,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -578,7 +578,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
         offset?: number,
         limit?: number,
         sort?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<MsaQueryResponse> {
         const response = await this.queryDeviceControlPolicyMembersRaw({ id: id, filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
@@ -589,7 +589,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
      */
     async setDeviceControlPoliciesPrecedenceRaw(
         requestParameters: DeviceControlPoliciesApiSetDeviceControlPoliciesPrecedenceRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling setDeviceControlPoliciesPrecedence().');
@@ -614,7 +614,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: BaseSetPolicyPrecedenceReqV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -633,7 +633,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
      */
     async updateDefaultDeviceControlPoliciesRaw(
         requestParameters: DeviceControlPoliciesApiUpdateDefaultDeviceControlPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DeviceControlRespV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateDefaultDeviceControlPolicies().');
@@ -658,7 +658,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DeviceControlReqUpdateDefaultDCPolicyV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceControlRespV1FromJSON(jsonValue));
@@ -677,7 +677,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
      */
     async updateDeviceControlPoliciesRaw(
         requestParameters: DeviceControlPoliciesApiUpdateDeviceControlPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DeviceControlRespV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateDeviceControlPolicies().');
@@ -702,7 +702,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: DeviceControlUpdatePoliciesReqV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceControlRespV1FromJSON(jsonValue));

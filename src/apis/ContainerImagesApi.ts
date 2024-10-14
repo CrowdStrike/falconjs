@@ -141,7 +141,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
      */
     async aggregateImageAssessmentHistoryRaw(
         requestParameters: ContainerImagesApiAggregateImageAssessmentHistoryRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ImagesApiImageAssessmentHistory>> {
         const queryParameters: any = {};
 
@@ -163,7 +163,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ImagesApiImageAssessmentHistoryFromJSON(jsonValue));
@@ -182,7 +182,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
      */
     async aggregateImageCountRaw(
         requestParameters: ContainerImagesApiAggregateImageCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ImagesApiImageCount>> {
         const queryParameters: any = {};
 
@@ -204,7 +204,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ImagesApiImageCountFromJSON(jsonValue));
@@ -223,7 +223,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
      */
     async aggregateImageCountByBaseOSRaw(
         requestParameters: ContainerImagesApiAggregateImageCountByBaseOSRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ImagesApiImageCountByBaseOS>> {
         const queryParameters: any = {};
 
@@ -245,7 +245,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ImagesApiImageCountByBaseOSFromJSON(jsonValue));
@@ -264,7 +264,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
      */
     async aggregateImageCountByStateRaw(
         requestParameters: ContainerImagesApiAggregateImageCountByStateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ImagesApiImageCountByState>> {
         const queryParameters: any = {};
 
@@ -286,7 +286,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ImagesApiImageCountByStateFromJSON(jsonValue));
@@ -305,7 +305,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
      */
     async combinedBaseImagesRaw(
         requestParameters: ContainerImagesApiCombinedBaseImagesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<CoreEntitiesResponse>> {
         const queryParameters: any = {};
 
@@ -327,7 +327,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CoreEntitiesResponseFromJSON(jsonValue));
@@ -346,7 +346,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
      */
     async combinedImageByVulnerabilityCountRaw(
         requestParameters: ContainerImagesApiCombinedImageByVulnerabilityCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ImagesApiImageByVulnerabilityCount>> {
         const queryParameters: any = {};
 
@@ -376,7 +376,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ImagesApiImageByVulnerabilityCountFromJSON(jsonValue));
@@ -395,7 +395,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
      */
     async combinedImageDetailRaw(
         requestParameters: ContainerImagesApiCombinedImageDetailRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ImagesApiCustomerAndImage>> {
         const queryParameters: any = {};
 
@@ -433,7 +433,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ImagesApiCustomerAndImageFromJSON(jsonValue));
@@ -448,7 +448,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
         limit?: number,
         offset?: number,
         sort?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ImagesApiCustomerAndImage> {
         const response = await this.combinedImageDetailRaw({ filter: filter, withConfig: withConfig, limit: limit, offset: offset, sort: sort }, initOverrides);
         return await response.value();
@@ -459,7 +459,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
      */
     async combinedImageIssuesSummaryRaw(
         requestParameters: ContainerImagesApiCombinedImageIssuesSummaryRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ImagesApiImageIssuesSummary>> {
         if (requestParameters["cid"] == null) {
             throw new runtime.RequiredError("cid", 'Required parameter "cid" was null or undefined when calling combinedImageIssuesSummary().');
@@ -509,7 +509,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ImagesApiImageIssuesSummaryFromJSON(jsonValue));
@@ -528,7 +528,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
      */
     async combinedImageVulnerabilitySummaryRaw(
         requestParameters: ContainerImagesApiCombinedImageVulnerabilitySummaryRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ImagesApiImageVulnerabilitiesSummary>> {
         if (requestParameters["cid"] == null) {
             throw new runtime.RequiredError("cid", 'Required parameter "cid" was null or undefined when calling combinedImageVulnerabilitySummary().');
@@ -578,7 +578,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ImagesApiImageVulnerabilitiesSummaryFromJSON(jsonValue));
@@ -592,7 +592,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
         registry: string,
         repository: string,
         tag: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ImagesApiImageVulnerabilitiesSummary> {
         const response = await this.combinedImageVulnerabilitySummaryRaw({ cid: cid, registry: registry, repository: repository, tag: tag }, initOverrides);
         return await response.value();
@@ -603,7 +603,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
      */
     async createBaseImagesEntitiesRaw(
         requestParameters: ContainerImagesApiCreateBaseImagesEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<CoreEntitiesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createBaseImagesEntities().');
@@ -628,7 +628,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ModelsCreateBaseImagesRequestToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CoreEntitiesResponseFromJSON(jsonValue));
@@ -647,7 +647,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
      */
     async deleteBaseImagesRaw(
         requestParameters: ContainerImagesApiDeleteBaseImagesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<CoreEntitiesResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteBaseImages().');
@@ -673,7 +673,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CoreEntitiesResponseFromJSON(jsonValue));
@@ -692,7 +692,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
      */
     async getCombinedImagesRaw(
         requestParameters: ContainerImagesApiGetCombinedImagesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ImagesExtCombinedImagesResponse>> {
         const queryParameters: any = {};
 
@@ -726,7 +726,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ImagesExtCombinedImagesResponseFromJSON(jsonValue));
@@ -745,7 +745,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
      */
     async readCombinedImagesExportRaw(
         requestParameters: ContainerImagesApiReadCombinedImagesExportRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ImagesApiCombinedImageExport>> {
         const queryParameters: any = {};
 
@@ -787,7 +787,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ImagesApiCombinedImageExportFromJSON(jsonValue));
@@ -803,11 +803,11 @@ export class ContainerImagesApi extends runtime.BaseAPI {
         limit?: number,
         offset?: number,
         sort?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ImagesApiCombinedImageExport> {
         const response = await this.readCombinedImagesExportRaw(
             { filter: filter, expandVulnerabilities: expandVulnerabilities, expandDetections: expandDetections, limit: limit, offset: offset, sort: sort },
-            initOverrides
+            initOverrides,
         );
         return await response.value();
     }

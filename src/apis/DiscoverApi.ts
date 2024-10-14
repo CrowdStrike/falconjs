@@ -117,7 +117,7 @@ export class DiscoverApi extends runtime.BaseAPI {
      */
     async combinedApplicationsRaw(
         requestParameters: DiscoverApiCombinedApplicationsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainDiscoverAPICombinedApplicationsResponse>> {
         if (requestParameters["filter"] == null) {
             throw new runtime.RequiredError("filter", 'Required parameter "filter" was null or undefined when calling combinedApplications().');
@@ -159,7 +159,7 @@ export class DiscoverApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainDiscoverAPICombinedApplicationsResponseFromJSON(jsonValue));
@@ -174,7 +174,7 @@ export class DiscoverApi extends runtime.BaseAPI {
         limit?: number,
         sort?: string,
         facet?: Array<string>,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainDiscoverAPICombinedApplicationsResponse> {
         const response = await this.combinedApplicationsRaw({ filter: filter, after: after, limit: limit, sort: sort, facet: facet }, initOverrides);
         return await response.value();
@@ -185,7 +185,7 @@ export class DiscoverApi extends runtime.BaseAPI {
      */
     async combinedHostsRaw(
         requestParameters: DiscoverApiCombinedHostsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainDiscoverAPICombinedHostsResponse>> {
         if (requestParameters["filter"] == null) {
             throw new runtime.RequiredError("filter", 'Required parameter "filter" was null or undefined when calling combinedHosts().');
@@ -227,7 +227,7 @@ export class DiscoverApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainDiscoverAPICombinedHostsResponseFromJSON(jsonValue));
@@ -242,7 +242,7 @@ export class DiscoverApi extends runtime.BaseAPI {
         limit?: number,
         sort?: string,
         facet?: Array<string>,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainDiscoverAPICombinedHostsResponse> {
         const response = await this.combinedHostsRaw({ filter: filter, after: after, limit: limit, sort: sort, facet: facet }, initOverrides);
         return await response.value();
@@ -253,7 +253,7 @@ export class DiscoverApi extends runtime.BaseAPI {
      */
     async getAccountsRaw(
         requestParameters: DiscoverApiGetAccountsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainDiscoverAPIAccountEntitiesResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getAccounts().');
@@ -279,7 +279,7 @@ export class DiscoverApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainDiscoverAPIAccountEntitiesResponseFromJSON(jsonValue));
@@ -298,7 +298,7 @@ export class DiscoverApi extends runtime.BaseAPI {
      */
     async getApplicationsRaw(
         requestParameters: DiscoverApiGetApplicationsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainDiscoverAPIApplicationEntitiesResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getApplications().');
@@ -324,7 +324,7 @@ export class DiscoverApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainDiscoverAPIApplicationEntitiesResponseFromJSON(jsonValue));
@@ -366,7 +366,7 @@ export class DiscoverApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainDiscoverAPIHostEntitiesResponseFromJSON(jsonValue));
@@ -385,7 +385,7 @@ export class DiscoverApi extends runtime.BaseAPI {
      */
     async getLoginsRaw(
         requestParameters: DiscoverApiGetLoginsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainDiscoverAPILoginEntitiesResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getLogins().');
@@ -411,7 +411,7 @@ export class DiscoverApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainDiscoverAPILoginEntitiesResponseFromJSON(jsonValue));
@@ -461,7 +461,7 @@ export class DiscoverApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
@@ -511,7 +511,7 @@ export class DiscoverApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
@@ -561,7 +561,7 @@ export class DiscoverApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
@@ -611,7 +611,7 @@ export class DiscoverApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));

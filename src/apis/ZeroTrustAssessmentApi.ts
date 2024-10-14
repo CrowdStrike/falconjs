@@ -45,7 +45,7 @@ export class ZeroTrustAssessmentApi extends runtime.BaseAPI {
      */
     async getAssessmentV1Raw(
         requestParameters: ZeroTrustAssessmentApiGetAssessmentV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainAssessmentsResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getAssessmentV1().');
@@ -71,7 +71,7 @@ export class ZeroTrustAssessmentApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAssessmentsResponseFromJSON(jsonValue));
@@ -90,7 +90,7 @@ export class ZeroTrustAssessmentApi extends runtime.BaseAPI {
      */
     async getAssessmentsByScoreV1Raw(
         requestParameters: ZeroTrustAssessmentApiGetAssessmentsByScoreV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainAssessmentsByScoreResponse>> {
         if (requestParameters["filter"] == null) {
             throw new runtime.RequiredError("filter", 'Required parameter "filter" was null or undefined when calling getAssessmentsByScoreV1().');
@@ -128,7 +128,7 @@ export class ZeroTrustAssessmentApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAssessmentsByScoreResponseFromJSON(jsonValue));
@@ -142,7 +142,7 @@ export class ZeroTrustAssessmentApi extends runtime.BaseAPI {
         limit?: number,
         after?: string,
         sort?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainAssessmentsByScoreResponse> {
         const response = await this.getAssessmentsByScoreV1Raw({ filter: filter, limit: limit, after: after, sort: sort }, initOverrides);
         return await response.value();
@@ -168,7 +168,7 @@ export class ZeroTrustAssessmentApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAuditResponseFromJSON(jsonValue));

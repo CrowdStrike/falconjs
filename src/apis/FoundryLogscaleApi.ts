@@ -160,7 +160,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
      */
     async createSavedSearchesDynamicExecuteAltV1Raw(
         requestParameters: FoundryLogscaleApiCreateSavedSearchesDynamicExecuteAltV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApidomainQueryResponseWrapperV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createSavedSearchesDynamicExecuteAltV1().');
@@ -213,7 +213,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ApidomainDynamicExecuteSearchRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApidomainQueryResponseWrapperV1FromJSON(jsonValue));
@@ -231,7 +231,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
         matchResponseSchema?: boolean,
         metadata?: boolean,
         mode?: CreateSavedSearchesDynamicExecuteAltV1ModeEnum,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApidomainQueryResponseWrapperV1> {
         const response = await this.createSavedSearchesDynamicExecuteAltV1Raw(
             {
@@ -244,7 +244,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
                 metadata: metadata,
                 mode: mode,
             },
-            initOverrides
+            initOverrides,
         );
         return await response.value();
     }
@@ -254,7 +254,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
      */
     async createSavedSearchesExecuteAltV1Raw(
         requestParameters: FoundryLogscaleApiCreateSavedSearchesExecuteAltV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApidomainQueryResponseWrapperV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createSavedSearchesExecuteAltV1().');
@@ -303,7 +303,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ApidomainSavedSearchExecuteRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApidomainQueryResponseWrapperV1FromJSON(jsonValue));
@@ -320,11 +320,11 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
         inferJsonTypes?: boolean,
         matchResponseSchema?: boolean,
         metadata?: boolean,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApidomainQueryResponseWrapperV1> {
         const response = await this.createSavedSearchesExecuteAltV1Raw(
             { body: body, appId: appId, detailed: detailed, includeTestData: includeTestData, inferJsonTypes: inferJsonTypes, matchResponseSchema: matchResponseSchema, metadata: metadata },
-            initOverrides
+            initOverrides,
         );
         return await response.value();
     }
@@ -334,7 +334,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
      */
     async createSavedSearchesIngestAltV1Raw(
         requestParameters: FoundryLogscaleApiCreateSavedSearchesIngestAltV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ClientDataIngestResponseWrapperV1>> {
         const queryParameters: any = {};
 
@@ -356,7 +356,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientDataIngestResponseWrapperV1FromJSON(jsonValue));
@@ -406,7 +406,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.BlobApiResponse(response);
@@ -471,7 +471,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ApidomainSavedSearchExecuteRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApidomainQueryResponseWrapperV1FromJSON(jsonValue));
@@ -488,11 +488,11 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
         inferJsonTypes?: boolean,
         matchResponseSchema?: boolean,
         metadata?: boolean,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApidomainQueryResponseWrapperV1> {
         const response = await this.executeRaw(
             { body: body, appId: appId, detailed: detailed, includeTestData: includeTestData, inferJsonTypes: inferJsonTypes, matchResponseSchema: matchResponseSchema, metadata: metadata },
-            initOverrides
+            initOverrides,
         );
         return await response.value();
     }
@@ -502,7 +502,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
      */
     async executeDynamicRaw(
         requestParameters: FoundryLogscaleApiExecuteDynamicRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApidomainQueryResponseWrapperV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling executeDynamic().');
@@ -555,7 +555,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: ApidomainDynamicExecuteSearchRequestV1ToJSON(requestParameters["body"]),
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApidomainQueryResponseWrapperV1FromJSON(jsonValue));
@@ -573,7 +573,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
         matchResponseSchema?: boolean,
         metadata?: boolean,
         mode?: ExecuteDynamicModeEnum,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApidomainQueryResponseWrapperV1> {
         const response = await this.executeDynamicRaw(
             {
@@ -586,7 +586,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
                 metadata: metadata,
                 mode: mode,
             },
-            initOverrides
+            initOverrides,
         );
         return await response.value();
     }
@@ -596,7 +596,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
      */
     async getSavedSearchesExecuteAltV1Raw(
         requestParameters: FoundryLogscaleApiGetSavedSearchesExecuteAltV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApidomainQueryResponseWrapperV1>> {
         if (requestParameters["jobId"] == null) {
             throw new runtime.RequiredError("jobId", 'Required parameter "jobId" was null or undefined when calling getSavedSearchesExecuteAltV1().');
@@ -650,7 +650,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApidomainQueryResponseWrapperV1FromJSON(jsonValue));
@@ -668,11 +668,11 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
         matchResponseSchema?: boolean,
         metadata?: boolean,
         offset?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApidomainQueryResponseWrapperV1> {
         const response = await this.getSavedSearchesExecuteAltV1Raw(
             { jobId: jobId, appId: appId, inferJsonTypes: inferJsonTypes, jobStatusOnly: jobStatusOnly, limit: limit, matchResponseSchema: matchResponseSchema, metadata: metadata, offset: offset },
-            initOverrides
+            initOverrides,
         );
         return await response.value();
     }
@@ -682,7 +682,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
      */
     async getSavedSearchesJobResultsDownloadAltV1Raw(
         requestParameters: FoundryLogscaleApiGetSavedSearchesJobResultsDownloadAltV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<Blob>> {
         if (requestParameters["jobId"] == null) {
             throw new runtime.RequiredError("jobId", 'Required parameter "jobId" was null or undefined when calling getSavedSearchesJobResultsDownloadAltV1().');
@@ -716,7 +716,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.BlobApiResponse(response);
@@ -729,7 +729,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
         jobId: string,
         inferJsonTypes?: boolean,
         resultFormat?: GetSavedSearchesJobResultsDownloadAltV1ResultFormatEnum,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<Blob> {
         const response = await this.getSavedSearchesJobResultsDownloadAltV1Raw({ jobId: jobId, inferJsonTypes: inferJsonTypes, resultFormat: resultFormat }, initOverrides);
         return await response.value();
@@ -740,7 +740,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
      */
     async getSearchResultsRaw(
         requestParameters: FoundryLogscaleApiGetSearchResultsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApidomainQueryResponseWrapperV1>> {
         if (requestParameters["jobId"] == null) {
             throw new runtime.RequiredError("jobId", 'Required parameter "jobId" was null or undefined when calling getSearchResults().');
@@ -794,7 +794,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApidomainQueryResponseWrapperV1FromJSON(jsonValue));
@@ -812,11 +812,11 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
         matchResponseSchema?: boolean,
         metadata?: boolean,
         offset?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApidomainQueryResponseWrapperV1> {
         const response = await this.getSearchResultsRaw(
             { jobId: jobId, appId: appId, inferJsonTypes: inferJsonTypes, jobStatusOnly: jobStatusOnly, limit: limit, matchResponseSchema: matchResponseSchema, metadata: metadata, offset: offset },
-            initOverrides
+            initOverrides,
         );
         return await response.value();
     }
@@ -826,7 +826,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
      */
     async ingestDataRaw(
         requestParameters: FoundryLogscaleApiIngestDataRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ClientDataIngestResponseWrapperV1>> {
         const queryParameters: any = {};
 
@@ -879,7 +879,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: formParams,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientDataIngestResponseWrapperV1FromJSON(jsonValue));
@@ -894,7 +894,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
         tag?: Array<string>,
         tagSource?: string,
         testData?: boolean,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ClientDataIngestResponseWrapperV1> {
         const response = await this.ingestDataRaw({ dataContent: dataContent, dataFile: dataFile, tag: tag, tagSource: tagSource, testData: testData }, initOverrides);
         return await response.value();
@@ -905,7 +905,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
      */
     async ingestDataAsyncV1Raw(
         requestParameters: FoundryLogscaleApiIngestDataAsyncV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ClientDataIngestResponseWrapperV1>> {
         const queryParameters: any = {};
 
@@ -962,7 +962,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
                 query: queryParameters,
                 body: formParams,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientDataIngestResponseWrapperV1FromJSON(jsonValue));
@@ -978,7 +978,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
         tag?: Array<string>,
         tagSource?: string,
         testData?: boolean,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ClientDataIngestResponseWrapperV1> {
         const response = await this.ingestDataAsyncV1Raw({ dataContent: dataContent, dataFile: dataFile, repo: repo, tag: tag, tagSource: tagSource, testData: testData }, initOverrides);
         return await response.value();
@@ -989,7 +989,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
      */
     async listReposRaw(
         requestParameters: FoundryLogscaleApiListReposRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApidomainRepoViewListItemWrapperV1>> {
         const queryParameters: any = {};
 
@@ -1011,7 +1011,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApidomainRepoViewListItemWrapperV1FromJSON(jsonValue));
@@ -1030,7 +1030,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
      */
     async listViewsRaw(
         requestParameters: FoundryLogscaleApiListViewsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ApidomainRepoViewListItemWrapperV1>> {
         const queryParameters: any = {};
 
@@ -1052,7 +1052,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApidomainRepoViewListItemWrapperV1FromJSON(jsonValue));
@@ -1071,7 +1071,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
      */
     async populateRaw(
         requestParameters: FoundryLogscaleApiPopulateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<ClientDataIngestResponseWrapperV1>> {
         const queryParameters: any = {};
 
@@ -1093,7 +1093,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
                 headers: headerParameters,
                 query: queryParameters,
             },
-            initOverrides
+            initOverrides,
         );
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientDataIngestResponseWrapperV1FromJSON(jsonValue));
