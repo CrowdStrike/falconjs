@@ -2,9 +2,9 @@ name: Sanity Check
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
@@ -16,32 +16,35 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
 
-    - name: Install dependencies
-      run: npm ci
+      - name: Install dependencies
+        run: npm ci --audit
 
-    - name: Build development version
-      run: npm run build:devel
+      - name: Audit signatures
+        run: npm audit signatures
 
-    - name: Run linter
-      run: npm run lint
+      - name: Build development version
+        run: npm run build:devel
 
-    - name: Assert correct formatting
-      run: |
-        npm run format:fix
-        if [[ -n $(git status -s) ]] ; then
-           echo "Badly formatted code. Running 'npm run format:fix' leaves repository in a modified state."
-           git status -s
-           git diff
-           exit 1
-        fi
+      - name: Run linter
+        run: npm run lint
 
-    - name: Build release version
-      run: npm run build:release
+      - name: Assert correct formatting
+        run: |
+          npm run format:fix
+          if [[ -n $(git status -s) ]] ; then
+             echo "Badly formatted code. Running 'npm run format:fix' leaves repository in a modified state."
+             git status -s
+             git diff
+             exit 1
+          fi
+
+      - name: Build release version
+        run: npm run build:release
