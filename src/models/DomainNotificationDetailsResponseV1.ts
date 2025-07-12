@@ -65,7 +65,7 @@ export function DomainNotificationDetailsResponseV1FromJSONTyped(json: any, igno
         return json;
     }
     return {
-        errors: (json["errors"] as Array<any>).map(DomainReconAPIErrorFromJSON),
+        errors: (json["errors"] as Array<any>)?.map(DomainReconAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
         resources: (json["resources"] as Array<any>).map(DomainDetailedNotificationV1FromJSON),
     };
@@ -76,7 +76,7 @@ export function DomainNotificationDetailsResponseV1ToJSON(value?: DomainNotifica
         return value;
     }
     return {
-        errors: (value["errors"] as Array<any>).map(DomainReconAPIErrorToJSON),
+        errors: (value["errors"] as Array<any>)?.map(DomainReconAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
         resources: (value["resources"] as Array<any>).map(DomainDetailedNotificationV1ToJSON),
     };
