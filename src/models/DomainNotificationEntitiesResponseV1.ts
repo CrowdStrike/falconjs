@@ -64,8 +64,9 @@ export function DomainNotificationEntitiesResponseV1FromJSONTyped(json: any, ign
     if (json == null) {
         return json;
     }
+
     return {
-        errors: (json["errors"] as Array<any>).map(DomainReconAPIErrorFromJSON),
+        errors: (json["errors"] as Array<any>)?.map(DomainReconAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
         resources: (json["resources"] as Array<any>).map(DomainNotificationV1FromJSON),
     };
