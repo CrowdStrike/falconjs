@@ -1,6 +1,6 @@
 import { Oauth2Api } from "../apis";
 import { Configuration, FetchAPI } from "../runtime";
-import { FalconCloud, CloudBasePath } from "../FalconCloud";
+import { FalconCloud, FalconCloudInput, CloudBasePath } from "../FalconCloud";
 import { UserAgent } from "./useragent";
 
 type Token = {
@@ -10,7 +10,7 @@ type Token = {
 
 type OAuth2Options = {
     fetchApi?: FetchAPI;
-    cloud: FalconCloud;
+    cloud?: FalconCloudInput;
     clientId: string;
     clientSecret: string;
     memberCid?: string;
@@ -52,13 +52,30 @@ export class OAuth2 {
     }
 
     private async refreshTokenInternal(): Promise<Token> {
+        return await OAuth2.refreshTokenInternal(await this.cloud(), this.options.clientId, this.options.clientSecret, this.options.memberCid, this.options.fetchApi);
+    }
+
+    private async cloud(): Promise<FalconCloud> {
+        if (this.options.cloud instanceof FalconCloud) {
+            return this.options.cloud;
+        } else {
+            // User has not provided FalconCloud. Let's try to autodiscover.
+            token = OAuth2.refreshTokenInternal(FalconCloudUs1, this.options.clientId, this.options.clientSecret);
+            // TODO token.XCSRegion header missing
+            // TODO patch openapi-generator to support response headers
+        }
+
+        return this.options.cloud;
+    }
+
+    private static async refreshTokenInternal(cloud: FalconCloud, clientId: string, clientSecret: string, memberCid?: string, fetchApi?: FetchAPI): Promise<Token> {
         const config = new Configuration({
-            basePath: CloudBasePath(this.options.cloud),
-            fetchApi: this.options.fetchApi || fetch,
+            basePath: CloudBasePath(cloud),
+            fetchApi: fetchApi || fetch,
             middleware: [new UserAgent()],
         });
         const api = new Oauth2Api(config);
-        const response = await api.oauth2AccessToken(this.options.clientId, this.options.clientSecret, this.options.memberCid);
+        const response = await api.oauth2AccessToken(clientId, clientSecret, memberCid);
         return {
             accessToken: response.accessToken,
             expiresAt: response.expiresIn ? Date.now() + response.expiresIn * 1000 : null,
