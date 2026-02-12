@@ -62,10 +62,10 @@ export interface TypesIntegrationTask {
     enabled?: boolean;
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof TypesIntegrationTask
      */
-    id?: number;
+    id?: string;
     /**
      *
      * @type {TypesIntegration}
@@ -144,20 +144,20 @@ export function TypesIntegrationTaskFromJSONTyped(json: any, ignoreDiscriminator
         return json;
     }
     return {
-        accessToken: json["access_token"] == null ? undefined : json["access_token"],
-        additionalHeader: json["additional_header"] == null ? undefined : json["additional_header"],
-        businessApplication: json["business_application"] == null ? undefined : json["business_application"],
+        accessToken: json["accessToken"] == null ? undefined : json["accessToken"],
+        additionalHeader: json["additionalHeader"] == null ? undefined : json["additionalHeader"],
+        businessApplication: json["businessApplication"] == null ? undefined : json["businessApplication"],
         data: json["data"] == null ? undefined : json["data"],
         enabled: json["enabled"] == null ? undefined : json["enabled"],
         id: json["id"] == null ? undefined : json["id"],
         integration: json["integration"] == null ? undefined : TypesIntegrationFromJSON(json["integration"]),
-        integrationTaskType: json["integration_task_type"] == null ? undefined : TypesIntegrationTaskTypeFromJSON(json["integration_task_type"]),
-        latestTaskRun: json["latest_task_run"] == null ? undefined : TypesActionRunFromJSON(json["latest_task_run"]),
+        integrationTaskType: json["integrationTaskType"] == null ? undefined : TypesIntegrationTaskTypeFromJSON(json["integrationTaskType"]),
+        latestTaskRun: json["latestTaskRun"] == null ? undefined : TypesActionRunFromJSON(json["latestTaskRun"]),
         name: json["name"] == null ? undefined : json["name"],
-        nextRun: json["next_run"] == null ? undefined : TypesTimestampFromJSON(json["next_run"]),
+        nextRun: json["nextRun"] == null ? undefined : TypesTimestampFromJSON(json["nextRun"]),
         progress: json["progress"] == null ? undefined : json["progress"],
         schedule: json["schedule"] == null ? undefined : TypesComposedScheduleFromJSON(json["schedule"]),
-        scheduleEveryUnitDisplayName: json["schedule_every_unit_display_name"] == null ? undefined : json["schedule_every_unit_display_name"],
+        scheduleEveryUnitDisplayName: json["scheduleEveryUnitDisplayName"] == null ? undefined : json["scheduleEveryUnitDisplayName"],
         trigger: json["trigger"] == null ? undefined : json["trigger"],
         type: json["type"] == null ? undefined : TypesIntegrationTaskTypeFromJSON(json["type"]),
     };
@@ -168,20 +168,20 @@ export function TypesIntegrationTaskToJSON(value?: TypesIntegrationTask | null):
         return value;
     }
     return {
-        access_token: value["accessToken"],
-        additional_header: value["additionalHeader"],
-        business_application: value["businessApplication"],
+        accessToken: value["accessToken"],
+        additionalHeader: value["additionalHeader"],
+        businessApplication: value["businessApplication"],
         data: value["data"],
         enabled: value["enabled"],
         id: value["id"],
         integration: TypesIntegrationToJSON(value["integration"]),
-        integration_task_type: TypesIntegrationTaskTypeToJSON(value["integrationTaskType"]),
-        latest_task_run: TypesActionRunToJSON(value["latestTaskRun"]),
+        integrationTaskType: TypesIntegrationTaskTypeToJSON(value["integrationTaskType"]),
+        latestTaskRun: TypesActionRunToJSON(value["latestTaskRun"]),
         name: value["name"],
-        next_run: TypesTimestampToJSON(value["nextRun"]),
+        nextRun: TypesTimestampToJSON(value["nextRun"]),
         progress: value["progress"],
         schedule: TypesComposedScheduleToJSON(value["schedule"]),
-        schedule_every_unit_display_name: value["scheduleEveryUnitDisplayName"],
+        scheduleEveryUnitDisplayName: value["scheduleEveryUnitDisplayName"],
         trigger: value["trigger"],
         type: TypesIntegrationTaskTypeToJSON(value["type"]),
     };

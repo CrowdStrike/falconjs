@@ -13,24 +13,88 @@
  */
 
 import * as runtime from "../runtime";
-import type { CommonRegistryCredentialsResponse, MsaAPIError, MsaReplyMetaOnly } from "../models/index";
+import type { ModelsDetectionsCombinedResponse, ModelsRegistryCredentialsResponse, MsaAPIError, MsaReplyMetaOnly, MsaspecResponseFields } from "../models/index";
 import {
-    CommonRegistryCredentialsResponseFromJSON,
-    CommonRegistryCredentialsResponseToJSON,
+    ModelsDetectionsCombinedResponseFromJSON,
+    ModelsDetectionsCombinedResponseToJSON,
+    ModelsRegistryCredentialsResponseFromJSON,
+    ModelsRegistryCredentialsResponseToJSON,
     MsaAPIErrorFromJSON,
     MsaAPIErrorToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
+    MsaspecResponseFieldsFromJSON,
+    MsaspecResponseFieldsToJSON,
 } from "../models/index";
+
+export interface CspgIacapiApiCombinedDetectionsRequest {
+    filter?: string;
+    limit?: number;
+    offset?: number;
+    sort?: string;
+}
 
 /**
  *
  */
 export class CspgIacapiApi extends runtime.BaseAPI {
     /**
+     * Search IaC Detections using a query in Falcon Query Language
+     */
+    async combinedDetectionsRaw(
+        requestParameters: CspgIacapiApiCombinedDetectionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ModelsDetectionsCombinedResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["iac:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/iac/combined/detections/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelsDetectionsCombinedResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Search IaC Detections using a query in Falcon Query Language
+     */
+    async combinedDetections(filter?: string, limit?: number, offset?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsDetectionsCombinedResponse> {
+        const response = await this.combinedDetectionsRaw({ filter: filter, limit: limit, offset: offset, sort: sort }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Gets the registry credentials (external endpoint)
      */
-    async getCredentialsMixin0Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CommonRegistryCredentialsResponse>> {
+    async getCredentialsMixin0Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsRegistryCredentialsResponse>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -50,13 +114,13 @@ export class CspgIacapiApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CommonRegistryCredentialsResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelsRegistryCredentialsResponseFromJSON(jsonValue));
     }
 
     /**
      * Gets the registry credentials (external endpoint)
      */
-    async getCredentialsMixin0(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CommonRegistryCredentialsResponse> {
+    async getCredentialsMixin0(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsRegistryCredentialsResponse> {
         const response = await this.getCredentialsMixin0Raw(initOverrides);
         return await response.value();
     }

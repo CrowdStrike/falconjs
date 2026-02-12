@@ -69,6 +69,12 @@ export interface DomainScanHostMetadata {
      * @type {string}
      * @memberof DomainScanHostMetadata
      */
+    platformName?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainScanHostMetadata
+     */
     profileId?: string;
     /**
      *
@@ -126,6 +132,7 @@ export function DomainScanHostMetadataFromJSONTyped(json: any, ignoreDiscriminat
         hostScanId: json["host_scan_id"] == null ? undefined : json["host_scan_id"],
         id: json["id"],
         lastUpdated: json["last_updated"] == null ? undefined : new Date(json["last_updated"]),
+        platformName: json["platform_name"] == null ? undefined : json["platform_name"],
         profileId: json["profile_id"] == null ? undefined : json["profile_id"],
         scanControlReason: json["scan_control_reason"] == null ? undefined : json["scan_control_reason"],
         scanId: json["scan_id"] == null ? undefined : json["scan_id"],
@@ -147,6 +154,7 @@ export function DomainScanHostMetadataToJSON(value?: DomainScanHostMetadata | nu
         host_scan_id: value["hostScanId"],
         id: value["id"],
         last_updated: value["lastUpdated"] == null ? undefined : value["lastUpdated"].toISOString(),
+        platform_name: value["platformName"],
         profile_id: value["profileId"],
         scan_control_reason: value["scanControlReason"],
         scan_id: value["scanId"],

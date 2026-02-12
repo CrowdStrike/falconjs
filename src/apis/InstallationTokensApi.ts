@@ -110,7 +110,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["installation-tokens:read"]);
         }
 
         const response = await this.request(
@@ -151,7 +151,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["installation-tokens:read"]);
         }
 
         const response = await this.request(
@@ -185,7 +185,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["installation-tokens:read"]);
         }
 
         const response = await this.request(
@@ -228,7 +228,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["installation-tokens:write"]);
         }
 
         const response = await this.request(
@@ -274,7 +274,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["installation-tokens:write"]);
         }
 
         const response = await this.request(
@@ -324,7 +324,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["installation-tokens:read"]);
         }
 
         const response = await this.request(
@@ -365,7 +365,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["installation-tokens:read"]);
         }
 
         const response = await this.request(
@@ -392,7 +392,10 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     /**
      * Updates one or more tokens. Use this endpoint to edit labels, change expiration, revoke, or restore.
      */
-    async tokensUpdateRaw(requestParameters: InstallationTokensApiTokensUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async tokensUpdateRaw(
+        requestParameters: InstallationTokensApiTokensUpdateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiTokenDetailsResponseV1>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling tokensUpdate().');
         }
@@ -413,7 +416,7 @@ export class InstallationTokensApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["installation-tokens:write"]);
         }
 
         const response = await this.request(
@@ -427,13 +430,13 @@ export class InstallationTokensApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiTokenDetailsResponseV1FromJSON(jsonValue));
     }
 
     /**
      * Updates one or more tokens. Use this endpoint to edit labels, change expiration, revoke, or restore.
      */
-    async tokensUpdate(ids: Array<string>, body: ApiTokenPatchRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
+    async tokensUpdate(ids: Array<string>, body: ApiTokenPatchRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiTokenDetailsResponseV1> {
         const response = await this.tokensUpdateRaw({ ids: ids, body: body }, initOverrides);
         return await response.value();
     }

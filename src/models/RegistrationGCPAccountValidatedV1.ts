@@ -13,8 +13,8 @@
  */
 
 import { mapValues } from "../runtime";
-import type { DomainCondition } from "./DomainCondition";
-import { DomainConditionFromJSON, DomainConditionFromJSONTyped, DomainConditionToJSON } from "./DomainCondition";
+import type { StatemgmtCondition } from "./StatemgmtCondition";
+import { StatemgmtConditionFromJSON, StatemgmtConditionFromJSONTyped, StatemgmtConditionToJSON } from "./StatemgmtCondition";
 import type { DomainPermission } from "./DomainPermission";
 import { DomainPermissionFromJSON, DomainPermissionFromJSONTyped, DomainPermissionToJSON } from "./DomainPermission";
 
@@ -26,10 +26,10 @@ import { DomainPermissionFromJSON, DomainPermissionFromJSONTyped, DomainPermissi
 export interface RegistrationGCPAccountValidatedV1 {
     /**
      * Account conditions
-     * @type {Array<DomainCondition>}
+     * @type {Array<StatemgmtCondition>}
      * @memberof RegistrationGCPAccountValidatedV1
      */
-    conditions?: Array<DomainCondition>;
+    conditions?: Array<StatemgmtCondition>;
     /**
      * Permissions status
      * @type {Array<DomainPermission>}
@@ -44,10 +44,10 @@ export interface RegistrationGCPAccountValidatedV1 {
     parentId: string;
     /**
      *
-     * @type {Array<DomainCondition>}
+     * @type {Array<StatemgmtCondition>}
      * @memberof RegistrationGCPAccountValidatedV1
      */
-    serviceAccountConditions?: Array<DomainCondition>;
+    serviceAccountConditions?: Array<StatemgmtCondition>;
     /**
      * Service account ID
      * @type {number}
@@ -80,10 +80,10 @@ export function RegistrationGCPAccountValidatedV1FromJSONTyped(json: any, ignore
         return json;
     }
     return {
-        conditions: json["conditions"] == null ? undefined : (json["conditions"] as Array<any>).map(DomainConditionFromJSON),
+        conditions: json["conditions"] == null ? undefined : (json["conditions"] as Array<any>).map(StatemgmtConditionFromJSON),
         gcpPermissionsStatus: (json["gcp_permissions_status"] as Array<any>).map(DomainPermissionFromJSON),
         parentId: json["parent_id"],
-        serviceAccountConditions: json["service_account_conditions"] == null ? undefined : (json["service_account_conditions"] as Array<any>).map(DomainConditionFromJSON),
+        serviceAccountConditions: json["service_account_conditions"] == null ? undefined : (json["service_account_conditions"] as Array<any>).map(StatemgmtConditionFromJSON),
         serviceAccountId: json["service_account_id"] == null ? undefined : json["service_account_id"],
         status: json["status"] == null ? undefined : json["status"],
     };
@@ -94,10 +94,10 @@ export function RegistrationGCPAccountValidatedV1ToJSON(value?: RegistrationGCPA
         return value;
     }
     return {
-        conditions: value["conditions"] == null ? undefined : (value["conditions"] as Array<any>).map(DomainConditionToJSON),
+        conditions: value["conditions"] == null ? undefined : (value["conditions"] as Array<any>).map(StatemgmtConditionToJSON),
         gcp_permissions_status: (value["gcpPermissionsStatus"] as Array<any>).map(DomainPermissionToJSON),
         parent_id: value["parentId"],
-        service_account_conditions: value["serviceAccountConditions"] == null ? undefined : (value["serviceAccountConditions"] as Array<any>).map(DomainConditionToJSON),
+        service_account_conditions: value["serviceAccountConditions"] == null ? undefined : (value["serviceAccountConditions"] as Array<any>).map(StatemgmtConditionToJSON),
         service_account_id: value["serviceAccountId"],
         status: value["status"],
     };

@@ -43,6 +43,12 @@ export interface DomainLastScheduledExecution {
      * @memberof DomainLastScheduledExecution
      */
     statusDisplay: string;
+    /**
+     *
+     * @type {boolean}
+     * @memberof DomainLastScheduledExecution
+     */
+    useIngestTime: boolean;
 }
 
 /**
@@ -51,6 +57,7 @@ export interface DomainLastScheduledExecution {
 export function instanceOfDomainLastScheduledExecution(value: object): value is DomainLastScheduledExecution {
     if (!("id" in value) || value["id"] === undefined) return false;
     if (!("statusDisplay" in value) || value["statusDisplay"] === undefined) return false;
+    if (!("useIngestTime" in value) || value["useIngestTime"] === undefined) return false;
     return true;
 }
 
@@ -67,6 +74,7 @@ export function DomainLastScheduledExecutionFromJSONTyped(json: any, ignoreDiscr
         searchWindowEnd: json["search_window_end"] == null ? undefined : new Date(json["search_window_end"]),
         searchWindowStart: json["search_window_start"] == null ? undefined : new Date(json["search_window_start"]),
         statusDisplay: json["status_display"],
+        useIngestTime: json["use_ingest_time"],
     };
 }
 
@@ -79,5 +87,6 @@ export function DomainLastScheduledExecutionToJSON(value?: DomainLastScheduledEx
         search_window_end: value["searchWindowEnd"] == null ? undefined : value["searchWindowEnd"].toISOString(),
         search_window_start: value["searchWindowStart"] == null ? undefined : value["searchWindowStart"].toISOString(),
         status_display: value["statusDisplay"],
+        use_ingest_time: value["useIngestTime"],
     };
 }

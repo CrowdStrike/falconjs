@@ -13,8 +13,10 @@
  */
 
 import { mapValues } from "../runtime";
-import type { DomainCondition } from "./DomainCondition";
-import { DomainConditionFromJSON, DomainConditionFromJSONTyped, DomainConditionToJSON } from "./DomainCondition";
+import type { DomainProductFeatures } from "./DomainProductFeatures";
+import { DomainProductFeaturesFromJSON, DomainProductFeaturesFromJSONTyped, DomainProductFeaturesToJSON } from "./DomainProductFeatures";
+import type { StatemgmtCondition } from "./StatemgmtCondition";
+import { StatemgmtConditionFromJSON, StatemgmtConditionFromJSONTyped, StatemgmtConditionToJSON } from "./StatemgmtCondition";
 import type { DomainAWSD4CAccountV1 } from "./DomainAWSD4CAccountV1";
 import { DomainAWSD4CAccountV1FromJSON, DomainAWSD4CAccountV1FromJSONTyped, DomainAWSD4CAccountV1ToJSON } from "./DomainAWSD4CAccountV1";
 import type { DomainCloudScope } from "./DomainCloudScope";
@@ -125,13 +127,25 @@ export interface DomainAWSAccountV2 {
      * @type {string}
      * @memberof DomainAWSAccountV2
      */
+    cloudformationRootStackArn?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainAWSAccountV2
+     */
+    cloudformationUpdateUrl?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainAWSAccountV2
+     */
     cloudformationUrl?: string;
     /**
      *
-     * @type {Array<DomainCondition>}
+     * @type {Array<StatemgmtCondition>}
      * @memberof DomainAWSAccountV2
      */
-    conditions?: Array<DomainCondition>;
+    conditions?: Array<StatemgmtCondition>;
     /**
      *
      * @type {boolean}
@@ -161,6 +175,12 @@ export interface DomainAWSAccountV2 {
      * @type {string}
      * @memberof DomainAWSAccountV2
      */
+    dspmHostAccountId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainAWSAccountV2
+     */
     dspmRoleArn?: string;
     /**
      *
@@ -181,6 +201,18 @@ export interface DomainAWSAccountV2 {
      */
     externalId?: string;
     /**
+     *
+     * @type {string}
+     * @memberof DomainAWSAccountV2
+     */
+    falconClientId?: string;
+    /**
+     *
+     * @type {Array<DomainProductFeatures>}
+     * @memberof DomainAWSAccountV2
+     */
+    features?: Array<DomainProductFeatures>;
+    /**
      * The full arn of the IAM role created in this account to control access.
      * @type {string}
      * @memberof DomainAWSAccountV2
@@ -199,6 +231,12 @@ export interface DomainAWSAccountV2 {
      */
     inventoryFilter: Array<DomainAWSInventoryFilterSetting>;
     /**
+     *
+     * @type {boolean}
+     * @memberof DomainAWSAccountV2
+     */
+    isCloudRegistration?: boolean;
+    /**
      * Is CSPM Lite enabled.
      * @type {boolean}
      * @memberof DomainAWSAccountV2
@@ -215,19 +253,25 @@ export interface DomainAWSAccountV2 {
      * @type {boolean}
      * @memberof DomainAWSAccountV2
      */
+    isDelegatedAdmin?: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof DomainAWSAccountV2
+     */
     isMaster?: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof DomainAWSAccountV2
+     */
+    ngsiemEnabled?: boolean;
     /**
      * Up to 34 character AWS provided unique identifier for the organization.
      * @type {string}
      * @memberof DomainAWSAccountV2
      */
     organizationId?: string;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof DomainAWSAccountV2
-     */
-    products?: Array<string>;
     /**
      *
      * @type {string}
@@ -247,6 +291,18 @@ export interface DomainAWSAccountV2 {
      */
     remediationTouAccepted?: Date;
     /**
+     *
+     * @type {string}
+     * @memberof DomainAWSAccountV2
+     */
+    resourceNamePrefix?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainAWSAccountV2
+     */
+    resourceNameSuffix?: string;
+    /**
      * 12 digit AWS provided unique identifier for the root account (of the organization this account belongs to).
      * @type {string}
      * @memberof DomainAWSAccountV2
@@ -258,6 +314,12 @@ export interface DomainAWSAccountV2 {
      * @memberof DomainAWSAccountV2
      */
     rootIamRole?: boolean;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainAWSAccountV2
+     */
+    s3Url?: string;
     /**
      *
      * @type {string}
@@ -290,6 +352,12 @@ export interface DomainAWSAccountV2 {
     targetOus?: Array<string>;
     /**
      *
+     * @type {string}
+     * @memberof DomainAWSAccountV2
+     */
+    templateSourceRegion?: string;
+    /**
+     *
      * @type {boolean}
      * @memberof DomainAWSAccountV2
      */
@@ -300,6 +368,24 @@ export interface DomainAWSAccountV2 {
      * @memberof DomainAWSAccountV2
      */
     valid?: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof DomainAWSAccountV2
+     */
+    vulnerabilityScanningEnabled?: boolean;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainAWSAccountV2
+     */
+    vulnerabilityScanningHostAccountId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainAWSAccountV2
+     */
+    vulnerabilityScanningRoleArn?: string;
 }
 
 /**
@@ -341,36 +427,50 @@ export function DomainAWSAccountV2FromJSONTyped(json: any, ignoreDiscriminator: 
         behaviorAssessmentEnabled: json["behavior_assessment_enabled"] == null ? undefined : json["behavior_assessment_enabled"],
         cid: json["cid"] == null ? undefined : json["cid"],
         cloudScopes: json["cloud_scopes"] == null ? undefined : (json["cloud_scopes"] as Array<any>).map(DomainCloudScopeFromJSON),
+        cloudformationRootStackArn: json["cloudformation_root_stack_arn"] == null ? undefined : json["cloudformation_root_stack_arn"],
+        cloudformationUpdateUrl: json["cloudformation_update_url"] == null ? undefined : json["cloudformation_update_url"],
         cloudformationUrl: json["cloudformation_url"] == null ? undefined : json["cloudformation_url"],
-        conditions: json["conditions"] == null ? undefined : (json["conditions"] as Array<any>).map(DomainConditionFromJSON),
+        conditions: json["conditions"] == null ? undefined : (json["conditions"] as Array<any>).map(StatemgmtConditionFromJSON),
         cspmEnabled: json["cspm_enabled"] == null ? undefined : json["cspm_enabled"],
         d4c: json["d4c"] == null ? undefined : DomainAWSD4CAccountV1FromJSON(json["d4c"]),
         d4cMigrated: json["d4c_migrated"] == null ? undefined : json["d4c_migrated"],
         dspmEnabled: json["dspm_enabled"] == null ? undefined : json["dspm_enabled"],
+        dspmHostAccountId: json["dspm_host_account_id"] == null ? undefined : json["dspm_host_account_id"],
         dspmRoleArn: json["dspm_role_arn"] == null ? undefined : json["dspm_role_arn"],
         environment: json["environment"] == null ? undefined : json["environment"],
         eventbusName: json["eventbus_name"] == null ? undefined : json["eventbus_name"],
         externalId: json["external_id"] == null ? undefined : json["external_id"],
+        falconClientId: json["falcon_client_id"] == null ? undefined : json["falcon_client_id"],
+        features: json["features"] == null ? undefined : (json["features"] as Array<any>).map(DomainProductFeaturesFromJSON),
         iamRoleArn: json["iam_role_arn"] == null ? undefined : json["iam_role_arn"],
         intermediateRoleArn: json["intermediate_role_arn"] == null ? undefined : json["intermediate_role_arn"],
         inventoryFilter: (json["inventory_filter"] as Array<any>).map(DomainAWSInventoryFilterSettingFromJSON),
+        isCloudRegistration: json["is_cloud_registration"] == null ? undefined : json["is_cloud_registration"],
         isCspmLite: json["is_cspm_lite"] == null ? undefined : json["is_cspm_lite"],
         isCustomRolename: json["is_custom_rolename"],
+        isDelegatedAdmin: json["is_delegated_admin"] == null ? undefined : json["is_delegated_admin"],
         isMaster: json["is_master"] == null ? undefined : json["is_master"],
+        ngsiemEnabled: json["ngsiem_enabled"] == null ? undefined : json["ngsiem_enabled"],
         organizationId: json["organization_id"] == null ? undefined : json["organization_id"],
-        products: json["products"] == null ? undefined : json["products"],
         remediationCloudformationUrl: json["remediation_cloudformation_url"] == null ? undefined : json["remediation_cloudformation_url"],
         remediationRegion: json["remediation_region"] == null ? undefined : json["remediation_region"],
         remediationTouAccepted: json["remediation_tou_accepted"] == null ? undefined : new Date(json["remediation_tou_accepted"]),
+        resourceNamePrefix: json["resource_name_prefix"] == null ? undefined : json["resource_name_prefix"],
+        resourceNameSuffix: json["resource_name_suffix"] == null ? undefined : json["resource_name_suffix"],
         rootAccountId: json["root_account_id"] == null ? undefined : json["root_account_id"],
         rootIamRole: json["root_iam_role"] == null ? undefined : json["root_iam_role"],
+        s3Url: json["s3_url"] == null ? undefined : json["s3_url"],
         secondaryRoleArn: json["secondary_role_arn"] == null ? undefined : json["secondary_role_arn"],
         sensorManagementEnabled: json["sensor_management_enabled"],
         settings: json["settings"] == null ? undefined : json["settings"],
         status: json["status"] == null ? undefined : json["status"],
         targetOus: json["target_ous"] == null ? undefined : json["target_ous"],
+        templateSourceRegion: json["template_source_region"] == null ? undefined : json["template_source_region"],
         useExistingCloudtrail: json["use_existing_cloudtrail"] == null ? undefined : json["use_existing_cloudtrail"],
         valid: json["valid"] == null ? undefined : json["valid"],
+        vulnerabilityScanningEnabled: json["vulnerability_scanning_enabled"] == null ? undefined : json["vulnerability_scanning_enabled"],
+        vulnerabilityScanningHostAccountId: json["vulnerability_scanning_host_account_id"] == null ? undefined : json["vulnerability_scanning_host_account_id"],
+        vulnerabilityScanningRoleArn: json["vulnerability_scanning_role_arn"] == null ? undefined : json["vulnerability_scanning_role_arn"],
     };
 }
 
@@ -394,35 +494,49 @@ export function DomainAWSAccountV2ToJSON(value?: DomainAWSAccountV2 | null): any
         behavior_assessment_enabled: value["behaviorAssessmentEnabled"],
         cid: value["cid"],
         cloud_scopes: value["cloudScopes"] == null ? undefined : (value["cloudScopes"] as Array<any>).map(DomainCloudScopeToJSON),
+        cloudformation_root_stack_arn: value["cloudformationRootStackArn"],
+        cloudformation_update_url: value["cloudformationUpdateUrl"],
         cloudformation_url: value["cloudformationUrl"],
-        conditions: value["conditions"] == null ? undefined : (value["conditions"] as Array<any>).map(DomainConditionToJSON),
+        conditions: value["conditions"] == null ? undefined : (value["conditions"] as Array<any>).map(StatemgmtConditionToJSON),
         cspm_enabled: value["cspmEnabled"],
         d4c: DomainAWSD4CAccountV1ToJSON(value["d4c"]),
         d4c_migrated: value["d4cMigrated"],
         dspm_enabled: value["dspmEnabled"],
+        dspm_host_account_id: value["dspmHostAccountId"],
         dspm_role_arn: value["dspmRoleArn"],
         environment: value["environment"],
         eventbus_name: value["eventbusName"],
         external_id: value["externalId"],
+        falcon_client_id: value["falconClientId"],
+        features: value["features"] == null ? undefined : (value["features"] as Array<any>).map(DomainProductFeaturesToJSON),
         iam_role_arn: value["iamRoleArn"],
         intermediate_role_arn: value["intermediateRoleArn"],
         inventory_filter: (value["inventoryFilter"] as Array<any>).map(DomainAWSInventoryFilterSettingToJSON),
+        is_cloud_registration: value["isCloudRegistration"],
         is_cspm_lite: value["isCspmLite"],
         is_custom_rolename: value["isCustomRolename"],
+        is_delegated_admin: value["isDelegatedAdmin"],
         is_master: value["isMaster"],
+        ngsiem_enabled: value["ngsiemEnabled"],
         organization_id: value["organizationId"],
-        products: value["products"],
         remediation_cloudformation_url: value["remediationCloudformationUrl"],
         remediation_region: value["remediationRegion"],
         remediation_tou_accepted: value["remediationTouAccepted"] == null ? undefined : value["remediationTouAccepted"].toISOString(),
+        resource_name_prefix: value["resourceNamePrefix"],
+        resource_name_suffix: value["resourceNameSuffix"],
         root_account_id: value["rootAccountId"],
         root_iam_role: value["rootIamRole"],
+        s3_url: value["s3Url"],
         secondary_role_arn: value["secondaryRoleArn"],
         sensor_management_enabled: value["sensorManagementEnabled"],
         settings: value["settings"],
         status: value["status"],
         target_ous: value["targetOus"],
+        template_source_region: value["templateSourceRegion"],
         use_existing_cloudtrail: value["useExistingCloudtrail"],
         valid: value["valid"],
+        vulnerability_scanning_enabled: value["vulnerabilityScanningEnabled"],
+        vulnerability_scanning_host_account_id: value["vulnerabilityScanningHostAccountId"],
+        vulnerability_scanning_role_arn: value["vulnerabilityScanningRoleArn"],
     };
 }

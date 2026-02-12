@@ -28,12 +28,6 @@ import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from
 export interface DetectionsApiCombinedDetections {
     /**
      *
-     * @type {Array<ModelsAPICombinedDetections>}
-     * @memberof DetectionsApiCombinedDetections
-     */
-    resources: Array<ModelsAPICombinedDetections>;
-    /**
-     *
      * @type {Array<MsaAPIError>}
      * @memberof DetectionsApiCombinedDetections
      */
@@ -44,14 +38,20 @@ export interface DetectionsApiCombinedDetections {
      * @memberof DetectionsApiCombinedDetections
      */
     meta: MsaMetaInfo;
+    /**
+     *
+     * @type {Array<ModelsAPICombinedDetections>}
+     * @memberof DetectionsApiCombinedDetections
+     */
+    resources: Array<ModelsAPICombinedDetections>;
 }
 
 /**
  * Check if a given object implements the DetectionsApiCombinedDetections interface.
  */
 export function instanceOfDetectionsApiCombinedDetections(value: object): value is DetectionsApiCombinedDetections {
-    if (!("resources" in value) || value["resources"] === undefined) return false;
     if (!("meta" in value) || value["meta"] === undefined) return false;
+    if (!("resources" in value) || value["resources"] === undefined) return false;
     return true;
 }
 
@@ -64,9 +64,9 @@ export function DetectionsApiCombinedDetectionsFromJSONTyped(json: any, ignoreDi
         return json;
     }
     return {
-        resources: (json["resources"] as Array<any>).map(ModelsAPICombinedDetectionsFromJSON),
         errors: json["errors"] == null ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
+        resources: (json["resources"] as Array<any>).map(ModelsAPICombinedDetectionsFromJSON),
     };
 }
 
@@ -75,8 +75,8 @@ export function DetectionsApiCombinedDetectionsToJSON(value?: DetectionsApiCombi
         return value;
     }
     return {
-        resources: (value["resources"] as Array<any>).map(ModelsAPICombinedDetectionsToJSON),
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
+        resources: (value["resources"] as Array<any>).map(ModelsAPICombinedDetectionsToJSON),
     };
 }

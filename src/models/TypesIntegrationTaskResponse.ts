@@ -54,8 +54,8 @@ export function TypesIntegrationTaskResponseFromJSONTyped(json: any, ignoreDiscr
         return json;
     }
     return {
-        integrationTask: json["integration_task"] == null ? undefined : TypesIntegrationTaskFromJSON(json["integration_task"]),
-        newExecutorNode: json["new_executor_node"] == null ? undefined : TypesExecutorNodeFromJSON(json["new_executor_node"]),
+        integrationTask: json["integrationTask"] == null ? undefined : TypesIntegrationTaskFromJSON(json["integrationTask"]),
+        newExecutorNode: json["newExecutorNode"] == null ? undefined : TypesExecutorNodeFromJSON(json["newExecutorNode"]),
     };
 }
 
@@ -64,7 +64,7 @@ export function TypesIntegrationTaskResponseToJSON(value?: TypesIntegrationTaskR
         return value;
     }
     return {
-        integration_task: TypesIntegrationTaskToJSON(value["integrationTask"]),
-        new_executor_node: TypesExecutorNodeToJSON(value["newExecutorNode"]),
+        integrationTask: TypesIntegrationTaskToJSON(value["integrationTask"]),
+        newExecutorNode: TypesExecutorNodeToJSON(value["newExecutorNode"]),
     };
 }

@@ -123,7 +123,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["response-policies:write"]);
         }
 
         const response = await this.request(
@@ -169,7 +169,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["response-policies:write"]);
         }
 
         const response = await this.request(
@@ -214,7 +214,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["response-policies:read"]);
         }
 
         const response = await this.request(
@@ -265,7 +265,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["response-policies:write"]);
         }
 
         const response = await this.request(
@@ -323,7 +323,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["response-policies:read"]);
         }
 
         const response = await this.request(
@@ -386,7 +386,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["response-policies:read"]);
         }
 
         const response = await this.request(
@@ -446,7 +446,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["response-policies:read"]);
         }
 
         const response = await this.request(
@@ -509,7 +509,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["response-policies:read"]);
         }
 
         const response = await this.request(
@@ -559,7 +559,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["response-policies:write"]);
         }
 
         const response = await this.request(
@@ -603,7 +603,7 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["response-policies:write"]);
         }
 
         const response = await this.request(

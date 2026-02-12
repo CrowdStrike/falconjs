@@ -25,9 +25,9 @@ import {
 
 export interface RuntimeDetectionsApiGetRuntimeDetectionsCombinedV2Request {
     filter?: string;
+    sort?: string;
     limit?: number;
     offset?: number;
-    sort?: string;
 }
 
 /**
@@ -47,6 +47,10 @@ export class RuntimeDetectionsApi extends runtime.BaseAPI {
             queryParameters["filter"] = requestParameters["filter"];
         }
 
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
         if (requestParameters["limit"] != null) {
             queryParameters["limit"] = requestParameters["limit"];
         }
@@ -55,15 +59,11 @@ export class RuntimeDetectionsApi extends runtime.BaseAPI {
             queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters["sort"] != null) {
-            queryParameters["sort"] = requestParameters["sort"];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -84,12 +84,12 @@ export class RuntimeDetectionsApi extends runtime.BaseAPI {
      */
     async getRuntimeDetectionsCombinedV2(
         filter?: string,
+        sort?: string,
         limit?: number,
         offset?: number,
-        sort?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<RuntimedetectionsDetectionsEntityResponse> {
-        const response = await this.getRuntimeDetectionsCombinedV2Raw({ filter: filter, limit: limit, offset: offset, sort: sort }, initOverrides);
+        const response = await this.getRuntimeDetectionsCombinedV2Raw({ filter: filter, sort: sort, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }
 }

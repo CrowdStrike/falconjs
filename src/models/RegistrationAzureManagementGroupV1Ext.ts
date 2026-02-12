@@ -13,16 +13,12 @@
  */
 
 import { mapValues } from "../runtime";
-import type { DomainCondition } from "./DomainCondition";
-import { DomainConditionFromJSON, DomainConditionFromJSONTyped, DomainConditionToJSON } from "./DomainCondition";
+import type { AzureDBRoleAssignment } from "./AzureDBRoleAssignment";
+import { AzureDBRoleAssignmentFromJSON, AzureDBRoleAssignmentFromJSONTyped, AzureDBRoleAssignmentToJSON } from "./AzureDBRoleAssignment";
+import type { StatemgmtCondition } from "./StatemgmtCondition";
+import { StatemgmtConditionFromJSON, StatemgmtConditionFromJSONTyped, StatemgmtConditionToJSON } from "./StatemgmtCondition";
 import type { DomainPermission } from "./DomainPermission";
 import { DomainPermissionFromJSON, DomainPermissionFromJSONTyped, DomainPermissionToJSON } from "./DomainPermission";
-import type { DomainAzureManagementGroupRoleAssignment } from "./DomainAzureManagementGroupRoleAssignment";
-import {
-    DomainAzureManagementGroupRoleAssignmentFromJSON,
-    DomainAzureManagementGroupRoleAssignmentFromJSONTyped,
-    DomainAzureManagementGroupRoleAssignmentToJSON,
-} from "./DomainAzureManagementGroupRoleAssignment";
 
 /**
  *
@@ -86,10 +82,10 @@ export interface RegistrationAzureManagementGroupV1Ext {
     clientId?: string;
     /**
      *
-     * @type {Array<DomainCondition>}
+     * @type {Array<StatemgmtCondition>}
      * @memberof RegistrationAzureManagementGroupV1Ext
      */
-    conditions?: Array<DomainCondition>;
+    conditions?: Array<StatemgmtCondition>;
     /**
      *
      * @type {Date}
@@ -128,10 +124,10 @@ export interface RegistrationAzureManagementGroupV1Ext {
     publicCertificateRaw?: string;
     /**
      *
-     * @type {Array<DomainAzureManagementGroupRoleAssignment>}
+     * @type {Array<AzureDBRoleAssignment>}
      * @memberof RegistrationAzureManagementGroupV1Ext
      */
-    roleAssignments?: Array<DomainAzureManagementGroupRoleAssignment>;
+    roleAssignments?: Array<AzureDBRoleAssignment>;
     /**
      * Account registration status.
      * @type {string}
@@ -184,14 +180,14 @@ export function RegistrationAzureManagementGroupV1ExtFromJSONTyped(json: any, ig
         azurePermissionsStatus: json["azure_permissions_status"] == null ? undefined : (json["azure_permissions_status"] as Array<any>).map(DomainPermissionFromJSON),
         cid: json["cid"],
         clientId: json["client_id"] == null ? undefined : json["client_id"],
-        conditions: json["conditions"] == null ? undefined : (json["conditions"] as Array<any>).map(DomainConditionFromJSON),
+        conditions: json["conditions"] == null ? undefined : (json["conditions"] as Array<any>).map(StatemgmtConditionFromJSON),
         credentialsEndDate: json["credentials_end_date"] == null ? undefined : new Date(json["credentials_end_date"]),
         credentialsType: json["credentials_type"] == null ? undefined : json["credentials_type"],
         defaultSubscriptionId: json["default_subscription_id"] == null ? undefined : json["default_subscription_id"],
         objectId: json["object_id"] == null ? undefined : json["object_id"],
         publicCertificate: json["public_certificate"] == null ? undefined : json["public_certificate"],
         publicCertificateRaw: json["public_certificate_raw"] == null ? undefined : json["public_certificate_raw"],
-        roleAssignments: json["role_assignments"] == null ? undefined : (json["role_assignments"] as Array<any>).map(DomainAzureManagementGroupRoleAssignmentFromJSON),
+        roleAssignments: json["role_assignments"] == null ? undefined : (json["role_assignments"] as Array<any>).map(AzureDBRoleAssignmentFromJSON),
         status: json["status"] == null ? undefined : json["status"],
         tenantId: json["tenant_id"],
         yearsValid: json["years_valid"] == null ? undefined : json["years_valid"],
@@ -212,14 +208,14 @@ export function RegistrationAzureManagementGroupV1ExtToJSON(value?: Registration
         azure_permissions_status: value["azurePermissionsStatus"] == null ? undefined : (value["azurePermissionsStatus"] as Array<any>).map(DomainPermissionToJSON),
         cid: value["cid"],
         client_id: value["clientId"],
-        conditions: value["conditions"] == null ? undefined : (value["conditions"] as Array<any>).map(DomainConditionToJSON),
+        conditions: value["conditions"] == null ? undefined : (value["conditions"] as Array<any>).map(StatemgmtConditionToJSON),
         credentials_end_date: value["credentialsEndDate"] == null ? undefined : value["credentialsEndDate"].toISOString(),
         credentials_type: value["credentialsType"],
         default_subscription_id: value["defaultSubscriptionId"],
         object_id: value["objectId"],
         public_certificate: value["publicCertificate"],
         public_certificate_raw: value["publicCertificateRaw"],
-        role_assignments: value["roleAssignments"] == null ? undefined : (value["roleAssignments"] as Array<any>).map(DomainAzureManagementGroupRoleAssignmentToJSON),
+        role_assignments: value["roleAssignments"] == null ? undefined : (value["roleAssignments"] as Array<any>).map(AzureDBRoleAssignmentToJSON),
         status: value["status"],
         tenant_id: value["tenantId"],
         years_valid: value["yearsValid"],

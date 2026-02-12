@@ -39,6 +39,18 @@ export interface EntitiesODSScheduleScanRequest {
      * @type {number}
      * @memberof EntitiesODSScheduleScanRequest
      */
+    cloudPupAdwareLevelDetection: number;
+    /**
+     *
+     * @type {number}
+     * @memberof EntitiesODSScheduleScanRequest
+     */
+    cloudPupAdwareLevelPrevention: number;
+    /**
+     *
+     * @type {number}
+     * @memberof EntitiesODSScheduleScanRequest
+     */
     cpuPriority: number;
     /**
      *
@@ -70,6 +82,72 @@ export interface EntitiesODSScheduleScanRequest {
      * @memberof EntitiesODSScheduleScanRequest
      */
     initiatedFrom: string;
+    /**
+     *
+     * @type {number}
+     * @memberof EntitiesODSScheduleScanRequest
+     */
+    macCloudMlLevelDetection: number;
+    /**
+     *
+     * @type {number}
+     * @memberof EntitiesODSScheduleScanRequest
+     */
+    macCloudMlLevelPrevention: number;
+    /**
+     *
+     * @type {number}
+     * @memberof EntitiesODSScheduleScanRequest
+     */
+    macCloudPupAdwareLevelDetection: number;
+    /**
+     *
+     * @type {number}
+     * @memberof EntitiesODSScheduleScanRequest
+     */
+    macCloudPupAdwareLevelPrevention: number;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof EntitiesODSScheduleScanRequest
+     */
+    macFilePaths: Array<string>;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof EntitiesODSScheduleScanRequest
+     */
+    macScanExclusions: Array<string>;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof EntitiesODSScheduleScanRequest
+     */
+    macScanInclusions: Array<string>;
+    /**
+     *
+     * @type {number}
+     * @memberof EntitiesODSScheduleScanRequest
+     */
+    macSensorMlLevelDetection: number;
+    /**
+     *
+     * @type {number}
+     * @memberof EntitiesODSScheduleScanRequest
+     */
+    macSensorMlLevelPrevention: number;
+    /**
+     *
+     * @type {number}
+     * @memberof EntitiesODSScheduleScanRequest
+     */
+    macSensorPupAdwareLevelDetection: number;
+    /**
+     *
+     * @type {number}
+     * @memberof EntitiesODSScheduleScanRequest
+     */
+    macSensorPupAdwareLevelPrevention: number;
     /**
      *
      * @type {number}
@@ -132,12 +210,25 @@ export interface EntitiesODSScheduleScanRequest {
 export function instanceOfEntitiesODSScheduleScanRequest(value: object): value is EntitiesODSScheduleScanRequest {
     if (!("cloudMlLevelDetection" in value) || value["cloudMlLevelDetection"] === undefined) return false;
     if (!("cloudMlLevelPrevention" in value) || value["cloudMlLevelPrevention"] === undefined) return false;
+    if (!("cloudPupAdwareLevelDetection" in value) || value["cloudPupAdwareLevelDetection"] === undefined) return false;
+    if (!("cloudPupAdwareLevelPrevention" in value) || value["cloudPupAdwareLevelPrevention"] === undefined) return false;
     if (!("cpuPriority" in value) || value["cpuPriority"] === undefined) return false;
     if (!("description" in value) || value["description"] === undefined) return false;
     if (!("endpointNotification" in value) || value["endpointNotification"] === undefined) return false;
     if (!("filePaths" in value) || value["filePaths"] === undefined) return false;
     if (!("hostGroups" in value) || value["hostGroups"] === undefined) return false;
     if (!("initiatedFrom" in value) || value["initiatedFrom"] === undefined) return false;
+    if (!("macCloudMlLevelDetection" in value) || value["macCloudMlLevelDetection"] === undefined) return false;
+    if (!("macCloudMlLevelPrevention" in value) || value["macCloudMlLevelPrevention"] === undefined) return false;
+    if (!("macCloudPupAdwareLevelDetection" in value) || value["macCloudPupAdwareLevelDetection"] === undefined) return false;
+    if (!("macCloudPupAdwareLevelPrevention" in value) || value["macCloudPupAdwareLevelPrevention"] === undefined) return false;
+    if (!("macFilePaths" in value) || value["macFilePaths"] === undefined) return false;
+    if (!("macScanExclusions" in value) || value["macScanExclusions"] === undefined) return false;
+    if (!("macScanInclusions" in value) || value["macScanInclusions"] === undefined) return false;
+    if (!("macSensorMlLevelDetection" in value) || value["macSensorMlLevelDetection"] === undefined) return false;
+    if (!("macSensorMlLevelPrevention" in value) || value["macSensorMlLevelPrevention"] === undefined) return false;
+    if (!("macSensorPupAdwareLevelDetection" in value) || value["macSensorPupAdwareLevelDetection"] === undefined) return false;
+    if (!("macSensorPupAdwareLevelPrevention" in value) || value["macSensorPupAdwareLevelPrevention"] === undefined) return false;
     if (!("maxDuration" in value) || value["maxDuration"] === undefined) return false;
     if (!("maxFileSize" in value) || value["maxFileSize"] === undefined) return false;
     if (!("pauseDuration" in value) || value["pauseDuration"] === undefined) return false;
@@ -161,12 +252,25 @@ export function EntitiesODSScheduleScanRequestFromJSONTyped(json: any, ignoreDis
     return {
         cloudMlLevelDetection: json["cloud_ml_level_detection"],
         cloudMlLevelPrevention: json["cloud_ml_level_prevention"],
+        cloudPupAdwareLevelDetection: json["cloud_pup_adware_level_detection"],
+        cloudPupAdwareLevelPrevention: json["cloud_pup_adware_level_prevention"],
         cpuPriority: json["cpu_priority"],
         description: json["description"],
         endpointNotification: json["endpoint_notification"],
         filePaths: json["file_paths"],
         hostGroups: json["host_groups"],
         initiatedFrom: json["initiated_from"],
+        macCloudMlLevelDetection: json["mac_cloud_ml_level_detection"],
+        macCloudMlLevelPrevention: json["mac_cloud_ml_level_prevention"],
+        macCloudPupAdwareLevelDetection: json["mac_cloud_pup_adware_level_detection"],
+        macCloudPupAdwareLevelPrevention: json["mac_cloud_pup_adware_level_prevention"],
+        macFilePaths: json["mac_file_paths"],
+        macScanExclusions: json["mac_scan_exclusions"],
+        macScanInclusions: json["mac_scan_inclusions"],
+        macSensorMlLevelDetection: json["mac_sensor_ml_level_detection"],
+        macSensorMlLevelPrevention: json["mac_sensor_ml_level_prevention"],
+        macSensorPupAdwareLevelDetection: json["mac_sensor_pup_adware_level_detection"],
+        macSensorPupAdwareLevelPrevention: json["mac_sensor_pup_adware_level_prevention"],
         maxDuration: json["max_duration"],
         maxFileSize: json["max_file_size"],
         pauseDuration: json["pause_duration"],
@@ -186,12 +290,25 @@ export function EntitiesODSScheduleScanRequestToJSON(value?: EntitiesODSSchedule
     return {
         cloud_ml_level_detection: value["cloudMlLevelDetection"],
         cloud_ml_level_prevention: value["cloudMlLevelPrevention"],
+        cloud_pup_adware_level_detection: value["cloudPupAdwareLevelDetection"],
+        cloud_pup_adware_level_prevention: value["cloudPupAdwareLevelPrevention"],
         cpu_priority: value["cpuPriority"],
         description: value["description"],
         endpoint_notification: value["endpointNotification"],
         file_paths: value["filePaths"],
         host_groups: value["hostGroups"],
         initiated_from: value["initiatedFrom"],
+        mac_cloud_ml_level_detection: value["macCloudMlLevelDetection"],
+        mac_cloud_ml_level_prevention: value["macCloudMlLevelPrevention"],
+        mac_cloud_pup_adware_level_detection: value["macCloudPupAdwareLevelDetection"],
+        mac_cloud_pup_adware_level_prevention: value["macCloudPupAdwareLevelPrevention"],
+        mac_file_paths: value["macFilePaths"],
+        mac_scan_exclusions: value["macScanExclusions"],
+        mac_scan_inclusions: value["macScanInclusions"],
+        mac_sensor_ml_level_detection: value["macSensorMlLevelDetection"],
+        mac_sensor_ml_level_prevention: value["macSensorMlLevelPrevention"],
+        mac_sensor_pup_adware_level_detection: value["macSensorPupAdwareLevelDetection"],
+        mac_sensor_pup_adware_level_prevention: value["macSensorPupAdwareLevelPrevention"],
         max_duration: value["maxDuration"],
         max_file_size: value["maxFileSize"],
         pause_duration: value["pauseDuration"],

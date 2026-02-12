@@ -28,19 +28,12 @@ export interface DomainMsaMetaInfo {
      * @memberof DomainMsaMetaInfo
      */
     pagination?: MsaPaging;
-    /**
-     *
-     * @type {number}
-     * @memberof DomainMsaMetaInfo
-     */
-    queryTime: number;
 }
 
 /**
  * Check if a given object implements the DomainMsaMetaInfo interface.
  */
 export function instanceOfDomainMsaMetaInfo(value: object): value is DomainMsaMetaInfo {
-    if (!("queryTime" in value) || value["queryTime"] === undefined) return false;
     return true;
 }
 
@@ -54,7 +47,6 @@ export function DomainMsaMetaInfoFromJSONTyped(json: any, ignoreDiscriminator: b
     }
     return {
         pagination: json["pagination"] == null ? undefined : MsaPagingFromJSON(json["pagination"]),
-        queryTime: json["queryTime"],
     };
 }
 
@@ -64,6 +56,5 @@ export function DomainMsaMetaInfoToJSON(value?: DomainMsaMetaInfo | null): any {
     }
     return {
         pagination: MsaPagingToJSON(value["pagination"]),
-        queryTime: value["queryTime"],
     };
 }

@@ -13,12 +13,20 @@
  */
 
 import * as runtime from "../runtime";
-import type { CustomStorageObjectKeys, CustomStorageResponse, MsaReplyMetaOnly } from "../models/index";
+import type { CustomStorageObjectKeys, CustomStorageResponse, CustomType1255839303, CustomType1942251022, CustomType3191042536, CustomType4161059146, MsaReplyMetaOnly } from "../models/index";
 import {
     CustomStorageObjectKeysFromJSON,
     CustomStorageObjectKeysToJSON,
     CustomStorageResponseFromJSON,
     CustomStorageResponseToJSON,
+    CustomType1255839303FromJSON,
+    CustomType1255839303ToJSON,
+    CustomType1942251022FromJSON,
+    CustomType1942251022ToJSON,
+    CustomType3191042536FromJSON,
+    CustomType3191042536ToJSON,
+    CustomType4161059146FromJSON,
+    CustomType4161059146ToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
 } from "../models/index";
@@ -29,12 +37,70 @@ export interface CustomStorageApiDeleteRequest {
     dryRun?: boolean;
 }
 
+export interface CustomStorageApiDeleteVersionedObjectRequest {
+    collectionName: string;
+    collectionVersion: string;
+    objectKey: string;
+    dryRun?: boolean;
+}
+
+export interface CustomStorageApiDescribeCollectionRequest {
+    collectionName: string;
+}
+
+export interface CustomStorageApiDescribeCollectionsRequest {
+    names: Array<string>;
+}
+
 export interface CustomStorageApiGetRequest {
     collectionName: string;
     objectKey: string;
 }
 
+export interface CustomStorageApiGetSchemaRequest {
+    collectionName: string;
+    schemaVersion: string;
+}
+
+export interface CustomStorageApiGetSchemaMetadataRequest {
+    collectionName: string;
+    schemaVersion: string;
+}
+
+export interface CustomStorageApiGetVersionedObjectRequest {
+    collectionName: string;
+    collectionVersion: string;
+    objectKey: string;
+}
+
+export interface CustomStorageApiGetVersionedObjectMetadataRequest {
+    collectionName: string;
+    collectionVersion: string;
+    objectKey: string;
+}
+
 export interface CustomStorageApiListRequest {
+    collectionName: string;
+    end?: string;
+    limit?: number;
+    start?: string;
+}
+
+export interface CustomStorageApiListCollectionsRequest {
+    end?: string;
+    limit?: number;
+    start?: string;
+}
+
+export interface CustomStorageApiListObjectsByVersionRequest {
+    collectionName: string;
+    collectionVersion: string;
+    end?: string;
+    limit?: number;
+    start?: string;
+}
+
+export interface CustomStorageApiListSchemasRequest {
     collectionName: string;
     end?: string;
     limit?: number;
@@ -46,8 +112,25 @@ export interface CustomStorageApiMetadataRequest {
     objectKey: string;
 }
 
+export interface CustomStorageApiPutObjectByVersionRequest {
+    collectionName: string;
+    collectionVersion: string;
+    objectKey: string;
+    body: Blob;
+    dryRun?: boolean;
+}
+
 export interface CustomStorageApiSearchRequest {
     collectionName: string;
+    filter: string;
+    limit?: number;
+    offset?: number;
+    sort?: string;
+}
+
+export interface CustomStorageApiSearchObjectsByVersionRequest {
+    collectionName: string;
+    collectionVersion: string;
     filter: string;
     limit?: number;
     offset?: number;
@@ -115,6 +198,154 @@ export class CustomStorageApi extends runtime.BaseAPI {
     }
 
     /**
+     * Delete the specified versioned object
+     */
+    async deleteVersionedObjectRaw(
+        requestParameters: CustomStorageApiDeleteVersionedObjectRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CustomType3191042536>> {
+        if (requestParameters["collectionName"] == null) {
+            throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling deleteVersionedObject().');
+        }
+
+        if (requestParameters["collectionVersion"] == null) {
+            throw new runtime.RequiredError("collectionVersion", 'Required parameter "collectionVersion" was null or undefined when calling deleteVersionedObject().');
+        }
+
+        if (requestParameters["objectKey"] == null) {
+            throw new runtime.RequiredError("objectKey", 'Required parameter "objectKey" was null or undefined when calling deleteVersionedObject().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["dryRun"] != null) {
+            queryParameters["dry_run"] = requestParameters["dryRun"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/customobjects/v1/collections/{collection_name}/{collection_version}/objects/{object_key}`
+                    .replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])))
+                    .replace(`{${"collection_version"}}`, encodeURIComponent(String(requestParameters["collectionVersion"])))
+                    .replace(`{${"object_key"}}`, encodeURIComponent(String(requestParameters["objectKey"]))),
+                method: "DELETE",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomType3191042536FromJSON(jsonValue));
+    }
+
+    /**
+     * Delete the specified versioned object
+     */
+    async deleteVersionedObject(
+        collectionName: string,
+        collectionVersion: string,
+        objectKey: string,
+        dryRun?: boolean,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<CustomType3191042536> {
+        const response = await this.deleteVersionedObjectRaw({ collectionName: collectionName, collectionVersion: collectionVersion, objectKey: objectKey, dryRun: dryRun }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Fetch metadata about an existing collection
+     */
+    async describeCollectionRaw(
+        requestParameters: CustomStorageApiDescribeCollectionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CustomType1942251022>> {
+        if (requestParameters["collectionName"] == null) {
+            throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling describeCollection().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/customobjects/v1/collections/{collection_name}`.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"]))),
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomType1942251022FromJSON(jsonValue));
+    }
+
+    /**
+     * Fetch metadata about an existing collection
+     */
+    async describeCollection(collectionName: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomType1942251022> {
+        const response = await this.describeCollectionRaw({ collectionName: collectionName }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Fetch metadata about one or more existing collections
+     */
+    async describeCollectionsRaw(
+        requestParameters: CustomStorageApiDescribeCollectionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CustomType1942251022>> {
+        if (requestParameters["names"] == null) {
+            throw new runtime.RequiredError("names", 'Required parameter "names" was null or undefined when calling describeCollections().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["names"] != null) {
+            queryParameters["names"] = requestParameters["names"]!.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/customobjects/v1/collections`,
+                method: "PUT",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomType1942251022FromJSON(jsonValue));
+    }
+
+    /**
+     * Fetch metadata about one or more existing collections
+     */
+    async describeCollections(names: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomType1942251022> {
+        const response = await this.describeCollectionsRaw({ names: names }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Get the bytes for the specified object
      */
     async getRaw(requestParameters: CustomStorageApiGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
@@ -155,6 +386,198 @@ export class CustomStorageApi extends runtime.BaseAPI {
      */
     async get(collectionName: string, objectKey: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
         const response = await this.getRaw({ collectionName: collectionName, objectKey: objectKey }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get the bytes of the specified schema of the requested collection
+     */
+    async getSchemaRaw(requestParameters: CustomStorageApiGetSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+        if (requestParameters["collectionName"] == null) {
+            throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling getSchema().');
+        }
+
+        if (requestParameters["schemaVersion"] == null) {
+            throw new runtime.RequiredError("schemaVersion", 'Required parameter "schemaVersion" was null or undefined when calling getSchema().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/customobjects/v1/collections/{collection_name}/schemas/{schema_version}`
+                    .replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])))
+                    .replace(`{${"schema_version"}}`, encodeURIComponent(String(requestParameters["schemaVersion"]))),
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.BlobApiResponse(response);
+    }
+
+    /**
+     * Get the bytes of the specified schema of the requested collection
+     */
+    async getSchema(collectionName: string, schemaVersion: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
+        const response = await this.getSchemaRaw({ collectionName: collectionName, schemaVersion: schemaVersion }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get the metadata for the specified schema of the requested collection
+     */
+    async getSchemaMetadataRaw(
+        requestParameters: CustomStorageApiGetSchemaMetadataRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CustomType4161059146>> {
+        if (requestParameters["collectionName"] == null) {
+            throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling getSchemaMetadata().');
+        }
+
+        if (requestParameters["schemaVersion"] == null) {
+            throw new runtime.RequiredError("schemaVersion", 'Required parameter "schemaVersion" was null or undefined when calling getSchemaMetadata().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/customobjects/v1/collections/{collection_name}/schemas/{schema_version}/metadata`
+                    .replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])))
+                    .replace(`{${"schema_version"}}`, encodeURIComponent(String(requestParameters["schemaVersion"]))),
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomType4161059146FromJSON(jsonValue));
+    }
+
+    /**
+     * Get the metadata for the specified schema of the requested collection
+     */
+    async getSchemaMetadata(collectionName: string, schemaVersion: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomType4161059146> {
+        const response = await this.getSchemaMetadataRaw({ collectionName: collectionName, schemaVersion: schemaVersion }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get the bytes for the specified object
+     */
+    async getVersionedObjectRaw(requestParameters: CustomStorageApiGetVersionedObjectRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+        if (requestParameters["collectionName"] == null) {
+            throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling getVersionedObject().');
+        }
+
+        if (requestParameters["collectionVersion"] == null) {
+            throw new runtime.RequiredError("collectionVersion", 'Required parameter "collectionVersion" was null or undefined when calling getVersionedObject().');
+        }
+
+        if (requestParameters["objectKey"] == null) {
+            throw new runtime.RequiredError("objectKey", 'Required parameter "objectKey" was null or undefined when calling getVersionedObject().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/customobjects/v1/collections/{collection_name}/{collection_version}/objects/{object_key}`
+                    .replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])))
+                    .replace(`{${"collection_version"}}`, encodeURIComponent(String(requestParameters["collectionVersion"])))
+                    .replace(`{${"object_key"}}`, encodeURIComponent(String(requestParameters["objectKey"]))),
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.BlobApiResponse(response);
+    }
+
+    /**
+     * Get the bytes for the specified object
+     */
+    async getVersionedObject(collectionName: string, collectionVersion: string, objectKey: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
+        const response = await this.getVersionedObjectRaw({ collectionName: collectionName, collectionVersion: collectionVersion, objectKey: objectKey }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get the metadata for the specified object
+     */
+    async getVersionedObjectMetadataRaw(
+        requestParameters: CustomStorageApiGetVersionedObjectMetadataRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CustomType3191042536>> {
+        if (requestParameters["collectionName"] == null) {
+            throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling getVersionedObjectMetadata().');
+        }
+
+        if (requestParameters["collectionVersion"] == null) {
+            throw new runtime.RequiredError("collectionVersion", 'Required parameter "collectionVersion" was null or undefined when calling getVersionedObjectMetadata().');
+        }
+
+        if (requestParameters["objectKey"] == null) {
+            throw new runtime.RequiredError("objectKey", 'Required parameter "objectKey" was null or undefined when calling getVersionedObjectMetadata().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/customobjects/v1/collections/{collection_name}/{collection_version}/objects/{object_key}/metadata`
+                    .replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])))
+                    .replace(`{${"collection_version"}}`, encodeURIComponent(String(requestParameters["collectionVersion"])))
+                    .replace(`{${"object_key"}}`, encodeURIComponent(String(requestParameters["objectKey"]))),
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomType3191042536FromJSON(jsonValue));
+    }
+
+    /**
+     * Get the metadata for the specified object
+     */
+    async getVersionedObjectMetadata(collectionName: string, collectionVersion: string, objectKey: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomType3191042536> {
+        const response = await this.getVersionedObjectMetadataRaw({ collectionName: collectionName, collectionVersion: collectionVersion, objectKey: objectKey }, initOverrides);
         return await response.value();
     }
 
@@ -209,6 +632,171 @@ export class CustomStorageApi extends runtime.BaseAPI {
     }
 
     /**
+     * List available collection names in alphabetical order
+     */
+    async listCollectionsRaw(
+        requestParameters: CustomStorageApiListCollectionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CustomType1255839303>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["end"] != null) {
+            queryParameters["end"] = requestParameters["end"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["start"] != null) {
+            queryParameters["start"] = requestParameters["start"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/customobjects/v1/collections`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomType1255839303FromJSON(jsonValue));
+    }
+
+    /**
+     * List available collection names in alphabetical order
+     */
+    async listCollections(end?: string, limit?: number, start?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomType1255839303> {
+        const response = await this.listCollectionsRaw({ end: end, limit: limit, start: start }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * List the object keys in the specified collection in alphabetical order
+     */
+    async listObjectsByVersionRaw(
+        requestParameters: CustomStorageApiListObjectsByVersionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CustomType1255839303>> {
+        if (requestParameters["collectionName"] == null) {
+            throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling listObjectsByVersion().');
+        }
+
+        if (requestParameters["collectionVersion"] == null) {
+            throw new runtime.RequiredError("collectionVersion", 'Required parameter "collectionVersion" was null or undefined when calling listObjectsByVersion().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["end"] != null) {
+            queryParameters["end"] = requestParameters["end"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["start"] != null) {
+            queryParameters["start"] = requestParameters["start"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/customobjects/v1/collections/{collection_name}/{collection_version}/objects`
+                    .replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])))
+                    .replace(`{${"collection_version"}}`, encodeURIComponent(String(requestParameters["collectionVersion"]))),
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomType1255839303FromJSON(jsonValue));
+    }
+
+    /**
+     * List the object keys in the specified collection in alphabetical order
+     */
+    async listObjectsByVersion(
+        collectionName: string,
+        collectionVersion: string,
+        end?: string,
+        limit?: number,
+        start?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<CustomType1255839303> {
+        const response = await this.listObjectsByVersionRaw({ collectionName: collectionName, collectionVersion: collectionVersion, end: end, limit: limit, start: start }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get the list of schemas for the requested collection in reverse version order (latest first)
+     */
+    async listSchemasRaw(requestParameters: CustomStorageApiListSchemasRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomType1255839303>> {
+        if (requestParameters["collectionName"] == null) {
+            throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling listSchemas().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["end"] != null) {
+            queryParameters["end"] = requestParameters["end"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["start"] != null) {
+            queryParameters["start"] = requestParameters["start"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/customobjects/v1/collections/{collection_name}/schemas`.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"]))),
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomType1255839303FromJSON(jsonValue));
+    }
+
+    /**
+     * Get the list of schemas for the requested collection in reverse version order (latest first)
+     */
+    async listSchemas(collectionName: string, end?: string, limit?: number, start?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomType1255839303> {
+        const response = await this.listSchemasRaw({ collectionName: collectionName, end: end, limit: limit, start: start }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Get the metadata for the specified object
      */
     async metadataRaw(requestParameters: CustomStorageApiMetadataRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomStorageResponse>> {
@@ -249,6 +837,76 @@ export class CustomStorageApi extends runtime.BaseAPI {
      */
     async metadata(collectionName: string, objectKey: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomStorageResponse> {
         const response = await this.metadataRaw({ collectionName: collectionName, objectKey: objectKey }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Put the specified new object at the given key or overwrite an existing object at the given key
+     */
+    async putObjectByVersionRaw(
+        requestParameters: CustomStorageApiPutObjectByVersionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CustomType3191042536>> {
+        if (requestParameters["collectionName"] == null) {
+            throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling putObjectByVersion().');
+        }
+
+        if (requestParameters["collectionVersion"] == null) {
+            throw new runtime.RequiredError("collectionVersion", 'Required parameter "collectionVersion" was null or undefined when calling putObjectByVersion().');
+        }
+
+        if (requestParameters["objectKey"] == null) {
+            throw new runtime.RequiredError("objectKey", 'Required parameter "objectKey" was null or undefined when calling putObjectByVersion().');
+        }
+
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling putObjectByVersion().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["dryRun"] != null) {
+            queryParameters["dry_run"] = requestParameters["dryRun"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/octet-stream";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/customobjects/v1/collections/{collection_name}/{collection_version}/objects/{object_key}`
+                    .replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])))
+                    .replace(`{${"collection_version"}}`, encodeURIComponent(String(requestParameters["collectionVersion"])))
+                    .replace(`{${"object_key"}}`, encodeURIComponent(String(requestParameters["objectKey"]))),
+                method: "PUT",
+                headers: headerParameters,
+                query: queryParameters,
+                body: requestParameters["body"] as any,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomType3191042536FromJSON(jsonValue));
+    }
+
+    /**
+     * Put the specified new object at the given key or overwrite an existing object at the given key
+     */
+    async putObjectByVersion(
+        collectionName: string,
+        collectionVersion: string,
+        objectKey: string,
+        body: Blob,
+        dryRun?: boolean,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<CustomType3191042536> {
+        const response = await this.putObjectByVersionRaw({ collectionName: collectionName, collectionVersion: collectionVersion, objectKey: objectKey, body: body, dryRun: dryRun }, initOverrides);
         return await response.value();
     }
 
@@ -307,6 +965,84 @@ export class CustomStorageApi extends runtime.BaseAPI {
      */
     async search(collectionName: string, filter: string, limit?: number, offset?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomStorageResponse> {
         const response = await this.searchRaw({ collectionName: collectionName, filter: filter, limit: limit, offset: offset, sort: sort }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Search for objects that match the specified filter criteria (returns metadata, not actual objects)
+     */
+    async searchObjectsByVersionRaw(
+        requestParameters: CustomStorageApiSearchObjectsByVersionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CustomType3191042536>> {
+        if (requestParameters["collectionName"] == null) {
+            throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling searchObjectsByVersion().');
+        }
+
+        if (requestParameters["collectionVersion"] == null) {
+            throw new runtime.RequiredError("collectionVersion", 'Required parameter "collectionVersion" was null or undefined when calling searchObjectsByVersion().');
+        }
+
+        if (requestParameters["filter"] == null) {
+            throw new runtime.RequiredError("filter", 'Required parameter "filter" was null or undefined when calling searchObjectsByVersion().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/customobjects/v1/collections/{collection_name}/{collection_version}/objects`
+                    .replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])))
+                    .replace(`{${"collection_version"}}`, encodeURIComponent(String(requestParameters["collectionVersion"]))),
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomType3191042536FromJSON(jsonValue));
+    }
+
+    /**
+     * Search for objects that match the specified filter criteria (returns metadata, not actual objects)
+     */
+    async searchObjectsByVersion(
+        collectionName: string,
+        collectionVersion: string,
+        filter: string,
+        limit?: number,
+        offset?: number,
+        sort?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<CustomType3191042536> {
+        const response = await this.searchObjectsByVersionRaw(
+            { collectionName: collectionName, collectionVersion: collectionVersion, filter: filter, limit: limit, offset: offset, sort: sort },
+            initOverrides,
+        );
         return await response.value();
     }
 

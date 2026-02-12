@@ -13,6 +13,9 @@
  */
 
 import { mapValues } from "../runtime";
+import type { DomainAPIComplianceMappingV1 } from "./DomainAPIComplianceMappingV1";
+import { DomainAPIComplianceMappingV1FromJSON, DomainAPIComplianceMappingV1FromJSONTyped, DomainAPIComplianceMappingV1ToJSON } from "./DomainAPIComplianceMappingV1";
+
 /**
  *
  * @export
@@ -55,6 +58,12 @@ export interface DomainAPIRuleDetailsV1 {
      * @memberof DomainAPIRuleDetailsV1
      */
     benchmarkTitle: string;
+    /**
+     *
+     * @type {Array<DomainAPIComplianceMappingV1>}
+     * @memberof DomainAPIRuleDetailsV1
+     */
+    complianceMappings?: Array<DomainAPIComplianceMappingV1>;
     /**
      *
      * @type {string}
@@ -147,6 +156,7 @@ export function DomainAPIRuleDetailsV1FromJSONTyped(json: any, ignoreDiscriminat
         auditProcedure: json["audit_procedure"],
         authority: json["authority"],
         benchmarkTitle: json["benchmark_title"],
+        complianceMappings: json["compliance_mappings"] == null ? undefined : (json["compliance_mappings"] as Array<any>).map(DomainAPIComplianceMappingV1FromJSON),
         description: json["description"],
         id: json["id"],
         impactStatement: json["impact_statement"],
@@ -170,6 +180,7 @@ export function DomainAPIRuleDetailsV1ToJSON(value?: DomainAPIRuleDetailsV1 | nu
         audit_procedure: value["auditProcedure"],
         authority: value["authority"],
         benchmark_title: value["benchmarkTitle"],
+        compliance_mappings: value["complianceMappings"] == null ? undefined : (value["complianceMappings"] as Array<any>).map(DomainAPIComplianceMappingV1ToJSON),
         description: value["description"],
         id: value["id"],
         impact_statement: value["impactStatement"],

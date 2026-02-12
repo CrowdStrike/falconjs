@@ -126,7 +126,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["samplestore:write"]);
         }
 
         const response = await this.request(
@@ -174,7 +174,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["samplestore:read"]);
         }
 
         const response = await this.request(
@@ -227,7 +227,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["samplestore:read"]);
         }
 
         const response = await this.request(
@@ -291,7 +291,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["samplestore:write"]);
         }
 
         const response = await this.request(
@@ -345,7 +345,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["samplestore:write"]);
         }
 
         const consumes: runtime.Consume[] = [{ contentType: "multipart/form-data" }];
@@ -429,7 +429,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["samplestore:write"]);
         }
 
         const response = await this.request(
@@ -472,7 +472,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["samplestore:write"]);
         }
 
         const response = await this.request(
@@ -522,7 +522,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["samplestore:read"]);
         }
 
         const response = await this.request(
@@ -575,7 +575,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["samplestore:read"]);
         }
 
         const response = await this.request(
@@ -621,7 +621,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["samplestore:read"]);
         }
 
         const response = await this.request(
@@ -670,7 +670,7 @@ export class SampleUploadsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["samplestore:write"]);
         }
 
         const consumes: runtime.Consume[] = [{ contentType: "multipart/form-data" }, { contentType: "application/octet-stream" }];

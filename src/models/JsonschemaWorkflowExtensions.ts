@@ -26,6 +26,12 @@ export interface JsonschemaWorkflowExtensions {
      */
     description?: string;
     /**
+     * max file size allowed in bytes
+     * @type {number}
+     * @memberof JsonschemaWorkflowExtensions
+     */
+    maxFileSize?: number;
+    /**
      *
      * @type {string}
      * @memberof JsonschemaWorkflowExtensions
@@ -74,6 +80,7 @@ export function JsonschemaWorkflowExtensionsFromJSONTyped(json: any, ignoreDiscr
     }
     return {
         description: json["description"] == null ? undefined : json["description"],
+        maxFileSize: json["max_file_size"] == null ? undefined : json["max_file_size"],
         name: json["name"] == null ? undefined : json["name"],
         nodeId: json["node_id"] == null ? undefined : json["node_id"],
         system: json["system"] == null ? undefined : json["system"],
@@ -88,6 +95,7 @@ export function JsonschemaWorkflowExtensionsToJSON(value?: JsonschemaWorkflowExt
     }
     return {
         description: value["description"],
+        max_file_size: value["maxFileSize"],
         name: value["name"],
         node_id: value["nodeId"],
         system: value["system"],

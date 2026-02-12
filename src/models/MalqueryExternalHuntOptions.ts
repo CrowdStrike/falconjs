@@ -20,6 +20,12 @@ import { mapValues } from "../runtime";
  */
 export interface MalqueryExternalHuntOptions {
     /**
+     *
+     * @type {string}
+     * @memberof MalqueryExternalHuntOptions
+     */
+    app?: string;
+    /**
      * Limit results to files of certain types such as EMAIL, PCAP, PDF, PE32. Full list can be found in the documentation
      * @type {Array<string>}
      * @memberof MalqueryExternalHuntOptions
@@ -61,6 +67,12 @@ export interface MalqueryExternalHuntOptions {
      * @memberof MalqueryExternalHuntOptions
      */
     minSize?: string;
+    /**
+     * Limit results to files submitted by customer
+     * @type {boolean}
+     * @memberof MalqueryExternalHuntOptions
+     */
+    submittedByCustomer?: boolean;
 }
 
 /**
@@ -79,6 +91,7 @@ export function MalqueryExternalHuntOptionsFromJSONTyped(json: any, ignoreDiscri
         return json;
     }
     return {
+        app: json["app"] == null ? undefined : json["app"],
         filterFiletypes: json["filter_filetypes"] == null ? undefined : json["filter_filetypes"],
         filterMeta: json["filter_meta"] == null ? undefined : json["filter_meta"],
         limit: json["limit"] == null ? undefined : json["limit"],
@@ -86,6 +99,7 @@ export function MalqueryExternalHuntOptionsFromJSONTyped(json: any, ignoreDiscri
         maxSize: json["max_size"] == null ? undefined : json["max_size"],
         minDate: json["min_date"] == null ? undefined : json["min_date"],
         minSize: json["min_size"] == null ? undefined : json["min_size"],
+        submittedByCustomer: json["submitted_by_customer"] == null ? undefined : json["submitted_by_customer"],
     };
 }
 
@@ -94,6 +108,7 @@ export function MalqueryExternalHuntOptionsToJSON(value?: MalqueryExternalHuntOp
         return value;
     }
     return {
+        app: value["app"],
         filter_filetypes: value["filterFiletypes"],
         filter_meta: value["filterMeta"],
         limit: value["limit"],
@@ -101,5 +116,6 @@ export function MalqueryExternalHuntOptionsToJSON(value?: MalqueryExternalHuntOp
         max_size: value["maxSize"],
         min_date: value["minDate"],
         min_size: value["minSize"],
+        submitted_by_customer: value["submittedByCustomer"],
     };
 }

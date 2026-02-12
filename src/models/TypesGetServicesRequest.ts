@@ -28,6 +28,12 @@ import { TypesDeploymentUnitsTupleFiltersFromJSON, TypesDeploymentUnitsTupleFilt
 export interface TypesGetServicesRequest {
     /**
      *
+     * @type {Array<string>}
+     * @memberof TypesGetServicesRequest
+     */
+    cids?: Array<string>;
+    /**
+     *
      * @type {Array<TypesDeploymentUnitsTupleFilters>}
      * @memberof TypesGetServicesRequest
      */
@@ -104,6 +110,7 @@ export function TypesGetServicesRequestFromJSONTyped(json: any, ignoreDiscrimina
         return json;
     }
     return {
+        cids: json["cids"] == null ? undefined : json["cids"],
         deploymentTupleFilters: json["deploymentTupleFilters"] == null ? undefined : (json["deploymentTupleFilters"] as Array<any>).map(TypesDeploymentUnitsTupleFiltersFromJSON),
         nestingLevel: json["nestingLevel"] == null ? undefined : json["nestingLevel"],
         onlyCount: json["onlyCount"] == null ? undefined : json["onlyCount"],
@@ -122,6 +129,7 @@ export function TypesGetServicesRequestToJSON(value?: TypesGetServicesRequest | 
         return value;
     }
     return {
+        cids: value["cids"],
         deploymentTupleFilters: value["deploymentTupleFilters"] == null ? undefined : (value["deploymentTupleFilters"] as Array<any>).map(TypesDeploymentUnitsTupleFiltersToJSON),
         nestingLevel: value["nestingLevel"],
         onlyCount: value["onlyCount"],

@@ -111,6 +111,30 @@ export interface MessagesCase {
      * @type {string}
      * @memberof MessagesCase
      */
+    malwareSubmissionId: string;
+    /**
+     *
+     * @type {string}
+     * @memberof MessagesCase
+     */
+    malwareSubmissionUrl: string;
+    /**
+     *
+     * @type {string}
+     * @memberof MessagesCase
+     */
+    reconRuleType: string;
+    /**
+     *
+     * @type {string}
+     * @memberof MessagesCase
+     */
+    rfiId: string;
+    /**
+     *
+     * @type {string}
+     * @memberof MessagesCase
+     */
     status: string;
     /**
      *
@@ -143,6 +167,10 @@ export function instanceOfMessagesCase(value: object): value is MessagesCase {
     if (!("ipAddresses" in value) || value["ipAddresses"] === undefined) return false;
     if (!("key" in value) || value["key"] === undefined) return false;
     if (!("lastModifiedTime" in value) || value["lastModifiedTime"] === undefined) return false;
+    if (!("malwareSubmissionId" in value) || value["malwareSubmissionId"] === undefined) return false;
+    if (!("malwareSubmissionUrl" in value) || value["malwareSubmissionUrl"] === undefined) return false;
+    if (!("reconRuleType" in value) || value["reconRuleType"] === undefined) return false;
+    if (!("rfiId" in value) || value["rfiId"] === undefined) return false;
     if (!("status" in value) || value["status"] === undefined) return false;
     if (!("title" in value) || value["title"] === undefined) return false;
     if (!("type" in value) || value["type"] === undefined) return false;
@@ -171,6 +199,10 @@ export function MessagesCaseFromJSONTyped(json: any, ignoreDiscriminator: boolea
         ipAddresses: json["ip_addresses"],
         key: json["key"],
         lastModifiedTime: json["last_modified_time"],
+        malwareSubmissionId: json["malware_submission_id"],
+        malwareSubmissionUrl: json["malware_submission_url"],
+        reconRuleType: json["recon_rule_type"],
+        rfiId: json["rfi_id"],
         status: json["status"],
         title: json["title"],
         type: json["type"],
@@ -195,6 +227,10 @@ export function MessagesCaseToJSON(value?: MessagesCase | null): any {
         ip_addresses: value["ipAddresses"],
         key: value["key"],
         last_modified_time: value["lastModifiedTime"],
+        malware_submission_id: value["malwareSubmissionId"],
+        malware_submission_url: value["malwareSubmissionUrl"],
+        recon_rule_type: value["reconRuleType"],
+        rfi_id: value["rfiId"],
         status: value["status"],
         title: value["title"],
         type: value["type"],

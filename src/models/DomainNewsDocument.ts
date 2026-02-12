@@ -21,6 +21,8 @@ import type { DomainReportMalware } from "./DomainReportMalware";
 import { DomainReportMalwareFromJSON, DomainReportMalwareFromJSONTyped, DomainReportMalwareToJSON } from "./DomainReportMalware";
 import type { DomainFile } from "./DomainFile";
 import { DomainFileFromJSON, DomainFileFromJSONTyped, DomainFileToJSON } from "./DomainFile";
+import type { DomainEntity } from "./DomainEntity";
+import { DomainEntityFromJSON, DomainEntityFromJSONTyped, DomainEntityToJSON } from "./DomainEntity";
 
 /**
  *
@@ -47,7 +49,7 @@ export interface DomainNewsDocument {
      */
     attachments?: Array<DomainFile>;
     /**
-     * Date of the news document creation, unix timestampt
+     * Date of the news document creation, Unix timestamp
      * @type {number}
      * @memberof DomainNewsDocument
      */
@@ -60,10 +62,10 @@ export interface DomainNewsDocument {
     description?: string;
     /**
      * internal property used for permissions check of access, not returned or explicitly filterable
-     * @type {Array<object>}
+     * @type {Array<DomainEntity>}
      * @memberof DomainNewsDocument
      */
-    entitlements?: Array<object>;
+    entitlements?: Array<DomainEntity>;
     /**
      * Integer ID of the News document
      * @type {number}
@@ -77,7 +79,7 @@ export interface DomainNewsDocument {
      */
     image?: DomainImage;
     /**
-     * Date of the news document last modification, unix timestampt
+     * Date of the news document last modification, Unix timestamp
      * @type {number}
      * @memberof DomainNewsDocument
      */
@@ -90,10 +92,10 @@ export interface DomainNewsDocument {
     malware?: Array<DomainReportMalware>;
     /**
      * News mentioned motivation or motivation of related actors and malware families
-     * @type {Array<object>}
+     * @type {Array<DomainEntity>}
      * @memberof DomainNewsDocument
      */
-    motivations: Array<object>;
+    motivations: Array<DomainEntity>;
     /**
      * News title
      * @type {string}
@@ -107,11 +109,23 @@ export interface DomainNewsDocument {
      */
     notifyUsers?: boolean;
     /**
+     * Time it takes an average user to read the news content
+     * @type {number}
+     * @memberof DomainNewsDocument
+     */
+    readTimeInMinutes?: number;
+    /**
      * Rich text description with markup
      * @type {string}
      * @memberof DomainNewsDocument
      */
     richTextDescription?: string;
+    /**
+     * Rich text short description with markup
+     * @type {string}
+     * @memberof DomainNewsDocument
+     */
+    richTextShortDescription?: string;
     /**
      * Short description of the report content
      * @type {string}
@@ -126,28 +140,34 @@ export interface DomainNewsDocument {
     slug: string;
     /**
      *
-     * @type {object}
+     * @type {DomainEntity}
      * @memberof DomainNewsDocument
      */
-    subType?: object;
+    subType?: DomainEntity;
+    /**
+     * Summary of the report content
+     * @type {string}
+     * @memberof DomainNewsDocument
+     */
+    summary?: string;
     /**
      * News tags, which contains MITRE, Vulnerability community identifiers, capabilities, malware family name, customer target, activity cluster, notable event, geopolitical issue
-     * @type {Array<object>}
+     * @type {Array<DomainEntity>}
      * @memberof DomainNewsDocument
      */
-    tags: Array<object>;
+    tags: Array<DomainEntity>;
     /**
      * News mentioned target countries or related actor's target countries
-     * @type {Array<object>}
+     * @type {Array<DomainEntity>}
      * @memberof DomainNewsDocument
      */
-    targetCountries: Array<object>;
+    targetCountries: Array<DomainEntity>;
     /**
      * News mentioned target industries or related actor's target industries
-     * @type {Array<object>}
+     * @type {Array<DomainEntity>}
      * @memberof DomainNewsDocument
      */
-    targetIndustries: Array<object>;
+    targetIndustries: Array<DomainEntity>;
     /**
      *
      * @type {DomainImage}
@@ -156,16 +176,16 @@ export interface DomainNewsDocument {
     thumbnail: DomainImage;
     /**
      *
-     * @type {object}
+     * @type {DomainEntity}
      * @memberof DomainNewsDocument
      */
-    topic?: object;
+    topic?: DomainEntity;
     /**
      *
-     * @type {object}
+     * @type {DomainEntity}
      * @memberof DomainNewsDocument
      */
-    type?: object;
+    type?: DomainEntity;
     /**
      * URL of the news document where it can be accessed in the Falcon Portal
      * @type {string}
@@ -206,24 +226,27 @@ export function DomainNewsDocumentFromJSONTyped(json: any, ignoreDiscriminator: 
         attachments: json["attachments"] == null ? undefined : (json["attachments"] as Array<any>).map(DomainFileFromJSON),
         createdDate: json["created_date"],
         description: json["description"] == null ? undefined : json["description"],
-        entitlements: json["entitlements"] == null ? undefined : json["entitlements"],
+        entitlements: json["entitlements"] == null ? undefined : (json["entitlements"] as Array<any>).map(DomainEntityFromJSON),
         id: json["id"],
         image: json["image"] == null ? undefined : DomainImageFromJSON(json["image"]),
         lastModifiedDate: json["last_modified_date"],
         malware: json["malware"] == null ? undefined : (json["malware"] as Array<any>).map(DomainReportMalwareFromJSON),
-        motivations: json["motivations"],
+        motivations: (json["motivations"] as Array<any>).map(DomainEntityFromJSON),
         name: json["name"],
         notifyUsers: json["notify_users"] == null ? undefined : json["notify_users"],
+        readTimeInMinutes: json["read_time_in_minutes"] == null ? undefined : json["read_time_in_minutes"],
         richTextDescription: json["rich_text_description"] == null ? undefined : json["rich_text_description"],
+        richTextShortDescription: json["rich_text_short_description"] == null ? undefined : json["rich_text_short_description"],
         shortDescription: json["short_description"] == null ? undefined : json["short_description"],
         slug: json["slug"],
-        subType: json["sub_type"] == null ? undefined : json["sub_type"],
-        tags: json["tags"],
-        targetCountries: json["target_countries"],
-        targetIndustries: json["target_industries"],
+        subType: json["sub_type"] == null ? undefined : DomainEntityFromJSON(json["sub_type"]),
+        summary: json["summary"] == null ? undefined : json["summary"],
+        tags: (json["tags"] as Array<any>).map(DomainEntityFromJSON),
+        targetCountries: (json["target_countries"] as Array<any>).map(DomainEntityFromJSON),
+        targetIndustries: (json["target_industries"] as Array<any>).map(DomainEntityFromJSON),
         thumbnail: DomainImageFromJSON(json["thumbnail"]),
-        topic: json["topic"] == null ? undefined : json["topic"],
-        type: json["type"] == null ? undefined : json["type"],
+        topic: json["topic"] == null ? undefined : DomainEntityFromJSON(json["topic"]),
+        type: json["type"] == null ? undefined : DomainEntityFromJSON(json["type"]),
         url: json["url"] == null ? undefined : json["url"],
     };
 }
@@ -238,24 +261,27 @@ export function DomainNewsDocumentToJSON(value?: DomainNewsDocument | null): any
         attachments: value["attachments"] == null ? undefined : (value["attachments"] as Array<any>).map(DomainFileToJSON),
         created_date: value["createdDate"],
         description: value["description"],
-        entitlements: value["entitlements"],
+        entitlements: value["entitlements"] == null ? undefined : (value["entitlements"] as Array<any>).map(DomainEntityToJSON),
         id: value["id"],
         image: DomainImageToJSON(value["image"]),
         last_modified_date: value["lastModifiedDate"],
         malware: value["malware"] == null ? undefined : (value["malware"] as Array<any>).map(DomainReportMalwareToJSON),
-        motivations: value["motivations"],
+        motivations: (value["motivations"] as Array<any>).map(DomainEntityToJSON),
         name: value["name"],
         notify_users: value["notifyUsers"],
+        read_time_in_minutes: value["readTimeInMinutes"],
         rich_text_description: value["richTextDescription"],
+        rich_text_short_description: value["richTextShortDescription"],
         short_description: value["shortDescription"],
         slug: value["slug"],
-        sub_type: value["subType"],
-        tags: value["tags"],
-        target_countries: value["targetCountries"],
-        target_industries: value["targetIndustries"],
+        sub_type: DomainEntityToJSON(value["subType"]),
+        summary: value["summary"],
+        tags: (value["tags"] as Array<any>).map(DomainEntityToJSON),
+        target_countries: (value["targetCountries"] as Array<any>).map(DomainEntityToJSON),
+        target_industries: (value["targetIndustries"] as Array<any>).map(DomainEntityToJSON),
         thumbnail: DomainImageToJSON(value["thumbnail"]),
-        topic: value["topic"],
-        type: value["type"],
+        topic: DomainEntityToJSON(value["topic"]),
+        type: DomainEntityToJSON(value["type"]),
         url: value["url"],
     };
 }

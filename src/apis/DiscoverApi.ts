@@ -149,7 +149,7 @@ export class DiscoverApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
         }
 
         const response = await this.request(
@@ -217,7 +217,7 @@ export class DiscoverApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
         }
 
         const response = await this.request(
@@ -269,7 +269,7 @@ export class DiscoverApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
         }
 
         const response = await this.request(
@@ -314,7 +314,7 @@ export class DiscoverApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
         }
 
         const response = await this.request(
@@ -356,7 +356,7 @@ export class DiscoverApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
         }
 
         const response = await this.request(
@@ -401,7 +401,7 @@ export class DiscoverApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
         }
 
         const response = await this.request(
@@ -451,7 +451,7 @@ export class DiscoverApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
         }
 
         const response = await this.request(
@@ -501,7 +501,7 @@ export class DiscoverApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
         }
 
         const response = await this.request(
@@ -551,7 +551,7 @@ export class DiscoverApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
         }
 
         const response = await this.request(
@@ -576,6 +576,7 @@ export class DiscoverApi extends runtime.BaseAPI {
     }
 
     /**
+     * The API endpoint returns data only if the response set includes 10,000 or fewer items. This limit applies to the total API response size, regardless of your pagination sizes with the `limit` and `offset` parameters. If your response set includes more than 10,000 items, the CrowdStrike API returns an HTML 400 response instead. To avoid this issue, use the filter parameter to reduce the total number of items in the API response.
      * Search for logins in your environment by providing an FQL (Falcon Query Language) filter and paging details. Returns a set of login IDs which match the filter criteria.
      */
     async queryLoginsRaw(requestParameters: DiscoverApiQueryLoginsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
@@ -601,7 +602,7 @@ export class DiscoverApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
         }
 
         const response = await this.request(
@@ -618,6 +619,7 @@ export class DiscoverApi extends runtime.BaseAPI {
     }
 
     /**
+     * The API endpoint returns data only if the response set includes 10,000 or fewer items. This limit applies to the total API response size, regardless of your pagination sizes with the `limit` and `offset` parameters. If your response set includes more than 10,000 items, the CrowdStrike API returns an HTML 400 response instead. To avoid this issue, use the filter parameter to reduce the total number of items in the API response.
      * Search for logins in your environment by providing an FQL (Falcon Query Language) filter and paging details. Returns a set of login IDs which match the filter criteria.
      */
     async queryLogins(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {

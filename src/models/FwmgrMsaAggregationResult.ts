@@ -13,6 +13,8 @@
  */
 
 import { mapValues } from "../runtime";
+import type { FwmgrMsaHits } from "./FwmgrMsaHits";
+import { FwmgrMsaHitsFromJSON, FwmgrMsaHitsFromJSONTyped, FwmgrMsaHitsToJSON } from "./FwmgrMsaHits";
 import type { FwmgrMsaAggregationResultItem } from "./FwmgrMsaAggregationResultItem";
 import { FwmgrMsaAggregationResultItemFromJSON, FwmgrMsaAggregationResultItemFromJSONTyped, FwmgrMsaAggregationResultItemToJSON } from "./FwmgrMsaAggregationResultItem";
 
@@ -27,13 +29,19 @@ export interface FwmgrMsaAggregationResult {
      * @type {Array<FwmgrMsaAggregationResultItem>}
      * @memberof FwmgrMsaAggregationResult
      */
-    buckets?: Array<FwmgrMsaAggregationResultItem>;
+    buckets: Array<FwmgrMsaAggregationResultItem>;
     /**
      *
      * @type {number}
      * @memberof FwmgrMsaAggregationResult
      */
     docCountErrorUpperBound?: number;
+    /**
+     *
+     * @type {FwmgrMsaHits}
+     * @memberof FwmgrMsaAggregationResult
+     */
+    hits?: FwmgrMsaHits;
     /**
      *
      * @type {string}
@@ -52,6 +60,7 @@ export interface FwmgrMsaAggregationResult {
  * Check if a given object implements the FwmgrMsaAggregationResult interface.
  */
 export function instanceOfFwmgrMsaAggregationResult(value: object): value is FwmgrMsaAggregationResult {
+    if (!("buckets" in value) || value["buckets"] === undefined) return false;
     if (!("name" in value) || value["name"] === undefined) return false;
     return true;
 }
@@ -65,8 +74,9 @@ export function FwmgrMsaAggregationResultFromJSONTyped(json: any, ignoreDiscrimi
         return json;
     }
     return {
-        buckets: json["buckets"] == null ? undefined : (json["buckets"] as Array<any>).map(FwmgrMsaAggregationResultItemFromJSON),
+        buckets: (json["buckets"] as Array<any>).map(FwmgrMsaAggregationResultItemFromJSON),
         docCountErrorUpperBound: json["doc_count_error_upper_bound"] == null ? undefined : json["doc_count_error_upper_bound"],
+        hits: json["hits"] == null ? undefined : FwmgrMsaHitsFromJSON(json["hits"]),
         name: json["name"],
         sumOtherDocCount: json["sum_other_doc_count"] == null ? undefined : json["sum_other_doc_count"],
     };
@@ -77,8 +87,9 @@ export function FwmgrMsaAggregationResultToJSON(value?: FwmgrMsaAggregationResul
         return value;
     }
     return {
-        buckets: value["buckets"] == null ? undefined : (value["buckets"] as Array<any>).map(FwmgrMsaAggregationResultItemToJSON),
+        buckets: (value["buckets"] as Array<any>).map(FwmgrMsaAggregationResultItemToJSON),
         doc_count_error_upper_bound: value["docCountErrorUpperBound"],
+        hits: FwmgrMsaHitsToJSON(value["hits"]),
         name: value["name"],
         sum_other_doc_count: value["sumOtherDocCount"],
     };

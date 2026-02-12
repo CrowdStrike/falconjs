@@ -17,6 +17,8 @@ import type { DomainExecutionMetadataV1 } from "./DomainExecutionMetadataV1";
 import { DomainExecutionMetadataV1FromJSON, DomainExecutionMetadataV1FromJSONTyped, DomainExecutionMetadataV1ToJSON } from "./DomainExecutionMetadataV1";
 import type { DomainResultMetadata } from "./DomainResultMetadata";
 import { DomainResultMetadataFromJSON, DomainResultMetadataFromJSONTyped, DomainResultMetadataToJSON } from "./DomainResultMetadata";
+import type { DomainSecretReferencesV1 } from "./DomainSecretReferencesV1";
+import { DomainSecretReferencesV1FromJSON, DomainSecretReferencesV1FromJSONTyped, DomainSecretReferencesV1ToJSON } from "./DomainSecretReferencesV1";
 import type { DomainReportParams } from "./DomainReportParams";
 import { DomainReportParamsFromJSON, DomainReportParamsFromJSONTyped, DomainReportParamsToJSON } from "./DomainReportParams";
 
@@ -98,6 +100,12 @@ export interface DomainReportExecutionV1 {
      * @memberof DomainReportExecutionV1
      */
     scheduledReportId: string;
+    /**
+     *
+     * @type {DomainSecretReferencesV1}
+     * @memberof DomainReportExecutionV1
+     */
+    secretReferences?: DomainSecretReferencesV1;
     /**
      *
      * @type {Array<string>}
@@ -196,6 +204,7 @@ export function DomainReportExecutionV1FromJSONTyped(json: any, ignoreDiscrimina
         reportParams: DomainReportParamsFromJSON(json["report_params"]),
         resultMetadata: json["result_metadata"] == null ? undefined : DomainResultMetadataFromJSON(json["result_metadata"]),
         scheduledReportId: json["scheduled_report_id"],
+        secretReferences: json["secret_references"] == null ? undefined : DomainSecretReferencesV1FromJSON(json["secret_references"]),
         sharedWith: json["shared_with"],
         status: json["status"],
         statusDisplay: json["status_display"],
@@ -225,6 +234,7 @@ export function DomainReportExecutionV1ToJSON(value?: DomainReportExecutionV1 | 
         report_params: DomainReportParamsToJSON(value["reportParams"]),
         result_metadata: DomainResultMetadataToJSON(value["resultMetadata"]),
         scheduled_report_id: value["scheduledReportId"],
+        secret_references: DomainSecretReferencesV1ToJSON(value["secretReferences"]),
         shared_with: value["sharedWith"],
         status: value["status"],
         status_display: value["statusDisplay"],

@@ -15,6 +15,8 @@
 import { mapValues } from "../runtime";
 import type { GraphCondition } from "./GraphCondition";
 import { GraphConditionFromJSON, GraphConditionFromJSONTyped, GraphConditionToJSON } from "./GraphCondition";
+import type { GraphNodePosition } from "./GraphNodePosition";
+import { GraphNodePositionFromJSON, GraphNodePositionFromJSONTyped, GraphNodePositionToJSON } from "./GraphNodePosition";
 
 /**
  *
@@ -29,17 +31,17 @@ export interface GraphFlow {
      */
     condition?: GraphCondition;
     /**
+     *
+     * @type {GraphNodePosition}
+     * @memberof GraphFlow
+     */
+    position?: GraphNodePosition;
+    /**
      * Reference to the ID of the node that is the source of the flow.
      * @type {string}
      * @memberof GraphFlow
      */
     source: string;
-    /**
-     * Alias for the source of the flow.
-     * @type {string}
-     * @memberof GraphFlow
-     */
-    sourceAlias?: string;
     /**
      * Reference to the ID of the node that is the target of the flow.
      * @type {string}
@@ -67,8 +69,8 @@ export function GraphFlowFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     }
     return {
         condition: json["condition"] == null ? undefined : GraphConditionFromJSON(json["condition"]),
+        position: json["position"] == null ? undefined : GraphNodePositionFromJSON(json["position"]),
         source: json["source"],
-        sourceAlias: json["source_alias"] == null ? undefined : json["source_alias"],
         target: json["target"],
     };
 }
@@ -79,8 +81,8 @@ export function GraphFlowToJSON(value?: GraphFlow | null): any {
     }
     return {
         condition: GraphConditionToJSON(value["condition"]),
+        position: GraphNodePositionToJSON(value["position"]),
         source: value["source"],
-        source_alias: value["sourceAlias"],
         target: value["target"],
     };
 }

@@ -16,50 +16,50 @@ import { mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface FwmgrApiJsonDiff
+ * @interface FwmgrApiJSONDiff
  */
-export interface FwmgrApiJsonDiff {
+export interface FwmgrApiJSONDiff {
     /**
      *
      * @type {string}
-     * @memberof FwmgrApiJsonDiff
+     * @memberof FwmgrApiJSONDiff
      */
     from?: string;
     /**
      *
      * @type {string}
-     * @memberof FwmgrApiJsonDiff
+     * @memberof FwmgrApiJSONDiff
      */
     op: string;
     /**
      *
      * @type {string}
-     * @memberof FwmgrApiJsonDiff
+     * @memberof FwmgrApiJSONDiff
      */
     path: string;
     /**
      *
      * @type {object}
-     * @memberof FwmgrApiJsonDiff
+     * @memberof FwmgrApiJSONDiff
      */
     value: object;
 }
 
 /**
- * Check if a given object implements the FwmgrApiJsonDiff interface.
+ * Check if a given object implements the FwmgrApiJSONDiff interface.
  */
-export function instanceOfFwmgrApiJsonDiff(value: object): value is FwmgrApiJsonDiff {
+export function instanceOfFwmgrApiJSONDiff(value: object): value is FwmgrApiJSONDiff {
     if (!("op" in value) || value["op"] === undefined) return false;
     if (!("path" in value) || value["path"] === undefined) return false;
     if (!("value" in value) || value["value"] === undefined) return false;
     return true;
 }
 
-export function FwmgrApiJsonDiffFromJSON(json: any): FwmgrApiJsonDiff {
-    return FwmgrApiJsonDiffFromJSONTyped(json, false);
+export function FwmgrApiJSONDiffFromJSON(json: any): FwmgrApiJSONDiff {
+    return FwmgrApiJSONDiffFromJSONTyped(json, false);
 }
 
-export function FwmgrApiJsonDiffFromJSONTyped(json: any, ignoreDiscriminator: boolean): FwmgrApiJsonDiff {
+export function FwmgrApiJSONDiffFromJSONTyped(json: any, ignoreDiscriminator: boolean): FwmgrApiJSONDiff {
     if (json == null) {
         return json;
     }
@@ -71,7 +71,7 @@ export function FwmgrApiJsonDiffFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function FwmgrApiJsonDiffToJSON(value?: FwmgrApiJsonDiff | null): any {
+export function FwmgrApiJSONDiffToJSON(value?: FwmgrApiJSONDiff | null): any {
     if (value == null) {
         return value;
     }

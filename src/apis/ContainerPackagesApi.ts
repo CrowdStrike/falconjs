@@ -13,7 +13,16 @@
  */
 
 import * as runtime from "../runtime";
-import type { CommonCountResponse, CoreEntitiesResponse, MsaReplyMetaOnly, PackagesApiCombinedPackage, PackagesApiCombinedPackageExport, PackagesApiPackagesByVulnCount } from "../models/index";
+import type {
+    CommonCountResponse,
+    CoreEntitiesResponse,
+    MsaReplyMetaOnly,
+    PackagesApiCombinedPackage,
+    PackagesApiCombinedPackageExport,
+    PackagesApiCombinedPackageV2,
+    PackagesApiPackagesByImageCount,
+    PackagesApiPackagesByVulnCount,
+} from "../models/index";
 import {
     CommonCountResponseFromJSON,
     CommonCountResponseToJSON,
@@ -25,6 +34,10 @@ import {
     PackagesApiCombinedPackageToJSON,
     PackagesApiCombinedPackageExportFromJSON,
     PackagesApiCombinedPackageExportToJSON,
+    PackagesApiCombinedPackageV2FromJSON,
+    PackagesApiCombinedPackageV2ToJSON,
+    PackagesApiPackagesByImageCountFromJSON,
+    PackagesApiPackagesByImageCountToJSON,
     PackagesApiPackagesByVulnCountFromJSON,
     PackagesApiPackagesByVulnCountToJSON,
 } from "../models/index";
@@ -33,6 +46,11 @@ export interface ContainerPackagesApiReadPackagesByFixableVulnCountRequest {
     filter?: string;
     limit?: number;
     offset?: number;
+}
+
+export interface ContainerPackagesApiReadPackagesByImageCountRequest {
+    filter?: string;
+    limit?: number;
 }
 
 export interface ContainerPackagesApiReadPackagesByVulnCountRequest {
@@ -44,17 +62,25 @@ export interface ContainerPackagesApiReadPackagesByVulnCountRequest {
 export interface ContainerPackagesApiReadPackagesCombinedRequest {
     filter?: string;
     onlyZeroDayAffected?: boolean;
+    sort?: string;
     limit?: number;
     offset?: number;
-    sort?: string;
 }
 
 export interface ContainerPackagesApiReadPackagesCombinedExportRequest {
     filter?: string;
     onlyZeroDayAffected?: boolean;
+    sort?: string;
     limit?: number;
     offset?: number;
+}
+
+export interface ContainerPackagesApiReadPackagesCombinedV2Request {
+    filter?: string;
+    onlyZeroDayAffected?: boolean;
     sort?: string;
+    limit?: number;
+    offset?: number;
 }
 
 export interface ContainerPackagesApiReadPackagesCountByZeroDayRequest {
@@ -90,7 +116,7 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -111,6 +137,51 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
      */
     async readPackagesByFixableVulnCount(filter?: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PackagesApiPackagesByVulnCount> {
         const response = await this.readPackagesByFixableVulnCountRaw({ filter: filter, limit: limit, offset: offset }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieves the N most frequently used packages across images
+     */
+    async readPackagesByImageCountRaw(
+        requestParameters: ContainerPackagesApiReadPackagesByImageCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PackagesApiPackagesByImageCount>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/packages/by-image-count/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => PackagesApiPackagesByImageCountFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieves the N most frequently used packages across images
+     */
+    async readPackagesByImageCount(filter?: string, limit?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PackagesApiPackagesByImageCount> {
+        const response = await this.readPackagesByImageCountRaw({ filter: filter, limit: limit }, initOverrides);
         return await response.value();
     }
 
@@ -139,7 +210,7 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -180,6 +251,10 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
             queryParameters["only_zero_day_affected"] = requestParameters["onlyZeroDayAffected"];
         }
 
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
         if (requestParameters["limit"] != null) {
             queryParameters["limit"] = requestParameters["limit"];
         }
@@ -188,15 +263,11 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
             queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters["sort"] != null) {
-            queryParameters["sort"] = requestParameters["sort"];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -218,17 +289,17 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
     async readPackagesCombined(
         filter?: string,
         onlyZeroDayAffected?: boolean,
+        sort?: string,
         limit?: number,
         offset?: number,
-        sort?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<PackagesApiCombinedPackage> {
-        const response = await this.readPackagesCombinedRaw({ filter: filter, onlyZeroDayAffected: onlyZeroDayAffected, limit: limit, offset: offset, sort: sort }, initOverrides);
+        const response = await this.readPackagesCombinedRaw({ filter: filter, onlyZeroDayAffected: onlyZeroDayAffected, sort: sort, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }
 
     /**
-     * Retrieve packages identified by the provided filter criteria for the purpose of export
+     * Retrieves a paginated list of packages identified by the provided filter criteria,used for export.Maximum page size: 100. Maximum available packages: 10,000
      */
     async readPackagesCombinedExportRaw(
         requestParameters: ContainerPackagesApiReadPackagesCombinedExportRequest,
@@ -244,6 +315,10 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
             queryParameters["only_zero_day_affected"] = requestParameters["onlyZeroDayAffected"];
         }
 
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
         if (requestParameters["limit"] != null) {
             queryParameters["limit"] = requestParameters["limit"];
         }
@@ -252,15 +327,11 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
             queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters["sort"] != null) {
-            queryParameters["sort"] = requestParameters["sort"];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -277,17 +348,81 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve packages identified by the provided filter criteria for the purpose of export
+     * Retrieves a paginated list of packages identified by the provided filter criteria,used for export.Maximum page size: 100. Maximum available packages: 10,000
      */
     async readPackagesCombinedExport(
         filter?: string,
         onlyZeroDayAffected?: boolean,
+        sort?: string,
         limit?: number,
         offset?: number,
-        sort?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<PackagesApiCombinedPackageExport> {
-        const response = await this.readPackagesCombinedExportRaw({ filter: filter, onlyZeroDayAffected: onlyZeroDayAffected, limit: limit, offset: offset, sort: sort }, initOverrides);
+        const response = await this.readPackagesCombinedExportRaw({ filter: filter, onlyZeroDayAffected: onlyZeroDayAffected, sort: sort, limit: limit, offset: offset }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve packages identified by the provided filter criteria
+     */
+    async readPackagesCombinedV2Raw(
+        requestParameters: ContainerPackagesApiReadPackagesCombinedV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PackagesApiCombinedPackageV2>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["onlyZeroDayAffected"] != null) {
+            queryParameters["only_zero_day_affected"] = requestParameters["onlyZeroDayAffected"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/combined/packages/v2`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => PackagesApiCombinedPackageV2FromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve packages identified by the provided filter criteria
+     */
+    async readPackagesCombinedV2(
+        filter?: string,
+        onlyZeroDayAffected?: boolean,
+        sort?: string,
+        limit?: number,
+        offset?: number,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<PackagesApiCombinedPackageV2> {
+        const response = await this.readPackagesCombinedV2Raw({ filter: filter, onlyZeroDayAffected: onlyZeroDayAffected, sort: sort, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }
 
@@ -308,7 +443,7 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(

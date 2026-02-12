@@ -30,7 +30,7 @@ export interface ModelsPackageInfoType {
      * @type {number}
      * @memberof ModelsPackageInfoType
      */
-    layerIndex?: number;
+    layerIndex: number;
     /**
      *
      * @type {string}
@@ -85,6 +85,7 @@ export interface ModelsPackageInfoType {
  * Check if a given object implements the ModelsPackageInfoType interface.
  */
 export function instanceOfModelsPackageInfoType(value: object): value is ModelsPackageInfoType {
+    if (!("layerIndex" in value) || value["layerIndex"] === undefined) return false;
     return true;
 }
 
@@ -98,7 +99,7 @@ export function ModelsPackageInfoTypeFromJSONTyped(json: any, ignoreDiscriminato
     }
     return {
         layerHash: json["LayerHash"] == null ? undefined : json["LayerHash"],
-        layerIndex: json["LayerIndex"] == null ? undefined : json["LayerIndex"],
+        layerIndex: json["LayerIndex"],
         majorVersion: json["MajorVersion"] == null ? undefined : json["MajorVersion"],
         packageHash: json["PackageHash"] == null ? undefined : json["PackageHash"],
         packageProvider: json["PackageProvider"] == null ? undefined : json["PackageProvider"],

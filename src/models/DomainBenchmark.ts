@@ -21,6 +21,12 @@ import { mapValues } from "../runtime";
 export interface DomainBenchmark {
     /**
      *
+     * @type {Array<string>}
+     * @memberof DomainBenchmark
+     */
+    applicableProfiles?: Array<string>;
+    /**
+     *
      * @type {string}
      * @memberof DomainBenchmark
      */
@@ -58,6 +64,7 @@ export function DomainBenchmarkFromJSONTyped(json: any, ignoreDiscriminator: boo
         return json;
     }
     return {
+        applicableProfiles: json["applicable_profiles"] == null ? undefined : json["applicable_profiles"],
         benchmarkShort: json["benchmark_short"],
         id: json["id"],
         recommendationNumber: json["recommendation_number"],
@@ -69,6 +76,7 @@ export function DomainBenchmarkToJSON(value?: DomainBenchmark | null): any {
         return value;
     }
     return {
+        applicable_profiles: value["applicableProfiles"],
         benchmark_short: value["benchmarkShort"],
         id: value["id"],
         recommendation_number: value["recommendationNumber"],

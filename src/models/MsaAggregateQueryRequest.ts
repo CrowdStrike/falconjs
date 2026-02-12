@@ -13,6 +13,8 @@
  */
 
 import { mapValues } from "../runtime";
+import type { MsaAPIFiltersSpec } from "./MsaAPIFiltersSpec";
+import { MsaAPIFiltersSpecFromJSON, MsaAPIFiltersSpecFromJSONTyped, MsaAPIFiltersSpecToJSON } from "./MsaAPIFiltersSpec";
 import type { MsaDateRangeSpec } from "./MsaDateRangeSpec";
 import { MsaDateRangeSpecFromJSON, MsaDateRangeSpecFromJSONTyped, MsaDateRangeSpecToJSON } from "./MsaDateRangeSpec";
 import type { MsaExtendedBoundsSpec } from "./MsaExtendedBoundsSpec";
@@ -58,6 +60,12 @@ export interface MsaAggregateQueryRequest {
     filter: string;
     /**
      *
+     * @type {MsaAPIFiltersSpec}
+     * @memberof MsaAggregateQueryRequest
+     */
+    filtersSpec: MsaAPIFiltersSpec;
+    /**
+     *
      * @type {number}
      * @memberof MsaAggregateQueryRequest
      */
@@ -98,6 +106,12 @@ export interface MsaAggregateQueryRequest {
      * @memberof MsaAggregateQueryRequest
      */
     name: string;
+    /**
+     *
+     * @type {Array<number>}
+     * @memberof MsaAggregateQueryRequest
+     */
+    percents: Array<number>;
     /**
      *
      * @type {string}
@@ -150,11 +164,13 @@ export function instanceOfMsaAggregateQueryRequest(value: object): value is MsaA
     if (!("exclude" in value) || value["exclude"] === undefined) return false;
     if (!("field" in value) || value["field"] === undefined) return false;
     if (!("filter" in value) || value["filter"] === undefined) return false;
+    if (!("filtersSpec" in value) || value["filtersSpec"] === undefined) return false;
     if (!("from" in value) || value["from"] === undefined) return false;
     if (!("include" in value) || value["include"] === undefined) return false;
     if (!("interval" in value) || value["interval"] === undefined) return false;
     if (!("missing" in value) || value["missing"] === undefined) return false;
     if (!("name" in value) || value["name"] === undefined) return false;
+    if (!("percents" in value) || value["percents"] === undefined) return false;
     if (!("q" in value) || value["q"] === undefined) return false;
     if (!("ranges" in value) || value["ranges"] === undefined) return false;
     if (!("size" in value) || value["size"] === undefined) return false;
@@ -179,6 +195,7 @@ export function MsaAggregateQueryRequestFromJSONTyped(json: any, ignoreDiscrimin
         extendedBounds: json["extended_bounds"] == null ? undefined : MsaExtendedBoundsSpecFromJSON(json["extended_bounds"]),
         field: json["field"],
         filter: json["filter"],
+        filtersSpec: MsaAPIFiltersSpecFromJSON(json["filters_spec"]),
         from: json["from"],
         include: json["include"],
         interval: json["interval"],
@@ -186,6 +203,7 @@ export function MsaAggregateQueryRequestFromJSONTyped(json: any, ignoreDiscrimin
         minDocCount: json["min_doc_count"] == null ? undefined : json["min_doc_count"],
         missing: json["missing"],
         name: json["name"],
+        percents: json["percents"],
         q: json["q"],
         ranges: (json["ranges"] as Array<any>).map(MsaRangeSpecFromJSON),
         size: json["size"],
@@ -206,6 +224,7 @@ export function MsaAggregateQueryRequestToJSON(value?: MsaAggregateQueryRequest 
         extended_bounds: MsaExtendedBoundsSpecToJSON(value["extendedBounds"]),
         field: value["field"],
         filter: value["filter"],
+        filters_spec: MsaAPIFiltersSpecToJSON(value["filtersSpec"]),
         from: value["from"],
         include: value["include"],
         interval: value["interval"],
@@ -213,6 +232,7 @@ export function MsaAggregateQueryRequestToJSON(value?: MsaAggregateQueryRequest 
         min_doc_count: value["minDocCount"],
         missing: value["missing"],
         name: value["name"],
+        percents: value["percents"],
         q: value["q"],
         ranges: (value["ranges"] as Array<any>).map(MsaRangeSpecToJSON),
         size: value["size"],

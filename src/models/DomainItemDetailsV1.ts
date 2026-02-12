@@ -23,6 +23,8 @@ import type { DomainMarketplaceProduct } from "./DomainMarketplaceProduct";
 import { DomainMarketplaceProductFromJSON, DomainMarketplaceProductFromJSONTyped, DomainMarketplaceProductToJSON } from "./DomainMarketplaceProduct";
 import type { DomainAttachment } from "./DomainAttachment";
 import { DomainAttachmentFromJSON, DomainAttachmentFromJSONTyped, DomainAttachmentToJSON } from "./DomainAttachment";
+import type { DomainScreenshot } from "./DomainScreenshot";
+import { DomainScreenshotFromJSON, DomainScreenshotFromJSONTyped, DomainScreenshotToJSON } from "./DomainScreenshot";
 
 /**
  *
@@ -133,6 +135,12 @@ export interface DomainItemDetailsV1 {
      */
     mimeType?: string;
     /**
+     * Screenshots of the raw intelligence item
+     * @type {Array<DomainScreenshot>}
+     * @memberof DomainItemDetailsV1
+     */
+    screenshots?: Array<DomainScreenshot>;
+    /**
      * The SHA256 hash for the file
      * @type {string}
      * @memberof DomainItemDetailsV1
@@ -239,6 +247,7 @@ export function DomainItemDetailsV1FromJSONTyped(json: any, ignoreDiscriminator:
         language: json["language"] == null ? undefined : json["language"],
         marketplaceProduct: json["marketplace_product"] == null ? undefined : DomainMarketplaceProductFromJSON(json["marketplace_product"]),
         mimeType: json["mime_type"] == null ? undefined : json["mime_type"],
+        screenshots: json["screenshots"] == null ? undefined : (json["screenshots"] as Array<any>).map(DomainScreenshotFromJSON),
         sha256: json["sha256"] == null ? undefined : json["sha256"],
         site: json["site"] == null ? undefined : json["site"],
         siteId: json["site_id"],
@@ -275,6 +284,7 @@ export function DomainItemDetailsV1ToJSON(value?: DomainItemDetailsV1 | null): a
         language: value["language"],
         marketplace_product: DomainMarketplaceProductToJSON(value["marketplaceProduct"]),
         mime_type: value["mimeType"],
+        screenshots: value["screenshots"] == null ? undefined : (value["screenshots"] as Array<any>).map(DomainScreenshotToJSON),
         sha256: value["sha256"],
         site: value["site"],
         site_id: value["siteId"],

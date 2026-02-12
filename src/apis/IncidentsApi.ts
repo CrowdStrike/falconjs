@@ -85,7 +85,7 @@ export interface IncidentsApiQueryIncidentsRequest {
  */
 export class IncidentsApi extends runtime.BaseAPI {
     /**
-     * Query environment wide CrowdScore and return the entity data
+     * DEPRECATED: the incidentapi will be removed in March 2026. Query environment wide CrowdScore and return the entity data
      */
     async crowdScoreRaw(requestParameters: IncidentsApiCrowdScoreRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainMsaEnvironmentScoreResponse>> {
         const queryParameters: any = {};
@@ -110,7 +110,7 @@ export class IncidentsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["incidents:read"]);
         }
 
         const response = await this.request(
@@ -127,7 +127,7 @@ export class IncidentsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query environment wide CrowdScore and return the entity data
+     * DEPRECATED: the incidentapi will be removed in March 2026. Query environment wide CrowdScore and return the entity data
      */
     async crowdScore(
         filter?: string,
@@ -141,7 +141,7 @@ export class IncidentsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get details on behaviors by providing behavior IDs
+     * DEPRECATED: the incidentapi will be removed in March 2026. Get details on behaviors by providing behavior IDs
      */
     async getBehaviorsRaw(
         requestParameters: IncidentsApiGetBehaviorsRequest,
@@ -159,7 +159,7 @@ export class IncidentsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["incidents:read"]);
         }
 
         const response = await this.request(
@@ -177,7 +177,7 @@ export class IncidentsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get details on behaviors by providing behavior IDs
+     * DEPRECATED: the incidentapi will be removed in March 2026. Get details on behaviors by providing behavior IDs
      */
     async getBehaviors(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainMsaExternalBehaviorResponse> {
         const response = await this.getBehaviorsRaw({ body: body }, initOverrides);
@@ -185,7 +185,7 @@ export class IncidentsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get details on incidents by providing incident IDs
+     * DEPRECATED: the incidentapi will be removed in March 2026. Get details on incidents by providing incident IDs
      */
     async getIncidentsRaw(
         requestParameters: IncidentsApiGetIncidentsRequest,
@@ -203,7 +203,7 @@ export class IncidentsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["incidents:read"]);
         }
 
         const response = await this.request(
@@ -221,7 +221,7 @@ export class IncidentsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get details on incidents by providing incident IDs
+     * DEPRECATED: the incidentapi will be removed in March 2026. Get details on incidents by providing incident IDs
      */
     async getIncidents(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainMsaExternalIncidentResponse> {
         const response = await this.getIncidentsRaw({ body: body }, initOverrides);
@@ -229,7 +229,7 @@ export class IncidentsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Perform a set of actions on one or more incidents, such as adding tags or comments or updating the incident name or description
+     * DEPRECATED: the incidentapi will be removed in March 2026. Perform a set of actions on one or more incidents, such as adding tags or comments or updating the incident name or description
      */
     async performIncidentActionRaw(
         requestParameters: IncidentsApiPerformIncidentActionRequest,
@@ -255,7 +255,7 @@ export class IncidentsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["incidents:write"]);
         }
 
         const response = await this.request(
@@ -273,7 +273,7 @@ export class IncidentsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Perform a set of actions on one or more incidents, such as adding tags or comments or updating the incident name or description
+     * DEPRECATED: the incidentapi will be removed in March 2026. Perform a set of actions on one or more incidents, such as adding tags or comments or updating the incident name or description
      */
     async performIncidentAction(
         body: DomainEntityActionRequest,
@@ -286,7 +286,7 @@ export class IncidentsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for behaviors by providing an FQL filter, sorting, and paging details
+     * DEPRECATED: the incidentapi will be removed in March 2026. Search for behaviors by providing an FQL filter, sorting, and paging details
      */
     async queryBehaviorsRaw(requestParameters: IncidentsApiQueryBehaviorsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
@@ -311,7 +311,7 @@ export class IncidentsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["incidents:read"]);
         }
 
         const response = await this.request(
@@ -328,7 +328,7 @@ export class IncidentsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for behaviors by providing an FQL filter, sorting, and paging details
+     * DEPRECATED: the incidentapi will be removed in March 2026. Search for behaviors by providing an FQL filter, sorting, and paging details
      */
     async queryBehaviors(filter?: string, offset?: number, limit?: number, sort?: QueryBehaviorsSortEnum, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryBehaviorsRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
@@ -336,7 +336,7 @@ export class IncidentsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for incidents by providing an FQL filter, sorting, and paging details
+     * DEPRECATED: the incidentapi will be removed in March 2026. Search for incidents by providing an FQL filter, sorting, and paging details
      */
     async queryIncidentsRaw(
         requestParameters: IncidentsApiQueryIncidentsRequest,
@@ -364,7 +364,7 @@ export class IncidentsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["incidents:read"]);
         }
 
         const response = await this.request(
@@ -381,7 +381,7 @@ export class IncidentsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for incidents by providing an FQL filter, sorting, and paging details
+     * DEPRECATED: the incidentapi will be removed in March 2026. Search for incidents by providing an FQL filter, sorting, and paging details
      */
     async queryIncidents(
         sort?: QueryIncidentsSortEnum,

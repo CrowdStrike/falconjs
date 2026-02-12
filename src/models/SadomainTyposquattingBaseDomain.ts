@@ -15,6 +15,8 @@
 import { mapValues } from "../runtime";
 import type { SadomainWhoisRecord } from "./SadomainWhoisRecord";
 import { SadomainWhoisRecordFromJSON, SadomainWhoisRecordFromJSONTyped, SadomainWhoisRecordToJSON } from "./SadomainWhoisRecord";
+import type { SadomainSubmissionInformation } from "./SadomainSubmissionInformation";
+import { SadomainSubmissionInformationFromJSON, SadomainSubmissionInformationFromJSONTyped, SadomainSubmissionInformationToJSON } from "./SadomainSubmissionInformation";
 
 /**
  *
@@ -46,6 +48,18 @@ export interface SadomainTyposquattingBaseDomain {
      * @memberof SadomainTyposquattingBaseDomain
      */
     punycodeFormat: string;
+    /**
+     *
+     * @type {SadomainSubmissionInformation}
+     * @memberof SadomainTyposquattingBaseDomain
+     */
+    submitForBlockingInfo?: SadomainSubmissionInformation;
+    /**
+     *
+     * @type {SadomainSubmissionInformation}
+     * @memberof SadomainTyposquattingBaseDomain
+     */
+    submitForTakedownInfo?: SadomainSubmissionInformation;
     /**
      * The Unicode representation of the domain
      * @type {string}
@@ -84,6 +98,8 @@ export function SadomainTyposquattingBaseDomainFromJSONTyped(json: any, ignoreDi
         id: json["id"],
         isRegistered: json["is_registered"],
         punycodeFormat: json["punycode_format"],
+        submitForBlockingInfo: json["submit_for_blocking_info"] == null ? undefined : SadomainSubmissionInformationFromJSON(json["submit_for_blocking_info"]),
+        submitForTakedownInfo: json["submit_for_takedown_info"] == null ? undefined : SadomainSubmissionInformationFromJSON(json["submit_for_takedown_info"]),
         unicodeFormat: json["unicode_format"],
         whois: json["whois"] == null ? undefined : SadomainWhoisRecordFromJSON(json["whois"]),
     };
@@ -98,6 +114,8 @@ export function SadomainTyposquattingBaseDomainToJSON(value?: SadomainTyposquatt
         id: value["id"],
         is_registered: value["isRegistered"],
         punycode_format: value["punycodeFormat"],
+        submit_for_blocking_info: SadomainSubmissionInformationToJSON(value["submitForBlockingInfo"]),
+        submit_for_takedown_info: SadomainSubmissionInformationToJSON(value["submitForTakedownInfo"]),
         unicode_format: value["unicodeFormat"],
         whois: SadomainWhoisRecordToJSON(value["whois"]),
     };

@@ -24,6 +24,12 @@ import { FalconxSandboxParametersV1FromJSON, FalconxSandboxParametersV1FromJSONT
 export interface FalconxSubmissionV1 {
     /**
      *
+     * @type {boolean}
+     * @memberof FalconxSubmissionV1
+     */
+    autoDetectEnvironment?: boolean;
+    /**
+     *
      * @type {string}
      * @memberof FalconxSubmissionV1
      */
@@ -136,6 +142,7 @@ export function FalconxSubmissionV1FromJSONTyped(json: any, ignoreDiscriminator:
         return json;
     }
     return {
+        autoDetectEnvironment: json["auto_detect_environment"] == null ? undefined : json["auto_detect_environment"],
         cid: json["cid"] == null ? undefined : json["cid"],
         createdTimestamp: json["created_timestamp"] == null ? undefined : json["created_timestamp"],
         errorMessage: json["error_message"] == null ? undefined : json["error_message"],
@@ -160,6 +167,7 @@ export function FalconxSubmissionV1ToJSON(value?: FalconxSubmissionV1 | null): a
         return value;
     }
     return {
+        auto_detect_environment: value["autoDetectEnvironment"],
         cid: value["cid"],
         created_timestamp: value["createdTimestamp"],
         error_message: value["errorMessage"],

@@ -121,7 +121,7 @@ export interface ContainerVulnerabilitiesApiReadVulnerabilityCountBySeverityRequ
  */
 export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
     /**
-     * Retrieve vulnerability and aggregate data filtered by the provided FQL
+     * Retrieves a paginated list of vulnerabilities filtered by the provided FQL. Maximum page size: 100. Maximum available vulnerabilities: 10,000
      */
     async readCombinedVulnerabilitiesRaw(
         requestParameters: ContainerVulnerabilitiesApiReadCombinedVulnerabilitiesRequest,
@@ -149,7 +149,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -166,7 +166,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve vulnerability and aggregate data filtered by the provided FQL
+     * Retrieves a paginated list of vulnerabilities filtered by the provided FQL. Maximum page size: 100. Maximum available vulnerabilities: 10,000
      */
     async readCombinedVulnerabilities(
         filter?: string,
@@ -212,7 +212,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -271,7 +271,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -325,7 +325,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -374,7 +374,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -428,7 +428,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -477,7 +477,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -531,7 +531,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -561,7 +561,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Aggregate count of vulnerabilities grouped by cvss score
+     * Aggregate count of vulnerabilities grouped by CVSS score
      */
     async readVulnerabilityCountByCVSSScoreRaw(
         requestParameters: ContainerVulnerabilitiesApiReadVulnerabilityCountByCVSSScoreRequest,
@@ -585,7 +585,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -602,7 +602,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Aggregate count of vulnerabilities grouped by cvss score
+     * Aggregate count of vulnerabilities grouped by CVSS score
      */
     async readVulnerabilityCountByCVSSScore(
         filter?: string,
@@ -639,7 +639,7 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(

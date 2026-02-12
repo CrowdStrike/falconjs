@@ -38,6 +38,18 @@ export interface DomainAPIRemediationV2 {
      */
     link: string;
     /**
+     * The timestamp that this remediation was published
+     * @type {string}
+     * @memberof DomainAPIRemediationV2
+     */
+    patchPublicationDate?: string;
+    /**
+     * The type of recommendation for this remediation, usually either 'recommended' or 'minimum'
+     * @type {string}
+     * @memberof DomainAPIRemediationV2
+     */
+    recommendationType?: string;
+    /**
      * Relevant reference for the remediation that can be used to get additional details for the remediation. For example, a KB number that needs to be installed for a KB_SECURITY_UPDATE
      * @type {string}
      * @memberof DomainAPIRemediationV2
@@ -82,6 +94,8 @@ export function DomainAPIRemediationV2FromJSONTyped(json: any, ignoreDiscriminat
         action: json["action"],
         id: json["id"],
         link: json["link"],
+        patchPublicationDate: json["patch_publication_date"] == null ? undefined : json["patch_publication_date"],
+        recommendationType: json["recommendation_type"] == null ? undefined : json["recommendation_type"],
         reference: json["reference"],
         title: json["title"],
         vendorUrl: json["vendor_url"],
@@ -96,6 +110,8 @@ export function DomainAPIRemediationV2ToJSON(value?: DomainAPIRemediationV2 | nu
         action: value["action"],
         id: value["id"],
         link: value["link"],
+        patch_publication_date: value["patchPublicationDate"],
+        recommendation_type: value["recommendationType"],
         reference: value["reference"],
         title: value["title"],
         vendor_url: value["vendorUrl"],

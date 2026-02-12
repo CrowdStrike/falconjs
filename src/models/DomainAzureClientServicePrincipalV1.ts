@@ -13,10 +13,10 @@
  */
 
 import { mapValues } from "../runtime";
-import type { DomainAzureResourcePermission } from "./DomainAzureResourcePermission";
-import { DomainAzureResourcePermissionFromJSON, DomainAzureResourcePermissionFromJSONTyped, DomainAzureResourcePermissionToJSON } from "./DomainAzureResourcePermission";
-import type { DomainCondition } from "./DomainCondition";
-import { DomainConditionFromJSON, DomainConditionFromJSONTyped, DomainConditionToJSON } from "./DomainCondition";
+import type { AzureResourcePermission } from "./AzureResourcePermission";
+import { AzureResourcePermissionFromJSON, AzureResourcePermissionFromJSONTyped, AzureResourcePermissionToJSON } from "./AzureResourcePermission";
+import type { StatemgmtCondition } from "./StatemgmtCondition";
+import { StatemgmtConditionFromJSON, StatemgmtConditionFromJSONTyped, StatemgmtConditionToJSON } from "./StatemgmtCondition";
 
 /**
  *
@@ -50,10 +50,10 @@ export interface DomainAzureClientServicePrincipalV1 {
     clientId?: string;
     /**
      *
-     * @type {Array<DomainCondition>}
+     * @type {Array<StatemgmtCondition>}
      * @memberof DomainAzureClientServicePrincipalV1
      */
-    conditions?: Array<DomainCondition>;
+    conditions?: Array<StatemgmtCondition>;
     /**
      * If the account has CSPM enabled.
      * @type {boolean}
@@ -74,6 +74,12 @@ export interface DomainAzureClientServicePrincipalV1 {
     encryptedPrivateKey?: string;
     /**
      *
+     * @type {boolean}
+     * @memberof DomainAzureClientServicePrincipalV1
+     */
+    isSharedClient: boolean;
+    /**
+     *
      * @type {string}
      * @memberof DomainAzureClientServicePrincipalV1
      */
@@ -86,10 +92,10 @@ export interface DomainAzureClientServicePrincipalV1 {
     publicCertificate?: string;
     /**
      *
-     * @type {Array<DomainAzureResourcePermission>}
+     * @type {Array<AzureResourcePermission>}
      * @memberof DomainAzureClientServicePrincipalV1
      */
-    resourcePermissions?: Array<DomainAzureResourcePermission>;
+    resourcePermissions?: Array<AzureResourcePermission>;
     /**
      *
      * @type {string}
@@ -110,6 +116,7 @@ export interface DomainAzureClientServicePrincipalV1 {
 export function instanceOfDomainAzureClientServicePrincipalV1(value: object): value is DomainAzureClientServicePrincipalV1 {
     if (!("cid" in value) || value["cid"] === undefined) return false;
     if (!("cspmEnabled" in value) || value["cspmEnabled"] === undefined) return false;
+    if (!("isSharedClient" in value) || value["isSharedClient"] === undefined) return false;
     if (!("tenantId" in value) || value["tenantId"] === undefined) return false;
     return true;
 }
@@ -127,13 +134,14 @@ export function DomainAzureClientServicePrincipalV1FromJSONTyped(json: any, igno
         behaviorAssessmentOverride: json["behavior_assessment_override"] == null ? undefined : json["behavior_assessment_override"],
         cid: json["cid"],
         clientId: json["client_id"] == null ? undefined : json["client_id"],
-        conditions: json["conditions"] == null ? undefined : (json["conditions"] as Array<any>).map(DomainConditionFromJSON),
+        conditions: json["conditions"] == null ? undefined : (json["conditions"] as Array<any>).map(StatemgmtConditionFromJSON),
         cspmEnabled: json["cspm_enabled"],
         defaultSubscriptionId: json["default_subscription_id"] == null ? undefined : json["default_subscription_id"],
         encryptedPrivateKey: json["encrypted_private_key"] == null ? undefined : json["encrypted_private_key"],
+        isSharedClient: json["is_shared_client"],
         objectId: json["object_id"] == null ? undefined : json["object_id"],
         publicCertificate: json["public_certificate"] == null ? undefined : json["public_certificate"],
-        resourcePermissions: json["resource_permissions"] == null ? undefined : (json["resource_permissions"] as Array<any>).map(DomainAzureResourcePermissionFromJSON),
+        resourcePermissions: json["resource_permissions"] == null ? undefined : (json["resource_permissions"] as Array<any>).map(AzureResourcePermissionFromJSON),
         tenantId: json["tenant_id"],
         x5t: json["x5t"] == null ? undefined : json["x5t"],
     };
@@ -148,13 +156,14 @@ export function DomainAzureClientServicePrincipalV1ToJSON(value?: DomainAzureCli
         behavior_assessment_override: value["behaviorAssessmentOverride"],
         cid: value["cid"],
         client_id: value["clientId"],
-        conditions: value["conditions"] == null ? undefined : (value["conditions"] as Array<any>).map(DomainConditionToJSON),
+        conditions: value["conditions"] == null ? undefined : (value["conditions"] as Array<any>).map(StatemgmtConditionToJSON),
         cspm_enabled: value["cspmEnabled"],
         default_subscription_id: value["defaultSubscriptionId"],
         encrypted_private_key: value["encryptedPrivateKey"],
+        is_shared_client: value["isSharedClient"],
         object_id: value["objectId"],
         public_certificate: value["publicCertificate"],
-        resource_permissions: value["resourcePermissions"] == null ? undefined : (value["resourcePermissions"] as Array<any>).map(DomainAzureResourcePermissionToJSON),
+        resource_permissions: value["resourcePermissions"] == null ? undefined : (value["resourcePermissions"] as Array<any>).map(AzureResourcePermissionToJSON),
         tenant_id: value["tenantId"],
         x5t: value["x5t"],
     };

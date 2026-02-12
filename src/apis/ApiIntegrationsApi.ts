@@ -13,7 +13,7 @@
  */
 
 import * as runtime from "../runtime";
-import type { DomainConfigsV1, DomainExecuteCommandRequestV1, DomainExecuteCommandResultsV1, MsaReplyMetaOnly, MsaspecResponseFields } from "../models/index";
+import type { DomainConfigsV1, DomainExecuteCommandRequestV1, DomainExecuteCommandResultsV1, DomainExecuteCommandV1, MsaReplyMetaOnly, MsaspecResponseFields } from "../models/index";
 import {
     DomainConfigsV1FromJSON,
     DomainConfigsV1ToJSON,
@@ -21,6 +21,8 @@ import {
     DomainExecuteCommandRequestV1ToJSON,
     DomainExecuteCommandResultsV1FromJSON,
     DomainExecuteCommandResultsV1ToJSON,
+    DomainExecuteCommandV1FromJSON,
+    DomainExecuteCommandV1ToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
     MsaspecResponseFieldsFromJSON,
@@ -28,6 +30,10 @@ import {
 } from "../models/index";
 
 export interface ApiIntegrationsApiExecuteCommandRequest {
+    resources: Array<DomainExecuteCommandV1>;
+}
+
+export interface ApiIntegrationsApiExecuteCommandProxyRequest {
     body: DomainExecuteCommandRequestV1;
 }
 
@@ -49,19 +55,33 @@ export class ApiIntegrationsApi extends runtime.BaseAPI {
         requestParameters: ApiIntegrationsApiExecuteCommandRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<DomainExecuteCommandResultsV1>> {
-        if (requestParameters["body"] == null) {
-            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling executeCommand().');
+        if (requestParameters["resources"] == null) {
+            throw new runtime.RequiredError("resources", 'Required parameter "resources" was null or undefined when calling executeCommand().');
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        headerParameters["Content-Type"] = "application/json";
-
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["api-integrations:write"]);
+        }
+
+        const consumes: runtime.Consume[] = [{ contentType: "multipart/form-data" }, { contentType: "application/json" }];
+        // @ts-ignore: canConsumeForm may be unused
+        const canConsumeForm = runtime.canConsumeForm(consumes);
+
+        let formParams: { append(param: string, value: any): any };
+        let useForm = false;
+        if (useForm) {
+            formParams = new FormData();
+        } else {
+            formParams = new URLSearchParams();
+        }
+
+        if (requestParameters["resources"] != null) {
+            formParams.append("resources", requestParameters["resources"]!.join(runtime.COLLECTION_FORMATS["csv"]));
         }
 
         const response = await this.request(
@@ -70,7 +90,7 @@ export class ApiIntegrationsApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: DomainExecuteCommandRequestV1ToJSON(requestParameters["body"]),
+                body: formParams,
             },
             initOverrides,
         );
@@ -81,8 +101,49 @@ export class ApiIntegrationsApi extends runtime.BaseAPI {
     /**
      * Execute a command.
      */
-    async executeCommand(body: DomainExecuteCommandRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainExecuteCommandResultsV1> {
-        const response = await this.executeCommandRaw({ body: body }, initOverrides);
+    async executeCommand(resources: Array<DomainExecuteCommandV1>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainExecuteCommandResultsV1> {
+        const response = await this.executeCommandRaw({ resources: resources }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Execute a command and proxy the response directly.
+     */
+    async executeCommandProxyRaw(requestParameters: ApiIntegrationsApiExecuteCommandProxyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<object>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling executeCommandProxy().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["api-integrations:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/plugins/entities/execute-proxy/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: DomainExecuteCommandRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse<any>(response);
+    }
+
+    /**
+     * Execute a command and proxy the response directly.
+     */
+    async executeCommandProxy(body: DomainExecuteCommandRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<object> {
+        const response = await this.executeCommandProxyRaw({ body: body }, initOverrides);
         return await response.value();
     }
 
@@ -115,7 +176,7 @@ export class ApiIntegrationsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["api-integrations:read"]);
         }
 
         const response = await this.request(

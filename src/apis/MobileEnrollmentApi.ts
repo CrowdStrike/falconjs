@@ -70,7 +70,7 @@ export class MobileEnrollmentApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["mobile-enrollment:write"]);
         }
 
         const response = await this.request(
@@ -127,7 +127,7 @@ export class MobileEnrollmentApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["mobile-enrollment:write"]);
         }
 
         const response = await this.request(

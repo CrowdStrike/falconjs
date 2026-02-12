@@ -31,7 +31,7 @@ export interface RegistrationAzureDownloadCertificateResponseV1 {
      * @type {Array<MsaAPIError>}
      * @memberof RegistrationAzureDownloadCertificateResponseV1
      */
-    errors: Array<MsaAPIError>;
+    errors?: Array<MsaAPIError>;
     /**
      *
      * @type {MsaMetaInfo}
@@ -50,7 +50,6 @@ export interface RegistrationAzureDownloadCertificateResponseV1 {
  * Check if a given object implements the RegistrationAzureDownloadCertificateResponseV1 interface.
  */
 export function instanceOfRegistrationAzureDownloadCertificateResponseV1(value: object): value is RegistrationAzureDownloadCertificateResponseV1 {
-    if (!("errors" in value) || value["errors"] === undefined) return false;
     if (!("meta" in value) || value["meta"] === undefined) return false;
     if (!("resources" in value) || value["resources"] === undefined) return false;
     return true;
@@ -65,7 +64,7 @@ export function RegistrationAzureDownloadCertificateResponseV1FromJSONTyped(json
         return json;
     }
     return {
-        errors: (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
+        errors: json["errors"] == null ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
         resources: (json["resources"] as Array<any>).map(RegistrationAzureKeyV1FromJSON),
     };
@@ -76,7 +75,7 @@ export function RegistrationAzureDownloadCertificateResponseV1ToJSON(value?: Reg
         return value;
     }
     return {
-        errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
+        errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
         resources: (value["resources"] as Array<any>).map(RegistrationAzureKeyV1ToJSON),
     };

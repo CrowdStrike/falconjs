@@ -15,6 +15,7 @@
 import { mapValues } from "../runtime";
 /**
  * Information about an active discovery network this asset is associated with.
+ * Information about the corresponding Site ID .
  * @export
  * @interface DomainDiscoverAPIActiveDiscoveryNetwork
  */
@@ -25,6 +26,12 @@ export interface DomainDiscoverAPIActiveDiscoveryNetwork {
      * @memberof DomainDiscoverAPIActiveDiscoveryNetwork
      */
     id: string;
+    /**
+     * The id of the site
+     * @type {string}
+     * @memberof DomainDiscoverAPIActiveDiscoveryNetwork
+     */
+    siteId?: string;
 }
 
 /**
@@ -45,6 +52,7 @@ export function DomainDiscoverAPIActiveDiscoveryNetworkFromJSONTyped(json: any, 
     }
     return {
         id: json["id"],
+        siteId: json["site_id"] == null ? undefined : json["site_id"],
     };
 }
 
@@ -54,5 +62,6 @@ export function DomainDiscoverAPIActiveDiscoveryNetworkToJSON(value?: DomainDisc
     }
     return {
         id: value["id"],
+        site_id: value["siteId"],
     };
 }

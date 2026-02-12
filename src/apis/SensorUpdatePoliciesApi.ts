@@ -185,7 +185,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:write"]);
         }
 
         const response = await this.request(
@@ -229,7 +229,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:write"]);
         }
 
         const response = await this.request(
@@ -275,7 +275,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:write"]);
         }
 
         const response = await this.request(
@@ -320,7 +320,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:read"]);
         }
 
         const response = await this.request(
@@ -365,7 +365,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:read"]);
         }
 
         const response = await this.request(
@@ -416,7 +416,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:write"]);
         }
 
         const response = await this.request(
@@ -459,14 +459,14 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
         }
 
         if (requestParameters["stage"] != null) {
-            queryParameters["stage"] = requestParameters["stage"]!.join(runtime.COLLECTION_FORMATS["csv"]);
+            queryParameters["stage"] = requestParameters["stage"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:read"]);
         }
 
         const response = await this.request(
@@ -519,7 +519,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:read"]);
         }
 
         const response = await this.request(
@@ -572,7 +572,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:read"]);
         }
 
         const response = await this.request(
@@ -631,7 +631,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:read"]);
         }
 
         const response = await this.request(
@@ -694,7 +694,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:read"]);
         }
 
         const response = await this.request(
@@ -754,7 +754,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:read"]);
         }
 
         const response = await this.request(
@@ -813,7 +813,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:read"]);
         }
 
         const response = await this.request(
@@ -876,7 +876,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:read"]);
         }
 
         const response = await this.request(
@@ -926,7 +926,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:write"]);
         }
 
         const response = await this.request(
@@ -970,7 +970,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:write"]);
         }
 
         const response = await this.request(
@@ -1014,7 +1014,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:write"]);
         }
 
         const response = await this.request(
@@ -1058,7 +1058,7 @@ export class SensorUpdatePoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-update-policies:write"]);
         }
 
         const response = await this.request(
@@ -1100,10 +1100,10 @@ export type PerformSensorUpdatePoliciesActionActionNameEnum = (typeof PerformSen
  * @export
  */
 export const QueryCombinedSensorUpdateBuildsPlatformEnum = {
+    Windows: "windows",
+    Mac: "mac",
     Linux: "linux",
     Linuxarm64: "linuxarm64",
-    Mac: "mac",
-    Windows: "windows",
     Zlinux: "zlinux",
 } as const;
 export type QueryCombinedSensorUpdateBuildsPlatformEnum = (typeof QueryCombinedSensorUpdateBuildsPlatformEnum)[keyof typeof QueryCombinedSensorUpdateBuildsPlatformEnum];
@@ -1111,8 +1111,8 @@ export type QueryCombinedSensorUpdateBuildsPlatformEnum = (typeof QueryCombinedS
  * @export
  */
 export const QueryCombinedSensorUpdateBuildsStageEnum = {
-    EarlyAdopter: "early_adopter",
     Prod: "prod",
+    EarlyAdopter: "early_adopter",
 } as const;
 export type QueryCombinedSensorUpdateBuildsStageEnum = (typeof QueryCombinedSensorUpdateBuildsStageEnum)[keyof typeof QueryCombinedSensorUpdateBuildsStageEnum];
 /**

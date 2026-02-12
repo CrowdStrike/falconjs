@@ -13,6 +13,9 @@
  */
 
 import { mapValues } from "../runtime";
+import type { V2InlineConfig } from "./V2InlineConfig";
+import { V2InlineConfigFromJSON, V2InlineConfigFromJSONTyped, V2InlineConfigToJSON } from "./V2InlineConfig";
+
 /**
  *
  * @export
@@ -26,11 +29,35 @@ export interface V2Activity {
      */
     _class?: string;
     /**
+     * If set to true, an error on the action will not send an error token to children
+     * @type {boolean}
+     * @memberof V2Activity
+     */
+    continueOnError?: boolean;
+    /**
+     * The name of the activity type which is not user editable.
+     * @type {string}
+     * @memberof V2Activity
+     */
+    defaultName?: string;
+    /**
      *
      * @type {string}
      * @memberof V2Activity
      */
     id: string;
+    /**
+     *
+     * @type {V2InlineConfig}
+     * @memberof V2Activity
+     */
+    inlineConfiguration?: V2InlineConfig;
+    /**
+     * Optional user provided name for the activity, if not specified a default of the name for that activity will be used.
+     * @type {string}
+     * @memberof V2Activity
+     */
+    name?: string;
     /**
      *
      * @type {Array<string>}
@@ -43,6 +70,12 @@ export interface V2Activity {
      * @memberof V2Activity
      */
     properties: object;
+    /**
+     *
+     * @type {string}
+     * @memberof V2Activity
+     */
+    versionConstraint?: string;
 }
 
 /**
@@ -64,9 +97,14 @@ export function V2ActivityFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     }
     return {
         _class: json["class"] == null ? undefined : json["class"],
+        continueOnError: json["continue_on_error"] == null ? undefined : json["continue_on_error"],
+        defaultName: json["default_name"] == null ? undefined : json["default_name"],
         id: json["id"],
+        inlineConfiguration: json["inline_configuration"] == null ? undefined : V2InlineConfigFromJSON(json["inline_configuration"]),
+        name: json["name"] == null ? undefined : json["name"],
         next: json["next"] == null ? undefined : json["next"],
         properties: json["properties"],
+        versionConstraint: json["version_constraint"] == null ? undefined : json["version_constraint"],
     };
 }
 
@@ -76,8 +114,13 @@ export function V2ActivityToJSON(value?: V2Activity | null): any {
     }
     return {
         class: value["_class"],
+        continue_on_error: value["continueOnError"],
+        default_name: value["defaultName"],
         id: value["id"],
+        inline_configuration: V2InlineConfigToJSON(value["inlineConfiguration"]),
+        name: value["name"],
         next: value["next"],
         properties: value["properties"],
+        version_constraint: value["versionConstraint"],
     };
 }

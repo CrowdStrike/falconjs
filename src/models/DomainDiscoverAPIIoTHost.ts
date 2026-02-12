@@ -27,6 +27,8 @@ import type { DomainDiscoverAPIDeviceSlot } from "./DomainDiscoverAPIDeviceSlot"
 import { DomainDiscoverAPIDeviceSlotFromJSON, DomainDiscoverAPIDeviceSlotFromJSONTyped, DomainDiscoverAPIDeviceSlotToJSON } from "./DomainDiscoverAPIDeviceSlot";
 import type { DomainDiscoverAPIIoTHostTriage } from "./DomainDiscoverAPIIoTHostTriage";
 import { DomainDiscoverAPIIoTHostTriageFromJSON, DomainDiscoverAPIIoTHostTriageFromJSONTyped, DomainDiscoverAPIIoTHostTriageToJSON } from "./DomainDiscoverAPIIoTHostTriage";
+import type { DomainIotImportedHost } from "./DomainIotImportedHost";
+import { DomainIotImportedHostFromJSON, DomainIotImportedHostFromJSONTyped, DomainIotImportedHostToJSON } from "./DomainIotImportedHost";
 import type { DomainDiscoverAPIOsSecurity } from "./DomainDiscoverAPIOsSecurity";
 import { DomainDiscoverAPIOsSecurityFromJSON, DomainDiscoverAPIOsSecurityFromJSONTyped, DomainDiscoverAPIOsSecurityToJSON } from "./DomainDiscoverAPIOsSecurity";
 
@@ -48,6 +50,12 @@ export interface DomainDiscoverAPIIoTHost {
      * @memberof DomainDiscoverAPIIoTHost
      */
     adUserAccountControl?: number;
+    /**
+     * Whether the asset is a virtual server or not (Yes, No)
+     * @type {string}
+     * @memberof DomainDiscoverAPIIoTHost
+     */
+    adVirtualServer?: string;
     /**
      * The version of the Falcon sensor that's installed on the asset.
      * @type {string}
@@ -156,6 +164,12 @@ export interface DomainDiscoverAPIIoTHost {
      * @memberof DomainDiscoverAPIIoTHost
      */
     classification?: string;
+    /**
+     * The composite internet exposure of the asset
+     * @type {string}
+     * @memberof DomainDiscoverAPIIoTHost
+     */
+    compositeInternetExposure?: string;
     /**
      * The asset role or roles assigned to the asset automatically (Jump host, Highly connected, Highly active, Server by behavior, DHCP server, DNS server, FTP server, SSH server, or Web server).
      * @type {Array<string>}
@@ -463,6 +477,12 @@ export interface DomainDiscoverAPIIoTHost {
      */
     id: string;
     /**
+     *
+     * @type {string}
+     * @memberof DomainDiscoverAPIIoTHost
+     */
+    importedHostId?: string;
+    /**
      * Whether the asset is exposed to the internet (Yes, No or Pending).
      * @type {string}
      * @memberof DomainDiscoverAPIIoTHost
@@ -486,6 +506,18 @@ export interface DomainDiscoverAPIIoTHost {
      * @memberof DomainDiscoverAPIIoTHost
      */
     internetExposureUsername?: string;
+    /**
+     *
+     * @type {DomainIotImportedHost}
+     * @memberof DomainDiscoverAPIIoTHost
+     */
+    iotImported?: DomainIotImportedHost;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof DomainDiscoverAPIIoTHost
+     */
+    iotTags?: Array<string>;
     /**
      * For Linux and Mac hosts: the major version, minor version, and patch version of the kernel for the asset. For Windows hosts: the build number of the asset.
      * @type {string}
@@ -666,6 +698,12 @@ export interface DomainDiscoverAPIIoTHost {
      * @memberof DomainDiscoverAPIIoTHost
      */
     ou?: string;
+    /**
+     * The organizational units of the asset.
+     * @type {Array<string>}
+     * @memberof DomainDiscoverAPIIoTHost
+     */
+    ous?: Array<string>;
     /**
      * Whether a user overrode automatically assigned asset roles to manually assign a role to the asset (true or false).
      * @type {boolean}
@@ -870,6 +908,24 @@ export interface DomainDiscoverAPIIoTHost {
      * @memberof DomainDiscoverAPIIoTHost
      */
     xdomeId?: string;
+    /**
+     * The hostnames of the sources that discovered the asset.
+     * @type {Array<string>}
+     * @memberof DomainDiscoverAPIIoTHost
+     */
+    xiotDiscovererHostnames?: Array<string>;
+    /**
+     * The tags of the sources that discovered the asset.
+     * @type {Array<string>}
+     * @memberof DomainDiscoverAPIIoTHost
+     */
+    xiotDiscovererTags?: Array<string>;
+    /**
+     * The hostname of the last source that discovered the asset.
+     * @type {string}
+     * @memberof DomainDiscoverAPIIoTHost
+     */
+    xiotLastDiscovererHostname?: string;
 }
 
 /**
@@ -892,6 +948,7 @@ export function DomainDiscoverAPIIoTHostFromJSONTyped(json: any, ignoreDiscrimin
     return {
         accountEnabled: json["account_enabled"] == null ? undefined : json["account_enabled"],
         adUserAccountControl: json["ad_user_account_control"] == null ? undefined : json["ad_user_account_control"],
+        adVirtualServer: json["ad_virtual_server"] == null ? undefined : json["ad_virtual_server"],
         agentVersion: json["agent_version"] == null ? undefined : json["agent_version"],
         aid: json["aid"] == null ? undefined : json["aid"],
         assetRoles: json["asset_roles"] == null ? undefined : json["asset_roles"],
@@ -910,6 +967,7 @@ export function DomainDiscoverAPIIoTHostFromJSONTyped(json: any, ignoreDiscrimin
         city: json["city"] == null ? undefined : json["city"],
         clarotyId: json["claroty_id"] == null ? undefined : json["claroty_id"],
         classification: json["classification"] == null ? undefined : json["classification"],
+        compositeInternetExposure: json["composite_internet_exposure"] == null ? undefined : json["composite_internet_exposure"],
         computedAssetRoles: json["computed_asset_roles"] == null ? undefined : json["computed_asset_roles"],
         computedInternetExposure: json["computed_internet_exposure"] == null ? undefined : json["computed_internet_exposure"],
         computedInternetExposureExternalIp: json["computed_internet_exposure_external_ip"] == null ? undefined : json["computed_internet_exposure_external_ip"],
@@ -961,10 +1019,13 @@ export function DomainDiscoverAPIIoTHostFromJSONTyped(json: any, ignoreDiscrimin
         hostname: json["hostname"] == null ? undefined : json["hostname"],
         icsId: json["ics_id"] == null ? undefined : json["ics_id"],
         id: json["id"],
+        importedHostId: json["imported_host_id"] == null ? undefined : json["imported_host_id"],
         internetExposure: json["internet_exposure"] == null ? undefined : json["internet_exposure"],
         internetExposureDescription: json["internet_exposure_description"] == null ? undefined : json["internet_exposure_description"],
         internetExposureTimestamp: json["internet_exposure_timestamp"] == null ? undefined : json["internet_exposure_timestamp"],
         internetExposureUsername: json["internet_exposure_username"] == null ? undefined : json["internet_exposure_username"],
+        iotImported: json["iot_imported"] == null ? undefined : DomainIotImportedHostFromJSON(json["iot_imported"]),
+        iotTags: json["iot_tags"] == null ? undefined : json["iot_tags"],
         kernelVersion: json["kernel_version"] == null ? undefined : json["kernel_version"],
         lastDiscovererAid: json["last_discoverer_aid"] == null ? undefined : json["last_discoverer_aid"],
         lastDiscovererHostname: json["last_discoverer_hostname"] == null ? undefined : json["last_discoverer_hostname"],
@@ -995,6 +1056,7 @@ export function DomainDiscoverAPIIoTHostFromJSONTyped(json: any, ignoreDiscrimin
         otNetworkIds: json["ot_network_ids"] == null ? undefined : json["ot_network_ids"],
         otSerialNumbers: json["ot_serial_numbers"] == null ? undefined : json["ot_serial_numbers"],
         ou: json["ou"] == null ? undefined : json["ou"],
+        ous: json["ous"] == null ? undefined : json["ous"],
         overrideAssetRoles: json["override_asset_roles"] == null ? undefined : json["override_asset_roles"],
         overrideCriticalityRules: json["override_criticality_rules"] == null ? undefined : json["override_criticality_rules"],
         overrideInternetExposure: json["override_internet_exposure"] == null ? undefined : json["override_internet_exposure"],
@@ -1029,6 +1091,9 @@ export function DomainDiscoverAPIIoTHostFromJSONTyped(json: any, ignoreDiscrimin
         virtualZone: json["virtual_zone"] == null ? undefined : json["virtual_zone"],
         vlan: json["vlan"] == null ? undefined : json["vlan"],
         xdomeId: json["xdome_id"] == null ? undefined : json["xdome_id"],
+        xiotDiscovererHostnames: json["xiot_discoverer_hostnames"] == null ? undefined : json["xiot_discoverer_hostnames"],
+        xiotDiscovererTags: json["xiot_discoverer_tags"] == null ? undefined : json["xiot_discoverer_tags"],
+        xiotLastDiscovererHostname: json["xiot_last_discoverer_hostname"] == null ? undefined : json["xiot_last_discoverer_hostname"],
     };
 }
 
@@ -1039,6 +1104,7 @@ export function DomainDiscoverAPIIoTHostToJSON(value?: DomainDiscoverAPIIoTHost 
     return {
         account_enabled: value["accountEnabled"],
         ad_user_account_control: value["adUserAccountControl"],
+        ad_virtual_server: value["adVirtualServer"],
         agent_version: value["agentVersion"],
         aid: value["aid"],
         asset_roles: value["assetRoles"],
@@ -1057,6 +1123,7 @@ export function DomainDiscoverAPIIoTHostToJSON(value?: DomainDiscoverAPIIoTHost 
         city: value["city"],
         claroty_id: value["clarotyId"],
         classification: value["classification"],
+        composite_internet_exposure: value["compositeInternetExposure"],
         computed_asset_roles: value["computedAssetRoles"],
         computed_internet_exposure: value["computedInternetExposure"],
         computed_internet_exposure_external_ip: value["computedInternetExposureExternalIp"],
@@ -1108,10 +1175,13 @@ export function DomainDiscoverAPIIoTHostToJSON(value?: DomainDiscoverAPIIoTHost 
         hostname: value["hostname"],
         ics_id: value["icsId"],
         id: value["id"],
+        imported_host_id: value["importedHostId"],
         internet_exposure: value["internetExposure"],
         internet_exposure_description: value["internetExposureDescription"],
         internet_exposure_timestamp: value["internetExposureTimestamp"],
         internet_exposure_username: value["internetExposureUsername"],
+        iot_imported: DomainIotImportedHostToJSON(value["iotImported"]),
+        iot_tags: value["iotTags"],
         kernel_version: value["kernelVersion"],
         last_discoverer_aid: value["lastDiscovererAid"],
         last_discoverer_hostname: value["lastDiscovererHostname"],
@@ -1142,6 +1212,7 @@ export function DomainDiscoverAPIIoTHostToJSON(value?: DomainDiscoverAPIIoTHost 
         ot_network_ids: value["otNetworkIds"],
         ot_serial_numbers: value["otSerialNumbers"],
         ou: value["ou"],
+        ous: value["ous"],
         override_asset_roles: value["overrideAssetRoles"],
         override_criticality_rules: value["overrideCriticalityRules"],
         override_internet_exposure: value["overrideInternetExposure"],
@@ -1176,5 +1247,8 @@ export function DomainDiscoverAPIIoTHostToJSON(value?: DomainDiscoverAPIIoTHost 
         virtual_zone: value["virtualZone"],
         vlan: value["vlan"],
         xdome_id: value["xdomeId"],
+        xiot_discoverer_hostnames: value["xiotDiscovererHostnames"],
+        xiot_discoverer_tags: value["xiotDiscovererTags"],
+        xiot_last_discoverer_hostname: value["xiotLastDiscovererHostname"],
     };
 }

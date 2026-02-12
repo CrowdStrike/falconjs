@@ -27,6 +27,12 @@ export interface ApiObjectMetadata {
     collectionName: string;
     /**
      *
+     * @type {string}
+     * @memberof ApiObjectMetadata
+     */
+    collectionVersion?: string;
+    /**
+     *
      * @type {Date}
      * @memberof ApiObjectMetadata
      */
@@ -72,6 +78,7 @@ export function ApiObjectMetadataFromJSONTyped(json: any, ignoreDiscriminator: b
     }
     return {
         collectionName: json["collection_name"],
+        collectionVersion: json["collection_version"] == null ? undefined : json["collection_version"],
         lastModifiedTime: json["last_modified_time"] == null ? undefined : new Date(json["last_modified_time"]),
         namespace: json["namespace"],
         objectKey: json["object_key"],
@@ -85,6 +92,7 @@ export function ApiObjectMetadataToJSON(value?: ApiObjectMetadata | null): any {
     }
     return {
         collection_name: value["collectionName"],
+        collection_version: value["collectionVersion"],
         last_modified_time: value["lastModifiedTime"] == null ? undefined : value["lastModifiedTime"].toISOString(),
         namespace: value["namespace"],
         object_key: value["objectKey"],

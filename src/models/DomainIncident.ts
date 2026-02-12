@@ -83,12 +83,6 @@ export interface DomainIncident {
      * @type {Array<string>}
      * @memberof DomainIncident
      */
-    groupingIds?: Array<string>;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof DomainIncident
-     */
     hostIds: Array<string>;
     /**
      *
@@ -233,7 +227,6 @@ export function DomainIncidentFromJSONTyped(json: any, ignoreDiscriminator: bool
         end: new Date(json["end"]),
         eventsHistogram: json["events_histogram"] == null ? undefined : (json["events_histogram"] as Array<any>).map(DomainEventHistogramFromJSON),
         fineScore: json["fine_score"],
-        groupingIds: json["grouping_ids"] == null ? undefined : json["grouping_ids"],
         hostIds: json["host_ids"],
         hosts: json["hosts"] == null ? undefined : (json["hosts"] as Array<any>).map(DetectsDeviceDetailIndexedFromJSON),
         incidentId: json["incident_id"],
@@ -270,7 +263,6 @@ export function DomainIncidentToJSON(value?: DomainIncident | null): any {
         end: value["end"].toISOString(),
         events_histogram: value["eventsHistogram"] == null ? undefined : (value["eventsHistogram"] as Array<any>).map(DomainEventHistogramToJSON),
         fine_score: value["fineScore"],
-        grouping_ids: value["groupingIds"],
         host_ids: value["hostIds"],
         hosts: value["hosts"] == null ? undefined : (value["hosts"] as Array<any>).map(DetectsDeviceDetailIndexedToJSON),
         incident_id: value["incidentId"],

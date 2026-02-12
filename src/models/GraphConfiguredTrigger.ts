@@ -15,8 +15,14 @@
 import { mapValues } from "../runtime";
 import type { JsonschemaSchema } from "./JsonschemaSchema";
 import { JsonschemaSchemaFromJSON, JsonschemaSchemaFromJSONTyped, JsonschemaSchemaToJSON } from "./JsonschemaSchema";
+import type { GraphNodePosition } from "./GraphNodePosition";
+import { GraphNodePositionFromJSON, GraphNodePositionFromJSONTyped, GraphNodePositionToJSON } from "./GraphNodePosition";
+import type { GraphWebhookTriggerDefinition } from "./GraphWebhookTriggerDefinition";
+import { GraphWebhookTriggerDefinitionFromJSON, GraphWebhookTriggerDefinitionFromJSONTyped, GraphWebhookTriggerDefinitionToJSON } from "./GraphWebhookTriggerDefinition";
 import type { GraphTimerEventDefinition } from "./GraphTimerEventDefinition";
 import { GraphTimerEventDefinitionFromJSON, GraphTimerEventDefinitionFromJSONTyped, GraphTimerEventDefinitionToJSON } from "./GraphTimerEventDefinition";
+import type { NodemocksReference } from "./NodemocksReference";
+import { NodemocksReferenceFromJSON, NodemocksReferenceFromJSONTyped, NodemocksReferenceToJSON } from "./NodemocksReference";
 
 /**
  *
@@ -30,6 +36,12 @@ export interface GraphConfiguredTrigger {
      * @memberof GraphConfiguredTrigger
      */
     id?: string;
+    /**
+     *
+     * @type {NodemocksReference}
+     * @memberof GraphConfiguredTrigger
+     */
+    mockOutput?: NodemocksReference;
     /**
      * Display name of the trigger
      * @type {string}
@@ -56,16 +68,34 @@ export interface GraphConfiguredTrigger {
     parameters?: JsonschemaSchema;
     /**
      *
+     * @type {GraphNodePosition}
+     * @memberof GraphConfiguredTrigger
+     */
+    position?: GraphNodePosition;
+    /**
+     *
      * @type {GraphTimerEventDefinition}
      * @memberof GraphConfiguredTrigger
      */
     timerEventDefinition?: GraphTimerEventDefinition;
     /**
-     * Denotes the type of trigger, signal based, scheduled, on demand, etc
+     * The type of trigger, signal, scheduled, on demand, etc
      * @type {string}
      * @memberof GraphConfiguredTrigger
      */
     triggerType?: string;
+    /**
+     * Semantic version constraint of the trigger, it can be an explicit version or a version constraint. If unspecified the evaluator will use the latest version <= 1.0.0
+     * @type {string}
+     * @memberof GraphConfiguredTrigger
+     */
+    versionConstraint?: string;
+    /**
+     *
+     * @type {GraphWebhookTriggerDefinition}
+     * @memberof GraphConfiguredTrigger
+     */
+    webhookConfig?: GraphWebhookTriggerDefinition;
 }
 
 /**
@@ -88,12 +118,16 @@ export function GraphConfiguredTriggerFromJSONTyped(json: any, ignoreDiscriminat
     }
     return {
         id: json["id"] == null ? undefined : json["id"],
+        mockOutput: json["mock_output"] == null ? undefined : NodemocksReferenceFromJSON(json["mock_output"]),
         name: json["name"],
         nodeID: json["nodeID"],
         outgoingFlow: json["outgoing_flow"],
         parameters: json["parameters"] == null ? undefined : JsonschemaSchemaFromJSON(json["parameters"]),
+        position: json["position"] == null ? undefined : GraphNodePositionFromJSON(json["position"]),
         timerEventDefinition: json["timer_event_definition"] == null ? undefined : GraphTimerEventDefinitionFromJSON(json["timer_event_definition"]),
         triggerType: json["trigger_type"] == null ? undefined : json["trigger_type"],
+        versionConstraint: json["version_constraint"] == null ? undefined : json["version_constraint"],
+        webhookConfig: json["webhook_config"] == null ? undefined : GraphWebhookTriggerDefinitionFromJSON(json["webhook_config"]),
     };
 }
 
@@ -103,11 +137,15 @@ export function GraphConfiguredTriggerToJSON(value?: GraphConfiguredTrigger | nu
     }
     return {
         id: value["id"],
+        mock_output: NodemocksReferenceToJSON(value["mockOutput"]),
         name: value["name"],
         nodeID: value["nodeID"],
         outgoing_flow: value["outgoingFlow"],
         parameters: JsonschemaSchemaToJSON(value["parameters"]),
+        position: GraphNodePositionToJSON(value["position"]),
         timer_event_definition: GraphTimerEventDefinitionToJSON(value["timerEventDefinition"]),
         trigger_type: value["triggerType"],
+        version_constraint: value["versionConstraint"],
+        webhook_config: GraphWebhookTriggerDefinitionToJSON(value["webhookConfig"]),
     };
 }

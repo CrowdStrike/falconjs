@@ -20,17 +20,17 @@ import { mapValues } from "../runtime";
  */
 export interface GraphCondition {
     /**
-     * User friendly description of the FQL expression. This would be supplied by the UI/caller and is not set by the API.
+     * CEL expression for the condition, should evaluate to a boolean.
+     * @type {string}
+     * @memberof GraphCondition
+     */
+    celExpression?: string;
+    /**
+     * User friendly description of the expression. This is generally supplied by the UI/caller.
      * @type {Array<string>}
      * @memberof GraphCondition
      */
     display?: Array<string>;
-    /**
-     * Indicates the boolean result of FQL expression when present. This field should be used only in the api response of a graph execution result
-     * @type {boolean}
-     * @memberof GraphCondition
-     */
-    evaluated?: boolean;
     /**
      * FQL expression for the condition on the sequence flow.
      * @type {string}
@@ -55,8 +55,8 @@ export function GraphConditionFromJSONTyped(json: any, ignoreDiscriminator: bool
         return json;
     }
     return {
+        celExpression: json["cel_expression"] == null ? undefined : json["cel_expression"],
         display: json["display"] == null ? undefined : json["display"],
-        evaluated: json["evaluated"] == null ? undefined : json["evaluated"],
         expression: json["expression"] == null ? undefined : json["expression"],
     };
 }
@@ -66,8 +66,8 @@ export function GraphConditionToJSON(value?: GraphCondition | null): any {
         return value;
     }
     return {
+        cel_expression: value["celExpression"],
         display: value["display"],
-        evaluated: value["evaluated"],
         expression: value["expression"],
     };
 }

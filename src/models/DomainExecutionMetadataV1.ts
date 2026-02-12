@@ -28,6 +28,12 @@ import { DomainReportParamsFromJSON, DomainReportParamsFromJSONTyped, DomainRepo
 export interface DomainExecutionMetadataV1 {
     /**
      *
+     * @type {number}
+     * @memberof DomainExecutionMetadataV1
+     */
+    autoRetryCount: number;
+    /**
+     *
      * @type {DomainReportParams}
      * @memberof DomainExecutionMetadataV1
      */
@@ -38,6 +44,12 @@ export interface DomainExecutionMetadataV1 {
      * @memberof DomainExecutionMetadataV1
      */
     retryAllowed: boolean;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof DomainExecutionMetadataV1
+     */
+    retryIds?: Array<string>;
     /**
      *
      * @type {boolean}
@@ -80,6 +92,7 @@ export interface DomainExecutionMetadataV1 {
  * Check if a given object implements the DomainExecutionMetadataV1 interface.
  */
 export function instanceOfDomainExecutionMetadataV1(value: object): value is DomainExecutionMetadataV1 {
+    if (!("autoRetryCount" in value) || value["autoRetryCount"] === undefined) return false;
     if (!("reportParams" in value) || value["reportParams"] === undefined) return false;
     if (!("retryAllowed" in value) || value["retryAllowed"] === undefined) return false;
     if (!("retryPerformed" in value) || value["retryPerformed"] === undefined) return false;
@@ -100,8 +113,10 @@ export function DomainExecutionMetadataV1FromJSONTyped(json: any, ignoreDiscrimi
         return json;
     }
     return {
+        autoRetryCount: json["auto_retry_count"],
         reportParams: DomainReportParamsFromJSON(json["report_params"]),
         retryAllowed: json["retry_allowed"],
+        retryIds: json["retry_ids"] == null ? undefined : json["retry_ids"],
         retryPerformed: json["retry_performed"],
         retryReportExecutionId: json["retry_report_execution_id"],
         subtype: json["subtype"],
@@ -116,8 +131,10 @@ export function DomainExecutionMetadataV1ToJSON(value?: DomainExecutionMetadataV
         return value;
     }
     return {
+        auto_retry_count: value["autoRetryCount"],
         report_params: DomainReportParamsToJSON(value["reportParams"]),
         retry_allowed: value["retryAllowed"],
+        retry_ids: value["retryIds"],
         retry_performed: value["retryPerformed"],
         retry_report_execution_id: value["retryReportExecutionId"],
         subtype: value["subtype"],

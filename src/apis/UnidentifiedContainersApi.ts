@@ -43,9 +43,9 @@ export interface UnidentifiedContainersApiCountByDateRangeRequest {
 
 export interface UnidentifiedContainersApiSearchRequest {
     filter?: string;
+    sort?: string;
     limit?: number;
     offset?: number;
-    sort?: string;
 }
 
 /**
@@ -69,7 +69,7 @@ export class UnidentifiedContainersApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -110,7 +110,7 @@ export class UnidentifiedContainersApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -147,6 +147,10 @@ export class UnidentifiedContainersApi extends runtime.BaseAPI {
             queryParameters["filter"] = requestParameters["filter"];
         }
 
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
         if (requestParameters["limit"] != null) {
             queryParameters["limit"] = requestParameters["limit"];
         }
@@ -155,15 +159,11 @@ export class UnidentifiedContainersApi extends runtime.BaseAPI {
             queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters["sort"] != null) {
-            queryParameters["sort"] = requestParameters["sort"];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -184,12 +184,12 @@ export class UnidentifiedContainersApi extends runtime.BaseAPI {
      */
     async search(
         filter?: string,
+        sort?: string,
         limit?: number,
         offset?: number,
-        sort?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<UnidentifiedcontainersUnidentifiedContainerAPIResponse> {
-        const response = await this.searchRaw({ filter: filter, limit: limit, offset: offset, sort: sort }, initOverrides);
+        const response = await this.searchRaw({ filter: filter, sort: sort, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }
 }

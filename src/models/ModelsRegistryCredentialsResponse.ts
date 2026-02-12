@@ -40,10 +40,10 @@ export interface ModelsRegistryCredentialsResponse {
     meta: MsaMetaInfo;
     /**
      *
-     * @type {Array<ModelsCredentials>}
+     * @type {ModelsCredentials}
      * @memberof ModelsRegistryCredentialsResponse
      */
-    resources: Array<ModelsCredentials>;
+    resources: ModelsCredentials;
 }
 
 /**
@@ -67,7 +67,7 @@ export function ModelsRegistryCredentialsResponseFromJSONTyped(json: any, ignore
     return {
         errors: (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
-        resources: (json["resources"] as Array<any>).map(ModelsCredentialsFromJSON),
+        resources: ModelsCredentialsFromJSON(json["resources"]),
     };
 }
 
@@ -78,6 +78,6 @@ export function ModelsRegistryCredentialsResponseToJSON(value?: ModelsRegistryCr
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
-        resources: (value["resources"] as Array<any>).map(ModelsCredentialsToJSON),
+        resources: ModelsCredentialsToJSON(value["resources"]),
     };
 }

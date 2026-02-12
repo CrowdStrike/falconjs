@@ -13,12 +13,14 @@
  */
 
 import * as runtime from "../runtime";
-import type { DomainSensorInstallersV1, DomainSensorInstallersV2, MsaReplyMetaOnly, MsaspecQueryResponse } from "../models/index";
+import type { DomainSensorInstallersV1, DomainSensorInstallersV2, DomainSensorInstallersV3, MsaReplyMetaOnly, MsaspecQueryResponse } from "../models/index";
 import {
     DomainSensorInstallersV1FromJSON,
     DomainSensorInstallersV1ToJSON,
     DomainSensorInstallersV2FromJSON,
     DomainSensorInstallersV2ToJSON,
+    DomainSensorInstallersV3FromJSON,
+    DomainSensorInstallersV3ToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
     MsaspecQueryResponseFromJSON,
@@ -33,6 +35,10 @@ export interface SensorDownloadApiDownloadSensorInstallerByIdV2Request {
     id: string;
 }
 
+export interface SensorDownloadApiDownloadSensorInstallerByIdV3Request {
+    id: string;
+}
+
 export interface SensorDownloadApiGetCombinedSensorInstallersByQueryRequest {
     offset?: number;
     limit?: number;
@@ -41,6 +47,13 @@ export interface SensorDownloadApiGetCombinedSensorInstallersByQueryRequest {
 }
 
 export interface SensorDownloadApiGetCombinedSensorInstallersByQueryV2Request {
+    offset?: number;
+    limit?: number;
+    sort?: string;
+    filter?: string;
+}
+
+export interface SensorDownloadApiGetCombinedSensorInstallersByQueryV3Request {
     offset?: number;
     limit?: number;
     sort?: string;
@@ -61,11 +74,22 @@ export interface SensorDownloadApiGetSensorInstallersByQueryV2Request {
     filter?: string;
 }
 
+export interface SensorDownloadApiGetSensorInstallersByQueryV3Request {
+    offset?: number;
+    limit?: number;
+    sort?: string;
+    filter?: string;
+}
+
 export interface SensorDownloadApiGetSensorInstallersEntitiesRequest {
     ids: Array<string>;
 }
 
 export interface SensorDownloadApiGetSensorInstallersEntitiesV2Request {
+    ids: Array<string>;
+}
+
+export interface SensorDownloadApiGetSensorInstallersEntitiesV3Request {
     ids: Array<string>;
 }
 
@@ -160,6 +184,51 @@ export class SensorDownloadApi extends runtime.BaseAPI {
      */
     async downloadSensorInstallerByIdV2(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
         const response = await this.downloadSensorInstallerByIdV2Raw({ id: id }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Download sensor installer by SHA256 ID
+     */
+    async downloadSensorInstallerByIdV3Raw(
+        requestParameters: SensorDownloadApiDownloadSensorInstallerByIdV3Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<Blob>> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling downloadSensorInstallerByIdV3().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["id"] != null) {
+            queryParameters["id"] = requestParameters["id"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-installers:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/sensors/entities/download-installer/v3`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.BlobApiResponse(response);
+    }
+
+    /**
+     * Download sensor installer by SHA256 ID
+     */
+    async downloadSensorInstallerByIdV3(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
+        const response = await this.downloadSensorInstallerByIdV3Raw({ id: id }, initOverrides);
         return await response.value();
     }
 
@@ -282,6 +351,65 @@ export class SensorDownloadApi extends runtime.BaseAPI {
     }
 
     /**
+     * Get sensor installer details by provided query
+     */
+    async getCombinedSensorInstallersByQueryV3Raw(
+        requestParameters: SensorDownloadApiGetCombinedSensorInstallersByQueryV3Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainSensorInstallersV3>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-installers:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/sensors/combined/installers/v3`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainSensorInstallersV3FromJSON(jsonValue));
+    }
+
+    /**
+     * Get sensor installer details by provided query
+     */
+    async getCombinedSensorInstallersByQueryV3(
+        offset?: number,
+        limit?: number,
+        sort?: string,
+        filter?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<DomainSensorInstallersV3> {
+        const response = await this.getCombinedSensorInstallersByQueryV3Raw({ offset: offset, limit: limit, sort: sort, filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Get sensor installer IDs by provided query
      */
     async getSensorInstallersByQueryRaw(
@@ -384,6 +512,59 @@ export class SensorDownloadApi extends runtime.BaseAPI {
      */
     async getSensorInstallersByQueryV2(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
         const response = await this.getSensorInstallersByQueryV2Raw({ offset: offset, limit: limit, sort: sort, filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get sensor installer IDs by provided query
+     */
+    async getSensorInstallersByQueryV3Raw(
+        requestParameters: SensorDownloadApiGetSensorInstallersByQueryV3Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-installers:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/sensors/queries/installers/v3`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get sensor installer IDs by provided query
+     */
+    async getSensorInstallersByQueryV3(offset?: number, limit?: number, sort?: string, filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
+        const response = await this.getSensorInstallersByQueryV3Raw({ offset: offset, limit: limit, sort: sort, filter: filter }, initOverrides);
         return await response.value();
     }
 
@@ -508,6 +689,51 @@ export class SensorDownloadApi extends runtime.BaseAPI {
      */
     async getSensorInstallersEntitiesV2(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainSensorInstallersV2> {
         const response = await this.getSensorInstallersEntitiesV2Raw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get sensor installer details by provided SHA256 IDs
+     */
+    async getSensorInstallersEntitiesV3Raw(
+        requestParameters: SensorDownloadApiGetSensorInstallersEntitiesV3Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainSensorInstallersV3>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getSensorInstallersEntitiesV3().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-installers:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/sensors/entities/installers/v3`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainSensorInstallersV3FromJSON(jsonValue));
+    }
+
+    /**
+     * Get sensor installer details by provided SHA256 IDs
+     */
+    async getSensorInstallersEntitiesV3(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainSensorInstallersV3> {
+        const response = await this.getSensorInstallersEntitiesV3Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
 }

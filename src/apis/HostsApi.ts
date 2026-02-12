@@ -14,6 +14,7 @@
 
 import * as runtime from "../runtime";
 import type {
+    DeviceapiDeviceCombinedResponseSwagger,
     DeviceapiDeviceDetailsResponseSwagger,
     DeviceapiDeviceResponse,
     DeviceapiGroupsResponseV1,
@@ -30,6 +31,8 @@ import type {
     StateOnlineStateRespV1,
 } from "../models/index";
 import {
+    DeviceapiDeviceCombinedResponseSwaggerFromJSON,
+    DeviceapiDeviceCombinedResponseSwaggerToJSON,
     DeviceapiDeviceDetailsResponseSwaggerFromJSON,
     DeviceapiDeviceDetailsResponseSwaggerToJSON,
     DeviceapiDeviceResponseFromJSON,
@@ -59,6 +62,22 @@ import {
     StateOnlineStateRespV1FromJSON,
     StateOnlineStateRespV1ToJSON,
 } from "../models/index";
+
+export interface HostsApiCombinedDevicesByFilterRequest {
+    offset?: string;
+    limit?: number;
+    sort?: CombinedDevicesByFilterSortEnum;
+    filter?: string;
+    fields?: string;
+}
+
+export interface HostsApiCombinedHiddenDevicesByFilterRequest {
+    offset?: string;
+    limit?: number;
+    sort?: CombinedHiddenDevicesByFilterSortEnum;
+    filter?: string;
+    fields?: string;
+}
 
 export interface HostsApiEntitiesPerformActionRequest {
     ids: Array<string>;
@@ -90,6 +109,9 @@ export interface HostsApiQueryDeviceLoginHistoryRequest {
 
 export interface HostsApiQueryDeviceLoginHistoryV2Request {
     body: MsaIdsRequest;
+    limit?: number;
+    from?: string;
+    to?: string;
 }
 
 export interface HostsApiQueryDevicesByFilterRequest {
@@ -125,6 +147,134 @@ export interface HostsApiUpdateDeviceTagsRequest {
  *
  */
 export class HostsApi extends runtime.BaseAPI {
+    /**
+     * Search for hosts in your environment by platform, hostname, IP, and other criteria. Returns full device records.
+     */
+    async combinedDevicesByFilterRaw(
+        requestParameters: HostsApiCombinedDevicesByFilterRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DeviceapiDeviceCombinedResponseSwagger>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["fields"] != null) {
+            queryParameters["fields"] = requestParameters["fields"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/devices/combined/devices/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DeviceapiDeviceCombinedResponseSwaggerFromJSON(jsonValue));
+    }
+
+    /**
+     * Search for hosts in your environment by platform, hostname, IP, and other criteria. Returns full device records.
+     */
+    async combinedDevicesByFilter(
+        offset?: string,
+        limit?: number,
+        sort?: CombinedDevicesByFilterSortEnum,
+        filter?: string,
+        fields?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<DeviceapiDeviceCombinedResponseSwagger> {
+        const response = await this.combinedDevicesByFilterRaw({ offset: offset, limit: limit, sort: sort, filter: filter, fields: fields }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Search for hidden hosts in your environment by platform, hostname, IP, and other criteria. Returns full device records.
+     */
+    async combinedHiddenDevicesByFilterRaw(
+        requestParameters: HostsApiCombinedHiddenDevicesByFilterRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DeviceapiDeviceCombinedResponseSwagger>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["fields"] != null) {
+            queryParameters["fields"] = requestParameters["fields"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/devices/combined/devices-hidden/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DeviceapiDeviceCombinedResponseSwaggerFromJSON(jsonValue));
+    }
+
+    /**
+     * Search for hidden hosts in your environment by platform, hostname, IP, and other criteria. Returns full device records.
+     */
+    async combinedHiddenDevicesByFilter(
+        offset?: string,
+        limit?: number,
+        sort?: CombinedHiddenDevicesByFilterSortEnum,
+        filter?: string,
+        fields?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<DeviceapiDeviceCombinedResponseSwagger> {
+        const response = await this.combinedHiddenDevicesByFilterRaw({ offset: offset, limit: limit, sort: sort, filter: filter, fields: fields }, initOverrides);
+        return await response.value();
+    }
+
     /**
      * Performs the specified action on the provided group IDs.
      */
@@ -164,7 +314,7 @@ export class HostsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-group:write"]);
         }
 
         const response = await this.request(
@@ -432,6 +582,18 @@ export class HostsApi extends runtime.BaseAPI {
 
         const queryParameters: any = {};
 
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["from"] != null) {
+            queryParameters["from"] = requestParameters["from"];
+        }
+
+        if (requestParameters["to"] != null) {
+            queryParameters["to"] = requestParameters["to"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters["Content-Type"] = "application/json";
@@ -458,8 +620,14 @@ export class HostsApi extends runtime.BaseAPI {
     /**
      * Retrieve details about recent interactive login sessions for a set of devices powered by the Host Timeline. A max of 10 device ids can be specified
      */
-    async queryDeviceLoginHistoryV2(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeviceapiLoginHistoryResponseV1> {
-        const response = await this.queryDeviceLoginHistoryV2Raw({ body: body }, initOverrides);
+    async queryDeviceLoginHistoryV2(
+        body: MsaIdsRequest,
+        limit?: number,
+        from?: string,
+        to?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<DeviceapiLoginHistoryResponseV1> {
+        const response = await this.queryDeviceLoginHistoryV2Raw({ body: body, limit: limit, from: from, to: to }, initOverrides);
         return await response.value();
     }
 
@@ -705,6 +873,400 @@ export class HostsApi extends runtime.BaseAPI {
     }
 }
 
+/**
+ * @export
+ */
+export const CombinedDevicesByFilterSortEnum = {
+    PodHostIp6: "pod_host_ip6",
+    DevicePoliciesNetworkScanContentApplied: "device_policies.network-scan-content.applied",
+    DevicePoliciesPreventionPolicyId: "device_policies.prevention.policy_id",
+    DevicePoliciesIdentityEndpointPolicyId: "device_policies.identity-endpoint.policy_id",
+    DevicePoliciesDataProtectionApplied: "device_policies.data-protection.applied",
+    DevicePoliciesBrowserExtensionPolicyId: "device_policies.browser-extension.policy_id",
+    DevicePoliciesFemBrowserExtensionControlPolicyType: "device_policies.fem-browser-extension-control.policy_type",
+    MajorVersion: "major_version",
+    SystemProductName: "system_product_name",
+    DevicePoliciesAirlockPolicyId: "device_policies.airlock.policy_id",
+    DevicePoliciesSystemTrayPolicyId: "device_policies.system-tray.policy_id",
+    DevicePoliciesFimPolicyType: "device_policies.fim.policy_type",
+    DevicePoliciesCloudMlApplied: "device_policies.cloud-ml.applied",
+    DevicePoliciesAwsVerifiedAccessApplied: "device_policies.aws-verified-access.applied",
+    DevicePoliciesFirewallPolicyType: "device_policies.firewall.policy_type",
+    Cid: "cid",
+    Hostname: "hostname",
+    FirstLoginTimestamp: "first_login_timestamp",
+    DevicePoliciesConsumerSubscriptionPolicyType: "device_policies.consumer-subscription.policy_type",
+    DevicePoliciesFirewallPolicyId: "device_policies.firewall.policy_id",
+    ManagedAppsAwsVerifiedAccessVersion: "managed_apps.aws-verified-access.version",
+    Email: "email",
+    KernelVersion: "kernel_version",
+    FirstSeen: "first_seen",
+    DevicePoliciesLogscaleCollectorApplied: "device_policies.logscale-collector.applied",
+    DevicePoliciesVulnerabilityManagementApplied: "device_policies.vulnerability-management.applied",
+    DevicePoliciesItAutomationApplied: "device_policies.it-automation.applied",
+    ServiceProviderAccountId: "service_provider_account_id",
+    K8sClusterId: "k8s_cluster_id",
+    DevicePoliciesFemBrowserExtensionControlApplied: "device_policies.fem-browser-extension-control.applied",
+    DevicePoliciesApplicationAbusePreventionPolicyType: "device_policies.application-abuse-prevention.policy_type",
+    DevicePoliciesApplicationAbusePreventionPolicyId: "device_policies.application-abuse-prevention.policy_id",
+    DevicePoliciesAwsVerifiedAccessPolicyType: "device_policies.aws-verified-access.policy_type",
+    ConnectionIp: "connection_ip",
+    K8sClusterGitVersion: "k8s_cluster_git_version",
+    LastLoginUser: "last_login_user",
+    LastSeen: "last_seen",
+    MinorVersion: "minor_version",
+    DevicePoliciesIdentityProtectionPolicyType: "device_policies.identity-protection.policy_type",
+    DevicePoliciesRemoteResponsePolicyId: "device_policies.remote_response.policy_id",
+    PodIp6: "pod_ip6",
+    DeploymentType: "deployment_type",
+    LastLoginTimestamp: "last_login_timestamp",
+    OsVersion: "os_version",
+    DevicePoliciesPreventionApplied: "device_policies.prevention.applied",
+    DevicePoliciesScaPolicyType: "device_policies.sca.policy_type",
+    MacAddress: "mac_address",
+    ServiceProvider: "service_provider",
+    ZoneGroup: "zone_group",
+    ChassisType: "chassis_type",
+    ProductTypeDesc: "product_type_desc",
+    DevicePoliciesKubernetesAdmissionControlPolicyId: "device_policies.kubernetes-admission-control.policy_id",
+    DevicePoliciesKubernetesAdmissionControlApplied: "device_policies.kubernetes-admission-control.applied",
+    DevicePoliciesFimApplied: "device_policies.fim.applied",
+    InstanceId: "instance_id",
+    InternetExposure: "internet_exposure",
+    DevicePoliciesFemBrowserExtensionControlPolicyId: "device_policies.fem-browser-extension-control.policy_id",
+    DevicePoliciesApplicationAbusePreventionApplied: "device_policies.application-abuse-prevention.applied",
+    LastLoginUid: "last_login_uid",
+    ModifiedTimestamp: "modified_timestamp",
+    DevicePoliciesSensorUpdatePolicyId: "device_policies.sensor_update.policy_id",
+    DevicePoliciesAirlockApplied: "device_policies.airlock.applied",
+    All: "_all",
+    SafeMode: "safe_mode",
+    PlatformName: "platform_name",
+    PoliciesApplied: "policies.applied",
+    DevicePoliciesSensorUpdateApplied: "device_policies.sensor_update.applied",
+    LinuxSensorMode: "linux_sensor_mode",
+    PoliciesPolicyId: "policies.policy_id",
+    DevicePoliciesAutomoxPolicyType: "device_policies.automox.policy_type",
+    DevicePoliciesIdentityEndpointPolicyType: "device_policies.identity-endpoint.policy_type",
+    DevicePoliciesDataProtectionPolicyId: "device_policies.data-protection.policy_id",
+    DevicePoliciesDataProtectionCloudPolicyType: "device_policies.data-protection-cloud.policy_type",
+    RtrState: "rtr_state",
+    CpuVendor: "cpu_vendor",
+    DevicePoliciesExposureManagementPolicyType: "device_policies.exposure-management.policy_type",
+    ConfigIdBase: "config_id_base",
+    DevicePoliciesSystemTrayApplied: "device_policies.system-tray.applied",
+    DevicePoliciesCloudMlPolicyType: "device_policies.cloud-ml.policy_type",
+    DevicePoliciesMobilePolicyId: "device_policies.mobile.policy_id",
+    PodHostIp4: "pod_host_ip4",
+    DevicePoliciesExposureManagementApplied: "device_policies.exposure-management.applied",
+    OsBuild: "os_build",
+    ProductType: "product_type",
+    DevicePoliciesJumpcloudPolicyType: "device_policies.jumpcloud.policy_type",
+    DevicePoliciesJumpcloudPolicyId: "device_policies.jumpcloud.policy_id",
+    DevicePoliciesHostRetentionApplied: "device_policies.host-retention.applied",
+    ReducedFunctionalityMode: "reduced_functionality_mode",
+    PodHostname: "pod_hostname",
+    SiteName: "site_name",
+    DevicePoliciesDataProtectionCloudApplied: "device_policies.data-protection-cloud.applied",
+    GroupHash: "group_hash",
+    K8sClusterVersion: "k8s_cluster_version",
+    DetectionSuppressionStatus: "detection_suppression_status",
+    DevicePoliciesSensorUpdatePolicyType: "device_policies.sensor_update.policy_type",
+    HostUtcOffset: "host_utc_offset",
+    DevicePoliciesSensorUpdateUninstallProtection: "device_policies.sensor_update.uninstall_protection",
+    DevicePoliciesZtlPolicyId: "device_policies.ztl.policy_id",
+    DevicePoliciesScaPolicyId: "device_policies.sca.policy_id",
+    PodLabels: "pod_labels",
+    DevicePoliciesExposureManagementPolicyId: "device_policies.exposure-management.policy_id",
+    DevicePoliciesIdentityProtectionPolicyId: "device_policies.identity-protection.policy_id",
+    PodName: "pod_name",
+    FilesystemContainmentStatus: "filesystem_containment_status",
+    SystemManufacturer: "system_manufacturer",
+    DevicePoliciesScaApplied: "device_policies.sca.applied",
+    DevicePoliciesDataProtectionPolicyType: "device_policies.data-protection.policy_type",
+    CpuSignature: "cpu_signature",
+    PodNamespace: "pod_namespace",
+    DefaultGatewayIp: "default_gateway_ip",
+    ChassisTypeDesc: "chassis_type_desc",
+    DevicePoliciesDeviceControlApplied: "device_policies.device_control.applied",
+    DevicePoliciesConsumerSubscriptionPolicyId: "device_policies.consumer-subscription.policy_id",
+    DevicePoliciesNetworkScanContentPolicyType: "device_policies.network-scan-content.policy_type",
+    PoliciesPolicyType: "policies.policy_type",
+    DevicePoliciesIdentityEndpointApplied: "device_policies.identity-endpoint.applied",
+    DevicePoliciesContentUpdatePolicyId: "device_policies.content-update.policy_id",
+    DevicePoliciesCloudMlPolicyId: "device_policies.cloud-ml.policy_id",
+    DevicePoliciesMobileApplied: "device_policies.mobile.applied",
+    ManagedAppsAutomoxVersion: "managed_apps.automox.version",
+    LicenseActivationState: "license_activation_state",
+    MigrationCompletedTime: "migration_completed_time",
+    ConfigIdBuild: "config_id_build",
+    DevicePoliciesDeviceControlPolicyId: "device_policies.device_control.policy_id",
+    DevicePoliciesNetskopePolicyId: "device_policies.netskope.policy_id",
+    PodIp4: "pod_ip4",
+    ConfigIdPlatform: "config_id_platform",
+    FirstLoginUser: "first_login_user",
+    PlatformId: "platform_id",
+    DevicePoliciesPreventionPolicyType: "device_policies.prevention.policy_type",
+    DevicePoliciesDeviceControlPolicyType: "device_policies.device_control.policy_type",
+    DevicePoliciesContentUpdateApplied: "device_policies.content-update.applied",
+    PodId: "pod_id",
+    LastReboot: "last_reboot",
+    MachineDomain: "machine_domain",
+    Ou: "ou",
+    DevicePoliciesNetskopePolicyType: "device_policies.netskope.policy_type",
+    DevicePoliciesBrowserExtensionPolicyType: "device_policies.browser-extension.policy_type",
+    DevicePoliciesLogscaleCollectorPolicyType: "device_policies.logscale-collector.policy_type",
+    ReleaseGroup: "release_group",
+    DevicePoliciesIdentityProtectionApplied: "device_policies.identity-protection.applied",
+    DevicePoliciesContentUpdatePolicyType: "device_policies.content-update.policy_type",
+    DevicePoliciesFirewallApplied: "device_policies.firewall.applied",
+    ManagedAppsJumpcloudVersion: "managed_apps.jumpcloud.version",
+    DevicePoliciesRemoteResponseApplied: "device_policies.remote_response.applied",
+    DeviceId: "device_id",
+    DevicePoliciesNetskopeApplied: "device_policies.netskope.applied",
+    DevicePoliciesHostRetentionPolicyType: "device_policies.host-retention.policy_type",
+    LocalIpRaw: "local_ip.raw",
+    Tags: "tags",
+    DevicePoliciesNetworkScanContentPolicyId: "device_policies.network-scan-content.policy_id",
+    DevicePoliciesKubernetesAdmissionControlPolicyType: "device_policies.kubernetes-admission-control.policy_type",
+    DevicePoliciesItAutomationPolicyType: "device_policies.it-automation.policy_type",
+    DevicePoliciesItAutomationPolicyId: "device_policies.it-automation.policy_id",
+    SerialNumber: "serial_number",
+    PodAnnotations: "pod_annotations",
+    ConnectionMacAddress: "connection_mac_address",
+    BiosVersion: "bios_version",
+    DevicePoliciesConsumerSubscriptionApplied: "device_policies.consumer-subscription.applied",
+    ManagedAppsAirlockVersion: "managed_apps.airlock.version",
+    PodServiceAccountName: "pod_service_account_name",
+    AgentLoadFlags: "agent_load_flags",
+    AgentVersion: "agent_version",
+    LocalIp: "local_ip",
+    DevicePoliciesZtlApplied: "device_policies.ztl.applied",
+    DevicePoliciesSystemTrayPolicyType: "device_policies.system-tray.policy_type",
+    DevicePoliciesVulnerabilityManagementPolicyId: "device_policies.vulnerability-management.policy_id",
+    DevicePoliciesAwsVerifiedAccessPolicyId: "device_policies.aws-verified-access.policy_id",
+    Groups: "groups",
+    BiosManufacturer: "bios_manufacturer",
+    ExternalIp: "external_ip",
+    LastLoginUserSid: "last_login_user_sid",
+    DevicePoliciesAirlockPolicyType: "device_policies.airlock.policy_type",
+    DevicePoliciesAutomoxPolicyId: "device_policies.automox.policy_id",
+    DevicePoliciesHostRetentionPolicyId: "device_policies.host-retention.policy_id",
+    DevicePoliciesMobilePolicyType: "device_policies.mobile.policy_type",
+    DevicePoliciesBrowserExtensionApplied: "device_policies.browser-extension.applied",
+    Status: "status",
+    DevicePoliciesAutomoxApplied: "device_policies.automox.applied",
+    DevicePoliciesFimPolicyId: "device_policies.fim.policy_id",
+    DevicePoliciesDataProtectionCloudPolicyId: "device_policies.data-protection-cloud.policy_id",
+    DevicePoliciesFirewallRuleSetId: "device_policies.firewall.rule_set_id",
+    ManagedAppsIdentityProtectionVersion: "managed_apps.identity-protection.version",
+    OsProductName: "os_product_name",
+    DevicePoliciesLogscaleCollectorPolicyId: "device_policies.logscale-collector.policy_id",
+    PolicyId: "policy_id",
+    DevicePoliciesJumpcloudApplied: "device_policies.jumpcloud.applied",
+    DevicePoliciesZtlPolicyType: "device_policies.ztl.policy_type",
+    DevicePoliciesVulnerabilityManagementPolicyType: "device_policies.vulnerability-management.policy_type",
+    ManagedAppsNetskopeVersion: "managed_apps.netskope.version",
+    DevicePoliciesRemoteResponsePolicyType: "device_policies.remote_response.policy_type",
+} as const;
+export type CombinedDevicesByFilterSortEnum = (typeof CombinedDevicesByFilterSortEnum)[keyof typeof CombinedDevicesByFilterSortEnum];
+/**
+ * @export
+ */
+export const CombinedHiddenDevicesByFilterSortEnum = {
+    PodHostIp6: "pod_host_ip6",
+    DevicePoliciesNetworkScanContentApplied: "device_policies.network-scan-content.applied",
+    DevicePoliciesPreventionPolicyId: "device_policies.prevention.policy_id",
+    DevicePoliciesIdentityEndpointPolicyId: "device_policies.identity-endpoint.policy_id",
+    DevicePoliciesDataProtectionApplied: "device_policies.data-protection.applied",
+    DevicePoliciesBrowserExtensionPolicyId: "device_policies.browser-extension.policy_id",
+    DevicePoliciesFemBrowserExtensionControlPolicyType: "device_policies.fem-browser-extension-control.policy_type",
+    MajorVersion: "major_version",
+    SystemProductName: "system_product_name",
+    DevicePoliciesAirlockPolicyId: "device_policies.airlock.policy_id",
+    DevicePoliciesSystemTrayPolicyId: "device_policies.system-tray.policy_id",
+    DevicePoliciesFimPolicyType: "device_policies.fim.policy_type",
+    DevicePoliciesCloudMlApplied: "device_policies.cloud-ml.applied",
+    DevicePoliciesAwsVerifiedAccessApplied: "device_policies.aws-verified-access.applied",
+    DevicePoliciesFirewallPolicyType: "device_policies.firewall.policy_type",
+    Cid: "cid",
+    Hostname: "hostname",
+    FirstLoginTimestamp: "first_login_timestamp",
+    DevicePoliciesConsumerSubscriptionPolicyType: "device_policies.consumer-subscription.policy_type",
+    DevicePoliciesFirewallPolicyId: "device_policies.firewall.policy_id",
+    ManagedAppsAwsVerifiedAccessVersion: "managed_apps.aws-verified-access.version",
+    Email: "email",
+    KernelVersion: "kernel_version",
+    FirstSeen: "first_seen",
+    DevicePoliciesLogscaleCollectorApplied: "device_policies.logscale-collector.applied",
+    DevicePoliciesVulnerabilityManagementApplied: "device_policies.vulnerability-management.applied",
+    DevicePoliciesItAutomationApplied: "device_policies.it-automation.applied",
+    ServiceProviderAccountId: "service_provider_account_id",
+    K8sClusterId: "k8s_cluster_id",
+    DevicePoliciesFemBrowserExtensionControlApplied: "device_policies.fem-browser-extension-control.applied",
+    DevicePoliciesApplicationAbusePreventionPolicyType: "device_policies.application-abuse-prevention.policy_type",
+    DevicePoliciesApplicationAbusePreventionPolicyId: "device_policies.application-abuse-prevention.policy_id",
+    DevicePoliciesAwsVerifiedAccessPolicyType: "device_policies.aws-verified-access.policy_type",
+    ConnectionIp: "connection_ip",
+    K8sClusterGitVersion: "k8s_cluster_git_version",
+    LastLoginUser: "last_login_user",
+    LastSeen: "last_seen",
+    MinorVersion: "minor_version",
+    DevicePoliciesIdentityProtectionPolicyType: "device_policies.identity-protection.policy_type",
+    DevicePoliciesRemoteResponsePolicyId: "device_policies.remote_response.policy_id",
+    PodIp6: "pod_ip6",
+    DeploymentType: "deployment_type",
+    LastLoginTimestamp: "last_login_timestamp",
+    OsVersion: "os_version",
+    DevicePoliciesPreventionApplied: "device_policies.prevention.applied",
+    DevicePoliciesScaPolicyType: "device_policies.sca.policy_type",
+    MacAddress: "mac_address",
+    ServiceProvider: "service_provider",
+    ZoneGroup: "zone_group",
+    ChassisType: "chassis_type",
+    ProductTypeDesc: "product_type_desc",
+    DevicePoliciesKubernetesAdmissionControlPolicyId: "device_policies.kubernetes-admission-control.policy_id",
+    DevicePoliciesKubernetesAdmissionControlApplied: "device_policies.kubernetes-admission-control.applied",
+    DevicePoliciesFimApplied: "device_policies.fim.applied",
+    InstanceId: "instance_id",
+    InternetExposure: "internet_exposure",
+    DevicePoliciesFemBrowserExtensionControlPolicyId: "device_policies.fem-browser-extension-control.policy_id",
+    DevicePoliciesApplicationAbusePreventionApplied: "device_policies.application-abuse-prevention.applied",
+    LastLoginUid: "last_login_uid",
+    ModifiedTimestamp: "modified_timestamp",
+    DevicePoliciesSensorUpdatePolicyId: "device_policies.sensor_update.policy_id",
+    DevicePoliciesAirlockApplied: "device_policies.airlock.applied",
+    All: "_all",
+    SafeMode: "safe_mode",
+    PlatformName: "platform_name",
+    PoliciesApplied: "policies.applied",
+    DevicePoliciesSensorUpdateApplied: "device_policies.sensor_update.applied",
+    LinuxSensorMode: "linux_sensor_mode",
+    PoliciesPolicyId: "policies.policy_id",
+    DevicePoliciesAutomoxPolicyType: "device_policies.automox.policy_type",
+    DevicePoliciesIdentityEndpointPolicyType: "device_policies.identity-endpoint.policy_type",
+    DevicePoliciesDataProtectionPolicyId: "device_policies.data-protection.policy_id",
+    DevicePoliciesDataProtectionCloudPolicyType: "device_policies.data-protection-cloud.policy_type",
+    RtrState: "rtr_state",
+    CpuVendor: "cpu_vendor",
+    DevicePoliciesExposureManagementPolicyType: "device_policies.exposure-management.policy_type",
+    ConfigIdBase: "config_id_base",
+    DevicePoliciesSystemTrayApplied: "device_policies.system-tray.applied",
+    DevicePoliciesCloudMlPolicyType: "device_policies.cloud-ml.policy_type",
+    DevicePoliciesMobilePolicyId: "device_policies.mobile.policy_id",
+    PodHostIp4: "pod_host_ip4",
+    DevicePoliciesExposureManagementApplied: "device_policies.exposure-management.applied",
+    OsBuild: "os_build",
+    ProductType: "product_type",
+    DevicePoliciesJumpcloudPolicyType: "device_policies.jumpcloud.policy_type",
+    DevicePoliciesJumpcloudPolicyId: "device_policies.jumpcloud.policy_id",
+    DevicePoliciesHostRetentionApplied: "device_policies.host-retention.applied",
+    ReducedFunctionalityMode: "reduced_functionality_mode",
+    PodHostname: "pod_hostname",
+    SiteName: "site_name",
+    DevicePoliciesDataProtectionCloudApplied: "device_policies.data-protection-cloud.applied",
+    GroupHash: "group_hash",
+    K8sClusterVersion: "k8s_cluster_version",
+    DetectionSuppressionStatus: "detection_suppression_status",
+    DevicePoliciesSensorUpdatePolicyType: "device_policies.sensor_update.policy_type",
+    HostUtcOffset: "host_utc_offset",
+    DevicePoliciesSensorUpdateUninstallProtection: "device_policies.sensor_update.uninstall_protection",
+    DevicePoliciesZtlPolicyId: "device_policies.ztl.policy_id",
+    DevicePoliciesScaPolicyId: "device_policies.sca.policy_id",
+    PodLabels: "pod_labels",
+    DevicePoliciesExposureManagementPolicyId: "device_policies.exposure-management.policy_id",
+    DevicePoliciesIdentityProtectionPolicyId: "device_policies.identity-protection.policy_id",
+    PodName: "pod_name",
+    FilesystemContainmentStatus: "filesystem_containment_status",
+    SystemManufacturer: "system_manufacturer",
+    DevicePoliciesScaApplied: "device_policies.sca.applied",
+    DevicePoliciesDataProtectionPolicyType: "device_policies.data-protection.policy_type",
+    CpuSignature: "cpu_signature",
+    PodNamespace: "pod_namespace",
+    DefaultGatewayIp: "default_gateway_ip",
+    ChassisTypeDesc: "chassis_type_desc",
+    DevicePoliciesDeviceControlApplied: "device_policies.device_control.applied",
+    DevicePoliciesConsumerSubscriptionPolicyId: "device_policies.consumer-subscription.policy_id",
+    DevicePoliciesNetworkScanContentPolicyType: "device_policies.network-scan-content.policy_type",
+    PoliciesPolicyType: "policies.policy_type",
+    DevicePoliciesIdentityEndpointApplied: "device_policies.identity-endpoint.applied",
+    DevicePoliciesContentUpdatePolicyId: "device_policies.content-update.policy_id",
+    DevicePoliciesCloudMlPolicyId: "device_policies.cloud-ml.policy_id",
+    DevicePoliciesMobileApplied: "device_policies.mobile.applied",
+    ManagedAppsAutomoxVersion: "managed_apps.automox.version",
+    LicenseActivationState: "license_activation_state",
+    MigrationCompletedTime: "migration_completed_time",
+    ConfigIdBuild: "config_id_build",
+    DevicePoliciesDeviceControlPolicyId: "device_policies.device_control.policy_id",
+    DevicePoliciesNetskopePolicyId: "device_policies.netskope.policy_id",
+    PodIp4: "pod_ip4",
+    ConfigIdPlatform: "config_id_platform",
+    FirstLoginUser: "first_login_user",
+    PlatformId: "platform_id",
+    DevicePoliciesPreventionPolicyType: "device_policies.prevention.policy_type",
+    DevicePoliciesDeviceControlPolicyType: "device_policies.device_control.policy_type",
+    DevicePoliciesContentUpdateApplied: "device_policies.content-update.applied",
+    PodId: "pod_id",
+    LastReboot: "last_reboot",
+    MachineDomain: "machine_domain",
+    Ou: "ou",
+    DevicePoliciesNetskopePolicyType: "device_policies.netskope.policy_type",
+    DevicePoliciesBrowserExtensionPolicyType: "device_policies.browser-extension.policy_type",
+    DevicePoliciesLogscaleCollectorPolicyType: "device_policies.logscale-collector.policy_type",
+    ReleaseGroup: "release_group",
+    DevicePoliciesIdentityProtectionApplied: "device_policies.identity-protection.applied",
+    DevicePoliciesContentUpdatePolicyType: "device_policies.content-update.policy_type",
+    DevicePoliciesFirewallApplied: "device_policies.firewall.applied",
+    ManagedAppsJumpcloudVersion: "managed_apps.jumpcloud.version",
+    DevicePoliciesRemoteResponseApplied: "device_policies.remote_response.applied",
+    DeviceId: "device_id",
+    DevicePoliciesNetskopeApplied: "device_policies.netskope.applied",
+    DevicePoliciesHostRetentionPolicyType: "device_policies.host-retention.policy_type",
+    LocalIpRaw: "local_ip.raw",
+    Tags: "tags",
+    DevicePoliciesNetworkScanContentPolicyId: "device_policies.network-scan-content.policy_id",
+    DevicePoliciesKubernetesAdmissionControlPolicyType: "device_policies.kubernetes-admission-control.policy_type",
+    DevicePoliciesItAutomationPolicyType: "device_policies.it-automation.policy_type",
+    DevicePoliciesItAutomationPolicyId: "device_policies.it-automation.policy_id",
+    SerialNumber: "serial_number",
+    PodAnnotations: "pod_annotations",
+    ConnectionMacAddress: "connection_mac_address",
+    BiosVersion: "bios_version",
+    DevicePoliciesConsumerSubscriptionApplied: "device_policies.consumer-subscription.applied",
+    ManagedAppsAirlockVersion: "managed_apps.airlock.version",
+    PodServiceAccountName: "pod_service_account_name",
+    AgentLoadFlags: "agent_load_flags",
+    AgentVersion: "agent_version",
+    LocalIp: "local_ip",
+    DevicePoliciesZtlApplied: "device_policies.ztl.applied",
+    DevicePoliciesSystemTrayPolicyType: "device_policies.system-tray.policy_type",
+    DevicePoliciesVulnerabilityManagementPolicyId: "device_policies.vulnerability-management.policy_id",
+    DevicePoliciesAwsVerifiedAccessPolicyId: "device_policies.aws-verified-access.policy_id",
+    Groups: "groups",
+    BiosManufacturer: "bios_manufacturer",
+    ExternalIp: "external_ip",
+    LastLoginUserSid: "last_login_user_sid",
+    DevicePoliciesAirlockPolicyType: "device_policies.airlock.policy_type",
+    DevicePoliciesAutomoxPolicyId: "device_policies.automox.policy_id",
+    DevicePoliciesHostRetentionPolicyId: "device_policies.host-retention.policy_id",
+    DevicePoliciesMobilePolicyType: "device_policies.mobile.policy_type",
+    DevicePoliciesBrowserExtensionApplied: "device_policies.browser-extension.applied",
+    Status: "status",
+    DevicePoliciesAutomoxApplied: "device_policies.automox.applied",
+    DevicePoliciesFimPolicyId: "device_policies.fim.policy_id",
+    DevicePoliciesDataProtectionCloudPolicyId: "device_policies.data-protection-cloud.policy_id",
+    DevicePoliciesFirewallRuleSetId: "device_policies.firewall.rule_set_id",
+    ManagedAppsIdentityProtectionVersion: "managed_apps.identity-protection.version",
+    OsProductName: "os_product_name",
+    DevicePoliciesLogscaleCollectorPolicyId: "device_policies.logscale-collector.policy_id",
+    PolicyId: "policy_id",
+    DevicePoliciesJumpcloudApplied: "device_policies.jumpcloud.applied",
+    DevicePoliciesZtlPolicyType: "device_policies.ztl.policy_type",
+    DevicePoliciesVulnerabilityManagementPolicyType: "device_policies.vulnerability-management.policy_type",
+    ManagedAppsNetskopeVersion: "managed_apps.netskope.version",
+    DevicePoliciesRemoteResponsePolicyType: "device_policies.remote_response.policy_type",
+} as const;
+export type CombinedHiddenDevicesByFilterSortEnum = (typeof CombinedHiddenDevicesByFilterSortEnum)[keyof typeof CombinedHiddenDevicesByFilterSortEnum];
 /**
  * @export
  */

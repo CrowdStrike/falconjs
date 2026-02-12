@@ -248,7 +248,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
         }
 
         const response = await this.request(
@@ -310,7 +310,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
         }
 
         const response = await this.request(
@@ -372,7 +372,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
         }
 
         const response = await this.request(
@@ -432,7 +432,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
         }
 
         const response = await this.request(
@@ -492,7 +492,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
         }
 
         const response = await this.request(
@@ -550,7 +550,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
         }
 
         const response = await this.request(
@@ -599,7 +599,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
         }
 
         const response = await this.request(
@@ -653,7 +653,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
         }
 
         const response = await this.request(
@@ -706,7 +706,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
         }
 
         const response = await this.request(
@@ -756,7 +756,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
         }
 
         const response = await this.request(
@@ -806,7 +806,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
         }
 
         const response = await this.request(
@@ -859,7 +859,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
         }
 
         const response = await this.request(
@@ -904,7 +904,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
         }
 
         const response = await this.request(
@@ -947,7 +947,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
         }
 
         const response = await this.request(
@@ -991,7 +991,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
         }
 
         const response = await this.request(
@@ -1049,7 +1049,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
         }
 
         const response = await this.request(
@@ -1100,7 +1100,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
         }
 
         const response = await this.request(
@@ -1154,7 +1154,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
         }
 
         const response = await this.request(
@@ -1199,7 +1199,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
         }
 
         const response = await this.request(
@@ -1244,7 +1244,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
         }
 
         const response = await this.request(
@@ -1287,7 +1287,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
         }
 
         const response = await this.request(
@@ -1331,7 +1331,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
         }
 
         const response = await this.request(
@@ -1375,7 +1375,7 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
         }
 
         const response = await this.request(

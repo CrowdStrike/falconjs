@@ -24,7 +24,6 @@ import type {
     RegistrationAWSProvisionGetAccountScriptResponseV2,
     RegistrationAzureAccountCreateRequestExternalV1,
     RegistrationAzureAccountResponseV1,
-    RegistrationAzureDownloadCertificateResponseV1,
     RegistrationAzureProvisionGetUserScriptResponseV1,
     RegistrationAzureTenantConfigurationResponseV1,
     RegistrationAzureTenantIDsResponseV1,
@@ -58,8 +57,6 @@ import {
     RegistrationAzureAccountCreateRequestExternalV1ToJSON,
     RegistrationAzureAccountResponseV1FromJSON,
     RegistrationAzureAccountResponseV1ToJSON,
-    RegistrationAzureDownloadCertificateResponseV1FromJSON,
-    RegistrationAzureDownloadCertificateResponseV1ToJSON,
     RegistrationAzureProvisionGetUserScriptResponseV1FromJSON,
     RegistrationAzureProvisionGetUserScriptResponseV1ToJSON,
     RegistrationAzureTenantConfigurationResponseV1FromJSON,
@@ -109,22 +106,33 @@ export interface D4cRegistrationApiDeleteD4CGCPAccountRequest {
     ids?: Array<string>;
 }
 
-export interface D4cRegistrationApiDiscoverCloudAzureDownloadCertificateRequest {
-    tenantId: Array<string>;
-    refresh?: boolean;
-    yearsValid?: string;
-}
-
 export interface D4cRegistrationApiGetD4CAWSAccountScriptsAttachmentRequest {
     ids?: Array<string>;
     template?: GetD4CAWSAccountScriptsAttachmentTemplateEnum;
     accounts?: Array<string>;
     behaviorAssessmentEnabled?: GetD4CAWSAccountScriptsAttachmentBehaviorAssessmentEnabledEnum;
     sensorManagementEnabled?: GetD4CAWSAccountScriptsAttachmentSensorManagementEnabledEnum;
+    dspmEnabled?: GetD4CAWSAccountScriptsAttachmentDspmEnabledEnum;
+    dspmRegions?: Array<string>;
+    dspmHostAccountId?: string;
+    dspmHostIntegrationRoleName?: string;
+    dspmHostScannerRoleName?: string;
+    dspmRole?: string;
+    vulnerabilityScanningEnabled?: GetD4CAWSAccountScriptsAttachmentVulnerabilityScanningEnabledEnum;
+    vulnerabilityScanningRegions?: Array<string>;
+    vulnerabilityScanningHostAccountId?: string;
+    vulnerabilityScanningHostIntegrationRoleName?: string;
+    vulnerabilityScanningHostScannerRoleName?: string;
+    vulnerabilityScanningRole?: string;
     useExistingCloudtrail?: GetD4CAWSAccountScriptsAttachmentUseExistingCloudtrailEnum;
     organizationId?: string;
+    organizationalUnitIds?: Array<string>;
     awsProfile?: string;
-    customRoleName?: string;
+    awsRegion?: string;
+    iamRoleArn?: string;
+    falconClientId?: string;
+    idpEnabled?: string;
+    tags?: string;
 }
 
 export interface D4cRegistrationApiGetD4CAwsAccountRequest {
@@ -221,7 +229,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:write"]);
         }
 
         const response = await this.request(
@@ -265,7 +273,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:write"]);
         }
 
         const response = await this.request(
@@ -309,7 +317,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:write"]);
         }
 
         const response = await this.request(
@@ -353,7 +361,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:write"]);
         }
 
         const response = await this.request(
@@ -387,7 +395,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     async deleteD4CAwsAccountRaw(
         requestParameters: D4cRegistrationApiDeleteD4CAwsAccountRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaBaseEntitiesResponse>> {
+    ): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -402,7 +410,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:write"]);
         }
 
         const response = await this.request(
@@ -415,13 +423,13 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaBaseEntitiesResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecResponseFieldsFromJSON(jsonValue));
     }
 
     /**
      * Deletes an existing AWS account or organization in our system.
      */
-    async deleteD4CAwsAccount(ids?: Array<string>, organizationIds?: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaBaseEntitiesResponse> {
+    async deleteD4CAwsAccount(ids?: Array<string>, organizationIds?: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecResponseFields> {
         const response = await this.deleteD4CAwsAccountRaw({ ids: ids, organizationIds: organizationIds }, initOverrides);
         return await response.value();
     }
@@ -443,7 +451,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:write"]);
         }
 
         const response = await this.request(
@@ -464,64 +472,6 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
      */
     async deleteD4CGCPAccount(ids?: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaBaseEntitiesResponse> {
         const response = await this.deleteD4CGCPAccountRaw({ ids: ids }, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Returns JSON object(s) that contain the base64 encoded certificate for a service principal.
-     */
-    async discoverCloudAzureDownloadCertificateRaw(
-        requestParameters: D4cRegistrationApiDiscoverCloudAzureDownloadCertificateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationAzureDownloadCertificateResponseV1>> {
-        if (requestParameters["tenantId"] == null) {
-            throw new runtime.RequiredError("tenantId", 'Required parameter "tenantId" was null or undefined when calling discoverCloudAzureDownloadCertificate().');
-        }
-
-        const queryParameters: any = {};
-
-        if (requestParameters["tenantId"] != null) {
-            queryParameters["tenant_id"] = requestParameters["tenantId"];
-        }
-
-        if (requestParameters["refresh"] != null) {
-            queryParameters["refresh"] = requestParameters["refresh"];
-        }
-
-        if (requestParameters["yearsValid"] != null) {
-            queryParameters["years_valid"] = requestParameters["yearsValid"];
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request(
-            {
-                path: `/cloud-connect-azure/entities/download-certificate/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureDownloadCertificateResponseV1FromJSON(jsonValue));
-    }
-
-    /**
-     * Returns JSON object(s) that contain the base64 encoded certificate for a service principal.
-     */
-    async discoverCloudAzureDownloadCertificate(
-        tenantId: Array<string>,
-        refresh?: boolean,
-        yearsValid?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<RegistrationAzureDownloadCertificateResponseV1> {
-        const response = await this.discoverCloudAzureDownloadCertificateRaw({ tenantId: tenantId, refresh: refresh, yearsValid: yearsValid }, initOverrides);
         return await response.value();
     }
 
@@ -554,6 +504,54 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
             queryParameters["sensor_management_enabled"] = requestParameters["sensorManagementEnabled"];
         }
 
+        if (requestParameters["dspmEnabled"] != null) {
+            queryParameters["dspm_enabled"] = requestParameters["dspmEnabled"];
+        }
+
+        if (requestParameters["dspmRegions"] != null) {
+            queryParameters["dspm_regions"] = requestParameters["dspmRegions"]!.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters["dspmHostAccountId"] != null) {
+            queryParameters["dspm_host_account_id"] = requestParameters["dspmHostAccountId"];
+        }
+
+        if (requestParameters["dspmHostIntegrationRoleName"] != null) {
+            queryParameters["dspm_host_integration_role_name"] = requestParameters["dspmHostIntegrationRoleName"];
+        }
+
+        if (requestParameters["dspmHostScannerRoleName"] != null) {
+            queryParameters["dspm_host_scanner_role_name"] = requestParameters["dspmHostScannerRoleName"];
+        }
+
+        if (requestParameters["dspmRole"] != null) {
+            queryParameters["dspm_role"] = requestParameters["dspmRole"];
+        }
+
+        if (requestParameters["vulnerabilityScanningEnabled"] != null) {
+            queryParameters["vulnerability_scanning_enabled"] = requestParameters["vulnerabilityScanningEnabled"];
+        }
+
+        if (requestParameters["vulnerabilityScanningRegions"] != null) {
+            queryParameters["vulnerability_scanning_regions"] = requestParameters["vulnerabilityScanningRegions"]!.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters["vulnerabilityScanningHostAccountId"] != null) {
+            queryParameters["vulnerability_scanning_host_account_id"] = requestParameters["vulnerabilityScanningHostAccountId"];
+        }
+
+        if (requestParameters["vulnerabilityScanningHostIntegrationRoleName"] != null) {
+            queryParameters["vulnerability_scanning_host_integration_role_name"] = requestParameters["vulnerabilityScanningHostIntegrationRoleName"];
+        }
+
+        if (requestParameters["vulnerabilityScanningHostScannerRoleName"] != null) {
+            queryParameters["vulnerability_scanning_host_scanner_role_name"] = requestParameters["vulnerabilityScanningHostScannerRoleName"];
+        }
+
+        if (requestParameters["vulnerabilityScanningRole"] != null) {
+            queryParameters["vulnerability_scanning_role"] = requestParameters["vulnerabilityScanningRole"];
+        }
+
         if (requestParameters["useExistingCloudtrail"] != null) {
             queryParameters["use_existing_cloudtrail"] = requestParameters["useExistingCloudtrail"];
         }
@@ -562,19 +560,39 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
             queryParameters["organization_id"] = requestParameters["organizationId"];
         }
 
+        if (requestParameters["organizationalUnitIds"] != null) {
+            queryParameters["organizational_unit_ids"] = requestParameters["organizationalUnitIds"]!.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
         if (requestParameters["awsProfile"] != null) {
             queryParameters["aws_profile"] = requestParameters["awsProfile"];
         }
 
-        if (requestParameters["customRoleName"] != null) {
-            queryParameters["custom_role_name"] = requestParameters["customRoleName"];
+        if (requestParameters["awsRegion"] != null) {
+            queryParameters["aws_region"] = requestParameters["awsRegion"];
+        }
+
+        if (requestParameters["iamRoleArn"] != null) {
+            queryParameters["iam_role_arn"] = requestParameters["iamRoleArn"];
+        }
+
+        if (requestParameters["falconClientId"] != null) {
+            queryParameters["falcon_client_id"] = requestParameters["falconClientId"];
+        }
+
+        if (requestParameters["idpEnabled"] != null) {
+            queryParameters["idp_enabled"] = requestParameters["idpEnabled"];
+        }
+
+        if (requestParameters["tags"] != null) {
+            queryParameters["tags"] = requestParameters["tags"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
         }
 
         const response = await this.request(
@@ -599,10 +617,27 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
         accounts?: Array<string>,
         behaviorAssessmentEnabled?: GetD4CAWSAccountScriptsAttachmentBehaviorAssessmentEnabledEnum,
         sensorManagementEnabled?: GetD4CAWSAccountScriptsAttachmentSensorManagementEnabledEnum,
+        dspmEnabled?: GetD4CAWSAccountScriptsAttachmentDspmEnabledEnum,
+        dspmRegions?: Array<string>,
+        dspmHostAccountId?: string,
+        dspmHostIntegrationRoleName?: string,
+        dspmHostScannerRoleName?: string,
+        dspmRole?: string,
+        vulnerabilityScanningEnabled?: GetD4CAWSAccountScriptsAttachmentVulnerabilityScanningEnabledEnum,
+        vulnerabilityScanningRegions?: Array<string>,
+        vulnerabilityScanningHostAccountId?: string,
+        vulnerabilityScanningHostIntegrationRoleName?: string,
+        vulnerabilityScanningHostScannerRoleName?: string,
+        vulnerabilityScanningRole?: string,
         useExistingCloudtrail?: GetD4CAWSAccountScriptsAttachmentUseExistingCloudtrailEnum,
         organizationId?: string,
+        organizationalUnitIds?: Array<string>,
         awsProfile?: string,
-        customRoleName?: string,
+        awsRegion?: string,
+        iamRoleArn?: string,
+        falconClientId?: string,
+        idpEnabled?: string,
+        tags?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<RegistrationAWSProvisionGetAccountScriptResponseV2> {
         const response = await this.getD4CAWSAccountScriptsAttachmentRaw(
@@ -612,10 +647,27 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
                 accounts: accounts,
                 behaviorAssessmentEnabled: behaviorAssessmentEnabled,
                 sensorManagementEnabled: sensorManagementEnabled,
+                dspmEnabled: dspmEnabled,
+                dspmRegions: dspmRegions,
+                dspmHostAccountId: dspmHostAccountId,
+                dspmHostIntegrationRoleName: dspmHostIntegrationRoleName,
+                dspmHostScannerRoleName: dspmHostScannerRoleName,
+                dspmRole: dspmRole,
+                vulnerabilityScanningEnabled: vulnerabilityScanningEnabled,
+                vulnerabilityScanningRegions: vulnerabilityScanningRegions,
+                vulnerabilityScanningHostAccountId: vulnerabilityScanningHostAccountId,
+                vulnerabilityScanningHostIntegrationRoleName: vulnerabilityScanningHostIntegrationRoleName,
+                vulnerabilityScanningHostScannerRoleName: vulnerabilityScanningHostScannerRoleName,
+                vulnerabilityScanningRole: vulnerabilityScanningRole,
                 useExistingCloudtrail: useExistingCloudtrail,
                 organizationId: organizationId,
+                organizationalUnitIds: organizationalUnitIds,
                 awsProfile: awsProfile,
-                customRoleName: customRoleName,
+                awsRegion: awsRegion,
+                iamRoleArn: iamRoleArn,
+                falconClientId: falconClientId,
+                idpEnabled: idpEnabled,
+                tags: tags,
             },
             initOverrides,
         );
@@ -663,7 +715,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
         }
 
         const response = await this.request(
@@ -716,7 +768,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
         }
 
         const response = await this.request(
@@ -757,7 +809,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
         }
 
         const response = await this.request(
@@ -806,7 +858,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
         }
 
         const response = await this.request(
@@ -876,7 +928,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
         }
 
         const response = await this.request(
@@ -926,7 +978,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
         }
 
         const response = await this.request(
@@ -987,7 +1039,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
         }
 
         const response = await this.request(
@@ -1029,7 +1081,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
         }
 
         const response = await this.request(
@@ -1063,7 +1115,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
         }
 
         const response = await this.request(
@@ -1120,7 +1172,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
         }
 
         const response = await this.request(
@@ -1182,7 +1234,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
         }
 
         const response = await this.request(
@@ -1231,7 +1283,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:write"]);
         }
 
         const response = await this.request(
@@ -1288,7 +1340,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:write"]);
         }
 
         const response = await this.request(
@@ -1343,6 +1395,23 @@ export const GetD4CAWSAccountScriptsAttachmentSensorManagementEnabledEnum = {
 } as const;
 export type GetD4CAWSAccountScriptsAttachmentSensorManagementEnabledEnum =
     (typeof GetD4CAWSAccountScriptsAttachmentSensorManagementEnabledEnum)[keyof typeof GetD4CAWSAccountScriptsAttachmentSensorManagementEnabledEnum];
+/**
+ * @export
+ */
+export const GetD4CAWSAccountScriptsAttachmentDspmEnabledEnum = {
+    True: "true",
+    False: "false",
+} as const;
+export type GetD4CAWSAccountScriptsAttachmentDspmEnabledEnum = (typeof GetD4CAWSAccountScriptsAttachmentDspmEnabledEnum)[keyof typeof GetD4CAWSAccountScriptsAttachmentDspmEnabledEnum];
+/**
+ * @export
+ */
+export const GetD4CAWSAccountScriptsAttachmentVulnerabilityScanningEnabledEnum = {
+    True: "true",
+    False: "false",
+} as const;
+export type GetD4CAWSAccountScriptsAttachmentVulnerabilityScanningEnabledEnum =
+    (typeof GetD4CAWSAccountScriptsAttachmentVulnerabilityScanningEnabledEnum)[keyof typeof GetD4CAWSAccountScriptsAttachmentVulnerabilityScanningEnabledEnum];
 /**
  * @export
  */

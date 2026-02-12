@@ -108,7 +108,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:write"]);
         }
 
         const response = await this.request(
@@ -152,7 +152,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:write"]);
         }
 
         const response = await this.request(
@@ -198,7 +198,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:write"]);
         }
 
         const response = await this.request(
@@ -243,7 +243,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:write"]);
         }
 
         const response = await this.request(
@@ -277,7 +277,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -311,7 +311,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -345,7 +345,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -396,7 +396,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:write"]);
         }
 
         const response = await this.request(
@@ -440,7 +440,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:write"]);
         }
 
         const response = await this.request(
@@ -492,7 +492,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:write"]);
         }
 
         const response = await this.request(
@@ -536,7 +536,7 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:write"]);
         }
 
         const response = await this.request(

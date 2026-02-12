@@ -14,22 +14,46 @@
 
 import * as runtime from "../runtime";
 import type {
+    ApiPolicyEntitiesResponse,
+    CoreEntitiesResponse,
     DomainExternalQueryResponse,
     DomainExternalRegistryListResponse,
     DomainExternalRegistryResponse,
+    ExportsExportsResponse,
+    ExportsLaunchExportRequest,
+    ExportsLaunchExportResponse,
+    ModelsInventoryScanRequestType,
     MsaReplyMetaOnly,
+    MsaspecQueryResponse,
+    MsaspecResponseFields,
     RegistryassessmentExternalRegistryPatchPayload,
     RegistryassessmentExternalRegistryPayload,
 } from "../models/index";
 import {
+    ApiPolicyEntitiesResponseFromJSON,
+    ApiPolicyEntitiesResponseToJSON,
+    CoreEntitiesResponseFromJSON,
+    CoreEntitiesResponseToJSON,
     DomainExternalQueryResponseFromJSON,
     DomainExternalQueryResponseToJSON,
     DomainExternalRegistryListResponseFromJSON,
     DomainExternalRegistryListResponseToJSON,
     DomainExternalRegistryResponseFromJSON,
     DomainExternalRegistryResponseToJSON,
+    ExportsExportsResponseFromJSON,
+    ExportsExportsResponseToJSON,
+    ExportsLaunchExportRequestFromJSON,
+    ExportsLaunchExportRequestToJSON,
+    ExportsLaunchExportResponseFromJSON,
+    ExportsLaunchExportResponseToJSON,
+    ModelsInventoryScanRequestTypeFromJSON,
+    ModelsInventoryScanRequestTypeToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
+    MsaspecQueryResponseFromJSON,
+    MsaspecQueryResponseToJSON,
+    MsaspecResponseFieldsFromJSON,
+    MsaspecResponseFieldsToJSON,
     RegistryassessmentExternalRegistryPatchPayloadFromJSON,
     RegistryassessmentExternalRegistryPatchPayloadToJSON,
     RegistryassessmentExternalRegistryPayloadFromJSON,
@@ -42,6 +66,46 @@ export interface FalconContainerImageApiCreateRegistryEntitiesRequest {
 
 export interface FalconContainerImageApiDeleteRegistryEntitiesRequest {
     ids: string;
+}
+
+export interface FalconContainerImageApiDownloadExportFileRequest {
+    id: string;
+}
+
+export interface FalconContainerImageApiGetReportByReferenceRequest {
+    registry?: string;
+    repository?: string;
+    tag?: string;
+    imageId?: string;
+    digest?: string;
+    reportFormat?: string;
+}
+
+export interface FalconContainerImageApiGetReportByScanIDRequest {
+    uuid: string;
+    reportFormat?: string;
+}
+
+export interface FalconContainerImageApiLaunchExportJobRequest {
+    body: ExportsLaunchExportRequest;
+}
+
+export interface FalconContainerImageApiPolicyChecksRequest {
+    repository: string;
+    tag: string;
+    registry?: string;
+}
+
+export interface FalconContainerImageApiPostImageScanInventoryRequest {
+    body: ModelsInventoryScanRequestType;
+}
+
+export interface FalconContainerImageApiQueryExportJobsRequest {
+    filter?: string;
+}
+
+export interface FalconContainerImageApiReadExportJobsRequest {
+    ids: Array<string>;
 }
 
 export interface FalconContainerImageApiReadRegistryEntitiesRequest {
@@ -82,7 +146,7 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:write"]);
         }
 
         const response = await this.request(
@@ -128,7 +192,7 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:write"]);
         }
 
         const response = await this.request(
@@ -153,7 +217,429 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve registry entities identified by the customer id
+     * Download an export file
+     */
+    async downloadExportFileRaw(
+        requestParameters: FalconContainerImageApiDownloadExportFileRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<Array<number>>> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling downloadExportFile().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["id"] != null) {
+            queryParameters["id"] = requestParameters["id"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/entities/exports/files/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse<any>(response);
+    }
+
+    /**
+     * Download an export file
+     */
+    async downloadExportFile(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<number>> {
+        const response = await this.downloadExportFileRaw({ id: id }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get image assessment scan report by image reference (v2)
+     */
+    async getReportByReferenceRaw(
+        requestParameters: FalconContainerImageApiGetReportByReferenceRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CoreEntitiesResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["registry"] != null) {
+            queryParameters["registry"] = requestParameters["registry"];
+        }
+
+        if (requestParameters["repository"] != null) {
+            queryParameters["repository"] = requestParameters["repository"];
+        }
+
+        if (requestParameters["tag"] != null) {
+            queryParameters["tag"] = requestParameters["tag"];
+        }
+
+        if (requestParameters["imageId"] != null) {
+            queryParameters["image_id"] = requestParameters["imageId"];
+        }
+
+        if (requestParameters["digest"] != null) {
+            queryParameters["digest"] = requestParameters["digest"];
+        }
+
+        if (requestParameters["reportFormat"] != null) {
+            queryParameters["report_format"] = requestParameters["reportFormat"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/image-assessment/entities/reports/v2`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CoreEntitiesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get image assessment scan report by image reference (v2)
+     */
+    async getReportByReference(
+        registry?: string,
+        repository?: string,
+        tag?: string,
+        imageId?: string,
+        digest?: string,
+        reportFormat?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<CoreEntitiesResponse> {
+        const response = await this.getReportByReferenceRaw({ registry: registry, repository: repository, tag: tag, imageId: imageId, digest: digest, reportFormat: reportFormat }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get image assessment scan report by scan UUID (v2)
+     */
+    async getReportByScanIDRaw(
+        requestParameters: FalconContainerImageApiGetReportByScanIDRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CoreEntitiesResponse>> {
+        if (requestParameters["uuid"] == null) {
+            throw new runtime.RequiredError("uuid", 'Required parameter "uuid" was null or undefined when calling getReportByScanID().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["reportFormat"] != null) {
+            queryParameters["report_format"] = requestParameters["reportFormat"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/image-assessment/entities/reports/v2/{uuid}`.replace(`{${"uuid"}}`, encodeURIComponent(String(requestParameters["uuid"]))),
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CoreEntitiesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get image assessment scan report by scan UUID (v2)
+     */
+    async getReportByScanID(uuid: string, reportFormat?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CoreEntitiesResponse> {
+        const response = await this.getReportByScanIDRaw({ uuid: uuid, reportFormat: reportFormat }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get headers for POST request for image scan inventory
+     */
+    async headImageScanInventoryRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-cli:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/image-assessment/entities/image-inventory/v1`,
+                method: "HEAD",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Get headers for POST request for image scan inventory
+     */
+    async headImageScanInventory(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.headImageScanInventoryRaw(initOverrides);
+    }
+
+    /**
+     * Launch an export job of a Container Security resource. Maximum of 1 job in progress per resource
+     */
+    async launchExportJobRaw(
+        requestParameters: FalconContainerImageApiLaunchExportJobRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ExportsLaunchExportResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling launchExportJob().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/entities/exports/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ExportsLaunchExportRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ExportsLaunchExportResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Launch an export job of a Container Security resource. Maximum of 1 job in progress per resource
+     */
+    async launchExportJob(body: ExportsLaunchExportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ExportsLaunchExportResponse> {
+        const response = await this.launchExportJobRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Check image prevention policies
+     */
+    async policyChecksRaw(
+        requestParameters: FalconContainerImageApiPolicyChecksRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiPolicyEntitiesResponse>> {
+        if (requestParameters["repository"] == null) {
+            throw new runtime.RequiredError("repository", 'Required parameter "repository" was null or undefined when calling policyChecks().');
+        }
+
+        if (requestParameters["tag"] == null) {
+            throw new runtime.RequiredError("tag", 'Required parameter "tag" was null or undefined when calling policyChecks().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["registry"] != null) {
+            queryParameters["registry"] = requestParameters["registry"];
+        }
+
+        if (requestParameters["repository"] != null) {
+            queryParameters["repository"] = requestParameters["repository"];
+        }
+
+        if (requestParameters["tag"] != null) {
+            queryParameters["tag"] = requestParameters["tag"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/image-assessment/entities/policy-checks/v2`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiPolicyEntitiesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Check image prevention policies
+     */
+    async policyChecks(repository: string, tag: string, registry?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiPolicyEntitiesResponse> {
+        const response = await this.policyChecksRaw({ repository: repository, tag: tag, registry: registry }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Post image scan inventory
+     */
+    async postImageScanInventoryRaw(
+        requestParameters: FalconContainerImageApiPostImageScanInventoryRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postImageScanInventory().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-cli:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/image-assessment/entities/image-inventory/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ModelsInventoryScanRequestTypeToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Post image scan inventory
+     */
+    async postImageScanInventory(body: ModelsInventoryScanRequestType, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.postImageScanInventoryRaw({ body: body }, initOverrides);
+    }
+
+    /**
+     * Query export jobs entities
+     */
+    async queryExportJobsRaw(
+        requestParameters: FalconContainerImageApiQueryExportJobsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/queries/exports/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Query export jobs entities
+     */
+    async queryExportJobs(filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
+        const response = await this.queryExportJobsRaw({ filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Read export jobs entities
+     */
+    async readExportJobsRaw(
+        requestParameters: FalconContainerImageApiReadExportJobsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ExportsExportsResponse>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling readExportJobs().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"]!.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/entities/exports/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ExportsExportsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Read export jobs entities
+     */
+    async readExportJobs(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ExportsExportsResponse> {
+        const response = await this.readExportJobsRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieves a list of registry entities identified by the customer id. Maximum page size: 5,000
      */
     async readRegistryEntitiesRaw(
         requestParameters: FalconContainerImageApiReadRegistryEntitiesRequest,
@@ -177,7 +663,7 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -194,7 +680,7 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve registry entities identified by the customer id
+     * Retrieves a list of registry entities identified by the customer id. Maximum page size: 5,000
      */
     async readRegistryEntities(limit?: number, offset?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainExternalQueryResponse> {
         const response = await this.readRegistryEntitiesRaw({ limit: limit, offset: offset, sort: sort }, initOverrides);
@@ -202,7 +688,7 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve the registry entity identified by the entity UUID
+     * Retrieves a list of registry entities by the provided UUIDs. Maximum page size: 100
      */
     async readRegistryEntitiesByUUIDRaw(
         requestParameters: FalconContainerImageApiReadRegistryEntitiesByUUIDRequest,
@@ -222,7 +708,7 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -239,7 +725,7 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve the registry entity identified by the entity UUID
+     * Retrieves a list of registry entities by the provided UUIDs. Maximum page size: 100
      */
     async readRegistryEntitiesByUUID(ids: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainExternalRegistryListResponse> {
         const response = await this.readRegistryEntitiesByUUIDRaw({ ids: ids }, initOverrides);
@@ -273,7 +759,7 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:write"]);
         }
 
         const response = await this.request(

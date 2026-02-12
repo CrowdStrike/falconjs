@@ -36,6 +36,18 @@ export interface EntitiesODSScanRequest {
      * @type {number}
      * @memberof EntitiesODSScanRequest
      */
+    cloudPupAdwareLevelDetection: number;
+    /**
+     *
+     * @type {number}
+     * @memberof EntitiesODSScanRequest
+     */
+    cloudPupAdwareLevelPrevention: number;
+    /**
+     *
+     * @type {number}
+     * @memberof EntitiesODSScanRequest
+     */
     cpuPriority: number;
     /**
      *
@@ -73,6 +85,66 @@ export interface EntitiesODSScanRequest {
      * @memberof EntitiesODSScanRequest
      */
     initiatedFrom: string;
+    /**
+     *
+     * @type {number}
+     * @memberof EntitiesODSScanRequest
+     */
+    macCloudMlLevelDetection: number;
+    /**
+     *
+     * @type {number}
+     * @memberof EntitiesODSScanRequest
+     */
+    macCloudMlLevelPrevention: number;
+    /**
+     *
+     * @type {number}
+     * @memberof EntitiesODSScanRequest
+     */
+    macCloudPupAdwareLevelDetection: number;
+    /**
+     *
+     * @type {number}
+     * @memberof EntitiesODSScanRequest
+     */
+    macCloudPupAdwareLevelPrevention: number;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof EntitiesODSScanRequest
+     */
+    macScanExclusions: Array<string>;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof EntitiesODSScanRequest
+     */
+    macScanInclusions: Array<string>;
+    /**
+     *
+     * @type {number}
+     * @memberof EntitiesODSScanRequest
+     */
+    macSensorMlLevelDetection: number;
+    /**
+     *
+     * @type {number}
+     * @memberof EntitiesODSScanRequest
+     */
+    macSensorMlLevelPrevention: number;
+    /**
+     *
+     * @type {number}
+     * @memberof EntitiesODSScanRequest
+     */
+    macSensorPupAdwareLevelDetection: number;
+    /**
+     *
+     * @type {number}
+     * @memberof EntitiesODSScanRequest
+     */
+    macSensorPupAdwareLevelPrevention: number;
     /**
      *
      * @type {number}
@@ -123,6 +195,8 @@ export interface EntitiesODSScanRequest {
 export function instanceOfEntitiesODSScanRequest(value: object): value is EntitiesODSScanRequest {
     if (!("cloudMlLevelDetection" in value) || value["cloudMlLevelDetection"] === undefined) return false;
     if (!("cloudMlLevelPrevention" in value) || value["cloudMlLevelPrevention"] === undefined) return false;
+    if (!("cloudPupAdwareLevelDetection" in value) || value["cloudPupAdwareLevelDetection"] === undefined) return false;
+    if (!("cloudPupAdwareLevelPrevention" in value) || value["cloudPupAdwareLevelPrevention"] === undefined) return false;
     if (!("cpuPriority" in value) || value["cpuPriority"] === undefined) return false;
     if (!("description" in value) || value["description"] === undefined) return false;
     if (!("endpointNotification" in value) || value["endpointNotification"] === undefined) return false;
@@ -130,6 +204,16 @@ export function instanceOfEntitiesODSScanRequest(value: object): value is Entiti
     if (!("hostGroups" in value) || value["hostGroups"] === undefined) return false;
     if (!("hosts" in value) || value["hosts"] === undefined) return false;
     if (!("initiatedFrom" in value) || value["initiatedFrom"] === undefined) return false;
+    if (!("macCloudMlLevelDetection" in value) || value["macCloudMlLevelDetection"] === undefined) return false;
+    if (!("macCloudMlLevelPrevention" in value) || value["macCloudMlLevelPrevention"] === undefined) return false;
+    if (!("macCloudPupAdwareLevelDetection" in value) || value["macCloudPupAdwareLevelDetection"] === undefined) return false;
+    if (!("macCloudPupAdwareLevelPrevention" in value) || value["macCloudPupAdwareLevelPrevention"] === undefined) return false;
+    if (!("macScanExclusions" in value) || value["macScanExclusions"] === undefined) return false;
+    if (!("macScanInclusions" in value) || value["macScanInclusions"] === undefined) return false;
+    if (!("macSensorMlLevelDetection" in value) || value["macSensorMlLevelDetection"] === undefined) return false;
+    if (!("macSensorMlLevelPrevention" in value) || value["macSensorMlLevelPrevention"] === undefined) return false;
+    if (!("macSensorPupAdwareLevelDetection" in value) || value["macSensorPupAdwareLevelDetection"] === undefined) return false;
+    if (!("macSensorPupAdwareLevelPrevention" in value) || value["macSensorPupAdwareLevelPrevention"] === undefined) return false;
     if (!("maxDuration" in value) || value["maxDuration"] === undefined) return false;
     if (!("pauseDuration" in value) || value["pauseDuration"] === undefined) return false;
     if (!("quarantine" in value) || value["quarantine"] === undefined) return false;
@@ -151,6 +235,8 @@ export function EntitiesODSScanRequestFromJSONTyped(json: any, ignoreDiscriminat
     return {
         cloudMlLevelDetection: json["cloud_ml_level_detection"],
         cloudMlLevelPrevention: json["cloud_ml_level_prevention"],
+        cloudPupAdwareLevelDetection: json["cloud_pup_adware_level_detection"],
+        cloudPupAdwareLevelPrevention: json["cloud_pup_adware_level_prevention"],
         cpuPriority: json["cpu_priority"],
         description: json["description"],
         endpointNotification: json["endpoint_notification"],
@@ -158,6 +244,16 @@ export function EntitiesODSScanRequestFromJSONTyped(json: any, ignoreDiscriminat
         hostGroups: json["host_groups"],
         hosts: json["hosts"],
         initiatedFrom: json["initiated_from"],
+        macCloudMlLevelDetection: json["mac_cloud_ml_level_detection"],
+        macCloudMlLevelPrevention: json["mac_cloud_ml_level_prevention"],
+        macCloudPupAdwareLevelDetection: json["mac_cloud_pup_adware_level_detection"],
+        macCloudPupAdwareLevelPrevention: json["mac_cloud_pup_adware_level_prevention"],
+        macScanExclusions: json["mac_scan_exclusions"],
+        macScanInclusions: json["mac_scan_inclusions"],
+        macSensorMlLevelDetection: json["mac_sensor_ml_level_detection"],
+        macSensorMlLevelPrevention: json["mac_sensor_ml_level_prevention"],
+        macSensorPupAdwareLevelDetection: json["mac_sensor_pup_adware_level_detection"],
+        macSensorPupAdwareLevelPrevention: json["mac_sensor_pup_adware_level_prevention"],
         maxDuration: json["max_duration"],
         pauseDuration: json["pause_duration"],
         quarantine: json["quarantine"],
@@ -175,6 +271,8 @@ export function EntitiesODSScanRequestToJSON(value?: EntitiesODSScanRequest | nu
     return {
         cloud_ml_level_detection: value["cloudMlLevelDetection"],
         cloud_ml_level_prevention: value["cloudMlLevelPrevention"],
+        cloud_pup_adware_level_detection: value["cloudPupAdwareLevelDetection"],
+        cloud_pup_adware_level_prevention: value["cloudPupAdwareLevelPrevention"],
         cpu_priority: value["cpuPriority"],
         description: value["description"],
         endpoint_notification: value["endpointNotification"],
@@ -182,6 +280,16 @@ export function EntitiesODSScanRequestToJSON(value?: EntitiesODSScanRequest | nu
         host_groups: value["hostGroups"],
         hosts: value["hosts"],
         initiated_from: value["initiatedFrom"],
+        mac_cloud_ml_level_detection: value["macCloudMlLevelDetection"],
+        mac_cloud_ml_level_prevention: value["macCloudMlLevelPrevention"],
+        mac_cloud_pup_adware_level_detection: value["macCloudPupAdwareLevelDetection"],
+        mac_cloud_pup_adware_level_prevention: value["macCloudPupAdwareLevelPrevention"],
+        mac_scan_exclusions: value["macScanExclusions"],
+        mac_scan_inclusions: value["macScanInclusions"],
+        mac_sensor_ml_level_detection: value["macSensorMlLevelDetection"],
+        mac_sensor_ml_level_prevention: value["macSensorMlLevelPrevention"],
+        mac_sensor_pup_adware_level_detection: value["macSensorPupAdwareLevelDetection"],
+        mac_sensor_pup_adware_level_prevention: value["macSensorPupAdwareLevelPrevention"],
         max_duration: value["maxDuration"],
         pause_duration: value["pauseDuration"],
         quarantine: value["quarantine"],

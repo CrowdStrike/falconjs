@@ -13,8 +13,8 @@
  */
 
 import { mapValues } from "../runtime";
-import type { FwmgrApiJsonDiff } from "./FwmgrApiJsonDiff";
-import { FwmgrApiJsonDiffFromJSON, FwmgrApiJsonDiffFromJSONTyped, FwmgrApiJsonDiffToJSON } from "./FwmgrApiJsonDiff";
+import type { FwmgrApiJSONDiff } from "./FwmgrApiJSONDiff";
+import { FwmgrApiJSONDiffFromJSON, FwmgrApiJSONDiffFromJSONTyped, FwmgrApiJSONDiffToJSON } from "./FwmgrApiJSONDiff";
 
 /**
  *
@@ -24,10 +24,10 @@ import { FwmgrApiJsonDiffFromJSON, FwmgrApiJsonDiffFromJSONTyped, FwmgrApiJsonDi
 export interface FwmgrApiRuleGroupModifyRequestV1 {
     /**
      *
-     * @type {Array<FwmgrApiJsonDiff>}
+     * @type {Array<FwmgrApiJSONDiff>}
      * @memberof FwmgrApiRuleGroupModifyRequestV1
      */
-    diffOperations: Array<FwmgrApiJsonDiff>;
+    diffOperations: Array<FwmgrApiJSONDiff>;
     /**
      *
      * @type {string}
@@ -82,7 +82,7 @@ export function FwmgrApiRuleGroupModifyRequestV1FromJSONTyped(json: any, ignoreD
         return json;
     }
     return {
-        diffOperations: (json["diff_operations"] as Array<any>).map(FwmgrApiJsonDiffFromJSON),
+        diffOperations: (json["diff_operations"] as Array<any>).map(FwmgrApiJSONDiffFromJSON),
         diffType: json["diff_type"],
         id: json["id"],
         ruleIds: json["rule_ids"],
@@ -96,7 +96,7 @@ export function FwmgrApiRuleGroupModifyRequestV1ToJSON(value?: FwmgrApiRuleGroup
         return value;
     }
     return {
-        diff_operations: (value["diffOperations"] as Array<any>).map(FwmgrApiJsonDiffToJSON),
+        diff_operations: (value["diffOperations"] as Array<any>).map(FwmgrApiJSONDiffToJSON),
         diff_type: value["diffType"],
         id: value["id"],
         rule_ids: value["ruleIds"],

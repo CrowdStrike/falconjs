@@ -13,10 +13,10 @@
  */
 
 import { mapValues } from "../runtime";
-import type { DomainCondition } from "./DomainCondition";
-import { DomainConditionFromJSON, DomainConditionFromJSONTyped, DomainConditionToJSON } from "./DomainCondition";
-import type { DomainAzureRoleAssignment } from "./DomainAzureRoleAssignment";
-import { DomainAzureRoleAssignmentFromJSON, DomainAzureRoleAssignmentFromJSONTyped, DomainAzureRoleAssignmentToJSON } from "./DomainAzureRoleAssignment";
+import type { AzureDBRoleAssignment } from "./AzureDBRoleAssignment";
+import { AzureDBRoleAssignmentFromJSON, AzureDBRoleAssignmentFromJSONTyped, AzureDBRoleAssignmentToJSON } from "./AzureDBRoleAssignment";
+import type { StatemgmtCondition } from "./StatemgmtCondition";
+import { StatemgmtConditionFromJSON, StatemgmtConditionFromJSONTyped, StatemgmtConditionToJSON } from "./StatemgmtCondition";
 import type { DomainCloudScope } from "./DomainCloudScope";
 import { DomainCloudScopeFromJSON, DomainCloudScopeFromJSONTyped, DomainCloudScopeToJSON } from "./DomainCloudScope";
 import type { DomainPermission } from "./DomainPermission";
@@ -84,10 +84,10 @@ export interface RegistrationAzureAccountV1Ext {
     cloudScopes?: Array<DomainCloudScope>;
     /**
      *
-     * @type {Array<DomainCondition>}
+     * @type {Array<StatemgmtCondition>}
      * @memberof RegistrationAzureAccountV1Ext
      */
-    conditions?: Array<DomainCondition>;
+    conditions?: Array<StatemgmtCondition>;
     /**
      *
      * @type {Date}
@@ -112,6 +112,18 @@ export interface RegistrationAzureAccountV1Ext {
      * @memberof RegistrationAzureAccountV1Ext
      */
     environment?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof RegistrationAzureAccountV1Ext
+     */
+    ioaStatus: string;
+    /**
+     *
+     * @type {string}
+     * @memberof RegistrationAzureAccountV1Ext
+     */
+    iomStatus: string;
     /**
      * Is CSPM Lite enabled.
      * @type {boolean}
@@ -150,10 +162,10 @@ export interface RegistrationAzureAccountV1Ext {
     publicCertificateRaw?: string;
     /**
      *
-     * @type {Array<DomainAzureRoleAssignment>}
+     * @type {Array<AzureDBRoleAssignment>}
      * @memberof RegistrationAzureAccountV1Ext
      */
-    roleAssignments?: Array<DomainAzureRoleAssignment>;
+    roleAssignments?: Array<AzureDBRoleAssignment>;
     /**
      * Whether to show modal on the UI instructing existing D4C Azure customer to reregister subscriptions for CSPM.
      * @type {boolean}
@@ -202,6 +214,8 @@ export function instanceOfRegistrationAzureAccountV1Ext(value: object): value is
     if (!("updatedAt" in value) || value["updatedAt"] === undefined) return false;
     if (!("azurePermissionsStatus" in value) || value["azurePermissionsStatus"] === undefined) return false;
     if (!("cid" in value) || value["cid"] === undefined) return false;
+    if (!("ioaStatus" in value) || value["ioaStatus"] === undefined) return false;
+    if (!("iomStatus" in value) || value["iomStatus"] === undefined) return false;
     if (!("showModal" in value) || value["showModal"] === undefined) return false;
     return true;
 }
@@ -224,18 +238,20 @@ export function RegistrationAzureAccountV1ExtFromJSONTyped(json: any, ignoreDisc
         cid: json["cid"],
         clientId: json["client_id"] == null ? undefined : json["client_id"],
         cloudScopes: json["cloud_scopes"] == null ? undefined : (json["cloud_scopes"] as Array<any>).map(DomainCloudScopeFromJSON),
-        conditions: json["conditions"] == null ? undefined : (json["conditions"] as Array<any>).map(DomainConditionFromJSON),
+        conditions: json["conditions"] == null ? undefined : (json["conditions"] as Array<any>).map(StatemgmtConditionFromJSON),
         credentialsEndDate: json["credentials_end_date"] == null ? undefined : new Date(json["credentials_end_date"]),
         credentialsType: json["credentials_type"] == null ? undefined : json["credentials_type"],
         defaultSubscriptionId: json["default_subscription_id"] == null ? undefined : json["default_subscription_id"],
         environment: json["environment"] == null ? undefined : json["environment"],
+        ioaStatus: json["ioa_status"],
+        iomStatus: json["iom_status"],
         isCspmLite: json["is_cspm_lite"] == null ? undefined : json["is_cspm_lite"],
         objectId: json["object_id"] == null ? undefined : json["object_id"],
         parentManagementGroupId: json["parent_management_group_id"] == null ? undefined : json["parent_management_group_id"],
         parentManagementGroupName: json["parent_management_group_name"] == null ? undefined : json["parent_management_group_name"],
         publicCertificate: json["public_certificate"] == null ? undefined : json["public_certificate"],
         publicCertificateRaw: json["public_certificate_raw"] == null ? undefined : json["public_certificate_raw"],
-        roleAssignments: json["role_assignments"] == null ? undefined : (json["role_assignments"] as Array<any>).map(DomainAzureRoleAssignmentFromJSON),
+        roleAssignments: json["role_assignments"] == null ? undefined : (json["role_assignments"] as Array<any>).map(AzureDBRoleAssignmentFromJSON),
         showModal: json["show_modal"],
         status: json["status"] == null ? undefined : json["status"],
         subscriptionId: json["subscription_id"] == null ? undefined : json["subscription_id"],
@@ -259,18 +275,20 @@ export function RegistrationAzureAccountV1ExtToJSON(value?: RegistrationAzureAcc
         cid: value["cid"],
         client_id: value["clientId"],
         cloud_scopes: value["cloudScopes"] == null ? undefined : (value["cloudScopes"] as Array<any>).map(DomainCloudScopeToJSON),
-        conditions: value["conditions"] == null ? undefined : (value["conditions"] as Array<any>).map(DomainConditionToJSON),
+        conditions: value["conditions"] == null ? undefined : (value["conditions"] as Array<any>).map(StatemgmtConditionToJSON),
         credentials_end_date: value["credentialsEndDate"] == null ? undefined : value["credentialsEndDate"].toISOString(),
         credentials_type: value["credentialsType"],
         default_subscription_id: value["defaultSubscriptionId"],
         environment: value["environment"],
+        ioa_status: value["ioaStatus"],
+        iom_status: value["iomStatus"],
         is_cspm_lite: value["isCspmLite"],
         object_id: value["objectId"],
         parent_management_group_id: value["parentManagementGroupId"],
         parent_management_group_name: value["parentManagementGroupName"],
         public_certificate: value["publicCertificate"],
         public_certificate_raw: value["publicCertificateRaw"],
-        role_assignments: value["roleAssignments"] == null ? undefined : (value["roleAssignments"] as Array<any>).map(DomainAzureRoleAssignmentToJSON),
+        role_assignments: value["roleAssignments"] == null ? undefined : (value["roleAssignments"] as Array<any>).map(AzureDBRoleAssignmentToJSON),
         show_modal: value["showModal"],
         status: value["status"],
         subscription_id: value["subscriptionId"],

@@ -23,7 +23,7 @@ import { DeviceControlExceptionRespV1FromJSON, DeviceControlExceptionRespV1FromJ
  */
 export interface DeviceControlUSBClassExceptionsResponse {
     /**
-     * Policy action
+     * Policy action. Note: BLOCK_EXECUTE is only valid for MASS_STORAGE devices.
      * @type {string}
      * @memberof DeviceControlUSBClassExceptionsResponse
      */
@@ -48,6 +48,7 @@ export interface DeviceControlUSBClassExceptionsResponse {
 export const DeviceControlUSBClassExceptionsResponseActionEnum = {
     FullAccess: "FULL_ACCESS",
     FullBlock: "FULL_BLOCK",
+    BlockExecute: "BLOCK_EXECUTE",
     ReadOnly: "READ_ONLY",
 } as const;
 export type DeviceControlUSBClassExceptionsResponseActionEnum = (typeof DeviceControlUSBClassExceptionsResponseActionEnum)[keyof typeof DeviceControlUSBClassExceptionsResponseActionEnum];

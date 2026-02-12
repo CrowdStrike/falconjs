@@ -15,6 +15,8 @@
 import { mapValues } from "../runtime";
 import type { ModelsLightWeightConfig } from "./ModelsLightWeightConfig";
 import { ModelsLightWeightConfigFromJSON, ModelsLightWeightConfigFromJSONTyped, ModelsLightWeightConfigToJSON } from "./ModelsLightWeightConfig";
+import type { ModelsImageDetails } from "./ModelsImageDetails";
+import { ModelsImageDetailsFromJSON, ModelsImageDetailsFromJSONTyped, ModelsImageDetailsToJSON } from "./ModelsImageDetails";
 
 /**
  *
@@ -22,6 +24,18 @@ import { ModelsLightWeightConfigFromJSON, ModelsLightWeightConfigFromJSONTyped, 
  * @interface ModelsAPICustomerAndImage
  */
 export interface ModelsAPICustomerAndImage {
+    /**
+     *
+     * @type {boolean}
+     * @memberof ModelsAPICustomerAndImage
+     */
+    aiRelated: boolean;
+    /**
+     *
+     * @type {string}
+     * @memberof ModelsAPICustomerAndImage
+     */
+    baseImageId?: string;
     /**
      *
      * @type {string}
@@ -96,6 +110,12 @@ export interface ModelsAPICustomerAndImage {
     imageSize: number;
     /**
      *
+     * @type {boolean}
+     * @memberof ModelsAPICustomerAndImage
+     */
+    isBaseImage: boolean;
+    /**
+     *
      * @type {string}
      * @memberof ModelsAPICustomerAndImage
      */
@@ -106,6 +126,18 @@ export interface ModelsAPICustomerAndImage {
      * @memberof ModelsAPICustomerAndImage
      */
     repository: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ModelsAPICustomerAndImage
+     */
+    source: string;
+    /**
+     *
+     * @type {ModelsImageDetails}
+     * @memberof ModelsAPICustomerAndImage
+     */
+    sourceBaseImage: ModelsImageDetails;
     /**
      *
      * @type {string}
@@ -136,6 +168,7 @@ export interface ModelsAPICustomerAndImage {
  * Check if a given object implements the ModelsAPICustomerAndImage interface.
  */
 export function instanceOfModelsAPICustomerAndImage(value: object): value is ModelsAPICustomerAndImage {
+    if (!("aiRelated" in value) || value["aiRelated"] === undefined) return false;
     if (!("baseOs" in value) || value["baseOs"] === undefined) return false;
     if (!("baseOsVersion" in value) || value["baseOsVersion"] === undefined) return false;
     if (!("cid" in value) || value["cid"] === undefined) return false;
@@ -147,8 +180,11 @@ export function instanceOfModelsAPICustomerAndImage(value: object): value is Mod
     if (!("imageId" in value) || value["imageId"] === undefined) return false;
     if (!("imageScanningActive" in value) || value["imageScanningActive"] === undefined) return false;
     if (!("imageSize" in value) || value["imageSize"] === undefined) return false;
+    if (!("isBaseImage" in value) || value["isBaseImage"] === undefined) return false;
     if (!("registry" in value) || value["registry"] === undefined) return false;
     if (!("repository" in value) || value["repository"] === undefined) return false;
+    if (!("source" in value) || value["source"] === undefined) return false;
+    if (!("sourceBaseImage" in value) || value["sourceBaseImage"] === undefined) return false;
     if (!("tag" in value) || value["tag"] === undefined) return false;
     if (!("updatedAt" in value) || value["updatedAt"] === undefined) return false;
     if (!("uuid" in value) || value["uuid"] === undefined) return false;
@@ -165,6 +201,8 @@ export function ModelsAPICustomerAndImageFromJSONTyped(json: any, ignoreDiscrimi
         return json;
     }
     return {
+        aiRelated: json["ai_related"],
+        baseImageId: json["base_image_id"] == null ? undefined : json["base_image_id"],
         baseOs: json["base_os"],
         baseOsVersion: json["base_os_version"],
         cid: json["cid"],
@@ -177,8 +215,11 @@ export function ModelsAPICustomerAndImageFromJSONTyped(json: any, ignoreDiscrimi
         imageId: json["image_id"],
         imageScanningActive: json["image_scanning_active"],
         imageSize: json["image_size"],
+        isBaseImage: json["is_base_image"],
         registry: json["registry"],
         repository: json["repository"],
+        source: json["source"],
+        sourceBaseImage: ModelsImageDetailsFromJSON(json["source_base_image"]),
         tag: json["tag"],
         updatedAt: json["updated_at"],
         uuid: json["uuid"],
@@ -191,6 +232,8 @@ export function ModelsAPICustomerAndImageToJSON(value?: ModelsAPICustomerAndImag
         return value;
     }
     return {
+        ai_related: value["aiRelated"],
+        base_image_id: value["baseImageId"],
         base_os: value["baseOs"],
         base_os_version: value["baseOsVersion"],
         cid: value["cid"],
@@ -203,8 +246,11 @@ export function ModelsAPICustomerAndImageToJSON(value?: ModelsAPICustomerAndImag
         image_id: value["imageId"],
         image_scanning_active: value["imageScanningActive"],
         image_size: value["imageSize"],
+        is_base_image: value["isBaseImage"],
         registry: value["registry"],
         repository: value["repository"],
+        source: value["source"],
+        source_base_image: ModelsImageDetailsToJSON(value["sourceBaseImage"]),
         tag: value["tag"],
         updated_at: value["updatedAt"],
         uuid: value["uuid"],

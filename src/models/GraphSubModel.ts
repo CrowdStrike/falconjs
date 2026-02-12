@@ -15,6 +15,8 @@
 import { mapValues } from "../runtime";
 import type { GraphMulti } from "./GraphMulti";
 import { GraphMultiFromJSON, GraphMultiFromJSONTyped, GraphMultiToJSON } from "./GraphMulti";
+import type { GraphNodePosition } from "./GraphNodePosition";
+import { GraphNodePositionFromJSON, GraphNodePositionFromJSONTyped, GraphNodePositionToJSON } from "./GraphNodePosition";
 import type { Flows } from "./Flows";
 import { FlowsFromJSON, FlowsFromJSONTyped, FlowsToJSON } from "./Flows";
 import type { GraphDefinitionModel } from "./GraphDefinitionModel";
@@ -56,6 +58,12 @@ export interface GraphSubModel {
      * @memberof GraphSubModel
      */
     nodeID: string;
+    /**
+     *
+     * @type {GraphNodePosition}
+     * @memberof GraphSubModel
+     */
+    position?: GraphNodePosition;
 }
 
 /**
@@ -83,6 +91,7 @@ export function GraphSubModelFromJSONTyped(json: any, ignoreDiscriminator: boole
         multi: GraphMultiFromJSON(json["multi"]),
         name: json["name"] == null ? undefined : json["name"],
         nodeID: json["nodeID"],
+        position: json["position"] == null ? undefined : GraphNodePositionFromJSON(json["position"]),
     };
 }
 
@@ -96,5 +105,6 @@ export function GraphSubModelToJSON(value?: GraphSubModel | null): any {
         multi: GraphMultiToJSON(value["multi"]),
         name: value["name"],
         nodeID: value["nodeID"],
+        position: GraphNodePositionToJSON(value["position"]),
     };
 }

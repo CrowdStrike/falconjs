@@ -36,6 +36,12 @@ export interface JsonschemaPivot {
      * @type {string}
      * @memberof JsonschemaPivot
      */
+    entityOnLoad?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof JsonschemaPivot
+     */
     entityValue?: string;
     /**
      *
@@ -43,6 +49,12 @@ export interface JsonschemaPivot {
      * @memberof JsonschemaPivot
      */
     queryString?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof JsonschemaPivot
+     */
+    queryStringOnLoad?: string;
     /**
      *
      * @type {boolean}
@@ -93,8 +105,10 @@ export function JsonschemaPivotFromJSONTyped(json: any, ignoreDiscriminator: boo
     return {
         caseSensitive: json["caseSensitive"] == null ? undefined : json["caseSensitive"],
         entity: json["entity"] == null ? undefined : json["entity"],
+        entityOnLoad: json["entityOnLoad"] == null ? undefined : json["entityOnLoad"],
         entityValue: json["entityValue"] == null ? undefined : json["entityValue"],
         queryString: json["queryString"] == null ? undefined : json["queryString"],
+        queryStringOnLoad: json["queryStringOnLoad"] == null ? undefined : json["queryStringOnLoad"],
         searchable: json["searchable"] == null ? undefined : json["searchable"],
         sortByDisplay: json["sortByDisplay"] == null ? undefined : json["sortByDisplay"],
         sortByValue: json["sortByValue"] == null ? undefined : json["sortByValue"],
@@ -110,8 +124,10 @@ export function JsonschemaPivotToJSON(value?: JsonschemaPivot | null): any {
     return {
         caseSensitive: value["caseSensitive"],
         entity: value["entity"],
+        entityOnLoad: value["entityOnLoad"],
         entityValue: value["entityValue"],
         queryString: value["queryString"],
+        queryStringOnLoad: value["queryStringOnLoad"],
         searchable: value["searchable"],
         sortByDisplay: value["sortByDisplay"],
         sortByValue: value["sortByValue"],

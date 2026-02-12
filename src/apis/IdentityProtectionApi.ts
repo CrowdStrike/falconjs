@@ -13,11 +13,36 @@
  */
 
 import * as runtime from "../runtime";
-import type { MsaReplyMetaOnly } from "../models/index";
-import { MsaReplyMetaOnlyFromJSON, MsaReplyMetaOnlyToJSON } from "../models/index";
+import type { MsaReplyMetaOnly, SwaggerGraphQLQuery, TypesPolicyRulesCreateBody } from "../models/index";
+import {
+    MsaReplyMetaOnlyFromJSON,
+    MsaReplyMetaOnlyToJSON,
+    SwaggerGraphQLQueryFromJSON,
+    SwaggerGraphQLQueryToJSON,
+    TypesPolicyRulesCreateBodyFromJSON,
+    TypesPolicyRulesCreateBodyToJSON,
+} from "../models/index";
+
+export interface IdentityProtectionApiApiPreemptProxyDeletePolicyRulesRequest {
+    ids: Set<string>;
+}
+
+export interface IdentityProtectionApiApiPreemptProxyGetPolicyRulesRequest {
+    ids: Set<string>;
+}
+
+export interface IdentityProtectionApiApiPreemptProxyGetPolicyRulesQueryRequest {
+    enabled?: boolean;
+    simulationMode?: boolean;
+    name?: string;
+}
 
 export interface IdentityProtectionApiApiPreemptProxyPostGraphqlRequest {
-    authorization: string;
+    body: SwaggerGraphQLQuery;
+}
+
+export interface IdentityProtectionApiApiPreemptProxyPostPolicyRulesRequest {
+    body: TypesPolicyRulesCreateBody;
 }
 
 /**
@@ -25,33 +50,33 @@ export interface IdentityProtectionApiApiPreemptProxyPostGraphqlRequest {
  */
 export class IdentityProtectionApi extends runtime.BaseAPI {
     /**
-     * Identity Protection GraphQL API. Allows to retrieve entities, timeline activities, identity-based incidents and security assessment. Allows to perform actions on entities and identity-based incidents.
+     * Delete policy rules
      */
-    async apiPreemptProxyPostGraphqlRaw(
-        requestParameters: IdentityProtectionApiApiPreemptProxyPostGraphqlRequest,
+    async apiPreemptProxyDeletePolicyRulesRaw(
+        requestParameters: IdentityProtectionApiApiPreemptProxyDeletePolicyRulesRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters["authorization"] == null) {
-            throw new runtime.RequiredError("authorization", 'Required parameter "authorization" was null or undefined when calling apiPreemptProxyPostGraphql().');
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling apiPreemptProxyDeletePolicyRules().');
         }
 
         const queryParameters: any = {};
 
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters["authorization"] != null) {
-            headerParameters["Authorization"] = String(requestParameters["authorization"]);
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
         }
+
+        const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["identity-policy-rules:write"]);
         }
 
         const response = await this.request(
             {
-                path: `/identity-protection/combined/graphql/v1`,
-                method: "POST",
+                path: `/identity-protection/entities/policy-rules/v1`,
+                method: "DELETE",
                 headers: headerParameters,
                 query: queryParameters,
             },
@@ -62,9 +87,187 @@ export class IdentityProtectionApi extends runtime.BaseAPI {
     }
 
     /**
+     * Delete policy rules
+     */
+    async apiPreemptProxyDeletePolicyRules(ids: Set<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.apiPreemptProxyDeletePolicyRulesRaw({ ids: ids }, initOverrides);
+    }
+
+    /**
+     * Get policy rules
+     */
+    async apiPreemptProxyGetPolicyRulesRaw(
+        requestParameters: IdentityProtectionApiApiPreemptProxyGetPolicyRulesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling apiPreemptProxyGetPolicyRules().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["identity-policy-rules:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/identity-protection/entities/policy-rules/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Get policy rules
+     */
+    async apiPreemptProxyGetPolicyRules(ids: Set<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.apiPreemptProxyGetPolicyRulesRaw({ ids: ids }, initOverrides);
+    }
+
+    /**
+     * Query policy rule IDs
+     */
+    async apiPreemptProxyGetPolicyRulesQueryRaw(
+        requestParameters: IdentityProtectionApiApiPreemptProxyGetPolicyRulesQueryRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<void>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["enabled"] != null) {
+            queryParameters["enabled"] = requestParameters["enabled"];
+        }
+
+        if (requestParameters["simulationMode"] != null) {
+            queryParameters["simulation_mode"] = requestParameters["simulationMode"];
+        }
+
+        if (requestParameters["name"] != null) {
+            queryParameters["name"] = requestParameters["name"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["identity-policy-rules:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/identity-protection/queries/policy-rules/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Query policy rule IDs
+     */
+    async apiPreemptProxyGetPolicyRulesQuery(enabled?: boolean, simulationMode?: boolean, name?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.apiPreemptProxyGetPolicyRulesQueryRaw({ enabled: enabled, simulationMode: simulationMode, name: name }, initOverrides);
+    }
+
+    /**
      * Identity Protection GraphQL API. Allows to retrieve entities, timeline activities, identity-based incidents and security assessment. Allows to perform actions on entities and identity-based incidents.
      */
-    async apiPreemptProxyPostGraphql(authorization: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.apiPreemptProxyPostGraphqlRaw({ authorization: authorization }, initOverrides);
+    async apiPreemptProxyPostGraphqlRaw(
+        requestParameters: IdentityProtectionApiApiPreemptProxyPostGraphqlRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling apiPreemptProxyPostGraphql().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["identity-graphql:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/identity-protection/combined/graphql/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: SwaggerGraphQLQueryToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Identity Protection GraphQL API. Allows to retrieve entities, timeline activities, identity-based incidents and security assessment. Allows to perform actions on entities and identity-based incidents.
+     */
+    async apiPreemptProxyPostGraphql(body: SwaggerGraphQLQuery, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.apiPreemptProxyPostGraphqlRaw({ body: body }, initOverrides);
+    }
+
+    /**
+     * Create policy rule
+     */
+    async apiPreemptProxyPostPolicyRulesRaw(
+        requestParameters: IdentityProtectionApiApiPreemptProxyPostPolicyRulesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling apiPreemptProxyPostPolicyRules().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["identity-policy-rules:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/identity-protection/entities/policy-rules/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: TypesPolicyRulesCreateBodyToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Create policy rule
+     */
+    async apiPreemptProxyPostPolicyRules(body: TypesPolicyRulesCreateBody, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.apiPreemptProxyPostPolicyRulesRaw({ body: body }, initOverrides);
     }
 }

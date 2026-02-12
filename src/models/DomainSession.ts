@@ -83,6 +83,12 @@ export interface DomainSession {
      * @type {string}
      * @memberof DomainSession
      */
+    executionId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainSession
+     */
     hostname: string;
     /**
      *
@@ -186,6 +192,7 @@ export function DomainSessionFromJSONTyped(json: any, ignoreDiscriminator: boole
         deviceDetails: json["device_details"] == null ? undefined : DomainDeviceFromJSON(json["device_details"]),
         deviceId: json["device_id"],
         duration: json["duration"],
+        executionId: json["execution_id"] == null ? undefined : json["execution_id"],
         hostname: json["hostname"],
         id: json["id"],
         logs: (json["logs"] as Array<any>).map(ModelSessionLogFromJSON),
@@ -214,6 +221,7 @@ export function DomainSessionToJSON(value?: DomainSession | null): any {
         device_details: DomainDeviceToJSON(value["deviceDetails"]),
         device_id: value["deviceId"],
         duration: value["duration"],
+        execution_id: value["executionId"],
         hostname: value["hostname"],
         id: value["id"],
         logs: (value["logs"] as Array<any>).map(ModelSessionLogToJSON),

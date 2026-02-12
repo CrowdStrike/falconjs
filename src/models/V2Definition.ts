@@ -55,6 +55,12 @@ export interface V2Definition {
      * @type {Array<string>}
      * @memberof V2Definition
      */
+    disconnectedNodes?: Array<string>;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof V2Definition
+     */
     labels?: Array<string>;
     /**
      *
@@ -106,6 +112,12 @@ export interface V2Definition {
     provisionOnInstall?: boolean;
     /**
      *
+     * @type {string}
+     * @memberof V2Definition
+     */
+    summary?: string;
+    /**
+     *
      * @type {V2Trigger}
      * @memberof V2Definition
      */
@@ -122,6 +134,18 @@ export interface V2Definition {
      * @memberof V2Definition
      */
     uniqNodeSeen: { [key: string]: boolean };
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof V2Definition
+     */
+    useCases?: Array<string>;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof V2Definition
+     */
+    vendors?: Array<string>;
 }
 
 /**
@@ -148,6 +172,7 @@ export function V2DefinitionFromJSONTyped(json: any, ignoreDiscriminator: boolea
         actions: json["actions"] == null ? undefined : mapValues(json["actions"], V2ActivityFromJSON),
         conditions: json["conditions"] == null ? undefined : mapValues(json["conditions"], V2ConditionFromJSON),
         description: json["description"] == null ? undefined : json["description"],
+        disconnectedNodes: json["disconnected_nodes"] == null ? undefined : json["disconnected_nodes"],
         labels: json["labels"] == null ? undefined : json["labels"],
         loops: json["loops"] == null ? undefined : mapValues(json["loops"], V2LoopFromJSON),
         multiInstance: json["multi_instance"] == null ? undefined : json["multi_instance"],
@@ -157,9 +182,12 @@ export function V2DefinitionFromJSONTyped(json: any, ignoreDiscriminator: boolea
         parameters: json["parameters"] == null ? undefined : V2ParametersFromJSON(json["parameters"]),
         parent: V2ModelFromJSON(json["parent"]),
         provisionOnInstall: json["provision_on_install"] == null ? undefined : json["provision_on_install"],
+        summary: json["summary"] == null ? undefined : json["summary"],
         trigger: V2TriggerFromJSON(json["trigger"]),
         type: json["type"] == null ? undefined : json["type"],
         uniqNodeSeen: json["uniqNodeSeen"],
+        useCases: json["use_cases"] == null ? undefined : json["use_cases"],
+        vendors: json["vendors"] == null ? undefined : json["vendors"],
     };
 }
 
@@ -171,6 +199,7 @@ export function V2DefinitionToJSON(value?: V2Definition | null): any {
         actions: value["actions"] == null ? undefined : mapValues(value["actions"], V2ActivityToJSON),
         conditions: value["conditions"] == null ? undefined : mapValues(value["conditions"], V2ConditionToJSON),
         description: value["description"],
+        disconnected_nodes: value["disconnectedNodes"],
         labels: value["labels"],
         loops: value["loops"] == null ? undefined : mapValues(value["loops"], V2LoopToJSON),
         multi_instance: value["multiInstance"],
@@ -180,8 +209,11 @@ export function V2DefinitionToJSON(value?: V2Definition | null): any {
         parameters: V2ParametersToJSON(value["parameters"]),
         parent: V2ModelToJSON(value["parent"]),
         provision_on_install: value["provisionOnInstall"],
+        summary: value["summary"],
         trigger: V2TriggerToJSON(value["trigger"]),
         type: value["type"],
         uniqNodeSeen: value["uniqNodeSeen"],
+        use_cases: value["useCases"],
+        vendors: value["vendors"],
     };
 }

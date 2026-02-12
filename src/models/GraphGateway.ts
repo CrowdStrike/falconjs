@@ -13,6 +13,8 @@
  */
 
 import { mapValues } from "../runtime";
+import type { GraphNodePosition } from "./GraphNodePosition";
+import { GraphNodePositionFromJSON, GraphNodePositionFromJSONTyped, GraphNodePositionToJSON } from "./GraphNodePosition";
 import type { Flows } from "./Flows";
 import { FlowsFromJSON, FlowsFromJSONTyped, FlowsToJSON } from "./Flows";
 
@@ -34,6 +36,12 @@ export interface GraphGateway {
      * @memberof GraphGateway
      */
     nodeID: string;
+    /**
+     *
+     * @type {GraphNodePosition}
+     * @memberof GraphGateway
+     */
+    position?: GraphNodePosition;
     /**
      * The type of gateway being specified, allowed values are; exclusive, inclusive and parallel.
      * @type {string}
@@ -63,6 +71,7 @@ export function GraphGatewayFromJSONTyped(json: any, ignoreDiscriminator: boolea
     return {
         flows: FlowsFromJSON(json["flows"]),
         nodeID: json["nodeID"],
+        position: json["position"] == null ? undefined : GraphNodePositionFromJSON(json["position"]),
         type: json["type"],
     };
 }
@@ -74,6 +83,7 @@ export function GraphGatewayToJSON(value?: GraphGateway | null): any {
     return {
         flows: FlowsToJSON(value["flows"]),
         nodeID: value["nodeID"],
+        position: GraphNodePositionToJSON(value["position"]),
         type: value["type"],
     };
 }

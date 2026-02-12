@@ -13,6 +13,9 @@
  */
 
 import { mapValues } from "../runtime";
+import type { DetectsMitreAttackMapping } from "./DetectsMitreAttackMapping";
+import { DetectsMitreAttackMappingFromJSON, DetectsMitreAttackMappingFromJSONTyped, DetectsMitreAttackMappingToJSON } from "./DetectsMitreAttackMapping";
+
 /**
  *
  * @export
@@ -93,7 +96,7 @@ export interface DetectsExternalAlert {
      */
     description: string;
     /**
-     * Customer visible name for the Alert&#39;s pattern
+     * Customer visible name for the Alert's pattern
      * @type {string}
      * @memberof DetectsExternalAlert
      */
@@ -117,6 +120,24 @@ export interface DetectsExternalAlert {
      */
     id: string;
     /**
+     * Linked Behavioral Detections are behavioral detections that are associated with this alert
+     * @type {Array<string>}
+     * @memberof DetectsExternalAlert
+     */
+    linkedBehavioralDetections: Array<string>;
+    /**
+     * Linked Case Ids are cases that are associated with this alert
+     * @type {Array<string>}
+     * @memberof DetectsExternalAlert
+     */
+    linkedCaseIds: Array<string>;
+    /**
+     * References to MITRE ATT&CK, which is a public framework for tracking and modeling adversary tools techniques and procedures
+     * @type {Array<DetectsMitreAttackMapping>}
+     * @memberof DetectsExternalAlert
+     */
+    mitreAttack: Array<DetectsMitreAttackMapping>;
+    /**
      * Pattern Name coming either from Taxonomy or directly from the ingested Alert
      * @type {string}
      * @memberof DetectsExternalAlert
@@ -128,6 +149,12 @@ export interface DetectsExternalAlert {
      * @memberof DetectsExternalAlert
      */
     objective: string;
+    /**
+     * Original CID value when the alert was first created, mirrors the cid field during alert creation
+     * @type {string}
+     * @memberof DetectsExternalAlert
+     */
+    originCid: string;
     /**
      * Taxonomy patternID for this Alert
      * @type {number}
@@ -146,6 +173,12 @@ export interface DetectsExternalAlert {
      * @memberof DetectsExternalAlert
      */
     product: string;
+    /**
+     * Alert resolution. Could be one of the following values: true_positive, false_positive, ignored
+     * @type {string}
+     * @memberof DetectsExternalAlert
+     */
+    resolution: string;
     /**
      * Scenario was used pre-Handrails to display additional killchain context for UI alerts. With handrails, this field is mostly  obsolete in favor of tactic/technique. Still, it can be useful for determining specific pattern types that are not straightforward to distinguish from other fields alone
      * @type {string}
@@ -177,7 +210,7 @@ export interface DetectsExternalAlert {
      */
     severityName: string;
     /**
-     * Boolean indicating if this Alert will be shown in the UI or if it&#39;s hidden&#39;
+     * Boolean indicating if this Alert will be shown in the UI or if it's hidden'
      * @type {boolean}
      * @memberof DetectsExternalAlert
      */
@@ -201,7 +234,7 @@ export interface DetectsExternalAlert {
      */
     status: string;
     /**
-     * Tactic and Technique are references to MITRE ATT&amp;CK, which is a public framework for tracking and modeling adversary tools techniques and procedures
+     * Tactic and Technique are references to MITRE ATT&CK, which is a public framework for tracking and modeling adversary tools techniques and procedures
      * @type {string}
      * @memberof DetectsExternalAlert
      */
@@ -219,7 +252,7 @@ export interface DetectsExternalAlert {
      */
     tags: Array<string>;
     /**
-     * Tactic and Technique are references to MITRE ATT&amp;CK, which is a public framework for tracking and modeling adversary tools techniques and procedures
+     * Tactic and Technique are references to MITRE ATT&CK, which is a public framework for tracking and modeling adversary tools techniques and procedures
      * @type {string}
      * @memberof DetectsExternalAlert
      */
@@ -270,11 +303,16 @@ export function instanceOfDetectsExternalAlert(value: object): value is DetectsE
     if (!("emailSent" in value) || value["emailSent"] === undefined) return false;
     if (!("external" in value) || value["external"] === undefined) return false;
     if (!("id" in value) || value["id"] === undefined) return false;
+    if (!("linkedBehavioralDetections" in value) || value["linkedBehavioralDetections"] === undefined) return false;
+    if (!("linkedCaseIds" in value) || value["linkedCaseIds"] === undefined) return false;
+    if (!("mitreAttack" in value) || value["mitreAttack"] === undefined) return false;
     if (!("name" in value) || value["name"] === undefined) return false;
     if (!("objective" in value) || value["objective"] === undefined) return false;
+    if (!("originCid" in value) || value["originCid"] === undefined) return false;
     if (!("patternId" in value) || value["patternId"] === undefined) return false;
     if (!("platform" in value) || value["platform"] === undefined) return false;
     if (!("product" in value) || value["product"] === undefined) return false;
+    if (!("resolution" in value) || value["resolution"] === undefined) return false;
     if (!("scenario" in value) || value["scenario"] === undefined) return false;
     if (!("secondsToResolved" in value) || value["secondsToResolved"] === undefined) return false;
     if (!("secondsToTriaged" in value) || value["secondsToTriaged"] === undefined) return false;
@@ -321,11 +359,16 @@ export function DetectsExternalAlertFromJSONTyped(json: any, ignoreDiscriminator
         emailSent: json["email_sent"],
         external: json["external"],
         id: json["id"],
+        linkedBehavioralDetections: json["linked_behavioral_detections"],
+        linkedCaseIds: json["linked_case_ids"],
+        mitreAttack: (json["mitre_attack"] as Array<any>).map(DetectsMitreAttackMappingFromJSON),
         name: json["name"],
         objective: json["objective"],
+        originCid: json["origin_cid"],
         patternId: json["pattern_id"],
         platform: json["platform"],
         product: json["product"],
+        resolution: json["resolution"],
         scenario: json["scenario"],
         secondsToResolved: json["seconds_to_resolved"],
         secondsToTriaged: json["seconds_to_triaged"],
@@ -368,11 +411,16 @@ export function DetectsExternalAlertToJSON(value?: DetectsExternalAlert | null):
         email_sent: value["emailSent"],
         external: value["external"],
         id: value["id"],
+        linked_behavioral_detections: value["linkedBehavioralDetections"],
+        linked_case_ids: value["linkedCaseIds"],
+        mitre_attack: (value["mitreAttack"] as Array<any>).map(DetectsMitreAttackMappingToJSON),
         name: value["name"],
         objective: value["objective"],
+        origin_cid: value["originCid"],
         pattern_id: value["patternId"],
         platform: value["platform"],
         product: value["product"],
+        resolution: value["resolution"],
         scenario: value["scenario"],
         seconds_to_resolved: value["secondsToResolved"],
         seconds_to_triaged: value["secondsToTriaged"],

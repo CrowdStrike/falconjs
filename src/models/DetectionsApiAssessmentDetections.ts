@@ -28,12 +28,6 @@ import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from
 export interface DetectionsApiAssessmentDetections {
     /**
      *
-     * @type {Array<ModelsAPIAssessmentDetections>}
-     * @memberof DetectionsApiAssessmentDetections
-     */
-    resources: Array<ModelsAPIAssessmentDetections>;
-    /**
-     *
      * @type {Array<MsaAPIError>}
      * @memberof DetectionsApiAssessmentDetections
      */
@@ -44,14 +38,20 @@ export interface DetectionsApiAssessmentDetections {
      * @memberof DetectionsApiAssessmentDetections
      */
     meta: MsaMetaInfo;
+    /**
+     *
+     * @type {Array<ModelsAPIAssessmentDetections>}
+     * @memberof DetectionsApiAssessmentDetections
+     */
+    resources: Array<ModelsAPIAssessmentDetections>;
 }
 
 /**
  * Check if a given object implements the DetectionsApiAssessmentDetections interface.
  */
 export function instanceOfDetectionsApiAssessmentDetections(value: object): value is DetectionsApiAssessmentDetections {
-    if (!("resources" in value) || value["resources"] === undefined) return false;
     if (!("meta" in value) || value["meta"] === undefined) return false;
+    if (!("resources" in value) || value["resources"] === undefined) return false;
     return true;
 }
 
@@ -64,9 +64,9 @@ export function DetectionsApiAssessmentDetectionsFromJSONTyped(json: any, ignore
         return json;
     }
     return {
-        resources: (json["resources"] as Array<any>).map(ModelsAPIAssessmentDetectionsFromJSON),
         errors: json["errors"] == null ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
+        resources: (json["resources"] as Array<any>).map(ModelsAPIAssessmentDetectionsFromJSON),
     };
 }
 
@@ -75,8 +75,8 @@ export function DetectionsApiAssessmentDetectionsToJSON(value?: DetectionsApiAss
         return value;
     }
     return {
-        resources: (value["resources"] as Array<any>).map(ModelsAPIAssessmentDetectionsToJSON),
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
+        resources: (value["resources"] as Array<any>).map(ModelsAPIAssessmentDetectionsToJSON),
     };
 }

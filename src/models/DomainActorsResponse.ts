@@ -13,10 +13,10 @@
  */
 
 import { mapValues } from "../runtime";
+import type { ActorActorDocument } from "./ActorActorDocument";
+import { ActorActorDocumentFromJSON, ActorActorDocumentFromJSONTyped, ActorActorDocumentToJSON } from "./ActorActorDocument";
 import type { MsaAPIError } from "./MsaAPIError";
 import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import type { DomainActorDocument } from "./DomainActorDocument";
-import { DomainActorDocumentFromJSON, DomainActorDocumentFromJSONTyped, DomainActorDocumentToJSON } from "./DomainActorDocument";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
 import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
@@ -40,10 +40,10 @@ export interface DomainActorsResponse {
     meta: MsaMetaInfo;
     /**
      *
-     * @type {Array<DomainActorDocument>}
+     * @type {Array<ActorActorDocument>}
      * @memberof DomainActorsResponse
      */
-    resources: Array<DomainActorDocument>;
+    resources: Array<ActorActorDocument>;
 }
 
 /**
@@ -67,7 +67,7 @@ export function DomainActorsResponseFromJSONTyped(json: any, ignoreDiscriminator
     return {
         errors: (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
-        resources: (json["resources"] as Array<any>).map(DomainActorDocumentFromJSON),
+        resources: (json["resources"] as Array<any>).map(ActorActorDocumentFromJSON),
     };
 }
 
@@ -78,6 +78,6 @@ export function DomainActorsResponseToJSON(value?: DomainActorsResponse | null):
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
-        resources: (value["resources"] as Array<any>).map(DomainActorDocumentToJSON),
+        resources: (value["resources"] as Array<any>).map(ActorActorDocumentToJSON),
     };
 }

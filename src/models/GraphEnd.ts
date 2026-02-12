@@ -13,6 +13,9 @@
  */
 
 import { mapValues } from "../runtime";
+import type { GraphNodePosition } from "./GraphNodePosition";
+import { GraphNodePositionFromJSON, GraphNodePositionFromJSONTyped, GraphNodePositionToJSON } from "./GraphNodePosition";
+
 /**
  *
  * @export
@@ -37,6 +40,18 @@ export interface GraphEnd {
      * @memberof GraphEnd
      */
     outputFields?: Array<string>;
+    /**
+     *
+     * @type {GraphNodePosition}
+     * @memberof GraphEnd
+     */
+    position?: GraphNodePosition;
+    /**
+     * Summary of the workflow is free form text with possibly embedded variables
+     * @type {string}
+     * @memberof GraphEnd
+     */
+    summary?: string;
 }
 
 /**
@@ -60,6 +75,8 @@ export function GraphEndFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         incomingFlows: json["incoming_flows"],
         nodeID: json["nodeID"],
         outputFields: json["output_fields"] == null ? undefined : json["output_fields"],
+        position: json["position"] == null ? undefined : GraphNodePositionFromJSON(json["position"]),
+        summary: json["summary"] == null ? undefined : json["summary"],
     };
 }
 
@@ -71,5 +88,7 @@ export function GraphEndToJSON(value?: GraphEnd | null): any {
         incoming_flows: value["incomingFlows"],
         nodeID: value["nodeID"],
         output_fields: value["outputFields"],
+        position: GraphNodePositionToJSON(value["position"]),
+        summary: value["summary"],
     };
 }

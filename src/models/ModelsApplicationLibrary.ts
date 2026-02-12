@@ -36,7 +36,7 @@ export interface ModelsApplicationLibrary {
      * @type {number}
      * @memberof ModelsApplicationLibrary
      */
-    layerIndex?: number;
+    layerIndex: number;
     /**
      *
      * @type {string}
@@ -61,12 +61,19 @@ export interface ModelsApplicationLibrary {
      * @memberof ModelsApplicationLibrary
      */
     version?: string;
+    /**
+     *
+     * @type {boolean}
+     * @memberof ModelsApplicationLibrary
+     */
+    aiRelated?: boolean;
 }
 
 /**
  * Check if a given object implements the ModelsApplicationLibrary interface.
  */
 export function instanceOfModelsApplicationLibrary(value: object): value is ModelsApplicationLibrary {
+    if (!("layerIndex" in value) || value["layerIndex"] === undefined) return false;
     return true;
 }
 
@@ -81,11 +88,12 @@ export function ModelsApplicationLibraryFromJSONTyped(json: any, ignoreDiscrimin
     return {
         hash: json["Hash"] == null ? undefined : json["Hash"],
         layerHash: json["LayerHash"] == null ? undefined : json["LayerHash"],
-        layerIndex: json["LayerIndex"] == null ? undefined : json["LayerIndex"],
+        layerIndex: json["LayerIndex"],
         license: json["License"] == null ? undefined : json["License"],
         name: json["Name"] == null ? undefined : json["Name"],
         path: json["Path"] == null ? undefined : json["Path"],
         version: json["Version"] == null ? undefined : json["Version"],
+        aiRelated: json["ai_related"] == null ? undefined : json["ai_related"],
     };
 }
 
@@ -101,5 +109,6 @@ export function ModelsApplicationLibraryToJSON(value?: ModelsApplicationLibrary 
         Name: value["name"],
         Path: value["path"],
         Version: value["version"],
+        ai_related: value["aiRelated"],
     };
 }

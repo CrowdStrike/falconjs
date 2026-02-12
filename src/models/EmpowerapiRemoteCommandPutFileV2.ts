@@ -132,7 +132,13 @@ export interface EmpowerapiRemoteCommandPutFileV2 {
      * @type {number}
      * @memberof EmpowerapiRemoteCommandPutFileV2
      */
-    size?: number;
+    size: number;
+    /**
+     *
+     * @type {string}
+     * @memberof EmpowerapiRemoteCommandPutFileV2
+     */
+    workflowActivityId?: string;
     /**
      *
      * @type {string}
@@ -166,6 +172,7 @@ export function instanceOfEmpowerapiRemoteCommandPutFileV2(value: object): value
     if (!("runAttemptCount" in value) || value["runAttemptCount"] === undefined) return false;
     if (!("runSuccessCount" in value) || value["runSuccessCount"] === undefined) return false;
     if (!("shareWithWorkflow" in value) || value["shareWithWorkflow"] === undefined) return false;
+    if (!("size" in value) || value["size"] === undefined) return false;
     if (!("workflowIsDisruptive" in value) || value["workflowIsDisruptive"] === undefined) return false;
     return true;
 }
@@ -197,7 +204,8 @@ export function EmpowerapiRemoteCommandPutFileV2FromJSONTyped(json: any, ignoreD
         runSuccessCount: json["run_success_count"],
         sha256: json["sha256"] == null ? undefined : json["sha256"],
         shareWithWorkflow: json["share_with_workflow"],
-        size: json["size"] == null ? undefined : json["size"],
+        size: json["size"],
+        workflowActivityId: json["workflow_activity_id"] == null ? undefined : json["workflow_activity_id"],
         workflowInputSchema: json["workflow_input_schema"] == null ? undefined : json["workflow_input_schema"],
         workflowIsDisruptive: json["workflow_is_disruptive"],
         workflowOutputSchema: json["workflow_output_schema"] == null ? undefined : json["workflow_output_schema"],
@@ -229,6 +237,7 @@ export function EmpowerapiRemoteCommandPutFileV2ToJSON(value?: EmpowerapiRemoteC
         sha256: value["sha256"],
         share_with_workflow: value["shareWithWorkflow"],
         size: value["size"],
+        workflow_activity_id: value["workflowActivityId"],
         workflow_input_schema: value["workflowInputSchema"],
         workflow_is_disruptive: value["workflowIsDisruptive"],
         workflow_output_schema: value["workflowOutputSchema"],

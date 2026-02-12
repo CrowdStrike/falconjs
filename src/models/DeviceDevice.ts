@@ -309,6 +309,12 @@ export interface DeviceDevice {
      * @type {string}
      * @memberof DeviceDevice
      */
+    licenseActivationState?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceDevice
+     */
     linuxSensorMode?: string;
     /**
      *
@@ -658,6 +664,7 @@ export function DeviceDeviceFromJSONTyped(json: any, ignoreDiscriminator: boolea
         lastLoginUserSid: json["last_login_user_sid"] == null ? undefined : json["last_login_user_sid"],
         lastReboot: json["last_reboot"] == null ? undefined : json["last_reboot"],
         lastSeen: json["last_seen"] == null ? undefined : json["last_seen"],
+        licenseActivationState: json["license_activation_state"] == null ? undefined : json["license_activation_state"],
         linuxSensorMode: json["linux_sensor_mode"] == null ? undefined : json["linux_sensor_mode"],
         localIp: json["local_ip"] == null ? undefined : json["local_ip"],
         macAddress: json["mac_address"] == null ? undefined : json["mac_address"],
@@ -760,6 +767,7 @@ export function DeviceDeviceToJSON(value?: DeviceDevice | null): any {
         last_login_user_sid: value["lastLoginUserSid"],
         last_reboot: value["lastReboot"],
         last_seen: value["lastSeen"],
+        license_activation_state: value["licenseActivationState"],
         linux_sensor_mode: value["linuxSensorMode"],
         local_ip: value["localIp"],
         mac_address: value["macAddress"],

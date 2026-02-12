@@ -23,13 +23,13 @@ import { DeviceControlExceptionReqV1FromJSON, DeviceControlExceptionReqV1FromJSO
  */
 export interface DeviceControlUSBClassExceptionsReqV1 {
     /**
-     * Policy action
+     * Policy action. Note: BLOCK_EXECUTE and BLOCK_WRITE_EXECUTE are only valid for MASS_STORAGE devices.
      * @type {string}
      * @memberof DeviceControlUSBClassExceptionsReqV1
      */
     action: DeviceControlUSBClassExceptionsReqV1ActionEnum;
     /**
-     * Exceptions to the rules of this policy setting
+     * List of exceptions to the rules of this policy setting. Maximum batch size: 1000.
      * @type {Array<DeviceControlExceptionReqV1>}
      * @memberof DeviceControlUSBClassExceptionsReqV1
      */
@@ -39,7 +39,7 @@ export interface DeviceControlUSBClassExceptionsReqV1 {
      * @type {string}
      * @memberof DeviceControlUSBClassExceptionsReqV1
      */
-    id: string;
+    id: DeviceControlUSBClassExceptionsReqV1IdEnum;
 }
 
 /**
@@ -47,10 +47,25 @@ export interface DeviceControlUSBClassExceptionsReqV1 {
  */
 export const DeviceControlUSBClassExceptionsReqV1ActionEnum = {
     FullAccess: "FULL_ACCESS",
-    FullBlock: "FULL_BLOCK",
-    ReadOnly: "READ_ONLY",
+    BlockAll: "BLOCK_ALL",
+    BlockExecute: "BLOCK_EXECUTE",
+    BlockWriteExecute: "BLOCK_WRITE_EXECUTE",
 } as const;
 export type DeviceControlUSBClassExceptionsReqV1ActionEnum = (typeof DeviceControlUSBClassExceptionsReqV1ActionEnum)[keyof typeof DeviceControlUSBClassExceptionsReqV1ActionEnum];
+
+/**
+ * @export
+ */
+export const DeviceControlUSBClassExceptionsReqV1IdEnum = {
+    Any: "ANY",
+    AudioVideo: "AUDIO_VIDEO",
+    Imaging: "IMAGING",
+    MassStorage: "MASS_STORAGE",
+    Mobile: "MOBILE",
+    Printer: "PRINTER",
+    Wireless: "WIRELESS",
+} as const;
+export type DeviceControlUSBClassExceptionsReqV1IdEnum = (typeof DeviceControlUSBClassExceptionsReqV1IdEnum)[keyof typeof DeviceControlUSBClassExceptionsReqV1IdEnum];
 
 /**
  * Check if a given object implements the DeviceControlUSBClassExceptionsReqV1 interface.

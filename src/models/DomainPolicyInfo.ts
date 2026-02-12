@@ -13,6 +13,11 @@
  */
 
 import { mapValues } from "../runtime";
+import type { DomainControl } from "./DomainControl";
+import { DomainControlFromJSON, DomainControlFromJSONTyped, DomainControlToJSON } from "./DomainControl";
+import type { DomainCompliance } from "./DomainCompliance";
+import { DomainComplianceFromJSON, DomainComplianceFromJSONTyped, DomainComplianceToJSON } from "./DomainCompliance";
+
 /**
  *
  * @export
@@ -141,6 +146,12 @@ export interface DomainPolicyInfo {
     cloudServiceFriendly?: string;
     /**
      *
+     * @type {number}
+     * @memberof DomainPolicyInfo
+     */
+    cloudServiceId?: number;
+    /**
+     *
      * @type {string}
      * @memberof DomainPolicyInfo
      */
@@ -153,16 +164,34 @@ export interface DomainPolicyInfo {
     cloudServiceType?: string;
     /**
      *
+     * @type {DomainCompliance}
+     * @memberof DomainPolicyInfo
+     */
+    compliance?: DomainCompliance;
+    /**
+     *
      * @type {string}
      * @memberof DomainPolicyInfo
      */
     confidence?: string;
     /**
      *
+     * @type {Array<DomainControl>}
+     * @memberof DomainPolicyInfo
+     */
+    controls?: Array<DomainControl>;
+    /**
+     *
      * @type {string}
      * @memberof DomainPolicyInfo
      */
     defaultSeverity?: string;
+    /**
+     *
+     * @type {boolean}
+     * @memberof DomainPolicyInfo
+     */
+    deprecated?: boolean;
     /**
      *
      * @type {string}
@@ -297,6 +326,18 @@ export interface DomainPolicyInfo {
     remediationSummary?: string;
     /**
      *
+     * @type {string}
+     * @memberof DomainPolicyInfo
+     */
+    resourceTypeFriendlyName?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainPolicyInfo
+     */
+    resourceTypeId?: string;
+    /**
+     *
      * @type {Array<number>}
      * @memberof DomainPolicyInfo
      */
@@ -382,10 +423,14 @@ export function DomainPolicyInfoFromJSONTyped(json: any, ignoreDiscriminator: bo
         cloudPlatformType: json["cloud_platform_type"] == null ? undefined : json["cloud_platform_type"],
         cloudService: json["cloud_service"] == null ? undefined : json["cloud_service"],
         cloudServiceFriendly: json["cloud_service_friendly"] == null ? undefined : json["cloud_service_friendly"],
+        cloudServiceId: json["cloud_service_id"] == null ? undefined : json["cloud_service_id"],
         cloudServiceSubtype: json["cloud_service_subtype"] == null ? undefined : json["cloud_service_subtype"],
         cloudServiceType: json["cloud_service_type"] == null ? undefined : json["cloud_service_type"],
+        compliance: json["compliance"] == null ? undefined : DomainComplianceFromJSON(json["compliance"]),
         confidence: json["confidence"] == null ? undefined : json["confidence"],
+        controls: json["controls"] == null ? undefined : (json["controls"] as Array<any>).map(DomainControlFromJSON),
         defaultSeverity: json["default_severity"] == null ? undefined : json["default_severity"],
+        deprecated: json["deprecated"] == null ? undefined : json["deprecated"],
         description: json["description"] == null ? undefined : json["description"],
         eventType: json["event_type"] == null ? undefined : json["event_type"],
         fqlPolicy: json["fql_policy"] == null ? undefined : json["fql_policy"],
@@ -408,6 +453,8 @@ export function DomainPolicyInfoFromJSONTyped(json: any, ignoreDiscriminator: bo
         policyStatement: json["policy_statement"] == null ? undefined : json["policy_statement"],
         policyType: json["policy_type"] == null ? undefined : json["policy_type"],
         remediationSummary: json["remediation_summary"] == null ? undefined : json["remediation_summary"],
+        resourceTypeFriendlyName: json["resource_type_friendly_name"] == null ? undefined : json["resource_type_friendly_name"],
+        resourceTypeId: json["resource_type_id"] == null ? undefined : json["resource_type_id"],
         soc2BenchmarkIds: json["soc2_benchmark_ids"] == null ? undefined : json["soc2_benchmark_ids"],
         tactic: json["tactic"] == null ? undefined : json["tactic"],
         tacticId: json["tactic_id"] == null ? undefined : json["tactic_id"],
@@ -443,10 +490,14 @@ export function DomainPolicyInfoToJSON(value?: DomainPolicyInfo | null): any {
         cloud_platform_type: value["cloudPlatformType"],
         cloud_service: value["cloudService"],
         cloud_service_friendly: value["cloudServiceFriendly"],
+        cloud_service_id: value["cloudServiceId"],
         cloud_service_subtype: value["cloudServiceSubtype"],
         cloud_service_type: value["cloudServiceType"],
+        compliance: DomainComplianceToJSON(value["compliance"]),
         confidence: value["confidence"],
+        controls: value["controls"] == null ? undefined : (value["controls"] as Array<any>).map(DomainControlToJSON),
         default_severity: value["defaultSeverity"],
+        deprecated: value["deprecated"],
         description: value["description"],
         event_type: value["eventType"],
         fql_policy: value["fqlPolicy"],
@@ -469,6 +520,8 @@ export function DomainPolicyInfoToJSON(value?: DomainPolicyInfo | null): any {
         policy_statement: value["policyStatement"],
         policy_type: value["policyType"],
         remediation_summary: value["remediationSummary"],
+        resource_type_friendly_name: value["resourceTypeFriendlyName"],
+        resource_type_id: value["resourceTypeId"],
         soc2_benchmark_ids: value["soc2BenchmarkIds"],
         tactic: value["tactic"],
         tactic_id: value["tacticId"],

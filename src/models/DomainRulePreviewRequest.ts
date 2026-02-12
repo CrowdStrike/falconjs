@@ -27,6 +27,12 @@ export interface DomainRulePreviewRequest {
     filter: string;
     /**
      *
+     * @type {Array<number>}
+     * @memberof DomainRulePreviewRequest
+     */
+    lookbackDays?: Array<number>;
+    /**
+     *
      * @type {string}
      * @memberof DomainRulePreviewRequest
      */
@@ -52,6 +58,7 @@ export function DomainRulePreviewRequestFromJSONTyped(json: any, ignoreDiscrimin
     }
     return {
         filter: json["filter"],
+        lookbackDays: json["lookback_days"] == null ? undefined : json["lookback_days"],
         topic: json["topic"],
     };
 }
@@ -62,6 +69,7 @@ export function DomainRulePreviewRequestToJSON(value?: DomainRulePreviewRequest 
     }
     return {
         filter: value["filter"],
+        lookback_days: value["lookbackDays"],
         topic: value["topic"],
     };
 }

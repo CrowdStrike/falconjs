@@ -78,7 +78,7 @@ export class SensorVisibilityExclusionsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-visibility-exclusions:write"]);
         }
 
         const response = await this.request(
@@ -128,7 +128,7 @@ export class SensorVisibilityExclusionsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-visibility-exclusions:write"]);
         }
 
         const response = await this.request(
@@ -173,7 +173,7 @@ export class SensorVisibilityExclusionsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-visibility-exclusions:read"]);
         }
 
         const response = await this.request(
@@ -226,7 +226,7 @@ export class SensorVisibilityExclusionsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-visibility-exclusions:read"]);
         }
 
         const response = await this.request(
@@ -275,7 +275,7 @@ export class SensorVisibilityExclusionsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-visibility-exclusions:write"]);
         }
 
         const response = await this.request(

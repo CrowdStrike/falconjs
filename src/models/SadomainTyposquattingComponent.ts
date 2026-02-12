@@ -15,6 +15,8 @@
 import { mapValues } from "../runtime";
 import type { SadomainTyposquattingParentDomain } from "./SadomainTyposquattingParentDomain";
 import { SadomainTyposquattingParentDomainFromJSON, SadomainTyposquattingParentDomainFromJSONTyped, SadomainTyposquattingParentDomainToJSON } from "./SadomainTyposquattingParentDomain";
+import type { SadomainTyposquattingSubdomain } from "./SadomainTyposquattingSubdomain";
+import { SadomainTyposquattingSubdomainFromJSON, SadomainTyposquattingSubdomainFromJSONTyped, SadomainTyposquattingSubdomainToJSON } from "./SadomainTyposquattingSubdomain";
 import type { SadomainSubmissionInformation } from "./SadomainSubmissionInformation";
 import { SadomainSubmissionInformationFromJSON, SadomainSubmissionInformationFromJSONTyped, SadomainSubmissionInformationToJSON } from "./SadomainSubmissionInformation";
 import type { SadomainTyposquattingBaseDomain } from "./SadomainTyposquattingBaseDomain";
@@ -50,6 +52,12 @@ export interface SadomainTyposquattingComponent {
      * @memberof SadomainTyposquattingComponent
      */
     punycodeFormat: string;
+    /**
+     *
+     * @type {SadomainTyposquattingSubdomain}
+     * @memberof SadomainTyposquattingComponent
+     */
+    subdomain?: SadomainTyposquattingSubdomain;
     /**
      *
      * @type {SadomainSubmissionInformation}
@@ -95,6 +103,7 @@ export function SadomainTyposquattingComponentFromJSONTyped(json: any, ignoreDis
         id: json["id"],
         parentDomain: SadomainTyposquattingParentDomainFromJSON(json["parent_domain"]),
         punycodeFormat: json["punycode_format"],
+        subdomain: json["subdomain"] == null ? undefined : SadomainTyposquattingSubdomainFromJSON(json["subdomain"]),
         submitForBlockingInfo: json["submit_for_blocking_info"] == null ? undefined : SadomainSubmissionInformationFromJSON(json["submit_for_blocking_info"]),
         submitForTakedownInfo: json["submit_for_takedown_info"] == null ? undefined : SadomainSubmissionInformationFromJSON(json["submit_for_takedown_info"]),
         unicodeFormat: json["unicode_format"],
@@ -110,6 +119,7 @@ export function SadomainTyposquattingComponentToJSON(value?: SadomainTyposquatti
         id: value["id"],
         parent_domain: SadomainTyposquattingParentDomainToJSON(value["parentDomain"]),
         punycode_format: value["punycodeFormat"],
+        subdomain: SadomainTyposquattingSubdomainToJSON(value["subdomain"]),
         submit_for_blocking_info: SadomainSubmissionInformationToJSON(value["submitForBlockingInfo"]),
         submit_for_takedown_info: SadomainSubmissionInformationToJSON(value["submitForTakedownInfo"]),
         unicode_format: value["unicodeFormat"],

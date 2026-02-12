@@ -39,11 +39,17 @@ export interface DomainDetailedNotificationV1 {
      */
     details?: DomainItemDetailsV1;
     /**
-     *
+     * The ID of the notification
      * @type {string}
      * @memberof DomainDetailedNotificationV1
      */
     id: string;
+    /**
+     * Reason for missing details information. This field is populated when the details field is empty. Possible values: RESOURCE_NOT_FOUND, RESOURCE_DELETED_FOR_COMPLIANCE_REASON
+     * @type {string}
+     * @memberof DomainDetailedNotificationV1
+     */
+    missingDetailsReason?: string;
     /**
      *
      * @type {DomainNotificationV1}
@@ -73,6 +79,7 @@ export function DomainDetailedNotificationV1FromJSONTyped(json: any, ignoreDiscr
         breachDetails: json["breach_details"] == null ? undefined : DomainBreachDetailsV1FromJSON(json["breach_details"]),
         details: json["details"] == null ? undefined : DomainItemDetailsV1FromJSON(json["details"]),
         id: json["id"],
+        missingDetailsReason: json["missing_details_reason"] == null ? undefined : json["missing_details_reason"],
         notification: DomainNotificationV1FromJSON(json["notification"]),
     };
 }
@@ -85,6 +92,7 @@ export function DomainDetailedNotificationV1ToJSON(value?: DomainDetailedNotific
         breach_details: DomainBreachDetailsV1ToJSON(value["breachDetails"]),
         details: DomainItemDetailsV1ToJSON(value["details"]),
         id: value["id"],
+        missing_details_reason: value["missingDetailsReason"],
         notification: DomainNotificationV1ToJSON(value["notification"]),
     };
 }

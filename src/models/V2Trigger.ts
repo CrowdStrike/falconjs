@@ -15,6 +15,8 @@
 import { mapValues } from "../runtime";
 import type { JsonschemaSchema } from "./JsonschemaSchema";
 import { JsonschemaSchemaFromJSON, JsonschemaSchemaFromJSONTyped, JsonschemaSchemaToJSON } from "./JsonschemaSchema";
+import type { GraphWebhookTriggerDefinition } from "./GraphWebhookTriggerDefinition";
+import { GraphWebhookTriggerDefinitionFromJSON, GraphWebhookTriggerDefinitionFromJSONTyped, GraphWebhookTriggerDefinitionToJSON } from "./GraphWebhookTriggerDefinition";
 import type { GraphTimerEventDefinition } from "./GraphTimerEventDefinition";
 import { GraphTimerEventDefinitionFromJSON, GraphTimerEventDefinitionFromJSONTyped, GraphTimerEventDefinitionToJSON } from "./GraphTimerEventDefinition";
 
@@ -54,6 +56,24 @@ export interface V2Trigger {
      * @memberof V2Trigger
      */
     schedule?: GraphTimerEventDefinition;
+    /**
+     *
+     * @type {string}
+     * @memberof V2Trigger
+     */
+    type?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof V2Trigger
+     */
+    versionConstraint?: string;
+    /**
+     *
+     * @type {GraphWebhookTriggerDefinition}
+     * @memberof V2Trigger
+     */
+    webhookConfig?: GraphWebhookTriggerDefinition;
 }
 
 /**
@@ -78,6 +98,9 @@ export function V2TriggerFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         next: json["next"],
         parameters: json["parameters"] == null ? undefined : JsonschemaSchemaFromJSON(json["parameters"]),
         schedule: json["schedule"] == null ? undefined : GraphTimerEventDefinitionFromJSON(json["schedule"]),
+        type: json["type"] == null ? undefined : json["type"],
+        versionConstraint: json["version_constraint"] == null ? undefined : json["version_constraint"],
+        webhookConfig: json["webhook_config"] == null ? undefined : GraphWebhookTriggerDefinitionFromJSON(json["webhook_config"]),
     };
 }
 
@@ -91,5 +114,8 @@ export function V2TriggerToJSON(value?: V2Trigger | null): any {
         next: value["next"],
         parameters: JsonschemaSchemaToJSON(value["parameters"]),
         schedule: GraphTimerEventDefinitionToJSON(value["schedule"]),
+        type: value["type"],
+        version_constraint: value["versionConstraint"],
+        webhook_config: GraphWebhookTriggerDefinitionToJSON(value["webhookConfig"]),
     };
 }

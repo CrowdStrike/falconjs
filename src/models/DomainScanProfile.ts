@@ -47,6 +47,18 @@ export interface DomainScanProfile {
      * @type {number}
      * @memberof DomainScanProfile
      */
+    cloudPupAdwareLevelDetection?: number;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainScanProfile
+     */
+    cloudPupAdwareLevelPrevention?: number;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainScanProfile
+     */
     cpuPriority?: number;
     /**
      *
@@ -114,6 +126,72 @@ export interface DomainScanProfile {
      * @memberof DomainScanProfile
      */
     lastUpdated?: Date;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainScanProfile
+     */
+    macCloudMlLevelDetection?: number;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainScanProfile
+     */
+    macCloudMlLevelPrevention?: number;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainScanProfile
+     */
+    macCloudPupAdwareLevelDetection?: number;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainScanProfile
+     */
+    macCloudPupAdwareLevelPrevention?: number;
+    /**
+     *
+     * @type {Array<number>}
+     * @memberof DomainScanProfile
+     */
+    macPolicySetting?: Array<number>;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof DomainScanProfile
+     */
+    macScanExclusions?: Array<string>;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof DomainScanProfile
+     */
+    macScanInclusions?: Array<string>;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainScanProfile
+     */
+    macSensorMlLevelDetection?: number;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainScanProfile
+     */
+    macSensorMlLevelPrevention?: number;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainScanProfile
+     */
+    macSensorPupAdwareLevelDetection?: number;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainScanProfile
+     */
+    macSensorPupAdwareLevelPrevention?: number;
     /**
      *
      * @type {number}
@@ -221,6 +299,8 @@ export function DomainScanProfileFromJSONTyped(json: any, ignoreDiscriminator: b
         cid: json["cid"] == null ? undefined : json["cid"],
         cloudMlLevelDetection: json["cloud_ml_level_detection"] == null ? undefined : json["cloud_ml_level_detection"],
         cloudMlLevelPrevention: json["cloud_ml_level_prevention"] == null ? undefined : json["cloud_ml_level_prevention"],
+        cloudPupAdwareLevelDetection: json["cloud_pup_adware_level_detection"] == null ? undefined : json["cloud_pup_adware_level_detection"],
+        cloudPupAdwareLevelPrevention: json["cloud_pup_adware_level_prevention"] == null ? undefined : json["cloud_pup_adware_level_prevention"],
         cpuPriority: json["cpu_priority"] == null ? undefined : json["cpu_priority"],
         createdBy: json["created_by"] == null ? undefined : json["created_by"],
         createdOn: json["created_on"] == null ? undefined : new Date(json["created_on"]),
@@ -233,6 +313,17 @@ export function DomainScanProfileFromJSONTyped(json: any, ignoreDiscriminator: b
         id: json["id"],
         initiatedFrom: json["initiated_from"] == null ? undefined : json["initiated_from"],
         lastUpdated: json["last_updated"] == null ? undefined : new Date(json["last_updated"]),
+        macCloudMlLevelDetection: json["mac_cloud_ml_level_detection"] == null ? undefined : json["mac_cloud_ml_level_detection"],
+        macCloudMlLevelPrevention: json["mac_cloud_ml_level_prevention"] == null ? undefined : json["mac_cloud_ml_level_prevention"],
+        macCloudPupAdwareLevelDetection: json["mac_cloud_pup_adware_level_detection"] == null ? undefined : json["mac_cloud_pup_adware_level_detection"],
+        macCloudPupAdwareLevelPrevention: json["mac_cloud_pup_adware_level_prevention"] == null ? undefined : json["mac_cloud_pup_adware_level_prevention"],
+        macPolicySetting: json["mac_policy_setting"] == null ? undefined : json["mac_policy_setting"],
+        macScanExclusions: json["mac_scan_exclusions"] == null ? undefined : json["mac_scan_exclusions"],
+        macScanInclusions: json["mac_scan_inclusions"] == null ? undefined : json["mac_scan_inclusions"],
+        macSensorMlLevelDetection: json["mac_sensor_ml_level_detection"] == null ? undefined : json["mac_sensor_ml_level_detection"],
+        macSensorMlLevelPrevention: json["mac_sensor_ml_level_prevention"] == null ? undefined : json["mac_sensor_ml_level_prevention"],
+        macSensorPupAdwareLevelDetection: json["mac_sensor_pup_adware_level_detection"] == null ? undefined : json["mac_sensor_pup_adware_level_detection"],
+        macSensorPupAdwareLevelPrevention: json["mac_sensor_pup_adware_level_prevention"] == null ? undefined : json["mac_sensor_pup_adware_level_prevention"],
         maxDuration: json["max_duration"] == null ? undefined : json["max_duration"],
         maxFileSize: json["max_file_size"] == null ? undefined : json["max_file_size"],
         metadata: json["metadata"] == null ? undefined : (json["metadata"] as Array<any>).map(DomainScanProfileMetadataFromJSON),
@@ -258,6 +349,8 @@ export function DomainScanProfileToJSON(value?: DomainScanProfile | null): any {
         cid: value["cid"],
         cloud_ml_level_detection: value["cloudMlLevelDetection"],
         cloud_ml_level_prevention: value["cloudMlLevelPrevention"],
+        cloud_pup_adware_level_detection: value["cloudPupAdwareLevelDetection"],
+        cloud_pup_adware_level_prevention: value["cloudPupAdwareLevelPrevention"],
         cpu_priority: value["cpuPriority"],
         created_by: value["createdBy"],
         created_on: value["createdOn"] == null ? undefined : value["createdOn"].toISOString(),
@@ -270,6 +363,17 @@ export function DomainScanProfileToJSON(value?: DomainScanProfile | null): any {
         id: value["id"],
         initiated_from: value["initiatedFrom"],
         last_updated: value["lastUpdated"] == null ? undefined : value["lastUpdated"].toISOString(),
+        mac_cloud_ml_level_detection: value["macCloudMlLevelDetection"],
+        mac_cloud_ml_level_prevention: value["macCloudMlLevelPrevention"],
+        mac_cloud_pup_adware_level_detection: value["macCloudPupAdwareLevelDetection"],
+        mac_cloud_pup_adware_level_prevention: value["macCloudPupAdwareLevelPrevention"],
+        mac_policy_setting: value["macPolicySetting"],
+        mac_scan_exclusions: value["macScanExclusions"],
+        mac_scan_inclusions: value["macScanInclusions"],
+        mac_sensor_ml_level_detection: value["macSensorMlLevelDetection"],
+        mac_sensor_ml_level_prevention: value["macSensorMlLevelPrevention"],
+        mac_sensor_pup_adware_level_detection: value["macSensorPupAdwareLevelDetection"],
+        mac_sensor_pup_adware_level_prevention: value["macSensorPupAdwareLevelPrevention"],
         max_duration: value["maxDuration"],
         max_file_size: value["maxFileSize"],
         metadata: value["metadata"] == null ? undefined : (value["metadata"] as Array<any>).map(DomainScanProfileMetadataToJSON),

@@ -13,10 +13,10 @@
  */
 
 import { mapValues } from "../runtime";
-import type { DeviceMappedDevicePolicies } from "./DeviceMappedDevicePolicies";
-import { DeviceMappedDevicePoliciesFromJSON, DeviceMappedDevicePoliciesFromJSONTyped, DeviceMappedDevicePoliciesToJSON } from "./DeviceMappedDevicePolicies";
 import type { DeviceManagedApps } from "./DeviceManagedApps";
 import { DeviceManagedAppsFromJSON, DeviceManagedAppsFromJSONTyped, DeviceManagedAppsToJSON } from "./DeviceManagedApps";
+import type { DeviceapiMappedDevicePoliciesSwagger } from "./DeviceapiMappedDevicePoliciesSwagger";
+import { DeviceapiMappedDevicePoliciesSwaggerFromJSON, DeviceapiMappedDevicePoliciesSwaggerFromJSONTyped, DeviceapiMappedDevicePoliciesSwaggerToJSON } from "./DeviceapiMappedDevicePoliciesSwagger";
 import type { DeviceDeviceMeta } from "./DeviceDeviceMeta";
 import { DeviceDeviceMetaFromJSON, DeviceDeviceMetaFromJSONTyped, DeviceDeviceMetaToJSON } from "./DeviceDeviceMeta";
 import type { DeviceDevicePolicy } from "./DeviceDevicePolicy";
@@ -156,10 +156,10 @@ export interface DeviceapiDeviceSwagger {
     deviceId: string;
     /**
      *
-     * @type {DeviceMappedDevicePolicies}
+     * @type {DeviceapiMappedDevicePoliciesSwagger}
      * @memberof DeviceapiDeviceSwagger
      */
-    devicePolicies?: DeviceMappedDevicePolicies;
+    devicePolicies?: DeviceapiMappedDevicePoliciesSwagger;
     /**
      *
      * @type {string}
@@ -513,6 +513,12 @@ export interface DeviceapiDeviceSwagger {
      * @type {string}
      * @memberof DeviceapiDeviceSwagger
      */
+    safeMode?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceapiDeviceSwagger
+     */
     serialNumber?: string;
     /**
      *
@@ -615,7 +621,7 @@ export function DeviceapiDeviceSwaggerFromJSONTyped(json: any, ignoreDiscriminat
         deploymentType: json["deployment_type"] == null ? undefined : json["deployment_type"],
         detectionSuppressionStatus: json["detection_suppression_status"] == null ? undefined : json["detection_suppression_status"],
         deviceId: json["device_id"],
-        devicePolicies: json["device_policies"] == null ? undefined : DeviceMappedDevicePoliciesFromJSON(json["device_policies"]),
+        devicePolicies: json["device_policies"] == null ? undefined : DeviceapiMappedDevicePoliciesSwaggerFromJSON(json["device_policies"]),
         email: json["email"] == null ? undefined : json["email"],
         externalIp: json["external_ip"] == null ? undefined : json["external_ip"],
         filesystemContainmentStatus: json["filesystem_containment_status"] == null ? undefined : json["filesystem_containment_status"],
@@ -674,6 +680,7 @@ export function DeviceapiDeviceSwaggerFromJSONTyped(json: any, ignoreDiscriminat
         reducedFunctionalityMode: json["reduced_functionality_mode"] == null ? undefined : json["reduced_functionality_mode"],
         releaseGroup: json["release_group"] == null ? undefined : json["release_group"],
         rtrState: json["rtr_state"] == null ? undefined : json["rtr_state"],
+        safeMode: json["safe_mode"] == null ? undefined : json["safe_mode"],
         serialNumber: json["serial_number"] == null ? undefined : json["serial_number"],
         servicePackMajor: json["service_pack_major"] == null ? undefined : json["service_pack_major"],
         servicePackMinor: json["service_pack_minor"] == null ? undefined : json["service_pack_minor"],
@@ -714,7 +721,7 @@ export function DeviceapiDeviceSwaggerToJSON(value?: DeviceapiDeviceSwagger | nu
         deployment_type: value["deploymentType"],
         detection_suppression_status: value["detectionSuppressionStatus"],
         device_id: value["deviceId"],
-        device_policies: DeviceMappedDevicePoliciesToJSON(value["devicePolicies"]),
+        device_policies: DeviceapiMappedDevicePoliciesSwaggerToJSON(value["devicePolicies"]),
         email: value["email"],
         external_ip: value["externalIp"],
         filesystem_containment_status: value["filesystemContainmentStatus"],
@@ -773,6 +780,7 @@ export function DeviceapiDeviceSwaggerToJSON(value?: DeviceapiDeviceSwagger | nu
         reduced_functionality_mode: value["reducedFunctionalityMode"],
         release_group: value["releaseGroup"],
         rtr_state: value["rtrState"],
+        safe_mode: value["safeMode"],
         serial_number: value["serialNumber"],
         service_pack_major: value["servicePackMajor"],
         service_pack_minor: value["servicePackMinor"],

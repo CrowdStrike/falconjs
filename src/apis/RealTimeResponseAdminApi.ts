@@ -76,7 +76,24 @@ export interface RealTimeResponseAdminApiRTRCreatePutFilesRequest {
     commentsForAuditLog?: string;
 }
 
+export interface RealTimeResponseAdminApiRTRCreatePutFilesV2Request {
+    file: Blob;
+    description: string;
+    name?: string;
+    commentsForAuditLog?: string;
+}
+
 export interface RealTimeResponseAdminApiRTRCreateScriptsRequest {
+    description: string;
+    permissionType: string;
+    file?: Blob;
+    name?: string;
+    commentsForAuditLog?: string;
+    content?: string;
+    platform?: Array<string>;
+}
+
+export interface RealTimeResponseAdminApiRTRCreateScriptsV2Request {
     description: string;
     permissionType: string;
     file?: Blob;
@@ -100,6 +117,10 @@ export interface RealTimeResponseAdminApiRTRExecuteAdminCommandRequest {
 
 export interface RealTimeResponseAdminApiRTRGetFalconScriptsRequest {
     ids: Array<string>;
+}
+
+export interface RealTimeResponseAdminApiRTRGetPutFileContentsRequest {
+    id: string;
 }
 
 export interface RealTimeResponseAdminApiRTRGetPutFilesRequest {
@@ -150,6 +171,17 @@ export interface RealTimeResponseAdminApiRTRUpdateScriptsRequest {
     platform?: Array<string>;
 }
 
+export interface RealTimeResponseAdminApiRTRUpdateScriptsV2Request {
+    id: string;
+    file?: Blob;
+    description?: string;
+    name?: string;
+    commentsForAuditLog?: string;
+    permissionType?: string;
+    content?: string;
+    platform?: Array<string>;
+}
+
 /**
  *
  */
@@ -185,7 +217,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
         const response = await this.request(
@@ -245,7 +277,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
         const response = await this.request(
@@ -290,7 +322,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
         const consumes: runtime.Consume[] = [{ contentType: "multipart/form-data" }];
@@ -346,6 +378,88 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     }
 
     /**
+     * Upload a new put-file to use for the RTR `put` command.
+     */
+    async rTRCreatePutFilesV2Raw(
+        requestParameters: RealTimeResponseAdminApiRTRCreatePutFilesV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<EmpowerapiMsaPFResponseV2>> {
+        if (requestParameters["file"] == null) {
+            throw new runtime.RequiredError("file", 'Required parameter "file" was null or undefined when calling rTRCreatePutFilesV2().');
+        }
+
+        if (requestParameters["description"] == null) {
+            throw new runtime.RequiredError("description", 'Required parameter "description" was null or undefined when calling rTRCreatePutFilesV2().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
+        }
+
+        const consumes: runtime.Consume[] = [{ contentType: "multipart/form-data" }];
+        // @ts-ignore: canConsumeForm may be unused
+        const canConsumeForm = runtime.canConsumeForm(consumes);
+
+        let formParams: { append(param: string, value: any): any };
+        let useForm = false;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        useForm = canConsumeForm;
+        if (useForm) {
+            formParams = new FormData();
+        } else {
+            formParams = new URLSearchParams();
+        }
+
+        if (requestParameters["file"] != null) {
+            formParams.append("file", requestParameters["file"] as any);
+        }
+
+        if (requestParameters["description"] != null) {
+            formParams.append("description", requestParameters["description"] as any);
+        }
+
+        if (requestParameters["name"] != null) {
+            formParams.append("name", requestParameters["name"] as any);
+        }
+
+        if (requestParameters["commentsForAuditLog"] != null) {
+            formParams.append("comments_for_audit_log", requestParameters["commentsForAuditLog"] as any);
+        }
+
+        const response = await this.request(
+            {
+                path: `/real-time-response/entities/put-files/v2`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: formParams,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => EmpowerapiMsaPFResponseV2FromJSON(jsonValue));
+    }
+
+    /**
+     * Upload a new put-file to use for the RTR `put` command.
+     */
+    async rTRCreatePutFilesV2(
+        file: Blob,
+        description: string,
+        name?: string,
+        commentsForAuditLog?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<EmpowerapiMsaPFResponseV2> {
+        const response = await this.rTRCreatePutFilesV2Raw({ file: file, description: description, name: name, commentsForAuditLog: commentsForAuditLog }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Upload a new custom-script to use for the RTR `runscript` command.
      */
     async rTRCreateScriptsRaw(
@@ -366,7 +480,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
         const consumes: runtime.Consume[] = [{ contentType: "multipart/form-data" }];
@@ -446,6 +560,106 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     }
 
     /**
+     * Upload a new custom-script to use for the RTR `runscript` command.
+     */
+    async rTRCreateScriptsV2Raw(
+        requestParameters: RealTimeResponseAdminApiRTRCreateScriptsV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<EmpowerapiMsaPFResponseV2>> {
+        if (requestParameters["description"] == null) {
+            throw new runtime.RequiredError("description", 'Required parameter "description" was null or undefined when calling rTRCreateScriptsV2().');
+        }
+
+        if (requestParameters["permissionType"] == null) {
+            throw new runtime.RequiredError("permissionType", 'Required parameter "permissionType" was null or undefined when calling rTRCreateScriptsV2().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
+        }
+
+        const consumes: runtime.Consume[] = [{ contentType: "multipart/form-data" }];
+        // @ts-ignore: canConsumeForm may be unused
+        const canConsumeForm = runtime.canConsumeForm(consumes);
+
+        let formParams: { append(param: string, value: any): any };
+        let useForm = false;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        useForm = canConsumeForm;
+        if (useForm) {
+            formParams = new FormData();
+        } else {
+            formParams = new URLSearchParams();
+        }
+
+        if (requestParameters["file"] != null) {
+            formParams.append("file", requestParameters["file"] as any);
+        }
+
+        if (requestParameters["description"] != null) {
+            formParams.append("description", requestParameters["description"] as any);
+        }
+
+        if (requestParameters["name"] != null) {
+            formParams.append("name", requestParameters["name"] as any);
+        }
+
+        if (requestParameters["commentsForAuditLog"] != null) {
+            formParams.append("comments_for_audit_log", requestParameters["commentsForAuditLog"] as any);
+        }
+
+        if (requestParameters["permissionType"] != null) {
+            formParams.append("permission_type", requestParameters["permissionType"] as any);
+        }
+
+        if (requestParameters["content"] != null) {
+            formParams.append("content", requestParameters["content"] as any);
+        }
+
+        if (requestParameters["platform"] != null) {
+            formParams.append("platform", requestParameters["platform"]!.join(runtime.COLLECTION_FORMATS["csv"]));
+        }
+
+        const response = await this.request(
+            {
+                path: `/real-time-response/entities/scripts/v2`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: formParams,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => EmpowerapiMsaPFResponseV2FromJSON(jsonValue));
+    }
+
+    /**
+     * Upload a new custom-script to use for the RTR `runscript` command.
+     */
+    async rTRCreateScriptsV2(
+        description: string,
+        permissionType: string,
+        file?: Blob,
+        name?: string,
+        commentsForAuditLog?: string,
+        content?: string,
+        platform?: Array<string>,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<EmpowerapiMsaPFResponseV2> {
+        const response = await this.rTRCreateScriptsV2Raw(
+            { description: description, permissionType: permissionType, file: file, name: name, commentsForAuditLog: commentsForAuditLog, content: content, platform: platform },
+            initOverrides,
+        );
+        return await response.value();
+    }
+
+    /**
      * Delete a put-file based on the ID given.  Can only delete one file at a time.
      */
     async rTRDeletePutFilesRaw(
@@ -466,7 +680,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
         const response = await this.request(
@@ -511,7 +725,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
         const response = await this.request(
@@ -554,7 +768,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
         const response = await this.request(
@@ -600,7 +814,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
         const response = await this.request(
@@ -625,6 +839,51 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     }
 
     /**
+     * Get RTR put file contents for a given file ID
+     */
+    async rTRGetPutFileContentsRaw(
+        requestParameters: RealTimeResponseAdminApiRTRGetPutFileContentsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<Array<number>>> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling rTRGetPutFileContents().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["id"] != null) {
+            queryParameters["id"] = requestParameters["id"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/real-time-response/entities/put-file-contents/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse<any>(response);
+    }
+
+    /**
+     * Get RTR put file contents for a given file ID
+     */
+    async rTRGetPutFileContents(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<number>> {
+        const response = await this.rTRGetPutFileContentsRaw({ id: id }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Get put-files based on the ID\'s given. These are used for the RTR `put` command.
      */
     async rTRGetPutFilesRaw(
@@ -645,7 +904,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
         const response = await this.request(
@@ -690,7 +949,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
         const response = await this.request(
@@ -735,7 +994,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
         const response = await this.request(
@@ -780,7 +1039,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
         const response = await this.request(
@@ -833,7 +1092,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
         const response = await this.request(
@@ -892,7 +1151,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
         const response = await this.request(
@@ -945,7 +1204,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
         const response = await this.request(
@@ -986,7 +1245,7 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
         const consumes: runtime.Consume[] = [{ contentType: "multipart/form-data" }];
@@ -1064,6 +1323,107 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<MsaReplyMetaOnly> {
         const response = await this.rTRUpdateScriptsRaw(
+            { id: id, file: file, description: description, name: name, commentsForAuditLog: commentsForAuditLog, permissionType: permissionType, content: content, platform: platform },
+            initOverrides,
+        );
+        return await response.value();
+    }
+
+    /**
+     * Upload a new scripts to replace an existing one.
+     */
+    async rTRUpdateScriptsV2Raw(
+        requestParameters: RealTimeResponseAdminApiRTRUpdateScriptsV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<EmpowerapiMsaPFResponseV2>> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling rTRUpdateScriptsV2().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
+        }
+
+        const consumes: runtime.Consume[] = [{ contentType: "multipart/form-data" }];
+        // @ts-ignore: canConsumeForm may be unused
+        const canConsumeForm = runtime.canConsumeForm(consumes);
+
+        let formParams: { append(param: string, value: any): any };
+        let useForm = false;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        useForm = canConsumeForm;
+        if (useForm) {
+            formParams = new FormData();
+        } else {
+            formParams = new URLSearchParams();
+        }
+
+        if (requestParameters["id"] != null) {
+            formParams.append("id", requestParameters["id"] as any);
+        }
+
+        if (requestParameters["file"] != null) {
+            formParams.append("file", requestParameters["file"] as any);
+        }
+
+        if (requestParameters["description"] != null) {
+            formParams.append("description", requestParameters["description"] as any);
+        }
+
+        if (requestParameters["name"] != null) {
+            formParams.append("name", requestParameters["name"] as any);
+        }
+
+        if (requestParameters["commentsForAuditLog"] != null) {
+            formParams.append("comments_for_audit_log", requestParameters["commentsForAuditLog"] as any);
+        }
+
+        if (requestParameters["permissionType"] != null) {
+            formParams.append("permission_type", requestParameters["permissionType"] as any);
+        }
+
+        if (requestParameters["content"] != null) {
+            formParams.append("content", requestParameters["content"] as any);
+        }
+
+        if (requestParameters["platform"] != null) {
+            formParams.append("platform", requestParameters["platform"]!.join(runtime.COLLECTION_FORMATS["csv"]));
+        }
+
+        const response = await this.request(
+            {
+                path: `/real-time-response/entities/scripts/v2`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+                body: formParams,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => EmpowerapiMsaPFResponseV2FromJSON(jsonValue));
+    }
+
+    /**
+     * Upload a new scripts to replace an existing one.
+     */
+    async rTRUpdateScriptsV2(
+        id: string,
+        file?: Blob,
+        description?: string,
+        name?: string,
+        commentsForAuditLog?: string,
+        permissionType?: string,
+        content?: string,
+        platform?: Array<string>,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<EmpowerapiMsaPFResponseV2> {
+        const response = await this.rTRUpdateScriptsV2Raw(
             { id: id, file: file, description: description, name: name, commentsForAuditLog: commentsForAuditLog, permissionType: permissionType, content: content, platform: platform },
             initOverrides,
         );

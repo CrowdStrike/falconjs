@@ -31,6 +31,12 @@ export interface SensorUpdateSettingsRespV2 {
      */
     build: string;
     /**
+     * Indicates whether or not the build configured on the policy is categorized as a LTS build (Long Term Support)
+     * @type {boolean}
+     * @memberof SensorUpdateSettingsRespV2
+     */
+    isLtsBuild: boolean;
+    /**
      *
      * @type {PolicySensorUpdateScheduler}
      * @memberof SensorUpdateSettingsRespV2
@@ -74,6 +80,7 @@ export interface SensorUpdateSettingsRespV2 {
 export const SensorUpdateSettingsRespV2StageEnum = {
     Prod: "prod",
     EarlyAdopter: "early_adopter",
+    Empty: "",
 } as const;
 export type SensorUpdateSettingsRespV2StageEnum = (typeof SensorUpdateSettingsRespV2StageEnum)[keyof typeof SensorUpdateSettingsRespV2StageEnum];
 
@@ -94,6 +101,7 @@ export type SensorUpdateSettingsRespV2UninstallProtectionEnum = (typeof SensorUp
  */
 export function instanceOfSensorUpdateSettingsRespV2(value: object): value is SensorUpdateSettingsRespV2 {
     if (!("build" in value) || value["build"] === undefined) return false;
+    if (!("isLtsBuild" in value) || value["isLtsBuild"] === undefined) return false;
     if (!("scheduler" in value) || value["scheduler"] === undefined) return false;
     if (!("sensorVersion" in value) || value["sensorVersion"] === undefined) return false;
     if (!("showEarlyAdopterBuilds" in value) || value["showEarlyAdopterBuilds"] === undefined) return false;
@@ -113,6 +121,7 @@ export function SensorUpdateSettingsRespV2FromJSONTyped(json: any, ignoreDiscrim
     }
     return {
         build: json["build"],
+        isLtsBuild: json["is_lts_build"],
         scheduler: PolicySensorUpdateSchedulerFromJSON(json["scheduler"]),
         sensorVersion: json["sensor_version"],
         showEarlyAdopterBuilds: json["show_early_adopter_builds"],
@@ -128,6 +137,7 @@ export function SensorUpdateSettingsRespV2ToJSON(value?: SensorUpdateSettingsRes
     }
     return {
         build: value["build"],
+        is_lts_build: value["isLtsBuild"],
         scheduler: PolicySensorUpdateSchedulerToJSON(value["scheduler"]),
         sensor_version: value["sensorVersion"],
         show_early_adopter_builds: value["showEarlyAdopterBuilds"],

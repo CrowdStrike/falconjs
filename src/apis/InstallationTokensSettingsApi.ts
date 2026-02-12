@@ -13,10 +13,12 @@
  */
 
 import * as runtime from "../runtime";
-import type { ApiCustomerSettingsPatchRequestV1, MsaReplyMetaOnly, MsaspecQueryResponse, MsaspecResponseFields } from "../models/index";
+import type { ApiCustomerSettingsPatchRequestV1, ApiCustomerSettingsResponseV1, MsaReplyMetaOnly, MsaspecQueryResponse, MsaspecResponseFields } from "../models/index";
 import {
     ApiCustomerSettingsPatchRequestV1FromJSON,
     ApiCustomerSettingsPatchRequestV1ToJSON,
+    ApiCustomerSettingsResponseV1FromJSON,
+    ApiCustomerSettingsResponseV1ToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
     MsaspecQueryResponseFromJSON,
@@ -39,7 +41,7 @@ export class InstallationTokensSettingsApi extends runtime.BaseAPI {
     async customerSettingsUpdateRaw(
         requestParameters: InstallationTokensSettingsApiCustomerSettingsUpdateRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    ): Promise<runtime.ApiResponse<ApiCustomerSettingsResponseV1>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling customerSettingsUpdate().');
         }
@@ -52,7 +54,7 @@ export class InstallationTokensSettingsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["installation-tokens-settings:write"]);
         }
 
         const response = await this.request(
@@ -66,13 +68,13 @@ export class InstallationTokensSettingsApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiCustomerSettingsResponseV1FromJSON(jsonValue));
     }
 
     /**
      * Update installation token settings.
      */
-    async customerSettingsUpdate(body: ApiCustomerSettingsPatchRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
+    async customerSettingsUpdate(body: ApiCustomerSettingsPatchRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiCustomerSettingsResponseV1> {
         const response = await this.customerSettingsUpdateRaw({ body: body }, initOverrides);
         return await response.value();
     }

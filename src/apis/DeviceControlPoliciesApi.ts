@@ -116,6 +116,7 @@ export interface DeviceControlPoliciesApiUpdateDeviceControlPoliciesRequest {
 export class DeviceControlPoliciesApi extends runtime.BaseAPI {
     /**
      * Create Device Control Policies by specifying details about the policy to create
+     * @deprecated
      */
     async createDeviceControlPoliciesRaw(
         requestParameters: DeviceControlPoliciesApiCreateDeviceControlPoliciesRequest,
@@ -133,7 +134,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:write"]);
         }
 
         const response = await this.request(
@@ -152,6 +153,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
     /**
      * Create Device Control Policies by specifying details about the policy to create
+     * @deprecated
      */
     async createDeviceControlPolicies(body: DeviceControlCreatePoliciesV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeviceControlRespV2> {
         const response = await this.createDeviceControlPoliciesRaw({ body: body }, initOverrides);
@@ -179,7 +181,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:write"]);
         }
 
         const response = await this.request(
@@ -205,6 +207,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
     /**
      * Retrieve the configuration for a Default Device Control Policy
+     * @deprecated
      */
     async getDefaultDeviceControlPoliciesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeviceControlRespV1>> {
         const queryParameters: any = {};
@@ -213,7 +216,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:read"]);
         }
 
         const response = await this.request(
@@ -231,6 +234,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
     /**
      * Retrieve the configuration for a Default Device Control Policy
+     * @deprecated
      */
     async getDefaultDeviceControlPolicies(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeviceControlRespV1> {
         const response = await this.getDefaultDeviceControlPoliciesRaw(initOverrides);
@@ -239,6 +243,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
     /**
      * Retrieve a set of Device Control Policies by specifying their IDs
+     * @deprecated
      */
     async getDeviceControlPoliciesRaw(
         requestParameters: DeviceControlPoliciesApiGetDeviceControlPoliciesRequest,
@@ -258,7 +263,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:read"]);
         }
 
         const response = await this.request(
@@ -276,6 +281,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
     /**
      * Retrieve a set of Device Control Policies by specifying their IDs
+     * @deprecated
      */
     async getDeviceControlPolicies(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeviceControlRespV1> {
         const response = await this.getDeviceControlPoliciesRaw({ ids: ids }, initOverrides);
@@ -309,7 +315,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:write"]);
         }
 
         const response = await this.request(
@@ -367,7 +373,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:read"]);
         }
 
         const response = await this.request(
@@ -430,7 +436,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:read"]);
         }
 
         const response = await this.request(
@@ -490,7 +496,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:read"]);
         }
 
         const response = await this.request(
@@ -553,7 +559,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:read"]);
         }
 
         const response = await this.request(
@@ -603,7 +609,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:write"]);
         }
 
         const response = await this.request(
@@ -630,6 +636,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
     /**
      * Update the configuration for a Default Device Control Policy
+     * @deprecated
      */
     async updateDefaultDeviceControlPoliciesRaw(
         requestParameters: DeviceControlPoliciesApiUpdateDefaultDeviceControlPoliciesRequest,
@@ -647,7 +654,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:write"]);
         }
 
         const response = await this.request(
@@ -666,6 +673,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
     /**
      * Update the configuration for a Default Device Control Policy
+     * @deprecated
      */
     async updateDefaultDeviceControlPolicies(body: DeviceControlReqUpdateDefaultDCPolicyV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeviceControlRespV1> {
         const response = await this.updateDefaultDeviceControlPoliciesRaw({ body: body }, initOverrides);
@@ -674,6 +682,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
     /**
      * Update Device Control Policies by specifying the ID of the policy and details to update
+     * @deprecated
      */
     async updateDeviceControlPoliciesRaw(
         requestParameters: DeviceControlPoliciesApiUpdateDeviceControlPoliciesRequest,
@@ -691,7 +700,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:write"]);
         }
 
         const response = await this.request(
@@ -710,6 +719,7 @@ export class DeviceControlPoliciesApi extends runtime.BaseAPI {
 
     /**
      * Update Device Control Policies by specifying the ID of the policy and details to update
+     * @deprecated
      */
     async updateDeviceControlPolicies(body: DeviceControlUpdatePoliciesReqV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeviceControlRespV1> {
         const response = await this.updateDeviceControlPoliciesRaw({ body: body }, initOverrides);

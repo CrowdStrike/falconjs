@@ -25,7 +25,7 @@ import { DeviceControlUSBClassExceptionsReqV1FromJSON, DeviceControlUSBClassExce
  */
 export interface DeviceControlSettingsReqV1 {
     /**
-     * Settings that apply to a USB Class
+     * List of settings that apply to USB Classes. Maximum batch size: 1000.
      * @type {Array<DeviceControlUSBClassExceptionsReqV1>}
      * @memberof DeviceControlSettingsReqV1
      */
@@ -37,7 +37,7 @@ export interface DeviceControlSettingsReqV1 {
      */
     customNotifications?: DeviceControlUSBCustomNotifications;
     /**
-     * An array of exception IDs to delete from the policy
+     * List of exception IDs to delete from the policy.
      * @type {Array<string>}
      * @memberof DeviceControlSettingsReqV1
      */

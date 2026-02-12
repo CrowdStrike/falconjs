@@ -30,7 +30,7 @@ export interface RegistrationAWSAccountPatch {
      * @type {boolean}
      * @memberof RegistrationAWSAccountPatch
      */
-    behaviorAssessmentEnabled?: boolean;
+    behaviorAssessmentEnabled: boolean;
     /**
      *
      * @type {string}
@@ -39,10 +39,16 @@ export interface RegistrationAWSAccountPatch {
     cloudtrailRegion?: string;
     /**
      *
+     * @type {string}
+     * @memberof RegistrationAWSAccountPatch
+     */
+    deploymentMethod?: string;
+    /**
+     *
      * @type {boolean}
      * @memberof RegistrationAWSAccountPatch
      */
-    dspmEnabled?: boolean;
+    dspmEnabled: boolean;
     /**
      *
      * @type {string}
@@ -55,6 +61,12 @@ export interface RegistrationAWSAccountPatch {
      * @memberof RegistrationAWSAccountPatch
      */
     environment?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof RegistrationAWSAccountPatch
+     */
+    falconClientId?: string;
     /**
      *
      * @type {string}
@@ -75,16 +87,34 @@ export interface RegistrationAWSAccountPatch {
     remediationTouAccepted?: Date;
     /**
      *
+     * @type {string}
+     * @memberof RegistrationAWSAccountPatch
+     */
+    rootStackId?: string;
+    /**
+     *
      * @type {boolean}
      * @memberof RegistrationAWSAccountPatch
      */
-    sensorManagementEnabled?: boolean;
+    sensorManagementEnabled: boolean;
     /**
      *
      * @type {Array<string>}
      * @memberof RegistrationAWSAccountPatch
      */
     targetOus?: Array<string>;
+    /**
+     *
+     * @type {boolean}
+     * @memberof RegistrationAWSAccountPatch
+     */
+    vulnerabilityScanningEnabled: boolean;
+    /**
+     *
+     * @type {string}
+     * @memberof RegistrationAWSAccountPatch
+     */
+    vulnerabilityScanningRole?: string;
 }
 
 /**
@@ -92,7 +122,11 @@ export interface RegistrationAWSAccountPatch {
  */
 export function instanceOfRegistrationAWSAccountPatch(value: object): value is RegistrationAWSAccountPatch {
     if (!("accountId" in value) || value["accountId"] === undefined) return false;
+    if (!("behaviorAssessmentEnabled" in value) || value["behaviorAssessmentEnabled"] === undefined) return false;
+    if (!("dspmEnabled" in value) || value["dspmEnabled"] === undefined) return false;
     if (!("iamRoleArn" in value) || value["iamRoleArn"] === undefined) return false;
+    if (!("sensorManagementEnabled" in value) || value["sensorManagementEnabled"] === undefined) return false;
+    if (!("vulnerabilityScanningEnabled" in value) || value["vulnerabilityScanningEnabled"] === undefined) return false;
     return true;
 }
 
@@ -106,16 +140,21 @@ export function RegistrationAWSAccountPatchFromJSONTyped(json: any, ignoreDiscri
     }
     return {
         accountId: json["account_id"],
-        behaviorAssessmentEnabled: json["behavior_assessment_enabled"] == null ? undefined : json["behavior_assessment_enabled"],
+        behaviorAssessmentEnabled: json["behavior_assessment_enabled"],
         cloudtrailRegion: json["cloudtrail_region"] == null ? undefined : json["cloudtrail_region"],
-        dspmEnabled: json["dspm_enabled"] == null ? undefined : json["dspm_enabled"],
+        deploymentMethod: json["deployment_method"] == null ? undefined : json["deployment_method"],
+        dspmEnabled: json["dspm_enabled"],
         dspmRole: json["dspm_role"] == null ? undefined : json["dspm_role"],
         environment: json["environment"] == null ? undefined : json["environment"],
+        falconClientId: json["falcon_client_id"] == null ? undefined : json["falcon_client_id"],
         iamRoleArn: json["iam_role_arn"],
         remediationRegion: json["remediation_region"] == null ? undefined : json["remediation_region"],
         remediationTouAccepted: json["remediation_tou_accepted"] == null ? undefined : new Date(json["remediation_tou_accepted"]),
-        sensorManagementEnabled: json["sensor_management_enabled"] == null ? undefined : json["sensor_management_enabled"],
+        rootStackId: json["root_stack_id"] == null ? undefined : json["root_stack_id"],
+        sensorManagementEnabled: json["sensor_management_enabled"],
         targetOus: json["target_ous"] == null ? undefined : json["target_ous"],
+        vulnerabilityScanningEnabled: json["vulnerability_scanning_enabled"],
+        vulnerabilityScanningRole: json["vulnerability_scanning_role"] == null ? undefined : json["vulnerability_scanning_role"],
     };
 }
 
@@ -127,13 +166,18 @@ export function RegistrationAWSAccountPatchToJSON(value?: RegistrationAWSAccount
         account_id: value["accountId"],
         behavior_assessment_enabled: value["behaviorAssessmentEnabled"],
         cloudtrail_region: value["cloudtrailRegion"],
+        deployment_method: value["deploymentMethod"],
         dspm_enabled: value["dspmEnabled"],
         dspm_role: value["dspmRole"],
         environment: value["environment"],
+        falcon_client_id: value["falconClientId"],
         iam_role_arn: value["iamRoleArn"],
         remediation_region: value["remediationRegion"],
         remediation_tou_accepted: value["remediationTouAccepted"] == null ? undefined : value["remediationTouAccepted"].toISOString(),
+        root_stack_id: value["rootStackId"],
         sensor_management_enabled: value["sensorManagementEnabled"],
         target_ous: value["targetOus"],
+        vulnerability_scanning_enabled: value["vulnerabilityScanningEnabled"],
+        vulnerability_scanning_role: value["vulnerabilityScanningRole"],
     };
 }

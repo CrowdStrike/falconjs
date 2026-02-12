@@ -13,10 +13,10 @@
  */
 
 import { mapValues } from "../runtime";
-import type { DomainReconAPIError } from "./DomainReconAPIError";
-import { DomainReconAPIErrorFromJSON, DomainReconAPIErrorFromJSONTyped, DomainReconAPIErrorToJSON } from "./DomainReconAPIError";
-import type { MsaAggregationResult } from "./MsaAggregationResult";
-import { MsaAggregationResultFromJSON, MsaAggregationResultFromJSONTyped, MsaAggregationResultToJSON } from "./MsaAggregationResult";
+import type { MsaAPIError } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { DomainAggregationResult } from "./DomainAggregationResult";
+import { DomainAggregationResultFromJSON, DomainAggregationResultFromJSONTyped, DomainAggregationResultToJSON } from "./DomainAggregationResult";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
 import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
@@ -27,11 +27,11 @@ import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from
  */
 export interface DomainAggregatesResponse {
     /**
-     *
-     * @type {Array<DomainReconAPIError>}
+     * Array of API Errors
+     * @type {Array<MsaAPIError>}
      * @memberof DomainAggregatesResponse
      */
-    errors: Array<DomainReconAPIError>;
+    errors: Array<MsaAPIError>;
     /**
      *
      * @type {MsaMetaInfo}
@@ -39,11 +39,11 @@ export interface DomainAggregatesResponse {
      */
     meta: MsaMetaInfo;
     /**
-     *
-     * @type {Array<MsaAggregationResult>}
+     * Array of aggregation results, 1 per AggregateQueryRequest
+     * @type {Array<DomainAggregationResult>}
      * @memberof DomainAggregatesResponse
      */
-    resources: Array<MsaAggregationResult>;
+    resources: Array<DomainAggregationResult>;
 }
 
 /**
@@ -65,9 +65,9 @@ export function DomainAggregatesResponseFromJSONTyped(json: any, ignoreDiscrimin
         return json;
     }
     return {
-        errors: (json["errors"] as Array<any>).map(DomainReconAPIErrorFromJSON),
+        errors: (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
-        resources: (json["resources"] as Array<any>).map(MsaAggregationResultFromJSON),
+        resources: (json["resources"] as Array<any>).map(DomainAggregationResultFromJSON),
     };
 }
 
@@ -76,8 +76,8 @@ export function DomainAggregatesResponseToJSON(value?: DomainAggregatesResponse 
         return value;
     }
     return {
-        errors: (value["errors"] as Array<any>).map(DomainReconAPIErrorToJSON),
+        errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
-        resources: (value["resources"] as Array<any>).map(MsaAggregationResultToJSON),
+        resources: (value["resources"] as Array<any>).map(DomainAggregationResultToJSON),
     };
 }

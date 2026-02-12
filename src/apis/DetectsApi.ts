@@ -64,7 +64,9 @@ export interface DetectsApiUpdateDetectsByIdsV2Request {
  */
 export class DetectsApi extends runtime.BaseAPI {
     /**
-     * Get detect aggregates as specified via json in request body.
+     * Please use this guide to migrate to [Alerts API](https://falcon.crowdstrike.com/documentation/page/d02475a5/converting-from-detects-api-to-alerts-api)
+     * Deprecated: This endpoint will be decommissioned on September 30, 2025. Please check the Notes section below for migration guidance.
+     * @deprecated
      */
     async getAggregateDetectsRaw(
         requestParameters: DetectsApiGetAggregateDetectsRequest,
@@ -82,7 +84,7 @@ export class DetectsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["detects:read"]);
         }
 
         const response = await this.request(
@@ -100,7 +102,9 @@ export class DetectsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get detect aggregates as specified via json in request body.
+     * Please use this guide to migrate to [Alerts API](https://falcon.crowdstrike.com/documentation/page/d02475a5/converting-from-detects-api-to-alerts-api)
+     * Deprecated: This endpoint will be decommissioned on September 30, 2025. Please check the Notes section below for migration guidance.
+     * @deprecated
      */
     async getAggregateDetects(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaAggregatesResponse> {
         const response = await this.getAggregateDetectsRaw({ body: body }, initOverrides);
@@ -108,7 +112,9 @@ export class DetectsApi extends runtime.BaseAPI {
     }
 
     /**
-     * View information about detections
+     * Please use this guide to migrate to [Alerts API](https://falcon.crowdstrike.com/documentation/page/d02475a5/converting-from-detects-api-to-alerts-api)
+     * Deprecated: This endpoint will be decommissioned on September 30, 2025. Please check the Notes section below for migration guidance.
+     * @deprecated
      */
     async getDetectSummariesRaw(
         requestParameters: DetectsApiGetDetectSummariesRequest,
@@ -126,7 +132,7 @@ export class DetectsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["detects:read"]);
         }
 
         const response = await this.request(
@@ -144,7 +150,9 @@ export class DetectsApi extends runtime.BaseAPI {
     }
 
     /**
-     * View information about detections
+     * Please use this guide to migrate to [Alerts API](https://falcon.crowdstrike.com/documentation/page/d02475a5/converting-from-detects-api-to-alerts-api)
+     * Deprecated: This endpoint will be decommissioned on September 30, 2025. Please check the Notes section below for migration guidance.
+     * @deprecated
      */
     async getDetectSummaries(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainMsaDetectSummariesResponse> {
         const response = await this.getDetectSummariesRaw({ body: body }, initOverrides);
@@ -152,7 +160,9 @@ export class DetectsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for detection IDs that match a given query
+     * Please use this guide to migrate to [Alerts API](https://falcon.crowdstrike.com/documentation/page/d02475a5/converting-from-detects-api-to-alerts-api)
+     * Deprecated: This endpoint will be decommissioned on September 30, 2025. Please check the Notes section below for migration guidance.
+     * @deprecated
      */
     async queryDetectsRaw(requestParameters: DetectsApiQueryDetectsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
         const queryParameters: any = {};
@@ -181,7 +191,7 @@ export class DetectsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["detects:read"]);
         }
 
         const response = await this.request(
@@ -198,7 +208,9 @@ export class DetectsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for detection IDs that match a given query
+     * Please use this guide to migrate to [Alerts API](https://falcon.crowdstrike.com/documentation/page/d02475a5/converting-from-detects-api-to-alerts-api)
+     * Deprecated: This endpoint will be decommissioned on September 30, 2025. Please check the Notes section below for migration guidance.
+     * @deprecated
      */
     async queryDetects(offset?: number, limit?: number, sort?: string, filter?: string, q?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryDetectsRaw({ offset: offset, limit: limit, sort: sort, filter: filter, q: q }, initOverrides);
@@ -206,7 +218,9 @@ export class DetectsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Modify the state, assignee, and visibility of detections
+     * Please use this guide to migrate to [Alerts API](https://falcon.crowdstrike.com/documentation/page/d02475a5/converting-from-detects-api-to-alerts-api)
+     * Deprecated: This endpoint will be decommissioned on September 30, 2025. Please check the Notes section below for migration guidance.
+     * @deprecated
      */
     async updateDetectsByIdsV2Raw(
         requestParameters: DetectsApiUpdateDetectsByIdsV2Request,
@@ -224,7 +238,7 @@ export class DetectsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["detects:write"]);
         }
 
         const response = await this.request(
@@ -242,7 +256,9 @@ export class DetectsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Modify the state, assignee, and visibility of detections
+     * Please use this guide to migrate to [Alerts API](https://falcon.crowdstrike.com/documentation/page/d02475a5/converting-from-detects-api-to-alerts-api)
+     * Deprecated: This endpoint will be decommissioned on September 30, 2025. Please check the Notes section below for migration guidance.
+     * @deprecated
      */
     async updateDetectsByIdsV2(body: DomainDetectsEntitiesPatchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyMetaOnly> {
         const response = await this.updateDetectsByIdsV2Raw({ body: body }, initOverrides);

@@ -39,6 +39,12 @@ export interface ModelsPod {
     annotationsList: Array<string>;
     /**
      *
+     * @type {string}
+     * @memberof ModelsPod
+     */
+    appName: string;
+    /**
+     *
      * @type {boolean}
      * @memberof ModelsPod
      */
@@ -304,6 +310,7 @@ export function instanceOfModelsPod(value: object): value is ModelsPod {
     if (!("agents" in value) || value["agents"] === undefined) return false;
     if (!("allowPrivilegeEscalation" in value) || value["allowPrivilegeEscalation"] === undefined) return false;
     if (!("annotationsList" in value) || value["annotationsList"] === undefined) return false;
+    if (!("appName" in value) || value["appName"] === undefined) return false;
     if (!("automountServiceToken" in value) || value["automountServiceToken"] === undefined) return false;
     if (!("cid" in value) || value["cid"] === undefined) return false;
     if (!("cloudAccountId" in value) || value["cloudAccountId"] === undefined) return false;
@@ -361,6 +368,7 @@ export function ModelsPodFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         agents: json["agents"],
         allowPrivilegeEscalation: json["allow_privilege_escalation"],
         annotationsList: json["annotations_list"],
+        appName: json["app_name"],
         automountServiceToken: json["automount_service_token"],
         cid: json["cid"],
         cloudAccountId: json["cloud_account_id"],
@@ -415,6 +423,7 @@ export function ModelsPodToJSON(value?: ModelsPod | null): any {
         agents: value["agents"],
         allow_privilege_escalation: value["allowPrivilegeEscalation"],
         annotations_list: value["annotationsList"],
+        app_name: value["appName"],
         automount_service_token: value["automountServiceToken"],
         cid: value["cid"],
         cloud_account_id: value["cloudAccountId"],

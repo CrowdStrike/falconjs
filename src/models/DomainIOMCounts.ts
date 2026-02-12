@@ -42,6 +42,12 @@ export interface DomainIOMCounts {
      * @type {number}
      * @memberof DomainIOMCounts
      */
+    low?: number;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainIOMCounts
+     */
     medium?: number;
 }
 
@@ -66,6 +72,7 @@ export function DomainIOMCountsFromJSONTyped(json: any, ignoreDiscriminator: boo
         critical: json["critical"],
         high: json["high"],
         informational: json["informational"] == null ? undefined : json["informational"],
+        low: json["low"] == null ? undefined : json["low"],
         medium: json["medium"] == null ? undefined : json["medium"],
     };
 }
@@ -78,6 +85,7 @@ export function DomainIOMCountsToJSON(value?: DomainIOMCounts | null): any {
         critical: value["critical"],
         high: value["high"],
         informational: value["informational"],
+        low: value["low"],
         medium: value["medium"],
     };
 }

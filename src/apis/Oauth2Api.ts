@@ -57,9 +57,6 @@ export class Oauth2Api extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (this.configuration && (this.configuration.username !== undefined || this.configuration.password !== undefined)) {
-            headerParameters["Authorization"] = "Basic " + btoa(this.configuration.username + ":" + this.configuration.password);
-        }
         const consumes: runtime.Consume[] = [{ contentType: "application/x-www-form-urlencoded" }, { contentType: "text/html" }];
         // @ts-ignore: canConsumeForm may be unused
         const canConsumeForm = runtime.canConsumeForm(consumes);
@@ -118,9 +115,6 @@ export class Oauth2Api extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (this.configuration && (this.configuration.username !== undefined || this.configuration.password !== undefined)) {
-            headerParameters["Authorization"] = "Basic " + btoa(this.configuration.username + ":" + this.configuration.password);
-        }
         const consumes: runtime.Consume[] = [{ contentType: "application/x-www-form-urlencoded" }];
         // @ts-ignore: canConsumeForm may be unused
         const canConsumeForm = runtime.canConsumeForm(consumes);

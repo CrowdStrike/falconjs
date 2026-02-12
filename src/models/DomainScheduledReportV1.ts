@@ -19,6 +19,8 @@ import type { DomainNotifications } from "./DomainNotifications";
 import { DomainNotificationsFromJSON, DomainNotificationsFromJSONTyped, DomainNotificationsToJSON } from "./DomainNotifications";
 import type { DomainReportMetadata } from "./DomainReportMetadata";
 import { DomainReportMetadataFromJSON, DomainReportMetadataFromJSONTyped, DomainReportMetadataToJSON } from "./DomainReportMetadata";
+import type { DomainSecretReferencesV1 } from "./DomainSecretReferencesV1";
+import { DomainSecretReferencesV1FromJSON, DomainSecretReferencesV1FromJSONTyped, DomainSecretReferencesV1ToJSON } from "./DomainSecretReferencesV1";
 import type { DomainReportParams } from "./DomainReportParams";
 import { DomainReportParamsFromJSON, DomainReportParamsFromJSONTyped, DomainReportParamsToJSON } from "./DomainReportParams";
 import type { DomainReportExecutionSummaryV1 } from "./DomainReportExecutionSummaryV1";
@@ -30,6 +32,12 @@ import { DomainReportExecutionSummaryV1FromJSON, DomainReportExecutionSummaryV1F
  * @interface DomainScheduledReportV1
  */
 export interface DomainScheduledReportV1 {
+    /**
+     *
+     * @type {string}
+     * @memberof DomainScheduledReportV1
+     */
+    apiClientId: string;
     /**
      *
      * @type {boolean}
@@ -122,6 +130,18 @@ export interface DomainScheduledReportV1 {
     schedule: DomainSchedule;
     /**
      *
+     * @type {string}
+     * @memberof DomainScheduledReportV1
+     */
+    scheduleType: string;
+    /**
+     *
+     * @type {DomainSecretReferencesV1}
+     * @memberof DomainScheduledReportV1
+     */
+    secretReferences?: DomainSecretReferencesV1;
+    /**
+     *
      * @type {Array<string>}
      * @memberof DomainScheduledReportV1
      */
@@ -144,6 +164,12 @@ export interface DomainScheduledReportV1 {
      * @memberof DomainScheduledReportV1
      */
     stopOn?: Date;
+    /**
+     *
+     * @type {boolean}
+     * @memberof DomainScheduledReportV1
+     */
+    stoppedByCs?: boolean;
     /**
      *
      * @type {string}
@@ -180,6 +206,7 @@ export interface DomainScheduledReportV1 {
  * Check if a given object implements the DomainScheduledReportV1 interface.
  */
 export function instanceOfDomainScheduledReportV1(value: object): value is DomainScheduledReportV1 {
+    if (!("apiClientId" in value) || value["apiClientId"] === undefined) return false;
     if (!("createdOn" in value) || value["createdOn"] === undefined) return false;
     if (!("customerId" in value) || value["customerId"] === undefined) return false;
     if (!("description" in value) || value["description"] === undefined) return false;
@@ -189,6 +216,7 @@ export function instanceOfDomainScheduledReportV1(value: object): value is Domai
     if (!("notifications" in value) || value["notifications"] === undefined) return false;
     if (!("reportParams" in value) || value["reportParams"] === undefined) return false;
     if (!("schedule" in value) || value["schedule"] === undefined) return false;
+    if (!("scheduleType" in value) || value["scheduleType"] === undefined) return false;
     if (!("sharedWith" in value) || value["sharedWith"] === undefined) return false;
     if (!("status" in value) || value["status"] === undefined) return false;
     if (!("type" in value) || value["type"] === undefined) return false;
@@ -206,6 +234,7 @@ export function DomainScheduledReportV1FromJSONTyped(json: any, ignoreDiscrimina
         return json;
     }
     return {
+        apiClientId: json["api_client_id"],
         canWrite: json["can_write"] == null ? undefined : json["can_write"],
         createdOn: new Date(json["created_on"]),
         customerId: json["customer_id"],
@@ -221,10 +250,13 @@ export function DomainScheduledReportV1FromJSONTyped(json: any, ignoreDiscrimina
         reportMetadata: json["report_metadata"] == null ? undefined : DomainReportMetadataFromJSON(json["report_metadata"]),
         reportParams: DomainReportParamsFromJSON(json["report_params"]),
         schedule: DomainScheduleFromJSON(json["schedule"]),
+        scheduleType: json["schedule_type"],
+        secretReferences: json["secret_references"] == null ? undefined : DomainSecretReferencesV1FromJSON(json["secret_references"]),
         sharedWith: json["shared_with"],
         startOn: json["start_on"] == null ? undefined : new Date(json["start_on"]),
         status: json["status"],
         stopOn: json["stop_on"] == null ? undefined : new Date(json["stop_on"]),
+        stoppedByCs: json["stopped_by_cs"] == null ? undefined : json["stopped_by_cs"],
         tracking: json["tracking"] == null ? undefined : json["tracking"],
         triggerReference: json["trigger_reference"] == null ? undefined : json["trigger_reference"],
         type: json["type"],
@@ -238,6 +270,7 @@ export function DomainScheduledReportV1ToJSON(value?: DomainScheduledReportV1 | 
         return value;
     }
     return {
+        api_client_id: value["apiClientId"],
         can_write: value["canWrite"],
         created_on: value["createdOn"].toISOString(),
         customer_id: value["customerId"],
@@ -253,10 +286,13 @@ export function DomainScheduledReportV1ToJSON(value?: DomainScheduledReportV1 | 
         report_metadata: DomainReportMetadataToJSON(value["reportMetadata"]),
         report_params: DomainReportParamsToJSON(value["reportParams"]),
         schedule: DomainScheduleToJSON(value["schedule"]),
+        schedule_type: value["scheduleType"],
+        secret_references: DomainSecretReferencesV1ToJSON(value["secretReferences"]),
         shared_with: value["sharedWith"],
         start_on: value["startOn"] == null ? undefined : value["startOn"].toISOString(),
         status: value["status"],
         stop_on: value["stopOn"] == null ? undefined : value["stopOn"].toISOString(),
+        stopped_by_cs: value["stoppedByCs"],
         tracking: value["tracking"],
         trigger_reference: value["triggerReference"],
         type: value["type"],

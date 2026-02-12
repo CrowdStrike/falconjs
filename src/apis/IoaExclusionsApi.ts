@@ -13,20 +13,57 @@
  */
 
 import * as runtime from "../runtime";
-import type { IoaExclusionsIoaExclusionCreateReqV1, IoaExclusionsIoaExclusionUpdateReqV1, IoaExclusionsIoaExclusionsRespV1, MsaErrorsOnly, MsaQueryResponse, MsaReplyMetaOnly } from "../models/index";
+import type {
+    DomainExclusionsReportRequest,
+    DomainSsIoaExclusionsCreateReqV2,
+    DomainSsIoaExclusionsMatchedRuleReqV2,
+    DomainSsIoaExclusionsNewRuleReqV2,
+    DomainSsIoaExclusionsNewRuleRespV2,
+    DomainSsIoaExclusionsRespV2,
+    DomainSsIoaExclusionsUpdateReqV2,
+    IoaExclusionsIoaExclusionCreateReqV1,
+    IoaExclusionsIoaExclusionUpdateReqV1,
+    IoaExclusionsIoaExclusionsRespV1,
+    MsaAggregateQueryRequest,
+    MsaAggregatesResponse,
+    MsaErrorsOnly,
+    MsaQueryResponse,
+    MsaReplyMetaOnly,
+    MsaspecQueryResponse,
+} from "../models/index";
 import {
+    DomainExclusionsReportRequestFromJSON,
+    DomainExclusionsReportRequestToJSON,
+    DomainSsIoaExclusionsCreateReqV2FromJSON,
+    DomainSsIoaExclusionsCreateReqV2ToJSON,
+    DomainSsIoaExclusionsMatchedRuleReqV2FromJSON,
+    DomainSsIoaExclusionsMatchedRuleReqV2ToJSON,
+    DomainSsIoaExclusionsNewRuleReqV2FromJSON,
+    DomainSsIoaExclusionsNewRuleReqV2ToJSON,
+    DomainSsIoaExclusionsNewRuleRespV2FromJSON,
+    DomainSsIoaExclusionsNewRuleRespV2ToJSON,
+    DomainSsIoaExclusionsRespV2FromJSON,
+    DomainSsIoaExclusionsRespV2ToJSON,
+    DomainSsIoaExclusionsUpdateReqV2FromJSON,
+    DomainSsIoaExclusionsUpdateReqV2ToJSON,
     IoaExclusionsIoaExclusionCreateReqV1FromJSON,
     IoaExclusionsIoaExclusionCreateReqV1ToJSON,
     IoaExclusionsIoaExclusionUpdateReqV1FromJSON,
     IoaExclusionsIoaExclusionUpdateReqV1ToJSON,
     IoaExclusionsIoaExclusionsRespV1FromJSON,
     IoaExclusionsIoaExclusionsRespV1ToJSON,
+    MsaAggregateQueryRequestFromJSON,
+    MsaAggregateQueryRequestToJSON,
+    MsaAggregatesResponseFromJSON,
+    MsaAggregatesResponseToJSON,
     MsaErrorsOnlyFromJSON,
     MsaErrorsOnlyToJSON,
     MsaQueryResponseFromJSON,
     MsaQueryResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
+    MsaspecQueryResponseFromJSON,
+    MsaspecQueryResponseToJSON,
 } from "../models/index";
 
 export interface IoaExclusionsApiCreateIOAExclusionsV1Request {
@@ -44,9 +81,63 @@ export interface IoaExclusionsApiGetIOAExclusionsV1Request {
 
 export interface IoaExclusionsApiQueryIOAExclusionsV1Request {
     filter?: string;
+    ifnRegex?: string;
+    clRegex?: string;
     offset?: number;
     limit?: number;
     sort?: QueryIOAExclusionsV1SortEnum;
+}
+
+export interface IoaExclusionsApiSsIoaExclusionsAggregatesV2Request {
+    body: MsaAggregateQueryRequest;
+    ifnRegex?: string;
+    clRegex?: string;
+    parentIfnRegex?: string;
+    parentClRegex?: string;
+    grandparentIfnRegex?: string;
+    grandparentClRegex?: string;
+}
+
+export interface IoaExclusionsApiSsIoaExclusionsCreateV2Request {
+    body: DomainSsIoaExclusionsCreateReqV2;
+}
+
+export interface IoaExclusionsApiSsIoaExclusionsDeleteV2Request {
+    ids: Array<string>;
+    comment?: string;
+}
+
+export interface IoaExclusionsApiSsIoaExclusionsGetReportsV2Request {
+    body: DomainExclusionsReportRequest;
+}
+
+export interface IoaExclusionsApiSsIoaExclusionsGetV2Request {
+    ids: Array<string>;
+}
+
+export interface IoaExclusionsApiSsIoaExclusionsMatchedRuleV2Request {
+    body: DomainSsIoaExclusionsMatchedRuleReqV2;
+}
+
+export interface IoaExclusionsApiSsIoaExclusionsNewRulesV2Request {
+    body: DomainSsIoaExclusionsNewRuleReqV2;
+}
+
+export interface IoaExclusionsApiSsIoaExclusionsSearchV2Request {
+    filter?: string;
+    ifnRegex?: string;
+    clRegex?: string;
+    parentIfnRegex?: string;
+    parentClRegex?: string;
+    grandparentIfnRegex?: string;
+    grandparentClRegex?: string;
+    offset?: number;
+    limit?: number;
+    sort?: SsIoaExclusionsSearchV2SortEnum;
+}
+
+export interface IoaExclusionsApiSsIoaExclusionsUpdateV2Request {
+    body: DomainSsIoaExclusionsUpdateReqV2;
 }
 
 export interface IoaExclusionsApiUpdateIOAExclusionsV1Request {
@@ -76,7 +167,7 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:write"]);
         }
 
         const response = await this.request(
@@ -126,7 +217,7 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:write"]);
         }
 
         const response = await this.request(
@@ -171,7 +262,7 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:read"]);
         }
 
         const response = await this.request(
@@ -208,6 +299,14 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
             queryParameters["filter"] = requestParameters["filter"];
         }
 
+        if (requestParameters["ifnRegex"] != null) {
+            queryParameters["ifn_regex"] = requestParameters["ifnRegex"];
+        }
+
+        if (requestParameters["clRegex"] != null) {
+            queryParameters["cl_regex"] = requestParameters["clRegex"];
+        }
+
         if (requestParameters["offset"] != null) {
             queryParameters["offset"] = requestParameters["offset"];
         }
@@ -224,7 +323,7 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:read"]);
         }
 
         const response = await this.request(
@@ -245,12 +344,518 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
      */
     async queryIOAExclusionsV1(
         filter?: string,
+        ifnRegex?: string,
+        clRegex?: string,
         offset?: number,
         limit?: number,
         sort?: QueryIOAExclusionsV1SortEnum,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<MsaQueryResponse> {
-        const response = await this.queryIOAExclusionsV1Raw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
+        const response = await this.queryIOAExclusionsV1Raw({ filter: filter, ifnRegex: ifnRegex, clRegex: clRegex, offset: offset, limit: limit, sort: sort }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get Self Service IOA Exclusion aggregates as specified via json in the request body.
+     */
+    async ssIoaExclusionsAggregatesV2Raw(
+        requestParameters: IoaExclusionsApiSsIoaExclusionsAggregatesV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling ssIoaExclusionsAggregatesV2().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ifnRegex"] != null) {
+            queryParameters["ifn_regex"] = requestParameters["ifnRegex"];
+        }
+
+        if (requestParameters["clRegex"] != null) {
+            queryParameters["cl_regex"] = requestParameters["clRegex"];
+        }
+
+        if (requestParameters["parentIfnRegex"] != null) {
+            queryParameters["parent_ifn_regex"] = requestParameters["parentIfnRegex"];
+        }
+
+        if (requestParameters["parentClRegex"] != null) {
+            queryParameters["parent_cl_regex"] = requestParameters["parentClRegex"];
+        }
+
+        if (requestParameters["grandparentIfnRegex"] != null) {
+            queryParameters["grandparent_ifn_regex"] = requestParameters["grandparentIfnRegex"];
+        }
+
+        if (requestParameters["grandparentClRegex"] != null) {
+            queryParameters["grandparent_cl_regex"] = requestParameters["grandparentClRegex"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/exclusions/aggregates/ss-ioa-exclusions/GET/v2`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: MsaAggregateQueryRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get Self Service IOA Exclusion aggregates as specified via json in the request body.
+     */
+    async ssIoaExclusionsAggregatesV2(
+        body: MsaAggregateQueryRequest,
+        ifnRegex?: string,
+        clRegex?: string,
+        parentIfnRegex?: string,
+        parentClRegex?: string,
+        grandparentIfnRegex?: string,
+        grandparentClRegex?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<MsaAggregatesResponse> {
+        const response = await this.ssIoaExclusionsAggregatesV2Raw(
+            {
+                body: body,
+                ifnRegex: ifnRegex,
+                clRegex: clRegex,
+                parentIfnRegex: parentIfnRegex,
+                parentClRegex: parentClRegex,
+                grandparentIfnRegex: grandparentIfnRegex,
+                grandparentClRegex: grandparentClRegex,
+            },
+            initOverrides,
+        );
+        return await response.value();
+    }
+
+    /**
+     * Create new Self Service IOA Exclusions.
+     */
+    async ssIoaExclusionsCreateV2Raw(
+        requestParameters: IoaExclusionsApiSsIoaExclusionsCreateV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainSsIoaExclusionsRespV2>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling ssIoaExclusionsCreateV2().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/exclusions/entities/ss-ioa-exclusions/v2`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: DomainSsIoaExclusionsCreateReqV2ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainSsIoaExclusionsRespV2FromJSON(jsonValue));
+    }
+
+    /**
+     * Create new Self Service IOA Exclusions.
+     */
+    async ssIoaExclusionsCreateV2(body: DomainSsIoaExclusionsCreateReqV2, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainSsIoaExclusionsRespV2> {
+        const response = await this.ssIoaExclusionsCreateV2Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Delete the Self Service IOA Exclusions rule by id.
+     */
+    async ssIoaExclusionsDeleteV2Raw(
+        requestParameters: IoaExclusionsApiSsIoaExclusionsDeleteV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainSsIoaExclusionsRespV2>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling ssIoaExclusionsDeleteV2().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        if (requestParameters["comment"] != null) {
+            queryParameters["comment"] = requestParameters["comment"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/exclusions/entities/ss-ioa-exclusions/v2`,
+                method: "DELETE",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainSsIoaExclusionsRespV2FromJSON(jsonValue));
+    }
+
+    /**
+     * Delete the Self Service IOA Exclusions rule by id.
+     */
+    async ssIoaExclusionsDeleteV2(ids: Array<string>, comment?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainSsIoaExclusionsRespV2> {
+        const response = await this.ssIoaExclusionsDeleteV2Raw({ ids: ids, comment: comment }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Create a report of Self Service IOA Exclusions scoped by the given filters
+     */
+    async ssIoaExclusionsGetReportsV2Raw(
+        requestParameters: IoaExclusionsApiSsIoaExclusionsGetReportsV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling ssIoaExclusionsGetReportsV2().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/exclusions/entities/ss-ioa-exclusions/reports/v2`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: DomainExclusionsReportRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Create a report of Self Service IOA Exclusions scoped by the given filters
+     */
+    async ssIoaExclusionsGetReportsV2(body: DomainExclusionsReportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.ssIoaExclusionsGetReportsV2Raw({ body: body }, initOverrides);
+    }
+
+    /**
+     * Get the Self Service IOA Exclusions rules by id.
+     */
+    async ssIoaExclusionsGetV2Raw(
+        requestParameters: IoaExclusionsApiSsIoaExclusionsGetV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainSsIoaExclusionsRespV2>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling ssIoaExclusionsGetV2().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/exclusions/entities/ss-ioa-exclusions/v2`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainSsIoaExclusionsRespV2FromJSON(jsonValue));
+    }
+
+    /**
+     * Get the Self Service IOA Exclusions rules by id.
+     */
+    async ssIoaExclusionsGetV2(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainSsIoaExclusionsRespV2> {
+        const response = await this.ssIoaExclusionsGetV2Raw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get Self Service IOA Exclusions rules for matched IFN/CLI for child, parent and grandparent
+     */
+    async ssIoaExclusionsMatchedRuleV2Raw(
+        requestParameters: IoaExclusionsApiSsIoaExclusionsMatchedRuleV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainSsIoaExclusionsRespV2>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling ssIoaExclusionsMatchedRuleV2().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/exclusions/entities/ss-ioa-matched-rules/v2`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: DomainSsIoaExclusionsMatchedRuleReqV2ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainSsIoaExclusionsRespV2FromJSON(jsonValue));
+    }
+
+    /**
+     * Get Self Service IOA Exclusions rules for matched IFN/CLI for child, parent and grandparent
+     */
+    async ssIoaExclusionsMatchedRuleV2(body: DomainSsIoaExclusionsMatchedRuleReqV2, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainSsIoaExclusionsRespV2> {
+        const response = await this.ssIoaExclusionsMatchedRuleV2Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get defaults for Self Service IOA Exclusions based on provided IFN/CLI for child, parent and grandparent.
+     */
+    async ssIoaExclusionsNewRulesV2Raw(
+        requestParameters: IoaExclusionsApiSsIoaExclusionsNewRulesV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainSsIoaExclusionsNewRuleRespV2>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling ssIoaExclusionsNewRulesV2().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/exclusions/entities/ss-ioa-new-rules/v2`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: DomainSsIoaExclusionsNewRuleReqV2ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainSsIoaExclusionsNewRuleRespV2FromJSON(jsonValue));
+    }
+
+    /**
+     * Get defaults for Self Service IOA Exclusions based on provided IFN/CLI for child, parent and grandparent.
+     */
+    async ssIoaExclusionsNewRulesV2(body: DomainSsIoaExclusionsNewRuleReqV2, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainSsIoaExclusionsNewRuleRespV2> {
+        const response = await this.ssIoaExclusionsNewRulesV2Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Search for Self Service IOA Exclusions.
+     */
+    async ssIoaExclusionsSearchV2Raw(
+        requestParameters: IoaExclusionsApiSsIoaExclusionsSearchV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["ifnRegex"] != null) {
+            queryParameters["ifn_regex"] = requestParameters["ifnRegex"];
+        }
+
+        if (requestParameters["clRegex"] != null) {
+            queryParameters["cl_regex"] = requestParameters["clRegex"];
+        }
+
+        if (requestParameters["parentIfnRegex"] != null) {
+            queryParameters["parent_ifn_regex"] = requestParameters["parentIfnRegex"];
+        }
+
+        if (requestParameters["parentClRegex"] != null) {
+            queryParameters["parent_cl_regex"] = requestParameters["parentClRegex"];
+        }
+
+        if (requestParameters["grandparentIfnRegex"] != null) {
+            queryParameters["grandparent_ifn_regex"] = requestParameters["grandparentIfnRegex"];
+        }
+
+        if (requestParameters["grandparentClRegex"] != null) {
+            queryParameters["grandparent_cl_regex"] = requestParameters["grandparentClRegex"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/exclusions/queries/ss-ioa-exclusions/v2`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Search for Self Service IOA Exclusions.
+     */
+    async ssIoaExclusionsSearchV2(
+        filter?: string,
+        ifnRegex?: string,
+        clRegex?: string,
+        parentIfnRegex?: string,
+        parentClRegex?: string,
+        grandparentIfnRegex?: string,
+        grandparentClRegex?: string,
+        offset?: number,
+        limit?: number,
+        sort?: SsIoaExclusionsSearchV2SortEnum,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<MsaspecQueryResponse> {
+        const response = await this.ssIoaExclusionsSearchV2Raw(
+            {
+                filter: filter,
+                ifnRegex: ifnRegex,
+                clRegex: clRegex,
+                parentIfnRegex: parentIfnRegex,
+                parentClRegex: parentClRegex,
+                grandparentIfnRegex: grandparentIfnRegex,
+                grandparentClRegex: grandparentClRegex,
+                offset: offset,
+                limit: limit,
+                sort: sort,
+            },
+            initOverrides,
+        );
+        return await response.value();
+    }
+
+    /**
+     * Update the Self Service IOA Exclusions rule by id.
+     */
+    async ssIoaExclusionsUpdateV2Raw(
+        requestParameters: IoaExclusionsApiSsIoaExclusionsUpdateV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainSsIoaExclusionsRespV2>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling ssIoaExclusionsUpdateV2().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/exclusions/entities/ss-ioa-exclusions/v2`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+                body: DomainSsIoaExclusionsUpdateReqV2ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainSsIoaExclusionsRespV2FromJSON(jsonValue));
+    }
+
+    /**
+     * Update the Self Service IOA Exclusions rule by id.
+     */
+    async ssIoaExclusionsUpdateV2(body: DomainSsIoaExclusionsUpdateReqV2, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainSsIoaExclusionsRespV2> {
+        const response = await this.ssIoaExclusionsUpdateV2Raw({ body: body }, initOverrides);
         return await response.value();
     }
 
@@ -273,7 +878,7 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:write"]);
         }
 
         const response = await this.request(
@@ -321,3 +926,21 @@ export const QueryIOAExclusionsV1SortEnum = {
     PatternNameDesc: "pattern_name.desc",
 } as const;
 export type QueryIOAExclusionsV1SortEnum = (typeof QueryIOAExclusionsV1SortEnum)[keyof typeof QueryIOAExclusionsV1SortEnum];
+/**
+ * @export
+ */
+export const SsIoaExclusionsSearchV2SortEnum = {
+    NameAsc: "name.asc",
+    NameDesc: "name.desc",
+    PatternIdAsc: "pattern_id.asc",
+    PatternIdDesc: "pattern_id.desc",
+    PatternNameAsc: "pattern_name.asc",
+    PatternNameDesc: "pattern_name.desc",
+    CreatedByAsc: "created_by.asc",
+    CreatedByDesc: "created_by.desc",
+    LastModifiedAsc: "last_modified.asc",
+    LastModifiedDesc: "last_modified.desc",
+    ModifiedByAsc: "modified_by.asc",
+    ModifiedByDesc: "modified_by.desc",
+} as const;
+export type SsIoaExclusionsSearchV2SortEnum = (typeof SsIoaExclusionsSearchV2SortEnum)[keyof typeof SsIoaExclusionsSearchV2SortEnum];

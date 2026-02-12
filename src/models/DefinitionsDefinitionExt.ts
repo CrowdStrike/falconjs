@@ -51,11 +51,23 @@ export interface DefinitionsDefinitionExt {
      */
     description?: string;
     /**
+     *
+     * @type {Array<string>}
+     * @memberof DefinitionsDefinitionExt
+     */
+    disconnectedNodes?: Array<string>;
+    /**
      * Indicates whether the workflow is enabled and active or not.
      * @type {boolean}
      * @memberof DefinitionsDefinitionExt
      */
     enabled: boolean;
+    /**
+     * Indicates whether the workflow has validation errors
+     * @type {boolean}
+     * @memberof DefinitionsDefinitionExt
+     */
+    hasValidationErrors: boolean;
     /**
      * Unique identifier for the trigger.
      * @type {string}
@@ -124,6 +136,12 @@ export interface DefinitionsDefinitionExt {
     provisionOnInstall?: boolean;
     /**
      *
+     * @type {string}
+     * @memberof DefinitionsDefinitionExt
+     */
+    summary?: string;
+    /**
+     *
      * @type {V2Trigger}
      * @memberof DefinitionsDefinitionExt
      */
@@ -141,6 +159,18 @@ export interface DefinitionsDefinitionExt {
      */
     uniqNodeSeen: { [key: string]: boolean };
     /**
+     *
+     * @type {Array<string>}
+     * @memberof DefinitionsDefinitionExt
+     */
+    useCases?: Array<string>;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof DefinitionsDefinitionExt
+     */
+    vendors?: Array<string>;
+    /**
      * Version of the workflow. A given definition ID can have many versions. Each time an update is applied a new version is generated.
      * @type {number}
      * @memberof DefinitionsDefinitionExt
@@ -153,6 +183,7 @@ export interface DefinitionsDefinitionExt {
  */
 export function instanceOfDefinitionsDefinitionExt(value: object): value is DefinitionsDefinitionExt {
     if (!("enabled" in value) || value["enabled"] === undefined) return false;
+    if (!("hasValidationErrors" in value) || value["hasValidationErrors"] === undefined) return false;
     if (!("id" in value) || value["id"] === undefined) return false;
     if (!("lastModifiedTimestamp" in value) || value["lastModifiedTimestamp"] === undefined) return false;
     if (!("name" in value) || value["name"] === undefined) return false;
@@ -176,7 +207,9 @@ export function DefinitionsDefinitionExtFromJSONTyped(json: any, ignoreDiscrimin
         actions: json["actions"] == null ? undefined : mapValues(json["actions"], V2ActivityFromJSON),
         conditions: json["conditions"] == null ? undefined : mapValues(json["conditions"], V2ConditionFromJSON),
         description: json["description"] == null ? undefined : json["description"],
+        disconnectedNodes: json["disconnected_nodes"] == null ? undefined : json["disconnected_nodes"],
         enabled: json["enabled"],
+        hasValidationErrors: json["has_validation_errors"],
         id: json["id"],
         labels: json["labels"] == null ? undefined : json["labels"],
         lastModifiedTimestamp: new Date(json["last_modified_timestamp"]),
@@ -188,9 +221,12 @@ export function DefinitionsDefinitionExtFromJSONTyped(json: any, ignoreDiscrimin
         parameters: json["parameters"] == null ? undefined : V2ParametersFromJSON(json["parameters"]),
         parent: V2ModelFromJSON(json["parent"]),
         provisionOnInstall: json["provision_on_install"] == null ? undefined : json["provision_on_install"],
+        summary: json["summary"] == null ? undefined : json["summary"],
         trigger: V2TriggerFromJSON(json["trigger"]),
         type: json["type"] == null ? undefined : json["type"],
         uniqNodeSeen: json["uniqNodeSeen"],
+        useCases: json["use_cases"] == null ? undefined : json["use_cases"],
+        vendors: json["vendors"] == null ? undefined : json["vendors"],
         version: json["version"],
     };
 }
@@ -203,7 +239,9 @@ export function DefinitionsDefinitionExtToJSON(value?: DefinitionsDefinitionExt 
         actions: value["actions"] == null ? undefined : mapValues(value["actions"], V2ActivityToJSON),
         conditions: value["conditions"] == null ? undefined : mapValues(value["conditions"], V2ConditionToJSON),
         description: value["description"],
+        disconnected_nodes: value["disconnectedNodes"],
         enabled: value["enabled"],
+        has_validation_errors: value["hasValidationErrors"],
         id: value["id"],
         labels: value["labels"],
         last_modified_timestamp: value["lastModifiedTimestamp"].toISOString(),
@@ -215,9 +253,12 @@ export function DefinitionsDefinitionExtToJSON(value?: DefinitionsDefinitionExt 
         parameters: V2ParametersToJSON(value["parameters"]),
         parent: V2ModelToJSON(value["parent"]),
         provision_on_install: value["provisionOnInstall"],
+        summary: value["summary"],
         trigger: V2TriggerToJSON(value["trigger"]),
         type: value["type"],
         uniqNodeSeen: value["uniqNodeSeen"],
+        use_cases: value["useCases"],
+        vendors: value["vendors"],
         version: value["version"],
     };
 }

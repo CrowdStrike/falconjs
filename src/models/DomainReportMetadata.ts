@@ -13,6 +13,8 @@
  */
 
 import { mapValues } from "../runtime";
+import type { DomainKestrelParams } from "./DomainKestrelParams";
+import { DomainKestrelParamsFromJSON, DomainKestrelParamsFromJSONTyped, DomainKestrelParamsToJSON } from "./DomainKestrelParams";
 import type { DomainLastScheduledExecution } from "./DomainLastScheduledExecution";
 import { DomainLastScheduledExecutionFromJSON, DomainLastScheduledExecutionFromJSONTyped, DomainLastScheduledExecutionToJSON } from "./DomainLastScheduledExecution";
 import type { DomainXDRParams } from "./DomainXDRParams";
@@ -21,6 +23,8 @@ import type { DomainLastUnscheduledExecution } from "./DomainLastUnscheduledExec
 import { DomainLastUnscheduledExecutionFromJSON, DomainLastUnscheduledExecutionFromJSONTyped, DomainLastUnscheduledExecutionToJSON } from "./DomainLastUnscheduledExecution";
 import type { DomainDiscoverParams } from "./DomainDiscoverParams";
 import { DomainDiscoverParamsFromJSON, DomainDiscoverParamsFromJSONTyped, DomainDiscoverParamsToJSON } from "./DomainDiscoverParams";
+import type { DomainKestrelDataExportParams } from "./DomainKestrelDataExportParams";
+import { DomainKestrelDataExportParamsFromJSON, DomainKestrelDataExportParamsFromJSONTyped, DomainKestrelDataExportParamsToJSON } from "./DomainKestrelDataExportParams";
 
 /**
  *
@@ -46,6 +50,18 @@ export interface DomainReportMetadata {
      * @memberof DomainReportMetadata
      */
     discoverParams?: DomainDiscoverParams;
+    /**
+     *
+     * @type {DomainKestrelDataExportParams}
+     * @memberof DomainReportMetadata
+     */
+    kestrelDataExportParams?: DomainKestrelDataExportParams;
+    /**
+     *
+     * @type {DomainKestrelParams}
+     * @memberof DomainReportMetadata
+     */
+    kestrelParams?: DomainKestrelParams;
     /**
      *
      * @type {DomainLastScheduledExecution}
@@ -95,6 +111,8 @@ export function DomainReportMetadataFromJSONTyped(json: any, ignoreDiscriminator
         createdByUserId: json["created_by_user_id"],
         createdByUuid: json["created_by_uuid"],
         discoverParams: json["discover_params"] == null ? undefined : DomainDiscoverParamsFromJSON(json["discover_params"]),
+        kestrelDataExportParams: json["kestrel_data_export_params"] == null ? undefined : DomainKestrelDataExportParamsFromJSON(json["kestrel_data_export_params"]),
+        kestrelParams: json["kestrel_params"] == null ? undefined : DomainKestrelParamsFromJSON(json["kestrel_params"]),
         lastScheduledExecution: json["last_scheduled_execution"] == null ? undefined : DomainLastScheduledExecutionFromJSON(json["last_scheduled_execution"]),
         lastUnscheduledExecution: DomainLastUnscheduledExecutionFromJSON(json["last_unscheduled_execution"]),
         subtype: json["subtype"],
@@ -110,6 +128,8 @@ export function DomainReportMetadataToJSON(value?: DomainReportMetadata | null):
         created_by_user_id: value["createdByUserId"],
         created_by_uuid: value["createdByUuid"],
         discover_params: DomainDiscoverParamsToJSON(value["discoverParams"]),
+        kestrel_data_export_params: DomainKestrelDataExportParamsToJSON(value["kestrelDataExportParams"]),
+        kestrel_params: DomainKestrelParamsToJSON(value["kestrelParams"]),
         last_scheduled_execution: DomainLastScheduledExecutionToJSON(value["lastScheduledExecution"]),
         last_unscheduled_execution: DomainLastUnscheduledExecutionToJSON(value["lastUnscheduledExecution"]),
         subtype: value["subtype"],

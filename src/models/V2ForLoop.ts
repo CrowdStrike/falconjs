@@ -24,6 +24,12 @@ export interface V2ForLoop {
      * @type {string}
      * @memberof V2ForLoop
      */
+    celCondition?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof V2ForLoop
+     */
     condition?: string;
     /**
      *
@@ -81,6 +87,7 @@ export function V2ForLoopFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         return json;
     }
     return {
+        celCondition: json["cel_condition"] == null ? undefined : json["cel_condition"],
         condition: json["condition"] == null ? undefined : json["condition"],
         conditionDisplay: json["condition_display"] == null ? undefined : json["condition_display"],
         continueOnPartialExecution: json["continue_on_partial_execution"],
@@ -96,6 +103,7 @@ export function V2ForLoopToJSON(value?: V2ForLoop | null): any {
         return value;
     }
     return {
+        cel_condition: value["celCondition"],
         condition: value["condition"],
         condition_display: value["conditionDisplay"],
         continue_on_partial_execution: value["continueOnPartialExecution"],

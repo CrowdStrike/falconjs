@@ -23,8 +23,8 @@ import type {
     MalqueryRateLimitsResponse,
     MalqueryRequestResponse,
     MalquerySampleMetadataResponse,
-    MsaErrorsOnly,
     MsaReplyMetaOnly,
+    MsaspecResponseFields,
 } from "../models/index";
 import {
     MalqueryExternalExactSearchParametersV1FromJSON,
@@ -45,10 +45,10 @@ import {
     MalqueryRequestResponseToJSON,
     MalquerySampleMetadataResponseFromJSON,
     MalquerySampleMetadataResponseToJSON,
-    MsaErrorsOnlyFromJSON,
-    MsaErrorsOnlyToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
+    MsaspecResponseFieldsFromJSON,
+    MsaspecResponseFieldsToJSON,
 } from "../models/index";
 
 export interface MalqueryApiGetMalQueryDownloadV1Request {
@@ -105,7 +105,7 @@ export class MalqueryApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["malquery:read"]);
         }
 
         const response = await this.request(
@@ -149,7 +149,7 @@ export class MalqueryApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["malquery:read"]);
         }
 
         const response = await this.request(
@@ -193,7 +193,7 @@ export class MalqueryApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["malquery:read"]);
         }
 
         const response = await this.request(
@@ -227,7 +227,7 @@ export class MalqueryApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["malquery:read"]);
         }
 
         const response = await this.request(
@@ -272,7 +272,7 @@ export class MalqueryApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["malquery:read"]);
         }
 
         const response = await this.request(
@@ -315,7 +315,7 @@ export class MalqueryApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["malquery:write"]);
         }
 
         const response = await this.request(
@@ -359,7 +359,7 @@ export class MalqueryApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["malquery:write"]);
         }
 
         const response = await this.request(
@@ -403,7 +403,7 @@ export class MalqueryApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["malquery:write"]);
         }
 
         const response = await this.request(
@@ -447,7 +447,7 @@ export class MalqueryApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["malquery:write"]);
         }
 
         const response = await this.request(

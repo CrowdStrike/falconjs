@@ -28,12 +28,6 @@ import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from
 export interface ModelsPolicyGroupEntityResponse {
     /**
      *
-     * @type {Array<ModelsAPIPolicyGroup>}
-     * @memberof ModelsPolicyGroupEntityResponse
-     */
-    resources: Array<ModelsAPIPolicyGroup>;
-    /**
-     *
      * @type {Array<MsaAPIError>}
      * @memberof ModelsPolicyGroupEntityResponse
      */
@@ -44,14 +38,20 @@ export interface ModelsPolicyGroupEntityResponse {
      * @memberof ModelsPolicyGroupEntityResponse
      */
     meta: MsaMetaInfo;
+    /**
+     *
+     * @type {Array<ModelsAPIPolicyGroup>}
+     * @memberof ModelsPolicyGroupEntityResponse
+     */
+    resources: Array<ModelsAPIPolicyGroup>;
 }
 
 /**
  * Check if a given object implements the ModelsPolicyGroupEntityResponse interface.
  */
 export function instanceOfModelsPolicyGroupEntityResponse(value: object): value is ModelsPolicyGroupEntityResponse {
-    if (!("resources" in value) || value["resources"] === undefined) return false;
     if (!("meta" in value) || value["meta"] === undefined) return false;
+    if (!("resources" in value) || value["resources"] === undefined) return false;
     return true;
 }
 
@@ -64,9 +64,9 @@ export function ModelsPolicyGroupEntityResponseFromJSONTyped(json: any, ignoreDi
         return json;
     }
     return {
-        resources: (json["resources"] as Array<any>).map(ModelsAPIPolicyGroupFromJSON),
         errors: json["errors"] == null ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
+        resources: (json["resources"] as Array<any>).map(ModelsAPIPolicyGroupFromJSON),
     };
 }
 
@@ -75,8 +75,8 @@ export function ModelsPolicyGroupEntityResponseToJSON(value?: ModelsPolicyGroupE
         return value;
     }
     return {
-        resources: (value["resources"] as Array<any>).map(ModelsAPIPolicyGroupToJSON),
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
+        resources: (value["resources"] as Array<any>).map(ModelsAPIPolicyGroupToJSON),
     };
 }

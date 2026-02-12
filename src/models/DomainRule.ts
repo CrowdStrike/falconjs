@@ -20,67 +20,74 @@ import { mapValues } from "../runtime";
  */
 export interface DomainRule {
     /**
-     * The categories associated with the rule
-     * @type {Array<string>}
+     *
+     * @type {number}
      * @memberof DomainRule
      */
-    categories: Array<string>;
+    createdDate: number;
     /**
-     * UTC timestamp when rule was created
+     *
      * @type {string}
      * @memberof DomainRule
      */
-    createdDate: string;
+    description: string;
     /**
-     * The ID of the customer
-     * @type {string}
+     *
+     * @type {number}
      * @memberof DomainRule
      */
-    customerId: string;
+    id: number;
     /**
-     * The ID of the rule
-     * @type {string}
+     *
+     * @type {number}
      * @memberof DomainRule
      */
-    id: string;
+    lastModifiedDate: number;
     /**
-     * The name of the rule
+     *
      * @type {string}
      * @memberof DomainRule
      */
     name: string;
     /**
-     * The type of the rule
+     *
      * @type {string}
      * @memberof DomainRule
      */
-    ruleType: string;
+    richTextDescription: string;
     /**
-     * UTC timestamp when rule was last updated
+     *
      * @type {string}
      * @memberof DomainRule
      */
-    updatedDate: string;
+    shortDescription: string;
     /**
-     * The value of the rule
+     *
+     * @type {Array<string>}
+     * @memberof DomainRule
+     */
+    tags: Array<string>;
+    /**
+     *
      * @type {string}
      * @memberof DomainRule
      */
-    value: string;
+    type: string;
 }
 
 /**
  * Check if a given object implements the DomainRule interface.
  */
 export function instanceOfDomainRule(value: object): value is DomainRule {
-    if (!("categories" in value) || value["categories"] === undefined) return false;
     if (!("createdDate" in value) || value["createdDate"] === undefined) return false;
-    if (!("customerId" in value) || value["customerId"] === undefined) return false;
+    if (!("description" in value) || value["description"] === undefined) return false;
     if (!("id" in value) || value["id"] === undefined) return false;
+    if (!("lastModifiedDate" in value) || value["lastModifiedDate"] === undefined) return false;
     if (!("name" in value) || value["name"] === undefined) return false;
-    if (!("ruleType" in value) || value["ruleType"] === undefined) return false;
-    if (!("updatedDate" in value) || value["updatedDate"] === undefined) return false;
-    if (!("value" in value) || value["value"] === undefined) return false;
+    if (!("richTextDescription" in value) || value["richTextDescription"] === undefined) return false;
+    if (!("shortDescription" in value) || value["shortDescription"] === undefined) return false;
+    if (!("tags" in value) || value["tags"] === undefined) return false;
+    if (!("type" in value) || value["type"] === undefined) return false;
     return true;
 }
 
@@ -93,14 +100,15 @@ export function DomainRuleFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         return json;
     }
     return {
-        categories: json["categories"],
         createdDate: json["created_date"],
-        customerId: json["customer_id"],
+        description: json["description"],
         id: json["id"],
+        lastModifiedDate: json["last_modified_date"],
         name: json["name"],
-        ruleType: json["rule_type"],
-        updatedDate: json["updated_date"],
-        value: json["value"],
+        richTextDescription: json["rich_text_description"],
+        shortDescription: json["short_description"],
+        tags: json["tags"],
+        type: json["type"],
     };
 }
 
@@ -109,13 +117,14 @@ export function DomainRuleToJSON(value?: DomainRule | null): any {
         return value;
     }
     return {
-        categories: value["categories"],
         created_date: value["createdDate"],
-        customer_id: value["customerId"],
+        description: value["description"],
         id: value["id"],
+        last_modified_date: value["lastModifiedDate"],
         name: value["name"],
-        rule_type: value["ruleType"],
-        updated_date: value["updatedDate"],
-        value: value["value"],
+        rich_text_description: value["richTextDescription"],
+        short_description: value["shortDescription"],
+        tags: value["tags"],
+        type: value["type"],
     };
 }

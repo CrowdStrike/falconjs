@@ -25,6 +25,8 @@ import type {
     K8siomsKubernetesIOMCountValue,
     K8siomsKubernetesIOMEntityResponse,
     K8siomsKubernetesIOMFieldValue,
+    K8siomsSearchRequest,
+    K8siomsSearchResponse,
     K8sregCreateAWSAccReq,
     K8sregCreateAWSAccResp,
     K8sregCreateAzureSubReq,
@@ -51,6 +53,7 @@ import type {
     MsaBaseEntitiesResponse,
     MsaMetaInfo,
     MsaReplyMetaOnly,
+    V2ClusterEntityResponseV2,
 } from "../models/index";
 import {
     CommonCountResponseFromJSON,
@@ -75,6 +78,10 @@ import {
     K8siomsKubernetesIOMEntityResponseToJSON,
     K8siomsKubernetesIOMFieldValueFromJSON,
     K8siomsKubernetesIOMFieldValueToJSON,
+    K8siomsSearchRequestFromJSON,
+    K8siomsSearchRequestToJSON,
+    K8siomsSearchResponseFromJSON,
+    K8siomsSearchResponseToJSON,
     K8sregCreateAWSAccReqFromJSON,
     K8sregCreateAWSAccReqToJSON,
     K8sregCreateAWSAccRespFromJSON,
@@ -127,13 +134,15 @@ import {
     MsaMetaInfoToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
+    V2ClusterEntityResponseV2FromJSON,
+    V2ClusterEntityResponseV2ToJSON,
 } from "../models/index";
 
 export interface KubernetesProtectionApiClusterCombinedRequest {
     filter?: string;
+    sort?: string;
     limit?: number;
     offset?: number;
-    sort?: string;
 }
 
 export interface KubernetesProtectionApiClusterCountRequest {
@@ -155,9 +164,9 @@ export interface KubernetesProtectionApiClustersByStatusCountRequest {
 
 export interface KubernetesProtectionApiContainerCombinedRequest {
     filter?: string;
+    sort?: string;
     limit?: number;
     offset?: number;
-    sort?: string;
 }
 
 export interface KubernetesProtectionApiContainerCountRequest {
@@ -167,6 +176,7 @@ export interface KubernetesProtectionApiContainerCountRequest {
 export interface KubernetesProtectionApiContainerCountByRegistryRequest {
     underAssessment?: boolean;
     limit?: number;
+    filter?: string;
 }
 
 export interface KubernetesProtectionApiContainerEnrichmentRequest {
@@ -216,9 +226,9 @@ export interface KubernetesProtectionApiDeleteAzureSubscriptionRequest {
 
 export interface KubernetesProtectionApiDeploymentCombinedRequest {
     filter?: string;
+    sort?: string;
     limit?: number;
     offset?: number;
-    sort?: string;
 }
 
 export interface KubernetesProtectionApiDeploymentCountRequest {
@@ -313,9 +323,9 @@ export interface KubernetesProtectionApiKubernetesIomEntitiesRequest {
 
 export interface KubernetesProtectionApiKubernetesIomEntitiesCombinedRequest {
     filter?: string;
+    sort?: string;
     limit?: number;
     offset?: number;
-    sort?: string;
 }
 
 export interface KubernetesProtectionApiListAzureAccountsRequest {
@@ -329,9 +339,9 @@ export interface KubernetesProtectionApiListAzureAccountsRequest {
 
 export interface KubernetesProtectionApiNodeCombinedRequest {
     filter?: string;
+    sort?: string;
     limit?: number;
     offset?: number;
-    sort?: string;
 }
 
 export interface KubernetesProtectionApiNodeCountRequest {
@@ -362,9 +372,9 @@ export interface KubernetesProtectionApiPatchAzureServicePrincipalRequest {
 
 export interface KubernetesProtectionApiPodCombinedRequest {
     filter?: string;
+    sort?: string;
     limit?: number;
     offset?: number;
-    sort?: string;
 }
 
 export interface KubernetesProtectionApiPodCountRequest {
@@ -376,11 +386,26 @@ export interface KubernetesProtectionApiPodEnrichmentRequest {
     filter?: string;
 }
 
+export interface KubernetesProtectionApiPostSearchKubernetesIOMEntitiesRequest {
+    body: K8siomsSearchRequest;
+    filter?: string;
+    sort?: string;
+    limit?: number;
+}
+
 export interface KubernetesProtectionApiQueryKubernetesIomsRequest {
     filter?: string;
+    sort?: string;
     limit?: number;
     offset?: number;
+}
+
+export interface KubernetesProtectionApiReadClusterCombinedV2Request {
+    filter?: string;
     sort?: string;
+    includeCounts?: boolean;
+    limit?: number;
+    offset?: number;
 }
 
 export interface KubernetesProtectionApiReadNamespaceCountRequest {
@@ -389,9 +414,9 @@ export interface KubernetesProtectionApiReadNamespaceCountRequest {
 
 export interface KubernetesProtectionApiRunningContainerImagesRequest {
     filter?: string;
+    sort?: string;
     limit?: number;
     offset?: number;
-    sort?: string;
 }
 
 export interface KubernetesProtectionApiTriggerScanRequest {
@@ -424,6 +449,10 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
             queryParameters["filter"] = requestParameters["filter"];
         }
 
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
         if (requestParameters["limit"] != null) {
             queryParameters["limit"] = requestParameters["limit"];
         }
@@ -432,15 +461,11 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
             queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters["sort"] != null) {
-            queryParameters["sort"] = requestParameters["sort"];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -459,8 +484,8 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     /**
      * Retrieve kubernetes clusters identified by the provided filter criteria
      */
-    async clusterCombined(filter?: string, limit?: number, offset?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsClusterEntityResponse> {
-        const response = await this.clusterCombinedRaw({ filter: filter, limit: limit, offset: offset, sort: sort }, initOverrides);
+    async clusterCombined(filter?: string, sort?: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsClusterEntityResponse> {
+        const response = await this.clusterCombinedRaw({ filter: filter, sort: sort, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }
 
@@ -481,7 +506,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -530,7 +555,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -564,7 +589,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -605,7 +630,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -646,7 +671,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -671,7 +696,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve containers identified by the provided filter criteria
+     * Retrieves a paginated list of containers identified by the provided filter criteria. Maximum page size: 200. Maximum available containers: 10,000
      */
     async containerCombinedRaw(
         requestParameters: KubernetesProtectionApiContainerCombinedRequest,
@@ -683,6 +708,10 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
             queryParameters["filter"] = requestParameters["filter"];
         }
 
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
         if (requestParameters["limit"] != null) {
             queryParameters["limit"] = requestParameters["limit"];
         }
@@ -691,15 +720,11 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
             queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters["sort"] != null) {
-            queryParameters["sort"] = requestParameters["sort"];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -716,10 +741,10 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve containers identified by the provided filter criteria
+     * Retrieves a paginated list of containers identified by the provided filter criteria. Maximum page size: 200. Maximum available containers: 10,000
      */
-    async containerCombined(filter?: string, limit?: number, offset?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsContainerEntityResponse> {
-        const response = await this.containerCombinedRaw({ filter: filter, limit: limit, offset: offset, sort: sort }, initOverrides);
+    async containerCombined(filter?: string, sort?: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsContainerEntityResponse> {
+        const response = await this.containerCombinedRaw({ filter: filter, sort: sort, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }
 
@@ -740,7 +765,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -765,7 +790,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve top container image registries
+     * Retrieves a list with the top container image registries. Maximum page size: 200
      */
     async containerCountByRegistryRaw(
         requestParameters: KubernetesProtectionApiContainerCountByRegistryRequest,
@@ -781,11 +806,15 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
             queryParameters["limit"] = requestParameters["limit"];
         }
 
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -802,10 +831,10 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve top container image registries
+     * Retrieves a list with the top container image registries. Maximum page size: 200
      */
-    async containerCountByRegistry(underAssessment?: boolean, limit?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsAPIFilterResponse> {
-        const response = await this.containerCountByRegistryRaw({ underAssessment: underAssessment, limit: limit }, initOverrides);
+    async containerCountByRegistry(underAssessment?: boolean, limit?: number, filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsAPIFilterResponse> {
+        const response = await this.containerCountByRegistryRaw({ underAssessment: underAssessment, limit: limit, filter: filter }, initOverrides);
         return await response.value();
     }
 
@@ -834,7 +863,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -875,7 +904,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -916,7 +945,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -957,7 +986,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -998,7 +1027,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -1039,7 +1068,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -1080,7 +1109,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -1123,7 +1152,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:write"]);
         }
 
         const response = await this.request(
@@ -1167,7 +1196,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:write"]);
         }
 
         const response = await this.request(
@@ -1213,7 +1242,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:write"]);
         }
 
         const response = await this.request(
@@ -1254,7 +1283,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:write"]);
         }
 
         const response = await this.request(
@@ -1291,6 +1320,10 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
             queryParameters["filter"] = requestParameters["filter"];
         }
 
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
         if (requestParameters["limit"] != null) {
             queryParameters["limit"] = requestParameters["limit"];
         }
@@ -1299,15 +1332,11 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
             queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters["sort"] != null) {
-            queryParameters["sort"] = requestParameters["sort"];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -1326,8 +1355,8 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     /**
      * Retrieve kubernetes deployments identified by the provided filter criteria
      */
-    async deploymentCombined(filter?: string, limit?: number, offset?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsDeploymentEntityResponse> {
-        const response = await this.deploymentCombinedRaw({ filter: filter, limit: limit, offset: offset, sort: sort }, initOverrides);
+    async deploymentCombined(filter?: string, sort?: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsDeploymentEntityResponse> {
+        const response = await this.deploymentCombinedRaw({ filter: filter, sort: sort, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }
 
@@ -1348,7 +1377,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -1397,7 +1426,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -1431,7 +1460,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -1472,7 +1501,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -1525,7 +1554,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -1565,7 +1594,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -1622,7 +1651,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:read"]);
         }
 
         const response = await this.request(
@@ -1674,7 +1703,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:read"]);
         }
 
         const response = await this.request(
@@ -1723,7 +1752,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:read"]);
         }
 
         const response = await this.request(
@@ -1776,7 +1805,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:read"]);
         }
 
         const response = await this.request(
@@ -1847,7 +1876,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:read"]);
         }
 
         const response = await this.request(
@@ -1920,7 +1949,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:read"]);
         }
 
         const response = await this.request(
@@ -1977,7 +2006,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:read"]);
         }
 
         const response = await this.request(
@@ -2018,7 +2047,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:read"]);
         }
 
         const response = await this.request(
@@ -2052,7 +2081,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:read"]);
         }
 
         const response = await this.request(
@@ -2093,7 +2122,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -2134,7 +2163,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -2175,7 +2204,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -2216,7 +2245,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -2241,7 +2270,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search Kubernetes IOM by the provided search criteria
+     * Retrieves a list of Kubernetes IOMs identified by the provided search criteria. Maximum page size: 100. Maximum available Kubernetes IOMs: 10,000
      */
     async kubernetesIomEntitiesCombinedRaw(
         requestParameters: KubernetesProtectionApiKubernetesIomEntitiesCombinedRequest,
@@ -2253,6 +2282,10 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
             queryParameters["filter"] = requestParameters["filter"];
         }
 
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
         if (requestParameters["limit"] != null) {
             queryParameters["limit"] = requestParameters["limit"];
         }
@@ -2261,15 +2294,11 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
             queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters["sort"] != null) {
-            queryParameters["sort"] = requestParameters["sort"];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -2286,16 +2315,16 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search Kubernetes IOM by the provided search criteria
+     * Retrieves a list of Kubernetes IOMs identified by the provided search criteria. Maximum page size: 100. Maximum available Kubernetes IOMs: 10,000
      */
     async kubernetesIomEntitiesCombined(
         filter?: string,
+        sort?: string,
         limit?: number,
         offset?: number,
-        sort?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<K8siomsKubernetesIOMEntityResponse> {
-        const response = await this.kubernetesIomEntitiesCombinedRaw({ filter: filter, limit: limit, offset: offset, sort: sort }, initOverrides);
+        const response = await this.kubernetesIomEntitiesCombinedRaw({ filter: filter, sort: sort, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }
 
@@ -2336,7 +2365,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:read"]);
         }
 
         const response = await this.request(
@@ -2381,6 +2410,10 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
             queryParameters["filter"] = requestParameters["filter"];
         }
 
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
         if (requestParameters["limit"] != null) {
             queryParameters["limit"] = requestParameters["limit"];
         }
@@ -2389,15 +2422,11 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
             queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters["sort"] != null) {
-            queryParameters["sort"] = requestParameters["sort"];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -2416,8 +2445,8 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     /**
      * Retrieve kubernetes nodes identified by the provided filter criteria
      */
-    async nodeCombined(filter?: string, limit?: number, offset?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsNodeEntityResponse> {
-        const response = await this.nodeCombinedRaw({ filter: filter, limit: limit, offset: offset, sort: sort }, initOverrides);
+    async nodeCombined(filter?: string, sort?: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsNodeEntityResponse> {
+        const response = await this.nodeCombinedRaw({ filter: filter, sort: sort, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }
 
@@ -2435,7 +2464,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -2484,7 +2513,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -2525,7 +2554,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -2566,7 +2595,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -2607,7 +2636,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -2660,7 +2689,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:write"]);
         }
 
         const response = await this.request(
@@ -2697,6 +2726,10 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
             queryParameters["filter"] = requestParameters["filter"];
         }
 
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
         if (requestParameters["limit"] != null) {
             queryParameters["limit"] = requestParameters["limit"];
         }
@@ -2705,15 +2738,11 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
             queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters["sort"] != null) {
-            queryParameters["sort"] = requestParameters["sort"];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -2732,8 +2761,8 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     /**
      * Retrieve kubernetes pods identified by the provided filter criteria
      */
-    async podCombined(filter?: string, limit?: number, offset?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsPodEntityResponse> {
-        const response = await this.podCombinedRaw({ filter: filter, limit: limit, offset: offset, sort: sort }, initOverrides);
+    async podCombined(filter?: string, sort?: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsPodEntityResponse> {
+        const response = await this.podCombinedRaw({ filter: filter, sort: sort, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }
 
@@ -2751,7 +2780,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -2800,7 +2829,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -2834,7 +2863,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -2859,6 +2888,68 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     }
 
     /**
+     * Search for Kubernetes IOMs with filtering options.Pagination is supported via Elasticsearch\'s search_after search param and point in time. Assets are sorted by unique ID in ascending direction.
+     */
+    async postSearchKubernetesIOMEntitiesRaw(
+        requestParameters: KubernetesProtectionApiPostSearchKubernetesIOMEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<K8siomsSearchResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postSearchKubernetesIOMEntities().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/combined/kubernetes-ioms/search/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: K8siomsSearchRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => K8siomsSearchResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Search for Kubernetes IOMs with filtering options.Pagination is supported via Elasticsearch\'s search_after search param and point in time. Assets are sorted by unique ID in ascending direction.
+     */
+    async postSearchKubernetesIOMEntities(
+        body: K8siomsSearchRequest,
+        filter?: string,
+        sort?: string,
+        limit?: number,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<K8siomsSearchResponse> {
+        const response = await this.postSearchKubernetesIOMEntitiesRaw({ body: body, filter: filter, sort: sort, limit: limit }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Search Kubernetes IOMs by the provided search criteria. this endpoint returns a list of Kubernetes IOM UUIDs matching the query
      */
     async queryKubernetesIomsRaw(
@@ -2871,6 +2962,10 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
             queryParameters["filter"] = requestParameters["filter"];
         }
 
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
         if (requestParameters["limit"] != null) {
             queryParameters["limit"] = requestParameters["limit"];
         }
@@ -2879,15 +2974,11 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
             queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters["sort"] != null) {
-            queryParameters["sort"] = requestParameters["sort"];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -2906,8 +2997,72 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     /**
      * Search Kubernetes IOMs by the provided search criteria. this endpoint returns a list of Kubernetes IOM UUIDs matching the query
      */
-    async queryKubernetesIoms(filter?: string, limit?: number, offset?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CommonGenericEntityResponseString> {
-        const response = await this.queryKubernetesIomsRaw({ filter: filter, limit: limit, offset: offset, sort: sort }, initOverrides);
+    async queryKubernetesIoms(filter?: string, sort?: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CommonGenericEntityResponseString> {
+        const response = await this.queryKubernetesIomsRaw({ filter: filter, sort: sort, limit: limit, offset: offset }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve Kubernetes cluster data
+     */
+    async readClusterCombinedV2Raw(
+        requestParameters: KubernetesProtectionApiReadClusterCombinedV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<V2ClusterEntityResponseV2>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        if (requestParameters["includeCounts"] != null) {
+            queryParameters["include_counts"] = requestParameters["includeCounts"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/combined/clusters/v2`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => V2ClusterEntityResponseV2FromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve Kubernetes cluster data
+     */
+    async readClusterCombinedV2(
+        filter?: string,
+        sort?: string,
+        includeCounts?: boolean,
+        limit?: number,
+        offset?: number,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<V2ClusterEntityResponseV2> {
+        const response = await this.readClusterCombinedV2Raw({ filter: filter, sort: sort, includeCounts: includeCounts, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }
 
@@ -2928,7 +3083,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -2962,7 +3117,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -2996,7 +3151,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:write"]);
         }
 
         const response = await this.request(
@@ -3033,6 +3188,10 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
             queryParameters["filter"] = requestParameters["filter"];
         }
 
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
         if (requestParameters["limit"] != null) {
             queryParameters["limit"] = requestParameters["limit"];
         }
@@ -3041,15 +3200,11 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
             queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters["sort"] != null) {
-            queryParameters["sort"] = requestParameters["sort"];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -3068,8 +3223,8 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     /**
      * Retrieve images on running containers
      */
-    async runningContainerImages(filter?: string, limit?: number, offset?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsContainerImage> {
-        const response = await this.runningContainerImagesRaw({ filter: filter, limit: limit, offset: offset, sort: sort }, initOverrides);
+    async runningContainerImages(filter?: string, sort?: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsContainerImage> {
+        const response = await this.runningContainerImagesRaw({ filter: filter, sort: sort, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }
 
@@ -3094,7 +3249,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:write"]);
         }
 
         const response = await this.request(
@@ -3143,7 +3298,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["kubernetes-protection:write"]);
         }
 
         const response = await this.request(
@@ -3184,7 +3339,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
