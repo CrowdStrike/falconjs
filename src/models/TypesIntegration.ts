@@ -38,10 +38,10 @@ export interface TypesIntegration {
     enabled?: boolean;
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof TypesIntegration
      */
-    id?: number;
+    id?: string;
     /**
      *
      * @type {TypesIntegrationType}

@@ -13,8 +13,14 @@
  */
 
 import { mapValues } from "../runtime";
+import type { GraphInlineActivityConfig } from "./GraphInlineActivityConfig";
+import { GraphInlineActivityConfigFromJSON, GraphInlineActivityConfigFromJSONTyped, GraphInlineActivityConfigToJSON } from "./GraphInlineActivityConfig";
+import type { GraphNodePosition } from "./GraphNodePosition";
+import { GraphNodePositionFromJSON, GraphNodePositionFromJSONTyped, GraphNodePositionToJSON } from "./GraphNodePosition";
 import type { Flows } from "./Flows";
 import { FlowsFromJSON, FlowsFromJSONTyped, FlowsToJSON } from "./Flows";
+import type { NodemocksReference } from "./NodemocksReference";
+import { NodemocksReferenceFromJSON, NodemocksReferenceFromJSONTyped, NodemocksReferenceToJSON } from "./NodemocksReference";
 
 /**
  *
@@ -23,11 +29,23 @@ import { FlowsFromJSON, FlowsFromJSONTyped, FlowsToJSON } from "./Flows";
  */
 export interface GraphConfiguredActivity {
     /**
-     * The class of activity. If undefined it is an ActivityClassExternal
+     * The class of activity. If undefined it is an ActivityClassDefault
      * @type {string}
      * @memberof GraphConfiguredActivity
      */
     _class?: string;
+    /**
+     * If set to true, an error on the action will not send an error token to children
+     * @type {boolean}
+     * @memberof GraphConfiguredActivity
+     */
+    continueOnError?: boolean;
+    /**
+     * The name of the activity type which is not user editable.
+     * @type {string}
+     * @memberof GraphConfiguredActivity
+     */
+    defaultName?: string;
     /**
      *
      * @type {Flows}
@@ -41,11 +59,23 @@ export interface GraphConfiguredActivity {
      */
     id: string;
     /**
+     *
+     * @type {GraphInlineActivityConfig}
+     * @memberof GraphConfiguredActivity
+     */
+    inlineConfiguration?: GraphInlineActivityConfig;
+    /**
      * Maximum seconds to wait for an async process to finish. Overrides default async_max_seconds on Activity seed.
      * @type {string}
      * @memberof GraphConfiguredActivity
      */
     maxSeconds?: string;
+    /**
+     *
+     * @type {NodemocksReference}
+     * @memberof GraphConfiguredActivity
+     */
+    mockOutput?: NodemocksReference;
     /**
      * Optional user provided name for the activity, if not specified a default of the name for that Activity will be used.
      * @type {string}
@@ -59,11 +89,23 @@ export interface GraphConfiguredActivity {
      */
     nodeID: string;
     /**
+     *
+     * @type {GraphNodePosition}
+     * @memberof GraphConfiguredActivity
+     */
+    position?: GraphNodePosition;
+    /**
      * Dynamic payload providing values needed to configure the activity for execution. The structure of this data is dictated by the JSON Schema defined for the selected Activity.
      * @type {object}
      * @memberof GraphConfiguredActivity
      */
     properties: object;
+    /**
+     * Semantic version constraint of the activity, can be an explicit version or a version constraint. If unspecified the latest activity <= 1.0.0 is used.
+     * @type {string}
+     * @memberof GraphConfiguredActivity
+     */
+    versionConstraint?: string;
 }
 
 /**
@@ -88,12 +130,18 @@ export function GraphConfiguredActivityFromJSONTyped(json: any, ignoreDiscrimina
     }
     return {
         _class: json["class"] == null ? undefined : json["class"],
+        continueOnError: json["continue_on_error"] == null ? undefined : json["continue_on_error"],
+        defaultName: json["default_name"] == null ? undefined : json["default_name"],
         flows: FlowsFromJSON(json["flows"]),
         id: json["id"],
+        inlineConfiguration: json["inline_configuration"] == null ? undefined : GraphInlineActivityConfigFromJSON(json["inline_configuration"]),
         maxSeconds: json["max_seconds"] == null ? undefined : json["max_seconds"],
+        mockOutput: json["mock_output"] == null ? undefined : NodemocksReferenceFromJSON(json["mock_output"]),
         name: json["name"],
         nodeID: json["nodeID"],
+        position: json["position"] == null ? undefined : GraphNodePositionFromJSON(json["position"]),
         properties: json["properties"],
+        versionConstraint: json["version_constraint"] == null ? undefined : json["version_constraint"],
     };
 }
 
@@ -103,11 +151,17 @@ export function GraphConfiguredActivityToJSON(value?: GraphConfiguredActivity | 
     }
     return {
         class: value["_class"],
+        continue_on_error: value["continueOnError"],
+        default_name: value["defaultName"],
         flows: FlowsToJSON(value["flows"]),
         id: value["id"],
+        inline_configuration: GraphInlineActivityConfigToJSON(value["inlineConfiguration"]),
         max_seconds: value["maxSeconds"],
+        mock_output: NodemocksReferenceToJSON(value["mockOutput"]),
         name: value["name"],
         nodeID: value["nodeID"],
+        position: GraphNodePositionToJSON(value["position"]),
         properties: value["properties"],
+        version_constraint: value["versionConstraint"],
     };
 }

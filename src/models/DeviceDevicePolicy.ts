@@ -45,6 +45,12 @@ export interface DeviceDevicePolicy {
     exempt?: boolean;
     /**
      *
+     * @type {Date}
+     * @memberof DeviceDevicePolicy
+     */
+    lastEvaluationDate?: Date;
+    /**
+     *
      * @type {string}
      * @memberof DeviceDevicePolicy
      */
@@ -103,6 +109,7 @@ export function DeviceDevicePolicyFromJSONTyped(json: any, ignoreDiscriminator: 
         appliedDate: json["applied_date"] == null ? undefined : new Date(json["applied_date"]),
         assignedDate: json["assigned_date"] == null ? undefined : new Date(json["assigned_date"]),
         exempt: json["exempt"] == null ? undefined : json["exempt"],
+        lastEvaluationDate: json["last_evaluation_date"] == null ? undefined : new Date(json["last_evaluation_date"]),
         policyId: json["policy_id"],
         policyType: json["policy_type"],
         ruleGroups: json["rule_groups"] == null ? undefined : json["rule_groups"],
@@ -121,6 +128,7 @@ export function DeviceDevicePolicyToJSON(value?: DeviceDevicePolicy | null): any
         applied_date: value["appliedDate"] == null ? undefined : value["appliedDate"].toISOString(),
         assigned_date: value["assignedDate"] == null ? undefined : value["assignedDate"].toISOString(),
         exempt: value["exempt"],
+        last_evaluation_date: value["lastEvaluationDate"] == null ? undefined : value["lastEvaluationDate"].toISOString(),
         policy_id: value["policyId"],
         policy_type: value["policyType"],
         rule_groups: value["ruleGroups"],

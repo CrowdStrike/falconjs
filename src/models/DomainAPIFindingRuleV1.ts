@@ -15,6 +15,8 @@
 import { mapValues } from "../runtime";
 import type { DomainAPIMitreAttackTacticV1 } from "./DomainAPIMitreAttackTacticV1";
 import { DomainAPIMitreAttackTacticV1FromJSON, DomainAPIMitreAttackTacticV1FromJSONTyped, DomainAPIMitreAttackTacticV1ToJSON } from "./DomainAPIMitreAttackTacticV1";
+import type { DomainAPIComplianceMappingV1 } from "./DomainAPIComplianceMappingV1";
+import { DomainAPIComplianceMappingV1FromJSON, DomainAPIComplianceMappingV1FromJSONTyped, DomainAPIComplianceMappingV1ToJSON } from "./DomainAPIComplianceMappingV1";
 
 /**
  *
@@ -40,6 +42,12 @@ export interface DomainAPIFindingRuleV1 {
      * @memberof DomainAPIFindingRuleV1
      */
     cce?: string;
+    /**
+     *
+     * @type {Array<DomainAPIComplianceMappingV1>}
+     * @memberof DomainAPIFindingRuleV1
+     */
+    complianceMappings?: Array<DomainAPIComplianceMappingV1>;
     /**
      *
      * @type {boolean}
@@ -135,6 +143,7 @@ export function DomainAPIFindingRuleV1FromJSONTyped(json: any, ignoreDiscriminat
         authority: json["authority"] == null ? undefined : json["authority"],
         benchmarkType: json["benchmark_type"] == null ? undefined : json["benchmark_type"],
         cce: json["cce"] == null ? undefined : json["cce"],
+        complianceMappings: json["compliance_mappings"] == null ? undefined : (json["compliance_mappings"] as Array<any>).map(DomainAPIComplianceMappingV1FromJSON),
         edited: json["edited"],
         groupId: json["group_id"] == null ? undefined : json["group_id"],
         groupName: json["group_name"] == null ? undefined : json["group_name"],
@@ -158,6 +167,7 @@ export function DomainAPIFindingRuleV1ToJSON(value?: DomainAPIFindingRuleV1 | nu
         authority: value["authority"],
         benchmark_type: value["benchmarkType"],
         cce: value["cce"],
+        compliance_mappings: value["complianceMappings"] == null ? undefined : (value["complianceMappings"] as Array<any>).map(DomainAPIComplianceMappingV1ToJSON),
         edited: value["edited"],
         group_id: value["groupId"],
         group_name: value["groupName"],

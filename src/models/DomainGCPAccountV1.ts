@@ -13,8 +13,8 @@
  */
 
 import { mapValues } from "../runtime";
-import type { DomainCondition } from "./DomainCondition";
-import { DomainConditionFromJSON, DomainConditionFromJSONTyped, DomainConditionToJSON } from "./DomainCondition";
+import type { StatemgmtCondition } from "./StatemgmtCondition";
+import { StatemgmtConditionFromJSON, StatemgmtConditionFromJSONTyped, StatemgmtConditionToJSON } from "./StatemgmtCondition";
 import type { DomainCloudScope } from "./DomainCloudScope";
 import { DomainCloudScopeFromJSON, DomainCloudScopeFromJSONTyped, DomainCloudScopeToJSON } from "./DomainCloudScope";
 import type { DomainPermission } from "./DomainPermission";
@@ -64,10 +64,10 @@ export interface DomainGCPAccountV1 {
     cloudScopes?: Array<DomainCloudScope>;
     /**
      *
-     * @type {Array<DomainCondition>}
+     * @type {Array<StatemgmtCondition>}
      * @memberof DomainGCPAccountV1
      */
-    conditions?: Array<DomainCondition>;
+    conditions?: Array<StatemgmtCondition>;
     /**
      *
      * @type {boolean}
@@ -148,10 +148,10 @@ export interface DomainGCPAccountV1 {
     serviceAccountClientId?: string;
     /**
      *
-     * @type {Array<DomainCondition>}
+     * @type {Array<StatemgmtCondition>}
      * @memberof DomainGCPAccountV1
      */
-    serviceAccountConditions?: Array<DomainCondition>;
+    serviceAccountConditions?: Array<StatemgmtCondition>;
     /**
      * GCP service account ID
      * @type {number}
@@ -209,7 +209,7 @@ export function DomainGCPAccountV1FromJSONTyped(json: any, ignoreDiscriminator: 
         updatedAt: new Date(json["UpdatedAt"]),
         cid: json["cid"],
         cloudScopes: json["cloud_scopes"] == null ? undefined : (json["cloud_scopes"] as Array<any>).map(DomainCloudScopeFromJSON),
-        conditions: json["conditions"] == null ? undefined : (json["conditions"] as Array<any>).map(DomainConditionFromJSON),
+        conditions: json["conditions"] == null ? undefined : (json["conditions"] as Array<any>).map(StatemgmtConditionFromJSON),
         cspmEnabled: json["cspm_enabled"],
         displayName: json["display_name"] == null ? undefined : json["display_name"],
         environment: json["environment"] == null ? undefined : json["environment"],
@@ -223,7 +223,7 @@ export function DomainGCPAccountV1FromJSONTyped(json: any, ignoreDiscriminator: 
         projectId: json["project_id"] == null ? undefined : json["project_id"],
         serviceAccountClientEmail: json["service_account_client_email"] == null ? undefined : json["service_account_client_email"],
         serviceAccountClientId: json["service_account_client_id"] == null ? undefined : json["service_account_client_id"],
-        serviceAccountConditions: json["service_account_conditions"] == null ? undefined : (json["service_account_conditions"] as Array<any>).map(DomainConditionFromJSON),
+        serviceAccountConditions: json["service_account_conditions"] == null ? undefined : (json["service_account_conditions"] as Array<any>).map(StatemgmtConditionFromJSON),
         serviceAccountId: json["service_account_id"] == null ? undefined : json["service_account_id"],
         serviceAccountPrivateKeyId: json["service_account_private_key_id"] == null ? undefined : json["service_account_private_key_id"],
         serviceAccountProjectId: json["service_account_project_id"],
@@ -242,7 +242,7 @@ export function DomainGCPAccountV1ToJSON(value?: DomainGCPAccountV1 | null): any
         UpdatedAt: value["updatedAt"].toISOString(),
         cid: value["cid"],
         cloud_scopes: value["cloudScopes"] == null ? undefined : (value["cloudScopes"] as Array<any>).map(DomainCloudScopeToJSON),
-        conditions: value["conditions"] == null ? undefined : (value["conditions"] as Array<any>).map(DomainConditionToJSON),
+        conditions: value["conditions"] == null ? undefined : (value["conditions"] as Array<any>).map(StatemgmtConditionToJSON),
         cspm_enabled: value["cspmEnabled"],
         display_name: value["displayName"],
         environment: value["environment"],
@@ -256,7 +256,7 @@ export function DomainGCPAccountV1ToJSON(value?: DomainGCPAccountV1 | null): any
         project_id: value["projectId"],
         service_account_client_email: value["serviceAccountClientEmail"],
         service_account_client_id: value["serviceAccountClientId"],
-        service_account_conditions: value["serviceAccountConditions"] == null ? undefined : (value["serviceAccountConditions"] as Array<any>).map(DomainConditionToJSON),
+        service_account_conditions: value["serviceAccountConditions"] == null ? undefined : (value["serviceAccountConditions"] as Array<any>).map(StatemgmtConditionToJSON),
         service_account_id: value["serviceAccountId"],
         service_account_private_key_id: value["serviceAccountPrivateKeyId"],
         service_account_project_id: value["serviceAccountProjectId"],

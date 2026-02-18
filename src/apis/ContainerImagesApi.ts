@@ -89,9 +89,9 @@ export interface ContainerImagesApiCombinedImageByVulnerabilityCountRequest {
 export interface ContainerImagesApiCombinedImageDetailRequest {
     filter?: string;
     withConfig?: boolean;
+    sort?: string;
     limit?: number;
     offset?: number;
-    sort?: string;
 }
 
 export interface ContainerImagesApiCombinedImageIssuesSummaryRequest {
@@ -99,6 +99,8 @@ export interface ContainerImagesApiCombinedImageIssuesSummaryRequest {
     registry: string;
     repository: string;
     tag: string;
+    imageDigest?: string;
+    includeBaseImageVuln?: boolean;
 }
 
 export interface ContainerImagesApiCombinedImageVulnerabilitySummaryRequest {
@@ -106,6 +108,8 @@ export interface ContainerImagesApiCombinedImageVulnerabilitySummaryRequest {
     registry: string;
     repository: string;
     tag: string;
+    imageDigest?: string;
+    includeBaseImageVuln?: boolean;
 }
 
 export interface ContainerImagesApiCreateBaseImagesEntitiesRequest {
@@ -118,9 +122,9 @@ export interface ContainerImagesApiDeleteBaseImagesRequest {
 
 export interface ContainerImagesApiGetCombinedImagesRequest {
     filter?: string;
+    sort?: string;
     limit?: number;
     offset?: number;
-    sort?: string;
 }
 
 export interface ContainerImagesApiReadCombinedImagesExportRequest {
@@ -153,7 +157,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -194,7 +198,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -235,7 +239,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -276,7 +280,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -301,7 +305,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve base images for provided filter
+     * Retrieves a list of base images for the provided filter. Maximum page size: 100
      */
     async combinedBaseImagesRaw(
         requestParameters: ContainerImagesApiCombinedBaseImagesRequest,
@@ -317,7 +321,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -334,7 +338,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve base images for provided filter
+     * Retrieves a list of base images for the provided filter. Maximum page size: 100
      */
     async combinedBaseImages(filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CoreEntitiesResponse> {
         const response = await this.combinedBaseImagesRaw({ filter: filter }, initOverrides);
@@ -366,7 +370,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -407,6 +411,10 @@ export class ContainerImagesApi extends runtime.BaseAPI {
             queryParameters["with_config"] = requestParameters["withConfig"];
         }
 
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
         if (requestParameters["limit"] != null) {
             queryParameters["limit"] = requestParameters["limit"];
         }
@@ -415,15 +423,11 @@ export class ContainerImagesApi extends runtime.BaseAPI {
             queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters["sort"] != null) {
-            queryParameters["sort"] = requestParameters["sort"];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -445,12 +449,12 @@ export class ContainerImagesApi extends runtime.BaseAPI {
     async combinedImageDetail(
         filter?: string,
         withConfig?: boolean,
+        sort?: string,
         limit?: number,
         offset?: number,
-        sort?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ImagesApiCustomerAndImage> {
-        const response = await this.combinedImageDetailRaw({ filter: filter, withConfig: withConfig, limit: limit, offset: offset, sort: sort }, initOverrides);
+        const response = await this.combinedImageDetailRaw({ filter: filter, withConfig: withConfig, sort: sort, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }
 
@@ -495,11 +499,19 @@ export class ContainerImagesApi extends runtime.BaseAPI {
             queryParameters["tag"] = requestParameters["tag"];
         }
 
+        if (requestParameters["imageDigest"] != null) {
+            queryParameters["image_digest"] = requestParameters["imageDigest"];
+        }
+
+        if (requestParameters["includeBaseImageVuln"] != null) {
+            queryParameters["include_base_image_vuln"] = requestParameters["includeBaseImageVuln"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -518,8 +530,19 @@ export class ContainerImagesApi extends runtime.BaseAPI {
     /**
      * Retrieve image issues summary such as Image detections, Runtime detections, Policies, vulnerabilities
      */
-    async combinedImageIssuesSummary(cid: string, registry: string, repository: string, tag: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ImagesApiImageIssuesSummary> {
-        const response = await this.combinedImageIssuesSummaryRaw({ cid: cid, registry: registry, repository: repository, tag: tag }, initOverrides);
+    async combinedImageIssuesSummary(
+        cid: string,
+        registry: string,
+        repository: string,
+        tag: string,
+        imageDigest?: string,
+        includeBaseImageVuln?: boolean,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<ImagesApiImageIssuesSummary> {
+        const response = await this.combinedImageIssuesSummaryRaw(
+            { cid: cid, registry: registry, repository: repository, tag: tag, imageDigest: imageDigest, includeBaseImageVuln: includeBaseImageVuln },
+            initOverrides,
+        );
         return await response.value();
     }
 
@@ -564,11 +587,19 @@ export class ContainerImagesApi extends runtime.BaseAPI {
             queryParameters["tag"] = requestParameters["tag"];
         }
 
+        if (requestParameters["imageDigest"] != null) {
+            queryParameters["image_digest"] = requestParameters["imageDigest"];
+        }
+
+        if (requestParameters["includeBaseImageVuln"] != null) {
+            queryParameters["include_base_image_vuln"] = requestParameters["includeBaseImageVuln"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -592,9 +623,14 @@ export class ContainerImagesApi extends runtime.BaseAPI {
         registry: string,
         repository: string,
         tag: string,
+        imageDigest?: string,
+        includeBaseImageVuln?: boolean,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ImagesApiImageVulnerabilitiesSummary> {
-        const response = await this.combinedImageVulnerabilitySummaryRaw({ cid: cid, registry: registry, repository: repository, tag: tag }, initOverrides);
+        const response = await this.combinedImageVulnerabilitySummaryRaw(
+            { cid: cid, registry: registry, repository: repository, tag: tag, imageDigest: imageDigest, includeBaseImageVuln: includeBaseImageVuln },
+            initOverrides,
+        );
         return await response.value();
     }
 
@@ -617,7 +653,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:write"]);
         }
 
         const response = await this.request(
@@ -663,7 +699,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:write"]);
         }
 
         const response = await this.request(
@@ -700,6 +736,10 @@ export class ContainerImagesApi extends runtime.BaseAPI {
             queryParameters["filter"] = requestParameters["filter"];
         }
 
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
         if (requestParameters["limit"] != null) {
             queryParameters["limit"] = requestParameters["limit"];
         }
@@ -708,15 +748,11 @@ export class ContainerImagesApi extends runtime.BaseAPI {
             queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters["sort"] != null) {
-            queryParameters["sort"] = requestParameters["sort"];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -735,13 +771,13 @@ export class ContainerImagesApi extends runtime.BaseAPI {
     /**
      * Get image assessment results by providing an FQL filter and paging details
      */
-    async getCombinedImages(filter?: string, limit?: number, offset?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ImagesExtCombinedImagesResponse> {
-        const response = await this.getCombinedImagesRaw({ filter: filter, limit: limit, offset: offset, sort: sort }, initOverrides);
+    async getCombinedImages(filter?: string, sort?: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ImagesExtCombinedImagesResponse> {
+        const response = await this.getCombinedImagesRaw({ filter: filter, sort: sort, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }
 
     /**
-     * Retrieve images with an option to expand aggregated vulnerabilities/detections
+     * Retrieves a paginated list of images, with an option to expand aggregated vulnerabilities/detections. Maximum page size: 100. Maximum available images: 10,000
      */
     async readCombinedImagesExportRaw(
         requestParameters: ContainerImagesApiReadCombinedImagesExportRequest,
@@ -777,7 +813,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -794,7 +830,7 @@ export class ContainerImagesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve images with an option to expand aggregated vulnerabilities/detections
+     * Retrieves a paginated list of images, with an option to expand aggregated vulnerabilities/detections. Maximum page size: 100. Maximum available images: 10,000
      */
     async readCombinedImagesExport(
         filter?: string,

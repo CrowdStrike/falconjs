@@ -51,16 +51,16 @@ export interface DriftIndicatorsApiReadDriftIndicatorsCountRequest {
 
 export interface DriftIndicatorsApiSearchAndReadDriftIndicatorEntitiesRequest {
     filter?: string;
+    sort?: string;
     limit?: number;
     offset?: number;
-    sort?: string;
 }
 
 export interface DriftIndicatorsApiSearchDriftIndicatorsRequest {
     filter?: string;
+    sort?: string;
     limit?: number;
     offset?: number;
-    sort?: string;
 }
 
 /**
@@ -88,7 +88,7 @@ export class DriftIndicatorsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -129,7 +129,7 @@ export class DriftIndicatorsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -170,7 +170,7 @@ export class DriftIndicatorsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -207,6 +207,10 @@ export class DriftIndicatorsApi extends runtime.BaseAPI {
             queryParameters["filter"] = requestParameters["filter"];
         }
 
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
         if (requestParameters["limit"] != null) {
             queryParameters["limit"] = requestParameters["limit"];
         }
@@ -215,15 +219,11 @@ export class DriftIndicatorsApi extends runtime.BaseAPI {
             queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters["sort"] != null) {
-            queryParameters["sort"] = requestParameters["sort"];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -244,12 +244,12 @@ export class DriftIndicatorsApi extends runtime.BaseAPI {
      */
     async searchAndReadDriftIndicatorEntities(
         filter?: string,
+        sort?: string,
         limit?: number,
         offset?: number,
-        sort?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DriftindicatorsDriftEntityResponse> {
-        const response = await this.searchAndReadDriftIndicatorEntitiesRaw({ filter: filter, limit: limit, offset: offset, sort: sort }, initOverrides);
+        const response = await this.searchAndReadDriftIndicatorEntitiesRaw({ filter: filter, sort: sort, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }
 
@@ -266,6 +266,10 @@ export class DriftIndicatorsApi extends runtime.BaseAPI {
             queryParameters["filter"] = requestParameters["filter"];
         }
 
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
         if (requestParameters["limit"] != null) {
             queryParameters["limit"] = requestParameters["limit"];
         }
@@ -274,15 +278,11 @@ export class DriftIndicatorsApi extends runtime.BaseAPI {
             queryParameters["offset"] = requestParameters["offset"];
         }
 
-        if (requestParameters["sort"] != null) {
-            queryParameters["sort"] = requestParameters["sort"];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
         const response = await this.request(
@@ -301,8 +301,8 @@ export class DriftIndicatorsApi extends runtime.BaseAPI {
     /**
      * Retrieve all drift indicators that match the given query
      */
-    async searchDriftIndicators(filter?: string, limit?: number, offset?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
-        const response = await this.searchDriftIndicatorsRaw({ filter: filter, limit: limit, offset: offset, sort: sort }, initOverrides);
+    async searchDriftIndicators(filter?: string, sort?: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
+        const response = await this.searchDriftIndicatorsRaw({ filter: filter, sort: sort, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }
 }

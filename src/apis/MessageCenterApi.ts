@@ -15,11 +15,10 @@
 import * as runtime from "../runtime";
 import type {
     ApiMessageCenterActivityResponse,
-    ApiMessageCenterAttachmentUploadResponse,
     ApiMessageCenterCasesResponse,
-    DomainActivityCreationRequest,
-    DomainCaseCreationRequest,
-    DomainCaseCreationRequestV2,
+    MessagecenterActivityCreationRequest,
+    MessagecenterAttachmentUploadResponse,
+    MessagecenterCaseCreationRequestV2,
     MsaAggregateQueryRequest,
     MsaAggregatesResponse,
     MsaIdsRequest,
@@ -31,16 +30,14 @@ import type {
 import {
     ApiMessageCenterActivityResponseFromJSON,
     ApiMessageCenterActivityResponseToJSON,
-    ApiMessageCenterAttachmentUploadResponseFromJSON,
-    ApiMessageCenterAttachmentUploadResponseToJSON,
     ApiMessageCenterCasesResponseFromJSON,
     ApiMessageCenterCasesResponseToJSON,
-    DomainActivityCreationRequestFromJSON,
-    DomainActivityCreationRequestToJSON,
-    DomainCaseCreationRequestFromJSON,
-    DomainCaseCreationRequestToJSON,
-    DomainCaseCreationRequestV2FromJSON,
-    DomainCaseCreationRequestV2ToJSON,
+    MessagecenterActivityCreationRequestFromJSON,
+    MessagecenterActivityCreationRequestToJSON,
+    MessagecenterAttachmentUploadResponseFromJSON,
+    MessagecenterAttachmentUploadResponseToJSON,
+    MessagecenterCaseCreationRequestV2FromJSON,
+    MessagecenterCaseCreationRequestV2ToJSON,
     MsaAggregateQueryRequestFromJSON,
     MsaAggregateQueryRequestToJSON,
     MsaAggregatesResponseFromJSON,
@@ -62,7 +59,7 @@ export interface MessageCenterApiAggregateCasesRequest {
 }
 
 export interface MessageCenterApiCaseAddActivityRequest {
-    body: DomainActivityCreationRequest;
+    body: MessagecenterActivityCreationRequest;
 }
 
 export interface MessageCenterApiCaseAddAttachmentRequest {
@@ -75,12 +72,8 @@ export interface MessageCenterApiCaseDownloadAttachmentRequest {
     id: string;
 }
 
-export interface MessageCenterApiCreateCaseRequest {
-    body: DomainCaseCreationRequest;
-}
-
 export interface MessageCenterApiCreateCaseV2Request {
-    body: DomainCaseCreationRequestV2;
+    body: MessagecenterCaseCreationRequestV2;
 }
 
 export interface MessageCenterApiGetCaseActivityByIdsRequest {
@@ -96,14 +89,14 @@ export interface MessageCenterApiQueryActivityByCaseIDRequest {
     limit?: number;
     sort?: QueryActivityByCaseIDSortEnum;
     filter?: string;
-    offset?: string;
+    offset?: number;
 }
 
 export interface MessageCenterApiQueryCasesIdsByFilterRequest {
     limit?: number;
     sort?: QueryCasesIdsByFilterSortEnum;
     filter?: string;
-    offset?: string;
+    offset?: number;
 }
 
 /**
@@ -126,7 +119,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["message-center:read"]);
         }
 
         const response = await this.request(
@@ -170,7 +163,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["message-center:write"]);
         }
 
         const response = await this.request(
@@ -179,7 +172,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: DomainActivityCreationRequestToJSON(requestParameters["body"]),
+                body: MessagecenterActivityCreationRequestToJSON(requestParameters["body"]),
             },
             initOverrides,
         );
@@ -190,7 +183,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
     /**
      * Add an activity to case. Only activities of type comment are allowed via API
      */
-    async caseAddActivity(body: DomainActivityCreationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecResponseFields> {
+    async caseAddActivity(body: MessagecenterActivityCreationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecResponseFields> {
         const response = await this.caseAddActivityRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -202,7 +195,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
     async caseAddAttachmentRaw(
         requestParameters: MessageCenterApiCaseAddAttachmentRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiMessageCenterAttachmentUploadResponse>> {
+    ): Promise<runtime.ApiResponse<MessagecenterAttachmentUploadResponse>> {
         if (requestParameters["caseId"] == null) {
             throw new runtime.RequiredError("caseId", 'Required parameter "caseId" was null or undefined when calling caseAddAttachment().');
         }
@@ -221,7 +214,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["message-center:write"]);
         }
 
         const consumes: runtime.Consume[] = [{ contentType: "multipart/form-data" }];
@@ -261,14 +254,14 @@ export class MessageCenterApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ApiMessageCenterAttachmentUploadResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MessagecenterAttachmentUploadResponseFromJSON(jsonValue));
     }
 
     /**
      * Upload an attachment for the case. Maximum upload size allowed is *15 MB*.   Filename must start with *[a-zA-Z0-9_-]*. Allowed characters in file name are *[a-zA-Z0-9-_.\\s]*.    Maximum file name is *255* characters      Following attachment types are allowed:   - png   - bmp   - jpg   - jpeg   - gif   - pdf   - doc   - docx   - xls   - xlsx   - pptx   - txt   - csv
      * Upload an attachment for the case.
      */
-    async caseAddAttachment(caseId: string, userUuid: string, file: Blob, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiMessageCenterAttachmentUploadResponse> {
+    async caseAddAttachment(caseId: string, userUuid: string, file: Blob, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MessagecenterAttachmentUploadResponse> {
         const response = await this.caseAddAttachmentRaw({ caseId: caseId, userUuid: userUuid, file: file }, initOverrides);
         return await response.value();
     }
@@ -294,7 +287,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["message-center:read"]);
         }
 
         const response = await this.request(
@@ -324,49 +317,6 @@ export class MessageCenterApi extends runtime.BaseAPI {
 
     /**
      * create a new case
-     * @deprecated
-     */
-    async createCaseRaw(requestParameters: MessageCenterApiCreateCaseRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyAffectedEntities>> {
-        if (requestParameters["body"] == null) {
-            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createCase().');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters["Content-Type"] = "application/json";
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request(
-            {
-                path: `/message-center/entities/case/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainCaseCreationRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyAffectedEntitiesFromJSON(jsonValue));
-    }
-
-    /**
-     * create a new case
-     * @deprecated
-     */
-    async createCase(body: DomainCaseCreationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyAffectedEntities> {
-        const response = await this.createCaseRaw({ body: body }, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * create a new case
      */
     async createCaseV2Raw(requestParameters: MessageCenterApiCreateCaseV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyAffectedEntities>> {
         if (requestParameters["body"] == null) {
@@ -381,7 +331,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["message-center:write"]);
         }
 
         const response = await this.request(
@@ -390,7 +340,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: DomainCaseCreationRequestV2ToJSON(requestParameters["body"]),
+                body: MessagecenterCaseCreationRequestV2ToJSON(requestParameters["body"]),
             },
             initOverrides,
         );
@@ -401,7 +351,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
     /**
      * create a new case
      */
-    async createCaseV2(body: DomainCaseCreationRequestV2, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyAffectedEntities> {
+    async createCaseV2(body: MessagecenterCaseCreationRequestV2, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyAffectedEntities> {
         const response = await this.createCaseV2Raw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -425,7 +375,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["message-center:read"]);
         }
 
         const response = await this.request(
@@ -469,7 +419,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["message-center:read"]);
         }
 
         const response = await this.request(
@@ -531,7 +481,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["message-center:read"]);
         }
 
         const response = await this.request(
@@ -555,7 +505,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
         limit?: number,
         sort?: QueryActivityByCaseIDSortEnum,
         filter?: string,
-        offset?: string,
+        offset?: number,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<MsaspecQueryResponse> {
         const response = await this.queryActivityByCaseIDRaw({ caseId: caseId, limit: limit, sort: sort, filter: filter, offset: offset }, initOverrides);
@@ -591,7 +541,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["message-center:read"]);
         }
 
         const response = await this.request(
@@ -614,7 +564,7 @@ export class MessageCenterApi extends runtime.BaseAPI {
         limit?: number,
         sort?: QueryCasesIdsByFilterSortEnum,
         filter?: string,
-        offset?: string,
+        offset?: number,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<MsaspecQueryResponse> {
         const response = await this.queryCasesIdsByFilterRaw({ limit: limit, sort: sort, filter: filter, offset: offset }, initOverrides);
@@ -626,15 +576,25 @@ export class MessageCenterApi extends runtime.BaseAPI {
  * @export
  */
 export const QueryActivityByCaseIDSortEnum = {
-    Asc: "activity.created_time.asc",
-    Desc: "activity.created_time.desc",
+    TypeAsc: "activity.type.asc",
+    TypeDesc: "activity.type.desc",
+    CreatedTimeAsc: "activity.created_time.asc",
+    CreatedTimeDesc: "activity.created_time.desc",
 } as const;
 export type QueryActivityByCaseIDSortEnum = (typeof QueryActivityByCaseIDSortEnum)[keyof typeof QueryActivityByCaseIDSortEnum];
 /**
  * @export
  */
 export const QueryCasesIdsByFilterSortEnum = {
-    Asc: "case.id.asc",
-    Desc: "case.id.desc",
+    CreatedTimeAsc: "case.created_time.asc",
+    CreatedTimeDesc: "case.created_time.desc",
+    LastModifiedTimeAsc: "case.last_modified_time.asc",
+    LastModifiedTimeDesc: "case.last_modified_time.desc",
+    StatusAsc: "case.status.asc",
+    StatusDesc: "case.status.desc",
+    TypeAsc: "case.type.asc",
+    TypeDesc: "case.type.desc",
+    IdAsc: "case.id.asc",
+    IdDesc: "case.id.desc",
 } as const;
 export type QueryCasesIdsByFilterSortEnum = (typeof QueryCasesIdsByFilterSortEnum)[keyof typeof QueryCasesIdsByFilterSortEnum];

@@ -20,6 +20,24 @@ import { mapValues } from "../runtime";
  */
 export interface ExecutionsTriggerResult {
     /**
+     * Timestamp of when the execution completed. Only present when status is an end state.
+     * @type {Date}
+     * @memberof ExecutionsTriggerResult
+     */
+    endTimestamp?: Date;
+    /**
+     * When a node execution is in an error status this field is present and provides an error code that can be used to determine details why the failure occurred.
+     * @type {number}
+     * @memberof ExecutionsTriggerResult
+     */
+    errorCode?: number;
+    /**
+     * When a node execution is in an error status this field is present and provides a user friendly error message.
+     * @type {string}
+     * @memberof ExecutionsTriggerResult
+     */
+    errorMessage?: string;
+    /**
      * Unique identifier for the selected trigger as provided by the triggers API
      * @type {string}
      * @memberof ExecutionsTriggerResult
@@ -38,18 +56,75 @@ export interface ExecutionsTriggerResult {
      */
     name: string;
     /**
+     * Unique id of the node as specified in the definition.
+     * @type {string}
+     * @memberof ExecutionsTriggerResult
+     */
+    nodeId: string;
+    /**
      * Opaque blob for result of trigger. Structured according to the trigger's JSON schema'.
      * @type {object}
      * @memberof ExecutionsTriggerResult
      */
     result?: object;
+    /**
+     * Timestamp of when the execution first started.
+     * @type {Date}
+     * @memberof ExecutionsTriggerResult
+     */
+    startTimestamp?: Date;
+    /**
+     * Current status of execution for the activity.
+     * @type {string}
+     * @memberof ExecutionsTriggerResult
+     */
+    status: ExecutionsTriggerResultStatusEnum;
+    /**
+     * Type of the trigger
+     * @type {string}
+     * @memberof ExecutionsTriggerResult
+     */
+    type?: string;
+    /**
+     * Current status of execution for the activity rendered in the UI.
+     * @type {string}
+     * @memberof ExecutionsTriggerResult
+     */
+    uiStatus: ExecutionsTriggerResultUiStatusEnum;
 }
+
+/**
+ * @export
+ */
+export const ExecutionsTriggerResultStatusEnum = {
+    Pending: "Pending",
+    Succeeded: "Succeeded",
+    Failed: "Failed",
+    Skipped: "Skipped",
+} as const;
+export type ExecutionsTriggerResultStatusEnum = (typeof ExecutionsTriggerResultStatusEnum)[keyof typeof ExecutionsTriggerResultStatusEnum];
+
+/**
+ * @export
+ */
+export const ExecutionsTriggerResultUiStatusEnum = {
+    Pending: "Pending",
+    ActionPerformed: "Action Performed",
+    Executing: "Executing",
+    Error: "Error",
+    Skipped: "Skipped",
+    Retrying: "Retrying",
+} as const;
+export type ExecutionsTriggerResultUiStatusEnum = (typeof ExecutionsTriggerResultUiStatusEnum)[keyof typeof ExecutionsTriggerResultUiStatusEnum];
 
 /**
  * Check if a given object implements the ExecutionsTriggerResult interface.
  */
 export function instanceOfExecutionsTriggerResult(value: object): value is ExecutionsTriggerResult {
     if (!("name" in value) || value["name"] === undefined) return false;
+    if (!("nodeId" in value) || value["nodeId"] === undefined) return false;
+    if (!("status" in value) || value["status"] === undefined) return false;
+    if (!("uiStatus" in value) || value["uiStatus"] === undefined) return false;
     return true;
 }
 
@@ -62,10 +137,18 @@ export function ExecutionsTriggerResultFromJSONTyped(json: any, ignoreDiscrimina
         return json;
     }
     return {
+        endTimestamp: json["end_timestamp"] == null ? undefined : new Date(json["end_timestamp"]),
+        errorCode: json["error_code"] == null ? undefined : json["error_code"],
+        errorMessage: json["error_message"] == null ? undefined : json["error_message"],
         id: json["id"] == null ? undefined : json["id"],
         mocked: json["mocked"] == null ? undefined : json["mocked"],
         name: json["name"],
+        nodeId: json["node_id"],
         result: json["result"] == null ? undefined : json["result"],
+        startTimestamp: json["start_timestamp"] == null ? undefined : new Date(json["start_timestamp"]),
+        status: json["status"],
+        type: json["type"] == null ? undefined : json["type"],
+        uiStatus: json["ui_status"],
     };
 }
 
@@ -74,9 +157,17 @@ export function ExecutionsTriggerResultToJSON(value?: ExecutionsTriggerResult | 
         return value;
     }
     return {
+        end_timestamp: value["endTimestamp"] == null ? undefined : value["endTimestamp"].toISOString(),
+        error_code: value["errorCode"],
+        error_message: value["errorMessage"],
         id: value["id"],
         mocked: value["mocked"],
         name: value["name"],
+        node_id: value["nodeId"],
         result: value["result"],
+        start_timestamp: value["startTimestamp"] == null ? undefined : value["startTimestamp"].toISOString(),
+        status: value["status"],
+        type: value["type"],
+        ui_status: value["uiStatus"],
     };
 }

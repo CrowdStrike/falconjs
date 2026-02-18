@@ -19,6 +19,8 @@ import type {
     DetectsapiAlertQueryResponse,
     DetectsapiPatchEntitiesAlertsV2Request,
     DetectsapiPatchEntitiesAlertsV3Request,
+    DetectsapiPostCombinedAlertsV1RequestSwagger,
+    DetectsapiPostCombinedAlertsV1ResponseSwagger,
     DetectsapiPostEntitiesAlertsV1Request,
     DetectsapiPostEntitiesAlertsV1ResponseSwagger,
     DetectsapiPostEntitiesAlertsV2Request,
@@ -37,6 +39,10 @@ import {
     DetectsapiPatchEntitiesAlertsV2RequestToJSON,
     DetectsapiPatchEntitiesAlertsV3RequestFromJSON,
     DetectsapiPatchEntitiesAlertsV3RequestToJSON,
+    DetectsapiPostCombinedAlertsV1RequestSwaggerFromJSON,
+    DetectsapiPostCombinedAlertsV1RequestSwaggerToJSON,
+    DetectsapiPostCombinedAlertsV1ResponseSwaggerFromJSON,
+    DetectsapiPostCombinedAlertsV1ResponseSwaggerToJSON,
     DetectsapiPostEntitiesAlertsV1RequestFromJSON,
     DetectsapiPostEntitiesAlertsV1RequestToJSON,
     DetectsapiPostEntitiesAlertsV1ResponseSwaggerFromJSON,
@@ -77,6 +83,10 @@ export interface AlertsApiPostAggregatesAlertsV1Request {
     body: Array<DetectsapiAggregateAlertQueryRequest>;
 }
 
+export interface AlertsApiPostCombinedAlertsV1Request {
+    body: DetectsapiPostCombinedAlertsV1RequestSwagger;
+}
+
 export interface AlertsApiPostEntitiesAlertsV1Request {
     body: DetectsapiPostEntitiesAlertsV1Request;
 }
@@ -100,7 +110,7 @@ export interface AlertsApiUpdateV3Request {
  */
 export class AlertsApi extends runtime.BaseAPI {
     /**
-     * retrieves aggregate values for Alerts across all CIDs
+     * Retrieves aggregate values for Alerts across all CIDs.
      */
     async getAggregateV2Raw(requestParameters: AlertsApiGetAggregateV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DetectsapiAggregatesResponse>> {
         if (requestParameters["body"] == null) {
@@ -119,7 +129,7 @@ export class AlertsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["alerts:read"]);
         }
 
         const response = await this.request(
@@ -137,7 +147,7 @@ export class AlertsApi extends runtime.BaseAPI {
     }
 
     /**
-     * retrieves aggregate values for Alerts across all CIDs
+     * Retrieves aggregate values for Alerts across all CIDs.
      */
     async getAggregateV2(
         body: Array<DetectsapiAggregateAlertQueryRequest>,
@@ -149,7 +159,8 @@ export class AlertsApi extends runtime.BaseAPI {
     }
 
     /**
-     * retrieves all Alerts ids that match a given query
+     * Deprecated: please use version v2 of this endpoint. Retrieves all Alerts ids that match a given query.
+     * @deprecated
      */
     async getQueriesAlertsV1Raw(
         requestParameters: AlertsApiGetQueriesAlertsV1Request,
@@ -181,7 +192,7 @@ export class AlertsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["alerts:read"]);
         }
 
         const response = await this.request(
@@ -198,7 +209,8 @@ export class AlertsApi extends runtime.BaseAPI {
     }
 
     /**
-     * retrieves all Alerts ids that match a given query
+     * Deprecated: please use version v2 of this endpoint. Retrieves all Alerts ids that match a given query.
+     * @deprecated
      */
     async getQueriesAlertsV1(
         offset?: number,
@@ -213,7 +225,7 @@ export class AlertsApi extends runtime.BaseAPI {
     }
 
     /**
-     * retrieves all Alerts given their composite ids
+     * Retrieves all Alerts given their composite ids.
      */
     async getV2Raw(requestParameters: AlertsApiGetV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DetectsapiPostEntitiesAlertsV2ResponseSwagger>> {
         if (requestParameters["body"] == null) {
@@ -232,7 +244,7 @@ export class AlertsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["alerts:read"]);
         }
 
         const response = await this.request(
@@ -250,7 +262,7 @@ export class AlertsApi extends runtime.BaseAPI {
     }
 
     /**
-     * retrieves all Alerts given their composite ids
+     * Retrieves all Alerts given their composite ids.
      */
     async getV2(
         body: DetectsapiPostEntitiesAlertsV2Request,
@@ -262,7 +274,8 @@ export class AlertsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Perform actions on Alerts identified by composite ID(s) in request. Each action has a name and a description which describes what the action does. If a request adds and removes tag in a single request, the order of processing would be to remove tags before adding new ones in.
+     * Deprecated: Please use version v3 of this endpoint. Perform actions on Alerts identified by composite ID(s) in request. Each action has a name and a description which describes what the action does. If a request adds and removes tag in a single request, the order of processing would be to remove tags before adding new ones in.
+     * @deprecated
      */
     async patchEntitiesAlertsV2Raw(
         requestParameters: AlertsApiPatchEntitiesAlertsV2Request,
@@ -280,7 +293,7 @@ export class AlertsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["alerts:write"]);
         }
 
         const response = await this.request(
@@ -298,7 +311,8 @@ export class AlertsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Perform actions on Alerts identified by composite ID(s) in request. Each action has a name and a description which describes what the action does. If a request adds and removes tag in a single request, the order of processing would be to remove tags before adding new ones in.
+     * Deprecated: Please use version v3 of this endpoint. Perform actions on Alerts identified by composite ID(s) in request. Each action has a name and a description which describes what the action does. If a request adds and removes tag in a single request, the order of processing would be to remove tags before adding new ones in.
+     * @deprecated
      */
     async patchEntitiesAlertsV2(body: DetectsapiPatchEntitiesAlertsV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DetectsapiResponseFields> {
         const response = await this.patchEntitiesAlertsV2Raw({ body: body }, initOverrides);
@@ -306,7 +320,8 @@ export class AlertsApi extends runtime.BaseAPI {
     }
 
     /**
-     * retrieves aggregate values for Alerts across all CIDs
+     * Deprecated: Please use version v2 of this endpoint. Retrieves aggregate values for Alerts across all CIDs.
+     * @deprecated
      */
     async postAggregatesAlertsV1Raw(
         requestParameters: AlertsApiPostAggregatesAlertsV1Request,
@@ -324,7 +339,7 @@ export class AlertsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["alerts:read"]);
         }
 
         const response = await this.request(
@@ -342,7 +357,8 @@ export class AlertsApi extends runtime.BaseAPI {
     }
 
     /**
-     * retrieves aggregate values for Alerts across all CIDs
+     * Deprecated: Please use version v2 of this endpoint. Retrieves aggregate values for Alerts across all CIDs.
+     * @deprecated
      */
     async postAggregatesAlertsV1(body: Array<DetectsapiAggregateAlertQueryRequest>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DetectsapiAggregatesResponse> {
         const response = await this.postAggregatesAlertsV1Raw({ body: body }, initOverrides);
@@ -350,7 +366,52 @@ export class AlertsApi extends runtime.BaseAPI {
     }
 
     /**
-     * retrieves all Alerts given their ids
+     * Retrieves all Alerts that match a particular FQL filter. This API is intended for retrieval of large amounts of Alerts(>10k) using a pagination based on a `after` token. If you need to use `offset` pagination, consider using GET /alerts/queries/alerts/_* and POST /alerts/entities/alerts/_* APIs.
+     */
+    async postCombinedAlertsV1Raw(
+        requestParameters: AlertsApiPostCombinedAlertsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DetectsapiPostCombinedAlertsV1ResponseSwagger>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postCombinedAlertsV1().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["alerts:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/alerts/combined/alerts/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: DetectsapiPostCombinedAlertsV1RequestSwaggerToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DetectsapiPostCombinedAlertsV1ResponseSwaggerFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieves all Alerts that match a particular FQL filter. This API is intended for retrieval of large amounts of Alerts(>10k) using a pagination based on a `after` token. If you need to use `offset` pagination, consider using GET /alerts/queries/alerts/_* and POST /alerts/entities/alerts/_* APIs.
+     */
+    async postCombinedAlertsV1(body: DetectsapiPostCombinedAlertsV1RequestSwagger, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DetectsapiPostCombinedAlertsV1ResponseSwagger> {
+        const response = await this.postCombinedAlertsV1Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Deprecated: please use version v2 of this endpoint. Retrieves all Alerts given their ids.
+     * @deprecated
      */
     async postEntitiesAlertsV1Raw(
         requestParameters: AlertsApiPostEntitiesAlertsV1Request,
@@ -368,7 +429,7 @@ export class AlertsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["alerts:read"]);
         }
 
         const response = await this.request(
@@ -386,7 +447,8 @@ export class AlertsApi extends runtime.BaseAPI {
     }
 
     /**
-     * retrieves all Alerts given their ids
+     * Deprecated: please use version v2 of this endpoint. Retrieves all Alerts given their ids.
+     * @deprecated
      */
     async postEntitiesAlertsV1(body: DetectsapiPostEntitiesAlertsV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DetectsapiPostEntitiesAlertsV1ResponseSwagger> {
         const response = await this.postEntitiesAlertsV1Raw({ body: body }, initOverrides);
@@ -394,7 +456,7 @@ export class AlertsApi extends runtime.BaseAPI {
     }
 
     /**
-     * retrieves all Alerts ids that match a given query
+     * Retrieves all Alerts ids that match a given query.
      */
     async queryV2Raw(requestParameters: AlertsApiQueryV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DetectsapiAlertQueryResponse>> {
         const queryParameters: any = {};
@@ -427,7 +489,7 @@ export class AlertsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["alerts:read"]);
         }
 
         const response = await this.request(
@@ -444,7 +506,7 @@ export class AlertsApi extends runtime.BaseAPI {
     }
 
     /**
-     * retrieves all Alerts ids that match a given query
+     * Retrieves all Alerts ids that match a given query.
      */
     async queryV2(
         includeHidden?: boolean,
@@ -479,7 +541,7 @@ export class AlertsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["alerts:write"]);
         }
 
         const response = await this.request(

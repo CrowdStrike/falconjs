@@ -38,6 +38,12 @@ export interface TypesQueryRequest {
     query: string;
     /**
      *
+     * @type {number}
+     * @memberof TypesQueryRequest
+     */
+    revisionId?: number;
+    /**
+     *
      * @type {TypesQueryRequestSelectFields}
      * @memberof TypesQueryRequest
      */
@@ -69,6 +75,7 @@ export function TypesQueryRequestFromJSONTyped(json: any, ignoreDiscriminator: b
     return {
         paginate: json["paginate"] == null ? undefined : TypesPaginateFromJSON(json["paginate"]),
         query: json["query"],
+        revisionId: json["revisionId"] == null ? undefined : json["revisionId"],
         selectFields: json["selectFields"] == null ? undefined : TypesQueryRequestSelectFieldsFromJSON(json["selectFields"]),
         timestamp: json["timestamp"] == null ? undefined : json["timestamp"],
     };
@@ -81,6 +88,7 @@ export function TypesQueryRequestToJSON(value?: TypesQueryRequest | null): any {
     return {
         paginate: TypesPaginateToJSON(value["paginate"]),
         query: value["query"],
+        revisionId: value["revisionId"],
         selectFields: TypesQueryRequestSelectFieldsToJSON(value["selectFields"]),
         timestamp: value["timestamp"],
     };

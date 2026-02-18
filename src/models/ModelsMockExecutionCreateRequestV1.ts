@@ -29,7 +29,7 @@ export interface ModelsMockExecutionCreateRequestV1 {
      */
     definition?: ModelsDefinitionCreateRequestV2;
     /**
-     * Mock activity data and trigger data for non-on-demand executions, keyed by node ID, may include trigger and/or activity nodes
+     * Mock activity data and trigger data for non-on-demand executions, keyed by node ID, may include trigger and/or activity nodes; mocks can also be defined by reference in the workflow definition itself; in case of a conflict, the mocks provided in the request body (this field) take precedence
      * @type {string}
      * @memberof ModelsMockExecutionCreateRequestV1
      */

@@ -42,6 +42,12 @@ export interface DomainDiscoverParams {
      * @type {string}
      * @memberof DomainDiscoverParams
      */
+    groupBy: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainDiscoverParams
+     */
     inlineAppFilter: string;
     /**
      *
@@ -49,6 +55,18 @@ export interface DomainDiscoverParams {
      * @memberof DomainDiscoverParams
      */
     requirementCriteria: string;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof DomainDiscoverParams
+     */
+    templateFields: Array<string>;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainDiscoverParams
+     */
+    topNResults: number;
 }
 
 /**
@@ -58,8 +76,11 @@ export function instanceOfDomainDiscoverParams(value: object): value is DomainDi
     if (!("applicationFilters" in value) || value["applicationFilters"] === undefined) return false;
     if (!("applicationGroupId" in value) || value["applicationGroupId"] === undefined) return false;
     if (!("applicationVendors" in value) || value["applicationVendors"] === undefined) return false;
+    if (!("groupBy" in value) || value["groupBy"] === undefined) return false;
     if (!("inlineAppFilter" in value) || value["inlineAppFilter"] === undefined) return false;
     if (!("requirementCriteria" in value) || value["requirementCriteria"] === undefined) return false;
+    if (!("templateFields" in value) || value["templateFields"] === undefined) return false;
+    if (!("topNResults" in value) || value["topNResults"] === undefined) return false;
     return true;
 }
 
@@ -75,8 +96,11 @@ export function DomainDiscoverParamsFromJSONTyped(json: any, ignoreDiscriminator
         applicationFilters: json["application_filters"],
         applicationGroupId: json["application_group_id"],
         applicationVendors: json["application_vendors"],
+        groupBy: json["group_by"],
         inlineAppFilter: json["inline_app_filter"],
         requirementCriteria: json["requirement_criteria"],
+        templateFields: json["template_fields"],
+        topNResults: json["top_n_results"],
     };
 }
 
@@ -88,7 +112,10 @@ export function DomainDiscoverParamsToJSON(value?: DomainDiscoverParams | null):
         application_filters: value["applicationFilters"],
         application_group_id: value["applicationGroupId"],
         application_vendors: value["applicationVendors"],
+        group_by: value["groupBy"],
         inline_app_filter: value["inlineAppFilter"],
         requirement_criteria: value["requirementCriteria"],
+        template_fields: value["templateFields"],
+        top_n_results: value["topNResults"],
     };
 }

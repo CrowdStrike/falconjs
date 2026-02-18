@@ -27,7 +27,19 @@ import {
  */
 export interface DomainDiscoverAPIActiveDiscoveryHost {
     /**
-     * The open ports discovered on the asset.
+     * The ID of the network where the host was last seen
+     * @type {string}
+     * @memberof DomainDiscoverAPIActiveDiscoveryHost
+     */
+    lastSeenNetworkId?: string;
+    /**
+     * The ID of the site where the host was last seen
+     * @type {string}
+     * @memberof DomainDiscoverAPIActiveDiscoveryHost
+     */
+    lastSeenSiteId?: string;
+    /**
+     * The networks discovered on the asset.
      * @type {Array<DomainDiscoverAPIActiveDiscoveryNetwork>}
      * @memberof DomainDiscoverAPIActiveDiscoveryHost
      */
@@ -56,6 +68,8 @@ export function DomainDiscoverAPIActiveDiscoveryHostFromJSONTyped(json: any, ign
         return json;
     }
     return {
+        lastSeenNetworkId: json["last_seen_network_id"] == null ? undefined : json["last_seen_network_id"],
+        lastSeenSiteId: json["last_seen_site_id"] == null ? undefined : json["last_seen_site_id"],
         networks: json["networks"] == null ? undefined : (json["networks"] as Array<any>).map(DomainDiscoverAPIActiveDiscoveryNetworkFromJSON),
         openPorts: json["open_ports"] == null ? undefined : json["open_ports"],
     };
@@ -66,6 +80,8 @@ export function DomainDiscoverAPIActiveDiscoveryHostToJSON(value?: DomainDiscove
         return value;
     }
     return {
+        last_seen_network_id: value["lastSeenNetworkId"],
+        last_seen_site_id: value["lastSeenSiteId"],
         networks: value["networks"] == null ? undefined : (value["networks"] as Array<any>).map(DomainDiscoverAPIActiveDiscoveryNetworkToJSON),
         open_ports: value["openPorts"],
     };

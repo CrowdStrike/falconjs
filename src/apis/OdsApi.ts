@@ -157,7 +157,7 @@ export class OdsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:write"]);
         }
 
         const response = await this.request(
@@ -198,7 +198,7 @@ export class OdsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:write"]);
         }
 
         const response = await this.request(
@@ -242,7 +242,7 @@ export class OdsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:write"]);
         }
 
         const response = await this.request(
@@ -283,7 +283,7 @@ export class OdsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:write"]);
         }
 
         const response = await this.request(
@@ -324,7 +324,7 @@ export class OdsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:write"]);
         }
 
         const response = await this.request(
@@ -374,7 +374,7 @@ export class OdsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:write"]);
         }
 
         const response = await this.request(
@@ -419,7 +419,7 @@ export class OdsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:read"]);
         }
 
         const response = await this.request(
@@ -464,7 +464,7 @@ export class OdsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:read"]);
         }
 
         const response = await this.request(
@@ -506,7 +506,7 @@ export class OdsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:read"]);
         }
 
         const response = await this.request(
@@ -551,7 +551,7 @@ export class OdsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:read"]);
         }
 
         const response = await this.request(
@@ -596,7 +596,7 @@ export class OdsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:read"]);
         }
 
         const response = await this.request(
@@ -646,7 +646,7 @@ export class OdsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:read"]);
         }
 
         const response = await this.request(
@@ -705,7 +705,7 @@ export class OdsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:read"]);
         }
 
         const response = await this.request(
@@ -761,7 +761,7 @@ export class OdsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:read"]);
         }
 
         const response = await this.request(
@@ -811,7 +811,7 @@ export class OdsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:read"]);
         }
 
         const response = await this.request(
@@ -857,7 +857,7 @@ export class OdsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:write"]);
         }
 
         const response = await this.request(
@@ -949,6 +949,8 @@ export const QueryScansSortEnum = {
     InitiatedFromDesc: "initiated_from|desc",
     DescriptionKeywordAsc: "description.keyword|asc",
     DescriptionKeywordDesc: "description.keyword|desc",
+    DescriptionAsc: "description|asc",
+    DescriptionDesc: "description|desc",
     FilecountScannedAsc: "filecount.scanned|asc",
     FilecountScannedDesc: "filecount.scanned|desc",
     FilecountMaliciousAsc: "filecount.malicious|asc",
@@ -987,6 +989,8 @@ export const QueryScheduledScansSortEnum = {
     IdDesc: "id|desc",
     DescriptionKeywordAsc: "description.keyword|asc",
     DescriptionKeywordDesc: "description.keyword|desc",
+    DescriptionAsc: "description|asc",
+    DescriptionDesc: "description|desc",
     StatusAsc: "status|asc",
     StatusDesc: "status|desc",
     ScheduleStartTimestampAsc: "schedule.start_timestamp|asc",

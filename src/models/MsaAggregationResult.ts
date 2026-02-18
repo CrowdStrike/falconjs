@@ -15,6 +15,8 @@
 import { mapValues } from "../runtime";
 import type { MsaAggregationResultItem } from "./MsaAggregationResultItem";
 import { MsaAggregationResultItemFromJSON, MsaAggregationResultItemFromJSONTyped, MsaAggregationResultItemToJSON } from "./MsaAggregationResultItem";
+import type { MsaHits } from "./MsaHits";
+import { MsaHitsFromJSON, MsaHitsFromJSONTyped, MsaHitsToJSON } from "./MsaHits";
 
 /**
  *
@@ -27,13 +29,19 @@ export interface MsaAggregationResult {
      * @type {Array<MsaAggregationResultItem>}
      * @memberof MsaAggregationResult
      */
-    buckets?: Array<MsaAggregationResultItem>;
+    buckets: Array<MsaAggregationResultItem>;
     /**
      *
      * @type {number}
      * @memberof MsaAggregationResult
      */
     docCountErrorUpperBound?: number;
+    /**
+     *
+     * @type {MsaHits}
+     * @memberof MsaAggregationResult
+     */
+    hits?: MsaHits;
     /**
      *
      * @type {string}
@@ -52,6 +60,7 @@ export interface MsaAggregationResult {
  * Check if a given object implements the MsaAggregationResult interface.
  */
 export function instanceOfMsaAggregationResult(value: object): value is MsaAggregationResult {
+    if (!("buckets" in value) || value["buckets"] === undefined) return false;
     if (!("name" in value) || value["name"] === undefined) return false;
     return true;
 }
@@ -65,8 +74,9 @@ export function MsaAggregationResultFromJSONTyped(json: any, ignoreDiscriminator
         return json;
     }
     return {
-        buckets: json["buckets"] == null ? undefined : (json["buckets"] as Array<any>).map(MsaAggregationResultItemFromJSON),
+        buckets: (json["buckets"] as Array<any>).map(MsaAggregationResultItemFromJSON),
         docCountErrorUpperBound: json["doc_count_error_upper_bound"] == null ? undefined : json["doc_count_error_upper_bound"],
+        hits: json["hits"] == null ? undefined : MsaHitsFromJSON(json["hits"]),
         name: json["name"],
         sumOtherDocCount: json["sum_other_doc_count"] == null ? undefined : json["sum_other_doc_count"],
     };
@@ -77,8 +87,9 @@ export function MsaAggregationResultToJSON(value?: MsaAggregationResult | null):
         return value;
     }
     return {
-        buckets: value["buckets"] == null ? undefined : (value["buckets"] as Array<any>).map(MsaAggregationResultItemToJSON),
+        buckets: (value["buckets"] as Array<any>).map(MsaAggregationResultItemToJSON),
         doc_count_error_upper_bound: value["docCountErrorUpperBound"],
+        hits: MsaHitsToJSON(value["hits"]),
         name: value["name"],
         sum_other_doc_count: value["sumOtherDocCount"],
     };

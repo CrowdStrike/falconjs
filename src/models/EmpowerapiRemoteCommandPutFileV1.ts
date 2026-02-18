@@ -126,7 +126,7 @@ export interface EmpowerapiRemoteCommandPutFileV1 {
      * @type {number}
      * @memberof EmpowerapiRemoteCommandPutFileV1
      */
-    size?: number;
+    size: number;
     /**
      *
      * @type {boolean}
@@ -141,6 +141,7 @@ export interface EmpowerapiRemoteCommandPutFileV1 {
 export function instanceOfEmpowerapiRemoteCommandPutFileV1(value: object): value is EmpowerapiRemoteCommandPutFileV1 {
     if (!("runAttemptCount" in value) || value["runAttemptCount"] === undefined) return false;
     if (!("runSuccessCount" in value) || value["runSuccessCount"] === undefined) return false;
+    if (!("size" in value) || value["size"] === undefined) return false;
     return true;
 }
 
@@ -170,7 +171,7 @@ export function EmpowerapiRemoteCommandPutFileV1FromJSONTyped(json: any, ignoreD
         runAttemptCount: json["run_attempt_count"],
         runSuccessCount: json["run_success_count"],
         sha256: json["sha256"] == null ? undefined : json["sha256"],
-        size: json["size"] == null ? undefined : json["size"],
+        size: json["size"],
         writeAccess: json["write_access"] == null ? undefined : json["write_access"],
     };
 }

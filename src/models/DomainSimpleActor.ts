@@ -15,6 +15,8 @@
 import { mapValues } from "../runtime";
 import type { DomainImage } from "./DomainImage";
 import { DomainImageFromJSON, DomainImageFromJSONTyped, DomainImageToJSON } from "./DomainImage";
+import type { DomainEntity } from "./DomainEntity";
+import { DomainEntityFromJSON, DomainEntityFromJSONTyped, DomainEntityToJSON } from "./DomainEntity";
 
 /**
  *
@@ -24,10 +26,16 @@ import { DomainImageFromJSON, DomainImageFromJSONTyped, DomainImageToJSON } from
 export interface DomainSimpleActor {
     /**
      *
-     * @type {Array<object>}
+     * @type {string}
      * @memberof DomainSimpleActor
      */
-    entitlements?: Array<object>;
+    animalClassifier?: string;
+    /**
+     *
+     * @type {Array<DomainEntity>}
+     * @memberof DomainSimpleActor
+     */
+    entitlements?: Array<DomainEntity>;
     /**
      *
      * @type {number}
@@ -77,7 +85,8 @@ export function DomainSimpleActorFromJSONTyped(json: any, ignoreDiscriminator: b
         return json;
     }
     return {
-        entitlements: json["entitlements"] == null ? undefined : json["entitlements"],
+        animalClassifier: json["animal_classifier"] == null ? undefined : json["animal_classifier"],
+        entitlements: json["entitlements"] == null ? undefined : (json["entitlements"] as Array<any>).map(DomainEntityFromJSON),
         id: json["id"],
         name: json["name"] == null ? undefined : json["name"],
         slug: json["slug"] == null ? undefined : json["slug"],
@@ -91,7 +100,8 @@ export function DomainSimpleActorToJSON(value?: DomainSimpleActor | null): any {
         return value;
     }
     return {
-        entitlements: value["entitlements"],
+        animal_classifier: value["animalClassifier"],
+        entitlements: value["entitlements"] == null ? undefined : (value["entitlements"] as Array<any>).map(DomainEntityToJSON),
         id: value["id"],
         name: value["name"],
         slug: value["slug"],

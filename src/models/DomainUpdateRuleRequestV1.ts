@@ -44,6 +44,12 @@ export interface DomainUpdateRuleRequestV1 {
      */
     id: string;
     /**
+     * Which result types to monitor for. Can be set to only monitor domains or subdomains, as well as both. Only available for the `Typosquatting` rule topic.
+     * @type {Array<string>}
+     * @memberof DomainUpdateRuleRequestV1
+     */
+    matchOnTsqResultTypes: Array<string>;
+    /**
      * The name of a given rule
      * @type {string}
      * @memberof DomainUpdateRuleRequestV1
@@ -77,6 +83,7 @@ export function instanceOfDomainUpdateRuleRequestV1(value: object): value is Dom
     if (!("breachMonitoringEnabled" in value) || value["breachMonitoringEnabled"] === undefined) return false;
     if (!("filter" in value) || value["filter"] === undefined) return false;
     if (!("id" in value) || value["id"] === undefined) return false;
+    if (!("matchOnTsqResultTypes" in value) || value["matchOnTsqResultTypes"] === undefined) return false;
     if (!("name" in value) || value["name"] === undefined) return false;
     if (!("permissions" in value) || value["permissions"] === undefined) return false;
     if (!("priority" in value) || value["priority"] === undefined) return false;
@@ -97,6 +104,7 @@ export function DomainUpdateRuleRequestV1FromJSONTyped(json: any, ignoreDiscrimi
         breachMonitoringEnabled: json["breach_monitoring_enabled"],
         filter: json["filter"],
         id: json["id"],
+        matchOnTsqResultTypes: json["match_on_tsq_result_types"],
         name: json["name"],
         permissions: json["permissions"],
         priority: json["priority"],
@@ -113,6 +121,7 @@ export function DomainUpdateRuleRequestV1ToJSON(value?: DomainUpdateRuleRequestV
         breach_monitoring_enabled: value["breachMonitoringEnabled"],
         filter: value["filter"],
         id: value["id"],
+        match_on_tsq_result_types: value["matchOnTsqResultTypes"],
         name: value["name"],
         permissions: value["permissions"],
         priority: value["priority"],

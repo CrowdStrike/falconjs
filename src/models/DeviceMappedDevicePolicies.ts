@@ -45,6 +45,24 @@ export interface DeviceMappedDevicePolicies {
      * @type {DeviceDevicePolicy}
      * @memberof DeviceMappedDevicePolicies
      */
+    browserExtension?: DeviceDevicePolicy;
+    /**
+     *
+     * @type {DeviceDevicePolicy}
+     * @memberof DeviceMappedDevicePolicies
+     */
+    consumerSubscription?: DeviceDevicePolicy;
+    /**
+     *
+     * @type {DeviceDevicePolicy}
+     * @memberof DeviceMappedDevicePolicies
+     */
+    contentUpdate?: DeviceDevicePolicy;
+    /**
+     *
+     * @type {DeviceDevicePolicy}
+     * @memberof DeviceMappedDevicePolicies
+     */
     customerEntitlements?: DeviceDevicePolicy;
     /**
      *
@@ -63,7 +81,7 @@ export interface DeviceMappedDevicePolicies {
      * @type {DeviceDevicePolicy}
      * @memberof DeviceMappedDevicePolicies
      */
-    falconForIt?: DeviceDevicePolicy;
+    exposureManagement?: DeviceDevicePolicy;
     /**
      *
      * @type {DeviceDevicePolicy}
@@ -99,6 +117,12 @@ export interface DeviceMappedDevicePolicies {
      * @type {DeviceDevicePolicy}
      * @memberof DeviceMappedDevicePolicies
      */
+    itAutomation?: DeviceDevicePolicy;
+    /**
+     *
+     * @type {DeviceDevicePolicy}
+     * @memberof DeviceMappedDevicePolicies
+     */
     jumpcloud?: DeviceDevicePolicy;
     /**
      *
@@ -111,12 +135,6 @@ export interface DeviceMappedDevicePolicies {
      * @type {DeviceDevicePolicy}
      * @memberof DeviceMappedDevicePolicies
      */
-    legacyOs?: DeviceDevicePolicy;
-    /**
-     *
-     * @type {DeviceDevicePolicy}
-     * @memberof DeviceMappedDevicePolicies
-     */
     mobile?: DeviceDevicePolicy;
     /**
      *
@@ -124,6 +142,12 @@ export interface DeviceMappedDevicePolicies {
      * @memberof DeviceMappedDevicePolicies
      */
     netskope?: DeviceDevicePolicy;
+    /**
+     *
+     * @type {DeviceDevicePolicy}
+     * @memberof DeviceMappedDevicePolicies
+     */
+    networkScanContent?: DeviceDevicePolicy;
     /**
      *
      * @type {DeviceDevicePolicy}
@@ -187,20 +211,24 @@ export function DeviceMappedDevicePoliciesFromJSONTyped(json: any, ignoreDiscrim
         airlock: json["airlock"] == null ? undefined : DeviceDevicePolicyFromJSON(json["airlock"]),
         automox: json["automox"] == null ? undefined : DeviceDevicePolicyFromJSON(json["automox"]),
         awsVerifiedAccess: json["aws-verified-access"] == null ? undefined : DeviceDevicePolicyFromJSON(json["aws-verified-access"]),
+        browserExtension: json["browser-extension"] == null ? undefined : DeviceDevicePolicyFromJSON(json["browser-extension"]),
+        consumerSubscription: json["consumer-subscription"] == null ? undefined : DeviceDevicePolicyFromJSON(json["consumer-subscription"]),
+        contentUpdate: json["content-update"] == null ? undefined : DeviceDevicePolicyFromJSON(json["content-update"]),
         customerEntitlements: json["customer-entitlements"] == null ? undefined : DeviceDevicePolicyFromJSON(json["customer-entitlements"]),
         dataProtection: json["data-protection"] == null ? undefined : DeviceDevicePolicyFromJSON(json["data-protection"]),
         deviceControl: json["device_control"] == null ? undefined : DeviceDevicePolicyFromJSON(json["device_control"]),
-        falconForIt: json["falcon-for-it"] == null ? undefined : DeviceDevicePolicyFromJSON(json["falcon-for-it"]),
+        exposureManagement: json["exposure-management"] == null ? undefined : DeviceDevicePolicyFromJSON(json["exposure-management"]),
         fim: json["fim"] == null ? undefined : DeviceDevicePolicyFromJSON(json["fim"]),
         firewall: json["firewall"] == null ? undefined : DeviceDevicePolicyFromJSON(json["firewall"]),
         globalConfig: json["global_config"] == null ? undefined : DeviceDevicePolicyFromJSON(json["global_config"]),
         hostRetention: json["host-retention"] == null ? undefined : DeviceDevicePolicyFromJSON(json["host-retention"]),
         identityProtection: json["identity-protection"] == null ? undefined : DeviceDevicePolicyFromJSON(json["identity-protection"]),
+        itAutomation: json["it-automation"] == null ? undefined : DeviceDevicePolicyFromJSON(json["it-automation"]),
         jumpcloud: json["jumpcloud"] == null ? undefined : DeviceDevicePolicyFromJSON(json["jumpcloud"]),
         kubernetesAdmissionControl: json["kubernetes-admission-control"] == null ? undefined : DeviceDevicePolicyFromJSON(json["kubernetes-admission-control"]),
-        legacyOs: json["legacy-os"] == null ? undefined : DeviceDevicePolicyFromJSON(json["legacy-os"]),
         mobile: json["mobile"] == null ? undefined : DeviceDevicePolicyFromJSON(json["mobile"]),
         netskope: json["netskope"] == null ? undefined : DeviceDevicePolicyFromJSON(json["netskope"]),
+        networkScanContent: json["network-scan-content"] == null ? undefined : DeviceDevicePolicyFromJSON(json["network-scan-content"]),
         prevention: json["prevention"] == null ? undefined : DeviceDevicePolicyFromJSON(json["prevention"]),
         remoteResponse: json["remote_response"] == null ? undefined : DeviceDevicePolicyFromJSON(json["remote_response"]),
         sca: json["sca"] == null ? undefined : DeviceDevicePolicyFromJSON(json["sca"]),
@@ -219,20 +247,24 @@ export function DeviceMappedDevicePoliciesToJSON(value?: DeviceMappedDevicePolic
         airlock: DeviceDevicePolicyToJSON(value["airlock"]),
         automox: DeviceDevicePolicyToJSON(value["automox"]),
         "aws-verified-access": DeviceDevicePolicyToJSON(value["awsVerifiedAccess"]),
+        "browser-extension": DeviceDevicePolicyToJSON(value["browserExtension"]),
+        "consumer-subscription": DeviceDevicePolicyToJSON(value["consumerSubscription"]),
+        "content-update": DeviceDevicePolicyToJSON(value["contentUpdate"]),
         "customer-entitlements": DeviceDevicePolicyToJSON(value["customerEntitlements"]),
         "data-protection": DeviceDevicePolicyToJSON(value["dataProtection"]),
         device_control: DeviceDevicePolicyToJSON(value["deviceControl"]),
-        "falcon-for-it": DeviceDevicePolicyToJSON(value["falconForIt"]),
+        "exposure-management": DeviceDevicePolicyToJSON(value["exposureManagement"]),
         fim: DeviceDevicePolicyToJSON(value["fim"]),
         firewall: DeviceDevicePolicyToJSON(value["firewall"]),
         global_config: DeviceDevicePolicyToJSON(value["globalConfig"]),
         "host-retention": DeviceDevicePolicyToJSON(value["hostRetention"]),
         "identity-protection": DeviceDevicePolicyToJSON(value["identityProtection"]),
+        "it-automation": DeviceDevicePolicyToJSON(value["itAutomation"]),
         jumpcloud: DeviceDevicePolicyToJSON(value["jumpcloud"]),
         "kubernetes-admission-control": DeviceDevicePolicyToJSON(value["kubernetesAdmissionControl"]),
-        "legacy-os": DeviceDevicePolicyToJSON(value["legacyOs"]),
         mobile: DeviceDevicePolicyToJSON(value["mobile"]),
         netskope: DeviceDevicePolicyToJSON(value["netskope"]),
+        "network-scan-content": DeviceDevicePolicyToJSON(value["networkScanContent"]),
         prevention: DeviceDevicePolicyToJSON(value["prevention"]),
         remote_response: DeviceDevicePolicyToJSON(value["remoteResponse"]),
         sca: DeviceDevicePolicyToJSON(value["sca"]),

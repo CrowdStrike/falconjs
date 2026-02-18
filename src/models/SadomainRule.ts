@@ -65,6 +65,18 @@ export interface SadomainRule {
      */
     id: string;
     /**
+     * The duration for which the rule will look back in the past at the first run
+     * @type {number}
+     * @memberof SadomainRule
+     */
+    lookbackPeriod?: number;
+    /**
+     * Which result types to monitor for. Can be set to only monitor domains or subdomains, as well as both. Only available for the `Typosquatting` rule topic.
+     * @type {Array<string>}
+     * @memberof SadomainRule
+     */
+    matchOnTsqResultTypes: Array<string>;
+    /**
      * The name of a given rule
      * @type {string}
      * @memberof SadomainRule
@@ -160,6 +172,7 @@ export function instanceOfSadomainRule(value: object): value is SadomainRule {
     if (!("createdTimestamp" in value) || value["createdTimestamp"] === undefined) return false;
     if (!("filter" in value) || value["filter"] === undefined) return false;
     if (!("id" in value) || value["id"] === undefined) return false;
+    if (!("matchOnTsqResultTypes" in value) || value["matchOnTsqResultTypes"] === undefined) return false;
     if (!("name" in value) || value["name"] === undefined) return false;
     if (!("permissions" in value) || value["permissions"] === undefined) return false;
     if (!("priority" in value) || value["priority"] === undefined) return false;
@@ -187,6 +200,8 @@ export function SadomainRuleFromJSONTyped(json: any, ignoreDiscriminator: boolea
         createdTimestamp: new Date(json["created_timestamp"]),
         filter: json["filter"],
         id: json["id"],
+        lookbackPeriod: json["lookback_period"] == null ? undefined : json["lookback_period"],
+        matchOnTsqResultTypes: json["match_on_tsq_result_types"],
         name: json["name"],
         originatingTemplateId: json["originating_template_id"] == null ? undefined : json["originating_template_id"],
         ownershipAssets: json["ownership_assets"] == null ? undefined : SadomainCustomerAssetsFromJSON(json["ownership_assets"]),
@@ -216,6 +231,8 @@ export function SadomainRuleToJSON(value?: SadomainRule | null): any {
         created_timestamp: value["createdTimestamp"].toISOString(),
         filter: value["filter"],
         id: value["id"],
+        lookback_period: value["lookbackPeriod"],
+        match_on_tsq_result_types: value["matchOnTsqResultTypes"],
         name: value["name"],
         originating_template_id: value["originatingTemplateId"],
         ownership_assets: SadomainCustomerAssetsToJSON(value["ownershipAssets"]),

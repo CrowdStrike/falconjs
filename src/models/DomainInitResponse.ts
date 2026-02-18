@@ -30,6 +30,12 @@ export interface DomainInitResponse {
     createdAt: Date;
     /**
      *
+     * @type {string}
+     * @memberof DomainInitResponse
+     */
+    deviceId?: string;
+    /**
+     *
      * @type {number}
      * @memberof DomainInitResponse
      */
@@ -40,6 +46,12 @@ export interface DomainInitResponse {
      * @memberof DomainInitResponse
      */
     offlineQueued: boolean;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainInitResponse
+     */
+    platform?: string;
     /**
      *
      * @type {Array<string>}
@@ -88,8 +100,10 @@ export function DomainInitResponseFromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         createdAt: new Date(json["created_at"]),
+        deviceId: json["device_id"] == null ? undefined : json["device_id"],
         existingAidSessions: json["existing_aid_sessions"],
         offlineQueued: json["offline_queued"],
+        platform: json["platform"] == null ? undefined : json["platform"],
         previousCommands: json["previous_commands"] == null ? undefined : json["previous_commands"],
         pwd: json["pwd"] == null ? undefined : json["pwd"],
         scripts: (json["scripts"] as Array<any>).map(DomainScriptHelpFromJSON),
@@ -103,8 +117,10 @@ export function DomainInitResponseToJSON(value?: DomainInitResponse | null): any
     }
     return {
         created_at: value["createdAt"].toISOString(),
+        device_id: value["deviceId"],
         existing_aid_sessions: value["existingAidSessions"],
         offline_queued: value["offlineQueued"],
+        platform: value["platform"],
         previous_commands: value["previousCommands"],
         pwd: value["pwd"],
         scripts: (value["scripts"] as Array<any>).map(DomainScriptHelpToJSON),

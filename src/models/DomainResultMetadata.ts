@@ -21,6 +21,12 @@ import { mapValues } from "../runtime";
 export interface DomainResultMetadata {
     /**
      *
+     * @type {string}
+     * @memberof DomainResultMetadata
+     */
+    encryptedReportFileReference: string;
+    /**
+     *
      * @type {number}
      * @memberof DomainResultMetadata
      */
@@ -91,12 +97,19 @@ export interface DomainResultMetadata {
      * @memberof DomainResultMetadata
      */
     searchWindowStart: Date;
+    /**
+     *
+     * @type {boolean}
+     * @memberof DomainResultMetadata
+     */
+    useIngestTime: boolean;
 }
 
 /**
  * Check if a given object implements the DomainResultMetadata interface.
  */
 export function instanceOfDomainResultMetadata(value: object): value is DomainResultMetadata {
+    if (!("encryptedReportFileReference" in value) || value["encryptedReportFileReference"] === undefined) return false;
     if (!("executionDelay" in value) || value["executionDelay"] === undefined) return false;
     if (!("executionDuration" in value) || value["executionDuration"] === undefined) return false;
     if (!("executionFinish" in value) || value["executionFinish"] === undefined) return false;
@@ -109,6 +122,7 @@ export function instanceOfDomainResultMetadata(value: object): value is DomainRe
     if (!("resultId" in value) || value["resultId"] === undefined) return false;
     if (!("searchWindowEnd" in value) || value["searchWindowEnd"] === undefined) return false;
     if (!("searchWindowStart" in value) || value["searchWindowStart"] === undefined) return false;
+    if (!("useIngestTime" in value) || value["useIngestTime"] === undefined) return false;
     return true;
 }
 
@@ -121,6 +135,7 @@ export function DomainResultMetadataFromJSONTyped(json: any, ignoreDiscriminator
         return json;
     }
     return {
+        encryptedReportFileReference: json["encrypted_report_file_reference"],
         executionDelay: json["execution_delay"],
         executionDuration: json["execution_duration"],
         executionFinish: new Date(json["execution_finish"]),
@@ -133,6 +148,7 @@ export function DomainResultMetadataFromJSONTyped(json: any, ignoreDiscriminator
         resultId: json["result_id"],
         searchWindowEnd: new Date(json["search_window_end"]),
         searchWindowStart: new Date(json["search_window_start"]),
+        useIngestTime: json["use_ingest_time"],
     };
 }
 
@@ -141,6 +157,7 @@ export function DomainResultMetadataToJSON(value?: DomainResultMetadata | null):
         return value;
     }
     return {
+        encrypted_report_file_reference: value["encryptedReportFileReference"],
         execution_delay: value["executionDelay"],
         execution_duration: value["executionDuration"],
         execution_finish: value["executionFinish"].toISOString(),
@@ -153,5 +170,6 @@ export function DomainResultMetadataToJSON(value?: DomainResultMetadata | null):
         result_id: value["resultId"],
         search_window_end: value["searchWindowEnd"].toISOString(),
         search_window_start: value["searchWindowStart"].toISOString(),
+        use_ingest_time: value["useIngestTime"],
     };
 }

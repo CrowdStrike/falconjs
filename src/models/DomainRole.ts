@@ -49,6 +49,12 @@ export interface DomainRole {
      * @memberof DomainRole
      */
     isGlobal: boolean;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainRole
+     */
+    type?: string;
 }
 
 /**
@@ -76,6 +82,7 @@ export function DomainRoleFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         displayName: json["display_name"],
         id: json["id"],
         isGlobal: json["is_global"],
+        type: json["type"] == null ? undefined : json["type"],
     };
 }
 
@@ -89,5 +96,6 @@ export function DomainRoleToJSON(value?: DomainRole | null): any {
         display_name: value["displayName"],
         id: value["id"],
         is_global: value["isGlobal"],
+        type: value["type"],
     };
 }

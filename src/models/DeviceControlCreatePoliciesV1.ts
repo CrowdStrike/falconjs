@@ -23,7 +23,7 @@ import { DeviceControlCreatePolicyReqV1FromJSON, DeviceControlCreatePolicyReqV1F
  */
 export interface DeviceControlCreatePoliciesV1 {
     /**
-     * A collection of policies to create
+     * List of policies to create. Maximum batch size: 1000.
      * @type {Array<DeviceControlCreatePolicyReqV1>}
      * @memberof DeviceControlCreatePoliciesV1
      */

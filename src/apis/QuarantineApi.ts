@@ -20,8 +20,8 @@ import type {
     MsaAggregateQueryRequest,
     MsaAggregatesResponse,
     MsaIdsRequest,
-    MsaQueryResponse,
     MsaReplyMetaOnly,
+    MsaspecQueryResponse,
 } from "../models/index";
 import {
     DomainEntitiesPatchRequestFromJSON,
@@ -36,10 +36,10 @@ import {
     MsaAggregatesResponseToJSON,
     MsaIdsRequestFromJSON,
     MsaIdsRequestToJSON,
-    MsaQueryResponseFromJSON,
-    MsaQueryResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
+    MsaspecQueryResponseFromJSON,
+    MsaspecQueryResponseToJSON,
 } from "../models/index";
 
 export interface QuarantineApiActionUpdateCountRequest {
@@ -95,7 +95,7 @@ export class QuarantineApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["quarantine:read"]);
         }
 
         const response = await this.request(
@@ -138,7 +138,7 @@ export class QuarantineApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["quarantine:read"]);
         }
 
         const response = await this.request(
@@ -182,7 +182,7 @@ export class QuarantineApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["quarantine:read"]);
         }
 
         const response = await this.request(
@@ -213,7 +213,7 @@ export class QuarantineApi extends runtime.BaseAPI {
     async queryQuarantineFilesRaw(
         requestParameters: QuarantineApiQueryQuarantineFilesRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -240,7 +240,7 @@ export class QuarantineApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["quarantine:read"]);
         }
 
         const response = await this.request(
@@ -253,13 +253,13 @@ export class QuarantineApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
 
     /**
      * Get quarantine file ids that match the provided filter criteria.
      */
-    async queryQuarantineFiles(offset?: string, limit?: number, sort?: string, filter?: string, q?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
+    async queryQuarantineFiles(offset?: string, limit?: number, sort?: string, filter?: string, q?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
         const response = await this.queryQuarantineFilesRaw({ offset: offset, limit: limit, sort: sort, filter: filter, q: q }, initOverrides);
         return await response.value();
     }
@@ -280,7 +280,7 @@ export class QuarantineApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["quarantine:write"]);
         }
 
         const response = await this.request(
@@ -324,7 +324,7 @@ export class QuarantineApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["quarantine:write"]);
         }
 
         const response = await this.request(

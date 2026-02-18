@@ -24,6 +24,12 @@ export interface DomainNotificationConfig {
      * @type {string}
      * @memberof DomainNotificationConfig
      */
+    channelId: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainNotificationConfig
+     */
     cid: string;
     /**
      *
@@ -49,17 +55,25 @@ export interface DomainNotificationConfig {
      * @memberof DomainNotificationConfig
      */
     severity: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainNotificationConfig
+     */
+    teamId: string;
 }
 
 /**
  * Check if a given object implements the DomainNotificationConfig interface.
  */
 export function instanceOfDomainNotificationConfig(value: object): value is DomainNotificationConfig {
+    if (!("channelId" in value) || value["channelId"] === undefined) return false;
     if (!("cid" in value) || value["cid"] === undefined) return false;
     if (!("configId" in value) || value["configId"] === undefined) return false;
     if (!("pluginId" in value) || value["pluginId"] === undefined) return false;
     if (!("recipients" in value) || value["recipients"] === undefined) return false;
     if (!("severity" in value) || value["severity"] === undefined) return false;
+    if (!("teamId" in value) || value["teamId"] === undefined) return false;
     return true;
 }
 
@@ -72,11 +86,13 @@ export function DomainNotificationConfigFromJSONTyped(json: any, ignoreDiscrimin
         return json;
     }
     return {
+        channelId: json["channel_id"],
         cid: json["cid"],
         configId: json["config_id"],
         pluginId: json["plugin_id"],
         recipients: json["recipients"],
         severity: json["severity"],
+        teamId: json["team_id"],
     };
 }
 
@@ -85,10 +101,12 @@ export function DomainNotificationConfigToJSON(value?: DomainNotificationConfig 
         return value;
     }
     return {
+        channel_id: value["channelId"],
         cid: value["cid"],
         config_id: value["configId"],
         plugin_id: value["pluginId"],
         recipients: value["recipients"],
         severity: value["severity"],
+        team_id: value["teamId"],
     };
 }

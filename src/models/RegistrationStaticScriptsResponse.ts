@@ -29,7 +29,7 @@ export interface RegistrationStaticScriptsResponse {
      * @type {Array<MsaAPIError>}
      * @memberof RegistrationStaticScriptsResponse
      */
-    errors: Array<MsaAPIError>;
+    errors?: Array<MsaAPIError>;
     /**
      *
      * @type {MsaMetaInfo}
@@ -48,7 +48,6 @@ export interface RegistrationStaticScriptsResponse {
  * Check if a given object implements the RegistrationStaticScriptsResponse interface.
  */
 export function instanceOfRegistrationStaticScriptsResponse(value: object): value is RegistrationStaticScriptsResponse {
-    if (!("errors" in value) || value["errors"] === undefined) return false;
     if (!("meta" in value) || value["meta"] === undefined) return false;
     if (!("resources" in value) || value["resources"] === undefined) return false;
     return true;
@@ -63,7 +62,7 @@ export function RegistrationStaticScriptsResponseFromJSONTyped(json: any, ignore
         return json;
     }
     return {
-        errors: (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
+        errors: json["errors"] == null ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
         resources: json["resources"],
     };
@@ -74,7 +73,7 @@ export function RegistrationStaticScriptsResponseToJSON(value?: RegistrationStat
         return value;
     }
     return {
-        errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
+        errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
         resources: value["resources"],
     };

@@ -30,7 +30,9 @@ import type {
     ModelUserInputUpdateRequest,
     ModelsDefinitionUpdateRequestV2,
     ModelsMockExecutionCreateRequestV1,
+    ModelsSingleNodeExecutionCreateRequestV1,
     MsaReplyMetaOnly,
+    MsaspecQueryResponse,
     TriggersTriggerExternalResponse,
 } from "../models/index";
 import {
@@ -66,8 +68,12 @@ import {
     ModelsDefinitionUpdateRequestV2ToJSON,
     ModelsMockExecutionCreateRequestV1FromJSON,
     ModelsMockExecutionCreateRequestV1ToJSON,
+    ModelsSingleNodeExecutionCreateRequestV1FromJSON,
+    ModelsSingleNodeExecutionCreateRequestV1ToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
+    MsaspecQueryResponseFromJSON,
+    MsaspecQueryResponseToJSON,
     TriggersTriggerExternalResponseFromJSON,
     TriggersTriggerExternalResponseToJSON,
 } from "../models/index";
@@ -103,11 +109,30 @@ export interface WorkflowsApiProvisionRequest {
     body: ClientSystemDefinitionProvisionRequest;
 }
 
+export interface WorkflowsApiV1ChildExecutionsQueryRequest {
+    filter?: string;
+    offset?: string;
+    limit?: number;
+    sort?: string;
+}
+
 export interface WorkflowsApiWorkflowActivitiesCombinedRequest {
     filter?: string;
     offset?: string;
     limit?: number;
     sort?: string;
+}
+
+export interface WorkflowsApiWorkflowActivitiesContentCombinedRequest {
+    filter?: string;
+    offset?: string;
+    limit?: number;
+    sort?: string;
+}
+
+export interface WorkflowsApiWorkflowDefinitionsActionRequest {
+    actionName: string;
+    body: ClientActionRequest;
 }
 
 export interface WorkflowsApiWorkflowDefinitionsCombinedRequest {
@@ -144,6 +169,15 @@ export interface WorkflowsApiWorkflowExecuteInternalRequest {
     sourceEventUrl?: string;
 }
 
+export interface WorkflowsApiWorkflowExecuteSingleNodeV1Request {
+    body: ModelsSingleNodeExecutionCreateRequestV1;
+    executionCid?: Array<string>;
+    definitionId?: string;
+    name?: string;
+    key?: string;
+    depth?: number;
+}
+
 export interface WorkflowsApiWorkflowExecutionsCombinedRequest {
     filter?: string;
     offset?: string;
@@ -164,10 +198,14 @@ export interface WorkflowsApiWorkflowMockExecuteRequest {
     depth?: number;
     sourceEventUrl?: string;
     validateOnly?: boolean;
+    skipValidation?: boolean;
+    ignoreActivityMockReferences?: boolean;
 }
 
 export interface WorkflowsApiWorkflowTriggersCombinedRequest {
     filter?: string;
+    offset?: string;
+    limit?: number;
 }
 
 export interface WorkflowsApiWorkflowUpdateHumanInputV1Request {
@@ -198,7 +236,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:write"]);
         }
 
         const response = await this.request(
@@ -263,7 +301,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:write"]);
         }
 
         const response = await this.request(
@@ -301,7 +339,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Allows a user to resume/retry a failed workflow execution.
+     * Allows a user to resume/retry a failed workflow execution, or cancel/stop a currently running workflow execution
      */
     async executionActionRaw(
         requestParameters: WorkflowsApiExecutionActionRequest,
@@ -327,7 +365,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:write"]);
         }
 
         const response = await this.request(
@@ -345,7 +383,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Allows a user to resume/retry a failed workflow execution.
+     * Allows a user to resume/retry a failed workflow execution, or cancel/stop a currently running workflow execution
      */
     async executionAction(
         actionName: ExecutionActionActionNameEnum,
@@ -377,7 +415,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:read"]);
         }
 
         const response = await this.request(
@@ -417,7 +455,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:write"]);
         }
 
         const response = await this.request(
@@ -461,7 +499,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:write"]);
         }
 
         const response = await this.request(
@@ -483,6 +521,59 @@ export class WorkflowsApi extends runtime.BaseAPI {
      */
     async provision(body: ClientSystemDefinitionProvisionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClientSystemDefinitionCreateResponse> {
         const response = await this.provisionRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Search for child executions by providing a FQL filter and paging details. Returns the set of child workflow execution IDs which match the filter criteria
+     */
+    async v1ChildExecutionsQueryRaw(
+        requestParameters: WorkflowsApiV1ChildExecutionsQueryRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/workflows/queries/child-executions/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Search for child executions by providing a FQL filter and paging details. Returns the set of child workflow execution IDs which match the filter criteria
+     */
+    async v1ChildExecutionsQuery(filter?: string, offset?: string, limit?: number, sort?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
+        const response = await this.v1ChildExecutionsQueryRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
 
@@ -515,7 +606,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:read"]);
         }
 
         const response = await this.request(
@@ -546,7 +637,118 @@ export class WorkflowsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search workflow definitions based on the provided filter
+     * Search for activities by name. Returns all supported activities if no filter specified
+     */
+    async workflowActivitiesContentCombinedRaw(
+        requestParameters: WorkflowsApiWorkflowActivitiesContentCombinedRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ActivitiesActivityExternalResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/workflows/combined/activity-content/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ActivitiesActivityExternalResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Search for activities by name. Returns all supported activities if no filter specified
+     */
+    async workflowActivitiesContentCombined(
+        filter?: string,
+        offset?: string,
+        limit?: number,
+        sort?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<ActivitiesActivityExternalResponse> {
+        const response = await this.workflowActivitiesContentCombinedRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Enable or disable a workflow definition, or stop all executions for a definition. When a definition is disabled it will not execute against any new trigger events.
+     */
+    async workflowDefinitionsActionRaw(
+        requestParameters: WorkflowsApiWorkflowDefinitionsActionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DefinitionsDefinitionEntitiesResponse>> {
+        if (requestParameters["actionName"] == null) {
+            throw new runtime.RequiredError("actionName", 'Required parameter "actionName" was null or undefined when calling workflowDefinitionsAction().');
+        }
+
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling workflowDefinitionsAction().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["actionName"] != null) {
+            queryParameters["action_name"] = requestParameters["actionName"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/workflows/entities/definition-actions/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ClientActionRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DefinitionsDefinitionEntitiesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Enable or disable a workflow definition, or stop all executions for a definition. When a definition is disabled it will not execute against any new trigger events.
+     */
+    async workflowDefinitionsAction(actionName: string, body: ClientActionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DefinitionsDefinitionEntitiesResponse> {
+        const response = await this.workflowDefinitionsActionRaw({ actionName: actionName, body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Search workflow definitions based on the provided filter. NOTE: this API has a large response payload. Click on `Wait` if the page is unresponsive during loading
      */
     async workflowDefinitionsCombinedRaw(
         requestParameters: WorkflowsApiWorkflowDefinitionsCombinedRequest,
@@ -574,7 +776,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:read"]);
         }
 
         const response = await this.request(
@@ -591,7 +793,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search workflow definitions based on the provided filter
+     * Search workflow definitions based on the provided filter. NOTE: this API has a large response payload. Click on `Wait` if the page is unresponsive during loading
      */
     async workflowDefinitionsCombined(
         filter?: string,
@@ -629,7 +831,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:read"]);
         }
 
         const response = await this.request(
@@ -678,7 +880,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:write"]);
         }
 
         const consumes: runtime.Consume[] = [{ contentType: "multipart/form-data" }];
@@ -744,7 +946,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:write"]);
         }
 
         const response = await this.request(
@@ -816,7 +1018,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:write"]);
         }
 
         const response = await this.request(
@@ -855,6 +1057,78 @@ export class WorkflowsApi extends runtime.BaseAPI {
     }
 
     /**
+     * Executes a single activity node, resulting in an execution where test_mode=true and single_node_execution=true, associated with a definition ID if provided
+     */
+    async workflowExecuteSingleNodeV1Raw(
+        requestParameters: WorkflowsApiWorkflowExecuteSingleNodeV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiResourceIDsResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling workflowExecuteSingleNodeV1().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["executionCid"] != null) {
+            queryParameters["execution_cid"] = requestParameters["executionCid"]!.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters["definitionId"] != null) {
+            queryParameters["definition_id"] = requestParameters["definitionId"];
+        }
+
+        if (requestParameters["name"] != null) {
+            queryParameters["name"] = requestParameters["name"];
+        }
+
+        if (requestParameters["key"] != null) {
+            queryParameters["key"] = requestParameters["key"];
+        }
+
+        if (requestParameters["depth"] != null) {
+            queryParameters["depth"] = requestParameters["depth"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/workflows/entities/single-node-executions/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ModelsSingleNodeExecutionCreateRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiResourceIDsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Executes a single activity node, resulting in an execution where test_mode=true and single_node_execution=true, associated with a definition ID if provided
+     */
+    async workflowExecuteSingleNodeV1(
+        body: ModelsSingleNodeExecutionCreateRequestV1,
+        executionCid?: Array<string>,
+        definitionId?: string,
+        name?: string,
+        key?: string,
+        depth?: number,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<ApiResourceIDsResponse> {
+        const response = await this.workflowExecuteSingleNodeV1Raw({ body: body, executionCid: executionCid, definitionId: definitionId, name: name, key: key, depth: depth }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Search workflow executions based on the provided filter
      */
     async workflowExecutionsCombinedRaw(
@@ -883,7 +1157,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:read"]);
         }
 
         const response = await this.request(
@@ -934,7 +1208,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:read"]);
         }
 
         const response = await this.request(
@@ -999,13 +1273,21 @@ export class WorkflowsApi extends runtime.BaseAPI {
             queryParameters["validate_only"] = requestParameters["validateOnly"];
         }
 
+        if (requestParameters["skipValidation"] != null) {
+            queryParameters["skip_validation"] = requestParameters["skipValidation"];
+        }
+
+        if (requestParameters["ignoreActivityMockReferences"] != null) {
+            queryParameters["ignore_activity_mock_references"] = requestParameters["ignoreActivityMockReferences"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters["Content-Type"] = "application/json";
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:write"]);
         }
 
         const response = await this.request(
@@ -1034,10 +1316,23 @@ export class WorkflowsApi extends runtime.BaseAPI {
         depth?: number,
         sourceEventUrl?: string,
         validateOnly?: boolean,
+        skipValidation?: boolean,
+        ignoreActivityMockReferences?: boolean,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApiResourceIDsResponse> {
         const response = await this.workflowMockExecuteRaw(
-            { body: body, executionCid: executionCid, definitionId: definitionId, name: name, key: key, depth: depth, sourceEventUrl: sourceEventUrl, validateOnly: validateOnly },
+            {
+                body: body,
+                executionCid: executionCid,
+                definitionId: definitionId,
+                name: name,
+                key: key,
+                depth: depth,
+                sourceEventUrl: sourceEventUrl,
+                validateOnly: validateOnly,
+                skipValidation: skipValidation,
+                ignoreActivityMockReferences: ignoreActivityMockReferences,
+            },
             initOverrides,
         );
         return await response.value();
@@ -1056,11 +1351,19 @@ export class WorkflowsApi extends runtime.BaseAPI {
             queryParameters["filter"] = requestParameters["filter"];
         }
 
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:read"]);
         }
 
         const response = await this.request(
@@ -1079,8 +1382,8 @@ export class WorkflowsApi extends runtime.BaseAPI {
     /**
      * Search for triggers by namespaced identifier, i.e. FalconAudit, Detection, or FalconAudit/Detection/Status. Returns all triggers if no filter specified
      */
-    async workflowTriggersCombined(filter?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TriggersTriggerExternalResponse> {
-        const response = await this.workflowTriggersCombinedRaw({ filter: filter }, initOverrides);
+    async workflowTriggersCombined(filter?: string, offset?: string, limit?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TriggersTriggerExternalResponse> {
+        const response = await this.workflowTriggersCombinedRaw({ filter: filter, offset: offset, limit: limit }, initOverrides);
         return await response.value();
     }
 
@@ -1111,7 +1414,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:write"]);
         }
 
         const response = await this.request(
@@ -1142,5 +1445,6 @@ export class WorkflowsApi extends runtime.BaseAPI {
  */
 export const ExecutionActionActionNameEnum = {
     Resume: "resume",
+    Cancel: "cancel",
 } as const;
 export type ExecutionActionActionNameEnum = (typeof ExecutionActionActionNameEnum)[keyof typeof ExecutionActionActionNameEnum];

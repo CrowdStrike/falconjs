@@ -13,6 +13,9 @@
  */
 
 import { mapValues } from "../runtime";
+import type { DomainSpotlightParams } from "./DomainSpotlightParams";
+import { DomainSpotlightParamsFromJSON, DomainSpotlightParamsFromJSONTyped, DomainSpotlightParamsToJSON } from "./DomainSpotlightParams";
+
 /**
  *
  * @export
@@ -63,16 +66,22 @@ export interface DomainReportParams {
     format: string;
     /**
      *
-     * @type {{ [key: string]: string; }}
+     * @type {object}
      * @memberof DomainReportParams
      */
-    reportTypeOptions?: { [key: string]: string };
+    reportTypeOptions?: object;
     /**
      *
      * @type {string}
      * @memberof DomainReportParams
      */
     sort: string;
+    /**
+     *
+     * @type {DomainSpotlightParams}
+     * @memberof DomainReportParams
+     */
+    spotlightParams?: DomainSpotlightParams;
 }
 
 /**
@@ -108,6 +117,7 @@ export function DomainReportParamsFromJSONTyped(json: any, ignoreDiscriminator: 
         format: json["format"],
         reportTypeOptions: json["report_type_options"] == null ? undefined : json["report_type_options"],
         sort: json["sort"],
+        spotlightParams: json["spotlight_params"] == null ? undefined : DomainSpotlightParamsFromJSON(json["spotlight_params"]),
     };
 }
 
@@ -125,5 +135,6 @@ export function DomainReportParamsToJSON(value?: DomainReportParams | null): any
         format: value["format"],
         report_type_options: value["reportTypeOptions"],
         sort: value["sort"],
+        spotlight_params: DomainSpotlightParamsToJSON(value["spotlightParams"]),
     };
 }

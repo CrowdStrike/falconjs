@@ -46,7 +46,7 @@ export function TypesListIntegrationTasksResponseFromJSONTyped(json: any, ignore
         return json;
     }
     return {
-        integrationTasks: json["integration_tasks"] == null ? undefined : (json["integration_tasks"] as Array<any>).map(TypesIntegrationTaskFromJSON),
+        integrationTasks: json["integrationTasks"] == null ? undefined : (json["integrationTasks"] as Array<any>).map(TypesIntegrationTaskFromJSON),
     };
 }
 
@@ -55,6 +55,6 @@ export function TypesListIntegrationTasksResponseToJSON(value?: TypesListIntegra
         return value;
     }
     return {
-        integration_tasks: value["integrationTasks"] == null ? undefined : (value["integrationTasks"] as Array<any>).map(TypesIntegrationTaskToJSON),
+        integrationTasks: value["integrationTasks"] == null ? undefined : (value["integrationTasks"] as Array<any>).map(TypesIntegrationTaskToJSON),
     };
 }

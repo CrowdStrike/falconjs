@@ -21,6 +21,18 @@ import { mapValues } from "../runtime";
 export interface DomainExportJobMetadataV1 {
     /**
      *
+     * @type {number}
+     * @memberof DomainExportJobMetadataV1
+     */
+    completionPercentage?: number;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainExportJobMetadataV1
+     */
+    createdDate?: string;
+    /**
+     *
      * @type {string}
      * @memberof DomainExportJobMetadataV1
      */
@@ -65,6 +77,8 @@ export function DomainExportJobMetadataV1FromJSONTyped(json: any, ignoreDiscrimi
         return json;
     }
     return {
+        completionPercentage: json["completion_percentage"] == null ? undefined : json["completion_percentage"],
+        createdDate: json["created_date"] == null ? undefined : json["created_date"],
         entity: json["entity"],
         filename: json["filename"],
         id: json["id"],
@@ -77,6 +91,8 @@ export function DomainExportJobMetadataV1ToJSON(value?: DomainExportJobMetadataV
         return value;
     }
     return {
+        completion_percentage: value["completionPercentage"],
+        created_date: value["createdDate"],
         entity: value["entity"],
         filename: value["filename"],
         id: value["id"],

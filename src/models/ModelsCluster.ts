@@ -111,6 +111,12 @@ export interface ModelsCluster {
     iarCoverage: boolean;
     /**
      *
+     * @type {boolean}
+     * @memberof ModelsCluster
+     */
+    kacAgentActive: boolean;
+    /**
+     *
      * @type {string}
      * @memberof ModelsCluster
      */
@@ -190,6 +196,7 @@ export function instanceOfModelsCluster(value: object): value is ModelsCluster {
     if (!("containerCount" in value) || value["containerCount"] === undefined) return false;
     if (!("firstSeen" in value) || value["firstSeen"] === undefined) return false;
     if (!("iarCoverage" in value) || value["iarCoverage"] === undefined) return false;
+    if (!("kacAgentActive" in value) || value["kacAgentActive"] === undefined) return false;
     if (!("kacAgentId" in value) || value["kacAgentId"] === undefined) return false;
     if (!("kubernetesVersion" in value) || value["kubernetesVersion"] === undefined) return false;
     if (!("labelsList" in value) || value["labelsList"] === undefined) return false;
@@ -227,6 +234,7 @@ export function ModelsClusterFromJSONTyped(json: any, ignoreDiscriminator: boole
         containerCount: json["container_count"],
         firstSeen: json["first_seen"],
         iarCoverage: json["iar_coverage"],
+        kacAgentActive: json["kac_agent_active"],
         kacAgentId: json["kac_agent_id"],
         kubernetesVersion: json["kubernetes_version"],
         labelsList: json["labels_list"],
@@ -260,6 +268,7 @@ export function ModelsClusterToJSON(value?: ModelsCluster | null): any {
         container_count: value["containerCount"],
         first_seen: value["firstSeen"],
         iar_coverage: value["iarCoverage"],
+        kac_agent_active: value["kacAgentActive"],
         kac_agent_id: value["kacAgentId"],
         kubernetes_version: value["kubernetesVersion"],
         labels_list: value["labelsList"],

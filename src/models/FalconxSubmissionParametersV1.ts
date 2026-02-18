@@ -24,6 +24,12 @@ import { FalconxSandboxParametersV1FromJSON, FalconxSandboxParametersV1FromJSONT
 export interface FalconxSubmissionParametersV1 {
     /**
      *
+     * @type {boolean}
+     * @memberof FalconxSubmissionParametersV1
+     */
+    autoDetectEnvironment?: boolean;
+    /**
+     *
      * @type {Array<FalconxSandboxParametersV1>}
      * @memberof FalconxSubmissionParametersV1
      */
@@ -58,6 +64,7 @@ export function FalconxSubmissionParametersV1FromJSONTyped(json: any, ignoreDisc
         return json;
     }
     return {
+        autoDetectEnvironment: json["auto_detect_environment"] == null ? undefined : json["auto_detect_environment"],
         sandbox: json["sandbox"] == null ? undefined : (json["sandbox"] as Array<any>).map(FalconxSandboxParametersV1FromJSON),
         sendEmailNotification: json["send_email_notification"] == null ? undefined : json["send_email_notification"],
         userTags: json["user_tags"] == null ? undefined : json["user_tags"],
@@ -69,6 +76,7 @@ export function FalconxSubmissionParametersV1ToJSON(value?: FalconxSubmissionPar
         return value;
     }
     return {
+        auto_detect_environment: value["autoDetectEnvironment"],
         sandbox: value["sandbox"] == null ? undefined : (value["sandbox"] as Array<any>).map(FalconxSandboxParametersV1ToJSON),
         send_email_notification: value["sendEmailNotification"],
         user_tags: value["userTags"],

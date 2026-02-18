@@ -131,7 +131,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-migration:write"]);
         }
 
         const response = await this.request(
@@ -195,7 +195,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-migration:read"]);
         }
 
         const response = await this.request(
@@ -247,7 +247,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-migration:read"]);
         }
 
         const response = await this.request(
@@ -293,7 +293,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-migration:read"]);
         }
 
         const response = await this.request(
@@ -348,7 +348,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-migration:read"]);
         }
 
         const response = await this.request(
@@ -399,7 +399,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-migration:read"]);
         }
 
         const response = await this.request(
@@ -443,7 +443,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-migration:write"]);
         }
 
         const response = await this.request(
@@ -505,7 +505,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-migration:write"]);
         }
 
         const response = await this.request(
@@ -556,7 +556,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-migration:write"]);
         }
 
         const response = await this.request(
@@ -610,7 +610,7 @@ export class HostMigrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-migration:write"]);
         }
 
         const response = await this.request(
@@ -645,36 +645,36 @@ export class HostMigrationApi extends runtime.BaseAPI {
  * @export
  */
 export const GetHostMigrationIDsV1SortEnum = {
-    IdAsc: "id|asc",
-    IdDesc: "id|desc",
-    Id: "id",
-    CreatedTimeAsc: "created_time|asc",
-    CreatedTimeDesc: "created_time|desc",
-    CreatedTime: "created_time",
-    GroupsAsc: "groups|asc",
-    GroupsDesc: "groups|desc",
-    Groups: "groups",
-    StaticHostGroupsAsc: "static_host_groups|asc",
-    StaticHostGroupsDesc: "static_host_groups|desc",
-    StaticHostGroups: "static_host_groups",
-    TargetCidAsc: "target_cid|asc",
-    TargetCidDesc: "target_cid|desc",
-    TargetCid: "target_cid",
-    SourceCidAsc: "source_cid|asc",
-    SourceCidDesc: "source_cid|desc",
-    SourceCid: "source_cid",
-    MigrationIdAsc: "migration_id|asc",
-    MigrationIdDesc: "migration_id|desc",
-    MigrationId: "migration_id",
     HostgroupsAsc: "hostgroups|asc",
     HostgroupsDesc: "hostgroups|desc",
     Hostgroups: "hostgroups",
-    HostnameAsc: "hostname|asc",
-    HostnameDesc: "hostname|desc",
-    Hostname: "hostname",
+    StaticHostGroupsAsc: "static_host_groups|asc",
+    StaticHostGroupsDesc: "static_host_groups|desc",
+    StaticHostGroups: "static_host_groups",
     StatusAsc: "status|asc",
     StatusDesc: "status|desc",
     Status: "status",
+    SourceCidAsc: "source_cid|asc",
+    SourceCidDesc: "source_cid|desc",
+    SourceCid: "source_cid",
+    IdAsc: "id|asc",
+    IdDesc: "id|desc",
+    Id: "id",
+    GroupsAsc: "groups|asc",
+    GroupsDesc: "groups|desc",
+    Groups: "groups",
+    HostnameAsc: "hostname|asc",
+    HostnameDesc: "hostname|desc",
+    Hostname: "hostname",
+    TargetCidAsc: "target_cid|asc",
+    TargetCidDesc: "target_cid|desc",
+    TargetCid: "target_cid",
+    MigrationIdAsc: "migration_id|asc",
+    MigrationIdDesc: "migration_id|desc",
+    MigrationId: "migration_id",
+    CreatedTimeAsc: "created_time|asc",
+    CreatedTimeDesc: "created_time|desc",
+    CreatedTime: "created_time",
     HostMigrationIdAsc: "host_migration_id|asc",
     HostMigrationIdDesc: "host_migration_id|desc",
     HostMigrationId: "host_migration_id",

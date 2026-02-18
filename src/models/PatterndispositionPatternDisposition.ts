@@ -36,6 +36,12 @@ export interface PatterndispositionPatternDisposition {
      * @type {boolean}
      * @memberof PatterndispositionPatternDisposition
      */
+    containmentFileSystem: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof PatterndispositionPatternDisposition
+     */
     criticalProcessDisabled: boolean;
     /**
      *
@@ -96,6 +102,12 @@ export interface PatterndispositionPatternDisposition {
      * @type {boolean}
      * @memberof PatterndispositionPatternDisposition
      */
+    mfaRequired: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof PatterndispositionPatternDisposition
+     */
     operationBlocked: boolean;
     /**
      *
@@ -103,6 +115,12 @@ export interface PatterndispositionPatternDisposition {
      * @memberof PatterndispositionPatternDisposition
      */
     policyDisabled: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof PatterndispositionPatternDisposition
+     */
+    preventionProvisioningEnabled: boolean;
     /**
      *
      * @type {boolean}
@@ -127,6 +145,24 @@ export interface PatterndispositionPatternDisposition {
      * @memberof PatterndispositionPatternDisposition
      */
     registryOperationBlocked: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof PatterndispositionPatternDisposition
+     */
+    responseActionAlreadyApplied: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof PatterndispositionPatternDisposition
+     */
+    responseActionFailed: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof PatterndispositionPatternDisposition
+     */
+    responseActionTriggered: boolean;
     /**
      *
      * @type {boolean}
@@ -159,6 +195,7 @@ export interface PatterndispositionPatternDisposition {
 export function instanceOfPatterndispositionPatternDisposition(value: object): value is PatterndispositionPatternDisposition {
     if (!("blockingUnsupportedOrDisabled" in value) || value["blockingUnsupportedOrDisabled"] === undefined) return false;
     if (!("bootupSafeguardEnabled" in value) || value["bootupSafeguardEnabled"] === undefined) return false;
+    if (!("containmentFileSystem" in value) || value["containmentFileSystem"] === undefined) return false;
     if (!("criticalProcessDisabled" in value) || value["criticalProcessDisabled"] === undefined) return false;
     if (!("detect" in value) || value["detect"] === undefined) return false;
     if (!("fsOperationBlocked" in value) || value["fsOperationBlocked"] === undefined) return false;
@@ -169,12 +206,17 @@ export function instanceOfPatterndispositionPatternDisposition(value: object): v
     if (!("killParent" in value) || value["killParent"] === undefined) return false;
     if (!("killProcess" in value) || value["killProcess"] === undefined) return false;
     if (!("killSubprocess" in value) || value["killSubprocess"] === undefined) return false;
+    if (!("mfaRequired" in value) || value["mfaRequired"] === undefined) return false;
     if (!("operationBlocked" in value) || value["operationBlocked"] === undefined) return false;
     if (!("policyDisabled" in value) || value["policyDisabled"] === undefined) return false;
+    if (!("preventionProvisioningEnabled" in value) || value["preventionProvisioningEnabled"] === undefined) return false;
     if (!("processBlocked" in value) || value["processBlocked"] === undefined) return false;
     if (!("quarantineFile" in value) || value["quarantineFile"] === undefined) return false;
     if (!("quarantineMachine" in value) || value["quarantineMachine"] === undefined) return false;
     if (!("registryOperationBlocked" in value) || value["registryOperationBlocked"] === undefined) return false;
+    if (!("responseActionAlreadyApplied" in value) || value["responseActionAlreadyApplied"] === undefined) return false;
+    if (!("responseActionFailed" in value) || value["responseActionFailed"] === undefined) return false;
+    if (!("responseActionTriggered" in value) || value["responseActionTriggered"] === undefined) return false;
     if (!("rooting" in value) || value["rooting"] === undefined) return false;
     if (!("sensorOnly" in value) || value["sensorOnly"] === undefined) return false;
     if (!("suspendParent" in value) || value["suspendParent"] === undefined) return false;
@@ -193,6 +235,7 @@ export function PatterndispositionPatternDispositionFromJSONTyped(json: any, ign
     return {
         blockingUnsupportedOrDisabled: json["blocking_unsupported_or_disabled"],
         bootupSafeguardEnabled: json["bootup_safeguard_enabled"],
+        containmentFileSystem: json["containment_file_system"],
         criticalProcessDisabled: json["critical_process_disabled"],
         detect: json["detect"],
         fsOperationBlocked: json["fs_operation_blocked"],
@@ -203,12 +246,17 @@ export function PatterndispositionPatternDispositionFromJSONTyped(json: any, ign
         killParent: json["kill_parent"],
         killProcess: json["kill_process"],
         killSubprocess: json["kill_subprocess"],
+        mfaRequired: json["mfa_required"],
         operationBlocked: json["operation_blocked"],
         policyDisabled: json["policy_disabled"],
+        preventionProvisioningEnabled: json["prevention_provisioning_enabled"],
         processBlocked: json["process_blocked"],
         quarantineFile: json["quarantine_file"],
         quarantineMachine: json["quarantine_machine"],
         registryOperationBlocked: json["registry_operation_blocked"],
+        responseActionAlreadyApplied: json["response_action_already_applied"],
+        responseActionFailed: json["response_action_failed"],
+        responseActionTriggered: json["response_action_triggered"],
         rooting: json["rooting"],
         sensorOnly: json["sensor_only"],
         suspendParent: json["suspend_parent"],
@@ -223,6 +271,7 @@ export function PatterndispositionPatternDispositionToJSON(value?: Patterndispos
     return {
         blocking_unsupported_or_disabled: value["blockingUnsupportedOrDisabled"],
         bootup_safeguard_enabled: value["bootupSafeguardEnabled"],
+        containment_file_system: value["containmentFileSystem"],
         critical_process_disabled: value["criticalProcessDisabled"],
         detect: value["detect"],
         fs_operation_blocked: value["fsOperationBlocked"],
@@ -233,12 +282,17 @@ export function PatterndispositionPatternDispositionToJSON(value?: Patterndispos
         kill_parent: value["killParent"],
         kill_process: value["killProcess"],
         kill_subprocess: value["killSubprocess"],
+        mfa_required: value["mfaRequired"],
         operation_blocked: value["operationBlocked"],
         policy_disabled: value["policyDisabled"],
+        prevention_provisioning_enabled: value["preventionProvisioningEnabled"],
         process_blocked: value["processBlocked"],
         quarantine_file: value["quarantineFile"],
         quarantine_machine: value["quarantineMachine"],
         registry_operation_blocked: value["registryOperationBlocked"],
+        response_action_already_applied: value["responseActionAlreadyApplied"],
+        response_action_failed: value["responseActionFailed"],
+        response_action_triggered: value["responseActionTriggered"],
         rooting: value["rooting"],
         sensor_only: value["sensorOnly"],
         suspend_parent: value["suspendParent"],

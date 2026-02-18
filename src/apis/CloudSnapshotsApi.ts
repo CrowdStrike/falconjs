@@ -126,7 +126,7 @@ export class CloudSnapshotsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["snapshot-scanner:read"]);
         }
 
         const response = await this.request(
@@ -171,7 +171,7 @@ export class CloudSnapshotsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["snapshot:read"]);
         }
 
         const response = await this.request(
@@ -224,7 +224,7 @@ export class CloudSnapshotsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["snapshot:read"]);
         }
 
         const response = await this.request(
@@ -265,7 +265,7 @@ export class CloudSnapshotsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["snapshot:read"]);
         }
 
         const response = await this.request(

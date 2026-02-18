@@ -15,8 +15,8 @@
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
 import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import type { ActivitiesActivity } from "./ActivitiesActivity";
-import { ActivitiesActivityFromJSON, ActivitiesActivityFromJSONTyped, ActivitiesActivityToJSON } from "./ActivitiesActivity";
+import type { ActivitiesExternalActivity } from "./ActivitiesExternalActivity";
+import { ActivitiesExternalActivityFromJSON, ActivitiesExternalActivityFromJSONTyped, ActivitiesExternalActivityToJSON } from "./ActivitiesExternalActivity";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
 import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
@@ -40,10 +40,10 @@ export interface ActivitiesActivityExternalResponse {
     meta: MsaMetaInfo;
     /**
      *
-     * @type {Array<ActivitiesActivity>}
+     * @type {Array<ActivitiesExternalActivity>}
      * @memberof ActivitiesActivityExternalResponse
      */
-    resources: Array<ActivitiesActivity>;
+    resources: Array<ActivitiesExternalActivity>;
 }
 
 /**
@@ -67,7 +67,7 @@ export function ActivitiesActivityExternalResponseFromJSONTyped(json: any, ignor
     return {
         errors: (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
-        resources: (json["resources"] as Array<any>).map(ActivitiesActivityFromJSON),
+        resources: (json["resources"] as Array<any>).map(ActivitiesExternalActivityFromJSON),
     };
 }
 
@@ -78,6 +78,6 @@ export function ActivitiesActivityExternalResponseToJSON(value?: ActivitiesActiv
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
-        resources: (value["resources"] as Array<any>).map(ActivitiesActivityToJSON),
+        resources: (value["resources"] as Array<any>).map(ActivitiesExternalActivityToJSON),
     };
 }

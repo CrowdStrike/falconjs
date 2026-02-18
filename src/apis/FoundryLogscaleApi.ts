@@ -51,6 +51,7 @@ export interface FoundryLogscaleApiCreateSavedSearchesDynamicExecuteAltV1Request
     matchResponseSchema?: boolean;
     metadata?: boolean;
     mode?: CreateSavedSearchesDynamicExecuteAltV1ModeEnum;
+    xCSUSERUUID?: string;
 }
 
 export interface FoundryLogscaleApiCreateSavedSearchesExecuteAltV1Request {
@@ -61,6 +62,7 @@ export interface FoundryLogscaleApiCreateSavedSearchesExecuteAltV1Request {
     inferJsonTypes?: boolean;
     matchResponseSchema?: boolean;
     metadata?: boolean;
+    xCSUSERUUID?: string;
 }
 
 export interface FoundryLogscaleApiCreateSavedSearchesIngestAltV1Request {
@@ -81,6 +83,7 @@ export interface FoundryLogscaleApiExecuteRequest {
     inferJsonTypes?: boolean;
     matchResponseSchema?: boolean;
     metadata?: boolean;
+    xCSUSERUUID?: string;
 }
 
 export interface FoundryLogscaleApiExecuteDynamicRequest {
@@ -92,6 +95,7 @@ export interface FoundryLogscaleApiExecuteDynamicRequest {
     matchResponseSchema?: boolean;
     metadata?: boolean;
     mode?: ExecuteDynamicModeEnum;
+    xCSUSERUUID?: string;
 }
 
 export interface FoundryLogscaleApiGetSavedSearchesExecuteAltV1Request {
@@ -103,6 +107,7 @@ export interface FoundryLogscaleApiGetSavedSearchesExecuteAltV1Request {
     matchResponseSchema?: boolean;
     metadata?: boolean;
     offset?: string;
+    xCSUSERUUID?: string;
 }
 
 export interface FoundryLogscaleApiGetSavedSearchesJobResultsDownloadAltV1Request {
@@ -120,6 +125,7 @@ export interface FoundryLogscaleApiGetSearchResultsRequest {
     matchResponseSchema?: boolean;
     metadata?: boolean;
     offset?: string;
+    xCSUSERUUID?: string;
 }
 
 export interface FoundryLogscaleApiIngestDataRequest {
@@ -200,9 +206,13 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
 
         headerParameters["Content-Type"] = "application/json";
 
+        if (requestParameters["xCSUSERUUID"] != null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters["xCSUSERUUID"]);
+        }
+
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["app-logs:write"]);
         }
 
         const response = await this.request(
@@ -231,6 +241,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
         matchResponseSchema?: boolean,
         metadata?: boolean,
         mode?: CreateSavedSearchesDynamicExecuteAltV1ModeEnum,
+        xCSUSERUUID?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApidomainQueryResponseWrapperV1> {
         const response = await this.createSavedSearchesDynamicExecuteAltV1Raw(
@@ -243,6 +254,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
                 matchResponseSchema: matchResponseSchema,
                 metadata: metadata,
                 mode: mode,
+                xCSUSERUUID: xCSUSERUUID,
             },
             initOverrides,
         );
@@ -290,9 +302,13 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
 
         headerParameters["Content-Type"] = "application/json";
 
+        if (requestParameters["xCSUSERUUID"] != null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters["xCSUSERUUID"]);
+        }
+
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["app-logs:write"]);
         }
 
         const response = await this.request(
@@ -320,10 +336,20 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
         inferJsonTypes?: boolean,
         matchResponseSchema?: boolean,
         metadata?: boolean,
+        xCSUSERUUID?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApidomainQueryResponseWrapperV1> {
         const response = await this.createSavedSearchesExecuteAltV1Raw(
-            { body: body, appId: appId, detailed: detailed, includeTestData: includeTestData, inferJsonTypes: inferJsonTypes, matchResponseSchema: matchResponseSchema, metadata: metadata },
+            {
+                body: body,
+                appId: appId,
+                detailed: detailed,
+                includeTestData: includeTestData,
+                inferJsonTypes: inferJsonTypes,
+                matchResponseSchema: matchResponseSchema,
+                metadata: metadata,
+                xCSUSERUUID: xCSUSERUUID,
+            },
             initOverrides,
         );
         return await response.value();
@@ -346,7 +372,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["app-logs:write"]);
         }
 
         const response = await this.request(
@@ -396,7 +422,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["app-logs:read"]);
         }
 
         const response = await this.request(
@@ -458,9 +484,13 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
 
         headerParameters["Content-Type"] = "application/json";
 
+        if (requestParameters["xCSUSERUUID"] != null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters["xCSUSERUUID"]);
+        }
+
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["app-logs:write"]);
         }
 
         const response = await this.request(
@@ -488,10 +518,20 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
         inferJsonTypes?: boolean,
         matchResponseSchema?: boolean,
         metadata?: boolean,
+        xCSUSERUUID?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApidomainQueryResponseWrapperV1> {
         const response = await this.executeRaw(
-            { body: body, appId: appId, detailed: detailed, includeTestData: includeTestData, inferJsonTypes: inferJsonTypes, matchResponseSchema: matchResponseSchema, metadata: metadata },
+            {
+                body: body,
+                appId: appId,
+                detailed: detailed,
+                includeTestData: includeTestData,
+                inferJsonTypes: inferJsonTypes,
+                matchResponseSchema: matchResponseSchema,
+                metadata: metadata,
+                xCSUSERUUID: xCSUSERUUID,
+            },
             initOverrides,
         );
         return await response.value();
@@ -542,9 +582,13 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
 
         headerParameters["Content-Type"] = "application/json";
 
+        if (requestParameters["xCSUSERUUID"] != null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters["xCSUSERUUID"]);
+        }
+
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["app-logs:write"]);
         }
 
         const response = await this.request(
@@ -573,6 +617,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
         matchResponseSchema?: boolean,
         metadata?: boolean,
         mode?: ExecuteDynamicModeEnum,
+        xCSUSERUUID?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApidomainQueryResponseWrapperV1> {
         const response = await this.executeDynamicRaw(
@@ -585,6 +630,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
                 matchResponseSchema: matchResponseSchema,
                 metadata: metadata,
                 mode: mode,
+                xCSUSERUUID: xCSUSERUUID,
             },
             initOverrides,
         );
@@ -638,9 +684,13 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (requestParameters["xCSUSERUUID"] != null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters["xCSUSERUUID"]);
+        }
+
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["app-logs:read"]);
         }
 
         const response = await this.request(
@@ -668,10 +718,21 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
         matchResponseSchema?: boolean,
         metadata?: boolean,
         offset?: string,
+        xCSUSERUUID?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApidomainQueryResponseWrapperV1> {
         const response = await this.getSavedSearchesExecuteAltV1Raw(
-            { jobId: jobId, appId: appId, inferJsonTypes: inferJsonTypes, jobStatusOnly: jobStatusOnly, limit: limit, matchResponseSchema: matchResponseSchema, metadata: metadata, offset: offset },
+            {
+                jobId: jobId,
+                appId: appId,
+                inferJsonTypes: inferJsonTypes,
+                jobStatusOnly: jobStatusOnly,
+                limit: limit,
+                matchResponseSchema: matchResponseSchema,
+                metadata: metadata,
+                offset: offset,
+                xCSUSERUUID: xCSUSERUUID,
+            },
             initOverrides,
         );
         return await response.value();
@@ -706,7 +767,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["app-logs:read"]);
         }
 
         const response = await this.request(
@@ -782,9 +843,13 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (requestParameters["xCSUSERUUID"] != null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters["xCSUSERUUID"]);
+        }
+
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["app-logs:read"]);
         }
 
         const response = await this.request(
@@ -812,10 +877,21 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
         matchResponseSchema?: boolean,
         metadata?: boolean,
         offset?: string,
+        xCSUSERUUID?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApidomainQueryResponseWrapperV1> {
         const response = await this.getSearchResultsRaw(
-            { jobId: jobId, appId: appId, inferJsonTypes: inferJsonTypes, jobStatusOnly: jobStatusOnly, limit: limit, matchResponseSchema: matchResponseSchema, metadata: metadata, offset: offset },
+            {
+                jobId: jobId,
+                appId: appId,
+                inferJsonTypes: inferJsonTypes,
+                jobStatusOnly: jobStatusOnly,
+                limit: limit,
+                matchResponseSchema: matchResponseSchema,
+                metadata: metadata,
+                offset: offset,
+                xCSUSERUUID: xCSUSERUUID,
+            },
             initOverrides,
         );
         return await response.value();
@@ -834,7 +910,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["app-logs:write"]);
         }
 
         const consumes: runtime.Consume[] = [{ contentType: "multipart/form-data" }];
@@ -913,7 +989,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["app-logs:write"]);
         }
 
         const consumes: runtime.Consume[] = [{ contentType: "multipart/form-data" }];
@@ -1001,7 +1077,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["app-logs:read"]);
         }
 
         const response = await this.request(
@@ -1042,7 +1118,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["app-logs:read"]);
         }
 
         const response = await this.request(
@@ -1083,7 +1159,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["app-logs:write"]);
         }
 
         const response = await this.request(
@@ -1114,6 +1190,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
 export const CreateSavedSearchesDynamicExecuteAltV1ModeEnum = {
     Sync: "sync",
     Async: "async",
+    AsyncOffload: "async_offload",
 } as const;
 export type CreateSavedSearchesDynamicExecuteAltV1ModeEnum = (typeof CreateSavedSearchesDynamicExecuteAltV1ModeEnum)[keyof typeof CreateSavedSearchesDynamicExecuteAltV1ModeEnum];
 /**
@@ -1130,6 +1207,7 @@ export type DownloadResultsResultFormatEnum = (typeof DownloadResultsResultForma
 export const ExecuteDynamicModeEnum = {
     Sync: "sync",
     Async: "async",
+    AsyncOffload: "async_offload",
 } as const;
 export type ExecuteDynamicModeEnum = (typeof ExecuteDynamicModeEnum)[keyof typeof ExecuteDynamicModeEnum];
 /**

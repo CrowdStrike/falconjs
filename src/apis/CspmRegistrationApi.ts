@@ -14,6 +14,7 @@
 
 import * as runtime from "../runtime";
 import type {
+    CdrioamanagerGetCloudEventIDsResponse,
     MsaBaseEntitiesResponse,
     MsaMetaInfo,
     MsaReplyMetaOnly,
@@ -22,7 +23,6 @@ import type {
     RegistrationAWSAccountPatchRequest,
     RegistrationAWSAccountResponseV2,
     RegistrationAWSConsoleURLResponseV2,
-    RegistrationAWSProvisionGetAccountScriptResponseV2,
     RegistrationAzureAccountCreateRequestExternalV1,
     RegistrationAzureAccountPatchRequest,
     RegistrationAzureAccountResponseV1,
@@ -55,6 +55,8 @@ import type {
     RegistrationScanScheduleUpdateRequestV1,
 } from "../models/index";
 import {
+    CdrioamanagerGetCloudEventIDsResponseFromJSON,
+    CdrioamanagerGetCloudEventIDsResponseToJSON,
     MsaBaseEntitiesResponseFromJSON,
     MsaBaseEntitiesResponseToJSON,
     MsaMetaInfoFromJSON,
@@ -71,8 +73,6 @@ import {
     RegistrationAWSAccountResponseV2ToJSON,
     RegistrationAWSConsoleURLResponseV2FromJSON,
     RegistrationAWSConsoleURLResponseV2ToJSON,
-    RegistrationAWSProvisionGetAccountScriptResponseV2FromJSON,
-    RegistrationAWSProvisionGetAccountScriptResponseV2ToJSON,
     RegistrationAzureAccountCreateRequestExternalV1FromJSON,
     RegistrationAzureAccountCreateRequestExternalV1ToJSON,
     RegistrationAzureAccountPatchRequestFromJSON,
@@ -137,7 +137,10 @@ import {
 
 export interface CspmRegistrationApiAzureDownloadCertificateRequest {
     tenantId: Array<string>;
-    refresh?: boolean;
+}
+
+export interface CspmRegistrationApiAzureRefreshCertificateRequest {
+    tenantId: Array<string>;
     yearsValid?: string;
 }
 
@@ -210,23 +213,11 @@ export interface CspmRegistrationApiGetCSPMAwsAccountRequest {
     groupBy?: GetCSPMAwsAccountGroupByEnum;
 }
 
-export interface CspmRegistrationApiGetCSPMAwsAccountScriptsAttachmentRequest {
-    ids?: Array<string>;
-    template?: GetCSPMAwsAccountScriptsAttachmentTemplateEnum;
-    accountType?: GetCSPMAwsAccountScriptsAttachmentAccountTypeEnum;
-    accounts?: Array<string>;
-    behaviorAssessmentEnabled?: GetCSPMAwsAccountScriptsAttachmentBehaviorAssessmentEnabledEnum;
-    sensorManagementEnabled?: GetCSPMAwsAccountScriptsAttachmentSensorManagementEnabledEnum;
-    useExistingCloudtrail?: GetCSPMAwsAccountScriptsAttachmentUseExistingCloudtrailEnum;
-    organizationId?: string;
-    awsProfile?: string;
-    customRoleName?: string;
-}
-
 export interface CspmRegistrationApiGetCSPMAwsConsoleSetupURLsRequest {
     ids?: Array<string>;
     useExistingCloudtrail?: GetCSPMAwsConsoleSetupURLsUseExistingCloudtrailEnum;
     region?: string;
+    tags?: string;
     template?: GetCSPMAwsConsoleSetupURLsTemplateEnum;
 }
 
@@ -254,11 +245,11 @@ export interface CspmRegistrationApiGetCSPMAzureUserScriptsAttachmentRequest {
     azureManagementGroup?: boolean;
 }
 
-export interface CspmRegistrationApiGetCSPMCGPAccountRequest {
-    parentType?: GetCSPMCGPAccountParentTypeEnum;
+export interface CspmRegistrationApiGetCSPMGCPAccountRequest {
+    parentType?: GetCSPMGCPAccountParentTypeEnum;
     ids?: Array<string>;
-    scanType?: GetCSPMCGPAccountScanTypeEnum;
-    status?: GetCSPMCGPAccountStatusEnum;
+    scanType?: GetCSPMGCPAccountScanTypeEnum;
+    status?: GetCSPMGCPAccountStatusEnum;
     limit?: number;
     offset?: number;
     sort?: string;
@@ -293,6 +284,11 @@ export interface CspmRegistrationApiGetCSPMPolicySettingsRequest {
 
 export interface CspmRegistrationApiGetCSPMScanScheduleRequest {
     cloudPlatform?: Array<string>;
+}
+
+export interface CspmRegistrationApiGetCloudEventIDsRequest {
+    xCSUSERUUID: string;
+    id: string;
 }
 
 export interface CspmRegistrationApiGetConfigurationDetectionEntitiesRequest {
@@ -379,14 +375,6 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             queryParameters["tenant_id"] = requestParameters["tenantId"];
         }
 
-        if (requestParameters["refresh"] != null) {
-            queryParameters["refresh"] = requestParameters["refresh"];
-        }
-
-        if (requestParameters["yearsValid"] != null) {
-            queryParameters["years_valid"] = requestParameters["yearsValid"];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -410,13 +398,57 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Returns JSON object(s) that contain the base64 encoded certificate for a service principal.
      */
-    async azureDownloadCertificate(
-        tenantId: Array<string>,
-        refresh?: boolean,
-        yearsValid?: string,
+    async azureDownloadCertificate(tenantId: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationAzureDownloadCertificateResponseV1> {
+        const response = await this.azureDownloadCertificateRaw({ tenantId: tenantId }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Refresh certificate and returns JSON object(s) that contain the base64 encoded certificate for a service principal.
+     */
+    async azureRefreshCertificateRaw(
+        requestParameters: CspmRegistrationApiAzureRefreshCertificateRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<RegistrationAzureDownloadCertificateResponseV1> {
-        const response = await this.azureDownloadCertificateRaw({ tenantId: tenantId, refresh: refresh, yearsValid: yearsValid }, initOverrides);
+    ): Promise<runtime.ApiResponse<RegistrationAzureDownloadCertificateResponseV1>> {
+        if (requestParameters["tenantId"] == null) {
+            throw new runtime.RequiredError("tenantId", 'Required parameter "tenantId" was null or undefined when calling azureRefreshCertificate().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["tenantId"] != null) {
+            queryParameters["tenant_id"] = requestParameters["tenantId"];
+        }
+
+        if (requestParameters["yearsValid"] != null) {
+            queryParameters["years_valid"] = requestParameters["yearsValid"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cloud-connect-cspm-azure/entities/refresh-certificate/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureDownloadCertificateResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Refresh certificate and returns JSON object(s) that contain the base64 encoded certificate for a service principal.
+     */
+    async azureRefreshCertificate(tenantId: Array<string>, yearsValid?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationAzureDownloadCertificateResponseV1> {
+        const response = await this.azureRefreshCertificateRaw({ tenantId: tenantId, yearsValid: yearsValid }, initOverrides);
         return await response.value();
     }
 
@@ -439,7 +471,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
         const response = await this.request(
@@ -483,7 +515,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
         const response = await this.request(
@@ -527,7 +559,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
         const response = await this.request(
@@ -571,7 +603,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
         const response = await this.request(
@@ -618,7 +650,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
         const response = await this.request(
@@ -649,7 +681,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     async deleteCSPMAwsAccountRaw(
         requestParameters: CspmRegistrationApiDeleteCSPMAwsAccountRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaBaseEntitiesResponse>> {
+    ): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -664,7 +696,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
         const response = await this.request(
@@ -677,13 +709,13 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaBaseEntitiesResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecResponseFieldsFromJSON(jsonValue));
     }
 
     /**
      * Deletes an existing AWS account or organization in our system.
      */
-    async deleteCSPMAwsAccount(ids?: Array<string>, organizationIds?: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaBaseEntitiesResponse> {
+    async deleteCSPMAwsAccount(ids?: Array<string>, organizationIds?: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecResponseFields> {
         const response = await this.deleteCSPMAwsAccountRaw({ ids: ids, organizationIds: organizationIds }, initOverrides);
         return await response.value();
     }
@@ -713,7 +745,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
         const response = await this.request(
@@ -754,7 +786,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
         const response = await this.request(
@@ -795,7 +827,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
         const response = await this.request(
@@ -1050,109 +1082,6 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Return a script for customer to run in their cloud environment to grant us access to their AWS environment as a downloadable attachment.
-     */
-    async getCSPMAwsAccountScriptsAttachmentRaw(
-        requestParameters: CspmRegistrationApiGetCSPMAwsAccountScriptsAttachmentRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationAWSProvisionGetAccountScriptResponseV2>> {
-        const queryParameters: any = {};
-
-        if (requestParameters["ids"] != null) {
-            queryParameters["ids"] = requestParameters["ids"];
-        }
-
-        if (requestParameters["template"] != null) {
-            queryParameters["template"] = requestParameters["template"];
-        }
-
-        if (requestParameters["accountType"] != null) {
-            queryParameters["account_type"] = requestParameters["accountType"];
-        }
-
-        if (requestParameters["accounts"] != null) {
-            queryParameters["accounts"] = requestParameters["accounts"];
-        }
-
-        if (requestParameters["behaviorAssessmentEnabled"] != null) {
-            queryParameters["behavior_assessment_enabled"] = requestParameters["behaviorAssessmentEnabled"];
-        }
-
-        if (requestParameters["sensorManagementEnabled"] != null) {
-            queryParameters["sensor_management_enabled"] = requestParameters["sensorManagementEnabled"];
-        }
-
-        if (requestParameters["useExistingCloudtrail"] != null) {
-            queryParameters["use_existing_cloudtrail"] = requestParameters["useExistingCloudtrail"];
-        }
-
-        if (requestParameters["organizationId"] != null) {
-            queryParameters["organization_id"] = requestParameters["organizationId"];
-        }
-
-        if (requestParameters["awsProfile"] != null) {
-            queryParameters["aws_profile"] = requestParameters["awsProfile"];
-        }
-
-        if (requestParameters["customRoleName"] != null) {
-            queryParameters["custom_role_name"] = requestParameters["customRoleName"];
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:read"]);
-        }
-
-        const response = await this.request(
-            {
-                path: `/cloud-connect-cspm-aws/entities/user-scripts-download/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAWSProvisionGetAccountScriptResponseV2FromJSON(jsonValue));
-    }
-
-    /**
-     * Return a script for customer to run in their cloud environment to grant us access to their AWS environment as a downloadable attachment.
-     */
-    async getCSPMAwsAccountScriptsAttachment(
-        ids?: Array<string>,
-        template?: GetCSPMAwsAccountScriptsAttachmentTemplateEnum,
-        accountType?: GetCSPMAwsAccountScriptsAttachmentAccountTypeEnum,
-        accounts?: Array<string>,
-        behaviorAssessmentEnabled?: GetCSPMAwsAccountScriptsAttachmentBehaviorAssessmentEnabledEnum,
-        sensorManagementEnabled?: GetCSPMAwsAccountScriptsAttachmentSensorManagementEnabledEnum,
-        useExistingCloudtrail?: GetCSPMAwsAccountScriptsAttachmentUseExistingCloudtrailEnum,
-        organizationId?: string,
-        awsProfile?: string,
-        customRoleName?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<RegistrationAWSProvisionGetAccountScriptResponseV2> {
-        const response = await this.getCSPMAwsAccountScriptsAttachmentRaw(
-            {
-                ids: ids,
-                template: template,
-                accountType: accountType,
-                accounts: accounts,
-                behaviorAssessmentEnabled: behaviorAssessmentEnabled,
-                sensorManagementEnabled: sensorManagementEnabled,
-                useExistingCloudtrail: useExistingCloudtrail,
-                organizationId: organizationId,
-                awsProfile: awsProfile,
-                customRoleName: customRoleName,
-            },
-            initOverrides,
-        );
-        return await response.value();
-    }
-
-    /**
      * Return a URL for customer to visit in their cloud environment to grant us access to their AWS environment.
      */
     async getCSPMAwsConsoleSetupURLsRaw(
@@ -1171,6 +1100,10 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
         if (requestParameters["region"] != null) {
             queryParameters["region"] = requestParameters["region"];
+        }
+
+        if (requestParameters["tags"] != null) {
+            queryParameters["tags"] = requestParameters["tags"];
         }
 
         if (requestParameters["template"] != null) {
@@ -1204,10 +1137,11 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
         ids?: Array<string>,
         useExistingCloudtrail?: GetCSPMAwsConsoleSetupURLsUseExistingCloudtrailEnum,
         region?: string,
+        tags?: string,
         template?: GetCSPMAwsConsoleSetupURLsTemplateEnum,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<RegistrationAWSConsoleURLResponseV2> {
-        const response = await this.getCSPMAwsConsoleSetupURLsRaw({ ids: ids, useExistingCloudtrail: useExistingCloudtrail, region: region, template: template }, initOverrides);
+        const response = await this.getCSPMAwsConsoleSetupURLsRaw({ ids: ids, useExistingCloudtrail: useExistingCloudtrail, region: region, tags: tags, template: template }, initOverrides);
         return await response.value();
     }
 
@@ -1409,8 +1343,8 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Returns information about the current status of an GCP account.
      */
-    async getCSPMCGPAccountRaw(
-        requestParameters: CspmRegistrationApiGetCSPMCGPAccountRequest,
+    async getCSPMGCPAccountRaw(
+        requestParameters: CspmRegistrationApiGetCSPMGCPAccountRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<RegistrationGCPAccountResponseV1>> {
         const queryParameters: any = {};
@@ -1466,17 +1400,17 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Returns information about the current status of an GCP account.
      */
-    async getCSPMCGPAccount(
-        parentType?: GetCSPMCGPAccountParentTypeEnum,
+    async getCSPMGCPAccount(
+        parentType?: GetCSPMGCPAccountParentTypeEnum,
         ids?: Array<string>,
-        scanType?: GetCSPMCGPAccountScanTypeEnum,
-        status?: GetCSPMCGPAccountStatusEnum,
+        scanType?: GetCSPMGCPAccountScanTypeEnum,
+        status?: GetCSPMGCPAccountStatusEnum,
         limit?: number,
         offset?: number,
         sort?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<RegistrationGCPAccountResponseV1> {
-        const response = await this.getCSPMCGPAccountRaw({ parentType: parentType, ids: ids, scanType: scanType, status: status, limit: limit, offset: offset, sort: sort }, initOverrides);
+        const response = await this.getCSPMGCPAccountRaw({ parentType: parentType, ids: ids, scanType: scanType, status: status, limit: limit, offset: offset, sort: sort }, initOverrides);
         return await response.value();
     }
 
@@ -1589,7 +1523,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
         const response = await this.request(
@@ -1799,6 +1733,59 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
      */
     async getCSPMScanSchedule(cloudPlatform?: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationScanScheduleResponseV1> {
         const response = await this.getCSPMScanScheduleRaw({ cloudPlatform: cloudPlatform }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get list of related cloud event LogScale IDs for a given IOA
+     */
+    async getCloudEventIDsRaw(
+        requestParameters: CspmRegistrationApiGetCloudEventIDsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CdrioamanagerGetCloudEventIDsResponse>> {
+        if (requestParameters["xCSUSERUUID"] == null) {
+            throw new runtime.RequiredError("xCSUSERUUID", 'Required parameter "xCSUSERUUID" was null or undefined when calling getCloudEventIDs().');
+        }
+
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling getCloudEventIDs().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["id"] != null) {
+            queryParameters["id"] = requestParameters["id"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters["xCSUSERUUID"] != null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters["xCSUSERUUID"]);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/detects/queries/cloud-events/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CdrioamanagerGetCloudEventIDsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get list of related cloud event LogScale IDs for a given IOA
+     */
+    async getCloudEventIDs(xCSUSERUUID: string, id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CdrioamanagerGetCloudEventIDsResponse> {
+        const response = await this.getCloudEventIDsRaw({ xCSUSERUUID: xCSUSERUUID, id: id }, initOverrides);
         return await response.value();
     }
 
@@ -2035,7 +2022,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
         const response = await this.request(
@@ -2079,7 +2066,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
         const response = await this.request(
@@ -2129,7 +2116,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
         const response = await this.request(
@@ -2178,7 +2165,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
         const response = await this.request(
@@ -2225,7 +2212,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
         const response = await this.request(
@@ -2269,7 +2256,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
         const response = await this.request(
@@ -2316,7 +2303,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
         const response = await this.request(
@@ -2360,7 +2347,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
         const response = await this.request(
@@ -2404,7 +2391,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
         const response = await this.request(
@@ -2561,49 +2548,6 @@ export type GetCSPMAwsAccountGroupByEnum = (typeof GetCSPMAwsAccountGroupByEnum)
 /**
  * @export
  */
-export const GetCSPMAwsAccountScriptsAttachmentTemplateEnum = {
-    Bash: "aws-bash",
-    Terraform: "aws-terraform",
-} as const;
-export type GetCSPMAwsAccountScriptsAttachmentTemplateEnum = (typeof GetCSPMAwsAccountScriptsAttachmentTemplateEnum)[keyof typeof GetCSPMAwsAccountScriptsAttachmentTemplateEnum];
-/**
- * @export
- */
-export const GetCSPMAwsAccountScriptsAttachmentAccountTypeEnum = {
-    Commercial: "commercial",
-    Gov: "gov",
-} as const;
-export type GetCSPMAwsAccountScriptsAttachmentAccountTypeEnum = (typeof GetCSPMAwsAccountScriptsAttachmentAccountTypeEnum)[keyof typeof GetCSPMAwsAccountScriptsAttachmentAccountTypeEnum];
-/**
- * @export
- */
-export const GetCSPMAwsAccountScriptsAttachmentBehaviorAssessmentEnabledEnum = {
-    True: "true",
-    False: "false",
-} as const;
-export type GetCSPMAwsAccountScriptsAttachmentBehaviorAssessmentEnabledEnum =
-    (typeof GetCSPMAwsAccountScriptsAttachmentBehaviorAssessmentEnabledEnum)[keyof typeof GetCSPMAwsAccountScriptsAttachmentBehaviorAssessmentEnabledEnum];
-/**
- * @export
- */
-export const GetCSPMAwsAccountScriptsAttachmentSensorManagementEnabledEnum = {
-    True: "true",
-    False: "false",
-} as const;
-export type GetCSPMAwsAccountScriptsAttachmentSensorManagementEnabledEnum =
-    (typeof GetCSPMAwsAccountScriptsAttachmentSensorManagementEnabledEnum)[keyof typeof GetCSPMAwsAccountScriptsAttachmentSensorManagementEnabledEnum];
-/**
- * @export
- */
-export const GetCSPMAwsAccountScriptsAttachmentUseExistingCloudtrailEnum = {
-    True: "true",
-    False: "false",
-} as const;
-export type GetCSPMAwsAccountScriptsAttachmentUseExistingCloudtrailEnum =
-    (typeof GetCSPMAwsAccountScriptsAttachmentUseExistingCloudtrailEnum)[keyof typeof GetCSPMAwsAccountScriptsAttachmentUseExistingCloudtrailEnum];
-/**
- * @export
- */
 export const GetCSPMAwsConsoleSetupURLsUseExistingCloudtrailEnum = {
     True: "true",
     False: "false",
@@ -2613,10 +2557,14 @@ export type GetCSPMAwsConsoleSetupURLsUseExistingCloudtrailEnum = (typeof GetCSP
  * @export
  */
 export const GetCSPMAwsConsoleSetupURLsTemplateEnum = {
+    Url: "aws-url",
     IomUrl: "aws-iom-url",
     IoaUrl: "aws-ioa-url",
     SensorManagementUrl: "aws-sensor-management-url",
     DspmUrl: "aws-dspm-url",
+    IdpUrl: "aws-idp-url",
+    ModularCftUrl: "aws-modular-cft-url",
+    ModularCftGovCommercialUrl: "aws-modular-cft-gov-commercial-url",
 } as const;
 export type GetCSPMAwsConsoleSetupURLsTemplateEnum = (typeof GetCSPMAwsConsoleSetupURLsTemplateEnum)[keyof typeof GetCSPMAwsConsoleSetupURLsTemplateEnum];
 /**
@@ -2638,28 +2586,28 @@ export type GetCSPMAzureUserScriptsAttachmentAccountTypeEnum = (typeof GetCSPMAz
 /**
  * @export
  */
-export const GetCSPMCGPAccountParentTypeEnum = {
+export const GetCSPMGCPAccountParentTypeEnum = {
     Folder: "Folder",
     Organization: "Organization",
     Project: "Project",
 } as const;
-export type GetCSPMCGPAccountParentTypeEnum = (typeof GetCSPMCGPAccountParentTypeEnum)[keyof typeof GetCSPMCGPAccountParentTypeEnum];
+export type GetCSPMGCPAccountParentTypeEnum = (typeof GetCSPMGCPAccountParentTypeEnum)[keyof typeof GetCSPMGCPAccountParentTypeEnum];
 /**
  * @export
  */
-export const GetCSPMCGPAccountScanTypeEnum = {
+export const GetCSPMGCPAccountScanTypeEnum = {
     Dry: "dry",
     Full: "full",
 } as const;
-export type GetCSPMCGPAccountScanTypeEnum = (typeof GetCSPMCGPAccountScanTypeEnum)[keyof typeof GetCSPMCGPAccountScanTypeEnum];
+export type GetCSPMGCPAccountScanTypeEnum = (typeof GetCSPMGCPAccountScanTypeEnum)[keyof typeof GetCSPMGCPAccountScanTypeEnum];
 /**
  * @export
  */
-export const GetCSPMCGPAccountStatusEnum = {
+export const GetCSPMGCPAccountStatusEnum = {
     Operational: "operational",
     Provisioned: "provisioned",
 } as const;
-export type GetCSPMCGPAccountStatusEnum = (typeof GetCSPMCGPAccountStatusEnum)[keyof typeof GetCSPMCGPAccountStatusEnum];
+export type GetCSPMGCPAccountStatusEnum = (typeof GetCSPMGCPAccountStatusEnum)[keyof typeof GetCSPMGCPAccountStatusEnum];
 /**
  * @export
  */

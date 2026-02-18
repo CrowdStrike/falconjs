@@ -90,6 +90,12 @@ export interface DomainCIDPolicyAssignments {
     cloudServiceFriendly?: string;
     /**
      *
+     * @type {number}
+     * @memberof DomainCIDPolicyAssignments
+     */
+    cloudServiceId?: number;
+    /**
+     *
      * @type {string}
      * @memberof DomainCIDPolicyAssignments
      */
@@ -124,6 +130,12 @@ export interface DomainCIDPolicyAssignments {
      * @memberof DomainCIDPolicyAssignments
      */
     hitrustBenchmark?: Array<DomainBenchmark>;
+    /**
+     *
+     * @type {boolean}
+     * @memberof DomainCIDPolicyAssignments
+     */
+    isGlobal: boolean;
     /**
      *
      * @type {boolean}
@@ -202,6 +214,7 @@ export interface DomainCIDPolicyAssignments {
  * Check if a given object implements the DomainCIDPolicyAssignments interface.
  */
 export function instanceOfDomainCIDPolicyAssignments(value: object): value is DomainCIDPolicyAssignments {
+    if (!("isGlobal" in value) || value["isGlobal"] === undefined) return false;
     if (!("isRemediable" in value) || value["isRemediable"] === undefined) return false;
     return true;
 }
@@ -225,12 +238,14 @@ export function DomainCIDPolicyAssignmentsFromJSONTyped(json: any, ignoreDiscrim
         cloudProvider: json["cloud_provider"] == null ? undefined : json["cloud_provider"],
         cloudService: json["cloud_service"] == null ? undefined : json["cloud_service"],
         cloudServiceFriendly: json["cloud_service_friendly"] == null ? undefined : json["cloud_service_friendly"],
+        cloudServiceId: json["cloud_service_id"] == null ? undefined : json["cloud_service_id"],
         cloudServiceSubtype: json["cloud_service_subtype"] == null ? undefined : json["cloud_service_subtype"],
         createdAt: json["created_at"] == null ? undefined : new Date(json["created_at"]),
         defaultSeverity: json["default_severity"] == null ? undefined : json["default_severity"],
         fqlPolicy: json["fql_policy"] == null ? undefined : json["fql_policy"],
         hipaaBenchmark: json["hipaa_benchmark"] == null ? undefined : (json["hipaa_benchmark"] as Array<any>).map(DomainBenchmarkFromJSON),
         hitrustBenchmark: json["hitrust_benchmark"] == null ? undefined : (json["hitrust_benchmark"] as Array<any>).map(DomainBenchmarkFromJSON),
+        isGlobal: json["is_global"],
         isRemediable: json["is_remediable"],
         isoBenchmark: json["iso_benchmark"] == null ? undefined : (json["iso_benchmark"] as Array<any>).map(DomainBenchmarkFromJSON),
         name: json["name"] == null ? undefined : json["name"],
@@ -261,12 +276,14 @@ export function DomainCIDPolicyAssignmentsToJSON(value?: DomainCIDPolicyAssignme
         cloud_provider: value["cloudProvider"],
         cloud_service: value["cloudService"],
         cloud_service_friendly: value["cloudServiceFriendly"],
+        cloud_service_id: value["cloudServiceId"],
         cloud_service_subtype: value["cloudServiceSubtype"],
         created_at: value["createdAt"] == null ? undefined : value["createdAt"].toISOString(),
         default_severity: value["defaultSeverity"],
         fql_policy: value["fqlPolicy"],
         hipaa_benchmark: value["hipaaBenchmark"] == null ? undefined : (value["hipaaBenchmark"] as Array<any>).map(DomainBenchmarkToJSON),
         hitrust_benchmark: value["hitrustBenchmark"] == null ? undefined : (value["hitrustBenchmark"] as Array<any>).map(DomainBenchmarkToJSON),
+        is_global: value["isGlobal"],
         is_remediable: value["isRemediable"],
         iso_benchmark: value["isoBenchmark"] == null ? undefined : (value["isoBenchmark"] as Array<any>).map(DomainBenchmarkToJSON),
         name: value["name"],

@@ -28,12 +28,6 @@ import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from
 export interface K8siomsKubernetesIOMFieldValue {
     /**
      *
-     * @type {Array<ModelsAPIFilterResponse>}
-     * @memberof K8siomsKubernetesIOMFieldValue
-     */
-    resources: Array<ModelsAPIFilterResponse>;
-    /**
-     *
      * @type {Array<MsaAPIError>}
      * @memberof K8siomsKubernetesIOMFieldValue
      */
@@ -44,14 +38,20 @@ export interface K8siomsKubernetesIOMFieldValue {
      * @memberof K8siomsKubernetesIOMFieldValue
      */
     meta: MsaMetaInfo;
+    /**
+     *
+     * @type {Array<ModelsAPIFilterResponse>}
+     * @memberof K8siomsKubernetesIOMFieldValue
+     */
+    resources: Array<ModelsAPIFilterResponse>;
 }
 
 /**
  * Check if a given object implements the K8siomsKubernetesIOMFieldValue interface.
  */
 export function instanceOfK8siomsKubernetesIOMFieldValue(value: object): value is K8siomsKubernetesIOMFieldValue {
-    if (!("resources" in value) || value["resources"] === undefined) return false;
     if (!("meta" in value) || value["meta"] === undefined) return false;
+    if (!("resources" in value) || value["resources"] === undefined) return false;
     return true;
 }
 
@@ -64,9 +64,9 @@ export function K8siomsKubernetesIOMFieldValueFromJSONTyped(json: any, ignoreDis
         return json;
     }
     return {
-        resources: (json["resources"] as Array<any>).map(ModelsAPIFilterResponseFromJSON),
         errors: json["errors"] == null ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
+        resources: (json["resources"] as Array<any>).map(ModelsAPIFilterResponseFromJSON),
     };
 }
 
@@ -75,8 +75,8 @@ export function K8siomsKubernetesIOMFieldValueToJSON(value?: K8siomsKubernetesIO
         return value;
     }
     return {
-        resources: (value["resources"] as Array<any>).map(ModelsAPIFilterResponseToJSON),
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
+        resources: (value["resources"] as Array<any>).map(ModelsAPIFilterResponseToJSON),
     };
 }

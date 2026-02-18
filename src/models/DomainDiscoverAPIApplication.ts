@@ -15,12 +15,22 @@
 import { mapValues } from "../runtime";
 import type { DomainDiscoverAPIApplicationHost } from "./DomainDiscoverAPIApplicationHost";
 import { DomainDiscoverAPIApplicationHostFromJSON, DomainDiscoverAPIApplicationHostFromJSONTyped, DomainDiscoverAPIApplicationHostToJSON } from "./DomainDiscoverAPIApplicationHost";
+import type { DomainDiscoverAPIApplicationPackage } from "./DomainDiscoverAPIApplicationPackage";
+import { DomainDiscoverAPIApplicationPackageFromJSON, DomainDiscoverAPIApplicationPackageFromJSONTyped, DomainDiscoverAPIApplicationPackageToJSON } from "./DomainDiscoverAPIApplicationPackage";
+import type { DomainDiscoverAPISuspiciousIndicator } from "./DomainDiscoverAPISuspiciousIndicator";
+import { DomainDiscoverAPISuspiciousIndicatorFromJSON, DomainDiscoverAPISuspiciousIndicatorFromJSONTyped, DomainDiscoverAPISuspiciousIndicatorToJSON } from "./DomainDiscoverAPISuspiciousIndicator";
 import type { DomainDiscoverAPIApplicationBrowserExtension } from "./DomainDiscoverAPIApplicationBrowserExtension";
 import {
     DomainDiscoverAPIApplicationBrowserExtensionFromJSON,
     DomainDiscoverAPIApplicationBrowserExtensionFromJSONTyped,
     DomainDiscoverAPIApplicationBrowserExtensionToJSON,
 } from "./DomainDiscoverAPIApplicationBrowserExtension";
+import type { DomainDiscoverAPIApplicationIDEExtension } from "./DomainDiscoverAPIApplicationIDEExtension";
+import {
+    DomainDiscoverAPIApplicationIDEExtensionFromJSON,
+    DomainDiscoverAPIApplicationIDEExtensionFromJSONTyped,
+    DomainDiscoverAPIApplicationIDEExtensionToJSON,
+} from "./DomainDiscoverAPIApplicationIDEExtension";
 
 /**
  * Represents information about an application.
@@ -53,6 +63,18 @@ export interface DomainDiscoverAPIApplication {
      */
     cid: string;
     /**
+     *
+     * @type {DomainDiscoverAPIApplicationPackage}
+     * @memberof DomainDiscoverAPIApplication
+     */
+    devPackage?: DomainDiscoverAPIApplicationPackage;
+    /**
+     * The unique identifier for the extension.
+     * @type {string}
+     * @memberof DomainDiscoverAPIApplication
+     */
+    extensionId?: string;
+    /**
      * Timestamp when this application was first seen by the cloud.
      * @type {string}
      * @memberof DomainDiscoverAPIApplication
@@ -65,6 +87,12 @@ export interface DomainDiscoverAPIApplication {
      */
     groups?: Array<string>;
     /**
+     * The homepage URL of the application.
+     * @type {string}
+     * @memberof DomainDiscoverAPIApplication
+     */
+    homepage?: string;
+    /**
      *
      * @type {DomainDiscoverAPIApplicationHost}
      * @memberof DomainDiscoverAPIApplication
@@ -76,6 +104,12 @@ export interface DomainDiscoverAPIApplication {
      * @memberof DomainDiscoverAPIApplication
      */
     id: string;
+    /**
+     *
+     * @type {DomainDiscoverAPIApplicationIDEExtension}
+     * @memberof DomainDiscoverAPIApplication
+     */
+    ideExtension?: DomainDiscoverAPIApplicationIDEExtension;
     /**
      * The file paths where the application is installed on the host. Or the locations of the executables.
      * @type {Array<string>}
@@ -95,11 +129,17 @@ export interface DomainDiscoverAPIApplication {
      */
     isNormalized?: boolean;
     /**
-     * Whether or not the application is suspicious
+     * Whether or not the application is suspicious (detection-based for malware)
      * @type {boolean}
      * @memberof DomainDiscoverAPIApplication
      */
     isSuspicious?: boolean;
+    /**
+     * Timestamp when this application was last published.
+     * @type {string}
+     * @memberof DomainDiscoverAPIApplication
+     */
+    lastPublished?: string;
     /**
      * Timestamp when this application was last updated (something changed in the application or in the host data).
      * @type {string}
@@ -155,11 +195,29 @@ export interface DomainDiscoverAPIApplication {
      */
     nameVendorVersion?: string;
     /**
-     * The type of software of the application.
+     * The type of software of the application. Types are application, browser_extension, dev_package, ide_extension
      * @type {string}
      * @memberof DomainDiscoverAPIApplication
      */
     softwareType?: string;
+    /**
+     * The store listing information for the application.
+     * @type {string}
+     * @memberof DomainDiscoverAPIApplication
+     */
+    storeListing?: string;
+    /**
+     * The status of the application in the store listing.
+     * @type {string}
+     * @memberof DomainDiscoverAPIApplication
+     */
+    storeListingStatus?: string;
+    /**
+     * List of security risk indicators for this application
+     * @type {Array<DomainDiscoverAPISuspiciousIndicator>}
+     * @memberof DomainDiscoverAPIApplication
+     */
+    suspiciousIndicators?: Array<DomainDiscoverAPISuspiciousIndicator>;
     /**
      * The name the application's vendor.
      * @type {string}
@@ -202,14 +260,19 @@ export function DomainDiscoverAPIApplicationFromJSONTyped(json: any, ignoreDiscr
         browserExtension: json["browser_extension"] == null ? undefined : DomainDiscoverAPIApplicationBrowserExtensionFromJSON(json["browser_extension"]),
         category: json["category"] == null ? undefined : json["category"],
         cid: json["cid"],
+        devPackage: json["dev_package"] == null ? undefined : DomainDiscoverAPIApplicationPackageFromJSON(json["dev_package"]),
+        extensionId: json["extension_id"] == null ? undefined : json["extension_id"],
         firstSeenTimestamp: json["first_seen_timestamp"] == null ? undefined : json["first_seen_timestamp"],
         groups: json["groups"] == null ? undefined : json["groups"],
+        homepage: json["homepage"] == null ? undefined : json["homepage"],
         host: json["host"] == null ? undefined : DomainDiscoverAPIApplicationHostFromJSON(json["host"]),
         id: json["id"],
+        ideExtension: json["ide_extension"] == null ? undefined : DomainDiscoverAPIApplicationIDEExtensionFromJSON(json["ide_extension"]),
         installationPaths: json["installation_paths"] == null ? undefined : json["installation_paths"],
         installationTimestamp: json["installation_timestamp"] == null ? undefined : json["installation_timestamp"],
         isNormalized: json["is_normalized"] == null ? undefined : json["is_normalized"],
         isSuspicious: json["is_suspicious"] == null ? undefined : json["is_suspicious"],
+        lastPublished: json["last_published"] == null ? undefined : json["last_published"],
         lastUpdatedTimestamp: json["last_updated_timestamp"] == null ? undefined : json["last_updated_timestamp"],
         lastUsedFileHash: json["last_used_file_hash"] == null ? undefined : json["last_used_file_hash"],
         lastUsedFileName: json["last_used_file_name"] == null ? undefined : json["last_used_file_name"],
@@ -220,6 +283,9 @@ export function DomainDiscoverAPIApplicationFromJSONTyped(json: any, ignoreDiscr
         nameVendor: json["name_vendor"] == null ? undefined : json["name_vendor"],
         nameVendorVersion: json["name_vendor_version"] == null ? undefined : json["name_vendor_version"],
         softwareType: json["software_type"] == null ? undefined : json["software_type"],
+        storeListing: json["store_listing"] == null ? undefined : json["store_listing"],
+        storeListingStatus: json["store_listing_status"] == null ? undefined : json["store_listing_status"],
+        suspiciousIndicators: json["suspicious_indicators"] == null ? undefined : (json["suspicious_indicators"] as Array<any>).map(DomainDiscoverAPISuspiciousIndicatorFromJSON),
         vendor: json["vendor"] == null ? undefined : json["vendor"],
         version: json["version"] == null ? undefined : json["version"],
         versioningScheme: json["versioning_scheme"] == null ? undefined : json["versioning_scheme"],
@@ -235,14 +301,19 @@ export function DomainDiscoverAPIApplicationToJSON(value?: DomainDiscoverAPIAppl
         browser_extension: DomainDiscoverAPIApplicationBrowserExtensionToJSON(value["browserExtension"]),
         category: value["category"],
         cid: value["cid"],
+        dev_package: DomainDiscoverAPIApplicationPackageToJSON(value["devPackage"]),
+        extension_id: value["extensionId"],
         first_seen_timestamp: value["firstSeenTimestamp"],
         groups: value["groups"],
+        homepage: value["homepage"],
         host: DomainDiscoverAPIApplicationHostToJSON(value["host"]),
         id: value["id"],
+        ide_extension: DomainDiscoverAPIApplicationIDEExtensionToJSON(value["ideExtension"]),
         installation_paths: value["installationPaths"],
         installation_timestamp: value["installationTimestamp"],
         is_normalized: value["isNormalized"],
         is_suspicious: value["isSuspicious"],
+        last_published: value["lastPublished"],
         last_updated_timestamp: value["lastUpdatedTimestamp"],
         last_used_file_hash: value["lastUsedFileHash"],
         last_used_file_name: value["lastUsedFileName"],
@@ -253,6 +324,9 @@ export function DomainDiscoverAPIApplicationToJSON(value?: DomainDiscoverAPIAppl
         name_vendor: value["nameVendor"],
         name_vendor_version: value["nameVendorVersion"],
         software_type: value["softwareType"],
+        store_listing: value["storeListing"],
+        store_listing_status: value["storeListingStatus"],
+        suspicious_indicators: value["suspiciousIndicators"] == null ? undefined : (value["suspiciousIndicators"] as Array<any>).map(DomainDiscoverAPISuspiciousIndicatorToJSON),
         vendor: value["vendor"],
         version: value["version"],
         versioning_scheme: value["versioningScheme"],

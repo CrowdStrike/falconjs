@@ -24,6 +24,12 @@ export interface DomainDenormalizedAdversaryReference {
      * @type {string}
      * @memberof DomainDenormalizedAdversaryReference
      */
+    animalClassifier?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainDenormalizedAdversaryReference
+     */
     id: string;
     /**
      *
@@ -56,6 +62,7 @@ export function DomainDenormalizedAdversaryReferenceFromJSONTyped(json: any, ign
         return json;
     }
     return {
+        animalClassifier: json["animal_classifier"] == null ? undefined : json["animal_classifier"],
         id: json["id"],
         name: json["name"] == null ? undefined : json["name"],
         type: json["type"] == null ? undefined : json["type"],
@@ -67,6 +74,7 @@ export function DomainDenormalizedAdversaryReferenceToJSON(value?: DomainDenorma
         return value;
     }
     return {
+        animal_classifier: value["animalClassifier"],
         id: value["id"],
         name: value["name"],
         type: value["type"],

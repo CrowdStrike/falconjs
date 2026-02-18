@@ -15,8 +15,6 @@
 import { mapValues } from "../runtime";
 import type { TypesActionRunEventData } from "./TypesActionRunEventData";
 import { TypesActionRunEventDataFromJSON, TypesActionRunEventDataFromJSONTyped, TypesActionRunEventDataToJSON } from "./TypesActionRunEventData";
-import type { TypesTimestamp } from "./TypesTimestamp";
-import { TypesTimestampFromJSON, TypesTimestampFromJSONTyped, TypesTimestampToJSON } from "./TypesTimestamp";
 
 /**
  *
@@ -24,12 +22,6 @@ import { TypesTimestampFromJSON, TypesTimestampFromJSONTyped, TypesTimestampToJS
  * @interface TypesActionRunEvent
  */
 export interface TypesActionRunEvent {
-    /**
-     *
-     * @type {{ [key: string]: string; }}
-     * @memberof TypesActionRunEvent
-     */
-    flatData: { [key: string]: string };
     /**
      *
      * @type {string}
@@ -44,16 +36,22 @@ export interface TypesActionRunEvent {
     data?: TypesActionRunEventData;
     /**
      *
+     * @type {{ [key: string]: string; }}
+     * @memberof TypesActionRunEvent
+     */
+    flatData?: { [key: string]: string };
+    /**
+     *
      * @type {Array<string>}
      * @memberof TypesActionRunEvent
      */
     flatFields?: Array<string>;
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof TypesActionRunEvent
      */
-    id?: number;
+    id?: string;
     /**
      *
      * @type {string}
@@ -74,10 +72,10 @@ export interface TypesActionRunEvent {
     objectType?: string;
     /**
      *
-     * @type {TypesTimestamp}
+     * @type {string}
      * @memberof TypesActionRunEvent
      */
-    sendTime?: TypesTimestamp;
+    sendTime?: string;
     /**
      *
      * @type {number}
@@ -90,7 +88,6 @@ export interface TypesActionRunEvent {
  * Check if a given object implements the TypesActionRunEvent interface.
  */
 export function instanceOfTypesActionRunEvent(value: object): value is TypesActionRunEvent {
-    if (!("flatData" in value) || value["flatData"] === undefined) return false;
     return true;
 }
 
@@ -103,15 +100,15 @@ export function TypesActionRunEventFromJSONTyped(json: any, ignoreDiscriminator:
         return json;
     }
     return {
-        flatData: json["FlatData"],
-        additionalData: json["additional_data"] == null ? undefined : json["additional_data"],
+        additionalData: json["additionalData"] == null ? undefined : json["additionalData"],
         data: json["data"] == null ? undefined : TypesActionRunEventDataFromJSON(json["data"]),
-        flatFields: json["flat_fields"] == null ? undefined : json["flat_fields"],
+        flatData: json["flatData"] == null ? undefined : json["flatData"],
+        flatFields: json["flatFields"] == null ? undefined : json["flatFields"],
         id: json["id"] == null ? undefined : json["id"],
         message: json["message"] == null ? undefined : json["message"],
         object: json["object"] == null ? undefined : json["object"],
-        objectType: json["object_type"] == null ? undefined : json["object_type"],
-        sendTime: json["send_time"] == null ? undefined : TypesTimestampFromJSON(json["send_time"]),
+        objectType: json["objectType"] == null ? undefined : json["objectType"],
+        sendTime: json["sendTime"] == null ? undefined : json["sendTime"],
         status: json["status"] == null ? undefined : json["status"],
     };
 }
@@ -121,15 +118,15 @@ export function TypesActionRunEventToJSON(value?: TypesActionRunEvent | null): a
         return value;
     }
     return {
-        FlatData: value["flatData"],
-        additional_data: value["additionalData"],
+        additionalData: value["additionalData"],
         data: TypesActionRunEventDataToJSON(value["data"]),
-        flat_fields: value["flatFields"],
+        flatData: value["flatData"],
+        flatFields: value["flatFields"],
         id: value["id"],
         message: value["message"],
         object: value["object"],
-        object_type: value["objectType"],
-        send_time: TypesTimestampToJSON(value["sendTime"]),
+        objectType: value["objectType"],
+        sendTime: value["sendTime"],
         status: value["status"],
     };
 }

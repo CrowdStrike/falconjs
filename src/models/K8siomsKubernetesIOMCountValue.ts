@@ -28,12 +28,6 @@ import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from
 export interface K8siomsKubernetesIOMCountValue {
     /**
      *
-     * @type {Array<CommonCountAsResource>}
-     * @memberof K8siomsKubernetesIOMCountValue
-     */
-    resources: Array<CommonCountAsResource>;
-    /**
-     *
      * @type {Array<MsaAPIError>}
      * @memberof K8siomsKubernetesIOMCountValue
      */
@@ -44,14 +38,20 @@ export interface K8siomsKubernetesIOMCountValue {
      * @memberof K8siomsKubernetesIOMCountValue
      */
     meta: MsaMetaInfo;
+    /**
+     *
+     * @type {Array<CommonCountAsResource>}
+     * @memberof K8siomsKubernetesIOMCountValue
+     */
+    resources: Array<CommonCountAsResource>;
 }
 
 /**
  * Check if a given object implements the K8siomsKubernetesIOMCountValue interface.
  */
 export function instanceOfK8siomsKubernetesIOMCountValue(value: object): value is K8siomsKubernetesIOMCountValue {
-    if (!("resources" in value) || value["resources"] === undefined) return false;
     if (!("meta" in value) || value["meta"] === undefined) return false;
+    if (!("resources" in value) || value["resources"] === undefined) return false;
     return true;
 }
 
@@ -64,9 +64,9 @@ export function K8siomsKubernetesIOMCountValueFromJSONTyped(json: any, ignoreDis
         return json;
     }
     return {
-        resources: (json["resources"] as Array<any>).map(CommonCountAsResourceFromJSON),
         errors: json["errors"] == null ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
+        resources: (json["resources"] as Array<any>).map(CommonCountAsResourceFromJSON),
     };
 }
 
@@ -75,8 +75,8 @@ export function K8siomsKubernetesIOMCountValueToJSON(value?: K8siomsKubernetesIO
         return value;
     }
     return {
-        resources: (value["resources"] as Array<any>).map(CommonCountAsResourceToJSON),
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
+        resources: (value["resources"] as Array<any>).map(CommonCountAsResourceToJSON),
     };
 }

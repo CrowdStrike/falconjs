@@ -39,6 +39,18 @@ export interface InternalSensorStatus {
     deviceId: string;
     /**
      *
+     * @type {string}
+     * @memberof InternalSensorStatus
+     */
+    directoryAuditing?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof InternalSensorStatus
+     */
+    groupPolicyObject?: string;
+    /**
+     *
      * @type {number}
      * @memberof InternalSensorStatus
      */
@@ -91,6 +103,12 @@ export interface InternalSensorStatus {
      * @memberof InternalSensorStatus
      */
     machineDomain?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof InternalSensorStatus
+     */
+    newEnforcementMode?: string;
     /**
      *
      * @type {string}
@@ -156,6 +174,8 @@ export function InternalSensorStatusFromJSONTyped(json: any, ignoreDiscriminator
         agentVersion: json["agent_version"] == null ? undefined : json["agent_version"],
         cid: json["cid"],
         deviceId: json["device_id"],
+        directoryAuditing: json["directory_auditing"] == null ? undefined : json["directory_auditing"],
+        groupPolicyObject: json["group_policy_object"] == null ? undefined : json["group_policy_object"],
         heartbeatTime: json["heartbeat_time"] == null ? undefined : json["heartbeat_time"],
         hostname: json["hostname"] == null ? undefined : json["hostname"],
         idpPolicyId: json["idp_policy_id"] == null ? undefined : json["idp_policy_id"],
@@ -165,6 +185,7 @@ export function InternalSensorStatusFromJSONTyped(json: any, ignoreDiscriminator
         ldapsConfig: json["ldaps_config"] == null ? undefined : json["ldaps_config"],
         localIp: json["local_ip"] == null ? undefined : json["local_ip"],
         machineDomain: json["machine_domain"] == null ? undefined : json["machine_domain"],
+        newEnforcementMode: json["new_enforcement_mode"] == null ? undefined : json["new_enforcement_mode"],
         ntlmConfig: json["ntlm_config"] == null ? undefined : json["ntlm_config"],
         osVersion: json["os_version"] == null ? undefined : json["os_version"],
         rdpToDcConfig: json["rdp_to_dc_config"] == null ? undefined : json["rdp_to_dc_config"],
@@ -183,6 +204,8 @@ export function InternalSensorStatusToJSON(value?: InternalSensorStatus | null):
         agent_version: value["agentVersion"],
         cid: value["cid"],
         device_id: value["deviceId"],
+        directory_auditing: value["directoryAuditing"],
+        group_policy_object: value["groupPolicyObject"],
         heartbeat_time: value["heartbeatTime"],
         hostname: value["hostname"],
         idp_policy_id: value["idpPolicyId"],
@@ -192,6 +215,7 @@ export function InternalSensorStatusToJSON(value?: InternalSensorStatus | null):
         ldaps_config: value["ldapsConfig"],
         local_ip: value["localIp"],
         machine_domain: value["machineDomain"],
+        new_enforcement_mode: value["newEnforcementMode"],
         ntlm_config: value["ntlmConfig"],
         os_version: value["osVersion"],
         rdp_to_dc_config: value["rdpToDcConfig"],

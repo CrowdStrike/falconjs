@@ -13,6 +13,9 @@
  */
 
 import { mapValues } from "../runtime";
+import type { RegexpRegexp } from "./RegexpRegexp";
+import { RegexpRegexpFromJSON, RegexpRegexpFromJSONTyped, RegexpRegexpToJSON } from "./RegexpRegexp";
+
 /**
  *
  * @export
@@ -24,21 +27,28 @@ export interface DomainPermission {
      * @type {string}
      * @memberof DomainPermission
      */
-    name: string;
+    action: string;
     /**
      *
      * @type {string}
      * @memberof DomainPermission
      */
-    status: string;
+    resource: string;
+    /**
+     *
+     * @type {RegexpRegexp}
+     * @memberof DomainPermission
+     */
+    resourceRegex: RegexpRegexp;
 }
 
 /**
  * Check if a given object implements the DomainPermission interface.
  */
 export function instanceOfDomainPermission(value: object): value is DomainPermission {
-    if (!("name" in value) || value["name"] === undefined) return false;
-    if (!("status" in value) || value["status"] === undefined) return false;
+    if (!("action" in value) || value["action"] === undefined) return false;
+    if (!("resource" in value) || value["resource"] === undefined) return false;
+    if (!("resourceRegex" in value) || value["resourceRegex"] === undefined) return false;
     return true;
 }
 
@@ -51,8 +61,9 @@ export function DomainPermissionFromJSONTyped(json: any, ignoreDiscriminator: bo
         return json;
     }
     return {
-        name: json["name"],
-        status: json["status"],
+        action: json["action"],
+        resource: json["resource"],
+        resourceRegex: RegexpRegexpFromJSON(json["resourceRegex"]),
     };
 }
 
@@ -61,7 +72,8 @@ export function DomainPermissionToJSON(value?: DomainPermission | null): any {
         return value;
     }
     return {
-        name: value["name"],
-        status: value["status"],
+        action: value["action"],
+        resource: value["resource"],
+        resourceRegex: RegexpRegexpToJSON(value["resourceRegex"]),
     };
 }

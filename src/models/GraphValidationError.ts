@@ -73,6 +73,12 @@ export interface GraphValidationError {
      * @memberof GraphValidationError
      */
     resourceId?: string;
+    /**
+     * Undefined Reference  for property which is now undefined
+     * @type {string}
+     * @memberof GraphValidationError
+     */
+    undefinedReference?: string;
 }
 
 /**
@@ -101,6 +107,7 @@ export function GraphValidationErrorFromJSONTyped(json: any, ignoreDiscriminator
         parentNodeId: json["parent_node_id"] == null ? undefined : json["parent_node_id"],
         property: json["property"] == null ? undefined : json["property"],
         resourceId: json["resource_id"] == null ? undefined : json["resource_id"],
+        undefinedReference: json["undefined_reference"] == null ? undefined : json["undefined_reference"],
     };
 }
 
@@ -118,5 +125,6 @@ export function GraphValidationErrorToJSON(value?: GraphValidationError | null):
         parent_node_id: value["parentNodeId"],
         property: value["property"],
         resource_id: value["resourceId"],
+        undefined_reference: value["undefinedReference"],
     };
 }

@@ -13,8 +13,8 @@
  */
 
 import { mapValues } from "../runtime";
-import type { DomainCondition } from "./DomainCondition";
-import { DomainConditionFromJSON, DomainConditionFromJSONTyped, DomainConditionToJSON } from "./DomainCondition";
+import type { StatemgmtCondition } from "./StatemgmtCondition";
+import { StatemgmtConditionFromJSON, StatemgmtConditionFromJSONTyped, StatemgmtConditionToJSON } from "./StatemgmtCondition";
 
 /**
  *
@@ -42,10 +42,10 @@ export interface RegistrationGCPServiceAccountExtV1 {
     projectId?: string;
     /**
      *
-     * @type {Array<DomainCondition>}
+     * @type {Array<StatemgmtCondition>}
      * @memberof RegistrationGCPServiceAccountExtV1
      */
-    serviceAccountConditions?: Array<DomainCondition>;
+    serviceAccountConditions?: Array<StatemgmtCondition>;
     /**
      *
      * @type {number}
@@ -73,7 +73,7 @@ export function RegistrationGCPServiceAccountExtV1FromJSONTyped(json: any, ignor
         clientEmail: json["client_email"] == null ? undefined : json["client_email"],
         clientId: json["client_id"] == null ? undefined : json["client_id"],
         projectId: json["project_id"] == null ? undefined : json["project_id"],
-        serviceAccountConditions: json["service_account_conditions"] == null ? undefined : (json["service_account_conditions"] as Array<any>).map(DomainConditionFromJSON),
+        serviceAccountConditions: json["service_account_conditions"] == null ? undefined : (json["service_account_conditions"] as Array<any>).map(StatemgmtConditionFromJSON),
         serviceAccountId: json["service_account_id"] == null ? undefined : json["service_account_id"],
     };
 }
@@ -86,7 +86,7 @@ export function RegistrationGCPServiceAccountExtV1ToJSON(value?: RegistrationGCP
         client_email: value["clientEmail"],
         client_id: value["clientId"],
         project_id: value["projectId"],
-        service_account_conditions: value["serviceAccountConditions"] == null ? undefined : (value["serviceAccountConditions"] as Array<any>).map(DomainConditionToJSON),
+        service_account_conditions: value["serviceAccountConditions"] == null ? undefined : (value["serviceAccountConditions"] as Array<any>).map(StatemgmtConditionToJSON),
         service_account_id: value["serviceAccountId"],
     };
 }

@@ -69,6 +69,12 @@ export interface ModelsAPIKubernetesIOM {
     clusterName: string;
     /**
      *
+     * @type {boolean}
+     * @memberof ModelsAPIKubernetesIOM
+     */
+    containersImpactedAiRelated?: boolean;
+    /**
+     *
      * @type {string}
      * @memberof ModelsAPIKubernetesIOM
      */
@@ -79,6 +85,12 @@ export interface ModelsAPIKubernetesIOM {
      * @memberof ModelsAPIKubernetesIOM
      */
     containersImpactedIds: Array<string>;
+    /**
+     *
+     * @type {string}
+     * @memberof ModelsAPIKubernetesIOM
+     */
+    customRegoUuid?: string;
     /**
      *
      * @type {string}
@@ -363,8 +375,10 @@ export function ModelsAPIKubernetesIOMFromJSONTyped(json: any, ignoreDiscriminat
         cisId: json["cis_id"],
         clusterId: json["cluster_id"],
         clusterName: json["cluster_name"],
+        containersImpactedAiRelated: json["containers_impacted_ai_related"] == null ? undefined : json["containers_impacted_ai_related"],
         containersImpactedCount: json["containers_impacted_count"],
         containersImpactedIds: json["containers_impacted_ids"],
+        customRegoUuid: json["custom_rego_uuid"] == null ? undefined : json["custom_rego_uuid"],
         description: json["description"],
         detectTimestamp: json["detect_timestamp"],
         detectionId: json["detection_id"],
@@ -420,8 +434,10 @@ export function ModelsAPIKubernetesIOMToJSON(value?: ModelsAPIKubernetesIOM | nu
         cis_id: value["cisId"],
         cluster_id: value["clusterId"],
         cluster_name: value["clusterName"],
+        containers_impacted_ai_related: value["containersImpactedAiRelated"],
         containers_impacted_count: value["containersImpactedCount"],
         containers_impacted_ids: value["containersImpactedIds"],
+        custom_rego_uuid: value["customRegoUuid"],
         description: value["description"],
         detect_timestamp: value["detectTimestamp"],
         detection_id: value["detectionId"],

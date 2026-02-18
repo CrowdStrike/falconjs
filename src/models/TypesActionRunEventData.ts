@@ -160,12 +160,12 @@ export function TypesActionRunEventDataFromJSONTyped(json: any, ignoreDiscrimina
         return json;
     }
     return {
-        additionalInfo: json["additional_info"] == null ? undefined : json["additional_info"],
+        additionalInfo: json["additionalInfo"] == null ? undefined : json["additionalInfo"],
         aws: json["aws"] == null ? undefined : TypesAWSMetadataFromJSON(json["aws"]),
         azureSite: json["azureSite"] == null ? undefined : TypesAzureSiteMetadataFromJSON(json["azureSite"]),
         azureVm: json["azureVm"] == null ? undefined : TypesAzureVmMetadataFromJSON(json["azureVm"]),
-        cloudFunction: json["cloud_function"] == null ? undefined : TypesCloudFunctionMetadataFromJSON(json["cloud_function"]),
-        crowdstrikeCloudSecurity: json["crowdstrike_cloud_security"] == null ? undefined : TypesCrowdStrikeCloudSecurityMetadataFromJSON(json["crowdstrike_cloud_security"]),
+        cloudFunction: json["cloudFunction"] == null ? undefined : TypesCloudFunctionMetadataFromJSON(json["cloudFunction"]),
+        crowdstrikeCloudSecurity: json["crowdstrikeCloudSecurity"] == null ? undefined : TypesCrowdStrikeCloudSecurityMetadataFromJSON(json["crowdstrikeCloudSecurity"]),
         ec2: json["ec2"] == null ? undefined : TypesEC2MetadataFromJSON(json["ec2"]),
         ecs: json["ecs"] == null ? undefined : TypesECSMetadataFromJSON(json["ecs"]),
         gcp: json["gcp"] == null ? undefined : TypesGCPMetadataFromJSON(json["gcp"]),
@@ -183,12 +183,12 @@ export function TypesActionRunEventDataToJSON(value?: TypesActionRunEventData | 
         return value;
     }
     return {
-        additional_info: value["additionalInfo"],
+        additionalInfo: value["additionalInfo"],
         aws: TypesAWSMetadataToJSON(value["aws"]),
         azureSite: TypesAzureSiteMetadataToJSON(value["azureSite"]),
         azureVm: TypesAzureVmMetadataToJSON(value["azureVm"]),
-        cloud_function: TypesCloudFunctionMetadataToJSON(value["cloudFunction"]),
-        crowdstrike_cloud_security: TypesCrowdStrikeCloudSecurityMetadataToJSON(value["crowdstrikeCloudSecurity"]),
+        cloudFunction: TypesCloudFunctionMetadataToJSON(value["cloudFunction"]),
+        crowdstrikeCloudSecurity: TypesCrowdStrikeCloudSecurityMetadataToJSON(value["crowdstrikeCloudSecurity"]),
         ec2: TypesEC2MetadataToJSON(value["ec2"]),
         ecs: TypesECSMetadataToJSON(value["ecs"]),
         gcp: TypesGCPMetadataToJSON(value["gcp"]),

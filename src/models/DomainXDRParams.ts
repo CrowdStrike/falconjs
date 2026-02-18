@@ -13,6 +13,11 @@
  */
 
 import { mapValues } from "../runtime";
+import type { DomainNotifications } from "./DomainNotifications";
+import { DomainNotificationsFromJSON, DomainNotificationsFromJSONTyped, DomainNotificationsToJSON } from "./DomainNotifications";
+import type { DomainMitreAttackMapping } from "./DomainMitreAttackMapping";
+import { DomainMitreAttackMappingFromJSON, DomainMitreAttackMappingFromJSONTyped, DomainMitreAttackMappingToJSON } from "./DomainMitreAttackMapping";
+
 /**
  *
  * @export
@@ -42,6 +47,12 @@ export interface DomainXDRParams {
      * @type {string}
      * @memberof DomainXDRParams
      */
+    caseTemplateId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainXDRParams
+     */
     comment: string;
     /**
      *
@@ -51,10 +62,34 @@ export interface DomainXDRParams {
     executionOffset: string;
     /**
      *
+     * @type {Array<DomainNotifications>}
+     * @memberof DomainXDRParams
+     */
+    guardrailNotifications?: Array<DomainNotifications>;
+    /**
+     *
+     * @type {Array<DomainMitreAttackMapping>}
+     * @memberof DomainXDRParams
+     */
+    mitreAttack?: Array<DomainMitreAttackMapping>;
+    /**
+     *
      * @type {string}
      * @memberof DomainXDRParams
      */
     origin: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainXDRParams
+     */
+    ruleId: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainXDRParams
+     */
+    ruleVersionId: string;
     /**
      *
      * @type {number}
@@ -96,6 +131,12 @@ export interface DomainXDRParams {
      * @type {string}
      * @memberof DomainXDRParams
      */
+    triggerMode: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainXDRParams
+     */
     type: string;
 }
 
@@ -109,12 +150,15 @@ export function instanceOfDomainXDRParams(value: object): value is DomainXDRPara
     if (!("comment" in value) || value["comment"] === undefined) return false;
     if (!("executionOffset" in value) || value["executionOffset"] === undefined) return false;
     if (!("origin" in value) || value["origin"] === undefined) return false;
+    if (!("ruleId" in value) || value["ruleId"] === undefined) return false;
+    if (!("ruleVersionId" in value) || value["ruleVersionId"] === undefined) return false;
     if (!("severity" in value) || value["severity"] === undefined) return false;
     if (!("status" in value) || value["status"] === undefined) return false;
     if (!("tactic" in value) || value["tactic"] === undefined) return false;
     if (!("tags" in value) || value["tags"] === undefined) return false;
     if (!("technique" in value) || value["technique"] === undefined) return false;
     if (!("templateId" in value) || value["templateId"] === undefined) return false;
+    if (!("triggerMode" in value) || value["triggerMode"] === undefined) return false;
     if (!("type" in value) || value["type"] === undefined) return false;
     return true;
 }
@@ -131,15 +175,21 @@ export function DomainXDRParamsFromJSONTyped(json: any, ignoreDiscriminator: boo
         assignTo: json["assign_to"],
         assignToUuid: json["assign_to_uuid"],
         author: json["author"],
+        caseTemplateId: json["case_template_id"] == null ? undefined : json["case_template_id"],
         comment: json["comment"],
         executionOffset: json["execution_offset"],
+        guardrailNotifications: json["guardrail_notifications"] == null ? undefined : (json["guardrail_notifications"] as Array<any>).map(DomainNotificationsFromJSON),
+        mitreAttack: json["mitre_attack"] == null ? undefined : (json["mitre_attack"] as Array<any>).map(DomainMitreAttackMappingFromJSON),
         origin: json["origin"],
+        ruleId: json["rule_id"],
+        ruleVersionId: json["rule_version_id"],
         severity: json["severity"],
         status: json["status"],
         tactic: json["tactic"],
         tags: json["tags"],
         technique: json["technique"],
         templateId: json["template_id"],
+        triggerMode: json["trigger_mode"],
         type: json["type"],
     };
 }
@@ -152,15 +202,21 @@ export function DomainXDRParamsToJSON(value?: DomainXDRParams | null): any {
         assign_to: value["assignTo"],
         assign_to_uuid: value["assignToUuid"],
         author: value["author"],
+        case_template_id: value["caseTemplateId"],
         comment: value["comment"],
         execution_offset: value["executionOffset"],
+        guardrail_notifications: value["guardrailNotifications"] == null ? undefined : (value["guardrailNotifications"] as Array<any>).map(DomainNotificationsToJSON),
+        mitre_attack: value["mitreAttack"] == null ? undefined : (value["mitreAttack"] as Array<any>).map(DomainMitreAttackMappingToJSON),
         origin: value["origin"],
+        rule_id: value["ruleId"],
+        rule_version_id: value["ruleVersionId"],
         severity: value["severity"],
         status: value["status"],
         tactic: value["tactic"],
         tags: value["tags"],
         technique: value["technique"],
         template_id: value["templateId"],
+        trigger_mode: value["triggerMode"],
         type: value["type"],
     };
 }

@@ -28,12 +28,6 @@ import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from
 export interface DriftindicatorsDriftIndicatorsFieldValue {
     /**
      *
-     * @type {Array<ModelsAPIFilterResponse>}
-     * @memberof DriftindicatorsDriftIndicatorsFieldValue
-     */
-    resources: Array<ModelsAPIFilterResponse>;
-    /**
-     *
      * @type {Array<MsaAPIError>}
      * @memberof DriftindicatorsDriftIndicatorsFieldValue
      */
@@ -44,14 +38,20 @@ export interface DriftindicatorsDriftIndicatorsFieldValue {
      * @memberof DriftindicatorsDriftIndicatorsFieldValue
      */
     meta: MsaMetaInfo;
+    /**
+     *
+     * @type {Array<ModelsAPIFilterResponse>}
+     * @memberof DriftindicatorsDriftIndicatorsFieldValue
+     */
+    resources: Array<ModelsAPIFilterResponse>;
 }
 
 /**
  * Check if a given object implements the DriftindicatorsDriftIndicatorsFieldValue interface.
  */
 export function instanceOfDriftindicatorsDriftIndicatorsFieldValue(value: object): value is DriftindicatorsDriftIndicatorsFieldValue {
-    if (!("resources" in value) || value["resources"] === undefined) return false;
     if (!("meta" in value) || value["meta"] === undefined) return false;
+    if (!("resources" in value) || value["resources"] === undefined) return false;
     return true;
 }
 
@@ -64,9 +64,9 @@ export function DriftindicatorsDriftIndicatorsFieldValueFromJSONTyped(json: any,
         return json;
     }
     return {
-        resources: (json["resources"] as Array<any>).map(ModelsAPIFilterResponseFromJSON),
         errors: json["errors"] == null ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
+        resources: (json["resources"] as Array<any>).map(ModelsAPIFilterResponseFromJSON),
     };
 }
 
@@ -75,8 +75,8 @@ export function DriftindicatorsDriftIndicatorsFieldValueToJSON(value?: Driftindi
         return value;
     }
     return {
-        resources: (value["resources"] as Array<any>).map(ModelsAPIFilterResponseToJSON),
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
+        resources: (value["resources"] as Array<any>).map(ModelsAPIFilterResponseToJSON),
     };
 }

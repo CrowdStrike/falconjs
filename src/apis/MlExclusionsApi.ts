@@ -13,18 +13,40 @@
  */
 
 import * as runtime from "../runtime";
-import type { ExclusionsCreateReqV1, ExclusionsRespV1, MsaErrorsOnly, MsaQueryResponse, MsaReplyMetaOnly, SvExclusionsUpdateReqV1 } from "../models/index";
+import type {
+    DomainExclusionUpdateReqV2,
+    DomainExclusionsCreateReqV2,
+    DomainExclusionsReportRequest,
+    ExclusionsCreateReqV1,
+    ExclusionsRespV1,
+    MsaAggregateQueryRequest,
+    MsaReplyMetaOnly,
+    MsaspecAction,
+    MsaspecQueryResponse,
+    MsaspecResponseFields,
+    SvExclusionsUpdateReqV1,
+} from "../models/index";
 import {
+    DomainExclusionUpdateReqV2FromJSON,
+    DomainExclusionUpdateReqV2ToJSON,
+    DomainExclusionsCreateReqV2FromJSON,
+    DomainExclusionsCreateReqV2ToJSON,
+    DomainExclusionsReportRequestFromJSON,
+    DomainExclusionsReportRequestToJSON,
     ExclusionsCreateReqV1FromJSON,
     ExclusionsCreateReqV1ToJSON,
     ExclusionsRespV1FromJSON,
     ExclusionsRespV1ToJSON,
-    MsaErrorsOnlyFromJSON,
-    MsaErrorsOnlyToJSON,
-    MsaQueryResponseFromJSON,
-    MsaQueryResponseToJSON,
+    MsaAggregateQueryRequestFromJSON,
+    MsaAggregateQueryRequestToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
+    MsaspecActionFromJSON,
+    MsaspecActionToJSON,
+    MsaspecQueryResponseFromJSON,
+    MsaspecQueryResponseToJSON,
+    MsaspecResponseFieldsFromJSON,
+    MsaspecResponseFieldsToJSON,
     SvExclusionsUpdateReqV1FromJSON,
     SvExclusionsUpdateReqV1ToJSON,
 } from "../models/index";
@@ -36,6 +58,43 @@ export interface MlExclusionsApiCreateMLExclusionsV1Request {
 export interface MlExclusionsApiDeleteMLExclusionsV1Request {
     ids: Array<string>;
     comment?: string;
+}
+
+export interface MlExclusionsApiExclusionsAggregatesV2Request {
+    body: MsaAggregateQueryRequest;
+}
+
+export interface MlExclusionsApiExclusionsCreateV2Request {
+    body: DomainExclusionsCreateReqV2;
+}
+
+export interface MlExclusionsApiExclusionsDeleteV2Request {
+    ids: Array<string>;
+    comment?: string;
+}
+
+export interface MlExclusionsApiExclusionsGetReportsV2Request {
+    body: DomainExclusionsReportRequest;
+}
+
+export interface MlExclusionsApiExclusionsGetV2Request {
+    ids: Array<string>;
+}
+
+export interface MlExclusionsApiExclusionsPerformActionV2Request {
+    actionName: ExclusionsPerformActionV2ActionNameEnum;
+    body: MsaspecAction;
+}
+
+export interface MlExclusionsApiExclusionsSearchV2Request {
+    filter?: string;
+    offset?: number;
+    limit?: number;
+    sort?: ExclusionsSearchV2SortEnum;
+}
+
+export interface MlExclusionsApiExclusionsUpdateV2Request {
+    body: DomainExclusionUpdateReqV2;
 }
 
 export interface MlExclusionsApiGetMLExclusionsV1Request {
@@ -76,7 +135,7 @@ export class MlExclusionsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:write"]);
         }
 
         const response = await this.request(
@@ -107,7 +166,7 @@ export class MlExclusionsApi extends runtime.BaseAPI {
     async deleteMLExclusionsV1Raw(
         requestParameters: MlExclusionsApiDeleteMLExclusionsV1Request,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ExclusionsRespV1>> {
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteMLExclusionsV1().');
         }
@@ -126,7 +185,7 @@ export class MlExclusionsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:write"]);
         }
 
         const response = await this.request(
@@ -139,15 +198,394 @@ export class MlExclusionsApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ExclusionsRespV1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
 
     /**
      * Delete the ML exclusions by id
      */
-    async deleteMLExclusionsV1(ids: Array<string>, comment?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ExclusionsRespV1> {
+    async deleteMLExclusionsV1(ids: Array<string>, comment?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
         const response = await this.deleteMLExclusionsV1Raw({ ids: ids, comment: comment }, initOverrides);
         return await response.value();
+    }
+
+    /**
+     * Get exclusion aggregates as specified via json in request body.
+     */
+    async exclusionsAggregatesV2Raw(requestParameters: MlExclusionsApiExclusionsAggregatesV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling exclusionsAggregatesV2().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/exclusions/aggregates/exclusions/GET/v2`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: MsaAggregateQueryRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Get exclusion aggregates as specified via json in request body.
+     */
+    async exclusionsAggregatesV2(body: MsaAggregateQueryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.exclusionsAggregatesV2Raw({ body: body }, initOverrides);
+    }
+
+    /**
+     * Create the exclusions, with ancestor fields.
+     */
+    async exclusionsCreateV2Raw(requestParameters: MlExclusionsApiExclusionsCreateV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling exclusionsCreateV2().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/exclusions/entities/exclusions/v2`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: DomainExclusionsCreateReqV2ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Create the exclusions, with ancestor fields.
+     */
+    async exclusionsCreateV2(body: DomainExclusionsCreateReqV2, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.exclusionsCreateV2Raw({ body: body }, initOverrides);
+    }
+
+    /**
+     * Delete the exclusions by id, with ancestor fields.
+     */
+    async exclusionsDeleteV2Raw(requestParameters: MlExclusionsApiExclusionsDeleteV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling exclusionsDeleteV2().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        if (requestParameters["comment"] != null) {
+            queryParameters["comment"] = requestParameters["comment"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/exclusions/entities/exclusions/v2`,
+                method: "DELETE",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete the exclusions by id, with ancestor fields.
+     */
+    async exclusionsDeleteV2(ids: Array<string>, comment?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.exclusionsDeleteV2Raw({ ids: ids, comment: comment }, initOverrides);
+    }
+
+    /**
+     * Get all exclusions.
+     */
+    async exclusionsGetAllV2Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/exclusions/entities/all-exclusions/v2`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Get all exclusions.
+     */
+    async exclusionsGetAllV2(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.exclusionsGetAllV2Raw(initOverrides);
+    }
+
+    /**
+     * Create a report of ML exclusions scoped by the given filters
+     */
+    async exclusionsGetReportsV2Raw(requestParameters: MlExclusionsApiExclusionsGetReportsV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling exclusionsGetReportsV2().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/exclusions/entities/exclusions/reports/v2`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: DomainExclusionsReportRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Create a report of ML exclusions scoped by the given filters
+     */
+    async exclusionsGetReportsV2(body: DomainExclusionsReportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.exclusionsGetReportsV2Raw({ body: body }, initOverrides);
+    }
+
+    /**
+     * Get the exclusions by id, with ancestor fields.
+     */
+    async exclusionsGetV2Raw(requestParameters: MlExclusionsApiExclusionsGetV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling exclusionsGetV2().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/exclusions/entities/exclusions/v2`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Get the exclusions by id, with ancestor fields.
+     */
+    async exclusionsGetV2(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.exclusionsGetV2Raw({ ids: ids }, initOverrides);
+    }
+
+    /**
+     * Actions used to manipulate the content of exclusions, with ancestor fields.
+     */
+    async exclusionsPerformActionV2Raw(
+        requestParameters: MlExclusionsApiExclusionsPerformActionV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters["actionName"] == null) {
+            throw new runtime.RequiredError("actionName", 'Required parameter "actionName" was null or undefined when calling exclusionsPerformActionV2().');
+        }
+
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling exclusionsPerformActionV2().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["actionName"] != null) {
+            queryParameters["action_name"] = requestParameters["actionName"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/exclusions/entities/exclusion-actions/v2`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: MsaspecActionToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Actions used to manipulate the content of exclusions, with ancestor fields.
+     */
+    async exclusionsPerformActionV2(actionName: ExclusionsPerformActionV2ActionNameEnum, body: MsaspecAction, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.exclusionsPerformActionV2Raw({ actionName: actionName, body: body }, initOverrides);
+    }
+
+    /**
+     * Search for exclusions, with ancestor fields.
+     */
+    async exclusionsSearchV2Raw(requestParameters: MlExclusionsApiExclusionsSearchV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/exclusions/queries/exclusions/v2`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Search for exclusions, with ancestor fields.
+     */
+    async exclusionsSearchV2(filter?: string, offset?: number, limit?: number, sort?: ExclusionsSearchV2SortEnum, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.exclusionsSearchV2Raw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
+    }
+
+    /**
+     * Update the exclusions by id, with ancestor fields.
+     */
+    async exclusionsUpdateV2Raw(requestParameters: MlExclusionsApiExclusionsUpdateV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling exclusionsUpdateV2().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/exclusions/entities/exclusions/v2`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+                body: DomainExclusionUpdateReqV2ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Update the exclusions by id, with ancestor fields.
+     */
+    async exclusionsUpdateV2(body: DomainExclusionUpdateReqV2, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.exclusionsUpdateV2Raw({ body: body }, initOverrides);
     }
 
     /**
@@ -168,7 +606,7 @@ export class MlExclusionsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:read"]);
         }
 
         const response = await this.request(
@@ -198,7 +636,7 @@ export class MlExclusionsApi extends runtime.BaseAPI {
     async queryMLExclusionsV1Raw(
         requestParameters: MlExclusionsApiQueryMLExclusionsV1Request,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -221,7 +659,7 @@ export class MlExclusionsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:read"]);
         }
 
         const response = await this.request(
@@ -234,7 +672,7 @@ export class MlExclusionsApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
 
     /**
@@ -246,7 +684,7 @@ export class MlExclusionsApi extends runtime.BaseAPI {
         limit?: number,
         sort?: QueryMLExclusionsV1SortEnum,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<MsaQueryResponse> {
+    ): Promise<MsaspecQueryResponse> {
         const response = await this.queryMLExclusionsV1Raw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
@@ -270,7 +708,7 @@ export class MlExclusionsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:write"]);
         }
 
         const response = await this.request(
@@ -296,6 +734,30 @@ export class MlExclusionsApi extends runtime.BaseAPI {
     }
 }
 
+/**
+ * @export
+ */
+export const ExclusionsPerformActionV2ActionNameEnum = {
+    AddItem: "add_item",
+    RemoveItem: "remove_item",
+    ValidateFilepath: "validate_filepath",
+} as const;
+export type ExclusionsPerformActionV2ActionNameEnum = (typeof ExclusionsPerformActionV2ActionNameEnum)[keyof typeof ExclusionsPerformActionV2ActionNameEnum];
+/**
+ * @export
+ */
+export const ExclusionsSearchV2SortEnum = {
+    ParentValue: "parent_value",
+    Value: "value",
+    GrandparentValue: "grandparent_value",
+    AppliedGlobally: "applied_globally",
+    CreatedOn: "created_on",
+    CreatedBy: "created_by",
+    LastModified: "last_modified",
+    ModifiedBy: "modified_by",
+    IsDescendantProcess: "is_descendant_process",
+} as const;
+export type ExclusionsSearchV2SortEnum = (typeof ExclusionsSearchV2SortEnum)[keyof typeof ExclusionsSearchV2SortEnum];
 /**
  * @export
  */

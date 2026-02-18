@@ -15,15 +15,26 @@
 import * as runtime from "../runtime";
 import type {
     MsaReplyMetaOnly,
+    TypesArtifacts,
+    TypesCountResponse,
+    TypesCreateGroupRequest,
     TypesCreateIntegrationRequest,
+    TypesCreateIntegrationResponse,
     TypesCreateIntegrationTaskRequest,
     TypesEditTagRequest,
     TypesEditUniqueTagRequest,
     TypesErrorMessage,
     TypesExecutorNode,
+    TypesGeneralQueryResponse,
     TypesGenericUserFacingRequest,
+    TypesGetCloudSecurityIntegrationStateResponse,
+    TypesGetExecutorNodesMetadataResponse,
+    TypesGetIntegrationTasksMetadataResponse,
     TypesGetServicesRequest,
     TypesGetViolationTypesResponse,
+    TypesGroupDetails,
+    TypesGroupHierarchyResponse,
+    TypesGroupListItem,
     TypesIntegrationResponse,
     TypesIntegrationTaskResponse,
     TypesIntegrationTaskTestConnectionResponse,
@@ -31,21 +42,33 @@ import type {
     TypesListIntegrationTasksResponse,
     TypesListIntegrationTypesResponse,
     TypesListIntegrationsResponse,
+    TypesOvertimeResponse,
     TypesQueryRequest,
-    TypesQueryResult,
+    TypesQueryResponse,
     TypesRunIntegrationTaskRequest,
     TypesServiceNowDeploymentsResponse,
     TypesServiceNowServicesResponse,
+    TypesSetCloudSecurityIntegrationStateRequest,
     TypesTagsDataResponse,
+    TypesUpdateGroupRequest,
     TypesUpdateIntegrationRequest,
     TypesUpdateIntegrationTaskRequest,
     TypesUpsertBusinessApplicationRequest,
+    TypesUsersResponse,
 } from "../models/index";
 import {
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
+    TypesArtifactsFromJSON,
+    TypesArtifactsToJSON,
+    TypesCountResponseFromJSON,
+    TypesCountResponseToJSON,
+    TypesCreateGroupRequestFromJSON,
+    TypesCreateGroupRequestToJSON,
     TypesCreateIntegrationRequestFromJSON,
     TypesCreateIntegrationRequestToJSON,
+    TypesCreateIntegrationResponseFromJSON,
+    TypesCreateIntegrationResponseToJSON,
     TypesCreateIntegrationTaskRequestFromJSON,
     TypesCreateIntegrationTaskRequestToJSON,
     TypesEditTagRequestFromJSON,
@@ -56,12 +79,26 @@ import {
     TypesErrorMessageToJSON,
     TypesExecutorNodeFromJSON,
     TypesExecutorNodeToJSON,
+    TypesGeneralQueryResponseFromJSON,
+    TypesGeneralQueryResponseToJSON,
     TypesGenericUserFacingRequestFromJSON,
     TypesGenericUserFacingRequestToJSON,
+    TypesGetCloudSecurityIntegrationStateResponseFromJSON,
+    TypesGetCloudSecurityIntegrationStateResponseToJSON,
+    TypesGetExecutorNodesMetadataResponseFromJSON,
+    TypesGetExecutorNodesMetadataResponseToJSON,
+    TypesGetIntegrationTasksMetadataResponseFromJSON,
+    TypesGetIntegrationTasksMetadataResponseToJSON,
     TypesGetServicesRequestFromJSON,
     TypesGetServicesRequestToJSON,
     TypesGetViolationTypesResponseFromJSON,
     TypesGetViolationTypesResponseToJSON,
+    TypesGroupDetailsFromJSON,
+    TypesGroupDetailsToJSON,
+    TypesGroupHierarchyResponseFromJSON,
+    TypesGroupHierarchyResponseToJSON,
+    TypesGroupListItemFromJSON,
+    TypesGroupListItemToJSON,
     TypesIntegrationResponseFromJSON,
     TypesIntegrationResponseToJSON,
     TypesIntegrationTaskResponseFromJSON,
@@ -76,24 +113,32 @@ import {
     TypesListIntegrationTypesResponseToJSON,
     TypesListIntegrationsResponseFromJSON,
     TypesListIntegrationsResponseToJSON,
+    TypesOvertimeResponseFromJSON,
+    TypesOvertimeResponseToJSON,
     TypesQueryRequestFromJSON,
     TypesQueryRequestToJSON,
-    TypesQueryResultFromJSON,
-    TypesQueryResultToJSON,
+    TypesQueryResponseFromJSON,
+    TypesQueryResponseToJSON,
     TypesRunIntegrationTaskRequestFromJSON,
     TypesRunIntegrationTaskRequestToJSON,
     TypesServiceNowDeploymentsResponseFromJSON,
     TypesServiceNowDeploymentsResponseToJSON,
     TypesServiceNowServicesResponseFromJSON,
     TypesServiceNowServicesResponseToJSON,
+    TypesSetCloudSecurityIntegrationStateRequestFromJSON,
+    TypesSetCloudSecurityIntegrationStateRequestToJSON,
     TypesTagsDataResponseFromJSON,
     TypesTagsDataResponseToJSON,
+    TypesUpdateGroupRequestFromJSON,
+    TypesUpdateGroupRequestToJSON,
     TypesUpdateIntegrationRequestFromJSON,
     TypesUpdateIntegrationRequestToJSON,
     TypesUpdateIntegrationTaskRequestFromJSON,
     TypesUpdateIntegrationTaskRequestToJSON,
     TypesUpsertBusinessApplicationRequestFromJSON,
     TypesUpsertBusinessApplicationRequestToJSON,
+    TypesUsersResponseFromJSON,
+    TypesUsersResponseToJSON,
 } from "../models/index";
 
 export interface AspmApiCreateExecutorNodeRequest {
@@ -112,6 +157,10 @@ export interface AspmApiDeleteExecutorNodeRequest {
     iD: number;
 }
 
+export interface AspmApiDeleteGroupID09Request {
+    iD: number;
+}
+
 export interface AspmApiDeleteIntegrationRequest {
     iD: number;
 }
@@ -124,6 +173,56 @@ export interface AspmApiDeleteTagsRequest {
     body: TypesEditTagRequest;
 }
 
+export interface AspmApiExecuteFunctionDataRequest {
+    field: string;
+}
+
+export interface AspmApiExecuteFunctionDataCountRequest {
+    queryName: ExecuteFunctionDataCountQueryNameEnum;
+    cloudProvider: ExecuteFunctionDataCountCloudProviderEnum;
+    awsLambdaArn?: string;
+    gcpCloudFunctionUrl?: string;
+    azureSiteSubscriptionId?: string;
+    azureSiteResourceGroup?: string;
+    azureFunctionAppName?: string;
+}
+
+export interface AspmApiExecuteFunctionDataQueryRequest {
+    field: string;
+}
+
+export interface AspmApiExecuteFunctionDataQueryCountRequest {
+    field: string;
+}
+
+export interface AspmApiExecuteFunctionsRequest {
+    field: string;
+}
+
+export interface AspmApiExecuteFunctionsCountRequest {
+    queryName: ExecuteFunctionsCountQueryNameEnum;
+    cloudProvider?: ExecuteFunctionsCountCloudProviderEnum;
+    cloudAccountId?: Array<string>;
+    region?: Array<string>;
+    cid?: Array<string>;
+}
+
+export interface AspmApiExecuteFunctionsOvertimeRequest {
+    field: string;
+}
+
+export interface AspmApiExecuteFunctionsQueryRequest {
+    field: string;
+}
+
+export interface AspmApiExecuteFunctionsQueryCountRequest {
+    field: string;
+}
+
+export interface AspmApiExecuteFunctionsQueryOvertimeRequest {
+    field: string;
+}
+
 export interface AspmApiExecuteQueryRequest {
     body: TypesQueryRequest;
 }
@@ -131,16 +230,97 @@ export interface AspmApiExecuteQueryRequest {
 export interface AspmApiGetExecutorNodesRequest {
     nodeType: string;
     integrationType?: number;
+    offset?: number;
+    limit?: number;
+    orderBy?: GetExecutorNodesOrderByEnum;
+    direction?: GetExecutorNodesDirectionEnum;
+    executorNodeIds?: Array<string>;
+    executorNodeNames?: Array<string>;
+    executorNodeStates?: Array<number>;
+    executorNodeTypes?: Array<string>;
+}
+
+export interface AspmApiGetExecutorNodesID09InstancesCsvRequest {
+    iD: number;
+    body: TypesExecutorNode;
+}
+
+export interface AspmApiGetExecutorNodesMetadataRequest {
+    executorNodeIds?: Array<string>;
+    executorNodeNames?: Array<string>;
+    executorNodeStates?: Array<number>;
+    executorNodeTypes?: Array<string>;
+}
+
+export interface AspmApiGetGroupID09V2Request {
+    iD: number;
+}
+
+export interface AspmApiGetGroupsListV2Request {
+    type?: string;
 }
 
 export interface AspmApiGetIntegrationTasksRequest {
     integrationTaskType?: number;
     category?: string;
+    offset?: number;
+    limit?: number;
+    orderBy?: GetIntegrationTasksOrderByEnum;
+    direction?: GetIntegrationTasksDirectionEnum;
+    integrationTaskTypes?: number;
+    ids?: number;
+    names?: string;
+}
+
+export interface AspmApiGetIntegrationTasksAdminRequest {
+    integrationTaskType?: number;
+    category?: string;
+    offset?: number;
+    limit?: number;
+    orderBy?: GetIntegrationTasksAdminOrderByEnum;
+    direction?: GetIntegrationTasksAdminDirectionEnum;
+    integrationTaskTypes?: number;
+    ids?: number;
+    names?: string;
+}
+
+export interface AspmApiGetIntegrationTasksMetadataRequest {
+    category?: GetIntegrationTasksMetadataCategoryEnum;
+    integrationTaskTypes?: number;
+    ids?: number;
+    names?: string;
+}
+
+export interface AspmApiGetIntegrationTasksV2Request {
+    integrationTaskType?: number;
+    category?: string;
+    offset?: number;
+    limit?: number;
+    orderBy?: GetIntegrationTasksV2OrderByEnum;
+    direction?: GetIntegrationTasksV2DirectionEnum;
+    integrationTaskTypes?: number;
+    ids?: number;
+    names?: string;
 }
 
 export interface AspmApiGetIntegrationsRequest {
     integrationType?: number;
     category?: string;
+}
+
+export interface AspmApiGetIntegrationsV2Request {
+    integrationType?: number;
+    category?: string;
+}
+
+export interface AspmApiGetServiceArtifactsRequest {
+    persistentSignature: string;
+    optionalTime?: number;
+    revisionId?: number;
+    limit?: number;
+    offset?: number;
+    orderBy?: GetServiceArtifactsOrderByEnum;
+    direction?: GetServiceArtifactsDirectionEnum;
 }
 
 export interface AspmApiGetServiceViolationTypesRequest {
@@ -159,7 +339,36 @@ export interface AspmApiGetTagsRequest {
     name?: Array<string>;
 }
 
+export interface AspmApiGetUsersV2Request {
+    pagination?: string;
+}
+
+export interface AspmApiPostGroupID09UpdateDefaultRequest {
+    iD: number;
+}
+
+export interface AspmApiPostGroupID09V2Request {
+    iD: number;
+    body: TypesUpdateGroupRequest;
+}
+
+export interface AspmApiPostGroupV2Request {
+    body: TypesCreateGroupRequest;
+}
+
 export interface AspmApiRunIntegrationTaskRequest {
+    iD: number;
+    body: TypesRunIntegrationTaskRequest;
+    category?: string;
+}
+
+export interface AspmApiRunIntegrationTaskAdminRequest {
+    iD: number;
+    body: TypesRunIntegrationTaskRequest;
+    category?: string;
+}
+
+export interface AspmApiRunIntegrationTaskV2Request {
     iD: number;
     body: TypesRunIntegrationTaskRequest;
     category?: string;
@@ -175,10 +384,15 @@ export interface AspmApiServiceNowGetDeploymentsRequest {
 
 export interface AspmApiServiceNowGetServicesRequest {
     qlFilters?: string;
+    excludeArtifacts?: boolean;
     limit?: number;
     offset?: number;
     orderBy?: string;
     direction?: string;
+}
+
+export interface AspmApiSetCloudSecurityIntegrationStateRequest {
+    body: TypesSetCloudSecurityIntegrationStateRequest;
 }
 
 export interface AspmApiUpdateExecutorNodeRequest {
@@ -251,7 +465,10 @@ export class AspmApi extends runtime.BaseAPI {
     /**
      * Create a new integration
      */
-    async createIntegrationRaw(requestParameters: AspmApiCreateIntegrationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesIntegrationResponse>> {
+    async createIntegrationRaw(
+        requestParameters: AspmApiCreateIntegrationRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesCreateIntegrationResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createIntegration().');
         }
@@ -278,13 +495,13 @@ export class AspmApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => TypesIntegrationResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => TypesCreateIntegrationResponseFromJSON(jsonValue));
     }
 
     /**
      * Create a new integration
      */
-    async createIntegration(body: TypesCreateIntegrationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TypesIntegrationResponse> {
+    async createIntegration(body: TypesCreateIntegrationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TypesCreateIntegrationResponse> {
         const response = await this.createIntegrationRaw({ body: body }, initOverrides);
         return await response.value();
     }
@@ -368,6 +585,41 @@ export class AspmApi extends runtime.BaseAPI {
      */
     async deleteExecutorNode(iD: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.deleteExecutorNodeRaw({ iD: iD }, initOverrides);
+    }
+
+    /**
+     */
+    async deleteGroupID09Raw(requestParameters: AspmApiDeleteGroupID09Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters["iD"] == null) {
+            throw new runtime.RequiredError("iD", 'Required parameter "iD" was null or undefined when calling deleteGroupID09().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-falcon-admin:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/aspm-api-gateway/api/v1/group/{ID}`.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"]))),
+                method: "DELETE",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    async deleteGroupID09(iD: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteGroupID09Raw({ iD: iD }, initOverrides);
     }
 
     /**
@@ -485,9 +737,527 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
+     * A selected list of queryLanguage queries. request & response are in MSA format
+     */
+    async executeFunctionDataRaw(
+        requestParameters: AspmApiExecuteFunctionDataRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesGeneralQueryResponse>> {
+        if (requestParameters["field"] == null) {
+            throw new runtime.RequiredError("field", 'Required parameter "field" was null or undefined when calling executeFunctionData().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["field"] != null) {
+            queryParameters["field"] = requestParameters["field"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/application-security/combined/function-data/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TypesGeneralQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * A selected list of queryLanguage queries. request & response are in MSA format
+     */
+    async executeFunctionData(field: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TypesGeneralQueryResponse> {
+        const response = await this.executeFunctionDataRaw({ field: field }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * A selected list of queryLanguage count queries. request & response are in MSA format
+     */
+    async executeFunctionDataCountRaw(
+        requestParameters: AspmApiExecuteFunctionDataCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesCountResponse>> {
+        if (requestParameters["queryName"] == null) {
+            throw new runtime.RequiredError("queryName", 'Required parameter "queryName" was null or undefined when calling executeFunctionDataCount().');
+        }
+
+        if (requestParameters["cloudProvider"] == null) {
+            throw new runtime.RequiredError("cloudProvider", 'Required parameter "cloudProvider" was null or undefined when calling executeFunctionDataCount().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["queryName"] != null) {
+            queryParameters["query_name"] = requestParameters["queryName"];
+        }
+
+        if (requestParameters["cloudProvider"] != null) {
+            queryParameters["cloud_provider"] = requestParameters["cloudProvider"];
+        }
+
+        if (requestParameters["awsLambdaArn"] != null) {
+            queryParameters["aws_lambda_arn"] = requestParameters["awsLambdaArn"];
+        }
+
+        if (requestParameters["gcpCloudFunctionUrl"] != null) {
+            queryParameters["gcp_cloud_function_url"] = requestParameters["gcpCloudFunctionUrl"];
+        }
+
+        if (requestParameters["azureSiteSubscriptionId"] != null) {
+            queryParameters["azure_site_subscription_id"] = requestParameters["azureSiteSubscriptionId"];
+        }
+
+        if (requestParameters["azureSiteResourceGroup"] != null) {
+            queryParameters["azure_site_resource_group"] = requestParameters["azureSiteResourceGroup"];
+        }
+
+        if (requestParameters["azureFunctionAppName"] != null) {
+            queryParameters["azure_function_app_name"] = requestParameters["azureFunctionAppName"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/application-security/aggregates/function-data/count/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TypesCountResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * A selected list of queryLanguage count queries. request & response are in MSA format
+     */
+    async executeFunctionDataCount(
+        queryName: ExecuteFunctionDataCountQueryNameEnum,
+        cloudProvider: ExecuteFunctionDataCountCloudProviderEnum,
+        awsLambdaArn?: string,
+        gcpCloudFunctionUrl?: string,
+        azureSiteSubscriptionId?: string,
+        azureSiteResourceGroup?: string,
+        azureFunctionAppName?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<TypesCountResponse> {
+        const response = await this.executeFunctionDataCountRaw(
+            {
+                queryName: queryName,
+                cloudProvider: cloudProvider,
+                awsLambdaArn: awsLambdaArn,
+                gcpCloudFunctionUrl: gcpCloudFunctionUrl,
+                azureSiteSubscriptionId: azureSiteSubscriptionId,
+                azureSiteResourceGroup: azureSiteResourceGroup,
+                azureFunctionAppName: azureFunctionAppName,
+            },
+            initOverrides,
+        );
+        return await response.value();
+    }
+
+    /**
+     * A selected list of queryLanguage queries. request & response are in MSA format
+     */
+    async executeFunctionDataQueryRaw(
+        requestParameters: AspmApiExecuteFunctionDataQueryRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesGeneralQueryResponse>> {
+        if (requestParameters["field"] == null) {
+            throw new runtime.RequiredError("field", 'Required parameter "field" was null or undefined when calling executeFunctionDataQuery().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["field"] != null) {
+            queryParameters["field"] = requestParameters["field"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/application-security/combined/query-function-data/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TypesGeneralQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * A selected list of queryLanguage queries. request & response are in MSA format
+     */
+    async executeFunctionDataQuery(field: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TypesGeneralQueryResponse> {
+        const response = await this.executeFunctionDataQueryRaw({ field: field }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * A selected list of queryLanguage count queries. request & response are in MSA format
+     */
+    async executeFunctionDataQueryCountRaw(
+        requestParameters: AspmApiExecuteFunctionDataQueryCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesCountResponse>> {
+        if (requestParameters["field"] == null) {
+            throw new runtime.RequiredError("field", 'Required parameter "field" was null or undefined when calling executeFunctionDataQueryCount().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["field"] != null) {
+            queryParameters["field"] = requestParameters["field"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/application-security/aggregates/query-function-data-count/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TypesCountResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * A selected list of queryLanguage count queries. request & response are in MSA format
+     */
+    async executeFunctionDataQueryCount(field: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TypesCountResponse> {
+        const response = await this.executeFunctionDataQueryCountRaw({ field: field }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * A selected list of queryLanguage services queries. request & response are in MSA format
+     */
+    async executeFunctionsRaw(requestParameters: AspmApiExecuteFunctionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesGeneralQueryResponse>> {
+        if (requestParameters["field"] == null) {
+            throw new runtime.RequiredError("field", 'Required parameter "field" was null or undefined when calling executeFunctions().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["field"] != null) {
+            queryParameters["field"] = requestParameters["field"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/application-security/combined/functions/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TypesGeneralQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * A selected list of queryLanguage services queries. request & response are in MSA format
+     */
+    async executeFunctions(field: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TypesGeneralQueryResponse> {
+        const response = await this.executeFunctionsRaw({ field: field }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * A selected list of queryLanguage count queries. request & response are in MSA format
+     */
+    async executeFunctionsCountRaw(
+        requestParameters: AspmApiExecuteFunctionsCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesCountResponse>> {
+        if (requestParameters["queryName"] == null) {
+            throw new runtime.RequiredError("queryName", 'Required parameter "queryName" was null or undefined when calling executeFunctionsCount().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["queryName"] != null) {
+            queryParameters["query_name"] = requestParameters["queryName"];
+        }
+
+        if (requestParameters["cloudProvider"] != null) {
+            queryParameters["cloud_provider"] = requestParameters["cloudProvider"]!.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters["cloudAccountId"] != null) {
+            queryParameters["cloud_account_id"] = requestParameters["cloudAccountId"]!.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters["region"] != null) {
+            queryParameters["region"] = requestParameters["region"]!.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters["cid"] != null) {
+            queryParameters["cid"] = requestParameters["cid"]!.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/application-security/aggregates/functions/count/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TypesCountResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * A selected list of queryLanguage count queries. request & response are in MSA format
+     */
+    async executeFunctionsCount(
+        queryName: ExecuteFunctionsCountQueryNameEnum,
+        cloudProvider?: ExecuteFunctionsCountCloudProviderEnum,
+        cloudAccountId?: Array<string>,
+        region?: Array<string>,
+        cid?: Array<string>,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<TypesCountResponse> {
+        const response = await this.executeFunctionsCountRaw({ queryName: queryName, cloudProvider: cloudProvider, cloudAccountId: cloudAccountId, region: region, cid: cid }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * A selected list of queryLanguage overtime queries. request & response are in MSA format
+     */
+    async executeFunctionsOvertimeRaw(
+        requestParameters: AspmApiExecuteFunctionsOvertimeRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesOvertimeResponse>> {
+        if (requestParameters["field"] == null) {
+            throw new runtime.RequiredError("field", 'Required parameter "field" was null or undefined when calling executeFunctionsOvertime().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["field"] != null) {
+            queryParameters["field"] = requestParameters["field"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/application-security/combined/functions-overtime/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TypesOvertimeResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * A selected list of queryLanguage overtime queries. request & response are in MSA format
+     */
+    async executeFunctionsOvertime(field: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TypesOvertimeResponse> {
+        const response = await this.executeFunctionsOvertimeRaw({ field: field }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * A selected list of queryLanguage services queries. request & response are in MSA format
+     */
+    async executeFunctionsQueryRaw(
+        requestParameters: AspmApiExecuteFunctionsQueryRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesGeneralQueryResponse>> {
+        if (requestParameters["field"] == null) {
+            throw new runtime.RequiredError("field", 'Required parameter "field" was null or undefined when calling executeFunctionsQuery().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["field"] != null) {
+            queryParameters["field"] = requestParameters["field"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/application-security/combined/query-functions/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TypesGeneralQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * A selected list of queryLanguage services queries. request & response are in MSA format
+     */
+    async executeFunctionsQuery(field: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TypesGeneralQueryResponse> {
+        const response = await this.executeFunctionsQueryRaw({ field: field }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * A selected list of queryLanguage count queries. request & response are in MSA format
+     */
+    async executeFunctionsQueryCountRaw(
+        requestParameters: AspmApiExecuteFunctionsQueryCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesCountResponse>> {
+        if (requestParameters["field"] == null) {
+            throw new runtime.RequiredError("field", 'Required parameter "field" was null or undefined when calling executeFunctionsQueryCount().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["field"] != null) {
+            queryParameters["field"] = requestParameters["field"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/application-security/aggregates/query-functions-count/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TypesCountResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * A selected list of queryLanguage count queries. request & response are in MSA format
+     */
+    async executeFunctionsQueryCount(field: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TypesCountResponse> {
+        const response = await this.executeFunctionsQueryCountRaw({ field: field }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * A selected list of queryLanguage overtime queries. request & response are in MSA format
+     */
+    async executeFunctionsQueryOvertimeRaw(
+        requestParameters: AspmApiExecuteFunctionsQueryOvertimeRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesOvertimeResponse>> {
+        if (requestParameters["field"] == null) {
+            throw new runtime.RequiredError("field", 'Required parameter "field" was null or undefined when calling executeFunctionsQueryOvertime().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["field"] != null) {
+            queryParameters["field"] = requestParameters["field"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/application-security/combined/query-functions-overtime/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TypesOvertimeResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * A selected list of queryLanguage overtime queries. request & response are in MSA format
+     */
+    async executeFunctionsQueryOvertime(field: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TypesOvertimeResponse> {
+        const response = await this.executeFunctionsQueryOvertimeRaw({ field: field }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Execute a query. The syntax used is identical to that of the query page.
      */
-    async executeQueryRaw(requestParameters: AspmApiExecuteQueryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesQueryResult>> {
+    async executeQueryRaw(requestParameters: AspmApiExecuteQueryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesQueryResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling executeQuery().');
         }
@@ -514,14 +1284,48 @@ export class AspmApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => TypesQueryResultFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => TypesQueryResponseFromJSON(jsonValue));
     }
 
     /**
      * Execute a query. The syntax used is identical to that of the query page.
      */
-    async executeQuery(body: TypesQueryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TypesQueryResult> {
+    async executeQuery(body: TypesQueryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TypesQueryResponse> {
         const response = await this.executeQueryRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get Cloud Security integration state
+     */
+    async getCloudSecurityIntegrationStateRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesGetCloudSecurityIntegrationStateResponse>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/aspm-api-gateway/api/v1/cloud_security_config`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TypesGetCloudSecurityIntegrationStateResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get Cloud Security integration state
+     */
+    async getCloudSecurityIntegrationState(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TypesGetCloudSecurityIntegrationStateResponse> {
+        const response = await this.getCloudSecurityIntegrationStateRaw(initOverrides);
         return await response.value();
     }
 
@@ -544,6 +1348,38 @@ export class AspmApi extends runtime.BaseAPI {
 
         if (requestParameters["integrationType"] != null) {
             queryParameters["integration_type"] = requestParameters["integrationType"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["orderBy"] != null) {
+            queryParameters["order_by"] = requestParameters["orderBy"];
+        }
+
+        if (requestParameters["direction"] != null) {
+            queryParameters["direction"] = requestParameters["direction"];
+        }
+
+        if (requestParameters["executorNodeIds"] != null) {
+            queryParameters["executor_node_ids"] = requestParameters["executorNodeIds"]!.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters["executorNodeNames"] != null) {
+            queryParameters["executor_node_names"] = requestParameters["executorNodeNames"]!.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters["executorNodeStates"] != null) {
+            queryParameters["executor_node_states"] = requestParameters["executorNodeStates"]!.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters["executorNodeTypes"] != null) {
+            queryParameters["executor_node_types"] = requestParameters["executorNodeTypes"]!.join(runtime.COLLECTION_FORMATS["csv"]);
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -569,8 +1405,256 @@ export class AspmApi extends runtime.BaseAPI {
     /**
      * Get all the relay nodes
      */
-    async getExecutorNodes(nodeType: string, integrationType?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TypesListExecutorNodesResponse> {
-        const response = await this.getExecutorNodesRaw({ nodeType: nodeType, integrationType: integrationType }, initOverrides);
+    async getExecutorNodes(
+        nodeType: string,
+        integrationType?: number,
+        offset?: number,
+        limit?: number,
+        orderBy?: GetExecutorNodesOrderByEnum,
+        direction?: GetExecutorNodesDirectionEnum,
+        executorNodeIds?: Array<string>,
+        executorNodeNames?: Array<string>,
+        executorNodeStates?: Array<number>,
+        executorNodeTypes?: Array<string>,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<TypesListExecutorNodesResponse> {
+        const response = await this.getExecutorNodesRaw(
+            {
+                nodeType: nodeType,
+                integrationType: integrationType,
+                offset: offset,
+                limit: limit,
+                orderBy: orderBy,
+                direction: direction,
+                executorNodeIds: executorNodeIds,
+                executorNodeNames: executorNodeNames,
+                executorNodeStates: executorNodeStates,
+                executorNodeTypes: executorNodeTypes,
+            },
+            initOverrides,
+        );
+        return await response.value();
+    }
+
+    /**
+     * Retrieve the relay instances in CSV format
+     */
+    async getExecutorNodesID09InstancesCsvRaw(
+        requestParameters: AspmApiGetExecutorNodesID09InstancesCsvRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<string>> {
+        if (requestParameters["iD"] == null) {
+            throw new runtime.RequiredError("iD", 'Required parameter "iD" was null or undefined when calling getExecutorNodesID09InstancesCsv().');
+        }
+
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getExecutorNodesID09InstancesCsv().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/aspm-api-gateway/api/v1/executor_nodes/{ID}/instances/csv`.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"]))),
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+                body: TypesExecutorNodeToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        if (this.isJsonMime(response.headers.get("content-type"))) {
+            return new runtime.JSONApiResponse<string>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
+    }
+
+    /**
+     * Retrieve the relay instances in CSV format
+     */
+    async getExecutorNodesID09InstancesCsv(iD: number, body: TypesExecutorNode, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+        const response = await this.getExecutorNodesID09InstancesCsvRaw({ iD: iD, body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get metadata about all executor nodes
+     */
+    async getExecutorNodesMetadataRaw(
+        requestParameters: AspmApiGetExecutorNodesMetadataRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesGetExecutorNodesMetadataResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["executorNodeIds"] != null) {
+            queryParameters["executor_node_ids"] = requestParameters["executorNodeIds"]!.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters["executorNodeNames"] != null) {
+            queryParameters["executor_node_names"] = requestParameters["executorNodeNames"]!.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters["executorNodeStates"] != null) {
+            queryParameters["executor_node_states"] = requestParameters["executorNodeStates"]!.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters["executorNodeTypes"] != null) {
+            queryParameters["executor_node_types"] = requestParameters["executorNodeTypes"]!.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/aspm-api-gateway/api/v1/executor_nodes/metadata`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TypesGetExecutorNodesMetadataResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get metadata about all executor nodes
+     */
+    async getExecutorNodesMetadata(
+        executorNodeIds?: Array<string>,
+        executorNodeNames?: Array<string>,
+        executorNodeStates?: Array<number>,
+        executorNodeTypes?: Array<string>,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<TypesGetExecutorNodesMetadataResponse> {
+        const response = await this.getExecutorNodesMetadataRaw(
+            { executorNodeIds: executorNodeIds, executorNodeNames: executorNodeNames, executorNodeStates: executorNodeStates, executorNodeTypes: executorNodeTypes },
+            initOverrides,
+        );
+        return await response.value();
+    }
+
+    /**
+     * Get group details
+     */
+    async getGroupID09V2Raw(requestParameters: AspmApiGetGroupID09V2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesGroupDetails>> {
+        if (requestParameters["iD"] == null) {
+            throw new runtime.RequiredError("iD", 'Required parameter "iD" was null or undefined when calling getGroupID09V2().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/aspm-api-gateway/api/v1/group/{ID}/v2`.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"]))),
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TypesGroupDetailsFromJSON(jsonValue));
+    }
+
+    /**
+     * Get group details
+     */
+    async getGroupID09V2(iD: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TypesGroupDetails> {
+        const response = await this.getGroupID09V2Raw({ iD: iD }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get group hierarchy
+     */
+    async getGroupsHierV2Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesGroupHierarchyResponse>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/aspm-api-gateway/api/v1/groups/hier/v2`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TypesGroupHierarchyResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get group hierarchy
+     */
+    async getGroupsHierV2(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TypesGroupHierarchyResponse> {
+        const response = await this.getGroupsHierV2Raw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async getGroupsListV2Raw(requestParameters: AspmApiGetGroupsListV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<TypesGroupListItem>>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["type"] != null) {
+            queryParameters["type"] = requestParameters["type"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/aspm-api-gateway/api/v1/groups/list/v2`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(TypesGroupListItemFromJSON));
+    }
+
+    /**
+     */
+    async getGroupsListV2(type?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<TypesGroupListItem>> {
+        const response = await this.getGroupsListV2Raw({ type: type }, initOverrides);
         return await response.value();
     }
 
@@ -589,6 +1673,34 @@ export class AspmApi extends runtime.BaseAPI {
 
         if (requestParameters["category"] != null) {
             queryParameters["category"] = requestParameters["category"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["orderBy"] != null) {
+            queryParameters["orderBy"] = requestParameters["orderBy"];
+        }
+
+        if (requestParameters["direction"] != null) {
+            queryParameters["direction"] = requestParameters["direction"];
+        }
+
+        if (requestParameters["integrationTaskTypes"] != null) {
+            queryParameters["integration_task_types"] = requestParameters["integrationTaskTypes"];
+        }
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        if (requestParameters["names"] != null) {
+            queryParameters["names"] = requestParameters["names"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -614,8 +1726,285 @@ export class AspmApi extends runtime.BaseAPI {
     /**
      * Get all the integration tasks
      */
-    async getIntegrationTasks(integrationTaskType?: number, category?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TypesListIntegrationTasksResponse> {
-        const response = await this.getIntegrationTasksRaw({ integrationTaskType: integrationTaskType, category: category }, initOverrides);
+    async getIntegrationTasks(
+        integrationTaskType?: number,
+        category?: string,
+        offset?: number,
+        limit?: number,
+        orderBy?: GetIntegrationTasksOrderByEnum,
+        direction?: GetIntegrationTasksDirectionEnum,
+        integrationTaskTypes?: number,
+        ids?: number,
+        names?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<TypesListIntegrationTasksResponse> {
+        const response = await this.getIntegrationTasksRaw(
+            {
+                integrationTaskType: integrationTaskType,
+                category: category,
+                offset: offset,
+                limit: limit,
+                orderBy: orderBy,
+                direction: direction,
+                integrationTaskTypes: integrationTaskTypes,
+                ids: ids,
+                names: names,
+            },
+            initOverrides,
+        );
+        return await response.value();
+    }
+
+    /**
+     * Get all the integration tasks, requires admin scope
+     */
+    async getIntegrationTasksAdminRaw(
+        requestParameters: AspmApiGetIntegrationTasksAdminRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesListIntegrationTasksResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["integrationTaskType"] != null) {
+            queryParameters["integration_task_type"] = requestParameters["integrationTaskType"];
+        }
+
+        if (requestParameters["category"] != null) {
+            queryParameters["category"] = requestParameters["category"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["orderBy"] != null) {
+            queryParameters["orderBy"] = requestParameters["orderBy"];
+        }
+
+        if (requestParameters["direction"] != null) {
+            queryParameters["direction"] = requestParameters["direction"];
+        }
+
+        if (requestParameters["integrationTaskTypes"] != null) {
+            queryParameters["integration_task_types"] = requestParameters["integrationTaskTypes"];
+        }
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        if (requestParameters["names"] != null) {
+            queryParameters["names"] = requestParameters["names"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/aspm-api-gateway/api/v1/integration_tasks/admin`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TypesListIntegrationTasksResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get all the integration tasks, requires admin scope
+     */
+    async getIntegrationTasksAdmin(
+        integrationTaskType?: number,
+        category?: string,
+        offset?: number,
+        limit?: number,
+        orderBy?: GetIntegrationTasksAdminOrderByEnum,
+        direction?: GetIntegrationTasksAdminDirectionEnum,
+        integrationTaskTypes?: number,
+        ids?: number,
+        names?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<TypesListIntegrationTasksResponse> {
+        const response = await this.getIntegrationTasksAdminRaw(
+            {
+                integrationTaskType: integrationTaskType,
+                category: category,
+                offset: offset,
+                limit: limit,
+                orderBy: orderBy,
+                direction: direction,
+                integrationTaskTypes: integrationTaskTypes,
+                ids: ids,
+                names: names,
+            },
+            initOverrides,
+        );
+        return await response.value();
+    }
+
+    /**
+     * Get metadata about all integration tasks
+     */
+    async getIntegrationTasksMetadataRaw(
+        requestParameters: AspmApiGetIntegrationTasksMetadataRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesGetIntegrationTasksMetadataResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["category"] != null) {
+            queryParameters["category"] = requestParameters["category"];
+        }
+
+        if (requestParameters["integrationTaskTypes"] != null) {
+            queryParameters["integration_task_types"] = requestParameters["integrationTaskTypes"];
+        }
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        if (requestParameters["names"] != null) {
+            queryParameters["names"] = requestParameters["names"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/aspm-api-gateway/api/v1/integration_tasks/metadata`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TypesGetIntegrationTasksMetadataResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get metadata about all integration tasks
+     */
+    async getIntegrationTasksMetadata(
+        category?: GetIntegrationTasksMetadataCategoryEnum,
+        integrationTaskTypes?: number,
+        ids?: number,
+        names?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<TypesGetIntegrationTasksMetadataResponse> {
+        const response = await this.getIntegrationTasksMetadataRaw({ category: category, integrationTaskTypes: integrationTaskTypes, ids: ids, names: names }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get all the integration tasks
+     */
+    async getIntegrationTasksV2Raw(
+        requestParameters: AspmApiGetIntegrationTasksV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesListIntegrationTasksResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["integrationTaskType"] != null) {
+            queryParameters["integration_task_type"] = requestParameters["integrationTaskType"];
+        }
+
+        if (requestParameters["category"] != null) {
+            queryParameters["category"] = requestParameters["category"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["orderBy"] != null) {
+            queryParameters["orderBy"] = requestParameters["orderBy"];
+        }
+
+        if (requestParameters["direction"] != null) {
+            queryParameters["direction"] = requestParameters["direction"];
+        }
+
+        if (requestParameters["integrationTaskTypes"] != null) {
+            queryParameters["integration_task_types"] = requestParameters["integrationTaskTypes"];
+        }
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        if (requestParameters["names"] != null) {
+            queryParameters["names"] = requestParameters["names"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/aspm-api-gateway/api/v1/integration_tasks/v2`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TypesListIntegrationTasksResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get all the integration tasks
+     */
+    async getIntegrationTasksV2(
+        integrationTaskType?: number,
+        category?: string,
+        offset?: number,
+        limit?: number,
+        orderBy?: GetIntegrationTasksV2OrderByEnum,
+        direction?: GetIntegrationTasksV2DirectionEnum,
+        integrationTaskTypes?: number,
+        ids?: number,
+        names?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<TypesListIntegrationTasksResponse> {
+        const response = await this.getIntegrationTasksV2Raw(
+            {
+                integrationTaskType: integrationTaskType,
+                category: category,
+                offset: offset,
+                limit: limit,
+                orderBy: orderBy,
+                direction: direction,
+                integrationTaskTypes: integrationTaskTypes,
+                ids: ids,
+                names: names,
+            },
+            initOverrides,
+        );
         return await response.value();
     }
 
@@ -695,6 +2084,127 @@ export class AspmApi extends runtime.BaseAPI {
      */
     async getIntegrations(integrationType?: number, category?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TypesListIntegrationsResponse> {
         const response = await this.getIntegrationsRaw({ integrationType: integrationType, category: category }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get a list of all the integrations
+     */
+    async getIntegrationsV2Raw(
+        requestParameters: AspmApiGetIntegrationsV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesListIntegrationsResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["integrationType"] != null) {
+            queryParameters["integration_type"] = requestParameters["integrationType"];
+        }
+
+        if (requestParameters["category"] != null) {
+            queryParameters["category"] = requestParameters["category"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/aspm-api-gateway/api/v1/integrations/v2`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TypesListIntegrationsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get a list of all the integrations
+     */
+    async getIntegrationsV2(integrationType?: number, category?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TypesListIntegrationsResponse> {
+        const response = await this.getIntegrationsV2Raw({ integrationType: integrationType, category: category }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async getServiceArtifactsRaw(requestParameters: AspmApiGetServiceArtifactsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesArtifacts>> {
+        if (requestParameters["persistentSignature"] == null) {
+            throw new runtime.RequiredError("persistentSignature", 'Required parameter "persistentSignature" was null or undefined when calling getServiceArtifacts().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["persistentSignature"] != null) {
+            queryParameters["persistentSignature"] = requestParameters["persistentSignature"];
+        }
+
+        if (requestParameters["optionalTime"] != null) {
+            queryParameters["optionalTime"] = requestParameters["optionalTime"];
+        }
+
+        if (requestParameters["revisionId"] != null) {
+            queryParameters["revisionId"] = requestParameters["revisionId"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["orderBy"] != null) {
+            queryParameters["orderBy"] = requestParameters["orderBy"]!.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters["direction"] != null) {
+            queryParameters["direction"] = requestParameters["direction"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/aspm-api-gateway/api/v1/artifacts`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TypesArtifactsFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async getServiceArtifacts(
+        persistentSignature: string,
+        optionalTime?: number,
+        revisionId?: number,
+        limit?: number,
+        offset?: number,
+        orderBy?: GetServiceArtifactsOrderByEnum,
+        direction?: GetServiceArtifactsDirectionEnum,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<TypesArtifacts> {
+        const response = await this.getServiceArtifactsRaw(
+            { persistentSignature: persistentSignature, optionalTime: optionalTime, revisionId: revisionId, limit: limit, offset: offset, orderBy: orderBy, direction: direction },
+            initOverrides,
+        );
         return await response.value();
     }
 
@@ -844,6 +2354,165 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
+     * List users
+     */
+    async getUsersV2Raw(requestParameters: AspmApiGetUsersV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesUsersResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["pagination"] != null) {
+            queryParameters["pagination"] = requestParameters["pagination"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/aspm-api-gateway/api/v1/users/v2`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TypesUsersResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * List users
+     */
+    async getUsersV2(pagination?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TypesUsersResponse> {
+        const response = await this.getUsersV2Raw({ pagination: pagination }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Update default group
+     */
+    async postGroupID09UpdateDefaultRaw(requestParameters: AspmApiPostGroupID09UpdateDefaultRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters["iD"] == null) {
+            throw new runtime.RequiredError("iD", 'Required parameter "iD" was null or undefined when calling postGroupID09UpdateDefault().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-falcon-admin:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/aspm-api-gateway/api/v1/group/{ID}/update_default`.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"]))),
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Update default group
+     */
+    async postGroupID09UpdateDefault(iD: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.postGroupID09UpdateDefaultRaw({ iD: iD }, initOverrides);
+    }
+
+    /**
+     * Update group
+     */
+    async postGroupID09V2Raw(requestParameters: AspmApiPostGroupID09V2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters["iD"] == null) {
+            throw new runtime.RequiredError("iD", 'Required parameter "iD" was null or undefined when calling postGroupID09V2().');
+        }
+
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postGroupID09V2().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-falcon-admin:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/aspm-api-gateway/api/v1/group/{ID}/v2`.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"]))),
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: TypesUpdateGroupRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Update group
+     */
+    async postGroupID09V2(iD: number, body: TypesUpdateGroupRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.postGroupID09V2Raw({ iD: iD, body: body }, initOverrides);
+    }
+
+    /**
+     * Create group
+     */
+    async postGroupV2Raw(requestParameters: AspmApiPostGroupV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postGroupV2().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-falcon-admin:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/aspm-api-gateway/api/v1/group/v2`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: TypesCreateGroupRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Create group
+     */
+    async postGroupV2(body: TypesCreateGroupRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.postGroupV2Raw({ body: body }, initOverrides);
+    }
+
+    /**
      * Run an integration task by its ID
      */
     async runIntegrationTaskRaw(
@@ -897,6 +2566,120 @@ export class AspmApi extends runtime.BaseAPI {
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<TypesIntegrationTaskTestConnectionResponse> {
         const response = await this.runIntegrationTaskRaw({ iD: iD, body: body, category: category }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Run an integration task by its ID - for admin scope
+     */
+    async runIntegrationTaskAdminRaw(
+        requestParameters: AspmApiRunIntegrationTaskAdminRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesIntegrationTaskTestConnectionResponse>> {
+        if (requestParameters["iD"] == null) {
+            throw new runtime.RequiredError("iD", 'Required parameter "iD" was null or undefined when calling runIntegrationTaskAdmin().');
+        }
+
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling runIntegrationTaskAdmin().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["category"] != null) {
+            queryParameters["category"] = requestParameters["category"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/aspm-api-gateway/api/v1/integration_tasks/{ID}/run/admin`.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"]))),
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: TypesRunIntegrationTaskRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TypesIntegrationTaskTestConnectionResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Run an integration task by its ID - for admin scope
+     */
+    async runIntegrationTaskAdmin(
+        iD: number,
+        body: TypesRunIntegrationTaskRequest,
+        category?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<TypesIntegrationTaskTestConnectionResponse> {
+        const response = await this.runIntegrationTaskAdminRaw({ iD: iD, body: body, category: category }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Run an integration task by its ID
+     */
+    async runIntegrationTaskV2Raw(
+        requestParameters: AspmApiRunIntegrationTaskV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesIntegrationTaskTestConnectionResponse>> {
+        if (requestParameters["iD"] == null) {
+            throw new runtime.RequiredError("iD", 'Required parameter "iD" was null or undefined when calling runIntegrationTaskV2().');
+        }
+
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling runIntegrationTaskV2().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["category"] != null) {
+            queryParameters["category"] = requestParameters["category"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/aspm-api-gateway/api/v1/integration_tasks/{ID}/run/v2`.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"]))),
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: TypesRunIntegrationTaskRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TypesIntegrationTaskTestConnectionResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Run an integration task by its ID
+     */
+    async runIntegrationTaskV2(
+        iD: number,
+        body: TypesRunIntegrationTaskRequest,
+        category?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<TypesIntegrationTaskTestConnectionResponse> {
+        const response = await this.runIntegrationTaskV2Raw({ iD: iD, body: body, category: category }, initOverrides);
         return await response.value();
     }
 
@@ -974,6 +2757,10 @@ export class AspmApi extends runtime.BaseAPI {
             queryParameters["ql_filters"] = requestParameters["qlFilters"];
         }
 
+        if (requestParameters["excludeArtifacts"] != null) {
+            queryParameters["exclude_artifacts"] = requestParameters["excludeArtifacts"];
+        }
+
         if (requestParameters["limit"] != null) {
             queryParameters["limit"] = requestParameters["limit"];
         }
@@ -1014,14 +2801,61 @@ export class AspmApi extends runtime.BaseAPI {
      */
     async serviceNowGetServices(
         qlFilters?: string,
+        excludeArtifacts?: boolean,
         limit?: number,
         offset?: number,
         orderBy?: string,
         direction?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<TypesServiceNowServicesResponse> {
-        const response = await this.serviceNowGetServicesRaw({ qlFilters: qlFilters, limit: limit, offset: offset, orderBy: orderBy, direction: direction }, initOverrides);
+        const response = await this.serviceNowGetServicesRaw(
+            { qlFilters: qlFilters, excludeArtifacts: excludeArtifacts, limit: limit, offset: offset, orderBy: orderBy, direction: direction },
+            initOverrides,
+        );
         return await response.value();
+    }
+
+    /**
+     * Set Cloud Security integration state
+     */
+    async setCloudSecurityIntegrationStateRaw(
+        requestParameters: AspmApiSetCloudSecurityIntegrationStateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling setCloudSecurityIntegrationState().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/aspm-api-gateway/api/v1/cloud_security_config`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: TypesSetCloudSecurityIntegrationStateRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Set Cloud Security integration state
+     */
+    async setCloudSecurityIntegrationState(body: TypesSetCloudSecurityIntegrationStateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.setCloudSecurityIntegrationStateRaw({ body: body }, initOverrides);
     }
 
     /**
@@ -1238,3 +3072,132 @@ export class AspmApi extends runtime.BaseAPI {
         await this.upsertTagsRaw({ body: body }, initOverrides);
     }
 }
+
+/**
+ * @export
+ */
+export const ExecuteFunctionDataCountQueryNameEnum = {
+    SensitiveData: "sensitive_data",
+    Reachable: "reachable",
+    SensitiveDatasources: "sensitive_datasources",
+    Dependencies: "dependencies",
+    VulnerableLibraries: "vulnerable_libraries",
+    RiskSeverity: "risk_severity",
+    SensitiveDataTags: "sensitive_data_tags",
+} as const;
+export type ExecuteFunctionDataCountQueryNameEnum = (typeof ExecuteFunctionDataCountQueryNameEnum)[keyof typeof ExecuteFunctionDataCountQueryNameEnum];
+/**
+ * @export
+ */
+export const ExecuteFunctionDataCountCloudProviderEnum = {
+    Aws: "aws",
+    Azure: "azure",
+    Gcp: "gcp",
+} as const;
+export type ExecuteFunctionDataCountCloudProviderEnum = (typeof ExecuteFunctionDataCountCloudProviderEnum)[keyof typeof ExecuteFunctionDataCountCloudProviderEnum];
+/**
+ * @export
+ */
+export const ExecuteFunctionsCountQueryNameEnum = {
+    SensitiveData: "sensitive_data",
+    Reachable: "reachable",
+    SensitiveDatasources: "sensitive_datasources",
+    Dependencies: "dependencies",
+    VulnerableLibraries: "vulnerable_libraries",
+} as const;
+export type ExecuteFunctionsCountQueryNameEnum = (typeof ExecuteFunctionsCountQueryNameEnum)[keyof typeof ExecuteFunctionsCountQueryNameEnum];
+/**
+ * @export
+ */
+export const ExecuteFunctionsCountCloudProviderEnum = {} as const;
+export type ExecuteFunctionsCountCloudProviderEnum = (typeof ExecuteFunctionsCountCloudProviderEnum)[keyof typeof ExecuteFunctionsCountCloudProviderEnum];
+/**
+ * @export
+ */
+export const GetExecutorNodesOrderByEnum = {
+    Name: "name",
+    Id: "id",
+    State: "state",
+    Type: "type",
+} as const;
+export type GetExecutorNodesOrderByEnum = (typeof GetExecutorNodesOrderByEnum)[keyof typeof GetExecutorNodesOrderByEnum];
+/**
+ * @export
+ */
+export const GetExecutorNodesDirectionEnum = {
+    Asc: "asc",
+    Desc: "desc",
+} as const;
+export type GetExecutorNodesDirectionEnum = (typeof GetExecutorNodesDirectionEnum)[keyof typeof GetExecutorNodesDirectionEnum];
+/**
+ * @export
+ */
+export const GetIntegrationTasksOrderByEnum = {
+    Name: "name",
+    Id: "id",
+    IntegrationTask: "integrationTask",
+} as const;
+export type GetIntegrationTasksOrderByEnum = (typeof GetIntegrationTasksOrderByEnum)[keyof typeof GetIntegrationTasksOrderByEnum];
+/**
+ * @export
+ */
+export const GetIntegrationTasksDirectionEnum = {
+    Asc: "asc",
+    Desc: "desc",
+} as const;
+export type GetIntegrationTasksDirectionEnum = (typeof GetIntegrationTasksDirectionEnum)[keyof typeof GetIntegrationTasksDirectionEnum];
+/**
+ * @export
+ */
+export const GetIntegrationTasksAdminOrderByEnum = {
+    Name: "name",
+    Id: "id",
+    IntegrationTask: "integrationTask",
+} as const;
+export type GetIntegrationTasksAdminOrderByEnum = (typeof GetIntegrationTasksAdminOrderByEnum)[keyof typeof GetIntegrationTasksAdminOrderByEnum];
+/**
+ * @export
+ */
+export const GetIntegrationTasksAdminDirectionEnum = {
+    Asc: "asc",
+    Desc: "desc",
+} as const;
+export type GetIntegrationTasksAdminDirectionEnum = (typeof GetIntegrationTasksAdminDirectionEnum)[keyof typeof GetIntegrationTasksAdminDirectionEnum];
+/**
+ * @export
+ */
+export const GetIntegrationTasksMetadataCategoryEnum = {
+    Collecting: "collecting",
+    Exporting: "exporting",
+} as const;
+export type GetIntegrationTasksMetadataCategoryEnum = (typeof GetIntegrationTasksMetadataCategoryEnum)[keyof typeof GetIntegrationTasksMetadataCategoryEnum];
+/**
+ * @export
+ */
+export const GetIntegrationTasksV2OrderByEnum = {
+    Name: "name",
+    Id: "id",
+    IntegrationTask: "integrationTask",
+} as const;
+export type GetIntegrationTasksV2OrderByEnum = (typeof GetIntegrationTasksV2OrderByEnum)[keyof typeof GetIntegrationTasksV2OrderByEnum];
+/**
+ * @export
+ */
+export const GetIntegrationTasksV2DirectionEnum = {
+    Asc: "asc",
+    Desc: "desc",
+} as const;
+export type GetIntegrationTasksV2DirectionEnum = (typeof GetIntegrationTasksV2DirectionEnum)[keyof typeof GetIntegrationTasksV2DirectionEnum];
+/**
+ * @export
+ */
+export const GetServiceArtifactsOrderByEnum = {} as const;
+export type GetServiceArtifactsOrderByEnum = (typeof GetServiceArtifactsOrderByEnum)[keyof typeof GetServiceArtifactsOrderByEnum];
+/**
+ * @export
+ */
+export const GetServiceArtifactsDirectionEnum = {
+    Asc: "asc",
+    Desc: "desc",
+} as const;
+export type GetServiceArtifactsDirectionEnum = (typeof GetServiceArtifactsDirectionEnum)[keyof typeof GetServiceArtifactsDirectionEnum];

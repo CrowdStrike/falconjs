@@ -13,6 +13,9 @@
  */
 
 import { mapValues } from "../runtime";
+import type { RbacCloudGroup } from "./RbacCloudGroup";
+import { RbacCloudGroupFromJSON, RbacCloudGroupFromJSONTyped, RbacCloudGroupToJSON } from "./RbacCloudGroup";
+
 /**
  *
  * @export
@@ -21,10 +24,34 @@ import { mapValues } from "../runtime";
 export interface ModelsAPIImageCombinedExport {
     /**
      *
+     * @type {boolean}
+     * @memberof ModelsAPIImageCombinedExport
+     */
+    aiRelated: boolean;
+    /**
+     *
+     * @type {string}
+     * @memberof ModelsAPIImageCombinedExport
+     */
+    architecture: string;
+    /**
+     *
      * @type {string}
      * @memberof ModelsAPIImageCombinedExport
      */
     baseOs: string;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof ModelsAPIImageCombinedExport
+     */
+    businessImpact?: Array<string>;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof ModelsAPIImageCombinedExport
+     */
+    businessUnit?: Array<string>;
     /**
      *
      * @type {string}
@@ -33,10 +60,34 @@ export interface ModelsAPIImageCombinedExport {
     cid: string;
     /**
      *
+     * @type {Array<RbacCloudGroup>}
+     * @memberof ModelsAPIImageCombinedExport
+     */
+    cloudGroupsV2?: Array<RbacCloudGroup>;
+    /**
+     *
+     * @type {number}
+     * @memberof ModelsAPIImageCombinedExport
+     */
+    cveExploitedStatus?: number;
+    /**
+     *
+     * @type {string}
+     * @memberof ModelsAPIImageCombinedExport
+     */
+    cveFirstSeen?: string;
+    /**
+     *
      * @type {string}
      * @memberof ModelsAPIImageCombinedExport
      */
     cveId: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ModelsAPIImageCombinedExport
+     */
+    cvePublicationDate?: string;
     /**
      *
      * @type {string}
@@ -63,10 +114,28 @@ export interface ModelsAPIImageCombinedExport {
     detectionType: string;
     /**
      *
+     * @type {Array<string>}
+     * @memberof ModelsAPIImageCombinedExport
+     */
+    environment?: Array<string>;
+    /**
+     *
      * @type {string}
      * @memberof ModelsAPIImageCombinedExport
      */
     firstSeen: string;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof ModelsAPIImageCombinedExport
+     */
+    groups?: Array<string>;
+    /**
+     *
+     * @type {string}
+     * @memberof ModelsAPIImageCombinedExport
+     */
+    imageBuildDate?: string;
     /**
      *
      * @type {string}
@@ -81,10 +150,22 @@ export interface ModelsAPIImageCombinedExport {
     imageId: string;
     /**
      *
+     * @type {boolean}
+     * @memberof ModelsAPIImageCombinedExport
+     */
+    isBaseImage: boolean;
+    /**
+     *
      * @type {string}
      * @memberof ModelsAPIImageCombinedExport
      */
     lastSeen: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ModelsAPIImageCombinedExport
+     */
+    packageNameVersion?: string;
     /**
      *
      * @type {number}
@@ -103,6 +184,12 @@ export interface ModelsAPIImageCombinedExport {
      * @memberof ModelsAPIImageCombinedExport
      */
     repository: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ModelsAPIImageCombinedExport
+     */
+    source: string;
     /**
      *
      * @type {number}
@@ -145,6 +232,8 @@ export interface ModelsAPIImageCombinedExport {
  * Check if a given object implements the ModelsAPIImageCombinedExport interface.
  */
 export function instanceOfModelsAPIImageCombinedExport(value: object): value is ModelsAPIImageCombinedExport {
+    if (!("aiRelated" in value) || value["aiRelated"] === undefined) return false;
+    if (!("architecture" in value) || value["architecture"] === undefined) return false;
     if (!("baseOs" in value) || value["baseOs"] === undefined) return false;
     if (!("cid" in value) || value["cid"] === undefined) return false;
     if (!("cveId" in value) || value["cveId"] === undefined) return false;
@@ -155,10 +244,12 @@ export function instanceOfModelsAPIImageCombinedExport(value: object): value is 
     if (!("firstSeen" in value) || value["firstSeen"] === undefined) return false;
     if (!("imageDigest" in value) || value["imageDigest"] === undefined) return false;
     if (!("imageId" in value) || value["imageId"] === undefined) return false;
+    if (!("isBaseImage" in value) || value["isBaseImage"] === undefined) return false;
     if (!("lastSeen" in value) || value["lastSeen"] === undefined) return false;
     if (!("packagesImpacted" in value) || value["packagesImpacted"] === undefined) return false;
     if (!("registry" in value) || value["registry"] === undefined) return false;
     if (!("repository" in value) || value["repository"] === undefined) return false;
+    if (!("source" in value) || value["source"] === undefined) return false;
     if (!("startedContainers" in value) || value["startedContainers"] === undefined) return false;
     if (!("stoppedContainers" in value) || value["stoppedContainers"] === undefined) return false;
     if (!("tag" in value) || value["tag"] === undefined) return false;
@@ -177,20 +268,34 @@ export function ModelsAPIImageCombinedExportFromJSONTyped(json: any, ignoreDiscr
         return json;
     }
     return {
+        aiRelated: json["ai_related"],
+        architecture: json["architecture"],
         baseOs: json["base_os"],
+        businessImpact: json["business_impact"] == null ? undefined : json["business_impact"],
+        businessUnit: json["business_unit"] == null ? undefined : json["business_unit"],
         cid: json["cid"],
+        cloudGroupsV2: json["cloud_groups_v2"] == null ? undefined : (json["cloud_groups_v2"] as Array<any>).map(RbacCloudGroupFromJSON),
+        cveExploitedStatus: json["cve_exploited_status"] == null ? undefined : json["cve_exploited_status"],
+        cveFirstSeen: json["cve_first_seen"] == null ? undefined : json["cve_first_seen"],
         cveId: json["cve_id"],
+        cvePublicationDate: json["cve_publication_date"] == null ? undefined : json["cve_publication_date"],
         cvssScore: json["cvss_score"],
         detectionName: json["detection_name"],
         detectionSeverity: json["detection_severity"],
         detectionType: json["detection_type"],
+        environment: json["environment"] == null ? undefined : json["environment"],
         firstSeen: json["first_seen"],
+        groups: json["groups"] == null ? undefined : json["groups"],
+        imageBuildDate: json["image_build_date"] == null ? undefined : json["image_build_date"],
         imageDigest: json["image_digest"],
         imageId: json["image_id"],
+        isBaseImage: json["is_base_image"],
         lastSeen: json["last_seen"],
+        packageNameVersion: json["package_name_version"] == null ? undefined : json["package_name_version"],
         packagesImpacted: json["packages_impacted"],
         registry: json["registry"],
         repository: json["repository"],
+        source: json["source"],
         startedContainers: json["started_containers"],
         stoppedContainers: json["stopped_containers"],
         tag: json["tag"],
@@ -205,20 +310,34 @@ export function ModelsAPIImageCombinedExportToJSON(value?: ModelsAPIImageCombine
         return value;
     }
     return {
+        ai_related: value["aiRelated"],
+        architecture: value["architecture"],
         base_os: value["baseOs"],
+        business_impact: value["businessImpact"],
+        business_unit: value["businessUnit"],
         cid: value["cid"],
+        cloud_groups_v2: value["cloudGroupsV2"] == null ? undefined : (value["cloudGroupsV2"] as Array<any>).map(RbacCloudGroupToJSON),
+        cve_exploited_status: value["cveExploitedStatus"],
+        cve_first_seen: value["cveFirstSeen"],
         cve_id: value["cveId"],
+        cve_publication_date: value["cvePublicationDate"],
         cvss_score: value["cvssScore"],
         detection_name: value["detectionName"],
         detection_severity: value["detectionSeverity"],
         detection_type: value["detectionType"],
+        environment: value["environment"],
         first_seen: value["firstSeen"],
+        groups: value["groups"],
+        image_build_date: value["imageBuildDate"],
         image_digest: value["imageDigest"],
         image_id: value["imageId"],
+        is_base_image: value["isBaseImage"],
         last_seen: value["lastSeen"],
+        package_name_version: value["packageNameVersion"],
         packages_impacted: value["packagesImpacted"],
         registry: value["registry"],
         repository: value["repository"],
+        source: value["source"],
         started_containers: value["startedContainers"],
         stopped_containers: value["stoppedContainers"],
         tag: value["tag"],

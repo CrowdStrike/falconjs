@@ -13,14 +13,22 @@
  */
 
 import { mapValues } from "../runtime";
+import type { JsonschemaSemanticData } from "./JsonschemaSemanticData";
+import { JsonschemaSemanticDataFromJSON, JsonschemaSemanticDataFromJSONTyped, JsonschemaSemanticDataToJSON } from "./JsonschemaSemanticData";
+import type { JsonschemaQueryConfig } from "./JsonschemaQueryConfig";
+import { JsonschemaQueryConfigFromJSON, JsonschemaQueryConfigFromJSONTyped, JsonschemaQueryConfigToJSON } from "./JsonschemaQueryConfig";
 import type { JsonschemaAuthorization } from "./JsonschemaAuthorization";
 import { JsonschemaAuthorizationFromJSON, JsonschemaAuthorizationFromJSONTyped, JsonschemaAuthorizationToJSON } from "./JsonschemaAuthorization";
+import type { JsonschemaOpenAPIExtensions } from "./JsonschemaOpenAPIExtensions";
+import { JsonschemaOpenAPIExtensionsFromJSON, JsonschemaOpenAPIExtensionsFromJSONTyped, JsonschemaOpenAPIExtensionsToJSON } from "./JsonschemaOpenAPIExtensions";
 import type { JsonschemaSignalsExtensions } from "./JsonschemaSignalsExtensions";
 import { JsonschemaSignalsExtensionsFromJSON, JsonschemaSignalsExtensionsFromJSONTyped, JsonschemaSignalsExtensionsToJSON } from "./JsonschemaSignalsExtensions";
 import type { JsonschemaPivot } from "./JsonschemaPivot";
 import { JsonschemaPivotFromJSON, JsonschemaPivotFromJSONTyped, JsonschemaPivotToJSON } from "./JsonschemaPivot";
 import type { JsonschemaWorkflowExtensions } from "./JsonschemaWorkflowExtensions";
 import { JsonschemaWorkflowExtensionsFromJSON, JsonschemaWorkflowExtensionsFromJSONTyped, JsonschemaWorkflowExtensionsToJSON } from "./JsonschemaWorkflowExtensions";
+import type { JsonschemaUIExtensions } from "./JsonschemaUIExtensions";
+import { JsonschemaUIExtensionsFromJSON, JsonschemaUIExtensionsFromJSONTyped, JsonschemaUIExtensionsToJSON } from "./JsonschemaUIExtensions";
 import type { JsonschemaCollectionIndexField } from "./JsonschemaCollectionIndexField";
 import { JsonschemaCollectionIndexFieldFromJSON, JsonschemaCollectionIndexFieldFromJSONTyped, JsonschemaCollectionIndexFieldToJSON } from "./JsonschemaCollectionIndexField";
 import type { JsonschemaConditionGroupFields } from "./JsonschemaConditionGroupFields";
@@ -307,7 +315,19 @@ export interface JsonschemaSubSchema {
      * @type {boolean}
      * @memberof JsonschemaSubSchema
      */
+    xCsDefaultTableColumn?: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof JsonschemaSubSchema
+     */
     xCsDoNotHide?: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof JsonschemaSubSchema
+     */
+    xCsImmutable?: boolean;
     /**
      *
      * @type {boolean}
@@ -340,6 +360,12 @@ export interface JsonschemaSubSchema {
     xCsNotParameterizable?: boolean;
     /**
      *
+     * @type {JsonschemaOpenAPIExtensions}
+     * @memberof JsonschemaSubSchema
+     */
+    xCsOpenapi?: JsonschemaOpenAPIExtensions;
+    /**
+     *
      * @type {Array<string>}
      * @memberof JsonschemaSubSchema
      */
@@ -350,6 +376,18 @@ export interface JsonschemaSubSchema {
      * @memberof JsonschemaSubSchema
      */
     xCsPivot?: JsonschemaPivot;
+    /**
+     *
+     * @type {JsonschemaQueryConfig}
+     * @memberof JsonschemaSubSchema
+     */
+    xCsQueryable?: JsonschemaQueryConfig;
+    /**
+     *
+     * @type {JsonschemaSemanticData}
+     * @memberof JsonschemaSubSchema
+     */
+    xCsSemanticData?: JsonschemaSemanticData;
     /**
      *
      * @type {JsonschemaSignalsExtensions}
@@ -380,6 +418,12 @@ export interface JsonschemaSubSchema {
      * @memberof JsonschemaSubSchema
      */
     xCsTags?: Array<string>;
+    /**
+     *
+     * @type {JsonschemaUIExtensions}
+     * @memberof JsonschemaSubSchema
+     */
+    xCsUi?: JsonschemaUIExtensions;
     /**
      *
      * @type {JsonschemaWorkflowExtensions}
@@ -449,19 +493,25 @@ export function JsonschemaSubSchemaFromJSONTyped(json: any, ignoreDiscriminator:
         xCsAuthorization: json["x-cs-authorization"] == null ? undefined : JsonschemaAuthorizationFromJSON(json["x-cs-authorization"]),
         xCsCanCreate: json["x-cs-can-create"] == null ? undefined : json["x-cs-can-create"],
         xCsConditionGroupFields: json["x-cs-condition-group-fields"] == null ? undefined : JsonschemaConditionGroupFieldsFromJSON(json["x-cs-condition-group-fields"]),
+        xCsDefaultTableColumn: json["x-cs-default-table-column"] == null ? undefined : json["x-cs-default-table-column"],
         xCsDoNotHide: json["x-cs-do-not-hide"] == null ? undefined : json["x-cs-do-not-hide"],
+        xCsImmutable: json["x-cs-immutable"] == null ? undefined : json["x-cs-immutable"],
         xCsIndexable: json["x-cs-indexable"] == null ? undefined : json["x-cs-indexable"],
         xCsIndexableFields: json["x-cs-indexable-fields"] == null ? undefined : (json["x-cs-indexable-fields"] as Array<any>).map(JsonschemaCollectionIndexFieldFromJSON),
         xCsMaxDuration: json["x-cs-max-duration"] == null ? undefined : json["x-cs-max-duration"],
         xCsMinDuration: json["x-cs-min-duration"] == null ? undefined : json["x-cs-min-duration"],
         xCsNotParameterizable: json["x-cs-not-parameterizable"] == null ? undefined : json["x-cs-not-parameterizable"],
+        xCsOpenapi: json["x-cs-openapi"] == null ? undefined : JsonschemaOpenAPIExtensionsFromJSON(json["x-cs-openapi"]),
         xCsOrder: json["x-cs-order"] == null ? undefined : json["x-cs-order"],
         xCsPivot: json["x-cs-pivot"] == null ? undefined : JsonschemaPivotFromJSON(json["x-cs-pivot"]),
+        xCsQueryable: json["x-cs-queryable"] == null ? undefined : JsonschemaQueryConfigFromJSON(json["x-cs-queryable"]),
+        xCsSemanticData: json["x-cs-semantic-data"] == null ? undefined : JsonschemaSemanticDataFromJSON(json["x-cs-semantic-data"]),
         xCsSignals: json["x-cs-signals"] == null ? undefined : JsonschemaSignalsExtensionsFromJSON(json["x-cs-signals"]),
         xCsSignalsCategory: json["x-cs-signals-category"] == null ? undefined : json["x-cs-signals-category"],
         xCsSignalsOperators: json["x-cs-signals-operators"] == null ? undefined : json["x-cs-signals-operators"],
         xCsSignalsSubCategory: json["x-cs-signals-subCategory"] == null ? undefined : json["x-cs-signals-subCategory"],
         xCsTags: json["x-cs-tags"] == null ? undefined : json["x-cs-tags"],
+        xCsUi: json["x-cs-ui"] == null ? undefined : JsonschemaUIExtensionsFromJSON(json["x-cs-ui"]),
         xCsWorkflow: json["x-cs-workflow"] == null ? undefined : JsonschemaWorkflowExtensionsFromJSON(json["x-cs-workflow"]),
     };
 }
@@ -516,19 +566,25 @@ export function JsonschemaSubSchemaToJSON(value?: JsonschemaSubSchema | null): a
         "x-cs-authorization": JsonschemaAuthorizationToJSON(value["xCsAuthorization"]),
         "x-cs-can-create": value["xCsCanCreate"],
         "x-cs-condition-group-fields": JsonschemaConditionGroupFieldsToJSON(value["xCsConditionGroupFields"]),
+        "x-cs-default-table-column": value["xCsDefaultTableColumn"],
         "x-cs-do-not-hide": value["xCsDoNotHide"],
+        "x-cs-immutable": value["xCsImmutable"],
         "x-cs-indexable": value["xCsIndexable"],
         "x-cs-indexable-fields": value["xCsIndexableFields"] == null ? undefined : (value["xCsIndexableFields"] as Array<any>).map(JsonschemaCollectionIndexFieldToJSON),
         "x-cs-max-duration": value["xCsMaxDuration"],
         "x-cs-min-duration": value["xCsMinDuration"],
         "x-cs-not-parameterizable": value["xCsNotParameterizable"],
+        "x-cs-openapi": JsonschemaOpenAPIExtensionsToJSON(value["xCsOpenapi"]),
         "x-cs-order": value["xCsOrder"],
         "x-cs-pivot": JsonschemaPivotToJSON(value["xCsPivot"]),
+        "x-cs-queryable": JsonschemaQueryConfigToJSON(value["xCsQueryable"]),
+        "x-cs-semantic-data": JsonschemaSemanticDataToJSON(value["xCsSemanticData"]),
         "x-cs-signals": JsonschemaSignalsExtensionsToJSON(value["xCsSignals"]),
         "x-cs-signals-category": value["xCsSignalsCategory"],
         "x-cs-signals-operators": value["xCsSignalsOperators"],
         "x-cs-signals-subCategory": value["xCsSignalsSubCategory"],
         "x-cs-tags": value["xCsTags"],
+        "x-cs-ui": JsonschemaUIExtensionsToJSON(value["xCsUi"]),
         "x-cs-workflow": JsonschemaWorkflowExtensionsToJSON(value["xCsWorkflow"]),
     };
 }

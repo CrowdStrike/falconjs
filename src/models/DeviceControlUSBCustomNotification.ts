@@ -20,7 +20,7 @@ import { mapValues } from "../runtime";
  */
 export interface DeviceControlUSBCustomNotification {
     /**
-     * The notification to be displayed to the end-user
+     * The notification to be displayed to the end-user. Maximum length: 256 characters.
      * @type {string}
      * @memberof DeviceControlUSBCustomNotification
      */

@@ -47,6 +47,12 @@ export interface ActivitiesActivityExtField {
      */
     fields?: Array<ActivitiesActivityExtField>;
     /**
+     * Indicates this field is a list
+     * @type {boolean}
+     * @memberof ActivitiesActivityExtField
+     */
+    multiple?: boolean;
+    /**
      * Name of the field as it should be passed back to the API through conditions or data mapping.
      * @type {string}
      * @memberof ActivitiesActivityExtField
@@ -94,6 +100,7 @@ export function ActivitiesActivityExtFieldFromJSONTyped(json: any, ignoreDiscrim
         display: json["display"],
         example: json["example"] == null ? undefined : json["example"],
         fields: json["fields"] == null ? undefined : (json["fields"] as Array<any>).map(ActivitiesActivityExtFieldFromJSON),
+        multiple: json["multiple"] == null ? undefined : json["multiple"],
         name: json["name"],
         source: json["source"] == null ? undefined : FielddataFieldSourceFromJSON(json["source"]),
         type: json["type"] == null ? undefined : json["type"],
@@ -110,6 +117,7 @@ export function ActivitiesActivityExtFieldToJSON(value?: ActivitiesActivityExtFi
         display: value["display"],
         example: value["example"],
         fields: value["fields"] == null ? undefined : (value["fields"] as Array<any>).map(ActivitiesActivityExtFieldToJSON),
+        multiple: value["multiple"],
         name: value["name"],
         source: FielddataFieldSourceToJSON(value["source"]),
         type: value["type"],

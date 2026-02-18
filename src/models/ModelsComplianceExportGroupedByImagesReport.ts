@@ -36,6 +36,24 @@ export interface ModelsComplianceExportGroupedByImagesReport {
      * @type {string}
      * @memberof ModelsComplianceExportGroupedByImagesReport
      */
+    framework?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ModelsComplianceExportGroupedByImagesReport
+     */
+    frameworkNameVersion?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ModelsComplianceExportGroupedByImagesReport
+     */
+    frameworkVersion?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ModelsComplianceExportGroupedByImagesReport
+     */
     imageDigest: string;
     /**
      *
@@ -116,6 +134,9 @@ export function ModelsComplianceExportGroupedByImagesReportFromJSONTyped(json: a
     return {
         authority: json["authority"],
         cid: json["cid"],
+        framework: json["framework"] == null ? undefined : json["framework"],
+        frameworkNameVersion: json["framework_name_version"] == null ? undefined : json["framework_name_version"],
+        frameworkVersion: json["framework_version"] == null ? undefined : json["framework_version"],
         imageDigest: json["image_digest"],
         imageId: json["image_id"],
         imageRegistry: json["image_registry"],
@@ -135,6 +156,9 @@ export function ModelsComplianceExportGroupedByImagesReportToJSON(value?: Models
     return {
         authority: value["authority"],
         cid: value["cid"],
+        framework: value["framework"],
+        framework_name_version: value["frameworkNameVersion"],
+        framework_version: value["frameworkVersion"],
         image_digest: value["imageDigest"],
         image_id: value["imageId"],
         image_registry: value["imageRegistry"],

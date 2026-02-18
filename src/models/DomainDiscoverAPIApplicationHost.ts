@@ -104,6 +104,12 @@ export interface DomainDiscoverAPIApplicationHost {
      */
     ou?: string;
     /**
+     * The organizational units of the asset.
+     * @type {Array<string>}
+     * @memberof DomainDiscoverAPIApplicationHost
+     */
+    ous?: Array<string>;
+    /**
      * The platform name of the asset (Windows, Mac, Linux).
      * @type {string}
      * @memberof DomainDiscoverAPIApplicationHost
@@ -166,6 +172,7 @@ export function DomainDiscoverAPIApplicationHostFromJSONTyped(json: any, ignoreD
         machineDomain: json["machine_domain"] == null ? undefined : json["machine_domain"],
         osVersion: json["os_version"] == null ? undefined : json["os_version"],
         ou: json["ou"] == null ? undefined : json["ou"],
+        ous: json["ous"] == null ? undefined : json["ous"],
         platformName: json["platform_name"] == null ? undefined : json["platform_name"],
         productTypeDesc: json["product_type_desc"] == null ? undefined : json["product_type_desc"],
         siteName: json["site_name"] == null ? undefined : json["site_name"],
@@ -193,6 +200,7 @@ export function DomainDiscoverAPIApplicationHostToJSON(value?: DomainDiscoverAPI
         machine_domain: value["machineDomain"],
         os_version: value["osVersion"],
         ou: value["ou"],
+        ous: value["ous"],
         platform_name: value["platformName"],
         product_type_desc: value["productTypeDesc"],
         site_name: value["siteName"],

@@ -55,7 +55,7 @@ export class ReportExecutionsApi extends runtime.BaseAPI {
     async reportExecutionsDownloadGetRaw(
         requestParameters: ReportExecutionsApiReportExecutionsDownloadGetRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<Array<number>>> {
+    ): Promise<runtime.ApiResponse<void>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling reportExecutionsDownloadGet().');
         }
@@ -70,7 +70,7 @@ export class ReportExecutionsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["scheduled-report:read"]);
         }
 
         const response = await this.request(
@@ -83,15 +83,14 @@ export class ReportExecutionsApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse<any>(response);
+        return new runtime.VoidApiResponse(response);
     }
 
     /**
      * Get report entity download
      */
-    async reportExecutionsDownloadGet(ids: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<number>> {
-        const response = await this.reportExecutionsDownloadGetRaw({ ids: ids }, initOverrides);
-        return await response.value();
+    async reportExecutionsDownloadGet(ids: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.reportExecutionsDownloadGetRaw({ ids: ids }, initOverrides);
     }
 
     /**
@@ -115,7 +114,7 @@ export class ReportExecutionsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["scheduled-report:read"]);
         }
 
         const response = await this.request(
@@ -172,7 +171,7 @@ export class ReportExecutionsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["scheduled-report:read"]);
         }
 
         const response = await this.request(
@@ -215,7 +214,7 @@ export class ReportExecutionsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["scheduled-report:read"]);
         }
 
         const response = await this.request(

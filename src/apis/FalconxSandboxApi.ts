@@ -155,7 +155,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:write"]);
         }
 
         const response = await this.request(
@@ -197,7 +197,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:write"]);
         }
 
         const response = await this.request(
@@ -247,7 +247,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:read"]);
         }
 
         const response = await this.request(
@@ -297,7 +297,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:read"]);
         }
 
         const response = await this.request(
@@ -350,7 +350,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:read"]);
         }
 
         const response = await this.request(
@@ -403,7 +403,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:read"]);
         }
 
         const response = await this.request(
@@ -445,7 +445,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:read"]);
         }
 
         const response = await this.request(
@@ -491,7 +491,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:read"]);
         }
 
         const response = await this.request(
@@ -540,7 +540,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:read"]);
         }
 
         const response = await this.request(
@@ -585,7 +585,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:read"]);
         }
 
         const response = await this.request(
@@ -635,7 +635,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:read"]);
         }
 
         const response = await this.request(
@@ -675,7 +675,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:read"]);
         }
 
         const response = await this.request(
@@ -729,7 +729,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:read"]);
         }
 
         const response = await this.request(
@@ -773,7 +773,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:write"]);
         }
 
         const response = await this.request(
@@ -819,7 +819,7 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:write"]);
         }
 
         const consumes: runtime.Consume[] = [{ contentType: "multipart/form-data" }, { contentType: "application/octet-stream" }];

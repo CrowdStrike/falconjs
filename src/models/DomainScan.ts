@@ -53,6 +53,18 @@ export interface DomainScan {
      * @type {number}
      * @memberof DomainScan
      */
+    cloudPupAdwareLevelDetection?: number;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainScan
+     */
+    cloudPupAdwareLevelPrevention?: number;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainScan
+     */
     completedHostCount?: number;
     /**
      *
@@ -110,6 +122,12 @@ export interface DomainScan {
     hosts?: Array<string>;
     /**
      *
+     * @type {boolean}
+     * @memberof DomainScan
+     */
+    hostsCreated?: boolean;
+    /**
+     *
      * @type {string}
      * @memberof DomainScan
      */
@@ -132,6 +150,78 @@ export interface DomainScan {
      * @memberof DomainScan
      */
     lastUpdated?: Date;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainScan
+     */
+    macCloudMlLevelDetection?: number;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainScan
+     */
+    macCloudMlLevelPrevention?: number;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainScan
+     */
+    macCloudPupAdwareLevelDetection?: number;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainScan
+     */
+    macCloudPupAdwareLevelPrevention?: number;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof DomainScan
+     */
+    macFilePaths?: Array<string>;
+    /**
+     *
+     * @type {Array<number>}
+     * @memberof DomainScan
+     */
+    macPolicySetting?: Array<number>;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof DomainScan
+     */
+    macScanExclusions?: Array<string>;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof DomainScan
+     */
+    macScanInclusions?: Array<string>;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainScan
+     */
+    macSensorMlLevelDetection?: number;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainScan
+     */
+    macSensorMlLevelPrevention?: number;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainScan
+     */
+    macSensorPupAdwareLevelDetection?: number;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainScan
+     */
+    macSensorPupAdwareLevelPrevention?: number;
     /**
      *
      * @type {number}
@@ -186,6 +276,12 @@ export interface DomainScan {
      * @memberof DomainScan
      */
     quarantine?: boolean;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainScan
+     */
+    rollupVersion?: number;
     /**
      *
      * @type {Date}
@@ -252,6 +348,12 @@ export interface DomainScan {
      * @memberof DomainScan
      */
     targetedHostCount?: number;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof DomainScan
+     */
+    targetedPlatforms?: Array<string>;
 }
 
 /**
@@ -275,6 +377,8 @@ export function DomainScanFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         cid: json["cid"] == null ? undefined : json["cid"],
         cloudMlLevelDetection: json["cloud_ml_level_detection"] == null ? undefined : json["cloud_ml_level_detection"],
         cloudMlLevelPrevention: json["cloud_ml_level_prevention"] == null ? undefined : json["cloud_ml_level_prevention"],
+        cloudPupAdwareLevelDetection: json["cloud_pup_adware_level_detection"] == null ? undefined : json["cloud_pup_adware_level_detection"],
+        cloudPupAdwareLevelPrevention: json["cloud_pup_adware_level_prevention"] == null ? undefined : json["cloud_pup_adware_level_prevention"],
         completedHostCount: json["completed_host_count"] == null ? undefined : json["completed_host_count"],
         cpuPriority: json["cpu_priority"] == null ? undefined : json["cpu_priority"],
         createdBy: json["created_by"] == null ? undefined : json["created_by"],
@@ -285,10 +389,23 @@ export function DomainScanFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         filecount: json["filecount"] == null ? undefined : DomainFileCountFromJSON(json["filecount"]),
         hostGroups: json["host_groups"] == null ? undefined : json["host_groups"],
         hosts: json["hosts"] == null ? undefined : json["hosts"],
+        hostsCreated: json["hosts_created"] == null ? undefined : json["hosts_created"],
         id: json["id"],
         incompleteHostCount: json["incomplete_host_count"] == null ? undefined : json["incomplete_host_count"],
         initiatedFrom: json["initiated_from"] == null ? undefined : json["initiated_from"],
         lastUpdated: json["last_updated"] == null ? undefined : new Date(json["last_updated"]),
+        macCloudMlLevelDetection: json["mac_cloud_ml_level_detection"] == null ? undefined : json["mac_cloud_ml_level_detection"],
+        macCloudMlLevelPrevention: json["mac_cloud_ml_level_prevention"] == null ? undefined : json["mac_cloud_ml_level_prevention"],
+        macCloudPupAdwareLevelDetection: json["mac_cloud_pup_adware_level_detection"] == null ? undefined : json["mac_cloud_pup_adware_level_detection"],
+        macCloudPupAdwareLevelPrevention: json["mac_cloud_pup_adware_level_prevention"] == null ? undefined : json["mac_cloud_pup_adware_level_prevention"],
+        macFilePaths: json["mac_file_paths"] == null ? undefined : json["mac_file_paths"],
+        macPolicySetting: json["mac_policy_setting"] == null ? undefined : json["mac_policy_setting"],
+        macScanExclusions: json["mac_scan_exclusions"] == null ? undefined : json["mac_scan_exclusions"],
+        macScanInclusions: json["mac_scan_inclusions"] == null ? undefined : json["mac_scan_inclusions"],
+        macSensorMlLevelDetection: json["mac_sensor_ml_level_detection"] == null ? undefined : json["mac_sensor_ml_level_detection"],
+        macSensorMlLevelPrevention: json["mac_sensor_ml_level_prevention"] == null ? undefined : json["mac_sensor_ml_level_prevention"],
+        macSensorPupAdwareLevelDetection: json["mac_sensor_pup_adware_level_detection"] == null ? undefined : json["mac_sensor_pup_adware_level_detection"],
+        macSensorPupAdwareLevelPrevention: json["mac_sensor_pup_adware_level_prevention"] == null ? undefined : json["mac_sensor_pup_adware_level_prevention"],
         maxDuration: json["max_duration"] == null ? undefined : json["max_duration"],
         metadata: json["metadata"] == null ? undefined : (json["metadata"] as Array<any>).map(DomainScanMetadataFromJSON),
         missingHostCount: json["missing_host_count"] == null ? undefined : json["missing_host_count"],
@@ -298,6 +415,7 @@ export function DomainScanFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         preemptionPriority: json["preemption_priority"] == null ? undefined : json["preemption_priority"],
         profileId: json["profile_id"] == null ? undefined : json["profile_id"],
         quarantine: json["quarantine"] == null ? undefined : json["quarantine"],
+        rollupVersion: json["rollup_version"] == null ? undefined : json["rollup_version"],
         scanCompletedOn: json["scan_completed_on"] == null ? undefined : new Date(json["scan_completed_on"]),
         scanExclusions: json["scan_exclusions"] == null ? undefined : json["scan_exclusions"],
         scanInclusions: json["scan_inclusions"] == null ? undefined : json["scan_inclusions"],
@@ -309,6 +427,7 @@ export function DomainScanFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         startedHostCount: json["started_host_count"] == null ? undefined : json["started_host_count"],
         status: json["status"] == null ? undefined : json["status"],
         targetedHostCount: json["targeted_host_count"] == null ? undefined : json["targeted_host_count"],
+        targetedPlatforms: json["targeted_platforms"] == null ? undefined : json["targeted_platforms"],
     };
 }
 
@@ -321,6 +440,8 @@ export function DomainScanToJSON(value?: DomainScan | null): any {
         cid: value["cid"],
         cloud_ml_level_detection: value["cloudMlLevelDetection"],
         cloud_ml_level_prevention: value["cloudMlLevelPrevention"],
+        cloud_pup_adware_level_detection: value["cloudPupAdwareLevelDetection"],
+        cloud_pup_adware_level_prevention: value["cloudPupAdwareLevelPrevention"],
         completed_host_count: value["completedHostCount"],
         cpu_priority: value["cpuPriority"],
         created_by: value["createdBy"],
@@ -331,10 +452,23 @@ export function DomainScanToJSON(value?: DomainScan | null): any {
         filecount: DomainFileCountToJSON(value["filecount"]),
         host_groups: value["hostGroups"],
         hosts: value["hosts"],
+        hosts_created: value["hostsCreated"],
         id: value["id"],
         incomplete_host_count: value["incompleteHostCount"],
         initiated_from: value["initiatedFrom"],
         last_updated: value["lastUpdated"] == null ? undefined : value["lastUpdated"].toISOString(),
+        mac_cloud_ml_level_detection: value["macCloudMlLevelDetection"],
+        mac_cloud_ml_level_prevention: value["macCloudMlLevelPrevention"],
+        mac_cloud_pup_adware_level_detection: value["macCloudPupAdwareLevelDetection"],
+        mac_cloud_pup_adware_level_prevention: value["macCloudPupAdwareLevelPrevention"],
+        mac_file_paths: value["macFilePaths"],
+        mac_policy_setting: value["macPolicySetting"],
+        mac_scan_exclusions: value["macScanExclusions"],
+        mac_scan_inclusions: value["macScanInclusions"],
+        mac_sensor_ml_level_detection: value["macSensorMlLevelDetection"],
+        mac_sensor_ml_level_prevention: value["macSensorMlLevelPrevention"],
+        mac_sensor_pup_adware_level_detection: value["macSensorPupAdwareLevelDetection"],
+        mac_sensor_pup_adware_level_prevention: value["macSensorPupAdwareLevelPrevention"],
         max_duration: value["maxDuration"],
         metadata: value["metadata"] == null ? undefined : (value["metadata"] as Array<any>).map(DomainScanMetadataToJSON),
         missing_host_count: value["missingHostCount"],
@@ -344,6 +478,7 @@ export function DomainScanToJSON(value?: DomainScan | null): any {
         preemption_priority: value["preemptionPriority"],
         profile_id: value["profileId"],
         quarantine: value["quarantine"],
+        rollup_version: value["rollupVersion"],
         scan_completed_on: value["scanCompletedOn"] == null ? undefined : value["scanCompletedOn"].toISOString(),
         scan_exclusions: value["scanExclusions"],
         scan_inclusions: value["scanInclusions"],
@@ -355,5 +490,6 @@ export function DomainScanToJSON(value?: DomainScan | null): any {
         started_host_count: value["startedHostCount"],
         status: value["status"],
         targeted_host_count: value["targetedHostCount"],
+        targeted_platforms: value["targetedPlatforms"],
     };
 }

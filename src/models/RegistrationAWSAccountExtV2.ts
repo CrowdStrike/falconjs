@@ -45,6 +45,12 @@ export interface RegistrationAWSAccountExtV2 {
     cloudtrailRegion: string;
     /**
      *
+     * @type {string}
+     * @memberof RegistrationAWSAccountExtV2
+     */
+    deploymentMethod?: string;
+    /**
+     *
      * @type {boolean}
      * @memberof RegistrationAWSAccountExtV2
      */
@@ -54,7 +60,19 @@ export interface RegistrationAWSAccountExtV2 {
      * @type {string}
      * @memberof RegistrationAWSAccountExtV2
      */
+    dspmHostAccountId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof RegistrationAWSAccountExtV2
+     */
     dspmRole?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof RegistrationAWSAccountExtV2
+     */
+    falconClientId?: string;
     /**
      *
      * @type {string}
@@ -75,6 +93,12 @@ export interface RegistrationAWSAccountExtV2 {
     organizationId: string;
     /**
      *
+     * @type {string}
+     * @memberof RegistrationAWSAccountExtV2
+     */
+    rootStackId?: string;
+    /**
+     *
      * @type {boolean}
      * @memberof RegistrationAWSAccountExtV2
      */
@@ -91,6 +115,24 @@ export interface RegistrationAWSAccountExtV2 {
      * @memberof RegistrationAWSAccountExtV2
      */
     useExistingCloudtrail?: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof RegistrationAWSAccountExtV2
+     */
+    vulnerabilityScanningEnabled?: boolean;
+    /**
+     *
+     * @type {string}
+     * @memberof RegistrationAWSAccountExtV2
+     */
+    vulnerabilityScanningHostAccountId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof RegistrationAWSAccountExtV2
+     */
+    vulnerabilityScanningRole?: string;
 }
 
 /**
@@ -117,14 +159,21 @@ export function RegistrationAWSAccountExtV2FromJSONTyped(json: any, ignoreDiscri
         accountType: json["account_type"] == null ? undefined : json["account_type"],
         behaviorAssessmentEnabled: json["behavior_assessment_enabled"] == null ? undefined : json["behavior_assessment_enabled"],
         cloudtrailRegion: json["cloudtrail_region"],
+        deploymentMethod: json["deployment_method"] == null ? undefined : json["deployment_method"],
         dspmEnabled: json["dspm_enabled"] == null ? undefined : json["dspm_enabled"],
+        dspmHostAccountId: json["dspm_host_account_id"] == null ? undefined : json["dspm_host_account_id"],
         dspmRole: json["dspm_role"] == null ? undefined : json["dspm_role"],
+        falconClientId: json["falcon_client_id"] == null ? undefined : json["falcon_client_id"],
         iamRoleArn: json["iam_role_arn"],
         isMaster: json["is_master"] == null ? undefined : json["is_master"],
         organizationId: json["organization_id"],
+        rootStackId: json["root_stack_id"] == null ? undefined : json["root_stack_id"],
         sensorManagementEnabled: json["sensor_management_enabled"] == null ? undefined : json["sensor_management_enabled"],
         targetOus: json["target_ous"] == null ? undefined : json["target_ous"],
         useExistingCloudtrail: json["use_existing_cloudtrail"] == null ? undefined : json["use_existing_cloudtrail"],
+        vulnerabilityScanningEnabled: json["vulnerability_scanning_enabled"] == null ? undefined : json["vulnerability_scanning_enabled"],
+        vulnerabilityScanningHostAccountId: json["vulnerability_scanning_host_account_id"] == null ? undefined : json["vulnerability_scanning_host_account_id"],
+        vulnerabilityScanningRole: json["vulnerability_scanning_role"] == null ? undefined : json["vulnerability_scanning_role"],
     };
 }
 
@@ -137,13 +186,20 @@ export function RegistrationAWSAccountExtV2ToJSON(value?: RegistrationAWSAccount
         account_type: value["accountType"],
         behavior_assessment_enabled: value["behaviorAssessmentEnabled"],
         cloudtrail_region: value["cloudtrailRegion"],
+        deployment_method: value["deploymentMethod"],
         dspm_enabled: value["dspmEnabled"],
+        dspm_host_account_id: value["dspmHostAccountId"],
         dspm_role: value["dspmRole"],
+        falcon_client_id: value["falconClientId"],
         iam_role_arn: value["iamRoleArn"],
         is_master: value["isMaster"],
         organization_id: value["organizationId"],
+        root_stack_id: value["rootStackId"],
         sensor_management_enabled: value["sensorManagementEnabled"],
         target_ous: value["targetOus"],
         use_existing_cloudtrail: value["useExistingCloudtrail"],
+        vulnerability_scanning_enabled: value["vulnerabilityScanningEnabled"],
+        vulnerability_scanning_host_account_id: value["vulnerabilityScanningHostAccountId"],
+        vulnerability_scanning_role: value["vulnerabilityScanningRole"],
     };
 }

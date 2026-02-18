@@ -27,6 +27,12 @@ import {
  */
 export interface DomainDiscoverAPIApplicationBrowserExtension {
     /**
+     * The architecture of the browser extension
+     * @type {string}
+     * @memberof DomainDiscoverAPIApplicationBrowserExtension
+     */
+    architecture?: string;
+    /**
      * The name of the browser that's running the extension
      * @type {string}
      * @memberof DomainDiscoverAPIApplicationBrowserExtension
@@ -88,6 +94,7 @@ export function DomainDiscoverAPIApplicationBrowserExtensionFromJSONTyped(json: 
         return json;
     }
     return {
+        architecture: json["architecture"] == null ? undefined : json["architecture"],
         browserName: json["browser_name"] == null ? undefined : json["browser_name"],
         enabled: json["enabled"],
         id: json["id"],
@@ -103,6 +110,7 @@ export function DomainDiscoverAPIApplicationBrowserExtensionToJSON(value?: Domai
         return value;
     }
     return {
+        architecture: value["architecture"],
         browser_name: value["browserName"],
         enabled: value["enabled"],
         id: value["id"],

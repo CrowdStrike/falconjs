@@ -66,6 +66,12 @@ export interface V2Model {
     parent: V2Model;
     /**
      *
+     * @type {string}
+     * @memberof V2Model
+     */
+    summary?: string;
+    /**
+     *
      * @type {V2Trigger}
      * @memberof V2Model
      */
@@ -104,6 +110,7 @@ export function V2ModelFromJSONTyped(json: any, ignoreDiscriminator: boolean): V
         nodeRegistry: json["nodeRegistry"],
         outputFields: json["output_fields"] == null ? undefined : json["output_fields"],
         parent: V2ModelFromJSON(json["parent"]),
+        summary: json["summary"] == null ? undefined : json["summary"],
         trigger: V2TriggerFromJSON(json["trigger"]),
         uniqNodeSeen: json["uniqNodeSeen"],
     };
@@ -120,6 +127,7 @@ export function V2ModelToJSON(value?: V2Model | null): any {
         nodeRegistry: value["nodeRegistry"],
         output_fields: value["outputFields"],
         parent: V2ModelToJSON(value["parent"]),
+        summary: value["summary"],
         trigger: V2TriggerToJSON(value["trigger"]),
         uniqNodeSeen: value["uniqNodeSeen"],
     };

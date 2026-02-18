@@ -13,6 +13,8 @@
  */
 
 import { mapValues } from "../runtime";
+import type { DomainCloudGroup } from "./DomainCloudGroup";
+import { DomainCloudGroupFromJSON, DomainCloudGroupFromJSONTyped, DomainCloudGroupToJSON } from "./DomainCloudGroup";
 import type { ClassificationLabel } from "./ClassificationLabel";
 import { ClassificationLabelFromJSON, ClassificationLabelFromJSONTyped, ClassificationLabelToJSON } from "./ClassificationLabel";
 import type { DomainCloudScope } from "./DomainCloudScope";
@@ -56,6 +58,12 @@ export interface RegistrationIOMEventV2 {
     cid: string;
     /**
      *
+     * @type {Array<DomainCloudGroup>}
+     * @memberof RegistrationIOMEventV2
+     */
+    cloudGroupsV2?: Array<DomainCloudGroup>;
+    /**
+     *
      * @type {Array<ClassificationLabel>}
      * @memberof RegistrationIOMEventV2
      */
@@ -90,6 +98,12 @@ export interface RegistrationIOMEventV2 {
      * @memberof RegistrationIOMEventV2
      */
     findings: Array<object>;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof RegistrationIOMEventV2
+     */
+    groups?: Array<string>;
     /**
      *
      * @type {string}
@@ -254,12 +268,14 @@ export function RegistrationIOMEventV2FromJSONTyped(json: any, ignoreDiscriminat
         agentId: json["agent_id"] == null ? undefined : json["agent_id"],
         azureTenantId: json["azure_tenant_id"] == null ? undefined : json["azure_tenant_id"],
         cid: json["cid"],
+        cloudGroupsV2: json["cloud_groups_v2"] == null ? undefined : (json["cloud_groups_v2"] as Array<any>).map(DomainCloudGroupFromJSON),
         cloudLabels: json["cloud_labels"] == null ? undefined : (json["cloud_labels"] as Array<any>).map(ClassificationLabelFromJSON),
         cloudProvider: json["cloud_provider"],
         cloudScopes: json["cloud_scopes"] == null ? undefined : (json["cloud_scopes"] as Array<any>).map(DomainCloudScopeFromJSON),
         customPolicyId: json["custom_policy_id"] == null ? undefined : json["custom_policy_id"],
         finding: json["finding"],
         findings: json["findings"],
+        groups: json["groups"] == null ? undefined : json["groups"],
         id: json["id"],
         isManaged: json["is_managed"] == null ? undefined : json["is_managed"],
         policyId: json["policy_id"] == null ? undefined : json["policy_id"],
@@ -293,12 +309,14 @@ export function RegistrationIOMEventV2ToJSON(value?: RegistrationIOMEventV2 | nu
         agent_id: value["agentId"],
         azure_tenant_id: value["azureTenantId"],
         cid: value["cid"],
+        cloud_groups_v2: value["cloudGroupsV2"] == null ? undefined : (value["cloudGroupsV2"] as Array<any>).map(DomainCloudGroupToJSON),
         cloud_labels: value["cloudLabels"] == null ? undefined : (value["cloudLabels"] as Array<any>).map(ClassificationLabelToJSON),
         cloud_provider: value["cloudProvider"],
         cloud_scopes: value["cloudScopes"] == null ? undefined : (value["cloudScopes"] as Array<any>).map(DomainCloudScopeToJSON),
         custom_policy_id: value["customPolicyId"],
         finding: value["finding"],
         findings: value["findings"],
+        groups: value["groups"],
         id: value["id"],
         is_managed: value["isManaged"],
         policy_id: value["policyId"],

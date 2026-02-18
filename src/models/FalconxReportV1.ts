@@ -21,6 +21,8 @@ import type { FalconxSandboxReportV1 } from "./FalconxSandboxReportV1";
 import { FalconxSandboxReportV1FromJSON, FalconxSandboxReportV1FromJSONTyped, FalconxSandboxReportV1ToJSON } from "./FalconxSandboxReportV1";
 import type { FalconxMalqueryReportV1 } from "./FalconxMalqueryReportV1";
 import { FalconxMalqueryReportV1FromJSON, FalconxMalqueryReportV1FromJSONTyped, FalconxMalqueryReportV1ToJSON } from "./FalconxMalqueryReportV1";
+import type { FalconxAISummary } from "./FalconxAISummary";
+import { FalconxAISummaryFromJSON, FalconxAISummaryFromJSONTyped, FalconxAISummaryToJSON } from "./FalconxAISummary";
 import type { FalconxThreatGraphReportV1 } from "./FalconxThreatGraphReportV1";
 import { FalconxThreatGraphReportV1FromJSON, FalconxThreatGraphReportV1FromJSONTyped, FalconxThreatGraphReportV1ToJSON } from "./FalconxThreatGraphReportV1";
 
@@ -30,6 +32,12 @@ import { FalconxThreatGraphReportV1FromJSON, FalconxThreatGraphReportV1FromJSONT
  * @interface FalconxReportV1
  */
 export interface FalconxReportV1 {
+    /**
+     *
+     * @type {FalconxAISummary}
+     * @memberof FalconxReportV1
+     */
+    aiSummary?: FalconxAISummary;
     /**
      *
      * @type {string}
@@ -186,6 +194,12 @@ export interface FalconxReportV1 {
      * @memberof FalconxReportV1
      */
     verdict?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof FalconxReportV1
+     */
+    verdictSource?: string;
 }
 
 /**
@@ -204,6 +218,7 @@ export function FalconxReportV1FromJSONTyped(json: any, ignoreDiscriminator: boo
         return json;
     }
     return {
+        aiSummary: json["ai_summary"] == null ? undefined : FalconxAISummaryFromJSON(json["ai_summary"]),
         aid: json["aid"] == null ? undefined : json["aid"],
         cid: json["cid"] == null ? undefined : json["cid"],
         createdTimestamp: json["created_timestamp"] == null ? undefined : json["created_timestamp"],
@@ -230,6 +245,7 @@ export function FalconxReportV1FromJSONTyped(json: any, ignoreDiscriminator: boo
         userTags: json["user_tags"] == null ? undefined : json["user_tags"],
         userUuid: json["user_uuid"] == null ? undefined : json["user_uuid"],
         verdict: json["verdict"] == null ? undefined : json["verdict"],
+        verdictSource: json["verdict_source"] == null ? undefined : json["verdict_source"],
     };
 }
 
@@ -238,6 +254,7 @@ export function FalconxReportV1ToJSON(value?: FalconxReportV1 | null): any {
         return value;
     }
     return {
+        ai_summary: FalconxAISummaryToJSON(value["aiSummary"]),
         aid: value["aid"],
         cid: value["cid"],
         created_timestamp: value["createdTimestamp"],
@@ -264,5 +281,6 @@ export function FalconxReportV1ToJSON(value?: FalconxReportV1 | null): any {
         user_tags: value["userTags"],
         user_uuid: value["userUuid"],
         verdict: value["verdict"],
+        verdict_source: value["verdictSource"],
     };
 }

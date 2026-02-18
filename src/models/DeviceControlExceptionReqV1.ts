@@ -20,73 +20,73 @@ import { mapValues } from "../runtime";
  */
 export interface DeviceControlExceptionReqV1 {
     /**
-     *
+     * Action to be taken for devices matching this exception. Note: BLOCK_EXECUTE and BLOCK_WRITE_EXECUTE only valid for MASS_STORAGE class
      * @type {string}
      * @memberof DeviceControlExceptionReqV1
      */
-    action?: string;
+    action?: DeviceControlExceptionReqV1ActionEnum;
     /**
-     *
+     * Combined identifier in the format 'vendorID_productID_serialNumber'. Not allowed if use_wildcard is true.
      * @type {string}
      * @memberof DeviceControlExceptionReqV1
      */
     combinedId?: string;
     /**
-     *
+     * Description for this exception. Maximum length: 512 characters.
      * @type {string}
      * @memberof DeviceControlExceptionReqV1
      */
     description?: string;
     /**
-     *
+     * yyyy-mm-ddThh:mm:ssZ (UTC) format of the time to remove the exception if temporary. Must be in the future.
      * @type {Date}
      * @memberof DeviceControlExceptionReqV1
      */
     expirationTime?: Date;
     /**
-     * Unique identifier for an exception
+     * Unique identifier for an exception. If omitted, a new exception will be created.
      * @type {string}
      * @memberof DeviceControlExceptionReqV1
      */
     id?: string;
     /**
-     *
+     * Hexadecimal ProductID used to apply the exception. Must be a valid hex value representing a decimal value less than 65535. Only one of product_id or product_id_decimal is required.
      * @type {string}
      * @memberof DeviceControlExceptionReqV1
      */
     productId?: string;
     /**
-     *
+     * Decimal ProductID used to apply the exception. Must be a valid decimal value less than 65535. Only one of product_id or product_id_decimal is required.
      * @type {string}
      * @memberof DeviceControlExceptionReqV1
      */
     productIdDecimal?: string;
     /**
-     *
+     * Product Name, optional.
      * @type {string}
      * @memberof DeviceControlExceptionReqV1
      */
     productName?: string;
     /**
-     *
+     * Serial number of the USB device. Maximum length: 126 characters. Required when use_wildcard is true.
      * @type {string}
      * @memberof DeviceControlExceptionReqV1
      */
     serialNumber?: string;
     /**
-     * true indicates using blob syntax USB serial numbers
+     * true indicates using blob syntax for USB serial numbers. When true, requires serial_number and either vendor_id(_decimal) and product_id(_decimal). Cannot be used with combined_id. Double asterisks (**) are not supported.
      * @type {boolean}
      * @memberof DeviceControlExceptionReqV1
      */
     useWildcard?: boolean;
     /**
-     * Hexadecimal VendorID used to apply the exception
+     * Hexadecimal VendorID used to apply the exception. Must be a valid hex value representing a decimal value less than 65535. Only one of vendor_id or vendor_id_decimal is required.
      * @type {string}
      * @memberof DeviceControlExceptionReqV1
      */
     vendorId?: string;
     /**
-     * Hexadecimal VendorID used to apply the exception
+     * Decimal VendorID used to apply the exception. Must be a valid decimal value less than 65535. Only one of vendor_id or vendor_id_decimal is required.
      * @type {string}
      * @memberof DeviceControlExceptionReqV1
      */
@@ -98,6 +98,17 @@ export interface DeviceControlExceptionReqV1 {
      */
     vendorName?: string;
 }
+
+/**
+ * @export
+ */
+export const DeviceControlExceptionReqV1ActionEnum = {
+    FullAccess: "FULL_ACCESS",
+    BlockAll: "BLOCK_ALL",
+    BlockExecute: "BLOCK_EXECUTE",
+    BlockWriteExecute: "BLOCK_WRITE_EXECUTE",
+} as const;
+export type DeviceControlExceptionReqV1ActionEnum = (typeof DeviceControlExceptionReqV1ActionEnum)[keyof typeof DeviceControlExceptionReqV1ActionEnum];
 
 /**
  * Check if a given object implements the DeviceControlExceptionReqV1 interface.

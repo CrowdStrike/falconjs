@@ -28,12 +28,6 @@ import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from
 export interface DetectionsApiDetectionsCount {
     /**
      *
-     * @type {Array<ModelsAPIDetectionCount>}
-     * @memberof DetectionsApiDetectionsCount
-     */
-    resources: Array<ModelsAPIDetectionCount>;
-    /**
-     *
      * @type {Array<MsaAPIError>}
      * @memberof DetectionsApiDetectionsCount
      */
@@ -44,14 +38,20 @@ export interface DetectionsApiDetectionsCount {
      * @memberof DetectionsApiDetectionsCount
      */
     meta: MsaMetaInfo;
+    /**
+     *
+     * @type {Array<ModelsAPIDetectionCount>}
+     * @memberof DetectionsApiDetectionsCount
+     */
+    resources: Array<ModelsAPIDetectionCount>;
 }
 
 /**
  * Check if a given object implements the DetectionsApiDetectionsCount interface.
  */
 export function instanceOfDetectionsApiDetectionsCount(value: object): value is DetectionsApiDetectionsCount {
-    if (!("resources" in value) || value["resources"] === undefined) return false;
     if (!("meta" in value) || value["meta"] === undefined) return false;
+    if (!("resources" in value) || value["resources"] === undefined) return false;
     return true;
 }
 
@@ -64,9 +64,9 @@ export function DetectionsApiDetectionsCountFromJSONTyped(json: any, ignoreDiscr
         return json;
     }
     return {
-        resources: (json["resources"] as Array<any>).map(ModelsAPIDetectionCountFromJSON),
         errors: json["errors"] == null ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
+        resources: (json["resources"] as Array<any>).map(ModelsAPIDetectionCountFromJSON),
     };
 }
 
@@ -75,8 +75,8 @@ export function DetectionsApiDetectionsCountToJSON(value?: DetectionsApiDetectio
         return value;
     }
     return {
-        resources: (value["resources"] as Array<any>).map(ModelsAPIDetectionCountToJSON),
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
+        resources: (value["resources"] as Array<any>).map(ModelsAPIDetectionCountToJSON),
     };
 }

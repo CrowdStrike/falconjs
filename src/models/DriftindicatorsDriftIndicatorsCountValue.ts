@@ -28,12 +28,6 @@ import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from
 export interface DriftindicatorsDriftIndicatorsCountValue {
     /**
      *
-     * @type {Array<CommonCountAsResource>}
-     * @memberof DriftindicatorsDriftIndicatorsCountValue
-     */
-    resources: Array<CommonCountAsResource>;
-    /**
-     *
      * @type {Array<MsaAPIError>}
      * @memberof DriftindicatorsDriftIndicatorsCountValue
      */
@@ -44,14 +38,20 @@ export interface DriftindicatorsDriftIndicatorsCountValue {
      * @memberof DriftindicatorsDriftIndicatorsCountValue
      */
     meta: MsaMetaInfo;
+    /**
+     *
+     * @type {Array<CommonCountAsResource>}
+     * @memberof DriftindicatorsDriftIndicatorsCountValue
+     */
+    resources: Array<CommonCountAsResource>;
 }
 
 /**
  * Check if a given object implements the DriftindicatorsDriftIndicatorsCountValue interface.
  */
 export function instanceOfDriftindicatorsDriftIndicatorsCountValue(value: object): value is DriftindicatorsDriftIndicatorsCountValue {
-    if (!("resources" in value) || value["resources"] === undefined) return false;
     if (!("meta" in value) || value["meta"] === undefined) return false;
+    if (!("resources" in value) || value["resources"] === undefined) return false;
     return true;
 }
 
@@ -64,9 +64,9 @@ export function DriftindicatorsDriftIndicatorsCountValueFromJSONTyped(json: any,
         return json;
     }
     return {
-        resources: (json["resources"] as Array<any>).map(CommonCountAsResourceFromJSON),
         errors: json["errors"] == null ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
+        resources: (json["resources"] as Array<any>).map(CommonCountAsResourceFromJSON),
     };
 }
 
@@ -75,8 +75,8 @@ export function DriftindicatorsDriftIndicatorsCountValueToJSON(value?: Driftindi
         return value;
     }
     return {
-        resources: (value["resources"] as Array<any>).map(CommonCountAsResourceToJSON),
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
+        resources: (value["resources"] as Array<any>).map(CommonCountAsResourceToJSON),
     };
 }

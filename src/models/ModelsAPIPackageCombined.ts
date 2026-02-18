@@ -24,6 +24,12 @@ import { ModelsAPIPackageVulnerabilityFromJSON, ModelsAPIPackageVulnerabilityFro
 export interface ModelsAPIPackageCombined {
     /**
      *
+     * @type {boolean}
+     * @memberof ModelsAPIPackageCombined
+     */
+    aiRelated: boolean;
+    /**
+     *
      * @type {number}
      * @memberof ModelsAPIPackageCombined
      */
@@ -76,6 +82,7 @@ export interface ModelsAPIPackageCombined {
  * Check if a given object implements the ModelsAPIPackageCombined interface.
  */
 export function instanceOfModelsAPIPackageCombined(value: object): value is ModelsAPIPackageCombined {
+    if (!("aiRelated" in value) || value["aiRelated"] === undefined) return false;
     if (!("allImages" in value) || value["allImages"] === undefined) return false;
     if (!("cid" in value) || value["cid"] === undefined) return false;
     if (!("license" in value) || value["license"] === undefined) return false;
@@ -96,6 +103,7 @@ export function ModelsAPIPackageCombinedFromJSONTyped(json: any, ignoreDiscrimin
         return json;
     }
     return {
+        aiRelated: json["ai_related"],
         allImages: json["all_images"],
         cid: json["cid"],
         license: json["license"],
@@ -112,6 +120,7 @@ export function ModelsAPIPackageCombinedToJSON(value?: ModelsAPIPackageCombined 
         return value;
     }
     return {
+        ai_related: value["aiRelated"],
         all_images: value["allImages"],
         cid: value["cid"],
         license: value["license"],

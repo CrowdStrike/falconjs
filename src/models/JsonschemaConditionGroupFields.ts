@@ -48,6 +48,18 @@ export interface JsonschemaConditionGroupFields {
     dependentControl?: string;
     /**
      *
+     * @type {boolean}
+     * @memberof JsonschemaConditionGroupFields
+     */
+    ignoreMeta?: boolean;
+    /**
+     *
+     * @type {string}
+     * @memberof JsonschemaConditionGroupFields
+     */
+    requiresMeta?: string;
+    /**
+     *
      * @type {JsonschemaResetFields}
      * @memberof JsonschemaConditionGroupFields
      */
@@ -74,6 +86,8 @@ export function JsonschemaConditionGroupFieldsFromJSONTyped(json: any, ignoreDis
         controlName: json["control_name"] == null ? undefined : json["control_name"],
         controller: json["controller"] == null ? undefined : json["controller"],
         dependentControl: json["dependent_control"] == null ? undefined : json["dependent_control"],
+        ignoreMeta: json["ignore_meta"] == null ? undefined : json["ignore_meta"],
+        requiresMeta: json["requires_meta"] == null ? undefined : json["requires_meta"],
         resetFields: json["reset_fields"] == null ? undefined : JsonschemaResetFieldsFromJSON(json["reset_fields"]),
     };
 }
@@ -87,6 +101,8 @@ export function JsonschemaConditionGroupFieldsToJSON(value?: JsonschemaCondition
         control_name: value["controlName"],
         controller: value["controller"],
         dependent_control: value["dependentControl"],
+        ignore_meta: value["ignoreMeta"],
+        requires_meta: value["requiresMeta"],
         reset_fields: JsonschemaResetFieldsToJSON(value["resetFields"]),
     };
 }

@@ -15,6 +15,8 @@
 import { mapValues } from "../runtime";
 import type { ExecutionsAncestorExecution } from "./ExecutionsAncestorExecution";
 import { ExecutionsAncestorExecutionFromJSON, ExecutionsAncestorExecutionFromJSONTyped, ExecutionsAncestorExecutionToJSON } from "./ExecutionsAncestorExecution";
+import type { ExecutionsFlowExecutionResult } from "./ExecutionsFlowExecutionResult";
+import { ExecutionsFlowExecutionResultFromJSON, ExecutionsFlowExecutionResultFromJSONTyped, ExecutionsFlowExecutionResultToJSON } from "./ExecutionsFlowExecutionResult";
 import type { ExecutionsActivityExecutionResult } from "./ExecutionsActivityExecutionResult";
 import { ExecutionsActivityExecutionResultFromJSON, ExecutionsActivityExecutionResultFromJSONTyped, ExecutionsActivityExecutionResultToJSON } from "./ExecutionsActivityExecutionResult";
 import type { ExecutionsTriggerResult } from "./ExecutionsTriggerResult";
@@ -41,11 +43,23 @@ export interface ExecutionsExecutionResult {
      */
     ancestorExecutions: Array<ExecutionsAncestorExecution>;
     /**
+     * A boolean value indicating whether the workflow execution contains mocked result data for trigger or activities
+     * @type {boolean}
+     * @memberof ExecutionsExecutionResult
+     */
+    containsMocks: boolean;
+    /**
      * Unique id of the workflow the execution is associated with.
      * @type {string}
      * @memberof ExecutionsExecutionResult
      */
     definitionId: string;
+    /**
+     * The name of the workflow the execution is associated with.
+     * @type {string}
+     * @memberof ExecutionsExecutionResult
+     */
+    definitionName: string;
     /**
      * Version of the definition that executed.
      * @type {number}
@@ -65,6 +79,12 @@ export interface ExecutionsExecutionResult {
      */
     executionId: string;
     /**
+     * Details for the result of each flow node.
+     * @type {Array<ExecutionsFlowExecutionResult>}
+     * @memberof ExecutionsExecutionResult
+     */
+    flows?: Array<ExecutionsFlowExecutionResult>;
+    /**
      * Details for the results of each loop in the workflow definition.
      * @type {Array<ExecutionsLoopResult>}
      * @memberof ExecutionsExecutionResult
@@ -75,7 +95,7 @@ export interface ExecutionsExecutionResult {
      * @type {object}
      * @memberof ExecutionsExecutionResult
      */
-    output?: object;
+    outputData?: object;
     /**
      * A boolean value indicating whether the failed workflow execution is retryable
      * @type {boolean}
@@ -95,6 +115,18 @@ export interface ExecutionsExecutionResult {
      */
     status: string;
     /**
+     * Execution summary if defined in the workflow definition
+     * @type {string}
+     * @memberof ExecutionsExecutionResult
+     */
+    summary?: string;
+    /**
+     * indicates the entity (definition or activity) being tested, if any
+     * @type {string}
+     * @memberof ExecutionsExecutionResult
+     */
+    testedEntity?: string;
+    /**
      *
      * @type {ExecutionsTriggerResult}
      * @memberof ExecutionsExecutionResult
@@ -108,7 +140,9 @@ export interface ExecutionsExecutionResult {
 export function instanceOfExecutionsExecutionResult(value: object): value is ExecutionsExecutionResult {
     if (!("activities" in value) || value["activities"] === undefined) return false;
     if (!("ancestorExecutions" in value) || value["ancestorExecutions"] === undefined) return false;
+    if (!("containsMocks" in value) || value["containsMocks"] === undefined) return false;
     if (!("definitionId" in value) || value["definitionId"] === undefined) return false;
+    if (!("definitionName" in value) || value["definitionName"] === undefined) return false;
     if (!("definitionVersion" in value) || value["definitionVersion"] === undefined) return false;
     if (!("executionId" in value) || value["executionId"] === undefined) return false;
     if (!("loops" in value) || value["loops"] === undefined) return false;
@@ -130,15 +164,20 @@ export function ExecutionsExecutionResultFromJSONTyped(json: any, ignoreDiscrimi
     return {
         activities: (json["activities"] as Array<any>).map(ExecutionsActivityExecutionResultFromJSON),
         ancestorExecutions: (json["ancestor_executions"] as Array<any>).map(ExecutionsAncestorExecutionFromJSON),
+        containsMocks: json["contains_mocks"],
         definitionId: json["definition_id"],
+        definitionName: json["definition_name"],
         definitionVersion: json["definition_version"],
         endTimestamp: json["end_timestamp"] == null ? undefined : new Date(json["end_timestamp"]),
         executionId: json["execution_id"],
+        flows: json["flows"] == null ? undefined : (json["flows"] as Array<any>).map(ExecutionsFlowExecutionResultFromJSON),
         loops: (json["loops"] as Array<any>).map(ExecutionsLoopResultFromJSON),
-        output: json["output"] == null ? undefined : json["output"],
+        outputData: json["output_data"] == null ? undefined : json["output_data"],
         retryable: json["retryable"],
         startTimestamp: new Date(json["start_timestamp"]),
         status: json["status"],
+        summary: json["summary"] == null ? undefined : json["summary"],
+        testedEntity: json["tested_entity"] == null ? undefined : json["tested_entity"],
         trigger: ExecutionsTriggerResultFromJSON(json["trigger"]),
     };
 }
@@ -150,15 +189,20 @@ export function ExecutionsExecutionResultToJSON(value?: ExecutionsExecutionResul
     return {
         activities: (value["activities"] as Array<any>).map(ExecutionsActivityExecutionResultToJSON),
         ancestor_executions: (value["ancestorExecutions"] as Array<any>).map(ExecutionsAncestorExecutionToJSON),
+        contains_mocks: value["containsMocks"],
         definition_id: value["definitionId"],
+        definition_name: value["definitionName"],
         definition_version: value["definitionVersion"],
         end_timestamp: value["endTimestamp"] == null ? undefined : value["endTimestamp"].toISOString(),
         execution_id: value["executionId"],
+        flows: value["flows"] == null ? undefined : (value["flows"] as Array<any>).map(ExecutionsFlowExecutionResultToJSON),
         loops: (value["loops"] as Array<any>).map(ExecutionsLoopResultToJSON),
-        output: value["output"],
+        output_data: value["outputData"],
         retryable: value["retryable"],
         start_timestamp: value["startTimestamp"].toISOString(),
         status: value["status"],
+        summary: value["summary"],
+        tested_entity: value["testedEntity"],
         trigger: ExecutionsTriggerResultToJSON(value["trigger"]),
     };
 }

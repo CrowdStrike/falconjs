@@ -21,6 +21,12 @@ import { mapValues } from "../runtime";
 export interface V2Condition {
     /**
      *
+     * @type {string}
+     * @memberof V2Condition
+     */
+    celExpression?: string;
+    /**
+     *
      * @type {Array<string>}
      * @memberof V2Condition
      */
@@ -42,7 +48,7 @@ export interface V2Condition {
      * @type {string}
      * @memberof V2Condition
      */
-    expression: string;
+    expression?: string;
     /**
      *
      * @type {Array<string>}
@@ -55,7 +61,6 @@ export interface V2Condition {
  * Check if a given object implements the V2Condition interface.
  */
 export function instanceOfV2Condition(value: object): value is V2Condition {
-    if (!("expression" in value) || value["expression"] === undefined) return false;
     if (!("next" in value) || value["next"] === undefined) return false;
     return true;
 }
@@ -69,10 +74,11 @@ export function V2ConditionFromJSONTyped(json: any, ignoreDiscriminator: boolean
         return json;
     }
     return {
+        celExpression: json["cel_expression"] == null ? undefined : json["cel_expression"],
         display: json["display"] == null ? undefined : json["display"],
         _else: json["else"] == null ? undefined : json["else"],
         elseIf: json["else_if"] == null ? undefined : json["else_if"],
-        expression: json["expression"],
+        expression: json["expression"] == null ? undefined : json["expression"],
         next: json["next"],
     };
 }
@@ -82,6 +88,7 @@ export function V2ConditionToJSON(value?: V2Condition | null): any {
         return value;
     }
     return {
+        cel_expression: value["celExpression"],
         display: value["display"],
         else: value["_else"],
         else_if: value["elseIf"],

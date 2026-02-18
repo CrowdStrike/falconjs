@@ -15,6 +15,12 @@
 import { mapValues } from "../runtime";
 import type { DomainAPIEvaluationLogicHostInfoV1 } from "./DomainAPIEvaluationLogicHostInfoV1";
 import { DomainAPIEvaluationLogicHostInfoV1FromJSON, DomainAPIEvaluationLogicHostInfoV1FromJSONTyped, DomainAPIEvaluationLogicHostInfoV1ToJSON } from "./DomainAPIEvaluationLogicHostInfoV1";
+import type { DomainAPISimplifiedEvaluationLogicItemV1 } from "./DomainAPISimplifiedEvaluationLogicItemV1";
+import {
+    DomainAPISimplifiedEvaluationLogicItemV1FromJSON,
+    DomainAPISimplifiedEvaluationLogicItemV1FromJSONTyped,
+    DomainAPISimplifiedEvaluationLogicItemV1ToJSON,
+} from "./DomainAPISimplifiedEvaluationLogicItemV1";
 import type { DomainAPIEvaluationLogicItemV1 } from "./DomainAPIEvaluationLogicItemV1";
 import { DomainAPIEvaluationLogicItemV1FromJSON, DomainAPIEvaluationLogicItemV1FromJSONTyped, DomainAPIEvaluationLogicItemV1ToJSON } from "./DomainAPIEvaluationLogicItemV1";
 
@@ -73,6 +79,12 @@ export interface DomainAPIEvaluationLogicV1 {
      */
     scannerId?: string;
     /**
+     * Refers to the simplified evaluation logic data
+     * @type {Array<DomainAPISimplifiedEvaluationLogicItemV1>}
+     * @memberof DomainAPIEvaluationLogicV1
+     */
+    simplifiedLogic?: Array<DomainAPISimplifiedEvaluationLogicItemV1>;
+    /**
      * Refers to a point in time when evaluation logic data was updated in the system
      * @type {string}
      * @memberof DomainAPIEvaluationLogicV1
@@ -105,6 +117,7 @@ export function DomainAPIEvaluationLogicV1FromJSONTyped(json: any, ignoreDiscrim
         id: json["id"],
         logic: json["logic"] == null ? undefined : (json["logic"] as Array<any>).map(DomainAPIEvaluationLogicItemV1FromJSON),
         scannerId: json["scanner_id"] == null ? undefined : json["scanner_id"],
+        simplifiedLogic: json["simplified_logic"] == null ? undefined : (json["simplified_logic"] as Array<any>).map(DomainAPISimplifiedEvaluationLogicItemV1FromJSON),
         updatedTimestamp: json["updated_timestamp"] == null ? undefined : json["updated_timestamp"],
     };
 }
@@ -122,6 +135,7 @@ export function DomainAPIEvaluationLogicV1ToJSON(value?: DomainAPIEvaluationLogi
         id: value["id"],
         logic: value["logic"] == null ? undefined : (value["logic"] as Array<any>).map(DomainAPIEvaluationLogicItemV1ToJSON),
         scanner_id: value["scannerId"],
+        simplified_logic: value["simplifiedLogic"] == null ? undefined : (value["simplifiedLogic"] as Array<any>).map(DomainAPISimplifiedEvaluationLogicItemV1ToJSON),
         updated_timestamp: value["updatedTimestamp"],
     };
 }

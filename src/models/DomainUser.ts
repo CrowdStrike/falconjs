@@ -33,6 +33,12 @@ export interface DomainUser {
     createdAt?: Date;
     /**
      *
+     * @type {Array<string>}
+     * @memberof DomainUser
+     */
+    factors?: Array<string>;
+    /**
+     *
      * @type {string}
      * @memberof DomainUser
      */
@@ -93,6 +99,7 @@ export function DomainUserFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     return {
         cid: json["cid"] == null ? undefined : json["cid"],
         createdAt: json["created_at"] == null ? undefined : new Date(json["created_at"]),
+        factors: json["factors"] == null ? undefined : json["factors"],
         firstName: json["first_name"] == null ? undefined : json["first_name"],
         lastLoginAt: json["last_login_at"] == null ? undefined : new Date(json["last_login_at"]),
         lastName: json["last_name"] == null ? undefined : json["last_name"],
@@ -110,6 +117,7 @@ export function DomainUserToJSON(value?: DomainUser | null): any {
     return {
         cid: value["cid"],
         created_at: value["createdAt"] == null ? undefined : value["createdAt"].toISOString(),
+        factors: value["factors"],
         first_name: value["firstName"],
         last_login_at: value["lastLoginAt"] == null ? undefined : value["lastLoginAt"].toISOString(),
         last_name: value["lastName"],

@@ -21,6 +21,18 @@ import { mapValues } from "../runtime";
 export interface ModelsExtAPIImageCombined {
     /**
      *
+     * @type {boolean}
+     * @memberof ModelsExtAPIImageCombined
+     */
+    aiRelated: boolean;
+    /**
+     *
+     * @type {string}
+     * @memberof ModelsExtAPIImageCombined
+     */
+    architecture: string;
+    /**
+     *
      * @type {string}
      * @memberof ModelsExtAPIImageCombined
      */
@@ -139,6 +151,8 @@ export interface ModelsExtAPIImageCombined {
  * Check if a given object implements the ModelsExtAPIImageCombined interface.
  */
 export function instanceOfModelsExtAPIImageCombined(value: object): value is ModelsExtAPIImageCombined {
+    if (!("aiRelated" in value) || value["aiRelated"] === undefined) return false;
+    if (!("architecture" in value) || value["architecture"] === undefined) return false;
     if (!("baseOs" in value) || value["baseOs"] === undefined) return false;
     if (!("cid" in value) || value["cid"] === undefined) return false;
     if (!("containers" in value) || value["containers"] === undefined) return false;
@@ -170,6 +184,8 @@ export function ModelsExtAPIImageCombinedFromJSONTyped(json: any, ignoreDiscrimi
         return json;
     }
     return {
+        aiRelated: json["ai_related"],
+        architecture: json["architecture"],
         baseOs: json["base_os"],
         cid: json["cid"],
         containers: json["containers"],
@@ -197,6 +213,8 @@ export function ModelsExtAPIImageCombinedToJSON(value?: ModelsExtAPIImageCombine
         return value;
     }
     return {
+        ai_related: value["aiRelated"],
+        architecture: value["architecture"],
         base_os: value["baseOs"],
         cid: value["cid"],
         containers: value["containers"],

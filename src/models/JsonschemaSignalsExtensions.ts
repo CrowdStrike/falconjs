@@ -37,6 +37,18 @@ export interface JsonschemaSignalsExtensions {
      * @memberof JsonschemaSignalsExtensions
      */
     pathName?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof JsonschemaSignalsExtensions
+     */
+    useCase?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof JsonschemaSignalsExtensions
+     */
+    vendor?: string;
 }
 
 /**
@@ -58,6 +70,8 @@ export function JsonschemaSignalsExtensionsFromJSONTyped(json: any, ignoreDiscri
         enumWrapper: json["enum_wrapper"] == null ? undefined : json["enum_wrapper"],
         exampleDisplayMap: json["example_display_map"] == null ? undefined : json["example_display_map"],
         pathName: json["path_name"] == null ? undefined : json["path_name"],
+        useCase: json["use_case"] == null ? undefined : json["use_case"],
+        vendor: json["vendor"] == null ? undefined : json["vendor"],
     };
 }
 
@@ -69,5 +83,7 @@ export function JsonschemaSignalsExtensionsToJSON(value?: JsonschemaSignalsExten
         enum_wrapper: value["enumWrapper"],
         example_display_map: value["exampleDisplayMap"],
         path_name: value["pathName"],
+        use_case: value["useCase"],
+        vendor: value["vendor"],
     };
 }

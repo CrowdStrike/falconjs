@@ -26,6 +26,12 @@ export interface SensorUpdateBuildRespV1 {
      */
     build: string;
     /**
+     * Indicates whether or not the build configured on the policy is categorized as a LTS build (Long Term Support)
+     * @type {boolean}
+     * @memberof SensorUpdateBuildRespV1
+     */
+    isLtsBuild: boolean;
+    /**
      *
      * @type {string}
      * @memberof SensorUpdateBuildRespV1
@@ -59,6 +65,7 @@ export type SensorUpdateBuildRespV1StageEnum = (typeof SensorUpdateBuildRespV1St
  */
 export function instanceOfSensorUpdateBuildRespV1(value: object): value is SensorUpdateBuildRespV1 {
     if (!("build" in value) || value["build"] === undefined) return false;
+    if (!("isLtsBuild" in value) || value["isLtsBuild"] === undefined) return false;
     if (!("platform" in value) || value["platform"] === undefined) return false;
     if (!("sensorVersion" in value) || value["sensorVersion"] === undefined) return false;
     if (!("stage" in value) || value["stage"] === undefined) return false;
@@ -75,6 +82,7 @@ export function SensorUpdateBuildRespV1FromJSONTyped(json: any, ignoreDiscrimina
     }
     return {
         build: json["build"],
+        isLtsBuild: json["is_lts_build"],
         platform: json["platform"],
         sensorVersion: json["sensor_version"],
         stage: json["stage"],
@@ -87,6 +95,7 @@ export function SensorUpdateBuildRespV1ToJSON(value?: SensorUpdateBuildRespV1 | 
     }
     return {
         build: value["build"],
+        is_lts_build: value["isLtsBuild"],
         platform: value["platform"],
         sensor_version: value["sensorVersion"],
         stage: value["stage"],

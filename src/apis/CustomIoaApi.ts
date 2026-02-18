@@ -184,7 +184,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:write"]);
         }
 
         const response = await this.request(
@@ -228,7 +228,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:write"]);
         }
 
         const response = await this.request(
@@ -278,7 +278,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:write"]);
         }
 
         const response = await this.request(
@@ -332,7 +332,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:write"]);
         }
 
         const response = await this.request(
@@ -374,7 +374,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
         }
 
         const response = await this.request(
@@ -419,7 +419,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
         }
 
         const response = await this.request(
@@ -464,7 +464,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
         }
 
         const response = await this.request(
@@ -506,7 +506,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
         }
 
         const response = await this.request(
@@ -546,7 +546,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:write"]);
         }
 
         const response = await this.request(
@@ -589,7 +589,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
         }
 
         const response = await this.request(
@@ -631,7 +631,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
         }
 
         const response = await this.request(
@@ -676,7 +676,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
         }
 
         const response = await this.request(
@@ -733,7 +733,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
         }
 
         const response = await this.request(
@@ -797,7 +797,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
         }
 
         const response = await this.request(
@@ -846,7 +846,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
         }
 
         const response = await this.request(
@@ -900,7 +900,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
         }
 
         const response = await this.request(
@@ -950,7 +950,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:write"]);
         }
 
         const response = await this.request(
@@ -991,7 +991,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:write"]);
         }
 
         const response = await this.request(
@@ -1032,7 +1032,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:write"]);
         }
 
         const response = await this.request(
@@ -1073,7 +1073,7 @@ export class CustomIoaApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:write"]);
         }
 
         const response = await this.request(

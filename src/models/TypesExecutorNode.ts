@@ -15,6 +15,8 @@
 import { mapValues } from "../runtime";
 import type { TypesK8SPodSettings } from "./TypesK8SPodSettings";
 import { TypesK8SPodSettingsFromJSON, TypesK8SPodSettingsFromJSONTyped, TypesK8SPodSettingsToJSON } from "./TypesK8SPodSettings";
+import type { TypesExecutorNodeStatus } from "./TypesExecutorNodeStatus";
+import { TypesExecutorNodeStatusFromJSON, TypesExecutorNodeStatusFromJSONTyped, TypesExecutorNodeStatusToJSON } from "./TypesExecutorNodeStatus";
 
 /**
  *
@@ -42,10 +44,10 @@ export interface TypesExecutorNode {
     dashboardUrl?: string;
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof TypesExecutorNode
      */
-    id?: number;
+    id?: string;
     /**
      *
      * @type {number}
@@ -82,6 +84,12 @@ export interface TypesExecutorNode {
      * @memberof TypesExecutorNode
      */
     proxyAddress?: string;
+    /**
+     *
+     * @type {TypesExecutorNodeStatus}
+     * @memberof TypesExecutorNode
+     */
+    status?: TypesExecutorNodeStatus;
     /**
      *
      * @type {string}
@@ -128,6 +136,7 @@ export function TypesExecutorNodeFromJSONTyped(json: any, ignoreDiscriminator: b
         password: json["password"] == null ? undefined : json["password"],
         podSettings: json["pod_settings"] == null ? undefined : TypesK8SPodSettingsFromJSON(json["pod_settings"]),
         proxyAddress: json["proxy_address"] == null ? undefined : json["proxy_address"],
+        status: json["status"] == null ? undefined : TypesExecutorNodeStatusFromJSON(json["status"]),
         type: json["type"] == null ? undefined : json["type"],
         useJobs: json["useJobs"] == null ? undefined : json["useJobs"],
         username: json["username"] == null ? undefined : json["username"],
@@ -149,6 +158,7 @@ export function TypesExecutorNodeToJSON(value?: TypesExecutorNode | null): any {
         password: value["password"],
         pod_settings: TypesK8SPodSettingsToJSON(value["podSettings"]),
         proxy_address: value["proxyAddress"],
+        status: TypesExecutorNodeStatusToJSON(value["status"]),
         type: value["type"],
         useJobs: value["useJobs"],
         username: value["username"],

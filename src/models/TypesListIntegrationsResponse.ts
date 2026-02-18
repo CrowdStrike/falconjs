@@ -13,8 +13,8 @@
  */
 
 import { mapValues } from "../runtime";
-import type { TypesIntegration } from "./TypesIntegration";
-import { TypesIntegrationFromJSON, TypesIntegrationFromJSONTyped, TypesIntegrationToJSON } from "./TypesIntegration";
+import type { TypesListIntegrationItem } from "./TypesListIntegrationItem";
+import { TypesListIntegrationItemFromJSON, TypesListIntegrationItemFromJSONTyped, TypesListIntegrationItemToJSON } from "./TypesListIntegrationItem";
 
 /**
  *
@@ -24,10 +24,10 @@ import { TypesIntegrationFromJSON, TypesIntegrationFromJSONTyped, TypesIntegrati
 export interface TypesListIntegrationsResponse {
     /**
      *
-     * @type {Array<TypesIntegration>}
+     * @type {Array<TypesListIntegrationItem>}
      * @memberof TypesListIntegrationsResponse
      */
-    integrations?: Array<TypesIntegration>;
+    integrations?: Array<TypesListIntegrationItem>;
 }
 
 /**
@@ -46,7 +46,7 @@ export function TypesListIntegrationsResponseFromJSONTyped(json: any, ignoreDisc
         return json;
     }
     return {
-        integrations: json["integrations"] == null ? undefined : (json["integrations"] as Array<any>).map(TypesIntegrationFromJSON),
+        integrations: json["integrations"] == null ? undefined : (json["integrations"] as Array<any>).map(TypesListIntegrationItemFromJSON),
     };
 }
 
@@ -55,6 +55,6 @@ export function TypesListIntegrationsResponseToJSON(value?: TypesListIntegration
         return value;
     }
     return {
-        integrations: value["integrations"] == null ? undefined : (value["integrations"] as Array<any>).map(TypesIntegrationToJSON),
+        integrations: value["integrations"] == null ? undefined : (value["integrations"] as Array<any>).map(TypesListIntegrationItemToJSON),
     };
 }

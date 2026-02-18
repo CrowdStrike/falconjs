@@ -19,8 +19,6 @@ import type { ClientExtraSort } from "./ClientExtraSort";
 import { ClientExtraSortFromJSON, ClientExtraSortFromJSONTyped, ClientExtraSortToJSON } from "./ClientExtraSort";
 import type { ClientExtraLimit } from "./ClientExtraLimit";
 import { ClientExtraLimitFromJSON, ClientExtraLimitFromJSONTyped, ClientExtraLimitToJSON } from "./ClientExtraLimit";
-import type { ClientFQLStatement } from "./ClientFQLStatement";
-import { ClientFQLStatementFromJSON, ClientFQLStatementFromJSONTyped, ClientFQLStatementToJSON } from "./ClientFQLStatement";
 import type { ClientExtraRename } from "./ClientExtraRename";
 import { ClientExtraRenameFromJSON, ClientExtraRenameFromJSONTyped, ClientExtraRenameToJSON } from "./ClientExtraRename";
 
@@ -35,43 +33,7 @@ export interface ApidomainSavedSearchExecuteRequestV1 {
      * @type {string}
      * @memberof ApidomainSavedSearchExecuteRequestV1
      */
-    extraRename: string;
-    /**
-     *
-     * @type {string}
-     * @memberof ApidomainSavedSearchExecuteRequestV1
-     */
-    extraSearch: string;
-    /**
-     *
-     * @type {string}
-     * @memberof ApidomainSavedSearchExecuteRequestV1
-     */
-    extraSort: string;
-    /**
-     *
-     * @type {string}
-     * @memberof ApidomainSavedSearchExecuteRequestV1
-     */
-    extraWhere: string;
-    /**
-     *
-     * @type {{ [key: string]: string; }}
-     * @memberof ApidomainSavedSearchExecuteRequestV1
-     */
-    parameters: { [key: string]: string };
-    /**
-     *
-     * @type {string}
-     * @memberof ApidomainSavedSearchExecuteRequestV1
-     */
     end?: string;
-    /**
-     *
-     * @type {{ [key: string]: ClientFQLStatement; }}
-     * @memberof ApidomainSavedSearchExecuteRequestV1
-     */
-    fqlStatements: { [key: string]: ClientFQLStatement };
     /**
      *
      * @type {string}
@@ -132,12 +94,6 @@ export interface ApidomainSavedSearchExecuteRequestV1 {
  * Check if a given object implements the ApidomainSavedSearchExecuteRequestV1 interface.
  */
 export function instanceOfApidomainSavedSearchExecuteRequestV1(value: object): value is ApidomainSavedSearchExecuteRequestV1 {
-    if (!("extraRename" in value) || value["extraRename"] === undefined) return false;
-    if (!("extraSearch" in value) || value["extraSearch"] === undefined) return false;
-    if (!("extraSort" in value) || value["extraSort"] === undefined) return false;
-    if (!("extraWhere" in value) || value["extraWhere"] === undefined) return false;
-    if (!("parameters" in value) || value["parameters"] === undefined) return false;
-    if (!("fqlStatements" in value) || value["fqlStatements"] === undefined) return false;
     return true;
 }
 
@@ -150,13 +106,7 @@ export function ApidomainSavedSearchExecuteRequestV1FromJSONTyped(json: any, ign
         return json;
     }
     return {
-        extraRename: json["ExtraRename"],
-        extraSearch: json["ExtraSearch"],
-        extraSort: json["ExtraSort"],
-        extraWhere: json["ExtraWhere"],
-        parameters: json["Parameters"],
         end: json["end"] == null ? undefined : json["end"],
-        fqlStatements: mapValues(json["fql_statements"], ClientFQLStatementFromJSON),
         id: json["id"] == null ? undefined : json["id"],
         mode: json["mode"] == null ? undefined : json["mode"],
         name: json["name"] == null ? undefined : json["name"],
@@ -174,13 +124,7 @@ export function ApidomainSavedSearchExecuteRequestV1ToJSON(value?: ApidomainSave
         return value;
     }
     return {
-        ExtraRename: value["extraRename"],
-        ExtraSearch: value["extraSearch"],
-        ExtraSort: value["extraSort"],
-        ExtraWhere: value["extraWhere"],
-        Parameters: value["parameters"],
         end: value["end"],
-        fql_statements: mapValues(value["fqlStatements"], ClientFQLStatementToJSON),
         id: value["id"],
         mode: value["mode"],
         name: value["name"],

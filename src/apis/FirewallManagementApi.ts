@@ -286,7 +286,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
         }
 
         const response = await this.request(
@@ -330,7 +330,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
         }
 
         const response = await this.request(
@@ -374,7 +374,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
         }
 
         const response = await this.request(
@@ -418,7 +418,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
         }
 
         const response = await this.request(
@@ -474,7 +474,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
         }
 
         const response = await this.request(
@@ -536,7 +536,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
         }
 
         const response = await this.request(
@@ -598,7 +598,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
         }
 
         const response = await this.request(
@@ -650,7 +650,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
         }
 
         const response = await this.request(
@@ -699,7 +699,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
         }
 
         const response = await this.request(
@@ -741,7 +741,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:read"]);
         }
 
         const response = await this.request(
@@ -786,7 +786,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:read"]);
         }
 
         const response = await this.request(
@@ -832,7 +832,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:read"]);
         }
 
         const response = await this.request(
@@ -879,7 +879,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:read"]);
         }
 
         const response = await this.request(
@@ -925,7 +925,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:read"]);
         }
 
         const response = await this.request(
@@ -970,7 +970,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:read"]);
         }
 
         const response = await this.request(
@@ -1015,7 +1015,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:read"]);
         }
 
         const response = await this.request(
@@ -1057,7 +1057,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:read"]);
         }
 
         const response = await this.request(
@@ -1115,7 +1115,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:read"]);
         }
 
         const response = await this.request(
@@ -1172,7 +1172,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:read"]);
         }
 
         const response = await this.request(
@@ -1234,7 +1234,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:read"]);
         }
 
         const response = await this.request(
@@ -1288,7 +1288,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:read"]);
         }
 
         const response = await this.request(
@@ -1349,7 +1349,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:read"]);
         }
 
         const response = await this.request(
@@ -1418,7 +1418,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:read"]);
         }
 
         const response = await this.request(
@@ -1484,7 +1484,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:read"]);
         }
 
         const response = await this.request(
@@ -1539,7 +1539,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
         }
 
         const response = await this.request(
@@ -1587,7 +1587,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
         }
 
         const response = await this.request(
@@ -1639,7 +1639,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
         }
 
         const response = await this.request(
@@ -1687,7 +1687,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
         }
 
         const response = await this.request(
@@ -1731,7 +1731,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
         }
 
         const response = await this.request(
@@ -1779,7 +1779,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
         }
 
         const response = await this.request(
@@ -1827,7 +1827,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
         }
 
         const response = await this.request(
@@ -1875,7 +1875,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
         }
 
         const response = await this.request(
@@ -1919,7 +1919,7 @@ export class FirewallManagementApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
         }
 
         const response = await this.request(

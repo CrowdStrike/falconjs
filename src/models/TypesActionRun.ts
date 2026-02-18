@@ -17,8 +17,6 @@ import type { TypesActionRunEvent } from "./TypesActionRunEvent";
 import { TypesActionRunEventFromJSON, TypesActionRunEventFromJSONTyped, TypesActionRunEventToJSON } from "./TypesActionRunEvent";
 import type { TypesActionRunMetadata } from "./TypesActionRunMetadata";
 import { TypesActionRunMetadataFromJSON, TypesActionRunMetadataFromJSONTyped, TypesActionRunMetadataToJSON } from "./TypesActionRunMetadata";
-import type { TypesTimestamp } from "./TypesTimestamp";
-import { TypesTimestampFromJSON, TypesTimestampFromJSONTyped, TypesTimestampToJSON } from "./TypesTimestamp";
 
 /**
  *
@@ -28,10 +26,10 @@ import { TypesTimestampFromJSON, TypesTimestampFromJSONTyped, TypesTimestampToJS
 export interface TypesActionRun {
     /**
      *
-     * @type {TypesTimestamp}
+     * @type {string}
      * @memberof TypesActionRun
      */
-    createTime?: TypesTimestamp;
+    createTime?: string;
     /**
      *
      * @type {Array<TypesActionRunEvent>}
@@ -40,10 +38,10 @@ export interface TypesActionRun {
     events?: Array<TypesActionRunEvent>;
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof TypesActionRun
      */
-    id?: number;
+    id?: string;
     /**
      *
      * @type {TypesActionRunEvent}
@@ -92,14 +90,14 @@ export function TypesActionRunFromJSONTyped(json: any, ignoreDiscriminator: bool
         return json;
     }
     return {
-        createTime: json["create_time"] == null ? undefined : TypesTimestampFromJSON(json["create_time"]),
+        createTime: json["createTime"] == null ? undefined : json["createTime"],
         events: json["events"] == null ? undefined : (json["events"] as Array<any>).map(TypesActionRunEventFromJSON),
         id: json["id"] == null ? undefined : json["id"],
-        latestEvent: json["latest_event"] == null ? undefined : TypesActionRunEventFromJSON(json["latest_event"]),
+        latestEvent: json["latestEvent"] == null ? undefined : TypesActionRunEventFromJSON(json["latestEvent"]),
         metadata: json["metadata"] == null ? undefined : TypesActionRunMetadataFromJSON(json["metadata"]),
         progress: json["progress"] == null ? undefined : json["progress"],
         scheduled: json["scheduled"] == null ? undefined : json["scheduled"],
-        traceUuid: json["trace_uuid"] == null ? undefined : json["trace_uuid"],
+        traceUuid: json["traceUuid"] == null ? undefined : json["traceUuid"],
     };
 }
 
@@ -108,13 +106,13 @@ export function TypesActionRunToJSON(value?: TypesActionRun | null): any {
         return value;
     }
     return {
-        create_time: TypesTimestampToJSON(value["createTime"]),
+        createTime: value["createTime"],
         events: value["events"] == null ? undefined : (value["events"] as Array<any>).map(TypesActionRunEventToJSON),
         id: value["id"],
-        latest_event: TypesActionRunEventToJSON(value["latestEvent"]),
+        latestEvent: TypesActionRunEventToJSON(value["latestEvent"]),
         metadata: TypesActionRunMetadataToJSON(value["metadata"]),
         progress: value["progress"],
         scheduled: value["scheduled"],
-        trace_uuid: value["traceUuid"],
+        traceUuid: value["traceUuid"],
     };
 }

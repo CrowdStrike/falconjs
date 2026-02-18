@@ -68,6 +68,12 @@ export interface DomainHost {
     id: string;
     /**
      *
+     * @type {boolean}
+     * @memberof DomainHost
+     */
+    sensitiveData: boolean;
+    /**
+     *
      * @type {number}
      * @memberof DomainHost
      */
@@ -85,6 +91,7 @@ export interface DomainHost {
  */
 export function instanceOfDomainHost(value: object): value is DomainHost {
     if (!("id" in value) || value["id"] === undefined) return false;
+    if (!("sensitiveData" in value) || value["sensitiveData"] === undefined) return false;
     if (!("totalCount" in value) || value["totalCount"] === undefined) return false;
     return true;
 }
@@ -104,6 +111,7 @@ export function DomainHostFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         entityPK: json["entityPK"] == null ? undefined : json["entityPK"],
         extraInfo: json["extra_info"] == null ? undefined : DomainXLR8InfoFromJSON(json["extra_info"]),
         id: json["id"],
+        sensitiveData: json["sensitive_data"],
         totalCount: json["total_count"],
         vulnerabilities: json["vulnerabilities"] == null ? undefined : DomainVulnerabilitiesCountFromJSON(json["vulnerabilities"]),
     };
@@ -120,6 +128,7 @@ export function DomainHostToJSON(value?: DomainHost | null): any {
         entityPK: value["entityPK"],
         extra_info: DomainXLR8InfoToJSON(value["extraInfo"]),
         id: value["id"],
+        sensitive_data: value["sensitiveData"],
         total_count: value["totalCount"],
         vulnerabilities: DomainVulnerabilitiesCountToJSON(value["vulnerabilities"]),
     };

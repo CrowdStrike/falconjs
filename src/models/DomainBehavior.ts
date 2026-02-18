@@ -13,6 +13,8 @@
  */
 
 import { mapValues } from "../runtime";
+import type { DomainAlertDetails } from "./DomainAlertDetails";
+import { DomainAlertDetailsFromJSON, DomainAlertDetailsFromJSONTyped, DomainAlertDetailsToJSON } from "./DomainAlertDetails";
 import type { PatterndispositionPatternDisposition } from "./PatterndispositionPatternDisposition";
 import { PatterndispositionPatternDispositionFromJSON, PatterndispositionPatternDispositionFromJSONTyped, PatterndispositionPatternDispositionToJSON } from "./PatterndispositionPatternDisposition";
 
@@ -34,6 +36,12 @@ export interface DomainBehavior {
      * @memberof DomainBehavior
      */
     alertIds?: Array<string>;
+    /**
+     *
+     * @type {Array<DomainAlertDetails>}
+     * @memberof DomainBehavior
+     */
+    alertsDetails?: Array<DomainAlertDetails>;
     /**
      *
      * @type {string}
@@ -90,12 +98,6 @@ export interface DomainBehavior {
     filepath?: string;
     /**
      *
-     * @type {Array<string>}
-     * @memberof DomainBehavior
-     */
-    groupingIds?: Array<string>;
-    /**
-     *
      * @type {string}
      * @memberof DomainBehavior
      */
@@ -130,6 +132,12 @@ export interface DomainBehavior {
      * @memberof DomainBehavior
      */
     objective?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainBehavior
+     */
+    patternDescription?: string;
     /**
      *
      * @type {number}
@@ -219,6 +227,7 @@ export function DomainBehaviorFromJSONTyped(json: any, ignoreDiscriminator: bool
     return {
         aid: json["aid"] == null ? undefined : json["aid"],
         alertIds: json["alert_ids"] == null ? undefined : json["alert_ids"],
+        alertsDetails: json["alerts_details"] == null ? undefined : (json["alerts_details"] as Array<any>).map(DomainAlertDetailsFromJSON),
         behaviorId: json["behavior_id"] == null ? undefined : json["behavior_id"],
         cid: json["cid"] == null ? undefined : json["cid"],
         cmdline: json["cmdline"] == null ? undefined : json["cmdline"],
@@ -228,13 +237,13 @@ export function DomainBehaviorFromJSONTyped(json: any, ignoreDiscriminator: bool
         domain: json["domain"] == null ? undefined : json["domain"],
         exclusionType: json["exclusion_type"] == null ? undefined : json["exclusion_type"],
         filepath: json["filepath"] == null ? undefined : json["filepath"],
-        groupingIds: json["grouping_ids"] == null ? undefined : json["grouping_ids"],
         incidentId: json["incident_id"] == null ? undefined : json["incident_id"],
         incidentIds: json["incident_ids"] == null ? undefined : json["incident_ids"],
         iocSource: json["ioc_source"] == null ? undefined : json["ioc_source"],
         iocType: json["ioc_type"] == null ? undefined : json["ioc_type"],
         iocValue: json["ioc_value"] == null ? undefined : json["ioc_value"],
         objective: json["objective"] == null ? undefined : json["objective"],
+        patternDescription: json["pattern_description"] == null ? undefined : json["pattern_description"],
         patternDisposition: json["pattern_disposition"] == null ? undefined : json["pattern_disposition"],
         patternDispositionDetails: json["pattern_disposition_details"] == null ? undefined : PatterndispositionPatternDispositionFromJSON(json["pattern_disposition_details"]),
         patternId: json["pattern_id"],
@@ -256,6 +265,7 @@ export function DomainBehaviorToJSON(value?: DomainBehavior | null): any {
     return {
         aid: value["aid"],
         alert_ids: value["alertIds"],
+        alerts_details: value["alertsDetails"] == null ? undefined : (value["alertsDetails"] as Array<any>).map(DomainAlertDetailsToJSON),
         behavior_id: value["behaviorId"],
         cid: value["cid"],
         cmdline: value["cmdline"],
@@ -265,13 +275,13 @@ export function DomainBehaviorToJSON(value?: DomainBehavior | null): any {
         domain: value["domain"],
         exclusion_type: value["exclusionType"],
         filepath: value["filepath"],
-        grouping_ids: value["groupingIds"],
         incident_id: value["incidentId"],
         incident_ids: value["incidentIds"],
         ioc_source: value["iocSource"],
         ioc_type: value["iocType"],
         ioc_value: value["iocValue"],
         objective: value["objective"],
+        pattern_description: value["patternDescription"],
         pattern_disposition: value["patternDisposition"],
         pattern_disposition_details: PatterndispositionPatternDispositionToJSON(value["patternDispositionDetails"]),
         pattern_id: value["patternId"],

@@ -24,7 +24,7 @@ export interface ModelsCreatePolicyRequest {
      * @type {string}
      * @memberof ModelsCreatePolicyRequest
      */
-    description: string;
+    description?: string;
     /**
      *
      * @type {string}
@@ -37,7 +37,6 @@ export interface ModelsCreatePolicyRequest {
  * Check if a given object implements the ModelsCreatePolicyRequest interface.
  */
 export function instanceOfModelsCreatePolicyRequest(value: object): value is ModelsCreatePolicyRequest {
-    if (!("description" in value) || value["description"] === undefined) return false;
     if (!("name" in value) || value["name"] === undefined) return false;
     return true;
 }
@@ -51,7 +50,7 @@ export function ModelsCreatePolicyRequestFromJSONTyped(json: any, ignoreDiscrimi
         return json;
     }
     return {
-        description: json["description"],
+        description: json["description"] == null ? undefined : json["description"],
         name: json["name"],
     };
 }

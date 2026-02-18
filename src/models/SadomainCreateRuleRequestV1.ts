@@ -38,6 +38,18 @@ export interface SadomainCreateRuleRequestV1 {
      */
     filter: string;
     /**
+     * The duration for which the rule will look back in the past at the first run
+     * @type {number}
+     * @memberof SadomainCreateRuleRequestV1
+     */
+    lookbackPeriod?: number;
+    /**
+     * Which result types to monitor for. Can be set to only monitor domains or subdomains, as well as both. Only available for the `Typosquatting` rule topic. Possible values: [`basedomains`, `subdomains`]
+     * @type {Array<string>}
+     * @memberof SadomainCreateRuleRequestV1
+     */
+    matchOnTsqResultTypes: Array<string>;
+    /**
      * The name of a given rule
      * @type {string}
      * @memberof SadomainCreateRuleRequestV1
@@ -62,7 +74,7 @@ export interface SadomainCreateRuleRequestV1 {
      */
     priority: string;
     /**
-     * Whether to monitor for substring matches. Only available for the `Typosquatting` topic.
+     * Whether to monitor for substring matches. Only available for the `Typosquatting` rule topic.
      * @type {boolean}
      * @memberof SadomainCreateRuleRequestV1
      */
@@ -82,6 +94,7 @@ export function instanceOfSadomainCreateRuleRequestV1(value: object): value is S
     if (!("breachMonitorOnly" in value) || value["breachMonitorOnly"] === undefined) return false;
     if (!("breachMonitoringEnabled" in value) || value["breachMonitoringEnabled"] === undefined) return false;
     if (!("filter" in value) || value["filter"] === undefined) return false;
+    if (!("matchOnTsqResultTypes" in value) || value["matchOnTsqResultTypes"] === undefined) return false;
     if (!("name" in value) || value["name"] === undefined) return false;
     if (!("originatingTemplateId" in value) || value["originatingTemplateId"] === undefined) return false;
     if (!("permissions" in value) || value["permissions"] === undefined) return false;
@@ -103,6 +116,8 @@ export function SadomainCreateRuleRequestV1FromJSONTyped(json: any, ignoreDiscri
         breachMonitorOnly: json["breach_monitor_only"],
         breachMonitoringEnabled: json["breach_monitoring_enabled"],
         filter: json["filter"],
+        lookbackPeriod: json["lookback_period"] == null ? undefined : json["lookback_period"],
+        matchOnTsqResultTypes: json["match_on_tsq_result_types"],
         name: json["name"],
         originatingTemplateId: json["originating_template_id"],
         permissions: json["permissions"],
@@ -120,6 +135,8 @@ export function SadomainCreateRuleRequestV1ToJSON(value?: SadomainCreateRuleRequ
         breach_monitor_only: value["breachMonitorOnly"],
         breach_monitoring_enabled: value["breachMonitoringEnabled"],
         filter: value["filter"],
+        lookback_period: value["lookbackPeriod"],
+        match_on_tsq_result_types: value["matchOnTsqResultTypes"],
         name: value["name"],
         originating_template_id: value["originatingTemplateId"],
         permissions: value["permissions"],

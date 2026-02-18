@@ -28,12 +28,6 @@ import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from
 export interface ModelsPolicyEntityResponse {
     /**
      *
-     * @type {Array<ModelsAPIPolicyEntity>}
-     * @memberof ModelsPolicyEntityResponse
-     */
-    resources: Array<ModelsAPIPolicyEntity>;
-    /**
-     *
      * @type {Array<MsaAPIError>}
      * @memberof ModelsPolicyEntityResponse
      */
@@ -44,14 +38,20 @@ export interface ModelsPolicyEntityResponse {
      * @memberof ModelsPolicyEntityResponse
      */
     meta: MsaMetaInfo;
+    /**
+     *
+     * @type {Array<ModelsAPIPolicyEntity>}
+     * @memberof ModelsPolicyEntityResponse
+     */
+    resources: Array<ModelsAPIPolicyEntity>;
 }
 
 /**
  * Check if a given object implements the ModelsPolicyEntityResponse interface.
  */
 export function instanceOfModelsPolicyEntityResponse(value: object): value is ModelsPolicyEntityResponse {
-    if (!("resources" in value) || value["resources"] === undefined) return false;
     if (!("meta" in value) || value["meta"] === undefined) return false;
+    if (!("resources" in value) || value["resources"] === undefined) return false;
     return true;
 }
 
@@ -64,9 +64,9 @@ export function ModelsPolicyEntityResponseFromJSONTyped(json: any, ignoreDiscrim
         return json;
     }
     return {
-        resources: (json["resources"] as Array<any>).map(ModelsAPIPolicyEntityFromJSON),
         errors: json["errors"] == null ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
+        resources: (json["resources"] as Array<any>).map(ModelsAPIPolicyEntityFromJSON),
     };
 }
 
@@ -75,8 +75,8 @@ export function ModelsPolicyEntityResponseToJSON(value?: ModelsPolicyEntityRespo
         return value;
     }
     return {
-        resources: (value["resources"] as Array<any>).map(ModelsAPIPolicyEntityToJSON),
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
+        resources: (value["resources"] as Array<any>).map(ModelsAPIPolicyEntityToJSON),
     };
 }

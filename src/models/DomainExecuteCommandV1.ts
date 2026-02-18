@@ -13,6 +13,8 @@
  */
 
 import { mapValues } from "../runtime";
+import type { DomainConfigData } from "./DomainConfigData";
+import { DomainConfigDataFromJSON, DomainConfigDataFromJSONTyped, DomainConfigDataToJSON } from "./DomainConfigData";
 import type { DomainRequest } from "./DomainRequest";
 import { DomainRequestFromJSON, DomainRequestFromJSONTyped, DomainRequestToJSON } from "./DomainRequest";
 
@@ -22,6 +24,12 @@ import { DomainRequestFromJSON, DomainRequestFromJSONTyped, DomainRequestToJSON 
  * @interface DomainExecuteCommandV1
  */
 export interface DomainExecuteCommandV1 {
+    /**
+     *
+     * @type {DomainConfigData}
+     * @memberof DomainExecuteCommandV1
+     */
+    config?: DomainConfigData;
     /**
      * Config auth type for plugin to execute. Only applicable for oneOf security scheme plugins. If not provided, it will use the default auth type on the config
      * @type {string}
@@ -89,6 +97,7 @@ export function DomainExecuteCommandV1FromJSONTyped(json: any, ignoreDiscriminat
         return json;
     }
     return {
+        config: json["config"] == null ? undefined : DomainConfigDataFromJSON(json["config"]),
         configAuthType: json["config_auth_type"],
         configId: json["config_id"],
         definitionId: json["definition_id"],
@@ -104,6 +113,7 @@ export function DomainExecuteCommandV1ToJSON(value?: DomainExecuteCommandV1 | nu
         return value;
     }
     return {
+        config: DomainConfigDataToJSON(value["config"]),
         config_auth_type: value["configAuthType"],
         config_id: value["configId"],
         definition_id: value["definitionId"],
