@@ -19,9 +19,12 @@ import type {
     CasefilesapiDownloadRequestV1,
     CasefilesapiDownloadResponseV1,
     CasefilesapiFileDetailsResponseV1,
+    CasefilesapiGetRTRFileMetaDataRequestV1,
     CasefilesapiMSAResponseString,
     CasefilesapiRetrieveRTRFileRequestV1,
+    CasefilesapiRetrieveRTRRecentFileRequestV1,
     CasefilesapiUpdateRequestV1,
+    CasefilesapiValidateRTRResponseV1,
     MsaReplyMetaOnly,
     MsaspecResponseFields,
 } from "../models/index";
@@ -36,12 +39,18 @@ import {
     CasefilesapiDownloadResponseV1ToJSON,
     CasefilesapiFileDetailsResponseV1FromJSON,
     CasefilesapiFileDetailsResponseV1ToJSON,
+    CasefilesapiGetRTRFileMetaDataRequestV1FromJSON,
+    CasefilesapiGetRTRFileMetaDataRequestV1ToJSON,
     CasefilesapiMSAResponseStringFromJSON,
     CasefilesapiMSAResponseStringToJSON,
     CasefilesapiRetrieveRTRFileRequestV1FromJSON,
     CasefilesapiRetrieveRTRFileRequestV1ToJSON,
+    CasefilesapiRetrieveRTRRecentFileRequestV1FromJSON,
+    CasefilesapiRetrieveRTRRecentFileRequestV1ToJSON,
     CasefilesapiUpdateRequestV1FromJSON,
     CasefilesapiUpdateRequestV1ToJSON,
+    CasefilesapiValidateRTRResponseV1FromJSON,
+    CasefilesapiValidateRTRResponseV1ToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
     MsaspecResponseFieldsFromJSON,
@@ -90,8 +99,16 @@ export interface CaseFilesApiEntitiesFilesUploadPostV1Request {
     description?: string;
 }
 
+export interface CaseFilesApiEntitiesGetRtrFileMetadataPostV1Request {
+    body: CasefilesapiGetRTRFileMetaDataRequestV1;
+}
+
 export interface CaseFilesApiEntitiesRetrieveRtrFilePostV1Request {
     body: CasefilesapiRetrieveRTRFileRequestV1;
+}
+
+export interface CaseFilesApiEntitiesRetrieveRtrRecentFilePostV1Request {
+    body: CasefilesapiRetrieveRTRRecentFileRequestV1;
 }
 
 export interface CaseFilesApiQueriesFileDetailsGetV1Request {
@@ -135,7 +152,7 @@ export class CaseFilesApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:read"]);
         }
 
         const response = await this.request(
@@ -551,6 +568,50 @@ export class CaseFilesApi extends runtime.BaseAPI {
     }
 
     /**
+     * gets metadata for a file via RTR without retrieving it
+     */
+    async entitiesGetRtrFileMetadataPostV1Raw(
+        requestParameters: CaseFilesApiEntitiesGetRtrFileMetadataPostV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CasefilesapiValidateRTRResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesGetRtrFileMetadataPostV1().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/case-files/entities/get-rtr-file-metadata/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: CasefilesapiGetRTRFileMetaDataRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CasefilesapiValidateRTRResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * gets metadata for a file via RTR without retrieving it
+     */
+    async entitiesGetRtrFileMetadataPostV1(body: CasefilesapiGetRTRFileMetaDataRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CasefilesapiValidateRTRResponseV1> {
+        const response = await this.entitiesGetRtrFileMetadataPostV1Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * retrieves a file from host using RTR and adds it to a case
      */
     async entitiesRetrieveRtrFilePostV1Raw(
@@ -591,6 +652,53 @@ export class CaseFilesApi extends runtime.BaseAPI {
      */
     async entitiesRetrieveRtrFilePostV1(body: CasefilesapiRetrieveRTRFileRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CasefilesapiFileDetailsResponseV1> {
         const response = await this.entitiesRetrieveRtrFilePostV1Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * RetrieveRecentRTRFile retrieves a recently fetched RTR file and adds it to a case
+     */
+    async entitiesRetrieveRtrRecentFilePostV1Raw(
+        requestParameters: CaseFilesApiEntitiesRetrieveRtrRecentFilePostV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CasefilesapiFileDetailsResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesRetrieveRtrRecentFilePostV1().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/case-files/entities/retrieve-rtr-recent-file/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: CasefilesapiRetrieveRTRRecentFileRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CasefilesapiFileDetailsResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * RetrieveRecentRTRFile retrieves a recently fetched RTR file and adds it to a case
+     */
+    async entitiesRetrieveRtrRecentFilePostV1(
+        body: CasefilesapiRetrieveRTRRecentFileRequestV1,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<CasefilesapiFileDetailsResponseV1> {
+        const response = await this.entitiesRetrieveRtrRecentFilePostV1Raw({ body: body }, initOverrides);
         return await response.value();
     }
 

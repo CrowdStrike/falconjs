@@ -35,6 +35,7 @@ import type {
     PolicymanagerClassificationsResponse,
     PolicymanagerCreateClassificationsRequest,
     PolicymanagerCreatePoliciesRequest,
+    PolicymanagerPoliciesPrecedence,
     PolicymanagerPoliciesResponse,
     PolicymanagerUpdateClassificationsRequest,
     PolicymanagerUpdatePoliciesRequest,
@@ -83,6 +84,8 @@ import {
     PolicymanagerCreateClassificationsRequestToJSON,
     PolicymanagerCreatePoliciesRequestFromJSON,
     PolicymanagerCreatePoliciesRequestToJSON,
+    PolicymanagerPoliciesPrecedenceFromJSON,
+    PolicymanagerPoliciesPrecedenceToJSON,
     PolicymanagerPoliciesResponseFromJSON,
     PolicymanagerPoliciesResponseToJSON,
     PolicymanagerUpdateClassificationsRequestFromJSON,
@@ -181,6 +184,10 @@ export interface DataProtectionConfigurationApiEntitiesPolicyPatchV2Request {
 export interface DataProtectionConfigurationApiEntitiesPolicyPostV2Request {
     platformName: string;
     body: PolicymanagerCreatePoliciesRequest;
+}
+
+export interface DataProtectionConfigurationApiEntitiesPolicyPrecedencePostV1Request {
+    body: PolicymanagerPoliciesPrecedence;
 }
 
 export interface DataProtectionConfigurationApiEntitiesSensitivityLabelCreateV2Request {
@@ -1257,6 +1264,50 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
      */
     async entitiesPolicyPostV2(platformName: string, body: PolicymanagerCreatePoliciesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PolicymanagerPoliciesResponse> {
         const response = await this.entitiesPolicyPostV2Raw({ platformName: platformName, body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Update Policy Precedence
+     */
+    async entitiesPolicyPrecedencePostV1Raw(
+        requestParameters: DataProtectionConfigurationApiEntitiesPolicyPrecedencePostV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PolicymanagerPoliciesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesPolicyPrecedencePostV1().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/data-protection/entities/data-protection-precedence/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: PolicymanagerPoliciesPrecedenceToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => PolicymanagerPoliciesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Update Policy Precedence
+     */
+    async entitiesPolicyPrecedencePostV1(body: PolicymanagerPoliciesPrecedence, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PolicymanagerPoliciesResponse> {
+        const response = await this.entitiesPolicyPrecedencePostV1Raw({ body: body }, initOverrides);
         return await response.value();
     }
 

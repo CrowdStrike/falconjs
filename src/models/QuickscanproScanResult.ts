@@ -43,6 +43,18 @@ export interface QuickscanproScanResult {
      * @type {number}
      * @memberof QuickscanproScanResult
      */
+    fileSize?: number;
+    /**
+     *
+     * @type {string}
+     * @memberof QuickscanproScanResult
+     */
+    fileTypeShort?: string;
+    /**
+     *
+     * @type {number}
+     * @memberof QuickscanproScanResult
+     */
     maliciousConfidence: number;
     /**
      *
@@ -110,6 +122,8 @@ export function QuickscanproScanResultFromJSONTyped(json: any, ignoreDiscriminat
     return {
         betaIntelligenceContext: json["beta_intelligence_context"] == null ? undefined : json["beta_intelligence_context"],
         fileArtifacts: (json["file_artifacts"] as Array<any>).map(QuickscanproFileResultFromJSON),
+        fileSize: json["file_size"] == null ? undefined : json["file_size"],
+        fileTypeShort: json["file_type_short"] == null ? undefined : json["file_type_short"],
         maliciousConfidence: json["malicious_confidence"],
         mitreAttacks: json["mitre_attacks"] == null ? undefined : (json["mitre_attacks"] as Array<any>).map(DomainMITREAttackFromJSON),
         urlArtifacts: json["url_artifacts"] == null ? undefined : (json["url_artifacts"] as Array<any>).map(QuickscanproURLResultFromJSON),
@@ -126,6 +140,8 @@ export function QuickscanproScanResultToJSON(value?: QuickscanproScanResult | nu
     return {
         beta_intelligence_context: value["betaIntelligenceContext"],
         file_artifacts: (value["fileArtifacts"] as Array<any>).map(QuickscanproFileResultToJSON),
+        file_size: value["fileSize"],
+        file_type_short: value["fileTypeShort"],
         malicious_confidence: value["maliciousConfidence"],
         mitre_attacks: value["mitreAttacks"] == null ? undefined : (value["mitreAttacks"] as Array<any>).map(DomainMITREAttackToJSON),
         url_artifacts: value["urlArtifacts"] == null ? undefined : (value["urlArtifacts"] as Array<any>).map(QuickscanproURLResultToJSON),

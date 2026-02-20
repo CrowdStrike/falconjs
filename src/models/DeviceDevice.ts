@@ -531,6 +531,12 @@ export interface DeviceDevice {
      * @type {string}
      * @memberof DeviceDevice
      */
+    safeMode?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceDevice
+     */
     serialNumber?: string;
     /**
      *
@@ -701,6 +707,7 @@ export function DeviceDeviceFromJSONTyped(json: any, ignoreDiscriminator: boolea
         reducedFunctionalityMode: json["reduced_functionality_mode"] == null ? undefined : json["reduced_functionality_mode"],
         releaseGroup: json["release_group"] == null ? undefined : json["release_group"],
         rtrState: json["rtr_state"] == null ? undefined : json["rtr_state"],
+        safeMode: json["safe_mode"] == null ? undefined : json["safe_mode"],
         serialNumber: json["serial_number"] == null ? undefined : json["serial_number"],
         servicePackMajor: json["service_pack_major"] == null ? undefined : json["service_pack_major"],
         servicePackMinor: json["service_pack_minor"] == null ? undefined : json["service_pack_minor"],
@@ -804,6 +811,7 @@ export function DeviceDeviceToJSON(value?: DeviceDevice | null): any {
         reduced_functionality_mode: value["reducedFunctionalityMode"],
         release_group: value["releaseGroup"],
         rtr_state: value["rtrState"],
+        safe_mode: value["safeMode"],
         serial_number: value["serialNumber"],
         service_pack_major: value["servicePackMajor"],
         service_pack_minor: value["servicePackMinor"],

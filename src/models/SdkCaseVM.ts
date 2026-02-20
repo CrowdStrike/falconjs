@@ -129,7 +129,7 @@ export interface SdkCaseVM {
      * @type {string}
      * @memberof SdkCaseVM
      */
-    readableCaseId: string;
+    referenceId: string;
     /**
      *
      * @type {number}
@@ -208,7 +208,7 @@ export function instanceOfSdkCaseVM(value: object): value is SdkCaseVM {
     if (!("id" in value) || value["id"] === undefined) return false;
     if (!("lastUpdatedBy" in value) || value["lastUpdatedBy"] === undefined) return false;
     if (!("name" in value) || value["name"] === undefined) return false;
-    if (!("readableCaseId" in value) || value["readableCaseId"] === undefined) return false;
+    if (!("referenceId" in value) || value["referenceId"] === undefined) return false;
     if (!("severity" in value) || value["severity"] === undefined) return false;
     if (!("severityInfo" in value) || value["severityInfo"] === undefined) return false;
     if (!("startTimestamp" in value) || value["startTimestamp"] === undefined) return false;
@@ -241,7 +241,7 @@ export function SdkCaseVMFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         id: json["id"],
         lastUpdatedBy: SdkFalconUserVMFromJSON(json["last_updated_by"]),
         name: json["name"],
-        readableCaseId: json["readable_case_id"],
+        referenceId: json["reference_id"],
         severity: json["severity"],
         severityInfo: SdkCaseSeverityInfoVMFromJSON(json["severity_info"]),
         sla: json["sla"] == null ? undefined : SdkSLAVMFromJSON(json["sla"]),
@@ -274,7 +274,7 @@ export function SdkCaseVMToJSON(value?: SdkCaseVM | null): any {
         id: value["id"],
         last_updated_by: SdkFalconUserVMToJSON(value["lastUpdatedBy"]),
         name: value["name"],
-        readable_case_id: value["readableCaseId"],
+        reference_id: value["referenceId"],
         severity: value["severity"],
         severity_info: SdkCaseSeverityInfoVMToJSON(value["severityInfo"]),
         sla: SdkSLAVMToJSON(value["sla"]),

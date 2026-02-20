@@ -13,18 +13,14 @@
  */
 
 import * as runtime from "../runtime";
-import type { CustomStorageObjectKeys, CustomStorageResponse, CustomType1255839303, CustomType1942251022, CustomType3191042536, CustomType4161059146, MsaReplyMetaOnly } from "../models/index";
+import type { CustomStorageObjectKeys, CustomStorageResponse, CustomType1942251022, CustomType4161059146, MsaReplyMetaOnly } from "../models/index";
 import {
     CustomStorageObjectKeysFromJSON,
     CustomStorageObjectKeysToJSON,
     CustomStorageResponseFromJSON,
     CustomStorageResponseToJSON,
-    CustomType1255839303FromJSON,
-    CustomType1255839303ToJSON,
     CustomType1942251022FromJSON,
     CustomType1942251022ToJSON,
-    CustomType3191042536FromJSON,
-    CustomType3191042536ToJSON,
     CustomType4161059146FromJSON,
     CustomType4161059146ToJSON,
     MsaReplyMetaOnlyFromJSON,
@@ -203,7 +199,7 @@ export class CustomStorageApi extends runtime.BaseAPI {
     async deleteVersionedObjectRaw(
         requestParameters: CustomStorageApiDeleteVersionedObjectRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CustomType3191042536>> {
+    ): Promise<runtime.ApiResponse<CustomStorageResponse>> {
         if (requestParameters["collectionName"] == null) {
             throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling deleteVersionedObject().');
         }
@@ -242,7 +238,7 @@ export class CustomStorageApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CustomType3191042536FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomStorageResponseFromJSON(jsonValue));
     }
 
     /**
@@ -254,7 +250,7 @@ export class CustomStorageApi extends runtime.BaseAPI {
         objectKey: string,
         dryRun?: boolean,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<CustomType3191042536> {
+    ): Promise<CustomStorageResponse> {
         const response = await this.deleteVersionedObjectRaw({ collectionName: collectionName, collectionVersion: collectionVersion, objectKey: objectKey, dryRun: dryRun }, initOverrides);
         return await response.value();
     }
@@ -535,7 +531,7 @@ export class CustomStorageApi extends runtime.BaseAPI {
     async getVersionedObjectMetadataRaw(
         requestParameters: CustomStorageApiGetVersionedObjectMetadataRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CustomType3191042536>> {
+    ): Promise<runtime.ApiResponse<CustomStorageResponse>> {
         if (requestParameters["collectionName"] == null) {
             throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling getVersionedObjectMetadata().');
         }
@@ -570,13 +566,13 @@ export class CustomStorageApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CustomType3191042536FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomStorageResponseFromJSON(jsonValue));
     }
 
     /**
      * Get the metadata for the specified object
      */
-    async getVersionedObjectMetadata(collectionName: string, collectionVersion: string, objectKey: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomType3191042536> {
+    async getVersionedObjectMetadata(collectionName: string, collectionVersion: string, objectKey: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomStorageResponse> {
         const response = await this.getVersionedObjectMetadataRaw({ collectionName: collectionName, collectionVersion: collectionVersion, objectKey: objectKey }, initOverrides);
         return await response.value();
     }
@@ -637,7 +633,7 @@ export class CustomStorageApi extends runtime.BaseAPI {
     async listCollectionsRaw(
         requestParameters: CustomStorageApiListCollectionsRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CustomType1255839303>> {
+    ): Promise<runtime.ApiResponse<CustomStorageObjectKeys>> {
         const queryParameters: any = {};
 
         if (requestParameters["end"] != null) {
@@ -669,13 +665,13 @@ export class CustomStorageApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CustomType1255839303FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomStorageObjectKeysFromJSON(jsonValue));
     }
 
     /**
      * List available collection names in alphabetical order
      */
-    async listCollections(end?: string, limit?: number, start?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomType1255839303> {
+    async listCollections(end?: string, limit?: number, start?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomStorageObjectKeys> {
         const response = await this.listCollectionsRaw({ end: end, limit: limit, start: start }, initOverrides);
         return await response.value();
     }
@@ -686,7 +682,7 @@ export class CustomStorageApi extends runtime.BaseAPI {
     async listObjectsByVersionRaw(
         requestParameters: CustomStorageApiListObjectsByVersionRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CustomType1255839303>> {
+    ): Promise<runtime.ApiResponse<CustomStorageObjectKeys>> {
         if (requestParameters["collectionName"] == null) {
             throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling listObjectsByVersion().');
         }
@@ -728,7 +724,7 @@ export class CustomStorageApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CustomType1255839303FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomStorageObjectKeysFromJSON(jsonValue));
     }
 
     /**
@@ -741,7 +737,7 @@ export class CustomStorageApi extends runtime.BaseAPI {
         limit?: number,
         start?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<CustomType1255839303> {
+    ): Promise<CustomStorageObjectKeys> {
         const response = await this.listObjectsByVersionRaw({ collectionName: collectionName, collectionVersion: collectionVersion, end: end, limit: limit, start: start }, initOverrides);
         return await response.value();
     }
@@ -749,7 +745,7 @@ export class CustomStorageApi extends runtime.BaseAPI {
     /**
      * Get the list of schemas for the requested collection in reverse version order (latest first)
      */
-    async listSchemasRaw(requestParameters: CustomStorageApiListSchemasRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomType1255839303>> {
+    async listSchemasRaw(requestParameters: CustomStorageApiListSchemasRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomStorageObjectKeys>> {
         if (requestParameters["collectionName"] == null) {
             throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling listSchemas().');
         }
@@ -785,13 +781,13 @@ export class CustomStorageApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CustomType1255839303FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomStorageObjectKeysFromJSON(jsonValue));
     }
 
     /**
      * Get the list of schemas for the requested collection in reverse version order (latest first)
      */
-    async listSchemas(collectionName: string, end?: string, limit?: number, start?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomType1255839303> {
+    async listSchemas(collectionName: string, end?: string, limit?: number, start?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomStorageObjectKeys> {
         const response = await this.listSchemasRaw({ collectionName: collectionName, end: end, limit: limit, start: start }, initOverrides);
         return await response.value();
     }
@@ -846,7 +842,7 @@ export class CustomStorageApi extends runtime.BaseAPI {
     async putObjectByVersionRaw(
         requestParameters: CustomStorageApiPutObjectByVersionRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CustomType3191042536>> {
+    ): Promise<runtime.ApiResponse<CustomStorageResponse>> {
         if (requestParameters["collectionName"] == null) {
             throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling putObjectByVersion().');
         }
@@ -892,7 +888,7 @@ export class CustomStorageApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CustomType3191042536FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomStorageResponseFromJSON(jsonValue));
     }
 
     /**
@@ -905,7 +901,7 @@ export class CustomStorageApi extends runtime.BaseAPI {
         body: Blob,
         dryRun?: boolean,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<CustomType3191042536> {
+    ): Promise<CustomStorageResponse> {
         const response = await this.putObjectByVersionRaw({ collectionName: collectionName, collectionVersion: collectionVersion, objectKey: objectKey, body: body, dryRun: dryRun }, initOverrides);
         return await response.value();
     }
@@ -974,7 +970,7 @@ export class CustomStorageApi extends runtime.BaseAPI {
     async searchObjectsByVersionRaw(
         requestParameters: CustomStorageApiSearchObjectsByVersionRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CustomType3191042536>> {
+    ): Promise<runtime.ApiResponse<CustomStorageResponse>> {
         if (requestParameters["collectionName"] == null) {
             throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling searchObjectsByVersion().');
         }
@@ -1024,7 +1020,7 @@ export class CustomStorageApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CustomType3191042536FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomStorageResponseFromJSON(jsonValue));
     }
 
     /**
@@ -1038,7 +1034,7 @@ export class CustomStorageApi extends runtime.BaseAPI {
         offset?: number,
         sort?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<CustomType3191042536> {
+    ): Promise<CustomStorageResponse> {
         const response = await this.searchObjectsByVersionRaw(
             { collectionName: collectionName, collectionVersion: collectionVersion, filter: filter, limit: limit, offset: offset, sort: sort },
             initOverrides,
