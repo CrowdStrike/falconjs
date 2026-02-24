@@ -62,6 +62,12 @@ rm -f src/runtime.ts
 rm ./${build_dir}/src/index.ts
 cp -a ./${build_dir}/src/* ./src/
 
+# On case-insensitive filesystems (macOS), git's index may retain stale casing
+# for files whose names only changed case (e.g. FooJson.ts -> FooJSON.ts).
+# Re-indexing the generated paths forces git to pick up the actual filenames.
+git rm -r --cached src/apis/ src/models/ src/runtime.ts
+git add src/apis/ src/models/ src/runtime.ts
+
 #TODO: populate client.ts with all API imports, class defs, and constructors
 
 npm run format:fix
