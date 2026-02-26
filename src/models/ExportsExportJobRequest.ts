@@ -16,76 +16,83 @@ import { mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface ExportsLaunchExportRequest
+ * @interface ExportsExportJobRequest
  */
-export interface ExportsLaunchExportRequest {
-    /**
-     * When set to true for function vulnerabilities export, includes detailed vulnerability information. Currently returns same data as without expansion - full expansion to be implemented in next step
-     * @type {boolean}
-     * @memberof ExportsLaunchExportRequest
-     */
-    expandVulnerabilities?: boolean;
+export interface ExportsExportJobRequest {
     /**
      * Format of the export file. One of: csv, json
      * @type {string}
-     * @memberof ExportsLaunchExportRequest
+     * @memberof ExportsExportJobRequest
      */
     format: string;
     /**
      * Falcon Query Language string to filter documents
      * @type {string}
-     * @memberof ExportsLaunchExportRequest
+     * @memberof ExportsExportJobRequest
      */
     fql?: string;
     /**
+     * Origin of the exports request. E.g.: service name, host, user agent, etc
+     * @type {string}
+     * @memberof ExportsExportJobRequest
+     */
+    origin?: string;
+    /**
+     * Map string:string with extra query params to use for the export
+     * @type {{ [key: string]: string; }}
+     * @memberof ExportsExportJobRequest
+     */
+    params?: { [key: string]: string };
+    /**
      * Resource to export. Refer to API docs for the possible values
      * @type {string}
-     * @memberof ExportsLaunchExportRequest
+     * @memberof ExportsExportJobRequest
      */
     resource: string;
     /**
      * Sort value to apply to documents. Note: not all resources support sorting
      * @type {string}
-     * @memberof ExportsLaunchExportRequest
+     * @memberof ExportsExportJobRequest
      */
-    sort: string;
+    sort?: string;
 }
 
 /**
- * Check if a given object implements the ExportsLaunchExportRequest interface.
+ * Check if a given object implements the ExportsExportJobRequest interface.
  */
-export function instanceOfExportsLaunchExportRequest(value: object): value is ExportsLaunchExportRequest {
+export function instanceOfExportsExportJobRequest(value: object): value is ExportsExportJobRequest {
     if (!("format" in value) || value["format"] === undefined) return false;
     if (!("resource" in value) || value["resource"] === undefined) return false;
-    if (!("sort" in value) || value["sort"] === undefined) return false;
     return true;
 }
 
-export function ExportsLaunchExportRequestFromJSON(json: any): ExportsLaunchExportRequest {
-    return ExportsLaunchExportRequestFromJSONTyped(json, false);
+export function ExportsExportJobRequestFromJSON(json: any): ExportsExportJobRequest {
+    return ExportsExportJobRequestFromJSONTyped(json, false);
 }
 
-export function ExportsLaunchExportRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): ExportsLaunchExportRequest {
+export function ExportsExportJobRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): ExportsExportJobRequest {
     if (json == null) {
         return json;
     }
     return {
-        expandVulnerabilities: json["expand_vulnerabilities"] == null ? undefined : json["expand_vulnerabilities"],
         format: json["format"],
         fql: json["fql"] == null ? undefined : json["fql"],
+        origin: json["origin"] == null ? undefined : json["origin"],
+        params: json["params"] == null ? undefined : json["params"],
         resource: json["resource"],
-        sort: json["sort"],
+        sort: json["sort"] == null ? undefined : json["sort"],
     };
 }
 
-export function ExportsLaunchExportRequestToJSON(value?: ExportsLaunchExportRequest | null): any {
+export function ExportsExportJobRequestToJSON(value?: ExportsExportJobRequest | null): any {
     if (value == null) {
         return value;
     }
     return {
-        expand_vulnerabilities: value["expandVulnerabilities"],
         format: value["format"],
         fql: value["fql"],
+        origin: value["origin"],
+        params: value["params"],
         resource: value["resource"],
         sort: value["sort"],
     };

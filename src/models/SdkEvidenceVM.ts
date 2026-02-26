@@ -15,6 +15,8 @@
 import { mapValues } from "../runtime";
 import type { SdkEventEvidenceVM } from "./SdkEventEvidenceVM";
 import { SdkEventEvidenceVMFromJSON, SdkEventEvidenceVMFromJSONTyped, SdkEventEvidenceVMToJSON } from "./SdkEventEvidenceVM";
+import type { SdkCustomEvidenceVM } from "./SdkCustomEvidenceVM";
+import { SdkCustomEvidenceVMFromJSON, SdkCustomEvidenceVMFromJSONTyped, SdkCustomEvidenceVMToJSON } from "./SdkCustomEvidenceVM";
 import type { SdkAlertEvidenceVM } from "./SdkAlertEvidenceVM";
 import { SdkAlertEvidenceVMFromJSON, SdkAlertEvidenceVMFromJSONTyped, SdkAlertEvidenceVMToJSON } from "./SdkAlertEvidenceVM";
 import type { SdkLeadEvidenceVM } from "./SdkLeadEvidenceVM";
@@ -34,6 +36,12 @@ export interface SdkEvidenceVM {
     alerts: SdkAlertEvidenceVM;
     /**
      *
+     * @type {SdkCustomEvidenceVM}
+     * @memberof SdkEvidenceVM
+     */
+    customEvidence: SdkCustomEvidenceVM;
+    /**
+     *
      * @type {SdkEventEvidenceVM}
      * @memberof SdkEvidenceVM
      */
@@ -51,6 +59,7 @@ export interface SdkEvidenceVM {
  */
 export function instanceOfSdkEvidenceVM(value: object): value is SdkEvidenceVM {
     if (!("alerts" in value) || value["alerts"] === undefined) return false;
+    if (!("customEvidence" in value) || value["customEvidence"] === undefined) return false;
     if (!("events" in value) || value["events"] === undefined) return false;
     if (!("leads" in value) || value["leads"] === undefined) return false;
     return true;
@@ -66,6 +75,7 @@ export function SdkEvidenceVMFromJSONTyped(json: any, ignoreDiscriminator: boole
     }
     return {
         alerts: SdkAlertEvidenceVMFromJSON(json["alerts"]),
+        customEvidence: SdkCustomEvidenceVMFromJSON(json["custom_evidence"]),
         events: SdkEventEvidenceVMFromJSON(json["events"]),
         leads: SdkLeadEvidenceVMFromJSON(json["leads"]),
     };
@@ -77,6 +87,7 @@ export function SdkEvidenceVMToJSON(value?: SdkEvidenceVM | null): any {
     }
     return {
         alerts: SdkAlertEvidenceVMToJSON(value["alerts"]),
+        custom_evidence: SdkCustomEvidenceVMToJSON(value["customEvidence"]),
         events: SdkEventEvidenceVMToJSON(value["events"]),
         leads: SdkLeadEvidenceVMToJSON(value["leads"]),
     };

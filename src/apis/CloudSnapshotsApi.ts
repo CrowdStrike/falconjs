@@ -119,7 +119,7 @@ export class CloudSnapshotsApi extends runtime.BaseAPI {
     /**
      * Gets the registry credentials
      */
-    async getCredentialsMixin0Mixin60Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsRegistryCredentialsResponse>> {
+    async getCredentialsMixin0Mixin61Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsRegistryCredentialsResponse>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -145,8 +145,8 @@ export class CloudSnapshotsApi extends runtime.BaseAPI {
     /**
      * Gets the registry credentials
      */
-    async getCredentialsMixin0Mixin60(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsRegistryCredentialsResponse> {
-        const response = await this.getCredentialsMixin0Mixin60Raw(initOverrides);
+    async getCredentialsMixin0Mixin61(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsRegistryCredentialsResponse> {
+        const response = await this.getCredentialsMixin0Mixin61Raw(initOverrides);
         return await response.value();
     }
 

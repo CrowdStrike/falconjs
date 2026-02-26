@@ -15,68 +15,72 @@
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
 import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import type { ExportsExportJob } from "./ExportsExportJob";
-import { ExportsExportJobFromJSON, ExportsExportJobFromJSONTyped, ExportsExportJobToJSON } from "./ExportsExportJob";
+import type { CasefilesmodelGetRTRFileMetaDataV1Response } from "./CasefilesmodelGetRTRFileMetaDataV1Response";
+import {
+    CasefilesmodelGetRTRFileMetaDataV1ResponseFromJSON,
+    CasefilesmodelGetRTRFileMetaDataV1ResponseFromJSONTyped,
+    CasefilesmodelGetRTRFileMetaDataV1ResponseToJSON,
+} from "./CasefilesmodelGetRTRFileMetaDataV1Response";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
 import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
 /**
  *
  * @export
- * @interface ExportsExportsResponse
+ * @interface CasefilesapiValidateRTRResponseV1
  */
-export interface ExportsExportsResponse {
+export interface CasefilesapiValidateRTRResponseV1 {
     /**
      *
      * @type {Array<MsaAPIError>}
-     * @memberof ExportsExportsResponse
+     * @memberof CasefilesapiValidateRTRResponseV1
      */
     errors?: Array<MsaAPIError>;
     /**
      *
      * @type {MsaMetaInfo}
-     * @memberof ExportsExportsResponse
+     * @memberof CasefilesapiValidateRTRResponseV1
      */
     meta: MsaMetaInfo;
     /**
      *
-     * @type {Array<ExportsExportJob>}
-     * @memberof ExportsExportsResponse
+     * @type {Array<CasefilesmodelGetRTRFileMetaDataV1Response>}
+     * @memberof CasefilesapiValidateRTRResponseV1
      */
-    resources: Array<ExportsExportJob>;
+    resources: Array<CasefilesmodelGetRTRFileMetaDataV1Response>;
 }
 
 /**
- * Check if a given object implements the ExportsExportsResponse interface.
+ * Check if a given object implements the CasefilesapiValidateRTRResponseV1 interface.
  */
-export function instanceOfExportsExportsResponse(value: object): value is ExportsExportsResponse {
+export function instanceOfCasefilesapiValidateRTRResponseV1(value: object): value is CasefilesapiValidateRTRResponseV1 {
     if (!("meta" in value) || value["meta"] === undefined) return false;
     if (!("resources" in value) || value["resources"] === undefined) return false;
     return true;
 }
 
-export function ExportsExportsResponseFromJSON(json: any): ExportsExportsResponse {
-    return ExportsExportsResponseFromJSONTyped(json, false);
+export function CasefilesapiValidateRTRResponseV1FromJSON(json: any): CasefilesapiValidateRTRResponseV1 {
+    return CasefilesapiValidateRTRResponseV1FromJSONTyped(json, false);
 }
 
-export function ExportsExportsResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): ExportsExportsResponse {
+export function CasefilesapiValidateRTRResponseV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): CasefilesapiValidateRTRResponseV1 {
     if (json == null) {
         return json;
     }
     return {
         errors: json["errors"] == null ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
-        resources: (json["resources"] as Array<any>).map(ExportsExportJobFromJSON),
+        resources: (json["resources"] as Array<any>).map(CasefilesmodelGetRTRFileMetaDataV1ResponseFromJSON),
     };
 }
 
-export function ExportsExportsResponseToJSON(value?: ExportsExportsResponse | null): any {
+export function CasefilesapiValidateRTRResponseV1ToJSON(value?: CasefilesapiValidateRTRResponseV1 | null): any {
     if (value == null) {
         return value;
     }
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
-        resources: (value["resources"] as Array<any>).map(ExportsExportJobToJSON),
+        resources: (value["resources"] as Array<any>).map(CasefilesmodelGetRTRFileMetaDataV1ResponseToJSON),
     };
 }

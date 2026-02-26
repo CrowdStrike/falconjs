@@ -201,7 +201,7 @@ export interface AspmApiExecuteFunctionsRequest {
 
 export interface AspmApiExecuteFunctionsCountRequest {
     queryName: ExecuteFunctionsCountQueryNameEnum;
-    cloudProvider?: ExecuteFunctionsCountCloudProviderEnum;
+    cloudProvider?: Array<ExecuteFunctionsCountCloudProviderEnum>;
     cloudAccountId?: Array<string>;
     region?: Array<string>;
     cid?: Array<string>;
@@ -319,7 +319,7 @@ export interface AspmApiGetServiceArtifactsRequest {
     revisionId?: number;
     limit?: number;
     offset?: number;
-    orderBy?: GetServiceArtifactsOrderByEnum;
+    orderBy?: Array<GetServiceArtifactsOrderByEnum>;
     direction?: GetServiceArtifactsDirectionEnum;
 }
 
@@ -1064,7 +1064,7 @@ export class AspmApi extends runtime.BaseAPI {
      */
     async executeFunctionsCount(
         queryName: ExecuteFunctionsCountQueryNameEnum,
-        cloudProvider?: ExecuteFunctionsCountCloudProviderEnum,
+        cloudProvider?: Array<ExecuteFunctionsCountCloudProviderEnum>,
         cloudAccountId?: Array<string>,
         region?: Array<string>,
         cid?: Array<string>,
@@ -2197,7 +2197,7 @@ export class AspmApi extends runtime.BaseAPI {
         revisionId?: number,
         limit?: number,
         offset?: number,
-        orderBy?: GetServiceArtifactsOrderByEnum,
+        orderBy?: Array<GetServiceArtifactsOrderByEnum>,
         direction?: GetServiceArtifactsDirectionEnum,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<TypesArtifacts> {
@@ -3109,7 +3109,11 @@ export type ExecuteFunctionsCountQueryNameEnum = (typeof ExecuteFunctionsCountQu
 /**
  * @export
  */
-export const ExecuteFunctionsCountCloudProviderEnum = {} as const;
+export const ExecuteFunctionsCountCloudProviderEnum = {
+    Aws: "aws",
+    Azure: "azure",
+    Gcp: "gcp",
+} as const;
 export type ExecuteFunctionsCountCloudProviderEnum = (typeof ExecuteFunctionsCountCloudProviderEnum)[keyof typeof ExecuteFunctionsCountCloudProviderEnum];
 /**
  * @export
@@ -3191,7 +3195,12 @@ export type GetIntegrationTasksV2DirectionEnum = (typeof GetIntegrationTasksV2Di
 /**
  * @export
  */
-export const GetServiceArtifactsOrderByEnum = {} as const;
+export const GetServiceArtifactsOrderByEnum = {
+    Id: "artifact_id",
+    Name: "artifact_name",
+    Hash: "artifact_hash",
+    FullPath: "artifact_full_path",
+} as const;
 export type GetServiceArtifactsOrderByEnum = (typeof GetServiceArtifactsOrderByEnum)[keyof typeof GetServiceArtifactsOrderByEnum];
 /**
  * @export

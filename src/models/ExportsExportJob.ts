@@ -16,51 +16,51 @@ import { mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface DomainExternalExportJob
+ * @interface ExportsExportJob
  */
-export interface DomainExternalExportJob {
+export interface ExportsExportJob {
     /**
      *
      * @type {string}
-     * @memberof DomainExternalExportJob
+     * @memberof ExportsExportJob
      */
     createdAt: string;
     /**
      *
      * @type {string}
-     * @memberof DomainExternalExportJob
+     * @memberof ExportsExportJob
      */
     id: string;
     /**
-     * Resource to be exported
+     *
      * @type {string}
-     * @memberof DomainExternalExportJob
+     * @memberof ExportsExportJob
      */
     resource: string;
     /**
-     * Number of times the job was retried
+     *
      * @type {number}
-     * @memberof DomainExternalExportJob
+     * @memberof ExportsExportJob
      */
     retries: number;
     /**
-     * Current status of the job. One of [READY, WAITING, IN_PROGRESS, DONE, FAILED, WAITING_FOR_RETRY, CANCELED, RESULT_DELETED]
+     *
      * @type {string}
-     * @memberof DomainExternalExportJob
+     * @memberof ExportsExportJob
      */
     status: string;
     /**
      *
      * @type {string}
-     * @memberof DomainExternalExportJob
+     * @memberof ExportsExportJob
      */
     updatedAt: string;
 }
 
 /**
- * Check if a given object implements the DomainExternalExportJob interface.
+ * Check if a given object implements the ExportsExportJob interface.
  */
-export function instanceOfDomainExternalExportJob(value: object): value is DomainExternalExportJob {
+export function instanceOfExportsExportJob(value: object): value is ExportsExportJob {
     if (!("createdAt" in value) || value["createdAt"] === undefined) return false;
     if (!("id" in value) || value["id"] === undefined) return false;
     if (!("resource" in value) || value["resource"] === undefined) return false;
@@ -70,11 +70,11 @@ export function instanceOfDomainExternalExportJob(value: object): value is Domai
     return true;
 }
 
-export function DomainExternalExportJobFromJSON(json: any): DomainExternalExportJob {
-    return DomainExternalExportJobFromJSONTyped(json, false);
+export function ExportsExportJobFromJSON(json: any): ExportsExportJob {
+    return ExportsExportJobFromJSONTyped(json, false);
 }
 
-export function DomainExternalExportJobFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainExternalExportJob {
+export function ExportsExportJobFromJSONTyped(json: any, ignoreDiscriminator: boolean): ExportsExportJob {
     if (json == null) {
         return json;
     }
@@ -88,7 +88,7 @@ export function DomainExternalExportJobFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function DomainExternalExportJobToJSON(value?: DomainExternalExportJob | null): any {
+export function ExportsExportJobToJSON(value?: ExportsExportJob | null): any {
     if (value == null) {
         return value;
     }

@@ -81,8 +81,14 @@
   # Custom Storage "custom-type" rename
   | .definitions."CustomStorageObjectKeys" = .definitions."CustomType_1255839303"
   | del(.definitions."CustomType_1255839303")
+  | if .paths."/customobjects/v1/collections/{collection_name}/{collection_version}/objects".get.responses."200".schema."$ref" = "#/definitions/CustomType_1255839303" then
+      .paths."/customobjects/v1/collections/{collection_name}/{collection_version}/objects".get.responses."200".schema = {"$ref": "#/definitions/CustomStorageObjectKeys"}  else . end
   | if .paths."/customobjects/v1/collections/{collection_name}/objects".get.responses."200".schema."$ref" = "#/definitions/CustomType_1255839303" then
       .paths."/customobjects/v1/collections/{collection_name}/objects".get.responses."200".schema = {"$ref": "#/definitions/CustomStorageObjectKeys"}  else . end
+  | if .paths."/customobjects/v1/collections".get.responses."200".schema."$ref" = "#/definitions/CustomType_1255839303" then
+      .paths."/customobjects/v1/collections".get.responses."200".schema = {"$ref": "#/definitions/CustomStorageObjectKeys"}  else . end
+  | if .paths."/customobjects/v1/collections/{collection_name}/schemas".get.responses."200".schema."$ref" = "#/definitions/CustomType_1255839303" then
+      .paths."/customobjects/v1/collections/{collection_name}/schemas".get.responses."200".schema = {"$ref": "#/definitions/CustomStorageObjectKeys"}  else . end
 
   | .definitions."CustomStorageResponse" = .definitions."CustomType_3191042536"
   | del(.definitions."CustomType_3191042536")
@@ -94,8 +100,14 @@
       .paths."/customobjects/v1/collections/{collection_name}/objects/{object_key}".delete.responses."200".schema = {"$ref": "#/definitions/CustomStorageResponse"}  else . end
   | if .paths."/customobjects/v1/collections/{collection_name}/objects/{object_key}/metadata".get.responses."200".schema."$ref" = "#/definitions/CustomType_3191042536" then
       .paths."/customobjects/v1/collections/{collection_name}/objects/{object_key}/metadata".get.responses."200".schema = {"$ref": "#/definitions/CustomStorageResponse"}  else . end
-
-
+  | if .paths."/customobjects/v1/collections/{collection_name}/{collection_version}/objects".post.responses."200".schema."$ref" = "#/definitions/CustomType_3191042536" then
+      .paths."/customobjects/v1/collections/{collection_name}/{collection_version}/objects".post.responses."200".schema = {"$ref": "#/definitions/CustomStorageResponse"}  else . end
+  | if .paths."/customobjects/v1/collections/{collection_name}/{collection_version}/objects/{object_key}".put.responses."200".schema."$ref" = "#/definitions/CustomType_3191042536" then
+      .paths."/customobjects/v1/collections/{collection_name}/{collection_version}/objects/{object_key}".put.responses."200".schema = {"$ref": "#/definitions/CustomStorageResponse"}  else . end
+  | if .paths."/customobjects/v1/collections/{collection_name}/{collection_version}/objects/{object_key}".delete.responses."200".schema."$ref" = "#/definitions/CustomType_3191042536" then
+      .paths."/customobjects/v1/collections/{collection_name}/{collection_version}/objects/{object_key}".delete.responses."200".schema = {"$ref": "#/definitions/CustomStorageResponse"}  else . end
+  | if .paths."/customobjects/v1/collections/{collection_name}/{collection_version}/objects/{object_key}/metadata".get.responses."200".schema."$ref" = "#/definitions/CustomType_3191042536" then
+      .paths."/customobjects/v1/collections/{collection_name}/{collection_version}/objects/{object_key}/metadata".get.responses."200".schema = {"$ref": "#/definitions/CustomStorageResponse"}  else . end
 
   # Better operationId for workflows collection
   | .paths."/workflows/entities/execute/v1".post.operationId = "Execute"
@@ -234,3 +246,29 @@
 
 # allow modern Alerts to have product-specific fields not defined in the ExternalAlert spec (e.g. cmdline for EPP alerts)
 | .definitions."detects.ExternalAlert".additionalProperties = true
+
+# Fix ASPM /functions/count/v1 cloudProvider to move enum inside items for proper array of enums structure
+| (.paths."/application-security/aggregates/functions/count/v1".post.parameters[] | select(.name == "cloud_provider")) |=
+  (.enum as $enumValues | {
+    "type": "array",
+    "items": {
+        "type": "string",
+        "enum": $enumValues
+    },
+    "collectionFormat": "csv",
+    "name": "cloud_provider",
+    "in": "query"
+  })
+
+# Fix ASPM orderBy parameter to move enum inside items for proper array of enums structure
+| (.paths."/aspm-api-gateway/api/v1/artifacts".get.parameters[] | select(.name == "orderBy")) |=
+  (.enum as $enumValues | {
+    "type": "array",
+    "items": {
+        "type": "string",
+        "enum": $enumValues
+    },
+    "collectionFormat": "csv",
+    "name": "orderBy",
+    "in": "query"
+  })
