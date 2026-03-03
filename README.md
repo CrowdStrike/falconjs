@@ -19,10 +19,6 @@ npm install crowdstrike-falcon
 
 ## Exemplary use
 
-With falconjs, there are two ways to call CrowdStrike API service collections. You can use the FalconClient object, which has always been available, or you can use the new Falcon object, which behaves like the API Harness, or UberClass, from FalconPy.
-
-### FalconClient
-
 ```typescript
 import { FalconClient, FalconErrorExplain } from "crowdstrike-falcon";
 
@@ -40,18 +36,6 @@ await client.sensorDownload
     .then((value) => {
         console.log("my CCID: ", value);
     });
-```
-## Falcon
-when using request body properties:
-```js
-const body = { ids: ["123", "456", "789"]}
-try {
-    detDetails = await falcon.command("GetDetectSummaries", body)
-    return detDetails
-} catch (error) {
-    console.log(error)
-    return
-}
 ```
 
 when using query params:
