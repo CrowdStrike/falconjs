@@ -23,6 +23,10 @@ jobs:
           node-version: 20
           registry-url: https://registry.npmjs.org/
 
+      # Ensure npm 11.5.1 or later for trusted publishing
+      # https://github.com/orgs/community/discussions/173102
+      - run: npm install -g npm@latest
+
       - run: npm ci --audit
 
       - run: npm audit signatures
