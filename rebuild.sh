@@ -2,7 +2,7 @@
 
 set -euxo pipefail
 
-VERSION=0.3.0 # Target version of FalconJS
+VERSION=0.5.0 # Target version of FalconJS
 
 ORIGINAL_SWAGGER=./specs/swagger.json
 FINAL_SWAGGER=./specs/final.json
@@ -47,7 +47,7 @@ $CONTAINER_TOOL run --rm \
        --additional-properties=useSingleRequestParameter=false \
        --additional-properties=prefixParameterInterfaces=true \
        --additional-properties=npmName=crowdstrike-falcon \
-       --additional-properties=npmRepository=https://github.com/crowdstrike/falcon-js \
+       --additional-properties=npmRepository=https://github.com/crowdstrike/falconjs \
        --additional-properties=supportsES6=true \
        --additional-properties=typescriptThreePlus=true \
        --skip-validate-spec
@@ -66,7 +66,6 @@ cp -a ./${build_dir}/src/* ./src/
 # for files whose names only changed case (e.g. FooJson.ts -> FooJSON.ts).
 # Re-indexing the generated paths forces git to pick up the actual filenames.
 git rm -r --cached src/apis/ src/models/ src/runtime.ts
-git add src/apis/ src/models/ src/runtime.ts
 
 #TODO: populate client.ts with all API imports, class defs, and constructors
 
@@ -74,6 +73,9 @@ npm run format:fix
 npm run lint:fix
 npm run lint
 npm run build
+
+# Part 2 of case-insensitive filesystem workarounds
+git add src/apis/ src/models/ src/runtime.ts
 
 cat << EOF
 ✅ Rebuild complete. If everything looks good and you're ready to commit:
