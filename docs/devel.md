@@ -1,4 +1,4 @@
-# SDK Developer Guide 
+# SDK Developer Guide
 
 ## How to orient yourself in the source code?
 
@@ -73,7 +73,8 @@ tsc && node ./build/example.js
 
 ## How to release falconjs
 
-- bump version in `package.json` (`npm version patch`)
-- build package (`npm run build:release`)
-- review contents of the package (`.tgz` file in working directory)
-- `npm publish`
+- create a release branch (e.g. `prepare-1.2.3`)
+- bump version in `rebuild.sh` and `src/middleware/useragent.ts`
+- bump version in `package.json` and `package-lock.json` with `npm version {major | minor | patch}` (makes a new git commit)
+- push branch and merge
+- create a GitHub release on `main`
