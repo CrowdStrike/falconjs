@@ -38,19 +38,6 @@ await client.sensorDownload
     });
 ```
 
-when using query params:
-```js
-const params = { filter: "score:<=75"}
-const args = {"getAssessmentsByScoreV1", params }
-try {
-    ztaDetails = await falcon.command(args)
-    return ztaDetails
-} catch(error) {
-    console.log(error)
-    return
-}
-```
-
 ## Documentation
 
  - [Example usage under nodejs](examples/node/README.md)
