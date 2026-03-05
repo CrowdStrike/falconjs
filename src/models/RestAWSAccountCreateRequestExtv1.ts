@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { RestCloudAWSAccountCreateExtV1 } from "./RestCloudAWSAccountCreateExtV1";
-import { RestCloudAWSAccountCreateExtV1FromJSON, RestCloudAWSAccountCreateExtV1FromJSONTyped, RestCloudAWSAccountCreateExtV1ToJSON } from "./RestCloudAWSAccountCreateExtV1";
+import {
+    RestCloudAWSAccountCreateExtV1FromJSON,
+    RestCloudAWSAccountCreateExtV1FromJSONTyped,
+    RestCloudAWSAccountCreateExtV1ToJSON,
+    RestCloudAWSAccountCreateExtV1ToJSONTyped,
+} from "./RestCloudAWSAccountCreateExtV1";
 
 /**
  *
@@ -51,10 +56,15 @@ export function RestAWSAccountCreateRequestExtv1FromJSONTyped(json: any, ignoreD
     };
 }
 
-export function RestAWSAccountCreateRequestExtv1ToJSON(value?: RestAWSAccountCreateRequestExtv1 | null): any {
+export function RestAWSAccountCreateRequestExtv1ToJSON(json: any): RestAWSAccountCreateRequestExtv1 {
+    return RestAWSAccountCreateRequestExtv1ToJSONTyped(json, false);
+}
+
+export function RestAWSAccountCreateRequestExtv1ToJSONTyped(value?: RestAWSAccountCreateRequestExtv1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(RestCloudAWSAccountCreateExtV1ToJSON),
     };

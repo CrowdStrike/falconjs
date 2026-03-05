@@ -128,10 +128,15 @@ export function DomainAWSAccountResourceMetadataFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function DomainAWSAccountResourceMetadataToJSON(value?: DomainAWSAccountResourceMetadata | null): any {
+export function DomainAWSAccountResourceMetadataToJSON(json: any): DomainAWSAccountResourceMetadata {
+    return DomainAWSAccountResourceMetadataToJSONTyped(json, false);
+}
+
+export function DomainAWSAccountResourceMetadataToJSONTyped(value?: DomainAWSAccountResourceMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         CreatedAt: value["createdAt"].toISOString(),
         DeletedAt: value["deletedAt"].toISOString(),

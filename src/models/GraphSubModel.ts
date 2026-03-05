@@ -14,13 +14,13 @@
 
 import { mapValues } from "../runtime";
 import type { GraphMulti } from "./GraphMulti";
-import { GraphMultiFromJSON, GraphMultiFromJSONTyped, GraphMultiToJSON } from "./GraphMulti";
+import { GraphMultiFromJSON, GraphMultiFromJSONTyped, GraphMultiToJSON, GraphMultiToJSONTyped } from "./GraphMulti";
 import type { GraphNodePosition } from "./GraphNodePosition";
-import { GraphNodePositionFromJSON, GraphNodePositionFromJSONTyped, GraphNodePositionToJSON } from "./GraphNodePosition";
+import { GraphNodePositionFromJSON, GraphNodePositionFromJSONTyped, GraphNodePositionToJSON, GraphNodePositionToJSONTyped } from "./GraphNodePosition";
 import type { Flows } from "./Flows";
-import { FlowsFromJSON, FlowsFromJSONTyped, FlowsToJSON } from "./Flows";
+import { FlowsFromJSON, FlowsFromJSONTyped, FlowsToJSON, FlowsToJSONTyped } from "./Flows";
 import type { GraphDefinitionModel } from "./GraphDefinitionModel";
-import { GraphDefinitionModelFromJSON, GraphDefinitionModelFromJSONTyped, GraphDefinitionModelToJSON } from "./GraphDefinitionModel";
+import { GraphDefinitionModelFromJSON, GraphDefinitionModelFromJSONTyped, GraphDefinitionModelToJSON, GraphDefinitionModelToJSONTyped } from "./GraphDefinitionModel";
 
 /**
  *
@@ -95,10 +95,15 @@ export function GraphSubModelFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function GraphSubModelToJSON(value?: GraphSubModel | null): any {
+export function GraphSubModelToJSON(json: any): GraphSubModel {
+    return GraphSubModelToJSONTyped(json, false);
+}
+
+export function GraphSubModelToJSONTyped(value?: GraphSubModel | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         flows: FlowsToJSON(value["flows"]),
         model: GraphDefinitionModelToJSON(value["model"]),

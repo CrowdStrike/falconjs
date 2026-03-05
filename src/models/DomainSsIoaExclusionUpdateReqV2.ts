@@ -139,10 +139,15 @@ export function DomainSsIoaExclusionUpdateReqV2FromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function DomainSsIoaExclusionUpdateReqV2ToJSON(value?: DomainSsIoaExclusionUpdateReqV2 | null): any {
+export function DomainSsIoaExclusionUpdateReqV2ToJSON(json: any): DomainSsIoaExclusionUpdateReqV2 {
+    return DomainSsIoaExclusionUpdateReqV2ToJSONTyped(json, false);
+}
+
+export function DomainSsIoaExclusionUpdateReqV2ToJSONTyped(value?: DomainSsIoaExclusionUpdateReqV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cl_regex: value["clRegex"],
         comment: value["comment"],

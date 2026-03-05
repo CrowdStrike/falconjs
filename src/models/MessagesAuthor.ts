@@ -87,10 +87,15 @@ export function MessagesAuthorFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function MessagesAuthorToJSON(value?: MessagesAuthor | null): any {
+export function MessagesAuthorToJSON(json: any): MessagesAuthor {
+    return MessagesAuthorToJSONTyped(json, false);
+}
+
+export function MessagesAuthorToJSONTyped(value?: MessagesAuthor | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         display_name: value["displayName"],
         email_address: value["emailAddress"],

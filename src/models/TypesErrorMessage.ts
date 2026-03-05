@@ -56,10 +56,15 @@ export function TypesErrorMessageFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function TypesErrorMessageToJSON(value?: TypesErrorMessage | null): any {
+export function TypesErrorMessageToJSON(json: any): TypesErrorMessage {
+    return TypesErrorMessageToJSONTyped(json, false);
+}
+
+export function TypesErrorMessageToJSONTyped(value?: TypesErrorMessage | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         error: value["error"],
         reason: value["reason"],

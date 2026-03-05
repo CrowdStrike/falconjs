@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DeviceControlUSBCustomNotifications } from "./DeviceControlUSBCustomNotifications";
-import { DeviceControlUSBCustomNotificationsFromJSON, DeviceControlUSBCustomNotificationsFromJSONTyped, DeviceControlUSBCustomNotificationsToJSON } from "./DeviceControlUSBCustomNotifications";
+import {
+    DeviceControlUSBCustomNotificationsFromJSON,
+    DeviceControlUSBCustomNotificationsFromJSONTyped,
+    DeviceControlUSBCustomNotificationsToJSON,
+    DeviceControlUSBCustomNotificationsToJSONTyped,
+} from "./DeviceControlUSBCustomNotifications";
 
 /**
  *
@@ -50,10 +55,15 @@ export function DeviceControlReqUpdateDefaultDCPolicyV1FromJSONTyped(json: any, 
     };
 }
 
-export function DeviceControlReqUpdateDefaultDCPolicyV1ToJSON(value?: DeviceControlReqUpdateDefaultDCPolicyV1 | null): any {
+export function DeviceControlReqUpdateDefaultDCPolicyV1ToJSON(json: any): DeviceControlReqUpdateDefaultDCPolicyV1 {
+    return DeviceControlReqUpdateDefaultDCPolicyV1ToJSONTyped(json, false);
+}
+
+export function DeviceControlReqUpdateDefaultDCPolicyV1ToJSONTyped(value?: DeviceControlReqUpdateDefaultDCPolicyV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         custom_notifications: DeviceControlUSBCustomNotificationsToJSON(value["customNotifications"]),
     };

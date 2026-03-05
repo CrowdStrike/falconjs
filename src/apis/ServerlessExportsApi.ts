@@ -67,12 +67,9 @@ export interface ServerlessExportsApiReadExportJobsMixin0Request {
  */
 export class ServerlessExportsApi extends runtime.BaseAPI {
     /**
-     * Download an export file
+     * Creates request options for downloadExportFileMixin0 without sending the request
      */
-    async downloadExportFileMixin0Raw(
-        requestParameters: ServerlessExportsApiDownloadExportFileMixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<Array<number>>> {
+    async downloadExportFileMixin0RequestOpts(requestParameters: ServerlessExportsApiDownloadExportFileMixin0Request): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling downloadExportFileMixin0().');
         }
@@ -90,15 +87,25 @@ export class ServerlessExportsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/lambdas/entities/exports/files/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/lambdas/entities/exports/files/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Download an export file
+     */
+    async downloadExportFileMixin0Raw(
+        requestParameters: ServerlessExportsApiDownloadExportFileMixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<Array<number>>> {
+        const requestOptions = await this.downloadExportFileMixin0RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse<any>(response);
     }
@@ -112,12 +119,9 @@ export class ServerlessExportsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Launch an export job of a Lambda Security resource. Maximum of 1 job in progress per resource. Use expand_vulnerabilities=true to get detailed vulnerability information.
+     * Creates request options for launchExportJobMixin0 without sending the request
      */
-    async launchExportJobMixin0Raw(
-        requestParameters: ServerlessExportsApiLaunchExportJobMixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ExportsLaunchExportResponse>> {
+    async launchExportJobMixin0RequestOpts(requestParameters: ServerlessExportsApiLaunchExportJobMixin0Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling launchExportJobMixin0().');
         }
@@ -133,16 +137,26 @@ export class ServerlessExportsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/lambdas/entities/exports/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ExportsLaunchExportRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/lambdas/entities/exports/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ExportsLaunchExportRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Launch an export job of a Lambda Security resource. Maximum of 1 job in progress per resource. Use expand_vulnerabilities=true to get detailed vulnerability information.
+     */
+    async launchExportJobMixin0Raw(
+        requestParameters: ServerlessExportsApiLaunchExportJobMixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ExportsLaunchExportResponse>> {
+        const requestOptions = await this.launchExportJobMixin0RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ExportsLaunchExportResponseFromJSON(jsonValue));
     }
@@ -156,12 +170,9 @@ export class ServerlessExportsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Launch an export job for a serverless security resource
+     * Creates request options for postExportJobMixin0Mixin113 without sending the request
      */
-    async postExportJobMixin0Mixin113Raw(
-        requestParameters: ServerlessExportsApiPostExportJobMixin0Mixin113Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ExportsExportJobResponse>> {
+    async postExportJobMixin0Mixin113RequestOpts(requestParameters: ServerlessExportsApiPostExportJobMixin0Mixin113Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postExportJobMixin0Mixin113().');
         }
@@ -177,16 +188,26 @@ export class ServerlessExportsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/lambdas/entities/export-jobs/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ExportsExportJobRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/lambdas/entities/export-jobs/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ExportsExportJobRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Launch an export job for a serverless security resource
+     */
+    async postExportJobMixin0Mixin113Raw(
+        requestParameters: ServerlessExportsApiPostExportJobMixin0Mixin113Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ExportsExportJobResponse>> {
+        const requestOptions = await this.postExportJobMixin0Mixin113RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ExportsExportJobResponseFromJSON(jsonValue));
     }
@@ -200,12 +221,9 @@ export class ServerlessExportsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query export jobs entities
+     * Creates request options for queryExportJobsMixin0 without sending the request
      */
-    async queryExportJobsMixin0Raw(
-        requestParameters: ServerlessExportsApiQueryExportJobsMixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queryExportJobsMixin0RequestOpts(requestParameters: ServerlessExportsApiQueryExportJobsMixin0Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -219,15 +237,25 @@ export class ServerlessExportsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/lambdas/queries/exports/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/lambdas/queries/exports/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query export jobs entities
+     */
+    async queryExportJobsMixin0Raw(
+        requestParameters: ServerlessExportsApiQueryExportJobsMixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queryExportJobsMixin0RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -241,12 +269,9 @@ export class ServerlessExportsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Read export jobs entities
+     * Creates request options for readExportJobsMixin0 without sending the request
      */
-    async readExportJobsMixin0Raw(
-        requestParameters: ServerlessExportsApiReadExportJobsMixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ExportsExportsResponse>> {
+    async readExportJobsMixin0RequestOpts(requestParameters: ServerlessExportsApiReadExportJobsMixin0Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling readExportJobsMixin0().');
         }
@@ -264,15 +289,25 @@ export class ServerlessExportsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/lambdas/entities/exports/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/lambdas/entities/exports/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Read export jobs entities
+     */
+    async readExportJobsMixin0Raw(
+        requestParameters: ServerlessExportsApiReadExportJobsMixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ExportsExportsResponse>> {
+        const requestOptions = await this.readExportJobsMixin0RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ExportsExportsResponseFromJSON(jsonValue));
     }

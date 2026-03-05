@@ -112,10 +112,15 @@ export function ApiTokenDetailsResourceV1FromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ApiTokenDetailsResourceV1ToJSON(value?: ApiTokenDetailsResourceV1 | null): any {
+export function ApiTokenDetailsResourceV1ToJSON(json: any): ApiTokenDetailsResourceV1 {
+    return ApiTokenDetailsResourceV1ToJSONTyped(json, false);
+}
+
+export function ApiTokenDetailsResourceV1ToJSONTyped(value?: ApiTokenDetailsResourceV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         created_timestamp: value["createdTimestamp"].toISOString(),
         expires_timestamp: value["expiresTimestamp"].toISOString(),

@@ -79,15 +79,20 @@ export function RiskCommentsFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function RiskCommentsToJSON(value?: RiskComments | null): any {
+export function RiskCommentsToJSON(json: any): RiskComments {
+    return RiskCommentsToJSONTyped(json, false);
+}
+
+export function RiskCommentsToJSONTyped(value?: RiskComments | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         comment: value["comment"],
         id: value["id"],
         reporter: value["reporter"],
         time: value["time"].toISOString(),
-        updated_at: value["updatedAt"] == null ? undefined : value["updatedAt"].toISOString(),
+        updated_at: value["updatedAt"] == null ? value["updatedAt"] : value["updatedAt"].toISOString(),
     };
 }

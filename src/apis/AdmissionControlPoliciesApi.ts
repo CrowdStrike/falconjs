@@ -129,12 +129,9 @@ export interface AdmissionControlPoliciesApiAdmissionControlUpdateRuleGroupsRequ
  */
 export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
     /**
-     * Add one or more host groups to an admission control policy.
+     * Creates request options for admissionControlAddHostGroups without sending the request
      */
-    async admissionControlAddHostGroupsRaw(
-        requestParameters: AdmissionControlPoliciesApiAdmissionControlAddHostGroupsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ModelsKACPolicyEntitiesResponse>> {
+    async admissionControlAddHostGroupsRequestOpts(requestParameters: AdmissionControlPoliciesApiAdmissionControlAddHostGroupsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling admissionControlAddHostGroups().');
         }
@@ -150,16 +147,26 @@ export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/admission-control-policies/entities/policy-host-groups/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ModelsAddHostGroupRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/admission-control-policies/entities/policy-host-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ModelsAddHostGroupRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Add one or more host groups to an admission control policy.
+     */
+    async admissionControlAddHostGroupsRaw(
+        requestParameters: AdmissionControlPoliciesApiAdmissionControlAddHostGroupsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ModelsKACPolicyEntitiesResponse>> {
+        const requestOptions = await this.admissionControlAddHostGroupsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsKACPolicyEntitiesResponseFromJSON(jsonValue));
     }
@@ -173,12 +180,9 @@ export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Add one or more custom Rego rules to a rule group in an admission control policy. The requested custom rules are also added to all other unspecified rule groups in the policy with action \'Disabled\'.
+     * Creates request options for admissionControlAddRuleGroupCustomRule without sending the request
      */
-    async admissionControlAddRuleGroupCustomRuleRaw(
-        requestParameters: AdmissionControlPoliciesApiAdmissionControlAddRuleGroupCustomRuleRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ModelsKACPolicyEntitiesResponse>> {
+    async admissionControlAddRuleGroupCustomRuleRequestOpts(requestParameters: AdmissionControlPoliciesApiAdmissionControlAddRuleGroupCustomRuleRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling admissionControlAddRuleGroupCustomRule().');
         }
@@ -194,16 +198,26 @@ export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/admission-control-policies/entities/policy-rule-group-custom-rules/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ModelsAddPolicyRuleGroupCustomRuleRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/admission-control-policies/entities/policy-rule-group-custom-rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ModelsAddPolicyRuleGroupCustomRuleRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Add one or more custom Rego rules to a rule group in an admission control policy. The requested custom rules are also added to all other unspecified rule groups in the policy with action \'Disabled\'.
+     */
+    async admissionControlAddRuleGroupCustomRuleRaw(
+        requestParameters: AdmissionControlPoliciesApiAdmissionControlAddRuleGroupCustomRuleRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ModelsKACPolicyEntitiesResponse>> {
+        const requestOptions = await this.admissionControlAddRuleGroupCustomRuleRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsKACPolicyEntitiesResponseFromJSON(jsonValue));
     }
@@ -220,12 +234,9 @@ export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create an admission control policy.
+     * Creates request options for admissionControlCreatePolicy without sending the request
      */
-    async admissionControlCreatePolicyRaw(
-        requestParameters: AdmissionControlPoliciesApiAdmissionControlCreatePolicyRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ModelsKACPolicyEntitiesResponse>> {
+    async admissionControlCreatePolicyRequestOpts(requestParameters: AdmissionControlPoliciesApiAdmissionControlCreatePolicyRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling admissionControlCreatePolicy().');
         }
@@ -241,16 +252,26 @@ export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/admission-control-policies/entities/policies/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ModelsCreatePolicyRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/admission-control-policies/entities/policies/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ModelsCreatePolicyRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create an admission control policy.
+     */
+    async admissionControlCreatePolicyRaw(
+        requestParameters: AdmissionControlPoliciesApiAdmissionControlCreatePolicyRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ModelsKACPolicyEntitiesResponse>> {
+        const requestOptions = await this.admissionControlCreatePolicyRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsKACPolicyEntitiesResponseFromJSON(jsonValue));
     }
@@ -264,12 +285,9 @@ export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create one or more rule groups and add them to an existing admission control policy. The list of new rule groups will be created with the last rule group having highest precedence, second to last with second highest precedence, and so on.
+     * Creates request options for admissionControlCreateRuleGroups without sending the request
      */
-    async admissionControlCreateRuleGroupsRaw(
-        requestParameters: AdmissionControlPoliciesApiAdmissionControlCreateRuleGroupsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ModelsKACPolicyEntitiesResponse>> {
+    async admissionControlCreateRuleGroupsRequestOpts(requestParameters: AdmissionControlPoliciesApiAdmissionControlCreateRuleGroupsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling admissionControlCreateRuleGroups().');
         }
@@ -285,16 +303,26 @@ export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/admission-control-policies/entities/policy-rule-groups/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ModelsCreatePolicyRuleGroupRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/admission-control-policies/entities/policy-rule-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ModelsCreatePolicyRuleGroupRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create one or more rule groups and add them to an existing admission control policy. The list of new rule groups will be created with the last rule group having highest precedence, second to last with second highest precedence, and so on.
+     */
+    async admissionControlCreateRuleGroupsRaw(
+        requestParameters: AdmissionControlPoliciesApiAdmissionControlCreateRuleGroupsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ModelsKACPolicyEntitiesResponse>> {
+        const requestOptions = await this.admissionControlCreateRuleGroupsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsKACPolicyEntitiesResponseFromJSON(jsonValue));
     }
@@ -308,12 +336,9 @@ export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete an admission control policy.
+     * Creates request options for admissionControlDeletePolicies without sending the request
      */
-    async admissionControlDeletePoliciesRaw(
-        requestParameters: AdmissionControlPoliciesApiAdmissionControlDeletePoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ModelsKACPolicyEntitiesResponse>> {
+    async admissionControlDeletePoliciesRequestOpts(requestParameters: AdmissionControlPoliciesApiAdmissionControlDeletePoliciesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling admissionControlDeletePolicies().');
         }
@@ -331,15 +356,25 @@ export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/admission-control-policies/entities/policies/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/admission-control-policies/entities/policies/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete an admission control policy.
+     */
+    async admissionControlDeletePoliciesRaw(
+        requestParameters: AdmissionControlPoliciesApiAdmissionControlDeletePoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ModelsKACPolicyEntitiesResponse>> {
+        const requestOptions = await this.admissionControlDeletePoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsKACPolicyEntitiesResponseFromJSON(jsonValue));
     }
@@ -353,12 +388,9 @@ export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete rule groups.
+     * Creates request options for admissionControlDeleteRuleGroups without sending the request
      */
-    async admissionControlDeleteRuleGroupsRaw(
-        requestParameters: AdmissionControlPoliciesApiAdmissionControlDeleteRuleGroupsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ModelsKACPolicyEntitiesResponse>> {
+    async admissionControlDeleteRuleGroupsRequestOpts(requestParameters: AdmissionControlPoliciesApiAdmissionControlDeleteRuleGroupsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["policyId"] == null) {
             throw new runtime.RequiredError("policyId", 'Required parameter "policyId" was null or undefined when calling admissionControlDeleteRuleGroups().');
         }
@@ -384,15 +416,25 @@ export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/admission-control-policies/entities/policy-rule-groups/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/admission-control-policies/entities/policy-rule-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete rule groups.
+     */
+    async admissionControlDeleteRuleGroupsRaw(
+        requestParameters: AdmissionControlPoliciesApiAdmissionControlDeleteRuleGroupsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ModelsKACPolicyEntitiesResponse>> {
+        const requestOptions = await this.admissionControlDeleteRuleGroupsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsKACPolicyEntitiesResponseFromJSON(jsonValue));
     }
@@ -406,12 +448,9 @@ export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get admission control policies.
+     * Creates request options for admissionControlGetPolicies without sending the request
      */
-    async admissionControlGetPoliciesRaw(
-        requestParameters: AdmissionControlPoliciesApiAdmissionControlGetPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ModelsKACPolicyEntitiesResponse>> {
+    async admissionControlGetPoliciesRequestOpts(requestParameters: AdmissionControlPoliciesApiAdmissionControlGetPoliciesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling admissionControlGetPolicies().');
         }
@@ -429,15 +468,25 @@ export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/admission-control-policies/entities/policies/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/admission-control-policies/entities/policies/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get admission control policies.
+     */
+    async admissionControlGetPoliciesRaw(
+        requestParameters: AdmissionControlPoliciesApiAdmissionControlGetPoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ModelsKACPolicyEntitiesResponse>> {
+        const requestOptions = await this.admissionControlGetPoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsKACPolicyEntitiesResponseFromJSON(jsonValue));
     }
@@ -451,12 +500,9 @@ export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search admission control policies.
+     * Creates request options for admissionControlQueryPolicies without sending the request
      */
-    async admissionControlQueryPoliciesRaw(
-        requestParameters: AdmissionControlPoliciesApiAdmissionControlQueryPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async admissionControlQueryPoliciesRequestOpts(requestParameters: AdmissionControlPoliciesApiAdmissionControlQueryPoliciesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -482,15 +528,25 @@ export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/admission-control-policies/queries/policies/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/admission-control-policies/queries/policies/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search admission control policies.
+     */
+    async admissionControlQueryPoliciesRaw(
+        requestParameters: AdmissionControlPoliciesApiAdmissionControlQueryPoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.admissionControlQueryPoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -504,12 +560,9 @@ export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Remove one or more host groups from an admission control policy.
+     * Creates request options for admissionControlRemoveHostGroups without sending the request
      */
-    async admissionControlRemoveHostGroupsRaw(
-        requestParameters: AdmissionControlPoliciesApiAdmissionControlRemoveHostGroupsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ModelsKACPolicyEntitiesResponse>> {
+    async admissionControlRemoveHostGroupsRequestOpts(requestParameters: AdmissionControlPoliciesApiAdmissionControlRemoveHostGroupsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["policyId"] == null) {
             throw new runtime.RequiredError("policyId", 'Required parameter "policyId" was null or undefined when calling admissionControlRemoveHostGroups().');
         }
@@ -535,15 +588,25 @@ export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/admission-control-policies/entities/policy-host-groups/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/admission-control-policies/entities/policy-host-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Remove one or more host groups from an admission control policy.
+     */
+    async admissionControlRemoveHostGroupsRaw(
+        requestParameters: AdmissionControlPoliciesApiAdmissionControlRemoveHostGroupsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ModelsKACPolicyEntitiesResponse>> {
+        const requestOptions = await this.admissionControlRemoveHostGroupsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsKACPolicyEntitiesResponseFromJSON(jsonValue));
     }
@@ -557,12 +620,9 @@ export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete one or more custom Rego rules from all rule groups in an admission control policy.
+     * Creates request options for admissionControlRemoveRuleGroupCustomRule without sending the request
      */
-    async admissionControlRemoveRuleGroupCustomRuleRaw(
-        requestParameters: AdmissionControlPoliciesApiAdmissionControlRemoveRuleGroupCustomRuleRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ModelsKACPolicyEntitiesResponse>> {
+    async admissionControlRemoveRuleGroupCustomRuleRequestOpts(requestParameters: AdmissionControlPoliciesApiAdmissionControlRemoveRuleGroupCustomRuleRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["policyId"] == null) {
             throw new runtime.RequiredError("policyId", 'Required parameter "policyId" was null or undefined when calling admissionControlRemoveRuleGroupCustomRule().');
         }
@@ -588,15 +648,25 @@ export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/admission-control-policies/entities/policy-rule-group-custom-rules/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/admission-control-policies/entities/policy-rule-group-custom-rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete one or more custom Rego rules from all rule groups in an admission control policy.
+     */
+    async admissionControlRemoveRuleGroupCustomRuleRaw(
+        requestParameters: AdmissionControlPoliciesApiAdmissionControlRemoveRuleGroupCustomRuleRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ModelsKACPolicyEntitiesResponse>> {
+        const requestOptions = await this.admissionControlRemoveRuleGroupCustomRuleRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsKACPolicyEntitiesResponseFromJSON(jsonValue));
     }
@@ -614,12 +684,9 @@ export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Replace labels and/or namespaces of a rule group within an admission control policy.
+     * Creates request options for admissionControlReplaceRuleGroupSelectors without sending the request
      */
-    async admissionControlReplaceRuleGroupSelectorsRaw(
-        requestParameters: AdmissionControlPoliciesApiAdmissionControlReplaceRuleGroupSelectorsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ModelsKACPolicyEntitiesResponse>> {
+    async admissionControlReplaceRuleGroupSelectorsRequestOpts(requestParameters: AdmissionControlPoliciesApiAdmissionControlReplaceRuleGroupSelectorsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling admissionControlReplaceRuleGroupSelectors().');
         }
@@ -635,16 +702,26 @@ export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/admission-control-policies/entities/policy-rule-group-selectors/v1`,
-                method: "PUT",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ModelsReplacePolicyRuleGroupSelectorsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/admission-control-policies/entities/policy-rule-group-selectors/v1`;
+
+        return {
+            path: urlPath,
+            method: "PUT",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ModelsReplacePolicyRuleGroupSelectorsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Replace labels and/or namespaces of a rule group within an admission control policy.
+     */
+    async admissionControlReplaceRuleGroupSelectorsRaw(
+        requestParameters: AdmissionControlPoliciesApiAdmissionControlReplaceRuleGroupSelectorsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ModelsKACPolicyEntitiesResponse>> {
+        const requestOptions = await this.admissionControlReplaceRuleGroupSelectorsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsKACPolicyEntitiesResponseFromJSON(jsonValue));
     }
@@ -661,12 +738,9 @@ export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Change precedence of rule groups within an admission control policy.
+     * Creates request options for admissionControlSetRuleGroupPrecedence without sending the request
      */
-    async admissionControlSetRuleGroupPrecedenceRaw(
-        requestParameters: AdmissionControlPoliciesApiAdmissionControlSetRuleGroupPrecedenceRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ModelsKACPolicyEntitiesResponse>> {
+    async admissionControlSetRuleGroupPrecedenceRequestOpts(requestParameters: AdmissionControlPoliciesApiAdmissionControlSetRuleGroupPrecedenceRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling admissionControlSetRuleGroupPrecedence().');
         }
@@ -682,16 +756,26 @@ export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/admission-control-policies/entities/policy-rule-group-precedence/v1`,
-                method: "PUT",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ModelsChangePolicyRuleGroupPrecedenceRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/admission-control-policies/entities/policy-rule-group-precedence/v1`;
+
+        return {
+            path: urlPath,
+            method: "PUT",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ModelsChangePolicyRuleGroupPrecedenceRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Change precedence of rule groups within an admission control policy.
+     */
+    async admissionControlSetRuleGroupPrecedenceRaw(
+        requestParameters: AdmissionControlPoliciesApiAdmissionControlSetRuleGroupPrecedenceRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ModelsKACPolicyEntitiesResponse>> {
+        const requestOptions = await this.admissionControlSetRuleGroupPrecedenceRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsKACPolicyEntitiesResponseFromJSON(jsonValue));
     }
@@ -708,12 +792,9 @@ export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update an admission control policy.
+     * Creates request options for admissionControlUpdatePolicy without sending the request
      */
-    async admissionControlUpdatePolicyRaw(
-        requestParameters: AdmissionControlPoliciesApiAdmissionControlUpdatePolicyRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ModelsKACPolicyEntitiesResponse>> {
+    async admissionControlUpdatePolicyRequestOpts(requestParameters: AdmissionControlPoliciesApiAdmissionControlUpdatePolicyRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling admissionControlUpdatePolicy().');
         }
@@ -737,16 +818,26 @@ export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/admission-control-policies/entities/policies/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ModelsUpdatePolicyRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/admission-control-policies/entities/policies/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ModelsUpdatePolicyRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update an admission control policy.
+     */
+    async admissionControlUpdatePolicyRaw(
+        requestParameters: AdmissionControlPoliciesApiAdmissionControlUpdatePolicyRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ModelsKACPolicyEntitiesResponse>> {
+        const requestOptions = await this.admissionControlUpdatePolicyRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsKACPolicyEntitiesResponseFromJSON(jsonValue));
     }
@@ -760,12 +851,9 @@ export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update admission control policy precedence.
+     * Creates request options for admissionControlUpdatePolicyPrecedence without sending the request
      */
-    async admissionControlUpdatePolicyPrecedenceRaw(
-        requestParameters: AdmissionControlPoliciesApiAdmissionControlUpdatePolicyPrecedenceRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ModelsKACPolicyEntitiesResponse>> {
+    async admissionControlUpdatePolicyPrecedenceRequestOpts(requestParameters: AdmissionControlPoliciesApiAdmissionControlUpdatePolicyPrecedenceRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling admissionControlUpdatePolicyPrecedence().');
         }
@@ -781,16 +869,26 @@ export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/admission-control-policies/entities/policy-precedence/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ModelsUpdatePolicyPrecedenceRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/admission-control-policies/entities/policy-precedence/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ModelsUpdatePolicyPrecedenceRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update admission control policy precedence.
+     */
+    async admissionControlUpdatePolicyPrecedenceRaw(
+        requestParameters: AdmissionControlPoliciesApiAdmissionControlUpdatePolicyPrecedenceRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ModelsKACPolicyEntitiesResponse>> {
+        const requestOptions = await this.admissionControlUpdatePolicyPrecedenceRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsKACPolicyEntitiesResponseFromJSON(jsonValue));
     }
@@ -804,12 +902,9 @@ export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update a rule group. Change rule group name, description, deny on error, Image Assessment settings, default rule actions, and custom rule actions.
+     * Creates request options for admissionControlUpdateRuleGroups without sending the request
      */
-    async admissionControlUpdateRuleGroupsRaw(
-        requestParameters: AdmissionControlPoliciesApiAdmissionControlUpdateRuleGroupsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ModelsKACPolicyEntitiesResponse>> {
+    async admissionControlUpdateRuleGroupsRequestOpts(requestParameters: AdmissionControlPoliciesApiAdmissionControlUpdateRuleGroupsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling admissionControlUpdateRuleGroups().');
         }
@@ -825,16 +920,26 @@ export class AdmissionControlPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/admission-control-policies/entities/policy-rule-groups/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ModelsUpdatePolicyRuleGroupRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/admission-control-policies/entities/policy-rule-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ModelsUpdatePolicyRuleGroupRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update a rule group. Change rule group name, description, deny on error, Image Assessment settings, default rule actions, and custom rule actions.
+     */
+    async admissionControlUpdateRuleGroupsRaw(
+        requestParameters: AdmissionControlPoliciesApiAdmissionControlUpdateRuleGroupsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ModelsKACPolicyEntitiesResponse>> {
+        const requestOptions = await this.admissionControlUpdateRuleGroupsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsKACPolicyEntitiesResponseFromJSON(jsonValue));
     }

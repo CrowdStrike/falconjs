@@ -71,10 +71,15 @@ export function FwmgrApiJSONDiffFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function FwmgrApiJSONDiffToJSON(value?: FwmgrApiJSONDiff | null): any {
+export function FwmgrApiJSONDiffToJSON(json: any): FwmgrApiJSONDiff {
+    return FwmgrApiJSONDiffToJSONTyped(json, false);
+}
+
+export function FwmgrApiJSONDiffToJSONTyped(value?: FwmgrApiJSONDiff | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         from: value["from"],
         op: value["op"],

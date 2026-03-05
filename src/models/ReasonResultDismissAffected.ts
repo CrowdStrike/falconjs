@@ -48,10 +48,15 @@ export function ReasonResultDismissAffectedFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function ReasonResultDismissAffectedToJSON(value?: ReasonResultDismissAffected | null): any {
+export function ReasonResultDismissAffectedToJSON(json: any): ReasonResultDismissAffected {
+    return ReasonResultDismissAffectedToJSONTyped(json, false);
+}
+
+export function ReasonResultDismissAffectedToJSONTyped(value?: ReasonResultDismissAffected | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         reason: value["reason"],
     };

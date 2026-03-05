@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainParams } from "./DomainParams";
-import { DomainParamsFromJSON, DomainParamsFromJSONTyped, DomainParamsToJSON } from "./DomainParams";
+import { DomainParamsFromJSON, DomainParamsFromJSONTyped, DomainParamsToJSON, DomainParamsToJSONTyped } from "./DomainParams";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainRequestFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function DomainRequestToJSON(value?: DomainRequest | null): any {
+export function DomainRequestToJSON(json: any): DomainRequest {
+    return DomainRequestToJSONTyped(json, false);
+}
+
+export function DomainRequestToJSONTyped(value?: DomainRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         data: value["data"],
         json: value["json"],

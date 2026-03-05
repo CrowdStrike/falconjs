@@ -174,16 +174,21 @@ export function DomainSsIoaExclusionsV2FromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function DomainSsIoaExclusionsV2ToJSON(value?: DomainSsIoaExclusionsV2 | null): any {
+export function DomainSsIoaExclusionsV2ToJSON(json: any): DomainSsIoaExclusionsV2 {
+    return DomainSsIoaExclusionsV2ToJSONTyped(json, false);
+}
+
+export function DomainSsIoaExclusionsV2ToJSONTyped(value?: DomainSsIoaExclusionsV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         applied_globally: value["appliedGlobally"],
         cl_regex: value["clRegex"],
         comment: value["comment"],
         created_by: value["createdBy"],
-        created_on: value["createdOn"] == null ? undefined : value["createdOn"].toISOString(),
+        created_on: value["createdOn"] == null ? value["createdOn"] : value["createdOn"].toISOString(),
         description: value["description"],
         detection_json: value["detectionJson"],
         grandparent_cl_regex: value["grandparentClRegex"],
@@ -191,7 +196,7 @@ export function DomainSsIoaExclusionsV2ToJSON(value?: DomainSsIoaExclusionsV2 | 
         host_groups: value["hostGroups"],
         id: value["id"],
         ifn_regex: value["ifnRegex"],
-        last_modified: value["lastModified"] == null ? undefined : value["lastModified"].toISOString(),
+        last_modified: value["lastModified"] == null ? value["lastModified"] : value["lastModified"].toISOString(),
         modified_by: value["modifiedBy"],
         name: value["name"],
         parent_cl_regex: value["parentClRegex"],

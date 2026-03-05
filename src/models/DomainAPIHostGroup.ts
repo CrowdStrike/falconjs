@@ -55,10 +55,15 @@ export function DomainAPIHostGroupFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function DomainAPIHostGroupToJSON(value?: DomainAPIHostGroup | null): any {
+export function DomainAPIHostGroupToJSON(json: any): DomainAPIHostGroup {
+    return DomainAPIHostGroupToJSONTyped(json, false);
+}
+
+export function DomainAPIHostGroupToJSONTyped(value?: DomainAPIHostGroup | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

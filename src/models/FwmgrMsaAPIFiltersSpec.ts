@@ -64,10 +64,15 @@ export function FwmgrMsaAPIFiltersSpecFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function FwmgrMsaAPIFiltersSpecToJSON(value?: FwmgrMsaAPIFiltersSpec | null): any {
+export function FwmgrMsaAPIFiltersSpecToJSON(json: any): FwmgrMsaAPIFiltersSpec {
+    return FwmgrMsaAPIFiltersSpecToJSONTyped(json, false);
+}
+
+export function FwmgrMsaAPIFiltersSpecToJSONTyped(value?: FwmgrMsaAPIFiltersSpec | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         filters: value["filters"],
         other_bucket: value["otherBucket"],

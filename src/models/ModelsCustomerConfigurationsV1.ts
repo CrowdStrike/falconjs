@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainAWSConfiguration } from "./DomainAWSConfiguration";
-import { DomainAWSConfigurationFromJSON, DomainAWSConfigurationFromJSONTyped, DomainAWSConfigurationToJSON } from "./DomainAWSConfiguration";
+import { DomainAWSConfigurationFromJSON, DomainAWSConfigurationFromJSONTyped, DomainAWSConfigurationToJSON, DomainAWSConfigurationToJSONTyped } from "./DomainAWSConfiguration";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function ModelsCustomerConfigurationsV1FromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function ModelsCustomerConfigurationsV1ToJSON(value?: ModelsCustomerConfigurationsV1 | null): any {
+export function ModelsCustomerConfigurationsV1ToJSON(json: any): ModelsCustomerConfigurationsV1 {
+    return ModelsCustomerConfigurationsV1ToJSONTyped(json, false);
+}
+
+export function ModelsCustomerConfigurationsV1ToJSONTyped(value?: ModelsCustomerConfigurationsV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

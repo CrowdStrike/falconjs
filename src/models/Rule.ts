@@ -104,10 +104,15 @@ export function RuleFromJSONTyped(json: any, ignoreDiscriminator: boolean): Rule
     };
 }
 
-export function RuleToJSON(value?: Rule | null): any {
+export function RuleToJSON(json: any): Rule {
+    return RuleToJSONTyped(json, false);
+}
+
+export function RuleToJSONTyped(value?: Rule | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cloud_provider: value["cloudProvider"],
         platform: value["platform"],

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { AzureDeprovisionScript } from "./AzureDeprovisionScript";
-import { AzureDeprovisionScriptFromJSON, AzureDeprovisionScriptFromJSONTyped, AzureDeprovisionScriptToJSON } from "./AzureDeprovisionScript";
+import { AzureDeprovisionScriptFromJSON, AzureDeprovisionScriptFromJSONTyped, AzureDeprovisionScriptToJSON, AzureDeprovisionScriptToJSONTyped } from "./AzureDeprovisionScript";
 
 /**
  *
@@ -59,10 +59,15 @@ export function AzureDeprovisionScriptsFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function AzureDeprovisionScriptsToJSON(value?: AzureDeprovisionScripts | null): any {
+export function AzureDeprovisionScriptsToJSON(json: any): AzureDeprovisionScripts {
+    return AzureDeprovisionScriptsToJSONTyped(json, false);
+}
+
+export function AzureDeprovisionScriptsToJSONTyped(value?: AzureDeprovisionScripts | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         bash: AzureDeprovisionScriptToJSON(value["bash"]),
         powershell: AzureDeprovisionScriptToJSON(value["powershell"]),

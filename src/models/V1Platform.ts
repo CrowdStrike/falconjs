@@ -77,10 +77,15 @@ export function V1PlatformFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function V1PlatformToJSON(value?: V1Platform | null): any {
+export function V1PlatformToJSON(json: any): V1Platform {
+    return V1PlatformToJSONTyped(json, false);
+}
+
+export function V1PlatformToJSONTyped(value?: V1Platform | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         architecture: value["architecture"],
         os: value["os"],

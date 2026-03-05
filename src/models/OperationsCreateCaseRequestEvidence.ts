@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { SdkEventEvidenceSelector } from "./SdkEventEvidenceSelector";
-import { SdkEventEvidenceSelectorFromJSON, SdkEventEvidenceSelectorFromJSONTyped, SdkEventEvidenceSelectorToJSON } from "./SdkEventEvidenceSelector";
+import { SdkEventEvidenceSelectorFromJSON, SdkEventEvidenceSelectorFromJSONTyped, SdkEventEvidenceSelectorToJSON, SdkEventEvidenceSelectorToJSONTyped } from "./SdkEventEvidenceSelector";
 import type { SdkLeadEvidenceSelector } from "./SdkLeadEvidenceSelector";
-import { SdkLeadEvidenceSelectorFromJSON, SdkLeadEvidenceSelectorFromJSONTyped, SdkLeadEvidenceSelectorToJSON } from "./SdkLeadEvidenceSelector";
+import { SdkLeadEvidenceSelectorFromJSON, SdkLeadEvidenceSelectorFromJSONTyped, SdkLeadEvidenceSelectorToJSON, SdkLeadEvidenceSelectorToJSONTyped } from "./SdkLeadEvidenceSelector";
 import type { SdkAlertEvidenceSelector } from "./SdkAlertEvidenceSelector";
-import { SdkAlertEvidenceSelectorFromJSON, SdkAlertEvidenceSelectorFromJSONTyped, SdkAlertEvidenceSelectorToJSON } from "./SdkAlertEvidenceSelector";
+import { SdkAlertEvidenceSelectorFromJSON, SdkAlertEvidenceSelectorFromJSONTyped, SdkAlertEvidenceSelectorToJSON, SdkAlertEvidenceSelectorToJSONTyped } from "./SdkAlertEvidenceSelector";
 
 /**
  *
@@ -71,10 +71,15 @@ export function OperationsCreateCaseRequestEvidenceFromJSONTyped(json: any, igno
     };
 }
 
-export function OperationsCreateCaseRequestEvidenceToJSON(value?: OperationsCreateCaseRequestEvidence | null): any {
+export function OperationsCreateCaseRequestEvidenceToJSON(json: any): OperationsCreateCaseRequestEvidence {
+    return OperationsCreateCaseRequestEvidenceToJSONTyped(json, false);
+}
+
+export function OperationsCreateCaseRequestEvidenceToJSONTyped(value?: OperationsCreateCaseRequestEvidence | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         alerts: (value["alerts"] as Array<any>).map(SdkAlertEvidenceSelectorToJSON),
         events: (value["events"] as Array<any>).map(SdkEventEvidenceSelectorToJSON),

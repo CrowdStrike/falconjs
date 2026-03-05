@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { K8sregAccountPermissionsStatus } from "./K8sregAccountPermissionsStatus";
-import { K8sregAccountPermissionsStatusFromJSON, K8sregAccountPermissionsStatusFromJSONTyped, K8sregAccountPermissionsStatusToJSON } from "./K8sregAccountPermissionsStatus";
+import {
+    K8sregAccountPermissionsStatusFromJSON,
+    K8sregAccountPermissionsStatusFromJSONTyped,
+    K8sregAccountPermissionsStatusToJSON,
+    K8sregAccountPermissionsStatusToJSONTyped,
+} from "./K8sregAccountPermissionsStatus";
 
 /**
  *
@@ -136,10 +141,15 @@ export function K8sregAWSAccountRespFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function K8sregAWSAccountRespToJSON(value?: K8sregAWSAccountResp | null): any {
+export function K8sregAWSAccountRespToJSON(json: any): K8sregAWSAccountResp {
+    return K8sregAWSAccountRespToJSONTyped(json, false);
+}
+
+export function K8sregAWSAccountRespToJSONTyped(value?: K8sregAWSAccountResp | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         aws_permissions_status: (value["awsPermissionsStatus"] as Array<any>).map(K8sregAccountPermissionsStatusToJSON),

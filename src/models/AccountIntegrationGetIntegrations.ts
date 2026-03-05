@@ -18,6 +18,7 @@ import {
     IssueAccountIntegrationGetIntegrationsFromJSON,
     IssueAccountIntegrationGetIntegrationsFromJSONTyped,
     IssueAccountIntegrationGetIntegrationsToJSON,
+    IssueAccountIntegrationGetIntegrationsToJSONTyped,
 } from "./IssueAccountIntegrationGetIntegrations";
 
 /**
@@ -127,10 +128,15 @@ export function AccountIntegrationGetIntegrationsFromJSONTyped(json: any, ignore
     };
 }
 
-export function AccountIntegrationGetIntegrationsToJSON(value?: AccountIntegrationGetIntegrations | null): any {
+export function AccountIntegrationGetIntegrationsToJSON(json: any): AccountIntegrationGetIntegrations {
+    return AccountIntegrationGetIntegrationsToJSONTyped(json, false);
+}
+
+export function AccountIntegrationGetIntegrationsToJSONTyped(value?: AccountIntegrationGetIntegrations | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         alias: value["alias"],

@@ -56,10 +56,15 @@ export function CommonCountAsResourceFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function CommonCountAsResourceToJSON(value?: CommonCountAsResource | null): any {
+export function CommonCountAsResourceToJSON(json: any): CommonCountAsResource {
+    return CommonCountAsResourceToJSONTyped(json, false);
+}
+
+export function CommonCountAsResourceToJSONTyped(value?: CommonCountAsResource | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count: value["count"],
         label: value["label"],

@@ -72,10 +72,15 @@ export function DataconnectionmanagementConnectionTokenFromJSONTyped(json: any, 
     };
 }
 
-export function DataconnectionmanagementConnectionTokenToJSON(value?: DataconnectionmanagementConnectionToken | null): any {
+export function DataconnectionmanagementConnectionTokenToJSON(json: any): DataconnectionmanagementConnectionToken {
+    return DataconnectionmanagementConnectionTokenToJSONTyped(json, false);
+}
+
+export function DataconnectionmanagementConnectionTokenToJSONTyped(value?: DataconnectionmanagementConnectionToken | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         created_at: value["createdAt"],
         expires_at: value["expiresAt"],

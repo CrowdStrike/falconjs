@@ -128,10 +128,15 @@ export function ModelsResultPropertiesFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function ModelsResultPropertiesToJSON(value?: ModelsResultProperties | null): any {
+export function ModelsResultPropertiesToJSON(json: any): ModelsResultProperties {
+    return ModelsResultPropertiesToJSONTyped(json, false);
+}
+
+export function ModelsResultPropertiesToJSONTyped(value?: ModelsResultProperties | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         assetID: value["assetID"],
         assetName: value["assetName"],

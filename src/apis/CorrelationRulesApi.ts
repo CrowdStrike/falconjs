@@ -148,12 +148,9 @@ export interface CorrelationRulesApiQueriesTemplatesGetV1Mixin0Request {
  */
 export class CorrelationRulesApi extends runtime.BaseAPI {
     /**
-     * Get rules aggregates as specified via json in the request body.
+     * Creates request options for aggregatesRuleVersionsPostV1 without sending the request
      */
-    async aggregatesRuleVersionsPostV1Raw(
-        requestParameters: CorrelationRulesApiAggregatesRuleVersionsPostV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CorrelationrulesapiAggregatesResponseV1>> {
+    async aggregatesRuleVersionsPostV1RequestOpts(requestParameters: CorrelationRulesApiAggregatesRuleVersionsPostV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling aggregatesRuleVersionsPostV1().');
         }
@@ -181,16 +178,26 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["correlation-rules:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/correlation-rules/aggregates/rule-versions/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"],
-            },
-            initOverrides,
-        );
+        let urlPath = `/correlation-rules/aggregates/rule-versions/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"],
+        };
+    }
+
+    /**
+     * Get rules aggregates as specified via json in the request body.
+     */
+    async aggregatesRuleVersionsPostV1Raw(
+        requestParameters: CorrelationRulesApiAggregatesRuleVersionsPostV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CorrelationrulesapiAggregatesResponseV1>> {
+        const requestOptions = await this.aggregatesRuleVersionsPostV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CorrelationrulesapiAggregatesResponseV1FromJSON(jsonValue));
     }
@@ -209,12 +216,9 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Find all rules matching the query and filter. Supported filters: customer_id,user_id,user_uuid,status,name,created_on,last_updated_on Supported range filters: created_on,last_updated_on
+     * Creates request options for combinedRulesGetV1 without sending the request
      */
-    async combinedRulesGetV1Raw(
-        requestParameters: CorrelationRulesApiCombinedRulesGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CorrelationrulesapiGetEntitiesRulesResponseV1>> {
+    async combinedRulesGetV1RequestOpts(requestParameters: CorrelationRulesApiCombinedRulesGetV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -244,15 +248,25 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["correlation-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/correlation-rules/combined/rules/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/correlation-rules/combined/rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Find all rules matching the query and filter. Supported filters: customer_id,user_id,user_uuid,status,name,created_on,last_updated_on Supported range filters: created_on,last_updated_on
+     */
+    async combinedRulesGetV1Raw(
+        requestParameters: CorrelationRulesApiCombinedRulesGetV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CorrelationrulesapiGetEntitiesRulesResponseV1>> {
+        const requestOptions = await this.combinedRulesGetV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CorrelationrulesapiGetEntitiesRulesResponseV1FromJSON(jsonValue));
     }
@@ -273,12 +287,9 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Find all rules matching the query and filter. Supported filters: customer_id,user_id,user_uuid,status,name,created_on,last_updated_on Supported range filters: created_on,last_updated_on
+     * Creates request options for combinedRulesGetV2 without sending the request
      */
-    async combinedRulesGetV2Raw(
-        requestParameters: CorrelationRulesApiCombinedRulesGetV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CorrelationrulesapiGetEntitiesRulesResponseV1>> {
+    async combinedRulesGetV2RequestOpts(requestParameters: CorrelationRulesApiCombinedRulesGetV2Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -308,15 +319,25 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["correlation-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/correlation-rules/combined/rules/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/correlation-rules/combined/rules/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Find all rules matching the query and filter. Supported filters: customer_id,user_id,user_uuid,status,name,created_on,last_updated_on Supported range filters: created_on,last_updated_on
+     */
+    async combinedRulesGetV2Raw(
+        requestParameters: CorrelationRulesApiCombinedRulesGetV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CorrelationrulesapiGetEntitiesRulesResponseV1>> {
+        const requestOptions = await this.combinedRulesGetV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CorrelationrulesapiGetEntitiesRulesResponseV1FromJSON(jsonValue));
     }
@@ -337,12 +358,9 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve latest rule versions by rule IDs
+     * Creates request options for entitiesLatestRulesGetV1 without sending the request
      */
-    async entitiesLatestRulesGetV1Raw(
-        requestParameters: CorrelationRulesApiEntitiesLatestRulesGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CorrelationrulesapiGetEntitiesRulesResponseV1>> {
+    async entitiesLatestRulesGetV1RequestOpts(requestParameters: CorrelationRulesApiEntitiesLatestRulesGetV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ruleIds"] == null) {
             throw new runtime.RequiredError("ruleIds", 'Required parameter "ruleIds" was null or undefined when calling entitiesLatestRulesGetV1().');
         }
@@ -360,15 +378,25 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["correlation-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/correlation-rules/entities/latest-rules/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/correlation-rules/entities/latest-rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve latest rule versions by rule IDs
+     */
+    async entitiesLatestRulesGetV1Raw(
+        requestParameters: CorrelationRulesApiEntitiesLatestRulesGetV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CorrelationrulesapiGetEntitiesRulesResponseV1>> {
+        const requestOptions = await this.entitiesLatestRulesGetV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CorrelationrulesapiGetEntitiesRulesResponseV1FromJSON(jsonValue));
     }
@@ -382,12 +410,9 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete versions by IDs
+     * Creates request options for entitiesRuleVersionsDeleteV1 without sending the request
      */
-    async entitiesRuleVersionsDeleteV1Raw(
-        requestParameters: CorrelationRulesApiEntitiesRuleVersionsDeleteV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async entitiesRuleVersionsDeleteV1RequestOpts(requestParameters: CorrelationRulesApiEntitiesRuleVersionsDeleteV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesRuleVersionsDeleteV1().');
         }
@@ -405,15 +430,25 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["correlation-rules:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/correlation-rules/entities/rule-versions/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/correlation-rules/entities/rule-versions/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete versions by IDs
+     */
+    async entitiesRuleVersionsDeleteV1Raw(
+        requestParameters: CorrelationRulesApiEntitiesRuleVersionsDeleteV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.entitiesRuleVersionsDeleteV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -427,12 +462,9 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Export rule versions
+     * Creates request options for entitiesRuleVersionsExportPostV1 without sending the request
      */
-    async entitiesRuleVersionsExportPostV1Raw(
-        requestParameters: CorrelationRulesApiEntitiesRuleVersionsExportPostV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CorrelationrulesapiJobLinkResponseV1>> {
+    async entitiesRuleVersionsExportPostV1RequestOpts(requestParameters: CorrelationRulesApiEntitiesRuleVersionsExportPostV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesRuleVersionsExportPostV1().');
         }
@@ -448,16 +480,26 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["correlation-rules:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/correlation-rules/entities/rule-versions/export/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: CorrelationrulesapiRuleVersionReportRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/correlation-rules/entities/rule-versions/export/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: CorrelationrulesapiRuleVersionReportRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Export rule versions
+     */
+    async entitiesRuleVersionsExportPostV1Raw(
+        requestParameters: CorrelationRulesApiEntitiesRuleVersionsExportPostV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CorrelationrulesapiJobLinkResponseV1>> {
+        const requestOptions = await this.entitiesRuleVersionsExportPostV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CorrelationrulesapiJobLinkResponseV1FromJSON(jsonValue));
     }
@@ -474,9 +516,9 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Import rule versions
+     * Creates request options for entitiesRuleVersionsImportPostV1 without sending the request
      */
-    async entitiesRuleVersionsImportPostV1Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CorrelationrulesapiGetEntitiesRuleVersionsResponseV1>> {
+    async entitiesRuleVersionsImportPostV1RequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -486,15 +528,22 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["correlation-rules:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/correlation-rules/entities/rule-versions/import/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/correlation-rules/entities/rule-versions/import/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Import rule versions
+     */
+    async entitiesRuleVersionsImportPostV1Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CorrelationrulesapiGetEntitiesRuleVersionsResponseV1>> {
+        const requestOptions = await this.entitiesRuleVersionsImportPostV1RequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CorrelationrulesapiGetEntitiesRuleVersionsResponseV1FromJSON(jsonValue));
     }
@@ -508,12 +557,9 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Publish existing rule version
+     * Creates request options for entitiesRuleVersionsPublishPatchV1 without sending the request
      */
-    async entitiesRuleVersionsPublishPatchV1Raw(
-        requestParameters: CorrelationRulesApiEntitiesRuleVersionsPublishPatchV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CorrelationrulesapiGetEntitiesRuleVersionsResponseV1>> {
+    async entitiesRuleVersionsPublishPatchV1RequestOpts(requestParameters: CorrelationRulesApiEntitiesRuleVersionsPublishPatchV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesRuleVersionsPublishPatchV1().');
         }
@@ -529,16 +575,26 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["correlation-rules:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/correlation-rules/entities/rule-versions/publish/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: CorrelationrulesapiRuleVersionPublishRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/correlation-rules/entities/rule-versions/publish/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: CorrelationrulesapiRuleVersionPublishRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Publish existing rule version
+     */
+    async entitiesRuleVersionsPublishPatchV1Raw(
+        requestParameters: CorrelationRulesApiEntitiesRuleVersionsPublishPatchV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CorrelationrulesapiGetEntitiesRuleVersionsResponseV1>> {
+        const requestOptions = await this.entitiesRuleVersionsPublishPatchV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CorrelationrulesapiGetEntitiesRuleVersionsResponseV1FromJSON(jsonValue));
     }
@@ -555,12 +611,9 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete rules by IDs
+     * Creates request options for entitiesRulesDeleteV1 without sending the request
      */
-    async entitiesRulesDeleteV1Raw(
-        requestParameters: CorrelationRulesApiEntitiesRulesDeleteV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async entitiesRulesDeleteV1RequestOpts(requestParameters: CorrelationRulesApiEntitiesRulesDeleteV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesRulesDeleteV1().');
         }
@@ -578,15 +631,25 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["correlation-rules:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/correlation-rules/entities/rules/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/correlation-rules/entities/rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete rules by IDs
+     */
+    async entitiesRulesDeleteV1Raw(
+        requestParameters: CorrelationRulesApiEntitiesRulesDeleteV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.entitiesRulesDeleteV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -600,12 +663,9 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve rules by IDs
+     * Creates request options for entitiesRulesGetV1 without sending the request
      */
-    async entitiesRulesGetV1Raw(
-        requestParameters: CorrelationRulesApiEntitiesRulesGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CorrelationrulesapiGetEntitiesRulesResponseV1>> {
+    async entitiesRulesGetV1RequestOpts(requestParameters: CorrelationRulesApiEntitiesRulesGetV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesRulesGetV1().');
         }
@@ -623,15 +683,25 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["correlation-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/correlation-rules/entities/rules/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/correlation-rules/entities/rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve rules by IDs
+     */
+    async entitiesRulesGetV1Raw(
+        requestParameters: CorrelationRulesApiEntitiesRulesGetV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CorrelationrulesapiGetEntitiesRulesResponseV1>> {
+        const requestOptions = await this.entitiesRulesGetV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CorrelationrulesapiGetEntitiesRulesResponseV1FromJSON(jsonValue));
     }
@@ -645,12 +715,9 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve rule versions by IDs
+     * Creates request options for entitiesRulesGetV2 without sending the request
      */
-    async entitiesRulesGetV2Raw(
-        requestParameters: CorrelationRulesApiEntitiesRulesGetV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CorrelationrulesapiGetEntitiesRulesResponseV1>> {
+    async entitiesRulesGetV2RequestOpts(requestParameters: CorrelationRulesApiEntitiesRulesGetV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesRulesGetV2().');
         }
@@ -668,15 +735,25 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["correlation-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/correlation-rules/entities/rules/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/correlation-rules/entities/rules/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve rule versions by IDs
+     */
+    async entitiesRulesGetV2Raw(
+        requestParameters: CorrelationRulesApiEntitiesRulesGetV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CorrelationrulesapiGetEntitiesRulesResponseV1>> {
+        const requestOptions = await this.entitiesRulesGetV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CorrelationrulesapiGetEntitiesRulesResponseV1FromJSON(jsonValue));
     }
@@ -690,12 +767,9 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update rules
+     * Creates request options for entitiesRulesPatchV1 without sending the request
      */
-    async entitiesRulesPatchV1Raw(
-        requestParameters: CorrelationRulesApiEntitiesRulesPatchV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CorrelationrulesapiGetEntitiesRulesResponseV1>> {
+    async entitiesRulesPatchV1RequestOpts(requestParameters: CorrelationRulesApiEntitiesRulesPatchV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesRulesPatchV1().');
         }
@@ -711,16 +785,26 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["correlation-rules:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/correlation-rules/entities/rules/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(CorrelationrulesapiRulePatchRequestV1ToJSON),
-            },
-            initOverrides,
-        );
+        let urlPath = `/correlation-rules/entities/rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"]!.map(CorrelationrulesapiRulePatchRequestV1ToJSON),
+        };
+    }
+
+    /**
+     * Update rules
+     */
+    async entitiesRulesPatchV1Raw(
+        requestParameters: CorrelationRulesApiEntitiesRulesPatchV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CorrelationrulesapiGetEntitiesRulesResponseV1>> {
+        const requestOptions = await this.entitiesRulesPatchV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CorrelationrulesapiGetEntitiesRulesResponseV1FromJSON(jsonValue));
     }
@@ -734,12 +818,9 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create rule
+     * Creates request options for entitiesRulesPostV1 without sending the request
      */
-    async entitiesRulesPostV1Raw(
-        requestParameters: CorrelationRulesApiEntitiesRulesPostV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CorrelationrulesapiGetEntitiesRulesResponseV1>> {
+    async entitiesRulesPostV1RequestOpts(requestParameters: CorrelationRulesApiEntitiesRulesPostV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesRulesPostV1().');
         }
@@ -755,16 +836,26 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["correlation-rules:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/correlation-rules/entities/rules/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: CorrelationrulesapiRuleCreateRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/correlation-rules/entities/rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: CorrelationrulesapiRuleCreateRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create rule
+     */
+    async entitiesRulesPostV1Raw(
+        requestParameters: CorrelationRulesApiEntitiesRulesPostV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CorrelationrulesapiGetEntitiesRulesResponseV1>> {
+        const requestOptions = await this.entitiesRulesPostV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CorrelationrulesapiGetEntitiesRulesResponseV1FromJSON(jsonValue));
     }
@@ -778,12 +869,9 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve rule templates by IDs
+     * Creates request options for entitiesTemplatesGetV1Mixin0 without sending the request
      */
-    async entitiesTemplatesGetV1Mixin0Raw(
-        requestParameters: CorrelationRulesApiEntitiesTemplatesGetV1Mixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CorrelationrulesapiGetEntitiesTemplatesResponseV1>> {
+    async entitiesTemplatesGetV1Mixin0RequestOpts(requestParameters: CorrelationRulesApiEntitiesTemplatesGetV1Mixin0Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesTemplatesGetV1Mixin0().');
         }
@@ -801,15 +889,25 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["correlation-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/correlation-rules/entities/templates/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/correlation-rules/entities/templates/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve rule templates by IDs
+     */
+    async entitiesTemplatesGetV1Mixin0Raw(
+        requestParameters: CorrelationRulesApiEntitiesTemplatesGetV1Mixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CorrelationrulesapiGetEntitiesTemplatesResponseV1>> {
+        const requestOptions = await this.entitiesTemplatesGetV1Mixin0RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CorrelationrulesapiGetEntitiesTemplatesResponseV1FromJSON(jsonValue));
     }
@@ -823,12 +921,9 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create rule from template
+     * Creates request options for entitiesTemplatesRulesPostV1 without sending the request
      */
-    async entitiesTemplatesRulesPostV1Raw(
-        requestParameters: CorrelationRulesApiEntitiesTemplatesRulesPostV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CorrelationrulesapiGetEntitiesRulesResponseV1>> {
+    async entitiesTemplatesRulesPostV1RequestOpts(requestParameters: CorrelationRulesApiEntitiesTemplatesRulesPostV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesTemplatesRulesPostV1().');
         }
@@ -844,16 +939,26 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["correlation-rules:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/correlation-rules/entities/templates/rules/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(CorrelationrulesapiDeployTemplateRequestV1ToJSON),
-            },
-            initOverrides,
-        );
+        let urlPath = `/correlation-rules/entities/templates/rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"]!.map(CorrelationrulesapiDeployTemplateRequestV1ToJSON),
+        };
+    }
+
+    /**
+     * Create rule from template
+     */
+    async entitiesTemplatesRulesPostV1Raw(
+        requestParameters: CorrelationRulesApiEntitiesTemplatesRulesPostV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CorrelationrulesapiGetEntitiesRulesResponseV1>> {
+        const requestOptions = await this.entitiesTemplatesRulesPostV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CorrelationrulesapiGetEntitiesRulesResponseV1FromJSON(jsonValue));
     }
@@ -870,12 +975,9 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Find all rule IDs matching the query and filter. Supported filters: customer_id,user_id,user_uuid,status,name,created_on,last_updated_on Supported range filters: created_on,last_updated_on
+     * Creates request options for queriesRulesGetV1 without sending the request
      */
-    async queriesRulesGetV1Raw(
-        requestParameters: CorrelationRulesApiQueriesRulesGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queriesRulesGetV1RequestOpts(requestParameters: CorrelationRulesApiQueriesRulesGetV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -905,15 +1007,25 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["correlation-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/correlation-rules/queries/rules/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/correlation-rules/queries/rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Find all rule IDs matching the query and filter. Supported filters: customer_id,user_id,user_uuid,status,name,created_on,last_updated_on Supported range filters: created_on,last_updated_on
+     */
+    async queriesRulesGetV1Raw(
+        requestParameters: CorrelationRulesApiQueriesRulesGetV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queriesRulesGetV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -934,12 +1046,9 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Find all rule version IDs matching the query and filter. Supported filters: customer_id,user_id,user_uuid,status,name,created_on,last_updated_on,state,version,rule_id Supported range filters: created_on,last_updated_on
+     * Creates request options for queriesRulesGetV2 without sending the request
      */
-    async queriesRulesGetV2Raw(
-        requestParameters: CorrelationRulesApiQueriesRulesGetV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queriesRulesGetV2RequestOpts(requestParameters: CorrelationRulesApiQueriesRulesGetV2Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -969,15 +1078,25 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["correlation-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/correlation-rules/queries/rules/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/correlation-rules/queries/rules/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Find all rule version IDs matching the query and filter. Supported filters: customer_id,user_id,user_uuid,status,name,created_on,last_updated_on,state,version,rule_id Supported range filters: created_on,last_updated_on
+     */
+    async queriesRulesGetV2Raw(
+        requestParameters: CorrelationRulesApiQueriesRulesGetV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queriesRulesGetV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -998,12 +1117,9 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search rule template IDs matching the filter. Supported filters: name,description,vendor,outcome,mitre_attack.tactic_id,mitre_attack.technique_id,type Supported range filters: created_on,last_updated_on
+     * Creates request options for queriesTemplatesGetV1Mixin0 without sending the request
      */
-    async queriesTemplatesGetV1Mixin0Raw(
-        requestParameters: CorrelationRulesApiQueriesTemplatesGetV1Mixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queriesTemplatesGetV1Mixin0RequestOpts(requestParameters: CorrelationRulesApiQueriesTemplatesGetV1Mixin0Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1029,15 +1145,25 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["correlation-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/correlation-rules/queries/templates/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/correlation-rules/queries/templates/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search rule template IDs matching the filter. Supported filters: name,description,vendor,outcome,mitre_attack.tactic_id,mitre_attack.technique_id,type Supported range filters: created_on,last_updated_on
+     */
+    async queriesTemplatesGetV1Mixin0Raw(
+        requestParameters: CorrelationRulesApiQueriesTemplatesGetV1Mixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queriesTemplatesGetV1Mixin0RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }

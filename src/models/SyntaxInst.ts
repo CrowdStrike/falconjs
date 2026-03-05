@@ -72,10 +72,15 @@ export function SyntaxInstFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function SyntaxInstToJSON(value?: SyntaxInst | null): any {
+export function SyntaxInstToJSON(json: any): SyntaxInst {
+    return SyntaxInstToJSONTyped(json, false);
+}
+
+export function SyntaxInstToJSONTyped(value?: SyntaxInst | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Arg: value["arg"],
         Op: value["op"],

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ItautomationColumnInfo } from "./ItautomationColumnInfo";
-import { ItautomationColumnInfoFromJSON, ItautomationColumnInfoFromJSONTyped, ItautomationColumnInfoToJSON } from "./ItautomationColumnInfo";
+import { ItautomationColumnInfoFromJSON, ItautomationColumnInfoFromJSONTyped, ItautomationColumnInfoToJSON, ItautomationColumnInfoToJSONTyped } from "./ItautomationColumnInfo";
 
 /**
  *
@@ -67,10 +67,15 @@ export function ItautomationOutputParserConfigFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function ItautomationOutputParserConfigToJSON(value?: ItautomationOutputParserConfig | null): any {
+export function ItautomationOutputParserConfigToJSON(json: any): ItautomationOutputParserConfig {
+    return ItautomationOutputParserConfigToJSONTyped(json, false);
+}
+
+export function ItautomationOutputParserConfigToJSONTyped(value?: ItautomationOutputParserConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         columns: (value["columns"] as Array<any>).map(ItautomationColumnInfoToJSON),
         default_group_by: value["defaultGroupBy"],

@@ -83,10 +83,15 @@ export function V2ConditionFromJSONTyped(json: any, ignoreDiscriminator: boolean
     };
 }
 
-export function V2ConditionToJSON(value?: V2Condition | null): any {
+export function V2ConditionToJSON(json: any): V2Condition {
+    return V2ConditionToJSONTyped(json, false);
+}
+
+export function V2ConditionToJSONTyped(value?: V2Condition | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cel_expression: value["celExpression"],
         display: value["display"],

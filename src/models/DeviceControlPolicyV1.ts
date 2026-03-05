@@ -14,9 +14,14 @@
 
 import { mapValues } from "../runtime";
 import type { DeviceControlSettingsRespV1 } from "./DeviceControlSettingsRespV1";
-import { DeviceControlSettingsRespV1FromJSON, DeviceControlSettingsRespV1FromJSONTyped, DeviceControlSettingsRespV1ToJSON } from "./DeviceControlSettingsRespV1";
+import {
+    DeviceControlSettingsRespV1FromJSON,
+    DeviceControlSettingsRespV1FromJSONTyped,
+    DeviceControlSettingsRespV1ToJSON,
+    DeviceControlSettingsRespV1ToJSONTyped,
+} from "./DeviceControlSettingsRespV1";
 import type { HostGroupsHostGroupV1 } from "./HostGroupsHostGroupV1";
-import { HostGroupsHostGroupV1FromJSON, HostGroupsHostGroupV1FromJSONTyped, HostGroupsHostGroupV1ToJSON } from "./HostGroupsHostGroupV1";
+import { HostGroupsHostGroupV1FromJSON, HostGroupsHostGroupV1FromJSONTyped, HostGroupsHostGroupV1ToJSON, HostGroupsHostGroupV1ToJSONTyped } from "./HostGroupsHostGroupV1";
 
 /**
  *
@@ -86,7 +91,7 @@ export interface DeviceControlPolicyV1 {
     name: string;
     /**
      * The name of the platform
-     * @type {string}
+     * @type {DeviceControlPolicyV1PlatformNameEnum}
      * @memberof DeviceControlPolicyV1
      */
     platformName: DeviceControlPolicyV1PlatformNameEnum;
@@ -151,10 +156,15 @@ export function DeviceControlPolicyV1FromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function DeviceControlPolicyV1ToJSON(value?: DeviceControlPolicyV1 | null): any {
+export function DeviceControlPolicyV1ToJSON(json: any): DeviceControlPolicyV1 {
+    return DeviceControlPolicyV1ToJSONTyped(json, false);
+}
+
+export function DeviceControlPolicyV1ToJSONTyped(value?: DeviceControlPolicyV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         created_by: value["createdBy"],

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { CommonCountAsResource } from "./CommonCountAsResource";
-import { CommonCountAsResourceFromJSON, CommonCountAsResourceFromJSONTyped, CommonCountAsResourceToJSON } from "./CommonCountAsResource";
+import { CommonCountAsResourceFromJSON, CommonCountAsResourceFromJSONTyped, CommonCountAsResourceToJSON, CommonCountAsResourceToJSONTyped } from "./CommonCountAsResource";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function DriftindicatorsDriftIndicatorsCountValueFromJSONTyped(json: any,
     };
 }
 
-export function DriftindicatorsDriftIndicatorsCountValueToJSON(value?: DriftindicatorsDriftIndicatorsCountValue | null): any {
+export function DriftindicatorsDriftIndicatorsCountValueToJSON(json: any): DriftindicatorsDriftIndicatorsCountValue {
+    return DriftindicatorsDriftIndicatorsCountValueToJSONTyped(json, false);
+}
+
+export function DriftindicatorsDriftIndicatorsCountValueToJSONTyped(value?: DriftindicatorsDriftIndicatorsCountValue | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

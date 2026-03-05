@@ -14,15 +14,20 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsAPIPolicyImage } from "./ModelsAPIPolicyImage";
-import { ModelsAPIPolicyImageFromJSON, ModelsAPIPolicyImageFromJSONTyped, ModelsAPIPolicyImageToJSON } from "./ModelsAPIPolicyImage";
+import { ModelsAPIPolicyImageFromJSON, ModelsAPIPolicyImageFromJSONTyped, ModelsAPIPolicyImageToJSON, ModelsAPIPolicyImageToJSONTyped } from "./ModelsAPIPolicyImage";
 import type { ModelsAPIPolicyGroup } from "./ModelsAPIPolicyGroup";
-import { ModelsAPIPolicyGroupFromJSON, ModelsAPIPolicyGroupFromJSONTyped, ModelsAPIPolicyGroupToJSON } from "./ModelsAPIPolicyGroup";
+import { ModelsAPIPolicyGroupFromJSON, ModelsAPIPolicyGroupFromJSONTyped, ModelsAPIPolicyGroupToJSON, ModelsAPIPolicyGroupToJSONTyped } from "./ModelsAPIPolicyGroup";
 import type { ModelsAPIPolicyConfig } from "./ModelsAPIPolicyConfig";
-import { ModelsAPIPolicyConfigFromJSON, ModelsAPIPolicyConfigFromJSONTyped, ModelsAPIPolicyConfigToJSON } from "./ModelsAPIPolicyConfig";
+import { ModelsAPIPolicyConfigFromJSON, ModelsAPIPolicyConfigFromJSONTyped, ModelsAPIPolicyConfigToJSON, ModelsAPIPolicyConfigToJSONTyped } from "./ModelsAPIPolicyConfig";
 import type { ModelsAPIPolicyEvaluationDetails } from "./ModelsAPIPolicyEvaluationDetails";
-import { ModelsAPIPolicyEvaluationDetailsFromJSON, ModelsAPIPolicyEvaluationDetailsFromJSONTyped, ModelsAPIPolicyEvaluationDetailsToJSON } from "./ModelsAPIPolicyEvaluationDetails";
+import {
+    ModelsAPIPolicyEvaluationDetailsFromJSON,
+    ModelsAPIPolicyEvaluationDetailsFromJSONTyped,
+    ModelsAPIPolicyEvaluationDetailsToJSON,
+    ModelsAPIPolicyEvaluationDetailsToJSONTyped,
+} from "./ModelsAPIPolicyEvaluationDetails";
 import type { ModelsAPIPolicy } from "./ModelsAPIPolicy";
-import { ModelsAPIPolicyFromJSON, ModelsAPIPolicyFromJSONTyped, ModelsAPIPolicyToJSON } from "./ModelsAPIPolicy";
+import { ModelsAPIPolicyFromJSON, ModelsAPIPolicyFromJSONTyped, ModelsAPIPolicyToJSON, ModelsAPIPolicyToJSONTyped } from "./ModelsAPIPolicy";
 
 /**
  *
@@ -119,10 +124,15 @@ export function ModelsExternalPolicyResponseFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function ModelsExternalPolicyResponseToJSON(value?: ModelsExternalPolicyResponse | null): any {
+export function ModelsExternalPolicyResponseToJSON(json: any): ModelsExternalPolicyResponse {
+    return ModelsExternalPolicyResponseToJSONTyped(json, false);
+}
+
+export function ModelsExternalPolicyResponseToJSONTyped(value?: ModelsExternalPolicyResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         conditions: value["conditions"],

@@ -14,17 +14,32 @@
 
 import { mapValues } from "../runtime";
 import type { DomainKestrelParams } from "./DomainKestrelParams";
-import { DomainKestrelParamsFromJSON, DomainKestrelParamsFromJSONTyped, DomainKestrelParamsToJSON } from "./DomainKestrelParams";
+import { DomainKestrelParamsFromJSON, DomainKestrelParamsFromJSONTyped, DomainKestrelParamsToJSON, DomainKestrelParamsToJSONTyped } from "./DomainKestrelParams";
 import type { DomainLastScheduledExecution } from "./DomainLastScheduledExecution";
-import { DomainLastScheduledExecutionFromJSON, DomainLastScheduledExecutionFromJSONTyped, DomainLastScheduledExecutionToJSON } from "./DomainLastScheduledExecution";
+import {
+    DomainLastScheduledExecutionFromJSON,
+    DomainLastScheduledExecutionFromJSONTyped,
+    DomainLastScheduledExecutionToJSON,
+    DomainLastScheduledExecutionToJSONTyped,
+} from "./DomainLastScheduledExecution";
 import type { DomainXDRParams } from "./DomainXDRParams";
-import { DomainXDRParamsFromJSON, DomainXDRParamsFromJSONTyped, DomainXDRParamsToJSON } from "./DomainXDRParams";
+import { DomainXDRParamsFromJSON, DomainXDRParamsFromJSONTyped, DomainXDRParamsToJSON, DomainXDRParamsToJSONTyped } from "./DomainXDRParams";
 import type { DomainLastUnscheduledExecution } from "./DomainLastUnscheduledExecution";
-import { DomainLastUnscheduledExecutionFromJSON, DomainLastUnscheduledExecutionFromJSONTyped, DomainLastUnscheduledExecutionToJSON } from "./DomainLastUnscheduledExecution";
+import {
+    DomainLastUnscheduledExecutionFromJSON,
+    DomainLastUnscheduledExecutionFromJSONTyped,
+    DomainLastUnscheduledExecutionToJSON,
+    DomainLastUnscheduledExecutionToJSONTyped,
+} from "./DomainLastUnscheduledExecution";
 import type { DomainDiscoverParams } from "./DomainDiscoverParams";
-import { DomainDiscoverParamsFromJSON, DomainDiscoverParamsFromJSONTyped, DomainDiscoverParamsToJSON } from "./DomainDiscoverParams";
+import { DomainDiscoverParamsFromJSON, DomainDiscoverParamsFromJSONTyped, DomainDiscoverParamsToJSON, DomainDiscoverParamsToJSONTyped } from "./DomainDiscoverParams";
 import type { DomainKestrelDataExportParams } from "./DomainKestrelDataExportParams";
-import { DomainKestrelDataExportParamsFromJSON, DomainKestrelDataExportParamsFromJSONTyped, DomainKestrelDataExportParamsToJSON } from "./DomainKestrelDataExportParams";
+import {
+    DomainKestrelDataExportParamsFromJSON,
+    DomainKestrelDataExportParamsFromJSONTyped,
+    DomainKestrelDataExportParamsToJSON,
+    DomainKestrelDataExportParamsToJSONTyped,
+} from "./DomainKestrelDataExportParams";
 
 /**
  *
@@ -120,10 +135,15 @@ export function DomainReportMetadataFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function DomainReportMetadataToJSON(value?: DomainReportMetadata | null): any {
+export function DomainReportMetadataToJSON(json: any): DomainReportMetadata {
+    return DomainReportMetadataToJSONTyped(json, false);
+}
+
+export function DomainReportMetadataToJSONTyped(value?: DomainReportMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         created_by_user_id: value["createdByUserId"],
         created_by_uuid: value["createdByUuid"],

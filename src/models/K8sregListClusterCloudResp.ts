@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { K8sregListClusterCloudItemResp } from "./K8sregListClusterCloudItemResp";
-import { K8sregListClusterCloudItemRespFromJSON, K8sregListClusterCloudItemRespFromJSONTyped, K8sregListClusterCloudItemRespToJSON } from "./K8sregListClusterCloudItemResp";
+import {
+    K8sregListClusterCloudItemRespFromJSON,
+    K8sregListClusterCloudItemRespFromJSONTyped,
+    K8sregListClusterCloudItemRespToJSON,
+    K8sregListClusterCloudItemRespToJSONTyped,
+} from "./K8sregListClusterCloudItemResp";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +76,15 @@ export function K8sregListClusterCloudRespFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function K8sregListClusterCloudRespToJSON(value?: K8sregListClusterCloudResp | null): any {
+export function K8sregListClusterCloudRespToJSON(json: any): K8sregListClusterCloudResp {
+    return K8sregListClusterCloudRespToJSONTyped(json, false);
+}
+
+export function K8sregListClusterCloudRespToJSONTyped(value?: K8sregListClusterCloudResp | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

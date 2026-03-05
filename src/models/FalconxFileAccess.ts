@@ -61,10 +61,15 @@ export function FalconxFileAccessFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function FalconxFileAccessToJSON(value?: FalconxFileAccess | null): any {
+export function FalconxFileAccessToJSON(json: any): FalconxFileAccess {
+    return FalconxFileAccessToJSONTyped(json, false);
+}
+
+export function FalconxFileAccessToJSONTyped(value?: FalconxFileAccess | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         mask: value["mask"],
         path: value["path"],

@@ -18,12 +18,14 @@ import {
     DevicecontrolapiReqUpdateUSBBaseV1ExternalFromJSON,
     DevicecontrolapiReqUpdateUSBBaseV1ExternalFromJSONTyped,
     DevicecontrolapiReqUpdateUSBBaseV1ExternalToJSON,
+    DevicecontrolapiReqUpdateUSBBaseV1ExternalToJSONTyped,
 } from "./DevicecontrolapiReqUpdateUSBBaseV1External";
 import type { DevicecontrolapiReqUpdateBluetoothBaseV1 } from "./DevicecontrolapiReqUpdateBluetoothBaseV1";
 import {
     DevicecontrolapiReqUpdateBluetoothBaseV1FromJSON,
     DevicecontrolapiReqUpdateBluetoothBaseV1FromJSONTyped,
     DevicecontrolapiReqUpdateBluetoothBaseV1ToJSON,
+    DevicecontrolapiReqUpdateBluetoothBaseV1ToJSONTyped,
 } from "./DevicecontrolapiReqUpdateBluetoothBaseV1";
 
 /**
@@ -97,10 +99,15 @@ export function DevicecontrolapiReqUpdateBaseV1ExternalFromJSONTyped(json: any, 
     };
 }
 
-export function DevicecontrolapiReqUpdateBaseV1ExternalToJSON(value?: DevicecontrolapiReqUpdateBaseV1External | null): any {
+export function DevicecontrolapiReqUpdateBaseV1ExternalToJSON(json: any): DevicecontrolapiReqUpdateBaseV1External {
+    return DevicecontrolapiReqUpdateBaseV1ExternalToJSONTyped(json, false);
+}
+
+export function DevicecontrolapiReqUpdateBaseV1ExternalToJSONTyped(value?: DevicecontrolapiReqUpdateBaseV1External | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         bluetooth_settings: DevicecontrolapiReqUpdateBluetoothBaseV1ToJSON(value["bluetoothSettings"]),
         description: value["description"],

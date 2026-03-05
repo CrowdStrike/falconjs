@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ApimodelsCloudResourceSelector } from "./ApimodelsCloudResourceSelector";
-import { ApimodelsCloudResourceSelectorFromJSON, ApimodelsCloudResourceSelectorFromJSONTyped, ApimodelsCloudResourceSelectorToJSON } from "./ApimodelsCloudResourceSelector";
+import {
+    ApimodelsCloudResourceSelectorFromJSON,
+    ApimodelsCloudResourceSelectorFromJSONTyped,
+    ApimodelsCloudResourceSelectorToJSON,
+    ApimodelsCloudResourceSelectorToJSONTyped,
+} from "./ApimodelsCloudResourceSelector";
 
 /**
  *
@@ -58,10 +63,15 @@ export function ApimodelsCloudGroupFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function ApimodelsCloudGroupToJSON(value?: ApimodelsCloudGroup | null): any {
+export function ApimodelsCloudGroupToJSON(json: any): ApimodelsCloudGroup {
+    return ApimodelsCloudGroupToJSONTyped(json, false);
+}
+
+export function ApimodelsCloudGroupToJSONTyped(value?: ApimodelsCloudGroup | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cloud_resource_selectors: value["cloudResourceSelectors"] == null ? undefined : (value["cloudResourceSelectors"] as Array<any>).map(ApimodelsCloudResourceSelectorToJSON),
         id: value["id"],

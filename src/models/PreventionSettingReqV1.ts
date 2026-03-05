@@ -56,10 +56,15 @@ export function PreventionSettingReqV1FromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function PreventionSettingReqV1ToJSON(value?: PreventionSettingReqV1 | null): any {
+export function PreventionSettingReqV1ToJSON(json: any): PreventionSettingReqV1 {
+    return PreventionSettingReqV1ToJSONTyped(json, false);
+}
+
+export function PreventionSettingReqV1ToJSONTyped(value?: PreventionSettingReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         value: value["value"],

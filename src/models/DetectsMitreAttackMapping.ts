@@ -75,10 +75,15 @@ export function DetectsMitreAttackMappingFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DetectsMitreAttackMappingToJSON(value?: DetectsMitreAttackMapping | null): any {
+export function DetectsMitreAttackMappingToJSON(json: any): DetectsMitreAttackMapping {
+    return DetectsMitreAttackMappingToJSONTyped(json, false);
+}
+
+export function DetectsMitreAttackMappingToJSONTyped(value?: DetectsMitreAttackMapping | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pattern_id: value["patternId"],
         tactic: value["tactic"],

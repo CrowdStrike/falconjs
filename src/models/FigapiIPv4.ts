@@ -68,10 +68,15 @@ export function FigapiIPv4FromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function FigapiIPv4ToJSON(value?: FigapiIPv4 | null): any {
+export function FigapiIPv4ToJSON(json: any): FigapiIPv4 {
+    return FigapiIPv4ToJSONTyped(json, false);
+}
+
+export function FigapiIPv4ToJSONTyped(value?: FigapiIPv4 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ASN: value["aSN"],
         IPProperties: value["iPProperties"],

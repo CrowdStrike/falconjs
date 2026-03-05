@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { CompliancePosture } from "./CompliancePosture";
-import { CompliancePostureFromJSON, CompliancePostureFromJSONTyped, CompliancePostureToJSON } from "./CompliancePosture";
+import { CompliancePostureFromJSON, CompliancePostureFromJSONTyped, CompliancePostureToJSON, CompliancePostureToJSONTyped } from "./CompliancePosture";
 
 /**
  *
@@ -75,10 +75,15 @@ export function ComplianceRulePostureSummaryFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function ComplianceRulePostureSummaryToJSON(value?: ComplianceRulePostureSummary | null): any {
+export function ComplianceRulePostureSummaryToJSON(json: any): ComplianceRulePostureSummary {
+    return ComplianceRulePostureSummaryToJSONTyped(json, false);
+}
+
+export function ComplianceRulePostureSummaryToJSONTyped(value?: ComplianceRulePostureSummary | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

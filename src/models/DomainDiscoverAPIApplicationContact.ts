@@ -54,10 +54,15 @@ export function DomainDiscoverAPIApplicationContactFromJSONTyped(json: any, igno
     };
 }
 
-export function DomainDiscoverAPIApplicationContactToJSON(value?: DomainDiscoverAPIApplicationContact | null): any {
+export function DomainDiscoverAPIApplicationContactToJSON(json: any): DomainDiscoverAPIApplicationContact {
+    return DomainDiscoverAPIApplicationContactToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPIApplicationContactToJSONTyped(value?: DomainDiscoverAPIApplicationContact | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         email: value["email"],
         name: value["name"],

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { FwmgrDomainValueItem } from "./FwmgrDomainValueItem";
-import { FwmgrDomainValueItemFromJSON, FwmgrDomainValueItemFromJSONTyped, FwmgrDomainValueItemToJSON } from "./FwmgrDomainValueItem";
+import { FwmgrDomainValueItemFromJSON, FwmgrDomainValueItemFromJSONTyped, FwmgrDomainValueItemToJSON, FwmgrDomainValueItemToJSONTyped } from "./FwmgrDomainValueItem";
 
 /**
  *
@@ -75,10 +75,15 @@ export function FwmgrDomainFieldFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function FwmgrDomainFieldToJSON(value?: FwmgrDomainField | null): any {
+export function FwmgrDomainFieldToJSON(json: any): FwmgrDomainField {
+    return FwmgrDomainFieldToJSONTyped(json, false);
+}
+
+export function FwmgrDomainFieldToJSONTyped(value?: FwmgrDomainField | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         label: value["label"],
         name: value["name"],

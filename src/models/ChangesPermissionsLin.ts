@@ -14,13 +14,13 @@
 
 import { mapValues } from "../runtime";
 import type { ChangesGroup } from "./ChangesGroup";
-import { ChangesGroupFromJSON, ChangesGroupFromJSONTyped, ChangesGroupToJSON } from "./ChangesGroup";
+import { ChangesGroupFromJSON, ChangesGroupFromJSONTyped, ChangesGroupToJSON, ChangesGroupToJSONTyped } from "./ChangesGroup";
 import type { ChangesBasic } from "./ChangesBasic";
-import { ChangesBasicFromJSON, ChangesBasicFromJSONTyped, ChangesBasicToJSON } from "./ChangesBasic";
+import { ChangesBasicFromJSON, ChangesBasicFromJSONTyped, ChangesBasicToJSON, ChangesBasicToJSONTyped } from "./ChangesBasic";
 import type { ChangesACL } from "./ChangesACL";
-import { ChangesACLFromJSON, ChangesACLFromJSONTyped, ChangesACLToJSON } from "./ChangesACL";
+import { ChangesACLFromJSON, ChangesACLFromJSONTyped, ChangesACLToJSON, ChangesACLToJSONTyped } from "./ChangesACL";
 import type { ChangesOwner } from "./ChangesOwner";
-import { ChangesOwnerFromJSON, ChangesOwnerFromJSONTyped, ChangesOwnerToJSON } from "./ChangesOwner";
+import { ChangesOwnerFromJSON, ChangesOwnerFromJSONTyped, ChangesOwnerToJSON, ChangesOwnerToJSONTyped } from "./ChangesOwner";
 
 /**
  *
@@ -91,10 +91,15 @@ export function ChangesPermissionsLinFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function ChangesPermissionsLinToJSON(value?: ChangesPermissionsLin | null): any {
+export function ChangesPermissionsLinToJSON(json: any): ChangesPermissionsLin {
+    return ChangesPermissionsLinToJSONTyped(json, false);
+}
+
+export function ChangesPermissionsLinToJSONTyped(value?: ChangesPermissionsLin | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         acl: value["acl"] == null ? undefined : (value["acl"] as Array<any>).map(ChangesACLToJSON),
         basic: value["basic"] == null ? undefined : (value["basic"] as Array<any>).map(ChangesBasicToJSON),

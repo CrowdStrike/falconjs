@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { QuarantineQuarantinedFilePath } from "./QuarantineQuarantinedFilePath";
-import { QuarantineQuarantinedFilePathFromJSON, QuarantineQuarantinedFilePathFromJSONTyped, QuarantineQuarantinedFilePathToJSON } from "./QuarantineQuarantinedFilePath";
+import {
+    QuarantineQuarantinedFilePathFromJSON,
+    QuarantineQuarantinedFilePathFromJSONTyped,
+    QuarantineQuarantinedFilePathToJSON,
+    QuarantineQuarantinedFilePathToJSONTyped,
+} from "./QuarantineQuarantinedFilePath";
 
 /**
  *
@@ -169,10 +174,15 @@ export function QuarantineQuarantinedFileFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function QuarantineQuarantinedFileToJSON(value?: QuarantineQuarantinedFile | null): any {
+export function QuarantineQuarantinedFileToJSON(json: any): QuarantineQuarantinedFile {
+    return QuarantineQuarantinedFileToJSONTyped(json, false);
+}
+
+export function QuarantineQuarantinedFileToJSONTyped(value?: QuarantineQuarantinedFile | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         aid: value["aid"],
         alert_ids: value["alertIds"],

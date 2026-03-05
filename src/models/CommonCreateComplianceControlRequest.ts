@@ -71,10 +71,15 @@ export function CommonCreateComplianceControlRequestFromJSONTyped(json: any, ign
     };
 }
 
-export function CommonCreateComplianceControlRequestToJSON(value?: CommonCreateComplianceControlRequest | null): any {
+export function CommonCreateComplianceControlRequestToJSON(json: any): CommonCreateComplianceControlRequest {
+    return CommonCreateComplianceControlRequestToJSONTyped(json, false);
+}
+
+export function CommonCreateComplianceControlRequestToJSONTyped(value?: CommonCreateComplianceControlRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         framework_id: value["frameworkId"],

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ApiTemplateV1 } from "./ApiTemplateV1";
-import { ApiTemplateV1FromJSON, ApiTemplateV1FromJSONTyped, ApiTemplateV1ToJSON } from "./ApiTemplateV1";
+import { ApiTemplateV1FromJSON, ApiTemplateV1FromJSONTyped, ApiTemplateV1ToJSON, ApiTemplateV1ToJSONTyped } from "./ApiTemplateV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function ApiTemplateV1ResponseFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function ApiTemplateV1ResponseToJSON(value?: ApiTemplateV1Response | null): any {
+export function ApiTemplateV1ResponseToJSON(json: any): ApiTemplateV1Response {
+    return ApiTemplateV1ResponseToJSONTyped(json, false);
+}
+
+export function ApiTemplateV1ResponseToJSONTyped(value?: ApiTemplateV1Response | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

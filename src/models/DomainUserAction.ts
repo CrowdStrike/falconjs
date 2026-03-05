@@ -21,7 +21,7 @@ import { mapValues } from "../runtime";
 export interface DomainUserAction {
     /**
      * Action name
-     * @type {string}
+     * @type {DomainUserActionActionNameEnum}
      * @memberof DomainUserAction
      */
     actionName: DomainUserActionActionNameEnum;
@@ -37,8 +37,8 @@ export interface DomainUserAction {
  * @export
  */
 export const DomainUserActionActionNameEnum = {
-    Password: "reset_password",
-    _2fa: "reset_2fa",
+    ResetPassword: "reset_password",
+    Reset2fa: "reset_2fa",
 } as const;
 export type DomainUserActionActionNameEnum = (typeof DomainUserActionActionNameEnum)[keyof typeof DomainUserActionActionNameEnum];
 
@@ -64,10 +64,15 @@ export function DomainUserActionFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function DomainUserActionToJSON(value?: DomainUserAction | null): any {
+export function DomainUserActionToJSON(json: any): DomainUserAction {
+    return DomainUserActionToJSONTyped(json, false);
+}
+
+export function DomainUserActionToJSONTyped(value?: DomainUserAction | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action_name: value["actionName"],
         action_value: value["actionValue"],

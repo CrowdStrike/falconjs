@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesTupleToString } from "./TypesTupleToString";
-import { TypesTupleToStringFromJSON, TypesTupleToStringFromJSONTyped, TypesTupleToStringToJSON } from "./TypesTupleToString";
+import { TypesTupleToStringFromJSON, TypesTupleToStringFromJSONTyped, TypesTupleToStringToJSON, TypesTupleToStringToJSONTyped } from "./TypesTupleToString";
 
 /**
  *
@@ -57,10 +57,15 @@ export function TypesDeploymentUnitsTupleFiltersFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function TypesDeploymentUnitsTupleFiltersToJSON(value?: TypesDeploymentUnitsTupleFilters | null): any {
+export function TypesDeploymentUnitsTupleFiltersToJSON(json: any): TypesDeploymentUnitsTupleFilters {
+    return TypesDeploymentUnitsTupleFiltersToJSONTyped(json, false);
+}
+
+export function TypesDeploymentUnitsTupleFiltersToJSONTyped(value?: TypesDeploymentUnitsTupleFilters | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         excludes: value["excludes"] == null ? undefined : (value["excludes"] as Array<any>).map(TypesTupleToStringToJSON),
         includes: value["includes"] == null ? undefined : (value["includes"] as Array<any>).map(TypesTupleToStringToJSON),

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { PaginationMetaGetAffected } from "./PaginationMetaGetAffected";
-import { PaginationMetaGetAffectedFromJSON, PaginationMetaGetAffectedFromJSONTyped, PaginationMetaGetAffectedToJSON } from "./PaginationMetaGetAffected";
+import { PaginationMetaGetAffectedFromJSON, PaginationMetaGetAffectedFromJSONTyped, PaginationMetaGetAffectedToJSON, PaginationMetaGetAffectedToJSONTyped } from "./PaginationMetaGetAffected";
 
 /**
  *
@@ -64,10 +64,15 @@ export function MetaGetAffectedFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function MetaGetAffectedToJSON(value?: MetaGetAffected | null): any {
+export function MetaGetAffectedToJSON(json: any): MetaGetAffected {
+    return MetaGetAffectedToJSONTyped(json, false);
+}
+
+export function MetaGetAffectedToJSONTyped(value?: MetaGetAffected | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: PaginationMetaGetAffectedToJSON(value["pagination"]),
         query_time: value["queryTime"],

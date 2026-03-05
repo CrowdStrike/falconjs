@@ -80,10 +80,15 @@ export function DomainConfigV1FromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function DomainConfigV1ToJSON(value?: DomainConfigV1 | null): any {
+export function DomainConfigV1ToJSON(json: any): DomainConfigV1 {
+    return DomainConfigV1ToJSONTyped(json, false);
+}
+
+export function DomainConfigV1ToJSONTyped(value?: DomainConfigV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         app_id: value["appId"],
         config: value["config"],

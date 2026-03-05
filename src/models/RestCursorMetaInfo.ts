@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { MsaspecWrites } from "./MsaspecWrites";
-import { MsaspecWritesFromJSON, MsaspecWritesFromJSONTyped, MsaspecWritesToJSON } from "./MsaspecWrites";
+import { MsaspecWritesFromJSON, MsaspecWritesFromJSONTyped, MsaspecWritesToJSON, MsaspecWritesToJSONTyped } from "./MsaspecWrites";
 
 /**
  *
@@ -80,10 +80,15 @@ export function RestCursorMetaInfoFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function RestCursorMetaInfoToJSON(value?: RestCursorMetaInfo | null): any {
+export function RestCursorMetaInfoToJSON(json: any): RestCursorMetaInfo {
+    return RestCursorMetaInfoToJSONTyped(json, false);
+}
+
+export function RestCursorMetaInfoToJSONTyped(value?: RestCursorMetaInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         next: value["next"],
         powered_by: value["poweredBy"],

@@ -56,10 +56,15 @@ export function ClientTopValueFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function ClientTopValueToJSON(value?: ClientTopValue | null): any {
+export function ClientTopValueToJSON(json: any): ClientTopValue {
+    return ClientTopValueToJSONTyped(json, false);
+}
+
+export function ClientTopValueToJSONTyped(value?: ClientTopValue | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count: value["count"],
         value: value["value"],

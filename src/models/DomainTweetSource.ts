@@ -79,10 +79,15 @@ export function DomainTweetSourceFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function DomainTweetSourceToJSON(value?: DomainTweetSource | null): any {
+export function DomainTweetSourceToJSON(json: any): DomainTweetSource {
+    return DomainTweetSourceToJSONTyped(json, false);
+}
+
+export function DomainTweetSourceToJSONTyped(value?: DomainTweetSource | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         author_name: value["authorName"],
         language: value["language"],

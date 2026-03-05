@@ -14,13 +14,13 @@
 
 import { mapValues } from "../runtime";
 import type { FwmgrMsaDateRangeSpec } from "./FwmgrMsaDateRangeSpec";
-import { FwmgrMsaDateRangeSpecFromJSON, FwmgrMsaDateRangeSpecFromJSONTyped, FwmgrMsaDateRangeSpecToJSON } from "./FwmgrMsaDateRangeSpec";
+import { FwmgrMsaDateRangeSpecFromJSON, FwmgrMsaDateRangeSpecFromJSONTyped, FwmgrMsaDateRangeSpecToJSON, FwmgrMsaDateRangeSpecToJSONTyped } from "./FwmgrMsaDateRangeSpec";
 import type { FwmgrMsaRangeSpec } from "./FwmgrMsaRangeSpec";
-import { FwmgrMsaRangeSpecFromJSON, FwmgrMsaRangeSpecFromJSONTyped, FwmgrMsaRangeSpecToJSON } from "./FwmgrMsaRangeSpec";
+import { FwmgrMsaRangeSpecFromJSON, FwmgrMsaRangeSpecFromJSONTyped, FwmgrMsaRangeSpecToJSON, FwmgrMsaRangeSpecToJSONTyped } from "./FwmgrMsaRangeSpec";
 import type { FwmgrMsaExtendedBoundsSpec } from "./FwmgrMsaExtendedBoundsSpec";
-import { FwmgrMsaExtendedBoundsSpecFromJSON, FwmgrMsaExtendedBoundsSpecFromJSONTyped, FwmgrMsaExtendedBoundsSpecToJSON } from "./FwmgrMsaExtendedBoundsSpec";
+import { FwmgrMsaExtendedBoundsSpecFromJSON, FwmgrMsaExtendedBoundsSpecFromJSONTyped, FwmgrMsaExtendedBoundsSpecToJSON, FwmgrMsaExtendedBoundsSpecToJSONTyped } from "./FwmgrMsaExtendedBoundsSpec";
 import type { FwmgrMsaAPIFiltersSpec } from "./FwmgrMsaAPIFiltersSpec";
-import { FwmgrMsaAPIFiltersSpecFromJSON, FwmgrMsaAPIFiltersSpecFromJSONTyped, FwmgrMsaAPIFiltersSpecToJSON } from "./FwmgrMsaAPIFiltersSpec";
+import { FwmgrMsaAPIFiltersSpecFromJSON, FwmgrMsaAPIFiltersSpecFromJSONTyped, FwmgrMsaAPIFiltersSpecToJSON, FwmgrMsaAPIFiltersSpecToJSONTyped } from "./FwmgrMsaAPIFiltersSpec";
 
 /**
  *
@@ -214,10 +214,15 @@ export function FwmgrMsaAggregateQueryRequestFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function FwmgrMsaAggregateQueryRequestToJSON(value?: FwmgrMsaAggregateQueryRequest | null): any {
+export function FwmgrMsaAggregateQueryRequestToJSON(json: any): FwmgrMsaAggregateQueryRequest {
+    return FwmgrMsaAggregateQueryRequestToJSONTyped(json, false);
+}
+
+export function FwmgrMsaAggregateQueryRequestToJSONTyped(value?: FwmgrMsaAggregateQueryRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         date_ranges: (value["dateRanges"] as Array<any>).map(FwmgrMsaDateRangeSpecToJSON),
         exclude: value["exclude"],

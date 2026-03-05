@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { K8sassetsClusterEnrichmentData } from "./K8sassetsClusterEnrichmentData";
-import { K8sassetsClusterEnrichmentDataFromJSON, K8sassetsClusterEnrichmentDataFromJSONTyped, K8sassetsClusterEnrichmentDataToJSON } from "./K8sassetsClusterEnrichmentData";
+import {
+    K8sassetsClusterEnrichmentDataFromJSON,
+    K8sassetsClusterEnrichmentDataFromJSONTyped,
+    K8sassetsClusterEnrichmentDataToJSON,
+    K8sassetsClusterEnrichmentDataToJSONTyped,
+} from "./K8sassetsClusterEnrichmentData";
 
 /**
  *
@@ -59,10 +64,15 @@ export function K8sassetsClusterEnrichmentEntryFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function K8sassetsClusterEnrichmentEntryToJSON(value?: K8sassetsClusterEnrichmentEntry | null): any {
+export function K8sassetsClusterEnrichmentEntryToJSON(json: any): K8sassetsClusterEnrichmentEntry {
+    return K8sassetsClusterEnrichmentEntryToJSONTyped(json, false);
+}
+
+export function K8sassetsClusterEnrichmentEntryToJSONTyped(value?: K8sassetsClusterEnrichmentEntry | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cluster_id: value["clusterId"],
         enrichment_data: K8sassetsClusterEnrichmentDataToJSON(value["enrichmentData"]),

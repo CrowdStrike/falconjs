@@ -64,10 +64,15 @@ export function JsonschemaCollectionIndexFieldFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function JsonschemaCollectionIndexFieldToJSON(value?: JsonschemaCollectionIndexField | null): any {
+export function JsonschemaCollectionIndexFieldToJSON(json: any): JsonschemaCollectionIndexField {
+    return JsonschemaCollectionIndexFieldToJSONTyped(json, false);
+}
+
+export function JsonschemaCollectionIndexFieldToJSONTyped(value?: JsonschemaCollectionIndexField | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         field: value["field"],
         fql_name: value["fqlName"],

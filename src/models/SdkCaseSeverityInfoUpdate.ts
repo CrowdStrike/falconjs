@@ -48,10 +48,15 @@ export function SdkCaseSeverityInfoUpdateFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function SdkCaseSeverityInfoUpdateToJSON(value?: SdkCaseSeverityInfoUpdate | null): any {
+export function SdkCaseSeverityInfoUpdateToJSON(json: any): SdkCaseSeverityInfoUpdate {
+    return SdkCaseSeverityInfoUpdateToJSONTyped(json, false);
+}
+
+export function SdkCaseSeverityInfoUpdateToJSONTyped(value?: SdkCaseSeverityInfoUpdate | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         level: value["level"],
     };

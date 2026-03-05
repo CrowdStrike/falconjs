@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { PoliciesPolicy } from "./PoliciesPolicy";
-import { PoliciesPolicyFromJSON, PoliciesPolicyFromJSONTyped, PoliciesPolicyToJSON } from "./PoliciesPolicy";
+import { PoliciesPolicyFromJSON, PoliciesPolicyFromJSONTyped, PoliciesPolicyToJSON, PoliciesPolicyToJSONTyped } from "./PoliciesPolicy";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function PoliciesResponseFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function PoliciesResponseToJSON(value?: PoliciesResponse | null): any {
+export function PoliciesResponseToJSON(json: any): PoliciesResponse {
+    return PoliciesResponseToJSONTyped(json, false);
+}
+
+export function PoliciesResponseToJSONTyped(value?: PoliciesResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

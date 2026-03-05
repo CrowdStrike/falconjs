@@ -128,18 +128,23 @@ export function ApiWebLocationV2FromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function ApiWebLocationV2ToJSON(value?: ApiWebLocationV2 | null): any {
+export function ApiWebLocationV2ToJSON(json: any): ApiWebLocationV2 {
+    return ApiWebLocationV2ToJSONTyped(json, false);
+}
+
+export function ApiWebLocationV2ToJSONTyped(value?: ApiWebLocationV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         application_id: value["applicationId"],
         cid: value["cid"],
-        created: value["created"] == null ? undefined : value["created"].toISOString(),
+        created: value["created"] == null ? value["created"] : value["created"].toISOString(),
         deleted: value["deleted"],
         enterprise_account_id: value["enterpriseAccountId"],
         id: value["id"],
-        last_updated: value["lastUpdated"] == null ? undefined : value["lastUpdated"].toISOString(),
+        last_updated: value["lastUpdated"] == null ? value["lastUpdated"] : value["lastUpdated"].toISOString(),
         location_type: value["locationType"],
         name: value["name"],
         provider_location_id: value["providerLocationId"],

@@ -61,10 +61,15 @@ export function TypesTraitFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function TypesTraitToJSON(value?: TypesTrait | null): any {
+export function TypesTraitToJSON(json: any): TypesTrait {
+    return TypesTraitToJSONTyped(json, false);
+}
+
+export function TypesTraitToJSONTyped(value?: TypesTrait | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

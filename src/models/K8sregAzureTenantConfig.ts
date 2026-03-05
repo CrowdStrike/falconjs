@@ -63,10 +63,15 @@ export function K8sregAzureTenantConfigFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function K8sregAzureTenantConfigToJSON(value?: K8sregAzureTenantConfig | null): any {
+export function K8sregAzureTenantConfigToJSON(json: any): K8sregAzureTenantConfig {
+    return K8sregAzureTenantConfigToJSONTyped(json, false);
+}
+
+export function K8sregAzureTenantConfigToJSONTyped(value?: K8sregAzureTenantConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         client_id: value["clientId"],
         public_certificate: value["publicCertificate"],

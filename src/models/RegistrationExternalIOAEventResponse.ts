@@ -14,11 +14,21 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { RegistrationMSAMetaInfoExtension } from "./RegistrationMSAMetaInfoExtension";
-import { RegistrationMSAMetaInfoExtensionFromJSON, RegistrationMSAMetaInfoExtensionFromJSONTyped, RegistrationMSAMetaInfoExtensionToJSON } from "./RegistrationMSAMetaInfoExtension";
+import {
+    RegistrationMSAMetaInfoExtensionFromJSON,
+    RegistrationMSAMetaInfoExtensionFromJSONTyped,
+    RegistrationMSAMetaInfoExtensionToJSON,
+    RegistrationMSAMetaInfoExtensionToJSONTyped,
+} from "./RegistrationMSAMetaInfoExtension";
 import type { RegistrationExternalIOAResources } from "./RegistrationExternalIOAResources";
-import { RegistrationExternalIOAResourcesFromJSON, RegistrationExternalIOAResourcesFromJSONTyped, RegistrationExternalIOAResourcesToJSON } from "./RegistrationExternalIOAResources";
+import {
+    RegistrationExternalIOAResourcesFromJSON,
+    RegistrationExternalIOAResourcesFromJSONTyped,
+    RegistrationExternalIOAResourcesToJSON,
+    RegistrationExternalIOAResourcesToJSONTyped,
+} from "./RegistrationExternalIOAResources";
 
 /**
  *
@@ -71,10 +81,15 @@ export function RegistrationExternalIOAEventResponseFromJSONTyped(json: any, ign
     };
 }
 
-export function RegistrationExternalIOAEventResponseToJSON(value?: RegistrationExternalIOAEventResponse | null): any {
+export function RegistrationExternalIOAEventResponseToJSON(json: any): RegistrationExternalIOAEventResponse {
+    return RegistrationExternalIOAEventResponseToJSONTyped(json, false);
+}
+
+export function RegistrationExternalIOAEventResponseToJSONTyped(value?: RegistrationExternalIOAEventResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: RegistrationMSAMetaInfoExtensionToJSON(value["meta"]),

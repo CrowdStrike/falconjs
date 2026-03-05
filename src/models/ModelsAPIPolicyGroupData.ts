@@ -48,10 +48,15 @@ export function ModelsAPIPolicyGroupDataFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function ModelsAPIPolicyGroupDataToJSON(value?: ModelsAPIPolicyGroupData | null): any {
+export function ModelsAPIPolicyGroupDataToJSON(json: any): ModelsAPIPolicyGroupData {
+    return ModelsAPIPolicyGroupDataToJSONTyped(json, false);
+}
+
+export function ModelsAPIPolicyGroupDataToJSONTyped(value?: ModelsAPIPolicyGroupData | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         conditions: value["conditions"],
     };

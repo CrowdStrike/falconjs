@@ -187,12 +187,9 @@ export interface RealTimeResponseAdminApiRTRUpdateScriptsV2Request {
  */
 export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     /**
-     * Batch executes a RTR administrator command across the hosts mapped to the given batch ID.
+     * Creates request options for batchAdminCmd without sending the request
      */
-    async batchAdminCmdRaw(
-        requestParameters: RealTimeResponseAdminApiBatchAdminCmdRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainMultiCommandExecuteResponseWrapper>> {
+    async batchAdminCmdRequestOpts(requestParameters: RealTimeResponseAdminApiBatchAdminCmdRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling batchAdminCmd().');
         }
@@ -220,16 +217,26 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/combined/batch-admin-command/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainBatchExecuteCommandRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/combined/batch-admin-command/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainBatchExecuteCommandRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Batch executes a RTR administrator command across the hosts mapped to the given batch ID.
+     */
+    async batchAdminCmdRaw(
+        requestParameters: RealTimeResponseAdminApiBatchAdminCmdRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainMultiCommandExecuteResponseWrapper>> {
+        const requestOptions = await this.batchAdminCmdRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainMultiCommandExecuteResponseWrapperFromJSON(jsonValue));
     }
@@ -249,12 +256,9 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get status of an executed RTR administrator command on a single host.
+     * Creates request options for rTRCheckAdminCommandStatus without sending the request
      */
-    async rTRCheckAdminCommandStatusRaw(
-        requestParameters: RealTimeResponseAdminApiRTRCheckAdminCommandStatusRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainStatusResponseWrapper>> {
+    async rTRCheckAdminCommandStatusRequestOpts(requestParameters: RealTimeResponseAdminApiRTRCheckAdminCommandStatusRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["cloudRequestId"] == null) {
             throw new runtime.RequiredError("cloudRequestId", 'Required parameter "cloudRequestId" was null or undefined when calling rTRCheckAdminCommandStatus().');
         }
@@ -280,15 +284,25 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/admin-command/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/admin-command/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get status of an executed RTR administrator command on a single host.
+     */
+    async rTRCheckAdminCommandStatusRaw(
+        requestParameters: RealTimeResponseAdminApiRTRCheckAdminCommandStatusRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainStatusResponseWrapper>> {
+        const requestOptions = await this.rTRCheckAdminCommandStatusRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainStatusResponseWrapperFromJSON(jsonValue));
     }
@@ -302,12 +316,9 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     }
 
     /**
-     * Upload a new put-file to use for the RTR `put` command.
+     * Creates request options for rTRCreatePutFiles without sending the request
      */
-    async rTRCreatePutFilesRaw(
-        requestParameters: RealTimeResponseAdminApiRTRCreatePutFilesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async rTRCreatePutFilesRequestOpts(requestParameters: RealTimeResponseAdminApiRTRCreatePutFilesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["file"] == null) {
             throw new runtime.RequiredError("file", 'Required parameter "file" was null or undefined when calling rTRCreatePutFiles().');
         }
@@ -355,16 +366,26 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
             formParams.append("comments_for_audit_log", requestParameters["commentsForAuditLog"] as any);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/put-files/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: formParams,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/put-files/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        };
+    }
+
+    /**
+     * Upload a new put-file to use for the RTR `put` command.
+     */
+    async rTRCreatePutFilesRaw(
+        requestParameters: RealTimeResponseAdminApiRTRCreatePutFilesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+        const requestOptions = await this.rTRCreatePutFilesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
     }
@@ -378,12 +399,9 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     }
 
     /**
-     * Upload a new put-file to use for the RTR `put` command.
+     * Creates request options for rTRCreatePutFilesV2 without sending the request
      */
-    async rTRCreatePutFilesV2Raw(
-        requestParameters: RealTimeResponseAdminApiRTRCreatePutFilesV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<EmpowerapiMsaPFResponseV2>> {
+    async rTRCreatePutFilesV2RequestOpts(requestParameters: RealTimeResponseAdminApiRTRCreatePutFilesV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["file"] == null) {
             throw new runtime.RequiredError("file", 'Required parameter "file" was null or undefined when calling rTRCreatePutFilesV2().');
         }
@@ -431,16 +449,26 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
             formParams.append("comments_for_audit_log", requestParameters["commentsForAuditLog"] as any);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/put-files/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: formParams,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/put-files/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        };
+    }
+
+    /**
+     * Upload a new put-file to use for the RTR `put` command.
+     */
+    async rTRCreatePutFilesV2Raw(
+        requestParameters: RealTimeResponseAdminApiRTRCreatePutFilesV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<EmpowerapiMsaPFResponseV2>> {
+        const requestOptions = await this.rTRCreatePutFilesV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EmpowerapiMsaPFResponseV2FromJSON(jsonValue));
     }
@@ -460,12 +488,9 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     }
 
     /**
-     * Upload a new custom-script to use for the RTR `runscript` command.
+     * Creates request options for rTRCreateScripts without sending the request
      */
-    async rTRCreateScriptsRaw(
-        requestParameters: RealTimeResponseAdminApiRTRCreateScriptsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async rTRCreateScriptsRequestOpts(requestParameters: RealTimeResponseAdminApiRTRCreateScriptsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["description"] == null) {
             throw new runtime.RequiredError("description", 'Required parameter "description" was null or undefined when calling rTRCreateScripts().');
         }
@@ -525,16 +550,26 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
             formParams.append("platform", requestParameters["platform"]!.join(runtime.COLLECTION_FORMATS["csv"]));
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/scripts/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: formParams,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/scripts/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        };
+    }
+
+    /**
+     * Upload a new custom-script to use for the RTR `runscript` command.
+     */
+    async rTRCreateScriptsRaw(
+        requestParameters: RealTimeResponseAdminApiRTRCreateScriptsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+        const requestOptions = await this.rTRCreateScriptsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
     }
@@ -560,12 +595,9 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     }
 
     /**
-     * Upload a new custom-script to use for the RTR `runscript` command.
+     * Creates request options for rTRCreateScriptsV2 without sending the request
      */
-    async rTRCreateScriptsV2Raw(
-        requestParameters: RealTimeResponseAdminApiRTRCreateScriptsV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<EmpowerapiMsaPFResponseV2>> {
+    async rTRCreateScriptsV2RequestOpts(requestParameters: RealTimeResponseAdminApiRTRCreateScriptsV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["description"] == null) {
             throw new runtime.RequiredError("description", 'Required parameter "description" was null or undefined when calling rTRCreateScriptsV2().');
         }
@@ -625,16 +657,26 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
             formParams.append("platform", requestParameters["platform"]!.join(runtime.COLLECTION_FORMATS["csv"]));
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/scripts/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: formParams,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/scripts/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        };
+    }
+
+    /**
+     * Upload a new custom-script to use for the RTR `runscript` command.
+     */
+    async rTRCreateScriptsV2Raw(
+        requestParameters: RealTimeResponseAdminApiRTRCreateScriptsV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<EmpowerapiMsaPFResponseV2>> {
+        const requestOptions = await this.rTRCreateScriptsV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EmpowerapiMsaPFResponseV2FromJSON(jsonValue));
     }
@@ -660,12 +702,9 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete a put-file based on the ID given.  Can only delete one file at a time.
+     * Creates request options for rTRDeletePutFiles without sending the request
      */
-    async rTRDeletePutFilesRaw(
-        requestParameters: RealTimeResponseAdminApiRTRDeletePutFilesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async rTRDeletePutFilesRequestOpts(requestParameters: RealTimeResponseAdminApiRTRDeletePutFilesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling rTRDeletePutFiles().');
         }
@@ -683,15 +722,25 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/put-files/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/put-files/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a put-file based on the ID given.  Can only delete one file at a time.
+     */
+    async rTRDeletePutFilesRaw(
+        requestParameters: RealTimeResponseAdminApiRTRDeletePutFilesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+        const requestOptions = await this.rTRDeletePutFilesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
     }
@@ -705,12 +754,9 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete a custom-script based on the ID given.  Can only delete one script at a time.
+     * Creates request options for rTRDeleteScripts without sending the request
      */
-    async rTRDeleteScriptsRaw(
-        requestParameters: RealTimeResponseAdminApiRTRDeleteScriptsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async rTRDeleteScriptsRequestOpts(requestParameters: RealTimeResponseAdminApiRTRDeleteScriptsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling rTRDeleteScripts().');
         }
@@ -728,15 +774,25 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/scripts/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/scripts/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a custom-script based on the ID given.  Can only delete one script at a time.
+     */
+    async rTRDeleteScriptsRaw(
+        requestParameters: RealTimeResponseAdminApiRTRDeleteScriptsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+        const requestOptions = await this.rTRDeleteScriptsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
     }
@@ -750,12 +806,9 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     }
 
     /**
-     * Execute a RTR administrator command on a single host.
+     * Creates request options for rTRExecuteAdminCommand without sending the request
      */
-    async rTRExecuteAdminCommandRaw(
-        requestParameters: RealTimeResponseAdminApiRTRExecuteAdminCommandRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainCommandExecuteResponseWrapper>> {
+    async rTRExecuteAdminCommandRequestOpts(requestParameters: RealTimeResponseAdminApiRTRExecuteAdminCommandRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling rTRExecuteAdminCommand().');
         }
@@ -771,16 +824,26 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/admin-command/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainCommandExecuteRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/admin-command/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainCommandExecuteRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Execute a RTR administrator command on a single host.
+     */
+    async rTRExecuteAdminCommandRaw(
+        requestParameters: RealTimeResponseAdminApiRTRExecuteAdminCommandRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainCommandExecuteResponseWrapper>> {
+        const requestOptions = await this.rTRExecuteAdminCommandRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainCommandExecuteResponseWrapperFromJSON(jsonValue));
     }
@@ -794,12 +857,9 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Falcon scripts with metadata and content of script
+     * Creates request options for rTRGetFalconScripts without sending the request
      */
-    async rTRGetFalconScriptsRaw(
-        requestParameters: RealTimeResponseAdminApiRTRGetFalconScriptsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<EmpowerapiMsaFalconScriptResponse>> {
+    async rTRGetFalconScriptsRequestOpts(requestParameters: RealTimeResponseAdminApiRTRGetFalconScriptsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling rTRGetFalconScripts().');
         }
@@ -817,15 +877,25 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/falcon-scripts/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/falcon-scripts/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get Falcon scripts with metadata and content of script
+     */
+    async rTRGetFalconScriptsRaw(
+        requestParameters: RealTimeResponseAdminApiRTRGetFalconScriptsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<EmpowerapiMsaFalconScriptResponse>> {
+        const requestOptions = await this.rTRGetFalconScriptsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EmpowerapiMsaFalconScriptResponseFromJSON(jsonValue));
     }
@@ -839,12 +909,9 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get RTR put file contents for a given file ID
+     * Creates request options for rTRGetPutFileContents without sending the request
      */
-    async rTRGetPutFileContentsRaw(
-        requestParameters: RealTimeResponseAdminApiRTRGetPutFileContentsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<Array<number>>> {
+    async rTRGetPutFileContentsRequestOpts(requestParameters: RealTimeResponseAdminApiRTRGetPutFileContentsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling rTRGetPutFileContents().');
         }
@@ -862,15 +929,25 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/put-file-contents/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/put-file-contents/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get RTR put file contents for a given file ID
+     */
+    async rTRGetPutFileContentsRaw(
+        requestParameters: RealTimeResponseAdminApiRTRGetPutFileContentsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<Array<number>>> {
+        const requestOptions = await this.rTRGetPutFileContentsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse<any>(response);
     }
@@ -884,12 +961,9 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get put-files based on the ID\'s given. These are used for the RTR `put` command.
+     * Creates request options for rTRGetPutFiles without sending the request
      */
-    async rTRGetPutFilesRaw(
-        requestParameters: RealTimeResponseAdminApiRTRGetPutFilesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<EmpowerapiMsaPFResponseV1>> {
+    async rTRGetPutFilesRequestOpts(requestParameters: RealTimeResponseAdminApiRTRGetPutFilesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling rTRGetPutFiles().');
         }
@@ -907,15 +981,25 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/put-files/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/put-files/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get put-files based on the ID\'s given. These are used for the RTR `put` command.
+     */
+    async rTRGetPutFilesRaw(
+        requestParameters: RealTimeResponseAdminApiRTRGetPutFilesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<EmpowerapiMsaPFResponseV1>> {
+        const requestOptions = await this.rTRGetPutFilesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EmpowerapiMsaPFResponseV1FromJSON(jsonValue));
     }
@@ -929,12 +1013,9 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get put-files based on the ID\'s given. These are used for the RTR `put` command.
+     * Creates request options for rTRGetPutFilesV2 without sending the request
      */
-    async rTRGetPutFilesV2Raw(
-        requestParameters: RealTimeResponseAdminApiRTRGetPutFilesV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<EmpowerapiMsaPFResponseV2>> {
+    async rTRGetPutFilesV2RequestOpts(requestParameters: RealTimeResponseAdminApiRTRGetPutFilesV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling rTRGetPutFilesV2().');
         }
@@ -952,15 +1033,25 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/put-files/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/put-files/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get put-files based on the ID\'s given. These are used for the RTR `put` command.
+     */
+    async rTRGetPutFilesV2Raw(
+        requestParameters: RealTimeResponseAdminApiRTRGetPutFilesV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<EmpowerapiMsaPFResponseV2>> {
+        const requestOptions = await this.rTRGetPutFilesV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EmpowerapiMsaPFResponseV2FromJSON(jsonValue));
     }
@@ -974,12 +1065,9 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get custom-scripts based on the ID\'s given. These are used for the RTR `runscript` command.
+     * Creates request options for rTRGetScripts without sending the request
      */
-    async rTRGetScriptsRaw(
-        requestParameters: RealTimeResponseAdminApiRTRGetScriptsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<EmpowerapiMsaPFResponseV1>> {
+    async rTRGetScriptsRequestOpts(requestParameters: RealTimeResponseAdminApiRTRGetScriptsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling rTRGetScripts().');
         }
@@ -997,15 +1085,25 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/scripts/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/scripts/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get custom-scripts based on the ID\'s given. These are used for the RTR `runscript` command.
+     */
+    async rTRGetScriptsRaw(
+        requestParameters: RealTimeResponseAdminApiRTRGetScriptsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<EmpowerapiMsaPFResponseV1>> {
+        const requestOptions = await this.rTRGetScriptsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EmpowerapiMsaPFResponseV1FromJSON(jsonValue));
     }
@@ -1019,12 +1117,9 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get custom-scripts based on the ID\'s given. These are used for the RTR `runscript` command.
+     * Creates request options for rTRGetScriptsV2 without sending the request
      */
-    async rTRGetScriptsV2Raw(
-        requestParameters: RealTimeResponseAdminApiRTRGetScriptsV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<EmpowerapiMsaPFResponseV2>> {
+    async rTRGetScriptsV2RequestOpts(requestParameters: RealTimeResponseAdminApiRTRGetScriptsV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling rTRGetScriptsV2().');
         }
@@ -1042,15 +1137,25 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/scripts/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/scripts/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get custom-scripts based on the ID\'s given. These are used for the RTR `runscript` command.
+     */
+    async rTRGetScriptsV2Raw(
+        requestParameters: RealTimeResponseAdminApiRTRGetScriptsV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<EmpowerapiMsaPFResponseV2>> {
+        const requestOptions = await this.rTRGetScriptsV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EmpowerapiMsaPFResponseV2FromJSON(jsonValue));
     }
@@ -1064,12 +1169,9 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a list of Falcon script IDs available to the user to run
+     * Creates request options for rTRListFalconScripts without sending the request
      */
-    async rTRListFalconScriptsRaw(
-        requestParameters: RealTimeResponseAdminApiRTRListFalconScriptsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<EmpowerapiMsaIDListResponse>> {
+    async rTRListFalconScriptsRequestOpts(requestParameters: RealTimeResponseAdminApiRTRListFalconScriptsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1095,15 +1197,25 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/queries/falcon-scripts/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/queries/falcon-scripts/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a list of Falcon script IDs available to the user to run
+     */
+    async rTRListFalconScriptsRaw(
+        requestParameters: RealTimeResponseAdminApiRTRListFalconScriptsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<EmpowerapiMsaIDListResponse>> {
+        const requestOptions = await this.rTRListFalconScriptsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EmpowerapiMsaIDListResponseFromJSON(jsonValue));
     }
@@ -1123,12 +1235,9 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a list of put-file ID\'s that are available to the user for the `put` command.
+     * Creates request options for rTRListPutFiles without sending the request
      */
-    async rTRListPutFilesRaw(
-        requestParameters: RealTimeResponseAdminApiRTRListPutFilesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<BinservapiMsaPutFileResponse>> {
+    async rTRListPutFilesRequestOpts(requestParameters: RealTimeResponseAdminApiRTRListPutFilesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1154,15 +1263,25 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/queries/put-files/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/queries/put-files/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a list of put-file ID\'s that are available to the user for the `put` command.
+     */
+    async rTRListPutFilesRaw(
+        requestParameters: RealTimeResponseAdminApiRTRListPutFilesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<BinservapiMsaPutFileResponse>> {
+        const requestOptions = await this.rTRListPutFilesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => BinservapiMsaPutFileResponseFromJSON(jsonValue));
     }
@@ -1176,12 +1295,9 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a list of custom-script ID\'s that are available to the user for the `runscript` command.
+     * Creates request options for rTRListScripts without sending the request
      */
-    async rTRListScriptsRaw(
-        requestParameters: RealTimeResponseAdminApiRTRListScriptsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<BinservapiMsaPutFileResponse>> {
+    async rTRListScriptsRequestOpts(requestParameters: RealTimeResponseAdminApiRTRListScriptsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1207,15 +1323,25 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/queries/scripts/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/queries/scripts/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a list of custom-script ID\'s that are available to the user for the `runscript` command.
+     */
+    async rTRListScriptsRaw(
+        requestParameters: RealTimeResponseAdminApiRTRListScriptsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<BinservapiMsaPutFileResponse>> {
+        const requestOptions = await this.rTRListScriptsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => BinservapiMsaPutFileResponseFromJSON(jsonValue));
     }
@@ -1229,12 +1355,9 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     }
 
     /**
-     * Upload a new scripts to replace an existing one.
+     * Creates request options for rTRUpdateScripts without sending the request
      */
-    async rTRUpdateScriptsRaw(
-        requestParameters: RealTimeResponseAdminApiRTRUpdateScriptsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async rTRUpdateScriptsRequestOpts(requestParameters: RealTimeResponseAdminApiRTRUpdateScriptsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling rTRUpdateScripts().');
         }
@@ -1294,16 +1417,26 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
             formParams.append("platform", requestParameters["platform"]!.join(runtime.COLLECTION_FORMATS["csv"]));
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/scripts/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: formParams,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/scripts/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        };
+    }
+
+    /**
+     * Upload a new scripts to replace an existing one.
+     */
+    async rTRUpdateScriptsRaw(
+        requestParameters: RealTimeResponseAdminApiRTRUpdateScriptsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+        const requestOptions = await this.rTRUpdateScriptsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
     }
@@ -1330,12 +1463,9 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
     }
 
     /**
-     * Upload a new scripts to replace an existing one.
+     * Creates request options for rTRUpdateScriptsV2 without sending the request
      */
-    async rTRUpdateScriptsV2Raw(
-        requestParameters: RealTimeResponseAdminApiRTRUpdateScriptsV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<EmpowerapiMsaPFResponseV2>> {
+    async rTRUpdateScriptsV2RequestOpts(requestParameters: RealTimeResponseAdminApiRTRUpdateScriptsV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling rTRUpdateScriptsV2().');
         }
@@ -1395,16 +1525,26 @@ export class RealTimeResponseAdminApi extends runtime.BaseAPI {
             formParams.append("platform", requestParameters["platform"]!.join(runtime.COLLECTION_FORMATS["csv"]));
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/scripts/v2`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: formParams,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/scripts/v2`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        };
+    }
+
+    /**
+     * Upload a new scripts to replace an existing one.
+     */
+    async rTRUpdateScriptsV2Raw(
+        requestParameters: RealTimeResponseAdminApiRTRUpdateScriptsV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<EmpowerapiMsaPFResponseV2>> {
+        const requestOptions = await this.rTRUpdateScriptsV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EmpowerapiMsaPFResponseV2FromJSON(jsonValue));
     }

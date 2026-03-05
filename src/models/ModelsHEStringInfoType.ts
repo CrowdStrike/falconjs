@@ -77,10 +77,15 @@ export function ModelsHEStringInfoTypeFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function ModelsHEStringInfoTypeToJSON(value?: ModelsHEStringInfoType | null): any {
+export function ModelsHEStringInfoTypeToJSON(json: any): ModelsHEStringInfoType {
+    return ModelsHEStringInfoTypeToJSONTyped(json, false);
+}
+
+export function ModelsHEStringInfoTypeToJSONTyped(value?: ModelsHEStringInfoType | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Hash: value["hash"],
         Line: value["line"],

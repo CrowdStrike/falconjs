@@ -14,21 +14,36 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsJobMetaData } from "./ModelsJobMetaData";
-import { ModelsJobMetaDataFromJSON, ModelsJobMetaDataFromJSONTyped, ModelsJobMetaDataToJSON } from "./ModelsJobMetaData";
+import { ModelsJobMetaDataFromJSON, ModelsJobMetaDataFromJSONTyped, ModelsJobMetaDataToJSON, ModelsJobMetaDataToJSONTyped } from "./ModelsJobMetaData";
 import type { ModelsOSInfoType } from "./ModelsOSInfoType";
-import { ModelsOSInfoTypeFromJSON, ModelsOSInfoTypeFromJSONTyped, ModelsOSInfoTypeToJSON } from "./ModelsOSInfoType";
+import { ModelsOSInfoTypeFromJSON, ModelsOSInfoTypeFromJSONTyped, ModelsOSInfoTypeToJSON, ModelsOSInfoTypeToJSONTyped } from "./ModelsOSInfoType";
 import type { ModelsPackageVulnerabilityType } from "./ModelsPackageVulnerabilityType";
-import { ModelsPackageVulnerabilityTypeFromJSON, ModelsPackageVulnerabilityTypeFromJSONTyped, ModelsPackageVulnerabilityTypeToJSON } from "./ModelsPackageVulnerabilityType";
+import {
+    ModelsPackageVulnerabilityTypeFromJSON,
+    ModelsPackageVulnerabilityTypeFromJSONTyped,
+    ModelsPackageVulnerabilityTypeToJSON,
+    ModelsPackageVulnerabilityTypeToJSONTyped,
+} from "./ModelsPackageVulnerabilityType";
 import type { ModelsApplicationPackageInfoType } from "./ModelsApplicationPackageInfoType";
-import { ModelsApplicationPackageInfoTypeFromJSON, ModelsApplicationPackageInfoTypeFromJSONTyped, ModelsApplicationPackageInfoTypeToJSON } from "./ModelsApplicationPackageInfoType";
+import {
+    ModelsApplicationPackageInfoTypeFromJSON,
+    ModelsApplicationPackageInfoTypeFromJSONTyped,
+    ModelsApplicationPackageInfoTypeToJSON,
+    ModelsApplicationPackageInfoTypeToJSONTyped,
+} from "./ModelsApplicationPackageInfoType";
 import type { ModelsDetectionEngineInfoType } from "./ModelsDetectionEngineInfoType";
-import { ModelsDetectionEngineInfoTypeFromJSON, ModelsDetectionEngineInfoTypeFromJSONTyped, ModelsDetectionEngineInfoTypeToJSON } from "./ModelsDetectionEngineInfoType";
+import {
+    ModelsDetectionEngineInfoTypeFromJSON,
+    ModelsDetectionEngineInfoTypeFromJSONTyped,
+    ModelsDetectionEngineInfoTypeToJSON,
+    ModelsDetectionEngineInfoTypeToJSONTyped,
+} from "./ModelsDetectionEngineInfoType";
 import type { ModelsDetectionInfoType } from "./ModelsDetectionInfoType";
-import { ModelsDetectionInfoTypeFromJSON, ModelsDetectionInfoTypeFromJSONTyped, ModelsDetectionInfoTypeToJSON } from "./ModelsDetectionInfoType";
+import { ModelsDetectionInfoTypeFromJSON, ModelsDetectionInfoTypeFromJSONTyped, ModelsDetectionInfoTypeToJSON, ModelsDetectionInfoTypeToJSONTyped } from "./ModelsDetectionInfoType";
 import type { ModelsVulnerabilitiesType } from "./ModelsVulnerabilitiesType";
-import { ModelsVulnerabilitiesTypeFromJSON, ModelsVulnerabilitiesTypeFromJSONTyped, ModelsVulnerabilitiesTypeToJSON } from "./ModelsVulnerabilitiesType";
+import { ModelsVulnerabilitiesTypeFromJSON, ModelsVulnerabilitiesTypeFromJSONTyped, ModelsVulnerabilitiesTypeToJSON, ModelsVulnerabilitiesTypeToJSONTyped } from "./ModelsVulnerabilitiesType";
 import type { ModelsScanResults } from "./ModelsScanResults";
-import { ModelsScanResultsFromJSON, ModelsScanResultsFromJSONTyped, ModelsScanResultsToJSON } from "./ModelsScanResults";
+import { ModelsScanResultsFromJSON, ModelsScanResultsFromJSONTyped, ModelsScanResultsToJSON, ModelsScanResultsToJSONTyped } from "./ModelsScanResults";
 
 /**
  *
@@ -119,10 +134,15 @@ export function ModelsScanReportTypeFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function ModelsScanReportTypeToJSON(value?: ModelsScanReportType | null): any {
+export function ModelsScanReportTypeToJSON(json: any): ModelsScanReportType {
+    return ModelsScanReportTypeToJSONTyped(json, false);
+}
+
+export function ModelsScanReportTypeToJSONTyped(value?: ModelsScanReportType | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ApplicationPackages: value["applicationPackages"] == null ? undefined : (value["applicationPackages"] as Array<any>).map(ModelsApplicationPackageInfoTypeToJSON),
         DetectionEngineInfo: ModelsDetectionEngineInfoTypeToJSON(value["detectionEngineInfo"]),

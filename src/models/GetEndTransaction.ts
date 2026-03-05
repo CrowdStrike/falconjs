@@ -14,15 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { ErrorGetEndTransaction } from "./ErrorGetEndTransaction";
-import { ErrorGetEndTransactionFromJSON, ErrorGetEndTransactionFromJSONTyped, ErrorGetEndTransactionToJSON } from "./ErrorGetEndTransaction";
+import { ErrorGetEndTransactionFromJSON, ErrorGetEndTransactionFromJSONTyped, ErrorGetEndTransactionToJSON, ErrorGetEndTransactionToJSONTyped } from "./ErrorGetEndTransaction";
 import type { DataTransactionResponseDtoGetEndTransaction } from "./DataTransactionResponseDtoGetEndTransaction";
 import {
     DataTransactionResponseDtoGetEndTransactionFromJSON,
     DataTransactionResponseDtoGetEndTransactionFromJSONTyped,
     DataTransactionResponseDtoGetEndTransactionToJSON,
+    DataTransactionResponseDtoGetEndTransactionToJSONTyped,
 } from "./DataTransactionResponseDtoGetEndTransaction";
 import type { MetaGetEndTransaction } from "./MetaGetEndTransaction";
-import { MetaGetEndTransactionFromJSON, MetaGetEndTransactionFromJSONTyped, MetaGetEndTransactionToJSON } from "./MetaGetEndTransaction";
+import { MetaGetEndTransactionFromJSON, MetaGetEndTransactionFromJSONTyped, MetaGetEndTransactionToJSON, MetaGetEndTransactionToJSONTyped } from "./MetaGetEndTransaction";
 
 /**
  *
@@ -72,10 +73,15 @@ export function GetEndTransactionFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function GetEndTransactionToJSON(value?: GetEndTransaction | null): any {
+export function GetEndTransactionToJSON(json: any): GetEndTransaction {
+    return GetEndTransactionToJSONTyped(json, false);
+}
+
+export function GetEndTransactionToJSONTyped(value?: GetEndTransaction | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(ErrorGetEndTransactionToJSON),
         meta: MetaGetEndTransactionToJSON(value["meta"]),

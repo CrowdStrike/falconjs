@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApimodelsCloudGroup } from "./ApimodelsCloudGroup";
-import { ApimodelsCloudGroupFromJSON, ApimodelsCloudGroupFromJSONTyped, ApimodelsCloudGroupToJSON } from "./ApimodelsCloudGroup";
+import { ApimodelsCloudGroupFromJSON, ApimodelsCloudGroupFromJSONTyped, ApimodelsCloudGroupToJSON, ApimodelsCloudGroupToJSONTyped } from "./ApimodelsCloudGroup";
 
 /**
  *
@@ -106,10 +106,15 @@ export function ApimodelsAssetFilterFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function ApimodelsAssetFilterToJSON(value?: ApimodelsAssetFilter | null): any {
+export function ApimodelsAssetFilterToJSON(json: any): ApimodelsAssetFilter {
+    return ApimodelsAssetFilterToJSONTyped(json, false);
+}
+
+export function ApimodelsAssetFilterToJSONTyped(value?: ApimodelsAssetFilter | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_ids: value["accountIds"],
         cloud_groups: value["cloudGroups"] == null ? undefined : (value["cloudGroups"] as Array<any>).map(ApimodelsCloudGroupToJSON),

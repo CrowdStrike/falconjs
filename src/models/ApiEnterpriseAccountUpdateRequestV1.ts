@@ -64,10 +64,15 @@ export function ApiEnterpriseAccountUpdateRequestV1FromJSONTyped(json: any, igno
     };
 }
 
-export function ApiEnterpriseAccountUpdateRequestV1ToJSON(value?: ApiEnterpriseAccountUpdateRequestV1 | null): any {
+export function ApiEnterpriseAccountUpdateRequestV1ToJSON(json: any): ApiEnterpriseAccountUpdateRequestV1 {
+    return ApiEnterpriseAccountUpdateRequestV1ToJSONTyped(json, false);
+}
+
+export function ApiEnterpriseAccountUpdateRequestV1ToJSONTyped(value?: ApiEnterpriseAccountUpdateRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         domains: value["domains"],
         id: value["id"],

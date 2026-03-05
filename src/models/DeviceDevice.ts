@@ -14,13 +14,13 @@
 
 import { mapValues } from "../runtime";
 import type { DeviceMappedDevicePolicies } from "./DeviceMappedDevicePolicies";
-import { DeviceMappedDevicePoliciesFromJSON, DeviceMappedDevicePoliciesFromJSONTyped, DeviceMappedDevicePoliciesToJSON } from "./DeviceMappedDevicePolicies";
+import { DeviceMappedDevicePoliciesFromJSON, DeviceMappedDevicePoliciesFromJSONTyped, DeviceMappedDevicePoliciesToJSON, DeviceMappedDevicePoliciesToJSONTyped } from "./DeviceMappedDevicePolicies";
 import type { DeviceManagedApps } from "./DeviceManagedApps";
-import { DeviceManagedAppsFromJSON, DeviceManagedAppsFromJSONTyped, DeviceManagedAppsToJSON } from "./DeviceManagedApps";
+import { DeviceManagedAppsFromJSON, DeviceManagedAppsFromJSONTyped, DeviceManagedAppsToJSON, DeviceManagedAppsToJSONTyped } from "./DeviceManagedApps";
 import type { DeviceDeviceMeta } from "./DeviceDeviceMeta";
-import { DeviceDeviceMetaFromJSON, DeviceDeviceMetaFromJSONTyped, DeviceDeviceMetaToJSON } from "./DeviceDeviceMeta";
+import { DeviceDeviceMetaFromJSON, DeviceDeviceMetaFromJSONTyped, DeviceDeviceMetaToJSON, DeviceDeviceMetaToJSONTyped } from "./DeviceDeviceMeta";
 import type { DeviceDevicePolicy } from "./DeviceDevicePolicy";
-import { DeviceDevicePolicyFromJSON, DeviceDevicePolicyFromJSONTyped, DeviceDevicePolicyToJSON } from "./DeviceDevicePolicy";
+import { DeviceDevicePolicyFromJSON, DeviceDevicePolicyFromJSONTyped, DeviceDevicePolicyToJSON, DeviceDevicePolicyToJSONTyped } from "./DeviceDevicePolicy";
 
 /**
  *
@@ -723,10 +723,15 @@ export function DeviceDeviceFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function DeviceDeviceToJSON(value?: DeviceDevice | null): any {
+export function DeviceDeviceToJSON(json: any): DeviceDevice {
+    return DeviceDeviceToJSONTyped(json, false);
+}
+
+export function DeviceDeviceToJSONTyped(value?: DeviceDevice | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         agent_load_flags: value["agentLoadFlags"],
         agent_local_time: value["agentLocalTime"],

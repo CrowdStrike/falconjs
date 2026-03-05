@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ModelsAPIDetectionCount } from "./ModelsAPIDetectionCount";
-import { ModelsAPIDetectionCountFromJSON, ModelsAPIDetectionCountFromJSONTyped, ModelsAPIDetectionCountToJSON } from "./ModelsAPIDetectionCount";
+import { ModelsAPIDetectionCountFromJSON, ModelsAPIDetectionCountFromJSONTyped, ModelsAPIDetectionCountToJSON, ModelsAPIDetectionCountToJSONTyped } from "./ModelsAPIDetectionCount";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function DetectionsApiDetectionsCountFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function DetectionsApiDetectionsCountToJSON(value?: DetectionsApiDetectionsCount | null): any {
+export function DetectionsApiDetectionsCountToJSON(json: any): DetectionsApiDetectionsCount {
+    return DetectionsApiDetectionsCountToJSONTyped(json, false);
+}
+
+export function DetectionsApiDetectionsCountToJSONTyped(value?: DetectionsApiDetectionsCount | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

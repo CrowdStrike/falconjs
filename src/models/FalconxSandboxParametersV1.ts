@@ -131,10 +131,15 @@ export function FalconxSandboxParametersV1FromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function FalconxSandboxParametersV1ToJSON(value?: FalconxSandboxParametersV1 | null): any {
+export function FalconxSandboxParametersV1ToJSON(json: any): FalconxSandboxParametersV1 {
+    return FalconxSandboxParametersV1ToJSONTyped(json, false);
+}
+
+export function FalconxSandboxParametersV1ToJSONTyped(value?: FalconxSandboxParametersV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action_script: value["actionScript"],
         browser: value["browser"],

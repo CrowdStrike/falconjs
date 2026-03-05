@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DomainMultiStatusSensorResponse } from "./DomainMultiStatusSensorResponse";
-import { DomainMultiStatusSensorResponseFromJSON, DomainMultiStatusSensorResponseFromJSONTyped, DomainMultiStatusSensorResponseToJSON } from "./DomainMultiStatusSensorResponse";
+import {
+    DomainMultiStatusSensorResponseFromJSON,
+    DomainMultiStatusSensorResponseFromJSONTyped,
+    DomainMultiStatusSensorResponseToJSON,
+    DomainMultiStatusSensorResponseToJSONTyped,
+} from "./DomainMultiStatusSensorResponse";
 
 /**
  *
@@ -51,10 +56,15 @@ export function DomainMultiCommandExecuteResponseFromJSONTyped(json: any, ignore
     };
 }
 
-export function DomainMultiCommandExecuteResponseToJSON(value?: DomainMultiCommandExecuteResponse | null): any {
+export function DomainMultiCommandExecuteResponseToJSON(json: any): DomainMultiCommandExecuteResponse {
+    return DomainMultiCommandExecuteResponseToJSONTyped(json, false);
+}
+
+export function DomainMultiCommandExecuteResponseToJSONTyped(value?: DomainMultiCommandExecuteResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: mapValues(value["resources"], DomainMultiStatusSensorResponseToJSON),
     };

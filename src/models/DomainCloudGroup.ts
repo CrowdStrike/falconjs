@@ -75,10 +75,15 @@ export function DomainCloudGroupFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function DomainCloudGroupToJSON(value?: DomainCloudGroup | null): any {
+export function DomainCloudGroupToJSON(json: any): DomainCloudGroup {
+    return DomainCloudGroupToJSONTyped(json, false);
+}
+
+export function DomainCloudGroupToJSONTyped(value?: DomainCloudGroup | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         business_impact: value["businessImpact"],
         business_unit: value["businessUnit"],

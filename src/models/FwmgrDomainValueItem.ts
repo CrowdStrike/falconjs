@@ -56,10 +56,15 @@ export function FwmgrDomainValueItemFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function FwmgrDomainValueItemToJSON(value?: FwmgrDomainValueItem | null): any {
+export function FwmgrDomainValueItemToJSON(json: any): FwmgrDomainValueItem {
+    return FwmgrDomainValueItemToJSONTyped(json, false);
+}
+
+export function FwmgrDomainValueItemToJSONTyped(value?: FwmgrDomainValueItem | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         label: value["label"],
         value: value["value"],

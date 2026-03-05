@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { DomainChildLink } from "./DomainChildLink";
-import { DomainChildLinkFromJSON, DomainChildLinkFromJSONTyped, DomainChildLinkToJSON } from "./DomainChildLink";
+import { DomainChildLinkFromJSON, DomainChildLinkFromJSONTyped, DomainChildLinkToJSON, DomainChildLinkToJSONTyped } from "./DomainChildLink";
 import type { MsaReplyMetaOnly } from "./MsaReplyMetaOnly";
-import { MsaReplyMetaOnlyFromJSON, MsaReplyMetaOnlyFromJSONTyped, MsaReplyMetaOnlyToJSON } from "./MsaReplyMetaOnly";
+import { MsaReplyMetaOnlyFromJSON, MsaReplyMetaOnlyFromJSONTyped, MsaReplyMetaOnlyToJSON, MsaReplyMetaOnlyToJSONTyped } from "./MsaReplyMetaOnly";
 
 /**
  *
@@ -61,10 +61,15 @@ export function DomainChildrenResponseV1FromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function DomainChildrenResponseV1ToJSON(value?: DomainChildrenResponseV1 | null): any {
+export function DomainChildrenResponseV1ToJSON(json: any): DomainChildrenResponseV1 {
+    return DomainChildrenResponseV1ToJSONTyped(json, false);
+}
+
+export function DomainChildrenResponseV1ToJSONTyped(value?: DomainChildrenResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         MsaReplyMetaOnly: MsaReplyMetaOnlyToJSON(value["msaReplyMetaOnly"]),
         resources: (value["resources"] as Array<any>).map(DomainChildLinkToJSON),

@@ -61,10 +61,15 @@ export function FalconxUrlDataFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function FalconxUrlDataToJSON(value?: FalconxUrlData | null): any {
+export function FalconxUrlDataToJSON(json: any): FalconxUrlData {
+    return FalconxUrlDataToJSONTyped(json, false);
+}
+
+export function FalconxUrlDataToJSONTyped(value?: FalconxUrlData | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         type: value["type"],
         url: value["url"],

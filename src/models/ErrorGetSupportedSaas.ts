@@ -55,10 +55,15 @@ export function ErrorGetSupportedSaasFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function ErrorGetSupportedSaasToJSON(value?: ErrorGetSupportedSaas | null): any {
+export function ErrorGetSupportedSaasToJSON(json: any): ErrorGetSupportedSaas {
+    return ErrorGetSupportedSaasToJSONTyped(json, false);
+}
+
+export function ErrorGetSupportedSaasToJSONTyped(value?: ErrorGetSupportedSaas | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         message: value["message"],

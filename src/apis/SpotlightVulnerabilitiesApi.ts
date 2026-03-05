@@ -61,12 +61,9 @@ export interface SpotlightVulnerabilitiesApiQueryVulnerabilitiesRequest {
  */
 export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
     /**
-     * Search for Vulnerabilities in your environment by providing an FQL filter and paging details. Returns a set of Vulnerability entities which match the filter criteria
+     * Creates request options for combinedQueryVulnerabilities without sending the request
      */
-    async combinedQueryVulnerabilitiesRaw(
-        requestParameters: SpotlightVulnerabilitiesApiCombinedQueryVulnerabilitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainSPAPICombinedVulnerabilitiesResponse>> {
+    async combinedQueryVulnerabilitiesRequestOpts(requestParameters: SpotlightVulnerabilitiesApiCombinedQueryVulnerabilitiesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["filter"] == null) {
             throw new runtime.RequiredError("filter", 'Required parameter "filter" was null or undefined when calling combinedQueryVulnerabilities().');
         }
@@ -100,15 +97,25 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["spotlight-vulnerabilities:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/spotlight/combined/vulnerabilities/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/spotlight/combined/vulnerabilities/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for Vulnerabilities in your environment by providing an FQL filter and paging details. Returns a set of Vulnerability entities which match the filter criteria
+     */
+    async combinedQueryVulnerabilitiesRaw(
+        requestParameters: SpotlightVulnerabilitiesApiCombinedQueryVulnerabilitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainSPAPICombinedVulnerabilitiesResponse>> {
+        const requestOptions = await this.combinedQueryVulnerabilitiesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainSPAPICombinedVulnerabilitiesResponseFromJSON(jsonValue));
     }
@@ -129,12 +136,9 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get details on remediation by providing one or more IDs
+     * Creates request options for getRemediationsV2 without sending the request
      */
-    async getRemediationsV2Raw(
-        requestParameters: SpotlightVulnerabilitiesApiGetRemediationsV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainSPAPIRemediationEntitiesResponseV2>> {
+    async getRemediationsV2RequestOpts(requestParameters: SpotlightVulnerabilitiesApiGetRemediationsV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getRemediationsV2().');
         }
@@ -152,15 +156,25 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["spotlight-vulnerabilities:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/spotlight/entities/remediations/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/spotlight/entities/remediations/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get details on remediation by providing one or more IDs
+     */
+    async getRemediationsV2Raw(
+        requestParameters: SpotlightVulnerabilitiesApiGetRemediationsV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainSPAPIRemediationEntitiesResponseV2>> {
+        const requestOptions = await this.getRemediationsV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainSPAPIRemediationEntitiesResponseV2FromJSON(jsonValue));
     }
@@ -174,12 +188,9 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get details on vulnerabilities by providing one or more IDs
+     * Creates request options for getVulnerabilities without sending the request
      */
-    async getVulnerabilitiesRaw(
-        requestParameters: SpotlightVulnerabilitiesApiGetVulnerabilitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainSPAPIVulnerabilitiesEntitiesResponseV2>> {
+    async getVulnerabilitiesRequestOpts(requestParameters: SpotlightVulnerabilitiesApiGetVulnerabilitiesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getVulnerabilities().');
         }
@@ -197,15 +208,25 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["spotlight-vulnerabilities:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/spotlight/entities/vulnerabilities/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/spotlight/entities/vulnerabilities/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get details on vulnerabilities by providing one or more IDs
+     */
+    async getVulnerabilitiesRaw(
+        requestParameters: SpotlightVulnerabilitiesApiGetVulnerabilitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainSPAPIVulnerabilitiesEntitiesResponseV2>> {
+        const requestOptions = await this.getVulnerabilitiesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainSPAPIVulnerabilitiesEntitiesResponseV2FromJSON(jsonValue));
     }
@@ -219,12 +240,9 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for Vulnerabilities in your environment by providing an FQL filter and paging details. Returns a set of Vulnerability IDs which match the filter criteria
+     * Creates request options for queryVulnerabilities without sending the request
      */
-    async queryVulnerabilitiesRaw(
-        requestParameters: SpotlightVulnerabilitiesApiQueryVulnerabilitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainSPAPIQueryResponse>> {
+    async queryVulnerabilitiesRequestOpts(requestParameters: SpotlightVulnerabilitiesApiQueryVulnerabilitiesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["filter"] == null) {
             throw new runtime.RequiredError("filter", 'Required parameter "filter" was null or undefined when calling queryVulnerabilities().');
         }
@@ -254,15 +272,25 @@ export class SpotlightVulnerabilitiesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["spotlight-vulnerabilities:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/spotlight/queries/vulnerabilities/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/spotlight/queries/vulnerabilities/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for Vulnerabilities in your environment by providing an FQL filter and paging details. Returns a set of Vulnerability IDs which match the filter criteria
+     */
+    async queryVulnerabilitiesRaw(
+        requestParameters: SpotlightVulnerabilitiesApiQueryVulnerabilitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainSPAPIQueryResponse>> {
+        const requestOptions = await this.queryVulnerabilitiesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainSPAPIQueryResponseFromJSON(jsonValue));
     }

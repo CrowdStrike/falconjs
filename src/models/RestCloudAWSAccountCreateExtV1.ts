@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { RestAccountProductRequestExtV1 } from "./RestAccountProductRequestExtV1";
-import { RestAccountProductRequestExtV1FromJSON, RestAccountProductRequestExtV1FromJSONTyped, RestAccountProductRequestExtV1ToJSON } from "./RestAccountProductRequestExtV1";
+import {
+    RestAccountProductRequestExtV1FromJSON,
+    RestAccountProductRequestExtV1FromJSONTyped,
+    RestAccountProductRequestExtV1ToJSON,
+    RestAccountProductRequestExtV1ToJSONTyped,
+} from "./RestAccountProductRequestExtV1";
 
 /**
  *
@@ -240,10 +245,15 @@ export function RestCloudAWSAccountCreateExtV1FromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function RestCloudAWSAccountCreateExtV1ToJSON(value?: RestCloudAWSAccountCreateExtV1 | null): any {
+export function RestCloudAWSAccountCreateExtV1ToJSON(json: any): RestCloudAWSAccountCreateExtV1 {
+    return RestCloudAWSAccountCreateExtV1ToJSONTyped(json, false);
+}
+
+export function RestCloudAWSAccountCreateExtV1ToJSONTyped(value?: RestCloudAWSAccountCreateExtV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         account_type: value["accountType"],

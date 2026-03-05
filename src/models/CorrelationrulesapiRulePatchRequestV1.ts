@@ -18,20 +18,28 @@ import {
     CorrelationrulesapiPatchRuleNotificationsV1FromJSON,
     CorrelationrulesapiPatchRuleNotificationsV1FromJSONTyped,
     CorrelationrulesapiPatchRuleNotificationsV1ToJSON,
+    CorrelationrulesapiPatchRuleNotificationsV1ToJSONTyped,
 } from "./CorrelationrulesapiPatchRuleNotificationsV1";
 import type { CorrelationrulesapiPatchRuleSearchV1 } from "./CorrelationrulesapiPatchRuleSearchV1";
-import { CorrelationrulesapiPatchRuleSearchV1FromJSON, CorrelationrulesapiPatchRuleSearchV1FromJSONTyped, CorrelationrulesapiPatchRuleSearchV1ToJSON } from "./CorrelationrulesapiPatchRuleSearchV1";
+import {
+    CorrelationrulesapiPatchRuleSearchV1FromJSON,
+    CorrelationrulesapiPatchRuleSearchV1FromJSONTyped,
+    CorrelationrulesapiPatchRuleSearchV1ToJSON,
+    CorrelationrulesapiPatchRuleSearchV1ToJSONTyped,
+} from "./CorrelationrulesapiPatchRuleSearchV1";
 import type { CorrelationrulesapiMitreAttackMappingV1 } from "./CorrelationrulesapiMitreAttackMappingV1";
 import {
     CorrelationrulesapiMitreAttackMappingV1FromJSON,
     CorrelationrulesapiMitreAttackMappingV1FromJSONTyped,
     CorrelationrulesapiMitreAttackMappingV1ToJSON,
+    CorrelationrulesapiMitreAttackMappingV1ToJSONTyped,
 } from "./CorrelationrulesapiMitreAttackMappingV1";
 import type { CorrelationrulesapiPatchRuleOperationV1 } from "./CorrelationrulesapiPatchRuleOperationV1";
 import {
     CorrelationrulesapiPatchRuleOperationV1FromJSON,
     CorrelationrulesapiPatchRuleOperationV1FromJSONTyped,
     CorrelationrulesapiPatchRuleOperationV1ToJSON,
+    CorrelationrulesapiPatchRuleOperationV1ToJSONTyped,
 } from "./CorrelationrulesapiPatchRuleOperationV1";
 
 /**
@@ -160,10 +168,15 @@ export function CorrelationrulesapiRulePatchRequestV1FromJSONTyped(json: any, ig
     };
 }
 
-export function CorrelationrulesapiRulePatchRequestV1ToJSON(value?: CorrelationrulesapiRulePatchRequestV1 | null): any {
+export function CorrelationrulesapiRulePatchRequestV1ToJSON(json: any): CorrelationrulesapiRulePatchRequestV1 {
+    return CorrelationrulesapiRulePatchRequestV1ToJSONTyped(json, false);
+}
+
+export function CorrelationrulesapiRulePatchRequestV1ToJSONTyped(value?: CorrelationrulesapiRulePatchRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         comment: value["comment"],
         description: value["description"],

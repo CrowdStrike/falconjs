@@ -56,10 +56,15 @@ export function PoliciesAssignedRuleGroupFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function PoliciesAssignedRuleGroupToJSON(value?: PoliciesAssignedRuleGroup | null): any {
+export function PoliciesAssignedRuleGroupToJSON(json: any): PoliciesAssignedRuleGroup {
+    return PoliciesAssignedRuleGroupToJSONTyped(json, false);
+}
+
+export function PoliciesAssignedRuleGroupToJSONTyped(value?: PoliciesAssignedRuleGroup | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         href: value["href"],
         id: value["id"],

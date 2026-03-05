@@ -50,12 +50,9 @@ export interface IdentityProtectionApiApiPreemptProxyPostPolicyRulesRequest {
  */
 export class IdentityProtectionApi extends runtime.BaseAPI {
     /**
-     * Delete policy rules
+     * Creates request options for apiPreemptProxyDeletePolicyRules without sending the request
      */
-    async apiPreemptProxyDeletePolicyRulesRaw(
-        requestParameters: IdentityProtectionApiApiPreemptProxyDeletePolicyRulesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<void>> {
+    async apiPreemptProxyDeletePolicyRulesRequestOpts(requestParameters: IdentityProtectionApiApiPreemptProxyDeletePolicyRulesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling apiPreemptProxyDeletePolicyRules().');
         }
@@ -73,15 +70,25 @@ export class IdentityProtectionApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["identity-policy-rules:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/identity-protection/entities/policy-rules/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/identity-protection/entities/policy-rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete policy rules
+     */
+    async apiPreemptProxyDeletePolicyRulesRaw(
+        requestParameters: IdentityProtectionApiApiPreemptProxyDeletePolicyRulesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.apiPreemptProxyDeletePolicyRulesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -94,12 +101,9 @@ export class IdentityProtectionApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get policy rules
+     * Creates request options for apiPreemptProxyGetPolicyRules without sending the request
      */
-    async apiPreemptProxyGetPolicyRulesRaw(
-        requestParameters: IdentityProtectionApiApiPreemptProxyGetPolicyRulesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<void>> {
+    async apiPreemptProxyGetPolicyRulesRequestOpts(requestParameters: IdentityProtectionApiApiPreemptProxyGetPolicyRulesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling apiPreemptProxyGetPolicyRules().');
         }
@@ -117,15 +121,25 @@ export class IdentityProtectionApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["identity-policy-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/identity-protection/entities/policy-rules/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/identity-protection/entities/policy-rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get policy rules
+     */
+    async apiPreemptProxyGetPolicyRulesRaw(
+        requestParameters: IdentityProtectionApiApiPreemptProxyGetPolicyRulesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.apiPreemptProxyGetPolicyRulesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -138,12 +152,9 @@ export class IdentityProtectionApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query policy rule IDs
+     * Creates request options for apiPreemptProxyGetPolicyRulesQuery without sending the request
      */
-    async apiPreemptProxyGetPolicyRulesQueryRaw(
-        requestParameters: IdentityProtectionApiApiPreemptProxyGetPolicyRulesQueryRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<void>> {
+    async apiPreemptProxyGetPolicyRulesQueryRequestOpts(requestParameters: IdentityProtectionApiApiPreemptProxyGetPolicyRulesQueryRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["enabled"] != null) {
@@ -165,15 +176,25 @@ export class IdentityProtectionApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["identity-policy-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/identity-protection/queries/policy-rules/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/identity-protection/queries/policy-rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query policy rule IDs
+     */
+    async apiPreemptProxyGetPolicyRulesQueryRaw(
+        requestParameters: IdentityProtectionApiApiPreemptProxyGetPolicyRulesQueryRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.apiPreemptProxyGetPolicyRulesQueryRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -186,12 +207,9 @@ export class IdentityProtectionApi extends runtime.BaseAPI {
     }
 
     /**
-     * Identity Protection GraphQL API. Allows to retrieve entities, timeline activities, identity-based incidents and security assessment. Allows to perform actions on entities and identity-based incidents.
+     * Creates request options for apiPreemptProxyPostGraphql without sending the request
      */
-    async apiPreemptProxyPostGraphqlRaw(
-        requestParameters: IdentityProtectionApiApiPreemptProxyPostGraphqlRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<void>> {
+    async apiPreemptProxyPostGraphqlRequestOpts(requestParameters: IdentityProtectionApiApiPreemptProxyPostGraphqlRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling apiPreemptProxyPostGraphql().');
         }
@@ -207,16 +225,26 @@ export class IdentityProtectionApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["identity-graphql:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/identity-protection/combined/graphql/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: SwaggerGraphQLQueryToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/identity-protection/combined/graphql/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: SwaggerGraphQLQueryToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Identity Protection GraphQL API. Allows to retrieve entities, timeline activities, identity-based incidents and security assessment. Allows to perform actions on entities and identity-based incidents.
+     */
+    async apiPreemptProxyPostGraphqlRaw(
+        requestParameters: IdentityProtectionApiApiPreemptProxyPostGraphqlRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.apiPreemptProxyPostGraphqlRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -229,12 +257,9 @@ export class IdentityProtectionApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create policy rule
+     * Creates request options for apiPreemptProxyPostPolicyRules without sending the request
      */
-    async apiPreemptProxyPostPolicyRulesRaw(
-        requestParameters: IdentityProtectionApiApiPreemptProxyPostPolicyRulesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<void>> {
+    async apiPreemptProxyPostPolicyRulesRequestOpts(requestParameters: IdentityProtectionApiApiPreemptProxyPostPolicyRulesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling apiPreemptProxyPostPolicyRules().');
         }
@@ -250,16 +275,26 @@ export class IdentityProtectionApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["identity-policy-rules:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/identity-protection/entities/policy-rules/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: TypesPolicyRulesCreateBodyToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/identity-protection/entities/policy-rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: TypesPolicyRulesCreateBodyToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create policy rule
+     */
+    async apiPreemptProxyPostPolicyRulesRaw(
+        requestParameters: IdentityProtectionApiApiPreemptProxyPostPolicyRulesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.apiPreemptProxyPostPolicyRulesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }

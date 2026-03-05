@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainExclusionsSearch } from "./DomainExclusionsSearch";
-import { DomainExclusionsSearchFromJSON, DomainExclusionsSearchFromJSONTyped, DomainExclusionsSearchToJSON } from "./DomainExclusionsSearch";
+import { DomainExclusionsSearchFromJSON, DomainExclusionsSearchFromJSONTyped, DomainExclusionsSearchToJSON, DomainExclusionsSearchToJSONTyped } from "./DomainExclusionsSearch";
 
 /**
  *
@@ -59,10 +59,15 @@ export function DomainExclusionsReportRequestFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function DomainExclusionsReportRequestToJSON(value?: DomainExclusionsReportRequest | null): any {
+export function DomainExclusionsReportRequestToJSON(json: any): DomainExclusionsReportRequest {
+    return DomainExclusionsReportRequestToJSONTyped(json, false);
+}
+
+export function DomainExclusionsReportRequestToJSONTyped(value?: DomainExclusionsReportRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         report_format: value["reportFormat"],
         search: DomainExclusionsSearchToJSON(value["search"]),

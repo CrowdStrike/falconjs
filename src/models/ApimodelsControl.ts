@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApimodelsSecurityFramework } from "./ApimodelsSecurityFramework";
-import { ApimodelsSecurityFrameworkFromJSON, ApimodelsSecurityFrameworkFromJSONTyped, ApimodelsSecurityFrameworkToJSON } from "./ApimodelsSecurityFramework";
+import { ApimodelsSecurityFrameworkFromJSON, ApimodelsSecurityFrameworkFromJSONTyped, ApimodelsSecurityFrameworkToJSON, ApimodelsSecurityFrameworkToJSONTyped } from "./ApimodelsSecurityFramework";
 
 /**
  *
@@ -132,10 +132,15 @@ export function ApimodelsControlFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function ApimodelsControlToJSON(value?: ApimodelsControl | null): any {
+export function ApimodelsControlToJSON(json: any): ApimodelsControl {
+    return ApimodelsControlToJSONTyped(json, false);
+}
+
+export function ApimodelsControlToJSONTyped(value?: ApimodelsControl | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         applicable_profiles: value["applicableProfiles"],
         authority: value["authority"],

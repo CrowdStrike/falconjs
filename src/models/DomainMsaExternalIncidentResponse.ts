@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainIncident } from "./DomainIncident";
-import { DomainIncidentFromJSON, DomainIncidentFromJSONTyped, DomainIncidentToJSON } from "./DomainIncident";
+import { DomainIncidentFromJSON, DomainIncidentFromJSONTyped, DomainIncidentToJSON, DomainIncidentToJSONTyped } from "./DomainIncident";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainMsaExternalIncidentResponseFromJSONTyped(json: any, ignore
     };
 }
 
-export function DomainMsaExternalIncidentResponseToJSON(value?: DomainMsaExternalIncidentResponse | null): any {
+export function DomainMsaExternalIncidentResponseToJSON(json: any): DomainMsaExternalIncidentResponse {
+    return DomainMsaExternalIncidentResponseToJSONTyped(json, false);
+}
+
+export function DomainMsaExternalIncidentResponseToJSONTyped(value?: DomainMsaExternalIncidentResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { DomainReconAPIError } from "./DomainReconAPIError";
-import { DomainReconAPIErrorFromJSON, DomainReconAPIErrorFromJSONTyped, DomainReconAPIErrorToJSON } from "./DomainReconAPIError";
+import { DomainReconAPIErrorFromJSON, DomainReconAPIErrorFromJSONTyped, DomainReconAPIErrorToJSON, DomainReconAPIErrorToJSONTyped } from "./DomainReconAPIError";
 import type { DomainActionV1 } from "./DomainActionV1";
-import { DomainActionV1FromJSON, DomainActionV1FromJSONTyped, DomainActionV1ToJSON } from "./DomainActionV1";
+import { DomainActionV1FromJSON, DomainActionV1FromJSONTyped, DomainActionV1ToJSON, DomainActionV1ToJSONTyped } from "./DomainActionV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainActionEntitiesResponseV1FromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function DomainActionEntitiesResponseV1ToJSON(value?: DomainActionEntitiesResponseV1 | null): any {
+export function DomainActionEntitiesResponseV1ToJSON(json: any): DomainActionEntitiesResponseV1 {
+    return DomainActionEntitiesResponseV1ToJSONTyped(json, false);
+}
+
+export function DomainActionEntitiesResponseV1ToJSONTyped(value?: DomainActionEntitiesResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(DomainReconAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

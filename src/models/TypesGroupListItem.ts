@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { TypesGroupMinDetailsWithParent } from "./TypesGroupMinDetailsWithParent";
-import { TypesGroupMinDetailsWithParentFromJSON, TypesGroupMinDetailsWithParentFromJSONTyped, TypesGroupMinDetailsWithParentToJSON } from "./TypesGroupMinDetailsWithParent";
+import {
+    TypesGroupMinDetailsWithParentFromJSON,
+    TypesGroupMinDetailsWithParentFromJSONTyped,
+    TypesGroupMinDetailsWithParentToJSON,
+    TypesGroupMinDetailsWithParentToJSONTyped,
+} from "./TypesGroupMinDetailsWithParent";
 
 /**
  *
@@ -92,10 +97,15 @@ export function TypesGroupListItemFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function TypesGroupListItemToJSON(value?: TypesGroupListItem | null): any {
+export function TypesGroupListItemToJSON(json: any): TypesGroupListItem {
+    return TypesGroupListItemToJSONTyped(json, false);
+}
+
+export function TypesGroupListItemToJSONTyped(value?: TypesGroupListItem | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         createdBy: value["createdBy"],
         groupId: value["groupId"],

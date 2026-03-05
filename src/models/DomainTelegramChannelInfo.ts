@@ -54,10 +54,15 @@ export function DomainTelegramChannelInfoFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DomainTelegramChannelInfoToJSON(value?: DomainTelegramChannelInfo | null): any {
+export function DomainTelegramChannelInfoToJSON(json: any): DomainTelegramChannelInfo {
+    return DomainTelegramChannelInfoToJSONTyped(json, false);
+}
+
+export function DomainTelegramChannelInfoToJSONTyped(value?: DomainTelegramChannelInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         title: value["title"],
         url: value["url"],

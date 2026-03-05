@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { FalconxMalqueryErrorV1 } from "./FalconxMalqueryErrorV1";
-import { FalconxMalqueryErrorV1FromJSON, FalconxMalqueryErrorV1FromJSONTyped, FalconxMalqueryErrorV1ToJSON } from "./FalconxMalqueryErrorV1";
+import { FalconxMalqueryErrorV1FromJSON, FalconxMalqueryErrorV1FromJSONTyped, FalconxMalqueryErrorV1ToJSON, FalconxMalqueryErrorV1ToJSONTyped } from "./FalconxMalqueryErrorV1";
 import type { FalconxMalqueryResource } from "./FalconxMalqueryResource";
-import { FalconxMalqueryResourceFromJSON, FalconxMalqueryResourceFromJSONTyped, FalconxMalqueryResourceToJSON } from "./FalconxMalqueryResource";
+import { FalconxMalqueryResourceFromJSON, FalconxMalqueryResourceFromJSONTyped, FalconxMalqueryResourceToJSON, FalconxMalqueryResourceToJSONTyped } from "./FalconxMalqueryResource";
 
 /**
  *
@@ -80,10 +80,15 @@ export function FalconxMalqueryReportV1FromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function FalconxMalqueryReportV1ToJSON(value?: FalconxMalqueryReportV1 | null): any {
+export function FalconxMalqueryReportV1ToJSON(json: any): FalconxMalqueryReportV1 {
+    return FalconxMalqueryReportV1ToJSONTyped(json, false);
+}
+
+export function FalconxMalqueryReportV1ToJSONTyped(value?: FalconxMalqueryReportV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(FalconxMalqueryErrorV1ToJSON),
         input: value["input"],

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ModelsAPIFilterResponse } from "./ModelsAPIFilterResponse";
-import { ModelsAPIFilterResponseFromJSON, ModelsAPIFilterResponseFromJSONTyped, ModelsAPIFilterResponseToJSON } from "./ModelsAPIFilterResponse";
+import { ModelsAPIFilterResponseFromJSON, ModelsAPIFilterResponseFromJSONTyped, ModelsAPIFilterResponseToJSON, ModelsAPIFilterResponseToJSONTyped } from "./ModelsAPIFilterResponse";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function DriftindicatorsDriftIndicatorsFieldValueFromJSONTyped(json: any,
     };
 }
 
-export function DriftindicatorsDriftIndicatorsFieldValueToJSON(value?: DriftindicatorsDriftIndicatorsFieldValue | null): any {
+export function DriftindicatorsDriftIndicatorsFieldValueToJSON(json: any): DriftindicatorsDriftIndicatorsFieldValue {
+    return DriftindicatorsDriftIndicatorsFieldValueToJSONTyped(json, false);
+}
+
+export function DriftindicatorsDriftIndicatorsFieldValueToJSONTyped(value?: DriftindicatorsDriftIndicatorsFieldValue | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

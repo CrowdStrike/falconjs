@@ -69,10 +69,15 @@ export function DataconnectionmanagementConnectionStatusFromJSONTyped(json: any,
     };
 }
 
-export function DataconnectionmanagementConnectionStatusToJSON(value?: DataconnectionmanagementConnectionStatus | null): any {
+export function DataconnectionmanagementConnectionStatusToJSON(json: any): DataconnectionmanagementConnectionStatus {
+    return DataconnectionmanagementConnectionStatusToJSONTyped(json, false);
+}
+
+export function DataconnectionmanagementConnectionStatusToJSONTyped(value?: DataconnectionmanagementConnectionStatus | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         last_ingested_ts: value["lastIngestedTs"],

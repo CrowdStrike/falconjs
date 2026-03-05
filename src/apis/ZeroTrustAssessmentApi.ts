@@ -41,12 +41,9 @@ export interface ZeroTrustAssessmentApiGetAssessmentsByScoreV1Request {
  */
 export class ZeroTrustAssessmentApi extends runtime.BaseAPI {
     /**
-     * Get Zero Trust Assessment data for one or more hosts by providing agent IDs (AID) and a customer ID (CID).
+     * Creates request options for getAssessmentV1 without sending the request
      */
-    async getAssessmentV1Raw(
-        requestParameters: ZeroTrustAssessmentApiGetAssessmentV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainAssessmentsResponse>> {
+    async getAssessmentV1RequestOpts(requestParameters: ZeroTrustAssessmentApiGetAssessmentV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getAssessmentV1().');
         }
@@ -64,15 +61,25 @@ export class ZeroTrustAssessmentApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["zero-trust-assessment:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/zero-trust-assessment/entities/assessments/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/zero-trust-assessment/entities/assessments/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get Zero Trust Assessment data for one or more hosts by providing agent IDs (AID) and a customer ID (CID).
+     */
+    async getAssessmentV1Raw(
+        requestParameters: ZeroTrustAssessmentApiGetAssessmentV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainAssessmentsResponse>> {
+        const requestOptions = await this.getAssessmentV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAssessmentsResponseFromJSON(jsonValue));
     }
@@ -86,12 +93,9 @@ export class ZeroTrustAssessmentApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Zero Trust Assessment data for one or more hosts by providing a customer ID (CID) and a range of scores.
+     * Creates request options for getAssessmentsByScoreV1 without sending the request
      */
-    async getAssessmentsByScoreV1Raw(
-        requestParameters: ZeroTrustAssessmentApiGetAssessmentsByScoreV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainAssessmentsByScoreResponse>> {
+    async getAssessmentsByScoreV1RequestOpts(requestParameters: ZeroTrustAssessmentApiGetAssessmentsByScoreV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["filter"] == null) {
             throw new runtime.RequiredError("filter", 'Required parameter "filter" was null or undefined when calling getAssessmentsByScoreV1().');
         }
@@ -121,15 +125,25 @@ export class ZeroTrustAssessmentApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["zero-trust-assessment:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/zero-trust-assessment/queries/assessments/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/zero-trust-assessment/queries/assessments/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get Zero Trust Assessment data for one or more hosts by providing a customer ID (CID) and a range of scores.
+     */
+    async getAssessmentsByScoreV1Raw(
+        requestParameters: ZeroTrustAssessmentApiGetAssessmentsByScoreV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainAssessmentsByScoreResponse>> {
+        const requestOptions = await this.getAssessmentsByScoreV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAssessmentsByScoreResponseFromJSON(jsonValue));
     }
@@ -149,9 +163,9 @@ export class ZeroTrustAssessmentApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the Zero Trust Assessment audit report for one customer ID (CID).
+     * Creates request options for getAuditV1 without sending the request
      */
-    async getAuditV1Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainAuditResponse>> {
+    async getAuditV1RequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -161,15 +175,22 @@ export class ZeroTrustAssessmentApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["zero-trust-assessment:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/zero-trust-assessment/entities/audit/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/zero-trust-assessment/entities/audit/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get the Zero Trust Assessment audit report for one customer ID (CID).
+     */
+    async getAuditV1Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainAuditResponse>> {
+        const requestOptions = await this.getAuditV1RequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAuditResponseFromJSON(jsonValue));
     }

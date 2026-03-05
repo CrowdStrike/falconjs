@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ParameterTriggerFieldParameter } from "./ParameterTriggerFieldParameter";
-import { ParameterTriggerFieldParameterFromJSON, ParameterTriggerFieldParameterFromJSONTyped, ParameterTriggerFieldParameterToJSON } from "./ParameterTriggerFieldParameter";
+import {
+    ParameterTriggerFieldParameterFromJSON,
+    ParameterTriggerFieldParameterFromJSONTyped,
+    ParameterTriggerFieldParameterToJSON,
+    ParameterTriggerFieldParameterToJSONTyped,
+} from "./ParameterTriggerFieldParameter";
 
 /**
  *
@@ -59,10 +64,15 @@ export function ParameterTriggerParameterFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ParameterTriggerParameterToJSON(value?: ParameterTriggerParameter | null): any {
+export function ParameterTriggerParameterToJSON(json: any): ParameterTriggerParameter {
+    return ParameterTriggerParameterToJSONTyped(json, false);
+}
+
+export function ParameterTriggerParameterToJSONTyped(value?: ParameterTriggerParameter | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         fields: mapValues(value["fields"], ParameterTriggerFieldParameterToJSON),
         node_id: value["nodeId"],

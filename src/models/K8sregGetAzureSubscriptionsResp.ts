@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { K8sregAzureSubscriptionResp } from "./K8sregAzureSubscriptionResp";
-import { K8sregAzureSubscriptionRespFromJSON, K8sregAzureSubscriptionRespFromJSONTyped, K8sregAzureSubscriptionRespToJSON } from "./K8sregAzureSubscriptionResp";
+import {
+    K8sregAzureSubscriptionRespFromJSON,
+    K8sregAzureSubscriptionRespFromJSONTyped,
+    K8sregAzureSubscriptionRespToJSON,
+    K8sregAzureSubscriptionRespToJSONTyped,
+} from "./K8sregAzureSubscriptionResp";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +76,15 @@ export function K8sregGetAzureSubscriptionsRespFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function K8sregGetAzureSubscriptionsRespToJSON(value?: K8sregGetAzureSubscriptionsResp | null): any {
+export function K8sregGetAzureSubscriptionsRespToJSON(json: any): K8sregGetAzureSubscriptionsResp {
+    return K8sregGetAzureSubscriptionsRespToJSONTyped(json, false);
+}
+
+export function K8sregGetAzureSubscriptionsRespToJSONTyped(value?: K8sregGetAzureSubscriptionsResp | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

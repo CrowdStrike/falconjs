@@ -56,10 +56,15 @@ export function MalqueryUserRequestCountFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function MalqueryUserRequestCountToJSON(value?: MalqueryUserRequestCount | null): any {
+export function MalqueryUserRequestCountToJSON(json: any): MalqueryUserRequestCount {
+    return MalqueryUserRequestCountToJSONTyped(json, false);
+}
+
+export function MalqueryUserRequestCountToJSONTyped(value?: MalqueryUserRequestCount | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         counter: value["counter"],
         userid: value["userid"],

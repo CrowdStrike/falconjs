@@ -39,12 +39,9 @@ export interface Oauth2ApiOauth2RevokeTokenRequest {
  */
 export class Oauth2Api extends runtime.BaseAPI {
     /**
-     * Generate an OAuth2 access token
+     * Creates request options for oauth2AccessToken without sending the request
      */
-    async oauth2AccessTokenRaw(
-        requestParameters: Oauth2ApiOauth2AccessTokenRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainAccessTokenResponseV1>> {
+    async oauth2AccessTokenRequestOpts(requestParameters: Oauth2ApiOauth2AccessTokenRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["clientId"] == null) {
             throw new runtime.RequiredError("clientId", 'Required parameter "clientId" was null or undefined when calling oauth2AccessToken().');
         }
@@ -81,16 +78,26 @@ export class Oauth2Api extends runtime.BaseAPI {
             formParams.append("member_cid", requestParameters["memberCid"] as any);
         }
 
-        const response = await this.request(
-            {
-                path: `/oauth2/token`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: formParams,
-            },
-            initOverrides,
-        );
+        let urlPath = `/oauth2/token`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        };
+    }
+
+    /**
+     * Generate an OAuth2 access token
+     */
+    async oauth2AccessTokenRaw(
+        requestParameters: Oauth2ApiOauth2AccessTokenRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainAccessTokenResponseV1>> {
+        const requestOptions = await this.oauth2AccessTokenRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAccessTokenResponseV1FromJSON(jsonValue));
     }
@@ -104,9 +111,9 @@ export class Oauth2Api extends runtime.BaseAPI {
     }
 
     /**
-     * Revoke a previously issued OAuth2 access token before the end of its standard 30-minute lifespan.
+     * Creates request options for oauth2RevokeToken without sending the request
      */
-    async oauth2RevokeTokenRaw(requestParameters: Oauth2ApiOauth2RevokeTokenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
+    async oauth2RevokeTokenRequestOpts(requestParameters: Oauth2ApiOauth2RevokeTokenRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["token"] == null) {
             throw new runtime.RequiredError("token", 'Required parameter "token" was null or undefined when calling oauth2RevokeToken().');
         }
@@ -135,16 +142,23 @@ export class Oauth2Api extends runtime.BaseAPI {
             formParams.append("token", requestParameters["token"] as any);
         }
 
-        const response = await this.request(
-            {
-                path: `/oauth2/revoke`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: formParams,
-            },
-            initOverrides,
-        );
+        let urlPath = `/oauth2/revoke`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        };
+    }
+
+    /**
+     * Revoke a previously issued OAuth2 access token before the end of its standard 30-minute lifespan.
+     */
+    async oauth2RevokeTokenRaw(requestParameters: Oauth2ApiOauth2RevokeTokenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
+        const requestOptions = await this.oauth2RevokeTokenRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecResponseFieldsFromJSON(jsonValue));
     }

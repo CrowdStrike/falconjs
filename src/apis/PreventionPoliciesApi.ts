@@ -105,12 +105,9 @@ export interface PreventionPoliciesApiUpdatePreventionPoliciesRequest {
  */
 export class PreventionPoliciesApi extends runtime.BaseAPI {
     /**
-     * Create Prevention Policies by specifying details about the policy to create
+     * Creates request options for createPreventionPolicies without sending the request
      */
-    async createPreventionPoliciesRaw(
-        requestParameters: PreventionPoliciesApiCreatePreventionPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<PreventionRespV1>> {
+    async createPreventionPoliciesRequestOpts(requestParameters: PreventionPoliciesApiCreatePreventionPoliciesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createPreventionPolicies().');
         }
@@ -126,16 +123,26 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["prevention-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/prevention/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: PreventionCreatePoliciesReqV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/prevention/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: PreventionCreatePoliciesReqV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create Prevention Policies by specifying details about the policy to create
+     */
+    async createPreventionPoliciesRaw(
+        requestParameters: PreventionPoliciesApiCreatePreventionPoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PreventionRespV1>> {
+        const requestOptions = await this.createPreventionPoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PreventionRespV1FromJSON(jsonValue));
     }
@@ -149,12 +156,9 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete a set of Prevention Policies by specifying their IDs
+     * Creates request options for deletePreventionPolicies without sending the request
      */
-    async deletePreventionPoliciesRaw(
-        requestParameters: PreventionPoliciesApiDeletePreventionPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async deletePreventionPoliciesRequestOpts(requestParameters: PreventionPoliciesApiDeletePreventionPoliciesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deletePreventionPolicies().');
         }
@@ -172,15 +176,25 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["prevention-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/prevention/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/prevention/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a set of Prevention Policies by specifying their IDs
+     */
+    async deletePreventionPoliciesRaw(
+        requestParameters: PreventionPoliciesApiDeletePreventionPoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.deletePreventionPoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -194,12 +208,9 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve a set of Prevention Policies by specifying their IDs
+     * Creates request options for getPreventionPolicies without sending the request
      */
-    async getPreventionPoliciesRaw(
-        requestParameters: PreventionPoliciesApiGetPreventionPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<PreventionRespV1>> {
+    async getPreventionPoliciesRequestOpts(requestParameters: PreventionPoliciesApiGetPreventionPoliciesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getPreventionPolicies().');
         }
@@ -217,15 +228,25 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["prevention-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/prevention/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/prevention/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve a set of Prevention Policies by specifying their IDs
+     */
+    async getPreventionPoliciesRaw(
+        requestParameters: PreventionPoliciesApiGetPreventionPoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PreventionRespV1>> {
+        const requestOptions = await this.getPreventionPoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PreventionRespV1FromJSON(jsonValue));
     }
@@ -239,12 +260,9 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Perform the specified action on the Prevention Policies specified in the request
+     * Creates request options for performPreventionPoliciesAction without sending the request
      */
-    async performPreventionPoliciesActionRaw(
-        requestParameters: PreventionPoliciesApiPerformPreventionPoliciesActionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<PreventionRespV1>> {
+    async performPreventionPoliciesActionRequestOpts(requestParameters: PreventionPoliciesApiPerformPreventionPoliciesActionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["actionName"] == null) {
             throw new runtime.RequiredError("actionName", 'Required parameter "actionName" was null or undefined when calling performPreventionPoliciesAction().');
         }
@@ -268,16 +286,26 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["prevention-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/prevention-actions/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaEntityActionRequestV2ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/prevention-actions/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaEntityActionRequestV2ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Perform the specified action on the Prevention Policies specified in the request
+     */
+    async performPreventionPoliciesActionRaw(
+        requestParameters: PreventionPoliciesApiPerformPreventionPoliciesActionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PreventionRespV1>> {
+        const requestOptions = await this.performPreventionPoliciesActionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PreventionRespV1FromJSON(jsonValue));
     }
@@ -295,12 +323,9 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for Prevention Policies in your environment by providing an FQL filter and paging details. Returns a set of Prevention Policies which match the filter criteria
+     * Creates request options for queryCombinedPreventionPolicies without sending the request
      */
-    async queryCombinedPreventionPoliciesRaw(
-        requestParameters: PreventionPoliciesApiQueryCombinedPreventionPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<PreventionRespV1>> {
+    async queryCombinedPreventionPoliciesRequestOpts(requestParameters: PreventionPoliciesApiQueryCombinedPreventionPoliciesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -326,15 +351,25 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["prevention-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/combined/prevention/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/combined/prevention/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for Prevention Policies in your environment by providing an FQL filter and paging details. Returns a set of Prevention Policies which match the filter criteria
+     */
+    async queryCombinedPreventionPoliciesRaw(
+        requestParameters: PreventionPoliciesApiQueryCombinedPreventionPoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PreventionRespV1>> {
+        const requestOptions = await this.queryCombinedPreventionPoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PreventionRespV1FromJSON(jsonValue));
     }
@@ -354,12 +389,9 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for members of a Prevention Policy in your environment by providing an FQL filter and paging details. Returns a set of host details which match the filter criteria
+     * Creates request options for queryCombinedPreventionPolicyMembers without sending the request
      */
-    async queryCombinedPreventionPolicyMembersRaw(
-        requestParameters: PreventionPoliciesApiQueryCombinedPreventionPolicyMembersRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<BasePolicyMembersRespV1>> {
+    async queryCombinedPreventionPolicyMembersRequestOpts(requestParameters: PreventionPoliciesApiQueryCombinedPreventionPolicyMembersRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["id"] != null) {
@@ -389,15 +421,25 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["prevention-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/combined/prevention-members/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/combined/prevention-members/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for members of a Prevention Policy in your environment by providing an FQL filter and paging details. Returns a set of host details which match the filter criteria
+     */
+    async queryCombinedPreventionPolicyMembersRaw(
+        requestParameters: PreventionPoliciesApiQueryCombinedPreventionPolicyMembersRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<BasePolicyMembersRespV1>> {
+        const requestOptions = await this.queryCombinedPreventionPolicyMembersRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => BasePolicyMembersRespV1FromJSON(jsonValue));
     }
@@ -418,12 +460,9 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for Prevention Policies in your environment by providing an FQL filter and paging details. Returns a set of Prevention Policy IDs which match the filter criteria
+     * Creates request options for queryPreventionPolicies without sending the request
      */
-    async queryPreventionPoliciesRaw(
-        requestParameters: PreventionPoliciesApiQueryPreventionPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryPreventionPoliciesRequestOpts(requestParameters: PreventionPoliciesApiQueryPreventionPoliciesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -449,15 +488,25 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["prevention-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/queries/prevention/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/queries/prevention/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for Prevention Policies in your environment by providing an FQL filter and paging details. Returns a set of Prevention Policy IDs which match the filter criteria
+     */
+    async queryPreventionPoliciesRaw(
+        requestParameters: PreventionPoliciesApiQueryPreventionPoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.queryPreventionPoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -477,12 +526,9 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for members of a Prevention Policy in your environment by providing an FQL filter and paging details. Returns a set of Agent IDs which match the filter criteria
+     * Creates request options for queryPreventionPolicyMembers without sending the request
      */
-    async queryPreventionPolicyMembersRaw(
-        requestParameters: PreventionPoliciesApiQueryPreventionPolicyMembersRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryPreventionPolicyMembersRequestOpts(requestParameters: PreventionPoliciesApiQueryPreventionPolicyMembersRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["id"] != null) {
@@ -512,15 +558,25 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["prevention-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/queries/prevention-members/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/queries/prevention-members/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for members of a Prevention Policy in your environment by providing an FQL filter and paging details. Returns a set of Agent IDs which match the filter criteria
+     */
+    async queryPreventionPolicyMembersRaw(
+        requestParameters: PreventionPoliciesApiQueryPreventionPolicyMembersRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.queryPreventionPolicyMembersRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -541,12 +597,9 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Sets the precedence of Prevention Policies based on the order of IDs specified in the request. The first ID specified will have the highest precedence and the last ID specified will have the lowest. You must specify all non-Default Policies for a platform when updating precedence
+     * Creates request options for setPreventionPoliciesPrecedence without sending the request
      */
-    async setPreventionPoliciesPrecedenceRaw(
-        requestParameters: PreventionPoliciesApiSetPreventionPoliciesPrecedenceRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async setPreventionPoliciesPrecedenceRequestOpts(requestParameters: PreventionPoliciesApiSetPreventionPoliciesPrecedenceRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling setPreventionPoliciesPrecedence().');
         }
@@ -562,16 +615,26 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["prevention-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/prevention-precedence/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: BaseSetPolicyPrecedenceReqV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/prevention-precedence/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: BaseSetPolicyPrecedenceReqV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Sets the precedence of Prevention Policies based on the order of IDs specified in the request. The first ID specified will have the highest precedence and the last ID specified will have the lowest. You must specify all non-Default Policies for a platform when updating precedence
+     */
+    async setPreventionPoliciesPrecedenceRaw(
+        requestParameters: PreventionPoliciesApiSetPreventionPoliciesPrecedenceRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.setPreventionPoliciesPrecedenceRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -585,12 +648,9 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update Prevention Policies by specifying the ID of the policy and details to update
+     * Creates request options for updatePreventionPolicies without sending the request
      */
-    async updatePreventionPoliciesRaw(
-        requestParameters: PreventionPoliciesApiUpdatePreventionPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<PreventionRespV1>> {
+    async updatePreventionPoliciesRequestOpts(requestParameters: PreventionPoliciesApiUpdatePreventionPoliciesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updatePreventionPolicies().');
         }
@@ -606,16 +666,26 @@ export class PreventionPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["prevention-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/prevention/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: PreventionUpdatePoliciesReqV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/prevention/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: PreventionUpdatePoliciesReqV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update Prevention Policies by specifying the ID of the policy and details to update
+     */
+    async updatePreventionPoliciesRaw(
+        requestParameters: PreventionPoliciesApiUpdatePreventionPoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PreventionRespV1>> {
+        const requestOptions = await this.updatePreventionPoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PreventionRespV1FromJSON(jsonValue));
     }

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { EvaluationsRule } from "./EvaluationsRule";
-import { EvaluationsRuleFromJSON, EvaluationsRuleFromJSONTyped, EvaluationsRuleToJSON } from "./EvaluationsRule";
+import { EvaluationsRuleFromJSON, EvaluationsRuleFromJSONTyped, EvaluationsRuleToJSON, EvaluationsRuleToJSONTyped } from "./EvaluationsRule";
 import type { EvaluationExtension } from "./EvaluationExtension";
-import { EvaluationExtensionFromJSON, EvaluationExtensionFromJSONTyped, EvaluationExtensionToJSON } from "./EvaluationExtension";
+import { EvaluationExtensionFromJSON, EvaluationExtensionFromJSONTyped, EvaluationExtensionToJSON, EvaluationExtensionToJSONTyped } from "./EvaluationExtension";
 import type { EvaluationFinding } from "./EvaluationFinding";
-import { EvaluationFindingFromJSON, EvaluationFindingFromJSONTyped, EvaluationFindingToJSON } from "./EvaluationFinding";
+import { EvaluationFindingFromJSON, EvaluationFindingFromJSONTyped, EvaluationFindingToJSON, EvaluationFindingToJSONTyped } from "./EvaluationFinding";
 
 /**
  *
@@ -131,19 +131,24 @@ export function EvaluationsEvaluationDocFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function EvaluationsEvaluationDocToJSON(value?: EvaluationsEvaluationDoc | null): any {
+export function EvaluationsEvaluationDocToJSON(json: any): EvaluationsEvaluationDoc {
+    return EvaluationsEvaluationDocToJSONTyped(json, false);
+}
+
+export function EvaluationsEvaluationDocToJSONTyped(value?: EvaluationsEvaluationDoc | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         attack_types: value["attackTypes"],
-        created: value["created"] == null ? undefined : value["created"].toISOString(),
+        created: value["created"] == null ? value["created"] : value["created"].toISOString(),
         crn: value["crn"],
         error: value["error"],
         extension: EvaluationExtensionToJSON(value["extension"]),
         findings: value["findings"] == null ? undefined : (value["findings"] as Array<any>).map(EvaluationFindingToJSON),
-        first_detected: value["firstDetected"] == null ? undefined : value["firstDetected"].toISOString(),
-        last_detected: value["lastDetected"] == null ? undefined : value["lastDetected"].toISOString(),
+        first_detected: value["firstDetected"] == null ? value["firstDetected"] : value["firstDetected"].toISOString(),
+        last_detected: value["lastDetected"] == null ? value["lastDetected"] : value["lastDetected"].toISOString(),
         rule: EvaluationsRuleToJSON(value["rule"]),
         severity: value["severity"],
         status: value["status"],

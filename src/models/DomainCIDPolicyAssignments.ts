@@ -18,9 +18,10 @@ import {
     DomainPolicySettingByAccountAndRegionFromJSON,
     DomainPolicySettingByAccountAndRegionFromJSONTyped,
     DomainPolicySettingByAccountAndRegionToJSON,
+    DomainPolicySettingByAccountAndRegionToJSONTyped,
 } from "./DomainPolicySettingByAccountAndRegion";
 import type { DomainBenchmark } from "./DomainBenchmark";
-import { DomainBenchmarkFromJSON, DomainBenchmarkFromJSONTyped, DomainBenchmarkToJSON } from "./DomainBenchmark";
+import { DomainBenchmarkFromJSON, DomainBenchmarkFromJSONTyped, DomainBenchmarkToJSON, DomainBenchmarkToJSONTyped } from "./DomainBenchmark";
 
 /**
  *
@@ -261,10 +262,15 @@ export function DomainCIDPolicyAssignmentsFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function DomainCIDPolicyAssignmentsToJSON(value?: DomainCIDPolicyAssignments | null): any {
+export function DomainCIDPolicyAssignmentsToJSON(json: any): DomainCIDPolicyAssignments {
+    return DomainCIDPolicyAssignmentsToJSONTyped(json, false);
+}
+
+export function DomainCIDPolicyAssignmentsToJSONTyped(value?: DomainCIDPolicyAssignments | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_scope: value["accountScope"],
         attack_types: value["attackTypes"],
@@ -278,7 +284,7 @@ export function DomainCIDPolicyAssignmentsToJSON(value?: DomainCIDPolicyAssignme
         cloud_service_friendly: value["cloudServiceFriendly"],
         cloud_service_id: value["cloudServiceId"],
         cloud_service_subtype: value["cloudServiceSubtype"],
-        created_at: value["createdAt"] == null ? undefined : value["createdAt"].toISOString(),
+        created_at: value["createdAt"] == null ? value["createdAt"] : value["createdAt"].toISOString(),
         default_severity: value["defaultSeverity"],
         fql_policy: value["fqlPolicy"],
         hipaa_benchmark: value["hipaaBenchmark"] == null ? undefined : (value["hipaaBenchmark"] as Array<any>).map(DomainBenchmarkToJSON),
@@ -291,10 +297,10 @@ export function DomainCIDPolicyAssignmentsToJSON(value?: DomainCIDPolicyAssignme
         pci_benchmark: value["pciBenchmark"] == null ? undefined : (value["pciBenchmark"] as Array<any>).map(DomainBenchmarkToJSON),
         policy_id: value["policyId"],
         policy_settings: value["policySettings"] == null ? undefined : (value["policySettings"] as Array<any>).map(DomainPolicySettingByAccountAndRegionToJSON),
-        policy_timestamp: value["policyTimestamp"] == null ? undefined : value["policyTimestamp"].toISOString(),
+        policy_timestamp: value["policyTimestamp"] == null ? value["policyTimestamp"] : value["policyTimestamp"].toISOString(),
         policy_type: value["policyType"],
         remediation_summary: value["remediationSummary"],
         soc2_benchmark: value["soc2Benchmark"] == null ? undefined : (value["soc2Benchmark"] as Array<any>).map(DomainBenchmarkToJSON),
-        updated_at: value["updatedAt"] == null ? undefined : value["updatedAt"].toISOString(),
+        updated_at: value["updatedAt"] == null ? value["updatedAt"] : value["updatedAt"].toISOString(),
     };
 }

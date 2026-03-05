@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { PaginationMetaAppInventoryUsers } from "./PaginationMetaAppInventoryUsers";
-import { PaginationMetaAppInventoryUsersFromJSON, PaginationMetaAppInventoryUsersFromJSONTyped, PaginationMetaAppInventoryUsersToJSON } from "./PaginationMetaAppInventoryUsers";
+import {
+    PaginationMetaAppInventoryUsersFromJSON,
+    PaginationMetaAppInventoryUsersFromJSONTyped,
+    PaginationMetaAppInventoryUsersToJSON,
+    PaginationMetaAppInventoryUsersToJSONTyped,
+} from "./PaginationMetaAppInventoryUsers";
 
 /**
  *
@@ -64,10 +69,15 @@ export function MetaAppInventoryUsersFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function MetaAppInventoryUsersToJSON(value?: MetaAppInventoryUsers | null): any {
+export function MetaAppInventoryUsersToJSON(json: any): MetaAppInventoryUsers {
+    return MetaAppInventoryUsersToJSONTyped(json, false);
+}
+
+export function MetaAppInventoryUsersToJSONTyped(value?: MetaAppInventoryUsers | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: PaginationMetaAppInventoryUsersToJSON(value["pagination"]),
         query_time: value["queryTime"],

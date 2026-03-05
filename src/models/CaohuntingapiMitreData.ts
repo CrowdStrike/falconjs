@@ -69,10 +69,15 @@ export function CaohuntingapiMitreDataFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function CaohuntingapiMitreDataToJSON(value?: CaohuntingapiMitreData | null): any {
+export function CaohuntingapiMitreDataToJSON(json: any): CaohuntingapiMitreData {
+    return CaohuntingapiMitreDataToJSONTyped(json, false);
+}
+
+export function CaohuntingapiMitreDataToJSONTyped(value?: CaohuntingapiMitreData | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         tactic_id: value["tacticId"],
         tactic_name: value["tacticName"],

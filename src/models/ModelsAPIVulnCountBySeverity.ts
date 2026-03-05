@@ -56,10 +56,15 @@ export function ModelsAPIVulnCountBySeverityFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function ModelsAPIVulnCountBySeverityToJSON(value?: ModelsAPIVulnCountBySeverity | null): any {
+export function ModelsAPIVulnCountBySeverityToJSON(json: any): ModelsAPIVulnCountBySeverity {
+    return ModelsAPIVulnCountBySeverityToJSONTyped(json, false);
+}
+
+export function ModelsAPIVulnCountBySeverityToJSONTyped(value?: ModelsAPIVulnCountBySeverity | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count: value["count"],
         severity: value["severity"],

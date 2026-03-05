@@ -54,10 +54,15 @@ export function DomainDiscoverAPIBiosHashesDataFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function DomainDiscoverAPIBiosHashesDataToJSON(value?: DomainDiscoverAPIBiosHashesData | null): any {
+export function DomainDiscoverAPIBiosHashesDataToJSON(json: any): DomainDiscoverAPIBiosHashesData {
+    return DomainDiscoverAPIBiosHashesDataToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPIBiosHashesDataToJSONTyped(value?: DomainDiscoverAPIBiosHashesData | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         measurement_type: value["measurementType"],
         sha256_hash: value["sha256Hash"],

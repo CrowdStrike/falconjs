@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { SdkCustomEvidence } from "./SdkCustomEvidence";
-import { SdkCustomEvidenceFromJSON, SdkCustomEvidenceFromJSONTyped, SdkCustomEvidenceToJSON } from "./SdkCustomEvidence";
+import { SdkCustomEvidenceFromJSON, SdkCustomEvidenceFromJSONTyped, SdkCustomEvidenceToJSON, SdkCustomEvidenceToJSONTyped } from "./SdkCustomEvidence";
 
 /**
  *
@@ -67,10 +67,15 @@ export function SdkCustomEvidenceRecordVMFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function SdkCustomEvidenceRecordVMToJSON(value?: SdkCustomEvidenceRecordVM | null): any {
+export function SdkCustomEvidenceRecordVMToJSON(json: any): SdkCustomEvidenceRecordVM {
+    return SdkCustomEvidenceRecordVMToJSONTyped(json, false);
+}
+
+export function SdkCustomEvidenceRecordVMToJSONTyped(value?: SdkCustomEvidenceRecordVM | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         case_id: value["caseId"],
         id: value["id"],

@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { JsonschemaSchema } from "./JsonschemaSchema";
-import { JsonschemaSchemaFromJSON, JsonschemaSchemaFromJSONTyped, JsonschemaSchemaToJSON } from "./JsonschemaSchema";
+import { JsonschemaSchemaFromJSON, JsonschemaSchemaFromJSONTyped, JsonschemaSchemaToJSON, JsonschemaSchemaToJSONTyped } from "./JsonschemaSchema";
 import type { GraphWebhookTriggerDefinition } from "./GraphWebhookTriggerDefinition";
-import { GraphWebhookTriggerDefinitionFromJSON, GraphWebhookTriggerDefinitionFromJSONTyped, GraphWebhookTriggerDefinitionToJSON } from "./GraphWebhookTriggerDefinition";
+import {
+    GraphWebhookTriggerDefinitionFromJSON,
+    GraphWebhookTriggerDefinitionFromJSONTyped,
+    GraphWebhookTriggerDefinitionToJSON,
+    GraphWebhookTriggerDefinitionToJSONTyped,
+} from "./GraphWebhookTriggerDefinition";
 import type { GraphTimerEventDefinition } from "./GraphTimerEventDefinition";
-import { GraphTimerEventDefinitionFromJSON, GraphTimerEventDefinitionFromJSONTyped, GraphTimerEventDefinitionToJSON } from "./GraphTimerEventDefinition";
+import { GraphTimerEventDefinitionFromJSON, GraphTimerEventDefinitionFromJSONTyped, GraphTimerEventDefinitionToJSON, GraphTimerEventDefinitionToJSONTyped } from "./GraphTimerEventDefinition";
 
 /**
  *
@@ -104,10 +109,15 @@ export function V2TriggerFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     };
 }
 
-export function V2TriggerToJSON(value?: V2Trigger | null): any {
+export function V2TriggerToJSON(json: any): V2Trigger {
+    return V2TriggerToJSONTyped(json, false);
+}
+
+export function V2TriggerToJSONTyped(value?: V2Trigger | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         event: value["event"],
         name: value["name"],

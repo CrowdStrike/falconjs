@@ -83,10 +83,15 @@ export function FwmgrApiWorkaroundUIFieldValueFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function FwmgrApiWorkaroundUIFieldValueToJSON(value?: FwmgrApiWorkaroundUIFieldValue | null): any {
+export function FwmgrApiWorkaroundUIFieldValueToJSON(json: any): FwmgrApiWorkaroundUIFieldValue {
+    return FwmgrApiWorkaroundUIFieldValueToJSONTyped(json, false);
+}
+
+export function FwmgrApiWorkaroundUIFieldValueToJSONTyped(value?: FwmgrApiWorkaroundUIFieldValue | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         final_value: value["finalValue"],
         label: value["label"],

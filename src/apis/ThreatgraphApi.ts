@@ -60,9 +60,9 @@ export interface ThreatgraphApiEntitiesVerticesGetv2Request {
  */
 export class ThreatgraphApi extends runtime.BaseAPI {
     /**
-     * Retrieve edges for a given vertex id.  One edge type must be specified
+     * Creates request options for combinedEdgesGet without sending the request
      */
-    async combinedEdgesGetRaw(requestParameters: ThreatgraphApiCombinedEdgesGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async combinedEdgesGetRequestOpts(requestParameters: ThreatgraphApiCombinedEdgesGetRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling combinedEdgesGet().');
         }
@@ -108,15 +108,22 @@ export class ThreatgraphApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["threatgraph:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/threatgraph/combined/edges/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/threatgraph/combined/edges/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve edges for a given vertex id.  One edge type must be specified
+     */
+    async combinedEdgesGetRaw(requestParameters: ThreatgraphApiCombinedEdgesGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.combinedEdgesGetRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -138,9 +145,9 @@ export class ThreatgraphApi extends runtime.BaseAPI {
     }
 
     /**
-     * Look up instances of indicators such as hashes, domain names, and ip addresses that have been seen on devices in your environment.
+     * Creates request options for combinedRanOnGet without sending the request
      */
-    async combinedRanOnGetRaw(requestParameters: ThreatgraphApiCombinedRanOnGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async combinedRanOnGetRequestOpts(requestParameters: ThreatgraphApiCombinedRanOnGetRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["value"] == null) {
             throw new runtime.RequiredError("value", 'Required parameter "value" was null or undefined when calling combinedRanOnGet().');
         }
@@ -178,15 +185,22 @@ export class ThreatgraphApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["threatgraph:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/threatgraph/combined/ran-on/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/threatgraph/combined/ran-on/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Look up instances of indicators such as hashes, domain names, and ip addresses that have been seen on devices in your environment.
+     */
+    async combinedRanOnGetRaw(requestParameters: ThreatgraphApiCombinedRanOnGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.combinedRanOnGetRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -199,9 +213,9 @@ export class ThreatgraphApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve summary for a given vertex ID
+     * Creates request options for combinedSummaryGet without sending the request
      */
-    async combinedSummaryGetRaw(requestParameters: ThreatgraphApiCombinedSummaryGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async combinedSummaryGetRequestOpts(requestParameters: ThreatgraphApiCombinedSummaryGetRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["vertexType"] == null) {
             throw new runtime.RequiredError("vertexType", 'Required parameter "vertexType" was null or undefined when calling combinedSummaryGet().');
         }
@@ -231,15 +245,23 @@ export class ThreatgraphApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["threatgraph:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/threatgraph/combined/{vertex-type}/summary/v1`.replace(`{${"vertex-type"}}`, encodeURIComponent(String(requestParameters["vertexType"]))),
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/threatgraph/combined/{vertex-type}/summary/v1`;
+        urlPath = urlPath.replace(`{${"vertex-type"}}`, encodeURIComponent(String(requestParameters["vertexType"])));
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve summary for a given vertex ID
+     */
+    async combinedSummaryGetRaw(requestParameters: ThreatgraphApiCombinedSummaryGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.combinedSummaryGetRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -258,12 +280,9 @@ export class ThreatgraphApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve metadata for a given vertex ID. Note: This is a legacy endpoint used by CrowdStrike Store partners prior to release of the ThreatGraph OAuth 2.0 APIs. If you’re not currently using this endpoint, use the /v2 endpoint instead.
+     * Creates request options for entitiesVerticesGet without sending the request
      */
-    async entitiesVerticesGetRaw(
-        requestParameters: ThreatgraphApiEntitiesVerticesGetRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ThreatgraphVertexDetailsResponse>> {
+    async entitiesVerticesGetRequestOpts(requestParameters: ThreatgraphApiEntitiesVerticesGetRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["vertexType"] == null) {
             throw new runtime.RequiredError("vertexType", 'Required parameter "vertexType" was null or undefined when calling entitiesVerticesGet().');
         }
@@ -293,15 +312,26 @@ export class ThreatgraphApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["beta-threatgraph:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/threatgraph/entities/{vertex-type}/v1`.replace(`{${"vertex-type"}}`, encodeURIComponent(String(requestParameters["vertexType"]))),
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/threatgraph/entities/{vertex-type}/v1`;
+        urlPath = urlPath.replace(`{${"vertex-type"}}`, encodeURIComponent(String(requestParameters["vertexType"])));
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve metadata for a given vertex ID. Note: This is a legacy endpoint used by CrowdStrike Store partners prior to release of the ThreatGraph OAuth 2.0 APIs. If you’re not currently using this endpoint, use the /v2 endpoint instead.
+     */
+    async entitiesVerticesGetRaw(
+        requestParameters: ThreatgraphApiEntitiesVerticesGetRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ThreatgraphVertexDetailsResponse>> {
+        const requestOptions = await this.entitiesVerticesGetRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ThreatgraphVertexDetailsResponseFromJSON(jsonValue));
     }
@@ -321,12 +351,9 @@ export class ThreatgraphApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve metadata for a given vertex ID
+     * Creates request options for entitiesVerticesGetv2 without sending the request
      */
-    async entitiesVerticesGetv2Raw(
-        requestParameters: ThreatgraphApiEntitiesVerticesGetv2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ThreatgraphVertexDetailsResponse>> {
+    async entitiesVerticesGetv2RequestOpts(requestParameters: ThreatgraphApiEntitiesVerticesGetv2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["vertexType"] == null) {
             throw new runtime.RequiredError("vertexType", 'Required parameter "vertexType" was null or undefined when calling entitiesVerticesGetv2().');
         }
@@ -356,15 +383,26 @@ export class ThreatgraphApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["threatgraph:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/threatgraph/entities/{vertex-type}/v2`.replace(`{${"vertex-type"}}`, encodeURIComponent(String(requestParameters["vertexType"]))),
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/threatgraph/entities/{vertex-type}/v2`;
+        urlPath = urlPath.replace(`{${"vertex-type"}}`, encodeURIComponent(String(requestParameters["vertexType"])));
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve metadata for a given vertex ID
+     */
+    async entitiesVerticesGetv2Raw(
+        requestParameters: ThreatgraphApiEntitiesVerticesGetv2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ThreatgraphVertexDetailsResponse>> {
+        const requestOptions = await this.entitiesVerticesGetv2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ThreatgraphVertexDetailsResponseFromJSON(jsonValue));
     }
@@ -384,9 +422,9 @@ export class ThreatgraphApi extends runtime.BaseAPI {
     }
 
     /**
-     * Show all available edge types
+     * Creates request options for queriesEdgetypesGet without sending the request
      */
-    async queriesEdgetypesGetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async queriesEdgetypesGetRequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -396,15 +434,22 @@ export class ThreatgraphApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["threatgraph:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/threatgraph/queries/edge-types/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/threatgraph/queries/edge-types/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Show all available edge types
+     */
+    async queriesEdgetypesGetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.queriesEdgetypesGetRequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { ItautomationSearchStatus } from "./ItautomationSearchStatus";
-import { ItautomationSearchStatusFromJSON, ItautomationSearchStatusFromJSONTyped, ItautomationSearchStatusToJSON } from "./ItautomationSearchStatus";
+import { ItautomationSearchStatusFromJSON, ItautomationSearchStatusFromJSONTyped, ItautomationSearchStatusToJSON, ItautomationSearchStatusToJSONTyped } from "./ItautomationSearchStatus";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function ItautomationSearchStatusResponseFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function ItautomationSearchStatusResponseToJSON(value?: ItautomationSearchStatusResponse | null): any {
+export function ItautomationSearchStatusResponseToJSON(json: any): ItautomationSearchStatusResponse {
+    return ItautomationSearchStatusResponseToJSONTyped(json, false);
+}
+
+export function ItautomationSearchStatusResponseToJSONTyped(value?: ItautomationSearchStatusResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

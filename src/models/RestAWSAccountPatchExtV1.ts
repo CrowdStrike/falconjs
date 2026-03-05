@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { RestAccountProductRequestExtV1 } from "./RestAccountProductRequestExtV1";
-import { RestAccountProductRequestExtV1FromJSON, RestAccountProductRequestExtV1FromJSONTyped, RestAccountProductRequestExtV1ToJSON } from "./RestAccountProductRequestExtV1";
+import {
+    RestAccountProductRequestExtV1FromJSON,
+    RestAccountProductRequestExtV1FromJSONTyped,
+    RestAccountProductRequestExtV1ToJSON,
+    RestAccountProductRequestExtV1ToJSONTyped,
+} from "./RestAccountProductRequestExtV1";
 
 /**
  *
@@ -219,10 +224,15 @@ export function RestAWSAccountPatchExtV1FromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function RestAWSAccountPatchExtV1ToJSON(value?: RestAWSAccountPatchExtV1 | null): any {
+export function RestAWSAccountPatchExtV1ToJSON(json: any): RestAWSAccountPatchExtV1 {
+    return RestAWSAccountPatchExtV1ToJSONTyped(json, false);
+}
+
+export function RestAWSAccountPatchExtV1ToJSONTyped(value?: RestAWSAccountPatchExtV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         cloudtrail_region: value["cloudtrailRegion"],
@@ -238,7 +248,7 @@ export function RestAWSAccountPatchExtV1ToJSON(value?: RestAWSAccountPatchExtV1 
         products: value["products"] == null ? undefined : (value["products"] as Array<any>).map(RestAccountProductRequestExtV1ToJSON),
         reader_role_arn: value["readerRoleArn"],
         remediation_region: value["remediationRegion"],
-        remediation_tou_accepted: value["remediationTouAccepted"] == null ? undefined : value["remediationTouAccepted"].toISOString(),
+        remediation_tou_accepted: value["remediationTouAccepted"] == null ? value["remediationTouAccepted"] : value["remediationTouAccepted"].toISOString(),
         resource_name_prefix: value["resourceNamePrefix"],
         resource_name_suffix: value["resourceNameSuffix"],
         s3_log_ingestion_bucket_name: value["s3LogIngestionBucketName"],

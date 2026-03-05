@@ -18,6 +18,7 @@ import {
     AssetgroupmanagerV1WriteCloudGroupSelectorsFromJSON,
     AssetgroupmanagerV1WriteCloudGroupSelectorsFromJSONTyped,
     AssetgroupmanagerV1WriteCloudGroupSelectorsToJSON,
+    AssetgroupmanagerV1WriteCloudGroupSelectorsToJSONTyped,
 } from "./AssetgroupmanagerV1WriteCloudGroupSelectors";
 
 /**
@@ -29,7 +30,7 @@ export interface AssetgroupmanagerV1UpdateCloudGroupMessage {
     /**
      * The new Business Impact for the group.
      * It will be deleted if the value is sent empty.
-     * @type {string}
+     * @type {AssetgroupmanagerV1UpdateCloudGroupMessageBusinessImpactEnum}
      * @memberof AssetgroupmanagerV1UpdateCloudGroupMessage
      */
     businessImpact?: AssetgroupmanagerV1UpdateCloudGroupMessageBusinessImpactEnum;
@@ -49,7 +50,7 @@ export interface AssetgroupmanagerV1UpdateCloudGroupMessage {
     /**
      * Environment is one of the "business context" field of the group.
      * It will be deleted if the value is sent empty.
-     * @type {string}
+     * @type {AssetgroupmanagerV1UpdateCloudGroupMessageEnvironmentEnum}
      * @memberof AssetgroupmanagerV1UpdateCloudGroupMessage
      */
     environment?: AssetgroupmanagerV1UpdateCloudGroupMessageEnvironmentEnum;
@@ -132,10 +133,15 @@ export function AssetgroupmanagerV1UpdateCloudGroupMessageFromJSONTyped(json: an
     };
 }
 
-export function AssetgroupmanagerV1UpdateCloudGroupMessageToJSON(value?: AssetgroupmanagerV1UpdateCloudGroupMessage | null): any {
+export function AssetgroupmanagerV1UpdateCloudGroupMessageToJSON(json: any): AssetgroupmanagerV1UpdateCloudGroupMessage {
+    return AssetgroupmanagerV1UpdateCloudGroupMessageToJSONTyped(json, false);
+}
+
+export function AssetgroupmanagerV1UpdateCloudGroupMessageToJSONTyped(value?: AssetgroupmanagerV1UpdateCloudGroupMessage | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         business_impact: value["businessImpact"],
         business_unit: value["businessUnit"],

@@ -35,12 +35,9 @@ export interface RuntimeDetectionsApiGetRuntimeDetectionsCombinedV2Request {
  */
 export class RuntimeDetectionsApi extends runtime.BaseAPI {
     /**
-     * Retrieve container runtime detections by the provided search criteria
+     * Creates request options for getRuntimeDetectionsCombinedV2 without sending the request
      */
-    async getRuntimeDetectionsCombinedV2Raw(
-        requestParameters: RuntimeDetectionsApiGetRuntimeDetectionsCombinedV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RuntimedetectionsDetectionsEntityResponse>> {
+    async getRuntimeDetectionsCombinedV2RequestOpts(requestParameters: RuntimeDetectionsApiGetRuntimeDetectionsCombinedV2Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -66,15 +63,25 @@ export class RuntimeDetectionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/combined/runtime-detections/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/combined/runtime-detections/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve container runtime detections by the provided search criteria
+     */
+    async getRuntimeDetectionsCombinedV2Raw(
+        requestParameters: RuntimeDetectionsApiGetRuntimeDetectionsCombinedV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RuntimedetectionsDetectionsEntityResponse>> {
+        const requestOptions = await this.getRuntimeDetectionsCombinedV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RuntimedetectionsDetectionsEntityResponseFromJSON(jsonValue));
     }

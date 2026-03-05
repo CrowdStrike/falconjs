@@ -18,6 +18,7 @@ import {
     ReleasecontentsReleaseContentResponseV1FromJSON,
     ReleasecontentsReleaseContentResponseV1FromJSONTyped,
     ReleasecontentsReleaseContentResponseV1ToJSON,
+    ReleasecontentsReleaseContentResponseV1ToJSONTyped,
 } from "./ReleasecontentsReleaseContentResponseV1";
 
 /**
@@ -128,19 +129,24 @@ export function ReleasesReleaseResponseV1FromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ReleasesReleaseResponseV1ToJSON(value?: ReleasesReleaseResponseV1 | null): any {
+export function ReleasesReleaseResponseV1ToJSON(json: any): ReleasesReleaseResponseV1 {
+    return ReleasesReleaseResponseV1ToJSONTyped(json, false);
+}
+
+export function ReleasesReleaseResponseV1ToJSONTyped(value?: ReleasesReleaseResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         annotation: value["annotation"],
         created_by: value["createdBy"],
         created_timestamp: value["createdTimestamp"].toISOString(),
-        deployed_timestamp: value["deployedTimestamp"] == null ? undefined : value["deployedTimestamp"].toISOString(),
-        deployment_start_timestamp: value["deploymentStartTimestamp"] == null ? undefined : value["deploymentStartTimestamp"].toISOString(),
+        deployed_timestamp: value["deployedTimestamp"] == null ? value["deployedTimestamp"] : value["deployedTimestamp"].toISOString(),
+        deployment_start_timestamp: value["deploymentStartTimestamp"] == null ? value["deploymentStartTimestamp"] : value["deploymentStartTimestamp"].toISOString(),
         id: value["id"],
         last_modified_by: value["lastModifiedBy"],
-        last_modified_timestamp: value["lastModifiedTimestamp"] == null ? undefined : value["lastModifiedTimestamp"].toISOString(),
+        last_modified_timestamp: value["lastModifiedTimestamp"] == null ? value["lastModifiedTimestamp"] : value["lastModifiedTimestamp"].toISOString(),
         release_contents: (value["releaseContents"] as Array<any>).map(ReleasecontentsReleaseContentResponseV1ToJSON),
         release_notes_ticket: value["releaseNotesTicket"],
         status: value["status"],

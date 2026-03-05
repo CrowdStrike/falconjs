@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { FirewallUpdateFirewallPolicyReqV1 } from "./FirewallUpdateFirewallPolicyReqV1";
-import { FirewallUpdateFirewallPolicyReqV1FromJSON, FirewallUpdateFirewallPolicyReqV1FromJSONTyped, FirewallUpdateFirewallPolicyReqV1ToJSON } from "./FirewallUpdateFirewallPolicyReqV1";
+import {
+    FirewallUpdateFirewallPolicyReqV1FromJSON,
+    FirewallUpdateFirewallPolicyReqV1FromJSONTyped,
+    FirewallUpdateFirewallPolicyReqV1ToJSON,
+    FirewallUpdateFirewallPolicyReqV1ToJSONTyped,
+} from "./FirewallUpdateFirewallPolicyReqV1";
 
 /**
  * A req to update firewall policies
@@ -51,10 +56,15 @@ export function FirewallUpdateFirewallPoliciesReqV1FromJSONTyped(json: any, igno
     };
 }
 
-export function FirewallUpdateFirewallPoliciesReqV1ToJSON(value?: FirewallUpdateFirewallPoliciesReqV1 | null): any {
+export function FirewallUpdateFirewallPoliciesReqV1ToJSON(json: any): FirewallUpdateFirewallPoliciesReqV1 {
+    return FirewallUpdateFirewallPoliciesReqV1ToJSONTyped(json, false);
+}
+
+export function FirewallUpdateFirewallPoliciesReqV1ToJSONTyped(value?: FirewallUpdateFirewallPoliciesReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(FirewallUpdateFirewallPolicyReqV1ToJSON),
     };

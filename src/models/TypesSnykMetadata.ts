@@ -61,10 +61,15 @@ export function TypesSnykMetadataFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function TypesSnykMetadataToJSON(value?: TypesSnykMetadata | null): any {
+export function TypesSnykMetadataToJSON(json: any): TypesSnykMetadata {
+    return TypesSnykMetadataToJSONTyped(json, false);
+}
+
+export function TypesSnykMetadataToJSONTyped(value?: TypesSnykMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         apiEndpointUrl: value["apiEndpointUrl"],
         appEndpointUrl: value["appEndpointUrl"],

@@ -71,10 +71,15 @@ export function ModelsInventoryEngineInfoTypeFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function ModelsInventoryEngineInfoTypeToJSON(value?: ModelsInventoryEngineInfoType | null): any {
+export function ModelsInventoryEngineInfoTypeToJSON(json: any): ModelsInventoryEngineInfoType {
+    return ModelsInventoryEngineInfoTypeToJSONTyped(json, false);
+}
+
+export function ModelsInventoryEngineInfoTypeToJSONTyped(value?: ModelsInventoryEngineInfoType | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         CWPPScannerVersion: value["cWPPScannerVersion"],
         CollectedAt: value["collectedAt"],

@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { Activity2GetActivityMonitor } from "./Activity2GetActivityMonitor";
-import { Activity2GetActivityMonitorFromJSON, Activity2GetActivityMonitorFromJSONTyped, Activity2GetActivityMonitorToJSON } from "./Activity2GetActivityMonitor";
+import {
+    Activity2GetActivityMonitorFromJSON,
+    Activity2GetActivityMonitorFromJSONTyped,
+    Activity2GetActivityMonitorToJSON,
+    Activity2GetActivityMonitorToJSONTyped,
+} from "./Activity2GetActivityMonitor";
 import type { MetaGetActivityMonitor } from "./MetaGetActivityMonitor";
-import { MetaGetActivityMonitorFromJSON, MetaGetActivityMonitorFromJSONTyped, MetaGetActivityMonitorToJSON } from "./MetaGetActivityMonitor";
+import { MetaGetActivityMonitorFromJSON, MetaGetActivityMonitorFromJSONTyped, MetaGetActivityMonitorToJSON, MetaGetActivityMonitorToJSONTyped } from "./MetaGetActivityMonitor";
 import type { ErrorGetActivityMonitor } from "./ErrorGetActivityMonitor";
-import { ErrorGetActivityMonitorFromJSON, ErrorGetActivityMonitorFromJSONTyped, ErrorGetActivityMonitorToJSON } from "./ErrorGetActivityMonitor";
+import { ErrorGetActivityMonitorFromJSON, ErrorGetActivityMonitorFromJSONTyped, ErrorGetActivityMonitorToJSON, ErrorGetActivityMonitorToJSONTyped } from "./ErrorGetActivityMonitor";
 
 /**
  *
@@ -68,10 +73,15 @@ export function GetActivityMonitorFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function GetActivityMonitorToJSON(value?: GetActivityMonitor | null): any {
+export function GetActivityMonitorToJSON(json: any): GetActivityMonitor {
+    return GetActivityMonitorToJSONTyped(json, false);
+}
+
+export function GetActivityMonitorToJSONTyped(value?: GetActivityMonitor | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(ErrorGetActivityMonitorToJSON),
         meta: MetaGetActivityMonitorToJSON(value["meta"]),

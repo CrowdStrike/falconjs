@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainMultiCommandExecuteResponse } from "./DomainMultiCommandExecuteResponse";
-import { DomainMultiCommandExecuteResponseFromJSON, DomainMultiCommandExecuteResponseFromJSONTyped, DomainMultiCommandExecuteResponseToJSON } from "./DomainMultiCommandExecuteResponse";
+import {
+    DomainMultiCommandExecuteResponseFromJSON,
+    DomainMultiCommandExecuteResponseFromJSONTyped,
+    DomainMultiCommandExecuteResponseToJSON,
+    DomainMultiCommandExecuteResponseToJSONTyped,
+} from "./DomainMultiCommandExecuteResponse";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -79,10 +84,15 @@ export function DomainBatchGetCommandResponseFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function DomainBatchGetCommandResponseToJSON(value?: DomainBatchGetCommandResponse | null): any {
+export function DomainBatchGetCommandResponseToJSON(json: any): DomainBatchGetCommandResponse {
+    return DomainBatchGetCommandResponseToJSONTyped(json, false);
+}
+
+export function DomainBatchGetCommandResponseToJSONTyped(value?: DomainBatchGetCommandResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         batch_get_cmd_req_id: value["batchGetCmdReqId"],
         combined: DomainMultiCommandExecuteResponseToJSON(value["combined"]),

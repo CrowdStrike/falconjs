@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { PolicymanagerEUJOption } from "./PolicymanagerEUJOption";
-import { PolicymanagerEUJOptionFromJSON, PolicymanagerEUJOptionFromJSONTyped, PolicymanagerEUJOptionToJSON } from "./PolicymanagerEUJOption";
+import { PolicymanagerEUJOptionFromJSON, PolicymanagerEUJOptionFromJSONTyped, PolicymanagerEUJOptionToJSON, PolicymanagerEUJOptionToJSONTyped } from "./PolicymanagerEUJOption";
 
 /**
  *
@@ -51,10 +51,15 @@ export function PolicymanagerEUJDropdownOptionsFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function PolicymanagerEUJDropdownOptionsToJSON(value?: PolicymanagerEUJDropdownOptions | null): any {
+export function PolicymanagerEUJDropdownOptionsToJSON(json: any): PolicymanagerEUJDropdownOptions {
+    return PolicymanagerEUJDropdownOptionsToJSONTyped(json, false);
+}
+
+export function PolicymanagerEUJDropdownOptionsToJSONTyped(value?: PolicymanagerEUJDropdownOptions | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         justifications: (value["justifications"] as Array<any>).map(PolicymanagerEUJOptionToJSON),
     };

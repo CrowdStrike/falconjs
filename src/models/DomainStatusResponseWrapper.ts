@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainStatusResponse } from "./DomainStatusResponse";
-import { DomainStatusResponseFromJSON, DomainStatusResponseFromJSONTyped, DomainStatusResponseToJSON } from "./DomainStatusResponse";
+import { DomainStatusResponseFromJSON, DomainStatusResponseFromJSONTyped, DomainStatusResponseToJSON, DomainStatusResponseToJSONTyped } from "./DomainStatusResponse";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainStatusResponseWrapperFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function DomainStatusResponseWrapperToJSON(value?: DomainStatusResponseWrapper | null): any {
+export function DomainStatusResponseWrapperToJSON(json: any): DomainStatusResponseWrapper {
+    return DomainStatusResponseWrapperToJSONTyped(json, false);
+}
+
+export function DomainStatusResponseWrapperToJSONTyped(value?: DomainStatusResponseWrapper | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

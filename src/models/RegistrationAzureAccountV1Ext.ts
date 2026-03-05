@@ -14,13 +14,13 @@
 
 import { mapValues } from "../runtime";
 import type { AzureDBRoleAssignment } from "./AzureDBRoleAssignment";
-import { AzureDBRoleAssignmentFromJSON, AzureDBRoleAssignmentFromJSONTyped, AzureDBRoleAssignmentToJSON } from "./AzureDBRoleAssignment";
+import { AzureDBRoleAssignmentFromJSON, AzureDBRoleAssignmentFromJSONTyped, AzureDBRoleAssignmentToJSON, AzureDBRoleAssignmentToJSONTyped } from "./AzureDBRoleAssignment";
 import type { StatemgmtCondition } from "./StatemgmtCondition";
-import { StatemgmtConditionFromJSON, StatemgmtConditionFromJSONTyped, StatemgmtConditionToJSON } from "./StatemgmtCondition";
+import { StatemgmtConditionFromJSON, StatemgmtConditionFromJSONTyped, StatemgmtConditionToJSON, StatemgmtConditionToJSONTyped } from "./StatemgmtCondition";
 import type { DomainCloudScope } from "./DomainCloudScope";
-import { DomainCloudScopeFromJSON, DomainCloudScopeFromJSONTyped, DomainCloudScopeToJSON } from "./DomainCloudScope";
+import { DomainCloudScopeFromJSON, DomainCloudScopeFromJSONTyped, DomainCloudScopeToJSON, DomainCloudScopeToJSONTyped } from "./DomainCloudScope";
 import type { DomainPermission } from "./DomainPermission";
-import { DomainPermissionFromJSON, DomainPermissionFromJSONTyped, DomainPermissionToJSON } from "./DomainPermission";
+import { DomainPermissionFromJSON, DomainPermissionFromJSONTyped, DomainPermissionToJSON, DomainPermissionToJSONTyped } from "./DomainPermission";
 
 /**
  *
@@ -261,10 +261,15 @@ export function RegistrationAzureAccountV1ExtFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function RegistrationAzureAccountV1ExtToJSON(value?: RegistrationAzureAccountV1Ext | null): any {
+export function RegistrationAzureAccountV1ExtToJSON(json: any): RegistrationAzureAccountV1Ext {
+    return RegistrationAzureAccountV1ExtToJSONTyped(json, false);
+}
+
+export function RegistrationAzureAccountV1ExtToJSONTyped(value?: RegistrationAzureAccountV1Ext | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         CreatedAt: value["createdAt"].toISOString(),
         DeletedAt: value["deletedAt"].toISOString(),
@@ -276,7 +281,7 @@ export function RegistrationAzureAccountV1ExtToJSON(value?: RegistrationAzureAcc
         client_id: value["clientId"],
         cloud_scopes: value["cloudScopes"] == null ? undefined : (value["cloudScopes"] as Array<any>).map(DomainCloudScopeToJSON),
         conditions: value["conditions"] == null ? undefined : (value["conditions"] as Array<any>).map(StatemgmtConditionToJSON),
-        credentials_end_date: value["credentialsEndDate"] == null ? undefined : value["credentialsEndDate"].toISOString(),
+        credentials_end_date: value["credentialsEndDate"] == null ? value["credentialsEndDate"] : value["credentialsEndDate"].toISOString(),
         credentials_type: value["credentialsType"],
         default_subscription_id: value["defaultSubscriptionId"],
         environment: value["environment"],

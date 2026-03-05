@@ -76,10 +76,15 @@ export function ApiEventFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
     };
 }
 
-export function ApiEventToJSON(value?: ApiEvent | null): any {
+export function ApiEventToJSON(json: any): ApiEvent {
+    return ApiEventToJSONTyped(json, false);
+}
+
+export function ApiEventToJSONTyped(value?: ApiEvent | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         ids: value["ids"],

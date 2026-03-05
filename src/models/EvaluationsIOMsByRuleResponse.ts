@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { RestCursorAndLimitMetaInfo } from "./RestCursorAndLimitMetaInfo";
-import { RestCursorAndLimitMetaInfoFromJSON, RestCursorAndLimitMetaInfoFromJSONTyped, RestCursorAndLimitMetaInfoToJSON } from "./RestCursorAndLimitMetaInfo";
+import { RestCursorAndLimitMetaInfoFromJSON, RestCursorAndLimitMetaInfoFromJSONTyped, RestCursorAndLimitMetaInfoToJSON, RestCursorAndLimitMetaInfoToJSONTyped } from "./RestCursorAndLimitMetaInfo";
 import type { EvaluationsIOMsByRuleResource } from "./EvaluationsIOMsByRuleResource";
-import { EvaluationsIOMsByRuleResourceFromJSON, EvaluationsIOMsByRuleResourceFromJSONTyped, EvaluationsIOMsByRuleResourceToJSON } from "./EvaluationsIOMsByRuleResource";
+import {
+    EvaluationsIOMsByRuleResourceFromJSON,
+    EvaluationsIOMsByRuleResourceFromJSONTyped,
+    EvaluationsIOMsByRuleResourceToJSON,
+    EvaluationsIOMsByRuleResourceToJSONTyped,
+} from "./EvaluationsIOMsByRuleResource";
 
 /**
  *
@@ -69,10 +74,15 @@ export function EvaluationsIOMsByRuleResponseFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function EvaluationsIOMsByRuleResponseToJSON(value?: EvaluationsIOMsByRuleResponse | null): any {
+export function EvaluationsIOMsByRuleResponseToJSON(json: any): EvaluationsIOMsByRuleResponse {
+    return EvaluationsIOMsByRuleResponseToJSONTyped(json, false);
+}
+
+export function EvaluationsIOMsByRuleResponseToJSONTyped(value?: EvaluationsIOMsByRuleResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: RestCursorAndLimitMetaInfoToJSON(value["meta"]),

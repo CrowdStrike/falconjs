@@ -48,10 +48,15 @@ export function CorrelationrulesapiRuleScheduleV1FromJSONTyped(json: any, ignore
     };
 }
 
-export function CorrelationrulesapiRuleScheduleV1ToJSON(value?: CorrelationrulesapiRuleScheduleV1 | null): any {
+export function CorrelationrulesapiRuleScheduleV1ToJSON(json: any): CorrelationrulesapiRuleScheduleV1 {
+    return CorrelationrulesapiRuleScheduleV1ToJSONTyped(json, false);
+}
+
+export function CorrelationrulesapiRuleScheduleV1ToJSONTyped(value?: CorrelationrulesapiRuleScheduleV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         definition: value["definition"],
     };

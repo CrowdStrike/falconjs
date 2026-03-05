@@ -56,10 +56,15 @@ export function K8sassetsContainerInfoFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function K8sassetsContainerInfoToJSON(value?: K8sassetsContainerInfo | null): any {
+export function K8sassetsContainerInfoToJSON(json: any): K8sassetsContainerInfo {
+    return K8sassetsContainerInfoToJSONTyped(json, false);
+}
+
+export function K8sassetsContainerInfoToJSONTyped(value?: K8sassetsContainerInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

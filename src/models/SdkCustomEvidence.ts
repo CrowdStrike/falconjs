@@ -56,10 +56,15 @@ export function SdkCustomEvidenceFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function SdkCustomEvidenceToJSON(value?: SdkCustomEvidence | null): any {
+export function SdkCustomEvidenceToJSON(json: any): SdkCustomEvidence {
+    return SdkCustomEvidenceToJSONTyped(json, false);
+}
+
+export function SdkCustomEvidenceToJSONTyped(value?: SdkCustomEvidence | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
         type: value["type"],

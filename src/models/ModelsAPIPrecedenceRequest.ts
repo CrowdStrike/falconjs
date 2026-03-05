@@ -48,10 +48,15 @@ export function ModelsAPIPrecedenceRequestFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function ModelsAPIPrecedenceRequestToJSON(value?: ModelsAPIPrecedenceRequest | null): any {
+export function ModelsAPIPrecedenceRequestToJSON(json: any): ModelsAPIPrecedenceRequest {
+    return ModelsAPIPrecedenceRequestToJSONTyped(json, false);
+}
+
+export function ModelsAPIPrecedenceRequestToJSONTyped(value?: ModelsAPIPrecedenceRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         precedence: value["precedence"],
     };

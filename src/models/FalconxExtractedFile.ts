@@ -124,10 +124,15 @@ export function FalconxExtractedFileFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function FalconxExtractedFileToJSON(value?: FalconxExtractedFile | null): any {
+export function FalconxExtractedFileToJSON(json: any): FalconxExtractedFile {
+    return FalconxExtractedFileToJSONTyped(json, false);
+}
+
+export function FalconxExtractedFileToJSONTyped(value?: FalconxExtractedFile | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         file_available_to_download: value["fileAvailableToDownload"],

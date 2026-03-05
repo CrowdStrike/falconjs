@@ -72,10 +72,15 @@ export function ClientSystemDefinitionDeProvisionRequestFromJSONTyped(json: any,
     };
 }
 
-export function ClientSystemDefinitionDeProvisionRequestToJSON(value?: ClientSystemDefinitionDeProvisionRequest | null): any {
+export function ClientSystemDefinitionDeProvisionRequestToJSON(json: any): ClientSystemDefinitionDeProvisionRequest {
+    return ClientSystemDefinitionDeProvisionRequestToJSONTyped(json, false);
+}
+
+export function ClientSystemDefinitionDeProvisionRequestToJSONTyped(value?: ClientSystemDefinitionDeProvisionRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         definition_id: value["definitionId"],
         deprovision_all: value["deprovisionAll"],

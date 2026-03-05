@@ -61,10 +61,15 @@ export function VulncheckThreatActorVendorNameFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function VulncheckThreatActorVendorNameToJSON(value?: VulncheckThreatActorVendorName | null): any {
+export function VulncheckThreatActorVendorNameToJSON(json: any): VulncheckThreatActorVendorName {
+    return VulncheckThreatActorVendorNameToJSONTyped(json, false);
+}
+
+export function VulncheckThreatActorVendorNameToJSONTyped(value?: VulncheckThreatActorVendorName | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         threat_actor_name: value["threatActorName"],
         url: value["url"],

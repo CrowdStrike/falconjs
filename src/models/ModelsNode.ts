@@ -351,10 +351,15 @@ export function ModelsNodeFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function ModelsNodeToJSON(value?: ModelsNode | null): any {
+export function ModelsNodeToJSON(json: any): ModelsNode {
+    return ModelsNodeToJSONTyped(json, false);
+}
+
+export function ModelsNodeToJSONTyped(value?: ModelsNode | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         agents: value["agents"],
         annotations_list: value["annotationsList"],

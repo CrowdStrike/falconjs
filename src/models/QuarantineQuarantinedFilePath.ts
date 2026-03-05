@@ -68,10 +68,15 @@ export function QuarantineQuarantinedFilePathFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function QuarantineQuarantinedFilePathToJSON(value?: QuarantineQuarantinedFilePath | null): any {
+export function QuarantineQuarantinedFilePathToJSON(json: any): QuarantineQuarantinedFilePath {
+    return QuarantineQuarantinedFilePathToJSONTyped(json, false);
+}
+
+export function QuarantineQuarantinedFilePathToJSONTyped(value?: QuarantineQuarantinedFilePath | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         filename: value["filename"],
         path: value["path"],

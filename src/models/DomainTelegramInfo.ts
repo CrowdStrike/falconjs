@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { DomainTelegramChannelInfo } from "./DomainTelegramChannelInfo";
-import { DomainTelegramChannelInfoFromJSON, DomainTelegramChannelInfoFromJSONTyped, DomainTelegramChannelInfoToJSON } from "./DomainTelegramChannelInfo";
+import { DomainTelegramChannelInfoFromJSON, DomainTelegramChannelInfoFromJSONTyped, DomainTelegramChannelInfoToJSON, DomainTelegramChannelInfoToJSONTyped } from "./DomainTelegramChannelInfo";
 import type { DomainTelegramSenderInfo } from "./DomainTelegramSenderInfo";
-import { DomainTelegramSenderInfoFromJSON, DomainTelegramSenderInfoFromJSONTyped, DomainTelegramSenderInfoToJSON } from "./DomainTelegramSenderInfo";
+import { DomainTelegramSenderInfoFromJSON, DomainTelegramSenderInfoFromJSONTyped, DomainTelegramSenderInfoToJSON, DomainTelegramSenderInfoToJSONTyped } from "./DomainTelegramSenderInfo";
 import type { DomainTelegramRecipientInfo } from "./DomainTelegramRecipientInfo";
-import { DomainTelegramRecipientInfoFromJSON, DomainTelegramRecipientInfoFromJSONTyped, DomainTelegramRecipientInfoToJSON } from "./DomainTelegramRecipientInfo";
+import {
+    DomainTelegramRecipientInfoFromJSON,
+    DomainTelegramRecipientInfoFromJSONTyped,
+    DomainTelegramRecipientInfoToJSON,
+    DomainTelegramRecipientInfoToJSONTyped,
+} from "./DomainTelegramRecipientInfo";
 
 /**
  *
@@ -68,10 +73,15 @@ export function DomainTelegramInfoFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function DomainTelegramInfoToJSON(value?: DomainTelegramInfo | null): any {
+export function DomainTelegramInfoToJSON(json: any): DomainTelegramInfo {
+    return DomainTelegramInfoToJSONTyped(json, false);
+}
+
+export function DomainTelegramInfoToJSONTyped(value?: DomainTelegramInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         channel_info: DomainTelegramChannelInfoToJSON(value["channelInfo"]),
         recipient_info: DomainTelegramRecipientInfoToJSON(value["recipientInfo"]),

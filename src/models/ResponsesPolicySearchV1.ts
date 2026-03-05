@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { ResponsesError } from "./ResponsesError";
-import { ResponsesErrorFromJSON, ResponsesErrorFromJSONTyped, ResponsesErrorToJSON } from "./ResponsesError";
+import { ResponsesErrorFromJSON, ResponsesErrorFromJSONTyped, ResponsesErrorToJSON, ResponsesErrorToJSONTyped } from "./ResponsesError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -69,10 +69,15 @@ export function ResponsesPolicySearchV1FromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function ResponsesPolicySearchV1ToJSON(value?: ResponsesPolicySearchV1 | null): any {
+export function ResponsesPolicySearchV1ToJSON(json: any): ResponsesPolicySearchV1 {
+    return ResponsesPolicySearchV1ToJSONTyped(json, false);
+}
+
+export function ResponsesPolicySearchV1ToJSONTyped(value?: ResponsesPolicySearchV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(ResponsesErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

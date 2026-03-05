@@ -56,10 +56,15 @@ export function FwmgrDomainICMPFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function FwmgrDomainICMPToJSON(value?: FwmgrDomainICMP | null): any {
+export function FwmgrDomainICMPToJSON(json: any): FwmgrDomainICMP {
+    return FwmgrDomainICMPToJSONTyped(json, false);
+}
+
+export function FwmgrDomainICMPToJSONTyped(value?: FwmgrDomainICMP | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         icmp_code: value["icmpCode"],
         icmp_type: value["icmpType"],

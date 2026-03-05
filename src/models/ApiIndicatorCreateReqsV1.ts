@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApiIndicatorCreateReqV1 } from "./ApiIndicatorCreateReqV1";
-import { ApiIndicatorCreateReqV1FromJSON, ApiIndicatorCreateReqV1FromJSONTyped, ApiIndicatorCreateReqV1ToJSON } from "./ApiIndicatorCreateReqV1";
+import { ApiIndicatorCreateReqV1FromJSON, ApiIndicatorCreateReqV1FromJSONTyped, ApiIndicatorCreateReqV1ToJSON, ApiIndicatorCreateReqV1ToJSONTyped } from "./ApiIndicatorCreateReqV1";
 
 /**
  *
@@ -58,10 +58,15 @@ export function ApiIndicatorCreateReqsV1FromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function ApiIndicatorCreateReqsV1ToJSON(value?: ApiIndicatorCreateReqsV1 | null): any {
+export function ApiIndicatorCreateReqsV1ToJSON(json: any): ApiIndicatorCreateReqsV1 {
+    return ApiIndicatorCreateReqsV1ToJSONTyped(json, false);
+}
+
+export function ApiIndicatorCreateReqsV1ToJSONTyped(value?: ApiIndicatorCreateReqsV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         comment: value["comment"],
         indicators: (value["indicators"] as Array<any>).map(ApiIndicatorCreateReqV1ToJSON),

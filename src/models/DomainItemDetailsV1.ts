@@ -14,17 +14,17 @@
 
 import { mapValues } from "../runtime";
 import type { DomainTelegramInfo } from "./DomainTelegramInfo";
-import { DomainTelegramInfoFromJSON, DomainTelegramInfoFromJSONTyped, DomainTelegramInfoToJSON } from "./DomainTelegramInfo";
+import { DomainTelegramInfoFromJSON, DomainTelegramInfoFromJSONTyped, DomainTelegramInfoToJSON, DomainTelegramInfoToJSONTyped } from "./DomainTelegramInfo";
 import type { DomainIOC } from "./DomainIOC";
-import { DomainIOCFromJSON, DomainIOCFromJSONTyped, DomainIOCToJSON } from "./DomainIOC";
+import { DomainIOCFromJSON, DomainIOCFromJSONTyped, DomainIOCToJSON, DomainIOCToJSONTyped } from "./DomainIOC";
 import type { DomainFragmentInfo } from "./DomainFragmentInfo";
-import { DomainFragmentInfoFromJSON, DomainFragmentInfoFromJSONTyped, DomainFragmentInfoToJSON } from "./DomainFragmentInfo";
+import { DomainFragmentInfoFromJSON, DomainFragmentInfoFromJSONTyped, DomainFragmentInfoToJSON, DomainFragmentInfoToJSONTyped } from "./DomainFragmentInfo";
 import type { DomainMarketplaceProduct } from "./DomainMarketplaceProduct";
-import { DomainMarketplaceProductFromJSON, DomainMarketplaceProductFromJSONTyped, DomainMarketplaceProductToJSON } from "./DomainMarketplaceProduct";
+import { DomainMarketplaceProductFromJSON, DomainMarketplaceProductFromJSONTyped, DomainMarketplaceProductToJSON, DomainMarketplaceProductToJSONTyped } from "./DomainMarketplaceProduct";
 import type { DomainAttachment } from "./DomainAttachment";
-import { DomainAttachmentFromJSON, DomainAttachmentFromJSONTyped, DomainAttachmentToJSON } from "./DomainAttachment";
+import { DomainAttachmentFromJSON, DomainAttachmentFromJSONTyped, DomainAttachmentToJSON, DomainAttachmentToJSONTyped } from "./DomainAttachment";
 import type { DomainScreenshot } from "./DomainScreenshot";
-import { DomainScreenshotFromJSON, DomainScreenshotFromJSONTyped, DomainScreenshotToJSON } from "./DomainScreenshot";
+import { DomainScreenshotFromJSON, DomainScreenshotFromJSONTyped, DomainScreenshotToJSON, DomainScreenshotToJSONTyped } from "./DomainScreenshot";
 
 /**
  *
@@ -262,17 +262,22 @@ export function DomainItemDetailsV1FromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function DomainItemDetailsV1ToJSON(value?: DomainItemDetailsV1 | null): any {
+export function DomainItemDetailsV1ToJSON(json: any): DomainItemDetailsV1 {
+    return DomainItemDetailsV1ToJSONTyped(json, false);
+}
+
+export function DomainItemDetailsV1ToJSONTyped(value?: DomainItemDetailsV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         actor_slug: value["actorSlug"],
         attachments: value["attachments"] == null ? undefined : (value["attachments"] as Array<any>).map(DomainAttachmentToJSON),
         author: value["author"],
         author_id: value["authorId"],
         category: value["category"],
-        collection_date: value["collectionDate"] == null ? undefined : value["collectionDate"].toISOString(),
+        collection_date: value["collectionDate"] == null ? value["collectionDate"] : value["collectionDate"].toISOString(),
         content: value["content"],
         created_date: value["createdDate"].toISOString(),
         file_type: value["fileType"],

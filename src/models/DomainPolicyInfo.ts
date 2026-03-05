@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { DomainControl } from "./DomainControl";
-import { DomainControlFromJSON, DomainControlFromJSONTyped, DomainControlToJSON } from "./DomainControl";
+import { DomainControlFromJSON, DomainControlFromJSONTyped, DomainControlToJSON, DomainControlToJSONTyped } from "./DomainControl";
 import type { DomainCompliance } from "./DomainCompliance";
-import { DomainComplianceFromJSON, DomainComplianceFromJSONTyped, DomainComplianceToJSON } from "./DomainCompliance";
+import { DomainComplianceFromJSON, DomainComplianceFromJSONTyped, DomainComplianceToJSON, DomainComplianceToJSONTyped } from "./DomainCompliance";
 
 /**
  *
@@ -465,10 +465,15 @@ export function DomainPolicyInfoFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function DomainPolicyInfoToJSON(value?: DomainPolicyInfo | null): any {
+export function DomainPolicyInfoToJSON(json: any): DomainPolicyInfo {
+    return DomainPolicyInfoToJSONTyped(json, false);
+}
+
+export function DomainPolicyInfoToJSONTyped(value?: DomainPolicyInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         CreatedAt: value["createdAt"].toISOString(),
         DeletedAt: value["deletedAt"].toISOString(),

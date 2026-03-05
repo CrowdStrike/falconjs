@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { InternalSensorStatus } from "./InternalSensorStatus";
-import { InternalSensorStatusFromJSON, InternalSensorStatusFromJSONTyped, InternalSensorStatusToJSON } from "./InternalSensorStatus";
+import { InternalSensorStatusFromJSON, InternalSensorStatusFromJSONTyped, InternalSensorStatusToJSON, InternalSensorStatusToJSONTyped } from "./InternalSensorStatus";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function ApiSensorDetailsResponseSwaggerFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function ApiSensorDetailsResponseSwaggerToJSON(value?: ApiSensorDetailsResponseSwagger | null): any {
+export function ApiSensorDetailsResponseSwaggerToJSON(json: any): ApiSensorDetailsResponseSwagger {
+    return ApiSensorDetailsResponseSwaggerToJSONTyped(json, false);
+}
+
+export function ApiSensorDetailsResponseSwaggerToJSONTyped(value?: ApiSensorDetailsResponseSwagger | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

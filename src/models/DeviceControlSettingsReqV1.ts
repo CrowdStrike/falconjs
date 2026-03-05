@@ -14,9 +14,19 @@
 
 import { mapValues } from "../runtime";
 import type { DeviceControlUSBCustomNotifications } from "./DeviceControlUSBCustomNotifications";
-import { DeviceControlUSBCustomNotificationsFromJSON, DeviceControlUSBCustomNotificationsFromJSONTyped, DeviceControlUSBCustomNotificationsToJSON } from "./DeviceControlUSBCustomNotifications";
+import {
+    DeviceControlUSBCustomNotificationsFromJSON,
+    DeviceControlUSBCustomNotificationsFromJSONTyped,
+    DeviceControlUSBCustomNotificationsToJSON,
+    DeviceControlUSBCustomNotificationsToJSONTyped,
+} from "./DeviceControlUSBCustomNotifications";
 import type { DeviceControlUSBClassExceptionsReqV1 } from "./DeviceControlUSBClassExceptionsReqV1";
-import { DeviceControlUSBClassExceptionsReqV1FromJSON, DeviceControlUSBClassExceptionsReqV1FromJSONTyped, DeviceControlUSBClassExceptionsReqV1ToJSON } from "./DeviceControlUSBClassExceptionsReqV1";
+import {
+    DeviceControlUSBClassExceptionsReqV1FromJSON,
+    DeviceControlUSBClassExceptionsReqV1FromJSONTyped,
+    DeviceControlUSBClassExceptionsReqV1ToJSON,
+    DeviceControlUSBClassExceptionsReqV1ToJSONTyped,
+} from "./DeviceControlUSBClassExceptionsReqV1";
 
 /**
  *
@@ -44,13 +54,13 @@ export interface DeviceControlSettingsReqV1 {
     deleteExceptions: Array<string>;
     /**
      * Does the end user receives a notification when the policy is violated
-     * @type {string}
+     * @type {DeviceControlSettingsReqV1EndUserNotificationEnum}
      * @memberof DeviceControlSettingsReqV1
      */
     endUserNotification: DeviceControlSettingsReqV1EndUserNotificationEnum;
     /**
      * How is this policy enforced
-     * @type {string}
+     * @type {DeviceControlSettingsReqV1EnforcementModeEnum}
      * @memberof DeviceControlSettingsReqV1
      */
     enforcementMode: DeviceControlSettingsReqV1EnforcementModeEnum;
@@ -75,8 +85,8 @@ export type DeviceControlSettingsReqV1EndUserNotificationEnum = (typeof DeviceCo
  * @export
  */
 export const DeviceControlSettingsReqV1EnforcementModeEnum = {
-    Only: "MONITOR_ONLY",
-    Enforce: "MONITOR_ENFORCE",
+    MonitorOnly: "MONITOR_ONLY",
+    MonitorEnforce: "MONITOR_ENFORCE",
 } as const;
 export type DeviceControlSettingsReqV1EnforcementModeEnum = (typeof DeviceControlSettingsReqV1EnforcementModeEnum)[keyof typeof DeviceControlSettingsReqV1EnforcementModeEnum];
 
@@ -109,10 +119,15 @@ export function DeviceControlSettingsReqV1FromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function DeviceControlSettingsReqV1ToJSON(value?: DeviceControlSettingsReqV1 | null): any {
+export function DeviceControlSettingsReqV1ToJSON(json: any): DeviceControlSettingsReqV1 {
+    return DeviceControlSettingsReqV1ToJSONTyped(json, false);
+}
+
+export function DeviceControlSettingsReqV1ToJSONTyped(value?: DeviceControlSettingsReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         classes: (value["classes"] as Array<any>).map(DeviceControlUSBClassExceptionsReqV1ToJSON),
         custom_notifications: DeviceControlUSBCustomNotificationsToJSON(value["customNotifications"]),

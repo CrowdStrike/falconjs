@@ -14,12 +14,18 @@
 
 import { mapValues } from "../runtime";
 import type { DomainExposedDataRecordBotLocationV1 } from "./DomainExposedDataRecordBotLocationV1";
-import { DomainExposedDataRecordBotLocationV1FromJSON, DomainExposedDataRecordBotLocationV1FromJSONTyped, DomainExposedDataRecordBotLocationV1ToJSON } from "./DomainExposedDataRecordBotLocationV1";
+import {
+    DomainExposedDataRecordBotLocationV1FromJSON,
+    DomainExposedDataRecordBotLocationV1FromJSONTyped,
+    DomainExposedDataRecordBotLocationV1ToJSON,
+    DomainExposedDataRecordBotLocationV1ToJSONTyped,
+} from "./DomainExposedDataRecordBotLocationV1";
 import type { DomainExposedDataRecordBotOperatingSystemV1 } from "./DomainExposedDataRecordBotOperatingSystemV1";
 import {
     DomainExposedDataRecordBotOperatingSystemV1FromJSON,
     DomainExposedDataRecordBotOperatingSystemV1FromJSONTyped,
     DomainExposedDataRecordBotOperatingSystemV1ToJSON,
+    DomainExposedDataRecordBotOperatingSystemV1ToJSONTyped,
 } from "./DomainExposedDataRecordBotOperatingSystemV1";
 
 /**
@@ -112,10 +118,15 @@ export function DomainExposedDataRecordBotV1FromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function DomainExposedDataRecordBotV1ToJSON(value?: DomainExposedDataRecordBotV1 | null): any {
+export function DomainExposedDataRecordBotV1ToJSON(json: any): DomainExposedDataRecordBotV1 {
+    return DomainExposedDataRecordBotV1ToJSONTyped(json, false);
+}
+
+export function DomainExposedDataRecordBotV1ToJSONTyped(value?: DomainExposedDataRecordBotV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         bot_id: value["botId"],
         domain_detects: value["domainDetects"],

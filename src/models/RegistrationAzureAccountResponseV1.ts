@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { RegistrationAzureAccountV1Ext } from "./RegistrationAzureAccountV1Ext";
-import { RegistrationAzureAccountV1ExtFromJSON, RegistrationAzureAccountV1ExtFromJSONTyped, RegistrationAzureAccountV1ExtToJSON } from "./RegistrationAzureAccountV1Ext";
+import {
+    RegistrationAzureAccountV1ExtFromJSON,
+    RegistrationAzureAccountV1ExtFromJSONTyped,
+    RegistrationAzureAccountV1ExtToJSON,
+    RegistrationAzureAccountV1ExtToJSONTyped,
+} from "./RegistrationAzureAccountV1Ext";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +76,15 @@ export function RegistrationAzureAccountResponseV1FromJSONTyped(json: any, ignor
     };
 }
 
-export function RegistrationAzureAccountResponseV1ToJSON(value?: RegistrationAzureAccountResponseV1 | null): any {
+export function RegistrationAzureAccountResponseV1ToJSON(json: any): RegistrationAzureAccountResponseV1 {
+    return RegistrationAzureAccountResponseV1ToJSONTyped(json, false);
+}
+
+export function RegistrationAzureAccountResponseV1ToJSONTyped(value?: RegistrationAzureAccountResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

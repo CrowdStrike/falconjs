@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesTrait } from "./TypesTrait";
-import { TypesTraitFromJSON, TypesTraitFromJSONTyped, TypesTraitToJSON } from "./TypesTrait";
+import { TypesTraitFromJSON, TypesTraitFromJSONTyped, TypesTraitToJSON, TypesTraitToJSONTyped } from "./TypesTrait";
 
 /**
  *
@@ -57,10 +57,15 @@ export function TypesServiceServiceTraitsFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function TypesServiceServiceTraitsToJSON(value?: TypesServiceServiceTraits | null): any {
+export function TypesServiceServiceTraitsToJSON(json: any): TypesServiceServiceTraits {
+    return TypesServiceServiceTraitsToJSONTyped(json, false);
+}
+
+export function TypesServiceServiceTraitsToJSONTyped(value?: TypesServiceServiceTraits | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count: value["count"],
         items: value["items"] == null ? undefined : (value["items"] as Array<any>).map(TypesTraitToJSON),

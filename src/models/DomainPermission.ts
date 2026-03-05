@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { RegexpRegexp } from "./RegexpRegexp";
-import { RegexpRegexpFromJSON, RegexpRegexpFromJSONTyped, RegexpRegexpToJSON } from "./RegexpRegexp";
+import { RegexpRegexpFromJSON, RegexpRegexpFromJSONTyped, RegexpRegexpToJSON, RegexpRegexpToJSONTyped } from "./RegexpRegexp";
 
 /**
  *
@@ -67,10 +67,15 @@ export function DomainPermissionFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function DomainPermissionToJSON(value?: DomainPermission | null): any {
+export function DomainPermissionToJSON(json: any): DomainPermission {
+    return DomainPermissionToJSONTyped(json, false);
+}
+
+export function DomainPermissionToJSONTyped(value?: DomainPermission | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         resource: value["resource"],

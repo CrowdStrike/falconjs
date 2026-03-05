@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { ReconmsaAPIError } from "./ReconmsaAPIError";
-import { ReconmsaAPIErrorFromJSON, ReconmsaAPIErrorFromJSONTyped, ReconmsaAPIErrorToJSON } from "./ReconmsaAPIError";
+import { ReconmsaAPIErrorFromJSON, ReconmsaAPIErrorFromJSONTyped, ReconmsaAPIErrorToJSON, ReconmsaAPIErrorToJSONTyped } from "./ReconmsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -69,10 +69,15 @@ export function DomainExportJobIDResponseV1FromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function DomainExportJobIDResponseV1ToJSON(value?: DomainExportJobIDResponseV1 | null): any {
+export function DomainExportJobIDResponseV1ToJSON(json: any): DomainExportJobIDResponseV1 {
+    return DomainExportJobIDResponseV1ToJSONTyped(json, false);
+}
+
+export function DomainExportJobIDResponseV1ToJSONTyped(value?: DomainExportJobIDResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(ReconmsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

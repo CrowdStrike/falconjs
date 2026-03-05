@@ -75,10 +75,15 @@ export function ClientExtraSortFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function ClientExtraSortToJSON(value?: ClientExtraSort | null): any {
+export function ClientExtraSortToJSON(json: any): ClientExtraSort {
+    return ClientExtraSortToJSONTyped(json, false);
+}
+
+export function ClientExtraSortToJSONTyped(value?: ClientExtraSort | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         fields: value["fields"],
         limit: value["limit"],

@@ -64,10 +64,15 @@ export function TypesExecutorNodeStatusFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function TypesExecutorNodeStatusToJSON(value?: TypesExecutorNodeStatus | null): any {
+export function TypesExecutorNodeStatusToJSON(json: any): TypesExecutorNodeStatus {
+    return TypesExecutorNodeStatusToJSONTyped(json, false);
+}
+
+export function TypesExecutorNodeStatusToJSONTyped(value?: TypesExecutorNodeStatus | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         State: value["state"],
         StateLastUpdated: value["stateLastUpdated"],

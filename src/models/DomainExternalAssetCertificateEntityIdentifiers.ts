@@ -152,10 +152,15 @@ export function DomainExternalAssetCertificateEntityIdentifiersFromJSONTyped(jso
     };
 }
 
-export function DomainExternalAssetCertificateEntityIdentifiersToJSON(value?: DomainExternalAssetCertificateEntityIdentifiers | null): any {
+export function DomainExternalAssetCertificateEntityIdentifiersToJSON(json: any): DomainExternalAssetCertificateEntityIdentifiers {
+    return DomainExternalAssetCertificateEntityIdentifiersToJSONTyped(json, false);
+}
+
+export function DomainExternalAssetCertificateEntityIdentifiersToJSONTyped(value?: DomainExternalAssetCertificateEntityIdentifiers | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         common_name: value["commonName"],
         country_name: value["countryName"],

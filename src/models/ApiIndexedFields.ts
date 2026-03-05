@@ -64,10 +64,15 @@ export function ApiIndexedFieldsFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function ApiIndexedFieldsToJSON(value?: ApiIndexedFields | null): any {
+export function ApiIndexedFieldsToJSON(json: any): ApiIndexedFields {
+    return ApiIndexedFieldsToJSONTyped(json, false);
+}
+
+export function ApiIndexedFieldsToJSONTyped(value?: ApiIndexedFields | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         field: value["field"],
         fql_name: value["fqlName"],

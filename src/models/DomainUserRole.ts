@@ -71,10 +71,15 @@ export function DomainUserRoleFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function DomainUserRoleToJSON(value?: DomainUserRole | null): any {
+export function DomainUserRoleToJSON(json: any): DomainUserRole {
+    return DomainUserRoleToJSONTyped(json, false);
+}
+
+export function DomainUserRoleToJSONTyped(value?: DomainUserRole | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         description: value["description"],

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { JsonschemaResetFields } from "./JsonschemaResetFields";
-import { JsonschemaResetFieldsFromJSON, JsonschemaResetFieldsFromJSONTyped, JsonschemaResetFieldsToJSON } from "./JsonschemaResetFields";
+import { JsonschemaResetFieldsFromJSON, JsonschemaResetFieldsFromJSONTyped, JsonschemaResetFieldsToJSON, JsonschemaResetFieldsToJSONTyped } from "./JsonschemaResetFields";
 
 /**
  *
@@ -92,10 +92,15 @@ export function JsonschemaConditionGroupFieldsFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function JsonschemaConditionGroupFieldsToJSON(value?: JsonschemaConditionGroupFields | null): any {
+export function JsonschemaConditionGroupFieldsToJSON(json: any): JsonschemaConditionGroupFields {
+    return JsonschemaConditionGroupFieldsToJSONTyped(json, false);
+}
+
+export function JsonschemaConditionGroupFieldsToJSONTyped(value?: JsonschemaConditionGroupFields | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         condition_control: value["conditionControl"],
         control_name: value["controlName"],

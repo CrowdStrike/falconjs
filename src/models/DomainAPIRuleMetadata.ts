@@ -154,10 +154,15 @@ export function DomainAPIRuleMetadataFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function DomainAPIRuleMetadataToJSON(value?: DomainAPIRuleMetadata | null): any {
+export function DomainAPIRuleMetadataToJSON(json: any): DomainAPIRuleMetadata {
+    return DomainAPIRuleMetadataToJSONTyped(json, false);
+}
+
+export function DomainAPIRuleMetadataToJSONTyped(value?: DomainAPIRuleMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         assessment_status: value["assessmentStatus"],
         asset_type: value["assetType"],

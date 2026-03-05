@@ -72,12 +72,9 @@ export interface CertificateBasedExclusionsApiCertificatesGetV1Request {
  */
 export class CertificateBasedExclusionsApi extends runtime.BaseAPI {
     /**
-     * Create new Certificate Based Exclusions.
+     * Creates request options for cbExclusionsCreateV1 without sending the request
      */
-    async cbExclusionsCreateV1Raw(
-        requestParameters: CertificateBasedExclusionsApiCbExclusionsCreateV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiCertBasedExclusionRespV1>> {
+    async cbExclusionsCreateV1RequestOpts(requestParameters: CertificateBasedExclusionsApiCbExclusionsCreateV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling cbExclusionsCreateV1().');
         }
@@ -93,16 +90,26 @@ export class CertificateBasedExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/exclusions/entities/cert-based-exclusions/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiCertBasedExclusionsCreateReqV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/exclusions/entities/cert-based-exclusions/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiCertBasedExclusionsCreateReqV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create new Certificate Based Exclusions.
+     */
+    async cbExclusionsCreateV1Raw(
+        requestParameters: CertificateBasedExclusionsApiCbExclusionsCreateV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiCertBasedExclusionRespV1>> {
+        const requestOptions = await this.cbExclusionsCreateV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiCertBasedExclusionRespV1FromJSON(jsonValue));
     }
@@ -116,12 +123,9 @@ export class CertificateBasedExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete the exclusions by id
+     * Creates request options for cbExclusionsDeleteV1 without sending the request
      */
-    async cbExclusionsDeleteV1Raw(
-        requestParameters: CertificateBasedExclusionsApiCbExclusionsDeleteV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiCertBasedExclusionRespV1>> {
+    async cbExclusionsDeleteV1RequestOpts(requestParameters: CertificateBasedExclusionsApiCbExclusionsDeleteV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling cbExclusionsDeleteV1().');
         }
@@ -143,15 +147,25 @@ export class CertificateBasedExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/exclusions/entities/cert-based-exclusions/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/exclusions/entities/cert-based-exclusions/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete the exclusions by id
+     */
+    async cbExclusionsDeleteV1Raw(
+        requestParameters: CertificateBasedExclusionsApiCbExclusionsDeleteV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiCertBasedExclusionRespV1>> {
+        const requestOptions = await this.cbExclusionsDeleteV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiCertBasedExclusionRespV1FromJSON(jsonValue));
     }
@@ -165,12 +179,9 @@ export class CertificateBasedExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Find all exclusion IDs matching the query with filter
+     * Creates request options for cbExclusionsGetV1 without sending the request
      */
-    async cbExclusionsGetV1Raw(
-        requestParameters: CertificateBasedExclusionsApiCbExclusionsGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiCertBasedExclusionRespV1>> {
+    async cbExclusionsGetV1RequestOpts(requestParameters: CertificateBasedExclusionsApiCbExclusionsGetV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling cbExclusionsGetV1().');
         }
@@ -188,15 +199,25 @@ export class CertificateBasedExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/exclusions/entities/cert-based-exclusions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/exclusions/entities/cert-based-exclusions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Find all exclusion IDs matching the query with filter
+     */
+    async cbExclusionsGetV1Raw(
+        requestParameters: CertificateBasedExclusionsApiCbExclusionsGetV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiCertBasedExclusionRespV1>> {
+        const requestOptions = await this.cbExclusionsGetV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiCertBasedExclusionRespV1FromJSON(jsonValue));
     }
@@ -210,12 +231,9 @@ export class CertificateBasedExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for cert-based exclusions.
+     * Creates request options for cbExclusionsQueryV1 without sending the request
      */
-    async cbExclusionsQueryV1Raw(
-        requestParameters: CertificateBasedExclusionsApiCbExclusionsQueryV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async cbExclusionsQueryV1RequestOpts(requestParameters: CertificateBasedExclusionsApiCbExclusionsQueryV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -241,15 +259,25 @@ export class CertificateBasedExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/exclusions/queries/cert-based-exclusions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/exclusions/queries/cert-based-exclusions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for cert-based exclusions.
+     */
+    async cbExclusionsQueryV1Raw(
+        requestParameters: CertificateBasedExclusionsApiCbExclusionsQueryV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.cbExclusionsQueryV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -269,12 +297,9 @@ export class CertificateBasedExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Updates existing Certificate Based Exclusions
+     * Creates request options for cbExclusionsUpdateV1 without sending the request
      */
-    async cbExclusionsUpdateV1Raw(
-        requestParameters: CertificateBasedExclusionsApiCbExclusionsUpdateV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiCertBasedExclusionRespV1>> {
+    async cbExclusionsUpdateV1RequestOpts(requestParameters: CertificateBasedExclusionsApiCbExclusionsUpdateV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling cbExclusionsUpdateV1().');
         }
@@ -290,16 +315,26 @@ export class CertificateBasedExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/exclusions/entities/cert-based-exclusions/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiCertBasedExclusionsUpdateReqV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/exclusions/entities/cert-based-exclusions/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiCertBasedExclusionsUpdateReqV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Updates existing Certificate Based Exclusions
+     */
+    async cbExclusionsUpdateV1Raw(
+        requestParameters: CertificateBasedExclusionsApiCbExclusionsUpdateV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiCertBasedExclusionRespV1>> {
+        const requestOptions = await this.cbExclusionsUpdateV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiCertBasedExclusionRespV1FromJSON(jsonValue));
     }
@@ -313,12 +348,9 @@ export class CertificateBasedExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves certificate signing information for a file
+     * Creates request options for certificatesGetV1 without sending the request
      */
-    async certificatesGetV1Raw(
-        requestParameters: CertificateBasedExclusionsApiCertificatesGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiRespCertificatesV1>> {
+    async certificatesGetV1RequestOpts(requestParameters: CertificateBasedExclusionsApiCertificatesGetV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling certificatesGetV1().');
         }
@@ -336,15 +368,25 @@ export class CertificateBasedExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/exclusions/entities/certificates/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/exclusions/entities/certificates/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieves certificate signing information for a file
+     */
+    async certificatesGetV1Raw(
+        requestParameters: CertificateBasedExclusionsApiCertificatesGetV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiRespCertificatesV1>> {
+        const requestOptions = await this.certificatesGetV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiRespCertificatesV1FromJSON(jsonValue));
     }

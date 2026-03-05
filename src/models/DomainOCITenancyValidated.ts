@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainProductFeatureStatus } from "./DomainProductFeatureStatus";
-import { DomainProductFeatureStatusFromJSON, DomainProductFeatureStatusFromJSONTyped, DomainProductFeatureStatusToJSON } from "./DomainProductFeatureStatus";
+import { DomainProductFeatureStatusFromJSON, DomainProductFeatureStatusFromJSONTyped, DomainProductFeatureStatusToJSON, DomainProductFeatureStatusToJSONTyped } from "./DomainProductFeatureStatus";
 
 /**
  *
@@ -83,10 +83,15 @@ export function DomainOCITenancyValidatedFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DomainOCITenancyValidatedToJSON(value?: DomainOCITenancyValidated | null): any {
+export function DomainOCITenancyValidatedToJSON(json: any): DomainOCITenancyValidated {
+    return DomainOCITenancyValidatedToJSONTyped(json, false);
+}
+
+export function DomainOCITenancyValidatedToJSONTyped(value?: DomainOCITenancyValidated | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         home_region: value["homeRegion"],

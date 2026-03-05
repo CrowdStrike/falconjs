@@ -75,10 +75,15 @@ export function PaginationMetaGetTransactionStatusFromJSONTyped(json: any, ignor
     };
 }
 
-export function PaginationMetaGetTransactionStatusToJSON(value?: PaginationMetaGetTransactionStatus | null): any {
+export function PaginationMetaGetTransactionStatusToJSON(json: any): PaginationMetaGetTransactionStatus {
+    return PaginationMetaGetTransactionStatusToJSONTyped(json, false);
+}
+
+export function PaginationMetaGetTransactionStatusToJSONTyped(value?: PaginationMetaGetTransactionStatus | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         limit: value["limit"],
         next: value["next"],

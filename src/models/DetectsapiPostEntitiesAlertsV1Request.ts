@@ -48,10 +48,15 @@ export function DetectsapiPostEntitiesAlertsV1RequestFromJSONTyped(json: any, ig
     };
 }
 
-export function DetectsapiPostEntitiesAlertsV1RequestToJSON(value?: DetectsapiPostEntitiesAlertsV1Request | null): any {
+export function DetectsapiPostEntitiesAlertsV1RequestToJSON(json: any): DetectsapiPostEntitiesAlertsV1Request {
+    return DetectsapiPostEntitiesAlertsV1RequestToJSONTyped(json, false);
+}
+
+export function DetectsapiPostEntitiesAlertsV1RequestToJSONTyped(value?: DetectsapiPostEntitiesAlertsV1Request | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ids: value["ids"],
     };

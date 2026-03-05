@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsAPIVulnCountBySeverity } from "./ModelsAPIVulnCountBySeverity";
-import { ModelsAPIVulnCountBySeverityFromJSON, ModelsAPIVulnCountBySeverityFromJSONTyped, ModelsAPIVulnCountBySeverityToJSON } from "./ModelsAPIVulnCountBySeverity";
+import {
+    ModelsAPIVulnCountBySeverityFromJSON,
+    ModelsAPIVulnCountBySeverityFromJSONTyped,
+    ModelsAPIVulnCountBySeverityToJSON,
+    ModelsAPIVulnCountBySeverityToJSONTyped,
+} from "./ModelsAPIVulnCountBySeverity";
 
 /**
  *
@@ -115,10 +120,15 @@ export function ModelsAPIImageVulnerabilitiesSummaryFromJSONTyped(json: any, ign
     };
 }
 
-export function ModelsAPIImageVulnerabilitiesSummaryToJSON(value?: ModelsAPIImageVulnerabilitiesSummary | null): any {
+export function ModelsAPIImageVulnerabilitiesSummaryToJSON(json: any): ModelsAPIImageVulnerabilitiesSummary {
+    return ModelsAPIImageVulnerabilitiesSummaryToJSONTyped(json, false);
+}
+
+export function ModelsAPIImageVulnerabilitiesSummaryToJSONTyped(value?: ModelsAPIImageVulnerabilitiesSummary | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         app_packages_with_vulnerabilities: value["appPackagesWithVulnerabilities"],
         app_vuln_by_severity: (value["appVulnBySeverity"] as Array<any>).map(ModelsAPIVulnCountBySeverityToJSON),

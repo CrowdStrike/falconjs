@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainAPIRuleMetadata } from "./DomainAPIRuleMetadata";
-import { DomainAPIRuleMetadataFromJSON, DomainAPIRuleMetadataFromJSONTyped, DomainAPIRuleMetadataToJSON } from "./DomainAPIRuleMetadata";
+import { DomainAPIRuleMetadataFromJSON, DomainAPIRuleMetadataFromJSONTyped, DomainAPIRuleMetadataToJSON, DomainAPIRuleMetadataToJSONTyped } from "./DomainAPIRuleMetadata";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function DomainRuleMetadataResponseFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function DomainRuleMetadataResponseToJSON(value?: DomainRuleMetadataResponse | null): any {
+export function DomainRuleMetadataResponseToJSON(json: any): DomainRuleMetadataResponse {
+    return DomainRuleMetadataResponseToJSONTyped(json, false);
+}
+
+export function DomainRuleMetadataResponseToJSONTyped(value?: DomainRuleMetadataResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

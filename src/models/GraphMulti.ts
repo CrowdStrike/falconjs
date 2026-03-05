@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { GraphCondition } from "./GraphCondition";
-import { GraphConditionFromJSON, GraphConditionFromJSONTyped, GraphConditionToJSON } from "./GraphCondition";
+import { GraphConditionFromJSON, GraphConditionFromJSONTyped, GraphConditionToJSON, GraphConditionToJSONTyped } from "./GraphCondition";
 
 /**
  *
@@ -97,10 +97,15 @@ export function GraphMultiFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function GraphMultiToJSON(value?: GraphMulti | null): any {
+export function GraphMultiToJSON(json: any): GraphMulti {
+    return GraphMultiToJSONTyped(json, false);
+}
+
+export function GraphMultiToJSONTyped(value?: GraphMulti | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         array_field: value["arrayField"],
         array_field_display_name: value["arrayFieldDisplayName"],

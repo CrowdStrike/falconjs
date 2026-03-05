@@ -84,10 +84,15 @@ export function RegistrationAzureKeyV1FromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function RegistrationAzureKeyV1ToJSON(value?: RegistrationAzureKeyV1 | null): any {
+export function RegistrationAzureKeyV1ToJSON(json: any): RegistrationAzureKeyV1 {
+    return RegistrationAzureKeyV1ToJSONTyped(json, false);
+}
+
+export function RegistrationAzureKeyV1ToJSONTyped(value?: RegistrationAzureKeyV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         client_id: value["clientId"],
         end_date: value["endDate"],

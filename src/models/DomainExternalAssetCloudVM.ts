@@ -124,10 +124,15 @@ export function DomainExternalAssetCloudVMFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function DomainExternalAssetCloudVMToJSON(value?: DomainExternalAssetCloudVM | null): any {
+export function DomainExternalAssetCloudVMToJSON(json: any): DomainExternalAssetCloudVM {
+    return DomainExternalAssetCloudVMToJSONTyped(json, false);
+}
+
+export function DomainExternalAssetCloudVMToJSONTyped(value?: DomainExternalAssetCloudVM | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         instance_id: value["instanceId"],

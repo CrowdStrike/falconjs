@@ -96,10 +96,15 @@ export function FigapiX509CertificateFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function FigapiX509CertificateToJSON(value?: FigapiX509Certificate | null): any {
+export function FigapiX509CertificateToJSON(json: any): FigapiX509Certificate {
+    return FigapiX509CertificateToJSONTyped(json, false);
+}
+
+export function FigapiX509CertificateToJSONTyped(value?: FigapiX509Certificate | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         CertificateHash: value["certificateHash"],
         CommonName: value["commonName"],

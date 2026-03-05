@@ -68,12 +68,9 @@ export interface DriftIndicatorsApiSearchDriftIndicatorsRequest {
  */
 export class DriftIndicatorsApi extends runtime.BaseAPI {
     /**
-     * Returns the count of Drift Indicators by the date. by default it\'s for 7 days.
+     * Creates request options for getDriftIndicatorsValuesByDate without sending the request
      */
-    async getDriftIndicatorsValuesByDateRaw(
-        requestParameters: DriftIndicatorsApiGetDriftIndicatorsValuesByDateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DriftindicatorsDriftIndicatorsFieldValue>> {
+    async getDriftIndicatorsValuesByDateRequestOpts(requestParameters: DriftIndicatorsApiGetDriftIndicatorsValuesByDateRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -91,15 +88,25 @@ export class DriftIndicatorsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/aggregates/drift-indicators/count-by-date/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/aggregates/drift-indicators/count-by-date/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns the count of Drift Indicators by the date. by default it\'s for 7 days.
+     */
+    async getDriftIndicatorsValuesByDateRaw(
+        requestParameters: DriftIndicatorsApiGetDriftIndicatorsValuesByDateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DriftindicatorsDriftIndicatorsFieldValue>> {
+        const requestOptions = await this.getDriftIndicatorsValuesByDateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DriftindicatorsDriftIndicatorsFieldValueFromJSON(jsonValue));
     }
@@ -113,12 +120,9 @@ export class DriftIndicatorsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve Drift Indicator entities identified by the provided IDs
+     * Creates request options for readDriftIndicatorEntities without sending the request
      */
-    async readDriftIndicatorEntitiesRaw(
-        requestParameters: DriftIndicatorsApiReadDriftIndicatorEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DriftindicatorsDriftEntityResponse>> {
+    async readDriftIndicatorEntitiesRequestOpts(requestParameters: DriftIndicatorsApiReadDriftIndicatorEntitiesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -132,15 +136,25 @@ export class DriftIndicatorsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/entities/drift-indicators/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/entities/drift-indicators/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve Drift Indicator entities identified by the provided IDs
+     */
+    async readDriftIndicatorEntitiesRaw(
+        requestParameters: DriftIndicatorsApiReadDriftIndicatorEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DriftindicatorsDriftEntityResponse>> {
+        const requestOptions = await this.readDriftIndicatorEntitiesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DriftindicatorsDriftEntityResponseFromJSON(jsonValue));
     }
@@ -154,12 +168,9 @@ export class DriftIndicatorsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns the total count of Drift indicators over a time period
+     * Creates request options for readDriftIndicatorsCount without sending the request
      */
-    async readDriftIndicatorsCountRaw(
-        requestParameters: DriftIndicatorsApiReadDriftIndicatorsCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DriftindicatorsDriftIndicatorsCountValue>> {
+    async readDriftIndicatorsCountRequestOpts(requestParameters: DriftIndicatorsApiReadDriftIndicatorsCountRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -173,15 +184,25 @@ export class DriftIndicatorsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/aggregates/drift-indicators/count/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/aggregates/drift-indicators/count/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns the total count of Drift indicators over a time period
+     */
+    async readDriftIndicatorsCountRaw(
+        requestParameters: DriftIndicatorsApiReadDriftIndicatorsCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DriftindicatorsDriftIndicatorsCountValue>> {
+        const requestOptions = await this.readDriftIndicatorsCountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DriftindicatorsDriftIndicatorsCountValueFromJSON(jsonValue));
     }
@@ -195,12 +216,9 @@ export class DriftIndicatorsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve Drift Indicators by the provided search criteria
+     * Creates request options for searchAndReadDriftIndicatorEntities without sending the request
      */
-    async searchAndReadDriftIndicatorEntitiesRaw(
-        requestParameters: DriftIndicatorsApiSearchAndReadDriftIndicatorEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DriftindicatorsDriftEntityResponse>> {
+    async searchAndReadDriftIndicatorEntitiesRequestOpts(requestParameters: DriftIndicatorsApiSearchAndReadDriftIndicatorEntitiesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -226,15 +244,25 @@ export class DriftIndicatorsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/combined/drift-indicators/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/combined/drift-indicators/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve Drift Indicators by the provided search criteria
+     */
+    async searchAndReadDriftIndicatorEntitiesRaw(
+        requestParameters: DriftIndicatorsApiSearchAndReadDriftIndicatorEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DriftindicatorsDriftEntityResponse>> {
+        const requestOptions = await this.searchAndReadDriftIndicatorEntitiesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DriftindicatorsDriftEntityResponseFromJSON(jsonValue));
     }
@@ -254,12 +282,9 @@ export class DriftIndicatorsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve all drift indicators that match the given query
+     * Creates request options for searchDriftIndicators without sending the request
      */
-    async searchDriftIndicatorsRaw(
-        requestParameters: DriftIndicatorsApiSearchDriftIndicatorsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async searchDriftIndicatorsRequestOpts(requestParameters: DriftIndicatorsApiSearchDriftIndicatorsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -285,15 +310,25 @@ export class DriftIndicatorsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/queries/drift-indicators/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/queries/drift-indicators/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve all drift indicators that match the given query
+     */
+    async searchDriftIndicatorsRaw(
+        requestParameters: DriftIndicatorsApiSearchDriftIndicatorsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.searchDriftIndicatorsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }

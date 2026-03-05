@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainMSSPRoles } from "./DomainMSSPRoles";
-import { DomainMSSPRolesFromJSON, DomainMSSPRolesFromJSONTyped, DomainMSSPRolesToJSON } from "./DomainMSSPRoles";
+import { DomainMSSPRolesFromJSON, DomainMSSPRolesFromJSONTyped, DomainMSSPRolesToJSON, DomainMSSPRolesToJSONTyped } from "./DomainMSSPRoles";
 
 /**
  *
@@ -51,10 +51,15 @@ export function DomainMSSPRoleRequestV1FromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function DomainMSSPRoleRequestV1ToJSON(value?: DomainMSSPRoleRequestV1 | null): any {
+export function DomainMSSPRoleRequestV1ToJSON(json: any): DomainMSSPRoleRequestV1 {
+    return DomainMSSPRoleRequestV1ToJSONTyped(json, false);
+}
+
+export function DomainMSSPRoleRequestV1ToJSONTyped(value?: DomainMSSPRoleRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(DomainMSSPRolesToJSON),
     };

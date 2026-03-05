@@ -75,10 +75,15 @@ export function RbacCloudGroupFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function RbacCloudGroupToJSON(value?: RbacCloudGroup | null): any {
+export function RbacCloudGroupToJSON(json: any): RbacCloudGroup {
+    return RbacCloudGroupToJSONTyped(json, false);
+}
+
+export function RbacCloudGroupToJSONTyped(value?: RbacCloudGroup | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         business_impact: value["businessImpact"],
         business_unit: value["businessUnit"],

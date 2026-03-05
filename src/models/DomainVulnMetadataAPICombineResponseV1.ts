@@ -14,14 +14,15 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainVulnMetadataAPIMeta } from "./DomainVulnMetadataAPIMeta";
-import { DomainVulnMetadataAPIMetaFromJSON, DomainVulnMetadataAPIMetaFromJSONTyped, DomainVulnMetadataAPIMetaToJSON } from "./DomainVulnMetadataAPIMeta";
+import { DomainVulnMetadataAPIMetaFromJSON, DomainVulnMetadataAPIMetaFromJSONTyped, DomainVulnMetadataAPIMetaToJSON, DomainVulnMetadataAPIMetaToJSONTyped } from "./DomainVulnMetadataAPIMeta";
 import type { VulnerabilitymetadataapiVulnerabilityProviderMetadata } from "./VulnerabilitymetadataapiVulnerabilityProviderMetadata";
 import {
     VulnerabilitymetadataapiVulnerabilityProviderMetadataFromJSON,
     VulnerabilitymetadataapiVulnerabilityProviderMetadataFromJSONTyped,
     VulnerabilitymetadataapiVulnerabilityProviderMetadataToJSON,
+    VulnerabilitymetadataapiVulnerabilityProviderMetadataToJSONTyped,
 } from "./VulnerabilitymetadataapiVulnerabilityProviderMetadata";
 
 /**
@@ -74,10 +75,15 @@ export function DomainVulnMetadataAPICombineResponseV1FromJSONTyped(json: any, i
     };
 }
 
-export function DomainVulnMetadataAPICombineResponseV1ToJSON(value?: DomainVulnMetadataAPICombineResponseV1 | null): any {
+export function DomainVulnMetadataAPICombineResponseV1ToJSON(json: any): DomainVulnMetadataAPICombineResponseV1 {
+    return DomainVulnMetadataAPICombineResponseV1ToJSONTyped(json, false);
+}
+
+export function DomainVulnMetadataAPICombineResponseV1ToJSONTyped(value?: DomainVulnMetadataAPICombineResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: DomainVulnMetadataAPIMetaToJSON(value["meta"]),

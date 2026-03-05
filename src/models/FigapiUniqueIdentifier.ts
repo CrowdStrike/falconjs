@@ -54,10 +54,15 @@ export function FigapiUniqueIdentifierFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function FigapiUniqueIdentifierToJSON(value?: FigapiUniqueIdentifier | null): any {
+export function FigapiUniqueIdentifierToJSON(json: any): FigapiUniqueIdentifier {
+    return FigapiUniqueIdentifierToJSONTyped(json, false);
+}
+
+export function FigapiUniqueIdentifierToJSONTyped(value?: FigapiUniqueIdentifier | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Name: value["name"],
         Type: value["type"],

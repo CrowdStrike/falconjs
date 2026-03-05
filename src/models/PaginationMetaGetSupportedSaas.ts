@@ -75,10 +75,15 @@ export function PaginationMetaGetSupportedSaasFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function PaginationMetaGetSupportedSaasToJSON(value?: PaginationMetaGetSupportedSaas | null): any {
+export function PaginationMetaGetSupportedSaasToJSON(json: any): PaginationMetaGetSupportedSaas {
+    return PaginationMetaGetSupportedSaasToJSONTyped(json, false);
+}
+
+export function PaginationMetaGetSupportedSaasToJSONTyped(value?: PaginationMetaGetSupportedSaas | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         limit: value["limit"],
         next: value["next"],

@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { DomainSearchAfterMeta } from "./DomainSearchAfterMeta";
-import { DomainSearchAfterMetaFromJSON, DomainSearchAfterMetaFromJSONTyped, DomainSearchAfterMetaToJSON } from "./DomainSearchAfterMeta";
+import { DomainSearchAfterMetaFromJSON, DomainSearchAfterMetaFromJSONTyped, DomainSearchAfterMetaToJSON, DomainSearchAfterMetaToJSONTyped } from "./DomainSearchAfterMeta";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainZeroTrustSimpleAssessment } from "./DomainZeroTrustSimpleAssessment";
-import { DomainZeroTrustSimpleAssessmentFromJSON, DomainZeroTrustSimpleAssessmentFromJSONTyped, DomainZeroTrustSimpleAssessmentToJSON } from "./DomainZeroTrustSimpleAssessment";
+import {
+    DomainZeroTrustSimpleAssessmentFromJSON,
+    DomainZeroTrustSimpleAssessmentFromJSONTyped,
+    DomainZeroTrustSimpleAssessmentToJSON,
+    DomainZeroTrustSimpleAssessmentToJSONTyped,
+} from "./DomainZeroTrustSimpleAssessment";
 
 /**
  *
@@ -71,10 +76,15 @@ export function DomainAssessmentsByScoreResponseFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function DomainAssessmentsByScoreResponseToJSON(value?: DomainAssessmentsByScoreResponse | null): any {
+export function DomainAssessmentsByScoreResponseToJSON(json: any): DomainAssessmentsByScoreResponse {
+    return DomainAssessmentsByScoreResponseToJSONTyped(json, false);
+}
+
+export function DomainAssessmentsByScoreResponseToJSONTyped(value?: DomainAssessmentsByScoreResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: DomainSearchAfterMetaToJSON(value["meta"]),

@@ -14,12 +14,18 @@
 
 import { mapValues } from "../runtime";
 import type { AssetgroupmanagerV1ImageSelector } from "./AssetgroupmanagerV1ImageSelector";
-import { AssetgroupmanagerV1ImageSelectorFromJSON, AssetgroupmanagerV1ImageSelectorFromJSONTyped, AssetgroupmanagerV1ImageSelectorToJSON } from "./AssetgroupmanagerV1ImageSelector";
+import {
+    AssetgroupmanagerV1ImageSelectorFromJSON,
+    AssetgroupmanagerV1ImageSelectorFromJSONTyped,
+    AssetgroupmanagerV1ImageSelectorToJSON,
+    AssetgroupmanagerV1ImageSelectorToJSONTyped,
+} from "./AssetgroupmanagerV1ImageSelector";
 import type { AssetgroupmanagerV1CloudResourceSelector } from "./AssetgroupmanagerV1CloudResourceSelector";
 import {
     AssetgroupmanagerV1CloudResourceSelectorFromJSON,
     AssetgroupmanagerV1CloudResourceSelectorFromJSONTyped,
     AssetgroupmanagerV1CloudResourceSelectorToJSON,
+    AssetgroupmanagerV1CloudResourceSelectorToJSONTyped,
 } from "./AssetgroupmanagerV1CloudResourceSelector";
 
 /**
@@ -84,10 +90,15 @@ export function AssetgroupmanagerV1CloudGroupSelectorsFromJSONTyped(json: any, i
     };
 }
 
-export function AssetgroupmanagerV1CloudGroupSelectorsToJSON(value?: AssetgroupmanagerV1CloudGroupSelectors | null): any {
+export function AssetgroupmanagerV1CloudGroupSelectorsToJSON(json: any): AssetgroupmanagerV1CloudGroupSelectors {
+    return AssetgroupmanagerV1CloudGroupSelectorsToJSONTyped(json, false);
+}
+
+export function AssetgroupmanagerV1CloudGroupSelectorsToJSONTyped(value?: AssetgroupmanagerV1CloudGroupSelectors | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cloud_resources: value["cloudResources"] == null ? undefined : (value["cloudResources"] as Array<any>).map(AssetgroupmanagerV1CloudResourceSelectorToJSON),
         image_registries: value["imageRegistries"],

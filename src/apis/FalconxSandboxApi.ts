@@ -138,9 +138,9 @@ export interface FalconxSandboxApiUploadSampleV2Request {
  */
 export class FalconxSandboxApi extends runtime.BaseAPI {
     /**
-     * Delete report based on the report ID. Operation can be checked for success by polling for the report ID on the report-summaries endpoint.
+     * Creates request options for deleteReport without sending the request
      */
-    async deleteReportRaw(requestParameters: FalconxSandboxApiDeleteReportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FalconxQueryResponse>> {
+    async deleteReportRequestOpts(requestParameters: FalconxSandboxApiDeleteReportRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteReport().');
         }
@@ -158,15 +158,22 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/falconx/entities/reports/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/falconx/entities/reports/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete report based on the report ID. Operation can be checked for success by polling for the report ID on the report-summaries endpoint.
+     */
+    async deleteReportRaw(requestParameters: FalconxSandboxApiDeleteReportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FalconxQueryResponse>> {
+        const requestOptions = await this.deleteReportRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FalconxQueryResponseFromJSON(jsonValue));
     }
@@ -180,9 +187,9 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
     }
 
     /**
-     * Removes a sample, including file, meta and submissions from the collection
+     * Creates request options for deleteSampleV2 without sending the request
      */
-    async deleteSampleV2Raw(requestParameters: FalconxSandboxApiDeleteSampleV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async deleteSampleV2RequestOpts(requestParameters: FalconxSandboxApiDeleteSampleV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteSampleV2().');
         }
@@ -200,15 +207,22 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/samples/entities/samples/v2`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/samples/entities/samples/v2`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Removes a sample, including file, meta and submissions from the collection
+     */
+    async deleteSampleV2Raw(requestParameters: FalconxSandboxApiDeleteSampleV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.deleteSampleV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -222,9 +236,9 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
     }
 
     /**
-     * Download IOC packs, PCAP files, memory dumps, and other analysis artifacts.
+     * Creates request options for getArtifacts without sending the request
      */
-    async getArtifactsRaw(requestParameters: FalconxSandboxApiGetArtifactsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async getArtifactsRequestOpts(requestParameters: FalconxSandboxApiGetArtifactsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling getArtifacts().');
         }
@@ -250,15 +264,22 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/falconx/entities/artifacts/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/falconx/entities/artifacts/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Download IOC packs, PCAP files, memory dumps, and other analysis artifacts.
+     */
+    async getArtifactsRaw(requestParameters: FalconxSandboxApiGetArtifactsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.getArtifactsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -272,9 +293,9 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get memory dump content, as binary
+     * Creates request options for getMemoryDump without sending the request
      */
-    async getMemoryDumpRaw(requestParameters: FalconxSandboxApiGetMemoryDumpRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async getMemoryDumpRequestOpts(requestParameters: FalconxSandboxApiGetMemoryDumpRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling getMemoryDump().');
         }
@@ -300,15 +321,22 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/falconx/entities/memory-dump/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/falconx/entities/memory-dump/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get memory dump content, as binary
+     */
+    async getMemoryDumpRaw(requestParameters: FalconxSandboxApiGetMemoryDumpRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.getMemoryDumpRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -322,12 +350,9 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get extracted strings from a memory dump
+     * Creates request options for getMemoryDumpExtractedStrings without sending the request
      */
-    async getMemoryDumpExtractedStringsRaw(
-        requestParameters: FalconxSandboxApiGetMemoryDumpExtractedStringsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async getMemoryDumpExtractedStringsRequestOpts(requestParameters: FalconxSandboxApiGetMemoryDumpExtractedStringsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling getMemoryDumpExtractedStrings().');
         }
@@ -353,15 +378,25 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/falconx/entities/memory-dump/extracted-strings/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/falconx/entities/memory-dump/extracted-strings/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get extracted strings from a memory dump
+     */
+    async getMemoryDumpExtractedStringsRaw(
+        requestParameters: FalconxSandboxApiGetMemoryDumpExtractedStringsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.getMemoryDumpExtractedStringsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -375,12 +410,9 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get hex view of a memory dump
+     * Creates request options for getMemoryDumpHexDump without sending the request
      */
-    async getMemoryDumpHexDumpRaw(
-        requestParameters: FalconxSandboxApiGetMemoryDumpHexDumpRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async getMemoryDumpHexDumpRequestOpts(requestParameters: FalconxSandboxApiGetMemoryDumpHexDumpRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling getMemoryDumpHexDump().');
         }
@@ -406,15 +438,25 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/falconx/entities/memory-dump/hex-dump/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/falconx/entities/memory-dump/hex-dump/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get hex view of a memory dump
+     */
+    async getMemoryDumpHexDumpRaw(
+        requestParameters: FalconxSandboxApiGetMemoryDumpHexDumpRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.getMemoryDumpHexDumpRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -428,9 +470,9 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a full sandbox report.
+     * Creates request options for getReports without sending the request
      */
-    async getReportsRaw(requestParameters: FalconxSandboxApiGetReportsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FalconxReportV1Response>> {
+    async getReportsRequestOpts(requestParameters: FalconxSandboxApiGetReportsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getReports().');
         }
@@ -448,15 +490,22 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/falconx/entities/reports/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/falconx/entities/reports/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a full sandbox report.
+     */
+    async getReportsRaw(requestParameters: FalconxSandboxApiGetReportsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FalconxReportV1Response>> {
+        const requestOptions = await this.getReportsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FalconxReportV1ResponseFromJSON(jsonValue));
     }
@@ -470,9 +519,9 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves the file associated with the given ID (SHA256)
+     * Creates request options for getSampleV2 without sending the request
      */
-    async getSampleV2Raw(requestParameters: FalconxSandboxApiGetSampleV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+    async getSampleV2RequestOpts(requestParameters: FalconxSandboxApiGetSampleV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getSampleV2().');
         }
@@ -494,15 +543,22 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/samples/entities/samples/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/samples/entities/samples/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieves the file associated with the given ID (SHA256)
+     */
+    async getSampleV2Raw(requestParameters: FalconxSandboxApiGetSampleV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+        const requestOptions = await this.getSampleV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         if (this.isJsonMime(response.headers.get("content-type"))) {
             return new runtime.JSONApiResponse<string>(response);
@@ -520,12 +576,9 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
     }
 
     /**
-     * Check the status of a sandbox analysis. Time required for analysis varies but is usually less than 15 minutes.
+     * Creates request options for getSubmissions without sending the request
      */
-    async getSubmissionsRaw(
-        requestParameters: FalconxSandboxApiGetSubmissionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<FalconxSubmissionV1Response>> {
+    async getSubmissionsRequestOpts(requestParameters: FalconxSandboxApiGetSubmissionsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getSubmissions().');
         }
@@ -543,15 +596,25 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/falconx/entities/submissions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/falconx/entities/submissions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Check the status of a sandbox analysis. Time required for analysis varies but is usually less than 15 minutes.
+     */
+    async getSubmissionsRaw(
+        requestParameters: FalconxSandboxApiGetSubmissionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<FalconxSubmissionV1Response>> {
+        const requestOptions = await this.getSubmissionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FalconxSubmissionV1ResponseFromJSON(jsonValue));
     }
@@ -565,12 +628,9 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a short summary version of a sandbox report.
+     * Creates request options for getSummaryReports without sending the request
      */
-    async getSummaryReportsRaw(
-        requestParameters: FalconxSandboxApiGetSummaryReportsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<FalconxSummaryReportV1Response>> {
+    async getSummaryReportsRequestOpts(requestParameters: FalconxSandboxApiGetSummaryReportsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getSummaryReports().');
         }
@@ -588,15 +648,25 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/falconx/entities/report-summaries/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/falconx/entities/report-summaries/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a short summary version of a sandbox report.
+     */
+    async getSummaryReportsRaw(
+        requestParameters: FalconxSandboxApiGetSummaryReportsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<FalconxSummaryReportV1Response>> {
+        const requestOptions = await this.getSummaryReportsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FalconxSummaryReportV1ResponseFromJSON(jsonValue));
     }
@@ -610,9 +680,9 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
     }
 
     /**
-     * Find sandbox reports by providing an FQL filter and paging details. Returns a set of report IDs that match your criteria.
+     * Creates request options for queryReports without sending the request
      */
-    async queryReportsRaw(requestParameters: FalconxSandboxApiQueryReportsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queryReportsRequestOpts(requestParameters: FalconxSandboxApiQueryReportsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -638,15 +708,22 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/falconx/queries/reports/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/falconx/queries/reports/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Find sandbox reports by providing an FQL filter and paging details. Returns a set of report IDs that match your criteria.
+     */
+    async queryReportsRaw(requestParameters: FalconxSandboxApiQueryReportsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queryReportsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -660,9 +737,9 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves a list with sha256 of samples that exist and customer has rights to access them, maximum number of accepted items is 200
+     * Creates request options for querySampleV1 without sending the request
      */
-    async querySampleV1Raw(requestParameters: FalconxSandboxApiQuerySampleV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async querySampleV1RequestOpts(requestParameters: FalconxSandboxApiQuerySampleV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling querySampleV1().');
         }
@@ -678,16 +755,23 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/samples/queries/samples/GET/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ClientQuerySamplesRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/samples/queries/samples/GET/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ClientQuerySamplesRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Retrieves a list with sha256 of samples that exist and customer has rights to access them, maximum number of accepted items is 200
+     */
+    async querySampleV1Raw(requestParameters: FalconxSandboxApiQuerySampleV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.querySampleV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -701,12 +785,9 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
     }
 
     /**
-     * Find submission IDs for uploaded files by providing an FQL filter and paging details. Returns a set of submission IDs that match your criteria.
+     * Creates request options for querySubmissions without sending the request
      */
-    async querySubmissionsRaw(
-        requestParameters: FalconxSandboxApiQuerySubmissionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async querySubmissionsRequestOpts(requestParameters: FalconxSandboxApiQuerySubmissionsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -732,15 +813,25 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/falconx/queries/submissions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/falconx/queries/submissions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Find submission IDs for uploaded files by providing an FQL filter and paging details. Returns a set of submission IDs that match your criteria.
+     */
+    async querySubmissionsRaw(
+        requestParameters: FalconxSandboxApiQuerySubmissionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.querySubmissionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -754,9 +845,9 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
     }
 
     /**
-     * Submit an uploaded file or a URL for sandbox analysis. Time required for analysis varies but is usually less than 15 minutes.
+     * Creates request options for submit without sending the request
      */
-    async submitRaw(requestParameters: FalconxSandboxApiSubmitRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FalconxSubmissionV1Response>> {
+    async submitRequestOpts(requestParameters: FalconxSandboxApiSubmitRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling submit().');
         }
@@ -776,16 +867,23 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-sandbox:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/falconx/entities/submissions/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: FalconxSubmissionParametersV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/falconx/entities/submissions/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: FalconxSubmissionParametersV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Submit an uploaded file or a URL for sandbox analysis. Time required for analysis varies but is usually less than 15 minutes.
+     */
+    async submitRaw(requestParameters: FalconxSandboxApiSubmitRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FalconxSubmissionV1Response>> {
+        const requestOptions = await this.submitRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FalconxSubmissionV1ResponseFromJSON(jsonValue));
     }
@@ -799,12 +897,9 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
     }
 
     /**
-     * Upload a file for sandbox analysis. After uploading, use `/falconx/entities/submissions/v1` to start analyzing the file.
+     * Creates request options for uploadSampleV2 without sending the request
      */
-    async uploadSampleV2Raw(
-        requestParameters: FalconxSandboxApiUploadSampleV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ClientSampleMetadataResponseV2>> {
+    async uploadSampleV2RequestOpts(requestParameters: FalconxSandboxApiUploadSampleV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["sample"] == null) {
             throw new runtime.RequiredError("sample", 'Required parameter "sample" was null or undefined when calling uploadSampleV2().');
         }
@@ -852,16 +947,26 @@ export class FalconxSandboxApi extends runtime.BaseAPI {
             formParams.append("is_confidential", requestParameters["isConfidential"] as any);
         }
 
-        const response = await this.request(
-            {
-                path: `/samples/entities/samples/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: formParams,
-            },
-            initOverrides,
-        );
+        let urlPath = `/samples/entities/samples/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        };
+    }
+
+    /**
+     * Upload a file for sandbox analysis. After uploading, use `/falconx/entities/submissions/v1` to start analyzing the file.
+     */
+    async uploadSampleV2Raw(
+        requestParameters: FalconxSandboxApiUploadSampleV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ClientSampleMetadataResponseV2>> {
+        const requestOptions = await this.uploadSampleV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientSampleMetadataResponseV2FromJSON(jsonValue));
     }

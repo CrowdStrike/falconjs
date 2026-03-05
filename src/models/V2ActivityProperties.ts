@@ -18,6 +18,7 @@ import {
     ParameterActivityConfigParameterValueFromJSON,
     ParameterActivityConfigParameterValueFromJSONTyped,
     ParameterActivityConfigParameterValueToJSON,
+    ParameterActivityConfigParameterValueToJSONTyped,
 } from "./ParameterActivityConfigParameterValue";
 
 /**
@@ -55,10 +56,15 @@ export function V2ActivityPropertiesFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function V2ActivityPropertiesToJSON(value?: V2ActivityProperties | null): any {
+export function V2ActivityPropertiesToJSON(json: any): V2ActivityProperties {
+    return V2ActivityPropertiesToJSONTyped(json, false);
+}
+
+export function V2ActivityPropertiesToJSONTyped(value?: V2ActivityProperties | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         properties: mapValues(value["properties"], ParameterActivityConfigParameterValueToJSON),
     };

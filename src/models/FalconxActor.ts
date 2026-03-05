@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { FalconxEntity } from "./FalconxEntity";
-import { FalconxEntityFromJSON, FalconxEntityFromJSONTyped, FalconxEntityToJSON } from "./FalconxEntity";
+import { FalconxEntityFromJSON, FalconxEntityFromJSONTyped, FalconxEntityToJSON, FalconxEntityToJSONTyped } from "./FalconxEntity";
 
 /**
  *
@@ -141,10 +141,15 @@ export function FalconxActorFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function FalconxActorToJSON(value?: FalconxActor | null): any {
+export function FalconxActorToJSON(json: any): FalconxActor {
+    return FalconxActorToJSONTyped(json, false);
+}
+
+export function FalconxActorToJSONTyped(value?: FalconxActor | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         created_timestamp: value["createdTimestamp"],
         description: value["description"],

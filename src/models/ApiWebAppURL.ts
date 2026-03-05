@@ -56,10 +56,15 @@ export function ApiWebAppURLFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function ApiWebAppURLToJSON(value?: ApiWebAppURL | null): any {
+export function ApiWebAppURLToJSON(json: any): ApiWebAppURL {
+    return ApiWebAppURLToJSONTyped(json, false);
+}
+
+export function ApiWebAppURLToJSONTyped(value?: ApiWebAppURL | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         fqdn: value["fqdn"],
         path: value["path"],

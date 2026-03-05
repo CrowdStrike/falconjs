@@ -61,10 +61,15 @@ export function DtoLogIngestionPropertiesFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DtoLogIngestionPropertiesToJSON(value?: DtoLogIngestionProperties | null): any {
+export function DtoLogIngestionPropertiesToJSON(json: any): DtoLogIngestionProperties {
+    return DtoLogIngestionPropertiesToJSONTyped(json, false);
+}
+
+export function DtoLogIngestionPropertiesToJSONTyped(value?: DtoLogIngestionProperties | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         sink_name: value["sinkName"],
         subscription_id: value["subscriptionId"],

@@ -64,10 +64,15 @@ export function DomainDiscoverAPIPagingFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function DomainDiscoverAPIPagingToJSON(value?: DomainDiscoverAPIPaging | null): any {
+export function DomainDiscoverAPIPagingToJSON(json: any): DomainDiscoverAPIPaging {
+    return DomainDiscoverAPIPagingToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPIPagingToJSONTyped(value?: DomainDiscoverAPIPaging | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         after: value["after"],
         limit: value["limit"],

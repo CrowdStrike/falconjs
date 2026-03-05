@@ -48,10 +48,15 @@ export function BaseSetContentUpdatePolicyPrecedenceReqV1FromJSONTyped(json: any
     };
 }
 
-export function BaseSetContentUpdatePolicyPrecedenceReqV1ToJSON(value?: BaseSetContentUpdatePolicyPrecedenceReqV1 | null): any {
+export function BaseSetContentUpdatePolicyPrecedenceReqV1ToJSON(json: any): BaseSetContentUpdatePolicyPrecedenceReqV1 {
+    return BaseSetContentUpdatePolicyPrecedenceReqV1ToJSONTyped(json, false);
+}
+
+export function BaseSetContentUpdatePolicyPrecedenceReqV1ToJSONTyped(value?: BaseSetContentUpdatePolicyPrecedenceReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ids: value["ids"],
     };

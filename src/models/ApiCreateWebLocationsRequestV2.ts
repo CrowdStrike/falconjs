@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ApiCreateWebLocationRequestV2 } from "./ApiCreateWebLocationRequestV2";
-import { ApiCreateWebLocationRequestV2FromJSON, ApiCreateWebLocationRequestV2FromJSONTyped, ApiCreateWebLocationRequestV2ToJSON } from "./ApiCreateWebLocationRequestV2";
+import {
+    ApiCreateWebLocationRequestV2FromJSON,
+    ApiCreateWebLocationRequestV2FromJSONTyped,
+    ApiCreateWebLocationRequestV2ToJSON,
+    ApiCreateWebLocationRequestV2ToJSONTyped,
+} from "./ApiCreateWebLocationRequestV2";
 
 /**
  *
@@ -51,10 +56,15 @@ export function ApiCreateWebLocationsRequestV2FromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function ApiCreateWebLocationsRequestV2ToJSON(value?: ApiCreateWebLocationsRequestV2 | null): any {
+export function ApiCreateWebLocationsRequestV2ToJSON(json: any): ApiCreateWebLocationsRequestV2 {
+    return ApiCreateWebLocationsRequestV2ToJSONTyped(json, false);
+}
+
+export function ApiCreateWebLocationsRequestV2ToJSONTyped(value?: ApiCreateWebLocationsRequestV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         web_locations: (value["webLocations"] as Array<any>).map(ApiCreateWebLocationRequestV2ToJSON),
     };

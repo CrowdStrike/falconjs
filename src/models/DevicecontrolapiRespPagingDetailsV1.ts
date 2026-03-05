@@ -64,10 +64,15 @@ export function DevicecontrolapiRespPagingDetailsV1FromJSONTyped(json: any, igno
     };
 }
 
-export function DevicecontrolapiRespPagingDetailsV1ToJSON(value?: DevicecontrolapiRespPagingDetailsV1 | null): any {
+export function DevicecontrolapiRespPagingDetailsV1ToJSON(json: any): DevicecontrolapiRespPagingDetailsV1 {
+    return DevicecontrolapiRespPagingDetailsV1ToJSONTyped(json, false);
+}
+
+export function DevicecontrolapiRespPagingDetailsV1ToJSONTyped(value?: DevicecontrolapiRespPagingDetailsV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         limit: value["limit"],
         offset: value["offset"],

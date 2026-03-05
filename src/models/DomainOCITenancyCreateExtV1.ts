@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DomainCloudOCIProductFeature } from "./DomainCloudOCIProductFeature";
-import { DomainCloudOCIProductFeatureFromJSON, DomainCloudOCIProductFeatureFromJSONTyped, DomainCloudOCIProductFeatureToJSON } from "./DomainCloudOCIProductFeature";
+import {
+    DomainCloudOCIProductFeatureFromJSON,
+    DomainCloudOCIProductFeatureFromJSONTyped,
+    DomainCloudOCIProductFeatureToJSON,
+    DomainCloudOCIProductFeatureToJSONTyped,
+} from "./DomainCloudOCIProductFeature";
 
 /**
  *
@@ -96,10 +101,15 @@ export function DomainOCITenancyCreateExtV1FromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function DomainOCITenancyCreateExtV1ToJSON(value?: DomainOCITenancyCreateExtV1 | null): any {
+export function DomainOCITenancyCreateExtV1ToJSON(json: any): DomainOCITenancyCreateExtV1 {
+    return DomainOCITenancyCreateExtV1ToJSONTyped(json, false);
+}
+
+export function DomainOCITenancyCreateExtV1ToJSONTyped(value?: DomainOCITenancyCreateExtV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         group_name: value["groupName"],
         home_region: value["homeRegion"],

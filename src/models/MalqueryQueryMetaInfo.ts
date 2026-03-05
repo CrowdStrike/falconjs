@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { MsaPaging } from "./MsaPaging";
-import { MsaPagingFromJSON, MsaPagingFromJSONTyped, MsaPagingToJSON } from "./MsaPaging";
+import { MsaPagingFromJSON, MsaPagingFromJSONTyped, MsaPagingToJSON, MsaPagingToJSONTyped } from "./MsaPaging";
 import type { MsaspecWrites } from "./MsaspecWrites";
-import { MsaspecWritesFromJSON, MsaspecWritesFromJSONTyped, MsaspecWritesToJSON } from "./MsaspecWrites";
+import { MsaspecWritesFromJSON, MsaspecWritesFromJSONTyped, MsaspecWritesToJSON, MsaspecWritesToJSONTyped } from "./MsaspecWrites";
 
 /**
  *
@@ -95,10 +95,15 @@ export function MalqueryQueryMetaInfoFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function MalqueryQueryMetaInfoToJSON(value?: MalqueryQueryMetaInfo | null): any {
+export function MalqueryQueryMetaInfoToJSON(json: any): MalqueryQueryMetaInfo {
+    return MalqueryQueryMetaInfoToJSONTyped(json, false);
+}
+
+export function MalqueryQueryMetaInfoToJSONTyped(value?: MalqueryQueryMetaInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: MsaPagingToJSON(value["pagination"]),
         powered_by: value["poweredBy"],

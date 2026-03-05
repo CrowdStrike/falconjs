@@ -133,10 +133,15 @@ export function DomainCVSSv3FromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function DomainCVSSv3ToJSON(value?: DomainCVSSv3 | null): any {
+export function DomainCVSSv3ToJSON(json: any): DomainCVSSv3 {
+    return DomainCVSSv3ToJSONTyped(json, false);
+}
+
+export function DomainCVSSv3ToJSONTyped(value?: DomainCVSSv3 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         attack_complexity: value["attackComplexity"],
         attack_vector: value["attackVector"],

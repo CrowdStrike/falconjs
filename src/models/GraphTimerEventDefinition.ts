@@ -78,10 +78,15 @@ export function GraphTimerEventDefinitionFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function GraphTimerEventDefinitionToJSON(value?: GraphTimerEventDefinition | null): any {
+export function GraphTimerEventDefinitionToJSON(json: any): GraphTimerEventDefinition {
+    return GraphTimerEventDefinitionToJSONTyped(json, false);
+}
+
+export function GraphTimerEventDefinitionToJSONTyped(value?: GraphTimerEventDefinition | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         end_date: value["endDate"],
         skip_concurrent: value["skipConcurrent"],

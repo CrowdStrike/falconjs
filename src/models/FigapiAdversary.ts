@@ -54,10 +54,15 @@ export function FigapiAdversaryFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function FigapiAdversaryToJSON(value?: FigapiAdversary | null): any {
+export function FigapiAdversaryToJSON(json: any): FigapiAdversary {
+    return FigapiAdversaryToJSONTyped(json, false);
+}
+
+export function FigapiAdversaryToJSONTyped(value?: FigapiAdversary | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Name: value["name"],
         Slug: value["slug"],

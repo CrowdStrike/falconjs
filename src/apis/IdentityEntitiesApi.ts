@@ -49,12 +49,9 @@ export interface IdentityEntitiesApiQuerySensorsByFilterRequest {
  */
 export class IdentityEntitiesApi extends runtime.BaseAPI {
     /**
-     * Get sensor aggregates as specified via json in request body.
+     * Creates request options for getSensorAggregates without sending the request
      */
-    async getSensorAggregatesRaw(
-        requestParameters: IdentityEntitiesApiGetSensorAggregatesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+    async getSensorAggregatesRequestOpts(requestParameters: IdentityEntitiesApiGetSensorAggregatesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getSensorAggregates().');
         }
@@ -70,16 +67,26 @@ export class IdentityEntitiesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["identity-entities:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/identity-protection/aggregates/devices/GET/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaAggregateQueryRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/identity-protection/aggregates/devices/GET/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaAggregateQueryRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Get sensor aggregates as specified via json in request body.
+     */
+    async getSensorAggregatesRaw(
+        requestParameters: IdentityEntitiesApiGetSensorAggregatesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        const requestOptions = await this.getSensorAggregatesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
     }
@@ -93,12 +100,9 @@ export class IdentityEntitiesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get details on one or more sensors by providing device IDs in a POST body. Supports up to a maximum of 5000 IDs.
+     * Creates request options for getSensorDetails without sending the request
      */
-    async getSensorDetailsRaw(
-        requestParameters: IdentityEntitiesApiGetSensorDetailsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiSensorDetailsResponseSwagger>> {
+    async getSensorDetailsRequestOpts(requestParameters: IdentityEntitiesApiGetSensorDetailsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getSensorDetails().');
         }
@@ -114,16 +118,26 @@ export class IdentityEntitiesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["identity-entities:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/identity-protection/entities/devices/GET/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaIdsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/identity-protection/entities/devices/GET/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaIdsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Get details on one or more sensors by providing device IDs in a POST body. Supports up to a maximum of 5000 IDs.
+     */
+    async getSensorDetailsRaw(
+        requestParameters: IdentityEntitiesApiGetSensorDetailsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiSensorDetailsResponseSwagger>> {
+        const requestOptions = await this.getSensorDetailsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiSensorDetailsResponseSwaggerFromJSON(jsonValue));
     }
@@ -137,12 +151,9 @@ export class IdentityEntitiesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for sensors in your environment by hostname, IP, and other criteria.
+     * Creates request options for querySensorsByFilter without sending the request
      */
-    async querySensorsByFilterRaw(
-        requestParameters: IdentityEntitiesApiQuerySensorsByFilterRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async querySensorsByFilterRequestOpts(requestParameters: IdentityEntitiesApiQuerySensorsByFilterRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -168,15 +179,25 @@ export class IdentityEntitiesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["identity-entities:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/identity-protection/queries/devices/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/identity-protection/queries/devices/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for sensors in your environment by hostname, IP, and other criteria.
+     */
+    async querySensorsByFilterRaw(
+        requestParameters: IdentityEntitiesApiQuerySensorsByFilterRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.querySensorsByFilterRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }

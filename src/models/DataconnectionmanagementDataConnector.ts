@@ -109,10 +109,15 @@ export function DataconnectionmanagementDataConnectorFromJSONTyped(json: any, ig
     };
 }
 
-export function DataconnectionmanagementDataConnectorToJSON(value?: DataconnectionmanagementDataConnector | null): any {
+export function DataconnectionmanagementDataConnectorToJSON(json: any): DataconnectionmanagementDataConnector {
+    return DataconnectionmanagementDataConnectorToJSONTyped(json, false);
+}
+
+export function DataconnectionmanagementDataConnectorToJSONTyped(value?: DataconnectionmanagementDataConnector | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         id: value["id"],

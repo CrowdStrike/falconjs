@@ -14,9 +14,14 @@
 
 import { mapValues } from "../runtime";
 import type { DetectsParentDetails } from "./DetectsParentDetails";
-import { DetectsParentDetailsFromJSON, DetectsParentDetailsFromJSONTyped, DetectsParentDetailsToJSON } from "./DetectsParentDetails";
+import { DetectsParentDetailsFromJSON, DetectsParentDetailsFromJSONTyped, DetectsParentDetailsToJSON, DetectsParentDetailsToJSONTyped } from "./DetectsParentDetails";
 import type { PatterndispositionPatternDisposition } from "./PatterndispositionPatternDisposition";
-import { PatterndispositionPatternDispositionFromJSON, PatterndispositionPatternDispositionFromJSONTyped, PatterndispositionPatternDispositionToJSON } from "./PatterndispositionPatternDisposition";
+import {
+    PatterndispositionPatternDispositionFromJSON,
+    PatterndispositionPatternDispositionFromJSONTyped,
+    PatterndispositionPatternDispositionToJSON,
+    PatterndispositionPatternDispositionToJSONTyped,
+} from "./PatterndispositionPatternDisposition";
 
 /**
  *
@@ -313,10 +318,15 @@ export function DetectsBehaviorFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function DetectsBehaviorToJSON(value?: DetectsBehavior | null): any {
+export function DetectsBehaviorToJSON(json: any): DetectsBehavior {
+    return DetectsBehaviorToJSONTyped(json, false);
+}
+
+export function DetectsBehaviorToJSONTyped(value?: DetectsBehavior | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         alleged_filetype: value["allegedFiletype"],
         behavior_id: value["behaviorId"],

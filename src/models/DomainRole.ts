@@ -86,10 +86,15 @@ export function DomainRoleFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function DomainRoleToJSON(value?: DomainRole | null): any {
+export function DomainRoleToJSON(json: any): DomainRole {
+    return DomainRoleToJSONTyped(json, false);
+}
+
+export function DomainRoleToJSONTyped(value?: DomainRole | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         description: value["description"],

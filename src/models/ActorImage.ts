@@ -62,10 +62,15 @@ export function ActorImageFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function ActorImageToJSON(value?: ActorImage | null): any {
+export function ActorImageToJSON(json: any): ActorImage {
+    return ActorImageToJSONTyped(json, false);
+}
+
+export function ActorImageToJSONTyped(value?: ActorImage | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         height: value["height"],
         url: value["url"],

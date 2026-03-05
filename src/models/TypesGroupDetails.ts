@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesGroupMinDetails } from "./TypesGroupMinDetails";
-import { TypesGroupMinDetailsFromJSON, TypesGroupMinDetailsFromJSONTyped, TypesGroupMinDetailsToJSON } from "./TypesGroupMinDetails";
+import { TypesGroupMinDetailsFromJSON, TypesGroupMinDetailsFromJSONTyped, TypesGroupMinDetailsToJSON, TypesGroupMinDetailsToJSONTyped } from "./TypesGroupMinDetails";
 
 /**
  *
@@ -127,10 +127,15 @@ export function TypesGroupDetailsFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function TypesGroupDetailsToJSON(value?: TypesGroupDetails | null): any {
+export function TypesGroupDetailsToJSON(json: any): TypesGroupDetails {
+    return TypesGroupDetailsToJSONTyped(json, false);
+}
+
+export function TypesGroupDetailsToJSONTyped(value?: TypesGroupDetails | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         children: value["children"] == null ? undefined : (value["children"] as Array<any>).map(TypesGroupMinDetailsToJSON),
         createdAt: value["createdAt"],

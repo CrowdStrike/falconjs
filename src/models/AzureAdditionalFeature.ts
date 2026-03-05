@@ -64,10 +64,15 @@ export function AzureAdditionalFeatureFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function AzureAdditionalFeatureToJSON(value?: AzureAdditionalFeature | null): any {
+export function AzureAdditionalFeatureToJSON(json: any): AzureAdditionalFeature {
+    return AzureAdditionalFeatureToJSONTyped(json, false);
+}
+
+export function AzureAdditionalFeatureToJSONTyped(value?: AzureAdditionalFeature | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         feature: value["feature"],
         product: value["product"],

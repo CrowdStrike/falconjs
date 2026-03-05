@@ -56,10 +56,15 @@ export function ModelsDeliverySettingsInputFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function ModelsDeliverySettingsInputToJSON(value?: ModelsDeliverySettingsInput | null): any {
+export function ModelsDeliverySettingsInputToJSON(json: any): ModelsDeliverySettingsInput {
+    return ModelsDeliverySettingsInputToJSONTyped(json, false);
+}
+
+export function ModelsDeliverySettingsInputToJSONTyped(value?: ModelsDeliverySettingsInput | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         delivery_cadence: value["deliveryCadence"],
         delivery_type: value["deliveryType"],

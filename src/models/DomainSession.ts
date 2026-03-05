@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { ModelSessionLog } from "./ModelSessionLog";
-import { ModelSessionLogFromJSON, ModelSessionLogFromJSONTyped, ModelSessionLogToJSON } from "./ModelSessionLog";
+import { ModelSessionLogFromJSON, ModelSessionLogFromJSONTyped, ModelSessionLogToJSON, ModelSessionLogToJSONTyped } from "./ModelSessionLog";
 import type { DomainDevice } from "./DomainDevice";
-import { DomainDeviceFromJSON, DomainDeviceFromJSONTyped, DomainDeviceToJSON } from "./DomainDevice";
+import { DomainDeviceFromJSON, DomainDeviceFromJSONTyped, DomainDeviceToJSON, DomainDeviceToJSONTyped } from "./DomainDevice";
 
 /**
  *
@@ -207,10 +207,15 @@ export function DomainSessionFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function DomainSessionToJSON(value?: DomainSession | null): any {
+export function DomainSessionToJSON(json: any): DomainSession {
+    return DomainSessionToJSONTyped(json, false);
+}
+
+export function DomainSessionToJSONTyped(value?: DomainSession | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         cloud_request_ids: value["cloudRequestIds"],

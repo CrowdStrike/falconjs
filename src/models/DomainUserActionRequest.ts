@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainUserAction } from "./DomainUserAction";
-import { DomainUserActionFromJSON, DomainUserActionFromJSONTyped, DomainUserActionToJSON } from "./DomainUserAction";
+import { DomainUserActionFromJSON, DomainUserActionFromJSONTyped, DomainUserActionToJSON, DomainUserActionToJSONTyped } from "./DomainUserAction";
 
 /**
  * ID(s) of users the action(s) are to applied to
@@ -59,10 +59,15 @@ export function DomainUserActionRequestFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function DomainUserActionRequestToJSON(value?: DomainUserActionRequest | null): any {
+export function DomainUserActionRequestToJSON(json: any): DomainUserActionRequest {
+    return DomainUserActionRequestToJSONTyped(json, false);
+}
+
+export function DomainUserActionRequestToJSONTyped(value?: DomainUserActionRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: DomainUserActionToJSON(value["action"]),
         ids: value["ids"],

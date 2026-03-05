@@ -88,10 +88,15 @@ export function ExecutionsIterationsFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function ExecutionsIterationsToJSON(value?: ExecutionsIterations | null): any {
+export function ExecutionsIterationsToJSON(json: any): ExecutionsIterations {
+    return ExecutionsIterationsToJSONTyped(json, false);
+}
+
+export function ExecutionsIterationsToJSONTyped(value?: ExecutionsIterations | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         completed: value["completed"],
         failed: value["failed"],

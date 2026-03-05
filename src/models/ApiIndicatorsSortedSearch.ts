@@ -64,10 +64,15 @@ export function ApiIndicatorsSortedSearchFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ApiIndicatorsSortedSearchToJSON(value?: ApiIndicatorsSortedSearch | null): any {
+export function ApiIndicatorsSortedSearchToJSON(json: any): ApiIndicatorsSortedSearch {
+    return ApiIndicatorsSortedSearchToJSONTyped(json, false);
+}
+
+export function ApiIndicatorsSortedSearchToJSONTyped(value?: ApiIndicatorsSortedSearch | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         filter: value["filter"],
         query: value["query"],

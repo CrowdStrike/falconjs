@@ -90,10 +90,15 @@ export function DomainAPISimplifiedEvaluationLogicItemV1FromJSONTyped(json: any,
     };
 }
 
-export function DomainAPISimplifiedEvaluationLogicItemV1ToJSON(value?: DomainAPISimplifiedEvaluationLogicItemV1 | null): any {
+export function DomainAPISimplifiedEvaluationLogicItemV1ToJSON(json: any): DomainAPISimplifiedEvaluationLogicItemV1 {
+    return DomainAPISimplifiedEvaluationLogicItemV1ToJSONTyped(json, false);
+}
+
+export function DomainAPISimplifiedEvaluationLogicItemV1ToJSONTyped(value?: DomainAPISimplifiedEvaluationLogicItemV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         checks: value["checks"],
         data: value["data"],

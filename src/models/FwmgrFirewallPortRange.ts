@@ -56,10 +56,15 @@ export function FwmgrFirewallPortRangeFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function FwmgrFirewallPortRangeToJSON(value?: FwmgrFirewallPortRange | null): any {
+export function FwmgrFirewallPortRangeToJSON(json: any): FwmgrFirewallPortRange {
+    return FwmgrFirewallPortRangeToJSONTyped(json, false);
+}
+
+export function FwmgrFirewallPortRangeToJSONTyped(value?: FwmgrFirewallPortRange | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         end: value["end"],
         start: value["start"],

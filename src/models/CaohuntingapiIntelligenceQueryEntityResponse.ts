@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { CaohuntingapiIntelligenceQueryEntity } from "./CaohuntingapiIntelligenceQueryEntity";
-import { CaohuntingapiIntelligenceQueryEntityFromJSON, CaohuntingapiIntelligenceQueryEntityFromJSONTyped, CaohuntingapiIntelligenceQueryEntityToJSON } from "./CaohuntingapiIntelligenceQueryEntity";
+import {
+    CaohuntingapiIntelligenceQueryEntityFromJSON,
+    CaohuntingapiIntelligenceQueryEntityFromJSONTyped,
+    CaohuntingapiIntelligenceQueryEntityToJSON,
+    CaohuntingapiIntelligenceQueryEntityToJSONTyped,
+} from "./CaohuntingapiIntelligenceQueryEntity";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +75,15 @@ export function CaohuntingapiIntelligenceQueryEntityResponseFromJSONTyped(json: 
     };
 }
 
-export function CaohuntingapiIntelligenceQueryEntityResponseToJSON(value?: CaohuntingapiIntelligenceQueryEntityResponse | null): any {
+export function CaohuntingapiIntelligenceQueryEntityResponseToJSON(json: any): CaohuntingapiIntelligenceQueryEntityResponse {
+    return CaohuntingapiIntelligenceQueryEntityResponseToJSONTyped(json, false);
+}
+
+export function CaohuntingapiIntelligenceQueryEntityResponseToJSONTyped(value?: CaohuntingapiIntelligenceQueryEntityResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

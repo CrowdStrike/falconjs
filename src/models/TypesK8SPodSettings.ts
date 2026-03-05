@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesKeyValue } from "./TypesKeyValue";
-import { TypesKeyValueFromJSON, TypesKeyValueFromJSONTyped, TypesKeyValueToJSON } from "./TypesKeyValue";
+import { TypesKeyValueFromJSON, TypesKeyValueFromJSONTyped, TypesKeyValueToJSON, TypesKeyValueToJSONTyped } from "./TypesKeyValue";
 
 /**
  *
@@ -64,10 +64,15 @@ export function TypesK8SPodSettingsFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function TypesK8SPodSettingsToJSON(value?: TypesK8SPodSettings | null): any {
+export function TypesK8SPodSettingsToJSON(json: any): TypesK8SPodSettings {
+    return TypesK8SPodSettingsToJSONTyped(json, false);
+}
+
+export function TypesK8SPodSettingsToJSONTyped(value?: TypesK8SPodSettings | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         imageAddress: value["imageAddress"],
         imagePullSecrets: value["imagePullSecrets"],

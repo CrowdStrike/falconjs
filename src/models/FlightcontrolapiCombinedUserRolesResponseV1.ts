@@ -14,15 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { FlightcontrolapiCombinedUserRolesResourceV1 } from "./FlightcontrolapiCombinedUserRolesResourceV1";
 import {
     FlightcontrolapiCombinedUserRolesResourceV1FromJSON,
     FlightcontrolapiCombinedUserRolesResourceV1FromJSONTyped,
     FlightcontrolapiCombinedUserRolesResourceV1ToJSON,
+    FlightcontrolapiCombinedUserRolesResourceV1ToJSONTyped,
 } from "./FlightcontrolapiCombinedUserRolesResourceV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -74,10 +75,15 @@ export function FlightcontrolapiCombinedUserRolesResponseV1FromJSONTyped(json: a
     };
 }
 
-export function FlightcontrolapiCombinedUserRolesResponseV1ToJSON(value?: FlightcontrolapiCombinedUserRolesResponseV1 | null): any {
+export function FlightcontrolapiCombinedUserRolesResponseV1ToJSON(json: any): FlightcontrolapiCombinedUserRolesResponseV1 {
+    return FlightcontrolapiCombinedUserRolesResponseV1ToJSONTyped(json, false);
+}
+
+export function FlightcontrolapiCombinedUserRolesResponseV1ToJSONTyped(value?: FlightcontrolapiCombinedUserRolesResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

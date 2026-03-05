@@ -94,10 +94,15 @@ export function CorrelationrulesapiRuleSearchDeployTemplateV1FromJSONTyped(json:
     };
 }
 
-export function CorrelationrulesapiRuleSearchDeployTemplateV1ToJSON(value?: CorrelationrulesapiRuleSearchDeployTemplateV1 | null): any {
+export function CorrelationrulesapiRuleSearchDeployTemplateV1ToJSON(json: any): CorrelationrulesapiRuleSearchDeployTemplateV1 {
+    return CorrelationrulesapiRuleSearchDeployTemplateV1ToJSONTyped(json, false);
+}
+
+export function CorrelationrulesapiRuleSearchDeployTemplateV1ToJSONTyped(value?: CorrelationrulesapiRuleSearchDeployTemplateV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         case_template_id: value["caseTemplateId"],
         execution_mode: value["executionMode"],

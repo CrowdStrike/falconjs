@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { IocapiPaginationMeta } from "./IocapiPaginationMeta";
-import { IocapiPaginationMetaFromJSON, IocapiPaginationMetaFromJSONTyped, IocapiPaginationMetaToJSON } from "./IocapiPaginationMeta";
+import { IocapiPaginationMetaFromJSON, IocapiPaginationMetaFromJSONTyped, IocapiPaginationMetaToJSON, IocapiPaginationMetaToJSONTyped } from "./IocapiPaginationMeta";
 
 /**
  *
@@ -73,10 +73,15 @@ export function IocapiResponseMetaFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function IocapiResponseMetaToJSON(value?: IocapiResponseMeta | null): any {
+export function IocapiResponseMetaToJSON(json: any): IocapiResponseMeta {
+    return IocapiResponseMetaToJSONTyped(json, false);
+}
+
+export function IocapiResponseMetaToJSONTyped(value?: IocapiResponseMeta | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         entity: value["entity"],
         pagination: IocapiPaginationMetaToJSON(value["pagination"]),

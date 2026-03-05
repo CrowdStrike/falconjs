@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DomainAPIAssetComplianceFindingV1 } from "./DomainAPIAssetComplianceFindingV1";
-import { DomainAPIAssetComplianceFindingV1FromJSON, DomainAPIAssetComplianceFindingV1FromJSONTyped, DomainAPIAssetComplianceFindingV1ToJSON } from "./DomainAPIAssetComplianceFindingV1";
+import {
+    DomainAPIAssetComplianceFindingV1FromJSON,
+    DomainAPIAssetComplianceFindingV1FromJSONTyped,
+    DomainAPIAssetComplianceFindingV1ToJSON,
+    DomainAPIAssetComplianceFindingV1ToJSONTyped,
+} from "./DomainAPIAssetComplianceFindingV1";
 
 /**
  *
@@ -107,10 +112,15 @@ export function DomainAPIAggregateComplianceByFrameworkV1FromJSONTyped(json: any
     };
 }
 
-export function DomainAPIAggregateComplianceByFrameworkV1ToJSON(value?: DomainAPIAggregateComplianceByFrameworkV1 | null): any {
+export function DomainAPIAggregateComplianceByFrameworkV1ToJSON(json: any): DomainAPIAggregateComplianceByFrameworkV1 {
+    return DomainAPIAggregateComplianceByFrameworkV1ToJSONTyped(json, false);
+}
+
+export function DomainAPIAggregateComplianceByFrameworkV1ToJSONTyped(value?: DomainAPIAggregateComplianceByFrameworkV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         failed_rules_count: value["failedRulesCount"],
         framework_name: value["frameworkName"],

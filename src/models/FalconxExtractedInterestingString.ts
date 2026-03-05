@@ -75,10 +75,15 @@ export function FalconxExtractedInterestingStringFromJSONTyped(json: any, ignore
     };
 }
 
-export function FalconxExtractedInterestingStringToJSON(value?: FalconxExtractedInterestingString | null): any {
+export function FalconxExtractedInterestingStringToJSON(json: any): FalconxExtractedInterestingString {
+    return FalconxExtractedInterestingStringToJSONTyped(json, false);
+}
+
+export function FalconxExtractedInterestingStringToJSONTyped(value?: FalconxExtractedInterestingString | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         filename: value["filename"],
         process: value["process"],

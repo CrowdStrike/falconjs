@@ -64,10 +64,15 @@ export function MessagesAlertFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function MessagesAlertToJSON(value?: MessagesAlert | null): any {
+export function MessagesAlertToJSON(json: any): MessagesAlert {
+    return MessagesAlertToJSONTyped(json, false);
+}
+
+export function MessagesAlertToJSONTyped(value?: MessagesAlert | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         product: value["product"],

@@ -96,10 +96,15 @@ export function ApiSensitivityLabelCreateRequestV2FromJSONTyped(json: any, ignor
     };
 }
 
-export function ApiSensitivityLabelCreateRequestV2ToJSON(value?: ApiSensitivityLabelCreateRequestV2 | null): any {
+export function ApiSensitivityLabelCreateRequestV2ToJSON(json: any): ApiSensitivityLabelCreateRequestV2 {
+    return ApiSensitivityLabelCreateRequestV2ToJSONTyped(json, false);
+}
+
+export function ApiSensitivityLabelCreateRequestV2ToJSONTyped(value?: ApiSensitivityLabelCreateRequestV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         co_authoring: value["coAuthoring"],
         display_name: value["displayName"],

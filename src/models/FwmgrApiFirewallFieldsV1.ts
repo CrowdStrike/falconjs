@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { FwmgrDomainField } from "./FwmgrDomainField";
-import { FwmgrDomainFieldFromJSON, FwmgrDomainFieldFromJSONTyped, FwmgrDomainFieldToJSON } from "./FwmgrDomainField";
+import { FwmgrDomainFieldFromJSON, FwmgrDomainFieldFromJSONTyped, FwmgrDomainFieldToJSON, FwmgrDomainFieldToJSONTyped } from "./FwmgrDomainField";
 import type { FwmgrDomainMonitoring } from "./FwmgrDomainMonitoring";
-import { FwmgrDomainMonitoringFromJSON, FwmgrDomainMonitoringFromJSONTyped, FwmgrDomainMonitoringToJSON } from "./FwmgrDomainMonitoring";
+import { FwmgrDomainMonitoringFromJSON, FwmgrDomainMonitoringFromJSONTyped, FwmgrDomainMonitoringToJSON, FwmgrDomainMonitoringToJSONTyped } from "./FwmgrDomainMonitoring";
 
 /**
  *
@@ -77,10 +77,15 @@ export function FwmgrApiFirewallFieldsV1FromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function FwmgrApiFirewallFieldsV1ToJSON(value?: FwmgrApiFirewallFieldsV1 | null): any {
+export function FwmgrApiFirewallFieldsV1ToJSON(json: any): FwmgrApiFirewallFieldsV1 {
+    return FwmgrApiFirewallFieldsV1ToJSONTyped(json, false);
+}
+
+export function FwmgrApiFirewallFieldsV1ToJSONTyped(value?: FwmgrApiFirewallFieldsV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         default_monitor: FwmgrDomainMonitoringToJSON(value["defaultMonitor"]),
         id: value["id"],

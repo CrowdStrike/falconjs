@@ -56,10 +56,15 @@ export function FwmgrMsaExtendedBoundsSpecFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function FwmgrMsaExtendedBoundsSpecToJSON(value?: FwmgrMsaExtendedBoundsSpec | null): any {
+export function FwmgrMsaExtendedBoundsSpecToJSON(json: any): FwmgrMsaExtendedBoundsSpec {
+    return FwmgrMsaExtendedBoundsSpecToJSONTyped(json, false);
+}
+
+export function FwmgrMsaExtendedBoundsSpecToJSONTyped(value?: FwmgrMsaExtendedBoundsSpec | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         max: value["max"],
         min: value["min"],

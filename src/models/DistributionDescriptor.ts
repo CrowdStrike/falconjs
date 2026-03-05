@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { V1Platform } from "./V1Platform";
-import { V1PlatformFromJSON, V1PlatformFromJSONTyped, V1PlatformToJSON } from "./V1Platform";
+import { V1PlatformFromJSON, V1PlatformFromJSONTyped, V1PlatformToJSON, V1PlatformToJSONTyped } from "./V1Platform";
 
 /**
  *
@@ -85,10 +85,15 @@ export function DistributionDescriptorFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function DistributionDescriptorToJSON(value?: DistributionDescriptor | null): any {
+export function DistributionDescriptorToJSON(json: any): DistributionDescriptor {
+    return DistributionDescriptorToJSONTyped(json, false);
+}
+
+export function DistributionDescriptorToJSONTyped(value?: DistributionDescriptor | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         annotations: value["annotations"],
         digest: value["digest"],

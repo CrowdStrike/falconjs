@@ -33,10 +33,10 @@ export interface IntegrationUserGetUserInventory {
     enable: boolean;
     /**
      *
-     * @type {Array<string>}
+     * @type {Array<string | null>}
      * @memberof IntegrationUserGetUserInventory
      */
-    groups: Array<string>;
+    groups: Array<string | null>;
     /**
      *
      * @type {string}
@@ -45,10 +45,10 @@ export interface IntegrationUserGetUserInventory {
     id: string;
     /**
      *
-     * @type {Array<string>}
+     * @type {Array<string | null>}
      * @memberof IntegrationUserGetUserInventory
      */
-    privilegedRoles: Array<string>;
+    privilegedRoles: Array<string | null>;
     /**
      *
      * @type {string}
@@ -96,10 +96,15 @@ export function IntegrationUserGetUserInventoryFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function IntegrationUserGetUserInventoryToJSON(value?: IntegrationUserGetUserInventory | null): any {
+export function IntegrationUserGetUserInventoryToJSON(json: any): IntegrationUserGetUserInventory {
+    return IntegrationUserGetUserInventoryToJSONTyped(json, false);
+}
+
+export function IntegrationUserGetUserInventoryToJSONTyped(value?: IntegrationUserGetUserInventory | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         alias: value["alias"],
         enable: value["enable"],

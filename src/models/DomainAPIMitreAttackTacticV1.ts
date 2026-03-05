@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainAPIMitreTechniqueV1 } from "./DomainAPIMitreTechniqueV1";
-import { DomainAPIMitreTechniqueV1FromJSON, DomainAPIMitreTechniqueV1FromJSONTyped, DomainAPIMitreTechniqueV1ToJSON } from "./DomainAPIMitreTechniqueV1";
+import { DomainAPIMitreTechniqueV1FromJSON, DomainAPIMitreTechniqueV1FromJSONTyped, DomainAPIMitreTechniqueV1ToJSON, DomainAPIMitreTechniqueV1ToJSONTyped } from "./DomainAPIMitreTechniqueV1";
 
 /**
  *
@@ -65,10 +65,15 @@ export function DomainAPIMitreAttackTacticV1FromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function DomainAPIMitreAttackTacticV1ToJSON(value?: DomainAPIMitreAttackTacticV1 | null): any {
+export function DomainAPIMitreAttackTacticV1ToJSON(json: any): DomainAPIMitreAttackTacticV1 {
+    return DomainAPIMitreAttackTacticV1ToJSONTyped(json, false);
+}
+
+export function DomainAPIMitreAttackTacticV1ToJSONTyped(value?: DomainAPIMitreAttackTacticV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         link: value["link"],

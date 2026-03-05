@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { DomainScanProfile } from "./DomainScanProfile";
-import { DomainScanProfileFromJSON, DomainScanProfileFromJSONTyped, DomainScanProfileToJSON } from "./DomainScanProfile";
+import { DomainScanProfileFromJSON, DomainScanProfileFromJSONTyped, DomainScanProfileToJSON, DomainScanProfileToJSONTyped } from "./DomainScanProfile";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function EntitiesODSScheduleScanResponseFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function EntitiesODSScheduleScanResponseToJSON(value?: EntitiesODSScheduleScanResponse | null): any {
+export function EntitiesODSScheduleScanResponseToJSON(json: any): EntitiesODSScheduleScanResponse {
+    return EntitiesODSScheduleScanResponseToJSONTyped(json, false);
+}
+
+export function EntitiesODSScheduleScanResponseToJSONTyped(value?: EntitiesODSScheduleScanResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

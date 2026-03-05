@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { V2ActivityProperties } from "./V2ActivityProperties";
-import { V2ActivityPropertiesFromJSON, V2ActivityPropertiesFromJSONTyped, V2ActivityPropertiesToJSON } from "./V2ActivityProperties";
+import { V2ActivityPropertiesFromJSON, V2ActivityPropertiesFromJSONTyped, V2ActivityPropertiesToJSON, V2ActivityPropertiesToJSONTyped } from "./V2ActivityProperties";
 
 /**
  *
@@ -51,10 +51,15 @@ export function V2ActivityParametersFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function V2ActivityParametersToJSON(value?: V2ActivityParameters | null): any {
+export function V2ActivityParametersToJSON(json: any): V2ActivityParameters {
+    return V2ActivityParametersToJSONTyped(json, false);
+}
+
+export function V2ActivityParametersToJSONTyped(value?: V2ActivityParameters | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         configuration: mapValues(value["_configuration"], V2ActivityPropertiesToJSON),
     };

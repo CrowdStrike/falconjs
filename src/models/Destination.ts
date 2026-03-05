@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesPolicyRulesCondition } from "./TypesPolicyRulesCondition";
-import { TypesPolicyRulesConditionFromJSON, TypesPolicyRulesConditionFromJSONTyped, TypesPolicyRulesConditionToJSON } from "./TypesPolicyRulesCondition";
+import { TypesPolicyRulesConditionFromJSON, TypesPolicyRulesConditionFromJSONTyped, TypesPolicyRulesConditionToJSON, TypesPolicyRulesConditionToJSONTyped } from "./TypesPolicyRulesCondition";
 
 /**
  *
@@ -57,10 +57,15 @@ export function DestinationFromJSONTyped(json: any, ignoreDiscriminator: boolean
     };
 }
 
-export function DestinationToJSON(value?: Destination | null): any {
+export function DestinationToJSON(json: any): Destination {
+    return DestinationToJSONTyped(json, false);
+}
+
+export function DestinationToJSONTyped(value?: Destination | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         entityId: TypesPolicyRulesConditionToJSON(value["entityId"]),
         groupMembership: TypesPolicyRulesConditionToJSON(value["groupMembership"]),

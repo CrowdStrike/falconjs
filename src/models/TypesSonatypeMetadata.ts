@@ -68,10 +68,15 @@ export function TypesSonatypeMetadataFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function TypesSonatypeMetadataToJSON(value?: TypesSonatypeMetadata | null): any {
+export function TypesSonatypeMetadataToJSON(json: any): TypesSonatypeMetadata {
+    return TypesSonatypeMetadataToJSONTyped(json, false);
+}
+
+export function TypesSonatypeMetadataToJSONTyped(value?: TypesSonatypeMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         CVEId: value["cVEId"],
         applicationPublicId: value["applicationPublicId"],

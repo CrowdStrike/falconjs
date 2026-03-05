@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainSensorInstallerV2 } from "./DomainSensorInstallerV2";
-import { DomainSensorInstallerV2FromJSON, DomainSensorInstallerV2FromJSONTyped, DomainSensorInstallerV2ToJSON } from "./DomainSensorInstallerV2";
+import { DomainSensorInstallerV2FromJSON, DomainSensorInstallerV2FromJSONTyped, DomainSensorInstallerV2ToJSON, DomainSensorInstallerV2ToJSONTyped } from "./DomainSensorInstallerV2";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainSensorInstallersV2FromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function DomainSensorInstallersV2ToJSON(value?: DomainSensorInstallersV2 | null): any {
+export function DomainSensorInstallersV2ToJSON(json: any): DomainSensorInstallersV2 {
+    return DomainSensorInstallersV2ToJSONTyped(json, false);
+}
+
+export function DomainSensorInstallersV2ToJSONTyped(value?: DomainSensorInstallersV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

@@ -211,10 +211,15 @@ export function DomainDiscoverAPILoginFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function DomainDiscoverAPILoginToJSON(value?: DomainDiscoverAPILogin | null): any {
+export function DomainDiscoverAPILoginToJSON(json: any): DomainDiscoverAPILogin {
+    return DomainDiscoverAPILoginToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPILoginToJSONTyped(value?: DomainDiscoverAPILogin | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         account_name: value["accountName"],

@@ -48,10 +48,15 @@ export function WorkflowRequestFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function WorkflowRequestToJSON(value?: WorkflowRequest | null): any {
+export function WorkflowRequestToJSON(json: any): WorkflowRequest {
+    return WorkflowRequestToJSONTyped(json, false);
+}
+
+export function WorkflowRequestToJSONTyped(value?: WorkflowRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ids: value["ids"],
     };

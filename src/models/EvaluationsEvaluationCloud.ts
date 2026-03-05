@@ -68,10 +68,15 @@ export function EvaluationsEvaluationCloudFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function EvaluationsEvaluationCloudToJSON(value?: EvaluationsEvaluationCloud | null): any {
+export function EvaluationsEvaluationCloudToJSON(json: any): EvaluationsEvaluationCloud {
+    return EvaluationsEvaluationCloudToJSONTyped(json, false);
+}
+
+export function EvaluationsEvaluationCloudToJSONTyped(value?: EvaluationsEvaluationCloud | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         account_name: value["accountName"],

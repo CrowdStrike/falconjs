@@ -18,6 +18,7 @@ import {
     RegistrationAzureManagementGroupExternalV1FromJSON,
     RegistrationAzureManagementGroupExternalV1FromJSONTyped,
     RegistrationAzureManagementGroupExternalV1ToJSON,
+    RegistrationAzureManagementGroupExternalV1ToJSONTyped,
 } from "./RegistrationAzureManagementGroupExternalV1";
 
 /**
@@ -55,10 +56,15 @@ export function RegistrationAzureManagementGroupCreateRequestExternalV1FromJSONT
     };
 }
 
-export function RegistrationAzureManagementGroupCreateRequestExternalV1ToJSON(value?: RegistrationAzureManagementGroupCreateRequestExternalV1 | null): any {
+export function RegistrationAzureManagementGroupCreateRequestExternalV1ToJSON(json: any): RegistrationAzureManagementGroupCreateRequestExternalV1 {
+    return RegistrationAzureManagementGroupCreateRequestExternalV1ToJSONTyped(json, false);
+}
+
+export function RegistrationAzureManagementGroupCreateRequestExternalV1ToJSONTyped(value?: RegistrationAzureManagementGroupCreateRequestExternalV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(RegistrationAzureManagementGroupExternalV1ToJSON),
     };

@@ -72,10 +72,15 @@ export function DomainCollectionCountByV1FromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DomainCollectionCountByV1ToJSON(value?: DomainCollectionCountByV1 | null): any {
+export function DomainCollectionCountByV1ToJSON(json: any): DomainCollectionCountByV1 {
+    return DomainCollectionCountByV1ToJSONTyped(json, false);
+}
+
+export function DomainCollectionCountByV1ToJSONTyped(value?: DomainCollectionCountByV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         collection_tag: value["collectionTag"],
         count: value["count"],

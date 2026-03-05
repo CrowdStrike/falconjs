@@ -61,10 +61,15 @@ export function ChangesBasicFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function ChangesBasicToJSON(value?: ChangesBasic | null): any {
+export function ChangesBasicToJSON(json: any): ChangesBasic {
+    return ChangesBasicToJSONTyped(json, false);
+}
+
+export function ChangesBasicToJSONTyped(value?: ChangesBasic | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         entity: value["entity"],
         operation: value["operation"],

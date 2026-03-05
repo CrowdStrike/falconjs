@@ -69,10 +69,15 @@ export function DomainMitreAttackMappingFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function DomainMitreAttackMappingToJSON(value?: DomainMitreAttackMapping | null): any {
+export function DomainMitreAttackMappingToJSON(json: any): DomainMitreAttackMapping {
+    return DomainMitreAttackMappingToJSONTyped(json, false);
+}
+
+export function DomainMitreAttackMappingToJSONTyped(value?: DomainMitreAttackMapping | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         tactic: value["tactic"],
         tactic_id: value["tacticId"],

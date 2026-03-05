@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { PolicymanagerExternalPolicyPost } from "./PolicymanagerExternalPolicyPost";
-import { PolicymanagerExternalPolicyPostFromJSON, PolicymanagerExternalPolicyPostFromJSONTyped, PolicymanagerExternalPolicyPostToJSON } from "./PolicymanagerExternalPolicyPost";
+import {
+    PolicymanagerExternalPolicyPostFromJSON,
+    PolicymanagerExternalPolicyPostFromJSONTyped,
+    PolicymanagerExternalPolicyPostToJSON,
+    PolicymanagerExternalPolicyPostToJSONTyped,
+} from "./PolicymanagerExternalPolicyPost";
 
 /**
  *
@@ -51,10 +56,15 @@ export function PolicymanagerCreatePoliciesRequestFromJSONTyped(json: any, ignor
     };
 }
 
-export function PolicymanagerCreatePoliciesRequestToJSON(value?: PolicymanagerCreatePoliciesRequest | null): any {
+export function PolicymanagerCreatePoliciesRequestToJSON(json: any): PolicymanagerCreatePoliciesRequest {
+    return PolicymanagerCreatePoliciesRequestToJSONTyped(json, false);
+}
+
+export function PolicymanagerCreatePoliciesRequestToJSONTyped(value?: PolicymanagerCreatePoliciesRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(PolicymanagerExternalPolicyPostToJSON),
     };

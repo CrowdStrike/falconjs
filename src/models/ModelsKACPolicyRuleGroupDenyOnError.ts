@@ -48,10 +48,15 @@ export function ModelsKACPolicyRuleGroupDenyOnErrorFromJSONTyped(json: any, igno
     };
 }
 
-export function ModelsKACPolicyRuleGroupDenyOnErrorToJSON(value?: ModelsKACPolicyRuleGroupDenyOnError | null): any {
+export function ModelsKACPolicyRuleGroupDenyOnErrorToJSON(json: any): ModelsKACPolicyRuleGroupDenyOnError {
+    return ModelsKACPolicyRuleGroupDenyOnErrorToJSONTyped(json, false);
+}
+
+export function ModelsKACPolicyRuleGroupDenyOnErrorToJSONTyped(value?: ModelsKACPolicyRuleGroupDenyOnError | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         deny: value["deny"],
     };

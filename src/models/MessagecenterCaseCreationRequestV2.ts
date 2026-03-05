@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { MessagesAlert } from "./MessagesAlert";
-import { MessagesAlertFromJSON, MessagesAlertFromJSONTyped, MessagesAlertToJSON } from "./MessagesAlert";
+import { MessagesAlertFromJSON, MessagesAlertFromJSONTyped, MessagesAlertToJSON, MessagesAlertToJSONTyped } from "./MessagesAlert";
 import type { MessagesIncident } from "./MessagesIncident";
-import { MessagesIncidentFromJSON, MessagesIncidentFromJSONTyped, MessagesIncidentToJSON } from "./MessagesIncident";
+import { MessagesIncidentFromJSON, MessagesIncidentFromJSONTyped, MessagesIncidentToJSON, MessagesIncidentToJSONTyped } from "./MessagesIncident";
 
 /**
  *
@@ -108,10 +108,15 @@ export function MessagecenterCaseCreationRequestV2FromJSONTyped(json: any, ignor
     };
 }
 
-export function MessagecenterCaseCreationRequestV2ToJSON(value?: MessagecenterCaseCreationRequestV2 | null): any {
+export function MessagecenterCaseCreationRequestV2ToJSON(json: any): MessagecenterCaseCreationRequestV2 {
+    return MessagecenterCaseCreationRequestV2ToJSONTyped(json, false);
+}
+
+export function MessagecenterCaseCreationRequestV2ToJSONTyped(value?: MessagecenterCaseCreationRequestV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         body: value["body"],
         detections: (value["detections"] as Array<any>).map(MessagesAlertToJSON),

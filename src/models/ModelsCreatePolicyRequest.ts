@@ -55,10 +55,15 @@ export function ModelsCreatePolicyRequestFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ModelsCreatePolicyRequestToJSON(value?: ModelsCreatePolicyRequest | null): any {
+export function ModelsCreatePolicyRequestToJSON(json: any): ModelsCreatePolicyRequest {
+    return ModelsCreatePolicyRequestToJSONTyped(json, false);
+}
+
+export function ModelsCreatePolicyRequestToJSONTyped(value?: ModelsCreatePolicyRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         name: value["name"],

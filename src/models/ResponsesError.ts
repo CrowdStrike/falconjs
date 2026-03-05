@@ -70,10 +70,15 @@ export function ResponsesErrorFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function ResponsesErrorToJSON(value?: ResponsesError | null): any {
+export function ResponsesErrorToJSON(json: any): ResponsesError {
+    return ResponsesErrorToJSONTyped(json, false);
+}
+
+export function ResponsesErrorToJSONTyped(value?: ResponsesError | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         field: value["field"],

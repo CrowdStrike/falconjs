@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { RegistrationAzureKeyV1 } from "./RegistrationAzureKeyV1";
-import { RegistrationAzureKeyV1FromJSON, RegistrationAzureKeyV1FromJSONTyped, RegistrationAzureKeyV1ToJSON } from "./RegistrationAzureKeyV1";
+import { RegistrationAzureKeyV1FromJSON, RegistrationAzureKeyV1FromJSONTyped, RegistrationAzureKeyV1ToJSON, RegistrationAzureKeyV1ToJSONTyped } from "./RegistrationAzureKeyV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function RegistrationAzureDownloadCertificateResponseV1FromJSONTyped(json
     };
 }
 
-export function RegistrationAzureDownloadCertificateResponseV1ToJSON(value?: RegistrationAzureDownloadCertificateResponseV1 | null): any {
+export function RegistrationAzureDownloadCertificateResponseV1ToJSON(json: any): RegistrationAzureDownloadCertificateResponseV1 {
+    return RegistrationAzureDownloadCertificateResponseV1ToJSONTyped(json, false);
+}
+
+export function RegistrationAzureDownloadCertificateResponseV1ToJSONTyped(value?: RegistrationAzureDownloadCertificateResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

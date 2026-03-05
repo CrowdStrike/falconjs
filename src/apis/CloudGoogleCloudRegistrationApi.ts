@@ -66,12 +66,9 @@ export interface CloudGoogleCloudRegistrationApiCloudRegistrationGcpUpdateRegist
  */
 export class CloudGoogleCloudRegistrationApi extends runtime.BaseAPI {
     /**
-     * Create a Google Cloud Registration.
+     * Creates request options for cloudRegistrationGcpCreateRegistration without sending the request
      */
-    async cloudRegistrationGcpCreateRegistrationRaw(
-        requestParameters: CloudGoogleCloudRegistrationApiCloudRegistrationGcpCreateRegistrationRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DtoGCPRegistrationResponseExtV1>> {
+    async cloudRegistrationGcpCreateRegistrationRequestOpts(requestParameters: CloudGoogleCloudRegistrationApiCloudRegistrationGcpCreateRegistrationRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling cloudRegistrationGcpCreateRegistration().');
         }
@@ -87,16 +84,26 @@ export class CloudGoogleCloudRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-google-cloud-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-google-cloud/entities/registrations/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DtoGCPRegistrationCreateRequestExtV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-registration-google-cloud/entities/registrations/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DtoGCPRegistrationCreateRequestExtV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create a Google Cloud Registration.
+     */
+    async cloudRegistrationGcpCreateRegistrationRaw(
+        requestParameters: CloudGoogleCloudRegistrationApiCloudRegistrationGcpCreateRegistrationRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DtoGCPRegistrationResponseExtV1>> {
+        const requestOptions = await this.cloudRegistrationGcpCreateRegistrationRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DtoGCPRegistrationResponseExtV1FromJSON(jsonValue));
     }
@@ -110,12 +117,9 @@ export class CloudGoogleCloudRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deletes a Google Cloud Registration and returns the deleted registration in the response body.
+     * Creates request options for cloudRegistrationGcpDeleteRegistration without sending the request
      */
-    async cloudRegistrationGcpDeleteRegistrationRaw(
-        requestParameters: CloudGoogleCloudRegistrationApiCloudRegistrationGcpDeleteRegistrationRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DtoGCPRegistrationResponseExtV1>> {
+    async cloudRegistrationGcpDeleteRegistrationRequestOpts(requestParameters: CloudGoogleCloudRegistrationApiCloudRegistrationGcpDeleteRegistrationRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling cloudRegistrationGcpDeleteRegistration().');
         }
@@ -133,15 +137,25 @@ export class CloudGoogleCloudRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-google-cloud-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-google-cloud/entities/registrations/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-registration-google-cloud/entities/registrations/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Deletes a Google Cloud Registration and returns the deleted registration in the response body.
+     */
+    async cloudRegistrationGcpDeleteRegistrationRaw(
+        requestParameters: CloudGoogleCloudRegistrationApiCloudRegistrationGcpDeleteRegistrationRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DtoGCPRegistrationResponseExtV1>> {
+        const requestOptions = await this.cloudRegistrationGcpDeleteRegistrationRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DtoGCPRegistrationResponseExtV1FromJSON(jsonValue));
     }
@@ -155,12 +169,9 @@ export class CloudGoogleCloudRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve a Google Cloud Registration.
+     * Creates request options for cloudRegistrationGcpGetRegistration without sending the request
      */
-    async cloudRegistrationGcpGetRegistrationRaw(
-        requestParameters: CloudGoogleCloudRegistrationApiCloudRegistrationGcpGetRegistrationRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DtoGCPRegistrationResponseExtV1>> {
+    async cloudRegistrationGcpGetRegistrationRequestOpts(requestParameters: CloudGoogleCloudRegistrationApiCloudRegistrationGcpGetRegistrationRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling cloudRegistrationGcpGetRegistration().');
         }
@@ -178,15 +189,25 @@ export class CloudGoogleCloudRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-google-cloud-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-google-cloud/entities/registrations/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-registration-google-cloud/entities/registrations/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve a Google Cloud Registration.
+     */
+    async cloudRegistrationGcpGetRegistrationRaw(
+        requestParameters: CloudGoogleCloudRegistrationApiCloudRegistrationGcpGetRegistrationRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DtoGCPRegistrationResponseExtV1>> {
+        const requestOptions = await this.cloudRegistrationGcpGetRegistrationRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DtoGCPRegistrationResponseExtV1FromJSON(jsonValue));
     }
@@ -200,13 +221,9 @@ export class CloudGoogleCloudRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates a new Google Cloud Registration if one doesnt exist or updates the existing Google Cloud Registration. We check for an existing registration based on cid, registration scope and entity ids.
-     * Creates/Updates a Google Cloud Registration.
+     * Creates request options for cloudRegistrationGcpPutRegistration without sending the request
      */
-    async cloudRegistrationGcpPutRegistrationRaw(
-        requestParameters: CloudGoogleCloudRegistrationApiCloudRegistrationGcpPutRegistrationRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DtoGCPRegistrationResponseExtV1>> {
+    async cloudRegistrationGcpPutRegistrationRequestOpts(requestParameters: CloudGoogleCloudRegistrationApiCloudRegistrationGcpPutRegistrationRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling cloudRegistrationGcpPutRegistration().');
         }
@@ -222,16 +239,27 @@ export class CloudGoogleCloudRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-google-cloud-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-google-cloud/entities/registrations/v1`,
-                method: "PUT",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DtoGCPRegistrationCreateRequestExtV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-registration-google-cloud/entities/registrations/v1`;
+
+        return {
+            path: urlPath,
+            method: "PUT",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DtoGCPRegistrationCreateRequestExtV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Creates a new Google Cloud Registration if one doesnt exist or updates the existing Google Cloud Registration. We check for an existing registration based on cid, registration scope and entity ids.
+     * Creates/Updates a Google Cloud Registration.
+     */
+    async cloudRegistrationGcpPutRegistrationRaw(
+        requestParameters: CloudGoogleCloudRegistrationApiCloudRegistrationGcpPutRegistrationRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DtoGCPRegistrationResponseExtV1>> {
+        const requestOptions = await this.cloudRegistrationGcpPutRegistrationRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DtoGCPRegistrationResponseExtV1FromJSON(jsonValue));
     }
@@ -246,12 +274,9 @@ export class CloudGoogleCloudRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Trigger health check scan for GCP registrations
+     * Creates request options for cloudRegistrationGcpTriggerHealthCheck without sending the request
      */
-    async cloudRegistrationGcpTriggerHealthCheckRaw(
-        requestParameters: CloudGoogleCloudRegistrationApiCloudRegistrationGcpTriggerHealthCheckRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DtoHealthCheckTriggerResponseExtV1>> {
+    async cloudRegistrationGcpTriggerHealthCheckRequestOpts(requestParameters: CloudGoogleCloudRegistrationApiCloudRegistrationGcpTriggerHealthCheckRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -265,15 +290,25 @@ export class CloudGoogleCloudRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-google-cloud-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-google-cloud/entities/registration-scans/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-registration-google-cloud/entities/registration-scans/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Trigger health check scan for GCP registrations
+     */
+    async cloudRegistrationGcpTriggerHealthCheckRaw(
+        requestParameters: CloudGoogleCloudRegistrationApiCloudRegistrationGcpTriggerHealthCheckRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DtoHealthCheckTriggerResponseExtV1>> {
+        const requestOptions = await this.cloudRegistrationGcpTriggerHealthCheckRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DtoHealthCheckTriggerResponseExtV1FromJSON(jsonValue));
     }
@@ -287,12 +322,9 @@ export class CloudGoogleCloudRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update a Google Cloud Registration.
+     * Creates request options for cloudRegistrationGcpUpdateRegistration without sending the request
      */
-    async cloudRegistrationGcpUpdateRegistrationRaw(
-        requestParameters: CloudGoogleCloudRegistrationApiCloudRegistrationGcpUpdateRegistrationRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DtoGCPRegistrationResponseExtV1>> {
+    async cloudRegistrationGcpUpdateRegistrationRequestOpts(requestParameters: CloudGoogleCloudRegistrationApiCloudRegistrationGcpUpdateRegistrationRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling cloudRegistrationGcpUpdateRegistration().');
         }
@@ -316,16 +348,26 @@ export class CloudGoogleCloudRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-google-cloud-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-google-cloud/entities/registrations/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DtoGCPRegistrationUpdateRequestExtV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-registration-google-cloud/entities/registrations/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DtoGCPRegistrationUpdateRequestExtV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update a Google Cloud Registration.
+     */
+    async cloudRegistrationGcpUpdateRegistrationRaw(
+        requestParameters: CloudGoogleCloudRegistrationApiCloudRegistrationGcpUpdateRegistrationRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DtoGCPRegistrationResponseExtV1>> {
+        const requestOptions = await this.cloudRegistrationGcpUpdateRegistrationRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DtoGCPRegistrationResponseExtV1FromJSON(jsonValue));
     }

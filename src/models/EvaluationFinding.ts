@@ -54,10 +54,15 @@ export function EvaluationFindingFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function EvaluationFindingToJSON(value?: EvaluationFinding | null): any {
+export function EvaluationFindingToJSON(json: any): EvaluationFinding {
+    return EvaluationFindingToJSONTyped(json, false);
+}
+
+export function EvaluationFindingToJSONTyped(value?: EvaluationFinding | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
         value: value["value"],

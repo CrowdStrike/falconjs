@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainGeoPoint } from "./DomainGeoPoint";
-import { DomainGeoPointFromJSON, DomainGeoPointFromJSONTyped, DomainGeoPointToJSON } from "./DomainGeoPoint";
+import { DomainGeoPointFromJSON, DomainGeoPointFromJSONTyped, DomainGeoPointToJSON, DomainGeoPointToJSONTyped } from "./DomainGeoPoint";
 
 /**
  *
@@ -106,10 +106,15 @@ export function DomainExternalAssetGeographicalLocationFromJSONTyped(json: any, 
     };
 }
 
-export function DomainExternalAssetGeographicalLocationToJSON(value?: DomainExternalAssetGeographicalLocation | null): any {
+export function DomainExternalAssetGeographicalLocationToJSON(json: any): DomainExternalAssetGeographicalLocation {
+    return DomainExternalAssetGeographicalLocationToJSONTyped(json, false);
+}
+
+export function DomainExternalAssetGeographicalLocationToJSONTyped(value?: DomainExternalAssetGeographicalLocation | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         area_code: value["areaCode"],
         city: value["city"],

@@ -69,10 +69,15 @@ export function HostGroupsUpdateGroupReqV1FromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function HostGroupsUpdateGroupReqV1ToJSON(value?: HostGroupsUpdateGroupReqV1 | null): any {
+export function HostGroupsUpdateGroupReqV1ToJSON(json: any): HostGroupsUpdateGroupReqV1 {
+    return HostGroupsUpdateGroupReqV1ToJSONTyped(json, false);
+}
+
+export function HostGroupsUpdateGroupReqV1ToJSONTyped(value?: HostGroupsUpdateGroupReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         assignment_rule: value["assignmentRule"],
         description: value["description"],

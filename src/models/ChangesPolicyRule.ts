@@ -47,10 +47,15 @@ export function ChangesPolicyRuleFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function ChangesPolicyRuleToJSON(value?: ChangesPolicyRule | null): any {
+export function ChangesPolicyRuleToJSON(json: any): ChangesPolicyRule {
+    return ChangesPolicyRuleToJSONTyped(json, false);
+}
+
+export function ChangesPolicyRuleToJSONTyped(value?: ChangesPolicyRule | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         base_path: value["basePath"],
     };

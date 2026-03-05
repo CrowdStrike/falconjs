@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { FalconxSandboxParametersV1 } from "./FalconxSandboxParametersV1";
-import { FalconxSandboxParametersV1FromJSON, FalconxSandboxParametersV1FromJSONTyped, FalconxSandboxParametersV1ToJSON } from "./FalconxSandboxParametersV1";
+import { FalconxSandboxParametersV1FromJSON, FalconxSandboxParametersV1FromJSONTyped, FalconxSandboxParametersV1ToJSON, FalconxSandboxParametersV1ToJSONTyped } from "./FalconxSandboxParametersV1";
 
 /**
  *
@@ -71,10 +71,15 @@ export function FalconxSubmissionParametersV1FromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function FalconxSubmissionParametersV1ToJSON(value?: FalconxSubmissionParametersV1 | null): any {
+export function FalconxSubmissionParametersV1ToJSON(json: any): FalconxSubmissionParametersV1 {
+    return FalconxSubmissionParametersV1ToJSONTyped(json, false);
+}
+
+export function FalconxSubmissionParametersV1ToJSONTyped(value?: FalconxSubmissionParametersV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         auto_detect_environment: value["autoDetectEnvironment"],
         sandbox: value["sandbox"] == null ? undefined : (value["sandbox"] as Array<any>).map(FalconxSandboxParametersV1ToJSON),

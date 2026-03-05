@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { SchemaSensorEventField } from "./SchemaSensorEventField";
-import { SchemaSensorEventFieldFromJSON, SchemaSensorEventFieldFromJSONTyped, SchemaSensorEventFieldToJSON } from "./SchemaSensorEventField";
+import { SchemaSensorEventFieldFromJSON, SchemaSensorEventFieldFromJSONTyped, SchemaSensorEventFieldToJSON, SchemaSensorEventFieldToJSONTyped } from "./SchemaSensorEventField";
 
 /**
  *
@@ -99,10 +99,15 @@ export function SchemaSensorEventFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function SchemaSensorEventToJSON(value?: SchemaSensorEvent | null): any {
+export function SchemaSensorEventToJSON(json: any): SchemaSensorEvent {
+    return SchemaSensorEventToJSONTyped(json, false);
+}
+
+export function SchemaSensorEventToJSONTyped(value?: SchemaSensorEvent | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         base_id: value["baseId"],
         description: value["description"],

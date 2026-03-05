@@ -56,10 +56,15 @@ export function K8sregAccountPermissionsStatusFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function K8sregAccountPermissionsStatusToJSON(value?: K8sregAccountPermissionsStatus | null): any {
+export function K8sregAccountPermissionsStatusToJSON(json: any): K8sregAccountPermissionsStatus {
+    return K8sregAccountPermissionsStatusToJSONTyped(json, false);
+}
+
+export function K8sregAccountPermissionsStatusToJSONTyped(value?: K8sregAccountPermissionsStatus | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
         status: value["status"],

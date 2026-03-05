@@ -48,12 +48,9 @@ export interface SpotlightEvaluationLogicApiQueryEvaluationLogicRequest {
  */
 export class SpotlightEvaluationLogicApi extends runtime.BaseAPI {
     /**
-     * Search for evaluation logic in your environment by providing a FQL filter and paging details. Returns a set of evaluation logic entities which match the filter criteria.
+     * Creates request options for combinedQueryEvaluationLogic without sending the request
      */
-    async combinedQueryEvaluationLogicRaw(
-        requestParameters: SpotlightEvaluationLogicApiCombinedQueryEvaluationLogicRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainSPAPIEvaluationLogicCombinedResponseV1>> {
+    async combinedQueryEvaluationLogicRequestOpts(requestParameters: SpotlightEvaluationLogicApiCombinedQueryEvaluationLogicRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["filter"] == null) {
             throw new runtime.RequiredError("filter", 'Required parameter "filter" was null or undefined when calling combinedQueryEvaluationLogic().');
         }
@@ -83,15 +80,25 @@ export class SpotlightEvaluationLogicApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["spotlight-vulnerabilities:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/spotlight/combined/evaluation-logic/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/spotlight/combined/evaluation-logic/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for evaluation logic in your environment by providing a FQL filter and paging details. Returns a set of evaluation logic entities which match the filter criteria.
+     */
+    async combinedQueryEvaluationLogicRaw(
+        requestParameters: SpotlightEvaluationLogicApiCombinedQueryEvaluationLogicRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainSPAPIEvaluationLogicCombinedResponseV1>> {
+        const requestOptions = await this.combinedQueryEvaluationLogicRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainSPAPIEvaluationLogicCombinedResponseV1FromJSON(jsonValue));
     }
@@ -111,12 +118,9 @@ export class SpotlightEvaluationLogicApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get details on evaluation logic items by providing one or more IDs.
+     * Creates request options for getEvaluationLogic without sending the request
      */
-    async getEvaluationLogicRaw(
-        requestParameters: SpotlightEvaluationLogicApiGetEvaluationLogicRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainSPAPIEvaluationLogicEntitiesResponseV1>> {
+    async getEvaluationLogicRequestOpts(requestParameters: SpotlightEvaluationLogicApiGetEvaluationLogicRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getEvaluationLogic().');
         }
@@ -134,15 +138,25 @@ export class SpotlightEvaluationLogicApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["spotlight-vulnerabilities:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/spotlight/entities/evaluation-logic/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/spotlight/entities/evaluation-logic/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get details on evaluation logic items by providing one or more IDs.
+     */
+    async getEvaluationLogicRaw(
+        requestParameters: SpotlightEvaluationLogicApiGetEvaluationLogicRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainSPAPIEvaluationLogicEntitiesResponseV1>> {
+        const requestOptions = await this.getEvaluationLogicRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainSPAPIEvaluationLogicEntitiesResponseV1FromJSON(jsonValue));
     }
@@ -156,12 +170,9 @@ export class SpotlightEvaluationLogicApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for evaluation logic in your environment by providing a FQL filter and paging details. Returns a set of evaluation logic IDs which match the filter criteria.
+     * Creates request options for queryEvaluationLogic without sending the request
      */
-    async queryEvaluationLogicRaw(
-        requestParameters: SpotlightEvaluationLogicApiQueryEvaluationLogicRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainSPAPIQueryResponse>> {
+    async queryEvaluationLogicRequestOpts(requestParameters: SpotlightEvaluationLogicApiQueryEvaluationLogicRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["filter"] == null) {
             throw new runtime.RequiredError("filter", 'Required parameter "filter" was null or undefined when calling queryEvaluationLogic().');
         }
@@ -191,15 +202,25 @@ export class SpotlightEvaluationLogicApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["spotlight-vulnerabilities:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/spotlight/queries/evaluation-logic/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/spotlight/queries/evaluation-logic/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for evaluation logic in your environment by providing a FQL filter and paging details. Returns a set of evaluation logic IDs which match the filter criteria.
+     */
+    async queryEvaluationLogicRaw(
+        requestParameters: SpotlightEvaluationLogicApiQueryEvaluationLogicRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainSPAPIQueryResponse>> {
+        const requestOptions = await this.queryEvaluationLogicRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainSPAPIQueryResponseFromJSON(jsonValue));
     }

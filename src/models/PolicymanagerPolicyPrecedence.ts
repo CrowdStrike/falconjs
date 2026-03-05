@@ -56,10 +56,15 @@ export function PolicymanagerPolicyPrecedenceFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function PolicymanagerPolicyPrecedenceToJSON(value?: PolicymanagerPolicyPrecedence | null): any {
+export function PolicymanagerPolicyPrecedenceToJSON(json: any): PolicymanagerPolicyPrecedence {
+    return PolicymanagerPolicyPrecedenceToJSONTyped(json, false);
+}
+
+export function PolicymanagerPolicyPrecedenceToJSONTyped(value?: PolicymanagerPolicyPrecedence | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         platform: value["platform"],
         precedence: value["precedence"],

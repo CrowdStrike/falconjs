@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainAPIHostPatchDetails } from "./DomainAPIHostPatchDetails";
-import { DomainAPIHostPatchDetailsFromJSON, DomainAPIHostPatchDetailsFromJSONTyped, DomainAPIHostPatchDetailsToJSON } from "./DomainAPIHostPatchDetails";
+import { DomainAPIHostPatchDetailsFromJSON, DomainAPIHostPatchDetailsFromJSONTyped, DomainAPIHostPatchDetailsToJSON, DomainAPIHostPatchDetailsToJSONTyped } from "./DomainAPIHostPatchDetails";
 import type { DomainSPAPIQueryMeta } from "./DomainSPAPIQueryMeta";
-import { DomainSPAPIQueryMetaFromJSON, DomainSPAPIQueryMetaFromJSONTyped, DomainSPAPIQueryMetaToJSON } from "./DomainSPAPIQueryMeta";
+import { DomainSPAPIQueryMetaFromJSON, DomainSPAPIQueryMetaFromJSONTyped, DomainSPAPIQueryMetaToJSON, DomainSPAPIQueryMetaToJSONTyped } from "./DomainSPAPIQueryMeta";
 
 /**
  *
@@ -70,10 +70,15 @@ export function DomainSPAPICombinedInstalledPatchesResponseFromJSONTyped(json: a
     };
 }
 
-export function DomainSPAPICombinedInstalledPatchesResponseToJSON(value?: DomainSPAPICombinedInstalledPatchesResponse | null): any {
+export function DomainSPAPICombinedInstalledPatchesResponseToJSON(json: any): DomainSPAPICombinedInstalledPatchesResponse {
+    return DomainSPAPICombinedInstalledPatchesResponseToJSONTyped(json, false);
+}
+
+export function DomainSPAPICombinedInstalledPatchesResponseToJSONTyped(value?: DomainSPAPICombinedInstalledPatchesResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: DomainSPAPIQueryMetaToJSON(value["meta"]),

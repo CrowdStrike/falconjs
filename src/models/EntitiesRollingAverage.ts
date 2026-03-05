@@ -120,10 +120,15 @@ export function EntitiesRollingAverageFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function EntitiesRollingAverageToJSON(value?: EntitiesRollingAverage | null): any {
+export function EntitiesRollingAverageToJSON(json: any): EntitiesRollingAverage {
+    return EntitiesRollingAverageToJSONTyped(json, false);
+}
+
+export function EntitiesRollingAverageToJSONTyped(value?: EntitiesRollingAverage | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         chrome_os: value["chromeOs"],
         containers: value["containers"],

@@ -56,10 +56,15 @@ export function ModelsCreateRuleGroupFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function ModelsCreateRuleGroupToJSON(value?: ModelsCreateRuleGroup | null): any {
+export function ModelsCreateRuleGroupToJSON(json: any): ModelsCreateRuleGroup {
+    return ModelsCreateRuleGroupToJSONTyped(json, false);
+}
+
+export function ModelsCreateRuleGroupToJSONTyped(value?: ModelsCreateRuleGroup | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         name: value["name"],

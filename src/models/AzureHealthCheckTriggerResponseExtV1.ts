@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { AzureHealthCheckTriggerInfo } from "./AzureHealthCheckTriggerInfo";
-import { AzureHealthCheckTriggerInfoFromJSON, AzureHealthCheckTriggerInfoFromJSONTyped, AzureHealthCheckTriggerInfoToJSON } from "./AzureHealthCheckTriggerInfo";
+import {
+    AzureHealthCheckTriggerInfoFromJSON,
+    AzureHealthCheckTriggerInfoFromJSONTyped,
+    AzureHealthCheckTriggerInfoToJSON,
+    AzureHealthCheckTriggerInfoToJSONTyped,
+} from "./AzureHealthCheckTriggerInfo";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +75,15 @@ export function AzureHealthCheckTriggerResponseExtV1FromJSONTyped(json: any, ign
     };
 }
 
-export function AzureHealthCheckTriggerResponseExtV1ToJSON(value?: AzureHealthCheckTriggerResponseExtV1 | null): any {
+export function AzureHealthCheckTriggerResponseExtV1ToJSON(json: any): AzureHealthCheckTriggerResponseExtV1 {
+    return AzureHealthCheckTriggerResponseExtV1ToJSONTyped(json, false);
+}
+
+export function AzureHealthCheckTriggerResponseExtV1ToJSONTyped(value?: AzureHealthCheckTriggerResponseExtV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

@@ -53,12 +53,9 @@ export interface CloudSecurityDetectionsApiCspmEvaluationsIomQueriesRequest {
  */
 export class CloudSecurityDetectionsApi extends runtime.BaseAPI {
     /**
-     * returns ioms grouped by rule
+     * Creates request options for cspmEvaluationsCombinedIomByRule without sending the request
      */
-    async cspmEvaluationsCombinedIomByRuleRaw(
-        requestParameters: CloudSecurityDetectionsApiCspmEvaluationsCombinedIomByRuleRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<EvaluationsIOMsByRuleResponse>> {
+    async cspmEvaluationsCombinedIomByRuleRequestOpts(requestParameters: CloudSecurityDetectionsApiCspmEvaluationsCombinedIomByRuleRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -84,15 +81,25 @@ export class CloudSecurityDetectionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-detections:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-evaluations/combined/ioms-by-rule/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-evaluations/combined/ioms-by-rule/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * returns ioms grouped by rule
+     */
+    async cspmEvaluationsCombinedIomByRuleRaw(
+        requestParameters: CloudSecurityDetectionsApiCspmEvaluationsCombinedIomByRuleRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<EvaluationsIOMsByRuleResponse>> {
+        const requestOptions = await this.cspmEvaluationsCombinedIomByRuleRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EvaluationsIOMsByRuleResponseFromJSON(jsonValue));
     }
@@ -112,12 +119,9 @@ export class CloudSecurityDetectionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Gets IOMs based on the provided IDs
+     * Creates request options for cspmEvaluationsIomEntities without sending the request
      */
-    async cspmEvaluationsIomEntitiesRaw(
-        requestParameters: CloudSecurityDetectionsApiCspmEvaluationsIomEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<EvaluationsGetIOMsResponse>> {
+    async cspmEvaluationsIomEntitiesRequestOpts(requestParameters: CloudSecurityDetectionsApiCspmEvaluationsIomEntitiesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -131,15 +135,25 @@ export class CloudSecurityDetectionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-detections:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-evaluations/entities/ioms/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-evaluations/entities/ioms/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Gets IOMs based on the provided IDs
+     */
+    async cspmEvaluationsIomEntitiesRaw(
+        requestParameters: CloudSecurityDetectionsApiCspmEvaluationsIomEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<EvaluationsGetIOMsResponse>> {
+        const requestOptions = await this.cspmEvaluationsIomEntitiesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EvaluationsGetIOMsResponseFromJSON(jsonValue));
     }
@@ -153,12 +167,9 @@ export class CloudSecurityDetectionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Gets a list of IOM IDs for the given parameters, filters and sort criteria.
+     * Creates request options for cspmEvaluationsIomQueries without sending the request
      */
-    async cspmEvaluationsIomQueriesRaw(
-        requestParameters: CloudSecurityDetectionsApiCspmEvaluationsIomQueriesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<EvaluationsQueryIOMsResponse>> {
+    async cspmEvaluationsIomQueriesRequestOpts(requestParameters: CloudSecurityDetectionsApiCspmEvaluationsIomQueriesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -188,15 +199,25 @@ export class CloudSecurityDetectionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-detections:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-evaluations/queries/ioms/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-evaluations/queries/ioms/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Gets a list of IOM IDs for the given parameters, filters and sort criteria.
+     */
+    async cspmEvaluationsIomQueriesRaw(
+        requestParameters: CloudSecurityDetectionsApiCspmEvaluationsIomQueriesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<EvaluationsQueryIOMsResponse>> {
+        const requestOptions = await this.cspmEvaluationsIomQueriesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EvaluationsQueryIOMsResponseFromJSON(jsonValue));
     }

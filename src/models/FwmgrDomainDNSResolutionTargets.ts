@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { FwmgrDomainDNSTarget } from "./FwmgrDomainDNSTarget";
-import { FwmgrDomainDNSTargetFromJSON, FwmgrDomainDNSTargetFromJSONTyped, FwmgrDomainDNSTargetToJSON } from "./FwmgrDomainDNSTarget";
+import { FwmgrDomainDNSTargetFromJSON, FwmgrDomainDNSTargetFromJSONTyped, FwmgrDomainDNSTargetToJSON, FwmgrDomainDNSTargetToJSONTyped } from "./FwmgrDomainDNSTarget";
 
 /**
  *
@@ -51,10 +51,15 @@ export function FwmgrDomainDNSResolutionTargetsFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function FwmgrDomainDNSResolutionTargetsToJSON(value?: FwmgrDomainDNSResolutionTargets | null): any {
+export function FwmgrDomainDNSResolutionTargetsToJSON(json: any): FwmgrDomainDNSResolutionTargets {
+    return FwmgrDomainDNSResolutionTargetsToJSONTyped(json, false);
+}
+
+export function FwmgrDomainDNSResolutionTargetsToJSONTyped(value?: FwmgrDomainDNSResolutionTargets | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         targets: (value["targets"] as Array<any>).map(FwmgrDomainDNSTargetToJSON),
     };

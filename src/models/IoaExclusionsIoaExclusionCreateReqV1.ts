@@ -111,10 +111,15 @@ export function IoaExclusionsIoaExclusionCreateReqV1FromJSONTyped(json: any, ign
     };
 }
 
-export function IoaExclusionsIoaExclusionCreateReqV1ToJSON(value?: IoaExclusionsIoaExclusionCreateReqV1 | null): any {
+export function IoaExclusionsIoaExclusionCreateReqV1ToJSON(json: any): IoaExclusionsIoaExclusionCreateReqV1 {
+    return IoaExclusionsIoaExclusionCreateReqV1ToJSONTyped(json, false);
+}
+
+export function IoaExclusionsIoaExclusionCreateReqV1ToJSONTyped(value?: IoaExclusionsIoaExclusionCreateReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cl_regex: value["clRegex"],
         comment: value["comment"],

@@ -82,10 +82,15 @@ export function SuppressionrulesRuleSelectionFilterFromJSONTyped(json: any, igno
     };
 }
 
-export function SuppressionrulesRuleSelectionFilterToJSON(value?: SuppressionrulesRuleSelectionFilter | null): any {
+export function SuppressionrulesRuleSelectionFilterToJSON(json: any): SuppressionrulesRuleSelectionFilter {
+    return SuppressionrulesRuleSelectionFilterToJSONTyped(json, false);
+}
+
+export function SuppressionrulesRuleSelectionFilterToJSONTyped(value?: SuppressionrulesRuleSelectionFilter | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         rule_ids: value["ruleIds"],
         rule_names: value["ruleNames"],

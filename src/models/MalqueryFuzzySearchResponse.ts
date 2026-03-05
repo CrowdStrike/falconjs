@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MalqueryFuzzySearchMetaInfo } from "./MalqueryFuzzySearchMetaInfo";
-import { MalqueryFuzzySearchMetaInfoFromJSON, MalqueryFuzzySearchMetaInfoFromJSONTyped, MalqueryFuzzySearchMetaInfoToJSON } from "./MalqueryFuzzySearchMetaInfo";
+import {
+    MalqueryFuzzySearchMetaInfoFromJSON,
+    MalqueryFuzzySearchMetaInfoFromJSONTyped,
+    MalqueryFuzzySearchMetaInfoToJSON,
+    MalqueryFuzzySearchMetaInfoToJSONTyped,
+} from "./MalqueryFuzzySearchMetaInfo";
 import type { MalqueryQueryError } from "./MalqueryQueryError";
-import { MalqueryQueryErrorFromJSON, MalqueryQueryErrorFromJSONTyped, MalqueryQueryErrorToJSON } from "./MalqueryQueryError";
+import { MalqueryQueryErrorFromJSON, MalqueryQueryErrorFromJSONTyped, MalqueryQueryErrorToJSON, MalqueryQueryErrorToJSONTyped } from "./MalqueryQueryError";
 import type { MalquerySampleMetadata } from "./MalquerySampleMetadata";
-import { MalquerySampleMetadataFromJSON, MalquerySampleMetadataFromJSONTyped, MalquerySampleMetadataToJSON } from "./MalquerySampleMetadata";
+import { MalquerySampleMetadataFromJSON, MalquerySampleMetadataFromJSONTyped, MalquerySampleMetadataToJSON, MalquerySampleMetadataToJSONTyped } from "./MalquerySampleMetadata";
 
 /**
  *
@@ -70,10 +75,15 @@ export function MalqueryFuzzySearchResponseFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function MalqueryFuzzySearchResponseToJSON(value?: MalqueryFuzzySearchResponse | null): any {
+export function MalqueryFuzzySearchResponseToJSON(json: any): MalqueryFuzzySearchResponse {
+    return MalqueryFuzzySearchResponseToJSONTyped(json, false);
+}
+
+export function MalqueryFuzzySearchResponseToJSONTyped(value?: MalqueryFuzzySearchResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MalqueryQueryErrorToJSON),
         meta: MalqueryFuzzySearchMetaInfoToJSON(value["meta"]),

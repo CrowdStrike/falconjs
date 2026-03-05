@@ -160,10 +160,15 @@ export function ModelsComplianceExportGroupedByClustersReportFromJSONTyped(json:
     };
 }
 
-export function ModelsComplianceExportGroupedByClustersReportToJSON(value?: ModelsComplianceExportGroupedByClustersReport | null): any {
+export function ModelsComplianceExportGroupedByClustersReportToJSON(json: any): ModelsComplianceExportGroupedByClustersReport {
+    return ModelsComplianceExportGroupedByClustersReportToJSONTyped(json, false);
+}
+
+export function ModelsComplianceExportGroupedByClustersReportToJSONTyped(value?: ModelsComplianceExportGroupedByClustersReport | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         cloud_account_id: value["cloudAccountId"],

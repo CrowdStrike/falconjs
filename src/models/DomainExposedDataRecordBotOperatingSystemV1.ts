@@ -136,10 +136,15 @@ export function DomainExposedDataRecordBotOperatingSystemV1FromJSONTyped(json: a
     };
 }
 
-export function DomainExposedDataRecordBotOperatingSystemV1ToJSON(value?: DomainExposedDataRecordBotOperatingSystemV1 | null): any {
+export function DomainExposedDataRecordBotOperatingSystemV1ToJSON(json: any): DomainExposedDataRecordBotOperatingSystemV1 {
+    return DomainExposedDataRecordBotOperatingSystemV1ToJSONTyped(json, false);
+}
+
+export function DomainExposedDataRecordBotOperatingSystemV1ToJSONTyped(value?: DomainExposedDataRecordBotOperatingSystemV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         antivirus: value["antivirus"],
         computer_name: value["computerName"],

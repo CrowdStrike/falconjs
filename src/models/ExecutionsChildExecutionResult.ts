@@ -79,12 +79,17 @@ export function ExecutionsChildExecutionResultFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function ExecutionsChildExecutionResultToJSON(value?: ExecutionsChildExecutionResult | null): any {
+export function ExecutionsChildExecutionResultToJSON(json: any): ExecutionsChildExecutionResult {
+    return ExecutionsChildExecutionResultToJSONTyped(json, false);
+}
+
+export function ExecutionsChildExecutionResultToJSONTyped(value?: ExecutionsChildExecutionResult | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
-        end_timestamp: value["endTimestamp"] == null ? undefined : value["endTimestamp"].toISOString(),
+        end_timestamp: value["endTimestamp"] == null ? value["endTimestamp"] : value["endTimestamp"].toISOString(),
         id: value["id"],
         iteration: value["iteration"],
         start_timestamp: value["startTimestamp"].toISOString(),

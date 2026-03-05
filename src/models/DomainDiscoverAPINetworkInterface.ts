@@ -75,10 +75,15 @@ export function DomainDiscoverAPINetworkInterfaceFromJSONTyped(json: any, ignore
     };
 }
 
-export function DomainDiscoverAPINetworkInterfaceToJSON(value?: DomainDiscoverAPINetworkInterface | null): any {
+export function DomainDiscoverAPINetworkInterfaceToJSON(json: any): DomainDiscoverAPINetworkInterface {
+    return DomainDiscoverAPINetworkInterfaceToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPINetworkInterfaceToJSONTyped(value?: DomainDiscoverAPINetworkInterface | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         interface_alias: value["interfaceAlias"],
         interface_description: value["interfaceDescription"],

@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsAWSCustomerSettingsRequestV1 } from "./ModelsAWSCustomerSettingsRequestV1";
-import { ModelsAWSCustomerSettingsRequestV1FromJSON, ModelsAWSCustomerSettingsRequestV1FromJSONTyped, ModelsAWSCustomerSettingsRequestV1ToJSON } from "./ModelsAWSCustomerSettingsRequestV1";
+import {
+    ModelsAWSCustomerSettingsRequestV1FromJSON,
+    ModelsAWSCustomerSettingsRequestV1FromJSONTyped,
+    ModelsAWSCustomerSettingsRequestV1ToJSON,
+    ModelsAWSCustomerSettingsRequestV1ToJSONTyped,
+} from "./ModelsAWSCustomerSettingsRequestV1";
 
 /**
  *
@@ -51,10 +56,15 @@ export function ModelsModifyAWSCustomerSettingsV1FromJSONTyped(json: any, ignore
     };
 }
 
-export function ModelsModifyAWSCustomerSettingsV1ToJSON(value?: ModelsModifyAWSCustomerSettingsV1 | null): any {
+export function ModelsModifyAWSCustomerSettingsV1ToJSON(json: any): ModelsModifyAWSCustomerSettingsV1 {
+    return ModelsModifyAWSCustomerSettingsV1ToJSONTyped(json, false);
+}
+
+export function ModelsModifyAWSCustomerSettingsV1ToJSONTyped(value?: ModelsModifyAWSCustomerSettingsV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(ModelsAWSCustomerSettingsRequestV1ToJSON),
     };

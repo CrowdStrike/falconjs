@@ -76,10 +76,15 @@ export function AzureResourcePermissionFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function AzureResourcePermissionToJSON(value?: AzureResourcePermission | null): any {
+export function AzureResourcePermissionToJSON(json: any): AzureResourcePermission {
+    return AzureResourcePermissionToJSONTyped(json, false);
+}
+
+export function AzureResourcePermissionToJSONTyped(value?: AzureResourcePermission | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
         resource_id: value["resourceId"],

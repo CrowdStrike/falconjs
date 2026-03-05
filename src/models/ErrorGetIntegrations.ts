@@ -55,10 +55,15 @@ export function ErrorGetIntegrationsFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function ErrorGetIntegrationsToJSON(value?: ErrorGetIntegrations | null): any {
+export function ErrorGetIntegrationsToJSON(json: any): ErrorGetIntegrations {
+    return ErrorGetIntegrationsToJSONTyped(json, false);
+}
+
+export function ErrorGetIntegrationsToJSONTyped(value?: ErrorGetIntegrations | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         message: value["message"],

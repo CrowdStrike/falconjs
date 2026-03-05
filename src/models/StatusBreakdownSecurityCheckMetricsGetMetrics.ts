@@ -88,10 +88,15 @@ export function StatusBreakdownSecurityCheckMetricsGetMetricsFromJSONTyped(json:
     };
 }
 
-export function StatusBreakdownSecurityCheckMetricsGetMetricsToJSON(value?: StatusBreakdownSecurityCheckMetricsGetMetrics | null): any {
+export function StatusBreakdownSecurityCheckMetricsGetMetricsToJSON(json: any): StatusBreakdownSecurityCheckMetricsGetMetrics {
+    return StatusBreakdownSecurityCheckMetricsGetMetricsToJSONTyped(json, false);
+}
+
+export function StatusBreakdownSecurityCheckMetricsGetMetricsToJSONTyped(value?: StatusBreakdownSecurityCheckMetricsGetMetrics | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cant_run: value["cantRun"],
         dismissed: value["dismissed"],

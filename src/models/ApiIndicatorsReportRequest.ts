@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApiIndicatorsSortedSearch } from "./ApiIndicatorsSortedSearch";
-import { ApiIndicatorsSortedSearchFromJSON, ApiIndicatorsSortedSearchFromJSONTyped, ApiIndicatorsSortedSearchToJSON } from "./ApiIndicatorsSortedSearch";
+import { ApiIndicatorsSortedSearchFromJSON, ApiIndicatorsSortedSearchFromJSONTyped, ApiIndicatorsSortedSearchToJSON, ApiIndicatorsSortedSearchToJSONTyped } from "./ApiIndicatorsSortedSearch";
 
 /**
  *
@@ -66,10 +66,15 @@ export function ApiIndicatorsReportRequestFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function ApiIndicatorsReportRequestToJSON(value?: ApiIndicatorsReportRequest | null): any {
+export function ApiIndicatorsReportRequestToJSON(json: any): ApiIndicatorsReportRequest {
+    return ApiIndicatorsReportRequestToJSONTyped(json, false);
+}
+
+export function ApiIndicatorsReportRequestToJSONTyped(value?: ApiIndicatorsReportRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         from_parent: value["fromParent"],
         report_format: value["reportFormat"],

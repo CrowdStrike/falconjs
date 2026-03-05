@@ -79,10 +79,15 @@ export function ApiWorkflowMetadataFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function ApiWorkflowMetadataToJSON(value?: ApiWorkflowMetadata | null): any {
+export function ApiWorkflowMetadataToJSON(json: any): ApiWorkflowMetadata {
+    return ApiWorkflowMetadataToJSONTyped(json, false);
+}
+
+export function ApiWorkflowMetadataToJSONTyped(value?: ApiWorkflowMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action_permissions: value["actionPermissions"],
         fusion_action: value["fusionAction"],

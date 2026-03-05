@@ -48,10 +48,15 @@ export function MlscannerapiSamplesScanParametersFromJSONTyped(json: any, ignore
     };
 }
 
-export function MlscannerapiSamplesScanParametersToJSON(value?: MlscannerapiSamplesScanParameters | null): any {
+export function MlscannerapiSamplesScanParametersToJSON(json: any): MlscannerapiSamplesScanParameters {
+    return MlscannerapiSamplesScanParametersToJSONTyped(json, false);
+}
+
+export function MlscannerapiSamplesScanParametersToJSONTyped(value?: MlscannerapiSamplesScanParameters | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         samples: value["samples"],
     };

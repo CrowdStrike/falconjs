@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainMultiCommandExecuteResponse } from "./DomainMultiCommandExecuteResponse";
-import { DomainMultiCommandExecuteResponseFromJSON, DomainMultiCommandExecuteResponseFromJSONTyped, DomainMultiCommandExecuteResponseToJSON } from "./DomainMultiCommandExecuteResponse";
+import {
+    DomainMultiCommandExecuteResponseFromJSON,
+    DomainMultiCommandExecuteResponseFromJSONTyped,
+    DomainMultiCommandExecuteResponseToJSON,
+    DomainMultiCommandExecuteResponseToJSONTyped,
+} from "./DomainMultiCommandExecuteResponse";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +76,15 @@ export function DomainMultiCommandExecuteResponseWrapperFromJSONTyped(json: any,
     };
 }
 
-export function DomainMultiCommandExecuteResponseWrapperToJSON(value?: DomainMultiCommandExecuteResponseWrapper | null): any {
+export function DomainMultiCommandExecuteResponseWrapperToJSON(json: any): DomainMultiCommandExecuteResponseWrapper {
+    return DomainMultiCommandExecuteResponseWrapperToJSONTyped(json, false);
+}
+
+export function DomainMultiCommandExecuteResponseWrapperToJSONTyped(value?: DomainMultiCommandExecuteResponseWrapper | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         combined: DomainMultiCommandExecuteResponseToJSON(value["combined"]),
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),

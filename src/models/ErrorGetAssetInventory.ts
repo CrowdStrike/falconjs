@@ -55,10 +55,15 @@ export function ErrorGetAssetInventoryFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function ErrorGetAssetInventoryToJSON(value?: ErrorGetAssetInventory | null): any {
+export function ErrorGetAssetInventoryToJSON(json: any): ErrorGetAssetInventory {
+    return ErrorGetAssetInventoryToJSONTyped(json, false);
+}
+
+export function ErrorGetAssetInventoryToJSONTyped(value?: ErrorGetAssetInventory | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         message: value["message"],

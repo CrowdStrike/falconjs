@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesConfiguration } from "./TypesConfiguration";
-import { TypesConfigurationFromJSON, TypesConfigurationFromJSONTyped, TypesConfigurationToJSON } from "./TypesConfiguration";
+import { TypesConfigurationFromJSON, TypesConfigurationFromJSONTyped, TypesConfigurationToJSON, TypesConfigurationToJSONTyped } from "./TypesConfiguration";
 
 /**
  *
@@ -57,10 +57,15 @@ export function TypesServiceServiceConfigurationFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function TypesServiceServiceConfigurationToJSON(value?: TypesServiceServiceConfiguration | null): any {
+export function TypesServiceServiceConfigurationToJSON(json: any): TypesServiceServiceConfiguration {
+    return TypesServiceServiceConfigurationToJSONTyped(json, false);
+}
+
+export function TypesServiceServiceConfigurationToJSONTyped(value?: TypesServiceServiceConfiguration | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count: value["count"],
         items: value["items"] == null ? undefined : (value["items"] as Array<any>).map(TypesConfigurationToJSON),

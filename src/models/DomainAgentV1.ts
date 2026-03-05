@@ -128,10 +128,15 @@ export function DomainAgentV1FromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function DomainAgentV1ToJSON(value?: DomainAgentV1 | null): any {
+export function DomainAgentV1ToJSON(json: any): DomainAgentV1 {
+    return DomainAgentV1ToJSONTyped(json, false);
+}
+
+export function DomainAgentV1ToJSONTyped(value?: DomainAgentV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         aid: value["aid"],
         cid: value["cid"],

@@ -88,10 +88,15 @@ export function DomainExternalCredentialResponseFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function DomainExternalCredentialResponseToJSON(value?: DomainExternalCredentialResponse | null): any {
+export function DomainExternalCredentialResponseToJSON(json: any): DomainExternalCredentialResponse {
+    return DomainExternalCredentialResponseToJSONTyped(json, false);
+}
+
+export function DomainExternalCredentialResponseToJSONTyped(value?: DomainExternalCredentialResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         created_at: value["createdAt"],
         details: value["details"],

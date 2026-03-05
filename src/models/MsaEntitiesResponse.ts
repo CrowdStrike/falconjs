@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -69,10 +69,15 @@ export function MsaEntitiesResponseFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function MsaEntitiesResponseToJSON(value?: MsaEntitiesResponse | null): any {
+export function MsaEntitiesResponseToJSON(json: any): MsaEntitiesResponse {
+    return MsaEntitiesResponseToJSONTyped(json, false);
+}
+
+export function MsaEntitiesResponseToJSONTyped(value?: MsaEntitiesResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

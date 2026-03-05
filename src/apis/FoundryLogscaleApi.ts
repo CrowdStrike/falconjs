@@ -162,12 +162,9 @@ export interface FoundryLogscaleApiPopulateRequest {
  */
 export class FoundryLogscaleApi extends runtime.BaseAPI {
     /**
-     * Execute a dynamic saved search
+     * Creates request options for createSavedSearchesDynamicExecuteAltV1 without sending the request
      */
-    async createSavedSearchesDynamicExecuteAltV1Raw(
-        requestParameters: FoundryLogscaleApiCreateSavedSearchesDynamicExecuteAltV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApidomainQueryResponseWrapperV1>> {
+    async createSavedSearchesDynamicExecuteAltV1RequestOpts(requestParameters: FoundryLogscaleApiCreateSavedSearchesDynamicExecuteAltV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createSavedSearchesDynamicExecuteAltV1().');
         }
@@ -215,16 +212,26 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["app-logs:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/loggingapi/entities/saved-searches-dynamic-execute/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApidomainDynamicExecuteSearchRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/loggingapi/entities/saved-searches-dynamic-execute/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApidomainDynamicExecuteSearchRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Execute a dynamic saved search
+     */
+    async createSavedSearchesDynamicExecuteAltV1Raw(
+        requestParameters: FoundryLogscaleApiCreateSavedSearchesDynamicExecuteAltV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApidomainQueryResponseWrapperV1>> {
+        const requestOptions = await this.createSavedSearchesDynamicExecuteAltV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApidomainQueryResponseWrapperV1FromJSON(jsonValue));
     }
@@ -262,12 +269,9 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
     }
 
     /**
-     * Execute a saved search
+     * Creates request options for createSavedSearchesExecuteAltV1 without sending the request
      */
-    async createSavedSearchesExecuteAltV1Raw(
-        requestParameters: FoundryLogscaleApiCreateSavedSearchesExecuteAltV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApidomainQueryResponseWrapperV1>> {
+    async createSavedSearchesExecuteAltV1RequestOpts(requestParameters: FoundryLogscaleApiCreateSavedSearchesExecuteAltV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createSavedSearchesExecuteAltV1().');
         }
@@ -311,16 +315,26 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["app-logs:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/loggingapi/entities/saved-searches-execute/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApidomainSavedSearchExecuteRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/loggingapi/entities/saved-searches-execute/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApidomainSavedSearchExecuteRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Execute a saved search
+     */
+    async createSavedSearchesExecuteAltV1Raw(
+        requestParameters: FoundryLogscaleApiCreateSavedSearchesExecuteAltV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApidomainQueryResponseWrapperV1>> {
+        const requestOptions = await this.createSavedSearchesExecuteAltV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApidomainQueryResponseWrapperV1FromJSON(jsonValue));
     }
@@ -356,12 +370,9 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
     }
 
     /**
-     * Populate a saved search
+     * Creates request options for createSavedSearchesIngestAltV1 without sending the request
      */
-    async createSavedSearchesIngestAltV1Raw(
-        requestParameters: FoundryLogscaleApiCreateSavedSearchesIngestAltV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ClientDataIngestResponseWrapperV1>> {
+    async createSavedSearchesIngestAltV1RequestOpts(requestParameters: FoundryLogscaleApiCreateSavedSearchesIngestAltV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["appId"] != null) {
@@ -375,15 +386,25 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["app-logs:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/loggingapi/entities/saved-searches-ingest/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/loggingapi/entities/saved-searches-ingest/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Populate a saved search
+     */
+    async createSavedSearchesIngestAltV1Raw(
+        requestParameters: FoundryLogscaleApiCreateSavedSearchesIngestAltV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ClientDataIngestResponseWrapperV1>> {
+        const requestOptions = await this.createSavedSearchesIngestAltV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientDataIngestResponseWrapperV1FromJSON(jsonValue));
     }
@@ -397,9 +418,9 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the results of a saved search as a file
+     * Creates request options for downloadResults without sending the request
      */
-    async downloadResultsRaw(requestParameters: FoundryLogscaleApiDownloadResultsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+    async downloadResultsRequestOpts(requestParameters: FoundryLogscaleApiDownloadResultsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["jobId"] == null) {
             throw new runtime.RequiredError("jobId", 'Required parameter "jobId" was null or undefined when calling downloadResults().');
         }
@@ -425,15 +446,22 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["app-logs:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/loggingapi/entities/saved-searches/job-results-download/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/loggingapi/entities/saved-searches/job-results-download/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get the results of a saved search as a file
+     */
+    async downloadResultsRaw(requestParameters: FoundryLogscaleApiDownloadResultsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+        const requestOptions = await this.downloadResultsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.BlobApiResponse(response);
     }
@@ -447,9 +475,9 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
     }
 
     /**
-     * Execute a saved search
+     * Creates request options for execute without sending the request
      */
-    async executeRaw(requestParameters: FoundryLogscaleApiExecuteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApidomainQueryResponseWrapperV1>> {
+    async executeRequestOpts(requestParameters: FoundryLogscaleApiExecuteRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling execute().');
         }
@@ -493,16 +521,23 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["app-logs:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/loggingapi/entities/saved-searches/execute/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApidomainSavedSearchExecuteRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/loggingapi/entities/saved-searches/execute/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApidomainSavedSearchExecuteRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Execute a saved search
+     */
+    async executeRaw(requestParameters: FoundryLogscaleApiExecuteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApidomainQueryResponseWrapperV1>> {
+        const requestOptions = await this.executeRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApidomainQueryResponseWrapperV1FromJSON(jsonValue));
     }
@@ -538,12 +573,9 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
     }
 
     /**
-     * Execute a dynamic saved search
+     * Creates request options for executeDynamic without sending the request
      */
-    async executeDynamicRaw(
-        requestParameters: FoundryLogscaleApiExecuteDynamicRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApidomainQueryResponseWrapperV1>> {
+    async executeDynamicRequestOpts(requestParameters: FoundryLogscaleApiExecuteDynamicRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling executeDynamic().');
         }
@@ -591,16 +623,26 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["app-logs:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/loggingapi/entities/saved-searches/execute-dynamic/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApidomainDynamicExecuteSearchRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/loggingapi/entities/saved-searches/execute-dynamic/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApidomainDynamicExecuteSearchRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Execute a dynamic saved search
+     */
+    async executeDynamicRaw(
+        requestParameters: FoundryLogscaleApiExecuteDynamicRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApidomainQueryResponseWrapperV1>> {
+        const requestOptions = await this.executeDynamicRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApidomainQueryResponseWrapperV1FromJSON(jsonValue));
     }
@@ -638,12 +680,9 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the results of a saved search
+     * Creates request options for getSavedSearchesExecuteAltV1 without sending the request
      */
-    async getSavedSearchesExecuteAltV1Raw(
-        requestParameters: FoundryLogscaleApiGetSavedSearchesExecuteAltV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApidomainQueryResponseWrapperV1>> {
+    async getSavedSearchesExecuteAltV1RequestOpts(requestParameters: FoundryLogscaleApiGetSavedSearchesExecuteAltV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["jobId"] == null) {
             throw new runtime.RequiredError("jobId", 'Required parameter "jobId" was null or undefined when calling getSavedSearchesExecuteAltV1().');
         }
@@ -693,15 +732,25 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["app-logs:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/loggingapi/entities/saved-searches-execute/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/loggingapi/entities/saved-searches-execute/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get the results of a saved search
+     */
+    async getSavedSearchesExecuteAltV1Raw(
+        requestParameters: FoundryLogscaleApiGetSavedSearchesExecuteAltV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApidomainQueryResponseWrapperV1>> {
+        const requestOptions = await this.getSavedSearchesExecuteAltV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApidomainQueryResponseWrapperV1FromJSON(jsonValue));
     }
@@ -739,12 +788,9 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the results of a saved search as a file
+     * Creates request options for getSavedSearchesJobResultsDownloadAltV1 without sending the request
      */
-    async getSavedSearchesJobResultsDownloadAltV1Raw(
-        requestParameters: FoundryLogscaleApiGetSavedSearchesJobResultsDownloadAltV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<Blob>> {
+    async getSavedSearchesJobResultsDownloadAltV1RequestOpts(requestParameters: FoundryLogscaleApiGetSavedSearchesJobResultsDownloadAltV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["jobId"] == null) {
             throw new runtime.RequiredError("jobId", 'Required parameter "jobId" was null or undefined when calling getSavedSearchesJobResultsDownloadAltV1().');
         }
@@ -770,15 +816,25 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["app-logs:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/loggingapi/entities/saved-searches-job-results-download/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/loggingapi/entities/saved-searches-job-results-download/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get the results of a saved search as a file
+     */
+    async getSavedSearchesJobResultsDownloadAltV1Raw(
+        requestParameters: FoundryLogscaleApiGetSavedSearchesJobResultsDownloadAltV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<Blob>> {
+        const requestOptions = await this.getSavedSearchesJobResultsDownloadAltV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.BlobApiResponse(response);
     }
@@ -797,12 +853,9 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the results of a saved search
+     * Creates request options for getSearchResults without sending the request
      */
-    async getSearchResultsRaw(
-        requestParameters: FoundryLogscaleApiGetSearchResultsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApidomainQueryResponseWrapperV1>> {
+    async getSearchResultsRequestOpts(requestParameters: FoundryLogscaleApiGetSearchResultsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["jobId"] == null) {
             throw new runtime.RequiredError("jobId", 'Required parameter "jobId" was null or undefined when calling getSearchResults().');
         }
@@ -852,15 +905,25 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["app-logs:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/loggingapi/entities/saved-searches/execute/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/loggingapi/entities/saved-searches/execute/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get the results of a saved search
+     */
+    async getSearchResultsRaw(
+        requestParameters: FoundryLogscaleApiGetSearchResultsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApidomainQueryResponseWrapperV1>> {
+        const requestOptions = await this.getSearchResultsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApidomainQueryResponseWrapperV1FromJSON(jsonValue));
     }
@@ -898,12 +961,9 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
     }
 
     /**
-     * Synchronously ingest data into the application repository
+     * Creates request options for ingestData without sending the request
      */
-    async ingestDataRaw(
-        requestParameters: FoundryLogscaleApiIngestDataRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ClientDataIngestResponseWrapperV1>> {
+    async ingestDataRequestOpts(requestParameters: FoundryLogscaleApiIngestDataRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -947,16 +1007,26 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
             formParams.append("test_data", requestParameters["testData"] as any);
         }
 
-        const response = await this.request(
-            {
-                path: `/loggingapi/entities/data-ingestion/ingest/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: formParams,
-            },
-            initOverrides,
-        );
+        let urlPath = `/loggingapi/entities/data-ingestion/ingest/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        };
+    }
+
+    /**
+     * Synchronously ingest data into the application repository
+     */
+    async ingestDataRaw(
+        requestParameters: FoundryLogscaleApiIngestDataRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ClientDataIngestResponseWrapperV1>> {
+        const requestOptions = await this.ingestDataRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientDataIngestResponseWrapperV1FromJSON(jsonValue));
     }
@@ -977,12 +1047,9 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
     }
 
     /**
-     * Asynchronously ingest data into the application repository
+     * Creates request options for ingestDataAsyncV1 without sending the request
      */
-    async ingestDataAsyncV1Raw(
-        requestParameters: FoundryLogscaleApiIngestDataAsyncV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ClientDataIngestResponseWrapperV1>> {
+    async ingestDataAsyncV1RequestOpts(requestParameters: FoundryLogscaleApiIngestDataAsyncV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1030,16 +1097,26 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
             formParams.append("test_data", requestParameters["testData"] as any);
         }
 
-        const response = await this.request(
-            {
-                path: `/loggingapi/entities/data-ingestion/ingest-async/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: formParams,
-            },
-            initOverrides,
-        );
+        let urlPath = `/loggingapi/entities/data-ingestion/ingest-async/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        };
+    }
+
+    /**
+     * Asynchronously ingest data into the application repository
+     */
+    async ingestDataAsyncV1Raw(
+        requestParameters: FoundryLogscaleApiIngestDataAsyncV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ClientDataIngestResponseWrapperV1>> {
+        const requestOptions = await this.ingestDataAsyncV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientDataIngestResponseWrapperV1FromJSON(jsonValue));
     }
@@ -1061,12 +1138,9 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
     }
 
     /**
-     * Lists available repositories and views
+     * Creates request options for listRepos without sending the request
      */
-    async listReposRaw(
-        requestParameters: FoundryLogscaleApiListReposRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApidomainRepoViewListItemWrapperV1>> {
+    async listReposRequestOpts(requestParameters: FoundryLogscaleApiListReposRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["checkTestData"] != null) {
@@ -1080,15 +1154,25 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["app-logs:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/loggingapi/combined/repos/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/loggingapi/combined/repos/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Lists available repositories and views
+     */
+    async listReposRaw(
+        requestParameters: FoundryLogscaleApiListReposRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApidomainRepoViewListItemWrapperV1>> {
+        const requestOptions = await this.listReposRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApidomainRepoViewListItemWrapperV1FromJSON(jsonValue));
     }
@@ -1102,12 +1186,9 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
     }
 
     /**
-     * List views
+     * Creates request options for listViews without sending the request
      */
-    async listViewsRaw(
-        requestParameters: FoundryLogscaleApiListViewsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApidomainRepoViewListItemWrapperV1>> {
+    async listViewsRequestOpts(requestParameters: FoundryLogscaleApiListViewsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["checkTestData"] != null) {
@@ -1121,15 +1202,25 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["app-logs:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/loggingapi/entities/views/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/loggingapi/entities/views/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List views
+     */
+    async listViewsRaw(
+        requestParameters: FoundryLogscaleApiListViewsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApidomainRepoViewListItemWrapperV1>> {
+        const requestOptions = await this.listViewsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApidomainRepoViewListItemWrapperV1FromJSON(jsonValue));
     }
@@ -1143,12 +1234,9 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
     }
 
     /**
-     * Populate a saved search
+     * Creates request options for populate without sending the request
      */
-    async populateRaw(
-        requestParameters: FoundryLogscaleApiPopulateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ClientDataIngestResponseWrapperV1>> {
+    async populateRequestOpts(requestParameters: FoundryLogscaleApiPopulateRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["appId"] != null) {
@@ -1162,15 +1250,25 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["app-logs:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/loggingapi/entities/saved-searches/ingest/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/loggingapi/entities/saved-searches/ingest/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Populate a saved search
+     */
+    async populateRaw(
+        requestParameters: FoundryLogscaleApiPopulateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ClientDataIngestResponseWrapperV1>> {
+        const requestOptions = await this.populateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientDataIngestResponseWrapperV1FromJSON(jsonValue));
     }

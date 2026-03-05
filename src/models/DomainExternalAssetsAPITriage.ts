@@ -82,10 +82,15 @@ export function DomainExternalAssetsAPITriageFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function DomainExternalAssetsAPITriageToJSON(value?: DomainExternalAssetsAPITriage | null): any {
+export function DomainExternalAssetsAPITriageToJSON(json: any): DomainExternalAssetsAPITriage {
+    return DomainExternalAssetsAPITriageToJSONTyped(json, false);
+}
+
+export function DomainExternalAssetsAPITriageToJSONTyped(value?: DomainExternalAssetsAPITriage | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         assigned_to: value["assignedTo"],

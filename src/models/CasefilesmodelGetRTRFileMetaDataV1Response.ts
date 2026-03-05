@@ -56,10 +56,15 @@ export function CasefilesmodelGetRTRFileMetaDataV1ResponseFromJSONTyped(json: an
     };
 }
 
-export function CasefilesmodelGetRTRFileMetaDataV1ResponseToJSON(value?: CasefilesmodelGetRTRFileMetaDataV1Response | null): any {
+export function CasefilesmodelGetRTRFileMetaDataV1ResponseToJSON(json: any): CasefilesmodelGetRTRFileMetaDataV1Response {
+    return CasefilesmodelGetRTRFileMetaDataV1ResponseToJSONTyped(json, false);
+}
+
+export function CasefilesmodelGetRTRFileMetaDataV1ResponseToJSONTyped(value?: CasefilesmodelGetRTRFileMetaDataV1Response | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         file_name: value["fileName"],
         file_size: value["fileSize"],

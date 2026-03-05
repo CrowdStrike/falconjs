@@ -54,10 +54,15 @@ export function FalconxAssociatedRuntimeFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function FalconxAssociatedRuntimeToJSON(value?: FalconxAssociatedRuntime | null): any {
+export function FalconxAssociatedRuntimeToJSON(json: any): FalconxAssociatedRuntime {
+    return FalconxAssociatedRuntimeToJSONTyped(json, false);
+}
+
+export function FalconxAssociatedRuntimeToJSONTyped(value?: FalconxAssociatedRuntime | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
         pid: value["pid"],

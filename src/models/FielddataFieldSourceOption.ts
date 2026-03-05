@@ -55,10 +55,15 @@ export function FielddataFieldSourceOptionFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function FielddataFieldSourceOptionToJSON(value?: FielddataFieldSourceOption | null): any {
+export function FielddataFieldSourceOptionToJSON(json: any): FielddataFieldSourceOption {
+    return FielddataFieldSourceOptionToJSONTyped(json, false);
+}
+
+export function FielddataFieldSourceOptionToJSONTyped(value?: FielddataFieldSourceOption | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

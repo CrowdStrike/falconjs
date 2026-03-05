@@ -64,10 +64,15 @@ export function SadomainTyposquattingParentDomainFromJSONTyped(json: any, ignore
     };
 }
 
-export function SadomainTyposquattingParentDomainToJSON(value?: SadomainTyposquattingParentDomain | null): any {
+export function SadomainTyposquattingParentDomainToJSON(json: any): SadomainTyposquattingParentDomain {
+    return SadomainTyposquattingParentDomainToJSONTyped(json, false);
+}
+
+export function SadomainTyposquattingParentDomainToJSONTyped(value?: SadomainTyposquattingParentDomain | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         punycode_format: value["punycodeFormat"],

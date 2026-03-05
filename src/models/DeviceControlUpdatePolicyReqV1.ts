@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DeviceControlSettingsReqV1 } from "./DeviceControlSettingsReqV1";
-import { DeviceControlSettingsReqV1FromJSON, DeviceControlSettingsReqV1FromJSONTyped, DeviceControlSettingsReqV1ToJSON } from "./DeviceControlSettingsReqV1";
+import { DeviceControlSettingsReqV1FromJSON, DeviceControlSettingsReqV1FromJSONTyped, DeviceControlSettingsReqV1ToJSON, DeviceControlSettingsReqV1ToJSONTyped } from "./DeviceControlSettingsReqV1";
 
 /**
  * An update for a specific policy
@@ -73,10 +73,15 @@ export function DeviceControlUpdatePolicyReqV1FromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function DeviceControlUpdatePolicyReqV1ToJSON(value?: DeviceControlUpdatePolicyReqV1 | null): any {
+export function DeviceControlUpdatePolicyReqV1ToJSON(json: any): DeviceControlUpdatePolicyReqV1 {
+    return DeviceControlUpdatePolicyReqV1ToJSONTyped(json, false);
+}
+
+export function DeviceControlUpdatePolicyReqV1ToJSONTyped(value?: DeviceControlUpdatePolicyReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         id: value["id"],

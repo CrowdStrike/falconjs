@@ -14,15 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DataconnectionmanagementDataConnection } from "./DataconnectionmanagementDataConnection";
 import {
     DataconnectionmanagementDataConnectionFromJSON,
     DataconnectionmanagementDataConnectionFromJSONTyped,
     DataconnectionmanagementDataConnectionToJSON,
+    DataconnectionmanagementDataConnectionToJSONTyped,
 } from "./DataconnectionmanagementDataConnection";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -74,10 +75,15 @@ export function DataconnectionmanagementDataConnectionResponseFromJSONTyped(json
     };
 }
 
-export function DataconnectionmanagementDataConnectionResponseToJSON(value?: DataconnectionmanagementDataConnectionResponse | null): any {
+export function DataconnectionmanagementDataConnectionResponseToJSON(json: any): DataconnectionmanagementDataConnectionResponse {
+    return DataconnectionmanagementDataConnectionResponseToJSONTyped(json, false);
+}
+
+export function DataconnectionmanagementDataConnectionResponseToJSONTyped(value?: DataconnectionmanagementDataConnectionResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

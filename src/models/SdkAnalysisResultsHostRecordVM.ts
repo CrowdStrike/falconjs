@@ -80,10 +80,15 @@ export function SdkAnalysisResultsHostRecordVMFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function SdkAnalysisResultsHostRecordVMToJSON(value?: SdkAnalysisResultsHostRecordVM | null): any {
+export function SdkAnalysisResultsHostRecordVMToJSON(json: any): SdkAnalysisResultsHostRecordVM {
+    return SdkAnalysisResultsHostRecordVMToJSONTyped(json, false);
+}
+
+export function SdkAnalysisResultsHostRecordVMToJSONTyped(value?: SdkAnalysisResultsHostRecordVM | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         agent_ip: value["agentIp"],
         aid: value["aid"],

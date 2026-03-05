@@ -152,10 +152,15 @@ export function DomainResultMetadataFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function DomainResultMetadataToJSON(value?: DomainResultMetadata | null): any {
+export function DomainResultMetadataToJSON(json: any): DomainResultMetadata {
+    return DomainResultMetadataToJSONTyped(json, false);
+}
+
+export function DomainResultMetadataToJSONTyped(value?: DomainResultMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         encrypted_report_file_reference: value["encryptedReportFileReference"],
         execution_delay: value["executionDelay"],

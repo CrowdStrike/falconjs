@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesFramework } from "./TypesFramework";
-import { TypesFrameworkFromJSON, TypesFrameworkFromJSONTyped, TypesFrameworkToJSON } from "./TypesFramework";
+import { TypesFrameworkFromJSON, TypesFrameworkFromJSONTyped, TypesFrameworkToJSON, TypesFrameworkToJSONTyped } from "./TypesFramework";
 
 /**
  *
@@ -57,10 +57,15 @@ export function TypesServiceServiceFrameworkFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function TypesServiceServiceFrameworkToJSON(value?: TypesServiceServiceFramework | null): any {
+export function TypesServiceServiceFrameworkToJSON(json: any): TypesServiceServiceFramework {
+    return TypesServiceServiceFrameworkToJSONTyped(json, false);
+}
+
+export function TypesServiceServiceFrameworkToJSONTyped(value?: TypesServiceServiceFramework | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count: value["count"],
         items: value["items"] == null ? undefined : (value["items"] as Array<any>).map(TypesFrameworkToJSON),

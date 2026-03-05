@@ -214,12 +214,9 @@ export interface ReconApiUpdateRulesV1Request {
  */
 export class ReconApi extends runtime.BaseAPI {
     /**
-     * Get notification exposed data record aggregates as specified via JSON in request body. The valid aggregation fields are: [cid notification_id created_date rule.id rule.name rule.topic source_category site author file.name credential_status bot.operating_system.hardware_id bot.bot_id]
+     * Creates request options for aggregateNotificationsExposedDataRecordsV1 without sending the request
      */
-    async aggregateNotificationsExposedDataRecordsV1Raw(
-        requestParameters: ReconApiAggregateNotificationsExposedDataRecordsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainAggregatesResponse>> {
+    async aggregateNotificationsExposedDataRecordsV1RequestOpts(requestParameters: ReconApiAggregateNotificationsExposedDataRecordsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateNotificationsExposedDataRecordsV1().');
         }
@@ -235,16 +232,26 @@ export class ReconApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/recon/aggregates/notifications-exposed-data-records/GET/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
-            },
-            initOverrides,
-        );
+        let urlPath = `/recon/aggregates/notifications-exposed-data-records/GET/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
+        };
+    }
+
+    /**
+     * Get notification exposed data record aggregates as specified via JSON in request body. The valid aggregation fields are: [cid notification_id created_date rule.id rule.name rule.topic source_category site author file.name credential_status bot.operating_system.hardware_id bot.bot_id]
+     */
+    async aggregateNotificationsExposedDataRecordsV1Raw(
+        requestParameters: ReconApiAggregateNotificationsExposedDataRecordsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainAggregatesResponse>> {
+        const requestOptions = await this.aggregateNotificationsExposedDataRecordsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregatesResponseFromJSON(jsonValue));
     }
@@ -258,12 +265,9 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get notification aggregates as specified via JSON in request body.
+     * Creates request options for aggregateNotificationsV1 without sending the request
      */
-    async aggregateNotificationsV1Raw(
-        requestParameters: ReconApiAggregateNotificationsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainAggregatesResponse>> {
+    async aggregateNotificationsV1RequestOpts(requestParameters: ReconApiAggregateNotificationsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateNotificationsV1().');
         }
@@ -279,16 +283,26 @@ export class ReconApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/recon/aggregates/notifications/GET/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
-            },
-            initOverrides,
-        );
+        let urlPath = `/recon/aggregates/notifications/GET/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
+        };
+    }
+
+    /**
+     * Get notification aggregates as specified via JSON in request body.
+     */
+    async aggregateNotificationsV1Raw(
+        requestParameters: ReconApiAggregateNotificationsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainAggregatesResponse>> {
+        const requestOptions = await this.aggregateNotificationsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregatesResponseFromJSON(jsonValue));
     }
@@ -302,12 +316,9 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create actions for a monitoring rule. Accepts a list of actions that will be attached to the monitoring rule.
+     * Creates request options for createActionsV1 without sending the request
      */
-    async createActionsV1Raw(
-        requestParameters: ReconApiCreateActionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainActionEntitiesResponseV1>> {
+    async createActionsV1RequestOpts(requestParameters: ReconApiCreateActionsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createActionsV1().');
         }
@@ -323,16 +334,26 @@ export class ReconApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/recon/entities/actions/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainRegisterActionsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/recon/entities/actions/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainRegisterActionsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create actions for a monitoring rule. Accepts a list of actions that will be attached to the monitoring rule.
+     */
+    async createActionsV1Raw(
+        requestParameters: ReconApiCreateActionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainActionEntitiesResponseV1>> {
+        const requestOptions = await this.createActionsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainActionEntitiesResponseV1FromJSON(jsonValue));
     }
@@ -346,12 +367,9 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Launch asynchronous export job. Use the job ID to poll the status of the job using GET /entities/exports/v1.
+     * Creates request options for createExportJobsV1 without sending the request
      */
-    async createExportJobsV1Raw(
-        requestParameters: ReconApiCreateExportJobsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainLaunchExportJobResponseV1>> {
+    async createExportJobsV1RequestOpts(requestParameters: ReconApiCreateExportJobsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createExportJobsV1().');
         }
@@ -367,16 +385,26 @@ export class ReconApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/recon/entities/exports/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(DomainLaunchExportJobRequestV1ToJSON),
-            },
-            initOverrides,
-        );
+        let urlPath = `/recon/entities/exports/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"]!.map(DomainLaunchExportJobRequestV1ToJSON),
+        };
+    }
+
+    /**
+     * Launch asynchronous export job. Use the job ID to poll the status of the job using GET /entities/exports/v1.
+     */
+    async createExportJobsV1Raw(
+        requestParameters: ReconApiCreateExportJobsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainLaunchExportJobResponseV1>> {
+        const requestOptions = await this.createExportJobsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainLaunchExportJobResponseV1FromJSON(jsonValue));
     }
@@ -390,9 +418,9 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create monitoring rules.
+     * Creates request options for createRulesV1 without sending the request
      */
-    async createRulesV1Raw(requestParameters: ReconApiCreateRulesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRulesEntitiesResponseV1>> {
+    async createRulesV1RequestOpts(requestParameters: ReconApiCreateRulesV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createRulesV1().');
         }
@@ -408,16 +436,23 @@ export class ReconApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/recon/entities/rules/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(SadomainCreateRuleRequestV1ToJSON),
-            },
-            initOverrides,
-        );
+        let urlPath = `/recon/entities/rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"]!.map(SadomainCreateRuleRequestV1ToJSON),
+        };
+    }
+
+    /**
+     * Create monitoring rules.
+     */
+    async createRulesV1Raw(requestParameters: ReconApiCreateRulesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRulesEntitiesResponseV1>> {
+        const requestOptions = await this.createRulesV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainRulesEntitiesResponseV1FromJSON(jsonValue));
     }
@@ -431,9 +466,9 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete an action from a monitoring rule based on the action ID.
+     * Creates request options for deleteActionV1 without sending the request
      */
-    async deleteActionV1Raw(requestParameters: ReconApiDeleteActionV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainQueryResponse>> {
+    async deleteActionV1RequestOpts(requestParameters: ReconApiDeleteActionV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling deleteActionV1().');
         }
@@ -451,15 +486,22 @@ export class ReconApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/recon/entities/actions/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/recon/entities/actions/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete an action from a monitoring rule based on the action ID.
+     */
+    async deleteActionV1Raw(requestParameters: ReconApiDeleteActionV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainQueryResponse>> {
+        const requestOptions = await this.deleteActionV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainQueryResponseFromJSON(jsonValue));
     }
@@ -473,12 +515,9 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete export jobs (and their associated file(s)) based on their IDs.
+     * Creates request options for deleteExportJobsV1 without sending the request
      */
-    async deleteExportJobsV1Raw(
-        requestParameters: ReconApiDeleteExportJobsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainExportJobIDResponseV1>> {
+    async deleteExportJobsV1RequestOpts(requestParameters: ReconApiDeleteExportJobsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteExportJobsV1().');
         }
@@ -496,15 +535,25 @@ export class ReconApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/recon/entities/exports/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/recon/entities/exports/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete export jobs (and their associated file(s)) based on their IDs.
+     */
+    async deleteExportJobsV1Raw(
+        requestParameters: ReconApiDeleteExportJobsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainExportJobIDResponseV1>> {
+        const requestOptions = await this.deleteExportJobsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainExportJobIDResponseV1FromJSON(jsonValue));
     }
@@ -518,12 +567,9 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete notifications based on IDs. Notifications cannot be recovered after they are deleted.
+     * Creates request options for deleteNotificationsV1 without sending the request
      */
-    async deleteNotificationsV1Raw(
-        requestParameters: ReconApiDeleteNotificationsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainNotificationIDResponse>> {
+    async deleteNotificationsV1RequestOpts(requestParameters: ReconApiDeleteNotificationsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteNotificationsV1().');
         }
@@ -541,15 +587,25 @@ export class ReconApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/recon/entities/notifications/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/recon/entities/notifications/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete notifications based on IDs. Notifications cannot be recovered after they are deleted.
+     */
+    async deleteNotificationsV1Raw(
+        requestParameters: ReconApiDeleteNotificationsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainNotificationIDResponse>> {
+        const requestOptions = await this.deleteNotificationsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainNotificationIDResponseFromJSON(jsonValue));
     }
@@ -563,9 +619,9 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete monitoring rules.
+     * Creates request options for deleteRulesV1 without sending the request
      */
-    async deleteRulesV1Raw(requestParameters: ReconApiDeleteRulesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRuleQueryResponseV1>> {
+    async deleteRulesV1RequestOpts(requestParameters: ReconApiDeleteRulesV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteRulesV1().');
         }
@@ -587,15 +643,22 @@ export class ReconApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/recon/entities/rules/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/recon/entities/rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete monitoring rules.
+     */
+    async deleteRulesV1Raw(requestParameters: ReconApiDeleteRulesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRuleQueryResponseV1>> {
+        const requestOptions = await this.deleteRulesV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainRuleQueryResponseV1FromJSON(jsonValue));
     }
@@ -609,9 +672,9 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get actions based on their IDs. IDs can be retrieved using the GET /queries/actions/v1 endpoint.
+     * Creates request options for getActionsV1 without sending the request
      */
-    async getActionsV1Raw(requestParameters: ReconApiGetActionsV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainActionEntitiesResponseV1>> {
+    async getActionsV1RequestOpts(requestParameters: ReconApiGetActionsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getActionsV1().');
         }
@@ -629,15 +692,22 @@ export class ReconApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/recon/entities/actions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/recon/entities/actions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get actions based on their IDs. IDs can be retrieved using the GET /queries/actions/v1 endpoint.
+     */
+    async getActionsV1Raw(requestParameters: ReconApiGetActionsV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainActionEntitiesResponseV1>> {
+        const requestOptions = await this.getActionsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainActionEntitiesResponseV1FromJSON(jsonValue));
     }
@@ -651,12 +721,9 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the status of export jobs based on their IDs. Export jobs can be launched by calling POST /entities/exports/v1. When a job is complete, use the job ID to download the file(s) associated with it using GET entities/export-files/v1.
+     * Creates request options for getExportJobsV1 without sending the request
      */
-    async getExportJobsV1Raw(
-        requestParameters: ReconApiGetExportJobsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainExportJobEntitiesResponseV1>> {
+    async getExportJobsV1RequestOpts(requestParameters: ReconApiGetExportJobsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getExportJobsV1().');
         }
@@ -674,15 +741,25 @@ export class ReconApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/recon/entities/exports/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/recon/entities/exports/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get the status of export jobs based on their IDs. Export jobs can be launched by calling POST /entities/exports/v1. When a job is complete, use the job ID to download the file(s) associated with it using GET entities/export-files/v1.
+     */
+    async getExportJobsV1Raw(
+        requestParameters: ReconApiGetExportJobsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainExportJobEntitiesResponseV1>> {
+        const requestOptions = await this.getExportJobsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainExportJobEntitiesResponseV1FromJSON(jsonValue));
     }
@@ -696,12 +773,9 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Download the file associated with a job ID.
+     * Creates request options for getFileContentForExportJobsV1 without sending the request
      */
-    async getFileContentForExportJobsV1Raw(
-        requestParameters: ReconApiGetFileContentForExportJobsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<Array<number>>> {
+    async getFileContentForExportJobsV1RequestOpts(requestParameters: ReconApiGetFileContentForExportJobsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling getFileContentForExportJobsV1().');
         }
@@ -719,15 +793,25 @@ export class ReconApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/recon/entities/export-files/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/recon/entities/export-files/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Download the file associated with a job ID.
+     */
+    async getFileContentForExportJobsV1Raw(
+        requestParameters: ReconApiGetFileContentForExportJobsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<Array<number>>> {
+        const requestOptions = await this.getFileContentForExportJobsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse<any>(response);
     }
@@ -741,13 +825,9 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get detailed notifications based on their IDs. These include the translated raw intelligence content that generated the match or part of it. This API endpoint will return translated notification content. The only target language available is English. A single notification can be translated per request. In case the item\'s content is only partial, a URL is provided under the resource\'s \'details.full_content_url\' path, but the content available at this URL will be the original one.
-     * Get detailed notifications based on their IDs. These include the translated raw intelligence content that generated the match or part of it.
+     * Creates request options for getNotificationsDetailedTranslatedV1 without sending the request
      */
-    async getNotificationsDetailedTranslatedV1Raw(
-        requestParameters: ReconApiGetNotificationsDetailedTranslatedV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainNotificationDetailsResponseV1>> {
+    async getNotificationsDetailedTranslatedV1RequestOpts(requestParameters: ReconApiGetNotificationsDetailedTranslatedV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getNotificationsDetailedTranslatedV1().');
         }
@@ -765,15 +845,26 @@ export class ReconApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/recon/entities/notifications-detailed-translated/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/recon/entities/notifications-detailed-translated/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get detailed notifications based on their IDs. These include the translated raw intelligence content that generated the match or part of it. This API endpoint will return translated notification content. The only target language available is English. A single notification can be translated per request. In case the item\'s content is only partial, a URL is provided under the resource\'s \'details.full_content_url\' path, but the content available at this URL will be the original one.
+     * Get detailed notifications based on their IDs. These include the translated raw intelligence content that generated the match or part of it.
+     */
+    async getNotificationsDetailedTranslatedV1Raw(
+        requestParameters: ReconApiGetNotificationsDetailedTranslatedV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainNotificationDetailsResponseV1>> {
+        const requestOptions = await this.getNotificationsDetailedTranslatedV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainNotificationDetailsResponseV1FromJSON(jsonValue));
     }
@@ -788,13 +879,9 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get detailed notifications based on their IDs. These include the raw intelligence content that generated the match or part of it. In case the content is only partial, a URL is provided under the resource\'s \'details.full_content_url\' path. When present, use this URL to retrieve the full raw text content of the item. Please note this URL has a limited TTL. To get a fresh valid one, perform a new call to this API endpoint.
-     * Get detailed notifications based on their IDs. These include the raw intelligence content that generated the match or part of it.
+     * Creates request options for getNotificationsDetailedV1 without sending the request
      */
-    async getNotificationsDetailedV1Raw(
-        requestParameters: ReconApiGetNotificationsDetailedV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainNotificationDetailsResponseV1>> {
+    async getNotificationsDetailedV1RequestOpts(requestParameters: ReconApiGetNotificationsDetailedV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getNotificationsDetailedV1().');
         }
@@ -812,15 +899,26 @@ export class ReconApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/recon/entities/notifications-detailed/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/recon/entities/notifications-detailed/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get detailed notifications based on their IDs. These include the raw intelligence content that generated the match or part of it. In case the content is only partial, a URL is provided under the resource\'s \'details.full_content_url\' path. When present, use this URL to retrieve the full raw text content of the item. Please note this URL has a limited TTL. To get a fresh valid one, perform a new call to this API endpoint.
+     * Get detailed notifications based on their IDs. These include the raw intelligence content that generated the match or part of it.
+     */
+    async getNotificationsDetailedV1Raw(
+        requestParameters: ReconApiGetNotificationsDetailedV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainNotificationDetailsResponseV1>> {
+        const requestOptions = await this.getNotificationsDetailedV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainNotificationDetailsResponseV1FromJSON(jsonValue));
     }
@@ -835,12 +933,9 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get notifications exposed data records based on their IDs. IDs can be retrieved using the GET /queries/notifications-exposed-data-records/v1 endpoint. The associate notification can be fetched using the /entities/notifications/v* endpoints
+     * Creates request options for getNotificationsExposedDataRecordsV1 without sending the request
      */
-    async getNotificationsExposedDataRecordsV1Raw(
-        requestParameters: ReconApiGetNotificationsExposedDataRecordsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiNotificationExposedDataRecordEntitiesResponseV1>> {
+    async getNotificationsExposedDataRecordsV1RequestOpts(requestParameters: ReconApiGetNotificationsExposedDataRecordsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getNotificationsExposedDataRecordsV1().');
         }
@@ -858,15 +953,25 @@ export class ReconApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/recon/entities/notifications-exposed-data-records/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/recon/entities/notifications-exposed-data-records/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get notifications exposed data records based on their IDs. IDs can be retrieved using the GET /queries/notifications-exposed-data-records/v1 endpoint. The associate notification can be fetched using the /entities/notifications/v* endpoints
+     */
+    async getNotificationsExposedDataRecordsV1Raw(
+        requestParameters: ReconApiGetNotificationsExposedDataRecordsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiNotificationExposedDataRecordEntitiesResponseV1>> {
+        const requestOptions = await this.getNotificationsExposedDataRecordsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiNotificationExposedDataRecordEntitiesResponseV1FromJSON(jsonValue));
     }
@@ -880,12 +985,9 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get notifications based on their IDs. IDs can be retrieved using the GET /queries/notifications/v1 endpoint. This endpoint will return translated notification content. The only target language available is English.
+     * Creates request options for getNotificationsTranslatedV1 without sending the request
      */
-    async getNotificationsTranslatedV1Raw(
-        requestParameters: ReconApiGetNotificationsTranslatedV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainNotificationEntitiesResponseV1>> {
+    async getNotificationsTranslatedV1RequestOpts(requestParameters: ReconApiGetNotificationsTranslatedV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getNotificationsTranslatedV1().');
         }
@@ -903,15 +1005,25 @@ export class ReconApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/recon/entities/notifications-translated/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/recon/entities/notifications-translated/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get notifications based on their IDs. IDs can be retrieved using the GET /queries/notifications/v1 endpoint. This endpoint will return translated notification content. The only target language available is English.
+     */
+    async getNotificationsTranslatedV1Raw(
+        requestParameters: ReconApiGetNotificationsTranslatedV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainNotificationEntitiesResponseV1>> {
+        const requestOptions = await this.getNotificationsTranslatedV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainNotificationEntitiesResponseV1FromJSON(jsonValue));
     }
@@ -925,12 +1037,9 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get notifications based on their IDs. IDs can be retrieved using the GET /queries/notifications/v1 endpoint.
+     * Creates request options for getNotificationsV1 without sending the request
      */
-    async getNotificationsV1Raw(
-        requestParameters: ReconApiGetNotificationsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainNotificationEntitiesResponseV1>> {
+    async getNotificationsV1RequestOpts(requestParameters: ReconApiGetNotificationsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getNotificationsV1().');
         }
@@ -948,15 +1057,25 @@ export class ReconApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/recon/entities/notifications/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/recon/entities/notifications/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get notifications based on their IDs. IDs can be retrieved using the GET /queries/notifications/v1 endpoint.
+     */
+    async getNotificationsV1Raw(
+        requestParameters: ReconApiGetNotificationsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainNotificationEntitiesResponseV1>> {
+        const requestOptions = await this.getNotificationsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainNotificationEntitiesResponseV1FromJSON(jsonValue));
     }
@@ -970,9 +1089,9 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get monitoring rules based on their IDs. IDs can be retrieved using the GET /queries/rules/v1 endpoint.
+     * Creates request options for getRulesV1 without sending the request
      */
-    async getRulesV1Raw(requestParameters: ReconApiGetRulesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRulesEntitiesResponseV1>> {
+    async getRulesV1RequestOpts(requestParameters: ReconApiGetRulesV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getRulesV1().');
         }
@@ -990,15 +1109,22 @@ export class ReconApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/recon/entities/rules/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/recon/entities/rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get monitoring rules based on their IDs. IDs can be retrieved using the GET /queries/rules/v1 endpoint.
+     */
+    async getRulesV1Raw(requestParameters: ReconApiGetRulesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRulesEntitiesResponseV1>> {
+        const requestOptions = await this.getRulesV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainRulesEntitiesResponseV1FromJSON(jsonValue));
     }
@@ -1012,9 +1138,9 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Preview rules notification count and distribution. This will return aggregations on: channel, count, site.
+     * Creates request options for previewRuleV1 without sending the request
      */
-    async previewRuleV1Raw(requestParameters: ReconApiPreviewRuleV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainAggregatesResponse>> {
+    async previewRuleV1RequestOpts(requestParameters: ReconApiPreviewRuleV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling previewRuleV1().');
         }
@@ -1030,16 +1156,23 @@ export class ReconApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/recon/aggregates/rules-preview/GET/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainRulePreviewRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/recon/aggregates/rules-preview/GET/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainRulePreviewRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Preview rules notification count and distribution. This will return aggregations on: channel, count, site.
+     */
+    async previewRuleV1Raw(requestParameters: ReconApiPreviewRuleV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainAggregatesResponse>> {
+        const requestOptions = await this.previewRuleV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregatesResponseFromJSON(jsonValue));
     }
@@ -1053,9 +1186,9 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query actions based on provided criteria. Use the IDs from this response to get the action entities on GET /entities/actions/v1.
+     * Creates request options for queryActionsV1 without sending the request
      */
-    async queryActionsV1Raw(requestParameters: ReconApiQueryActionsV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainQueryResponse>> {
+    async queryActionsV1RequestOpts(requestParameters: ReconApiQueryActionsV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -1085,15 +1218,22 @@ export class ReconApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/recon/queries/actions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/recon/queries/actions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query actions based on provided criteria. Use the IDs from this response to get the action entities on GET /entities/actions/v1.
+     */
+    async queryActionsV1Raw(requestParameters: ReconApiQueryActionsV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainQueryResponse>> {
+        const requestOptions = await this.queryActionsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainQueryResponseFromJSON(jsonValue));
     }
@@ -1107,12 +1247,9 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query notifications exposed data records based on provided criteria. Use the IDs from this response to get the notification +entities on GET /entities/notifications-exposed-data-records/v1
+     * Creates request options for queryNotificationsExposedDataRecordsV1 without sending the request
      */
-    async queryNotificationsExposedDataRecordsV1Raw(
-        requestParameters: ReconApiQueryNotificationsExposedDataRecordsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainQueryResponse>> {
+    async queryNotificationsExposedDataRecordsV1RequestOpts(requestParameters: ReconApiQueryNotificationsExposedDataRecordsV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -1142,15 +1279,25 @@ export class ReconApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/recon/queries/notifications-exposed-data-records/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/recon/queries/notifications-exposed-data-records/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query notifications exposed data records based on provided criteria. Use the IDs from this response to get the notification +entities on GET /entities/notifications-exposed-data-records/v1
+     */
+    async queryNotificationsExposedDataRecordsV1Raw(
+        requestParameters: ReconApiQueryNotificationsExposedDataRecordsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainQueryResponse>> {
+        const requestOptions = await this.queryNotificationsExposedDataRecordsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainQueryResponseFromJSON(jsonValue));
     }
@@ -1171,12 +1318,9 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query notifications based on provided criteria. Use the IDs from this response to get the notification +entities on GET /entities/notifications/v1, GET /entities/notifications-detailed/v1, +GET /entities/notifications-translated/v1 or GET /entities/notifications-detailed-translated/v1.
+     * Creates request options for queryNotificationsV1 without sending the request
      */
-    async queryNotificationsV1Raw(
-        requestParameters: ReconApiQueryNotificationsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainQueryResponse>> {
+    async queryNotificationsV1RequestOpts(requestParameters: ReconApiQueryNotificationsV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -1206,15 +1350,25 @@ export class ReconApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/recon/queries/notifications/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/recon/queries/notifications/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query notifications based on provided criteria. Use the IDs from this response to get the notification +entities on GET /entities/notifications/v1, GET /entities/notifications-detailed/v1, +GET /entities/notifications-translated/v1 or GET /entities/notifications-detailed-translated/v1.
+     */
+    async queryNotificationsV1Raw(
+        requestParameters: ReconApiQueryNotificationsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainQueryResponse>> {
+        const requestOptions = await this.queryNotificationsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainQueryResponseFromJSON(jsonValue));
     }
@@ -1228,9 +1382,9 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query monitoring rules based on provided criteria. Use the IDs from this response to fetch the rules on /entities/rules/v1.
+     * Creates request options for queryRulesV1 without sending the request
      */
-    async queryRulesV1Raw(requestParameters: ReconApiQueryRulesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRuleQueryResponseV1>> {
+    async queryRulesV1RequestOpts(requestParameters: ReconApiQueryRulesV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -1264,15 +1418,22 @@ export class ReconApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/recon/queries/rules/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/recon/queries/rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query monitoring rules based on provided criteria. Use the IDs from this response to fetch the rules on /entities/rules/v1.
+     */
+    async queryRulesV1Raw(requestParameters: ReconApiQueryRulesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRuleQueryResponseV1>> {
+        const requestOptions = await this.queryRulesV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainRuleQueryResponseV1FromJSON(jsonValue));
     }
@@ -1294,12 +1455,9 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update an action for a monitoring rule.
+     * Creates request options for updateActionV1 without sending the request
      */
-    async updateActionV1Raw(
-        requestParameters: ReconApiUpdateActionV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainActionEntitiesResponseV1>> {
+    async updateActionV1RequestOpts(requestParameters: ReconApiUpdateActionV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateActionV1().');
         }
@@ -1315,16 +1473,26 @@ export class ReconApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/recon/entities/actions/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainUpdateActionRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/recon/entities/actions/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainUpdateActionRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update an action for a monitoring rule.
+     */
+    async updateActionV1Raw(
+        requestParameters: ReconApiUpdateActionV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainActionEntitiesResponseV1>> {
+        const requestOptions = await this.updateActionV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainActionEntitiesResponseV1FromJSON(jsonValue));
     }
@@ -1338,12 +1506,9 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update notification status or assignee. Accepts bulk requests
+     * Creates request options for updateNotificationsV1 without sending the request
      */
-    async updateNotificationsV1Raw(
-        requestParameters: ReconApiUpdateNotificationsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainNotificationEntitiesResponseV1>> {
+    async updateNotificationsV1RequestOpts(requestParameters: ReconApiUpdateNotificationsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateNotificationsV1().');
         }
@@ -1359,16 +1524,26 @@ export class ReconApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/recon/entities/notifications/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(DomainUpdateNotificationRequestV1ToJSON),
-            },
-            initOverrides,
-        );
+        let urlPath = `/recon/entities/notifications/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"]!.map(DomainUpdateNotificationRequestV1ToJSON),
+        };
+    }
+
+    /**
+     * Update notification status or assignee. Accepts bulk requests
+     */
+    async updateNotificationsV1Raw(
+        requestParameters: ReconApiUpdateNotificationsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainNotificationEntitiesResponseV1>> {
+        const requestOptions = await this.updateNotificationsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainNotificationEntitiesResponseV1FromJSON(jsonValue));
     }
@@ -1382,9 +1557,9 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update monitoring rules.
+     * Creates request options for updateRulesV1 without sending the request
      */
-    async updateRulesV1Raw(requestParameters: ReconApiUpdateRulesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRulesEntitiesResponseV1>> {
+    async updateRulesV1RequestOpts(requestParameters: ReconApiUpdateRulesV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateRulesV1().');
         }
@@ -1400,16 +1575,23 @@ export class ReconApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["recon-monitoring-rules:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/recon/entities/rules/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(DomainUpdateRuleRequestV1ToJSON),
-            },
-            initOverrides,
-        );
+        let urlPath = `/recon/entities/rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"]!.map(DomainUpdateRuleRequestV1ToJSON),
+        };
+    }
+
+    /**
+     * Update monitoring rules.
+     */
+    async updateRulesV1Raw(requestParameters: ReconApiUpdateRulesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRulesEntitiesResponseV1>> {
+        const requestOptions = await this.updateRulesV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainRulesEntitiesResponseV1FromJSON(jsonValue));
     }

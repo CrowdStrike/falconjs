@@ -75,10 +75,15 @@ export function PaginationMetaDismissAffectedFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function PaginationMetaDismissAffectedToJSON(value?: PaginationMetaDismissAffected | null): any {
+export function PaginationMetaDismissAffectedToJSON(json: any): PaginationMetaDismissAffected {
+    return PaginationMetaDismissAffectedToJSONTyped(json, false);
+}
+
+export function PaginationMetaDismissAffectedToJSONTyped(value?: PaginationMetaDismissAffected | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         limit: value["limit"],
         next: value["next"],

@@ -128,12 +128,9 @@ export interface FalconContainerImageApiUpdateRegistryEntitiesRequest {
  */
 export class FalconContainerImageApi extends runtime.BaseAPI {
     /**
-     * Create a registry entity using the provided details
+     * Creates request options for createRegistryEntities without sending the request
      */
-    async createRegistryEntitiesRaw(
-        requestParameters: FalconContainerImageApiCreateRegistryEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainExternalRegistryResponse>> {
+    async createRegistryEntitiesRequestOpts(requestParameters: FalconContainerImageApiCreateRegistryEntitiesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createRegistryEntities().');
         }
@@ -149,16 +146,26 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/entities/registries/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RegistryassessmentExternalRegistryPayloadToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/entities/registries/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RegistryassessmentExternalRegistryPayloadToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create a registry entity using the provided details
+     */
+    async createRegistryEntitiesRaw(
+        requestParameters: FalconContainerImageApiCreateRegistryEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainExternalRegistryResponse>> {
+        const requestOptions = await this.createRegistryEntitiesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainExternalRegistryResponseFromJSON(jsonValue));
     }
@@ -172,12 +179,9 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete the registry entity identified by the entity UUID
+     * Creates request options for deleteRegistryEntities without sending the request
      */
-    async deleteRegistryEntitiesRaw(
-        requestParameters: FalconContainerImageApiDeleteRegistryEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainExternalRegistryListResponse>> {
+    async deleteRegistryEntitiesRequestOpts(requestParameters: FalconContainerImageApiDeleteRegistryEntitiesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteRegistryEntities().');
         }
@@ -195,15 +199,25 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/entities/registries/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/entities/registries/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete the registry entity identified by the entity UUID
+     */
+    async deleteRegistryEntitiesRaw(
+        requestParameters: FalconContainerImageApiDeleteRegistryEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainExternalRegistryListResponse>> {
+        const requestOptions = await this.deleteRegistryEntitiesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainExternalRegistryListResponseFromJSON(jsonValue));
     }
@@ -217,12 +231,9 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Download an export file
+     * Creates request options for downloadExportFile without sending the request
      */
-    async downloadExportFileRaw(
-        requestParameters: FalconContainerImageApiDownloadExportFileRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<Array<number>>> {
+    async downloadExportFileRequestOpts(requestParameters: FalconContainerImageApiDownloadExportFileRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling downloadExportFile().');
         }
@@ -240,15 +251,25 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/entities/exports/files/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/entities/exports/files/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Download an export file
+     */
+    async downloadExportFileRaw(
+        requestParameters: FalconContainerImageApiDownloadExportFileRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<Array<number>>> {
+        const requestOptions = await this.downloadExportFileRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse<any>(response);
     }
@@ -262,12 +283,9 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get image assessment scan report by image reference (v2)
+     * Creates request options for getReportByReference without sending the request
      */
-    async getReportByReferenceRaw(
-        requestParameters: FalconContainerImageApiGetReportByReferenceRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CoreEntitiesResponse>> {
+    async getReportByReferenceRequestOpts(requestParameters: FalconContainerImageApiGetReportByReferenceRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["registry"] != null) {
@@ -301,15 +319,25 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/image-assessment/entities/reports/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/image-assessment/entities/reports/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get image assessment scan report by image reference (v2)
+     */
+    async getReportByReferenceRaw(
+        requestParameters: FalconContainerImageApiGetReportByReferenceRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CoreEntitiesResponse>> {
+        const requestOptions = await this.getReportByReferenceRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CoreEntitiesResponseFromJSON(jsonValue));
     }
@@ -331,12 +359,9 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get image assessment scan report by scan UUID (v2)
+     * Creates request options for getReportByScanID without sending the request
      */
-    async getReportByScanIDRaw(
-        requestParameters: FalconContainerImageApiGetReportByScanIDRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CoreEntitiesResponse>> {
+    async getReportByScanIDRequestOpts(requestParameters: FalconContainerImageApiGetReportByScanIDRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["uuid"] == null) {
             throw new runtime.RequiredError("uuid", 'Required parameter "uuid" was null or undefined when calling getReportByScanID().');
         }
@@ -354,15 +379,26 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/image-assessment/entities/reports/v2/{uuid}`.replace(`{${"uuid"}}`, encodeURIComponent(String(requestParameters["uuid"]))),
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/image-assessment/entities/reports/v2/{uuid}`;
+        urlPath = urlPath.replace(`{${"uuid"}}`, encodeURIComponent(String(requestParameters["uuid"])));
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get image assessment scan report by scan UUID (v2)
+     */
+    async getReportByScanIDRaw(
+        requestParameters: FalconContainerImageApiGetReportByScanIDRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CoreEntitiesResponse>> {
+        const requestOptions = await this.getReportByScanIDRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CoreEntitiesResponseFromJSON(jsonValue));
     }
@@ -376,9 +412,9 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get headers for POST request for image scan inventory
+     * Creates request options for headImageScanInventory without sending the request
      */
-    async headImageScanInventoryRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async headImageScanInventoryRequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -388,15 +424,22 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-cli:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/image-assessment/entities/image-inventory/v1`,
-                method: "HEAD",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/image-assessment/entities/image-inventory/v1`;
+
+        return {
+            path: urlPath,
+            method: "HEAD",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get headers for POST request for image scan inventory
+     */
+    async headImageScanInventoryRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.headImageScanInventoryRequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -409,12 +452,9 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Launch an export job of a Container Security resource. Maximum of 1 job in progress per resource
+     * Creates request options for launchExportJob without sending the request
      */
-    async launchExportJobRaw(
-        requestParameters: FalconContainerImageApiLaunchExportJobRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ExportsLaunchExportResponse>> {
+    async launchExportJobRequestOpts(requestParameters: FalconContainerImageApiLaunchExportJobRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling launchExportJob().');
         }
@@ -430,16 +470,26 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/entities/exports/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ExportsLaunchExportRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/entities/exports/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ExportsLaunchExportRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Launch an export job of a Container Security resource. Maximum of 1 job in progress per resource
+     */
+    async launchExportJobRaw(
+        requestParameters: FalconContainerImageApiLaunchExportJobRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ExportsLaunchExportResponse>> {
+        const requestOptions = await this.launchExportJobRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ExportsLaunchExportResponseFromJSON(jsonValue));
     }
@@ -453,12 +503,9 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Check image prevention policies
+     * Creates request options for policyChecks without sending the request
      */
-    async policyChecksRaw(
-        requestParameters: FalconContainerImageApiPolicyChecksRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiPolicyEntitiesResponse>> {
+    async policyChecksRequestOpts(requestParameters: FalconContainerImageApiPolicyChecksRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["repository"] == null) {
             throw new runtime.RequiredError("repository", 'Required parameter "repository" was null or undefined when calling policyChecks().');
         }
@@ -488,15 +535,25 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/image-assessment/entities/policy-checks/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/image-assessment/entities/policy-checks/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Check image prevention policies
+     */
+    async policyChecksRaw(
+        requestParameters: FalconContainerImageApiPolicyChecksRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiPolicyEntitiesResponse>> {
+        const requestOptions = await this.policyChecksRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiPolicyEntitiesResponseFromJSON(jsonValue));
     }
@@ -510,12 +567,9 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Post image scan inventory
+     * Creates request options for postImageScanInventory without sending the request
      */
-    async postImageScanInventoryRaw(
-        requestParameters: FalconContainerImageApiPostImageScanInventoryRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<void>> {
+    async postImageScanInventoryRequestOpts(requestParameters: FalconContainerImageApiPostImageScanInventoryRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postImageScanInventory().');
         }
@@ -531,16 +585,26 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-cli:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/image-assessment/entities/image-inventory/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ModelsInventoryScanRequestTypeToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/image-assessment/entities/image-inventory/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ModelsInventoryScanRequestTypeToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Post image scan inventory
+     */
+    async postImageScanInventoryRaw(
+        requestParameters: FalconContainerImageApiPostImageScanInventoryRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.postImageScanInventoryRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -553,12 +617,9 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query export jobs entities
+     * Creates request options for queryExportJobs without sending the request
      */
-    async queryExportJobsRaw(
-        requestParameters: FalconContainerImageApiQueryExportJobsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queryExportJobsRequestOpts(requestParameters: FalconContainerImageApiQueryExportJobsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -572,15 +633,25 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/queries/exports/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/queries/exports/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query export jobs entities
+     */
+    async queryExportJobsRaw(
+        requestParameters: FalconContainerImageApiQueryExportJobsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queryExportJobsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -594,12 +665,9 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Read export jobs entities
+     * Creates request options for readExportJobs without sending the request
      */
-    async readExportJobsRaw(
-        requestParameters: FalconContainerImageApiReadExportJobsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ExportsExportsResponse>> {
+    async readExportJobsRequestOpts(requestParameters: FalconContainerImageApiReadExportJobsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling readExportJobs().');
         }
@@ -617,15 +685,25 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/entities/exports/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/entities/exports/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Read export jobs entities
+     */
+    async readExportJobsRaw(
+        requestParameters: FalconContainerImageApiReadExportJobsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ExportsExportsResponse>> {
+        const requestOptions = await this.readExportJobsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ExportsExportsResponseFromJSON(jsonValue));
     }
@@ -639,12 +717,9 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves a list of registry entities identified by the customer id. Maximum page size: 5,000
+     * Creates request options for readRegistryEntities without sending the request
      */
-    async readRegistryEntitiesRaw(
-        requestParameters: FalconContainerImageApiReadRegistryEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainExternalQueryResponse>> {
+    async readRegistryEntitiesRequestOpts(requestParameters: FalconContainerImageApiReadRegistryEntitiesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["limit"] != null) {
@@ -666,15 +741,25 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/queries/registries/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/queries/registries/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieves a list of registry entities identified by the customer id. Maximum page size: 5,000
+     */
+    async readRegistryEntitiesRaw(
+        requestParameters: FalconContainerImageApiReadRegistryEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainExternalQueryResponse>> {
+        const requestOptions = await this.readRegistryEntitiesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainExternalQueryResponseFromJSON(jsonValue));
     }
@@ -688,12 +773,9 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves a list of registry entities by the provided UUIDs. Maximum page size: 100
+     * Creates request options for readRegistryEntitiesByUUID without sending the request
      */
-    async readRegistryEntitiesByUUIDRaw(
-        requestParameters: FalconContainerImageApiReadRegistryEntitiesByUUIDRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainExternalRegistryListResponse>> {
+    async readRegistryEntitiesByUUIDRequestOpts(requestParameters: FalconContainerImageApiReadRegistryEntitiesByUUIDRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling readRegistryEntitiesByUUID().');
         }
@@ -711,15 +793,25 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/entities/registries/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/entities/registries/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieves a list of registry entities by the provided UUIDs. Maximum page size: 100
+     */
+    async readRegistryEntitiesByUUIDRaw(
+        requestParameters: FalconContainerImageApiReadRegistryEntitiesByUUIDRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainExternalRegistryListResponse>> {
+        const requestOptions = await this.readRegistryEntitiesByUUIDRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainExternalRegistryListResponseFromJSON(jsonValue));
     }
@@ -733,12 +825,9 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update the registry entity, as identified by the entity UUID, using the provided details
+     * Creates request options for updateRegistryEntities without sending the request
      */
-    async updateRegistryEntitiesRaw(
-        requestParameters: FalconContainerImageApiUpdateRegistryEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainExternalRegistryResponse>> {
+    async updateRegistryEntitiesRequestOpts(requestParameters: FalconContainerImageApiUpdateRegistryEntitiesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling updateRegistryEntities().');
         }
@@ -762,16 +851,26 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/entities/registries/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RegistryassessmentExternalRegistryPatchPayloadToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/entities/registries/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RegistryassessmentExternalRegistryPatchPayloadToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update the registry entity, as identified by the entity UUID, using the provided details
+     */
+    async updateRegistryEntitiesRaw(
+        requestParameters: FalconContainerImageApiUpdateRegistryEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainExternalRegistryResponse>> {
+        const requestOptions = await this.updateRegistryEntitiesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainExternalRegistryResponseFromJSON(jsonValue));
     }

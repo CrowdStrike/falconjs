@@ -72,10 +72,15 @@ export function ChangesPrevalenceFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function ChangesPrevalenceToJSON(value?: ChangesPrevalence | null): any {
+export function ChangesPrevalenceToJSON(json: any): ChangesPrevalence {
+    return ChangesPrevalenceToJSONTyped(json, false);
+}
+
+export function ChangesPrevalenceToJSONTyped(value?: ChangesPrevalence | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         computed_timestamp: value["computedTimestamp"],
         current: value["current"],

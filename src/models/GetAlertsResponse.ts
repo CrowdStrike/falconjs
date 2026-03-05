@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { AlertGetAlertsResponse } from "./AlertGetAlertsResponse";
-import { AlertGetAlertsResponseFromJSON, AlertGetAlertsResponseFromJSONTyped, AlertGetAlertsResponseToJSON } from "./AlertGetAlertsResponse";
+import { AlertGetAlertsResponseFromJSON, AlertGetAlertsResponseFromJSONTyped, AlertGetAlertsResponseToJSON, AlertGetAlertsResponseToJSONTyped } from "./AlertGetAlertsResponse";
 import type { ErrorGetAlertsResponse } from "./ErrorGetAlertsResponse";
-import { ErrorGetAlertsResponseFromJSON, ErrorGetAlertsResponseFromJSONTyped, ErrorGetAlertsResponseToJSON } from "./ErrorGetAlertsResponse";
+import { ErrorGetAlertsResponseFromJSON, ErrorGetAlertsResponseFromJSONTyped, ErrorGetAlertsResponseToJSON, ErrorGetAlertsResponseToJSONTyped } from "./ErrorGetAlertsResponse";
 import type { MetaGetAlertsResponse } from "./MetaGetAlertsResponse";
-import { MetaGetAlertsResponseFromJSON, MetaGetAlertsResponseFromJSONTyped, MetaGetAlertsResponseToJSON } from "./MetaGetAlertsResponse";
+import { MetaGetAlertsResponseFromJSON, MetaGetAlertsResponseFromJSONTyped, MetaGetAlertsResponseToJSON, MetaGetAlertsResponseToJSONTyped } from "./MetaGetAlertsResponse";
 
 /**
  *
@@ -68,10 +68,15 @@ export function GetAlertsResponseFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function GetAlertsResponseToJSON(value?: GetAlertsResponse | null): any {
+export function GetAlertsResponseToJSON(json: any): GetAlertsResponse {
+    return GetAlertsResponseToJSONTyped(json, false);
+}
+
+export function GetAlertsResponseToJSONTyped(value?: GetAlertsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(ErrorGetAlertsResponseToJSON),
         meta: MetaGetAlertsResponseToJSON(value["meta"]),

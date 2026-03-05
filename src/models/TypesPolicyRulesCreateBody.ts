@@ -14,13 +14,13 @@
 
 import { mapValues } from "../runtime";
 import type { Destination } from "./Destination";
-import { DestinationFromJSON, DestinationFromJSONTyped, DestinationToJSON } from "./Destination";
+import { DestinationFromJSON, DestinationFromJSONTyped, DestinationToJSON, DestinationToJSONTyped } from "./Destination";
 import type { SourceUser } from "./SourceUser";
-import { SourceUserFromJSON, SourceUserFromJSONTyped, SourceUserToJSON } from "./SourceUser";
+import { SourceUserFromJSON, SourceUserFromJSONTyped, SourceUserToJSON, SourceUserToJSONTyped } from "./SourceUser";
 import type { SourceEndpoint } from "./SourceEndpoint";
-import { SourceEndpointFromJSON, SourceEndpointFromJSONTyped, SourceEndpointToJSON } from "./SourceEndpoint";
+import { SourceEndpointFromJSON, SourceEndpointFromJSONTyped, SourceEndpointToJSON, SourceEndpointToJSONTyped } from "./SourceEndpoint";
 import type { Activity } from "./Activity";
-import { ActivityFromJSON, ActivityFromJSONTyped, ActivityToJSON } from "./Activity";
+import { ActivityFromJSON, ActivityFromJSONTyped, ActivityToJSON, ActivityToJSONTyped } from "./Activity";
 
 /**
  *
@@ -117,10 +117,15 @@ export function TypesPolicyRulesCreateBodyFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function TypesPolicyRulesCreateBodyToJSON(value?: TypesPolicyRulesCreateBody | null): any {
+export function TypesPolicyRulesCreateBodyToJSON(json: any): TypesPolicyRulesCreateBody {
+    return TypesPolicyRulesCreateBodyToJSONTyped(json, false);
+}
+
+export function TypesPolicyRulesCreateBodyToJSONTyped(value?: TypesPolicyRulesCreateBody | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         activity: ActivityToJSON(value["activity"]),

@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DomainExternalAssetsAPITriagePatch } from "./DomainExternalAssetsAPITriagePatch";
-import { DomainExternalAssetsAPITriagePatchFromJSON, DomainExternalAssetsAPITriagePatchFromJSONTyped, DomainExternalAssetsAPITriagePatchToJSON } from "./DomainExternalAssetsAPITriagePatch";
+import {
+    DomainExternalAssetsAPITriagePatchFromJSON,
+    DomainExternalAssetsAPITriagePatchFromJSONTyped,
+    DomainExternalAssetsAPITriagePatchToJSON,
+    DomainExternalAssetsAPITriagePatchToJSONTyped,
+} from "./DomainExternalAssetsAPITriagePatch";
 
 /**
  * Represents information about a managed, an unmanaged or an unsupported asset.
@@ -79,10 +84,15 @@ export function DomainExternalAssetsAPIPatchFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function DomainExternalAssetsAPIPatchToJSON(value?: DomainExternalAssetsAPIPatch | null): any {
+export function DomainExternalAssetsAPIPatchToJSON(json: any): DomainExternalAssetsAPIPatch {
+    return DomainExternalAssetsAPIPatchToJSONTyped(json, false);
+}
+
+export function DomainExternalAssetsAPIPatchToJSONTyped(value?: DomainExternalAssetsAPIPatch | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         criticality: value["criticality"],

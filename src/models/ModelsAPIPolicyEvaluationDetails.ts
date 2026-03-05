@@ -96,10 +96,15 @@ export function ModelsAPIPolicyEvaluationDetailsFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function ModelsAPIPolicyEvaluationDetailsToJSON(value?: ModelsAPIPolicyEvaluationDetails | null): any {
+export function ModelsAPIPolicyEvaluationDetailsToJSON(json: any): ModelsAPIPolicyEvaluationDetails {
+    return ModelsAPIPolicyEvaluationDetailsToJSONTyped(json, false);
+}
+
+export function ModelsAPIPolicyEvaluationDetailsToJSONTyped(value?: ModelsAPIPolicyEvaluationDetails | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         excluded_cve_list: value["excludedCveList"],
         excluded_detection_list: value["excludedDetectionList"],

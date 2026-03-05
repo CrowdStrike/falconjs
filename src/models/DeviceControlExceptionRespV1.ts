@@ -140,16 +140,21 @@ export function DeviceControlExceptionRespV1FromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function DeviceControlExceptionRespV1ToJSON(value?: DeviceControlExceptionRespV1 | null): any {
+export function DeviceControlExceptionRespV1ToJSON(json: any): DeviceControlExceptionRespV1 {
+    return DeviceControlExceptionRespV1ToJSONTyped(json, false);
+}
+
+export function DeviceControlExceptionRespV1ToJSONTyped(value?: DeviceControlExceptionRespV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         class: value["_class"],
         combined_id: value["combinedId"],
         description: value["description"],
-        expiration_time: value["expirationTime"] == null ? undefined : value["expirationTime"].toISOString(),
+        expiration_time: value["expirationTime"] == null ? value["expirationTime"] : value["expirationTime"].toISOString(),
         id: value["id"],
         match_method: value["matchMethod"],
         product_id: value["productId"],

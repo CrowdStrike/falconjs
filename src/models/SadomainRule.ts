@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { SadomainCustomerAssets } from "./SadomainCustomerAssets";
-import { SadomainCustomerAssetsFromJSON, SadomainCustomerAssetsFromJSONTyped, SadomainCustomerAssetsToJSON } from "./SadomainCustomerAssets";
+import { SadomainCustomerAssetsFromJSON, SadomainCustomerAssetsFromJSONTyped, SadomainCustomerAssetsToJSON, SadomainCustomerAssetsToJSONTyped } from "./SadomainCustomerAssets";
 
 /**
  *
@@ -219,10 +219,15 @@ export function SadomainRuleFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function SadomainRuleToJSON(value?: SadomainRule | null): any {
+export function SadomainRuleToJSON(json: any): SadomainRule {
+    return SadomainRuleToJSONTyped(json, false);
+}
+
+export function SadomainRuleToJSONTyped(value?: SadomainRule | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         breach_monitor_only: value["breachMonitorOnly"],
         breach_monitoring_enabled: value["breachMonitoringEnabled"],

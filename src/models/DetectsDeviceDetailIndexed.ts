@@ -364,10 +364,15 @@ export function DetectsDeviceDetailIndexedFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function DetectsDeviceDetailIndexedToJSON(value?: DetectsDeviceDetailIndexed | null): any {
+export function DetectsDeviceDetailIndexedToJSON(json: any): DetectsDeviceDetailIndexed {
+    return DetectsDeviceDetailIndexedToJSONTyped(json, false);
+}
+
+export function DetectsDeviceDetailIndexedToJSONTyped(value?: DetectsDeviceDetailIndexed | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         agent_load_flags: value["agentLoadFlags"],
         agent_local_time: value["agentLocalTime"],

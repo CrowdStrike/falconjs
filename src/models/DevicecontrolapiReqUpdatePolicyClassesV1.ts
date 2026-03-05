@@ -18,12 +18,14 @@ import {
     DevicecontrolapiReqUpdateUSBClassesV1FromJSON,
     DevicecontrolapiReqUpdateUSBClassesV1FromJSONTyped,
     DevicecontrolapiReqUpdateUSBClassesV1ToJSON,
+    DevicecontrolapiReqUpdateUSBClassesV1ToJSONTyped,
 } from "./DevicecontrolapiReqUpdateUSBClassesV1";
 import type { DevicecontrolapiReqUpdateBluetoothClassesV1 } from "./DevicecontrolapiReqUpdateBluetoothClassesV1";
 import {
     DevicecontrolapiReqUpdateBluetoothClassesV1FromJSON,
     DevicecontrolapiReqUpdateBluetoothClassesV1FromJSONTyped,
     DevicecontrolapiReqUpdateBluetoothClassesV1ToJSON,
+    DevicecontrolapiReqUpdateBluetoothClassesV1ToJSONTyped,
 } from "./DevicecontrolapiReqUpdateBluetoothClassesV1";
 
 /**
@@ -75,10 +77,15 @@ export function DevicecontrolapiReqUpdatePolicyClassesV1FromJSONTyped(json: any,
     };
 }
 
-export function DevicecontrolapiReqUpdatePolicyClassesV1ToJSON(value?: DevicecontrolapiReqUpdatePolicyClassesV1 | null): any {
+export function DevicecontrolapiReqUpdatePolicyClassesV1ToJSON(json: any): DevicecontrolapiReqUpdatePolicyClassesV1 {
+    return DevicecontrolapiReqUpdatePolicyClassesV1ToJSONTyped(json, false);
+}
+
+export function DevicecontrolapiReqUpdatePolicyClassesV1ToJSONTyped(value?: DevicecontrolapiReqUpdatePolicyClassesV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         bluetooth_classes: DevicecontrolapiReqUpdateBluetoothClassesV1ToJSON(value["bluetoothClasses"]),
         id: value["id"],

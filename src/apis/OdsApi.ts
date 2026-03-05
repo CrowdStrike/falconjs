@@ -139,12 +139,9 @@ export interface OdsApiScheduleScanRequest {
  */
 export class OdsApi extends runtime.BaseAPI {
     /**
-     * Get aggregates on ODS scan-hosts data.
+     * Creates request options for aggregateQueryScanHostMetadata without sending the request
      */
-    async aggregateQueryScanHostMetadataRaw(
-        requestParameters: OdsApiAggregateQueryScanHostMetadataRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+    async aggregateQueryScanHostMetadataRequestOpts(requestParameters: OdsApiAggregateQueryScanHostMetadataRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateQueryScanHostMetadata().');
         }
@@ -160,16 +157,26 @@ export class OdsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ods/aggregates/scan-hosts/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
-            },
-            initOverrides,
-        );
+        let urlPath = `/ods/aggregates/scan-hosts/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
+        };
+    }
+
+    /**
+     * Get aggregates on ODS scan-hosts data.
+     */
+    async aggregateQueryScanHostMetadataRaw(
+        requestParameters: OdsApiAggregateQueryScanHostMetadataRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        const requestOptions = await this.aggregateQueryScanHostMetadataRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
     }
@@ -183,9 +190,9 @@ export class OdsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get aggregates on ODS scan data.
+     * Creates request options for aggregateScans without sending the request
      */
-    async aggregateScansRaw(requestParameters: OdsApiAggregateScansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+    async aggregateScansRequestOpts(requestParameters: OdsApiAggregateScansRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateScans().');
         }
@@ -201,16 +208,23 @@ export class OdsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ods/aggregates/scans/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
-            },
-            initOverrides,
-        );
+        let urlPath = `/ods/aggregates/scans/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
+        };
+    }
+
+    /**
+     * Get aggregates on ODS scan data.
+     */
+    async aggregateScansRaw(requestParameters: OdsApiAggregateScansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        const requestOptions = await this.aggregateScansRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
     }
@@ -224,12 +238,9 @@ export class OdsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get aggregates on ODS scheduled-scan data.
+     * Creates request options for aggregateScheduledScans without sending the request
      */
-    async aggregateScheduledScansRaw(
-        requestParameters: OdsApiAggregateScheduledScansRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+    async aggregateScheduledScansRequestOpts(requestParameters: OdsApiAggregateScheduledScansRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateScheduledScans().');
         }
@@ -245,16 +256,26 @@ export class OdsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ods/aggregates/scheduled-scans/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
-            },
-            initOverrides,
-        );
+        let urlPath = `/ods/aggregates/scheduled-scans/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
+        };
+    }
+
+    /**
+     * Get aggregates on ODS scheduled-scan data.
+     */
+    async aggregateScheduledScansRaw(
+        requestParameters: OdsApiAggregateScheduledScansRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        const requestOptions = await this.aggregateScheduledScansRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
     }
@@ -268,9 +289,9 @@ export class OdsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Cancel ODS scans for the given scan ids.
+     * Creates request options for cancelScans without sending the request
      */
-    async cancelScansRaw(requestParameters: OdsApiCancelScansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async cancelScansRequestOpts(requestParameters: OdsApiCancelScansRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling cancelScans().');
         }
@@ -286,16 +307,23 @@ export class OdsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ods/entities/scan-control-actions/cancel/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: EntitiesODSCancelScanRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/ods/entities/scan-control-actions/cancel/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: EntitiesODSCancelScanRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Cancel ODS scans for the given scan ids.
+     */
+    async cancelScansRaw(requestParameters: OdsApiCancelScansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.cancelScansRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -309,9 +337,9 @@ export class OdsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create ODS scan and start or schedule scan for the given scan request.
+     * Creates request options for createScan without sending the request
      */
-    async createScanRaw(requestParameters: OdsApiCreateScanRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EntitiesODSScanResponse>> {
+    async createScanRequestOpts(requestParameters: OdsApiCreateScanRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createScan().');
         }
@@ -327,16 +355,23 @@ export class OdsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ods/entities/scans/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: EntitiesODSScanRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/ods/entities/scans/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: EntitiesODSScanRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create ODS scan and start or schedule scan for the given scan request.
+     */
+    async createScanRaw(requestParameters: OdsApiCreateScanRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EntitiesODSScanResponse>> {
+        const requestOptions = await this.createScanRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EntitiesODSScanResponseFromJSON(jsonValue));
     }
@@ -350,12 +385,9 @@ export class OdsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete ODS scheduled-scans for the given scheduled-scan ids.
+     * Creates request options for deleteScheduledScans without sending the request
      */
-    async deleteScheduledScansRaw(
-        requestParameters: OdsApiDeleteScheduledScansRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async deleteScheduledScansRequestOpts(requestParameters: OdsApiDeleteScheduledScansRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteScheduledScans().');
         }
@@ -377,15 +409,25 @@ export class OdsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ods/entities/scheduled-scans/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ods/entities/scheduled-scans/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete ODS scheduled-scans for the given scheduled-scan ids.
+     */
+    async deleteScheduledScansRaw(
+        requestParameters: OdsApiDeleteScheduledScansRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.deleteScheduledScansRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -399,12 +441,9 @@ export class OdsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get malicious files by ids.
+     * Creates request options for getMaliciousFilesByIds without sending the request
      */
-    async getMaliciousFilesByIdsRaw(
-        requestParameters: OdsApiGetMaliciousFilesByIdsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<EntitiesODSScanMaliciousFileResponse>> {
+    async getMaliciousFilesByIdsRequestOpts(requestParameters: OdsApiGetMaliciousFilesByIdsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getMaliciousFilesByIds().');
         }
@@ -422,15 +461,25 @@ export class OdsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ods/entities/malicious-files/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ods/entities/malicious-files/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get malicious files by ids.
+     */
+    async getMaliciousFilesByIdsRaw(
+        requestParameters: OdsApiGetMaliciousFilesByIdsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<EntitiesODSScanMaliciousFileResponse>> {
+        const requestOptions = await this.getMaliciousFilesByIdsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EntitiesODSScanMaliciousFileResponseFromJSON(jsonValue));
     }
@@ -444,12 +493,9 @@ export class OdsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get scan hosts by ids.
+     * Creates request options for getScanHostMetadataByIds without sending the request
      */
-    async getScanHostMetadataByIdsRaw(
-        requestParameters: OdsApiGetScanHostMetadataByIdsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<EntitiesODSScanHostResponse>> {
+    async getScanHostMetadataByIdsRequestOpts(requestParameters: OdsApiGetScanHostMetadataByIdsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getScanHostMetadataByIds().');
         }
@@ -467,15 +513,25 @@ export class OdsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ods/entities/scan-hosts/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ods/entities/scan-hosts/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get scan hosts by ids.
+     */
+    async getScanHostMetadataByIdsRaw(
+        requestParameters: OdsApiGetScanHostMetadataByIdsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<EntitiesODSScanHostResponse>> {
+        const requestOptions = await this.getScanHostMetadataByIdsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EntitiesODSScanHostResponseFromJSON(jsonValue));
     }
@@ -489,9 +545,9 @@ export class OdsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Scans by IDs.
+     * Creates request options for getScansByScanIds without sending the request
      */
-    async getScansByScanIdsRaw(requestParameters: OdsApiGetScansByScanIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EntitiesODSScanResponse>> {
+    async getScansByScanIdsRequestOpts(requestParameters: OdsApiGetScansByScanIdsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getScansByScanIds().');
         }
@@ -509,15 +565,22 @@ export class OdsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ods/entities/scans/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ods/entities/scans/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get Scans by IDs.
+     */
+    async getScansByScanIdsRaw(requestParameters: OdsApiGetScansByScanIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EntitiesODSScanResponse>> {
+        const requestOptions = await this.getScansByScanIdsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EntitiesODSScanResponseFromJSON(jsonValue));
     }
@@ -531,12 +594,9 @@ export class OdsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Scans by IDs.
+     * Creates request options for getScansByScanIdsV2 without sending the request
      */
-    async getScansByScanIdsV2Raw(
-        requestParameters: OdsApiGetScansByScanIdsV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<EntitiesODSScanResponseV2>> {
+    async getScansByScanIdsV2RequestOpts(requestParameters: OdsApiGetScansByScanIdsV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getScansByScanIdsV2().');
         }
@@ -554,15 +614,25 @@ export class OdsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ods/entities/scans/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ods/entities/scans/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get Scans by IDs.
+     */
+    async getScansByScanIdsV2Raw(
+        requestParameters: OdsApiGetScansByScanIdsV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<EntitiesODSScanResponseV2>> {
+        const requestOptions = await this.getScansByScanIdsV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EntitiesODSScanResponseV2FromJSON(jsonValue));
     }
@@ -576,12 +646,9 @@ export class OdsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get ScheduledScans by IDs.
+     * Creates request options for getScheduledScansByScanIds without sending the request
      */
-    async getScheduledScansByScanIdsRaw(
-        requestParameters: OdsApiGetScheduledScansByScanIdsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<EntitiesODSScheduleScanResponse>> {
+    async getScheduledScansByScanIdsRequestOpts(requestParameters: OdsApiGetScheduledScansByScanIdsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getScheduledScansByScanIds().');
         }
@@ -599,15 +666,25 @@ export class OdsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ods/entities/scheduled-scans/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ods/entities/scheduled-scans/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get ScheduledScans by IDs.
+     */
+    async getScheduledScansByScanIdsRaw(
+        requestParameters: OdsApiGetScheduledScansByScanIdsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<EntitiesODSScheduleScanResponse>> {
+        const requestOptions = await this.getScheduledScansByScanIdsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EntitiesODSScheduleScanResponseFromJSON(jsonValue));
     }
@@ -621,9 +698,9 @@ export class OdsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query malicious files.
+     * Creates request options for queryMaliciousFiles without sending the request
      */
-    async queryMaliciousFilesRaw(requestParameters: OdsApiQueryMaliciousFilesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queryMaliciousFilesRequestOpts(requestParameters: OdsApiQueryMaliciousFilesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -649,15 +726,22 @@ export class OdsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ods/queries/malicious-files/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ods/queries/malicious-files/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query malicious files.
+     */
+    async queryMaliciousFilesRaw(requestParameters: OdsApiQueryMaliciousFilesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queryMaliciousFilesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -677,12 +761,9 @@ export class OdsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query scan hosts.
+     * Creates request options for queryScanHostMetadata without sending the request
      */
-    async queryScanHostMetadataRaw(
-        requestParameters: OdsApiQueryScanHostMetadataRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queryScanHostMetadataRequestOpts(requestParameters: OdsApiQueryScanHostMetadataRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -708,15 +789,25 @@ export class OdsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ods/queries/scan-hosts/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ods/queries/scan-hosts/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query scan hosts.
+     */
+    async queryScanHostMetadataRaw(
+        requestParameters: OdsApiQueryScanHostMetadataRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queryScanHostMetadataRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -736,9 +827,9 @@ export class OdsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query Scans.
+     * Creates request options for queryScans without sending the request
      */
-    async queryScansRaw(requestParameters: OdsApiQueryScansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queryScansRequestOpts(requestParameters: OdsApiQueryScansRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -764,15 +855,22 @@ export class OdsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ods/queries/scans/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ods/queries/scans/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query Scans.
+     */
+    async queryScansRaw(requestParameters: OdsApiQueryScansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queryScansRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -786,9 +884,9 @@ export class OdsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query ScheduledScans.
+     * Creates request options for queryScheduledScans without sending the request
      */
-    async queryScheduledScansRaw(requestParameters: OdsApiQueryScheduledScansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queryScheduledScansRequestOpts(requestParameters: OdsApiQueryScheduledScansRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -814,15 +912,22 @@ export class OdsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ods/queries/scheduled-scans/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ods/queries/scheduled-scans/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query ScheduledScans.
+     */
+    async queryScheduledScansRaw(requestParameters: OdsApiQueryScheduledScansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queryScheduledScansRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -842,9 +947,9 @@ export class OdsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create ODS scan and start or schedule scan for the given scan request.
+     * Creates request options for scheduleScan without sending the request
      */
-    async scheduleScanRaw(requestParameters: OdsApiScheduleScanRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EntitiesODSScheduleScanResponse>> {
+    async scheduleScanRequestOpts(requestParameters: OdsApiScheduleScanRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling scheduleScan().');
         }
@@ -860,16 +965,23 @@ export class OdsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ods:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ods/entities/scheduled-scans/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: EntitiesODSScheduleScanRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/ods/entities/scheduled-scans/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: EntitiesODSScheduleScanRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create ODS scan and start or schedule scan for the given scan request.
+     */
+    async scheduleScanRaw(requestParameters: OdsApiScheduleScanRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EntitiesODSScheduleScanResponse>> {
+        const requestOptions = await this.scheduleScanRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EntitiesODSScheduleScanResponseFromJSON(jsonValue));
     }

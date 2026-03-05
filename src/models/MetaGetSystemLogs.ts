@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { PaginationMetaGetSystemLogs } from "./PaginationMetaGetSystemLogs";
-import { PaginationMetaGetSystemLogsFromJSON, PaginationMetaGetSystemLogsFromJSONTyped, PaginationMetaGetSystemLogsToJSON } from "./PaginationMetaGetSystemLogs";
+import {
+    PaginationMetaGetSystemLogsFromJSON,
+    PaginationMetaGetSystemLogsFromJSONTyped,
+    PaginationMetaGetSystemLogsToJSON,
+    PaginationMetaGetSystemLogsToJSONTyped,
+} from "./PaginationMetaGetSystemLogs";
 
 /**
  *
@@ -64,10 +69,15 @@ export function MetaGetSystemLogsFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function MetaGetSystemLogsToJSON(value?: MetaGetSystemLogs | null): any {
+export function MetaGetSystemLogsToJSON(json: any): MetaGetSystemLogs {
+    return MetaGetSystemLogsToJSONTyped(json, false);
+}
+
+export function MetaGetSystemLogsToJSONTyped(value?: MetaGetSystemLogs | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: PaginationMetaGetSystemLogsToJSON(value["pagination"]),
         query_time: value["queryTime"],

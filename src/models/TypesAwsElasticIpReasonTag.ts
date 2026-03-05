@@ -61,10 +61,15 @@ export function TypesAwsElasticIpReasonTagFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function TypesAwsElasticIpReasonTagToJSON(value?: TypesAwsElasticIpReasonTag | null): any {
+export function TypesAwsElasticIpReasonTagToJSON(json: any): TypesAwsElasticIpReasonTag {
+    return TypesAwsElasticIpReasonTagToJSONTyped(json, false);
+}
+
+export function TypesAwsElasticIpReasonTagToJSONTyped(value?: TypesAwsElasticIpReasonTag | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ec2Instance: value["ec2Instance"],
         ip: value["ip"],

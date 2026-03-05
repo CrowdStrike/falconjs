@@ -48,10 +48,15 @@ export function RegistrationGCPAccountValidationReqObjV1FromJSONTyped(json: any,
     };
 }
 
-export function RegistrationGCPAccountValidationReqObjV1ToJSON(value?: RegistrationGCPAccountValidationReqObjV1 | null): any {
+export function RegistrationGCPAccountValidationReqObjV1ToJSON(json: any): RegistrationGCPAccountValidationReqObjV1 {
+    return RegistrationGCPAccountValidationReqObjV1ToJSONTyped(json, false);
+}
+
+export function RegistrationGCPAccountValidationReqObjV1ToJSONTyped(value?: RegistrationGCPAccountValidationReqObjV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         parent_id: value["parentId"],
     };

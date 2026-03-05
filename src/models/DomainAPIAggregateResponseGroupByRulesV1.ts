@@ -14,15 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainAPIAggregateResponseGroupByRulesV1Resources } from "./DomainAPIAggregateResponseGroupByRulesV1Resources";
 import {
     DomainAPIAggregateResponseGroupByRulesV1ResourcesFromJSON,
     DomainAPIAggregateResponseGroupByRulesV1ResourcesFromJSONTyped,
     DomainAPIAggregateResponseGroupByRulesV1ResourcesToJSON,
+    DomainAPIAggregateResponseGroupByRulesV1ResourcesToJSONTyped,
 } from "./DomainAPIAggregateResponseGroupByRulesV1Resources";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -74,10 +75,15 @@ export function DomainAPIAggregateResponseGroupByRulesV1FromJSONTyped(json: any,
     };
 }
 
-export function DomainAPIAggregateResponseGroupByRulesV1ToJSON(value?: DomainAPIAggregateResponseGroupByRulesV1 | null): any {
+export function DomainAPIAggregateResponseGroupByRulesV1ToJSON(json: any): DomainAPIAggregateResponseGroupByRulesV1 {
+    return DomainAPIAggregateResponseGroupByRulesV1ToJSONTyped(json, false);
+}
+
+export function DomainAPIAggregateResponseGroupByRulesV1ToJSONTyped(value?: DomainAPIAggregateResponseGroupByRulesV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

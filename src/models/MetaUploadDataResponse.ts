@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { PaginationMetaUploadDataResponse } from "./PaginationMetaUploadDataResponse";
-import { PaginationMetaUploadDataResponseFromJSON, PaginationMetaUploadDataResponseFromJSONTyped, PaginationMetaUploadDataResponseToJSON } from "./PaginationMetaUploadDataResponse";
+import {
+    PaginationMetaUploadDataResponseFromJSON,
+    PaginationMetaUploadDataResponseFromJSONTyped,
+    PaginationMetaUploadDataResponseToJSON,
+    PaginationMetaUploadDataResponseToJSONTyped,
+} from "./PaginationMetaUploadDataResponse";
 
 /**
  *
@@ -64,10 +69,15 @@ export function MetaUploadDataResponseFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function MetaUploadDataResponseToJSON(value?: MetaUploadDataResponse | null): any {
+export function MetaUploadDataResponseToJSON(json: any): MetaUploadDataResponse {
+    return MetaUploadDataResponseToJSONTyped(json, false);
+}
+
+export function MetaUploadDataResponseToJSONTyped(value?: MetaUploadDataResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: PaginationMetaUploadDataResponseToJSON(value["pagination"]),
         query_time: value["queryTime"],

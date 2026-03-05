@@ -14,13 +14,23 @@
 
 import { mapValues } from "../runtime";
 import type { FalconforitapiSchedule } from "./FalconforitapiSchedule";
-import { FalconforitapiScheduleFromJSON, FalconforitapiScheduleFromJSONTyped, FalconforitapiScheduleToJSON } from "./FalconforitapiSchedule";
+import { FalconforitapiScheduleFromJSON, FalconforitapiScheduleFromJSONTyped, FalconforitapiScheduleToJSON, FalconforitapiScheduleToJSONTyped } from "./FalconforitapiSchedule";
 import type { FalconforitapiConditionGroup } from "./FalconforitapiConditionGroup";
-import { FalconforitapiConditionGroupFromJSON, FalconforitapiConditionGroupFromJSONTyped, FalconforitapiConditionGroupToJSON } from "./FalconforitapiConditionGroup";
+import {
+    FalconforitapiConditionGroupFromJSON,
+    FalconforitapiConditionGroupFromJSONTyped,
+    FalconforitapiConditionGroupToJSON,
+    FalconforitapiConditionGroupToJSONTyped,
+} from "./FalconforitapiConditionGroup";
 import type { FalconforitapiGuardrails } from "./FalconforitapiGuardrails";
-import { FalconforitapiGuardrailsFromJSON, FalconforitapiGuardrailsFromJSONTyped, FalconforitapiGuardrailsToJSON } from "./FalconforitapiGuardrails";
+import { FalconforitapiGuardrailsFromJSON, FalconforitapiGuardrailsFromJSONTyped, FalconforitapiGuardrailsToJSON, FalconforitapiGuardrailsToJSONTyped } from "./FalconforitapiGuardrails";
 import type { FalconforitapiGroupMembership } from "./FalconforitapiGroupMembership";
-import { FalconforitapiGroupMembershipFromJSON, FalconforitapiGroupMembershipFromJSONTyped, FalconforitapiGroupMembershipToJSON } from "./FalconforitapiGroupMembership";
+import {
+    FalconforitapiGroupMembershipFromJSON,
+    FalconforitapiGroupMembershipFromJSONTyped,
+    FalconforitapiGroupMembershipToJSON,
+    FalconforitapiGroupMembershipToJSONTyped,
+} from "./FalconforitapiGroupMembership";
 
 /**
  *
@@ -221,10 +231,15 @@ export function ItautomationScheduledTaskFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ItautomationScheduledTaskToJSON(value?: ItautomationScheduledTask | null): any {
+export function ItautomationScheduledTaskToJSON(json: any): ItautomationScheduledTask {
+    return ItautomationScheduledTaskToJSONTyped(json, false);
+}
+
+export function ItautomationScheduledTaskToJSONTyped(value?: ItautomationScheduledTask | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         created_by: value["createdBy"],
         created_time: value["createdTime"].toISOString(),
@@ -238,10 +253,10 @@ export function ItautomationScheduledTaskToJSON(value?: ItautomationScheduledTas
         id: value["id"],
         is_active: value["isActive"],
         is_preset: value["isPreset"],
-        last_run: value["lastRun"] == null ? undefined : value["lastRun"].toISOString(),
+        last_run: value["lastRun"] == null ? value["lastRun"] : value["lastRun"].toISOString(),
         modified_by: value["modifiedBy"],
-        modified_time: value["modifiedTime"] == null ? undefined : value["modifiedTime"].toISOString(),
-        next_run_time: value["nextRunTime"] == null ? undefined : value["nextRunTime"].toISOString(),
+        modified_time: value["modifiedTime"] == null ? value["modifiedTime"] : value["modifiedTime"].toISOString(),
+        next_run_time: value["nextRunTime"] == null ? value["nextRunTime"] : value["nextRunTime"].toISOString(),
         schedule: FalconforitapiScheduleToJSON(value["schedule"]),
         schedule_name: value["scheduleName"],
         target: value["target"],

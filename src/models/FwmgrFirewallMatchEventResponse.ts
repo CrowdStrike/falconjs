@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { FwmgrFirewallFlags } from "./FwmgrFirewallFlags";
-import { FwmgrFirewallFlagsFromJSON, FwmgrFirewallFlagsFromJSONTyped, FwmgrFirewallFlagsToJSON } from "./FwmgrFirewallFlags";
+import { FwmgrFirewallFlagsFromJSON, FwmgrFirewallFlagsFromJSONTyped, FwmgrFirewallFlagsToJSON, FwmgrFirewallFlagsToJSONTyped } from "./FwmgrFirewallFlags";
 
 /**
  *
@@ -323,10 +323,15 @@ export function FwmgrFirewallMatchEventResponseFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function FwmgrFirewallMatchEventResponseToJSON(value?: FwmgrFirewallMatchEventResponse | null): any {
+export function FwmgrFirewallMatchEventResponseToJSON(json: any): FwmgrFirewallMatchEventResponse {
+    return FwmgrFirewallMatchEventResponseToJSONTyped(json, false);
+}
+
+export function FwmgrFirewallMatchEventResponseToJSONTyped(value?: FwmgrFirewallMatchEventResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         aid: value["aid"],
         cid: value["cid"],

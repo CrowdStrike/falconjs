@@ -196,10 +196,15 @@ export function InternalSensorStatusFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function InternalSensorStatusToJSON(value?: InternalSensorStatus | null): any {
+export function InternalSensorStatusToJSON(json: any): InternalSensorStatus {
+    return InternalSensorStatusToJSONTyped(json, false);
+}
+
+export function InternalSensorStatusToJSONTyped(value?: InternalSensorStatus | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         agent_version: value["agentVersion"],
         cid: value["cid"],

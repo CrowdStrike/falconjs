@@ -14,17 +14,32 @@
 
 import { mapValues } from "../runtime";
 import type { DomainProductFeatures } from "./DomainProductFeatures";
-import { DomainProductFeaturesFromJSON, DomainProductFeaturesFromJSONTyped, DomainProductFeaturesToJSON } from "./DomainProductFeatures";
+import { DomainProductFeaturesFromJSON, DomainProductFeaturesFromJSONTyped, DomainProductFeaturesToJSON, DomainProductFeaturesToJSONTyped } from "./DomainProductFeatures";
 import type { DomainProductPermission } from "./DomainProductPermission";
-import { DomainProductPermissionFromJSON, DomainProductPermissionFromJSONTyped, DomainProductPermissionToJSON } from "./DomainProductPermission";
+import { DomainProductPermissionFromJSON, DomainProductPermissionFromJSONTyped, DomainProductPermissionToJSON, DomainProductPermissionToJSONTyped } from "./DomainProductPermission";
 import type { DomainCloudCondition } from "./DomainCloudCondition";
-import { DomainCloudConditionFromJSON, DomainCloudConditionFromJSONTyped, DomainCloudConditionToJSON } from "./DomainCloudCondition";
+import { DomainCloudConditionFromJSON, DomainCloudConditionFromJSONTyped, DomainCloudConditionToJSON, DomainCloudConditionToJSONTyped } from "./DomainCloudCondition";
 import type { DomainProductFeaturesStatus } from "./DomainProductFeaturesStatus";
-import { DomainProductFeaturesStatusFromJSON, DomainProductFeaturesStatusFromJSONTyped, DomainProductFeaturesStatusToJSON } from "./DomainProductFeaturesStatus";
+import {
+    DomainProductFeaturesStatusFromJSON,
+    DomainProductFeaturesStatusFromJSONTyped,
+    DomainProductFeaturesStatusToJSON,
+    DomainProductFeaturesStatusToJSONTyped,
+} from "./DomainProductFeaturesStatus";
 import type { DomainAWSAccountResourceMetadata } from "./DomainAWSAccountResourceMetadata";
-import { DomainAWSAccountResourceMetadataFromJSON, DomainAWSAccountResourceMetadataFromJSONTyped, DomainAWSAccountResourceMetadataToJSON } from "./DomainAWSAccountResourceMetadata";
+import {
+    DomainAWSAccountResourceMetadataFromJSON,
+    DomainAWSAccountResourceMetadataFromJSONTyped,
+    DomainAWSAccountResourceMetadataToJSON,
+    DomainAWSAccountResourceMetadataToJSONTyped,
+} from "./DomainAWSAccountResourceMetadata";
 import type { DomainAWSInventoryFilterSetting } from "./DomainAWSInventoryFilterSetting";
-import { DomainAWSInventoryFilterSettingFromJSON, DomainAWSInventoryFilterSettingFromJSONTyped, DomainAWSInventoryFilterSettingToJSON } from "./DomainAWSInventoryFilterSetting";
+import {
+    DomainAWSInventoryFilterSettingFromJSON,
+    DomainAWSInventoryFilterSettingFromJSONTyped,
+    DomainAWSInventoryFilterSettingToJSON,
+    DomainAWSInventoryFilterSettingToJSONTyped,
+} from "./DomainAWSInventoryFilterSetting";
 
 /**
  *
@@ -335,10 +350,15 @@ export function DomainCloudAWSAccountV1FromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function DomainCloudAWSAccountV1ToJSON(value?: DomainCloudAWSAccountV1 | null): any {
+export function DomainCloudAWSAccountV1ToJSON(json: any): DomainCloudAWSAccountV1 {
+    return DomainCloudAWSAccountV1ToJSONTyped(json, false);
+}
+
+export function DomainCloudAWSAccountV1ToJSONTyped(value?: DomainCloudAWSAccountV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         CreatedAt: value["createdAt"].toISOString(),
         DeletedAt: value["deletedAt"].toISOString(),

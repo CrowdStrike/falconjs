@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesDependency } from "./TypesDependency";
-import { TypesDependencyFromJSON, TypesDependencyFromJSONTyped, TypesDependencyToJSON } from "./TypesDependency";
+import { TypesDependencyFromJSON, TypesDependencyFromJSONTyped, TypesDependencyToJSON, TypesDependencyToJSONTyped } from "./TypesDependency";
 
 /**
  *
@@ -57,10 +57,15 @@ export function TypesServiceServiceDependencyFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function TypesServiceServiceDependencyToJSON(value?: TypesServiceServiceDependency | null): any {
+export function TypesServiceServiceDependencyToJSON(json: any): TypesServiceServiceDependency {
+    return TypesServiceServiceDependencyToJSONTyped(json, false);
+}
+
+export function TypesServiceServiceDependencyToJSONTyped(value?: TypesServiceServiceDependency | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count: value["count"],
         items: value["items"] == null ? undefined : (value["items"] as Array<any>).map(TypesDependencyToJSON),

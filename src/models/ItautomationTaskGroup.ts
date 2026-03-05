@@ -21,7 +21,7 @@ import { mapValues } from "../runtime";
 export interface ItautomationTaskGroup {
     /**
      * Access type of the group
-     * @type {string}
+     * @type {ItautomationTaskGroupAccessTypeEnum}
      * @memberof ItautomationTaskGroup
      */
     accessType: ItautomationTaskGroupAccessTypeEnum;
@@ -152,10 +152,15 @@ export function ItautomationTaskGroupFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function ItautomationTaskGroupToJSON(value?: ItautomationTaskGroup | null): any {
+export function ItautomationTaskGroupToJSON(json: any): ItautomationTaskGroup {
+    return ItautomationTaskGroupToJSONTyped(json, false);
+}
+
+export function ItautomationTaskGroupToJSONTyped(value?: ItautomationTaskGroup | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         access_type: value["accessType"],
         assigned_user_group_ids: value["assignedUserGroupIds"],

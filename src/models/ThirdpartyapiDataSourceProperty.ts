@@ -54,10 +54,15 @@ export function ThirdpartyapiDataSourcePropertyFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function ThirdpartyapiDataSourcePropertyToJSON(value?: ThirdpartyapiDataSourceProperty | null): any {
+export function ThirdpartyapiDataSourcePropertyToJSON(json: any): ThirdpartyapiDataSourceProperty {
+    return ThirdpartyapiDataSourcePropertyToJSONTyped(json, false);
+}
+
+export function ThirdpartyapiDataSourcePropertyToJSONTyped(value?: ThirdpartyapiDataSourceProperty | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         key: value["key"],
         value: value["value"],

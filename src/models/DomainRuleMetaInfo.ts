@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaPaging } from "./MsaPaging";
-import { MsaPagingFromJSON, MsaPagingFromJSONTyped, MsaPagingToJSON } from "./MsaPaging";
+import { MsaPagingFromJSON, MsaPagingFromJSONTyped, MsaPagingToJSON, MsaPagingToJSONTyped } from "./MsaPaging";
 import type { MsaspecWrites } from "./MsaspecWrites";
-import { MsaspecWritesFromJSON, MsaspecWritesFromJSONTyped, MsaspecWritesToJSON } from "./MsaspecWrites";
+import { MsaspecWritesFromJSON, MsaspecWritesFromJSONTyped, MsaspecWritesToJSON, MsaspecWritesToJSONTyped } from "./MsaspecWrites";
 import type { DomainRuleQuota } from "./DomainRuleQuota";
-import { DomainRuleQuotaFromJSON, DomainRuleQuotaFromJSONTyped, DomainRuleQuotaToJSON } from "./DomainRuleQuota";
+import { DomainRuleQuotaFromJSON, DomainRuleQuotaFromJSONTyped, DomainRuleQuotaToJSON, DomainRuleQuotaToJSONTyped } from "./DomainRuleQuota";
 
 /**
  *
@@ -91,10 +91,15 @@ export function DomainRuleMetaInfoFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function DomainRuleMetaInfoToJSON(value?: DomainRuleMetaInfo | null): any {
+export function DomainRuleMetaInfoToJSON(json: any): DomainRuleMetaInfo {
+    return DomainRuleMetaInfoToJSONTyped(json, false);
+}
+
+export function DomainRuleMetaInfoToJSONTyped(value?: DomainRuleMetaInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: MsaPagingToJSON(value["pagination"]),
         powered_by: value["poweredBy"],

@@ -62,10 +62,15 @@ export function TypesTagEntryFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function TypesTagEntryToJSON(value?: TypesTagEntry | null): any {
+export function TypesTagEntryToJSON(json: any): TypesTagEntry {
+    return TypesTagEntryToJSONTyped(json, false);
+}
+
+export function TypesTagEntryToJSONTyped(value?: TypesTagEntry | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         isSensitive: value["isSensitive"],
         persistentSignature: value["persistentSignature"],

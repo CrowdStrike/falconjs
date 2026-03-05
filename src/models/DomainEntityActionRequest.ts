@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainActionParameter } from "./DomainActionParameter";
-import { DomainActionParameterFromJSON, DomainActionParameterFromJSONTyped, DomainActionParameterToJSON } from "./DomainActionParameter";
+import { DomainActionParameterFromJSON, DomainActionParameterFromJSONTyped, DomainActionParameterToJSON, DomainActionParameterToJSONTyped } from "./DomainActionParameter";
 
 /**
  * Incident ID(s) for incidents upon which action(s) have to be performed.
@@ -59,10 +59,15 @@ export function DomainEntityActionRequestFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DomainEntityActionRequestToJSON(value?: DomainEntityActionRequest | null): any {
+export function DomainEntityActionRequestToJSON(json: any): DomainEntityActionRequest {
+    return DomainEntityActionRequestToJSONTyped(json, false);
+}
+
+export function DomainEntityActionRequestToJSONTyped(value?: DomainEntityActionRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action_parameters: value["actionParameters"] == null ? undefined : (value["actionParameters"] as Array<any>).map(DomainActionParameterToJSON),
         ids: value["ids"],

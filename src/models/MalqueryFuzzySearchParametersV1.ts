@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { MalqueryFuzzyOptions } from "./MalqueryFuzzyOptions";
-import { MalqueryFuzzyOptionsFromJSON, MalqueryFuzzyOptionsFromJSONTyped, MalqueryFuzzyOptionsToJSON } from "./MalqueryFuzzyOptions";
+import { MalqueryFuzzyOptionsFromJSON, MalqueryFuzzyOptionsFromJSONTyped, MalqueryFuzzyOptionsToJSON, MalqueryFuzzyOptionsToJSONTyped } from "./MalqueryFuzzyOptions";
 import type { MalquerySearchParameter } from "./MalquerySearchParameter";
-import { MalquerySearchParameterFromJSON, MalquerySearchParameterFromJSONTyped, MalquerySearchParameterToJSON } from "./MalquerySearchParameter";
+import { MalquerySearchParameterFromJSON, MalquerySearchParameterFromJSONTyped, MalquerySearchParameterToJSON, MalquerySearchParameterToJSONTyped } from "./MalquerySearchParameter";
 
 /**
  *
@@ -60,10 +60,15 @@ export function MalqueryFuzzySearchParametersV1FromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function MalqueryFuzzySearchParametersV1ToJSON(value?: MalqueryFuzzySearchParametersV1 | null): any {
+export function MalqueryFuzzySearchParametersV1ToJSON(json: any): MalqueryFuzzySearchParametersV1 {
+    return MalqueryFuzzySearchParametersV1ToJSONTyped(json, false);
+}
+
+export function MalqueryFuzzySearchParametersV1ToJSONTyped(value?: MalqueryFuzzySearchParametersV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         options: MalqueryFuzzyOptionsToJSON(value["options"]),
         patterns: (value["patterns"] as Array<any>).map(MalquerySearchParameterToJSON),

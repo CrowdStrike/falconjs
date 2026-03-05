@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DomainAPIAssetComplianceFindingV1 } from "./DomainAPIAssetComplianceFindingV1";
-import { DomainAPIAssetComplianceFindingV1FromJSON, DomainAPIAssetComplianceFindingV1FromJSONTyped, DomainAPIAssetComplianceFindingV1ToJSON } from "./DomainAPIAssetComplianceFindingV1";
+import {
+    DomainAPIAssetComplianceFindingV1FromJSON,
+    DomainAPIAssetComplianceFindingV1FromJSONTyped,
+    DomainAPIAssetComplianceFindingV1ToJSON,
+    DomainAPIAssetComplianceFindingV1ToJSONTyped,
+} from "./DomainAPIAssetComplianceFindingV1";
 
 /**
  *
@@ -91,10 +96,15 @@ export function DomainAPIAggregateComplianceByClusterTypeV1FromJSONTyped(json: a
     };
 }
 
-export function DomainAPIAggregateComplianceByClusterTypeV1ToJSON(value?: DomainAPIAggregateComplianceByClusterTypeV1 | null): any {
+export function DomainAPIAggregateComplianceByClusterTypeV1ToJSON(json: any): DomainAPIAggregateComplianceByClusterTypeV1 {
+    return DomainAPIAggregateComplianceByClusterTypeV1ToJSONTyped(json, false);
+}
+
+export function DomainAPIAggregateComplianceByClusterTypeV1ToJSONTyped(value?: DomainAPIAggregateComplianceByClusterTypeV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cluster_type: value["clusterType"],
         failed_rules_count: value["failedRulesCount"],

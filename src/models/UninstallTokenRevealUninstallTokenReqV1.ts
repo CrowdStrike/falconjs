@@ -55,10 +55,15 @@ export function UninstallTokenRevealUninstallTokenReqV1FromJSONTyped(json: any, 
     };
 }
 
-export function UninstallTokenRevealUninstallTokenReqV1ToJSON(value?: UninstallTokenRevealUninstallTokenReqV1 | null): any {
+export function UninstallTokenRevealUninstallTokenReqV1ToJSON(json: any): UninstallTokenRevealUninstallTokenReqV1 {
+    return UninstallTokenRevealUninstallTokenReqV1ToJSONTyped(json, false);
+}
+
+export function UninstallTokenRevealUninstallTokenReqV1ToJSONTyped(value?: UninstallTokenRevealUninstallTokenReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         audit_message: value["auditMessage"],
         device_id: value["deviceId"],

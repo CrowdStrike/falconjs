@@ -69,10 +69,15 @@ export function DomainDeployAgentsRequestFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DomainDeployAgentsRequestToJSON(value?: DomainDeployAgentsRequest | null): any {
+export function DomainDeployAgentsRequestToJSON(json: any): DomainDeployAgentsRequest {
+    return DomainDeployAgentsRequestToJSONTyped(json, false);
+}
+
+export function DomainDeployAgentsRequestToJSONTyped(value?: DomainDeployAgentsRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         aids: value["aids"],
         no_proxy: value["noProxy"],

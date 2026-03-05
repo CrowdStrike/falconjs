@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsAPIImageAssessment } from "./ModelsAPIImageAssessment";
-import { ModelsAPIImageAssessmentFromJSON, ModelsAPIImageAssessmentFromJSONTyped, ModelsAPIImageAssessmentToJSON } from "./ModelsAPIImageAssessment";
+import { ModelsAPIImageAssessmentFromJSON, ModelsAPIImageAssessmentFromJSONTyped, ModelsAPIImageAssessmentToJSON, ModelsAPIImageAssessmentToJSONTyped } from "./ModelsAPIImageAssessment";
 
 /**
  *
@@ -59,10 +59,15 @@ export function ModelsAPIImageAssessmentHistoryFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function ModelsAPIImageAssessmentHistoryToJSON(value?: ModelsAPIImageAssessmentHistory | null): any {
+export function ModelsAPIImageAssessmentHistoryToJSON(json: any): ModelsAPIImageAssessmentHistory {
+    return ModelsAPIImageAssessmentHistoryToJSONTyped(json, false);
+}
+
+export function ModelsAPIImageAssessmentHistoryToJSONTyped(value?: ModelsAPIImageAssessmentHistory | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         buckets: (value["buckets"] as Array<any>).map(ModelsAPIImageAssessmentToJSON),
         name: value["name"],

@@ -56,10 +56,15 @@ export function MessagesDetectionFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function MessagesDetectionToJSON(value?: MessagesDetection | null): any {
+export function MessagesDetectionToJSON(json: any): MessagesDetection {
+    return MessagesDetectionToJSONTyped(json, false);
+}
+
+export function MessagesDetectionToJSONTyped(value?: MessagesDetection | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         url: value["url"],

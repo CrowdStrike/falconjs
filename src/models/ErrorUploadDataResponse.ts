@@ -55,10 +55,15 @@ export function ErrorUploadDataResponseFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function ErrorUploadDataResponseToJSON(value?: ErrorUploadDataResponse | null): any {
+export function ErrorUploadDataResponseToJSON(json: any): ErrorUploadDataResponse {
+    return ErrorUploadDataResponseToJSONTyped(json, false);
+}
+
+export function ErrorUploadDataResponseToJSONTyped(value?: ErrorUploadDataResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         message: value["message"],

@@ -48,10 +48,15 @@ export function ApiDownloadLinkV1FromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function ApiDownloadLinkV1ToJSON(value?: ApiDownloadLinkV1 | null): any {
+export function ApiDownloadLinkV1ToJSON(json: any): ApiDownloadLinkV1 {
+    return ApiDownloadLinkV1ToJSONTyped(json, false);
+}
+
+export function ApiDownloadLinkV1ToJSONTyped(value?: ApiDownloadLinkV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         link: value["link"],
     };

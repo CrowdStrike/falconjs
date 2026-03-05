@@ -48,10 +48,15 @@ export function DomainContentPackageFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function DomainContentPackageToJSON(value?: DomainContentPackage | null): any {
+export function DomainContentPackageToJSON(json: any): DomainContentPackage {
+    return DomainContentPackageToJSONTyped(json, false);
+}
+
+export function DomainContentPackageToJSONTyped(value?: DomainContentPackage | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
     };

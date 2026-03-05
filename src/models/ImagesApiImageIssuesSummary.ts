@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ModelsAPIImageIssuesSummary } from "./ModelsAPIImageIssuesSummary";
-import { ModelsAPIImageIssuesSummaryFromJSON, ModelsAPIImageIssuesSummaryFromJSONTyped, ModelsAPIImageIssuesSummaryToJSON } from "./ModelsAPIImageIssuesSummary";
+import {
+    ModelsAPIImageIssuesSummaryFromJSON,
+    ModelsAPIImageIssuesSummaryFromJSONTyped,
+    ModelsAPIImageIssuesSummaryToJSON,
+    ModelsAPIImageIssuesSummaryToJSONTyped,
+} from "./ModelsAPIImageIssuesSummary";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +75,15 @@ export function ImagesApiImageIssuesSummaryFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function ImagesApiImageIssuesSummaryToJSON(value?: ImagesApiImageIssuesSummary | null): any {
+export function ImagesApiImageIssuesSummaryToJSON(json: any): ImagesApiImageIssuesSummary {
+    return ImagesApiImageIssuesSummaryToJSONTyped(json, false);
+}
+
+export function ImagesApiImageIssuesSummaryToJSONTyped(value?: ImagesApiImageIssuesSummary | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

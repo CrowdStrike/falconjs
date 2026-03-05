@@ -64,10 +64,15 @@ export function SdkFalconUserVMFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function SdkFalconUserVMToJSON(value?: SdkFalconUserVM | null): any {
+export function SdkFalconUserVMToJSON(json: any): SdkFalconUserVM {
+    return SdkFalconUserVMToJSONTyped(json, false);
+}
+
+export function SdkFalconUserVMToJSONTyped(value?: SdkFalconUserVM | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         email: value["email"],
         full_name: value["fullName"],

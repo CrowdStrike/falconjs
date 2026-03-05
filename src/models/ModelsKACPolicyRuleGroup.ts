@@ -18,17 +18,33 @@ import {
     ModelsKACPolicyRuleGroupImageAssessmentFromJSON,
     ModelsKACPolicyRuleGroupImageAssessmentFromJSONTyped,
     ModelsKACPolicyRuleGroupImageAssessmentToJSON,
+    ModelsKACPolicyRuleGroupImageAssessmentToJSONTyped,
 } from "./ModelsKACPolicyRuleGroupImageAssessment";
 import type { ModelsKACCustomPolicyRule } from "./ModelsKACCustomPolicyRule";
-import { ModelsKACCustomPolicyRuleFromJSON, ModelsKACCustomPolicyRuleFromJSONTyped, ModelsKACCustomPolicyRuleToJSON } from "./ModelsKACCustomPolicyRule";
+import { ModelsKACCustomPolicyRuleFromJSON, ModelsKACCustomPolicyRuleFromJSONTyped, ModelsKACCustomPolicyRuleToJSON, ModelsKACCustomPolicyRuleToJSONTyped } from "./ModelsKACCustomPolicyRule";
 import type { ModelsKACDefaultPolicyRule } from "./ModelsKACDefaultPolicyRule";
-import { ModelsKACDefaultPolicyRuleFromJSON, ModelsKACDefaultPolicyRuleFromJSONTyped, ModelsKACDefaultPolicyRuleToJSON } from "./ModelsKACDefaultPolicyRule";
+import { ModelsKACDefaultPolicyRuleFromJSON, ModelsKACDefaultPolicyRuleFromJSONTyped, ModelsKACDefaultPolicyRuleToJSON, ModelsKACDefaultPolicyRuleToJSONTyped } from "./ModelsKACDefaultPolicyRule";
 import type { ModelsKACPolicyRuleGroupNamespace } from "./ModelsKACPolicyRuleGroupNamespace";
-import { ModelsKACPolicyRuleGroupNamespaceFromJSON, ModelsKACPolicyRuleGroupNamespaceFromJSONTyped, ModelsKACPolicyRuleGroupNamespaceToJSON } from "./ModelsKACPolicyRuleGroupNamespace";
+import {
+    ModelsKACPolicyRuleGroupNamespaceFromJSON,
+    ModelsKACPolicyRuleGroupNamespaceFromJSONTyped,
+    ModelsKACPolicyRuleGroupNamespaceToJSON,
+    ModelsKACPolicyRuleGroupNamespaceToJSONTyped,
+} from "./ModelsKACPolicyRuleGroupNamespace";
 import type { ModelsKACPolicyRuleGroupDenyOnError } from "./ModelsKACPolicyRuleGroupDenyOnError";
-import { ModelsKACPolicyRuleGroupDenyOnErrorFromJSON, ModelsKACPolicyRuleGroupDenyOnErrorFromJSONTyped, ModelsKACPolicyRuleGroupDenyOnErrorToJSON } from "./ModelsKACPolicyRuleGroupDenyOnError";
+import {
+    ModelsKACPolicyRuleGroupDenyOnErrorFromJSON,
+    ModelsKACPolicyRuleGroupDenyOnErrorFromJSONTyped,
+    ModelsKACPolicyRuleGroupDenyOnErrorToJSON,
+    ModelsKACPolicyRuleGroupDenyOnErrorToJSONTyped,
+} from "./ModelsKACPolicyRuleGroupDenyOnError";
 import type { ModelsKACPolicyRuleGroupLabel } from "./ModelsKACPolicyRuleGroupLabel";
-import { ModelsKACPolicyRuleGroupLabelFromJSON, ModelsKACPolicyRuleGroupLabelFromJSONTyped, ModelsKACPolicyRuleGroupLabelToJSON } from "./ModelsKACPolicyRuleGroupLabel";
+import {
+    ModelsKACPolicyRuleGroupLabelFromJSON,
+    ModelsKACPolicyRuleGroupLabelFromJSONTyped,
+    ModelsKACPolicyRuleGroupLabelToJSON,
+    ModelsKACPolicyRuleGroupLabelToJSONTyped,
+} from "./ModelsKACPolicyRuleGroupLabel";
 
 /**
  *
@@ -137,10 +153,15 @@ export function ModelsKACPolicyRuleGroupFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function ModelsKACPolicyRuleGroupToJSON(value?: ModelsKACPolicyRuleGroup | null): any {
+export function ModelsKACPolicyRuleGroupToJSON(json: any): ModelsKACPolicyRuleGroup {
+    return ModelsKACPolicyRuleGroupToJSONTyped(json, false);
+}
+
+export function ModelsKACPolicyRuleGroupToJSONTyped(value?: ModelsKACPolicyRuleGroup | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         custom_rules: (value["customRules"] as Array<any>).map(ModelsKACCustomPolicyRuleToJSON),
         default_rules: (value["defaultRules"] as Array<any>).map(ModelsKACDefaultPolicyRuleToJSON),

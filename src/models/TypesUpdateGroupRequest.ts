@@ -96,10 +96,15 @@ export function TypesUpdateGroupRequestFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function TypesUpdateGroupRequestToJSON(value?: TypesUpdateGroupRequest | null): any {
+export function TypesUpdateGroupRequestToJSON(json: any): TypesUpdateGroupRequest {
+    return TypesUpdateGroupRequestToJSONTyped(json, false);
+}
+
+export function TypesUpdateGroupRequestToJSONTyped(value?: TypesUpdateGroupRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         children: value["children"],
         description: value["description"],

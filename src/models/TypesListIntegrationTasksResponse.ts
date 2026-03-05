@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesIntegrationTask } from "./TypesIntegrationTask";
-import { TypesIntegrationTaskFromJSON, TypesIntegrationTaskFromJSONTyped, TypesIntegrationTaskToJSON } from "./TypesIntegrationTask";
+import { TypesIntegrationTaskFromJSON, TypesIntegrationTaskFromJSONTyped, TypesIntegrationTaskToJSON, TypesIntegrationTaskToJSONTyped } from "./TypesIntegrationTask";
 
 /**
  *
@@ -50,10 +50,15 @@ export function TypesListIntegrationTasksResponseFromJSONTyped(json: any, ignore
     };
 }
 
-export function TypesListIntegrationTasksResponseToJSON(value?: TypesListIntegrationTasksResponse | null): any {
+export function TypesListIntegrationTasksResponseToJSON(json: any): TypesListIntegrationTasksResponse {
+    return TypesListIntegrationTasksResponseToJSONTyped(json, false);
+}
+
+export function TypesListIntegrationTasksResponseToJSONTyped(value?: TypesListIntegrationTasksResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         integrationTasks: value["integrationTasks"] == null ? undefined : (value["integrationTasks"] as Array<any>).map(TypesIntegrationTaskToJSON),
     };

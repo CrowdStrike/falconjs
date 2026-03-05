@@ -18,6 +18,7 @@ import {
     DataconnectionmanagementConnectorConfigRequestFromJSON,
     DataconnectionmanagementConnectorConfigRequestFromJSONTyped,
     DataconnectionmanagementConnectorConfigRequestToJSON,
+    DataconnectionmanagementConnectorConfigRequestToJSONTyped,
 } from "./DataconnectionmanagementConnectorConfigRequest";
 
 /**
@@ -96,10 +97,15 @@ export function DataconnectionmanagementUpdateDataConnectionRequestFromJSONTyped
     };
 }
 
-export function DataconnectionmanagementUpdateDataConnectionRequestToJSON(value?: DataconnectionmanagementUpdateDataConnectionRequest | null): any {
+export function DataconnectionmanagementUpdateDataConnectionRequestToJSON(json: any): DataconnectionmanagementUpdateDataConnectionRequest {
+    return DataconnectionmanagementUpdateDataConnectionRequestToJSONTyped(json, false);
+}
+
+export function DataconnectionmanagementUpdateDataConnectionRequestToJSONTyped(value?: DataconnectionmanagementUpdateDataConnectionRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         config: DataconnectionmanagementConnectorConfigRequestToJSON(value["config"]),
         config_id: value["configId"],

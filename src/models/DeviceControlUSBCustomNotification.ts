@@ -56,10 +56,15 @@ export function DeviceControlUSBCustomNotificationFromJSONTyped(json: any, ignor
     };
 }
 
-export function DeviceControlUSBCustomNotificationToJSON(value?: DeviceControlUSBCustomNotification | null): any {
+export function DeviceControlUSBCustomNotificationToJSON(json: any): DeviceControlUSBCustomNotification {
+    return DeviceControlUSBCustomNotificationToJSONTyped(json, false);
+}
+
+export function DeviceControlUSBCustomNotificationToJSONTyped(value?: DeviceControlUSBCustomNotification | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         custom_message: value["customMessage"],
         use_custom: value["useCustom"],

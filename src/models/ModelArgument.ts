@@ -160,10 +160,15 @@ export function ModelArgumentFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function ModelArgumentToJSON(value?: ModelArgument | null): any {
+export function ModelArgumentToJSON(json: any): ModelArgument {
+    return ModelArgumentToJSONTyped(json, false);
+}
+
+export function ModelArgumentToJSONTyped(value?: ModelArgument | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         arg_name: value["argName"],
         arg_type: value["argType"],

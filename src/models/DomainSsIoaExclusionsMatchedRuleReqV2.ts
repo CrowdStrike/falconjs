@@ -104,10 +104,15 @@ export function DomainSsIoaExclusionsMatchedRuleReqV2FromJSONTyped(json: any, ig
     };
 }
 
-export function DomainSsIoaExclusionsMatchedRuleReqV2ToJSON(value?: DomainSsIoaExclusionsMatchedRuleReqV2 | null): any {
+export function DomainSsIoaExclusionsMatchedRuleReqV2ToJSON(json: any): DomainSsIoaExclusionsMatchedRuleReqV2 {
+    return DomainSsIoaExclusionsMatchedRuleReqV2ToJSONTyped(json, false);
+}
+
+export function DomainSsIoaExclusionsMatchedRuleReqV2ToJSONTyped(value?: DomainSsIoaExclusionsMatchedRuleReqV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         aid: value["aid"],
         command_line: value["commandLine"],

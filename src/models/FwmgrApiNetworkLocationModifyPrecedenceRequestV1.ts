@@ -56,10 +56,15 @@ export function FwmgrApiNetworkLocationModifyPrecedenceRequestV1FromJSONTyped(js
     };
 }
 
-export function FwmgrApiNetworkLocationModifyPrecedenceRequestV1ToJSON(value?: FwmgrApiNetworkLocationModifyPrecedenceRequestV1 | null): any {
+export function FwmgrApiNetworkLocationModifyPrecedenceRequestV1ToJSON(json: any): FwmgrApiNetworkLocationModifyPrecedenceRequestV1 {
+    return FwmgrApiNetworkLocationModifyPrecedenceRequestV1ToJSONTyped(json, false);
+}
+
+export function FwmgrApiNetworkLocationModifyPrecedenceRequestV1ToJSONTyped(value?: FwmgrApiNetworkLocationModifyPrecedenceRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         location_precedence: value["locationPrecedence"],

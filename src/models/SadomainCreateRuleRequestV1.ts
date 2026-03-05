@@ -127,10 +127,15 @@ export function SadomainCreateRuleRequestV1FromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function SadomainCreateRuleRequestV1ToJSON(value?: SadomainCreateRuleRequestV1 | null): any {
+export function SadomainCreateRuleRequestV1ToJSON(json: any): SadomainCreateRuleRequestV1 {
+    return SadomainCreateRuleRequestV1ToJSONTyped(json, false);
+}
+
+export function SadomainCreateRuleRequestV1ToJSONTyped(value?: SadomainCreateRuleRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         breach_monitor_only: value["breachMonitorOnly"],
         breach_monitoring_enabled: value["breachMonitoringEnabled"],

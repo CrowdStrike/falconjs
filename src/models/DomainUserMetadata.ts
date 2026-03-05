@@ -84,10 +84,15 @@ export function DomainUserMetadataFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function DomainUserMetadataToJSON(value?: DomainUserMetadata | null): any {
+export function DomainUserMetadataToJSON(json: any): DomainUserMetadata {
+    return DomainUserMetadataToJSONTyped(json, false);
+}
+
+export function DomainUserMetadataToJSONTyped(value?: DomainUserMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         customer: value["customer"],
         firstName: value["firstName"],

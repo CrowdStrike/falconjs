@@ -44,12 +44,9 @@ export interface MobileEnrollmentApiRequestDeviceEnrollmentV4Request {
  */
 export class MobileEnrollmentApi extends runtime.BaseAPI {
     /**
-     * Trigger on-boarding process for a mobile device
+     * Creates request options for requestDeviceEnrollmentV3 without sending the request
      */
-    async requestDeviceEnrollmentV3Raw(
-        requestParameters: MobileEnrollmentApiRequestDeviceEnrollmentV3Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiPostEnrollmentDetailsResponse>> {
+    async requestDeviceEnrollmentV3RequestOpts(requestParameters: MobileEnrollmentApiRequestDeviceEnrollmentV3Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling requestDeviceEnrollmentV3().');
         }
@@ -73,16 +70,26 @@ export class MobileEnrollmentApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["mobile-enrollment:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/enrollments/entities/details/v3`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiPostEnrollmentDetailsToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/enrollments/entities/details/v3`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiPostEnrollmentDetailsToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Trigger on-boarding process for a mobile device
+     */
+    async requestDeviceEnrollmentV3Raw(
+        requestParameters: MobileEnrollmentApiRequestDeviceEnrollmentV3Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiPostEnrollmentDetailsResponse>> {
+        const requestOptions = await this.requestDeviceEnrollmentV3RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiPostEnrollmentDetailsResponseFromJSON(jsonValue));
     }
@@ -101,12 +108,9 @@ export class MobileEnrollmentApi extends runtime.BaseAPI {
     }
 
     /**
-     * Trigger on-boarding process for a mobile device
+     * Creates request options for requestDeviceEnrollmentV4 without sending the request
      */
-    async requestDeviceEnrollmentV4Raw(
-        requestParameters: MobileEnrollmentApiRequestDeviceEnrollmentV4Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiPostEnrollmentDetailsResponse>> {
+    async requestDeviceEnrollmentV4RequestOpts(requestParameters: MobileEnrollmentApiRequestDeviceEnrollmentV4Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling requestDeviceEnrollmentV4().');
         }
@@ -130,16 +134,26 @@ export class MobileEnrollmentApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["mobile-enrollment:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/enrollments/entities/details/v4`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiPostEnrollmentDetailsV4ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/enrollments/entities/details/v4`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiPostEnrollmentDetailsV4ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Trigger on-boarding process for a mobile device
+     */
+    async requestDeviceEnrollmentV4Raw(
+        requestParameters: MobileEnrollmentApiRequestDeviceEnrollmentV4Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiPostEnrollmentDetailsResponse>> {
+        const requestOptions = await this.requestDeviceEnrollmentV4RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiPostEnrollmentDetailsResponseFromJSON(jsonValue));
     }

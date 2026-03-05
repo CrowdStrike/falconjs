@@ -47,10 +47,15 @@ export function ChangesHostGroupFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function ChangesHostGroupToJSON(value?: ChangesHostGroup | null): any {
+export function ChangesHostGroupToJSON(json: any): ChangesHostGroup {
+    return ChangesHostGroupToJSONTyped(json, false);
+}
+
+export function ChangesHostGroupToJSONTyped(value?: ChangesHostGroup | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
     };

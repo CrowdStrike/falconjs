@@ -18,6 +18,7 @@ import {
     DomainExternalAssetDiscoveryAttributesFromJSON,
     DomainExternalAssetDiscoveryAttributesFromJSONTyped,
     DomainExternalAssetDiscoveryAttributesToJSON,
+    DomainExternalAssetDiscoveryAttributesToJSONTyped,
 } from "./DomainExternalAssetDiscoveryAttributes";
 
 /**
@@ -116,10 +117,15 @@ export function DomainFemEcosystemSubsidiaryFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function DomainFemEcosystemSubsidiaryToJSON(value?: DomainFemEcosystemSubsidiary | null): any {
+export function DomainFemEcosystemSubsidiaryToJSON(json: any): DomainFemEcosystemSubsidiary {
+    return DomainFemEcosystemSubsidiaryToJSONTyped(json, false);
+}
+
+export function DomainFemEcosystemSubsidiaryToJSONTyped(value?: DomainFemEcosystemSubsidiary | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         asset_count: value["assetCount"],
         children_count: value["childrenCount"],

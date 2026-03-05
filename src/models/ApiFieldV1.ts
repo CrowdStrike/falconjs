@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { ApiFieldOptionV1 } from "./ApiFieldOptionV1";
-import { ApiFieldOptionV1FromJSON, ApiFieldOptionV1FromJSONTyped, ApiFieldOptionV1ToJSON } from "./ApiFieldOptionV1";
+import { ApiFieldOptionV1FromJSON, ApiFieldOptionV1FromJSONTyped, ApiFieldOptionV1ToJSON, ApiFieldOptionV1ToJSONTyped } from "./ApiFieldOptionV1";
 import type { ApiActorV1 } from "./ApiActorV1";
-import { ApiActorV1FromJSON, ApiActorV1FromJSONTyped, ApiActorV1ToJSON } from "./ApiActorV1";
+import { ApiActorV1FromJSON, ApiActorV1FromJSONTyped, ApiActorV1ToJSON, ApiActorV1ToJSONTyped } from "./ApiActorV1";
 
 /**
  *
@@ -162,10 +162,15 @@ export function ApiFieldV1FromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function ApiFieldV1ToJSON(value?: ApiFieldV1 | null): any {
+export function ApiFieldV1ToJSON(json: any): ApiFieldV1 {
+    return ApiFieldV1ToJSONTyped(json, false);
+}
+
+export function ApiFieldV1ToJSONTyped(value?: ApiFieldV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         created_by: ApiActorV1ToJSON(value["createdBy"]),
         created_by_name: value["createdByName"],

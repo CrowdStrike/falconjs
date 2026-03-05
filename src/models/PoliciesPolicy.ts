@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { PoliciesAssignedHostGroup } from "./PoliciesAssignedHostGroup";
-import { PoliciesAssignedHostGroupFromJSON, PoliciesAssignedHostGroupFromJSONTyped, PoliciesAssignedHostGroupToJSON } from "./PoliciesAssignedHostGroup";
+import { PoliciesAssignedHostGroupFromJSON, PoliciesAssignedHostGroupFromJSONTyped, PoliciesAssignedHostGroupToJSON, PoliciesAssignedHostGroupToJSONTyped } from "./PoliciesAssignedHostGroup";
 import type { PoliciesAssignedRuleGroup } from "./PoliciesAssignedRuleGroup";
-import { PoliciesAssignedRuleGroupFromJSON, PoliciesAssignedRuleGroupFromJSONTyped, PoliciesAssignedRuleGroupToJSON } from "./PoliciesAssignedRuleGroup";
+import { PoliciesAssignedRuleGroupFromJSON, PoliciesAssignedRuleGroupFromJSONTyped, PoliciesAssignedRuleGroupToJSON, PoliciesAssignedRuleGroupToJSONTyped } from "./PoliciesAssignedRuleGroup";
 
 /**
  *
@@ -142,10 +142,15 @@ export function PoliciesPolicyFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function PoliciesPolicyToJSON(value?: PoliciesPolicy | null): any {
+export function PoliciesPolicyToJSON(json: any): PoliciesPolicy {
+    return PoliciesPolicyToJSONTyped(json, false);
+}
+
+export function PoliciesPolicyToJSONTyped(value?: PoliciesPolicy | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         created_by: value["createdBy"],

@@ -82,12 +82,9 @@ export interface InstallationTokensApiTokensUpdateRequest {
  */
 export class InstallationTokensApi extends runtime.BaseAPI {
     /**
-     * Search for audit events by providing an FQL filter and paging details.
+     * Creates request options for auditEventsQuery without sending the request
      */
-    async auditEventsQueryRaw(
-        requestParameters: InstallationTokensApiAuditEventsQueryRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async auditEventsQueryRequestOpts(requestParameters: InstallationTokensApiAuditEventsQueryRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -113,15 +110,25 @@ export class InstallationTokensApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["installation-tokens:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/installation-tokens/queries/audit-events/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/installation-tokens/queries/audit-events/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for audit events by providing an FQL filter and paging details.
+     */
+    async auditEventsQueryRaw(
+        requestParameters: InstallationTokensApiAuditEventsQueryRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.auditEventsQueryRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -135,12 +142,9 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     }
 
     /**
-     * Gets the details of one or more audit events by id.
+     * Creates request options for auditEventsRead without sending the request
      */
-    async auditEventsReadRaw(
-        requestParameters: InstallationTokensApiAuditEventsReadRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiAuditEventDetailsResponseV1>> {
+    async auditEventsReadRequestOpts(requestParameters: InstallationTokensApiAuditEventsReadRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -154,15 +158,25 @@ export class InstallationTokensApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["installation-tokens:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/installation-tokens/entities/audit-events/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/installation-tokens/entities/audit-events/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Gets the details of one or more audit events by id.
+     */
+    async auditEventsReadRaw(
+        requestParameters: InstallationTokensApiAuditEventsReadRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiAuditEventDetailsResponseV1>> {
+        const requestOptions = await this.auditEventsReadRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiAuditEventDetailsResponseV1FromJSON(jsonValue));
     }
@@ -176,9 +190,9 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     }
 
     /**
-     * Check current installation token settings.
+     * Creates request options for customerSettingsRead without sending the request
      */
-    async customerSettingsReadRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiCustomerSettingsResponseV1>> {
+    async customerSettingsReadRequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -188,15 +202,22 @@ export class InstallationTokensApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["installation-tokens:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/installation-tokens/entities/customer-settings/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/installation-tokens/entities/customer-settings/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Check current installation token settings.
+     */
+    async customerSettingsReadRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiCustomerSettingsResponseV1>> {
+        const requestOptions = await this.customerSettingsReadRequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiCustomerSettingsResponseV1FromJSON(jsonValue));
     }
@@ -210,12 +231,9 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates a token.
+     * Creates request options for tokensCreate without sending the request
      */
-    async tokensCreateRaw(
-        requestParameters: InstallationTokensApiTokensCreateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiTokenDetailsResponseV1>> {
+    async tokensCreateRequestOpts(requestParameters: InstallationTokensApiTokensCreateRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling tokensCreate().');
         }
@@ -231,16 +249,26 @@ export class InstallationTokensApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["installation-tokens:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/installation-tokens/entities/tokens/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiTokenCreateRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/installation-tokens/entities/tokens/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiTokenCreateRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Creates a token.
+     */
+    async tokensCreateRaw(
+        requestParameters: InstallationTokensApiTokensCreateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiTokenDetailsResponseV1>> {
+        const requestOptions = await this.tokensCreateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiTokenDetailsResponseV1FromJSON(jsonValue));
     }
@@ -254,12 +282,9 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deletes a token immediately. To revoke a token, use PATCH /installation-tokens/entities/tokens/v1 instead.
+     * Creates request options for tokensDelete without sending the request
      */
-    async tokensDeleteRaw(
-        requestParameters: InstallationTokensApiTokensDeleteRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
+    async tokensDeleteRequestOpts(requestParameters: InstallationTokensApiTokensDeleteRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling tokensDelete().');
         }
@@ -277,15 +302,25 @@ export class InstallationTokensApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["installation-tokens:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/installation-tokens/entities/tokens/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/installation-tokens/entities/tokens/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Deletes a token immediately. To revoke a token, use PATCH /installation-tokens/entities/tokens/v1 instead.
+     */
+    async tokensDeleteRaw(
+        requestParameters: InstallationTokensApiTokensDeleteRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
+        const requestOptions = await this.tokensDeleteRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecResponseFieldsFromJSON(jsonValue));
     }
@@ -299,9 +334,9 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for tokens by providing an FQL filter and paging details.
+     * Creates request options for tokensQuery without sending the request
      */
-    async tokensQueryRaw(requestParameters: InstallationTokensApiTokensQueryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async tokensQueryRequestOpts(requestParameters: InstallationTokensApiTokensQueryRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -327,15 +362,22 @@ export class InstallationTokensApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["installation-tokens:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/installation-tokens/queries/tokens/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/installation-tokens/queries/tokens/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for tokens by providing an FQL filter and paging details.
+     */
+    async tokensQueryRaw(requestParameters: InstallationTokensApiTokensQueryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.tokensQueryRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -349,12 +391,9 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     }
 
     /**
-     * Gets the details of one or more tokens by id.
+     * Creates request options for tokensRead without sending the request
      */
-    async tokensReadRaw(
-        requestParameters: InstallationTokensApiTokensReadRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiTokenDetailsResponseV1>> {
+    async tokensReadRequestOpts(requestParameters: InstallationTokensApiTokensReadRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -368,15 +407,25 @@ export class InstallationTokensApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["installation-tokens:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/installation-tokens/entities/tokens/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/installation-tokens/entities/tokens/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Gets the details of one or more tokens by id.
+     */
+    async tokensReadRaw(
+        requestParameters: InstallationTokensApiTokensReadRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiTokenDetailsResponseV1>> {
+        const requestOptions = await this.tokensReadRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiTokenDetailsResponseV1FromJSON(jsonValue));
     }
@@ -390,12 +439,9 @@ export class InstallationTokensApi extends runtime.BaseAPI {
     }
 
     /**
-     * Updates one or more tokens. Use this endpoint to edit labels, change expiration, revoke, or restore.
+     * Creates request options for tokensUpdate without sending the request
      */
-    async tokensUpdateRaw(
-        requestParameters: InstallationTokensApiTokensUpdateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiTokenDetailsResponseV1>> {
+    async tokensUpdateRequestOpts(requestParameters: InstallationTokensApiTokensUpdateRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling tokensUpdate().');
         }
@@ -419,16 +465,26 @@ export class InstallationTokensApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["installation-tokens:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/installation-tokens/entities/tokens/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiTokenPatchRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/installation-tokens/entities/tokens/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiTokenPatchRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Updates one or more tokens. Use this endpoint to edit labels, change expiration, revoke, or restore.
+     */
+    async tokensUpdateRaw(
+        requestParameters: InstallationTokensApiTokensUpdateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiTokenDetailsResponseV1>> {
+        const requestOptions = await this.tokensUpdateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiTokenDetailsResponseV1FromJSON(jsonValue));
     }

@@ -56,10 +56,15 @@ export function FwmgrDomainPlatformFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function FwmgrDomainPlatformToJSON(value?: FwmgrDomainPlatform | null): any {
+export function FwmgrDomainPlatformToJSON(json: any): FwmgrDomainPlatform {
+    return FwmgrDomainPlatformToJSONTyped(json, false);
+}
+
+export function FwmgrDomainPlatformToJSONTyped(value?: FwmgrDomainPlatform | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         label: value["label"],

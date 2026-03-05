@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ChangesAttribute } from "./ChangesAttribute";
-import { ChangesAttributeFromJSON, ChangesAttributeFromJSONTyped, ChangesAttributeToJSON } from "./ChangesAttribute";
+import { ChangesAttributeFromJSON, ChangesAttributeFromJSONTyped, ChangesAttributeToJSON, ChangesAttributeToJSONTyped } from "./ChangesAttribute";
 
 /**
  *
@@ -82,10 +82,15 @@ export function ChangesDACLEntityFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function ChangesDACLEntityToJSON(value?: ChangesDACLEntity | null): any {
+export function ChangesDACLEntityToJSON(json: any): ChangesDACLEntity {
+    return ChangesDACLEntityToJSONTyped(json, false);
+}
+
+export function ChangesDACLEntityToJSONTyped(value?: ChangesDACLEntity | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         acl_change_type: value["aclChangeType"],
         acl_permission_change: (value["aclPermissionChange"] as Array<any>).map(ChangesAttributeToJSON),

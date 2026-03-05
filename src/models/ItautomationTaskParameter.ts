@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ItautomationParameterOption } from "./ItautomationParameterOption";
-import { ItautomationParameterOptionFromJSON, ItautomationParameterOptionFromJSONTyped, ItautomationParameterOptionToJSON } from "./ItautomationParameterOption";
+import {
+    ItautomationParameterOptionFromJSON,
+    ItautomationParameterOptionFromJSONTyped,
+    ItautomationParameterOptionToJSON,
+    ItautomationParameterOptionToJSONTyped,
+} from "./ItautomationParameterOption";
 
 /**
  *
@@ -48,7 +53,7 @@ export interface ItautomationTaskParameter {
     formatHint?: string;
     /**
      * Type of input field
-     * @type {string}
+     * @type {ItautomationTaskParameterInputTypeEnum}
      * @memberof ItautomationTaskParameter
      */
     inputType: ItautomationTaskParameterInputTypeEnum;
@@ -84,7 +89,7 @@ export interface ItautomationTaskParameter {
     purpose?: string;
     /**
      * Type of validation to apply when input_type is text
-     * @type {string}
+     * @type {ItautomationTaskParameterValidationTypeEnum}
      * @memberof ItautomationTaskParameter
      */
     validationType: ItautomationTaskParameterValidationTypeEnum;
@@ -159,10 +164,15 @@ export function ItautomationTaskParameterFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ItautomationTaskParameterToJSON(value?: ItautomationTaskParameter | null): any {
+export function ItautomationTaskParameterToJSON(json: any): ItautomationTaskParameter {
+    return ItautomationTaskParameterToJSONTyped(json, false);
+}
+
+export function ItautomationTaskParameterToJSONTyped(value?: ItautomationTaskParameter | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         custom_validation_message: value["customValidationMessage"],
         custom_validation_regex: value["customValidationRegex"],

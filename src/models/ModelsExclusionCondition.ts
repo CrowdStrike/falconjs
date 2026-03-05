@@ -93,10 +93,15 @@ export function ModelsExclusionConditionFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function ModelsExclusionConditionToJSON(value?: ModelsExclusionCondition | null): any {
+export function ModelsExclusionConditionToJSON(json: any): ModelsExclusionCondition {
+    return ModelsExclusionConditionToJSONTyped(json, false);
+}
+
+export function ModelsExclusionConditionToJSONTyped(value?: ModelsExclusionCondition | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         created_at: value["createdAt"],
         description: value["description"],

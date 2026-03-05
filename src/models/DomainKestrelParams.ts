@@ -64,10 +64,15 @@ export function DomainKestrelParamsFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function DomainKestrelParamsToJSON(value?: DomainKestrelParams | null): any {
+export function DomainKestrelParamsToJSON(json: any): DomainKestrelParams {
+    return DomainKestrelParamsToJSONTyped(json, false);
+}
+
+export function DomainKestrelParamsToJSONTyped(value?: DomainKestrelParams | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         is_cryptographically_signed: value["isCryptographicallySigned"],
         is_published: value["isPublished"],

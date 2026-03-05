@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ApiEnterpriseAccountV1 } from "./ApiEnterpriseAccountV1";
-import { ApiEnterpriseAccountV1FromJSON, ApiEnterpriseAccountV1FromJSONTyped, ApiEnterpriseAccountV1ToJSON } from "./ApiEnterpriseAccountV1";
+import { ApiEnterpriseAccountV1FromJSON, ApiEnterpriseAccountV1FromJSONTyped, ApiEnterpriseAccountV1ToJSON, ApiEnterpriseAccountV1ToJSONTyped } from "./ApiEnterpriseAccountV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function ApiEnterpriseAccountMSAResponseV1FromJSONTyped(json: any, ignore
     };
 }
 
-export function ApiEnterpriseAccountMSAResponseV1ToJSON(value?: ApiEnterpriseAccountMSAResponseV1 | null): any {
+export function ApiEnterpriseAccountMSAResponseV1ToJSON(json: any): ApiEnterpriseAccountMSAResponseV1 {
+    return ApiEnterpriseAccountMSAResponseV1ToJSONTyped(json, false);
+}
+
+export function ApiEnterpriseAccountMSAResponseV1ToJSONTyped(value?: ApiEnterpriseAccountMSAResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

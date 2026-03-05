@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { DomainReconAPIError } from "./DomainReconAPIError";
-import { DomainReconAPIErrorFromJSON, DomainReconAPIErrorFromJSONTyped, DomainReconAPIErrorToJSON } from "./DomainReconAPIError";
+import { DomainReconAPIErrorFromJSON, DomainReconAPIErrorFromJSONTyped, DomainReconAPIErrorToJSON, DomainReconAPIErrorToJSONTyped } from "./DomainReconAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -61,10 +61,15 @@ export function DomainErrorsOnlyFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function DomainErrorsOnlyToJSON(value?: DomainErrorsOnly | null): any {
+export function DomainErrorsOnlyToJSON(json: any): DomainErrorsOnly {
+    return DomainErrorsOnlyToJSONTyped(json, false);
+}
+
+export function DomainErrorsOnlyToJSONTyped(value?: DomainErrorsOnly | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(DomainReconAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

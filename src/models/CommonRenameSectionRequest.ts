@@ -48,10 +48,15 @@ export function CommonRenameSectionRequestFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function CommonRenameSectionRequestToJSON(value?: CommonRenameSectionRequest | null): any {
+export function CommonRenameSectionRequestToJSON(json: any): CommonRenameSectionRequest {
+    return CommonRenameSectionRequestToJSONTyped(json, false);
+}
+
+export function CommonRenameSectionRequestToJSONTyped(value?: CommonRenameSectionRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         section_name: value["sectionName"],
     };

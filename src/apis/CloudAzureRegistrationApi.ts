@@ -96,12 +96,9 @@ export interface CloudAzureRegistrationApiDownloadAzureScriptRequest {
  */
 export class CloudAzureRegistrationApi extends runtime.BaseAPI {
     /**
-     * Create an Azure registration for a tenant.
+     * Creates request options for cloudRegistrationAzureCreateRegistration without sending the request
      */
-    async cloudRegistrationAzureCreateRegistrationRaw(
-        requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureCreateRegistrationRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<AzureAzureRegistrationResponseExtV1>> {
+    async cloudRegistrationAzureCreateRegistrationRequestOpts(requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureCreateRegistrationRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling cloudRegistrationAzureCreateRegistration().');
         }
@@ -117,16 +114,26 @@ export class CloudAzureRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-azure-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-azure/entities/registrations/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: AzureAzureRegistrationCreateRequestExtV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-registration-azure/entities/registrations/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: AzureAzureRegistrationCreateRequestExtV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create an Azure registration for a tenant.
+     */
+    async cloudRegistrationAzureCreateRegistrationRaw(
+        requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureCreateRegistrationRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AzureAzureRegistrationResponseExtV1>> {
+        const requestOptions = await this.cloudRegistrationAzureCreateRegistrationRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AzureAzureRegistrationResponseExtV1FromJSON(jsonValue));
     }
@@ -143,12 +150,9 @@ export class CloudAzureRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete existing legacy Azure subscriptions.
+     * Creates request options for cloudRegistrationAzureDeleteLegacySubscription without sending the request
      */
-    async cloudRegistrationAzureDeleteLegacySubscriptionRaw(
-        requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureDeleteLegacySubscriptionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<AzureLegacySubscriptionDeleteResponseExtV1>> {
+    async cloudRegistrationAzureDeleteLegacySubscriptionRequestOpts(requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureDeleteLegacySubscriptionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling cloudRegistrationAzureDeleteLegacySubscription().');
         }
@@ -164,16 +168,26 @@ export class CloudAzureRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-azure-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-azure/entities/accounts/legacy/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-                body: AzureLegacySubscriptionDeleteRequestExtV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-registration-azure/entities/accounts/legacy/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+            body: AzureLegacySubscriptionDeleteRequestExtV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Delete existing legacy Azure subscriptions.
+     */
+    async cloudRegistrationAzureDeleteLegacySubscriptionRaw(
+        requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureDeleteLegacySubscriptionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AzureLegacySubscriptionDeleteResponseExtV1>> {
+        const requestOptions = await this.cloudRegistrationAzureDeleteLegacySubscriptionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AzureLegacySubscriptionDeleteResponseExtV1FromJSON(jsonValue));
     }
@@ -190,12 +204,9 @@ export class CloudAzureRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deletes existing Azure registrations.
+     * Creates request options for cloudRegistrationAzureDeleteRegistration without sending the request
      */
-    async cloudRegistrationAzureDeleteRegistrationRaw(
-        requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureDeleteRegistrationRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<AzureDeleteRegistrationResponseExtV1>> {
+    async cloudRegistrationAzureDeleteRegistrationRequestOpts(requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureDeleteRegistrationRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["tenantIds"] == null) {
             throw new runtime.RequiredError("tenantIds", 'Required parameter "tenantIds" was null or undefined when calling cloudRegistrationAzureDeleteRegistration().');
         }
@@ -213,15 +224,25 @@ export class CloudAzureRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-azure-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-azure/entities/registrations/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-registration-azure/entities/registrations/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Deletes existing Azure registrations.
+     */
+    async cloudRegistrationAzureDeleteRegistrationRaw(
+        requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureDeleteRegistrationRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AzureDeleteRegistrationResponseExtV1>> {
+        const requestOptions = await this.cloudRegistrationAzureDeleteRegistrationRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AzureDeleteRegistrationResponseExtV1FromJSON(jsonValue));
     }
@@ -235,12 +256,9 @@ export class CloudAzureRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve script to create resources
+     * Creates request options for cloudRegistrationAzureDownloadScript without sending the request
      */
-    async cloudRegistrationAzureDownloadScriptRaw(
-        requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureDownloadScriptRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<AzureAzureProvisionGetAccountScriptResponseV1>> {
+    async cloudRegistrationAzureDownloadScriptRequestOpts(requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureDownloadScriptRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling cloudRegistrationAzureDownloadScript().');
         }
@@ -256,16 +274,26 @@ export class CloudAzureRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-azure-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-azure/entities/scripts/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: AzureAzureDownloadScriptRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-registration-azure/entities/scripts/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: AzureAzureDownloadScriptRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Retrieve script to create resources
+     */
+    async cloudRegistrationAzureDownloadScriptRaw(
+        requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureDownloadScriptRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AzureAzureProvisionGetAccountScriptResponseV1>> {
+        const requestOptions = await this.cloudRegistrationAzureDownloadScriptRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AzureAzureProvisionGetAccountScriptResponseV1FromJSON(jsonValue));
     }
@@ -282,12 +310,9 @@ export class CloudAzureRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve existing Azure registration for a tenant.
+     * Creates request options for cloudRegistrationAzureGetRegistration without sending the request
      */
-    async cloudRegistrationAzureGetRegistrationRaw(
-        requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureGetRegistrationRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<AzureAzureRegistrationResponseExtV1>> {
+    async cloudRegistrationAzureGetRegistrationRequestOpts(requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureGetRegistrationRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["tenantId"] == null) {
             throw new runtime.RequiredError("tenantId", 'Required parameter "tenantId" was null or undefined when calling cloudRegistrationAzureGetRegistration().');
         }
@@ -305,15 +330,25 @@ export class CloudAzureRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-azure-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-azure/entities/registrations/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-registration-azure/entities/registrations/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve existing Azure registration for a tenant.
+     */
+    async cloudRegistrationAzureGetRegistrationRaw(
+        requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureGetRegistrationRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AzureAzureRegistrationResponseExtV1>> {
+        const requestOptions = await this.cloudRegistrationAzureGetRegistrationRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AzureAzureRegistrationResponseExtV1FromJSON(jsonValue));
     }
@@ -327,12 +362,9 @@ export class CloudAzureRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Trigger health check scan for Azure registrations
+     * Creates request options for cloudRegistrationAzureTriggerHealthCheck without sending the request
      */
-    async cloudRegistrationAzureTriggerHealthCheckRaw(
-        requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureTriggerHealthCheckRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<AzureHealthCheckTriggerResponseExtV1>> {
+    async cloudRegistrationAzureTriggerHealthCheckRequestOpts(requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureTriggerHealthCheckRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["tenantIds"] != null) {
@@ -346,15 +378,25 @@ export class CloudAzureRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-azure-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-azure/entities/registrations/healthcheck/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-registration-azure/entities/registrations/healthcheck/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Trigger health check scan for Azure registrations
+     */
+    async cloudRegistrationAzureTriggerHealthCheckRaw(
+        requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureTriggerHealthCheckRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AzureHealthCheckTriggerResponseExtV1>> {
+        const requestOptions = await this.cloudRegistrationAzureTriggerHealthCheckRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AzureHealthCheckTriggerResponseExtV1FromJSON(jsonValue));
     }
@@ -368,12 +410,9 @@ export class CloudAzureRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update an existing Azure registration for a tenant.
+     * Creates request options for cloudRegistrationAzureUpdateRegistration without sending the request
      */
-    async cloudRegistrationAzureUpdateRegistrationRaw(
-        requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureUpdateRegistrationRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<AzureAzureRegistrationResponseExtV1>> {
+    async cloudRegistrationAzureUpdateRegistrationRequestOpts(requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureUpdateRegistrationRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling cloudRegistrationAzureUpdateRegistration().');
         }
@@ -389,16 +428,26 @@ export class CloudAzureRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-azure-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-azure/entities/registrations/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: AzureAzureRegistrationUpdateRequestExtV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-registration-azure/entities/registrations/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: AzureAzureRegistrationUpdateRequestExtV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update an existing Azure registration for a tenant.
+     */
+    async cloudRegistrationAzureUpdateRegistrationRaw(
+        requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureUpdateRegistrationRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AzureAzureRegistrationResponseExtV1>> {
+        const requestOptions = await this.cloudRegistrationAzureUpdateRegistrationRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AzureAzureRegistrationResponseExtV1FromJSON(jsonValue));
     }
@@ -415,12 +464,9 @@ export class CloudAzureRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Validate an Azure registration by checking service principal, role assignments and deployment stack (if the deployment method is Bicep)
+     * Creates request options for cloudRegistrationAzureValidateRegistration without sending the request
      */
-    async cloudRegistrationAzureValidateRegistrationRaw(
-        requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureValidateRegistrationRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<AzureRegistrationValidateResponseV1>> {
+    async cloudRegistrationAzureValidateRegistrationRequestOpts(requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureValidateRegistrationRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["tenantId"] == null) {
             throw new runtime.RequiredError("tenantId", 'Required parameter "tenantId" was null or undefined when calling cloudRegistrationAzureValidateRegistration().');
         }
@@ -442,15 +488,25 @@ export class CloudAzureRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-azure-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-azure/entities/registrations/validate/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-registration-azure/entities/registrations/validate/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Validate an Azure registration by checking service principal, role assignments and deployment stack (if the deployment method is Bicep)
+     */
+    async cloudRegistrationAzureValidateRegistrationRaw(
+        requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureValidateRegistrationRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AzureRegistrationValidateResponseV1>> {
+        const requestOptions = await this.cloudRegistrationAzureValidateRegistrationRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AzureRegistrationValidateResponseV1FromJSON(jsonValue));
     }
@@ -464,12 +520,9 @@ export class CloudAzureRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Download Azure deployment script (Terraform or Bicep)
+     * Creates request options for downloadAzureScript without sending the request
      */
-    async downloadAzureScriptRaw(
-        requestParameters: CloudAzureRegistrationApiDownloadAzureScriptRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<void>> {
+    async downloadAzureScriptRequestOpts(requestParameters: CloudAzureRegistrationApiDownloadAzureScriptRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["tenantId"] == null) {
             throw new runtime.RequiredError("tenantId", 'Required parameter "tenantId" was null or undefined when calling downloadAzureScript().');
         }
@@ -487,15 +540,25 @@ export class CloudAzureRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-azure-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-azure/entities/scripts/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-registration-azure/entities/scripts/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Download Azure deployment script (Terraform or Bicep)
+     */
+    async downloadAzureScriptRaw(
+        requestParameters: CloudAzureRegistrationApiDownloadAzureScriptRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.downloadAzureScriptRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }

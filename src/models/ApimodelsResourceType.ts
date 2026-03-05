@@ -84,10 +84,15 @@ export function ApimodelsResourceTypeFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function ApimodelsResourceTypeToJSON(value?: ApimodelsResourceType | null): any {
+export function ApimodelsResourceTypeToJSON(json: any): ApimodelsResourceType {
+    return ApimodelsResourceTypeToJSONTyped(json, false);
+}
+
+export function ApimodelsResourceTypeToJSONTyped(value?: ApimodelsResourceType | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         resource_subtype: value["resourceSubtype"],

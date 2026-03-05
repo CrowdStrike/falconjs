@@ -14,9 +14,14 @@
 
 import { mapValues } from "../runtime";
 import type { RegistrationMSAPagingExtension } from "./RegistrationMSAPagingExtension";
-import { RegistrationMSAPagingExtensionFromJSON, RegistrationMSAPagingExtensionFromJSONTyped, RegistrationMSAPagingExtensionToJSON } from "./RegistrationMSAPagingExtension";
+import {
+    RegistrationMSAPagingExtensionFromJSON,
+    RegistrationMSAPagingExtensionFromJSONTyped,
+    RegistrationMSAPagingExtensionToJSON,
+    RegistrationMSAPagingExtensionToJSONTyped,
+} from "./RegistrationMSAPagingExtension";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -60,10 +65,15 @@ export function RegistrationMSAMetaInfoExtensionFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function RegistrationMSAMetaInfoExtensionToJSON(value?: RegistrationMSAMetaInfoExtension | null): any {
+export function RegistrationMSAMetaInfoExtensionToJSON(json: any): RegistrationMSAMetaInfoExtension {
+    return RegistrationMSAMetaInfoExtensionToJSONTyped(json, false);
+}
+
+export function RegistrationMSAMetaInfoExtensionToJSONTyped(value?: RegistrationMSAMetaInfoExtension | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         MetaInfo: MsaMetaInfoToJSON(value["metaInfo"]),
         pagination: RegistrationMSAPagingExtensionToJSON(value["pagination"]),

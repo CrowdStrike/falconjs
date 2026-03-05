@@ -14,15 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainAPIAggregateResponseComplianceByClusterTypeV1Resources } from "./DomainAPIAggregateResponseComplianceByClusterTypeV1Resources";
 import {
     DomainAPIAggregateResponseComplianceByClusterTypeV1ResourcesFromJSON,
     DomainAPIAggregateResponseComplianceByClusterTypeV1ResourcesFromJSONTyped,
     DomainAPIAggregateResponseComplianceByClusterTypeV1ResourcesToJSON,
+    DomainAPIAggregateResponseComplianceByClusterTypeV1ResourcesToJSONTyped,
 } from "./DomainAPIAggregateResponseComplianceByClusterTypeV1Resources";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -74,10 +75,15 @@ export function DomainAPIAggregateResponseComplianceByClusterTypeV1FromJSONTyped
     };
 }
 
-export function DomainAPIAggregateResponseComplianceByClusterTypeV1ToJSON(value?: DomainAPIAggregateResponseComplianceByClusterTypeV1 | null): any {
+export function DomainAPIAggregateResponseComplianceByClusterTypeV1ToJSON(json: any): DomainAPIAggregateResponseComplianceByClusterTypeV1 {
+    return DomainAPIAggregateResponseComplianceByClusterTypeV1ToJSONTyped(json, false);
+}
+
+export function DomainAPIAggregateResponseComplianceByClusterTypeV1ToJSONTyped(value?: DomainAPIAggregateResponseComplianceByClusterTypeV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

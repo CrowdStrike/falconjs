@@ -71,10 +71,15 @@ export function DomainFileDetailsV1FromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function DomainFileDetailsV1ToJSON(value?: DomainFileDetailsV1 | null): any {
+export function DomainFileDetailsV1ToJSON(json: any): DomainFileDetailsV1 {
+    return DomainFileDetailsV1ToJSONTyped(json, false);
+}
+
+export function DomainFileDetailsV1ToJSONTyped(value?: DomainFileDetailsV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         complete_data_set: value["completeDataSet"],
         download_urls: value["downloadUrls"],

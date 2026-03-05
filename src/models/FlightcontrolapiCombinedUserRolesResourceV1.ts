@@ -111,10 +111,15 @@ export function FlightcontrolapiCombinedUserRolesResourceV1FromJSONTyped(json: a
     };
 }
 
-export function FlightcontrolapiCombinedUserRolesResourceV1ToJSON(value?: FlightcontrolapiCombinedUserRolesResourceV1 | null): any {
+export function FlightcontrolapiCombinedUserRolesResourceV1ToJSON(json: any): FlightcontrolapiCombinedUserRolesResourceV1 {
+    return FlightcontrolapiCombinedUserRolesResourceV1ToJSONTyped(json, false);
+}
+
+export function FlightcontrolapiCombinedUserRolesResourceV1ToJSONTyped(value?: FlightcontrolapiCombinedUserRolesResourceV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         cid_group_id: value["cidGroupId"],

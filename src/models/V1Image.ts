@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { V1ImageConfig } from "./V1ImageConfig";
-import { V1ImageConfigFromJSON, V1ImageConfigFromJSONTyped, V1ImageConfigToJSON } from "./V1ImageConfig";
+import { V1ImageConfigFromJSON, V1ImageConfigFromJSONTyped, V1ImageConfigToJSON, V1ImageConfigToJSONTyped } from "./V1ImageConfig";
 import type { V1History } from "./V1History";
-import { V1HistoryFromJSON, V1HistoryFromJSONTyped, V1HistoryToJSON } from "./V1History";
+import { V1HistoryFromJSON, V1HistoryFromJSONTyped, V1HistoryToJSON, V1HistoryToJSONTyped } from "./V1History";
 import type { V1RootFS } from "./V1RootFS";
-import { V1RootFSFromJSON, V1RootFSFromJSONTyped, V1RootFSToJSON } from "./V1RootFS";
+import { V1RootFSFromJSON, V1RootFSFromJSONTyped, V1RootFSToJSON, V1RootFSToJSONTyped } from "./V1RootFS";
 
 /**
  *
@@ -120,15 +120,20 @@ export function V1ImageFromJSONTyped(json: any, ignoreDiscriminator: boolean): V
     };
 }
 
-export function V1ImageToJSON(value?: V1Image | null): any {
+export function V1ImageToJSON(json: any): V1Image {
+    return V1ImageToJSONTyped(json, false);
+}
+
+export function V1ImageToJSONTyped(value?: V1Image | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         architecture: value["architecture"],
         author: value["author"],
         config: V1ImageConfigToJSON(value["config"]),
-        created: value["created"] == null ? undefined : value["created"].toISOString(),
+        created: value["created"] == null ? value["created"] : value["created"].toISOString(),
         history: value["history"] == null ? undefined : (value["history"] as Array<any>).map(V1HistoryToJSON),
         os: value["os"],
         "os.features": value["osFeatures"],

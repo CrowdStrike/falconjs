@@ -18,6 +18,7 @@ import {
     DomainDiscoverAPIActiveDiscoveryNetworkFromJSON,
     DomainDiscoverAPIActiveDiscoveryNetworkFromJSONTyped,
     DomainDiscoverAPIActiveDiscoveryNetworkToJSON,
+    DomainDiscoverAPIActiveDiscoveryNetworkToJSONTyped,
 } from "./DomainDiscoverAPIActiveDiscoveryNetwork";
 
 /**
@@ -75,10 +76,15 @@ export function DomainDiscoverAPIActiveDiscoveryHostFromJSONTyped(json: any, ign
     };
 }
 
-export function DomainDiscoverAPIActiveDiscoveryHostToJSON(value?: DomainDiscoverAPIActiveDiscoveryHost | null): any {
+export function DomainDiscoverAPIActiveDiscoveryHostToJSON(json: any): DomainDiscoverAPIActiveDiscoveryHost {
+    return DomainDiscoverAPIActiveDiscoveryHostToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPIActiveDiscoveryHostToJSONTyped(value?: DomainDiscoverAPIActiveDiscoveryHost | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         last_seen_network_id: value["lastSeenNetworkId"],
         last_seen_site_id: value["lastSeenSiteId"],

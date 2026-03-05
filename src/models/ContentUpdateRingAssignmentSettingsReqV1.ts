@@ -64,10 +64,15 @@ export function ContentUpdateRingAssignmentSettingsReqV1FromJSONTyped(json: any,
     };
 }
 
-export function ContentUpdateRingAssignmentSettingsReqV1ToJSON(value?: ContentUpdateRingAssignmentSettingsReqV1 | null): any {
+export function ContentUpdateRingAssignmentSettingsReqV1ToJSON(json: any): ContentUpdateRingAssignmentSettingsReqV1 {
+    return ContentUpdateRingAssignmentSettingsReqV1ToJSONTyped(json, false);
+}
+
+export function ContentUpdateRingAssignmentSettingsReqV1ToJSONTyped(value?: ContentUpdateRingAssignmentSettingsReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         delay_hours: value["delayHours"],
         id: value["id"],

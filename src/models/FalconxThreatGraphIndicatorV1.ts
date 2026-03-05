@@ -68,10 +68,15 @@ export function FalconxThreatGraphIndicatorV1FromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function FalconxThreatGraphIndicatorV1ToJSON(value?: FalconxThreatGraphIndicatorV1 | null): any {
+export function FalconxThreatGraphIndicatorV1ToJSON(json: any): FalconxThreatGraphIndicatorV1 {
+    return FalconxThreatGraphIndicatorV1ToJSONTyped(json, false);
+}
+
+export function FalconxThreatGraphIndicatorV1ToJSONTyped(value?: FalconxThreatGraphIndicatorV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         customer_prevalence: value["customerPrevalence"],
         global_prevalence: value["globalPrevalence"],

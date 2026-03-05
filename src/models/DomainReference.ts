@@ -56,10 +56,15 @@ export function DomainReferenceFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function DomainReferenceToJSON(value?: DomainReference | null): any {
+export function DomainReferenceToJSON(json: any): DomainReference {
+    return DomainReferenceToJSONTyped(json, false);
+}
+
+export function DomainReferenceToJSONTyped(value?: DomainReference | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Tags: value["tags"],
         URL: value["uRL"],

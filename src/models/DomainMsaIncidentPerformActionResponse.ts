@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainUpdateResults } from "./DomainUpdateResults";
-import { DomainUpdateResultsFromJSON, DomainUpdateResultsFromJSONTyped, DomainUpdateResultsToJSON } from "./DomainUpdateResults";
+import { DomainUpdateResultsFromJSON, DomainUpdateResultsFromJSONTyped, DomainUpdateResultsToJSON, DomainUpdateResultsToJSONTyped } from "./DomainUpdateResults";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainMsaIncidentPerformActionResponseFromJSONTyped(json: any, i
     };
 }
 
-export function DomainMsaIncidentPerformActionResponseToJSON(value?: DomainMsaIncidentPerformActionResponse | null): any {
+export function DomainMsaIncidentPerformActionResponseToJSON(json: any): DomainMsaIncidentPerformActionResponse {
+    return DomainMsaIncidentPerformActionResponseToJSONTyped(json, false);
+}
+
+export function DomainMsaIncidentPerformActionResponseToJSONTyped(value?: DomainMsaIncidentPerformActionResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

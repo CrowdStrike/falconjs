@@ -14,9 +14,14 @@
 
 import { mapValues } from "../runtime";
 import type { DomainAlertDetails } from "./DomainAlertDetails";
-import { DomainAlertDetailsFromJSON, DomainAlertDetailsFromJSONTyped, DomainAlertDetailsToJSON } from "./DomainAlertDetails";
+import { DomainAlertDetailsFromJSON, DomainAlertDetailsFromJSONTyped, DomainAlertDetailsToJSON, DomainAlertDetailsToJSONTyped } from "./DomainAlertDetails";
 import type { PatterndispositionPatternDisposition } from "./PatterndispositionPatternDisposition";
-import { PatterndispositionPatternDispositionFromJSON, PatterndispositionPatternDispositionFromJSONTyped, PatterndispositionPatternDispositionToJSON } from "./PatterndispositionPatternDisposition";
+import {
+    PatterndispositionPatternDispositionFromJSON,
+    PatterndispositionPatternDispositionFromJSONTyped,
+    PatterndispositionPatternDispositionToJSON,
+    PatterndispositionPatternDispositionToJSONTyped,
+} from "./PatterndispositionPatternDisposition";
 
 /**
  *
@@ -258,10 +263,15 @@ export function DomainBehaviorFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function DomainBehaviorToJSON(value?: DomainBehavior | null): any {
+export function DomainBehaviorToJSON(json: any): DomainBehavior {
+    return DomainBehaviorToJSONTyped(json, false);
+}
+
+export function DomainBehaviorToJSONTyped(value?: DomainBehavior | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         aid: value["aid"],
         alert_ids: value["alertIds"],

@@ -70,10 +70,15 @@ export function ApiIndicatorsQueryPagingFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function ApiIndicatorsQueryPagingToJSON(value?: ApiIndicatorsQueryPaging | null): any {
+export function ApiIndicatorsQueryPagingToJSON(json: any): ApiIndicatorsQueryPaging {
+    return ApiIndicatorsQueryPagingToJSONTyped(json, false);
+}
+
+export function ApiIndicatorsQueryPagingToJSONTyped(value?: ApiIndicatorsQueryPaging | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         after: value["after"],
         limit: value["limit"],

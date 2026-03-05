@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { PaginationMetaGetSupportedSaas } from "./PaginationMetaGetSupportedSaas";
-import { PaginationMetaGetSupportedSaasFromJSON, PaginationMetaGetSupportedSaasFromJSONTyped, PaginationMetaGetSupportedSaasToJSON } from "./PaginationMetaGetSupportedSaas";
+import {
+    PaginationMetaGetSupportedSaasFromJSON,
+    PaginationMetaGetSupportedSaasFromJSONTyped,
+    PaginationMetaGetSupportedSaasToJSON,
+    PaginationMetaGetSupportedSaasToJSONTyped,
+} from "./PaginationMetaGetSupportedSaas";
 
 /**
  *
@@ -64,10 +69,15 @@ export function MetaGetSupportedSaasFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function MetaGetSupportedSaasToJSON(value?: MetaGetSupportedSaas | null): any {
+export function MetaGetSupportedSaasToJSON(json: any): MetaGetSupportedSaas {
+    return MetaGetSupportedSaasToJSONTyped(json, false);
+}
+
+export function MetaGetSupportedSaasToJSONTyped(value?: MetaGetSupportedSaas | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: PaginationMetaGetSupportedSaasToJSON(value["pagination"]),
         query_time: value["queryTime"],

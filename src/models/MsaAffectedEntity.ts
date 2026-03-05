@@ -56,10 +56,15 @@ export function MsaAffectedEntityFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function MsaAffectedEntityToJSON(value?: MsaAffectedEntity | null): any {
+export function MsaAffectedEntityToJSON(json: any): MsaAffectedEntity {
+    return MsaAffectedEntityToJSONTyped(json, false);
+}
+
+export function MsaAffectedEntityToJSONTyped(value?: MsaAffectedEntity | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         path: value["path"],

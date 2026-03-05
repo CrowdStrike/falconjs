@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ApiTokenDetailsResourceV1 } from "./ApiTokenDetailsResourceV1";
-import { ApiTokenDetailsResourceV1FromJSON, ApiTokenDetailsResourceV1FromJSONTyped, ApiTokenDetailsResourceV1ToJSON } from "./ApiTokenDetailsResourceV1";
+import { ApiTokenDetailsResourceV1FromJSON, ApiTokenDetailsResourceV1FromJSONTyped, ApiTokenDetailsResourceV1ToJSON, ApiTokenDetailsResourceV1ToJSONTyped } from "./ApiTokenDetailsResourceV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function ApiTokenDetailsResponseV1FromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ApiTokenDetailsResponseV1ToJSON(value?: ApiTokenDetailsResponseV1 | null): any {
+export function ApiTokenDetailsResponseV1ToJSON(json: any): ApiTokenDetailsResponseV1 {
+    return ApiTokenDetailsResponseV1ToJSONTyped(json, false);
+}
+
+export function ApiTokenDetailsResponseV1ToJSONTyped(value?: ApiTokenDetailsResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

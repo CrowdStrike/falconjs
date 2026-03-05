@@ -64,10 +64,15 @@ export function ModelsReplacePolicyRuleGroupLabelFromJSONTyped(json: any, ignore
     };
 }
 
-export function ModelsReplacePolicyRuleGroupLabelToJSON(value?: ModelsReplacePolicyRuleGroupLabel | null): any {
+export function ModelsReplacePolicyRuleGroupLabelToJSON(json: any): ModelsReplacePolicyRuleGroupLabel {
+    return ModelsReplacePolicyRuleGroupLabelToJSONTyped(json, false);
+}
+
+export function ModelsReplacePolicyRuleGroupLabelToJSONTyped(value?: ModelsReplacePolicyRuleGroupLabel | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         key: value["key"],
         operator: value["operator"],

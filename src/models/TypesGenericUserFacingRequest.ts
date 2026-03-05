@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesResultsFilter } from "./TypesResultsFilter";
-import { TypesResultsFilterFromJSON, TypesResultsFilterFromJSONTyped, TypesResultsFilterToJSON } from "./TypesResultsFilter";
+import { TypesResultsFilterFromJSON, TypesResultsFilterFromJSONTyped, TypesResultsFilterToJSON, TypesResultsFilterToJSONTyped } from "./TypesResultsFilter";
 
 /**
  *
@@ -64,10 +64,15 @@ export function TypesGenericUserFacingRequestFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function TypesGenericUserFacingRequestToJSON(value?: TypesGenericUserFacingRequest | null): any {
+export function TypesGenericUserFacingRequestToJSON(json: any): TypesGenericUserFacingRequest {
+    return TypesGenericUserFacingRequestToJSONTyped(json, false);
+}
+
+export function TypesGenericUserFacingRequestToJSONTyped(value?: TypesGenericUserFacingRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         filter: TypesResultsFilterToJSON(value["filter"]),
         optionalTime: value["optionalTime"],

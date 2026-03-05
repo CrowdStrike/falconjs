@@ -61,10 +61,15 @@ export function DtoProjectFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function DtoProjectToJSON(value?: DtoProject | null): any {
+export function DtoProjectToJSON(json: any): DtoProject {
+    return DtoProjectToJSONTyped(json, false);
+}
+
+export function DtoProjectToJSONTyped(value?: DtoProject | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         project_id: value["projectId"],
         project_name: value["projectName"],

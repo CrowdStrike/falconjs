@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ApimodelsControl } from "./ApimodelsControl";
-import { ApimodelsControlFromJSON, ApimodelsControlFromJSONTyped, ApimodelsControlToJSON } from "./ApimodelsControl";
+import { ApimodelsControlFromJSON, ApimodelsControlFromJSONTyped, ApimodelsControlToJSON, ApimodelsControlToJSONTyped } from "./ApimodelsControl";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function CommonGetComplianceControlsResponseFromJSONTyped(json: any, igno
     };
 }
 
-export function CommonGetComplianceControlsResponseToJSON(value?: CommonGetComplianceControlsResponse | null): any {
+export function CommonGetComplianceControlsResponseToJSON(json: any): CommonGetComplianceControlsResponse {
+    return CommonGetComplianceControlsResponseToJSONTyped(json, false);
+}
+
+export function CommonGetComplianceControlsResponseToJSONTyped(value?: CommonGetComplianceControlsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

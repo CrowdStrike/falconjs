@@ -54,10 +54,15 @@ export function DomainDiscoverAPIDiskSizeFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DomainDiscoverAPIDiskSizeToJSON(value?: DomainDiscoverAPIDiskSize | null): any {
+export function DomainDiscoverAPIDiskSizeToJSON(json: any): DomainDiscoverAPIDiskSize {
+    return DomainDiscoverAPIDiskSizeToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPIDiskSizeToJSONTyped(value?: DomainDiscoverAPIDiskSize | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         disk_name: value["diskName"],
         disk_space: value["diskSpace"],

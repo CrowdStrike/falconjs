@@ -48,10 +48,15 @@ export function MsaspecWritesFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function MsaspecWritesToJSON(value?: MsaspecWrites | null): any {
+export function MsaspecWritesToJSON(json: any): MsaspecWrites {
+    return MsaspecWritesToJSONTyped(json, false);
+}
+
+export function MsaspecWritesToJSONTyped(value?: MsaspecWrites | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources_affected: value["resourcesAffected"],
     };

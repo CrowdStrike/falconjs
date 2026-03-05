@@ -64,10 +64,15 @@ export function MsaHitFromJSONTyped(json: any, ignoreDiscriminator: boolean): Ms
     };
 }
 
-export function MsaHitToJSON(value?: MsaHit | null): any {
+export function MsaHitToJSON(json: any): MsaHit {
+    return MsaHitToJSONTyped(json, false);
+}
+
+export function MsaHitToJSONTyped(value?: MsaHit | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ID: value["iD"],
         Score: value["score"],

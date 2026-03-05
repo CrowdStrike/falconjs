@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsAPIPackageVulnerability } from "./ModelsAPIPackageVulnerability";
-import { ModelsAPIPackageVulnerabilityFromJSON, ModelsAPIPackageVulnerabilityFromJSONTyped, ModelsAPIPackageVulnerabilityToJSON } from "./ModelsAPIPackageVulnerability";
+import {
+    ModelsAPIPackageVulnerabilityFromJSON,
+    ModelsAPIPackageVulnerabilityFromJSONTyped,
+    ModelsAPIPackageVulnerabilityToJSON,
+    ModelsAPIPackageVulnerabilityToJSONTyped,
+} from "./ModelsAPIPackageVulnerability";
 
 /**
  *
@@ -115,10 +120,15 @@ export function ModelsAPIPackageCombinedFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function ModelsAPIPackageCombinedToJSON(value?: ModelsAPIPackageCombined | null): any {
+export function ModelsAPIPackageCombinedToJSON(json: any): ModelsAPIPackageCombined {
+    return ModelsAPIPackageCombinedToJSONTyped(json, false);
+}
+
+export function ModelsAPIPackageCombinedToJSONTyped(value?: ModelsAPIPackageCombined | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ai_related: value["aiRelated"],
         all_images: value["allImages"],

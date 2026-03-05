@@ -14,23 +14,24 @@
 
 import { mapValues } from "../runtime";
 import type { DomainCPSRating } from "./DomainCPSRating";
-import { DomainCPSRatingFromJSON, DomainCPSRatingFromJSONTyped, DomainCPSRatingToJSON } from "./DomainCPSRating";
+import { DomainCPSRatingFromJSON, DomainCPSRatingFromJSONTyped, DomainCPSRatingToJSON, DomainCPSRatingToJSONTyped } from "./DomainCPSRating";
 import type { DomainCVEExploit } from "./DomainCVEExploit";
-import { DomainCVEExploitFromJSON, DomainCVEExploitFromJSONTyped, DomainCVEExploitToJSON } from "./DomainCVEExploit";
+import { DomainCVEExploitFromJSON, DomainCVEExploitFromJSONTyped, DomainCVEExploitToJSON, DomainCVEExploitToJSONTyped } from "./DomainCVEExploit";
 import type { DomainReference } from "./DomainReference";
-import { DomainReferenceFromJSON, DomainReferenceFromJSONTyped, DomainReferenceToJSON } from "./DomainReference";
+import { DomainReferenceFromJSON, DomainReferenceFromJSONTyped, DomainReferenceToJSON, DomainReferenceToJSONTyped } from "./DomainReference";
 import type { DomainCISAKnownExploitedVulnerabilitiesInfo } from "./DomainCISAKnownExploitedVulnerabilitiesInfo";
 import {
     DomainCISAKnownExploitedVulnerabilitiesInfoFromJSON,
     DomainCISAKnownExploitedVulnerabilitiesInfoFromJSONTyped,
     DomainCISAKnownExploitedVulnerabilitiesInfoToJSON,
+    DomainCISAKnownExploitedVulnerabilitiesInfoToJSONTyped,
 } from "./DomainCISAKnownExploitedVulnerabilitiesInfo";
 import type { DomainCVSSv3 } from "./DomainCVSSv3";
-import { DomainCVSSv3FromJSON, DomainCVSSv3FromJSONTyped, DomainCVSSv3ToJSON } from "./DomainCVSSv3";
+import { DomainCVSSv3FromJSON, DomainCVSSv3FromJSONTyped, DomainCVSSv3ToJSON, DomainCVSSv3ToJSONTyped } from "./DomainCVSSv3";
 import type { DomainContentPackage } from "./DomainContentPackage";
-import { DomainContentPackageFromJSON, DomainContentPackageFromJSONTyped, DomainContentPackageToJSON } from "./DomainContentPackage";
+import { DomainContentPackageFromJSON, DomainContentPackageFromJSONTyped, DomainContentPackageToJSON, DomainContentPackageToJSONTyped } from "./DomainContentPackage";
 import type { DomainCVSSv2 } from "./DomainCVSSv2";
-import { DomainCVSSv2FromJSON, DomainCVSSv2FromJSONTyped, DomainCVSSv2ToJSON } from "./DomainCVSSv2";
+import { DomainCVSSv2FromJSON, DomainCVSSv2FromJSONTyped, DomainCVSSv2ToJSON, DomainCVSSv2ToJSONTyped } from "./DomainCVSSv2";
 
 /**
  *
@@ -251,10 +252,15 @@ export function DomainCVEFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     };
 }
 
-export function DomainCVEToJSON(value?: DomainCVE | null): any {
+export function DomainCVEToJSON(json: any): DomainCVE {
+    return DomainCVEToJSONTyped(json, false);
+}
+
+export function DomainCVEToJSONTyped(value?: DomainCVE | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         actors: value["actors"],
         additional_info: value["additionalInfo"],

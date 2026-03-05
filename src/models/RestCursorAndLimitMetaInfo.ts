@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { MsaspecWrites } from "./MsaspecWrites";
-import { MsaspecWritesFromJSON, MsaspecWritesFromJSONTyped, MsaspecWritesToJSON } from "./MsaspecWrites";
+import { MsaspecWritesFromJSON, MsaspecWritesFromJSONTyped, MsaspecWritesToJSON, MsaspecWritesToJSONTyped } from "./MsaspecWrites";
 import type { RestPaging } from "./RestPaging";
-import { RestPagingFromJSON, RestPagingFromJSONTyped, RestPagingToJSON } from "./RestPaging";
+import { RestPagingFromJSON, RestPagingFromJSONTyped, RestPagingToJSON, RestPagingToJSONTyped } from "./RestPaging";
 
 /**
  *
@@ -96,10 +96,15 @@ export function RestCursorAndLimitMetaInfoFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function RestCursorAndLimitMetaInfoToJSON(value?: RestCursorAndLimitMetaInfo | null): any {
+export function RestCursorAndLimitMetaInfoToJSON(json: any): RestCursorAndLimitMetaInfo {
+    return RestCursorAndLimitMetaInfoToJSONTyped(json, false);
+}
+
+export function RestCursorAndLimitMetaInfoToJSONTyped(value?: RestCursorAndLimitMetaInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         next: value["next"],
         pagination: RestPagingToJSON(value["pagination"]),

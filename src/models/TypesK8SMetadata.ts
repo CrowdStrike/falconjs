@@ -61,10 +61,15 @@ export function TypesK8SMetadataFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function TypesK8SMetadataToJSON(value?: TypesK8SMetadata | null): any {
+export function TypesK8SMetadataToJSON(json: any): TypesK8SMetadata {
+    return TypesK8SMetadataToJSONTyped(json, false);
+}
+
+export function TypesK8SMetadataToJSONTyped(value?: TypesK8SMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         container: value["container"],
         namespace: value["namespace"],

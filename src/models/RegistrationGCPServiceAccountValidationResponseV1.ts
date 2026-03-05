@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 import type { RegistrationGCPServiceAccountExtV1 } from "./RegistrationGCPServiceAccountExtV1";
-import { RegistrationGCPServiceAccountExtV1FromJSON, RegistrationGCPServiceAccountExtV1FromJSONTyped, RegistrationGCPServiceAccountExtV1ToJSON } from "./RegistrationGCPServiceAccountExtV1";
+import {
+    RegistrationGCPServiceAccountExtV1FromJSON,
+    RegistrationGCPServiceAccountExtV1FromJSONTyped,
+    RegistrationGCPServiceAccountExtV1ToJSON,
+    RegistrationGCPServiceAccountExtV1ToJSONTyped,
+} from "./RegistrationGCPServiceAccountExtV1";
 
 /**
  *
@@ -70,10 +75,15 @@ export function RegistrationGCPServiceAccountValidationResponseV1FromJSONTyped(j
     };
 }
 
-export function RegistrationGCPServiceAccountValidationResponseV1ToJSON(value?: RegistrationGCPServiceAccountValidationResponseV1 | null): any {
+export function RegistrationGCPServiceAccountValidationResponseV1ToJSON(json: any): RegistrationGCPServiceAccountValidationResponseV1 {
+    return RegistrationGCPServiceAccountValidationResponseV1ToJSONTyped(json, false);
+}
+
+export function RegistrationGCPServiceAccountValidationResponseV1ToJSONTyped(value?: RegistrationGCPServiceAccountValidationResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

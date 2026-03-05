@@ -118,10 +118,15 @@ export function DomainGPAFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     };
 }
 
-export function DomainGPAToJSON(value?: DomainGPA | null): any {
+export function DomainGPAToJSON(json: any): DomainGPA {
+    return DomainGPAToJSONTyped(json, false);
+}
+
+export function DomainGPAToJSONTyped(value?: DomainGPA | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         algorithm_header_name: value["algorithmHeaderName"],
         encoding: value["encoding"],

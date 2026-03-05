@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { RiskSuppression } from "./RiskSuppression";
-import { RiskSuppressionFromJSON, RiskSuppressionFromJSONTyped, RiskSuppressionToJSON } from "./RiskSuppression";
+import { RiskSuppressionFromJSON, RiskSuppressionFromJSONTyped, RiskSuppressionToJSON, RiskSuppressionToJSONTyped } from "./RiskSuppression";
 import type { RiskComments } from "./RiskComments";
-import { RiskCommentsFromJSON, RiskCommentsFromJSONTyped, RiskCommentsToJSON } from "./RiskComments";
+import { RiskCommentsFromJSON, RiskCommentsFromJSONTyped, RiskCommentsToJSON, RiskCommentsToJSONTyped } from "./RiskComments";
 
 /**
  *
@@ -270,10 +270,15 @@ export function RisksUnionCloudRiskFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function RisksUnionCloudRiskToJSON(value?: RisksUnionCloudRisk | null): any {
+export function RisksUnionCloudRiskToJSON(json: any): RisksUnionCloudRisk {
+    return RisksUnionCloudRiskToJSONTyped(json, false);
+}
+
+export function RisksUnionCloudRiskToJSONTyped(value?: RisksUnionCloudRisk | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         account_name: value["accountName"],
@@ -291,9 +296,9 @@ export function RisksUnionCloudRiskToJSON(value?: RisksUnionCloudRisk | null): a
         first_seen: value["firstSeen"].toISOString(),
         id: value["id"],
         insight_categories: value["insightCategories"],
-        last_seen: value["lastSeen"] == null ? undefined : value["lastSeen"].toISOString(),
+        last_seen: value["lastSeen"] == null ? value["lastSeen"] : value["lastSeen"].toISOString(),
         provider: value["provider"],
-        resolved_at: value["resolvedAt"] == null ? undefined : value["resolvedAt"].toISOString(),
+        resolved_at: value["resolvedAt"] == null ? value["resolvedAt"] : value["resolvedAt"].toISOString(),
         risk_factors: value["riskFactors"],
         rule_description: value["ruleDescription"],
         rule_id: value["ruleId"],

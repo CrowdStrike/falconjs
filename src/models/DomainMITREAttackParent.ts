@@ -61,10 +61,15 @@ export function DomainMITREAttackParentFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function DomainMITREAttackParentToJSON(value?: DomainMITREAttackParent | null): any {
+export function DomainMITREAttackParentToJSON(json: any): DomainMITREAttackParent {
+    return DomainMITREAttackParentToJSONTyped(json, false);
+}
+
+export function DomainMITREAttackParentToJSONTyped(value?: DomainMITREAttackParent | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         attack_id: value["attackId"],
         attack_id_wiki: value["attackIdWiki"],

@@ -68,10 +68,15 @@ export function TypesArtifactFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function TypesArtifactToJSON(value?: TypesArtifact | null): any {
+export function TypesArtifactToJSON(json: any): TypesArtifact {
+    return TypesArtifactToJSONTyped(json, false);
+}
+
+export function TypesArtifactToJSONTyped(value?: TypesArtifact | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         fullPath: value["fullPath"],
         hash: value["hash"],

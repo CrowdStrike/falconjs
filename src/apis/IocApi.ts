@@ -160,9 +160,9 @@ export interface IocApiSeverityQueryV1Request {
  */
 export class IocApi extends runtime.BaseAPI {
     /**
-     * Get Actions by ids.
+     * Creates request options for actionGetV1 without sending the request
      */
-    async actionGetV1Raw(requestParameters: IocApiActionGetV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiActionRespV1>> {
+    async actionGetV1RequestOpts(requestParameters: IocApiActionGetV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -176,15 +176,22 @@ export class IocApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/iocs/entities/actions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/iocs/entities/actions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get Actions by ids.
+     */
+    async actionGetV1Raw(requestParameters: IocApiActionGetV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiActionRespV1>> {
+        const requestOptions = await this.actionGetV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiActionRespV1FromJSON(jsonValue));
     }
@@ -198,9 +205,9 @@ export class IocApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query Actions.
+     * Creates request options for actionQueryV1 without sending the request
      */
-    async actionQueryV1Raw(requestParameters: IocApiActionQueryV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorQueryRespV1>> {
+    async actionQueryV1RequestOpts(requestParameters: IocApiActionQueryV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -218,15 +225,22 @@ export class IocApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/iocs/queries/actions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/iocs/queries/actions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query Actions.
+     */
+    async actionQueryV1Raw(requestParameters: IocApiActionQueryV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorQueryRespV1>> {
+        const requestOptions = await this.actionQueryV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiIndicatorQueryRespV1FromJSON(jsonValue));
     }
@@ -240,9 +254,9 @@ export class IocApi extends runtime.BaseAPI {
     }
 
     /**
-     * Launch an indicators report creation job
+     * Creates request options for getIndicatorsReport without sending the request
      */
-    async getIndicatorsReportRaw(requestParameters: IocApiGetIndicatorsReportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaEntitiesResponse>> {
+    async getIndicatorsReportRequestOpts(requestParameters: IocApiGetIndicatorsReportRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getIndicatorsReport().');
         }
@@ -258,16 +272,23 @@ export class IocApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/iocs/entities/indicators-reports/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiIndicatorsReportRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/iocs/entities/indicators-reports/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiIndicatorsReportRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Launch an indicators report creation job
+     */
+    async getIndicatorsReportRaw(requestParameters: IocApiGetIndicatorsReportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaEntitiesResponse>> {
+        const requestOptions = await this.getIndicatorsReportRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaEntitiesResponseFromJSON(jsonValue));
     }
@@ -281,12 +302,9 @@ export class IocApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Indicators aggregates as specified via json in the request body.
+     * Creates request options for indicatorAggregateV1 without sending the request
      */
-    async indicatorAggregateV1Raw(
-        requestParameters: IocApiIndicatorAggregateV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+    async indicatorAggregateV1RequestOpts(requestParameters: IocApiIndicatorAggregateV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling indicatorAggregateV1().');
         }
@@ -310,16 +328,26 @@ export class IocApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/iocs/aggregates/indicators/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaAggregateQueryRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/iocs/aggregates/indicators/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaAggregateQueryRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Get Indicators aggregates as specified via json in the request body.
+     */
+    async indicatorAggregateV1Raw(
+        requestParameters: IocApiIndicatorAggregateV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        const requestOptions = await this.indicatorAggregateV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
     }
@@ -333,9 +361,9 @@ export class IocApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Combined for Indicators.
+     * Creates request options for indicatorCombinedV1 without sending the request
      */
-    async indicatorCombinedV1Raw(requestParameters: IocApiIndicatorCombinedV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorRespV1>> {
+    async indicatorCombinedV1RequestOpts(requestParameters: IocApiIndicatorCombinedV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -369,15 +397,22 @@ export class IocApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/iocs/combined/indicator/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/iocs/combined/indicator/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get Combined for Indicators.
+     */
+    async indicatorCombinedV1Raw(requestParameters: IocApiIndicatorCombinedV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorRespV1>> {
+        const requestOptions = await this.indicatorCombinedV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiIndicatorRespV1FromJSON(jsonValue));
     }
@@ -399,9 +434,9 @@ export class IocApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create Indicators.
+     * Creates request options for indicatorCreateV1 without sending the request
      */
-    async indicatorCreateV1Raw(requestParameters: IocApiIndicatorCreateV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorRespV1>> {
+    async indicatorCreateV1RequestOpts(requestParameters: IocApiIndicatorCreateV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling indicatorCreateV1().');
         }
@@ -425,16 +460,23 @@ export class IocApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/iocs/entities/indicators/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiIndicatorCreateReqsV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/iocs/entities/indicators/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiIndicatorCreateReqsV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create Indicators.
+     */
+    async indicatorCreateV1Raw(requestParameters: IocApiIndicatorCreateV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorRespV1>> {
+        const requestOptions = await this.indicatorCreateV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiIndicatorRespV1FromJSON(jsonValue));
     }
@@ -448,9 +490,9 @@ export class IocApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete Indicators by ids.
+     * Creates request options for indicatorDeleteV1 without sending the request
      */
-    async indicatorDeleteV1Raw(requestParameters: IocApiIndicatorDeleteV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorQueryRespV1>> {
+    async indicatorDeleteV1RequestOpts(requestParameters: IocApiIndicatorDeleteV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -476,15 +518,22 @@ export class IocApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/iocs/entities/indicators/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/iocs/entities/indicators/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete Indicators by ids.
+     */
+    async indicatorDeleteV1Raw(requestParameters: IocApiIndicatorDeleteV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorQueryRespV1>> {
+        const requestOptions = await this.indicatorDeleteV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiIndicatorQueryRespV1FromJSON(jsonValue));
     }
@@ -504,12 +553,9 @@ export class IocApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the number of devices the indicator has run on
+     * Creates request options for indicatorGetDeviceCountV1 without sending the request
      */
-    async indicatorGetDeviceCountV1Raw(
-        requestParameters: IocApiIndicatorGetDeviceCountV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiDeviceCountRespV1>> {
+    async indicatorGetDeviceCountV1RequestOpts(requestParameters: IocApiIndicatorGetDeviceCountV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["type"] == null) {
             throw new runtime.RequiredError("type", 'Required parameter "type" was null or undefined when calling indicatorGetDeviceCountV1().');
         }
@@ -535,15 +581,25 @@ export class IocApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/iocs/aggregates/indicators/device-count/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/iocs/aggregates/indicators/device-count/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get the number of devices the indicator has run on
+     */
+    async indicatorGetDeviceCountV1Raw(
+        requestParameters: IocApiIndicatorGetDeviceCountV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiDeviceCountRespV1>> {
+        const requestOptions = await this.indicatorGetDeviceCountV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiDeviceCountRespV1FromJSON(jsonValue));
     }
@@ -557,12 +613,9 @@ export class IocApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the IDs of devices the indicator has run on
+     * Creates request options for indicatorGetDevicesRanOnV1 without sending the request
      */
-    async indicatorGetDevicesRanOnV1Raw(
-        requestParameters: IocApiIndicatorGetDevicesRanOnV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiDevicesRanOnRespV1>> {
+    async indicatorGetDevicesRanOnV1RequestOpts(requestParameters: IocApiIndicatorGetDevicesRanOnV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["type"] == null) {
             throw new runtime.RequiredError("type", 'Required parameter "type" was null or undefined when calling indicatorGetDevicesRanOnV1().');
         }
@@ -596,15 +649,25 @@ export class IocApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/iocs/queries/indicators/devices/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/iocs/queries/indicators/devices/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get the IDs of devices the indicator has run on
+     */
+    async indicatorGetDevicesRanOnV1Raw(
+        requestParameters: IocApiIndicatorGetDevicesRanOnV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiDevicesRanOnRespV1>> {
+        const requestOptions = await this.indicatorGetDevicesRanOnV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiDevicesRanOnRespV1FromJSON(jsonValue));
     }
@@ -618,12 +681,9 @@ export class IocApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the number of processes the indicator has run on
+     * Creates request options for indicatorGetProcessesRanOnV1 without sending the request
      */
-    async indicatorGetProcessesRanOnV1Raw(
-        requestParameters: IocApiIndicatorGetProcessesRanOnV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiProcessesRanOnRespV1>> {
+    async indicatorGetProcessesRanOnV1RequestOpts(requestParameters: IocApiIndicatorGetProcessesRanOnV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["type"] == null) {
             throw new runtime.RequiredError("type", 'Required parameter "type" was null or undefined when calling indicatorGetProcessesRanOnV1().');
         }
@@ -665,15 +725,25 @@ export class IocApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/iocs/queries/indicators/processes/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/iocs/queries/indicators/processes/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get the number of processes the indicator has run on
+     */
+    async indicatorGetProcessesRanOnV1Raw(
+        requestParameters: IocApiIndicatorGetProcessesRanOnV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiProcessesRanOnRespV1>> {
+        const requestOptions = await this.indicatorGetProcessesRanOnV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiProcessesRanOnRespV1FromJSON(jsonValue));
     }
@@ -694,9 +764,9 @@ export class IocApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Indicators by ids.
+     * Creates request options for indicatorGetV1 without sending the request
      */
-    async indicatorGetV1Raw(requestParameters: IocApiIndicatorGetV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorRespV1>> {
+    async indicatorGetV1RequestOpts(requestParameters: IocApiIndicatorGetV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling indicatorGetV1().');
         }
@@ -714,15 +784,22 @@ export class IocApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/iocs/entities/indicators/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/iocs/entities/indicators/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get Indicators by ids.
+     */
+    async indicatorGetV1Raw(requestParameters: IocApiIndicatorGetV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorRespV1>> {
+        const requestOptions = await this.indicatorGetV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiIndicatorRespV1FromJSON(jsonValue));
     }
@@ -736,9 +813,9 @@ export class IocApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for Indicators.
+     * Creates request options for indicatorSearchV1 without sending the request
      */
-    async indicatorSearchV1Raw(requestParameters: IocApiIndicatorSearchV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorQueryRespV1>> {
+    async indicatorSearchV1RequestOpts(requestParameters: IocApiIndicatorSearchV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -772,15 +849,22 @@ export class IocApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/iocs/queries/indicators/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/iocs/queries/indicators/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for Indicators.
+     */
+    async indicatorSearchV1Raw(requestParameters: IocApiIndicatorSearchV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorQueryRespV1>> {
+        const requestOptions = await this.indicatorSearchV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiIndicatorQueryRespV1FromJSON(jsonValue));
     }
@@ -802,9 +886,9 @@ export class IocApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update Indicators.
+     * Creates request options for indicatorUpdateV1 without sending the request
      */
-    async indicatorUpdateV1Raw(requestParameters: IocApiIndicatorUpdateV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorRespV1>> {
+    async indicatorUpdateV1RequestOpts(requestParameters: IocApiIndicatorUpdateV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling indicatorUpdateV1().');
         }
@@ -828,16 +912,23 @@ export class IocApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/iocs/entities/indicators/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiIndicatorUpdateReqsV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/iocs/entities/indicators/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiIndicatorUpdateReqsV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update Indicators.
+     */
+    async indicatorUpdateV1Raw(requestParameters: IocApiIndicatorUpdateV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorRespV1>> {
+        const requestOptions = await this.indicatorUpdateV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiIndicatorRespV1FromJSON(jsonValue));
     }
@@ -851,9 +942,9 @@ export class IocApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query IOC Types.
+     * Creates request options for iocTypeQueryV1 without sending the request
      */
-    async iocTypeQueryV1Raw(requestParameters: IocApiIocTypeQueryV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorQueryRespV1>> {
+    async iocTypeQueryV1RequestOpts(requestParameters: IocApiIocTypeQueryV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -871,15 +962,22 @@ export class IocApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/iocs/queries/ioc-types/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/iocs/queries/ioc-types/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query IOC Types.
+     */
+    async iocTypeQueryV1Raw(requestParameters: IocApiIocTypeQueryV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorQueryRespV1>> {
+        const requestOptions = await this.iocTypeQueryV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiIndicatorQueryRespV1FromJSON(jsonValue));
     }
@@ -893,9 +991,9 @@ export class IocApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query Platforms.
+     * Creates request options for platformQueryV1 without sending the request
      */
-    async platformQueryV1Raw(requestParameters: IocApiPlatformQueryV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorQueryRespV1>> {
+    async platformQueryV1RequestOpts(requestParameters: IocApiPlatformQueryV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -913,15 +1011,22 @@ export class IocApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/iocs/queries/platforms/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/iocs/queries/platforms/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query Platforms.
+     */
+    async platformQueryV1Raw(requestParameters: IocApiPlatformQueryV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorQueryRespV1>> {
+        const requestOptions = await this.platformQueryV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiIndicatorQueryRespV1FromJSON(jsonValue));
     }
@@ -935,9 +1040,9 @@ export class IocApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query Severities.
+     * Creates request options for severityQueryV1 without sending the request
      */
-    async severityQueryV1Raw(requestParameters: IocApiSeverityQueryV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorQueryRespV1>> {
+    async severityQueryV1RequestOpts(requestParameters: IocApiSeverityQueryV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -955,15 +1060,22 @@ export class IocApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/iocs/queries/severities/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/iocs/queries/severities/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query Severities.
+     */
+    async severityQueryV1Raw(requestParameters: IocApiSeverityQueryV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiIndicatorQueryRespV1>> {
+        const requestOptions = await this.severityQueryV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiIndicatorQueryRespV1FromJSON(jsonValue));
     }

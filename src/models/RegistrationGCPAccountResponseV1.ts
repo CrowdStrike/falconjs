@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { DomainGCPAccountV1 } from "./DomainGCPAccountV1";
-import { DomainGCPAccountV1FromJSON, DomainGCPAccountV1FromJSONTyped, DomainGCPAccountV1ToJSON } from "./DomainGCPAccountV1";
+import { DomainGCPAccountV1FromJSON, DomainGCPAccountV1FromJSONTyped, DomainGCPAccountV1ToJSON, DomainGCPAccountV1ToJSONTyped } from "./DomainGCPAccountV1";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function RegistrationGCPAccountResponseV1FromJSONTyped(json: any, ignoreD
     };
 }
 
-export function RegistrationGCPAccountResponseV1ToJSON(value?: RegistrationGCPAccountResponseV1 | null): any {
+export function RegistrationGCPAccountResponseV1ToJSON(json: any): RegistrationGCPAccountResponseV1 {
+    return RegistrationGCPAccountResponseV1ToJSONTyped(json, false);
+}
+
+export function RegistrationGCPAccountResponseV1ToJSONTyped(value?: RegistrationGCPAccountResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

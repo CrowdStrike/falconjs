@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ContentUpdateUpdatePolicyReqV1 } from "./ContentUpdateUpdatePolicyReqV1";
-import { ContentUpdateUpdatePolicyReqV1FromJSON, ContentUpdateUpdatePolicyReqV1FromJSONTyped, ContentUpdateUpdatePolicyReqV1ToJSON } from "./ContentUpdateUpdatePolicyReqV1";
+import {
+    ContentUpdateUpdatePolicyReqV1FromJSON,
+    ContentUpdateUpdatePolicyReqV1FromJSONTyped,
+    ContentUpdateUpdatePolicyReqV1ToJSON,
+    ContentUpdateUpdatePolicyReqV1ToJSONTyped,
+} from "./ContentUpdateUpdatePolicyReqV1";
 
 /**
  *
@@ -51,10 +56,15 @@ export function ContentUpdateUpdatePoliciesReqV1FromJSONTyped(json: any, ignoreD
     };
 }
 
-export function ContentUpdateUpdatePoliciesReqV1ToJSON(value?: ContentUpdateUpdatePoliciesReqV1 | null): any {
+export function ContentUpdateUpdatePoliciesReqV1ToJSON(json: any): ContentUpdateUpdatePoliciesReqV1 {
+    return ContentUpdateUpdatePoliciesReqV1ToJSONTyped(json, false);
+}
+
+export function ContentUpdateUpdatePoliciesReqV1ToJSONTyped(value?: ContentUpdateUpdatePoliciesReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(ContentUpdateUpdatePolicyReqV1ToJSON),
     };

@@ -64,10 +64,15 @@ export function ResourcesBenchmarkFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function ResourcesBenchmarkToJSON(value?: ResourcesBenchmark | null): any {
+export function ResourcesBenchmarkToJSON(json: any): ResourcesBenchmark {
+    return ResourcesBenchmarkToJSONTyped(json, false);
+}
+
+export function ResourcesBenchmarkToJSONTyped(value?: ResourcesBenchmark | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

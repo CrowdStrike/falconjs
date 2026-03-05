@@ -56,10 +56,15 @@ export function ModelsAPIFilterLabelFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function ModelsAPIFilterLabelToJSON(value?: ModelsAPIFilterLabel | null): any {
+export function ModelsAPIFilterLabelToJSON(json: any): ModelsAPIFilterLabel {
+    return ModelsAPIFilterLabelToJSONTyped(json, false);
+}
+
+export function ModelsAPIFilterLabelToJSONTyped(value?: ModelsAPIFilterLabel | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count: value["count"],
         label: value["label"],

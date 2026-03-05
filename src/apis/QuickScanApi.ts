@@ -51,9 +51,9 @@ export interface QuickScanApiScanSamplesRequest {
  */
 export class QuickScanApi extends runtime.BaseAPI {
     /**
-     * Check the status of a volume scan. Time required for analysis increases with the number of samples in a volume but usually it should take less than 1 minute
+     * Creates request options for getScans without sending the request
      */
-    async getScansRaw(requestParameters: QuickScanApiGetScansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MlscannerapiScanV1Response>> {
+    async getScansRequestOpts(requestParameters: QuickScanApiGetScansRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getScans().');
         }
@@ -71,15 +71,22 @@ export class QuickScanApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["quick-scan:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/scanner/entities/scans/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/scanner/entities/scans/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Check the status of a volume scan. Time required for analysis increases with the number of samples in a volume but usually it should take less than 1 minute
+     */
+    async getScansRaw(requestParameters: QuickScanApiGetScansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MlscannerapiScanV1Response>> {
+        const requestOptions = await this.getScansRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MlscannerapiScanV1ResponseFromJSON(jsonValue));
     }
@@ -93,9 +100,9 @@ export class QuickScanApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get scans aggregations as specified via json in request body.
+     * Creates request options for getScansAggregates without sending the request
      */
-    async getScansAggregatesRaw(requestParameters: QuickScanApiGetScansAggregatesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async getScansAggregatesRequestOpts(requestParameters: QuickScanApiGetScansAggregatesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getScansAggregates().');
         }
@@ -111,16 +118,23 @@ export class QuickScanApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["quick-scan:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/scanner/aggregates/scans/GET/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaAggregateQueryRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/scanner/aggregates/scans/GET/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaAggregateQueryRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Get scans aggregations as specified via json in request body.
+     */
+    async getScansAggregatesRaw(requestParameters: QuickScanApiGetScansAggregatesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.getScansAggregatesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -133,12 +147,9 @@ export class QuickScanApi extends runtime.BaseAPI {
     }
 
     /**
-     * Find IDs for submitted scans by providing an FQL filter and paging details. Returns a set of volume IDs that match your criteria.
+     * Creates request options for querySubmissionsMixin0 without sending the request
      */
-    async querySubmissionsMixin0Raw(
-        requestParameters: QuickScanApiQuerySubmissionsMixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MlscannerapiQueryResponse>> {
+    async querySubmissionsMixin0RequestOpts(requestParameters: QuickScanApiQuerySubmissionsMixin0Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -164,15 +175,25 @@ export class QuickScanApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["quick-scan:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/scanner/queries/scans/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/scanner/queries/scans/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Find IDs for submitted scans by providing an FQL filter and paging details. Returns a set of volume IDs that match your criteria.
+     */
+    async querySubmissionsMixin0Raw(
+        requestParameters: QuickScanApiQuerySubmissionsMixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MlscannerapiQueryResponse>> {
+        const requestOptions = await this.querySubmissionsMixin0RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MlscannerapiQueryResponseFromJSON(jsonValue));
     }
@@ -186,9 +207,9 @@ export class QuickScanApi extends runtime.BaseAPI {
     }
 
     /**
-     * Submit a volume of files for ml scanning. Time required for analysis increases with the number of samples in a volume but usually it should take less than 1 minute
+     * Creates request options for scanSamples without sending the request
      */
-    async scanSamplesRaw(requestParameters: QuickScanApiScanSamplesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MlscannerapiQueryResponse>> {
+    async scanSamplesRequestOpts(requestParameters: QuickScanApiScanSamplesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling scanSamples().');
         }
@@ -204,16 +225,23 @@ export class QuickScanApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["quick-scan:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/scanner/entities/scans/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MlscannerapiSamplesScanParametersToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/scanner/entities/scans/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MlscannerapiSamplesScanParametersToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Submit a volume of files for ml scanning. Time required for analysis increases with the number of samples in a volume but usually it should take less than 1 minute
+     */
+    async scanSamplesRaw(requestParameters: QuickScanApiScanSamplesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MlscannerapiQueryResponse>> {
+        const requestOptions = await this.scanSamplesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MlscannerapiQueryResponseFromJSON(jsonValue));
     }

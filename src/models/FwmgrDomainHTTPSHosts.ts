@@ -48,10 +48,15 @@ export function FwmgrDomainHTTPSHostsFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function FwmgrDomainHTTPSHostsToJSON(value?: FwmgrDomainHTTPSHosts | null): any {
+export function FwmgrDomainHTTPSHostsToJSON(json: any): FwmgrDomainHTTPSHosts {
+    return FwmgrDomainHTTPSHostsToJSONTyped(json, false);
+}
+
+export function FwmgrDomainHTTPSHostsToJSONTyped(value?: FwmgrDomainHTTPSHosts | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         hostnames: value["hostnames"],
     };

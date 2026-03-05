@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainFieldValidation } from "./DomainFieldValidation";
-import { DomainFieldValidationFromJSON, DomainFieldValidationFromJSONTyped, DomainFieldValidationToJSON } from "./DomainFieldValidation";
+import { DomainFieldValidationFromJSON, DomainFieldValidationFromJSONTyped, DomainFieldValidationToJSON, DomainFieldValidationToJSONTyped } from "./DomainFieldValidation";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function ApiValidationResponseV1FromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function ApiValidationResponseV1ToJSON(value?: ApiValidationResponseV1 | null): any {
+export function ApiValidationResponseV1ToJSON(json: any): ApiValidationResponseV1 {
+    return ApiValidationResponseV1ToJSONTyped(json, false);
+}
+
+export function ApiValidationResponseV1ToJSONTyped(value?: ApiValidationResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

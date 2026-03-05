@@ -61,10 +61,15 @@ export function DetectionHostNetworkFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function DetectionHostNetworkToJSON(value?: DetectionHostNetwork | null): any {
+export function DetectionHostNetworkToJSON(json: any): DetectionHostNetwork {
+    return DetectionHostNetworkToJSONTyped(json, false);
+}
+
+export function DetectionHostNetworkToJSONTyped(value?: DetectionHostNetwork | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         network_id: value["networkId"],
         network_interface_ids: value["networkInterfaceIds"],

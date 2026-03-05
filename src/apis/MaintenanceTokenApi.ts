@@ -34,12 +34,9 @@ export interface MaintenanceTokenApiIncrementUninstallTokenRequest {
  */
 export class MaintenanceTokenApi extends runtime.BaseAPI {
     /**
-     * Increments a bulk maintenance token.
+     * Creates request options for incrementUninstallToken without sending the request
      */
-    async incrementUninstallTokenRaw(
-        requestParameters: MaintenanceTokenApiIncrementUninstallTokenRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<UninstallTokenIncrementUninstallTokenRespV1>> {
+    async incrementUninstallTokenRequestOpts(requestParameters: MaintenanceTokenApiIncrementUninstallTokenRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling incrementUninstallToken().');
         }
@@ -55,16 +52,26 @@ export class MaintenanceTokenApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["maintenance-token:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/combined/increment-uninstall-token/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: UninstallTokenIncrementUninstallTokenReqV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/combined/increment-uninstall-token/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: UninstallTokenIncrementUninstallTokenReqV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Increments a bulk maintenance token.
+     */
+    async incrementUninstallTokenRaw(
+        requestParameters: MaintenanceTokenApiIncrementUninstallTokenRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<UninstallTokenIncrementUninstallTokenRespV1>> {
+        const requestOptions = await this.incrementUninstallTokenRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UninstallTokenIncrementUninstallTokenRespV1FromJSON(jsonValue));
     }

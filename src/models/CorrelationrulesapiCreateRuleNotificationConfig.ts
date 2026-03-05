@@ -80,10 +80,15 @@ export function CorrelationrulesapiCreateRuleNotificationConfigFromJSONTyped(jso
     };
 }
 
-export function CorrelationrulesapiCreateRuleNotificationConfigToJSON(value?: CorrelationrulesapiCreateRuleNotificationConfig | null): any {
+export function CorrelationrulesapiCreateRuleNotificationConfigToJSON(json: any): CorrelationrulesapiCreateRuleNotificationConfig {
+    return CorrelationrulesapiCreateRuleNotificationConfigToJSONTyped(json, false);
+}
+
+export function CorrelationrulesapiCreateRuleNotificationConfigToJSONTyped(value?: CorrelationrulesapiCreateRuleNotificationConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         config_id: value["configId"],

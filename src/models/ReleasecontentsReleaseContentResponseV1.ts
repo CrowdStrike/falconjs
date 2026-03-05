@@ -18,6 +18,7 @@ import {
     ReleasecontentsReleaseContentVersionResponseV1FromJSON,
     ReleasecontentsReleaseContentVersionResponseV1FromJSONTyped,
     ReleasecontentsReleaseContentVersionResponseV1ToJSON,
+    ReleasecontentsReleaseContentVersionResponseV1ToJSONTyped,
 } from "./ReleasecontentsReleaseContentVersionResponseV1";
 
 /**
@@ -109,10 +110,15 @@ export function ReleasecontentsReleaseContentResponseV1FromJSONTyped(json: any, 
     };
 }
 
-export function ReleasecontentsReleaseContentResponseV1ToJSON(value?: ReleasecontentsReleaseContentResponseV1 | null): any {
+export function ReleasecontentsReleaseContentResponseV1ToJSON(json: any): ReleasecontentsReleaseContentResponseV1 {
+    return ReleasecontentsReleaseContentResponseV1ToJSONTyped(json, false);
+}
+
+export function ReleasecontentsReleaseContentResponseV1ToJSONTyped(value?: ReleasecontentsReleaseContentResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         content_category: value["contentCategory"],
         content_group_id: value["contentGroupId"],

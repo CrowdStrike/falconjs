@@ -56,10 +56,15 @@ export function ApiPostEnrollmentDetailsFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function ApiPostEnrollmentDetailsToJSON(value?: ApiPostEnrollmentDetails | null): any {
+export function ApiPostEnrollmentDetailsToJSON(json: any): ApiPostEnrollmentDetails {
+    return ApiPostEnrollmentDetailsToJSONTyped(json, false);
+}
+
+export function ApiPostEnrollmentDetailsToJSONTyped(value?: ApiPostEnrollmentDetails | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         email_addresses: value["emailAddresses"],
         expires_at: value["expiresAt"].toISOString(),

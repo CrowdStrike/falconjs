@@ -56,10 +56,15 @@ export function ModelsOSInfoTypeFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function ModelsOSInfoTypeToJSON(value?: ModelsOSInfoType | null): any {
+export function ModelsOSInfoTypeToJSON(json: any): ModelsOSInfoType {
+    return ModelsOSInfoTypeToJSONTyped(json, false);
+}
+
+export function ModelsOSInfoTypeToJSONTyped(value?: ModelsOSInfoType | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Name: value["name"],
         Version: value["version"],

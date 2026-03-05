@@ -70,10 +70,15 @@ export function SourceDataTransactionResponseDtoGetTransactionStatusFromJSONType
     };
 }
 
-export function SourceDataTransactionResponseDtoGetTransactionStatusToJSON(value?: SourceDataTransactionResponseDtoGetTransactionStatus | null): any {
+export function SourceDataTransactionResponseDtoGetTransactionStatusToJSON(json: any): SourceDataTransactionResponseDtoGetTransactionStatus {
+    return SourceDataTransactionResponseDtoGetTransactionStatusToJSONTyped(json, false);
+}
+
+export function SourceDataTransactionResponseDtoGetTransactionStatusToJSONTyped(value?: SourceDataTransactionResponseDtoGetTransactionStatus | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count: value["count"],
         data_source_id: value["dataSourceId"],

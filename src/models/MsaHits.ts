@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { MsaHit } from "./MsaHit";
-import { MsaHitFromJSON, MsaHitFromJSONTyped, MsaHitToJSON } from "./MsaHit";
+import { MsaHitFromJSON, MsaHitFromJSONTyped, MsaHitToJSON, MsaHitToJSONTyped } from "./MsaHit";
 
 /**
  *
@@ -59,10 +59,15 @@ export function MsaHitsFromJSONTyped(json: any, ignoreDiscriminator: boolean): M
     };
 }
 
-export function MsaHitsToJSON(value?: MsaHits | null): any {
+export function MsaHitsToJSON(json: any): MsaHits {
+    return MsaHitsToJSONTyped(json, false);
+}
+
+export function MsaHitsToJSONTyped(value?: MsaHits | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Hits: (value["hits"] as Array<any>).map(MsaHitToJSON),
         MaxScore: value["maxScore"],

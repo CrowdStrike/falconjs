@@ -14,15 +14,20 @@
 
 import { mapValues } from "../runtime";
 import type { FwmgrDomainICMP } from "./FwmgrDomainICMP";
-import { FwmgrDomainICMPFromJSON, FwmgrDomainICMPFromJSONTyped, FwmgrDomainICMPToJSON } from "./FwmgrDomainICMP";
+import { FwmgrDomainICMPFromJSON, FwmgrDomainICMPFromJSONTyped, FwmgrDomainICMPToJSON, FwmgrDomainICMPToJSONTyped } from "./FwmgrDomainICMP";
 import type { FwmgrDomainPortRange } from "./FwmgrDomainPortRange";
-import { FwmgrDomainPortRangeFromJSON, FwmgrDomainPortRangeFromJSONTyped, FwmgrDomainPortRangeToJSON } from "./FwmgrDomainPortRange";
+import { FwmgrDomainPortRangeFromJSON, FwmgrDomainPortRangeFromJSONTyped, FwmgrDomainPortRangeToJSON, FwmgrDomainPortRangeToJSONTyped } from "./FwmgrDomainPortRange";
 import type { FwmgrDomainAddressRange } from "./FwmgrDomainAddressRange";
-import { FwmgrDomainAddressRangeFromJSON, FwmgrDomainAddressRangeFromJSONTyped, FwmgrDomainAddressRangeToJSON } from "./FwmgrDomainAddressRange";
+import { FwmgrDomainAddressRangeFromJSON, FwmgrDomainAddressRangeFromJSONTyped, FwmgrDomainAddressRangeToJSON, FwmgrDomainAddressRangeToJSONTyped } from "./FwmgrDomainAddressRange";
 import type { FwmgrDomainMonitoring } from "./FwmgrDomainMonitoring";
-import { FwmgrDomainMonitoringFromJSON, FwmgrDomainMonitoringFromJSONTyped, FwmgrDomainMonitoringToJSON } from "./FwmgrDomainMonitoring";
+import { FwmgrDomainMonitoringFromJSON, FwmgrDomainMonitoringFromJSONTyped, FwmgrDomainMonitoringToJSON, FwmgrDomainMonitoringToJSONTyped } from "./FwmgrDomainMonitoring";
 import type { FwmgrApiWorkaroundUIFieldValue } from "./FwmgrApiWorkaroundUIFieldValue";
-import { FwmgrApiWorkaroundUIFieldValueFromJSON, FwmgrApiWorkaroundUIFieldValueFromJSONTyped, FwmgrApiWorkaroundUIFieldValueToJSON } from "./FwmgrApiWorkaroundUIFieldValue";
+import {
+    FwmgrApiWorkaroundUIFieldValueFromJSON,
+    FwmgrApiWorkaroundUIFieldValueFromJSONTyped,
+    FwmgrApiWorkaroundUIFieldValueToJSON,
+    FwmgrApiWorkaroundUIFieldValueToJSONTyped,
+} from "./FwmgrApiWorkaroundUIFieldValue";
 
 /**
  *
@@ -195,10 +200,15 @@ export function FwmgrApiRuleCreateRequestV1FromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function FwmgrApiRuleCreateRequestV1ToJSON(value?: FwmgrApiRuleCreateRequestV1 | null): any {
+export function FwmgrApiRuleCreateRequestV1ToJSON(json: any): FwmgrApiRuleCreateRequestV1 {
+    return FwmgrApiRuleCreateRequestV1ToJSONTyped(json, false);
+}
+
+export function FwmgrApiRuleCreateRequestV1ToJSONTyped(value?: FwmgrApiRuleCreateRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         address_family: value["addressFamily"],

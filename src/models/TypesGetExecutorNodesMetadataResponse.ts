@@ -75,10 +75,15 @@ export function TypesGetExecutorNodesMetadataResponseFromJSONTyped(json: any, ig
     };
 }
 
-export function TypesGetExecutorNodesMetadataResponseToJSON(value?: TypesGetExecutorNodesMetadataResponse | null): any {
+export function TypesGetExecutorNodesMetadataResponseToJSON(json: any): TypesGetExecutorNodesMetadataResponse {
+    return TypesGetExecutorNodesMetadataResponseToJSONTyped(json, false);
+}
+
+export function TypesGetExecutorNodesMetadataResponseToJSONTyped(value?: TypesGetExecutorNodesMetadataResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count: value["count"],
         executorNodeIds: value["executorNodeIds"],

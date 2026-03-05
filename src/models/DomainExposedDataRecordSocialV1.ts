@@ -112,10 +112,15 @@ export function DomainExposedDataRecordSocialV1FromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function DomainExposedDataRecordSocialV1ToJSON(value?: DomainExposedDataRecordSocialV1 | null): any {
+export function DomainExposedDataRecordSocialV1ToJSON(json: any): DomainExposedDataRecordSocialV1 {
+    return DomainExposedDataRecordSocialV1ToJSONTyped(json, false);
+}
+
+export function DomainExposedDataRecordSocialV1ToJSONTyped(value?: DomainExposedDataRecordSocialV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         aim_id: value["aimId"],
         facebook_id: value["facebookId"],

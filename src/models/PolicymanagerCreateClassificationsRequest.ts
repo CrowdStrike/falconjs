@@ -18,6 +18,7 @@ import {
     PolicymanagerExternalClassificationPostFromJSON,
     PolicymanagerExternalClassificationPostFromJSONTyped,
     PolicymanagerExternalClassificationPostToJSON,
+    PolicymanagerExternalClassificationPostToJSONTyped,
 } from "./PolicymanagerExternalClassificationPost";
 
 /**
@@ -55,10 +56,15 @@ export function PolicymanagerCreateClassificationsRequestFromJSONTyped(json: any
     };
 }
 
-export function PolicymanagerCreateClassificationsRequestToJSON(value?: PolicymanagerCreateClassificationsRequest | null): any {
+export function PolicymanagerCreateClassificationsRequestToJSON(json: any): PolicymanagerCreateClassificationsRequest {
+    return PolicymanagerCreateClassificationsRequestToJSONTyped(json, false);
+}
+
+export function PolicymanagerCreateClassificationsRequestToJSONTyped(value?: PolicymanagerCreateClassificationsRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(PolicymanagerExternalClassificationPostToJSON),
     };

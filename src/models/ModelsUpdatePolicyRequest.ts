@@ -61,10 +61,15 @@ export function ModelsUpdatePolicyRequestFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ModelsUpdatePolicyRequestToJSON(value?: ModelsUpdatePolicyRequest | null): any {
+export function ModelsUpdatePolicyRequestToJSON(json: any): ModelsUpdatePolicyRequest {
+    return ModelsUpdatePolicyRequestToJSONTyped(json, false);
+}
+
+export function ModelsUpdatePolicyRequestToJSONTyped(value?: ModelsUpdatePolicyRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         is_enabled: value["isEnabled"],

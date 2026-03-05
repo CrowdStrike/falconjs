@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { ResourcesCompliance } from "./ResourcesCompliance";
-import { ResourcesComplianceFromJSON, ResourcesComplianceFromJSONTyped, ResourcesComplianceToJSON } from "./ResourcesCompliance";
+import { ResourcesComplianceFromJSON, ResourcesComplianceFromJSONTyped, ResourcesComplianceToJSON, ResourcesComplianceToJSONTyped } from "./ResourcesCompliance";
 import type { ResourcesDetectionCount } from "./ResourcesDetectionCount";
-import { ResourcesDetectionCountFromJSON, ResourcesDetectionCountFromJSONTyped, ResourcesDetectionCountToJSON } from "./ResourcesDetectionCount";
+import { ResourcesDetectionCountFromJSON, ResourcesDetectionCountFromJSONTyped, ResourcesDetectionCountToJSON, ResourcesDetectionCountToJSONTyped } from "./ResourcesDetectionCount";
 
 /**
  *
@@ -111,10 +111,15 @@ export function ResourcesDetectionsFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function ResourcesDetectionsToJSON(value?: ResourcesDetections | null): any {
+export function ResourcesDetectionsToJSON(json: any): ResourcesDetections {
+    return ResourcesDetectionsToJSONTyped(json, false);
+}
+
+export function ResourcesDetectionsToJSONTyped(value?: ResourcesDetections | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         compliant: ResourcesComplianceToJSON(value["compliant"]),
         highest_severity: value["highestSeverity"],

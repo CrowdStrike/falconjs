@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { RestCursorAndLimitMetaInfo } from "./RestCursorAndLimitMetaInfo";
-import { RestCursorAndLimitMetaInfoFromJSON, RestCursorAndLimitMetaInfoFromJSONTyped, RestCursorAndLimitMetaInfoToJSON } from "./RestCursorAndLimitMetaInfo";
+import { RestCursorAndLimitMetaInfoFromJSON, RestCursorAndLimitMetaInfoFromJSONTyped, RestCursorAndLimitMetaInfoToJSON, RestCursorAndLimitMetaInfoToJSONTyped } from "./RestCursorAndLimitMetaInfo";
 
 /**
  *
@@ -67,10 +67,15 @@ export function AssetsGetResourceIDsResponseFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function AssetsGetResourceIDsResponseToJSON(value?: AssetsGetResourceIDsResponse | null): any {
+export function AssetsGetResourceIDsResponseToJSON(json: any): AssetsGetResourceIDsResponse {
+    return AssetsGetResourceIDsResponseToJSONTyped(json, false);
+}
+
+export function AssetsGetResourceIDsResponseToJSONTyped(value?: AssetsGetResourceIDsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: RestCursorAndLimitMetaInfoToJSON(value["meta"]),

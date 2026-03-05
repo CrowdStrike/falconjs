@@ -64,10 +64,15 @@ export function DomainInitRequestFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function DomainInitRequestToJSON(value?: DomainInitRequest | null): any {
+export function DomainInitRequestToJSON(json: any): DomainInitRequest {
+    return DomainInitRequestToJSONTyped(json, false);
+}
+
+export function DomainInitRequestToJSONTyped(value?: DomainInitRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         device_id: value["deviceId"],
         origin: value["origin"],

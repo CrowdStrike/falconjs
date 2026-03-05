@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainCIDGroup } from "./DomainCIDGroup";
-import { DomainCIDGroupFromJSON, DomainCIDGroupFromJSONTyped, DomainCIDGroupToJSON } from "./DomainCIDGroup";
+import { DomainCIDGroupFromJSON, DomainCIDGroupFromJSONTyped, DomainCIDGroupToJSON, DomainCIDGroupToJSONTyped } from "./DomainCIDGroup";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainCIDGroupsResponseV1FromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DomainCIDGroupsResponseV1ToJSON(value?: DomainCIDGroupsResponseV1 | null): any {
+export function DomainCIDGroupsResponseV1ToJSON(json: any): DomainCIDGroupsResponseV1 {
+    return DomainCIDGroupsResponseV1ToJSONTyped(json, false);
+}
+
+export function DomainCIDGroupsResponseV1ToJSONTyped(value?: DomainCIDGroupsResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

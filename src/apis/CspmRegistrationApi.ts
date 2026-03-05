@@ -359,12 +359,9 @@ export interface CspmRegistrationApiValidateCSPMGCPServiceAccountExtRequest {
  */
 export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
-     * Returns JSON object(s) that contain the base64 encoded certificate for a service principal.
+     * Creates request options for azureDownloadCertificate without sending the request
      */
-    async azureDownloadCertificateRaw(
-        requestParameters: CspmRegistrationApiAzureDownloadCertificateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationAzureDownloadCertificateResponseV1>> {
+    async azureDownloadCertificateRequestOpts(requestParameters: CspmRegistrationApiAzureDownloadCertificateRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["tenantId"] == null) {
             throw new runtime.RequiredError("tenantId", 'Required parameter "tenantId" was null or undefined when calling azureDownloadCertificate().');
         }
@@ -382,15 +379,25 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-cspm-azure/entities/download-certificate/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-cspm-azure/entities/download-certificate/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns JSON object(s) that contain the base64 encoded certificate for a service principal.
+     */
+    async azureDownloadCertificateRaw(
+        requestParameters: CspmRegistrationApiAzureDownloadCertificateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationAzureDownloadCertificateResponseV1>> {
+        const requestOptions = await this.azureDownloadCertificateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureDownloadCertificateResponseV1FromJSON(jsonValue));
     }
@@ -404,12 +411,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Refresh certificate and returns JSON object(s) that contain the base64 encoded certificate for a service principal.
+     * Creates request options for azureRefreshCertificate without sending the request
      */
-    async azureRefreshCertificateRaw(
-        requestParameters: CspmRegistrationApiAzureRefreshCertificateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationAzureDownloadCertificateResponseV1>> {
+    async azureRefreshCertificateRequestOpts(requestParameters: CspmRegistrationApiAzureRefreshCertificateRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["tenantId"] == null) {
             throw new runtime.RequiredError("tenantId", 'Required parameter "tenantId" was null or undefined when calling azureRefreshCertificate().');
         }
@@ -431,15 +435,25 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-cspm-azure/entities/refresh-certificate/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-cspm-azure/entities/refresh-certificate/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Refresh certificate and returns JSON object(s) that contain the base64 encoded certificate for a service principal.
+     */
+    async azureRefreshCertificateRaw(
+        requestParameters: CspmRegistrationApiAzureRefreshCertificateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationAzureDownloadCertificateResponseV1>> {
+        const requestOptions = await this.azureRefreshCertificateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureDownloadCertificateResponseV1FromJSON(jsonValue));
     }
@@ -453,12 +467,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates a new GCP account with newly-uploaded service account or connects with existing service account with only the following fields: parent_id, parent_type and service_account_id
+     * Creates request options for connectCSPMGCPAccount without sending the request
      */
-    async connectCSPMGCPAccountRaw(
-        requestParameters: CspmRegistrationApiConnectCSPMGCPAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationGCPAccountResponseExtV2>> {
+    async connectCSPMGCPAccountRequestOpts(requestParameters: CspmRegistrationApiConnectCSPMGCPAccountRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling connectCSPMGCPAccount().');
         }
@@ -474,16 +485,26 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-cspm-gcp/entities/account/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RegistrationGCPAccountExtRequestV2ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-cspm-gcp/entities/account/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RegistrationGCPAccountExtRequestV2ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Creates a new GCP account with newly-uploaded service account or connects with existing service account with only the following fields: parent_id, parent_type and service_account_id
+     */
+    async connectCSPMGCPAccountRaw(
+        requestParameters: CspmRegistrationApiConnectCSPMGCPAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationGCPAccountResponseExtV2>> {
+        const requestOptions = await this.connectCSPMGCPAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationGCPAccountResponseExtV2FromJSON(jsonValue));
     }
@@ -497,12 +518,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates a new account in our system for a customer and generates a script for them to run in their AWS cloud environment to grant us access.
+     * Creates request options for createCSPMAwsAccount without sending the request
      */
-    async createCSPMAwsAccountRaw(
-        requestParameters: CspmRegistrationApiCreateCSPMAwsAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationAWSAccountResponseV2>> {
+    async createCSPMAwsAccountRequestOpts(requestParameters: CspmRegistrationApiCreateCSPMAwsAccountRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createCSPMAwsAccount().');
         }
@@ -518,16 +536,26 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-cspm-aws/entities/account/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RegistrationAWSAccountCreateRequestExtV2ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-cspm-aws/entities/account/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RegistrationAWSAccountCreateRequestExtV2ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Creates a new account in our system for a customer and generates a script for them to run in their AWS cloud environment to grant us access.
+     */
+    async createCSPMAwsAccountRaw(
+        requestParameters: CspmRegistrationApiCreateCSPMAwsAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationAWSAccountResponseV2>> {
+        const requestOptions = await this.createCSPMAwsAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAWSAccountResponseV2FromJSON(jsonValue));
     }
@@ -541,12 +569,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates a new account in our system for a customer and generates a script for them to run in their cloud environment to grant us access.
+     * Creates request options for createCSPMAzureAccount without sending the request
      */
-    async createCSPMAzureAccountRaw(
-        requestParameters: CspmRegistrationApiCreateCSPMAzureAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationAzureAccountResponseV1>> {
+    async createCSPMAzureAccountRequestOpts(requestParameters: CspmRegistrationApiCreateCSPMAzureAccountRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createCSPMAzureAccount().');
         }
@@ -562,16 +587,26 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-cspm-azure/entities/account/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RegistrationAzureAccountCreateRequestExternalV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-cspm-azure/entities/account/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RegistrationAzureAccountCreateRequestExternalV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Creates a new account in our system for a customer and generates a script for them to run in their cloud environment to grant us access.
+     */
+    async createCSPMAzureAccountRaw(
+        requestParameters: CspmRegistrationApiCreateCSPMAzureAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationAzureAccountResponseV1>> {
+        const requestOptions = await this.createCSPMAzureAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureAccountResponseV1FromJSON(jsonValue));
     }
@@ -585,12 +620,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates a new management group in our system for a customer.
+     * Creates request options for createCSPMAzureManagementGroup without sending the request
      */
-    async createCSPMAzureManagementGroupRaw(
-        requestParameters: CspmRegistrationApiCreateCSPMAzureManagementGroupRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationAzureAccountResponseV1>> {
+    async createCSPMAzureManagementGroupRequestOpts(requestParameters: CspmRegistrationApiCreateCSPMAzureManagementGroupRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createCSPMAzureManagementGroup().');
         }
@@ -606,16 +638,26 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-cspm-azure/entities/management-group/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RegistrationAzureManagementGroupCreateRequestExternalV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-cspm-azure/entities/management-group/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RegistrationAzureManagementGroupCreateRequestExternalV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Creates a new management group in our system for a customer.
+     */
+    async createCSPMAzureManagementGroupRaw(
+        requestParameters: CspmRegistrationApiCreateCSPMAzureManagementGroupRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationAzureAccountResponseV1>> {
+        const requestOptions = await this.createCSPMAzureManagementGroupRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureAccountResponseV1FromJSON(jsonValue));
     }
@@ -632,12 +674,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates a new account in our system for a customer and generates a new service account for them to add access to in their GCP environment to grant us access.
+     * Creates request options for createCSPMGCPAccount without sending the request
      */
-    async createCSPMGCPAccountRaw(
-        requestParameters: CspmRegistrationApiCreateCSPMGCPAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationGCPAccountResponseV1>> {
+    async createCSPMGCPAccountRequestOpts(requestParameters: CspmRegistrationApiCreateCSPMGCPAccountRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createCSPMGCPAccount().');
         }
@@ -653,16 +692,26 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-cspm-gcp/entities/account/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RegistrationGCPAccountCreateRequestExtV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-cspm-gcp/entities/account/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RegistrationGCPAccountCreateRequestExtV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Creates a new account in our system for a customer and generates a new service account for them to add access to in their GCP environment to grant us access.
+     */
+    async createCSPMGCPAccountRaw(
+        requestParameters: CspmRegistrationApiCreateCSPMGCPAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationGCPAccountResponseV1>> {
+        const requestOptions = await this.createCSPMGCPAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationGCPAccountResponseV1FromJSON(jsonValue));
     }
@@ -676,12 +725,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deletes an existing AWS account or organization in our system.
+     * Creates request options for deleteCSPMAwsAccount without sending the request
      */
-    async deleteCSPMAwsAccountRaw(
-        requestParameters: CspmRegistrationApiDeleteCSPMAwsAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
+    async deleteCSPMAwsAccountRequestOpts(requestParameters: CspmRegistrationApiDeleteCSPMAwsAccountRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -699,15 +745,25 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-cspm-aws/entities/account/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-cspm-aws/entities/account/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Deletes an existing AWS account or organization in our system.
+     */
+    async deleteCSPMAwsAccountRaw(
+        requestParameters: CspmRegistrationApiDeleteCSPMAwsAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
+        const requestOptions = await this.deleteCSPMAwsAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecResponseFieldsFromJSON(jsonValue));
     }
@@ -721,12 +777,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deletes an Azure subscription from the system.
+     * Creates request options for deleteCSPMAzureAccount without sending the request
      */
-    async deleteCSPMAzureAccountRaw(
-        requestParameters: CspmRegistrationApiDeleteCSPMAzureAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaBaseEntitiesResponse>> {
+    async deleteCSPMAzureAccountRequestOpts(requestParameters: CspmRegistrationApiDeleteCSPMAzureAccountRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -748,15 +801,25 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-cspm-azure/entities/account/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-cspm-azure/entities/account/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Deletes an Azure subscription from the system.
+     */
+    async deleteCSPMAzureAccountRaw(
+        requestParameters: CspmRegistrationApiDeleteCSPMAzureAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaBaseEntitiesResponse>> {
+        const requestOptions = await this.deleteCSPMAzureAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaBaseEntitiesResponseFromJSON(jsonValue));
     }
@@ -770,12 +833,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deletes Azure management groups from the system.
+     * Creates request options for deleteCSPMAzureManagementGroup without sending the request
      */
-    async deleteCSPMAzureManagementGroupRaw(
-        requestParameters: CspmRegistrationApiDeleteCSPMAzureManagementGroupRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
+    async deleteCSPMAzureManagementGroupRequestOpts(requestParameters: CspmRegistrationApiDeleteCSPMAzureManagementGroupRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["tenantIds"] != null) {
@@ -789,15 +849,25 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-cspm-azure/entities/management-group/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-cspm-azure/entities/management-group/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Deletes Azure management groups from the system.
+     */
+    async deleteCSPMAzureManagementGroupRaw(
+        requestParameters: CspmRegistrationApiDeleteCSPMAzureManagementGroupRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
+        const requestOptions = await this.deleteCSPMAzureManagementGroupRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecResponseFieldsFromJSON(jsonValue));
     }
@@ -811,12 +881,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deletes a GCP account from the system.
+     * Creates request options for deleteCSPMGCPAccount without sending the request
      */
-    async deleteCSPMGCPAccountRaw(
-        requestParameters: CspmRegistrationApiDeleteCSPMGCPAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaBaseEntitiesResponse>> {
+    async deleteCSPMGCPAccountRequestOpts(requestParameters: CspmRegistrationApiDeleteCSPMGCPAccountRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -830,15 +897,25 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-cspm-gcp/entities/account/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-cspm-gcp/entities/account/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Deletes a GCP account from the system.
+     */
+    async deleteCSPMGCPAccountRaw(
+        requestParameters: CspmRegistrationApiDeleteCSPMGCPAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaBaseEntitiesResponse>> {
+        const requestOptions = await this.deleteCSPMGCPAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaBaseEntitiesResponseFromJSON(jsonValue));
     }
@@ -852,12 +929,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get list of detected behaviors
+     * Creates request options for getBehaviorDetections without sending the request
      */
-    async getBehaviorDetectionsRaw(
-        requestParameters: CspmRegistrationApiGetBehaviorDetectionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationExternalIOAEventResponse>> {
+    async getBehaviorDetectionsRequestOpts(requestParameters: CspmRegistrationApiGetBehaviorDetectionsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["cloudProvider"] != null) {
@@ -923,15 +997,25 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/detects/entities/ioa/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/detects/entities/ioa/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get list of detected behaviors
+     */
+    async getBehaviorDetectionsRaw(
+        requestParameters: CspmRegistrationApiGetBehaviorDetectionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationExternalIOAEventResponse>> {
+        const requestOptions = await this.getBehaviorDetectionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationExternalIOAEventResponseFromJSON(jsonValue));
     }
@@ -979,12 +1063,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns information about the current status of an AWS account.
+     * Creates request options for getCSPMAwsAccount without sending the request
      */
-    async getCSPMAwsAccountRaw(
-        requestParameters: CspmRegistrationApiGetCSPMAwsAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationAWSAccountResponseV2>> {
+    async getCSPMAwsAccountRequestOpts(requestParameters: CspmRegistrationApiGetCSPMAwsAccountRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["scanType"] != null) {
@@ -1034,15 +1115,25 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-cspm-aws/entities/account/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-cspm-aws/entities/account/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns information about the current status of an AWS account.
+     */
+    async getCSPMAwsAccountRaw(
+        requestParameters: CspmRegistrationApiGetCSPMAwsAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationAWSAccountResponseV2>> {
+        const requestOptions = await this.getCSPMAwsAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAWSAccountResponseV2FromJSON(jsonValue));
     }
@@ -1082,12 +1173,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Return a URL for customer to visit in their cloud environment to grant us access to their AWS environment.
+     * Creates request options for getCSPMAwsConsoleSetupURLs without sending the request
      */
-    async getCSPMAwsConsoleSetupURLsRaw(
-        requestParameters: CspmRegistrationApiGetCSPMAwsConsoleSetupURLsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationAWSConsoleURLResponseV2>> {
+    async getCSPMAwsConsoleSetupURLsRequestOpts(requestParameters: CspmRegistrationApiGetCSPMAwsConsoleSetupURLsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -1117,15 +1205,25 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-cspm-aws/entities/console-setup-urls/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-cspm-aws/entities/console-setup-urls/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Return a URL for customer to visit in their cloud environment to grant us access to their AWS environment.
+     */
+    async getCSPMAwsConsoleSetupURLsRaw(
+        requestParameters: CspmRegistrationApiGetCSPMAwsConsoleSetupURLsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationAWSConsoleURLResponseV2>> {
+        const requestOptions = await this.getCSPMAwsConsoleSetupURLsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAWSConsoleURLResponseV2FromJSON(jsonValue));
     }
@@ -1146,12 +1244,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Return information about Azure account registration
+     * Creates request options for getCSPMAzureAccount without sending the request
      */
-    async getCSPMAzureAccountRaw(
-        requestParameters: CspmRegistrationApiGetCSPMAzureAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationAzureAccountResponseV1>> {
+    async getCSPMAzureAccountRequestOpts(requestParameters: CspmRegistrationApiGetCSPMAzureAccountRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -1189,15 +1284,25 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-cspm-azure/entities/account/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-cspm-azure/entities/account/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Return information about Azure account registration
+     */
+    async getCSPMAzureAccountRaw(
+        requestParameters: CspmRegistrationApiGetCSPMAzureAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationAzureAccountResponseV1>> {
+        const requestOptions = await this.getCSPMAzureAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureAccountResponseV1FromJSON(jsonValue));
     }
@@ -1220,12 +1325,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Return information about Azure management group registration
+     * Creates request options for getCSPMAzureManagementGroup without sending the request
      */
-    async getCSPMAzureManagementGroupRaw(
-        requestParameters: CspmRegistrationApiGetCSPMAzureManagementGroupRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationAzureManagementGroupResponseV1>> {
+    async getCSPMAzureManagementGroupRequestOpts(requestParameters: CspmRegistrationApiGetCSPMAzureManagementGroupRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["tenantIds"] != null) {
@@ -1247,15 +1349,25 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-cspm-azure/entities/management-group/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-cspm-azure/entities/management-group/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Return information about Azure management group registration
+     */
+    async getCSPMAzureManagementGroupRaw(
+        requestParameters: CspmRegistrationApiGetCSPMAzureManagementGroupRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationAzureManagementGroupResponseV1>> {
+        const requestOptions = await this.getCSPMAzureManagementGroupRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureManagementGroupResponseV1FromJSON(jsonValue));
     }
@@ -1274,12 +1386,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Return a script for customer to run in their cloud environment to grant us access to their Azure environment as a downloadable attachment
+     * Creates request options for getCSPMAzureUserScriptsAttachment without sending the request
      */
-    async getCSPMAzureUserScriptsAttachmentRaw(
-        requestParameters: CspmRegistrationApiGetCSPMAzureUserScriptsAttachmentRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationAzureProvisionGetUserScriptResponseV1>> {
+    async getCSPMAzureUserScriptsAttachmentRequestOpts(requestParameters: CspmRegistrationApiGetCSPMAzureUserScriptsAttachmentRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["tenantId"] != null) {
@@ -1309,15 +1418,25 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-cspm-azure/entities/user-scripts-download/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-cspm-azure/entities/user-scripts-download/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Return a script for customer to run in their cloud environment to grant us access to their Azure environment as a downloadable attachment
+     */
+    async getCSPMAzureUserScriptsAttachmentRaw(
+        requestParameters: CspmRegistrationApiGetCSPMAzureUserScriptsAttachmentRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationAzureProvisionGetUserScriptResponseV1>> {
+        const requestOptions = await this.getCSPMAzureUserScriptsAttachmentRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureProvisionGetUserScriptResponseV1FromJSON(jsonValue));
     }
@@ -1341,12 +1460,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns information about the current status of an GCP account.
+     * Creates request options for getCSPMGCPAccount without sending the request
      */
-    async getCSPMGCPAccountRaw(
-        requestParameters: CspmRegistrationApiGetCSPMGCPAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationGCPAccountResponseV1>> {
+    async getCSPMGCPAccountRequestOpts(requestParameters: CspmRegistrationApiGetCSPMGCPAccountRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["parentType"] != null) {
@@ -1384,15 +1500,25 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-cspm-gcp/entities/account/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-cspm-gcp/entities/account/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns information about the current status of an GCP account.
+     */
+    async getCSPMGCPAccountRaw(
+        requestParameters: CspmRegistrationApiGetCSPMGCPAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationGCPAccountResponseV1>> {
+        const requestOptions = await this.getCSPMGCPAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationGCPAccountResponseV1FromJSON(jsonValue));
     }
@@ -1415,12 +1541,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns the service account id and client email for external clients.
+     * Creates request options for getCSPMGCPServiceAccountsExt without sending the request
      */
-    async getCSPMGCPServiceAccountsExtRaw(
-        requestParameters: CspmRegistrationApiGetCSPMGCPServiceAccountsExtRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationGCPServiceAccountResponseExtV1>> {
+    async getCSPMGCPServiceAccountsExtRequestOpts(requestParameters: CspmRegistrationApiGetCSPMGCPServiceAccountsExtRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["id"] != null) {
@@ -1434,15 +1557,25 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-cspm-gcp/entities/service-accounts/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-cspm-gcp/entities/service-accounts/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns the service account id and client email for external clients.
+     */
+    async getCSPMGCPServiceAccountsExtRaw(
+        requestParameters: CspmRegistrationApiGetCSPMGCPServiceAccountsExtRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationGCPServiceAccountResponseExtV1>> {
+        const requestOptions = await this.getCSPMGCPServiceAccountsExtRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationGCPServiceAccountResponseExtV1FromJSON(jsonValue));
     }
@@ -1456,12 +1589,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Return a script for customer to run in their cloud environment to grant us access to their GCP environment as a downloadable attachment
+     * Creates request options for getCSPMGCPUserScriptsAttachment without sending the request
      */
-    async getCSPMGCPUserScriptsAttachmentRaw(
-        requestParameters: CspmRegistrationApiGetCSPMGCPUserScriptsAttachmentRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationGCPProvisionGetUserScriptResponseV1>> {
+    async getCSPMGCPUserScriptsAttachmentRequestOpts(requestParameters: CspmRegistrationApiGetCSPMGCPUserScriptsAttachmentRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["parentType"] != null) {
@@ -1479,15 +1609,25 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-cspm-gcp/entities/user-scripts-download/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-cspm-gcp/entities/user-scripts-download/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Return a script for customer to run in their cloud environment to grant us access to their GCP environment as a downloadable attachment
+     */
+    async getCSPMGCPUserScriptsAttachmentRaw(
+        requestParameters: CspmRegistrationApiGetCSPMGCPUserScriptsAttachmentRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationGCPProvisionGetUserScriptResponseV1>> {
+        const requestOptions = await this.getCSPMGCPUserScriptsAttachmentRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationGCPProvisionGetUserScriptResponseV1FromJSON(jsonValue));
     }
@@ -1505,12 +1645,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Run a synchronous health check.
+     * Creates request options for getCSPMGCPValidateAccountsExt without sending the request
      */
-    async getCSPMGCPValidateAccountsExtRaw(
-        requestParameters: CspmRegistrationApiGetCSPMGCPValidateAccountsExtRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationGCPAccountValidationResponseV1>> {
+    async getCSPMGCPValidateAccountsExtRequestOpts(requestParameters: CspmRegistrationApiGetCSPMGCPValidateAccountsExtRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getCSPMGCPValidateAccountsExt().');
         }
@@ -1526,16 +1663,26 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-cspm-gcp/entities/account/validate/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RegistrationGCPAccountValidationRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-cspm-gcp/entities/account/validate/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RegistrationGCPAccountValidationRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Run a synchronous health check.
+     */
+    async getCSPMGCPValidateAccountsExtRaw(
+        requestParameters: CspmRegistrationApiGetCSPMGCPValidateAccountsExtRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationGCPAccountValidationResponseV1>> {
+        const requestOptions = await this.getCSPMGCPValidateAccountsExtRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationGCPAccountValidationResponseV1FromJSON(jsonValue));
     }
@@ -1552,12 +1699,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Given an array of policy IDs, returns detailed policies information.
+     * Creates request options for getCSPMPoliciesDetails without sending the request
      */
-    async getCSPMPoliciesDetailsRaw(
-        requestParameters: CspmRegistrationApiGetCSPMPoliciesDetailsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationPolicyResponseV1>> {
+    async getCSPMPoliciesDetailsRequestOpts(requestParameters: CspmRegistrationApiGetCSPMPoliciesDetailsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getCSPMPoliciesDetails().');
         }
@@ -1575,15 +1719,25 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/settings/entities/policy-details/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/settings/entities/policy-details/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Given an array of policy IDs, returns detailed policies information.
+     */
+    async getCSPMPoliciesDetailsRaw(
+        requestParameters: CspmRegistrationApiGetCSPMPoliciesDetailsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationPolicyResponseV1>> {
+        const requestOptions = await this.getCSPMPoliciesDetailsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationPolicyResponseV1FromJSON(jsonValue));
     }
@@ -1597,12 +1751,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Given a policy ID, returns detailed policy information.
+     * Creates request options for getCSPMPolicy without sending the request
      */
-    async getCSPMPolicyRaw(
-        requestParameters: CspmRegistrationApiGetCSPMPolicyRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationPolicyResponseV1>> {
+    async getCSPMPolicyRequestOpts(requestParameters: CspmRegistrationApiGetCSPMPolicyRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getCSPMPolicy().');
         }
@@ -1620,15 +1771,25 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/settings/entities/policy-details/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/settings/entities/policy-details/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Given a policy ID, returns detailed policy information.
+     */
+    async getCSPMPolicyRaw(
+        requestParameters: CspmRegistrationApiGetCSPMPolicyRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationPolicyResponseV1>> {
+        const requestOptions = await this.getCSPMPolicyRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationPolicyResponseV1FromJSON(jsonValue));
     }
@@ -1642,12 +1803,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns information about current policy settings.
+     * Creates request options for getCSPMPolicySettings without sending the request
      */
-    async getCSPMPolicySettingsRaw(
-        requestParameters: CspmRegistrationApiGetCSPMPolicySettingsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationPolicySettingsResponseV1>> {
+    async getCSPMPolicySettingsRequestOpts(requestParameters: CspmRegistrationApiGetCSPMPolicySettingsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["service"] != null) {
@@ -1669,15 +1827,25 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/settings/entities/policy/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/settings/entities/policy/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns information about current policy settings.
+     */
+    async getCSPMPolicySettingsRaw(
+        requestParameters: CspmRegistrationApiGetCSPMPolicySettingsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationPolicySettingsResponseV1>> {
+        const requestOptions = await this.getCSPMPolicySettingsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationPolicySettingsResponseV1FromJSON(jsonValue));
     }
@@ -1696,12 +1864,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns scan schedule configuration for one or more cloud platforms.
+     * Creates request options for getCSPMScanSchedule without sending the request
      */
-    async getCSPMScanScheduleRaw(
-        requestParameters: CspmRegistrationApiGetCSPMScanScheduleRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationScanScheduleResponseV1>> {
+    async getCSPMScanScheduleRequestOpts(requestParameters: CspmRegistrationApiGetCSPMScanScheduleRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["cloudPlatform"] != null) {
@@ -1715,15 +1880,25 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/settings/scan-schedule/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/settings/scan-schedule/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns scan schedule configuration for one or more cloud platforms.
+     */
+    async getCSPMScanScheduleRaw(
+        requestParameters: CspmRegistrationApiGetCSPMScanScheduleRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationScanScheduleResponseV1>> {
+        const requestOptions = await this.getCSPMScanScheduleRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationScanScheduleResponseV1FromJSON(jsonValue));
     }
@@ -1737,12 +1912,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get list of related cloud event LogScale IDs for a given IOA
+     * Creates request options for getCloudEventIDs without sending the request
      */
-    async getCloudEventIDsRaw(
-        requestParameters: CspmRegistrationApiGetCloudEventIDsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CdrioamanagerGetCloudEventIDsResponse>> {
+    async getCloudEventIDsRequestOpts(requestParameters: CspmRegistrationApiGetCloudEventIDsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["xCSUSERUUID"] == null) {
             throw new runtime.RequiredError("xCSUSERUUID", 'Required parameter "xCSUSERUUID" was null or undefined when calling getCloudEventIDs().');
         }
@@ -1768,15 +1940,25 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/detects/queries/cloud-events/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/detects/queries/cloud-events/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get list of related cloud event LogScale IDs for a given IOA
+     */
+    async getCloudEventIDsRaw(
+        requestParameters: CspmRegistrationApiGetCloudEventIDsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CdrioamanagerGetCloudEventIDsResponse>> {
+        const requestOptions = await this.getCloudEventIDsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CdrioamanagerGetCloudEventIDsResponseFromJSON(jsonValue));
     }
@@ -1790,12 +1972,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get misconfigurations based on the ID - including custom policy detections in addition to default policy detections.
+     * Creates request options for getConfigurationDetectionEntities without sending the request
      */
-    async getConfigurationDetectionEntitiesRaw(
-        requestParameters: CspmRegistrationApiGetConfigurationDetectionEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationExternalIOMEventResponseV2>> {
+    async getConfigurationDetectionEntitiesRequestOpts(requestParameters: CspmRegistrationApiGetConfigurationDetectionEntitiesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getConfigurationDetectionEntities().');
         }
@@ -1813,15 +1992,25 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/detects/entities/iom/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/detects/entities/iom/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get misconfigurations based on the ID - including custom policy detections in addition to default policy detections.
+     */
+    async getConfigurationDetectionEntitiesRaw(
+        requestParameters: CspmRegistrationApiGetConfigurationDetectionEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationExternalIOMEventResponseV2>> {
+        const requestOptions = await this.getConfigurationDetectionEntitiesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationExternalIOMEventResponseV2FromJSON(jsonValue));
     }
@@ -1835,12 +2024,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get list of active misconfiguration ids - including custom policy detections in addition to default policy detections.
+     * Creates request options for getConfigurationDetectionIDsV2 without sending the request
      */
-    async getConfigurationDetectionIDsV2Raw(
-        requestParameters: CspmRegistrationApiGetConfigurationDetectionIDsV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationIOMEventIDsResponseV2>> {
+    async getConfigurationDetectionIDsV2RequestOpts(requestParameters: CspmRegistrationApiGetConfigurationDetectionIDsV2Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1870,15 +2056,25 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/detects/queries/iom/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/detects/queries/iom/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get list of active misconfiguration ids - including custom policy detections in addition to default policy detections.
+     */
+    async getConfigurationDetectionIDsV2Raw(
+        requestParameters: CspmRegistrationApiGetConfigurationDetectionIDsV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationIOMEventIDsResponseV2>> {
+        const requestOptions = await this.getConfigurationDetectionIDsV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationIOMEventIDsResponseV2FromJSON(jsonValue));
     }
@@ -1899,13 +2095,10 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get list of active misconfigurations. This endpoint is deprecated, please use /queries/iom/v2 and /entities/iom/v2 instead
+     * Creates request options for getConfigurationDetections without sending the request
      * @deprecated
      */
-    async getConfigurationDetectionsRaw(
-        requestParameters: CspmRegistrationApiGetConfigurationDetectionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationExternalIOMEventResponse>> {
+    async getConfigurationDetectionsRequestOpts(requestParameters: CspmRegistrationApiGetConfigurationDetectionsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["cloudProvider"] != null) {
@@ -1955,15 +2148,26 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/detects/entities/iom/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/detects/entities/iom/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get list of active misconfigurations. This endpoint is deprecated, please use /queries/iom/v2 and /entities/iom/v2 instead
+     * @deprecated
+     */
+    async getConfigurationDetectionsRaw(
+        requestParameters: CspmRegistrationApiGetConfigurationDetectionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationExternalIOMEventResponse>> {
+        const requestOptions = await this.getConfigurationDetectionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationExternalIOMEventResponseFromJSON(jsonValue));
     }
@@ -2004,12 +2208,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Patches a existing account in our system for a customer.
+     * Creates request options for patchCSPMAwsAccount without sending the request
      */
-    async patchCSPMAwsAccountRaw(
-        requestParameters: CspmRegistrationApiPatchCSPMAwsAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationAWSAccountResponseV2>> {
+    async patchCSPMAwsAccountRequestOpts(requestParameters: CspmRegistrationApiPatchCSPMAwsAccountRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling patchCSPMAwsAccount().');
         }
@@ -2025,16 +2226,26 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-cspm-aws/entities/account/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RegistrationAWSAccountPatchRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-cspm-aws/entities/account/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RegistrationAWSAccountPatchRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Patches a existing account in our system for a customer.
+     */
+    async patchCSPMAwsAccountRaw(
+        requestParameters: CspmRegistrationApiPatchCSPMAwsAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationAWSAccountResponseV2>> {
+        const requestOptions = await this.patchCSPMAwsAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAWSAccountResponseV2FromJSON(jsonValue));
     }
@@ -2048,12 +2259,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Patches a existing account in our system for a customer.
+     * Creates request options for updateCSPMAzureAccount without sending the request
      */
-    async updateCSPMAzureAccountRaw(
-        requestParameters: CspmRegistrationApiUpdateCSPMAzureAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationAzureAccountResponseV1>> {
+    async updateCSPMAzureAccountRequestOpts(requestParameters: CspmRegistrationApiUpdateCSPMAzureAccountRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateCSPMAzureAccount().');
         }
@@ -2069,16 +2277,26 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-cspm-azure/entities/account/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RegistrationAzureAccountPatchRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-cspm-azure/entities/account/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RegistrationAzureAccountPatchRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Patches a existing account in our system for a customer.
+     */
+    async updateCSPMAzureAccountRaw(
+        requestParameters: CspmRegistrationApiUpdateCSPMAzureAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationAzureAccountResponseV1>> {
+        const requestOptions = await this.updateCSPMAzureAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureAccountResponseV1FromJSON(jsonValue));
     }
@@ -2092,12 +2310,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update an Azure service account in our system by with the user-created client_id created with the public key we\'ve provided
+     * Creates request options for updateCSPMAzureAccountClientID without sending the request
      */
-    async updateCSPMAzureAccountClientIDRaw(
-        requestParameters: CspmRegistrationApiUpdateCSPMAzureAccountClientIDRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationAzureTenantConfigurationResponseV1>> {
+    async updateCSPMAzureAccountClientIDRequestOpts(requestParameters: CspmRegistrationApiUpdateCSPMAzureAccountClientIDRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling updateCSPMAzureAccountClientID().');
         }
@@ -2119,15 +2334,25 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-cspm-azure/entities/client-id/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-cspm-azure/entities/client-id/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Update an Azure service account in our system by with the user-created client_id created with the public key we\'ve provided
+     */
+    async updateCSPMAzureAccountClientIDRaw(
+        requestParameters: CspmRegistrationApiUpdateCSPMAzureAccountClientIDRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationAzureTenantConfigurationResponseV1>> {
+        const requestOptions = await this.updateCSPMAzureAccountClientIDRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureTenantConfigurationResponseV1FromJSON(jsonValue));
     }
@@ -2141,12 +2366,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update an Azure default subscription_id in our system for given tenant_id
+     * Creates request options for updateCSPMAzureTenantDefaultSubscriptionID without sending the request
      */
-    async updateCSPMAzureTenantDefaultSubscriptionIDRaw(
-        requestParameters: CspmRegistrationApiUpdateCSPMAzureTenantDefaultSubscriptionIDRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationAzureTenantDefaultSubscriptionIDResponseV1>> {
+    async updateCSPMAzureTenantDefaultSubscriptionIDRequestOpts(requestParameters: CspmRegistrationApiUpdateCSPMAzureTenantDefaultSubscriptionIDRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["subscriptionId"] == null) {
             throw new runtime.RequiredError("subscriptionId", 'Required parameter "subscriptionId" was null or undefined when calling updateCSPMAzureTenantDefaultSubscriptionID().');
         }
@@ -2168,15 +2390,25 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-cspm-azure/entities/default-subscription-id/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-cspm-azure/entities/default-subscription-id/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Update an Azure default subscription_id in our system for given tenant_id
+     */
+    async updateCSPMAzureTenantDefaultSubscriptionIDRaw(
+        requestParameters: CspmRegistrationApiUpdateCSPMAzureTenantDefaultSubscriptionIDRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationAzureTenantDefaultSubscriptionIDResponseV1>> {
+        const requestOptions = await this.updateCSPMAzureTenantDefaultSubscriptionIDRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureTenantDefaultSubscriptionIDResponseV1FromJSON(jsonValue));
     }
@@ -2194,12 +2426,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Patches a existing account in our system for a customer.
+     * Creates request options for updateCSPMGCPAccount without sending the request
      */
-    async updateCSPMGCPAccountRaw(
-        requestParameters: CspmRegistrationApiUpdateCSPMGCPAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationGCPAccountResponseV1>> {
+    async updateCSPMGCPAccountRequestOpts(requestParameters: CspmRegistrationApiUpdateCSPMGCPAccountRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateCSPMGCPAccount().');
         }
@@ -2215,16 +2444,26 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-cspm-gcp/entities/account/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RegistrationGCPAccountPatchRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-cspm-gcp/entities/account/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RegistrationGCPAccountPatchRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Patches a existing account in our system for a customer.
+     */
+    async updateCSPMGCPAccountRaw(
+        requestParameters: CspmRegistrationApiUpdateCSPMGCPAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationGCPAccountResponseV1>> {
+        const requestOptions = await this.updateCSPMGCPAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationGCPAccountResponseV1FromJSON(jsonValue));
     }
@@ -2238,12 +2477,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Patches the service account key for external clients.
+     * Creates request options for updateCSPMGCPServiceAccountsExt without sending the request
      */
-    async updateCSPMGCPServiceAccountsExtRaw(
-        requestParameters: CspmRegistrationApiUpdateCSPMGCPServiceAccountsExtRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationGCPServiceAccountResponseExtV1>> {
+    async updateCSPMGCPServiceAccountsExtRequestOpts(requestParameters: CspmRegistrationApiUpdateCSPMGCPServiceAccountsExtRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateCSPMGCPServiceAccountsExt().');
         }
@@ -2259,16 +2495,26 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-cspm-gcp/entities/service-accounts/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RegistrationGCPServiceAccountPatchRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-cspm-gcp/entities/service-accounts/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RegistrationGCPServiceAccountPatchRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Patches the service account key for external clients.
+     */
+    async updateCSPMGCPServiceAccountsExtRaw(
+        requestParameters: CspmRegistrationApiUpdateCSPMGCPServiceAccountsExtRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationGCPServiceAccountResponseExtV1>> {
+        const requestOptions = await this.updateCSPMGCPServiceAccountsExtRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationGCPServiceAccountResponseExtV1FromJSON(jsonValue));
     }
@@ -2285,12 +2531,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Updates a policy setting - can be used to override policy severity or to disable a policy entirely.
+     * Creates request options for updateCSPMPolicySettings without sending the request
      */
-    async updateCSPMPolicySettingsRaw(
-        requestParameters: CspmRegistrationApiUpdateCSPMPolicySettingsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationPolicySettingsResponseV1>> {
+    async updateCSPMPolicySettingsRequestOpts(requestParameters: CspmRegistrationApiUpdateCSPMPolicySettingsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateCSPMPolicySettings().');
         }
@@ -2306,16 +2549,26 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/settings/entities/policy/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RegistrationPolicyRequestExtV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/settings/entities/policy/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RegistrationPolicyRequestExtV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Updates a policy setting - can be used to override policy severity or to disable a policy entirely.
+     */
+    async updateCSPMPolicySettingsRaw(
+        requestParameters: CspmRegistrationApiUpdateCSPMPolicySettingsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationPolicySettingsResponseV1>> {
+        const requestOptions = await this.updateCSPMPolicySettingsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationPolicySettingsResponseV1FromJSON(jsonValue));
     }
@@ -2329,12 +2582,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Updates scan schedule configuration for one or more cloud platforms.
+     * Creates request options for updateCSPMScanSchedule without sending the request
      */
-    async updateCSPMScanScheduleRaw(
-        requestParameters: CspmRegistrationApiUpdateCSPMScanScheduleRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationScanScheduleResponseV1>> {
+    async updateCSPMScanScheduleRequestOpts(requestParameters: CspmRegistrationApiUpdateCSPMScanScheduleRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateCSPMScanSchedule().');
         }
@@ -2350,16 +2600,26 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/settings/scan-schedule/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RegistrationScanScheduleUpdateRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/settings/scan-schedule/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RegistrationScanScheduleUpdateRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Updates scan schedule configuration for one or more cloud platforms.
+     */
+    async updateCSPMScanScheduleRaw(
+        requestParameters: CspmRegistrationApiUpdateCSPMScanScheduleRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationScanScheduleResponseV1>> {
+        const requestOptions = await this.updateCSPMScanScheduleRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationScanScheduleResponseV1FromJSON(jsonValue));
     }
@@ -2373,12 +2633,9 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Validates credentials for a service account
+     * Creates request options for validateCSPMGCPServiceAccountExt without sending the request
      */
-    async validateCSPMGCPServiceAccountExtRaw(
-        requestParameters: CspmRegistrationApiValidateCSPMGCPServiceAccountExtRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationGCPServiceAccountValidationResponseV1>> {
+    async validateCSPMGCPServiceAccountExtRequestOpts(requestParameters: CspmRegistrationApiValidateCSPMGCPServiceAccountExtRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling validateCSPMGCPServiceAccountExt().');
         }
@@ -2394,16 +2651,26 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cspm-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-cspm-gcp/entities/service-accounts/validate/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RegistrationGCPServiceAccountValidationRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-cspm-gcp/entities/service-accounts/validate/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RegistrationGCPServiceAccountValidationRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Validates credentials for a service account
+     */
+    async validateCSPMGCPServiceAccountExtRaw(
+        requestParameters: CspmRegistrationApiValidateCSPMGCPServiceAccountExtRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationGCPServiceAccountValidationResponseV1>> {
+        const requestOptions = await this.validateCSPMGCPServiceAccountExtRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationGCPServiceAccountValidationResponseV1FromJSON(jsonValue));
     }
@@ -2557,14 +2824,14 @@ export type GetCSPMAwsConsoleSetupURLsUseExistingCloudtrailEnum = (typeof GetCSP
  * @export
  */
 export const GetCSPMAwsConsoleSetupURLsTemplateEnum = {
-    Url: "aws-url",
-    IomUrl: "aws-iom-url",
-    IoaUrl: "aws-ioa-url",
-    SensorManagementUrl: "aws-sensor-management-url",
-    DspmUrl: "aws-dspm-url",
-    IdpUrl: "aws-idp-url",
-    ModularCftUrl: "aws-modular-cft-url",
-    ModularCftGovCommercialUrl: "aws-modular-cft-gov-commercial-url",
+    AwsUrl: "aws-url",
+    AwsIomUrl: "aws-iom-url",
+    AwsIoaUrl: "aws-ioa-url",
+    AwsSensorManagementUrl: "aws-sensor-management-url",
+    AwsDspmUrl: "aws-dspm-url",
+    AwsIdpUrl: "aws-idp-url",
+    AwsModularCftUrl: "aws-modular-cft-url",
+    AwsModularCftGovCommercialUrl: "aws-modular-cft-gov-commercial-url",
 } as const;
 export type GetCSPMAwsConsoleSetupURLsTemplateEnum = (typeof GetCSPMAwsConsoleSetupURLsTemplateEnum)[keyof typeof GetCSPMAwsConsoleSetupURLsTemplateEnum];
 /**

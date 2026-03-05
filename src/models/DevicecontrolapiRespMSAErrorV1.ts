@@ -70,10 +70,15 @@ export function DevicecontrolapiRespMSAErrorV1FromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function DevicecontrolapiRespMSAErrorV1ToJSON(value?: DevicecontrolapiRespMSAErrorV1 | null): any {
+export function DevicecontrolapiRespMSAErrorV1ToJSON(json: any): DevicecontrolapiRespMSAErrorV1 {
+    return DevicecontrolapiRespMSAErrorV1ToJSONTyped(json, false);
+}
+
+export function DevicecontrolapiRespMSAErrorV1ToJSONTyped(value?: DevicecontrolapiRespMSAErrorV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         message: value["message"],

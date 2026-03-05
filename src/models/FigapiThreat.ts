@@ -47,10 +47,15 @@ export function FigapiThreatFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function FigapiThreatToJSON(value?: FigapiThreat | null): any {
+export function FigapiThreatToJSON(json: any): FigapiThreat {
+    return FigapiThreatToJSONTyped(json, false);
+}
+
+export function FigapiThreatToJSONTyped(value?: FigapiThreat | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         FamilyName: value["familyName"],
     };

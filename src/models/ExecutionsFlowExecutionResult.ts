@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ExecutionsConditionResult } from "./ExecutionsConditionResult";
-import { ExecutionsConditionResultFromJSON, ExecutionsConditionResultFromJSONTyped, ExecutionsConditionResultToJSON } from "./ExecutionsConditionResult";
+import { ExecutionsConditionResultFromJSON, ExecutionsConditionResultFromJSONTyped, ExecutionsConditionResultToJSON, ExecutionsConditionResultToJSONTyped } from "./ExecutionsConditionResult";
 
 /**
  *
@@ -102,13 +102,18 @@ export function ExecutionsFlowExecutionResultFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function ExecutionsFlowExecutionResultToJSON(value?: ExecutionsFlowExecutionResult | null): any {
+export function ExecutionsFlowExecutionResultToJSON(json: any): ExecutionsFlowExecutionResult {
+    return ExecutionsFlowExecutionResultToJSONTyped(json, false);
+}
+
+export function ExecutionsFlowExecutionResultToJSONTyped(value?: ExecutionsFlowExecutionResult | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         condition: ExecutionsConditionResultToJSON(value["condition"]),
-        end_timestamp: value["endTimestamp"] == null ? undefined : value["endTimestamp"].toISOString(),
+        end_timestamp: value["endTimestamp"] == null ? value["endTimestamp"] : value["endTimestamp"].toISOString(),
         error_code: value["errorCode"],
         error_message: value["errorMessage"],
         mocked: value["mocked"],

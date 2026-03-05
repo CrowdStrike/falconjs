@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { V2ForLoop } from "./V2ForLoop";
-import { V2ForLoopFromJSON, V2ForLoopFromJSONTyped, V2ForLoopToJSON } from "./V2ForLoop";
+import { V2ForLoopFromJSON, V2ForLoopFromJSONTyped, V2ForLoopToJSON, V2ForLoopToJSONTyped } from "./V2ForLoop";
 import type { V2Model } from "./V2Model";
-import { V2ModelFromJSON, V2ModelFromJSONTyped, V2ModelToJSON } from "./V2Model";
+import { V2ModelFromJSON, V2ModelFromJSONTyped, V2ModelToJSON, V2ModelToJSONTyped } from "./V2Model";
 
 /**
  *
@@ -82,10 +82,15 @@ export function V2LoopFromJSONTyped(json: any, ignoreDiscriminator: boolean): V2
     };
 }
 
-export function V2LoopToJSON(value?: V2Loop | null): any {
+export function V2LoopToJSON(json: any): V2Loop {
+    return V2LoopToJSONTyped(json, false);
+}
+
+export function V2LoopToJSONTyped(value?: V2Loop | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Model: V2ModelToJSON(value["model"]),
         display: value["display"],

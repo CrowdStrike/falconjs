@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApiRuleV1 } from "./ApiRuleV1";
-import { ApiRuleV1FromJSON, ApiRuleV1FromJSONTyped, ApiRuleV1ToJSON } from "./ApiRuleV1";
+import { ApiRuleV1FromJSON, ApiRuleV1FromJSONTyped, ApiRuleV1ToJSON, ApiRuleV1ToJSONTyped } from "./ApiRuleV1";
 
 /**
  *
@@ -171,10 +171,15 @@ export function ApiRuleGroupV1FromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function ApiRuleGroupV1ToJSON(value?: ApiRuleGroupV1 | null): any {
+export function ApiRuleGroupV1ToJSON(json: any): ApiRuleGroupV1 {
+    return ApiRuleGroupV1ToJSONTyped(json, false);
+}
+
+export function ApiRuleGroupV1ToJSONTyped(value?: ApiRuleGroupV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         comment: value["comment"],
         committed_on: value["committedOn"].toISOString(),

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { FwmgrMsaHit } from "./FwmgrMsaHit";
-import { FwmgrMsaHitFromJSON, FwmgrMsaHitFromJSONTyped, FwmgrMsaHitToJSON } from "./FwmgrMsaHit";
+import { FwmgrMsaHitFromJSON, FwmgrMsaHitFromJSONTyped, FwmgrMsaHitToJSON, FwmgrMsaHitToJSONTyped } from "./FwmgrMsaHit";
 
 /**
  *
@@ -59,10 +59,15 @@ export function FwmgrMsaHitsFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function FwmgrMsaHitsToJSON(value?: FwmgrMsaHits | null): any {
+export function FwmgrMsaHitsToJSON(json: any): FwmgrMsaHits {
+    return FwmgrMsaHitsToJSONTyped(json, false);
+}
+
+export function FwmgrMsaHitsToJSONTyped(value?: FwmgrMsaHits | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Hits: (value["hits"] as Array<any>).map(FwmgrMsaHitToJSON),
         MaxScore: value["maxScore"],

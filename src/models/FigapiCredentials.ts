@@ -54,10 +54,15 @@ export function FigapiCredentialsFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function FigapiCredentialsToJSON(value?: FigapiCredentials | null): any {
+export function FigapiCredentialsToJSON(json: any): FigapiCredentials {
+    return FigapiCredentialsToJSONTyped(json, false);
+}
+
+export function FigapiCredentialsToJSONTyped(value?: FigapiCredentials | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Password: value["password"],
         User: value["user"],

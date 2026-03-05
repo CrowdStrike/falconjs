@@ -14,15 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { CasefilesmodelGetRTRFileMetaDataV1Response } from "./CasefilesmodelGetRTRFileMetaDataV1Response";
 import {
     CasefilesmodelGetRTRFileMetaDataV1ResponseFromJSON,
     CasefilesmodelGetRTRFileMetaDataV1ResponseFromJSONTyped,
     CasefilesmodelGetRTRFileMetaDataV1ResponseToJSON,
+    CasefilesmodelGetRTRFileMetaDataV1ResponseToJSONTyped,
 } from "./CasefilesmodelGetRTRFileMetaDataV1Response";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -74,10 +75,15 @@ export function CasefilesapiValidateRTRResponseV1FromJSONTyped(json: any, ignore
     };
 }
 
-export function CasefilesapiValidateRTRResponseV1ToJSON(value?: CasefilesapiValidateRTRResponseV1 | null): any {
+export function CasefilesapiValidateRTRResponseV1ToJSON(json: any): CasefilesapiValidateRTRResponseV1 {
+    return CasefilesapiValidateRTRResponseV1ToJSONTyped(json, false);
+}
+
+export function CasefilesapiValidateRTRResponseV1ToJSONTyped(value?: CasefilesapiValidateRTRResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

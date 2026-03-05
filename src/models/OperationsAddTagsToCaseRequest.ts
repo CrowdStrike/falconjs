@@ -56,10 +56,15 @@ export function OperationsAddTagsToCaseRequestFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function OperationsAddTagsToCaseRequestToJSON(value?: OperationsAddTagsToCaseRequest | null): any {
+export function OperationsAddTagsToCaseRequestToJSON(json: any): OperationsAddTagsToCaseRequest {
+    return OperationsAddTagsToCaseRequestToJSONTyped(json, false);
+}
+
+export function OperationsAddTagsToCaseRequestToJSONTyped(value?: OperationsAddTagsToCaseRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         tags: value["tags"],

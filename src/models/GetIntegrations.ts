@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MetaGetIntegrations } from "./MetaGetIntegrations";
-import { MetaGetIntegrationsFromJSON, MetaGetIntegrationsFromJSONTyped, MetaGetIntegrationsToJSON } from "./MetaGetIntegrations";
+import { MetaGetIntegrationsFromJSON, MetaGetIntegrationsFromJSONTyped, MetaGetIntegrationsToJSON, MetaGetIntegrationsToJSONTyped } from "./MetaGetIntegrations";
 import type { ErrorGetIntegrations } from "./ErrorGetIntegrations";
-import { ErrorGetIntegrationsFromJSON, ErrorGetIntegrationsFromJSONTyped, ErrorGetIntegrationsToJSON } from "./ErrorGetIntegrations";
+import { ErrorGetIntegrationsFromJSON, ErrorGetIntegrationsFromJSONTyped, ErrorGetIntegrationsToJSON, ErrorGetIntegrationsToJSONTyped } from "./ErrorGetIntegrations";
 import type { AccountIntegrationGetIntegrations } from "./AccountIntegrationGetIntegrations";
-import { AccountIntegrationGetIntegrationsFromJSON, AccountIntegrationGetIntegrationsFromJSONTyped, AccountIntegrationGetIntegrationsToJSON } from "./AccountIntegrationGetIntegrations";
+import {
+    AccountIntegrationGetIntegrationsFromJSON,
+    AccountIntegrationGetIntegrationsFromJSONTyped,
+    AccountIntegrationGetIntegrationsToJSON,
+    AccountIntegrationGetIntegrationsToJSONTyped,
+} from "./AccountIntegrationGetIntegrations";
 
 /**
  *
@@ -68,10 +73,15 @@ export function GetIntegrationsFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function GetIntegrationsToJSON(value?: GetIntegrations | null): any {
+export function GetIntegrationsToJSON(json: any): GetIntegrations {
+    return GetIntegrationsToJSONTyped(json, false);
+}
+
+export function GetIntegrationsToJSONTyped(value?: GetIntegrations | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(ErrorGetIntegrationsToJSON),
         meta: MetaGetIntegrationsToJSON(value["meta"]),

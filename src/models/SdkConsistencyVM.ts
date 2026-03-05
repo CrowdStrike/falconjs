@@ -56,10 +56,15 @@ export function SdkConsistencyVMFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function SdkConsistencyVMToJSON(value?: SdkConsistencyVM | null): any {
+export function SdkConsistencyVMToJSON(json: any): SdkConsistencyVM {
+    return SdkConsistencyVMToJSONTyped(json, false);
+}
+
+export function SdkConsistencyVMToJSONTyped(value?: SdkConsistencyVM | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         consistent: value["consistent"],
         version: value["version"],

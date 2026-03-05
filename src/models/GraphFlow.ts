@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { GraphCondition } from "./GraphCondition";
-import { GraphConditionFromJSON, GraphConditionFromJSONTyped, GraphConditionToJSON } from "./GraphCondition";
+import { GraphConditionFromJSON, GraphConditionFromJSONTyped, GraphConditionToJSON, GraphConditionToJSONTyped } from "./GraphCondition";
 import type { GraphNodePosition } from "./GraphNodePosition";
-import { GraphNodePositionFromJSON, GraphNodePositionFromJSONTyped, GraphNodePositionToJSON } from "./GraphNodePosition";
+import { GraphNodePositionFromJSON, GraphNodePositionFromJSONTyped, GraphNodePositionToJSON, GraphNodePositionToJSONTyped } from "./GraphNodePosition";
 
 /**
  *
@@ -75,10 +75,15 @@ export function GraphFlowFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     };
 }
 
-export function GraphFlowToJSON(value?: GraphFlow | null): any {
+export function GraphFlowToJSON(json: any): GraphFlow {
+    return GraphFlowToJSONTyped(json, false);
+}
+
+export function GraphFlowToJSONTyped(value?: GraphFlow | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         condition: GraphConditionToJSON(value["condition"]),
         position: GraphNodePositionToJSON(value["position"]),

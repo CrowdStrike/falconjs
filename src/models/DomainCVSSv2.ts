@@ -77,10 +77,15 @@ export function DomainCVSSv2FromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function DomainCVSSv2ToJSON(value?: DomainCVSSv2 | null): any {
+export function DomainCVSSv2ToJSON(json: any): DomainCVSSv2 {
+    return DomainCVSSv2ToJSONTyped(json, false);
+}
+
+export function DomainCVSSv2ToJSONTyped(value?: DomainCVSSv2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         base_score: value["baseScore"],
         exploitability_score: value["exploitabilityScore"],

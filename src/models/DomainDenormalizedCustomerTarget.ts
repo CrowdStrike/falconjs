@@ -48,10 +48,15 @@ export function DomainDenormalizedCustomerTargetFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function DomainDenormalizedCustomerTargetToJSON(value?: DomainDenormalizedCustomerTarget | null): any {
+export function DomainDenormalizedCustomerTargetToJSON(json: any): DomainDenormalizedCustomerTarget {
+    return DomainDenormalizedCustomerTargetToJSONTyped(json, false);
+}
+
+export function DomainDenormalizedCustomerTargetToJSONTyped(value?: DomainDenormalizedCustomerTarget | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         customer_target: value["customerTarget"],
     };

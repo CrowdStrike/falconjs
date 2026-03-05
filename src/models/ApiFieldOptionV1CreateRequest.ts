@@ -48,10 +48,15 @@ export function ApiFieldOptionV1CreateRequestFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function ApiFieldOptionV1CreateRequestToJSON(value?: ApiFieldOptionV1CreateRequest | null): any {
+export function ApiFieldOptionV1CreateRequestToJSON(json: any): ApiFieldOptionV1CreateRequest {
+    return ApiFieldOptionV1CreateRequestToJSONTyped(json, false);
+}
+
+export function ApiFieldOptionV1CreateRequestToJSONTyped(value?: ApiFieldOptionV1CreateRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         value: value["value"],
     };

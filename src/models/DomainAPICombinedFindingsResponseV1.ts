@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { DomainAPIFindingFacetV1 } from "./DomainAPIFindingFacetV1";
-import { DomainAPIFindingFacetV1FromJSON, DomainAPIFindingFacetV1FromJSONTyped, DomainAPIFindingFacetV1ToJSON } from "./DomainAPIFindingFacetV1";
+import { DomainAPIFindingFacetV1FromJSON, DomainAPIFindingFacetV1FromJSONTyped, DomainAPIFindingFacetV1ToJSON, DomainAPIFindingFacetV1ToJSONTyped } from "./DomainAPIFindingFacetV1";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainAPIQueryMetaV1 } from "./DomainAPIQueryMetaV1";
-import { DomainAPIQueryMetaV1FromJSON, DomainAPIQueryMetaV1FromJSONTyped, DomainAPIQueryMetaV1ToJSON } from "./DomainAPIQueryMetaV1";
+import { DomainAPIQueryMetaV1FromJSON, DomainAPIQueryMetaV1FromJSONTyped, DomainAPIQueryMetaV1ToJSON, DomainAPIQueryMetaV1ToJSONTyped } from "./DomainAPIQueryMetaV1";
 
 /**
  *
@@ -70,10 +70,15 @@ export function DomainAPICombinedFindingsResponseV1FromJSONTyped(json: any, igno
     };
 }
 
-export function DomainAPICombinedFindingsResponseV1ToJSON(value?: DomainAPICombinedFindingsResponseV1 | null): any {
+export function DomainAPICombinedFindingsResponseV1ToJSON(json: any): DomainAPICombinedFindingsResponseV1 {
+    return DomainAPICombinedFindingsResponseV1ToJSONTyped(json, false);
+}
+
+export function DomainAPICombinedFindingsResponseV1ToJSONTyped(value?: DomainAPICombinedFindingsResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: DomainAPIQueryMetaV1ToJSON(value["meta"]),

@@ -54,10 +54,15 @@ export function TypesRemediationFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function TypesRemediationToJSON(value?: TypesRemediation | null): any {
+export function TypesRemediationToJSON(json: any): TypesRemediation {
+    return TypesRemediationToJSONTyped(json, false);
+}
+
+export function TypesRemediationToJSONTyped(value?: TypesRemediation | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         content: value["content"],
         url: value["url"],

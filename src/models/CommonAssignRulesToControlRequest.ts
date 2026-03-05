@@ -48,10 +48,15 @@ export function CommonAssignRulesToControlRequestFromJSONTyped(json: any, ignore
     };
 }
 
-export function CommonAssignRulesToControlRequestToJSON(value?: CommonAssignRulesToControlRequest | null): any {
+export function CommonAssignRulesToControlRequestToJSON(json: any): CommonAssignRulesToControlRequest {
+    return CommonAssignRulesToControlRequestToJSONTyped(json, false);
+}
+
+export function CommonAssignRulesToControlRequestToJSONTyped(value?: CommonAssignRulesToControlRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         rule_ids: value["ruleIds"],
     };

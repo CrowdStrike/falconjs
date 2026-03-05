@@ -56,10 +56,15 @@ export function JsonschemaDurationOptionFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function JsonschemaDurationOptionToJSON(value?: JsonschemaDurationOption | null): any {
+export function JsonschemaDurationOptionToJSON(json: any): JsonschemaDurationOption {
+    return JsonschemaDurationOptionToJSONTyped(json, false);
+}
+
+export function JsonschemaDurationOptionToJSONTyped(value?: JsonschemaDurationOption | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
         value: value["value"],

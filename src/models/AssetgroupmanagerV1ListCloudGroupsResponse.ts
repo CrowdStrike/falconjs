@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { AssetgroupmanagerV1CloudGroup } from "./AssetgroupmanagerV1CloudGroup";
-import { AssetgroupmanagerV1CloudGroupFromJSON, AssetgroupmanagerV1CloudGroupFromJSONTyped, AssetgroupmanagerV1CloudGroupToJSON } from "./AssetgroupmanagerV1CloudGroup";
+import {
+    AssetgroupmanagerV1CloudGroupFromJSON,
+    AssetgroupmanagerV1CloudGroupFromJSONTyped,
+    AssetgroupmanagerV1CloudGroupToJSON,
+    AssetgroupmanagerV1CloudGroupToJSONTyped,
+} from "./AssetgroupmanagerV1CloudGroup";
 import type { AssetgroupmanagerV1Error } from "./AssetgroupmanagerV1Error";
-import { AssetgroupmanagerV1ErrorFromJSON, AssetgroupmanagerV1ErrorFromJSONTyped, AssetgroupmanagerV1ErrorToJSON } from "./AssetgroupmanagerV1Error";
+import { AssetgroupmanagerV1ErrorFromJSON, AssetgroupmanagerV1ErrorFromJSONTyped, AssetgroupmanagerV1ErrorToJSON, AssetgroupmanagerV1ErrorToJSONTyped } from "./AssetgroupmanagerV1Error";
 import type { AssetgroupmanagerV1Meta } from "./AssetgroupmanagerV1Meta";
-import { AssetgroupmanagerV1MetaFromJSON, AssetgroupmanagerV1MetaFromJSONTyped, AssetgroupmanagerV1MetaToJSON } from "./AssetgroupmanagerV1Meta";
+import { AssetgroupmanagerV1MetaFromJSON, AssetgroupmanagerV1MetaFromJSONTyped, AssetgroupmanagerV1MetaToJSON, AssetgroupmanagerV1MetaToJSONTyped } from "./AssetgroupmanagerV1Meta";
 
 /**
  *
@@ -68,10 +73,15 @@ export function AssetgroupmanagerV1ListCloudGroupsResponseFromJSONTyped(json: an
     };
 }
 
-export function AssetgroupmanagerV1ListCloudGroupsResponseToJSON(value?: AssetgroupmanagerV1ListCloudGroupsResponse | null): any {
+export function AssetgroupmanagerV1ListCloudGroupsResponseToJSON(json: any): AssetgroupmanagerV1ListCloudGroupsResponse {
+    return AssetgroupmanagerV1ListCloudGroupsResponseToJSONTyped(json, false);
+}
+
+export function AssetgroupmanagerV1ListCloudGroupsResponseToJSONTyped(value?: AssetgroupmanagerV1ListCloudGroupsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(AssetgroupmanagerV1ErrorToJSON),
         meta: AssetgroupmanagerV1MetaToJSON(value["meta"]),

@@ -54,10 +54,15 @@ export function TypesQueryCountResponseFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function TypesQueryCountResponseToJSON(value?: TypesQueryCountResponse | null): any {
+export function TypesQueryCountResponseToJSON(json: any): TypesQueryCountResponse {
+    return TypesQueryCountResponseToJSONTyped(json, false);
+}
+
+export function TypesQueryCountResponseToJSONTyped(value?: TypesQueryCountResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count: value["count"],
         resultType: value["resultType"],

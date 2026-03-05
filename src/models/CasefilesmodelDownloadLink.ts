@@ -48,10 +48,15 @@ export function CasefilesmodelDownloadLinkFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function CasefilesmodelDownloadLinkToJSON(value?: CasefilesmodelDownloadLink | null): any {
+export function CasefilesmodelDownloadLinkToJSON(json: any): CasefilesmodelDownloadLink {
+    return CasefilesmodelDownloadLinkToJSONTyped(json, false);
+}
+
+export function CasefilesmodelDownloadLinkToJSONTyped(value?: CasefilesmodelDownloadLink | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         link: value["link"],
     };

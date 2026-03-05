@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { FwmgrApiRuleCreateRequestV1 } from "./FwmgrApiRuleCreateRequestV1";
-import { FwmgrApiRuleCreateRequestV1FromJSON, FwmgrApiRuleCreateRequestV1FromJSONTyped, FwmgrApiRuleCreateRequestV1ToJSON } from "./FwmgrApiRuleCreateRequestV1";
+import {
+    FwmgrApiRuleCreateRequestV1FromJSON,
+    FwmgrApiRuleCreateRequestV1FromJSONTyped,
+    FwmgrApiRuleCreateRequestV1ToJSON,
+    FwmgrApiRuleCreateRequestV1ToJSONTyped,
+} from "./FwmgrApiRuleCreateRequestV1";
 
 /**
  *
@@ -83,10 +88,15 @@ export function FwmgrApiRuleGroupCreateRequestV1FromJSONTyped(json: any, ignoreD
     };
 }
 
-export function FwmgrApiRuleGroupCreateRequestV1ToJSON(value?: FwmgrApiRuleGroupCreateRequestV1 | null): any {
+export function FwmgrApiRuleGroupCreateRequestV1ToJSON(json: any): FwmgrApiRuleGroupCreateRequestV1 {
+    return FwmgrApiRuleGroupCreateRequestV1ToJSONTyped(json, false);
+}
+
+export function FwmgrApiRuleGroupCreateRequestV1ToJSONTyped(value?: FwmgrApiRuleGroupCreateRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         enabled: value["enabled"],

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ModelsAPIDriftIndicators } from "./ModelsAPIDriftIndicators";
-import { ModelsAPIDriftIndicatorsFromJSON, ModelsAPIDriftIndicatorsFromJSONTyped, ModelsAPIDriftIndicatorsToJSON } from "./ModelsAPIDriftIndicators";
+import { ModelsAPIDriftIndicatorsFromJSON, ModelsAPIDriftIndicatorsFromJSONTyped, ModelsAPIDriftIndicatorsToJSON, ModelsAPIDriftIndicatorsToJSONTyped } from "./ModelsAPIDriftIndicators";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function DriftindicatorsDriftEntityResponseFromJSONTyped(json: any, ignor
     };
 }
 
-export function DriftindicatorsDriftEntityResponseToJSON(value?: DriftindicatorsDriftEntityResponse | null): any {
+export function DriftindicatorsDriftEntityResponseToJSON(json: any): DriftindicatorsDriftEntityResponse {
+    return DriftindicatorsDriftEntityResponseToJSONTyped(json, false);
+}
+
+export function DriftindicatorsDriftEntityResponseToJSONTyped(value?: DriftindicatorsDriftEntityResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

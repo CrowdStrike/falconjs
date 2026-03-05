@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DomainAWSBatchClusterRegion } from "./DomainAWSBatchClusterRegion";
-import { DomainAWSBatchClusterRegionFromJSON, DomainAWSBatchClusterRegionFromJSONTyped, DomainAWSBatchClusterRegionToJSON } from "./DomainAWSBatchClusterRegion";
+import {
+    DomainAWSBatchClusterRegionFromJSON,
+    DomainAWSBatchClusterRegionFromJSONTyped,
+    DomainAWSBatchClusterRegionToJSON,
+    DomainAWSBatchClusterRegionToJSONTyped,
+} from "./DomainAWSBatchClusterRegion";
 
 /**
  *
@@ -107,10 +112,15 @@ export function ModelsSnapshotAccountStatusFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function ModelsSnapshotAccountStatusToJSON(value?: ModelsSnapshotAccountStatus | null): any {
+export function ModelsSnapshotAccountStatusToJSON(json: any): ModelsSnapshotAccountStatus {
+    return ModelsSnapshotAccountStatusToJSONTyped(json, false);
+}
+
+export function ModelsSnapshotAccountStatusToJSONTyped(value?: ModelsSnapshotAccountStatus | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         account_status: value["accountStatus"],

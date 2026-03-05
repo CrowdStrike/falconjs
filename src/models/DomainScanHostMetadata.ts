@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainFileCount } from "./DomainFileCount";
-import { DomainFileCountFromJSON, DomainFileCountFromJSONTyped, DomainFileCountToJSON } from "./DomainFileCount";
+import { DomainFileCountFromJSON, DomainFileCountFromJSONTyped, DomainFileCountToJSON, DomainFileCountToJSONTyped } from "./DomainFileCount";
 
 /**
  *
@@ -142,24 +142,29 @@ export function DomainScanHostMetadataFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function DomainScanHostMetadataToJSON(value?: DomainScanHostMetadata | null): any {
+export function DomainScanHostMetadataToJSON(json: any): DomainScanHostMetadata {
+    return DomainScanHostMetadataToJSONTyped(json, false);
+}
+
+export function DomainScanHostMetadataToJSONTyped(value?: DomainScanHostMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
-        completed_on: value["completedOn"] == null ? undefined : value["completedOn"].toISOString(),
+        completed_on: value["completedOn"] == null ? value["completedOn"] : value["completedOn"].toISOString(),
         filecount: DomainFileCountToJSON(value["filecount"]),
         host_id: value["hostId"],
         host_scan_id: value["hostScanId"],
         id: value["id"],
-        last_updated: value["lastUpdated"] == null ? undefined : value["lastUpdated"].toISOString(),
+        last_updated: value["lastUpdated"] == null ? value["lastUpdated"] : value["lastUpdated"].toISOString(),
         platform_name: value["platformName"],
         profile_id: value["profileId"],
         scan_control_reason: value["scanControlReason"],
         scan_id: value["scanId"],
         severity: value["severity"],
-        started_on: value["startedOn"] == null ? undefined : value["startedOn"].toISOString(),
+        started_on: value["startedOn"] == null ? value["startedOn"] : value["startedOn"].toISOString(),
         status: value["status"],
     };
 }

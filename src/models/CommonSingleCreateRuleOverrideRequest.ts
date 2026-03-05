@@ -103,14 +103,19 @@ export function CommonSingleCreateRuleOverrideRequestFromJSONTyped(json: any, ig
     };
 }
 
-export function CommonSingleCreateRuleOverrideRequestToJSON(value?: CommonSingleCreateRuleOverrideRequest | null): any {
+export function CommonSingleCreateRuleOverrideRequestToJSON(json: any): CommonSingleCreateRuleOverrideRequest {
+    return CommonSingleCreateRuleOverrideRequestToJSONTyped(json, false);
+}
+
+export function CommonSingleCreateRuleOverrideRequestToJSONTyped(value?: CommonSingleCreateRuleOverrideRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         comment: value["comment"],
         crn: value["crn"],
-        expires_at: value["expiresAt"] == null ? undefined : value["expiresAt"].toISOString(),
+        expires_at: value["expiresAt"] == null ? value["expiresAt"] : value["expiresAt"].toISOString(),
         override_type: value["overrideType"],
         overrides_details: value["overridesDetails"],
         reason: value["reason"],

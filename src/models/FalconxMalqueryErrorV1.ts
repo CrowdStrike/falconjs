@@ -54,10 +54,15 @@ export function FalconxMalqueryErrorV1FromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function FalconxMalqueryErrorV1ToJSON(value?: FalconxMalqueryErrorV1 | null): any {
+export function FalconxMalqueryErrorV1ToJSON(json: any): FalconxMalqueryErrorV1 {
+    return FalconxMalqueryErrorV1ToJSONTyped(json, false);
+}
+
+export function FalconxMalqueryErrorV1ToJSONTyped(value?: FalconxMalqueryErrorV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         message: value["message"],

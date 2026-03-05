@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ModelsAPIAssessmentDetections } from "./ModelsAPIAssessmentDetections";
-import { ModelsAPIAssessmentDetectionsFromJSON, ModelsAPIAssessmentDetectionsFromJSONTyped, ModelsAPIAssessmentDetectionsToJSON } from "./ModelsAPIAssessmentDetections";
+import {
+    ModelsAPIAssessmentDetectionsFromJSON,
+    ModelsAPIAssessmentDetectionsFromJSONTyped,
+    ModelsAPIAssessmentDetectionsToJSON,
+    ModelsAPIAssessmentDetectionsToJSONTyped,
+} from "./ModelsAPIAssessmentDetections";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +75,15 @@ export function DetectionsApiAssessmentDetectionsFromJSONTyped(json: any, ignore
     };
 }
 
-export function DetectionsApiAssessmentDetectionsToJSON(value?: DetectionsApiAssessmentDetections | null): any {
+export function DetectionsApiAssessmentDetectionsToJSON(json: any): DetectionsApiAssessmentDetections {
+    return DetectionsApiAssessmentDetectionsToJSONTyped(json, false);
+}
+
+export function DetectionsApiAssessmentDetectionsToJSONTyped(value?: DetectionsApiAssessmentDetections | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

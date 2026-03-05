@@ -18,11 +18,12 @@ import {
     DomainAPIAggregateResponseComplianceByAssetTypeV1ResourcesFromJSON,
     DomainAPIAggregateResponseComplianceByAssetTypeV1ResourcesFromJSONTyped,
     DomainAPIAggregateResponseComplianceByAssetTypeV1ResourcesToJSON,
+    DomainAPIAggregateResponseComplianceByAssetTypeV1ResourcesToJSONTyped,
 } from "./DomainAPIAggregateResponseComplianceByAssetTypeV1Resources";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -74,10 +75,15 @@ export function DomainAPIAggregateResponseComplianceByAssetTypeV1FromJSONTyped(j
     };
 }
 
-export function DomainAPIAggregateResponseComplianceByAssetTypeV1ToJSON(value?: DomainAPIAggregateResponseComplianceByAssetTypeV1 | null): any {
+export function DomainAPIAggregateResponseComplianceByAssetTypeV1ToJSON(json: any): DomainAPIAggregateResponseComplianceByAssetTypeV1 {
+    return DomainAPIAggregateResponseComplianceByAssetTypeV1ToJSONTyped(json, false);
+}
+
+export function DomainAPIAggregateResponseComplianceByAssetTypeV1ToJSONTyped(value?: DomainAPIAggregateResponseComplianceByAssetTypeV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

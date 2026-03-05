@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ModelsAWSAccountV1 } from "./ModelsAWSAccountV1";
-import { ModelsAWSAccountV1FromJSON, ModelsAWSAccountV1FromJSONTyped, ModelsAWSAccountV1ToJSON } from "./ModelsAWSAccountV1";
+import { ModelsAWSAccountV1FromJSON, ModelsAWSAccountV1FromJSONTyped, ModelsAWSAccountV1ToJSON, ModelsAWSAccountV1ToJSONTyped } from "./ModelsAWSAccountV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function ModelsAWSAccountsV1FromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function ModelsAWSAccountsV1ToJSON(value?: ModelsAWSAccountsV1 | null): any {
+export function ModelsAWSAccountsV1ToJSON(json: any): ModelsAWSAccountsV1 {
+    return ModelsAWSAccountsV1ToJSONTyped(json, false);
+}
+
+export function ModelsAWSAccountsV1ToJSONTyped(value?: ModelsAWSAccountsV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

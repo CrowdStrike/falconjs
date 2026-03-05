@@ -14,9 +14,19 @@
 
 import { mapValues } from "../runtime";
 import type { DevicecontrolapiUSBExceptionBase } from "./DevicecontrolapiUSBExceptionBase";
-import { DevicecontrolapiUSBExceptionBaseFromJSON, DevicecontrolapiUSBExceptionBaseFromJSONTyped, DevicecontrolapiUSBExceptionBaseToJSON } from "./DevicecontrolapiUSBExceptionBase";
+import {
+    DevicecontrolapiUSBExceptionBaseFromJSON,
+    DevicecontrolapiUSBExceptionBaseFromJSONTyped,
+    DevicecontrolapiUSBExceptionBaseToJSON,
+    DevicecontrolapiUSBExceptionBaseToJSONTyped,
+} from "./DevicecontrolapiUSBExceptionBase";
 import type { DevicecontrolapiReqUpdateUSBClassV1 } from "./DevicecontrolapiReqUpdateUSBClassV1";
-import { DevicecontrolapiReqUpdateUSBClassV1FromJSON, DevicecontrolapiReqUpdateUSBClassV1FromJSONTyped, DevicecontrolapiReqUpdateUSBClassV1ToJSON } from "./DevicecontrolapiReqUpdateUSBClassV1";
+import {
+    DevicecontrolapiReqUpdateUSBClassV1FromJSON,
+    DevicecontrolapiReqUpdateUSBClassV1FromJSONTyped,
+    DevicecontrolapiReqUpdateUSBClassV1ToJSON,
+    DevicecontrolapiReqUpdateUSBClassV1ToJSONTyped,
+} from "./DevicecontrolapiReqUpdateUSBClassV1";
 
 /**
  *
@@ -69,10 +79,15 @@ export function DevicecontrolapiReqUpdateUSBClassesV1FromJSONTyped(json: any, ig
     };
 }
 
-export function DevicecontrolapiReqUpdateUSBClassesV1ToJSON(value?: DevicecontrolapiReqUpdateUSBClassesV1 | null): any {
+export function DevicecontrolapiReqUpdateUSBClassesV1ToJSON(json: any): DevicecontrolapiReqUpdateUSBClassesV1 {
+    return DevicecontrolapiReqUpdateUSBClassesV1ToJSONTyped(json, false);
+}
+
+export function DevicecontrolapiReqUpdateUSBClassesV1ToJSONTyped(value?: DevicecontrolapiReqUpdateUSBClassesV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         classes: (value["classes"] as Array<any>).map(DevicecontrolapiReqUpdateUSBClassV1ToJSON),
         delete_exceptions: value["deleteExceptions"],

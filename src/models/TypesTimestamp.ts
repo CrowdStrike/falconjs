@@ -56,10 +56,15 @@ export function TypesTimestampFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function TypesTimestampToJSON(value?: TypesTimestamp | null): any {
+export function TypesTimestampToJSON(json: any): TypesTimestamp {
+    return TypesTimestampToJSONTyped(json, false);
+}
+
+export function TypesTimestampToJSONTyped(value?: TypesTimestamp | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         nanos: value["nanos"],
         seconds: value["seconds"],

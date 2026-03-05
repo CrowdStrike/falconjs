@@ -72,10 +72,15 @@ export function ApiEnterpriseAccountCreateRequestV1FromJSONTyped(json: any, igno
     };
 }
 
-export function ApiEnterpriseAccountCreateRequestV1ToJSON(value?: ApiEnterpriseAccountCreateRequestV1 | null): any {
+export function ApiEnterpriseAccountCreateRequestV1ToJSON(json: any): ApiEnterpriseAccountCreateRequestV1 {
+    return ApiEnterpriseAccountCreateRequestV1ToJSONTyped(json, false);
+}
+
+export function ApiEnterpriseAccountCreateRequestV1ToJSONTyped(value?: ApiEnterpriseAccountCreateRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         application_group_id: value["applicationGroupId"],
         domains: value["domains"],

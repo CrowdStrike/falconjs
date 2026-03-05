@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DetectsapiPostCombinedAlertsV1Paging } from "./DetectsapiPostCombinedAlertsV1Paging";
-import { DetectsapiPostCombinedAlertsV1PagingFromJSON, DetectsapiPostCombinedAlertsV1PagingFromJSONTyped, DetectsapiPostCombinedAlertsV1PagingToJSON } from "./DetectsapiPostCombinedAlertsV1Paging";
+import {
+    DetectsapiPostCombinedAlertsV1PagingFromJSON,
+    DetectsapiPostCombinedAlertsV1PagingFromJSONTyped,
+    DetectsapiPostCombinedAlertsV1PagingToJSON,
+    DetectsapiPostCombinedAlertsV1PagingToJSONTyped,
+} from "./DetectsapiPostCombinedAlertsV1Paging";
 
 /**
  *
@@ -73,10 +78,15 @@ export function DetectsapiPostCombinedAlertsV1MetaFromJSONTyped(json: any, ignor
     };
 }
 
-export function DetectsapiPostCombinedAlertsV1MetaToJSON(value?: DetectsapiPostCombinedAlertsV1Meta | null): any {
+export function DetectsapiPostCombinedAlertsV1MetaToJSON(json: any): DetectsapiPostCombinedAlertsV1Meta {
+    return DetectsapiPostCombinedAlertsV1MetaToJSONTyped(json, false);
+}
+
+export function DetectsapiPostCombinedAlertsV1MetaToJSONTyped(value?: DetectsapiPostCombinedAlertsV1Meta | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: DetectsapiPostCombinedAlertsV1PagingToJSON(value["pagination"]),
         powered_by: value["poweredBy"],

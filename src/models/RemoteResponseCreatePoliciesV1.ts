@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { RemoteResponseCreatePolicyReqV1 } from "./RemoteResponseCreatePolicyReqV1";
-import { RemoteResponseCreatePolicyReqV1FromJSON, RemoteResponseCreatePolicyReqV1FromJSONTyped, RemoteResponseCreatePolicyReqV1ToJSON } from "./RemoteResponseCreatePolicyReqV1";
+import {
+    RemoteResponseCreatePolicyReqV1FromJSON,
+    RemoteResponseCreatePolicyReqV1FromJSONTyped,
+    RemoteResponseCreatePolicyReqV1ToJSON,
+    RemoteResponseCreatePolicyReqV1ToJSONTyped,
+} from "./RemoteResponseCreatePolicyReqV1";
 
 /**
  * A req to create realtime policies
@@ -51,10 +56,15 @@ export function RemoteResponseCreatePoliciesV1FromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function RemoteResponseCreatePoliciesV1ToJSON(value?: RemoteResponseCreatePoliciesV1 | null): any {
+export function RemoteResponseCreatePoliciesV1ToJSON(json: any): RemoteResponseCreatePoliciesV1 {
+    return RemoteResponseCreatePoliciesV1ToJSONTyped(json, false);
+}
+
+export function RemoteResponseCreatePoliciesV1ToJSONTyped(value?: RemoteResponseCreatePoliciesV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(RemoteResponseCreatePolicyReqV1ToJSON),
     };

@@ -63,10 +63,15 @@ export function DomainRulePreviewRequestFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function DomainRulePreviewRequestToJSON(value?: DomainRulePreviewRequest | null): any {
+export function DomainRulePreviewRequestToJSON(json: any): DomainRulePreviewRequest {
+    return DomainRulePreviewRequestToJSONTyped(json, false);
+}
+
+export function DomainRulePreviewRequestToJSONTyped(value?: DomainRulePreviewRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         filter: value["filter"],
         lookback_days: value["lookbackDays"],

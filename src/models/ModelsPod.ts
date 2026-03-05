@@ -415,10 +415,15 @@ export function ModelsPodFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     };
 }
 
-export function ModelsPodToJSON(value?: ModelsPod | null): any {
+export function ModelsPodToJSON(json: any): ModelsPod {
+    return ModelsPodToJSONTyped(json, false);
+}
+
+export function ModelsPodToJSONTyped(value?: ModelsPod | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         agents: value["agents"],
         allow_privilege_escalation: value["allowPrivilegeEscalation"],

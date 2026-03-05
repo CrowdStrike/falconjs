@@ -64,14 +64,10 @@ export interface DetectsApiUpdateDetectsByIdsV2Request {
  */
 export class DetectsApi extends runtime.BaseAPI {
     /**
-     * Please use this guide to migrate to [Alerts API](https://falcon.crowdstrike.com/documentation/page/d02475a5/converting-from-detects-api-to-alerts-api)
-     * Deprecated: This endpoint will be decommissioned on September 30, 2025. Please check the Notes section below for migration guidance.
+     * Creates request options for getAggregateDetects without sending the request
      * @deprecated
      */
-    async getAggregateDetectsRaw(
-        requestParameters: DetectsApiGetAggregateDetectsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+    async getAggregateDetectsRequestOpts(requestParameters: DetectsApiGetAggregateDetectsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getAggregateDetects().');
         }
@@ -87,16 +83,28 @@ export class DetectsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["detects:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/detects/aggregates/detects/GET/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
-            },
-            initOverrides,
-        );
+        let urlPath = `/detects/aggregates/detects/GET/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
+        };
+    }
+
+    /**
+     * Please use this guide to migrate to [Alerts API](https://falcon.crowdstrike.com/documentation/page/d02475a5/converting-from-detects-api-to-alerts-api)
+     * Deprecated: This endpoint will be decommissioned on September 30, 2025. Please check the Notes section below for migration guidance.
+     * @deprecated
+     */
+    async getAggregateDetectsRaw(
+        requestParameters: DetectsApiGetAggregateDetectsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        const requestOptions = await this.getAggregateDetectsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
     }
@@ -112,14 +120,10 @@ export class DetectsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Please use this guide to migrate to [Alerts API](https://falcon.crowdstrike.com/documentation/page/d02475a5/converting-from-detects-api-to-alerts-api)
-     * Deprecated: This endpoint will be decommissioned on September 30, 2025. Please check the Notes section below for migration guidance.
+     * Creates request options for getDetectSummaries without sending the request
      * @deprecated
      */
-    async getDetectSummariesRaw(
-        requestParameters: DetectsApiGetDetectSummariesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainMsaDetectSummariesResponse>> {
+    async getDetectSummariesRequestOpts(requestParameters: DetectsApiGetDetectSummariesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getDetectSummaries().');
         }
@@ -135,16 +139,28 @@ export class DetectsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["detects:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/detects/entities/summaries/GET/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaIdsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/detects/entities/summaries/GET/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaIdsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Please use this guide to migrate to [Alerts API](https://falcon.crowdstrike.com/documentation/page/d02475a5/converting-from-detects-api-to-alerts-api)
+     * Deprecated: This endpoint will be decommissioned on September 30, 2025. Please check the Notes section below for migration guidance.
+     * @deprecated
+     */
+    async getDetectSummariesRaw(
+        requestParameters: DetectsApiGetDetectSummariesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainMsaDetectSummariesResponse>> {
+        const requestOptions = await this.getDetectSummariesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaDetectSummariesResponseFromJSON(jsonValue));
     }
@@ -160,11 +176,10 @@ export class DetectsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Please use this guide to migrate to [Alerts API](https://falcon.crowdstrike.com/documentation/page/d02475a5/converting-from-detects-api-to-alerts-api)
-     * Deprecated: This endpoint will be decommissioned on September 30, 2025. Please check the Notes section below for migration guidance.
+     * Creates request options for queryDetects without sending the request
      * @deprecated
      */
-    async queryDetectsRaw(requestParameters: DetectsApiQueryDetectsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryDetectsRequestOpts(requestParameters: DetectsApiQueryDetectsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -194,15 +209,24 @@ export class DetectsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["detects:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/detects/queries/detects/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/detects/queries/detects/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Please use this guide to migrate to [Alerts API](https://falcon.crowdstrike.com/documentation/page/d02475a5/converting-from-detects-api-to-alerts-api)
+     * Deprecated: This endpoint will be decommissioned on September 30, 2025. Please check the Notes section below for migration guidance.
+     * @deprecated
+     */
+    async queryDetectsRaw(requestParameters: DetectsApiQueryDetectsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.queryDetectsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -218,14 +242,10 @@ export class DetectsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Please use this guide to migrate to [Alerts API](https://falcon.crowdstrike.com/documentation/page/d02475a5/converting-from-detects-api-to-alerts-api)
-     * Deprecated: This endpoint will be decommissioned on September 30, 2025. Please check the Notes section below for migration guidance.
+     * Creates request options for updateDetectsByIdsV2 without sending the request
      * @deprecated
      */
-    async updateDetectsByIdsV2Raw(
-        requestParameters: DetectsApiUpdateDetectsByIdsV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async updateDetectsByIdsV2RequestOpts(requestParameters: DetectsApiUpdateDetectsByIdsV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateDetectsByIdsV2().');
         }
@@ -241,16 +261,28 @@ export class DetectsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["detects:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/detects/entities/detects/v2`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainDetectsEntitiesPatchRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/detects/entities/detects/v2`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainDetectsEntitiesPatchRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Please use this guide to migrate to [Alerts API](https://falcon.crowdstrike.com/documentation/page/d02475a5/converting-from-detects-api-to-alerts-api)
+     * Deprecated: This endpoint will be decommissioned on September 30, 2025. Please check the Notes section below for migration guidance.
+     * @deprecated
+     */
+    async updateDetectsByIdsV2Raw(
+        requestParameters: DetectsApiUpdateDetectsByIdsV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+        const requestOptions = await this.updateDetectsByIdsV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
     }

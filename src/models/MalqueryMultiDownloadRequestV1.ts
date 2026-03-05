@@ -48,10 +48,15 @@ export function MalqueryMultiDownloadRequestV1FromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function MalqueryMultiDownloadRequestV1ToJSON(value?: MalqueryMultiDownloadRequestV1 | null): any {
+export function MalqueryMultiDownloadRequestV1ToJSON(json: any): MalqueryMultiDownloadRequestV1 {
+    return MalqueryMultiDownloadRequestV1ToJSONTyped(json, false);
+}
+
+export function MalqueryMultiDownloadRequestV1ToJSONTyped(value?: MalqueryMultiDownloadRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         samples: value["samples"],
     };

@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { TypesIntegrationType } from "./TypesIntegrationType";
-import { TypesIntegrationTypeFromJSON, TypesIntegrationTypeFromJSONTyped, TypesIntegrationTypeToJSON } from "./TypesIntegrationType";
+import { TypesIntegrationTypeFromJSON, TypesIntegrationTypeFromJSONTyped, TypesIntegrationTypeToJSON, TypesIntegrationTypeToJSONTyped } from "./TypesIntegrationType";
 import type { TypesExecutorNode } from "./TypesExecutorNode";
-import { TypesExecutorNodeFromJSON, TypesExecutorNodeFromJSONTyped, TypesExecutorNodeToJSON } from "./TypesExecutorNode";
+import { TypesExecutorNodeFromJSON, TypesExecutorNodeFromJSONTyped, TypesExecutorNodeToJSON, TypesExecutorNodeToJSONTyped } from "./TypesExecutorNode";
 
 /**
  *
@@ -101,10 +101,15 @@ export function TypesIntegrationFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function TypesIntegrationToJSON(value?: TypesIntegration | null): any {
+export function TypesIntegrationToJSON(json: any): TypesIntegration {
+    return TypesIntegrationToJSONTyped(json, false);
+}
+
+export function TypesIntegrationToJSONTyped(value?: TypesIntegration | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         data: value["data"],
         enabled: value["enabled"],

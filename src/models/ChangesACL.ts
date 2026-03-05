@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ChangesACLChange } from "./ChangesACLChange";
-import { ChangesACLChangeFromJSON, ChangesACLChangeFromJSONTyped, ChangesACLChangeToJSON } from "./ChangesACLChange";
+import { ChangesACLChangeFromJSON, ChangesACLChangeFromJSONTyped, ChangesACLChangeToJSON, ChangesACLChangeToJSONTyped } from "./ChangesACLChange";
 
 /**
  *
@@ -71,10 +71,15 @@ export function ChangesACLFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function ChangesACLToJSON(value?: ChangesACL | null): any {
+export function ChangesACLToJSON(json: any): ChangesACL {
+    return ChangesACLToJSONTyped(json, false);
+}
+
+export function ChangesACLToJSONTyped(value?: ChangesACL | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         acl_permission_change: value["aclPermissionChange"] == null ? undefined : (value["aclPermissionChange"] as Array<any>).map(ChangesACLChangeToJSON),
         entity: value["entity"],

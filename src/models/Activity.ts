@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesPolicyRulesCondition } from "./TypesPolicyRulesCondition";
-import { TypesPolicyRulesConditionFromJSON, TypesPolicyRulesConditionFromJSONTyped, TypesPolicyRulesConditionToJSON } from "./TypesPolicyRulesCondition";
+import { TypesPolicyRulesConditionFromJSON, TypesPolicyRulesConditionFromJSONTyped, TypesPolicyRulesConditionToJSON, TypesPolicyRulesConditionToJSONTyped } from "./TypesPolicyRulesCondition";
 
 /**
  *
@@ -57,10 +57,15 @@ export function ActivityFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
     };
 }
 
-export function ActivityToJSON(value?: Activity | null): any {
+export function ActivityToJSON(json: any): Activity {
+    return ActivityToJSONTyped(json, false);
+}
+
+export function ActivityToJSONTyped(value?: Activity | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         accessType: TypesPolicyRulesConditionToJSON(value["accessType"]),
         accessTypeCustom: TypesPolicyRulesConditionToJSON(value["accessTypeCustom"]),

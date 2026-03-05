@@ -68,10 +68,15 @@ export function ApiDeviceCountV1FromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function ApiDeviceCountV1ToJSON(value?: ApiDeviceCountV1 | null): any {
+export function ApiDeviceCountV1ToJSON(json: any): ApiDeviceCountV1 {
+    return ApiDeviceCountV1ToJSONTyped(json, false);
+}
+
+export function ApiDeviceCountV1ToJSONTyped(value?: ApiDeviceCountV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         device_count: value["deviceCount"],
         limit_exceeded: value["limitExceeded"],

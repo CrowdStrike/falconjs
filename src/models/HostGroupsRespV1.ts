@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { HostGroupsHostGroupV1 } from "./HostGroupsHostGroupV1";
-import { HostGroupsHostGroupV1FromJSON, HostGroupsHostGroupV1FromJSONTyped, HostGroupsHostGroupV1ToJSON } from "./HostGroupsHostGroupV1";
+import { HostGroupsHostGroupV1FromJSON, HostGroupsHostGroupV1FromJSONTyped, HostGroupsHostGroupV1ToJSON, HostGroupsHostGroupV1ToJSONTyped } from "./HostGroupsHostGroupV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function HostGroupsRespV1FromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function HostGroupsRespV1ToJSON(value?: HostGroupsRespV1 | null): any {
+export function HostGroupsRespV1ToJSON(json: any): HostGroupsRespV1 {
+    return HostGroupsRespV1ToJSONTyped(json, false);
+}
+
+export function HostGroupsRespV1ToJSONTyped(value?: HostGroupsRespV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

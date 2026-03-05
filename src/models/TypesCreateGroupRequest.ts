@@ -89,10 +89,15 @@ export function TypesCreateGroupRequestFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function TypesCreateGroupRequestToJSON(value?: TypesCreateGroupRequest | null): any {
+export function TypesCreateGroupRequestToJSON(json: any): TypesCreateGroupRequest {
+    return TypesCreateGroupRequestToJSONTyped(json, false);
+}
+
+export function TypesCreateGroupRequestToJSONTyped(value?: TypesCreateGroupRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         children: value["children"],
         description: value["description"],

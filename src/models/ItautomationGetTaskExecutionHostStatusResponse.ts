@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ItautomationTaskExecutionHostStatus } from "./ItautomationTaskExecutionHostStatus";
-import { ItautomationTaskExecutionHostStatusFromJSON, ItautomationTaskExecutionHostStatusFromJSONTyped, ItautomationTaskExecutionHostStatusToJSON } from "./ItautomationTaskExecutionHostStatus";
+import {
+    ItautomationTaskExecutionHostStatusFromJSON,
+    ItautomationTaskExecutionHostStatusFromJSONTyped,
+    ItautomationTaskExecutionHostStatusToJSON,
+    ItautomationTaskExecutionHostStatusToJSONTyped,
+} from "./ItautomationTaskExecutionHostStatus";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +75,15 @@ export function ItautomationGetTaskExecutionHostStatusResponseFromJSONTyped(json
     };
 }
 
-export function ItautomationGetTaskExecutionHostStatusResponseToJSON(value?: ItautomationGetTaskExecutionHostStatusResponse | null): any {
+export function ItautomationGetTaskExecutionHostStatusResponseToJSON(json: any): ItautomationGetTaskExecutionHostStatusResponse {
+    return ItautomationGetTaskExecutionHostStatusResponseToJSONTyped(json, false);
+}
+
+export function ItautomationGetTaskExecutionHostStatusResponseToJSONTyped(value?: ItautomationGetTaskExecutionHostStatusResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

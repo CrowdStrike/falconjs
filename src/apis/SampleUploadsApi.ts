@@ -109,9 +109,9 @@ export interface SampleUploadsApiUploadSampleV3Request {
  */
 export class SampleUploadsApi extends runtime.BaseAPI {
     /**
-     * Delete an archive that was uploaded previously
+     * Creates request options for archiveDeleteV1 without sending the request
      */
-    async archiveDeleteV1Raw(requestParameters: SampleUploadsApiArchiveDeleteV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async archiveDeleteV1RequestOpts(requestParameters: SampleUploadsApiArchiveDeleteV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling archiveDeleteV1().');
         }
@@ -129,15 +129,22 @@ export class SampleUploadsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["samplestore:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/archives/entities/archives/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/archives/entities/archives/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete an archive that was uploaded previously
+     */
+    async archiveDeleteV1Raw(requestParameters: SampleUploadsApiArchiveDeleteV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.archiveDeleteV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -150,12 +157,9 @@ export class SampleUploadsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves the archives upload operation statuses. Status `done` means that archive was processed successfully. Status `error` means that archive was not processed successfully.
+     * Creates request options for archiveGetV1 without sending the request
      */
-    async archiveGetV1Raw(
-        requestParameters: SampleUploadsApiArchiveGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ClientArchiveCreateResponseV1>> {
+    async archiveGetV1RequestOpts(requestParameters: SampleUploadsApiArchiveGetV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling archiveGetV1().');
         }
@@ -177,15 +181,25 @@ export class SampleUploadsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["samplestore:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/archives/entities/archives/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/archives/entities/archives/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieves the archives upload operation statuses. Status `done` means that archive was processed successfully. Status `error` means that archive was not processed successfully.
+     */
+    async archiveGetV1Raw(
+        requestParameters: SampleUploadsApiArchiveGetV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ClientArchiveCreateResponseV1>> {
+        const requestOptions = await this.archiveGetV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientArchiveCreateResponseV1FromJSON(jsonValue));
     }
@@ -199,12 +213,9 @@ export class SampleUploadsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves the archives files in chunks.
+     * Creates request options for archiveListV1 without sending the request
      */
-    async archiveListV1Raw(
-        requestParameters: SampleUploadsApiArchiveListV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ClientArchiveListFilesResponseV1>> {
+    async archiveListV1RequestOpts(requestParameters: SampleUploadsApiArchiveListV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling archiveListV1().');
         }
@@ -230,15 +241,25 @@ export class SampleUploadsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["samplestore:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/archives/entities/archive-files/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/archives/entities/archive-files/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieves the archives files in chunks.
+     */
+    async archiveListV1Raw(
+        requestParameters: SampleUploadsApiArchiveListV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ClientArchiveListFilesResponseV1>> {
+        const requestOptions = await this.archiveListV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientArchiveListFilesResponseV1FromJSON(jsonValue));
     }
@@ -252,13 +273,10 @@ export class SampleUploadsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Uploads an archive and extracts files list from it. Operation is asynchronous use `/archives/entities/archives/v1` to check the status. After uploading, use `/archives/entities/extractions/v1` to copy the file to internal storage making it available for content analysis. This method is deprecated in favor of `/archives/entities/archives/v2`
+     * Creates request options for archiveUploadV1 without sending the request
      * @deprecated
      */
-    async archiveUploadV1Raw(
-        requestParameters: SampleUploadsApiArchiveUploadV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ClientArchiveCreateResponseV1>> {
+    async archiveUploadV1RequestOpts(requestParameters: SampleUploadsApiArchiveUploadV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["name"] == null) {
             throw new runtime.RequiredError("name", 'Required parameter "name" was null or undefined when calling archiveUploadV1().');
         }
@@ -294,16 +312,27 @@ export class SampleUploadsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["samplestore:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/archives/entities/archives/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"],
-            },
-            initOverrides,
-        );
+        let urlPath = `/archives/entities/archives/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"],
+        };
+    }
+
+    /**
+     * Uploads an archive and extracts files list from it. Operation is asynchronous use `/archives/entities/archives/v1` to check the status. After uploading, use `/archives/entities/extractions/v1` to copy the file to internal storage making it available for content analysis. This method is deprecated in favor of `/archives/entities/archives/v2`
+     * @deprecated
+     */
+    async archiveUploadV1Raw(
+        requestParameters: SampleUploadsApiArchiveUploadV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ClientArchiveCreateResponseV1>> {
+        const requestOptions = await this.archiveUploadV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientArchiveCreateResponseV1FromJSON(jsonValue));
     }
@@ -325,12 +354,9 @@ export class SampleUploadsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Uploads an archive and extracts files list from it. Operation is asynchronous use `/archives/entities/archives/v1` to check the status. After uploading, use `/archives/entities/extractions/v1` to copy the file to internal storage making it available for content analysis.
+     * Creates request options for archiveUploadV2 without sending the request
      */
-    async archiveUploadV2Raw(
-        requestParameters: SampleUploadsApiArchiveUploadV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ClientArchiveCreateResponseV1>> {
+    async archiveUploadV2RequestOpts(requestParameters: SampleUploadsApiArchiveUploadV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["file"] == null) {
             throw new runtime.RequiredError("file", 'Required parameter "file" was null or undefined when calling archiveUploadV2().');
         }
@@ -382,16 +408,26 @@ export class SampleUploadsApi extends runtime.BaseAPI {
             formParams.append("comment", requestParameters["comment"] as any);
         }
 
-        const response = await this.request(
-            {
-                path: `/archives/entities/archives/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: formParams,
-            },
-            initOverrides,
-        );
+        let urlPath = `/archives/entities/archives/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        };
+    }
+
+    /**
+     * Uploads an archive and extracts files list from it. Operation is asynchronous use `/archives/entities/archives/v1` to check the status. After uploading, use `/archives/entities/extractions/v1` to copy the file to internal storage making it available for content analysis.
+     */
+    async archiveUploadV2Raw(
+        requestParameters: SampleUploadsApiArchiveUploadV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ClientArchiveCreateResponseV1>> {
+        const requestOptions = await this.archiveUploadV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientArchiveCreateResponseV1FromJSON(jsonValue));
     }
@@ -412,9 +448,9 @@ export class SampleUploadsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Removes a sample, including file, meta and submissions from the collection
+     * Creates request options for deleteSampleV3 without sending the request
      */
-    async deleteSampleV3Raw(requestParameters: SampleUploadsApiDeleteSampleV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async deleteSampleV3RequestOpts(requestParameters: SampleUploadsApiDeleteSampleV3Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteSampleV3().');
         }
@@ -432,15 +468,22 @@ export class SampleUploadsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["samplestore:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/samples/entities/samples/v3`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/samples/entities/samples/v3`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Removes a sample, including file, meta and submissions from the collection
+     */
+    async deleteSampleV3Raw(requestParameters: SampleUploadsApiDeleteSampleV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.deleteSampleV3RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -454,12 +497,9 @@ export class SampleUploadsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Extracts files from an uploaded archive and copies them to internal storage making it available for content analysis.
+     * Creates request options for extractionCreateV1 without sending the request
      */
-    async extractionCreateV1Raw(
-        requestParameters: SampleUploadsApiExtractionCreateV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ClientExtractionCreateResponseV1>> {
+    async extractionCreateV1RequestOpts(requestParameters: SampleUploadsApiExtractionCreateV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling extractionCreateV1().');
         }
@@ -475,16 +515,26 @@ export class SampleUploadsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["samplestore:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/archives/entities/extractions/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ClientExtractionCreateRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/archives/entities/extractions/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ClientExtractionCreateRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Extracts files from an uploaded archive and copies them to internal storage making it available for content analysis.
+     */
+    async extractionCreateV1Raw(
+        requestParameters: SampleUploadsApiExtractionCreateV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ClientExtractionCreateResponseV1>> {
+        const requestOptions = await this.extractionCreateV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientExtractionCreateResponseV1FromJSON(jsonValue));
     }
@@ -498,12 +548,9 @@ export class SampleUploadsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves the files extraction operation statuses. Status `done` means that all files were processed successfully. Status `error` means that at least one of the file could not be processed.
+     * Creates request options for extractionGetV1 without sending the request
      */
-    async extractionGetV1Raw(
-        requestParameters: SampleUploadsApiExtractionGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ClientExtractionCreateResponseV1>> {
+    async extractionGetV1RequestOpts(requestParameters: SampleUploadsApiExtractionGetV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling extractionGetV1().');
         }
@@ -525,15 +572,25 @@ export class SampleUploadsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["samplestore:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/archives/entities/extractions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/archives/entities/extractions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieves the files extraction operation statuses. Status `done` means that all files were processed successfully. Status `error` means that at least one of the file could not be processed.
+     */
+    async extractionGetV1Raw(
+        requestParameters: SampleUploadsApiExtractionGetV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ClientExtractionCreateResponseV1>> {
+        const requestOptions = await this.extractionGetV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientExtractionCreateResponseV1FromJSON(jsonValue));
     }
@@ -547,12 +604,9 @@ export class SampleUploadsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves the files extractions in chunks. Status `done` means that all files were processed successfully. Status `error` means that at least one of the file could not be processed.
+     * Creates request options for extractionListV1 without sending the request
      */
-    async extractionListV1Raw(
-        requestParameters: SampleUploadsApiExtractionListV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ClientExtractionListFilesResponseV1>> {
+    async extractionListV1RequestOpts(requestParameters: SampleUploadsApiExtractionListV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling extractionListV1().');
         }
@@ -578,15 +632,25 @@ export class SampleUploadsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["samplestore:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/archives/entities/extraction-files/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/archives/entities/extraction-files/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieves the files extractions in chunks. Status `done` means that all files were processed successfully. Status `error` means that at least one of the file could not be processed.
+     */
+    async extractionListV1Raw(
+        requestParameters: SampleUploadsApiExtractionListV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ClientExtractionListFilesResponseV1>> {
+        const requestOptions = await this.extractionListV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientExtractionListFilesResponseV1FromJSON(jsonValue));
     }
@@ -600,9 +664,9 @@ export class SampleUploadsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves the file associated with the given ID (SHA256)
+     * Creates request options for getSampleV3 without sending the request
      */
-    async getSampleV3Raw(requestParameters: SampleUploadsApiGetSampleV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+    async getSampleV3RequestOpts(requestParameters: SampleUploadsApiGetSampleV3Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getSampleV3().');
         }
@@ -624,15 +688,22 @@ export class SampleUploadsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["samplestore:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/samples/entities/samples/v3`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/samples/entities/samples/v3`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieves the file associated with the given ID (SHA256)
+     */
+    async getSampleV3Raw(requestParameters: SampleUploadsApiGetSampleV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+        const requestOptions = await this.getSampleV3RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         if (this.isJsonMime(response.headers.get("content-type"))) {
             return new runtime.JSONApiResponse<string>(response);
@@ -650,12 +721,9 @@ export class SampleUploadsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Upload a file for further cloud analysis. After uploading, call the specific analysis API endpoint.
+     * Creates request options for uploadSampleV3 without sending the request
      */
-    async uploadSampleV3Raw(
-        requestParameters: SampleUploadsApiUploadSampleV3Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ClientSampleMetadataResponseV2>> {
+    async uploadSampleV3RequestOpts(requestParameters: SampleUploadsApiUploadSampleV3Request): Promise<runtime.RequestOpts> {
         if (requestParameters["sample"] == null) {
             throw new runtime.RequiredError("sample", 'Required parameter "sample" was null or undefined when calling uploadSampleV3().');
         }
@@ -703,16 +771,26 @@ export class SampleUploadsApi extends runtime.BaseAPI {
             formParams.append("is_confidential", requestParameters["isConfidential"] as any);
         }
 
-        const response = await this.request(
-            {
-                path: `/samples/entities/samples/v3`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: formParams,
-            },
-            initOverrides,
-        );
+        let urlPath = `/samples/entities/samples/v3`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        };
+    }
+
+    /**
+     * Upload a file for further cloud analysis. After uploading, call the specific analysis API endpoint.
+     */
+    async uploadSampleV3Raw(
+        requestParameters: SampleUploadsApiUploadSampleV3Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ClientSampleMetadataResponseV2>> {
+        const requestOptions = await this.uploadSampleV3RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientSampleMetadataResponseV2FromJSON(jsonValue));
     }

@@ -18,6 +18,7 @@ import {
     ContentUpdateRingAssignmentOverrideSettingV1FromJSON,
     ContentUpdateRingAssignmentOverrideSettingV1FromJSONTyped,
     ContentUpdateRingAssignmentOverrideSettingV1ToJSON,
+    ContentUpdateRingAssignmentOverrideSettingV1ToJSONTyped,
 } from "./ContentUpdateRingAssignmentOverrideSettingV1";
 
 /**
@@ -87,10 +88,15 @@ export function ContentUpdateRingAssignmentSettingsV1FromJSONTyped(json: any, ig
     };
 }
 
-export function ContentUpdateRingAssignmentSettingsV1ToJSON(value?: ContentUpdateRingAssignmentSettingsV1 | null): any {
+export function ContentUpdateRingAssignmentSettingsV1ToJSON(json: any): ContentUpdateRingAssignmentSettingsV1 {
+    return ContentUpdateRingAssignmentSettingsV1ToJSONTyped(json, false);
+}
+
+export function ContentUpdateRingAssignmentSettingsV1ToJSONTyped(value?: ContentUpdateRingAssignmentSettingsV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         delay_hours: value["delayHours"],
         id: value["id"],

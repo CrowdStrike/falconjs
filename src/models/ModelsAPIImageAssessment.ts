@@ -88,10 +88,15 @@ export function ModelsAPIImageAssessmentFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function ModelsAPIImageAssessmentToJSON(value?: ModelsAPIImageAssessment | null): any {
+export function ModelsAPIImageAssessmentToJSON(json: any): ModelsAPIImageAssessment {
+    return ModelsAPIImageAssessmentToJSONTyped(json, false);
+}
+
+export function ModelsAPIImageAssessmentToJSONTyped(value?: ModelsAPIImageAssessment | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         assessed: value["assessed"],
         error_image_pull: value["errorImagePull"],

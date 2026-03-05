@@ -48,10 +48,15 @@ export function DtoHealthCheckTriggerInfoFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DtoHealthCheckTriggerInfoToJSON(value?: DtoHealthCheckTriggerInfo | null): any {
+export function DtoHealthCheckTriggerInfoToJSON(json: any): DtoHealthCheckTriggerInfo {
+    return DtoHealthCheckTriggerInfoToJSONTyped(json, false);
+}
+
+export function DtoHealthCheckTriggerInfoToJSONTyped(value?: DtoHealthCheckTriggerInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         registration_id: value["registrationId"],
     };

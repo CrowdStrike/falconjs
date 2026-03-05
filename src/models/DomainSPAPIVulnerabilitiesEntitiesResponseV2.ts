@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { DomainMetaInfo } from "./DomainMetaInfo";
-import { DomainMetaInfoFromJSON, DomainMetaInfoFromJSONTyped, DomainMetaInfoToJSON } from "./DomainMetaInfo";
+import { DomainMetaInfoFromJSON, DomainMetaInfoFromJSONTyped, DomainMetaInfoToJSON, DomainMetaInfoToJSONTyped } from "./DomainMetaInfo";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainAPIVulnerabilityV2 } from "./DomainAPIVulnerabilityV2";
-import { DomainAPIVulnerabilityV2FromJSON, DomainAPIVulnerabilityV2FromJSONTyped, DomainAPIVulnerabilityV2ToJSON } from "./DomainAPIVulnerabilityV2";
+import { DomainAPIVulnerabilityV2FromJSON, DomainAPIVulnerabilityV2FromJSONTyped, DomainAPIVulnerabilityV2ToJSON, DomainAPIVulnerabilityV2ToJSONTyped } from "./DomainAPIVulnerabilityV2";
 
 /**
  *
@@ -70,10 +70,15 @@ export function DomainSPAPIVulnerabilitiesEntitiesResponseV2FromJSONTyped(json: 
     };
 }
 
-export function DomainSPAPIVulnerabilitiesEntitiesResponseV2ToJSON(value?: DomainSPAPIVulnerabilitiesEntitiesResponseV2 | null): any {
+export function DomainSPAPIVulnerabilitiesEntitiesResponseV2ToJSON(json: any): DomainSPAPIVulnerabilitiesEntitiesResponseV2 {
+    return DomainSPAPIVulnerabilitiesEntitiesResponseV2ToJSONTyped(json, false);
+}
+
+export function DomainSPAPIVulnerabilitiesEntitiesResponseV2ToJSONTyped(value?: DomainSPAPIVulnerabilitiesEntitiesResponseV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: DomainMetaInfoToJSON(value["meta"]),

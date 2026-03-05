@@ -14,11 +14,21 @@
 
 import { mapValues } from "../runtime";
 import type { SadomainNotificationLog } from "./SadomainNotificationLog";
-import { SadomainNotificationLogFromJSON, SadomainNotificationLogFromJSONTyped, SadomainNotificationLogToJSON } from "./SadomainNotificationLog";
+import { SadomainNotificationLogFromJSON, SadomainNotificationLogFromJSONTyped, SadomainNotificationLogToJSON, SadomainNotificationLogToJSONTyped } from "./SadomainNotificationLog";
 import type { DomainMatchedBreachSummaryV1 } from "./DomainMatchedBreachSummaryV1";
-import { DomainMatchedBreachSummaryV1FromJSON, DomainMatchedBreachSummaryV1FromJSONTyped, DomainMatchedBreachSummaryV1ToJSON } from "./DomainMatchedBreachSummaryV1";
+import {
+    DomainMatchedBreachSummaryV1FromJSON,
+    DomainMatchedBreachSummaryV1FromJSONTyped,
+    DomainMatchedBreachSummaryV1ToJSON,
+    DomainMatchedBreachSummaryV1ToJSONTyped,
+} from "./DomainMatchedBreachSummaryV1";
 import type { SadomainTyposquattingComponent } from "./SadomainTyposquattingComponent";
-import { SadomainTyposquattingComponentFromJSON, SadomainTyposquattingComponentFromJSONTyped, SadomainTyposquattingComponentToJSON } from "./SadomainTyposquattingComponent";
+import {
+    SadomainTyposquattingComponentFromJSON,
+    SadomainTyposquattingComponentFromJSONTyped,
+    SadomainTyposquattingComponentToJSON,
+    SadomainTyposquattingComponentToJSONTyped,
+} from "./SadomainTyposquattingComponent";
 
 /**
  *
@@ -264,10 +274,15 @@ export function DomainNotificationV1FromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function DomainNotificationV1ToJSON(value?: DomainNotificationV1 | null): any {
+export function DomainNotificationV1ToJSON(json: any): DomainNotificationV1 {
+    return DomainNotificationV1ToJSONTyped(json, false);
+}
+
+export function DomainNotificationV1ToJSONTyped(value?: DomainNotificationV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         actor_slug: value["actorSlug"],
         assigned_to_uid: value["assignedToUid"],

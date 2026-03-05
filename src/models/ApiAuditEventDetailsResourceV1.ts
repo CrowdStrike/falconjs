@@ -88,10 +88,15 @@ export function ApiAuditEventDetailsResourceV1FromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function ApiAuditEventDetailsResourceV1ToJSON(value?: ApiAuditEventDetailsResourceV1 | null): any {
+export function ApiAuditEventDetailsResourceV1ToJSON(json: any): ApiAuditEventDetailsResourceV1 {
+    return ApiAuditEventDetailsResourceV1ToJSONTyped(json, false);
+}
+
+export function ApiAuditEventDetailsResourceV1ToJSONTyped(value?: ApiAuditEventDetailsResourceV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         actor: value["actor"],

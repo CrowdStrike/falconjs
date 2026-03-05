@@ -14,19 +14,39 @@
 
 import { mapValues } from "../runtime";
 import type { FalconforitapiConditionGroup } from "./FalconforitapiConditionGroup";
-import { FalconforitapiConditionGroupFromJSON, FalconforitapiConditionGroupFromJSONTyped, FalconforitapiConditionGroupToJSON } from "./FalconforitapiConditionGroup";
+import {
+    FalconforitapiConditionGroupFromJSON,
+    FalconforitapiConditionGroupFromJSONTyped,
+    FalconforitapiConditionGroupToJSON,
+    FalconforitapiConditionGroupToJSONTyped,
+} from "./FalconforitapiConditionGroup";
 import type { ItautomationScripts } from "./ItautomationScripts";
-import { ItautomationScriptsFromJSON, ItautomationScriptsFromJSONTyped, ItautomationScriptsToJSON } from "./ItautomationScripts";
+import { ItautomationScriptsFromJSON, ItautomationScriptsFromJSONTyped, ItautomationScriptsToJSON, ItautomationScriptsToJSONTyped } from "./ItautomationScripts";
 import type { ItautomationOutputParserConfig } from "./ItautomationOutputParserConfig";
-import { ItautomationOutputParserConfigFromJSON, ItautomationOutputParserConfigFromJSONTyped, ItautomationOutputParserConfigToJSON } from "./ItautomationOutputParserConfig";
+import {
+    ItautomationOutputParserConfigFromJSON,
+    ItautomationOutputParserConfigFromJSONTyped,
+    ItautomationOutputParserConfigToJSON,
+    ItautomationOutputParserConfigToJSONTyped,
+} from "./ItautomationOutputParserConfig";
 import type { ItautomationCompositeQuery } from "./ItautomationCompositeQuery";
-import { ItautomationCompositeQueryFromJSON, ItautomationCompositeQueryFromJSONTyped, ItautomationCompositeQueryToJSON } from "./ItautomationCompositeQuery";
+import { ItautomationCompositeQueryFromJSON, ItautomationCompositeQueryFromJSONTyped, ItautomationCompositeQueryToJSON, ItautomationCompositeQueryToJSONTyped } from "./ItautomationCompositeQuery";
 import type { ItautomationTaskParameter } from "./ItautomationTaskParameter";
-import { ItautomationTaskParameterFromJSON, ItautomationTaskParameterFromJSONTyped, ItautomationTaskParameterToJSON } from "./ItautomationTaskParameter";
+import { ItautomationTaskParameterFromJSON, ItautomationTaskParameterFromJSONTyped, ItautomationTaskParameterToJSON, ItautomationTaskParameterToJSONTyped } from "./ItautomationTaskParameter";
 import type { FalconforitapiGroupMembership } from "./FalconforitapiGroupMembership";
-import { FalconforitapiGroupMembershipFromJSON, FalconforitapiGroupMembershipFromJSONTyped, FalconforitapiGroupMembershipToJSON } from "./FalconforitapiGroupMembership";
+import {
+    FalconforitapiGroupMembershipFromJSON,
+    FalconforitapiGroupMembershipFromJSONTyped,
+    FalconforitapiGroupMembershipToJSON,
+    FalconforitapiGroupMembershipToJSONTyped,
+} from "./FalconforitapiGroupMembership";
 import type { ItautomationRowsParserConfig } from "./ItautomationRowsParserConfig";
-import { ItautomationRowsParserConfigFromJSON, ItautomationRowsParserConfigFromJSONTyped, ItautomationRowsParserConfigToJSON } from "./ItautomationRowsParserConfig";
+import {
+    ItautomationRowsParserConfigFromJSON,
+    ItautomationRowsParserConfigFromJSONTyped,
+    ItautomationRowsParserConfigToJSON,
+    ItautomationRowsParserConfigToJSONTyped,
+} from "./ItautomationRowsParserConfig";
 
 /**
  *
@@ -36,7 +56,7 @@ import { ItautomationRowsParserConfigFromJSON, ItautomationRowsParserConfigFromJ
 export interface ItautomationTask {
     /**
      * Access type of the task
-     * @type {string}
+     * @type {ItautomationTaskAccessTypeEnum}
      * @memberof ItautomationTask
      */
     accessType?: ItautomationTaskAccessTypeEnum;
@@ -259,10 +279,15 @@ export function ItautomationTaskFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function ItautomationTaskToJSON(value?: ItautomationTask | null): any {
+export function ItautomationTaskToJSON(json: any): ItautomationTask {
+    return ItautomationTaskToJSONTyped(json, false);
+}
+
+export function ItautomationTaskToJSONTyped(value?: ItautomationTask | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         access_type: value["accessType"],
         assigned_user_group_ids: value["assignedUserGroupIds"],

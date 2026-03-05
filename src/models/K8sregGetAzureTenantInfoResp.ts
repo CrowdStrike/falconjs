@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { K8sregAzureTenantInfo } from "./K8sregAzureTenantInfo";
-import { K8sregAzureTenantInfoFromJSON, K8sregAzureTenantInfoFromJSONTyped, K8sregAzureTenantInfoToJSON } from "./K8sregAzureTenantInfo";
+import { K8sregAzureTenantInfoFromJSON, K8sregAzureTenantInfoFromJSONTyped, K8sregAzureTenantInfoToJSON, K8sregAzureTenantInfoToJSONTyped } from "./K8sregAzureTenantInfo";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function K8sregGetAzureTenantInfoRespFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function K8sregGetAzureTenantInfoRespToJSON(value?: K8sregGetAzureTenantInfoResp | null): any {
+export function K8sregGetAzureTenantInfoRespToJSON(json: any): K8sregGetAzureTenantInfoResp {
+    return K8sregGetAzureTenantInfoRespToJSONTyped(json, false);
+}
+
+export function K8sregGetAzureTenantInfoRespToJSONTyped(value?: K8sregGetAzureTenantInfoResp | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

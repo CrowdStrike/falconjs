@@ -101,10 +101,15 @@ export function DomainCloudConditionFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function DomainCloudConditionToJSON(value?: DomainCloudCondition | null): any {
+export function DomainCloudConditionToJSON(json: any): DomainCloudCondition {
+    return DomainCloudConditionToJSONTyped(json, false);
+}
+
+export function DomainCloudConditionToJSONTyped(value?: DomainCloudCondition | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         feature: value["feature"],
         is_visible: value["isVisible"],

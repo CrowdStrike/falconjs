@@ -54,10 +54,15 @@ export function ClassificationCriteriaFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function ClassificationCriteriaToJSON(value?: ClassificationCriteria | null): any {
+export function ClassificationCriteriaToJSON(json: any): ClassificationCriteria {
+    return ClassificationCriteriaToJSONTyped(json, false);
+}
+
+export function ClassificationCriteriaToJSONTyped(value?: ClassificationCriteria | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         accounts: value["accounts"],
         resources: value["resources"],

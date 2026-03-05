@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { QuickscanproError } from "./QuickscanproError";
-import { QuickscanproErrorFromJSON, QuickscanproErrorFromJSONTyped, QuickscanproErrorToJSON } from "./QuickscanproError";
+import { QuickscanproErrorFromJSON, QuickscanproErrorFromJSONTyped, QuickscanproErrorToJSON, QuickscanproErrorToJSONTyped } from "./QuickscanproError";
 
 /**
  *
@@ -82,10 +82,15 @@ export function QuickscanproScanMetadataFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function QuickscanproScanMetadataToJSON(value?: QuickscanproScanMetadata | null): any {
+export function QuickscanproScanMetadataToJSON(json: any): QuickscanproScanMetadata {
+    return QuickscanproScanMetadataToJSONTyped(json, false);
+}
+
+export function QuickscanproScanMetadataToJSONTyped(value?: QuickscanproScanMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         created_timestamp: value["createdTimestamp"].toISOString(),
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(QuickscanproErrorToJSON),

@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { RegistrationAWSAccountConsoleURL } from "./RegistrationAWSAccountConsoleURL";
-import { RegistrationAWSAccountConsoleURLFromJSON, RegistrationAWSAccountConsoleURLFromJSONTyped, RegistrationAWSAccountConsoleURLToJSON } from "./RegistrationAWSAccountConsoleURL";
+import {
+    RegistrationAWSAccountConsoleURLFromJSON,
+    RegistrationAWSAccountConsoleURLFromJSONTyped,
+    RegistrationAWSAccountConsoleURLToJSON,
+    RegistrationAWSAccountConsoleURLToJSONTyped,
+} from "./RegistrationAWSAccountConsoleURL";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +75,15 @@ export function RegistrationAWSConsoleURLResponseV2FromJSONTyped(json: any, igno
     };
 }
 
-export function RegistrationAWSConsoleURLResponseV2ToJSON(value?: RegistrationAWSConsoleURLResponseV2 | null): any {
+export function RegistrationAWSConsoleURLResponseV2ToJSON(json: any): RegistrationAWSConsoleURLResponseV2 {
+    return RegistrationAWSConsoleURLResponseV2ToJSONTyped(json, false);
+}
+
+export function RegistrationAWSConsoleURLResponseV2ToJSONTyped(value?: RegistrationAWSConsoleURLResponseV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

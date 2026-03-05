@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainOCITenancyRotatedKey } from "./DomainOCITenancyRotatedKey";
-import { DomainOCITenancyRotatedKeyFromJSON, DomainOCITenancyRotatedKeyFromJSONTyped, DomainOCITenancyRotatedKeyToJSON } from "./DomainOCITenancyRotatedKey";
+import { DomainOCITenancyRotatedKeyFromJSON, DomainOCITenancyRotatedKeyFromJSONTyped, DomainOCITenancyRotatedKeyToJSON, DomainOCITenancyRotatedKeyToJSONTyped } from "./DomainOCITenancyRotatedKey";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function DomainOCITenancyRotateKeyResponseExtV1FromJSONTyped(json: any, i
     };
 }
 
-export function DomainOCITenancyRotateKeyResponseExtV1ToJSON(value?: DomainOCITenancyRotateKeyResponseExtV1 | null): any {
+export function DomainOCITenancyRotateKeyResponseExtV1ToJSON(json: any): DomainOCITenancyRotateKeyResponseExtV1 {
+    return DomainOCITenancyRotateKeyResponseExtV1ToJSONTyped(json, false);
+}
+
+export function DomainOCITenancyRotateKeyResponseExtV1ToJSONTyped(value?: DomainOCITenancyRotateKeyResponseExtV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

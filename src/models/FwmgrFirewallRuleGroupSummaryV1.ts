@@ -120,10 +120,15 @@ export function FwmgrFirewallRuleGroupSummaryV1FromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function FwmgrFirewallRuleGroupSummaryV1ToJSON(value?: FwmgrFirewallRuleGroupSummaryV1 | null): any {
+export function FwmgrFirewallRuleGroupSummaryV1ToJSON(json: any): FwmgrFirewallRuleGroupSummaryV1 {
+    return FwmgrFirewallRuleGroupSummaryV1ToJSONTyped(json, false);
+}
+
+export function FwmgrFirewallRuleGroupSummaryV1ToJSONTyped(value?: FwmgrFirewallRuleGroupSummaryV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         created_by: value["createdBy"],
         created_on: value["createdOn"],

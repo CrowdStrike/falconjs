@@ -135,10 +135,15 @@ export function DomainAPIAggregationGroupByRulesResultV1FromJSONTyped(json: any,
     };
 }
 
-export function DomainAPIAggregationGroupByRulesResultV1ToJSON(value?: DomainAPIAggregationGroupByRulesResultV1 | null): any {
+export function DomainAPIAggregationGroupByRulesResultV1ToJSON(json: any): DomainAPIAggregationGroupByRulesResultV1 {
+    return DomainAPIAggregationGroupByRulesResultV1ToJSONTyped(json, false);
+}
+
+export function DomainAPIAggregationGroupByRulesResultV1ToJSONTyped(value?: DomainAPIAggregationGroupByRulesResultV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         asset_type: value["assetType"],
         failed_assessment_count: value["failedAssessmentCount"],

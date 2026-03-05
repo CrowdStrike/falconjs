@@ -55,10 +55,15 @@ export function ErrorAppInventoryUsersFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function ErrorAppInventoryUsersToJSON(value?: ErrorAppInventoryUsers | null): any {
+export function ErrorAppInventoryUsersToJSON(json: any): ErrorAppInventoryUsers {
+    return ErrorAppInventoryUsersToJSONTyped(json, false);
+}
+
+export function ErrorAppInventoryUsersToJSONTyped(value?: ErrorAppInventoryUsers | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         message: value["message"],

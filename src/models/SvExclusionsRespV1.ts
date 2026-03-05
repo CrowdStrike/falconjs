@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { SvExclusionsSVExclusionV1 } from "./SvExclusionsSVExclusionV1";
-import { SvExclusionsSVExclusionV1FromJSON, SvExclusionsSVExclusionV1FromJSONTyped, SvExclusionsSVExclusionV1ToJSON } from "./SvExclusionsSVExclusionV1";
+import { SvExclusionsSVExclusionV1FromJSON, SvExclusionsSVExclusionV1FromJSONTyped, SvExclusionsSVExclusionV1ToJSON, SvExclusionsSVExclusionV1ToJSONTyped } from "./SvExclusionsSVExclusionV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function SvExclusionsRespV1FromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function SvExclusionsRespV1ToJSON(value?: SvExclusionsRespV1 | null): any {
+export function SvExclusionsRespV1ToJSON(json: any): SvExclusionsRespV1 {
+    return SvExclusionsRespV1ToJSONTyped(json, false);
+}
+
+export function SvExclusionsRespV1ToJSONTyped(value?: SvExclusionsRespV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

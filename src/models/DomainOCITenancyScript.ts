@@ -77,10 +77,15 @@ export function DomainOCITenancyScriptFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function DomainOCITenancyScriptToJSON(value?: DomainOCITenancyScript | null): any {
+export function DomainOCITenancyScriptToJSON(json: any): DomainOCITenancyScript {
+    return DomainOCITenancyScriptToJSONTyped(json, false);
+}
+
+export function DomainOCITenancyScriptToJSONTyped(value?: DomainOCITenancyScript | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         stack_url: value["stackUrl"],

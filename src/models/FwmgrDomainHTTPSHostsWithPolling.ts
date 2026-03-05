@@ -55,10 +55,15 @@ export function FwmgrDomainHTTPSHostsWithPollingFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function FwmgrDomainHTTPSHostsWithPollingToJSON(value?: FwmgrDomainHTTPSHostsWithPolling | null): any {
+export function FwmgrDomainHTTPSHostsWithPollingToJSON(json: any): FwmgrDomainHTTPSHostsWithPolling {
+    return FwmgrDomainHTTPSHostsWithPollingToJSONTyped(json, false);
+}
+
+export function FwmgrDomainHTTPSHostsWithPollingToJSONTyped(value?: FwmgrDomainHTTPSHostsWithPolling | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         hostnames: value["hostnames"],
         polling_interval: value["pollingInterval"],

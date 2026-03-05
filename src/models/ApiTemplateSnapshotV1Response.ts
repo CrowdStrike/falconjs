@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ApiTemplateSnapshotV1 } from "./ApiTemplateSnapshotV1";
-import { ApiTemplateSnapshotV1FromJSON, ApiTemplateSnapshotV1FromJSONTyped, ApiTemplateSnapshotV1ToJSON } from "./ApiTemplateSnapshotV1";
+import { ApiTemplateSnapshotV1FromJSON, ApiTemplateSnapshotV1FromJSONTyped, ApiTemplateSnapshotV1ToJSON, ApiTemplateSnapshotV1ToJSONTyped } from "./ApiTemplateSnapshotV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function ApiTemplateSnapshotV1ResponseFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function ApiTemplateSnapshotV1ResponseToJSON(value?: ApiTemplateSnapshotV1Response | null): any {
+export function ApiTemplateSnapshotV1ResponseToJSON(json: any): ApiTemplateSnapshotV1Response {
+    return ApiTemplateSnapshotV1ResponseToJSONTyped(json, false);
+}
+
+export function ApiTemplateSnapshotV1ResponseToJSONTyped(value?: ApiTemplateSnapshotV1Response | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

@@ -68,10 +68,15 @@ export function FigapiIPv6FromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function FigapiIPv6ToJSON(value?: FigapiIPv6 | null): any {
+export function FigapiIPv6ToJSON(json: any): FigapiIPv6 {
+    return FigapiIPv6ToJSONTyped(json, false);
+}
+
+export function FigapiIPv6ToJSONTyped(value?: FigapiIPv6 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ASN: value["aSN"],
         IPProperties: value["iPProperties"],

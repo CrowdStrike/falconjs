@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainAPIDetectionDocument } from "./DomainAPIDetectionDocument";
-import { DomainAPIDetectionDocumentFromJSON, DomainAPIDetectionDocumentFromJSONTyped, DomainAPIDetectionDocumentToJSON } from "./DomainAPIDetectionDocument";
+import { DomainAPIDetectionDocumentFromJSON, DomainAPIDetectionDocumentFromJSONTyped, DomainAPIDetectionDocumentToJSON, DomainAPIDetectionDocumentToJSONTyped } from "./DomainAPIDetectionDocument";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainMsaDetectSummariesResponseFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function DomainMsaDetectSummariesResponseToJSON(value?: DomainMsaDetectSummariesResponse | null): any {
+export function DomainMsaDetectSummariesResponseToJSON(json: any): DomainMsaDetectSummariesResponse {
+    return DomainMsaDetectSummariesResponseToJSONTyped(json, false);
+}
+
+export function DomainMsaDetectSummariesResponseToJSONTyped(value?: DomainMsaDetectSummariesResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

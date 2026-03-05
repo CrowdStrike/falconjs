@@ -54,10 +54,15 @@ export function ApimodelsCloudResourceSelectorFilterFromJSONTyped(json: any, ign
     };
 }
 
-export function ApimodelsCloudResourceSelectorFilterToJSON(value?: ApimodelsCloudResourceSelectorFilter | null): any {
+export function ApimodelsCloudResourceSelectorFilterToJSON(json: any): ApimodelsCloudResourceSelectorFilter {
+    return ApimodelsCloudResourceSelectorFilterToJSONTyped(json, false);
+}
+
+export function ApimodelsCloudResourceSelectorFilterToJSONTyped(value?: ApimodelsCloudResourceSelectorFilter | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         region: value["region"],
         tags: value["tags"],

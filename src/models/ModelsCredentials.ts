@@ -48,10 +48,15 @@ export function ModelsCredentialsFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function ModelsCredentialsToJSON(value?: ModelsCredentials | null): any {
+export function ModelsCredentialsToJSON(json: any): ModelsCredentials {
+    return ModelsCredentialsToJSONTyped(json, false);
+}
+
+export function ModelsCredentialsToJSONTyped(value?: ModelsCredentials | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         token: value["token"],
     };

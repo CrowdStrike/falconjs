@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ModelsAPIVulnByPublicationDate } from "./ModelsAPIVulnByPublicationDate";
-import { ModelsAPIVulnByPublicationDateFromJSON, ModelsAPIVulnByPublicationDateFromJSONTyped, ModelsAPIVulnByPublicationDateToJSON } from "./ModelsAPIVulnByPublicationDate";
+import {
+    ModelsAPIVulnByPublicationDateFromJSON,
+    ModelsAPIVulnByPublicationDateFromJSONTyped,
+    ModelsAPIVulnByPublicationDateToJSON,
+    ModelsAPIVulnByPublicationDateToJSONTyped,
+} from "./ModelsAPIVulnByPublicationDate";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +75,15 @@ export function VulnerabilitiesApiVulnByPublicationFromJSONTyped(json: any, igno
     };
 }
 
-export function VulnerabilitiesApiVulnByPublicationToJSON(value?: VulnerabilitiesApiVulnByPublication | null): any {
+export function VulnerabilitiesApiVulnByPublicationToJSON(json: any): VulnerabilitiesApiVulnByPublication {
+    return VulnerabilitiesApiVulnByPublicationToJSONTyped(json, false);
+}
+
+export function VulnerabilitiesApiVulnByPublicationToJSONTyped(value?: VulnerabilitiesApiVulnByPublication | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

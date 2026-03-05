@@ -14,9 +14,14 @@
 
 import { mapValues } from "../runtime";
 import type { DomainExternalAssetCertificate } from "./DomainExternalAssetCertificate";
-import { DomainExternalAssetCertificateFromJSON, DomainExternalAssetCertificateFromJSONTyped, DomainExternalAssetCertificateToJSON } from "./DomainExternalAssetCertificate";
+import {
+    DomainExternalAssetCertificateFromJSON,
+    DomainExternalAssetCertificateFromJSONTyped,
+    DomainExternalAssetCertificateToJSON,
+    DomainExternalAssetCertificateToJSONTyped,
+} from "./DomainExternalAssetCertificate";
 import type { DomainCipher } from "./DomainCipher";
-import { DomainCipherFromJSON, DomainCipherFromJSONTyped, DomainCipherToJSON } from "./DomainCipher";
+import { DomainCipherFromJSON, DomainCipherFromJSONTyped, DomainCipherToJSON, DomainCipherToJSONTyped } from "./DomainCipher";
 
 /**
  *
@@ -101,10 +106,15 @@ export function DomainExternalAssetSSLRecordFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function DomainExternalAssetSSLRecordToJSON(value?: DomainExternalAssetSSLRecord | null): any {
+export function DomainExternalAssetSSLRecordToJSON(json: any): DomainExternalAssetSSLRecord {
+    return DomainExternalAssetSSLRecordToJSONTyped(json, false);
+}
+
+export function DomainExternalAssetSSLRecordToJSONTyped(value?: DomainExternalAssetSSLRecord | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         alpn: value["alpn"],
         alternative_name: value["alternativeName"],

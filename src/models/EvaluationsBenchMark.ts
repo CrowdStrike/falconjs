@@ -56,10 +56,15 @@ export function EvaluationsBenchMarkFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function EvaluationsBenchMarkToJSON(value?: EvaluationsBenchMark | null): any {
+export function EvaluationsBenchMarkToJSON(json: any): EvaluationsBenchMark {
+    return EvaluationsBenchMarkToJSONTyped(json, false);
+}
+
+export function EvaluationsBenchMarkToJSONTyped(value?: EvaluationsBenchMark | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
         version: value["version"],

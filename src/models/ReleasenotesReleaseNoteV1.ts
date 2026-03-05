@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ReleasenotesNoteDetail } from "./ReleasenotesNoteDetail";
-import { ReleasenotesNoteDetailFromJSON, ReleasenotesNoteDetailFromJSONTyped, ReleasenotesNoteDetailToJSON } from "./ReleasenotesNoteDetail";
+import { ReleasenotesNoteDetailFromJSON, ReleasenotesNoteDetailFromJSONTyped, ReleasenotesNoteDetailToJSON, ReleasenotesNoteDetailToJSONTyped } from "./ReleasenotesNoteDetail";
 
 /**
  *
@@ -89,10 +89,15 @@ export function ReleasenotesReleaseNoteV1FromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ReleasenotesReleaseNoteV1ToJSON(value?: ReleasenotesReleaseNoteV1 | null): any {
+export function ReleasenotesReleaseNoteV1ToJSON(json: any): ReleasenotesReleaseNoteV1 {
+    return ReleasenotesReleaseNoteV1ToJSONTyped(json, false);
+}
+
+export function ReleasenotesReleaseNoteV1ToJSONTyped(value?: ReleasenotesReleaseNoteV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         categories: value["categories"],
         early_access: value["earlyAccess"],

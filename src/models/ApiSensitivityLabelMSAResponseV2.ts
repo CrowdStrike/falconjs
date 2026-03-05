@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ApiSensitivityLabelV2 } from "./ApiSensitivityLabelV2";
-import { ApiSensitivityLabelV2FromJSON, ApiSensitivityLabelV2FromJSONTyped, ApiSensitivityLabelV2ToJSON } from "./ApiSensitivityLabelV2";
+import { ApiSensitivityLabelV2FromJSON, ApiSensitivityLabelV2FromJSONTyped, ApiSensitivityLabelV2ToJSON, ApiSensitivityLabelV2ToJSONTyped } from "./ApiSensitivityLabelV2";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function ApiSensitivityLabelMSAResponseV2FromJSONTyped(json: any, ignoreD
     };
 }
 
-export function ApiSensitivityLabelMSAResponseV2ToJSON(value?: ApiSensitivityLabelMSAResponseV2 | null): any {
+export function ApiSensitivityLabelMSAResponseV2ToJSON(json: any): ApiSensitivityLabelMSAResponseV2 {
+    return ApiSensitivityLabelMSAResponseV2ToJSONTyped(json, false);
+}
+
+export function ApiSensitivityLabelMSAResponseV2ToJSONTyped(value?: ApiSensitivityLabelMSAResponseV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { V2ClusterV2 } from "./V2ClusterV2";
-import { V2ClusterV2FromJSON, V2ClusterV2FromJSONTyped, V2ClusterV2ToJSON } from "./V2ClusterV2";
+import { V2ClusterV2FromJSON, V2ClusterV2FromJSONTyped, V2ClusterV2ToJSON, V2ClusterV2ToJSONTyped } from "./V2ClusterV2";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function V2ClusterEntityResponseV2FromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function V2ClusterEntityResponseV2ToJSON(value?: V2ClusterEntityResponseV2 | null): any {
+export function V2ClusterEntityResponseV2ToJSON(json: any): V2ClusterEntityResponseV2 {
+    return V2ClusterEntityResponseV2ToJSONTyped(json, false);
+}
+
+export function V2ClusterEntityResponseV2ToJSONTyped(value?: V2ClusterEntityResponseV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

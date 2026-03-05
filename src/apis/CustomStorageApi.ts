@@ -146,9 +146,9 @@ export interface CustomStorageApiUploadRequest {
  */
 export class CustomStorageApi extends runtime.BaseAPI {
     /**
-     * Delete the specified object
+     * Creates request options for _delete without sending the request
      */
-    async _deleteRaw(requestParameters: CustomStorageApiDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomStorageResponse>> {
+    async _deleteRequestOpts(requestParameters: CustomStorageApiDeleteRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["collectionName"] == null) {
             throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling _delete().');
         }
@@ -170,17 +170,24 @@ export class CustomStorageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/customobjects/v1/collections/{collection_name}/objects/{object_key}`
-                    .replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])))
-                    .replace(`{${"object_key"}}`, encodeURIComponent(String(requestParameters["objectKey"]))),
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/customobjects/v1/collections/{collection_name}/objects/{object_key}`;
+        urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])));
+        urlPath = urlPath.replace(`{${"object_key"}}`, encodeURIComponent(String(requestParameters["objectKey"])));
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete the specified object
+     */
+    async _deleteRaw(requestParameters: CustomStorageApiDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomStorageResponse>> {
+        const requestOptions = await this._deleteRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CustomStorageResponseFromJSON(jsonValue));
     }
@@ -194,12 +201,9 @@ export class CustomStorageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete the specified versioned object
+     * Creates request options for deleteVersionedObject without sending the request
      */
-    async deleteVersionedObjectRaw(
-        requestParameters: CustomStorageApiDeleteVersionedObjectRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CustomStorageResponse>> {
+    async deleteVersionedObjectRequestOpts(requestParameters: CustomStorageApiDeleteVersionedObjectRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["collectionName"] == null) {
             throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling deleteVersionedObject().');
         }
@@ -225,18 +229,28 @@ export class CustomStorageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/customobjects/v1/collections/{collection_name}/{collection_version}/objects/{object_key}`
-                    .replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])))
-                    .replace(`{${"collection_version"}}`, encodeURIComponent(String(requestParameters["collectionVersion"])))
-                    .replace(`{${"object_key"}}`, encodeURIComponent(String(requestParameters["objectKey"]))),
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/customobjects/v1/collections/{collection_name}/{collection_version}/objects/{object_key}`;
+        urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])));
+        urlPath = urlPath.replace(`{${"collection_version"}}`, encodeURIComponent(String(requestParameters["collectionVersion"])));
+        urlPath = urlPath.replace(`{${"object_key"}}`, encodeURIComponent(String(requestParameters["objectKey"])));
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete the specified versioned object
+     */
+    async deleteVersionedObjectRaw(
+        requestParameters: CustomStorageApiDeleteVersionedObjectRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CustomStorageResponse>> {
+        const requestOptions = await this.deleteVersionedObjectRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CustomStorageResponseFromJSON(jsonValue));
     }
@@ -256,12 +270,9 @@ export class CustomStorageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Fetch metadata about an existing collection
+     * Creates request options for describeCollection without sending the request
      */
-    async describeCollectionRaw(
-        requestParameters: CustomStorageApiDescribeCollectionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CustomType1942251022>> {
+    async describeCollectionRequestOpts(requestParameters: CustomStorageApiDescribeCollectionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["collectionName"] == null) {
             throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling describeCollection().');
         }
@@ -275,15 +286,26 @@ export class CustomStorageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/customobjects/v1/collections/{collection_name}`.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"]))),
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/customobjects/v1/collections/{collection_name}`;
+        urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])));
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Fetch metadata about an existing collection
+     */
+    async describeCollectionRaw(
+        requestParameters: CustomStorageApiDescribeCollectionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CustomType1942251022>> {
+        const requestOptions = await this.describeCollectionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CustomType1942251022FromJSON(jsonValue));
     }
@@ -297,12 +319,9 @@ export class CustomStorageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Fetch metadata about one or more existing collections
+     * Creates request options for describeCollections without sending the request
      */
-    async describeCollectionsRaw(
-        requestParameters: CustomStorageApiDescribeCollectionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CustomType1942251022>> {
+    async describeCollectionsRequestOpts(requestParameters: CustomStorageApiDescribeCollectionsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["names"] == null) {
             throw new runtime.RequiredError("names", 'Required parameter "names" was null or undefined when calling describeCollections().');
         }
@@ -320,15 +339,25 @@ export class CustomStorageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/customobjects/v1/collections`,
-                method: "PUT",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/customobjects/v1/collections`;
+
+        return {
+            path: urlPath,
+            method: "PUT",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Fetch metadata about one or more existing collections
+     */
+    async describeCollectionsRaw(
+        requestParameters: CustomStorageApiDescribeCollectionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CustomType1942251022>> {
+        const requestOptions = await this.describeCollectionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CustomType1942251022FromJSON(jsonValue));
     }
@@ -342,9 +371,9 @@ export class CustomStorageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the bytes for the specified object
+     * Creates request options for get without sending the request
      */
-    async getRaw(requestParameters: CustomStorageApiGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+    async getRequestOpts(requestParameters: CustomStorageApiGetRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["collectionName"] == null) {
             throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling get().');
         }
@@ -362,17 +391,24 @@ export class CustomStorageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/customobjects/v1/collections/{collection_name}/objects/{object_key}`
-                    .replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])))
-                    .replace(`{${"object_key"}}`, encodeURIComponent(String(requestParameters["objectKey"]))),
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/customobjects/v1/collections/{collection_name}/objects/{object_key}`;
+        urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])));
+        urlPath = urlPath.replace(`{${"object_key"}}`, encodeURIComponent(String(requestParameters["objectKey"])));
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get the bytes for the specified object
+     */
+    async getRaw(requestParameters: CustomStorageApiGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+        const requestOptions = await this.getRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.BlobApiResponse(response);
     }
@@ -386,9 +422,9 @@ export class CustomStorageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the bytes of the specified schema of the requested collection
+     * Creates request options for getSchema without sending the request
      */
-    async getSchemaRaw(requestParameters: CustomStorageApiGetSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+    async getSchemaRequestOpts(requestParameters: CustomStorageApiGetSchemaRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["collectionName"] == null) {
             throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling getSchema().');
         }
@@ -406,17 +442,24 @@ export class CustomStorageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/customobjects/v1/collections/{collection_name}/schemas/{schema_version}`
-                    .replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])))
-                    .replace(`{${"schema_version"}}`, encodeURIComponent(String(requestParameters["schemaVersion"]))),
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/customobjects/v1/collections/{collection_name}/schemas/{schema_version}`;
+        urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])));
+        urlPath = urlPath.replace(`{${"schema_version"}}`, encodeURIComponent(String(requestParameters["schemaVersion"])));
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get the bytes of the specified schema of the requested collection
+     */
+    async getSchemaRaw(requestParameters: CustomStorageApiGetSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+        const requestOptions = await this.getSchemaRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.BlobApiResponse(response);
     }
@@ -430,12 +473,9 @@ export class CustomStorageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the metadata for the specified schema of the requested collection
+     * Creates request options for getSchemaMetadata without sending the request
      */
-    async getSchemaMetadataRaw(
-        requestParameters: CustomStorageApiGetSchemaMetadataRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CustomType4161059146>> {
+    async getSchemaMetadataRequestOpts(requestParameters: CustomStorageApiGetSchemaMetadataRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["collectionName"] == null) {
             throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling getSchemaMetadata().');
         }
@@ -453,17 +493,27 @@ export class CustomStorageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/customobjects/v1/collections/{collection_name}/schemas/{schema_version}/metadata`
-                    .replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])))
-                    .replace(`{${"schema_version"}}`, encodeURIComponent(String(requestParameters["schemaVersion"]))),
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/customobjects/v1/collections/{collection_name}/schemas/{schema_version}/metadata`;
+        urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])));
+        urlPath = urlPath.replace(`{${"schema_version"}}`, encodeURIComponent(String(requestParameters["schemaVersion"])));
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get the metadata for the specified schema of the requested collection
+     */
+    async getSchemaMetadataRaw(
+        requestParameters: CustomStorageApiGetSchemaMetadataRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CustomType4161059146>> {
+        const requestOptions = await this.getSchemaMetadataRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CustomType4161059146FromJSON(jsonValue));
     }
@@ -477,9 +527,9 @@ export class CustomStorageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the bytes for the specified object
+     * Creates request options for getVersionedObject without sending the request
      */
-    async getVersionedObjectRaw(requestParameters: CustomStorageApiGetVersionedObjectRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+    async getVersionedObjectRequestOpts(requestParameters: CustomStorageApiGetVersionedObjectRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["collectionName"] == null) {
             throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling getVersionedObject().');
         }
@@ -501,18 +551,25 @@ export class CustomStorageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/customobjects/v1/collections/{collection_name}/{collection_version}/objects/{object_key}`
-                    .replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])))
-                    .replace(`{${"collection_version"}}`, encodeURIComponent(String(requestParameters["collectionVersion"])))
-                    .replace(`{${"object_key"}}`, encodeURIComponent(String(requestParameters["objectKey"]))),
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/customobjects/v1/collections/{collection_name}/{collection_version}/objects/{object_key}`;
+        urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])));
+        urlPath = urlPath.replace(`{${"collection_version"}}`, encodeURIComponent(String(requestParameters["collectionVersion"])));
+        urlPath = urlPath.replace(`{${"object_key"}}`, encodeURIComponent(String(requestParameters["objectKey"])));
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get the bytes for the specified object
+     */
+    async getVersionedObjectRaw(requestParameters: CustomStorageApiGetVersionedObjectRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+        const requestOptions = await this.getVersionedObjectRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.BlobApiResponse(response);
     }
@@ -526,12 +583,9 @@ export class CustomStorageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the metadata for the specified object
+     * Creates request options for getVersionedObjectMetadata without sending the request
      */
-    async getVersionedObjectMetadataRaw(
-        requestParameters: CustomStorageApiGetVersionedObjectMetadataRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CustomStorageResponse>> {
+    async getVersionedObjectMetadataRequestOpts(requestParameters: CustomStorageApiGetVersionedObjectMetadataRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["collectionName"] == null) {
             throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling getVersionedObjectMetadata().');
         }
@@ -553,18 +607,28 @@ export class CustomStorageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/customobjects/v1/collections/{collection_name}/{collection_version}/objects/{object_key}/metadata`
-                    .replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])))
-                    .replace(`{${"collection_version"}}`, encodeURIComponent(String(requestParameters["collectionVersion"])))
-                    .replace(`{${"object_key"}}`, encodeURIComponent(String(requestParameters["objectKey"]))),
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/customobjects/v1/collections/{collection_name}/{collection_version}/objects/{object_key}/metadata`;
+        urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])));
+        urlPath = urlPath.replace(`{${"collection_version"}}`, encodeURIComponent(String(requestParameters["collectionVersion"])));
+        urlPath = urlPath.replace(`{${"object_key"}}`, encodeURIComponent(String(requestParameters["objectKey"])));
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get the metadata for the specified object
+     */
+    async getVersionedObjectMetadataRaw(
+        requestParameters: CustomStorageApiGetVersionedObjectMetadataRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CustomStorageResponse>> {
+        const requestOptions = await this.getVersionedObjectMetadataRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CustomStorageResponseFromJSON(jsonValue));
     }
@@ -578,9 +642,9 @@ export class CustomStorageApi extends runtime.BaseAPI {
     }
 
     /**
-     * List the object keys in the specified collection in alphabetical order
+     * Creates request options for list without sending the request
      */
-    async listRaw(requestParameters: CustomStorageApiListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomStorageObjectKeys>> {
+    async listRequestOpts(requestParameters: CustomStorageApiListRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["collectionName"] == null) {
             throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling list().');
         }
@@ -606,15 +670,23 @@ export class CustomStorageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/customobjects/v1/collections/{collection_name}/objects`.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"]))),
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/customobjects/v1/collections/{collection_name}/objects`;
+        urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])));
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List the object keys in the specified collection in alphabetical order
+     */
+    async listRaw(requestParameters: CustomStorageApiListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomStorageObjectKeys>> {
+        const requestOptions = await this.listRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CustomStorageObjectKeysFromJSON(jsonValue));
     }
@@ -628,12 +700,9 @@ export class CustomStorageApi extends runtime.BaseAPI {
     }
 
     /**
-     * List available collection names in alphabetical order
+     * Creates request options for listCollections without sending the request
      */
-    async listCollectionsRaw(
-        requestParameters: CustomStorageApiListCollectionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CustomStorageObjectKeys>> {
+    async listCollectionsRequestOpts(requestParameters: CustomStorageApiListCollectionsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["end"] != null) {
@@ -655,15 +724,25 @@ export class CustomStorageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/customobjects/v1/collections`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/customobjects/v1/collections`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List available collection names in alphabetical order
+     */
+    async listCollectionsRaw(
+        requestParameters: CustomStorageApiListCollectionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CustomStorageObjectKeys>> {
+        const requestOptions = await this.listCollectionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CustomStorageObjectKeysFromJSON(jsonValue));
     }
@@ -677,12 +756,9 @@ export class CustomStorageApi extends runtime.BaseAPI {
     }
 
     /**
-     * List the object keys in the specified collection in alphabetical order
+     * Creates request options for listObjectsByVersion without sending the request
      */
-    async listObjectsByVersionRaw(
-        requestParameters: CustomStorageApiListObjectsByVersionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CustomStorageObjectKeys>> {
+    async listObjectsByVersionRequestOpts(requestParameters: CustomStorageApiListObjectsByVersionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["collectionName"] == null) {
             throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling listObjectsByVersion().');
         }
@@ -712,17 +788,27 @@ export class CustomStorageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/customobjects/v1/collections/{collection_name}/{collection_version}/objects`
-                    .replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])))
-                    .replace(`{${"collection_version"}}`, encodeURIComponent(String(requestParameters["collectionVersion"]))),
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/customobjects/v1/collections/{collection_name}/{collection_version}/objects`;
+        urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])));
+        urlPath = urlPath.replace(`{${"collection_version"}}`, encodeURIComponent(String(requestParameters["collectionVersion"])));
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List the object keys in the specified collection in alphabetical order
+     */
+    async listObjectsByVersionRaw(
+        requestParameters: CustomStorageApiListObjectsByVersionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CustomStorageObjectKeys>> {
+        const requestOptions = await this.listObjectsByVersionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CustomStorageObjectKeysFromJSON(jsonValue));
     }
@@ -743,9 +829,9 @@ export class CustomStorageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the list of schemas for the requested collection in reverse version order (latest first)
+     * Creates request options for listSchemas without sending the request
      */
-    async listSchemasRaw(requestParameters: CustomStorageApiListSchemasRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomStorageObjectKeys>> {
+    async listSchemasRequestOpts(requestParameters: CustomStorageApiListSchemasRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["collectionName"] == null) {
             throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling listSchemas().');
         }
@@ -771,15 +857,23 @@ export class CustomStorageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/customobjects/v1/collections/{collection_name}/schemas`.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"]))),
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/customobjects/v1/collections/{collection_name}/schemas`;
+        urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])));
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get the list of schemas for the requested collection in reverse version order (latest first)
+     */
+    async listSchemasRaw(requestParameters: CustomStorageApiListSchemasRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomStorageObjectKeys>> {
+        const requestOptions = await this.listSchemasRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CustomStorageObjectKeysFromJSON(jsonValue));
     }
@@ -793,9 +887,9 @@ export class CustomStorageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the metadata for the specified object
+     * Creates request options for metadata without sending the request
      */
-    async metadataRaw(requestParameters: CustomStorageApiMetadataRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomStorageResponse>> {
+    async metadataRequestOpts(requestParameters: CustomStorageApiMetadataRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["collectionName"] == null) {
             throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling metadata().');
         }
@@ -813,17 +907,24 @@ export class CustomStorageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/customobjects/v1/collections/{collection_name}/objects/{object_key}/metadata`
-                    .replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])))
-                    .replace(`{${"object_key"}}`, encodeURIComponent(String(requestParameters["objectKey"]))),
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/customobjects/v1/collections/{collection_name}/objects/{object_key}/metadata`;
+        urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])));
+        urlPath = urlPath.replace(`{${"object_key"}}`, encodeURIComponent(String(requestParameters["objectKey"])));
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get the metadata for the specified object
+     */
+    async metadataRaw(requestParameters: CustomStorageApiMetadataRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomStorageResponse>> {
+        const requestOptions = await this.metadataRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CustomStorageResponseFromJSON(jsonValue));
     }
@@ -837,12 +938,9 @@ export class CustomStorageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Put the specified new object at the given key or overwrite an existing object at the given key
+     * Creates request options for putObjectByVersion without sending the request
      */
-    async putObjectByVersionRaw(
-        requestParameters: CustomStorageApiPutObjectByVersionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CustomStorageResponse>> {
+    async putObjectByVersionRequestOpts(requestParameters: CustomStorageApiPutObjectByVersionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["collectionName"] == null) {
             throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling putObjectByVersion().');
         }
@@ -874,19 +972,29 @@ export class CustomStorageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/customobjects/v1/collections/{collection_name}/{collection_version}/objects/{object_key}`
-                    .replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])))
-                    .replace(`{${"collection_version"}}`, encodeURIComponent(String(requestParameters["collectionVersion"])))
-                    .replace(`{${"object_key"}}`, encodeURIComponent(String(requestParameters["objectKey"]))),
-                method: "PUT",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"] as any,
-            },
-            initOverrides,
-        );
+        let urlPath = `/customobjects/v1/collections/{collection_name}/{collection_version}/objects/{object_key}`;
+        urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])));
+        urlPath = urlPath.replace(`{${"collection_version"}}`, encodeURIComponent(String(requestParameters["collectionVersion"])));
+        urlPath = urlPath.replace(`{${"object_key"}}`, encodeURIComponent(String(requestParameters["objectKey"])));
+
+        return {
+            path: urlPath,
+            method: "PUT",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"] as any,
+        };
+    }
+
+    /**
+     * Put the specified new object at the given key or overwrite an existing object at the given key
+     */
+    async putObjectByVersionRaw(
+        requestParameters: CustomStorageApiPutObjectByVersionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CustomStorageResponse>> {
+        const requestOptions = await this.putObjectByVersionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CustomStorageResponseFromJSON(jsonValue));
     }
@@ -907,9 +1015,9 @@ export class CustomStorageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for objects that match the specified filter criteria (returns metadata, not actual objects)
+     * Creates request options for search without sending the request
      */
-    async searchRaw(requestParameters: CustomStorageApiSearchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomStorageResponse>> {
+    async searchRequestOpts(requestParameters: CustomStorageApiSearchRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["collectionName"] == null) {
             throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling search().');
         }
@@ -943,15 +1051,23 @@ export class CustomStorageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/customobjects/v1/collections/{collection_name}/objects`.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"]))),
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/customobjects/v1/collections/{collection_name}/objects`;
+        urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])));
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for objects that match the specified filter criteria (returns metadata, not actual objects)
+     */
+    async searchRaw(requestParameters: CustomStorageApiSearchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomStorageResponse>> {
+        const requestOptions = await this.searchRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CustomStorageResponseFromJSON(jsonValue));
     }
@@ -965,12 +1081,9 @@ export class CustomStorageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for objects that match the specified filter criteria (returns metadata, not actual objects)
+     * Creates request options for searchObjectsByVersion without sending the request
      */
-    async searchObjectsByVersionRaw(
-        requestParameters: CustomStorageApiSearchObjectsByVersionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CustomStorageResponse>> {
+    async searchObjectsByVersionRequestOpts(requestParameters: CustomStorageApiSearchObjectsByVersionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["collectionName"] == null) {
             throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling searchObjectsByVersion().');
         }
@@ -1008,17 +1121,27 @@ export class CustomStorageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/customobjects/v1/collections/{collection_name}/{collection_version}/objects`
-                    .replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])))
-                    .replace(`{${"collection_version"}}`, encodeURIComponent(String(requestParameters["collectionVersion"]))),
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/customobjects/v1/collections/{collection_name}/{collection_version}/objects`;
+        urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])));
+        urlPath = urlPath.replace(`{${"collection_version"}}`, encodeURIComponent(String(requestParameters["collectionVersion"])));
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for objects that match the specified filter criteria (returns metadata, not actual objects)
+     */
+    async searchObjectsByVersionRaw(
+        requestParameters: CustomStorageApiSearchObjectsByVersionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CustomStorageResponse>> {
+        const requestOptions = await this.searchObjectsByVersionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CustomStorageResponseFromJSON(jsonValue));
     }
@@ -1043,9 +1166,9 @@ export class CustomStorageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Put the specified new object at the given key or overwrite an existing object at the given key
+     * Creates request options for upload without sending the request
      */
-    async uploadRaw(requestParameters: CustomStorageApiUploadRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomStorageResponse>> {
+    async uploadRequestOpts(requestParameters: CustomStorageApiUploadRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["collectionName"] == null) {
             throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling upload().');
         }
@@ -1077,18 +1200,25 @@ export class CustomStorageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/customobjects/v1/collections/{collection_name}/objects/{object_key}`
-                    .replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])))
-                    .replace(`{${"object_key"}}`, encodeURIComponent(String(requestParameters["objectKey"]))),
-                method: "PUT",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"] as any,
-            },
-            initOverrides,
-        );
+        let urlPath = `/customobjects/v1/collections/{collection_name}/objects/{object_key}`;
+        urlPath = urlPath.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])));
+        urlPath = urlPath.replace(`{${"object_key"}}`, encodeURIComponent(String(requestParameters["objectKey"])));
+
+        return {
+            path: urlPath,
+            method: "PUT",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"] as any,
+        };
+    }
+
+    /**
+     * Put the specified new object at the given key or overwrite an existing object at the given key
+     */
+    async uploadRaw(requestParameters: CustomStorageApiUploadRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomStorageResponse>> {
+        const requestOptions = await this.uploadRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CustomStorageResponseFromJSON(jsonValue));
     }

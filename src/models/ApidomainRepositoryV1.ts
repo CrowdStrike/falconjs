@@ -80,10 +80,15 @@ export function ApidomainRepositoryV1FromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function ApidomainRepositoryV1ToJSON(value?: ApidomainRepositoryV1 | null): any {
+export function ApidomainRepositoryV1ToJSON(json: any): ApidomainRepositoryV1 {
+    return ApidomainRepositoryV1ToJSONTyped(json, false);
+}
+
+export function ApidomainRepositoryV1ToJSONTyped(value?: ApidomainRepositoryV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         display_name: value["displayName"],

@@ -84,10 +84,15 @@ export function ParameterConditionFieldParameterFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function ParameterConditionFieldParameterToJSON(value?: ParameterConditionFieldParameter | null): any {
+export function ParameterConditionFieldParameterToJSON(json: any): ParameterConditionFieldParameter {
+    return ParameterConditionFieldParameterToJSONTyped(json, false);
+}
+
+export function ParameterConditionFieldParameterToJSONTyped(value?: ParameterConditionFieldParameter | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         default_operator: value["defaultOperator"],
         default_value: value["defaultValue"],

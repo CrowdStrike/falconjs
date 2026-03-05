@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { RestAWSAccountPatchExtV1 } from "./RestAWSAccountPatchExtV1";
-import { RestAWSAccountPatchExtV1FromJSON, RestAWSAccountPatchExtV1FromJSONTyped, RestAWSAccountPatchExtV1ToJSON } from "./RestAWSAccountPatchExtV1";
+import { RestAWSAccountPatchExtV1FromJSON, RestAWSAccountPatchExtV1FromJSONTyped, RestAWSAccountPatchExtV1ToJSON, RestAWSAccountPatchExtV1ToJSONTyped } from "./RestAWSAccountPatchExtV1";
 
 /**
  *
@@ -51,10 +51,15 @@ export function RestAWSAccountPatchRequestExtV1FromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function RestAWSAccountPatchRequestExtV1ToJSON(value?: RestAWSAccountPatchRequestExtV1 | null): any {
+export function RestAWSAccountPatchRequestExtV1ToJSON(json: any): RestAWSAccountPatchRequestExtV1 {
+    return RestAWSAccountPatchRequestExtV1ToJSONTyped(json, false);
+}
+
+export function RestAWSAccountPatchRequestExtV1ToJSONTyped(value?: RestAWSAccountPatchRequestExtV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(RestAWSAccountPatchExtV1ToJSON),
     };

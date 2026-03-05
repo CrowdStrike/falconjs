@@ -56,10 +56,15 @@ export function MsaRangeSpecFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function MsaRangeSpecToJSON(value?: MsaRangeSpec | null): any {
+export function MsaRangeSpecToJSON(json: any): MsaRangeSpec {
+    return MsaRangeSpecToJSONTyped(json, false);
+}
+
+export function MsaRangeSpecToJSONTyped(value?: MsaRangeSpec | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         From: value["from"],
         To: value["to"],

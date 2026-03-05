@@ -73,12 +73,9 @@ export interface CloudSnapshotsApiRegisterRequest {
  */
 export class CloudSnapshotsApi extends runtime.BaseAPI {
     /**
-     * Launch a snapshot scan for a given cloud asset
+     * Creates request options for createDeploymentEntity without sending the request
      */
-    async createDeploymentEntityRaw(
-        requestParameters: CloudSnapshotsApiCreateDeploymentEntityRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DeploymentsEntityResponse>> {
+    async createDeploymentEntityRequestOpts(requestParameters: CloudSnapshotsApiCreateDeploymentEntityRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createDeploymentEntity().');
         }
@@ -94,16 +91,26 @@ export class CloudSnapshotsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["snapshot:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/snapshots/entities/deployments/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ModelsCreateDeploymentInputToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/snapshots/entities/deployments/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ModelsCreateDeploymentInputToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Launch a snapshot scan for a given cloud asset
+     */
+    async createDeploymentEntityRaw(
+        requestParameters: CloudSnapshotsApiCreateDeploymentEntityRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DeploymentsEntityResponse>> {
+        const requestOptions = await this.createDeploymentEntityRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeploymentsEntityResponseFromJSON(jsonValue));
     }
@@ -117,9 +124,9 @@ export class CloudSnapshotsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Gets the registry credentials
+     * Creates request options for getCredentialsMixin0Mixin61 without sending the request
      */
-    async getCredentialsMixin0Mixin61Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsRegistryCredentialsResponse>> {
+    async getCredentialsMixin0Mixin61RequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -129,15 +136,22 @@ export class CloudSnapshotsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["snapshot-scanner:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/snapshots/entities/image-registry-credentials/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/snapshots/entities/image-registry-credentials/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Gets the registry credentials
+     */
+    async getCredentialsMixin0Mixin61Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsRegistryCredentialsResponse>> {
+        const requestOptions = await this.getCredentialsMixin0Mixin61RequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsRegistryCredentialsResponseFromJSON(jsonValue));
     }
@@ -151,12 +165,9 @@ export class CloudSnapshotsApi extends runtime.BaseAPI {
     }
 
     /**
-     * retrieve the scan report for an instance
+     * Creates request options for getScanReport without sending the request
      */
-    async getScanReportRaw(
-        requestParameters: CloudSnapshotsApiGetScanReportRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ScanreportsEntitiesResponse>> {
+    async getScanReportRequestOpts(requestParameters: CloudSnapshotsApiGetScanReportRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getScanReport().');
         }
@@ -174,15 +185,25 @@ export class CloudSnapshotsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["snapshot:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/snapshots/entities/scanreports/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/snapshots/entities/scanreports/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * retrieve the scan report for an instance
+     */
+    async getScanReportRaw(
+        requestParameters: CloudSnapshotsApiGetScanReportRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ScanreportsEntitiesResponse>> {
+        const requestOptions = await this.getScanReportRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ScanreportsEntitiesResponseFromJSON(jsonValue));
     }
@@ -196,12 +217,9 @@ export class CloudSnapshotsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve snapshot jobs identified by the provided IDs
+     * Creates request options for readDeploymentsCombined without sending the request
      */
-    async readDeploymentsCombinedRaw(
-        requestParameters: CloudSnapshotsApiReadDeploymentsCombinedRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DeploymentsEntityResponse>> {
+    async readDeploymentsCombinedRequestOpts(requestParameters: CloudSnapshotsApiReadDeploymentsCombinedRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -227,15 +245,25 @@ export class CloudSnapshotsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["snapshot:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/snapshots/combined/deployments/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/snapshots/combined/deployments/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve snapshot jobs identified by the provided IDs
+     */
+    async readDeploymentsCombinedRaw(
+        requestParameters: CloudSnapshotsApiReadDeploymentsCombinedRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DeploymentsEntityResponse>> {
+        const requestOptions = await this.readDeploymentsCombinedRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeploymentsEntityResponseFromJSON(jsonValue));
     }
@@ -249,12 +277,9 @@ export class CloudSnapshotsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve snapshot jobs identified by the provided IDs
+     * Creates request options for readDeploymentsEntities without sending the request
      */
-    async readDeploymentsEntitiesRaw(
-        requestParameters: CloudSnapshotsApiReadDeploymentsEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DeploymentsEntityResponse>> {
+    async readDeploymentsEntitiesRequestOpts(requestParameters: CloudSnapshotsApiReadDeploymentsEntitiesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -268,15 +293,25 @@ export class CloudSnapshotsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["snapshot:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/snapshots/entities/deployments/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/snapshots/entities/deployments/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve snapshot jobs identified by the provided IDs
+     */
+    async readDeploymentsEntitiesRaw(
+        requestParameters: CloudSnapshotsApiReadDeploymentsEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DeploymentsEntityResponse>> {
+        const requestOptions = await this.readDeploymentsEntitiesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeploymentsEntityResponseFromJSON(jsonValue));
     }
@@ -290,9 +325,9 @@ export class CloudSnapshotsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Register customer cloud account for snapshot scanning
+     * Creates request options for register without sending the request
      */
-    async registerRaw(requestParameters: CloudSnapshotsApiRegisterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsAccountStatusResponse>> {
+    async registerRequestOpts(requestParameters: CloudSnapshotsApiRegisterRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling register().');
         }
@@ -308,16 +343,23 @@ export class CloudSnapshotsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["snapshot:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/snapshots/entities/accounts/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ModelsAccountEntitiesInputToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/snapshots/entities/accounts/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ModelsAccountEntitiesInputToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Register customer cloud account for snapshot scanning
+     */
+    async registerRaw(requestParameters: CloudSnapshotsApiRegisterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsAccountStatusResponse>> {
+        const requestOptions = await this.registerRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAccountStatusResponseFromJSON(jsonValue));
     }

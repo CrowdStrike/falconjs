@@ -63,10 +63,15 @@ export function K8sregVersionRespFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function K8sregVersionRespToJSON(value?: K8sregVersionResp | null): any {
+export function K8sregVersionRespToJSON(json: any): K8sregVersionResp {
+    return K8sregVersionRespToJSONTyped(json, false);
+}
+
+export function K8sregVersionRespToJSONTyped(value?: K8sregVersionResp | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         bugfix: value["bugfix"],
         major: value["major"],

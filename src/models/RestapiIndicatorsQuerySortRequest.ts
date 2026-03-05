@@ -64,10 +64,15 @@ export function RestapiIndicatorsQuerySortRequestFromJSONTyped(json: any, ignore
     };
 }
 
-export function RestapiIndicatorsQuerySortRequestToJSON(value?: RestapiIndicatorsQuerySortRequest | null): any {
+export function RestapiIndicatorsQuerySortRequestToJSON(json: any): RestapiIndicatorsQuerySortRequest {
+    return RestapiIndicatorsQuerySortRequestToJSONTyped(json, false);
+}
+
+export function RestapiIndicatorsQuerySortRequestToJSONTyped(value?: RestapiIndicatorsQuerySortRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         field: value["field"],
         missing: value["missing"],

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { SchemaSensorFieldValue } from "./SchemaSensorFieldValue";
-import { SchemaSensorFieldValueFromJSON, SchemaSensorFieldValueFromJSONTyped, SchemaSensorFieldValueToJSON } from "./SchemaSensorFieldValue";
+import { SchemaSensorFieldValueFromJSON, SchemaSensorFieldValueFromJSONTyped, SchemaSensorFieldValueToJSON, SchemaSensorFieldValueToJSONTyped } from "./SchemaSensorFieldValue";
 
 /**
  *
@@ -91,10 +91,15 @@ export function SchemaSensorFieldFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function SchemaSensorFieldToJSON(value?: SchemaSensorField | null): any {
+export function SchemaSensorFieldToJSON(json: any): SchemaSensorField {
+    return SchemaSensorFieldToJSONTyped(json, false);
+}
+
+export function SchemaSensorFieldToJSONTyped(value?: SchemaSensorField | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         id: value["id"],

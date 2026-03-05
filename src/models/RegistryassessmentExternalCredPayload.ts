@@ -48,10 +48,15 @@ export function RegistryassessmentExternalCredPayloadFromJSONTyped(json: any, ig
     };
 }
 
-export function RegistryassessmentExternalCredPayloadToJSON(value?: RegistryassessmentExternalCredPayload | null): any {
+export function RegistryassessmentExternalCredPayloadToJSON(json: any): RegistryassessmentExternalCredPayload {
+    return RegistryassessmentExternalCredPayloadToJSONTyped(json, false);
+}
+
+export function RegistryassessmentExternalCredPayloadToJSONTyped(value?: RegistryassessmentExternalCredPayload | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         details: value["details"],
     };

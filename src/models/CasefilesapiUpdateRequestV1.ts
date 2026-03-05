@@ -56,10 +56,15 @@ export function CasefilesapiUpdateRequestV1FromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function CasefilesapiUpdateRequestV1ToJSON(value?: CasefilesapiUpdateRequestV1 | null): any {
+export function CasefilesapiUpdateRequestV1ToJSON(json: any): CasefilesapiUpdateRequestV1 {
+    return CasefilesapiUpdateRequestV1ToJSONTyped(json, false);
+}
+
+export function CasefilesapiUpdateRequestV1ToJSONTyped(value?: CasefilesapiUpdateRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         id: value["id"],

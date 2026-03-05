@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { SdkEventEvidenceRecordVM } from "./SdkEventEvidenceRecordVM";
-import { SdkEventEvidenceRecordVMFromJSON, SdkEventEvidenceRecordVMFromJSONTyped, SdkEventEvidenceRecordVMToJSON } from "./SdkEventEvidenceRecordVM";
+import { SdkEventEvidenceRecordVMFromJSON, SdkEventEvidenceRecordVMFromJSONTyped, SdkEventEvidenceRecordVMToJSON, SdkEventEvidenceRecordVMToJSONTyped } from "./SdkEventEvidenceRecordVM";
 
 /**
  *
@@ -51,10 +51,15 @@ export function SdkEventEvidenceVMFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function SdkEventEvidenceVMToJSON(value?: SdkEventEvidenceVM | null): any {
+export function SdkEventEvidenceVMToJSON(json: any): SdkEventEvidenceVM {
+    return SdkEventEvidenceVMToJSONTyped(json, false);
+}
+
+export function SdkEventEvidenceVMToJSONTyped(value?: SdkEventEvidenceVM | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         records: (value["records"] as Array<any>).map(SdkEventEvidenceRecordVMToJSON),
     };

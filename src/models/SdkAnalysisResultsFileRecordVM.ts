@@ -72,10 +72,15 @@ export function SdkAnalysisResultsFileRecordVMFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function SdkAnalysisResultsFileRecordVMToJSON(value?: SdkAnalysisResultsFileRecordVM | null): any {
+export function SdkAnalysisResultsFileRecordVMToJSON(json: any): SdkAnalysisResultsFileRecordVM {
+    return SdkAnalysisResultsFileRecordVMToJSONTyped(json, false);
+}
+
+export function SdkAnalysisResultsFileRecordVMToJSONTyped(value?: SdkAnalysisResultsFileRecordVM | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         filename: value["filename"],
         md5: value["md5"],

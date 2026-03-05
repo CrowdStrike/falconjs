@@ -149,10 +149,15 @@ export function ModelsComplianceExportGroupedByImagesReportFromJSONTyped(json: a
     };
 }
 
-export function ModelsComplianceExportGroupedByImagesReportToJSON(value?: ModelsComplianceExportGroupedByImagesReport | null): any {
+export function ModelsComplianceExportGroupedByImagesReportToJSON(json: any): ModelsComplianceExportGroupedByImagesReport {
+    return ModelsComplianceExportGroupedByImagesReportToJSONTyped(json, false);
+}
+
+export function ModelsComplianceExportGroupedByImagesReportToJSONTyped(value?: ModelsComplianceExportGroupedByImagesReport | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         authority: value["authority"],
         cid: value["cid"],

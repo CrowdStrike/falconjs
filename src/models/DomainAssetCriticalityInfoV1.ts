@@ -61,10 +61,15 @@ export function DomainAssetCriticalityInfoV1FromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function DomainAssetCriticalityInfoV1ToJSON(value?: DomainAssetCriticalityInfoV1 | null): any {
+export function DomainAssetCriticalityInfoV1ToJSON(json: any): DomainAssetCriticalityInfoV1 {
+    return DomainAssetCriticalityInfoV1ToJSONTyped(json, false);
+}
+
+export function DomainAssetCriticalityInfoV1ToJSONTyped(value?: DomainAssetCriticalityInfoV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         criticality: value["criticality"],
         internet_exposure: value["internetExposure"],

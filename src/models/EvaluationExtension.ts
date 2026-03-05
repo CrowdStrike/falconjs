@@ -47,10 +47,15 @@ export function EvaluationExtensionFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function EvaluationExtensionToJSON(value?: EvaluationExtension | null): any {
+export function EvaluationExtensionToJSON(json: any): EvaluationExtension {
+    return EvaluationExtensionToJSONTyped(json, false);
+}
+
+export function EvaluationExtensionToJSONTyped(value?: EvaluationExtension | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         status: value["status"],
     };

@@ -112,10 +112,15 @@ export function DomainRuleFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function DomainRuleToJSON(value?: DomainRule | null): any {
+export function DomainRuleToJSON(json: any): DomainRule {
+    return DomainRuleToJSONTyped(json, false);
+}
+
+export function DomainRuleToJSONTyped(value?: DomainRule | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         created_date: value["createdDate"],
         description: value["description"],

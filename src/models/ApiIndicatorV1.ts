@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApiMetadataV1 } from "./ApiMetadataV1";
-import { ApiMetadataV1FromJSON, ApiMetadataV1FromJSONTyped, ApiMetadataV1ToJSON } from "./ApiMetadataV1";
+import { ApiMetadataV1FromJSON, ApiMetadataV1FromJSONTyped, ApiMetadataV1ToJSON, ApiMetadataV1ToJSONTyped } from "./ApiMetadataV1";
 
 /**
  *
@@ -197,18 +197,23 @@ export function ApiIndicatorV1FromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function ApiIndicatorV1ToJSON(value?: ApiIndicatorV1 | null): any {
+export function ApiIndicatorV1ToJSON(json: any): ApiIndicatorV1 {
+    return ApiIndicatorV1ToJSONTyped(json, false);
+}
+
+export function ApiIndicatorV1ToJSONTyped(value?: ApiIndicatorV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         applied_globally: value["appliedGlobally"],
         created_by: value["createdBy"],
-        created_on: value["createdOn"] == null ? undefined : value["createdOn"].toISOString(),
+        created_on: value["createdOn"] == null ? value["createdOn"] : value["createdOn"].toISOString(),
         deleted: value["deleted"],
         description: value["description"],
-        expiration: value["expiration"] == null ? undefined : value["expiration"].toISOString(),
+        expiration: value["expiration"] == null ? value["expiration"] : value["expiration"].toISOString(),
         expired: value["expired"],
         from_parent: value["fromParent"],
         host_groups: value["hostGroups"],
@@ -216,7 +221,7 @@ export function ApiIndicatorV1ToJSON(value?: ApiIndicatorV1 | null): any {
         metadata: ApiMetadataV1ToJSON(value["metadata"]),
         mobile_action: value["mobileAction"],
         modified_by: value["modifiedBy"],
-        modified_on: value["modifiedOn"] == null ? undefined : value["modifiedOn"].toISOString(),
+        modified_on: value["modifiedOn"] == null ? value["modifiedOn"] : value["modifiedOn"].toISOString(),
         parent_cid_name: value["parentCidName"],
         platforms: value["platforms"],
         severity: value["severity"],

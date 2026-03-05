@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ApiHostMigration } from "./ApiHostMigration";
-import { ApiHostMigrationFromJSON, ApiHostMigrationFromJSONTyped, ApiHostMigrationToJSON } from "./ApiHostMigration";
+import { ApiHostMigrationFromJSON, ApiHostMigrationFromJSONTyped, ApiHostMigrationToJSON, ApiHostMigrationToJSONTyped } from "./ApiHostMigration";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function ApiGetHostMigrationResponseV1FromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function ApiGetHostMigrationResponseV1ToJSON(value?: ApiGetHostMigrationResponseV1 | null): any {
+export function ApiGetHostMigrationResponseV1ToJSON(json: any): ApiGetHostMigrationResponseV1 {
+    return ApiGetHostMigrationResponseV1ToJSONTyped(json, false);
+}
+
+export function ApiGetHostMigrationResponseV1ToJSONTyped(value?: ApiGetHostMigrationResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

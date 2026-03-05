@@ -144,10 +144,15 @@ export function SystemUserGetSystemUsersFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function SystemUserGetSystemUsersToJSON(value?: SystemUserGetSystemUsers | null): any {
+export function SystemUserGetSystemUsersToJSON(json: any): SystemUserGetSystemUsers {
+    return SystemUserGetSystemUsersToJSONTyped(json, false);
+}
+
+export function SystemUserGetSystemUsersToJSONTyped(value?: SystemUserGetSystemUsers | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         bypass_sso: value["bypassSso"],

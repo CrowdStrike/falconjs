@@ -48,10 +48,15 @@ export function SdkCaseSeverityInfoAssignmentFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function SdkCaseSeverityInfoAssignmentToJSON(value?: SdkCaseSeverityInfoAssignment | null): any {
+export function SdkCaseSeverityInfoAssignmentToJSON(json: any): SdkCaseSeverityInfoAssignment {
+    return SdkCaseSeverityInfoAssignmentToJSONTyped(json, false);
+}
+
+export function SdkCaseSeverityInfoAssignmentToJSONTyped(value?: SdkCaseSeverityInfoAssignment | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         level: value["level"],
     };

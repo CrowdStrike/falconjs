@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { PaginationMetaDismissAffected } from "./PaginationMetaDismissAffected";
-import { PaginationMetaDismissAffectedFromJSON, PaginationMetaDismissAffectedFromJSONTyped, PaginationMetaDismissAffectedToJSON } from "./PaginationMetaDismissAffected";
+import {
+    PaginationMetaDismissAffectedFromJSON,
+    PaginationMetaDismissAffectedFromJSONTyped,
+    PaginationMetaDismissAffectedToJSON,
+    PaginationMetaDismissAffectedToJSONTyped,
+} from "./PaginationMetaDismissAffected";
 
 /**
  *
@@ -64,10 +69,15 @@ export function MetaDismissAffectedFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function MetaDismissAffectedToJSON(value?: MetaDismissAffected | null): any {
+export function MetaDismissAffectedToJSON(json: any): MetaDismissAffected {
+    return MetaDismissAffectedToJSONTyped(json, false);
+}
+
+export function MetaDismissAffectedToJSONTyped(value?: MetaDismissAffected | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: PaginationMetaDismissAffectedToJSON(value["pagination"]),
         query_time: value["queryTime"],

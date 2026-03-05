@@ -55,10 +55,15 @@ export function ErrorGetSecurityComplianceFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function ErrorGetSecurityComplianceToJSON(value?: ErrorGetSecurityCompliance | null): any {
+export function ErrorGetSecurityComplianceToJSON(json: any): ErrorGetSecurityCompliance {
+    return ErrorGetSecurityComplianceToJSONTyped(json, false);
+}
+
+export function ErrorGetSecurityComplianceToJSONTyped(value?: ErrorGetSecurityCompliance | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         message: value["message"],

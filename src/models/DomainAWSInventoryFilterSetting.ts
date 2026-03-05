@@ -64,10 +64,15 @@ export function DomainAWSInventoryFilterSettingFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function DomainAWSInventoryFilterSettingToJSON(value?: DomainAWSInventoryFilterSetting | null): any {
+export function DomainAWSInventoryFilterSettingToJSON(json: any): DomainAWSInventoryFilterSetting {
+    return DomainAWSInventoryFilterSettingToJSONTyped(json, false);
+}
+
+export function DomainAWSInventoryFilterSettingToJSONTyped(value?: DomainAWSInventoryFilterSetting | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         regions: value["regions"],

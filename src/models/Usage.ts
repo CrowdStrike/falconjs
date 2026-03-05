@@ -61,13 +61,18 @@ export function UsageFromJSONTyped(json: any, ignoreDiscriminator: boolean): Usa
     };
 }
 
-export function UsageToJSON(value?: Usage | null): any {
+export function UsageToJSON(json: any): Usage {
+    return UsageToJSONTyped(json, false);
+}
+
+export function UsageToJSONTyped(value?: Usage | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
-        first_occurrence_time: value["firstOccurrenceTime"] == null ? undefined : value["firstOccurrenceTime"].toISOString(),
-        last_occurrence_time: value["lastOccurrenceTime"] == null ? undefined : value["lastOccurrenceTime"].toISOString(),
+        first_occurrence_time: value["firstOccurrenceTime"] == null ? value["firstOccurrenceTime"] : value["firstOccurrenceTime"].toISOString(),
+        last_occurrence_time: value["lastOccurrenceTime"] == null ? value["lastOccurrenceTime"] : value["lastOccurrenceTime"].toISOString(),
         total_count: value["totalCount"],
     };
 }

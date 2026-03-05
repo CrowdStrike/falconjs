@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DeviceControlExceptionReqV1 } from "./DeviceControlExceptionReqV1";
-import { DeviceControlExceptionReqV1FromJSON, DeviceControlExceptionReqV1FromJSONTyped, DeviceControlExceptionReqV1ToJSON } from "./DeviceControlExceptionReqV1";
+import {
+    DeviceControlExceptionReqV1FromJSON,
+    DeviceControlExceptionReqV1FromJSONTyped,
+    DeviceControlExceptionReqV1ToJSON,
+    DeviceControlExceptionReqV1ToJSONTyped,
+} from "./DeviceControlExceptionReqV1";
 
 /**
  *
@@ -24,7 +29,7 @@ import { DeviceControlExceptionReqV1FromJSON, DeviceControlExceptionReqV1FromJSO
 export interface DeviceControlUSBClassExceptionsReqV1 {
     /**
      * Policy action. Note: BLOCK_EXECUTE and BLOCK_WRITE_EXECUTE are only valid for MASS_STORAGE devices.
-     * @type {string}
+     * @type {DeviceControlUSBClassExceptionsReqV1ActionEnum}
      * @memberof DeviceControlUSBClassExceptionsReqV1
      */
     action: DeviceControlUSBClassExceptionsReqV1ActionEnum;
@@ -36,7 +41,7 @@ export interface DeviceControlUSBClassExceptionsReqV1 {
     exceptions: Array<DeviceControlExceptionReqV1>;
     /**
      * USB Class id
-     * @type {string}
+     * @type {DeviceControlUSBClassExceptionsReqV1IdEnum}
      * @memberof DeviceControlUSBClassExceptionsReqV1
      */
     id: DeviceControlUSBClassExceptionsReqV1IdEnum;
@@ -92,10 +97,15 @@ export function DeviceControlUSBClassExceptionsReqV1FromJSONTyped(json: any, ign
     };
 }
 
-export function DeviceControlUSBClassExceptionsReqV1ToJSON(value?: DeviceControlUSBClassExceptionsReqV1 | null): any {
+export function DeviceControlUSBClassExceptionsReqV1ToJSON(json: any): DeviceControlUSBClassExceptionsReqV1 {
+    return DeviceControlUSBClassExceptionsReqV1ToJSONTyped(json, false);
+}
+
+export function DeviceControlUSBClassExceptionsReqV1ToJSONTyped(value?: DeviceControlUSBClassExceptionsReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         exceptions: (value["exceptions"] as Array<any>).map(DeviceControlExceptionReqV1ToJSON),

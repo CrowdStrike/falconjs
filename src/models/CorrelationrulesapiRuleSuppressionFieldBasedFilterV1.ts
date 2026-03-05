@@ -48,10 +48,15 @@ export function CorrelationrulesapiRuleSuppressionFieldBasedFilterV1FromJSONType
     };
 }
 
-export function CorrelationrulesapiRuleSuppressionFieldBasedFilterV1ToJSON(value?: CorrelationrulesapiRuleSuppressionFieldBasedFilterV1 | null): any {
+export function CorrelationrulesapiRuleSuppressionFieldBasedFilterV1ToJSON(json: any): CorrelationrulesapiRuleSuppressionFieldBasedFilterV1 {
+    return CorrelationrulesapiRuleSuppressionFieldBasedFilterV1ToJSONTyped(json, false);
+}
+
+export function CorrelationrulesapiRuleSuppressionFieldBasedFilterV1ToJSONTyped(value?: CorrelationrulesapiRuleSuppressionFieldBasedFilterV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         field: value["field"],
     };

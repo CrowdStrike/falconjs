@@ -56,10 +56,15 @@ export function FalconforitapiGroupMembershipFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function FalconforitapiGroupMembershipToJSON(value?: FalconforitapiGroupMembership | null): any {
+export function FalconforitapiGroupMembershipToJSON(json: any): FalconforitapiGroupMembership {
+    return FalconforitapiGroupMembershipToJSONTyped(json, false);
+}
+
+export function FalconforitapiGroupMembershipToJSONTyped(value?: FalconforitapiGroupMembership | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

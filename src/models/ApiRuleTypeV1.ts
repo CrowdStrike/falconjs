@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { DomainDisposition } from "./DomainDisposition";
-import { DomainDispositionFromJSON, DomainDispositionFromJSONTyped, DomainDispositionToJSON } from "./DomainDisposition";
+import { DomainDispositionFromJSON, DomainDispositionFromJSONTyped, DomainDispositionToJSON, DomainDispositionToJSONTyped } from "./DomainDisposition";
 import type { DomainField } from "./DomainField";
-import { DomainFieldFromJSON, DomainFieldFromJSONTyped, DomainFieldToJSON } from "./DomainField";
+import { DomainFieldFromJSON, DomainFieldFromJSONTyped, DomainFieldToJSON, DomainFieldToJSONTyped } from "./DomainField";
 
 /**
  *
@@ -109,10 +109,15 @@ export function ApiRuleTypeV1FromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function ApiRuleTypeV1ToJSON(value?: ApiRuleTypeV1 | null): any {
+export function ApiRuleTypeV1ToJSON(json: any): ApiRuleTypeV1 {
+    return ApiRuleTypeV1ToJSONTyped(json, false);
+}
+
+export function ApiRuleTypeV1ToJSONTyped(value?: ApiRuleTypeV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         channel: value["channel"],
         disposition_map: (value["dispositionMap"] as Array<any>).map(DomainDispositionToJSON),

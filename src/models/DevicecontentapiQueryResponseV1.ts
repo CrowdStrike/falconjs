@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -69,10 +69,15 @@ export function DevicecontentapiQueryResponseV1FromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function DevicecontentapiQueryResponseV1ToJSON(value?: DevicecontentapiQueryResponseV1 | null): any {
+export function DevicecontentapiQueryResponseV1ToJSON(json: any): DevicecontentapiQueryResponseV1 {
+    return DevicecontentapiQueryResponseV1ToJSONTyped(json, false);
+}
+
+export function DevicecontentapiQueryResponseV1ToJSONTyped(value?: DevicecontentapiQueryResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

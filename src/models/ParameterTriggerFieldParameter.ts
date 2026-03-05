@@ -62,10 +62,15 @@ export function ParameterTriggerFieldParameterFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function ParameterTriggerFieldParameterToJSON(value?: ParameterTriggerFieldParameter | null): any {
+export function ParameterTriggerFieldParameterToJSON(json: any): ParameterTriggerFieldParameter {
+    return ParameterTriggerFieldParameterToJSONTyped(json, false);
+}
+
+export function ParameterTriggerFieldParameterToJSONTyped(value?: ParameterTriggerFieldParameter | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         default_value: value["defaultValue"],
         properties: value["properties"],

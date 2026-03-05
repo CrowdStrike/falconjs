@@ -111,10 +111,15 @@ export function GraphValidationErrorFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function GraphValidationErrorToJSON(value?: GraphValidationError | null): any {
+export function GraphValidationErrorToJSON(json: any): GraphValidationError {
+    return GraphValidationErrorToJSONTyped(json, false);
+}
+
+export function GraphValidationErrorToJSONTyped(value?: GraphValidationError | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         code: value["code"],

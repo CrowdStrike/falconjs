@@ -68,10 +68,15 @@ export function DomainParamsFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function DomainParamsToJSON(value?: DomainParams | null): any {
+export function DomainParamsToJSON(json: any): DomainParams {
+    return DomainParamsToJSONTyped(json, false);
+}
+
+export function DomainParamsToJSONTyped(value?: DomainParams | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cookie: value["cookie"],
         header: value["header"],

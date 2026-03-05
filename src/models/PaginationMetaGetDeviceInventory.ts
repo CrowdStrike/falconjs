@@ -75,10 +75,15 @@ export function PaginationMetaGetDeviceInventoryFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function PaginationMetaGetDeviceInventoryToJSON(value?: PaginationMetaGetDeviceInventory | null): any {
+export function PaginationMetaGetDeviceInventoryToJSON(json: any): PaginationMetaGetDeviceInventory {
+    return PaginationMetaGetDeviceInventoryToJSONTyped(json, false);
+}
+
+export function PaginationMetaGetDeviceInventoryToJSONTyped(value?: PaginationMetaGetDeviceInventory | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         limit: value["limit"],
         next: value["next"],

@@ -14,12 +14,18 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsResultPhysicalLocationRegion } from "./ModelsResultPhysicalLocationRegion";
-import { ModelsResultPhysicalLocationRegionFromJSON, ModelsResultPhysicalLocationRegionFromJSONTyped, ModelsResultPhysicalLocationRegionToJSON } from "./ModelsResultPhysicalLocationRegion";
+import {
+    ModelsResultPhysicalLocationRegionFromJSON,
+    ModelsResultPhysicalLocationRegionFromJSONTyped,
+    ModelsResultPhysicalLocationRegionToJSON,
+    ModelsResultPhysicalLocationRegionToJSONTyped,
+} from "./ModelsResultPhysicalLocationRegion";
 import type { ModelsResultPhysicalLocationArtifactLocation } from "./ModelsResultPhysicalLocationArtifactLocation";
 import {
     ModelsResultPhysicalLocationArtifactLocationFromJSON,
     ModelsResultPhysicalLocationArtifactLocationFromJSONTyped,
     ModelsResultPhysicalLocationArtifactLocationToJSON,
+    ModelsResultPhysicalLocationArtifactLocationToJSONTyped,
 } from "./ModelsResultPhysicalLocationArtifactLocation";
 
 /**
@@ -65,10 +71,15 @@ export function ModelsResultPhysicalLocationFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function ModelsResultPhysicalLocationToJSON(value?: ModelsResultPhysicalLocation | null): any {
+export function ModelsResultPhysicalLocationToJSON(json: any): ModelsResultPhysicalLocation {
+    return ModelsResultPhysicalLocationToJSONTyped(json, false);
+}
+
+export function ModelsResultPhysicalLocationToJSONTyped(value?: ModelsResultPhysicalLocation | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         artifactLocation: ModelsResultPhysicalLocationArtifactLocationToJSON(value["artifactLocation"]),
         region: ModelsResultPhysicalLocationRegionToJSON(value["region"]),

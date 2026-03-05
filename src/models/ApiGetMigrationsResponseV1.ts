@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ApiMigration } from "./ApiMigration";
-import { ApiMigrationFromJSON, ApiMigrationFromJSONTyped, ApiMigrationToJSON } from "./ApiMigration";
+import { ApiMigrationFromJSON, ApiMigrationFromJSONTyped, ApiMigrationToJSON, ApiMigrationToJSONTyped } from "./ApiMigration";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function ApiGetMigrationsResponseV1FromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function ApiGetMigrationsResponseV1ToJSON(value?: ApiGetMigrationsResponseV1 | null): any {
+export function ApiGetMigrationsResponseV1ToJSON(json: any): ApiGetMigrationsResponseV1 {
+    return ApiGetMigrationsResponseV1ToJSONTyped(json, false);
+}
+
+export function ApiGetMigrationsResponseV1ToJSONTyped(value?: ApiGetMigrationsResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

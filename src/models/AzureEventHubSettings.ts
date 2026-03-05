@@ -80,10 +80,15 @@ export function AzureEventHubSettingsFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function AzureEventHubSettingsToJSON(value?: AzureEventHubSettings | null): any {
+export function AzureEventHubSettingsToJSON(json: any): AzureEventHubSettings {
+    return AzureEventHubSettingsToJSONTyped(json, false);
+}
+
+export function AzureEventHubSettingsToJSONTyped(value?: AzureEventHubSettings | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         consumer_group: value["consumerGroup"],

@@ -64,10 +64,15 @@ export function DomainCSIXLabelFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function DomainCSIXLabelToJSON(value?: DomainCSIXLabel | null): any {
+export function DomainCSIXLabelToJSON(json: any): DomainCSIXLabel {
+    return DomainCSIXLabelToJSONTyped(json, false);
+}
+
+export function DomainCSIXLabelToJSONTyped(value?: DomainCSIXLabel | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         created_on: value["createdOn"],
         last_valid_on: value["lastValidOn"],

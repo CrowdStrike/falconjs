@@ -54,10 +54,15 @@ export function ClientQueryResponseSchemasV1FromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function ClientQueryResponseSchemasV1ToJSON(value?: ClientQueryResponseSchemasV1 | null): any {
+export function ClientQueryResponseSchemasV1ToJSON(json: any): ClientQueryResponseSchemasV1 {
+    return ClientQueryResponseSchemasV1ToJSONTyped(json, false);
+}
+
+export function ClientQueryResponseSchemasV1ToJSONTyped(value?: ClientQueryResponseSchemasV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         request_schema: value["requestSchema"],
         response_schema: value["responseSchema"],

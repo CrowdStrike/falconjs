@@ -48,10 +48,15 @@ export function CorrelationrulesapiRuleVersionPublishRequestV1FromJSONTyped(json
     };
 }
 
-export function CorrelationrulesapiRuleVersionPublishRequestV1ToJSON(value?: CorrelationrulesapiRuleVersionPublishRequestV1 | null): any {
+export function CorrelationrulesapiRuleVersionPublishRequestV1ToJSON(json: any): CorrelationrulesapiRuleVersionPublishRequestV1 {
+    return CorrelationrulesapiRuleVersionPublishRequestV1ToJSONTyped(json, false);
+}
+
+export function CorrelationrulesapiRuleVersionPublishRequestV1ToJSONTyped(value?: CorrelationrulesapiRuleVersionPublishRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
     };

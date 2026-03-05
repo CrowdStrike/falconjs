@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { SensorUpdateSettingsReqV1 } from "./SensorUpdateSettingsReqV1";
-import { SensorUpdateSettingsReqV1FromJSON, SensorUpdateSettingsReqV1FromJSONTyped, SensorUpdateSettingsReqV1ToJSON } from "./SensorUpdateSettingsReqV1";
+import { SensorUpdateSettingsReqV1FromJSON, SensorUpdateSettingsReqV1FromJSONTyped, SensorUpdateSettingsReqV1ToJSON, SensorUpdateSettingsReqV1ToJSONTyped } from "./SensorUpdateSettingsReqV1";
 
 /**
  * An update for a specific policy
@@ -72,10 +72,15 @@ export function SensorUpdateUpdatePolicyReqV1FromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function SensorUpdateUpdatePolicyReqV1ToJSON(value?: SensorUpdateUpdatePolicyReqV1 | null): any {
+export function SensorUpdateUpdatePolicyReqV1ToJSON(json: any): SensorUpdateUpdatePolicyReqV1 {
+    return SensorUpdateUpdatePolicyReqV1ToJSONTyped(json, false);
+}
+
+export function SensorUpdateUpdatePolicyReqV1ToJSONTyped(value?: SensorUpdateUpdatePolicyReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         id: value["id"],

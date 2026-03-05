@@ -248,10 +248,15 @@ export function ModelsClusterFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function ModelsClusterToJSON(value?: ModelsCluster | null): any {
+export function ModelsClusterToJSON(json: any): ModelsCluster {
+    return ModelsClusterToJSONTyped(json, false);
+}
+
+export function ModelsClusterToJSONTyped(value?: ModelsCluster | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         access: value["access"],
         agent_status: value["agentStatus"],

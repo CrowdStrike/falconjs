@@ -18,11 +18,12 @@ import {
     DataTransactionResponseDtoGetTransactionStatusFromJSON,
     DataTransactionResponseDtoGetTransactionStatusFromJSONTyped,
     DataTransactionResponseDtoGetTransactionStatusToJSON,
+    DataTransactionResponseDtoGetTransactionStatusToJSONTyped,
 } from "./DataTransactionResponseDtoGetTransactionStatus";
 import type { ErrorGetTransactionStatus } from "./ErrorGetTransactionStatus";
-import { ErrorGetTransactionStatusFromJSON, ErrorGetTransactionStatusFromJSONTyped, ErrorGetTransactionStatusToJSON } from "./ErrorGetTransactionStatus";
+import { ErrorGetTransactionStatusFromJSON, ErrorGetTransactionStatusFromJSONTyped, ErrorGetTransactionStatusToJSON, ErrorGetTransactionStatusToJSONTyped } from "./ErrorGetTransactionStatus";
 import type { MetaGetTransactionStatus } from "./MetaGetTransactionStatus";
-import { MetaGetTransactionStatusFromJSON, MetaGetTransactionStatusFromJSONTyped, MetaGetTransactionStatusToJSON } from "./MetaGetTransactionStatus";
+import { MetaGetTransactionStatusFromJSON, MetaGetTransactionStatusFromJSONTyped, MetaGetTransactionStatusToJSON, MetaGetTransactionStatusToJSONTyped } from "./MetaGetTransactionStatus";
 
 /**
  *
@@ -72,10 +73,15 @@ export function GetTransactionStatusFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function GetTransactionStatusToJSON(value?: GetTransactionStatus | null): any {
+export function GetTransactionStatusToJSON(json: any): GetTransactionStatus {
+    return GetTransactionStatusToJSONTyped(json, false);
+}
+
+export function GetTransactionStatusToJSONTyped(value?: GetTransactionStatus | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(ErrorGetTransactionStatusToJSON),
         meta: MetaGetTransactionStatusToJSON(value["meta"]),

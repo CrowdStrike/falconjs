@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainCountBySeverity } from "./DomainCountBySeverity";
-import { DomainCountBySeverityFromJSON, DomainCountBySeverityFromJSONTyped, DomainCountBySeverityToJSON } from "./DomainCountBySeverity";
+import { DomainCountBySeverityFromJSON, DomainCountBySeverityFromJSONTyped, DomainCountBySeverityToJSON, DomainCountBySeverityToJSONTyped } from "./DomainCountBySeverity";
 
 /**
  *
@@ -91,10 +91,15 @@ export function DomainAPIAggregateFailedRulesByClustersV3FromJSONTyped(json: any
     };
 }
 
-export function DomainAPIAggregateFailedRulesByClustersV3ToJSON(value?: DomainAPIAggregateFailedRulesByClustersV3 | null): any {
+export function DomainAPIAggregateFailedRulesByClustersV3ToJSON(json: any): DomainAPIAggregateFailedRulesByClustersV3 {
+    return DomainAPIAggregateFailedRulesByClustersV3ToJSONTyped(json, false);
+}
+
+export function DomainAPIAggregateFailedRulesByClustersV3ToJSONTyped(value?: DomainAPIAggregateFailedRulesByClustersV3 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         cluster_derived_id: value["clusterDerivedId"],

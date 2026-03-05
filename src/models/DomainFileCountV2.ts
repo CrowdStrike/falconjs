@@ -80,10 +80,15 @@ export function DomainFileCountV2FromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function DomainFileCountV2ToJSON(value?: DomainFileCountV2 | null): any {
+export function DomainFileCountV2ToJSON(json: any): DomainFileCountV2 {
+    return DomainFileCountV2ToJSONTyped(json, false);
+}
+
+export function DomainFileCountV2ToJSONTyped(value?: DomainFileCountV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         malicious: value["malicious"],
         quarantined: value["quarantined"],

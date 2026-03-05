@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { SdkAnalysisResultsLeadRecordVM } from "./SdkAnalysisResultsLeadRecordVM";
-import { SdkAnalysisResultsLeadRecordVMFromJSON, SdkAnalysisResultsLeadRecordVMFromJSONTyped, SdkAnalysisResultsLeadRecordVMToJSON } from "./SdkAnalysisResultsLeadRecordVM";
+import {
+    SdkAnalysisResultsLeadRecordVMFromJSON,
+    SdkAnalysisResultsLeadRecordVMFromJSONTyped,
+    SdkAnalysisResultsLeadRecordVMToJSON,
+    SdkAnalysisResultsLeadRecordVMToJSONTyped,
+} from "./SdkAnalysisResultsLeadRecordVM";
 
 /**
  *
@@ -51,10 +56,15 @@ export function SdkAnalysisResultsLeadsVMFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function SdkAnalysisResultsLeadsVMToJSON(value?: SdkAnalysisResultsLeadsVM | null): any {
+export function SdkAnalysisResultsLeadsVMToJSON(json: any): SdkAnalysisResultsLeadsVM {
+    return SdkAnalysisResultsLeadsVMToJSONTyped(json, false);
+}
+
+export function SdkAnalysisResultsLeadsVMToJSONTyped(value?: SdkAnalysisResultsLeadsVM | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         records: (value["records"] as Array<any>).map(SdkAnalysisResultsLeadRecordVMToJSON),
     };

@@ -49,12 +49,9 @@ export interface ApiIntegrationsApiGetCombinedPluginConfigsRequest {
  */
 export class ApiIntegrationsApi extends runtime.BaseAPI {
     /**
-     * Execute a command.
+     * Creates request options for executeCommand without sending the request
      */
-    async executeCommandRaw(
-        requestParameters: ApiIntegrationsApiExecuteCommandRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainExecuteCommandResultsV1>> {
+    async executeCommandRequestOpts(requestParameters: ApiIntegrationsApiExecuteCommandRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["resources"] == null) {
             throw new runtime.RequiredError("resources", 'Required parameter "resources" was null or undefined when calling executeCommand().');
         }
@@ -84,16 +81,26 @@ export class ApiIntegrationsApi extends runtime.BaseAPI {
             formParams.append("resources", requestParameters["resources"]!.join(runtime.COLLECTION_FORMATS["csv"]));
         }
 
-        const response = await this.request(
-            {
-                path: `/plugins/entities/execute/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: formParams,
-            },
-            initOverrides,
-        );
+        let urlPath = `/plugins/entities/execute/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        };
+    }
+
+    /**
+     * Execute a command.
+     */
+    async executeCommandRaw(
+        requestParameters: ApiIntegrationsApiExecuteCommandRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainExecuteCommandResultsV1>> {
+        const requestOptions = await this.executeCommandRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainExecuteCommandResultsV1FromJSON(jsonValue));
     }
@@ -107,9 +114,9 @@ export class ApiIntegrationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Execute a command and proxy the response directly.
+     * Creates request options for executeCommandProxy without sending the request
      */
-    async executeCommandProxyRaw(requestParameters: ApiIntegrationsApiExecuteCommandProxyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<object>> {
+    async executeCommandProxyRequestOpts(requestParameters: ApiIntegrationsApiExecuteCommandProxyRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling executeCommandProxy().');
         }
@@ -125,16 +132,23 @@ export class ApiIntegrationsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["api-integrations:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/plugins/entities/execute-proxy/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainExecuteCommandRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/plugins/entities/execute-proxy/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainExecuteCommandRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Execute a command and proxy the response directly.
+     */
+    async executeCommandProxyRaw(requestParameters: ApiIntegrationsApiExecuteCommandProxyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<object>> {
+        const requestOptions = await this.executeCommandProxyRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse<any>(response);
     }
@@ -148,12 +162,9 @@ export class ApiIntegrationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Queries for config resources and returns details
+     * Creates request options for getCombinedPluginConfigs without sending the request
      */
-    async getCombinedPluginConfigsRaw(
-        requestParameters: ApiIntegrationsApiGetCombinedPluginConfigsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainConfigsV1>> {
+    async getCombinedPluginConfigsRequestOpts(requestParameters: ApiIntegrationsApiGetCombinedPluginConfigsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -179,15 +190,25 @@ export class ApiIntegrationsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["api-integrations:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/plugins/combined/configs/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/plugins/combined/configs/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Queries for config resources and returns details
+     */
+    async getCombinedPluginConfigsRaw(
+        requestParameters: ApiIntegrationsApiGetCombinedPluginConfigsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainConfigsV1>> {
+        const requestOptions = await this.getCombinedPluginConfigsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainConfigsV1FromJSON(jsonValue));
     }

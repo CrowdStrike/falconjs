@@ -48,10 +48,15 @@ export function ContentUpdateRingAssignmentOverrideSettingV1FromJSONTyped(json: 
     };
 }
 
-export function ContentUpdateRingAssignmentOverrideSettingV1ToJSON(value?: ContentUpdateRingAssignmentOverrideSettingV1 | null): any {
+export function ContentUpdateRingAssignmentOverrideSettingV1ToJSON(json: any): ContentUpdateRingAssignmentOverrideSettingV1 {
+    return ContentUpdateRingAssignmentOverrideSettingV1ToJSONTyped(json, false);
+}
+
+export function ContentUpdateRingAssignmentOverrideSettingV1ToJSONTyped(value?: ContentUpdateRingAssignmentOverrideSettingV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         value: value["value"],
     };

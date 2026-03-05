@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { RulegroupsRule } from "./RulegroupsRule";
-import { RulegroupsRuleFromJSON, RulegroupsRuleFromJSONTyped, RulegroupsRuleToJSON } from "./RulegroupsRule";
+import { RulegroupsRuleFromJSON, RulegroupsRuleFromJSONTyped, RulegroupsRuleToJSON, RulegroupsRuleToJSONTyped } from "./RulegroupsRule";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function RulegroupsRulesResponseFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function RulegroupsRulesResponseToJSON(value?: RulegroupsRulesResponse | null): any {
+export function RulegroupsRulesResponseToJSON(json: any): RulegroupsRulesResponse {
+    return RulegroupsRulesResponseToJSONTyped(json, false);
+}
+
+export function RulegroupsRulesResponseToJSONTyped(value?: RulegroupsRulesResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

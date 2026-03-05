@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { FalconforitapiConditionalExpr } from "./FalconforitapiConditionalExpr";
-import { FalconforitapiConditionalExprFromJSON, FalconforitapiConditionalExprFromJSONTyped, FalconforitapiConditionalExprToJSON } from "./FalconforitapiConditionalExpr";
+import {
+    FalconforitapiConditionalExprFromJSON,
+    FalconforitapiConditionalExprFromJSONTyped,
+    FalconforitapiConditionalExprToJSON,
+    FalconforitapiConditionalExprToJSONTyped,
+} from "./FalconforitapiConditionalExpr";
 
 /**
  *
@@ -30,7 +35,7 @@ export interface FalconforitapiConditionGroup {
     groups?: Array<FalconforitapiConditionGroup>;
     /**
      * Logical operator to apply between group statements
-     * @type {string}
+     * @type {FalconforitapiConditionGroupOperatorEnum}
      * @memberof FalconforitapiConditionGroup
      */
     operator?: FalconforitapiConditionGroupOperatorEnum;
@@ -74,10 +79,15 @@ export function FalconforitapiConditionGroupFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function FalconforitapiConditionGroupToJSON(value?: FalconforitapiConditionGroup | null): any {
+export function FalconforitapiConditionGroupToJSON(json: any): FalconforitapiConditionGroup {
+    return FalconforitapiConditionGroupToJSONTyped(json, false);
+}
+
+export function FalconforitapiConditionGroupToJSONTyped(value?: FalconforitapiConditionGroup | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         groups: value["groups"] == null ? undefined : (value["groups"] as Array<any>).map(FalconforitapiConditionGroupToJSON),
         operator: value["operator"],

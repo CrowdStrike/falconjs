@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { AzureAzureRegistrationUpdateInput } from "./AzureAzureRegistrationUpdateInput";
-import { AzureAzureRegistrationUpdateInputFromJSON, AzureAzureRegistrationUpdateInputFromJSONTyped, AzureAzureRegistrationUpdateInputToJSON } from "./AzureAzureRegistrationUpdateInput";
+import {
+    AzureAzureRegistrationUpdateInputFromJSON,
+    AzureAzureRegistrationUpdateInputFromJSONTyped,
+    AzureAzureRegistrationUpdateInputToJSON,
+    AzureAzureRegistrationUpdateInputToJSONTyped,
+} from "./AzureAzureRegistrationUpdateInput";
 
 /**
  *
@@ -51,10 +56,15 @@ export function AzureAzureRegistrationUpdateRequestExtV1FromJSONTyped(json: any,
     };
 }
 
-export function AzureAzureRegistrationUpdateRequestExtV1ToJSON(value?: AzureAzureRegistrationUpdateRequestExtV1 | null): any {
+export function AzureAzureRegistrationUpdateRequestExtV1ToJSON(json: any): AzureAzureRegistrationUpdateRequestExtV1 {
+    return AzureAzureRegistrationUpdateRequestExtV1ToJSONTyped(json, false);
+}
+
+export function AzureAzureRegistrationUpdateRequestExtV1ToJSONTyped(value?: AzureAzureRegistrationUpdateRequestExtV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resource: AzureAzureRegistrationUpdateInputToJSON(value["resource"]),
     };

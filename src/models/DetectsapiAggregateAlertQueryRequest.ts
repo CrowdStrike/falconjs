@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { MsaDateRangeSpec } from "./MsaDateRangeSpec";
-import { MsaDateRangeSpecFromJSON, MsaDateRangeSpecFromJSONTyped, MsaDateRangeSpecToJSON } from "./MsaDateRangeSpec";
+import { MsaDateRangeSpecFromJSON, MsaDateRangeSpecFromJSONTyped, MsaDateRangeSpecToJSON, MsaDateRangeSpecToJSONTyped } from "./MsaDateRangeSpec";
 import type { MsaRangeSpec } from "./MsaRangeSpec";
-import { MsaRangeSpecFromJSON, MsaRangeSpecFromJSONTyped, MsaRangeSpecToJSON } from "./MsaRangeSpec";
+import { MsaRangeSpecFromJSON, MsaRangeSpecFromJSONTyped, MsaRangeSpecToJSON, MsaRangeSpecToJSONTyped } from "./MsaRangeSpec";
 
 /**
  *
@@ -187,10 +187,15 @@ export function DetectsapiAggregateAlertQueryRequestFromJSONTyped(json: any, ign
     };
 }
 
-export function DetectsapiAggregateAlertQueryRequestToJSON(value?: DetectsapiAggregateAlertQueryRequest | null): any {
+export function DetectsapiAggregateAlertQueryRequestToJSON(json: any): DetectsapiAggregateAlertQueryRequest {
+    return DetectsapiAggregateAlertQueryRequestToJSONTyped(json, false);
+}
+
+export function DetectsapiAggregateAlertQueryRequestToJSONTyped(value?: DetectsapiAggregateAlertQueryRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         date_ranges: (value["dateRanges"] as Array<any>).map(MsaDateRangeSpecToJSON),
         exclude: value["exclude"],

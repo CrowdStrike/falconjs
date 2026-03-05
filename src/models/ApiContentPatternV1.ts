@@ -140,19 +140,24 @@ export function ApiContentPatternV1FromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function ApiContentPatternV1ToJSON(value?: ApiContentPatternV1 | null): any {
+export function ApiContentPatternV1ToJSON(json: any): ApiContentPatternV1 {
+    return ApiContentPatternV1ToJSONTyped(json, false);
+}
+
+export function ApiContentPatternV1ToJSONTyped(value?: ApiContentPatternV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         category: value["category"],
         cid: value["cid"],
-        created: value["created"] == null ? undefined : value["created"].toISOString(),
+        created: value["created"] == null ? value["created"] : value["created"].toISOString(),
         deleted: value["deleted"],
         description: value["description"],
         example: value["example"],
         id: value["id"],
-        last_updated: value["lastUpdated"] == null ? undefined : value["lastUpdated"].toISOString(),
+        last_updated: value["lastUpdated"] == null ? value["lastUpdated"] : value["lastUpdated"].toISOString(),
         min_match_threshold: value["minMatchThreshold"],
         name: value["name"],
         regexes: value["regexes"],

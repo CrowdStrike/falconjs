@@ -48,10 +48,15 @@ export function SdkAlertEvidenceSelectorFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function SdkAlertEvidenceSelectorToJSON(value?: SdkAlertEvidenceSelector | null): any {
+export function SdkAlertEvidenceSelectorToJSON(json: any): SdkAlertEvidenceSelector {
+    return SdkAlertEvidenceSelectorToJSONTyped(json, false);
+}
+
+export function SdkAlertEvidenceSelectorToJSONTyped(value?: SdkAlertEvidenceSelector | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
     };

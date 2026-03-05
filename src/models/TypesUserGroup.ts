@@ -112,10 +112,15 @@ export function TypesUserGroupFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function TypesUserGroupToJSON(value?: TypesUserGroup | null): any {
+export function TypesUserGroupToJSON(json: any): TypesUserGroup {
+    return TypesUserGroupToJSONTyped(json, false);
+}
+
+export function TypesUserGroupToJSONTyped(value?: TypesUserGroup | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         createdBy: value["createdBy"],
         description: value["description"],

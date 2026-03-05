@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsImageInformation } from "./ModelsImageInformation";
-import { ModelsImageInformationFromJSON, ModelsImageInformationFromJSONTyped, ModelsImageInformationToJSON } from "./ModelsImageInformation";
+import { ModelsImageInformationFromJSON, ModelsImageInformationFromJSONTyped, ModelsImageInformationToJSON, ModelsImageInformationToJSONTyped } from "./ModelsImageInformation";
 import type { ModelsContainerInformation } from "./ModelsContainerInformation";
-import { ModelsContainerInformationFromJSON, ModelsContainerInformationFromJSONTyped, ModelsContainerInformationToJSON } from "./ModelsContainerInformation";
+import { ModelsContainerInformationFromJSON, ModelsContainerInformationFromJSONTyped, ModelsContainerInformationToJSON, ModelsContainerInformationToJSONTyped } from "./ModelsContainerInformation";
 
 /**
  *
@@ -213,10 +213,15 @@ export function ModelsAPIUnidentifiedContainerFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function ModelsAPIUnidentifiedContainerToJSON(value?: ModelsAPIUnidentifiedContainer | null): any {
+export function ModelsAPIUnidentifiedContainerToJSON(json: any): ModelsAPIUnidentifiedContainer {
+    return ModelsAPIUnidentifiedContainerToJSONTyped(json, false);
+}
+
+export function ModelsAPIUnidentifiedContainerToJSONTyped(value?: ModelsAPIUnidentifiedContainer | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         assessed_images: (value["assessedImages"] as Array<any>).map(ModelsImageInformationToJSON),
         assessed_images_count: value["assessedImagesCount"],

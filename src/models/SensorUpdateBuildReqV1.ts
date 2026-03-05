@@ -56,10 +56,15 @@ export function SensorUpdateBuildReqV1FromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function SensorUpdateBuildReqV1ToJSON(value?: SensorUpdateBuildReqV1 | null): any {
+export function SensorUpdateBuildReqV1ToJSON(json: any): SensorUpdateBuildReqV1 {
+    return SensorUpdateBuildReqV1ToJSONTyped(json, false);
+}
+
+export function SensorUpdateBuildReqV1ToJSONTyped(value?: SensorUpdateBuildReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         build: value["build"],
         platform: value["platform"],

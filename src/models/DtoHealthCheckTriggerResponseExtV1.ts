@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DtoHealthCheckTriggerInfo } from "./DtoHealthCheckTriggerInfo";
-import { DtoHealthCheckTriggerInfoFromJSON, DtoHealthCheckTriggerInfoFromJSONTyped, DtoHealthCheckTriggerInfoToJSON } from "./DtoHealthCheckTriggerInfo";
+import { DtoHealthCheckTriggerInfoFromJSON, DtoHealthCheckTriggerInfoFromJSONTyped, DtoHealthCheckTriggerInfoToJSON, DtoHealthCheckTriggerInfoToJSONTyped } from "./DtoHealthCheckTriggerInfo";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function DtoHealthCheckTriggerResponseExtV1FromJSONTyped(json: any, ignor
     };
 }
 
-export function DtoHealthCheckTriggerResponseExtV1ToJSON(value?: DtoHealthCheckTriggerResponseExtV1 | null): any {
+export function DtoHealthCheckTriggerResponseExtV1ToJSON(json: any): DtoHealthCheckTriggerResponseExtV1 {
+    return DtoHealthCheckTriggerResponseExtV1ToJSONTyped(json, false);
+}
+
+export function DtoHealthCheckTriggerResponseExtV1ToJSONTyped(value?: DtoHealthCheckTriggerResponseExtV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

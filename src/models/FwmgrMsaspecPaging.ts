@@ -64,10 +64,15 @@ export function FwmgrMsaspecPagingFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function FwmgrMsaspecPagingToJSON(value?: FwmgrMsaspecPaging | null): any {
+export function FwmgrMsaspecPagingToJSON(json: any): FwmgrMsaspecPaging {
+    return FwmgrMsaspecPagingToJSONTyped(json, false);
+}
+
+export function FwmgrMsaspecPagingToJSONTyped(value?: FwmgrMsaspecPaging | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         limit: value["limit"],
         offset: value["offset"],

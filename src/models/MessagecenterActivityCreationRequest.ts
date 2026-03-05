@@ -72,10 +72,15 @@ export function MessagecenterActivityCreationRequestFromJSONTyped(json: any, ign
     };
 }
 
-export function MessagecenterActivityCreationRequestToJSON(value?: MessagecenterActivityCreationRequest | null): any {
+export function MessagecenterActivityCreationRequestToJSON(json: any): MessagecenterActivityCreationRequest {
+    return MessagecenterActivityCreationRequestToJSONTyped(json, false);
+}
+
+export function MessagecenterActivityCreationRequestToJSONTyped(value?: MessagecenterActivityCreationRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         body: value["body"],
         case_id: value["caseId"],

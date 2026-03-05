@@ -18,6 +18,7 @@ import {
     AssetgroupmanagerV1CloudGroupSelectorsFromJSON,
     AssetgroupmanagerV1CloudGroupSelectorsFromJSONTyped,
     AssetgroupmanagerV1CloudGroupSelectorsToJSON,
+    AssetgroupmanagerV1CloudGroupSelectorsToJSONTyped,
 } from "./AssetgroupmanagerV1CloudGroupSelectors";
 
 /**
@@ -131,14 +132,19 @@ export function AssetgroupmanagerV1CloudGroupFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function AssetgroupmanagerV1CloudGroupToJSON(value?: AssetgroupmanagerV1CloudGroup | null): any {
+export function AssetgroupmanagerV1CloudGroupToJSON(json: any): AssetgroupmanagerV1CloudGroup {
+    return AssetgroupmanagerV1CloudGroupToJSONTyped(json, false);
+}
+
+export function AssetgroupmanagerV1CloudGroupToJSONTyped(value?: AssetgroupmanagerV1CloudGroup | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         business_impact: value["businessImpact"],
         business_unit: value["businessUnit"],
-        created_at: value["createdAt"] == null ? undefined : value["createdAt"].toISOString(),
+        created_at: value["createdAt"] == null ? value["createdAt"] : value["createdAt"].toISOString(),
         created_by: value["createdBy"],
         description: value["description"],
         environment: value["environment"],
@@ -146,7 +152,7 @@ export function AssetgroupmanagerV1CloudGroupToJSON(value?: AssetgroupmanagerV1C
         name: value["name"],
         owners: value["owners"],
         selectors: AssetgroupmanagerV1CloudGroupSelectorsToJSON(value["selectors"]),
-        updated_at: value["updatedAt"] == null ? undefined : value["updatedAt"].toISOString(),
+        updated_at: value["updatedAt"] == null ? value["updatedAt"] : value["updatedAt"].toISOString(),
         updated_by: value["updatedBy"],
     };
 }

@@ -48,10 +48,15 @@ export function ModelsResultPhysicalLocationArtifactLocationFromJSONTyped(json: 
     };
 }
 
-export function ModelsResultPhysicalLocationArtifactLocationToJSON(value?: ModelsResultPhysicalLocationArtifactLocation | null): any {
+export function ModelsResultPhysicalLocationArtifactLocationToJSON(json: any): ModelsResultPhysicalLocationArtifactLocation {
+    return ModelsResultPhysicalLocationArtifactLocationToJSONTyped(json, false);
+}
+
+export function ModelsResultPhysicalLocationArtifactLocationToJSONTyped(value?: ModelsResultPhysicalLocationArtifactLocation | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         uri: value["uri"],
     };

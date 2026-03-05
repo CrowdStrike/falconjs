@@ -89,10 +89,15 @@ export function JsonschemaWorkflowExtensionsFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function JsonschemaWorkflowExtensionsToJSON(value?: JsonschemaWorkflowExtensions | null): any {
+export function JsonschemaWorkflowExtensionsToJSON(json: any): JsonschemaWorkflowExtensions {
+    return JsonschemaWorkflowExtensionsToJSONTyped(json, false);
+}
+
+export function JsonschemaWorkflowExtensionsToJSONTyped(value?: JsonschemaWorkflowExtensions | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         max_file_size: value["maxFileSize"],

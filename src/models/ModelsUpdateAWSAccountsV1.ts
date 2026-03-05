@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsAWSAccountRequestV1 } from "./ModelsAWSAccountRequestV1";
-import { ModelsAWSAccountRequestV1FromJSON, ModelsAWSAccountRequestV1FromJSONTyped, ModelsAWSAccountRequestV1ToJSON } from "./ModelsAWSAccountRequestV1";
+import { ModelsAWSAccountRequestV1FromJSON, ModelsAWSAccountRequestV1FromJSONTyped, ModelsAWSAccountRequestV1ToJSON, ModelsAWSAccountRequestV1ToJSONTyped } from "./ModelsAWSAccountRequestV1";
 
 /**
  *
@@ -51,10 +51,15 @@ export function ModelsUpdateAWSAccountsV1FromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ModelsUpdateAWSAccountsV1ToJSON(value?: ModelsUpdateAWSAccountsV1 | null): any {
+export function ModelsUpdateAWSAccountsV1ToJSON(json: any): ModelsUpdateAWSAccountsV1 {
+    return ModelsUpdateAWSAccountsV1ToJSONTyped(json, false);
+}
+
+export function ModelsUpdateAWSAccountsV1ToJSONTyped(value?: ModelsUpdateAWSAccountsV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(ModelsAWSAccountRequestV1ToJSON),
     };

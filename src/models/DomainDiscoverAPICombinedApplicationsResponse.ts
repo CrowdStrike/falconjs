@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { DomainDiscoverAPIMetaInfo } from "./DomainDiscoverAPIMetaInfo";
-import { DomainDiscoverAPIMetaInfoFromJSON, DomainDiscoverAPIMetaInfoFromJSONTyped, DomainDiscoverAPIMetaInfoToJSON } from "./DomainDiscoverAPIMetaInfo";
+import { DomainDiscoverAPIMetaInfoFromJSON, DomainDiscoverAPIMetaInfoFromJSONTyped, DomainDiscoverAPIMetaInfoToJSON, DomainDiscoverAPIMetaInfoToJSONTyped } from "./DomainDiscoverAPIMetaInfo";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainDiscoverAPIApplication } from "./DomainDiscoverAPIApplication";
-import { DomainDiscoverAPIApplicationFromJSON, DomainDiscoverAPIApplicationFromJSONTyped, DomainDiscoverAPIApplicationToJSON } from "./DomainDiscoverAPIApplication";
+import {
+    DomainDiscoverAPIApplicationFromJSON,
+    DomainDiscoverAPIApplicationFromJSONTyped,
+    DomainDiscoverAPIApplicationToJSON,
+    DomainDiscoverAPIApplicationToJSONTyped,
+} from "./DomainDiscoverAPIApplication";
 
 /**
  *
@@ -71,10 +76,15 @@ export function DomainDiscoverAPICombinedApplicationsResponseFromJSONTyped(json:
     };
 }
 
-export function DomainDiscoverAPICombinedApplicationsResponseToJSON(value?: DomainDiscoverAPICombinedApplicationsResponse | null): any {
+export function DomainDiscoverAPICombinedApplicationsResponseToJSON(json: any): DomainDiscoverAPICombinedApplicationsResponse {
+    return DomainDiscoverAPICombinedApplicationsResponseToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPICombinedApplicationsResponseToJSONTyped(value?: DomainDiscoverAPICombinedApplicationsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: DomainDiscoverAPIMetaInfoToJSON(value["meta"]),

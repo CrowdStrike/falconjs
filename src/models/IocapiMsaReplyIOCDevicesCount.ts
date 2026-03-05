@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { IocapiResponseMeta } from "./IocapiResponseMeta";
-import { IocapiResponseMetaFromJSON, IocapiResponseMetaFromJSONTyped, IocapiResponseMetaToJSON } from "./IocapiResponseMeta";
+import { IocapiResponseMetaFromJSON, IocapiResponseMetaFromJSONTyped, IocapiResponseMetaToJSON, IocapiResponseMetaToJSONTyped } from "./IocapiResponseMeta";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { IocapiIOCDevicesCount } from "./IocapiIOCDevicesCount";
-import { IocapiIOCDevicesCountFromJSON, IocapiIOCDevicesCountFromJSONTyped, IocapiIOCDevicesCountToJSON } from "./IocapiIOCDevicesCount";
+import { IocapiIOCDevicesCountFromJSON, IocapiIOCDevicesCountFromJSONTyped, IocapiIOCDevicesCountToJSON, IocapiIOCDevicesCountToJSONTyped } from "./IocapiIOCDevicesCount";
 
 /**
  *
@@ -71,10 +71,15 @@ export function IocapiMsaReplyIOCDevicesCountFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function IocapiMsaReplyIOCDevicesCountToJSON(value?: IocapiMsaReplyIOCDevicesCount | null): any {
+export function IocapiMsaReplyIOCDevicesCountToJSON(json: any): IocapiMsaReplyIOCDevicesCount {
+    return IocapiMsaReplyIOCDevicesCountToJSONTyped(json, false);
+}
+
+export function IocapiMsaReplyIOCDevicesCountToJSONTyped(value?: IocapiMsaReplyIOCDevicesCount | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: IocapiResponseMetaToJSON(value["meta"]),

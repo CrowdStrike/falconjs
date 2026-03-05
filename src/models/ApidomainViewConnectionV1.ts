@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApidomainRepositoryV1 } from "./ApidomainRepositoryV1";
-import { ApidomainRepositoryV1FromJSON, ApidomainRepositoryV1FromJSONTyped, ApidomainRepositoryV1ToJSON } from "./ApidomainRepositoryV1";
+import { ApidomainRepositoryV1FromJSON, ApidomainRepositoryV1FromJSONTyped, ApidomainRepositoryV1ToJSON, ApidomainRepositoryV1ToJSONTyped } from "./ApidomainRepositoryV1";
 
 /**
  *
@@ -59,10 +59,15 @@ export function ApidomainViewConnectionV1FromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ApidomainViewConnectionV1ToJSON(value?: ApidomainViewConnectionV1 | null): any {
+export function ApidomainViewConnectionV1ToJSON(json: any): ApidomainViewConnectionV1 {
+    return ApidomainViewConnectionV1ToJSONTyped(json, false);
+}
+
+export function ApidomainViewConnectionV1ToJSONTyped(value?: ApidomainViewConnectionV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         filter: value["filter"],
         repository: ApidomainRepositoryV1ToJSON(value["repository"]),

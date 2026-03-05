@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsKACPolicy } from "./ModelsKACPolicy";
-import { ModelsKACPolicyFromJSON, ModelsKACPolicyFromJSONTyped, ModelsKACPolicyToJSON } from "./ModelsKACPolicy";
+import { ModelsKACPolicyFromJSON, ModelsKACPolicyFromJSONTyped, ModelsKACPolicyToJSON, ModelsKACPolicyToJSONTyped } from "./ModelsKACPolicy";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function ModelsKACPolicyEntitiesResponseFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function ModelsKACPolicyEntitiesResponseToJSON(value?: ModelsKACPolicyEntitiesResponse | null): any {
+export function ModelsKACPolicyEntitiesResponseToJSON(json: any): ModelsKACPolicyEntitiesResponse {
+    return ModelsKACPolicyEntitiesResponseToJSONTyped(json, false);
+}
+
+export function ModelsKACPolicyEntitiesResponseToJSONTyped(value?: ModelsKACPolicyEntitiesResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DtoCreateGCPRegistrationRequest } from "./DtoCreateGCPRegistrationRequest";
-import { DtoCreateGCPRegistrationRequestFromJSON, DtoCreateGCPRegistrationRequestFromJSONTyped, DtoCreateGCPRegistrationRequestToJSON } from "./DtoCreateGCPRegistrationRequest";
+import {
+    DtoCreateGCPRegistrationRequestFromJSON,
+    DtoCreateGCPRegistrationRequestFromJSONTyped,
+    DtoCreateGCPRegistrationRequestToJSON,
+    DtoCreateGCPRegistrationRequestToJSONTyped,
+} from "./DtoCreateGCPRegistrationRequest";
 
 /**
  *
@@ -51,10 +56,15 @@ export function DtoGCPRegistrationCreateRequestExtV1FromJSONTyped(json: any, ign
     };
 }
 
-export function DtoGCPRegistrationCreateRequestExtV1ToJSON(value?: DtoGCPRegistrationCreateRequestExtV1 | null): any {
+export function DtoGCPRegistrationCreateRequestExtV1ToJSON(json: any): DtoGCPRegistrationCreateRequestExtV1 {
+    return DtoGCPRegistrationCreateRequestExtV1ToJSONTyped(json, false);
+}
+
+export function DtoGCPRegistrationCreateRequestExtV1ToJSONTyped(value?: DtoGCPRegistrationCreateRequestExtV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(DtoCreateGCPRegistrationRequestToJSON),
     };

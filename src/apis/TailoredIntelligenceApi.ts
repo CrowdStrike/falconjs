@@ -60,9 +60,9 @@ export interface TailoredIntelligenceApiQueryRulesRequest {
  */
 export class TailoredIntelligenceApi extends runtime.BaseAPI {
     /**
-     * Get event body for the provided event ID
+     * Creates request options for getEventsBody without sending the request
      */
-    async getEventsBodyRaw(requestParameters: TailoredIntelligenceApiGetEventsBodyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<number>>> {
+    async getEventsBodyRequestOpts(requestParameters: TailoredIntelligenceApiGetEventsBodyRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling getEventsBody().');
         }
@@ -80,15 +80,22 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["tailored-intelligence:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ti/events/entities/events-full-body/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ti/events/entities/events-full-body/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get event body for the provided event ID
+     */
+    async getEventsBodyRaw(requestParameters: TailoredIntelligenceApiGetEventsBodyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<number>>> {
+        const requestOptions = await this.getEventsBodyRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse<any>(response);
     }
@@ -102,12 +109,9 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get events entities for specified ids.
+     * Creates request options for getEventsEntities without sending the request
      */
-    async getEventsEntitiesRaw(
-        requestParameters: TailoredIntelligenceApiGetEventsEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainEventEntitiesResponse>> {
+    async getEventsEntitiesRequestOpts(requestParameters: TailoredIntelligenceApiGetEventsEntitiesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getEventsEntities().');
         }
@@ -123,16 +127,26 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["tailored-intelligence:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ti/events/entities/events/GET/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaIdsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/ti/events/entities/events/GET/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaIdsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Get events entities for specified ids.
+     */
+    async getEventsEntitiesRaw(
+        requestParameters: TailoredIntelligenceApiGetEventsEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainEventEntitiesResponse>> {
+        const requestOptions = await this.getEventsEntitiesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainEventEntitiesResponseFromJSON(jsonValue));
     }
@@ -146,12 +160,9 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get rules entities for specified ids.
+     * Creates request options for getRulesEntities without sending the request
      */
-    async getRulesEntitiesRaw(
-        requestParameters: TailoredIntelligenceApiGetRulesEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainRuleEntitiesResponse>> {
+    async getRulesEntitiesRequestOpts(requestParameters: TailoredIntelligenceApiGetRulesEntitiesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getRulesEntities().');
         }
@@ -167,16 +178,26 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["tailored-intelligence:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ti/rules/entities/rules/GET/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaIdsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/ti/rules/entities/rules/GET/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaIdsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Get rules entities for specified ids.
+     */
+    async getRulesEntitiesRaw(
+        requestParameters: TailoredIntelligenceApiGetRulesEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainRuleEntitiesResponse>> {
+        const requestOptions = await this.getRulesEntitiesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainRuleEntitiesResponseFromJSON(jsonValue));
     }
@@ -190,9 +211,9 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get events ids that match the provided filter criteria.
+     * Creates request options for queryEvents without sending the request
      */
-    async queryEventsRaw(requestParameters: TailoredIntelligenceApiQueryEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainQueryResponse>> {
+    async queryEventsRequestOpts(requestParameters: TailoredIntelligenceApiQueryEventsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -222,15 +243,22 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["tailored-intelligence:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ti/events/queries/events/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ti/events/queries/events/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get events ids that match the provided filter criteria.
+     */
+    async queryEventsRaw(requestParameters: TailoredIntelligenceApiQueryEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainQueryResponse>> {
+        const requestOptions = await this.queryEventsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainQueryResponseFromJSON(jsonValue));
     }
@@ -244,9 +272,9 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get rules ids that match the provided filter criteria.
+     * Creates request options for queryRules without sending the request
      */
-    async queryRulesRaw(requestParameters: TailoredIntelligenceApiQueryRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainQueryResponse>> {
+    async queryRulesRequestOpts(requestParameters: TailoredIntelligenceApiQueryRulesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -276,15 +304,22 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["tailored-intelligence:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ti/rules/queries/rules/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ti/rules/queries/rules/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get rules ids that match the provided filter criteria.
+     */
+    async queryRulesRaw(requestParameters: TailoredIntelligenceApiQueryRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainQueryResponse>> {
+        const requestOptions = await this.queryRulesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainQueryResponseFromJSON(jsonValue));
     }

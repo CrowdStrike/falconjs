@@ -56,10 +56,15 @@ export function ApiAccessTagTemplateBindingV1FromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function ApiAccessTagTemplateBindingV1ToJSON(value?: ApiAccessTagTemplateBindingV1 | null): any {
+export function ApiAccessTagTemplateBindingV1ToJSON(json: any): ApiAccessTagTemplateBindingV1 {
+    return ApiAccessTagTemplateBindingV1ToJSONTyped(json, false);
+}
+
+export function ApiAccessTagTemplateBindingV1ToJSONTyped(value?: ApiAccessTagTemplateBindingV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

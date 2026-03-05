@@ -68,10 +68,15 @@ export function TypesAwsApiGatewayReasonTagFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function TypesAwsApiGatewayReasonTagToJSON(value?: TypesAwsApiGatewayReasonTag | null): any {
+export function TypesAwsApiGatewayReasonTagToJSON(json: any): TypesAwsApiGatewayReasonTag {
+    return TypesAwsApiGatewayReasonTagToJSONTyped(json, false);
+}
+
+export function TypesAwsApiGatewayReasonTagToJSONTyped(value?: TypesAwsApiGatewayReasonTag | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         apiType: value["apiType"],
         hostType: value["hostType"],

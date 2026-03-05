@@ -18,12 +18,14 @@ import {
     CorrelationrulesapiRuleScheduleV1PatchFromJSON,
     CorrelationrulesapiRuleScheduleV1PatchFromJSONTyped,
     CorrelationrulesapiRuleScheduleV1PatchToJSON,
+    CorrelationrulesapiRuleScheduleV1PatchToJSONTyped,
 } from "./CorrelationrulesapiRuleScheduleV1Patch";
 import type { CorrelationrulesapiRuleSuppressionV1Patch } from "./CorrelationrulesapiRuleSuppressionV1Patch";
 import {
     CorrelationrulesapiRuleSuppressionV1PatchFromJSON,
     CorrelationrulesapiRuleSuppressionV1PatchFromJSONTyped,
     CorrelationrulesapiRuleSuppressionV1PatchToJSON,
+    CorrelationrulesapiRuleSuppressionV1PatchToJSONTyped,
 } from "./CorrelationrulesapiRuleSuppressionV1Patch";
 
 /**
@@ -81,13 +83,18 @@ export function CorrelationrulesapiPatchRuleOperationV1FromJSONTyped(json: any, 
     };
 }
 
-export function CorrelationrulesapiPatchRuleOperationV1ToJSON(value?: CorrelationrulesapiPatchRuleOperationV1 | null): any {
+export function CorrelationrulesapiPatchRuleOperationV1ToJSON(json: any): CorrelationrulesapiPatchRuleOperationV1 {
+    return CorrelationrulesapiPatchRuleOperationV1ToJSONTyped(json, false);
+}
+
+export function CorrelationrulesapiPatchRuleOperationV1ToJSONTyped(value?: CorrelationrulesapiPatchRuleOperationV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         schedule: CorrelationrulesapiRuleScheduleV1PatchToJSON(value["schedule"]),
-        start_on: value["startOn"] == null ? undefined : (value["startOn"] as any).toISOString(),
+        start_on: value["startOn"] == null ? value["startOn"] : value["startOn"].toISOString(),
         stop_on: value["stopOn"],
         suppression: CorrelationrulesapiRuleSuppressionV1PatchToJSON(value["suppression"]),
     };

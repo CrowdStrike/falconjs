@@ -56,10 +56,15 @@ export function JsonschemaPermissionFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function JsonschemaPermissionToJSON(value?: JsonschemaPermission | null): any {
+export function JsonschemaPermissionToJSON(json: any): JsonschemaPermission {
+    return JsonschemaPermissionToJSONTyped(json, false);
+}
+
+export function JsonschemaPermissionToJSONTyped(value?: JsonschemaPermission | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         resource: value["resource"],

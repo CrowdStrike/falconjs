@@ -111,10 +111,15 @@ export function ActionsActionFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function ActionsActionToJSON(value?: ActionsAction | null): any {
+export function ActionsActionToJSON(json: any): ActionsAction {
+    return ActionsActionToJSONTyped(json, false);
+}
+
+export function ActionsActionToJSONTyped(value?: ActionsAction | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         expected_change_count: value["expectedChangeCount"],
         id: value["id"],

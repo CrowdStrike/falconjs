@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -68,10 +68,15 @@ export function ApiPostEnrollmentDetailsResponseFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function ApiPostEnrollmentDetailsResponseToJSON(value?: ApiPostEnrollmentDetailsResponse | null): any {
+export function ApiPostEnrollmentDetailsResponseToJSON(json: any): ApiPostEnrollmentDetailsResponse {
+    return ApiPostEnrollmentDetailsResponseToJSONTyped(json, false);
+}
+
+export function ApiPostEnrollmentDetailsResponseToJSONTyped(value?: ApiPostEnrollmentDetailsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

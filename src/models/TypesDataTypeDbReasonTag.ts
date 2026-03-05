@@ -61,10 +61,15 @@ export function TypesDataTypeDbReasonTagFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function TypesDataTypeDbReasonTagToJSON(value?: TypesDataTypeDbReasonTag | null): any {
+export function TypesDataTypeDbReasonTagToJSON(json: any): TypesDataTypeDbReasonTag {
+    return TypesDataTypeDbReasonTagToJSONTyped(json, false);
+}
+
+export function TypesDataTypeDbReasonTagToJSONTyped(value?: TypesDataTypeDbReasonTag | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         columnNames: value["columnNames"],
         source: value["source"],

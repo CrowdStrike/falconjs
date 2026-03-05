@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainValueItem } from "./DomainValueItem";
-import { DomainValueItemFromJSON, DomainValueItemFromJSONTyped, DomainValueItemToJSON } from "./DomainValueItem";
+import { DomainValueItemFromJSON, DomainValueItemFromJSONTyped, DomainValueItemToJSON, DomainValueItemToJSONTyped } from "./DomainValueItem";
 
 /**
  *
@@ -75,10 +75,15 @@ export function DomainFieldFromJSONTyped(json: any, ignoreDiscriminator: boolean
     };
 }
 
-export function DomainFieldToJSON(value?: DomainField | null): any {
+export function DomainFieldToJSON(json: any): DomainField {
+    return DomainFieldToJSONTyped(json, false);
+}
+
+export function DomainFieldToJSONTyped(value?: DomainField | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         label: value["label"],
         name: value["name"],

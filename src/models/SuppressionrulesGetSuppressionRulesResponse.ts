@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { ApimodelsSuppressionRule } from "./ApimodelsSuppressionRule";
-import { ApimodelsSuppressionRuleFromJSON, ApimodelsSuppressionRuleFromJSONTyped, ApimodelsSuppressionRuleToJSON } from "./ApimodelsSuppressionRule";
+import { ApimodelsSuppressionRuleFromJSON, ApimodelsSuppressionRuleFromJSONTyped, ApimodelsSuppressionRuleToJSON, ApimodelsSuppressionRuleToJSONTyped } from "./ApimodelsSuppressionRule";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function SuppressionrulesGetSuppressionRulesResponseFromJSONTyped(json: a
     };
 }
 
-export function SuppressionrulesGetSuppressionRulesResponseToJSON(value?: SuppressionrulesGetSuppressionRulesResponse | null): any {
+export function SuppressionrulesGetSuppressionRulesResponseToJSON(json: any): SuppressionrulesGetSuppressionRulesResponse {
+    return SuppressionrulesGetSuppressionRulesResponseToJSONTyped(json, false);
+}
+
+export function SuppressionrulesGetSuppressionRulesResponseToJSONTyped(value?: SuppressionrulesGetSuppressionRulesResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

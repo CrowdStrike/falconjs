@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainAPIPatchInfo } from "./DomainAPIPatchInfo";
-import { DomainAPIPatchInfoFromJSON, DomainAPIPatchInfoFromJSONTyped, DomainAPIPatchInfoToJSON } from "./DomainAPIPatchInfo";
+import { DomainAPIPatchInfoFromJSON, DomainAPIPatchInfoFromJSONTyped, DomainAPIPatchInfoToJSON, DomainAPIPatchInfoToJSONTyped } from "./DomainAPIPatchInfo";
 
 /**
  *
@@ -107,10 +107,15 @@ export function DomainAPIHostPatchDetailsFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DomainAPIHostPatchDetailsToJSON(value?: DomainAPIHostPatchDetails | null): any {
+export function DomainAPIHostPatchDetailsToJSON(json: any): DomainAPIHostPatchDetails {
+    return DomainAPIHostPatchDetailsToJSONTyped(json, false);
+}
+
+export function DomainAPIHostPatchDetailsToJSONTyped(value?: DomainAPIHostPatchDetails | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         active_patches: value["activePatches"],
         aid: value["aid"],

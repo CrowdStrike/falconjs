@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { ErrorGetSystemUsers } from "./ErrorGetSystemUsers";
-import { ErrorGetSystemUsersFromJSON, ErrorGetSystemUsersFromJSONTyped, ErrorGetSystemUsersToJSON } from "./ErrorGetSystemUsers";
+import { ErrorGetSystemUsersFromJSON, ErrorGetSystemUsersFromJSONTyped, ErrorGetSystemUsersToJSON, ErrorGetSystemUsersToJSONTyped } from "./ErrorGetSystemUsers";
 import type { SystemUserGetSystemUsers } from "./SystemUserGetSystemUsers";
-import { SystemUserGetSystemUsersFromJSON, SystemUserGetSystemUsersFromJSONTyped, SystemUserGetSystemUsersToJSON } from "./SystemUserGetSystemUsers";
+import { SystemUserGetSystemUsersFromJSON, SystemUserGetSystemUsersFromJSONTyped, SystemUserGetSystemUsersToJSON, SystemUserGetSystemUsersToJSONTyped } from "./SystemUserGetSystemUsers";
 import type { MetaGetSystemUsers } from "./MetaGetSystemUsers";
-import { MetaGetSystemUsersFromJSON, MetaGetSystemUsersFromJSONTyped, MetaGetSystemUsersToJSON } from "./MetaGetSystemUsers";
+import { MetaGetSystemUsersFromJSON, MetaGetSystemUsersFromJSONTyped, MetaGetSystemUsersToJSON, MetaGetSystemUsersToJSONTyped } from "./MetaGetSystemUsers";
 
 /**
  *
@@ -68,10 +68,15 @@ export function GetSystemUsersFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function GetSystemUsersToJSON(value?: GetSystemUsers | null): any {
+export function GetSystemUsersToJSON(json: any): GetSystemUsers {
+    return GetSystemUsersToJSONTyped(json, false);
+}
+
+export function GetSystemUsersToJSONTyped(value?: GetSystemUsers | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(ErrorGetSystemUsersToJSON),
         meta: MetaGetSystemUsersToJSON(value["meta"]),

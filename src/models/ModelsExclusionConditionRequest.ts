@@ -70,10 +70,15 @@ export function ModelsExclusionConditionRequestFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function ModelsExclusionConditionRequestToJSON(value?: ModelsExclusionConditionRequest | null): any {
+export function ModelsExclusionConditionRequestToJSON(json: any): ModelsExclusionConditionRequest {
+    return ModelsExclusionConditionRequestToJSONTyped(json, false);
+}
+
+export function ModelsExclusionConditionRequestToJSONTyped(value?: ModelsExclusionConditionRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         prop: value["prop"],

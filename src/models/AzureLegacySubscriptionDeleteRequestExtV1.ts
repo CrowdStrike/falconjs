@@ -18,6 +18,7 @@ import {
     AzureLegacySubscriptionDeleteRequestExtV1ResourcesFromJSON,
     AzureLegacySubscriptionDeleteRequestExtV1ResourcesFromJSONTyped,
     AzureLegacySubscriptionDeleteRequestExtV1ResourcesToJSON,
+    AzureLegacySubscriptionDeleteRequestExtV1ResourcesToJSONTyped,
 } from "./AzureLegacySubscriptionDeleteRequestExtV1Resources";
 
 /**
@@ -55,10 +56,15 @@ export function AzureLegacySubscriptionDeleteRequestExtV1FromJSONTyped(json: any
     };
 }
 
-export function AzureLegacySubscriptionDeleteRequestExtV1ToJSON(value?: AzureLegacySubscriptionDeleteRequestExtV1 | null): any {
+export function AzureLegacySubscriptionDeleteRequestExtV1ToJSON(json: any): AzureLegacySubscriptionDeleteRequestExtV1 {
+    return AzureLegacySubscriptionDeleteRequestExtV1ToJSONTyped(json, false);
+}
+
+export function AzureLegacySubscriptionDeleteRequestExtV1ToJSONTyped(value?: AzureLegacySubscriptionDeleteRequestExtV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(AzureLegacySubscriptionDeleteRequestExtV1ResourcesToJSON),
     };

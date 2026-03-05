@@ -18,6 +18,7 @@ import {
     DomainExternalAssetDiscoveryStepAttributesFromJSON,
     DomainExternalAssetDiscoveryStepAttributesFromJSONTyped,
     DomainExternalAssetDiscoveryStepAttributesToJSON,
+    DomainExternalAssetDiscoveryStepAttributesToJSONTyped,
 } from "./DomainExternalAssetDiscoveryStepAttributes";
 
 /**
@@ -54,10 +55,15 @@ export function DomainExternalAssetDiscoveryPathAttributesFromJSONTyped(json: an
     };
 }
 
-export function DomainExternalAssetDiscoveryPathAttributesToJSON(value?: DomainExternalAssetDiscoveryPathAttributes | null): any {
+export function DomainExternalAssetDiscoveryPathAttributesToJSON(json: any): DomainExternalAssetDiscoveryPathAttributes {
+    return DomainExternalAssetDiscoveryPathAttributesToJSONTyped(json, false);
+}
+
+export function DomainExternalAssetDiscoveryPathAttributesToJSONTyped(value?: DomainExternalAssetDiscoveryPathAttributes | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         steps: value["steps"] == null ? undefined : (value["steps"] as Array<any>).map(DomainExternalAssetDiscoveryStepAttributesToJSON),
     };

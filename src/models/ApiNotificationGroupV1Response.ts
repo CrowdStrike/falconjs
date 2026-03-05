@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ApiNotificationGroupV1 } from "./ApiNotificationGroupV1";
-import { ApiNotificationGroupV1FromJSON, ApiNotificationGroupV1FromJSONTyped, ApiNotificationGroupV1ToJSON } from "./ApiNotificationGroupV1";
+import { ApiNotificationGroupV1FromJSON, ApiNotificationGroupV1FromJSONTyped, ApiNotificationGroupV1ToJSON, ApiNotificationGroupV1ToJSONTyped } from "./ApiNotificationGroupV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function ApiNotificationGroupV1ResponseFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function ApiNotificationGroupV1ResponseToJSON(value?: ApiNotificationGroupV1Response | null): any {
+export function ApiNotificationGroupV1ResponseToJSON(json: any): ApiNotificationGroupV1Response {
+    return ApiNotificationGroupV1ResponseToJSONTyped(json, false);
+}
+
+export function ApiNotificationGroupV1ResponseToJSONTyped(value?: ApiNotificationGroupV1Response | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

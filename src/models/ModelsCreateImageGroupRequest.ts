@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsAPIPolicyGroupData } from "./ModelsAPIPolicyGroupData";
-import { ModelsAPIPolicyGroupDataFromJSON, ModelsAPIPolicyGroupDataFromJSONTyped, ModelsAPIPolicyGroupDataToJSON } from "./ModelsAPIPolicyGroupData";
+import { ModelsAPIPolicyGroupDataFromJSON, ModelsAPIPolicyGroupDataFromJSONTyped, ModelsAPIPolicyGroupDataToJSON, ModelsAPIPolicyGroupDataToJSONTyped } from "./ModelsAPIPolicyGroupData";
 
 /**
  *
@@ -73,10 +73,15 @@ export function ModelsCreateImageGroupRequestFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function ModelsCreateImageGroupRequestToJSON(value?: ModelsCreateImageGroupRequest | null): any {
+export function ModelsCreateImageGroupRequestToJSON(json: any): ModelsCreateImageGroupRequest {
+    return ModelsCreateImageGroupRequestToJSONTyped(json, false);
+}
+
+export function ModelsCreateImageGroupRequestToJSONTyped(value?: ModelsCreateImageGroupRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         name: value["name"],

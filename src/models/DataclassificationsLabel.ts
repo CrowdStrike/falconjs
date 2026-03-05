@@ -64,10 +64,15 @@ export function DataclassificationsLabelFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function DataclassificationsLabelToJSON(value?: DataclassificationsLabel | null): any {
+export function DataclassificationsLabelToJSON(json: any): DataclassificationsLabel {
+    return DataclassificationsLabelToJSONTyped(json, false);
+}
+
+export function DataclassificationsLabelToJSONTyped(value?: DataclassificationsLabel | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         label_id: value["labelId"],
         label_name: value["labelName"],

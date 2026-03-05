@@ -193,10 +193,15 @@ export function AssetGetAssetInventoryFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function AssetGetAssetInventoryToJSON(value?: AssetGetAssetInventory | null): any {
+export function AssetGetAssetInventoryToJSON(json: any): AssetGetAssetInventory {
+    return AssetGetAssetInventoryToJSONTyped(json, false);
+}
+
+export function AssetGetAssetInventoryToJSONTyped(value?: AssetGetAssetInventory | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         access_level: value["accessLevel"],
         account_id: value["accountId"],

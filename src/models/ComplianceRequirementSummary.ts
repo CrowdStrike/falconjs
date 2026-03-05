@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { CompliancePosture } from "./CompliancePosture";
-import { CompliancePostureFromJSON, CompliancePostureFromJSONTyped, CompliancePostureToJSON } from "./CompliancePosture";
+import { CompliancePostureFromJSON, CompliancePostureFromJSONTyped, CompliancePostureToJSON, CompliancePostureToJSONTyped } from "./CompliancePosture";
 
 /**
  *
@@ -75,10 +75,15 @@ export function ComplianceRequirementSummaryFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function ComplianceRequirementSummaryToJSON(value?: ComplianceRequirementSummary | null): any {
+export function ComplianceRequirementSummaryToJSON(json: any): ComplianceRequirementSummary {
+    return ComplianceRequirementSummaryToJSONTyped(json, false);
+}
+
+export function ComplianceRequirementSummaryToJSONTyped(value?: ComplianceRequirementSummary | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

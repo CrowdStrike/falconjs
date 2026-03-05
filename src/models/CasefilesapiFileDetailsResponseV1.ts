@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { CasefilesmodelFileDetails } from "./CasefilesmodelFileDetails";
-import { CasefilesmodelFileDetailsFromJSON, CasefilesmodelFileDetailsFromJSONTyped, CasefilesmodelFileDetailsToJSON } from "./CasefilesmodelFileDetails";
+import { CasefilesmodelFileDetailsFromJSON, CasefilesmodelFileDetailsFromJSONTyped, CasefilesmodelFileDetailsToJSON, CasefilesmodelFileDetailsToJSONTyped } from "./CasefilesmodelFileDetails";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function CasefilesapiFileDetailsResponseV1FromJSONTyped(json: any, ignore
     };
 }
 
-export function CasefilesapiFileDetailsResponseV1ToJSON(value?: CasefilesapiFileDetailsResponseV1 | null): any {
+export function CasefilesapiFileDetailsResponseV1ToJSON(json: any): CasefilesapiFileDetailsResponseV1 {
+    return CasefilesapiFileDetailsResponseV1ToJSONTyped(json, false);
+}
+
+export function CasefilesapiFileDetailsResponseV1ToJSONTyped(value?: CasefilesapiFileDetailsResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

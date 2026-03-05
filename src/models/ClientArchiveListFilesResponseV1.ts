@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -69,10 +69,15 @@ export function ClientArchiveListFilesResponseV1FromJSONTyped(json: any, ignoreD
     };
 }
 
-export function ClientArchiveListFilesResponseV1ToJSON(value?: ClientArchiveListFilesResponseV1 | null): any {
+export function ClientArchiveListFilesResponseV1ToJSON(json: any): ClientArchiveListFilesResponseV1 {
+    return ClientArchiveListFilesResponseV1ToJSONTyped(json, false);
+}
+
+export function ClientArchiveListFilesResponseV1ToJSONTyped(value?: ClientArchiveListFilesResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

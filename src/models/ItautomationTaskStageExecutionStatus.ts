@@ -14,9 +14,19 @@
 
 import { mapValues } from "../runtime";
 import type { ItautomationVerificationSummary } from "./ItautomationVerificationSummary";
-import { ItautomationVerificationSummaryFromJSON, ItautomationVerificationSummaryFromJSONTyped, ItautomationVerificationSummaryToJSON } from "./ItautomationVerificationSummary";
+import {
+    ItautomationVerificationSummaryFromJSON,
+    ItautomationVerificationSummaryFromJSONTyped,
+    ItautomationVerificationSummaryToJSON,
+    ItautomationVerificationSummaryToJSONTyped,
+} from "./ItautomationVerificationSummary";
 import type { ItautomationAggregateHostCount } from "./ItautomationAggregateHostCount";
-import { ItautomationAggregateHostCountFromJSON, ItautomationAggregateHostCountFromJSONTyped, ItautomationAggregateHostCountToJSON } from "./ItautomationAggregateHostCount";
+import {
+    ItautomationAggregateHostCountFromJSON,
+    ItautomationAggregateHostCountFromJSONTyped,
+    ItautomationAggregateHostCountToJSON,
+    ItautomationAggregateHostCountToJSONTyped,
+} from "./ItautomationAggregateHostCount";
 
 /**
  *
@@ -121,10 +131,15 @@ export function ItautomationTaskStageExecutionStatusFromJSONTyped(json: any, ign
     };
 }
 
-export function ItautomationTaskStageExecutionStatusToJSON(value?: ItautomationTaskStageExecutionStatus | null): any {
+export function ItautomationTaskStageExecutionStatusToJSON(json: any): ItautomationTaskStageExecutionStatus {
+    return ItautomationTaskStageExecutionStatusToJSONTyped(json, false);
+}
+
+export function ItautomationTaskStageExecutionStatusToJSONTyped(value?: ItautomationTaskStageExecutionStatus | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         completion_percentage: value["completionPercentage"],
         end_time: value["endTime"].toISOString(),

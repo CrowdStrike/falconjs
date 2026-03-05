@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DomainDenormalizedReportReference } from "./DomainDenormalizedReportReference";
-import { DomainDenormalizedReportReferenceFromJSON, DomainDenormalizedReportReferenceFromJSONTyped, DomainDenormalizedReportReferenceToJSON } from "./DomainDenormalizedReportReference";
+import {
+    DomainDenormalizedReportReferenceFromJSON,
+    DomainDenormalizedReportReferenceFromJSONTyped,
+    DomainDenormalizedReportReferenceToJSON,
+    DomainDenormalizedReportReferenceToJSONTyped,
+} from "./DomainDenormalizedReportReference";
 
 /**
  *
@@ -92,10 +97,15 @@ export function DomainDenormalizedThreatUsedMitreFromJSONTyped(json: any, ignore
     };
 }
 
-export function DomainDenormalizedThreatUsedMitreToJSON(value?: DomainDenormalizedThreatUsedMitre | null): any {
+export function DomainDenormalizedThreatUsedMitreToJSON(json: any): DomainDenormalizedThreatUsedMitre {
+    return DomainDenormalizedThreatUsedMitreToJSONTyped(json, false);
+}
+
+export function DomainDenormalizedThreatUsedMitreToJSONTyped(value?: DomainDenormalizedThreatUsedMitre | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         attack_id: value["attackId"],
         observables: value["observables"],

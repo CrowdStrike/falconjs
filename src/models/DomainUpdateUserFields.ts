@@ -54,10 +54,15 @@ export function DomainUpdateUserFieldsFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function DomainUpdateUserFieldsToJSON(value?: DomainUpdateUserFields | null): any {
+export function DomainUpdateUserFieldsToJSON(json: any): DomainUpdateUserFields {
+    return DomainUpdateUserFieldsToJSONTyped(json, false);
+}
+
+export function DomainUpdateUserFieldsToJSONTyped(value?: DomainUpdateUserFields | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         firstName: value["firstName"],
         lastName: value["lastName"],

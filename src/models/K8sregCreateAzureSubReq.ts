@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { K8sregAzureSubEntity } from "./K8sregAzureSubEntity";
-import { K8sregAzureSubEntityFromJSON, K8sregAzureSubEntityFromJSONTyped, K8sregAzureSubEntityToJSON } from "./K8sregAzureSubEntity";
+import { K8sregAzureSubEntityFromJSON, K8sregAzureSubEntityFromJSONTyped, K8sregAzureSubEntityToJSON, K8sregAzureSubEntityToJSONTyped } from "./K8sregAzureSubEntity";
 
 /**
  *
@@ -51,10 +51,15 @@ export function K8sregCreateAzureSubReqFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function K8sregCreateAzureSubReqToJSON(value?: K8sregCreateAzureSubReq | null): any {
+export function K8sregCreateAzureSubReqToJSON(json: any): K8sregCreateAzureSubReq {
+    return K8sregCreateAzureSubReqToJSONTyped(json, false);
+}
+
+export function K8sregCreateAzureSubReqToJSONTyped(value?: K8sregCreateAzureSubReq | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(K8sregAzureSubEntityToJSON),
     };

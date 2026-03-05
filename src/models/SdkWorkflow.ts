@@ -72,10 +72,15 @@ export function SdkWorkflowFromJSONTyped(json: any, ignoreDiscriminator: boolean
     };
 }
 
-export function SdkWorkflowToJSON(value?: SdkWorkflow | null): any {
+export function SdkWorkflowToJSON(json: any): SdkWorkflow {
+    return SdkWorkflowToJSONTyped(json, false);
+}
+
+export function SdkWorkflowToJSONTyped(value?: SdkWorkflow | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         execution_id: value["executionId"],
         id: value["id"],

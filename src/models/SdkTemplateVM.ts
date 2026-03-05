@@ -72,10 +72,15 @@ export function SdkTemplateVMFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function SdkTemplateVMToJSON(value?: SdkTemplateVM | null): any {
+export function SdkTemplateVMToJSON(json: any): SdkTemplateVM {
+    return SdkTemplateVMToJSONTyped(json, false);
+}
+
+export function SdkTemplateVMToJSONTyped(value?: SdkTemplateVM | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

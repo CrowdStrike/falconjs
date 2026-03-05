@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainScriptHelp } from "./DomainScriptHelp";
-import { DomainScriptHelpFromJSON, DomainScriptHelpFromJSONTyped, DomainScriptHelpToJSON } from "./DomainScriptHelp";
+import { DomainScriptHelpFromJSON, DomainScriptHelpFromJSONTyped, DomainScriptHelpToJSON, DomainScriptHelpToJSONTyped } from "./DomainScriptHelp";
 
 /**
  *
@@ -111,10 +111,15 @@ export function DomainInitResponseFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function DomainInitResponseToJSON(value?: DomainInitResponse | null): any {
+export function DomainInitResponseToJSON(json: any): DomainInitResponse {
+    return DomainInitResponseToJSONTyped(json, false);
+}
+
+export function DomainInitResponseToJSONTyped(value?: DomainInitResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         created_at: value["createdAt"].toISOString(),
         device_id: value["deviceId"],

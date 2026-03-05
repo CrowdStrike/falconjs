@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { FwmgrApiJSONDiff } from "./FwmgrApiJSONDiff";
-import { FwmgrApiJSONDiffFromJSON, FwmgrApiJSONDiffFromJSONTyped, FwmgrApiJSONDiffToJSON } from "./FwmgrApiJSONDiff";
+import { FwmgrApiJSONDiffFromJSON, FwmgrApiJSONDiffFromJSONTyped, FwmgrApiJSONDiffToJSON, FwmgrApiJSONDiffToJSONTyped } from "./FwmgrApiJSONDiff";
 
 /**
  *
@@ -91,10 +91,15 @@ export function FwmgrApiRuleGroupModifyRequestV1FromJSONTyped(json: any, ignoreD
     };
 }
 
-export function FwmgrApiRuleGroupModifyRequestV1ToJSON(value?: FwmgrApiRuleGroupModifyRequestV1 | null): any {
+export function FwmgrApiRuleGroupModifyRequestV1ToJSON(json: any): FwmgrApiRuleGroupModifyRequestV1 {
+    return FwmgrApiRuleGroupModifyRequestV1ToJSONTyped(json, false);
+}
+
+export function FwmgrApiRuleGroupModifyRequestV1ToJSONTyped(value?: FwmgrApiRuleGroupModifyRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         diff_operations: (value["diffOperations"] as Array<any>).map(FwmgrApiJSONDiffToJSON),
         diff_type: value["diffType"],

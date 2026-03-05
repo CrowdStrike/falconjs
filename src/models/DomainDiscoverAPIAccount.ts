@@ -182,10 +182,15 @@ export function DomainDiscoverAPIAccountFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function DomainDiscoverAPIAccountToJSON(value?: DomainDiscoverAPIAccount | null): any {
+export function DomainDiscoverAPIAccountToJSON(json: any): DomainDiscoverAPIAccount {
+    return DomainDiscoverAPIAccountToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPIAccountToJSONTyped(value?: DomainDiscoverAPIAccount | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_name: value["accountName"],
         account_type: value["accountType"],

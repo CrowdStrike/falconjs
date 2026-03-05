@@ -128,10 +128,15 @@ export function ModelsAPIPackageCombinedV2FromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function ModelsAPIPackageCombinedV2ToJSON(value?: ModelsAPIPackageCombinedV2 | null): any {
+export function ModelsAPIPackageCombinedV2ToJSON(json: any): ModelsAPIPackageCombinedV2 {
+    return ModelsAPIPackageCombinedV2ToJSONTyped(json, false);
+}
+
+export function ModelsAPIPackageCombinedV2ToJSONTyped(value?: ModelsAPIPackageCombinedV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ai_related: value["aiRelated"],
         all_images: value["allImages"],

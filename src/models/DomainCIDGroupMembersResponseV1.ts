@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainCIDGroupMembers } from "./DomainCIDGroupMembers";
-import { DomainCIDGroupMembersFromJSON, DomainCIDGroupMembersFromJSONTyped, DomainCIDGroupMembersToJSON } from "./DomainCIDGroupMembers";
+import { DomainCIDGroupMembersFromJSON, DomainCIDGroupMembersFromJSONTyped, DomainCIDGroupMembersToJSON, DomainCIDGroupMembersToJSONTyped } from "./DomainCIDGroupMembers";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainCIDGroupMembersResponseV1FromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function DomainCIDGroupMembersResponseV1ToJSON(value?: DomainCIDGroupMembersResponseV1 | null): any {
+export function DomainCIDGroupMembersResponseV1ToJSON(json: any): DomainCIDGroupMembersResponseV1 {
+    return DomainCIDGroupMembersResponseV1ToJSONTyped(json, false);
+}
+
+export function DomainCIDGroupMembersResponseV1ToJSONTyped(value?: DomainCIDGroupMembersResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

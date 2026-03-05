@@ -82,10 +82,15 @@ export function ApiExposedDataRecordLocationV1FromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function ApiExposedDataRecordLocationV1ToJSON(value?: ApiExposedDataRecordLocationV1 | null): any {
+export function ApiExposedDataRecordLocationV1ToJSON(json: any): ApiExposedDataRecordLocationV1 {
+    return ApiExposedDataRecordLocationV1ToJSONTyped(json, false);
+}
+
+export function ApiExposedDataRecordLocationV1ToJSONTyped(value?: ApiExposedDataRecordLocationV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         city: value["city"],
         country_code: value["countryCode"],

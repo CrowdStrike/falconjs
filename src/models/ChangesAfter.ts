@@ -54,10 +54,15 @@ export function ChangesAfterFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function ChangesAfterToJSON(value?: ChangesAfter | null): any {
+export function ChangesAfterToJSON(json: any): ChangesAfter {
+    return ChangesAfterToJSONTyped(json, false);
+}
+
+export function ChangesAfterToJSONTyped(value?: ChangesAfter | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

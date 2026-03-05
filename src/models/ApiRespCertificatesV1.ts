@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ApiCertificatesResponseV1 } from "./ApiCertificatesResponseV1";
-import { ApiCertificatesResponseV1FromJSON, ApiCertificatesResponseV1FromJSONTyped, ApiCertificatesResponseV1ToJSON } from "./ApiCertificatesResponseV1";
+import { ApiCertificatesResponseV1FromJSON, ApiCertificatesResponseV1FromJSONTyped, ApiCertificatesResponseV1ToJSON, ApiCertificatesResponseV1ToJSONTyped } from "./ApiCertificatesResponseV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -69,10 +69,15 @@ export function ApiRespCertificatesV1FromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function ApiRespCertificatesV1ToJSON(value?: ApiRespCertificatesV1 | null): any {
+export function ApiRespCertificatesV1ToJSON(json: any): ApiRespCertificatesV1 {
+    return ApiRespCertificatesV1ToJSONTyped(json, false);
+}
+
+export function ApiRespCertificatesV1ToJSONTyped(value?: ApiRespCertificatesV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

@@ -55,10 +55,15 @@ export function ErrorGetSystemUsersFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function ErrorGetSystemUsersToJSON(value?: ErrorGetSystemUsers | null): any {
+export function ErrorGetSystemUsersToJSON(json: any): ErrorGetSystemUsers {
+    return ErrorGetSystemUsersToJSONTyped(json, false);
+}
+
+export function ErrorGetSystemUsersToJSONTyped(value?: ErrorGetSystemUsers | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         message: value["message"],

@@ -101,10 +101,15 @@ export function ModelsLayerInfoTypeFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function ModelsLayerInfoTypeToJSON(value?: ModelsLayerInfoType | null): any {
+export function ModelsLayerInfoTypeToJSON(json: any): ModelsLayerInfoType {
+    return ModelsLayerInfoTypeToJSONTyped(json, false);
+}
+
+export function ModelsLayerInfoTypeToJSONTyped(value?: ModelsLayerInfoType | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         CreatedAt: value["createdAt"],
         CreatedBy: value["createdBy"],

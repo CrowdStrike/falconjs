@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ExclusionsExclusionV1 } from "./ExclusionsExclusionV1";
-import { ExclusionsExclusionV1FromJSON, ExclusionsExclusionV1FromJSONTyped, ExclusionsExclusionV1ToJSON } from "./ExclusionsExclusionV1";
+import { ExclusionsExclusionV1FromJSON, ExclusionsExclusionV1FromJSONTyped, ExclusionsExclusionV1ToJSON, ExclusionsExclusionV1ToJSONTyped } from "./ExclusionsExclusionV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function ExclusionsRespV1FromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function ExclusionsRespV1ToJSON(value?: ExclusionsRespV1 | null): any {
+export function ExclusionsRespV1ToJSON(json: any): ExclusionsRespV1 {
+    return ExclusionsRespV1ToJSONTyped(json, false);
+}
+
+export function ExclusionsRespV1ToJSONTyped(value?: ExclusionsRespV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

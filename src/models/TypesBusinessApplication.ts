@@ -54,10 +54,15 @@ export function TypesBusinessApplicationFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function TypesBusinessApplicationToJSON(value?: TypesBusinessApplication | null): any {
+export function TypesBusinessApplicationToJSON(json: any): TypesBusinessApplication {
+    return TypesBusinessApplicationToJSONTyped(json, false);
+}
+
+export function TypesBusinessApplicationToJSONTyped(value?: TypesBusinessApplication | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

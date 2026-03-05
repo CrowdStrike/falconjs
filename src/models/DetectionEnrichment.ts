@@ -54,10 +54,15 @@ export function DetectionEnrichmentFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function DetectionEnrichmentToJSON(value?: DetectionEnrichment | null): any {
+export function DetectionEnrichmentToJSON(json: any): DetectionEnrichment {
+    return DetectionEnrichmentToJSONTyped(json, false);
+}
+
+export function DetectionEnrichmentToJSONTyped(value?: DetectionEnrichment | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         document_ids: value["documentIds"],
         enrichment_type: value["enrichmentType"],

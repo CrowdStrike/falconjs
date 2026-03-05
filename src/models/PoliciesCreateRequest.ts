@@ -62,10 +62,15 @@ export function PoliciesCreateRequestFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function PoliciesCreateRequestToJSON(value?: PoliciesCreateRequest | null): any {
+export function PoliciesCreateRequestToJSON(json: any): PoliciesCreateRequest {
+    return PoliciesCreateRequestToJSONTyped(json, false);
+}
+
+export function PoliciesCreateRequestToJSONTyped(value?: PoliciesCreateRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         name: value["name"],

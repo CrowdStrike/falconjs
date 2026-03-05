@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DomainOCIDownloadScriptRequestData } from "./DomainOCIDownloadScriptRequestData";
-import { DomainOCIDownloadScriptRequestDataFromJSON, DomainOCIDownloadScriptRequestDataFromJSONTyped, DomainOCIDownloadScriptRequestDataToJSON } from "./DomainOCIDownloadScriptRequestData";
+import {
+    DomainOCIDownloadScriptRequestDataFromJSON,
+    DomainOCIDownloadScriptRequestDataFromJSONTyped,
+    DomainOCIDownloadScriptRequestDataToJSON,
+    DomainOCIDownloadScriptRequestDataToJSONTyped,
+} from "./DomainOCIDownloadScriptRequestData";
 
 /**
  *
@@ -51,10 +56,15 @@ export function DomainOCIDownloadScriptRequestV1FromJSONTyped(json: any, ignoreD
     };
 }
 
-export function DomainOCIDownloadScriptRequestV1ToJSON(value?: DomainOCIDownloadScriptRequestV1 | null): any {
+export function DomainOCIDownloadScriptRequestV1ToJSON(json: any): DomainOCIDownloadScriptRequestV1 {
+    return DomainOCIDownloadScriptRequestV1ToJSONTyped(json, false);
+}
+
+export function DomainOCIDownloadScriptRequestV1ToJSONTyped(value?: DomainOCIDownloadScriptRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(DomainOCIDownloadScriptRequestDataToJSON),
     };

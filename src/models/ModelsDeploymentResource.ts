@@ -72,10 +72,15 @@ export function ModelsDeploymentResourceFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function ModelsDeploymentResourceToJSON(value?: ModelsDeploymentResource | null): any {
+export function ModelsDeploymentResourceToJSON(json: any): ModelsDeploymentResource {
+    return ModelsDeploymentResourceToJSONTyped(json, false);
+}
+
+export function ModelsDeploymentResourceToJSONTyped(value?: ModelsDeploymentResource | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         asset_identifier: value["assetIdentifier"],

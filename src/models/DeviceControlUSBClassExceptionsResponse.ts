@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DeviceControlExceptionRespV1 } from "./DeviceControlExceptionRespV1";
-import { DeviceControlExceptionRespV1FromJSON, DeviceControlExceptionRespV1FromJSONTyped, DeviceControlExceptionRespV1ToJSON } from "./DeviceControlExceptionRespV1";
+import {
+    DeviceControlExceptionRespV1FromJSON,
+    DeviceControlExceptionRespV1FromJSONTyped,
+    DeviceControlExceptionRespV1ToJSON,
+    DeviceControlExceptionRespV1ToJSONTyped,
+} from "./DeviceControlExceptionRespV1";
 
 /**
  *
@@ -24,7 +29,7 @@ import { DeviceControlExceptionRespV1FromJSON, DeviceControlExceptionRespV1FromJ
 export interface DeviceControlUSBClassExceptionsResponse {
     /**
      * Policy action. Note: BLOCK_EXECUTE is only valid for MASS_STORAGE devices.
-     * @type {string}
+     * @type {DeviceControlUSBClassExceptionsResponseActionEnum}
      * @memberof DeviceControlUSBClassExceptionsResponse
      */
     action: DeviceControlUSBClassExceptionsResponseActionEnum;
@@ -78,10 +83,15 @@ export function DeviceControlUSBClassExceptionsResponseFromJSONTyped(json: any, 
     };
 }
 
-export function DeviceControlUSBClassExceptionsResponseToJSON(value?: DeviceControlUSBClassExceptionsResponse | null): any {
+export function DeviceControlUSBClassExceptionsResponseToJSON(json: any): DeviceControlUSBClassExceptionsResponse {
+    return DeviceControlUSBClassExceptionsResponseToJSONTyped(json, false);
+}
+
+export function DeviceControlUSBClassExceptionsResponseToJSONTyped(value?: DeviceControlUSBClassExceptionsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         exceptions: (value["exceptions"] as Array<any>).map(DeviceControlExceptionRespV1ToJSON),

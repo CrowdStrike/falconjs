@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesTagEntry } from "./TypesTagEntry";
-import { TypesTagEntryFromJSON, TypesTagEntryFromJSONTyped, TypesTagEntryToJSON } from "./TypesTagEntry";
+import { TypesTagEntryFromJSON, TypesTagEntryFromJSONTyped, TypesTagEntryToJSON, TypesTagEntryToJSONTyped } from "./TypesTagEntry";
 
 /**
  *
@@ -59,10 +59,15 @@ export function TypesEditTagRequestFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function TypesEditTagRequestToJSON(value?: TypesEditTagRequest | null): any {
+export function TypesEditTagRequestToJSON(json: any): TypesEditTagRequest {
+    return TypesEditTagRequestToJSONTyped(json, false);
+}
+
+export function TypesEditTagRequestToJSONTyped(value?: TypesEditTagRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         entries: (value["entries"] as Array<any>).map(TypesTagEntryToJSON),
         name: value["name"],

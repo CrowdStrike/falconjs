@@ -88,10 +88,15 @@ export function MessagesAttachmentFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function MessagesAttachmentToJSON(value?: MessagesAttachment | null): any {
+export function MessagesAttachmentToJSON(json: any): MessagesAttachment {
+    return MessagesAttachmentToJSONTyped(json, false);
+}
+
+export function MessagesAttachmentToJSONTyped(value?: MessagesAttachment | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         created_by: value["createdBy"],
         created_time: value["createdTime"],

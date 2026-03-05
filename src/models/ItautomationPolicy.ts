@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ItautomationPolicyConfig } from "./ItautomationPolicyConfig";
-import { ItautomationPolicyConfigFromJSON, ItautomationPolicyConfigFromJSONTyped, ItautomationPolicyConfigToJSON } from "./ItautomationPolicyConfig";
+import { ItautomationPolicyConfigFromJSON, ItautomationPolicyConfigFromJSONTyped, ItautomationPolicyConfigToJSON, ItautomationPolicyConfigToJSONTyped } from "./ItautomationPolicyConfig";
 
 /**
  *
@@ -90,7 +90,7 @@ export interface ItautomationPolicy {
     precedence?: number;
     /**
      * The platform for the policy
-     * @type {string}
+     * @type {ItautomationPolicyTargetEnum}
      * @memberof ItautomationPolicy
      */
     target: ItautomationPolicyTargetEnum;
@@ -145,10 +145,15 @@ export function ItautomationPolicyFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function ItautomationPolicyToJSON(value?: ItautomationPolicy | null): any {
+export function ItautomationPolicyToJSON(json: any): ItautomationPolicy {
+    return ItautomationPolicyToJSONTyped(json, false);
+}
+
+export function ItautomationPolicyToJSONTyped(value?: ItautomationPolicy | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         config: ItautomationPolicyConfigToJSON(value["config"]),
         created_at: value["createdAt"],

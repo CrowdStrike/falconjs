@@ -54,10 +54,15 @@ export function MalqueryFuzzyOptionsFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function MalqueryFuzzyOptionsToJSON(value?: MalqueryFuzzyOptions | null): any {
+export function MalqueryFuzzyOptionsToJSON(json: any): MalqueryFuzzyOptions {
+    return MalqueryFuzzyOptionsToJSONTyped(json, false);
+}
+
+export function MalqueryFuzzyOptionsToJSONTyped(value?: MalqueryFuzzyOptions | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         filter_meta: value["filterMeta"],
         limit: value["limit"],

@@ -64,10 +64,15 @@ export function PolicymanagerEUJHeaderFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function PolicymanagerEUJHeaderToJSON(value?: PolicymanagerEUJHeader | null): any {
+export function PolicymanagerEUJHeaderToJSON(json: any): PolicymanagerEUJHeader {
+    return PolicymanagerEUJHeaderToJSONTyped(json, false);
+}
+
+export function PolicymanagerEUJHeaderToJSONTyped(value?: PolicymanagerEUJHeader | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         default: value["_default"],
         header: value["header"],

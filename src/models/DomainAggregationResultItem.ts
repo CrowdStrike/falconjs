@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainAggregationResult } from "./DomainAggregationResult";
-import { DomainAggregationResultFromJSON, DomainAggregationResultFromJSONTyped, DomainAggregationResultToJSON } from "./DomainAggregationResult";
+import { DomainAggregationResultFromJSON, DomainAggregationResultFromJSONTyped, DomainAggregationResultToJSON, DomainAggregationResultToJSONTyped } from "./DomainAggregationResult";
 
 /**
  *
@@ -114,10 +114,15 @@ export function DomainAggregationResultItemFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function DomainAggregationResultItemToJSON(value?: DomainAggregationResultItem | null): any {
+export function DomainAggregationResultItemToJSON(json: any): DomainAggregationResultItem {
+    return DomainAggregationResultItemToJSONTyped(json, false);
+}
+
+export function DomainAggregationResultItemToJSONTyped(value?: DomainAggregationResultItem | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count: value["count"],
         from: value["from"],

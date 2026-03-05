@@ -78,10 +78,15 @@ export function ItautomationSearchRequestFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ItautomationSearchRequestToJSON(value?: ItautomationSearchRequest | null): any {
+export function ItautomationSearchRequestToJSON(json: any): ItautomationSearchRequest {
+    return ItautomationSearchRequestToJSONTyped(json, false);
+}
+
+export function ItautomationSearchRequestToJSONTyped(value?: ItautomationSearchRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         filter_expressions: value["filterExpressions"],
         group_by_fields: value["groupByFields"],

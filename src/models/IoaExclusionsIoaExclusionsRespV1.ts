@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { IoaExclusionsIoaExclusionRespV1 } from "./IoaExclusionsIoaExclusionRespV1";
-import { IoaExclusionsIoaExclusionRespV1FromJSON, IoaExclusionsIoaExclusionRespV1FromJSONTyped, IoaExclusionsIoaExclusionRespV1ToJSON } from "./IoaExclusionsIoaExclusionRespV1";
+import {
+    IoaExclusionsIoaExclusionRespV1FromJSON,
+    IoaExclusionsIoaExclusionRespV1FromJSONTyped,
+    IoaExclusionsIoaExclusionRespV1ToJSON,
+    IoaExclusionsIoaExclusionRespV1ToJSONTyped,
+} from "./IoaExclusionsIoaExclusionRespV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +76,15 @@ export function IoaExclusionsIoaExclusionsRespV1FromJSONTyped(json: any, ignoreD
     };
 }
 
-export function IoaExclusionsIoaExclusionsRespV1ToJSON(value?: IoaExclusionsIoaExclusionsRespV1 | null): any {
+export function IoaExclusionsIoaExclusionsRespV1ToJSON(json: any): IoaExclusionsIoaExclusionsRespV1 {
+    return IoaExclusionsIoaExclusionsRespV1ToJSONTyped(json, false);
+}
+
+export function IoaExclusionsIoaExclusionsRespV1ToJSONTyped(value?: IoaExclusionsIoaExclusionsRespV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

@@ -40,9 +40,9 @@ export interface IntelligenceFeedsApiQueryFeedArchivesRequest {
  */
 export class IntelligenceFeedsApi extends runtime.BaseAPI {
     /**
-     * Downloads the content as a zip archive for a given feed item ID
+     * Creates request options for downloadFeedArchive without sending the request
      */
-    async downloadFeedArchiveRaw(requestParameters: IntelligenceFeedsApiDownloadFeedArchiveRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async downloadFeedArchiveRequestOpts(requestParameters: IntelligenceFeedsApiDownloadFeedArchiveRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["feedItemId"] == null) {
             throw new runtime.RequiredError("feedItemId", 'Required parameter "feedItemId" was null or undefined when calling downloadFeedArchive().');
         }
@@ -60,15 +60,22 @@ export class IntelligenceFeedsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["indicator-graph:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/indicator-feed/entities/feed-download/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/indicator-feed/entities/feed-download/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Downloads the content as a zip archive for a given feed item ID
+     */
+    async downloadFeedArchiveRaw(requestParameters: IntelligenceFeedsApiDownloadFeedArchiveRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.downloadFeedArchiveRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -81,9 +88,9 @@ export class IntelligenceFeedsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Lists the accessible feed types for a given customer
+     * Creates request options for listFeedTypes without sending the request
      */
-    async listFeedTypesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RestapiIndicatorGetFeedsResponse>> {
+    async listFeedTypesRequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -93,15 +100,22 @@ export class IntelligenceFeedsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["indicator-graph:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/indicator-feed/entities/feed/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/indicator-feed/entities/feed/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Lists the accessible feed types for a given customer
+     */
+    async listFeedTypesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RestapiIndicatorGetFeedsResponse>> {
+        const requestOptions = await this.listFeedTypesRequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RestapiIndicatorGetFeedsResponseFromJSON(jsonValue));
     }
@@ -115,12 +129,9 @@ export class IntelligenceFeedsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Queries the accessible feed types for a customer. Returns a list of feed item IDs which can be later downloaded
+     * Creates request options for queryFeedArchives without sending the request
      */
-    async queryFeedArchivesRaw(
-        requestParameters: IntelligenceFeedsApiQueryFeedArchivesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RestapiIndicatorFeedQueryResponse>> {
+    async queryFeedArchivesRequestOpts(requestParameters: IntelligenceFeedsApiQueryFeedArchivesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["feedName"] == null) {
             throw new runtime.RequiredError("feedName", 'Required parameter "feedName" was null or undefined when calling queryFeedArchives().');
         }
@@ -146,15 +157,25 @@ export class IntelligenceFeedsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["indicator-graph:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/indicator-feed/queries/feed/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/indicator-feed/queries/feed/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Queries the accessible feed types for a customer. Returns a list of feed item IDs which can be later downloaded
+     */
+    async queryFeedArchivesRaw(
+        requestParameters: IntelligenceFeedsApiQueryFeedArchivesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RestapiIndicatorFeedQueryResponse>> {
+        const requestOptions = await this.queryFeedArchivesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RestapiIndicatorFeedQueryResponseFromJSON(jsonValue));
     }

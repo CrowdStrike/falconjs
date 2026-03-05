@@ -103,10 +103,15 @@ export function TypesGroupInHierarchyFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function TypesGroupInHierarchyToJSON(value?: TypesGroupInHierarchy | null): any {
+export function TypesGroupInHierarchyToJSON(json: any): TypesGroupInHierarchy {
+    return TypesGroupInHierarchyToJSONTyped(json, false);
+}
+
+export function TypesGroupInHierarchyToJSONTyped(value?: TypesGroupInHierarchy | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         children: value["children"] == null ? undefined : (value["children"] as Array<any>).map(TypesGroupInHierarchyToJSON),
         createdBy: value["createdBy"],

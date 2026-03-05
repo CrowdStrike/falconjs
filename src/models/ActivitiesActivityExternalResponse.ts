@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ActivitiesExternalActivity } from "./ActivitiesExternalActivity";
-import { ActivitiesExternalActivityFromJSON, ActivitiesExternalActivityFromJSONTyped, ActivitiesExternalActivityToJSON } from "./ActivitiesExternalActivity";
+import { ActivitiesExternalActivityFromJSON, ActivitiesExternalActivityFromJSONTyped, ActivitiesExternalActivityToJSON, ActivitiesExternalActivityToJSONTyped } from "./ActivitiesExternalActivity";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function ActivitiesActivityExternalResponseFromJSONTyped(json: any, ignor
     };
 }
 
-export function ActivitiesActivityExternalResponseToJSON(value?: ActivitiesActivityExternalResponse | null): any {
+export function ActivitiesActivityExternalResponseToJSON(json: any): ActivitiesActivityExternalResponse {
+    return ActivitiesActivityExternalResponseToJSONTyped(json, false);
+}
+
+export function ActivitiesActivityExternalResponseToJSONTyped(value?: ActivitiesActivityExternalResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

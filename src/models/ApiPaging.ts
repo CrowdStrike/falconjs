@@ -75,10 +75,15 @@ export function ApiPagingFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     };
 }
 
-export function ApiPagingToJSON(value?: ApiPaging | null): any {
+export function ApiPagingToJSON(json: any): ApiPaging {
+    return ApiPagingToJSONTyped(json, false);
+}
+
+export function ApiPagingToJSONTyped(value?: ApiPaging | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count: value["count"],
         limit: value["limit"],

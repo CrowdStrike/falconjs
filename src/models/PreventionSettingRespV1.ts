@@ -39,7 +39,7 @@ export interface PreventionSettingRespV1 {
     name: string;
     /**
      * The type of the setting which can be used as a hint when displaying in the UI
-     * @type {string}
+     * @type {PreventionSettingRespV1TypeEnum}
      * @memberof PreventionSettingRespV1
      */
     type: PreventionSettingRespV1TypeEnum;
@@ -88,10 +88,15 @@ export function PreventionSettingRespV1FromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function PreventionSettingRespV1ToJSON(value?: PreventionSettingRespV1 | null): any {
+export function PreventionSettingRespV1ToJSON(json: any): PreventionSettingRespV1 {
+    return PreventionSettingRespV1ToJSONTyped(json, false);
+}
+
+export function PreventionSettingRespV1ToJSONTyped(value?: PreventionSettingRespV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         id: value["id"],

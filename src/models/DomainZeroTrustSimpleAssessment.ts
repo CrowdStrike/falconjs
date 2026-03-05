@@ -56,10 +56,15 @@ export function DomainZeroTrustSimpleAssessmentFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function DomainZeroTrustSimpleAssessmentToJSON(value?: DomainZeroTrustSimpleAssessment | null): any {
+export function DomainZeroTrustSimpleAssessmentToJSON(json: any): DomainZeroTrustSimpleAssessment {
+    return DomainZeroTrustSimpleAssessmentToJSONTyped(json, false);
+}
+
+export function DomainZeroTrustSimpleAssessmentToJSONTyped(value?: DomainZeroTrustSimpleAssessment | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         aid: value["aid"],
         score: value["score"],

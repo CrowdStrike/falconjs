@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainScanV2 } from "./DomainScanV2";
-import { DomainScanV2FromJSON, DomainScanV2FromJSONTyped, DomainScanV2ToJSON } from "./DomainScanV2";
+import { DomainScanV2FromJSON, DomainScanV2FromJSONTyped, DomainScanV2ToJSON, DomainScanV2ToJSONTyped } from "./DomainScanV2";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function EntitiesODSScanResponseV2FromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function EntitiesODSScanResponseV2ToJSON(value?: EntitiesODSScanResponseV2 | null): any {
+export function EntitiesODSScanResponseV2ToJSON(json: any): EntitiesODSScanResponseV2 {
+    return EntitiesODSScanResponseV2ToJSONTyped(json, false);
+}
+
+export function EntitiesODSScanResponseV2ToJSONTyped(value?: EntitiesODSScanResponseV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

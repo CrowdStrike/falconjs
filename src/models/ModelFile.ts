@@ -112,10 +112,15 @@ export function ModelFileFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     };
 }
 
-export function ModelFileToJSON(value?: ModelFile | null): any {
+export function ModelFileToJSON(json: any): ModelFile {
+    return ModelFileToJSONTyped(json, false);
+}
+
+export function ModelFileToJSONTyped(value?: ModelFile | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cloud_request_id: value["cloudRequestId"],
         created_at: value["createdAt"].toISOString(),

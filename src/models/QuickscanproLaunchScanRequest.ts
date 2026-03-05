@@ -18,6 +18,7 @@ import {
     QuickscanproLaunchScanRequestResourceFromJSON,
     QuickscanproLaunchScanRequestResourceFromJSONTyped,
     QuickscanproLaunchScanRequestResourceToJSON,
+    QuickscanproLaunchScanRequestResourceToJSONTyped,
 } from "./QuickscanproLaunchScanRequestResource";
 
 /**
@@ -55,10 +56,15 @@ export function QuickscanproLaunchScanRequestFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function QuickscanproLaunchScanRequestToJSON(value?: QuickscanproLaunchScanRequest | null): any {
+export function QuickscanproLaunchScanRequestToJSON(json: any): QuickscanproLaunchScanRequest {
+    return QuickscanproLaunchScanRequestToJSONTyped(json, false);
+}
+
+export function QuickscanproLaunchScanRequestToJSONTyped(value?: QuickscanproLaunchScanRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(QuickscanproLaunchScanRequestResourceToJSON),
     };

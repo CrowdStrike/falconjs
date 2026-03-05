@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { K8sregLocationResp } from "./K8sregLocationResp";
-import { K8sregLocationRespFromJSON, K8sregLocationRespFromJSONTyped, K8sregLocationRespToJSON } from "./K8sregLocationResp";
+import { K8sregLocationRespFromJSON, K8sregLocationRespFromJSONTyped, K8sregLocationRespToJSON, K8sregLocationRespToJSONTyped } from "./K8sregLocationResp";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function K8sregGetLocationsRespFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function K8sregGetLocationsRespToJSON(value?: K8sregGetLocationsResp | null): any {
+export function K8sregGetLocationsRespToJSON(json: any): K8sregGetLocationsResp {
+    return K8sregGetLocationsRespToJSONTyped(json, false);
+}
+
+export function K8sregGetLocationsRespToJSONTyped(value?: K8sregGetLocationsResp | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

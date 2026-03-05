@@ -104,10 +104,15 @@ export function SdkAnalysisResultsUserRecordVMFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function SdkAnalysisResultsUserRecordVMToJSON(value?: SdkAnalysisResultsUserRecordVM | null): any {
+export function SdkAnalysisResultsUserRecordVMToJSON(json: any): SdkAnalysisResultsUserRecordVM {
+    return SdkAnalysisResultsUserRecordVMToJSONTyped(json, false);
+}
+
+export function SdkAnalysisResultsUserRecordVMToJSONTyped(value?: SdkAnalysisResultsUserRecordVM | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         email_addresses: value["emailAddresses"],
         idp_user_id: value["idpUserId"],

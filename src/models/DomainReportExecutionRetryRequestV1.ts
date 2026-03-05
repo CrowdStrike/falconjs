@@ -48,10 +48,15 @@ export function DomainReportExecutionRetryRequestV1FromJSONTyped(json: any, igno
     };
 }
 
-export function DomainReportExecutionRetryRequestV1ToJSON(value?: DomainReportExecutionRetryRequestV1 | null): any {
+export function DomainReportExecutionRetryRequestV1ToJSON(json: any): DomainReportExecutionRetryRequestV1 {
+    return DomainReportExecutionRetryRequestV1ToJSONTyped(json, false);
+}
+
+export function DomainReportExecutionRetryRequestV1ToJSONTyped(value?: DomainReportExecutionRetryRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
     };

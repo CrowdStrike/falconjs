@@ -56,10 +56,15 @@ export function DomainExportJobV1FromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function DomainExportJobV1ToJSON(value?: DomainExportJobV1 | null): any {
+export function DomainExportJobV1ToJSON(json: any): DomainExportJobV1 {
+    return DomainExportJobV1ToJSONTyped(json, false);
+}
+
+export function DomainExportJobV1ToJSONTyped(value?: DomainExportJobV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         status: value["status"],

@@ -152,10 +152,15 @@ export function ActorKillChainFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function ActorKillChainToJSON(value?: ActorKillChain | null): any {
+export function ActorKillChainToJSON(json: any): ActorKillChain {
+    return ActorKillChainToJSONTyped(json, false);
+}
+
+export function ActorKillChainToJSONTyped(value?: ActorKillChain | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         actions_and_objectives: value["actionsAndObjectives"],
         command_and_control: value["commandAndControl"],

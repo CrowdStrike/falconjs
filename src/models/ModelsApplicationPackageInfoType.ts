@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsApplicationLibrary } from "./ModelsApplicationLibrary";
-import { ModelsApplicationLibraryFromJSON, ModelsApplicationLibraryFromJSONTyped, ModelsApplicationLibraryToJSON } from "./ModelsApplicationLibrary";
+import { ModelsApplicationLibraryFromJSON, ModelsApplicationLibraryFromJSONTyped, ModelsApplicationLibraryToJSON, ModelsApplicationLibraryToJSONTyped } from "./ModelsApplicationLibrary";
 
 /**
  *
@@ -59,10 +59,15 @@ export function ModelsApplicationPackageInfoTypeFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function ModelsApplicationPackageInfoTypeToJSON(value?: ModelsApplicationPackageInfoType | null): any {
+export function ModelsApplicationPackageInfoTypeToJSON(json: any): ModelsApplicationPackageInfoType {
+    return ModelsApplicationPackageInfoTypeToJSONTyped(json, false);
+}
+
+export function ModelsApplicationPackageInfoTypeToJSONTyped(value?: ModelsApplicationPackageInfoType | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         libraries: (value["libraries"] as Array<any>).map(ModelsApplicationLibraryToJSON),
         type: value["type"],

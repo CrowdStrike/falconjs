@@ -56,10 +56,15 @@ export function ClientExtraLimitFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function ClientExtraLimitToJSON(value?: ClientExtraLimit | null): any {
+export function ClientExtraLimitToJSON(json: any): ClientExtraLimit {
+    return ClientExtraLimitToJSONTyped(json, false);
+}
+
+export function ClientExtraLimitToJSONTyped(value?: ClientExtraLimit | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         from: value["from"],
         limit: value["limit"],

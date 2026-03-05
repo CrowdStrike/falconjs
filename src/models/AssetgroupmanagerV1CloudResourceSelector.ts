@@ -18,6 +18,7 @@ import {
     AssetgroupmanagerV1CloudResourceFiltersFromJSON,
     AssetgroupmanagerV1CloudResourceFiltersFromJSONTyped,
     AssetgroupmanagerV1CloudResourceFiltersToJSON,
+    AssetgroupmanagerV1CloudResourceFiltersToJSONTyped,
 } from "./AssetgroupmanagerV1CloudResourceFilters";
 
 /**
@@ -36,7 +37,7 @@ export interface AssetgroupmanagerV1CloudResourceSelector {
     accountIds?: Array<string>;
     /**
      *
-     * @type {string}
+     * @type {AssetgroupmanagerV1CloudResourceSelectorCloudProviderEnum}
      * @memberof AssetgroupmanagerV1CloudResourceSelector
      */
     cloudProvider: AssetgroupmanagerV1CloudResourceSelectorCloudProviderEnum;
@@ -82,10 +83,15 @@ export function AssetgroupmanagerV1CloudResourceSelectorFromJSONTyped(json: any,
     };
 }
 
-export function AssetgroupmanagerV1CloudResourceSelectorToJSON(value?: AssetgroupmanagerV1CloudResourceSelector | null): any {
+export function AssetgroupmanagerV1CloudResourceSelectorToJSON(json: any): AssetgroupmanagerV1CloudResourceSelector {
+    return AssetgroupmanagerV1CloudResourceSelectorToJSONTyped(json, false);
+}
+
+export function AssetgroupmanagerV1CloudResourceSelectorToJSONTyped(value?: AssetgroupmanagerV1CloudResourceSelector | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_ids: value["accountIds"],
         cloud_provider: value["cloudProvider"],

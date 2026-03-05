@@ -50,12 +50,9 @@ export interface DiscoverIotApiQueryIotHostsV2Request {
  */
 export class DiscoverIotApi extends runtime.BaseAPI {
     /**
-     * Get details on IoT assets by providing one or more IDs.
+     * Creates request options for getIotHosts without sending the request
      */
-    async getIotHostsRaw(
-        requestParameters: DiscoverIotApiGetIotHostsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainDiscoverAPIIoTHostEntitiesResponse>> {
+    async getIotHostsRequestOpts(requestParameters: DiscoverIotApiGetIotHostsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getIotHosts().');
         }
@@ -73,15 +70,25 @@ export class DiscoverIotApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover-iot:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/discover/entities/iot-hosts/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/discover/entities/iot-hosts/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get details on IoT assets by providing one or more IDs.
+     */
+    async getIotHostsRaw(
+        requestParameters: DiscoverIotApiGetIotHostsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainDiscoverAPIIoTHostEntitiesResponse>> {
+        const requestOptions = await this.getIotHostsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainDiscoverAPIIoTHostEntitiesResponseFromJSON(jsonValue));
     }
@@ -95,9 +102,9 @@ export class DiscoverIotApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for IoT assets in your environment by providing an FQL (Falcon Query Language) filter and paging details. Returns a set of asset IDs which match the filter criteria.
+     * Creates request options for queryIotHosts without sending the request
      */
-    async queryIotHostsRaw(requestParameters: DiscoverIotApiQueryIotHostsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queryIotHostsRequestOpts(requestParameters: DiscoverIotApiQueryIotHostsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -123,15 +130,22 @@ export class DiscoverIotApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover-iot:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/discover/queries/iot-hosts/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/discover/queries/iot-hosts/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for IoT assets in your environment by providing an FQL (Falcon Query Language) filter and paging details. Returns a set of asset IDs which match the filter criteria.
+     */
+    async queryIotHostsRaw(requestParameters: DiscoverIotApiQueryIotHostsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queryIotHostsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -145,12 +159,9 @@ export class DiscoverIotApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for IoT assets in your environment by providing an FQL (Falcon Query Language) filter and paging details. Returns a set of asset IDs which match the filter criteria.
+     * Creates request options for queryIotHostsV2 without sending the request
      */
-    async queryIotHostsV2Raw(
-        requestParameters: DiscoverIotApiQueryIotHostsV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainDiscoverAPIResponse>> {
+    async queryIotHostsV2RequestOpts(requestParameters: DiscoverIotApiQueryIotHostsV2Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["after"] != null) {
@@ -176,15 +187,25 @@ export class DiscoverIotApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover-iot:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/discover/queries/iot-hosts/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/discover/queries/iot-hosts/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for IoT assets in your environment by providing an FQL (Falcon Query Language) filter and paging details. Returns a set of asset IDs which match the filter criteria.
+     */
+    async queryIotHostsV2Raw(
+        requestParameters: DiscoverIotApiQueryIotHostsV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainDiscoverAPIResponse>> {
+        const requestOptions = await this.queryIotHostsV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainDiscoverAPIResponseFromJSON(jsonValue));
     }

@@ -54,10 +54,15 @@ export function TypesAWSMetadataFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function TypesAWSMetadataToJSON(value?: TypesAWSMetadata | null): any {
+export function TypesAWSMetadataToJSON(json: any): TypesAWSMetadata {
+    return TypesAWSMetadataToJSONTyped(json, false);
+}
+
+export function TypesAWSMetadataToJSONTyped(value?: TypesAWSMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         accountArn: value["accountArn"],
         region: value["region"],

@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { TypesDeploymentUnitDescriptor } from "./TypesDeploymentUnitDescriptor";
-import { TypesDeploymentUnitDescriptorFromJSON, TypesDeploymentUnitDescriptorFromJSONTyped, TypesDeploymentUnitDescriptorToJSON } from "./TypesDeploymentUnitDescriptor";
+import {
+    TypesDeploymentUnitDescriptorFromJSON,
+    TypesDeploymentUnitDescriptorFromJSONTyped,
+    TypesDeploymentUnitDescriptorToJSON,
+    TypesDeploymentUnitDescriptorToJSONTyped,
+} from "./TypesDeploymentUnitDescriptor";
 
 /**
  *
@@ -59,10 +64,15 @@ export function TypesServiceNowDeploymentFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function TypesServiceNowDeploymentToJSON(value?: TypesServiceNowDeployment | null): any {
+export function TypesServiceNowDeploymentToJSON(json: any): TypesServiceNowDeployment {
+    return TypesServiceNowDeploymentToJSONTyped(json, false);
+}
+
+export function TypesServiceNowDeploymentToJSONTyped(value?: TypesServiceNowDeployment | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         DeploymentUnitDescriptor: TypesDeploymentUnitDescriptorToJSON(value["deploymentUnitDescriptor"]),
         type_name: value["typeName"],

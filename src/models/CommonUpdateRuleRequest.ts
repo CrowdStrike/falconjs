@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { ApimodelsControlReference } from "./ApimodelsControlReference";
-import { ApimodelsControlReferenceFromJSON, ApimodelsControlReferenceFromJSONTyped, ApimodelsControlReferenceToJSON } from "./ApimodelsControlReference";
+import { ApimodelsControlReferenceFromJSON, ApimodelsControlReferenceFromJSONTyped, ApimodelsControlReferenceToJSON, ApimodelsControlReferenceToJSONTyped } from "./ApimodelsControlReference";
 import type { ApimodelsRuleLogic } from "./ApimodelsRuleLogic";
-import { ApimodelsRuleLogicFromJSON, ApimodelsRuleLogicFromJSONTyped, ApimodelsRuleLogicToJSON } from "./ApimodelsRuleLogic";
+import { ApimodelsRuleLogicFromJSON, ApimodelsRuleLogicFromJSONTyped, ApimodelsRuleLogicToJSON, ApimodelsRuleLogicToJSONTyped } from "./ApimodelsRuleLogic";
 
 /**
  *
@@ -109,10 +109,15 @@ export function CommonUpdateRuleRequestFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function CommonUpdateRuleRequestToJSON(value?: CommonUpdateRuleRequest | null): any {
+export function CommonUpdateRuleRequestToJSON(json: any): CommonUpdateRuleRequest {
+    return CommonUpdateRuleRequestToJSONTyped(json, false);
+}
+
+export function CommonUpdateRuleRequestToJSONTyped(value?: CommonUpdateRuleRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         alert_info: value["alertInfo"],
         attack_types: value["attackTypes"],

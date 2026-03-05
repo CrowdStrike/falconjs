@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DevicecontrolapiRespPagingDetailsV1 } from "./DevicecontrolapiRespPagingDetailsV1";
-import { DevicecontrolapiRespPagingDetailsV1FromJSON, DevicecontrolapiRespPagingDetailsV1FromJSONTyped, DevicecontrolapiRespPagingDetailsV1ToJSON } from "./DevicecontrolapiRespPagingDetailsV1";
+import {
+    DevicecontrolapiRespPagingDetailsV1FromJSON,
+    DevicecontrolapiRespPagingDetailsV1FromJSONTyped,
+    DevicecontrolapiRespPagingDetailsV1ToJSON,
+    DevicecontrolapiRespPagingDetailsV1ToJSONTyped,
+} from "./DevicecontrolapiRespPagingDetailsV1";
 
 /**
  *
@@ -74,10 +79,15 @@ export function DevicecontrolapiRespMSAMetaV1FromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function DevicecontrolapiRespMSAMetaV1ToJSON(value?: DevicecontrolapiRespMSAMetaV1 | null): any {
+export function DevicecontrolapiRespMSAMetaV1ToJSON(json: any): DevicecontrolapiRespMSAMetaV1 {
+    return DevicecontrolapiRespMSAMetaV1ToJSONTyped(json, false);
+}
+
+export function DevicecontrolapiRespMSAMetaV1ToJSONTyped(value?: DevicecontrolapiRespMSAMetaV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: DevicecontrolapiRespPagingDetailsV1ToJSON(value["pagination"]),
         powered_by: value["poweredBy"],

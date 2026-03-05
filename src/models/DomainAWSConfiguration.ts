@@ -68,10 +68,15 @@ export function DomainAWSConfigurationFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function DomainAWSConfigurationToJSON(value?: DomainAWSConfiguration | null): any {
+export function DomainAWSConfigurationToJSON(json: any): DomainAWSConfiguration {
+    return DomainAWSConfigurationToJSONTyped(json, false);
+}
+
+export function DomainAWSConfigurationToJSONTyped(value?: DomainAWSConfiguration | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cloudtrail_bucket_owner_id: value["cloudtrailBucketOwnerId"],
         created_timestamp: value["createdTimestamp"],

@@ -18,6 +18,7 @@ import {
     IntegrationExposureUserGetUserInventoryFromJSON,
     IntegrationExposureUserGetUserInventoryFromJSONTyped,
     IntegrationExposureUserGetUserInventoryToJSON,
+    IntegrationExposureUserGetUserInventoryToJSONTyped,
 } from "./IntegrationExposureUserGetUserInventory";
 
 /**
@@ -79,10 +80,15 @@ export function ExposureUserGetUserInventoryFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function ExposureUserGetUserInventoryToJSON(value?: ExposureUserGetUserInventory | null): any {
+export function ExposureUserGetUserInventoryToJSON(json: any): ExposureUserGetUserInventory {
+    return ExposureUserGetUserInventoryToJSONTyped(json, false);
+}
+
+export function ExposureUserGetUserInventoryToJSONTyped(value?: ExposureUserGetUserInventory | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         base_check_id: value["baseCheckId"],
         id: value["id"],

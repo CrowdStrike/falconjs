@@ -62,10 +62,15 @@ export function K8sregAWSClusterItemRespFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function K8sregAWSClusterItemRespToJSON(value?: K8sregAWSClusterItemResp | null): any {
+export function K8sregAWSClusterItemRespToJSON(json: any): K8sregAWSClusterItemResp {
+    return K8sregAWSClusterItemRespToJSONTyped(json, false);
+}
+
+export function K8sregAWSClusterItemRespToJSONTyped(value?: K8sregAWSClusterItemResp | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cloud_formation_url: value["cloudFormationUrl"],
         is_master: value["isMaster"],

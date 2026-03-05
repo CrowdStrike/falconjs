@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { RegexpOnePassInst } from "./RegexpOnePassInst";
-import { RegexpOnePassInstFromJSON, RegexpOnePassInstFromJSONTyped, RegexpOnePassInstToJSON } from "./RegexpOnePassInst";
+import { RegexpOnePassInstFromJSON, RegexpOnePassInstFromJSONTyped, RegexpOnePassInstToJSON, RegexpOnePassInstToJSONTyped } from "./RegexpOnePassInst";
 
 /**
  *
@@ -67,10 +67,15 @@ export function RegexpOnePassProgFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function RegexpOnePassProgToJSON(value?: RegexpOnePassProg | null): any {
+export function RegexpOnePassProgToJSON(json: any): RegexpOnePassProg {
+    return RegexpOnePassProgToJSONTyped(json, false);
+}
+
+export function RegexpOnePassProgToJSONTyped(value?: RegexpOnePassProg | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Inst: (value["inst"] as Array<any>).map(RegexpOnePassInstToJSON),
         NumCap: value["numCap"],

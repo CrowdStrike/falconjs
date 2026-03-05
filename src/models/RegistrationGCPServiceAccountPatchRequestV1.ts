@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { RegistrationGCPServiceAccountPatchV1 } from "./RegistrationGCPServiceAccountPatchV1";
-import { RegistrationGCPServiceAccountPatchV1FromJSON, RegistrationGCPServiceAccountPatchV1FromJSONTyped, RegistrationGCPServiceAccountPatchV1ToJSON } from "./RegistrationGCPServiceAccountPatchV1";
+import {
+    RegistrationGCPServiceAccountPatchV1FromJSON,
+    RegistrationGCPServiceAccountPatchV1FromJSONTyped,
+    RegistrationGCPServiceAccountPatchV1ToJSON,
+    RegistrationGCPServiceAccountPatchV1ToJSONTyped,
+} from "./RegistrationGCPServiceAccountPatchV1";
 
 /**
  *
@@ -51,10 +56,15 @@ export function RegistrationGCPServiceAccountPatchRequestV1FromJSONTyped(json: a
     };
 }
 
-export function RegistrationGCPServiceAccountPatchRequestV1ToJSON(value?: RegistrationGCPServiceAccountPatchRequestV1 | null): any {
+export function RegistrationGCPServiceAccountPatchRequestV1ToJSON(json: any): RegistrationGCPServiceAccountPatchRequestV1 {
+    return RegistrationGCPServiceAccountPatchRequestV1ToJSONTyped(json, false);
+}
+
+export function RegistrationGCPServiceAccountPatchRequestV1ToJSONTyped(value?: RegistrationGCPServiceAccountPatchRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(RegistrationGCPServiceAccountPatchV1ToJSON),
     };

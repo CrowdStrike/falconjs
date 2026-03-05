@@ -75,10 +75,15 @@ export function FlightcontrolapiGrantInputFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function FlightcontrolapiGrantInputToJSON(value?: FlightcontrolapiGrantInput | null): any {
+export function FlightcontrolapiGrantInputToJSON(json: any): FlightcontrolapiGrantInput {
+    return FlightcontrolapiGrantInputToJSONTyped(json, false);
+}
+
+export function FlightcontrolapiGrantInputToJSONTyped(value?: FlightcontrolapiGrantInput | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         cid: value["cid"],

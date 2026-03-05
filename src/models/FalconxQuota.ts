@@ -64,10 +64,15 @@ export function FalconxQuotaFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function FalconxQuotaToJSON(value?: FalconxQuota | null): any {
+export function FalconxQuotaToJSON(json: any): FalconxQuota {
+    return FalconxQuotaToJSONTyped(json, false);
+}
+
+export function FalconxQuotaToJSONTyped(value?: FalconxQuota | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         in_progress: value["inProgress"],
         total: value["total"],

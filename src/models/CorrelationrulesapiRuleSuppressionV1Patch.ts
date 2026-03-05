@@ -18,6 +18,7 @@ import {
     CorrelationrulesapiRuleSuppressionFilterV1FromJSON,
     CorrelationrulesapiRuleSuppressionFilterV1FromJSONTyped,
     CorrelationrulesapiRuleSuppressionFilterV1ToJSON,
+    CorrelationrulesapiRuleSuppressionFilterV1ToJSONTyped,
 } from "./CorrelationrulesapiRuleSuppressionFilterV1";
 
 /**
@@ -61,10 +62,15 @@ export function CorrelationrulesapiRuleSuppressionV1PatchFromJSONTyped(json: any
     };
 }
 
-export function CorrelationrulesapiRuleSuppressionV1PatchToJSON(value?: CorrelationrulesapiRuleSuppressionV1Patch | null): any {
+export function CorrelationrulesapiRuleSuppressionV1PatchToJSON(json: any): CorrelationrulesapiRuleSuppressionV1Patch {
+    return CorrelationrulesapiRuleSuppressionV1PatchToJSONTyped(json, false);
+}
+
+export function CorrelationrulesapiRuleSuppressionV1PatchToJSONTyped(value?: CorrelationrulesapiRuleSuppressionV1Patch | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         filter: CorrelationrulesapiRuleSuppressionFilterV1ToJSON(value["filter"]),
         suppression_period: value["suppressionPeriod"],

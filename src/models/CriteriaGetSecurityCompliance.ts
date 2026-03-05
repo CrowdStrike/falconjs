@@ -56,10 +56,15 @@ export function CriteriaGetSecurityComplianceFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function CriteriaGetSecurityComplianceToJSON(value?: CriteriaGetSecurityCompliance | null): any {
+export function CriteriaGetSecurityComplianceToJSON(json: any): CriteriaGetSecurityCompliance {
+    return CriteriaGetSecurityComplianceToJSONTyped(json, false);
+}
+
+export function CriteriaGetSecurityComplianceToJSONTyped(value?: CriteriaGetSecurityCompliance | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         criteria: value["criteria"],
         exposure_id: value["exposureId"],

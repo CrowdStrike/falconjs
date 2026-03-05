@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { SensorUpdatePolicyV1 } from "./SensorUpdatePolicyV1";
-import { SensorUpdatePolicyV1FromJSON, SensorUpdatePolicyV1FromJSONTyped, SensorUpdatePolicyV1ToJSON } from "./SensorUpdatePolicyV1";
+import { SensorUpdatePolicyV1FromJSON, SensorUpdatePolicyV1FromJSONTyped, SensorUpdatePolicyV1ToJSON, SensorUpdatePolicyV1ToJSONTyped } from "./SensorUpdatePolicyV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function SensorUpdateRespV1FromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function SensorUpdateRespV1ToJSON(value?: SensorUpdateRespV1 | null): any {
+export function SensorUpdateRespV1ToJSON(json: any): SensorUpdateRespV1 {
+    return SensorUpdateRespV1ToJSONTyped(json, false);
+}
+
+export function SensorUpdateRespV1ToJSONTyped(value?: SensorUpdateRespV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

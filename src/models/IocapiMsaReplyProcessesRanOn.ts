@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { IocapiResponseMeta } from "./IocapiResponseMeta";
-import { IocapiResponseMetaFromJSON, IocapiResponseMetaFromJSONTyped, IocapiResponseMetaToJSON } from "./IocapiResponseMeta";
+import { IocapiResponseMetaFromJSON, IocapiResponseMetaFromJSONTyped, IocapiResponseMetaToJSON, IocapiResponseMetaToJSONTyped } from "./IocapiResponseMeta";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 
 /**
  *
@@ -69,10 +69,15 @@ export function IocapiMsaReplyProcessesRanOnFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function IocapiMsaReplyProcessesRanOnToJSON(value?: IocapiMsaReplyProcessesRanOn | null): any {
+export function IocapiMsaReplyProcessesRanOnToJSON(json: any): IocapiMsaReplyProcessesRanOn {
+    return IocapiMsaReplyProcessesRanOnToJSONTyped(json, false);
+}
+
+export function IocapiMsaReplyProcessesRanOnToJSONTyped(value?: IocapiMsaReplyProcessesRanOn | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: IocapiResponseMetaToJSON(value["meta"]),

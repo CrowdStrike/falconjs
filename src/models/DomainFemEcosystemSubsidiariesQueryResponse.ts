@@ -18,6 +18,7 @@ import {
     DomainFemEcosystemSubsidiariesResponseFieldsFromJSON,
     DomainFemEcosystemSubsidiariesResponseFieldsFromJSONTyped,
     DomainFemEcosystemSubsidiariesResponseFieldsToJSON,
+    DomainFemEcosystemSubsidiariesResponseFieldsToJSONTyped,
 } from "./DomainFemEcosystemSubsidiariesResponseFields";
 
 /**
@@ -63,10 +64,15 @@ export function DomainFemEcosystemSubsidiariesQueryResponseFromJSONTyped(json: a
     };
 }
 
-export function DomainFemEcosystemSubsidiariesQueryResponseToJSON(value?: DomainFemEcosystemSubsidiariesQueryResponse | null): any {
+export function DomainFemEcosystemSubsidiariesQueryResponseToJSON(json: any): DomainFemEcosystemSubsidiariesQueryResponse {
+    return DomainFemEcosystemSubsidiariesQueryResponseToJSONTyped(json, false);
+}
+
+export function DomainFemEcosystemSubsidiariesQueryResponseToJSONTyped(value?: DomainFemEcosystemSubsidiariesQueryResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         FemEcosystemSubsidiariesResponseFields: DomainFemEcosystemSubsidiariesResponseFieldsToJSON(value["femEcosystemSubsidiariesResponseFields"]),
         resources: value["resources"],

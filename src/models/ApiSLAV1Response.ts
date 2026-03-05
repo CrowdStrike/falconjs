@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { ApiSLAV1 } from "./ApiSLAV1";
-import { ApiSLAV1FromJSON, ApiSLAV1FromJSONTyped, ApiSLAV1ToJSON } from "./ApiSLAV1";
+import { ApiSLAV1FromJSON, ApiSLAV1FromJSONTyped, ApiSLAV1ToJSON, ApiSLAV1ToJSONTyped } from "./ApiSLAV1";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function ApiSLAV1ResponseFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function ApiSLAV1ResponseToJSON(value?: ApiSLAV1Response | null): any {
+export function ApiSLAV1ResponseToJSON(json: any): ApiSLAV1Response {
+    return ApiSLAV1ResponseToJSONTyped(json, false);
+}
+
+export function ApiSLAV1ResponseToJSONTyped(value?: ApiSLAV1Response | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

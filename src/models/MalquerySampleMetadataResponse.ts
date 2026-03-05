@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MalqueryQueryError } from "./MalqueryQueryError";
-import { MalqueryQueryErrorFromJSON, MalqueryQueryErrorFromJSONTyped, MalqueryQueryErrorToJSON } from "./MalqueryQueryError";
+import { MalqueryQueryErrorFromJSON, MalqueryQueryErrorFromJSONTyped, MalqueryQueryErrorToJSON, MalqueryQueryErrorToJSONTyped } from "./MalqueryQueryError";
 import type { MalquerySamplesMetadataMetaInfo } from "./MalquerySamplesMetadataMetaInfo";
-import { MalquerySamplesMetadataMetaInfoFromJSON, MalquerySamplesMetadataMetaInfoFromJSONTyped, MalquerySamplesMetadataMetaInfoToJSON } from "./MalquerySamplesMetadataMetaInfo";
+import {
+    MalquerySamplesMetadataMetaInfoFromJSON,
+    MalquerySamplesMetadataMetaInfoFromJSONTyped,
+    MalquerySamplesMetadataMetaInfoToJSON,
+    MalquerySamplesMetadataMetaInfoToJSONTyped,
+} from "./MalquerySamplesMetadataMetaInfo";
 import type { MalquerySampleMetadata } from "./MalquerySampleMetadata";
-import { MalquerySampleMetadataFromJSON, MalquerySampleMetadataFromJSONTyped, MalquerySampleMetadataToJSON } from "./MalquerySampleMetadata";
+import { MalquerySampleMetadataFromJSON, MalquerySampleMetadataFromJSONTyped, MalquerySampleMetadataToJSON, MalquerySampleMetadataToJSONTyped } from "./MalquerySampleMetadata";
 
 /**
  *
@@ -71,10 +76,15 @@ export function MalquerySampleMetadataResponseFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function MalquerySampleMetadataResponseToJSON(value?: MalquerySampleMetadataResponse | null): any {
+export function MalquerySampleMetadataResponseToJSON(json: any): MalquerySampleMetadataResponse {
+    return MalquerySampleMetadataResponseToJSONTyped(json, false);
+}
+
+export function MalquerySampleMetadataResponseToJSONTyped(value?: MalquerySampleMetadataResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MalqueryQueryErrorToJSON),
         meta: MalquerySamplesMetadataMetaInfoToJSON(value["meta"]),

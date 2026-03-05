@@ -120,10 +120,15 @@ export function SadomainNotificationLogFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function SadomainNotificationLogToJSON(value?: SadomainNotificationLog | null): any {
+export function SadomainNotificationLogToJSON(json: any): SadomainNotificationLog {
+    return SadomainNotificationLogToJSONTyped(json, false);
+}
+
+export function SadomainNotificationLogToJSONTyped(value?: SadomainNotificationLog | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         cid: value["cid"],

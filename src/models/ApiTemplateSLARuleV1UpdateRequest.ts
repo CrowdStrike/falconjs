@@ -72,10 +72,15 @@ export function ApiTemplateSLARuleV1UpdateRequestFromJSONTyped(json: any, ignore
     };
 }
 
-export function ApiTemplateSLARuleV1UpdateRequestToJSON(value?: ApiTemplateSLARuleV1UpdateRequest | null): any {
+export function ApiTemplateSLARuleV1UpdateRequestToJSON(json: any): ApiTemplateSLARuleV1UpdateRequest {
+    return ApiTemplateSLARuleV1UpdateRequestToJSONTyped(json, false);
+}
+
+export function ApiTemplateSLARuleV1UpdateRequestToJSONTyped(value?: ApiTemplateSLARuleV1UpdateRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         condition: value["condition"],
         id: value["id"],

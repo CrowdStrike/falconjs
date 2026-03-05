@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DeviceapiLoginInfoV1 } from "./DeviceapiLoginInfoV1";
-import { DeviceapiLoginInfoV1FromJSON, DeviceapiLoginInfoV1FromJSONTyped, DeviceapiLoginInfoV1ToJSON } from "./DeviceapiLoginInfoV1";
+import { DeviceapiLoginInfoV1FromJSON, DeviceapiLoginInfoV1FromJSONTyped, DeviceapiLoginInfoV1ToJSON, DeviceapiLoginInfoV1ToJSONTyped } from "./DeviceapiLoginInfoV1";
 
 /**
  *
@@ -67,10 +67,15 @@ export function DeviceapiLoginDetailV1FromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function DeviceapiLoginDetailV1ToJSON(value?: DeviceapiLoginDetailV1 | null): any {
+export function DeviceapiLoginDetailV1ToJSON(json: any): DeviceapiLoginDetailV1 {
+    return DeviceapiLoginDetailV1ToJSONTyped(json, false);
+}
+
+export function DeviceapiLoginDetailV1ToJSONTyped(value?: DeviceapiLoginDetailV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         device_id: value["deviceId"],

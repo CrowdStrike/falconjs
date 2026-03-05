@@ -211,12 +211,9 @@ export interface D4cRegistrationApiUpdateDiscoverCloudAzureAccountClientIDReques
  */
 export class D4cRegistrationApi extends runtime.BaseAPI {
     /**
-     * Creates a new GCP account with newly-uploaded service account or connects with existing service account with only the following fields: parent_id, parent_type and service_account_id
+     * Creates request options for connectD4CGCPAccount without sending the request
      */
-    async connectD4CGCPAccountRaw(
-        requestParameters: D4cRegistrationApiConnectD4CGCPAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationGCPAccountResponseExtV2>> {
+    async connectD4CGCPAccountRequestOpts(requestParameters: D4cRegistrationApiConnectD4CGCPAccountRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling connectD4CGCPAccount().');
         }
@@ -232,16 +229,26 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-gcp/entities/account/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RegistrationGCPAccountExtRequestV2ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-gcp/entities/account/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RegistrationGCPAccountExtRequestV2ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Creates a new GCP account with newly-uploaded service account or connects with existing service account with only the following fields: parent_id, parent_type and service_account_id
+     */
+    async connectD4CGCPAccountRaw(
+        requestParameters: D4cRegistrationApiConnectD4CGCPAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationGCPAccountResponseExtV2>> {
+        const requestOptions = await this.connectD4CGCPAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationGCPAccountResponseExtV2FromJSON(jsonValue));
     }
@@ -255,12 +262,9 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates a new account in our system for a customer and generates a script for them to run in their AWS cloud environment to grant us access.
+     * Creates request options for createD4CAwsAccount without sending the request
      */
-    async createD4CAwsAccountRaw(
-        requestParameters: D4cRegistrationApiCreateD4CAwsAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationAWSAccountResponseV2>> {
+    async createD4CAwsAccountRequestOpts(requestParameters: D4cRegistrationApiCreateD4CAwsAccountRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createD4CAwsAccount().');
         }
@@ -276,16 +280,26 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-aws/entities/account/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RegistrationAWSAccountCreateRequestD4CExtV2ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-aws/entities/account/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RegistrationAWSAccountCreateRequestD4CExtV2ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Creates a new account in our system for a customer and generates a script for them to run in their AWS cloud environment to grant us access.
+     */
+    async createD4CAwsAccountRaw(
+        requestParameters: D4cRegistrationApiCreateD4CAwsAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationAWSAccountResponseV2>> {
+        const requestOptions = await this.createD4CAwsAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAWSAccountResponseV2FromJSON(jsonValue));
     }
@@ -299,12 +313,9 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates a new account in our system for a customer and generates a new service account for them to add access to in their GCP environment to grant us access.
+     * Creates request options for createD4CGcpAccount without sending the request
      */
-    async createD4CGcpAccountRaw(
-        requestParameters: D4cRegistrationApiCreateD4CGcpAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationGCPAccountResponseV1>> {
+    async createD4CGcpAccountRequestOpts(requestParameters: D4cRegistrationApiCreateD4CGcpAccountRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createD4CGcpAccount().');
         }
@@ -320,16 +331,26 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-gcp/entities/account/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RegistrationGCPAccountCreateRequestExtV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-gcp/entities/account/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RegistrationGCPAccountCreateRequestExtV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Creates a new account in our system for a customer and generates a new service account for them to add access to in their GCP environment to grant us access.
+     */
+    async createD4CGcpAccountRaw(
+        requestParameters: D4cRegistrationApiCreateD4CGcpAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationGCPAccountResponseV1>> {
+        const requestOptions = await this.createD4CGcpAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationGCPAccountResponseV1FromJSON(jsonValue));
     }
@@ -343,12 +364,9 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates a new account in our system for a customer and generates a script for them to run in their cloud environment to grant us access.
+     * Creates request options for createDiscoverCloudAzureAccount without sending the request
      */
-    async createDiscoverCloudAzureAccountRaw(
-        requestParameters: D4cRegistrationApiCreateDiscoverCloudAzureAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationAzureAccountResponseV1>> {
+    async createDiscoverCloudAzureAccountRequestOpts(requestParameters: D4cRegistrationApiCreateDiscoverCloudAzureAccountRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createDiscoverCloudAzureAccount().');
         }
@@ -364,16 +382,26 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-azure/entities/account/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RegistrationAzureAccountCreateRequestExternalV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-azure/entities/account/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RegistrationAzureAccountCreateRequestExternalV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Creates a new account in our system for a customer and generates a script for them to run in their cloud environment to grant us access.
+     */
+    async createDiscoverCloudAzureAccountRaw(
+        requestParameters: D4cRegistrationApiCreateDiscoverCloudAzureAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationAzureAccountResponseV1>> {
+        const requestOptions = await this.createDiscoverCloudAzureAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureAccountResponseV1FromJSON(jsonValue));
     }
@@ -390,12 +418,9 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deletes an existing AWS account or organization in our system.
+     * Creates request options for deleteD4CAwsAccount without sending the request
      */
-    async deleteD4CAwsAccountRaw(
-        requestParameters: D4cRegistrationApiDeleteD4CAwsAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
+    async deleteD4CAwsAccountRequestOpts(requestParameters: D4cRegistrationApiDeleteD4CAwsAccountRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -413,15 +438,25 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-aws/entities/account/v2`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-aws/entities/account/v2`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Deletes an existing AWS account or organization in our system.
+     */
+    async deleteD4CAwsAccountRaw(
+        requestParameters: D4cRegistrationApiDeleteD4CAwsAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
+        const requestOptions = await this.deleteD4CAwsAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecResponseFieldsFromJSON(jsonValue));
     }
@@ -435,12 +470,9 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deletes a GCP account from the system.
+     * Creates request options for deleteD4CGCPAccount without sending the request
      */
-    async deleteD4CGCPAccountRaw(
-        requestParameters: D4cRegistrationApiDeleteD4CGCPAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaBaseEntitiesResponse>> {
+    async deleteD4CGCPAccountRequestOpts(requestParameters: D4cRegistrationApiDeleteD4CGCPAccountRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -454,15 +486,25 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-gcp/entities/account/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-gcp/entities/account/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Deletes a GCP account from the system.
+     */
+    async deleteD4CGCPAccountRaw(
+        requestParameters: D4cRegistrationApiDeleteD4CGCPAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaBaseEntitiesResponse>> {
+        const requestOptions = await this.deleteD4CGCPAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaBaseEntitiesResponseFromJSON(jsonValue));
     }
@@ -476,12 +518,9 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Return a script for customer to run in their cloud environment to grant us access to their AWS environment as a downloadable attachment.
+     * Creates request options for getD4CAWSAccountScriptsAttachment without sending the request
      */
-    async getD4CAWSAccountScriptsAttachmentRaw(
-        requestParameters: D4cRegistrationApiGetD4CAWSAccountScriptsAttachmentRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationAWSProvisionGetAccountScriptResponseV2>> {
+    async getD4CAWSAccountScriptsAttachmentRequestOpts(requestParameters: D4cRegistrationApiGetD4CAWSAccountScriptsAttachmentRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -595,15 +634,25 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-aws/entities/user-scripts-download/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-aws/entities/user-scripts-download/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Return a script for customer to run in their cloud environment to grant us access to their AWS environment as a downloadable attachment.
+     */
+    async getD4CAWSAccountScriptsAttachmentRaw(
+        requestParameters: D4cRegistrationApiGetD4CAWSAccountScriptsAttachmentRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationAWSProvisionGetAccountScriptResponseV2>> {
+        const requestOptions = await this.getD4CAWSAccountScriptsAttachmentRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAWSProvisionGetAccountScriptResponseV2FromJSON(jsonValue));
     }
@@ -675,12 +724,9 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns information about the current status of an AWS account.
+     * Creates request options for getD4CAwsAccount without sending the request
      */
-    async getD4CAwsAccountRaw(
-        requestParameters: D4cRegistrationApiGetD4CAwsAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationAWSAccountResponseV2>> {
+    async getD4CAwsAccountRequestOpts(requestParameters: D4cRegistrationApiGetD4CAwsAccountRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["scanType"] != null) {
@@ -718,15 +764,25 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-aws/entities/account/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-aws/entities/account/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns information about the current status of an AWS account.
+     */
+    async getD4CAwsAccountRaw(
+        requestParameters: D4cRegistrationApiGetD4CAwsAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationAWSAccountResponseV2>> {
+        const requestOptions = await this.getD4CAwsAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAWSAccountResponseV2FromJSON(jsonValue));
     }
@@ -752,12 +808,9 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Return a URL for customer to visit in their cloud environment to grant us access to their AWS environment.
+     * Creates request options for getD4CAwsConsoleSetupURLs without sending the request
      */
-    async getD4CAwsConsoleSetupURLsRaw(
-        requestParameters: D4cRegistrationApiGetD4CAwsConsoleSetupURLsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationAWSConsoleURLResponseV2>> {
+    async getD4CAwsConsoleSetupURLsRequestOpts(requestParameters: D4cRegistrationApiGetD4CAwsConsoleSetupURLsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["region"] != null) {
@@ -771,15 +824,25 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-aws/entities/console-setup-urls/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-aws/entities/console-setup-urls/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Return a URL for customer to visit in their cloud environment to grant us access to their AWS environment.
+     */
+    async getD4CAwsConsoleSetupURLsRaw(
+        requestParameters: D4cRegistrationApiGetD4CAwsConsoleSetupURLsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationAWSConsoleURLResponseV2>> {
+        const requestOptions = await this.getD4CAwsConsoleSetupURLsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAWSConsoleURLResponseV2FromJSON(jsonValue));
     }
@@ -793,12 +856,9 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns the service account id and client email for external clients.
+     * Creates request options for getD4CGCPServiceAccountsExt without sending the request
      */
-    async getD4CGCPServiceAccountsExtRaw(
-        requestParameters: D4cRegistrationApiGetD4CGCPServiceAccountsExtRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationGCPServiceAccountResponseExtV1>> {
+    async getD4CGCPServiceAccountsExtRequestOpts(requestParameters: D4cRegistrationApiGetD4CGCPServiceAccountsExtRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["id"] != null) {
@@ -812,15 +872,25 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-gcp/entities/service-accounts/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-gcp/entities/service-accounts/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns the service account id and client email for external clients.
+     */
+    async getD4CGCPServiceAccountsExtRaw(
+        requestParameters: D4cRegistrationApiGetD4CGCPServiceAccountsExtRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationGCPServiceAccountResponseExtV1>> {
+        const requestOptions = await this.getD4CGCPServiceAccountsExtRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationGCPServiceAccountResponseExtV1FromJSON(jsonValue));
     }
@@ -834,12 +904,9 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Return a script for customer to run in their cloud environment to grant us access to their GCP environment as a downloadable attachment
+     * Creates request options for getD4CGCPUserScriptsAttachment without sending the request
      */
-    async getD4CGCPUserScriptsAttachmentRaw(
-        requestParameters: D4cRegistrationApiGetD4CGCPUserScriptsAttachmentRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationGCPProvisionGetUserScriptResponseV1>> {
+    async getD4CGCPUserScriptsAttachmentRequestOpts(requestParameters: D4cRegistrationApiGetD4CGCPUserScriptsAttachmentRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["parentType"] != null) {
@@ -861,15 +928,25 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-gcp/entities/user-scripts-download/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-gcp/entities/user-scripts-download/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Return a script for customer to run in their cloud environment to grant us access to their GCP environment as a downloadable attachment
+     */
+    async getD4CGCPUserScriptsAttachmentRaw(
+        requestParameters: D4cRegistrationApiGetD4CGCPUserScriptsAttachmentRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationGCPProvisionGetUserScriptResponseV1>> {
+        const requestOptions = await this.getD4CGCPUserScriptsAttachmentRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationGCPProvisionGetUserScriptResponseV1FromJSON(jsonValue));
     }
@@ -888,12 +965,9 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns information about the current status of an GCP account.
+     * Creates request options for getD4CGcpAccount without sending the request
      */
-    async getD4CGcpAccountRaw(
-        requestParameters: D4cRegistrationApiGetD4CGcpAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationGCPAccountResponseV1>> {
+    async getD4CGcpAccountRequestOpts(requestParameters: D4cRegistrationApiGetD4CGcpAccountRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["parentType"] != null) {
@@ -931,15 +1005,25 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-gcp/entities/account/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-gcp/entities/account/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns information about the current status of an GCP account.
+     */
+    async getD4CGcpAccountRaw(
+        requestParameters: D4cRegistrationApiGetD4CGcpAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationGCPAccountResponseV1>> {
+        const requestOptions = await this.getD4CGcpAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationGCPAccountResponseV1FromJSON(jsonValue));
     }
@@ -962,12 +1046,9 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Return a script for customer to run in their cloud environment to grant us access to their GCP environment
+     * Creates request options for getD4CGcpUserScripts without sending the request
      */
-    async getD4CGcpUserScriptsRaw(
-        requestParameters: D4cRegistrationApiGetD4CGcpUserScriptsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationGCPProvisionGetUserScriptResponseV1>> {
+    async getD4CGcpUserScriptsRequestOpts(requestParameters: D4cRegistrationApiGetD4CGcpUserScriptsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["parentType"] != null) {
@@ -981,15 +1062,25 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-gcp/entities/user-scripts/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-gcp/entities/user-scripts/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Return a script for customer to run in their cloud environment to grant us access to their GCP environment
+     */
+    async getD4CGcpUserScriptsRaw(
+        requestParameters: D4cRegistrationApiGetD4CGcpUserScriptsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationGCPProvisionGetUserScriptResponseV1>> {
+        const requestOptions = await this.getD4CGcpUserScriptsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationGCPProvisionGetUserScriptResponseV1FromJSON(jsonValue));
     }
@@ -1003,12 +1094,9 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Return information about Azure account registration
+     * Creates request options for getDiscoverCloudAzureAccount without sending the request
      */
-    async getDiscoverCloudAzureAccountRaw(
-        requestParameters: D4cRegistrationApiGetDiscoverCloudAzureAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationAzureAccountResponseV1>> {
+    async getDiscoverCloudAzureAccountRequestOpts(requestParameters: D4cRegistrationApiGetDiscoverCloudAzureAccountRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -1042,15 +1130,25 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-azure/entities/account/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-azure/entities/account/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Return information about Azure account registration
+     */
+    async getDiscoverCloudAzureAccountRaw(
+        requestParameters: D4cRegistrationApiGetDiscoverCloudAzureAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationAzureAccountResponseV1>> {
+        const requestOptions = await this.getDiscoverCloudAzureAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureAccountResponseV1FromJSON(jsonValue));
     }
@@ -1072,9 +1170,9 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Return available tenant ids for discover for cloud
+     * Creates request options for getDiscoverCloudAzureTenantIDs without sending the request
      */
-    async getDiscoverCloudAzureTenantIDsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RegistrationAzureTenantIDsResponseV1>> {
+    async getDiscoverCloudAzureTenantIDsRequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1084,15 +1182,22 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-azure/entities/tenant-id/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-azure/entities/tenant-id/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Return available tenant ids for discover for cloud
+     */
+    async getDiscoverCloudAzureTenantIDsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RegistrationAzureTenantIDsResponseV1>> {
+        const requestOptions = await this.getDiscoverCloudAzureTenantIDsRequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureTenantIDsResponseV1FromJSON(jsonValue));
     }
@@ -1106,9 +1211,9 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Return a script for customer to run in their cloud environment to grant us access to their Azure environment
+     * Creates request options for getDiscoverCloudAzureUserScripts without sending the request
      */
-    async getDiscoverCloudAzureUserScriptsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RegistrationAzureProvisionGetUserScriptResponseV1>> {
+    async getDiscoverCloudAzureUserScriptsRequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1118,15 +1223,22 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-azure/entities/user-scripts/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-azure/entities/user-scripts/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Return a script for customer to run in their cloud environment to grant us access to their Azure environment
+     */
+    async getDiscoverCloudAzureUserScriptsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RegistrationAzureProvisionGetUserScriptResponseV1>> {
+        const requestOptions = await this.getDiscoverCloudAzureUserScriptsRequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureProvisionGetUserScriptResponseV1FromJSON(jsonValue));
     }
@@ -1140,12 +1252,9 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Return a script for customer to run in their cloud environment to grant us access to their Azure environment as a downloadable attachment
+     * Creates request options for getDiscoverCloudAzureUserScriptsAttachment without sending the request
      */
-    async getDiscoverCloudAzureUserScriptsAttachmentRaw(
-        requestParameters: D4cRegistrationApiGetDiscoverCloudAzureUserScriptsAttachmentRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationAzureProvisionGetUserScriptResponseV1>> {
+    async getDiscoverCloudAzureUserScriptsAttachmentRequestOpts(requestParameters: D4cRegistrationApiGetDiscoverCloudAzureUserScriptsAttachmentRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["tenantId"] == null) {
             throw new runtime.RequiredError("tenantId", 'Required parameter "tenantId" was null or undefined when calling getDiscoverCloudAzureUserScriptsAttachment().');
         }
@@ -1175,15 +1284,25 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-azure/entities/user-scripts-download/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-azure/entities/user-scripts-download/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Return a script for customer to run in their cloud environment to grant us access to their Azure environment as a downloadable attachment
+     */
+    async getDiscoverCloudAzureUserScriptsAttachmentRaw(
+        requestParameters: D4cRegistrationApiGetDiscoverCloudAzureUserScriptsAttachmentRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationAzureProvisionGetUserScriptResponseV1>> {
+        const requestOptions = await this.getDiscoverCloudAzureUserScriptsAttachmentRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureProvisionGetUserScriptResponseV1FromJSON(jsonValue));
     }
@@ -1206,12 +1325,9 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns static install scripts for Horizon.
+     * Creates request options for getHorizonD4CScripts without sending the request
      */
-    async getHorizonD4CScriptsRaw(
-        requestParameters: D4cRegistrationApiGetHorizonD4CScriptsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationStaticScriptsResponse>> {
+    async getHorizonD4CScriptsRequestOpts(requestParameters: D4cRegistrationApiGetHorizonD4CScriptsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["singleAccount"] != null) {
@@ -1237,15 +1353,25 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/settings-discover/entities/gen/scripts/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/settings-discover/entities/gen/scripts/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns static install scripts for Horizon.
+     */
+    async getHorizonD4CScriptsRaw(
+        requestParameters: D4cRegistrationApiGetHorizonD4CScriptsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationStaticScriptsResponse>> {
+        const requestOptions = await this.getHorizonD4CScriptsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationStaticScriptsResponseFromJSON(jsonValue));
     }
@@ -1265,12 +1391,9 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Patches the service account key for external clients.
+     * Creates request options for updateD4CGCPServiceAccountsExt without sending the request
      */
-    async updateD4CGCPServiceAccountsExtRaw(
-        requestParameters: D4cRegistrationApiUpdateD4CGCPServiceAccountsExtRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationGCPServiceAccountResponseExtV1>> {
+    async updateD4CGCPServiceAccountsExtRequestOpts(requestParameters: D4cRegistrationApiUpdateD4CGCPServiceAccountsExtRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateD4CGCPServiceAccountsExt().');
         }
@@ -1286,16 +1409,26 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-gcp/entities/service-accounts/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RegistrationGCPServiceAccountPatchRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-gcp/entities/service-accounts/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RegistrationGCPServiceAccountPatchRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Patches the service account key for external clients.
+     */
+    async updateD4CGCPServiceAccountsExtRaw(
+        requestParameters: D4cRegistrationApiUpdateD4CGCPServiceAccountsExtRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationGCPServiceAccountResponseExtV1>> {
+        const requestOptions = await this.updateD4CGCPServiceAccountsExtRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationGCPServiceAccountResponseExtV1FromJSON(jsonValue));
     }
@@ -1312,12 +1445,9 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update an Azure service account in our system by with the user-created client_id created with the public key we\'ve provided
+     * Creates request options for updateDiscoverCloudAzureAccountClientID without sending the request
      */
-    async updateDiscoverCloudAzureAccountClientIDRaw(
-        requestParameters: D4cRegistrationApiUpdateDiscoverCloudAzureAccountClientIDRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RegistrationAzureTenantConfigurationResponseV1>> {
+    async updateDiscoverCloudAzureAccountClientIDRequestOpts(requestParameters: D4cRegistrationApiUpdateDiscoverCloudAzureAccountClientIDRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling updateDiscoverCloudAzureAccountClientID().');
         }
@@ -1343,15 +1473,25 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["d4c-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-connect-azure/entities/client-id/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-connect-azure/entities/client-id/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Update an Azure service account in our system by with the user-created client_id created with the public key we\'ve provided
+     */
+    async updateDiscoverCloudAzureAccountClientIDRaw(
+        requestParameters: D4cRegistrationApiUpdateDiscoverCloudAzureAccountClientIDRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RegistrationAzureTenantConfigurationResponseV1>> {
+        const requestOptions = await this.updateDiscoverCloudAzureAccountClientIDRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RegistrationAzureTenantConfigurationResponseV1FromJSON(jsonValue));
     }

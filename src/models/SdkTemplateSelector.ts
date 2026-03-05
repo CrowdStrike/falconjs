@@ -48,10 +48,15 @@ export function SdkTemplateSelectorFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function SdkTemplateSelectorToJSON(value?: SdkTemplateSelector | null): any {
+export function SdkTemplateSelectorToJSON(json: any): SdkTemplateSelector {
+    return SdkTemplateSelectorToJSONTyped(json, false);
+}
+
+export function SdkTemplateSelectorToJSONTyped(value?: SdkTemplateSelector | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
     };

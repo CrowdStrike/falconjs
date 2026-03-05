@@ -75,10 +75,15 @@ export function PaginationMetaAppInventoryUsersFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function PaginationMetaAppInventoryUsersToJSON(value?: PaginationMetaAppInventoryUsers | null): any {
+export function PaginationMetaAppInventoryUsersToJSON(json: any): PaginationMetaAppInventoryUsers {
+    return PaginationMetaAppInventoryUsersToJSONTyped(json, false);
+}
+
+export function PaginationMetaAppInventoryUsersToJSONTyped(value?: PaginationMetaAppInventoryUsers | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         limit: value["limit"],
         next: value["next"],

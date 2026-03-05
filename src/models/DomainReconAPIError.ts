@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainReconAPIErrorDetail } from "./DomainReconAPIErrorDetail";
-import { DomainReconAPIErrorDetailFromJSON, DomainReconAPIErrorDetailFromJSONTyped, DomainReconAPIErrorDetailToJSON } from "./DomainReconAPIErrorDetail";
+import { DomainReconAPIErrorDetailFromJSON, DomainReconAPIErrorDetailFromJSONTyped, DomainReconAPIErrorDetailToJSON, DomainReconAPIErrorDetailToJSONTyped } from "./DomainReconAPIErrorDetail";
 
 /**
  *
@@ -80,10 +80,15 @@ export function DomainReconAPIErrorFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function DomainReconAPIErrorToJSON(value?: DomainReconAPIError | null): any {
+export function DomainReconAPIErrorToJSON(json: any): DomainReconAPIError {
+    return DomainReconAPIErrorToJSONTyped(json, false);
+}
+
+export function DomainReconAPIErrorToJSONTyped(value?: DomainReconAPIError | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         details: value["details"] == null ? undefined : (value["details"] as Array<any>).map(DomainReconAPIErrorDetailToJSON),

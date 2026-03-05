@@ -62,10 +62,15 @@ export function FirewallUpdateFirewallPolicyReqV1FromJSONTyped(json: any, ignore
     };
 }
 
-export function FirewallUpdateFirewallPolicyReqV1ToJSON(value?: FirewallUpdateFirewallPolicyReqV1 | null): any {
+export function FirewallUpdateFirewallPolicyReqV1ToJSON(json: any): FirewallUpdateFirewallPolicyReqV1 {
+    return FirewallUpdateFirewallPolicyReqV1ToJSONTyped(json, false);
+}
+
+export function FirewallUpdateFirewallPolicyReqV1ToJSONTyped(value?: FirewallUpdateFirewallPolicyReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         id: value["id"],

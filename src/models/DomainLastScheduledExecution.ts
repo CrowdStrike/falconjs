@@ -78,14 +78,19 @@ export function DomainLastScheduledExecutionFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function DomainLastScheduledExecutionToJSON(value?: DomainLastScheduledExecution | null): any {
+export function DomainLastScheduledExecutionToJSON(json: any): DomainLastScheduledExecution {
+    return DomainLastScheduledExecutionToJSONTyped(json, false);
+}
+
+export function DomainLastScheduledExecutionToJSONTyped(value?: DomainLastScheduledExecution | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
-        search_window_end: value["searchWindowEnd"] == null ? undefined : value["searchWindowEnd"].toISOString(),
-        search_window_start: value["searchWindowStart"] == null ? undefined : value["searchWindowStart"].toISOString(),
+        search_window_end: value["searchWindowEnd"] == null ? value["searchWindowEnd"] : value["searchWindowEnd"].toISOString(),
+        search_window_start: value["searchWindowStart"] == null ? value["searchWindowStart"] : value["searchWindowStart"].toISOString(),
         status_display: value["statusDisplay"],
         use_ingest_time: value["useIngestTime"],
     };

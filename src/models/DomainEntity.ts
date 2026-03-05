@@ -69,10 +69,15 @@ export function DomainEntityFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function DomainEntityToJSON(value?: DomainEntity | null): any {
+export function DomainEntityToJSON(json: any): DomainEntity {
+    return DomainEntityToJSONTyped(json, false);
+}
+
+export function DomainEntityToJSONTyped(value?: DomainEntity | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

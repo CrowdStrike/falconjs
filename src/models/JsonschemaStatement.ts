@@ -56,10 +56,15 @@ export function JsonschemaStatementFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function JsonschemaStatementToJSON(value?: JsonschemaStatement | null): any {
+export function JsonschemaStatementToJSON(json: any): JsonschemaStatement {
+    return JsonschemaStatementToJSONTyped(json, false);
+}
+
+export function JsonschemaStatementToJSONTyped(value?: JsonschemaStatement | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         severity: value["severity"],

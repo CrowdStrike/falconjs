@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { ClientSpent } from "./ClientSpent";
-import { ClientSpentFromJSON, ClientSpentFromJSONTyped, ClientSpentToJSON } from "./ClientSpent";
+import { ClientSpentFromJSON, ClientSpentFromJSONTyped, ClientSpentToJSON, ClientSpentToJSONTyped } from "./ClientSpent";
 import type { ClientCosts } from "./ClientCosts";
-import { ClientCostsFromJSON, ClientCostsFromJSONTyped, ClientCostsToJSON } from "./ClientCosts";
+import { ClientCostsFromJSON, ClientCostsFromJSONTyped, ClientCostsToJSON, ClientCostsToJSONTyped } from "./ClientCosts";
 import type { ClientDigestFlow } from "./ClientDigestFlow";
-import { ClientDigestFlowFromJSON, ClientDigestFlowFromJSONTyped, ClientDigestFlowToJSON } from "./ClientDigestFlow";
+import { ClientDigestFlowFromJSON, ClientDigestFlowFromJSONTyped, ClientDigestFlowToJSON, ClientDigestFlowToJSONTyped } from "./ClientDigestFlow";
 
 /**
  *
@@ -199,10 +199,15 @@ export function ClientQueryResultMetadataFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ClientQueryResultMetadataToJSON(value?: ClientQueryResultMetadata | null): any {
+export function ClientQueryResultMetadataToJSON(json: any): ClientQueryResultMetadata {
+    return ClientQueryResultMetadataToJSONTyped(json, false);
+}
+
+export function ClientQueryResultMetadataToJSONTyped(value?: ClientQueryResultMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         costs: ClientCostsToJSON(value["costs"]),
         digestFlow: ClientDigestFlowToJSON(value["digestFlow"]),

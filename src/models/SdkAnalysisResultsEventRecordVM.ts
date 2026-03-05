@@ -48,10 +48,15 @@ export function SdkAnalysisResultsEventRecordVMFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function SdkAnalysisResultsEventRecordVMToJSON(value?: SdkAnalysisResultsEventRecordVM | null): any {
+export function SdkAnalysisResultsEventRecordVMToJSON(json: any): SdkAnalysisResultsEventRecordVM {
+    return SdkAnalysisResultsEventRecordVMToJSONTyped(json, false);
+}
+
+export function SdkAnalysisResultsEventRecordVMToJSONTyped(value?: SdkAnalysisResultsEventRecordVM | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
     };

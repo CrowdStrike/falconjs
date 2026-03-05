@@ -75,10 +75,15 @@ export function FalconxRelatedIndicatorFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function FalconxRelatedIndicatorToJSON(value?: FalconxRelatedIndicator | null): any {
+export function FalconxRelatedIndicatorToJSON(json: any): FalconxRelatedIndicator {
+    return FalconxRelatedIndicatorToJSONTyped(json, false);
+}
+
+export function FalconxRelatedIndicatorToJSONTyped(value?: FalconxRelatedIndicator | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         created_timestamp: value["createdTimestamp"],
         id: value["id"],

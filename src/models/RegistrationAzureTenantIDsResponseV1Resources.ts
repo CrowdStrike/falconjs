@@ -56,10 +56,15 @@ export function RegistrationAzureTenantIDsResponseV1ResourcesFromJSONTyped(json:
     };
 }
 
-export function RegistrationAzureTenantIDsResponseV1ResourcesToJSON(value?: RegistrationAzureTenantIDsResponseV1Resources | null): any {
+export function RegistrationAzureTenantIDsResponseV1ResourcesToJSON(json: any): RegistrationAzureTenantIDsResponseV1Resources {
+    return RegistrationAzureTenantIDsResponseV1ResourcesToJSONTyped(json, false);
+}
+
+export function RegistrationAzureTenantIDsResponseV1ResourcesToJSONTyped(value?: RegistrationAzureTenantIDsResponseV1Resources | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         subscription_ids: value["subscriptionIds"],
         tenant_id: value["tenantId"],

@@ -47,10 +47,15 @@ export function DomainAPIRemediationIDsFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function DomainAPIRemediationIDsToJSON(value?: DomainAPIRemediationIDs | null): any {
+export function DomainAPIRemediationIDsToJSON(json: any): DomainAPIRemediationIDs {
+    return DomainAPIRemediationIDsToJSONTyped(json, false);
+}
+
+export function DomainAPIRemediationIDsToJSONTyped(value?: DomainAPIRemediationIDs | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ids: value["ids"],
     };

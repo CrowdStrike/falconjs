@@ -75,6 +75,6 @@ tsc && node ./build/example.js
 
 - create a release branch (e.g. `prepare-1.2.3`)
 - bump version in `rebuild.sh` and `src/middleware/useragent.ts`
-- bump version in `package.json` and `package-lock.json` with `npm version {major | minor | patch}` (makes a new git commit)
+- bump version in `package.json` and `package-lock.json`
 - push branch and merge
 - create a GitHub release on `main`

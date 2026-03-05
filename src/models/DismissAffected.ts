@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { ReasonResultDismissAffected } from "./ReasonResultDismissAffected";
-import { ReasonResultDismissAffectedFromJSON, ReasonResultDismissAffectedFromJSONTyped, ReasonResultDismissAffectedToJSON } from "./ReasonResultDismissAffected";
+import {
+    ReasonResultDismissAffectedFromJSON,
+    ReasonResultDismissAffectedFromJSONTyped,
+    ReasonResultDismissAffectedToJSON,
+    ReasonResultDismissAffectedToJSONTyped,
+} from "./ReasonResultDismissAffected";
 import type { ErrorDismissAffected } from "./ErrorDismissAffected";
-import { ErrorDismissAffectedFromJSON, ErrorDismissAffectedFromJSONTyped, ErrorDismissAffectedToJSON } from "./ErrorDismissAffected";
+import { ErrorDismissAffectedFromJSON, ErrorDismissAffectedFromJSONTyped, ErrorDismissAffectedToJSON, ErrorDismissAffectedToJSONTyped } from "./ErrorDismissAffected";
 import type { MetaDismissAffected } from "./MetaDismissAffected";
-import { MetaDismissAffectedFromJSON, MetaDismissAffectedFromJSONTyped, MetaDismissAffectedToJSON } from "./MetaDismissAffected";
+import { MetaDismissAffectedFromJSON, MetaDismissAffectedFromJSONTyped, MetaDismissAffectedToJSON, MetaDismissAffectedToJSONTyped } from "./MetaDismissAffected";
 
 /**
  *
@@ -68,10 +73,15 @@ export function DismissAffectedFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function DismissAffectedToJSON(value?: DismissAffected | null): any {
+export function DismissAffectedToJSON(json: any): DismissAffected {
+    return DismissAffectedToJSONTyped(json, false);
+}
+
+export function DismissAffectedToJSONTyped(value?: DismissAffected | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(ErrorDismissAffectedToJSON),
         meta: MetaDismissAffectedToJSON(value["meta"]),

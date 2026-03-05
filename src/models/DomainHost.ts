@@ -14,15 +14,15 @@
 
 import { mapValues } from "../runtime";
 import type { DomainVulnerabilitiesCount } from "./DomainVulnerabilitiesCount";
-import { DomainVulnerabilitiesCountFromJSON, DomainVulnerabilitiesCountFromJSONTyped, DomainVulnerabilitiesCountToJSON } from "./DomainVulnerabilitiesCount";
+import { DomainVulnerabilitiesCountFromJSON, DomainVulnerabilitiesCountFromJSONTyped, DomainVulnerabilitiesCountToJSON, DomainVulnerabilitiesCountToJSONTyped } from "./DomainVulnerabilitiesCount";
 import type { DomainSCAMisconfigsCounts } from "./DomainSCAMisconfigsCounts";
-import { DomainSCAMisconfigsCountsFromJSON, DomainSCAMisconfigsCountsFromJSONTyped, DomainSCAMisconfigsCountsToJSON } from "./DomainSCAMisconfigsCounts";
+import { DomainSCAMisconfigsCountsFromJSON, DomainSCAMisconfigsCountsFromJSONTyped, DomainSCAMisconfigsCountsToJSON, DomainSCAMisconfigsCountsToJSONTyped } from "./DomainSCAMisconfigsCounts";
 import type { DomainIOMCounts } from "./DomainIOMCounts";
-import { DomainIOMCountsFromJSON, DomainIOMCountsFromJSONTyped, DomainIOMCountsToJSON } from "./DomainIOMCounts";
+import { DomainIOMCountsFromJSON, DomainIOMCountsFromJSONTyped, DomainIOMCountsToJSON, DomainIOMCountsToJSONTyped } from "./DomainIOMCounts";
 import type { DomainIOACounts } from "./DomainIOACounts";
-import { DomainIOACountsFromJSON, DomainIOACountsFromJSONTyped, DomainIOACountsToJSON } from "./DomainIOACounts";
+import { DomainIOACountsFromJSON, DomainIOACountsFromJSONTyped, DomainIOACountsToJSON, DomainIOACountsToJSONTyped } from "./DomainIOACounts";
 import type { DomainXLR8Info } from "./DomainXLR8Info";
-import { DomainXLR8InfoFromJSON, DomainXLR8InfoFromJSONTyped, DomainXLR8InfoToJSON } from "./DomainXLR8Info";
+import { DomainXLR8InfoFromJSON, DomainXLR8InfoFromJSONTyped, DomainXLR8InfoToJSON, DomainXLR8InfoToJSONTyped } from "./DomainXLR8Info";
 
 /**
  *
@@ -117,10 +117,15 @@ export function DomainHostFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function DomainHostToJSON(value?: DomainHost | null): any {
+export function DomainHostToJSON(json: any): DomainHost {
+    return DomainHostToJSONTyped(json, false);
+}
+
+export function DomainHostToJSONTyped(value?: DomainHost | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cloud_ioas: DomainIOACountsToJSON(value["cloudIoas"]),
         cloud_ioms: DomainIOMCountsToJSON(value["cloudIoms"]),

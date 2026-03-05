@@ -88,10 +88,15 @@ export function ModelsClusterWithFailedRulesFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function ModelsClusterWithFailedRulesToJSON(value?: ModelsClusterWithFailedRules | null): any {
+export function ModelsClusterWithFailedRulesToJSON(json: any): ModelsClusterWithFailedRules {
+    return ModelsClusterWithFailedRulesToJSONTyped(json, false);
+}
+
+export function ModelsClusterWithFailedRulesToJSONTyped(value?: ModelsClusterWithFailedRules | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         "1": value["_1"],
         "2": value["_2"],

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesServiceNowServiceData } from "./TypesServiceNowServiceData";
-import { TypesServiceNowServiceDataFromJSON, TypesServiceNowServiceDataFromJSONTyped, TypesServiceNowServiceDataToJSON } from "./TypesServiceNowServiceData";
+import { TypesServiceNowServiceDataFromJSON, TypesServiceNowServiceDataFromJSONTyped, TypesServiceNowServiceDataToJSON, TypesServiceNowServiceDataToJSONTyped } from "./TypesServiceNowServiceData";
 
 /**
  *
@@ -67,10 +67,15 @@ export function TypesServiceNowServicesResponseFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function TypesServiceNowServicesResponseToJSON(value?: TypesServiceNowServicesResponse | null): any {
+export function TypesServiceNowServicesResponseToJSON(json: any): TypesServiceNowServicesResponse {
+    return TypesServiceNowServicesResponseToJSONTyped(json, false);
+}
+
+export function TypesServiceNowServicesResponseToJSONTyped(value?: TypesServiceNowServicesResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         error: value["error"],
         services: (value["services"] as Array<any>).map(TypesServiceNowServiceDataToJSON),

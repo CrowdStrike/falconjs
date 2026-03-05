@@ -64,10 +64,15 @@ export function DigestFlowFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function DigestFlowToJSON(value?: DigestFlow | null): any {
+export function DigestFlowToJSON(json: any): DigestFlow {
+    return DigestFlowToJSONTyped(json, false);
+}
+
+export function DigestFlowToJSONTyped(value?: DigestFlow | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ingestTimeKnownGood: value["ingestTimeKnownGood"],
         maxIngestLatency: value["maxIngestLatency"],

@@ -61,10 +61,15 @@ export function GraphAPIKeyConfigFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function GraphAPIKeyConfigToJSON(value?: GraphAPIKeyConfig | null): any {
+export function GraphAPIKeyConfigToJSON(json: any): GraphAPIKeyConfig {
+    return GraphAPIKeyConfigToJSONTyped(json, false);
+}
+
+export function GraphAPIKeyConfigToJSONTyped(value?: GraphAPIKeyConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         api_key: value["apiKey"],
         body_location: value["bodyLocation"],

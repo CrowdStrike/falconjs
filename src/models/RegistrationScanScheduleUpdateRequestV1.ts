@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainScanScheduleDataV1 } from "./DomainScanScheduleDataV1";
-import { DomainScanScheduleDataV1FromJSON, DomainScanScheduleDataV1FromJSONTyped, DomainScanScheduleDataV1ToJSON } from "./DomainScanScheduleDataV1";
+import { DomainScanScheduleDataV1FromJSON, DomainScanScheduleDataV1FromJSONTyped, DomainScanScheduleDataV1ToJSON, DomainScanScheduleDataV1ToJSONTyped } from "./DomainScanScheduleDataV1";
 
 /**
  *
@@ -51,10 +51,15 @@ export function RegistrationScanScheduleUpdateRequestV1FromJSONTyped(json: any, 
     };
 }
 
-export function RegistrationScanScheduleUpdateRequestV1ToJSON(value?: RegistrationScanScheduleUpdateRequestV1 | null): any {
+export function RegistrationScanScheduleUpdateRequestV1ToJSON(json: any): RegistrationScanScheduleUpdateRequestV1 {
+    return RegistrationScanScheduleUpdateRequestV1ToJSONTyped(json, false);
+}
+
+export function RegistrationScanScheduleUpdateRequestV1ToJSONTyped(value?: RegistrationScanScheduleUpdateRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(DomainScanScheduleDataV1ToJSON),
     };

@@ -14,19 +14,19 @@
 
 import { mapValues } from "../runtime";
 import type { DomainProductFeatures } from "./DomainProductFeatures";
-import { DomainProductFeaturesFromJSON, DomainProductFeaturesFromJSONTyped, DomainProductFeaturesToJSON } from "./DomainProductFeatures";
+import { DomainProductFeaturesFromJSON, DomainProductFeaturesFromJSONTyped, DomainProductFeaturesToJSON, DomainProductFeaturesToJSONTyped } from "./DomainProductFeatures";
 import type { DtoLogIngestionProperties } from "./DtoLogIngestionProperties";
-import { DtoLogIngestionPropertiesFromJSON, DtoLogIngestionPropertiesFromJSONTyped, DtoLogIngestionPropertiesToJSON } from "./DtoLogIngestionProperties";
+import { DtoLogIngestionPropertiesFromJSON, DtoLogIngestionPropertiesFromJSONTyped, DtoLogIngestionPropertiesToJSON, DtoLogIngestionPropertiesToJSONTyped } from "./DtoLogIngestionProperties";
 import type { DtoInfraManagerProperties } from "./DtoInfraManagerProperties";
-import { DtoInfraManagerPropertiesFromJSON, DtoInfraManagerPropertiesFromJSONTyped, DtoInfraManagerPropertiesToJSON } from "./DtoInfraManagerProperties";
+import { DtoInfraManagerPropertiesFromJSON, DtoInfraManagerPropertiesFromJSONTyped, DtoInfraManagerPropertiesToJSON, DtoInfraManagerPropertiesToJSONTyped } from "./DtoInfraManagerProperties";
 import type { DtoOrganization } from "./DtoOrganization";
-import { DtoOrganizationFromJSON, DtoOrganizationFromJSONTyped, DtoOrganizationToJSON } from "./DtoOrganization";
+import { DtoOrganizationFromJSON, DtoOrganizationFromJSONTyped, DtoOrganizationToJSON, DtoOrganizationToJSONTyped } from "./DtoOrganization";
 import type { DtoProject } from "./DtoProject";
-import { DtoProjectFromJSON, DtoProjectFromJSONTyped, DtoProjectToJSON } from "./DtoProject";
+import { DtoProjectFromJSON, DtoProjectFromJSONTyped, DtoProjectToJSON, DtoProjectToJSONTyped } from "./DtoProject";
 import type { DtoWIFProperties } from "./DtoWIFProperties";
-import { DtoWIFPropertiesFromJSON, DtoWIFPropertiesFromJSONTyped, DtoWIFPropertiesToJSON } from "./DtoWIFProperties";
+import { DtoWIFPropertiesFromJSON, DtoWIFPropertiesFromJSONTyped, DtoWIFPropertiesToJSON, DtoWIFPropertiesToJSONTyped } from "./DtoWIFProperties";
 import type { DtoFolder } from "./DtoFolder";
-import { DtoFolderFromJSON, DtoFolderFromJSONTyped, DtoFolderToJSON } from "./DtoFolder";
+import { DtoFolderFromJSON, DtoFolderFromJSONTyped, DtoFolderToJSON, DtoFolderToJSONTyped } from "./DtoFolder";
 
 /**
  *
@@ -216,13 +216,18 @@ export function DtoGCPRegistrationFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function DtoGCPRegistrationToJSON(value?: DtoGCPRegistration | null): any {
+export function DtoGCPRegistrationToJSON(json: any): DtoGCPRegistration {
+    return DtoGCPRegistrationToJSONTyped(json, false);
+}
+
+export function DtoGCPRegistrationToJSONTyped(value?: DtoGCPRegistration | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         additional_properties: value["additionalProperties"],
-        created: value["created"] == null ? undefined : value["created"].toISOString(),
+        created: value["created"] == null ? value["created"] : value["created"].toISOString(),
         deployment_method: value["deploymentMethod"],
         excluded_project_patterns: value["excludedProjectPatterns"],
         falcon_client_key_id: value["falconClientKeyId"],
@@ -242,7 +247,7 @@ export function DtoGCPRegistrationToJSON(value?: DtoGCPRegistration | null): any
         resource_name_suffix: value["resourceNameSuffix"],
         status: value["status"],
         tags: value["tags"],
-        updated: value["updated"] == null ? undefined : value["updated"].toISOString(),
+        updated: value["updated"] == null ? value["updated"] : value["updated"].toISOString(),
         wif_properties: DtoWIFPropertiesToJSON(value["wifProperties"]),
     };
 }

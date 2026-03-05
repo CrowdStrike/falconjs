@@ -14,15 +14,15 @@
 
 import { mapValues } from "../runtime";
 import type { DomainImage } from "./DomainImage";
-import { DomainImageFromJSON, DomainImageFromJSONTyped, DomainImageToJSON } from "./DomainImage";
+import { DomainImageFromJSON, DomainImageFromJSONTyped, DomainImageToJSON, DomainImageToJSONTyped } from "./DomainImage";
 import type { DomainSimpleActor } from "./DomainSimpleActor";
-import { DomainSimpleActorFromJSON, DomainSimpleActorFromJSONTyped, DomainSimpleActorToJSON } from "./DomainSimpleActor";
+import { DomainSimpleActorFromJSON, DomainSimpleActorFromJSONTyped, DomainSimpleActorToJSON, DomainSimpleActorToJSONTyped } from "./DomainSimpleActor";
 import type { DomainReportMalware } from "./DomainReportMalware";
-import { DomainReportMalwareFromJSON, DomainReportMalwareFromJSONTyped, DomainReportMalwareToJSON } from "./DomainReportMalware";
+import { DomainReportMalwareFromJSON, DomainReportMalwareFromJSONTyped, DomainReportMalwareToJSON, DomainReportMalwareToJSONTyped } from "./DomainReportMalware";
 import type { DomainFile } from "./DomainFile";
-import { DomainFileFromJSON, DomainFileFromJSONTyped, DomainFileToJSON } from "./DomainFile";
+import { DomainFileFromJSON, DomainFileFromJSONTyped, DomainFileToJSON, DomainFileToJSONTyped } from "./DomainFile";
 import type { DomainEntity } from "./DomainEntity";
-import { DomainEntityFromJSON, DomainEntityFromJSONTyped, DomainEntityToJSON } from "./DomainEntity";
+import { DomainEntityFromJSON, DomainEntityFromJSONTyped, DomainEntityToJSON, DomainEntityToJSONTyped } from "./DomainEntity";
 
 /**
  *
@@ -251,10 +251,15 @@ export function DomainNewsDocumentFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function DomainNewsDocumentToJSON(value?: DomainNewsDocument | null): any {
+export function DomainNewsDocumentToJSON(json: any): DomainNewsDocument {
+    return DomainNewsDocumentToJSONTyped(json, false);
+}
+
+export function DomainNewsDocumentToJSONTyped(value?: DomainNewsDocument | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         active: value["active"],
         actors: (value["actors"] as Array<any>).map(DomainSimpleActorToJSON),

@@ -14,9 +14,19 @@
 
 import { mapValues } from "../runtime";
 import type { DomainAPIMitreAttackTacticV1 } from "./DomainAPIMitreAttackTacticV1";
-import { DomainAPIMitreAttackTacticV1FromJSON, DomainAPIMitreAttackTacticV1FromJSONTyped, DomainAPIMitreAttackTacticV1ToJSON } from "./DomainAPIMitreAttackTacticV1";
+import {
+    DomainAPIMitreAttackTacticV1FromJSON,
+    DomainAPIMitreAttackTacticV1FromJSONTyped,
+    DomainAPIMitreAttackTacticV1ToJSON,
+    DomainAPIMitreAttackTacticV1ToJSONTyped,
+} from "./DomainAPIMitreAttackTacticV1";
 import type { DomainAPIComplianceMappingV1 } from "./DomainAPIComplianceMappingV1";
-import { DomainAPIComplianceMappingV1FromJSON, DomainAPIComplianceMappingV1FromJSONTyped, DomainAPIComplianceMappingV1ToJSON } from "./DomainAPIComplianceMappingV1";
+import {
+    DomainAPIComplianceMappingV1FromJSON,
+    DomainAPIComplianceMappingV1FromJSONTyped,
+    DomainAPIComplianceMappingV1ToJSON,
+    DomainAPIComplianceMappingV1ToJSONTyped,
+} from "./DomainAPIComplianceMappingV1";
 
 /**
  *
@@ -159,10 +169,15 @@ export function DomainAPIFindingRuleV1FromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function DomainAPIFindingRuleV1ToJSON(value?: DomainAPIFindingRuleV1 | null): any {
+export function DomainAPIFindingRuleV1ToJSON(json: any): DomainAPIFindingRuleV1 {
+    return DomainAPIFindingRuleV1ToJSONTyped(json, false);
+}
+
+export function DomainAPIFindingRuleV1ToJSONTyped(value?: DomainAPIFindingRuleV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         authority: value["authority"],
         benchmark_type: value["benchmarkType"],

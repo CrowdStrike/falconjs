@@ -18,11 +18,22 @@ import {
     DeviceControlRespUpdateDefaultSettingsV1FromJSON,
     DeviceControlRespUpdateDefaultSettingsV1FromJSONTyped,
     DeviceControlRespUpdateDefaultSettingsV1ToJSON,
+    DeviceControlRespUpdateDefaultSettingsV1ToJSONTyped,
 } from "./DeviceControlRespUpdateDefaultSettingsV1";
 import type { DevicecontrolapiRespMSAMetaV1 } from "./DevicecontrolapiRespMSAMetaV1";
-import { DevicecontrolapiRespMSAMetaV1FromJSON, DevicecontrolapiRespMSAMetaV1FromJSONTyped, DevicecontrolapiRespMSAMetaV1ToJSON } from "./DevicecontrolapiRespMSAMetaV1";
+import {
+    DevicecontrolapiRespMSAMetaV1FromJSON,
+    DevicecontrolapiRespMSAMetaV1FromJSONTyped,
+    DevicecontrolapiRespMSAMetaV1ToJSON,
+    DevicecontrolapiRespMSAMetaV1ToJSONTyped,
+} from "./DevicecontrolapiRespMSAMetaV1";
 import type { DevicecontrolapiRespMSAErrorV1 } from "./DevicecontrolapiRespMSAErrorV1";
-import { DevicecontrolapiRespMSAErrorV1FromJSON, DevicecontrolapiRespMSAErrorV1FromJSONTyped, DevicecontrolapiRespMSAErrorV1ToJSON } from "./DevicecontrolapiRespMSAErrorV1";
+import {
+    DevicecontrolapiRespMSAErrorV1FromJSON,
+    DevicecontrolapiRespMSAErrorV1FromJSONTyped,
+    DevicecontrolapiRespMSAErrorV1ToJSON,
+    DevicecontrolapiRespMSAErrorV1ToJSONTyped,
+} from "./DevicecontrolapiRespMSAErrorV1";
 
 /**
  *
@@ -74,10 +85,15 @@ export function DeviceControlRespDefaultSettingV1FromJSONTyped(json: any, ignore
     };
 }
 
-export function DeviceControlRespDefaultSettingV1ToJSON(value?: DeviceControlRespDefaultSettingV1 | null): any {
+export function DeviceControlRespDefaultSettingV1ToJSON(json: any): DeviceControlRespDefaultSettingV1 {
+    return DeviceControlRespDefaultSettingV1ToJSONTyped(json, false);
+}
+
+export function DeviceControlRespDefaultSettingV1ToJSONTyped(value?: DeviceControlRespDefaultSettingV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(DevicecontrolapiRespMSAErrorV1ToJSON),
         meta: DevicecontrolapiRespMSAMetaV1ToJSON(value["meta"]),

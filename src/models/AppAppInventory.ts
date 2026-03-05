@@ -87,10 +87,10 @@ export interface AppAppInventory {
     lastActivity: Date;
     /**
      *
-     * @type {Array<string>}
+     * @type {Array<string | null>}
      * @memberof AppAppInventory
      */
-    scopes: Array<string>;
+    scopes: Array<string | null>;
     /**
      *
      * @type {string}
@@ -160,10 +160,15 @@ export function AppAppInventoryFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function AppAppInventoryToJSON(value?: AppAppInventory | null): any {
+export function AppAppInventoryToJSON(json: any): AppAppInventory {
+    return AppAppInventoryToJSONTyped(json, false);
+}
+
+export function AppAppInventoryToJSONTyped(value?: AppAppInventory | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         access_level: value["accessLevel"],
         account_id: value["accountId"],

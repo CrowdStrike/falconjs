@@ -14,17 +14,22 @@
 
 import { mapValues } from "../runtime";
 import type { DomainProductFeatures } from "./DomainProductFeatures";
-import { DomainProductFeaturesFromJSON, DomainProductFeaturesFromJSONTyped, DomainProductFeaturesToJSON } from "./DomainProductFeatures";
+import { DomainProductFeaturesFromJSON, DomainProductFeaturesFromJSONTyped, DomainProductFeaturesToJSON, DomainProductFeaturesToJSONTyped } from "./DomainProductFeatures";
 import type { StatemgmtCondition } from "./StatemgmtCondition";
-import { StatemgmtConditionFromJSON, StatemgmtConditionFromJSONTyped, StatemgmtConditionToJSON } from "./StatemgmtCondition";
+import { StatemgmtConditionFromJSON, StatemgmtConditionFromJSONTyped, StatemgmtConditionToJSON, StatemgmtConditionToJSONTyped } from "./StatemgmtCondition";
 import type { DomainAWSD4CAccountV1 } from "./DomainAWSD4CAccountV1";
-import { DomainAWSD4CAccountV1FromJSON, DomainAWSD4CAccountV1FromJSONTyped, DomainAWSD4CAccountV1ToJSON } from "./DomainAWSD4CAccountV1";
+import { DomainAWSD4CAccountV1FromJSON, DomainAWSD4CAccountV1FromJSONTyped, DomainAWSD4CAccountV1ToJSON, DomainAWSD4CAccountV1ToJSONTyped } from "./DomainAWSD4CAccountV1";
 import type { DomainCloudScope } from "./DomainCloudScope";
-import { DomainCloudScopeFromJSON, DomainCloudScopeFromJSONTyped, DomainCloudScopeToJSON } from "./DomainCloudScope";
+import { DomainCloudScopeFromJSON, DomainCloudScopeFromJSONTyped, DomainCloudScopeToJSON, DomainCloudScopeToJSONTyped } from "./DomainCloudScope";
 import type { DomainPermission } from "./DomainPermission";
-import { DomainPermissionFromJSON, DomainPermissionFromJSONTyped, DomainPermissionToJSON } from "./DomainPermission";
+import { DomainPermissionFromJSON, DomainPermissionFromJSONTyped, DomainPermissionToJSON, DomainPermissionToJSONTyped } from "./DomainPermission";
 import type { DomainAWSInventoryFilterSetting } from "./DomainAWSInventoryFilterSetting";
-import { DomainAWSInventoryFilterSettingFromJSON, DomainAWSInventoryFilterSettingFromJSONTyped, DomainAWSInventoryFilterSettingToJSON } from "./DomainAWSInventoryFilterSetting";
+import {
+    DomainAWSInventoryFilterSettingFromJSON,
+    DomainAWSInventoryFilterSettingFromJSONTyped,
+    DomainAWSInventoryFilterSettingToJSON,
+    DomainAWSInventoryFilterSettingToJSONTyped,
+} from "./DomainAWSInventoryFilterSetting";
 
 /**
  *
@@ -474,10 +479,15 @@ export function DomainAWSAccountV2FromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function DomainAWSAccountV2ToJSON(value?: DomainAWSAccountV2 | null): any {
+export function DomainAWSAccountV2ToJSON(json: any): DomainAWSAccountV2 {
+    return DomainAWSAccountV2ToJSONTyped(json, false);
+}
+
+export function DomainAWSAccountV2ToJSONTyped(value?: DomainAWSAccountV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         CreatedAt: value["createdAt"].toISOString(),
         DeletedAt: value["deletedAt"].toISOString(),
@@ -521,7 +531,7 @@ export function DomainAWSAccountV2ToJSON(value?: DomainAWSAccountV2 | null): any
         organization_id: value["organizationId"],
         remediation_cloudformation_url: value["remediationCloudformationUrl"],
         remediation_region: value["remediationRegion"],
-        remediation_tou_accepted: value["remediationTouAccepted"] == null ? undefined : value["remediationTouAccepted"].toISOString(),
+        remediation_tou_accepted: value["remediationTouAccepted"] == null ? value["remediationTouAccepted"] : value["remediationTouAccepted"].toISOString(),
         resource_name_prefix: value["resourceNamePrefix"],
         resource_name_suffix: value["resourceNameSuffix"],
         root_account_id: value["rootAccountId"],

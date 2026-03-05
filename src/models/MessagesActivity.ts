@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { MessagesAuthor } from "./MessagesAuthor";
-import { MessagesAuthorFromJSON, MessagesAuthorFromJSONTyped, MessagesAuthorToJSON } from "./MessagesAuthor";
+import { MessagesAuthorFromJSON, MessagesAuthorFromJSONTyped, MessagesAuthorToJSON, MessagesAuthorToJSONTyped } from "./MessagesAuthor";
 
 /**
  *
@@ -113,10 +113,15 @@ export function MessagesActivityFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function MessagesActivityToJSON(value?: MessagesActivity | null): any {
+export function MessagesActivityToJSON(json: any): MessagesActivity {
+    return MessagesActivityToJSONTyped(json, false);
+}
+
+export function MessagesActivityToJSONTyped(value?: MessagesActivity | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         body: value["body"],
         case_id: value["caseId"],

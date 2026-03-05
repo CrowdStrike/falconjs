@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainSearchAfterPaging } from "./DomainSearchAfterPaging";
-import { DomainSearchAfterPagingFromJSON, DomainSearchAfterPagingFromJSONTyped, DomainSearchAfterPagingToJSON } from "./DomainSearchAfterPaging";
+import { DomainSearchAfterPagingFromJSON, DomainSearchAfterPagingFromJSONTyped, DomainSearchAfterPagingToJSON, DomainSearchAfterPagingToJSONTyped } from "./DomainSearchAfterPaging";
 
 /**
  *
@@ -73,10 +73,15 @@ export function DomainSearchAfterMetaFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function DomainSearchAfterMetaToJSON(value?: DomainSearchAfterMeta | null): any {
+export function DomainSearchAfterMetaToJSON(json: any): DomainSearchAfterMeta {
+    return DomainSearchAfterMetaToJSONTyped(json, false);
+}
+
+export function DomainSearchAfterMetaToJSONTyped(value?: DomainSearchAfterMeta | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: DomainSearchAfterPagingToJSON(value["pagination"]),
         powered_by: value["poweredBy"],

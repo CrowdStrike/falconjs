@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainDDOSTargetDetails } from "./DomainDDOSTargetDetails";
-import { DomainDDOSTargetDetailsFromJSON, DomainDDOSTargetDetailsFromJSONTyped, DomainDDOSTargetDetailsToJSON } from "./DomainDDOSTargetDetails";
+import { DomainDDOSTargetDetailsFromJSON, DomainDDOSTargetDetailsFromJSONTyped, DomainDDOSTargetDetailsToJSON, DomainDDOSTargetDetailsToJSONTyped } from "./DomainDDOSTargetDetails";
 
 /**
  *
@@ -147,10 +147,15 @@ export function DomainDDOSAttackSourceFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function DomainDDOSAttackSourceToJSON(value?: DomainDDOSAttackSource | null): any {
+export function DomainDDOSAttackSourceToJSON(json: any): DomainDDOSAttackSource {
+    return DomainDDOSAttackSourceToJSONTyped(json, false);
+}
+
+export function DomainDDOSAttackSourceToJSONTyped(value?: DomainDDOSAttackSource | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         attack_type: value["attackType"],
         confidence: value["confidence"],

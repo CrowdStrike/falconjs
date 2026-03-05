@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { RegistrationGCPAccountReqObjV2 } from "./RegistrationGCPAccountReqObjV2";
-import { RegistrationGCPAccountReqObjV2FromJSON, RegistrationGCPAccountReqObjV2FromJSONTyped, RegistrationGCPAccountReqObjV2ToJSON } from "./RegistrationGCPAccountReqObjV2";
+import {
+    RegistrationGCPAccountReqObjV2FromJSON,
+    RegistrationGCPAccountReqObjV2FromJSONTyped,
+    RegistrationGCPAccountReqObjV2ToJSON,
+    RegistrationGCPAccountReqObjV2ToJSONTyped,
+} from "./RegistrationGCPAccountReqObjV2";
 
 /**
  *
@@ -51,10 +56,15 @@ export function RegistrationGCPAccountExtRequestV2FromJSONTyped(json: any, ignor
     };
 }
 
-export function RegistrationGCPAccountExtRequestV2ToJSON(value?: RegistrationGCPAccountExtRequestV2 | null): any {
+export function RegistrationGCPAccountExtRequestV2ToJSON(json: any): RegistrationGCPAccountExtRequestV2 {
+    return RegistrationGCPAccountExtRequestV2ToJSONTyped(json, false);
+}
+
+export function RegistrationGCPAccountExtRequestV2ToJSONTyped(value?: RegistrationGCPAccountExtRequestV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(RegistrationGCPAccountReqObjV2ToJSON),
     };

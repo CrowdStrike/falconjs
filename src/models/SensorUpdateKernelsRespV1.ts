@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { SensorUpdateKernelRespV1 } from "./SensorUpdateKernelRespV1";
-import { SensorUpdateKernelRespV1FromJSON, SensorUpdateKernelRespV1FromJSONTyped, SensorUpdateKernelRespV1ToJSON } from "./SensorUpdateKernelRespV1";
+import { SensorUpdateKernelRespV1FromJSON, SensorUpdateKernelRespV1FromJSONTyped, SensorUpdateKernelRespV1ToJSON, SensorUpdateKernelRespV1ToJSONTyped } from "./SensorUpdateKernelRespV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function SensorUpdateKernelsRespV1FromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function SensorUpdateKernelsRespV1ToJSON(value?: SensorUpdateKernelsRespV1 | null): any {
+export function SensorUpdateKernelsRespV1ToJSON(json: any): SensorUpdateKernelsRespV1 {
+    return SensorUpdateKernelsRespV1ToJSONTyped(json, false);
+}
+
+export function SensorUpdateKernelsRespV1ToJSONTyped(value?: SensorUpdateKernelsRespV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

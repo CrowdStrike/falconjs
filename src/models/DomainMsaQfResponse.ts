@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { QuarantineQuarantinedFile } from "./QuarantineQuarantinedFile";
-import { QuarantineQuarantinedFileFromJSON, QuarantineQuarantinedFileFromJSONTyped, QuarantineQuarantinedFileToJSON } from "./QuarantineQuarantinedFile";
+import { QuarantineQuarantinedFileFromJSON, QuarantineQuarantinedFileFromJSONTyped, QuarantineQuarantinedFileToJSON, QuarantineQuarantinedFileToJSONTyped } from "./QuarantineQuarantinedFile";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainMsaQfResponseFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function DomainMsaQfResponseToJSON(value?: DomainMsaQfResponse | null): any {
+export function DomainMsaQfResponseToJSON(json: any): DomainMsaQfResponse {
+    return DomainMsaQfResponseToJSONTyped(json, false);
+}
+
+export function DomainMsaQfResponseToJSONTyped(value?: DomainMsaQfResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

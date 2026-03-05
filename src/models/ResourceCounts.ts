@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { NonCompliantBySeverity } from "./NonCompliantBySeverity";
-import { NonCompliantBySeverityFromJSON, NonCompliantBySeverityFromJSONTyped, NonCompliantBySeverityToJSON } from "./NonCompliantBySeverity";
+import { NonCompliantBySeverityFromJSON, NonCompliantBySeverityFromJSONTyped, NonCompliantBySeverityToJSON, NonCompliantBySeverityToJSONTyped } from "./NonCompliantBySeverity";
 
 /**
  *
@@ -75,10 +75,15 @@ export function ResourceCountsFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function ResourceCountsToJSON(value?: ResourceCounts | null): any {
+export function ResourceCountsToJSON(json: any): ResourceCounts {
+    return ResourceCountsToJSONTyped(json, false);
+}
+
+export function ResourceCountsToJSONTyped(value?: ResourceCounts | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         compliant: value["compliant"],
         non_compliant: value["nonCompliant"],

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainProductFeatures } from "./DomainProductFeatures";
-import { DomainProductFeaturesFromJSON, DomainProductFeaturesFromJSONTyped, DomainProductFeaturesToJSON } from "./DomainProductFeatures";
+import { DomainProductFeaturesFromJSON, DomainProductFeaturesFromJSONTyped, DomainProductFeaturesToJSON, DomainProductFeaturesToJSONTyped } from "./DomainProductFeatures";
 
 /**
  *
@@ -168,10 +168,15 @@ export function DtoCreateGCPRegistrationRequestFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function DtoCreateGCPRegistrationRequestToJSON(value?: DtoCreateGCPRegistrationRequest | null): any {
+export function DtoCreateGCPRegistrationRequestToJSON(json: any): DtoCreateGCPRegistrationRequest {
+    return DtoCreateGCPRegistrationRequestToJSONTyped(json, false);
+}
+
+export function DtoCreateGCPRegistrationRequestToJSONTyped(value?: DtoCreateGCPRegistrationRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         additional_properties: value["additionalProperties"],
         deployment_method: value["deploymentMethod"],

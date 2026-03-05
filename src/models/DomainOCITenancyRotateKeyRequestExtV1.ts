@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainTenancyOCID } from "./DomainTenancyOCID";
-import { DomainTenancyOCIDFromJSON, DomainTenancyOCIDFromJSONTyped, DomainTenancyOCIDToJSON } from "./DomainTenancyOCID";
+import { DomainTenancyOCIDFromJSON, DomainTenancyOCIDFromJSONTyped, DomainTenancyOCIDToJSON, DomainTenancyOCIDToJSONTyped } from "./DomainTenancyOCID";
 
 /**
  *
@@ -51,10 +51,15 @@ export function DomainOCITenancyRotateKeyRequestExtV1FromJSONTyped(json: any, ig
     };
 }
 
-export function DomainOCITenancyRotateKeyRequestExtV1ToJSON(value?: DomainOCITenancyRotateKeyRequestExtV1 | null): any {
+export function DomainOCITenancyRotateKeyRequestExtV1ToJSON(json: any): DomainOCITenancyRotateKeyRequestExtV1 {
+    return DomainOCITenancyRotateKeyRequestExtV1ToJSONTyped(json, false);
+}
+
+export function DomainOCITenancyRotateKeyRequestExtV1ToJSONTyped(value?: DomainOCITenancyRotateKeyRequestExtV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(DomainTenancyOCIDToJSON),
     };

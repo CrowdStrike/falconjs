@@ -56,10 +56,15 @@ export function FwmgrDomainMonitoringFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function FwmgrDomainMonitoringToJSON(value?: FwmgrDomainMonitoring | null): any {
+export function FwmgrDomainMonitoringToJSON(json: any): FwmgrDomainMonitoring {
+    return FwmgrDomainMonitoringToJSONTyped(json, false);
+}
+
+export function FwmgrDomainMonitoringToJSONTyped(value?: FwmgrDomainMonitoring | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count: value["count"],
         period_ms: value["periodMs"],

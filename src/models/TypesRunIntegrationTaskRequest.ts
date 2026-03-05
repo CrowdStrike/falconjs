@@ -82,10 +82,15 @@ export function TypesRunIntegrationTaskRequestFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function TypesRunIntegrationTaskRequestToJSON(value?: TypesRunIntegrationTaskRequest | null): any {
+export function TypesRunIntegrationTaskRequestToJSON(json: any): TypesRunIntegrationTaskRequest {
+    return TypesRunIntegrationTaskRequestToJSONTyped(json, false);
+}
+
+export function TypesRunIntegrationTaskRequestToJSONTyped(value?: TypesRunIntegrationTaskRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         access_token: value["accessToken"],
         category: value["category"],

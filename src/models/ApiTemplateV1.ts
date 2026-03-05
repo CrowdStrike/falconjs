@@ -14,15 +14,15 @@
 
 import { mapValues } from "../runtime";
 import type { ApiWorkflowV1 } from "./ApiWorkflowV1";
-import { ApiWorkflowV1FromJSON, ApiWorkflowV1FromJSONTyped, ApiWorkflowV1ToJSON } from "./ApiWorkflowV1";
+import { ApiWorkflowV1FromJSON, ApiWorkflowV1FromJSONTyped, ApiWorkflowV1ToJSON, ApiWorkflowV1ToJSONTyped } from "./ApiWorkflowV1";
 import type { ApiAccessTagV1 } from "./ApiAccessTagV1";
-import { ApiAccessTagV1FromJSON, ApiAccessTagV1FromJSONTyped, ApiAccessTagV1ToJSON } from "./ApiAccessTagV1";
+import { ApiAccessTagV1FromJSON, ApiAccessTagV1FromJSONTyped, ApiAccessTagV1ToJSON, ApiAccessTagV1ToJSONTyped } from "./ApiAccessTagV1";
 import type { ApiActorV1 } from "./ApiActorV1";
-import { ApiActorV1FromJSON, ApiActorV1FromJSONTyped, ApiActorV1ToJSON } from "./ApiActorV1";
+import { ApiActorV1FromJSON, ApiActorV1FromJSONTyped, ApiActorV1ToJSON, ApiActorV1ToJSONTyped } from "./ApiActorV1";
 import type { ApiTemplateSLARuleV1 } from "./ApiTemplateSLARuleV1";
-import { ApiTemplateSLARuleV1FromJSON, ApiTemplateSLARuleV1FromJSONTyped, ApiTemplateSLARuleV1ToJSON } from "./ApiTemplateSLARuleV1";
+import { ApiTemplateSLARuleV1FromJSON, ApiTemplateSLARuleV1FromJSONTyped, ApiTemplateSLARuleV1ToJSON, ApiTemplateSLARuleV1ToJSONTyped } from "./ApiTemplateSLARuleV1";
 import type { ApiFieldV1 } from "./ApiFieldV1";
-import { ApiFieldV1FromJSON, ApiFieldV1FromJSONTyped, ApiFieldV1ToJSON } from "./ApiFieldV1";
+import { ApiFieldV1FromJSON, ApiFieldV1FromJSONTyped, ApiFieldV1ToJSON, ApiFieldV1ToJSONTyped } from "./ApiFieldV1";
 
 /**
  *
@@ -172,10 +172,15 @@ export function ApiTemplateV1FromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function ApiTemplateV1ToJSON(value?: ApiTemplateV1 | null): any {
+export function ApiTemplateV1ToJSON(json: any): ApiTemplateV1 {
+    return ApiTemplateV1ToJSONTyped(json, false);
+}
+
+export function ApiTemplateV1ToJSONTyped(value?: ApiTemplateV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         access_tags: value["accessTags"] == null ? undefined : (value["accessTags"] as Array<any>).map(ApiAccessTagV1ToJSON),
         cid: value["cid"],

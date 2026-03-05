@@ -79,10 +79,15 @@ export function DomainPastebinTextSourceFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function DomainPastebinTextSourceToJSON(value?: DomainPastebinTextSource | null): any {
+export function DomainPastebinTextSourceToJSON(json: any): DomainPastebinTextSource {
+    return DomainPastebinTextSourceToJSONTyped(json, false);
+}
+
+export function DomainPastebinTextSourceToJSONTyped(value?: DomainPastebinTextSource | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         author_name: value["authorName"],
         legacy_source: value["legacySource"],

@@ -56,10 +56,15 @@ export function ApiFieldV1UpdateRequestOptionsFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function ApiFieldV1UpdateRequestOptionsToJSON(value?: ApiFieldV1UpdateRequestOptions | null): any {
+export function ApiFieldV1UpdateRequestOptionsToJSON(json: any): ApiFieldV1UpdateRequestOptions {
+    return ApiFieldV1UpdateRequestOptionsToJSONTyped(json, false);
+}
+
+export function ApiFieldV1UpdateRequestOptionsToJSONTyped(value?: ApiFieldV1UpdateRequestOptions | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         value: value["value"],

@@ -54,10 +54,15 @@ export function DomainCloudAccountsFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function DomainCloudAccountsToJSON(value?: DomainCloudAccounts | null): any {
+export function DomainCloudAccountsToJSON(json: any): DomainCloudAccounts {
+    return DomainCloudAccountsToJSONTyped(json, false);
+}
+
+export function DomainCloudAccountsToJSONTyped(value?: DomainCloudAccounts | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ids: value["ids"],
         provider: value["provider"],

@@ -166,10 +166,15 @@ export function V2AgentCoverageFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function V2AgentCoverageToJSON(value?: V2AgentCoverage | null): any {
+export function V2AgentCoverageToJSON(json: any): V2AgentCoverage {
+    return V2AgentCoverageToJSONTyped(json, false);
+}
+
+export function V2AgentCoverageToJSONTyped(value?: V2AgentCoverage | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         iar_coverage: value["iarCoverage"],
         iar_last_seen: value["iarLastSeen"],

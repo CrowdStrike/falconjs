@@ -61,10 +61,15 @@ export function DomainScheduleFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function DomainScheduleToJSON(value?: DomainSchedule | null): any {
+export function DomainScheduleToJSON(json: any): DomainSchedule {
+    return DomainScheduleToJSONTyped(json, false);
+}
+
+export function DomainScheduleToJSONTyped(value?: DomainSchedule | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ignored_by_channelfile: value["ignoredByChannelfile"],
         interval: value["interval"],

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { SdkSLATimersVM } from "./SdkSLATimersVM";
-import { SdkSLATimersVMFromJSON, SdkSLATimersVMFromJSONTyped, SdkSLATimersVMToJSON } from "./SdkSLATimersVM";
+import { SdkSLATimersVMFromJSON, SdkSLATimersVMFromJSONTyped, SdkSLATimersVMToJSON, SdkSLATimersVMToJSONTyped } from "./SdkSLATimersVM";
 
 /**
  *
@@ -91,10 +91,15 @@ export function SdkSLAVMFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
     };
 }
 
-export function SdkSLAVMToJSON(value?: SdkSLAVM | null): any {
+export function SdkSLAVMToJSON(json: any): SdkSLAVM {
+    return SdkSLAVMToJSONTyped(json, false);
+}
+
+export function SdkSLAVMToJSONTyped(value?: SdkSLAVM | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         active_timer_status: value["activeTimerStatus"],
         active_timer_time_due: value["activeTimerTimeDue"],

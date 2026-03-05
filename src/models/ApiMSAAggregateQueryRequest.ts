@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { MsaDateRangeSpec } from "./MsaDateRangeSpec";
-import { MsaDateRangeSpecFromJSON, MsaDateRangeSpecFromJSONTyped, MsaDateRangeSpecToJSON } from "./MsaDateRangeSpec";
+import { MsaDateRangeSpecFromJSON, MsaDateRangeSpecFromJSONTyped, MsaDateRangeSpecToJSON, MsaDateRangeSpecToJSONTyped } from "./MsaDateRangeSpec";
 
 /**
  *
@@ -66,7 +66,7 @@ export interface ApiMSAAggregateQueryRequest {
     sort: string;
     /**
      *
-     * @type {string}
+     * @type {ApiMSAAggregateQueryRequestTypeEnum}
      * @memberof ApiMSAAggregateQueryRequest
      */
     type: ApiMSAAggregateQueryRequestTypeEnum;
@@ -116,10 +116,15 @@ export function ApiMSAAggregateQueryRequestFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function ApiMSAAggregateQueryRequestToJSON(value?: ApiMSAAggregateQueryRequest | null): any {
+export function ApiMSAAggregateQueryRequestToJSON(json: any): ApiMSAAggregateQueryRequest {
+    return ApiMSAAggregateQueryRequestToJSONTyped(json, false);
+}
+
+export function ApiMSAAggregateQueryRequestToJSONTyped(value?: ApiMSAAggregateQueryRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         date_ranges: (value["dateRanges"] as Array<any>).map(MsaDateRangeSpecToJSON),
         field: value["field"],

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { PreventionSettingReqV1 } from "./PreventionSettingReqV1";
-import { PreventionSettingReqV1FromJSON, PreventionSettingReqV1FromJSONTyped, PreventionSettingReqV1ToJSON } from "./PreventionSettingReqV1";
+import { PreventionSettingReqV1FromJSON, PreventionSettingReqV1FromJSONTyped, PreventionSettingReqV1ToJSON, PreventionSettingReqV1ToJSONTyped } from "./PreventionSettingReqV1";
 
 /**
  *
@@ -42,7 +42,7 @@ export interface RemoteResponseCreatePolicyReqV1 {
     name: string;
     /**
      * The name of the platform
-     * @type {string}
+     * @type {RemoteResponseCreatePolicyReqV1PlatformNameEnum}
      * @memberof RemoteResponseCreatePolicyReqV1
      */
     platformName: RemoteResponseCreatePolicyReqV1PlatformNameEnum;
@@ -90,10 +90,15 @@ export function RemoteResponseCreatePolicyReqV1FromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function RemoteResponseCreatePolicyReqV1ToJSON(value?: RemoteResponseCreatePolicyReqV1 | null): any {
+export function RemoteResponseCreatePolicyReqV1ToJSON(json: any): RemoteResponseCreatePolicyReqV1 {
+    return RemoteResponseCreatePolicyReqV1ToJSONTyped(json, false);
+}
+
+export function RemoteResponseCreatePolicyReqV1ToJSONTyped(value?: RemoteResponseCreatePolicyReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         clone_id: value["cloneId"],
         description: value["description"],

@@ -61,10 +61,15 @@ export function FalconxMITREAttackParentFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function FalconxMITREAttackParentToJSON(value?: FalconxMITREAttackParent | null): any {
+export function FalconxMITREAttackParentToJSON(json: any): FalconxMITREAttackParent {
+    return FalconxMITREAttackParentToJSONTyped(json, false);
+}
+
+export function FalconxMITREAttackParentToJSONTyped(value?: FalconxMITREAttackParent | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         attack_id: value["attackId"],
         attack_id_wiki: value["attackIdWiki"],

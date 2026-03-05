@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainSpotlightParams } from "./DomainSpotlightParams";
-import { DomainSpotlightParamsFromJSON, DomainSpotlightParamsFromJSONTyped, DomainSpotlightParamsToJSON } from "./DomainSpotlightParams";
+import { DomainSpotlightParamsFromJSON, DomainSpotlightParamsFromJSONTyped, DomainSpotlightParamsToJSON, DomainSpotlightParamsToJSONTyped } from "./DomainSpotlightParams";
 
 /**
  *
@@ -121,10 +121,15 @@ export function DomainReportParamsFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function DomainReportParamsToJSON(value?: DomainReportParams | null): any {
+export function DomainReportParamsToJSON(json: any): DomainReportParams {
+    return DomainReportParamsToJSONTyped(json, false);
+}
+
+export function DomainReportParamsToJSONTyped(value?: DomainReportParams | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         columns: value["columns"],
         dashboard_id: value["dashboardId"],

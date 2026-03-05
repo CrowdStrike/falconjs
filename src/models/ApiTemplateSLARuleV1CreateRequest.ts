@@ -64,10 +64,15 @@ export function ApiTemplateSLARuleV1CreateRequestFromJSONTyped(json: any, ignore
     };
 }
 
-export function ApiTemplateSLARuleV1CreateRequestToJSON(value?: ApiTemplateSLARuleV1CreateRequest | null): any {
+export function ApiTemplateSLARuleV1CreateRequestToJSON(json: any): ApiTemplateSLARuleV1CreateRequest {
+    return ApiTemplateSLARuleV1CreateRequestToJSONTyped(json, false);
+}
+
+export function ApiTemplateSLARuleV1CreateRequestToJSONTyped(value?: ApiTemplateSLARuleV1CreateRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         condition: value["condition"],
         sla_id: value["slaId"],

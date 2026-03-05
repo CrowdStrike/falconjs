@@ -79,10 +79,15 @@ export function ModelsAPIPolicyImageFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function ModelsAPIPolicyImageToJSON(value?: ModelsAPIPolicyImage | null): any {
+export function ModelsAPIPolicyImageToJSON(json: any): ModelsAPIPolicyImage {
+    return ModelsAPIPolicyImageToJSONTyped(json, false);
+}
+
+export function ModelsAPIPolicyImageToJSONTyped(value?: ModelsAPIPolicyImage | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         image_digest: value["imageDigest"],
         image_id: value["imageId"],

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DetectsExternalAlert } from "./DetectsExternalAlert";
-import { DetectsExternalAlertFromJSON, DetectsExternalAlertFromJSONTyped, DetectsExternalAlertToJSON } from "./DetectsExternalAlert";
+import { DetectsExternalAlertFromJSON, DetectsExternalAlertFromJSONTyped, DetectsExternalAlertToJSON, DetectsExternalAlertToJSONTyped } from "./DetectsExternalAlert";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function DetectsapiPostEntitiesAlertsV1ResponseSwaggerFromJSONTyped(json:
     };
 }
 
-export function DetectsapiPostEntitiesAlertsV1ResponseSwaggerToJSON(value?: DetectsapiPostEntitiesAlertsV1ResponseSwagger | null): any {
+export function DetectsapiPostEntitiesAlertsV1ResponseSwaggerToJSON(json: any): DetectsapiPostEntitiesAlertsV1ResponseSwagger {
+    return DetectsapiPostEntitiesAlertsV1ResponseSwaggerToJSONTyped(json, false);
+}
+
+export function DetectsapiPostEntitiesAlertsV1ResponseSwaggerToJSONTyped(value?: DetectsapiPostEntitiesAlertsV1ResponseSwagger | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

@@ -48,10 +48,15 @@ export function ItautomationCancelTaskExecutionRequestFromJSONTyped(json: any, i
     };
 }
 
-export function ItautomationCancelTaskExecutionRequestToJSON(value?: ItautomationCancelTaskExecutionRequest | null): any {
+export function ItautomationCancelTaskExecutionRequestToJSON(json: any): ItautomationCancelTaskExecutionRequest {
+    return ItautomationCancelTaskExecutionRequestToJSONTyped(json, false);
+}
+
+export function ItautomationCancelTaskExecutionRequestToJSONTyped(value?: ItautomationCancelTaskExecutionRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         task_execution_id: value["taskExecutionId"],
     };

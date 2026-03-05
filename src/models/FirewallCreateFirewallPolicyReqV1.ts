@@ -39,7 +39,7 @@ export interface FirewallCreateFirewallPolicyReqV1 {
     name: string;
     /**
      * The name of the platform
-     * @type {string}
+     * @type {FirewallCreateFirewallPolicyReqV1PlatformNameEnum}
      * @memberof FirewallCreateFirewallPolicyReqV1
      */
     platformName: FirewallCreateFirewallPolicyReqV1PlatformNameEnum;
@@ -80,10 +80,15 @@ export function FirewallCreateFirewallPolicyReqV1FromJSONTyped(json: any, ignore
     };
 }
 
-export function FirewallCreateFirewallPolicyReqV1ToJSON(value?: FirewallCreateFirewallPolicyReqV1 | null): any {
+export function FirewallCreateFirewallPolicyReqV1ToJSON(json: any): FirewallCreateFirewallPolicyReqV1 {
+    return FirewallCreateFirewallPolicyReqV1ToJSONTyped(json, false);
+}
+
+export function FirewallCreateFirewallPolicyReqV1ToJSONTyped(value?: FirewallCreateFirewallPolicyReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         clone_id: value["cloneId"],
         description: value["description"],

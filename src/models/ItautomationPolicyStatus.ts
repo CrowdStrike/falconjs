@@ -70,12 +70,17 @@ export function ItautomationPolicyStatusFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function ItautomationPolicyStatusToJSON(value?: ItautomationPolicyStatus | null): any {
+export function ItautomationPolicyStatusToJSON(json: any): ItautomationPolicyStatus {
+    return ItautomationPolicyStatusToJSONTyped(json, false);
+}
+
+export function ItautomationPolicyStatusToJSONTyped(value?: ItautomationPolicyStatus | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
-        applied_date: value["appliedDate"] == null ? undefined : value["appliedDate"].toISOString(),
+        applied_date: value["appliedDate"] == null ? value["appliedDate"] : value["appliedDate"].toISOString(),
         error: value["error"],
         id: value["id"],
         name: value["name"],

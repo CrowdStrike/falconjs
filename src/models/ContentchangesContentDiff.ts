@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ContentchangesContent } from "./ContentchangesContent";
-import { ContentchangesContentFromJSON, ContentchangesContentFromJSONTyped, ContentchangesContentToJSON } from "./ContentchangesContent";
+import { ContentchangesContentFromJSON, ContentchangesContentFromJSONTyped, ContentchangesContentToJSON, ContentchangesContentToJSONTyped } from "./ContentchangesContent";
 
 /**
  *
@@ -73,10 +73,15 @@ export function ContentchangesContentDiffFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ContentchangesContentDiffToJSON(value?: ContentchangesContentDiff | null): any {
+export function ContentchangesContentDiffToJSON(json: any): ContentchangesContentDiff {
+    return ContentchangesContentDiffToJSONTyped(json, false);
+}
+
+export function ContentchangesContentDiffToJSONTyped(value?: ContentchangesContentDiff | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         after: ContentchangesContentToJSON(value["after"]),
         before: ContentchangesContentToJSON(value["before"]),

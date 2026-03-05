@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesGroupInHierarchy } from "./TypesGroupInHierarchy";
-import { TypesGroupInHierarchyFromJSON, TypesGroupInHierarchyFromJSONTyped, TypesGroupInHierarchyToJSON } from "./TypesGroupInHierarchy";
+import { TypesGroupInHierarchyFromJSON, TypesGroupInHierarchyFromJSONTyped, TypesGroupInHierarchyToJSON, TypesGroupInHierarchyToJSONTyped } from "./TypesGroupInHierarchy";
 
 /**
  *
@@ -57,10 +57,15 @@ export function TypesGroupHierarchyResponseFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function TypesGroupHierarchyResponseToJSON(value?: TypesGroupHierarchyResponse | null): any {
+export function TypesGroupHierarchyResponseToJSON(json: any): TypesGroupHierarchyResponse {
+    return TypesGroupHierarchyResponseToJSONTyped(json, false);
+}
+
+export function TypesGroupHierarchyResponseToJSONTyped(value?: TypesGroupHierarchyResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Total: value["total"],
         groups: value["groups"] == null ? undefined : (value["groups"] as Array<any>).map(TypesGroupInHierarchyToJSON),

@@ -18,6 +18,7 @@ import {
     SourceDataTransactionResponseDtoGetTransactionStatusFromJSON,
     SourceDataTransactionResponseDtoGetTransactionStatusFromJSONTyped,
     SourceDataTransactionResponseDtoGetTransactionStatusToJSON,
+    SourceDataTransactionResponseDtoGetTransactionStatusToJSONTyped,
 } from "./SourceDataTransactionResponseDtoGetTransactionStatus";
 
 /**
@@ -52,7 +53,7 @@ export interface DataTransactionResponseDtoGetTransactionStatus {
     sources: Array<SourceDataTransactionResponseDtoGetTransactionStatus>;
     /**
      *
-     * @type {string}
+     * @type {DataTransactionResponseDtoGetTransactionStatusStatusEnum}
      * @memberof DataTransactionResponseDtoGetTransactionStatus
      */
     status: DataTransactionResponseDtoGetTransactionStatusStatusEnum;
@@ -100,14 +101,19 @@ export function DataTransactionResponseDtoGetTransactionStatusFromJSONTyped(json
     };
 }
 
-export function DataTransactionResponseDtoGetTransactionStatusToJSON(value?: DataTransactionResponseDtoGetTransactionStatus | null): any {
+export function DataTransactionResponseDtoGetTransactionStatusToJSON(json: any): DataTransactionResponseDtoGetTransactionStatus {
+    return DataTransactionResponseDtoGetTransactionStatusToJSONTyped(json, false);
+}
+
+export function DataTransactionResponseDtoGetTransactionStatusToJSONTyped(value?: DataTransactionResponseDtoGetTransactionStatus | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         account_integration_id: value["accountIntegrationId"],
-        last_update: value["lastUpdate"] == null ? null : (value["lastUpdate"] as any).toISOString(),
+        last_update: value["lastUpdate"] == null ? value["lastUpdate"] : value["lastUpdate"].toISOString(),
         sources: (value["sources"] as Array<any>).map(SourceDataTransactionResponseDtoGetTransactionStatusToJSON),
         status: value["status"],
     };

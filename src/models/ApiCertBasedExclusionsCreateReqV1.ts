@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ApiCertBasedExclusionCreateReqV1 } from "./ApiCertBasedExclusionCreateReqV1";
-import { ApiCertBasedExclusionCreateReqV1FromJSON, ApiCertBasedExclusionCreateReqV1FromJSONTyped, ApiCertBasedExclusionCreateReqV1ToJSON } from "./ApiCertBasedExclusionCreateReqV1";
+import {
+    ApiCertBasedExclusionCreateReqV1FromJSON,
+    ApiCertBasedExclusionCreateReqV1FromJSONTyped,
+    ApiCertBasedExclusionCreateReqV1ToJSON,
+    ApiCertBasedExclusionCreateReqV1ToJSONTyped,
+} from "./ApiCertBasedExclusionCreateReqV1";
 
 /**
  *
@@ -51,10 +56,15 @@ export function ApiCertBasedExclusionsCreateReqV1FromJSONTyped(json: any, ignore
     };
 }
 
-export function ApiCertBasedExclusionsCreateReqV1ToJSON(value?: ApiCertBasedExclusionsCreateReqV1 | null): any {
+export function ApiCertBasedExclusionsCreateReqV1ToJSON(json: any): ApiCertBasedExclusionsCreateReqV1 {
+    return ApiCertBasedExclusionsCreateReqV1ToJSONTyped(json, false);
+}
+
+export function ApiCertBasedExclusionsCreateReqV1ToJSONTyped(value?: ApiCertBasedExclusionsCreateReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         exclusions: (value["exclusions"] as Array<any>).map(ApiCertBasedExclusionCreateReqV1ToJSON),
     };

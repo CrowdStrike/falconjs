@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { DomainMetaInfo } from "./DomainMetaInfo";
-import { DomainMetaInfoFromJSON, DomainMetaInfoFromJSONTyped, DomainMetaInfoToJSON } from "./DomainMetaInfo";
+import { DomainMetaInfoFromJSON, DomainMetaInfoFromJSONTyped, DomainMetaInfoToJSON, DomainMetaInfoToJSONTyped } from "./DomainMetaInfo";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainAPIEvaluationLogicV1 } from "./DomainAPIEvaluationLogicV1";
-import { DomainAPIEvaluationLogicV1FromJSON, DomainAPIEvaluationLogicV1FromJSONTyped, DomainAPIEvaluationLogicV1ToJSON } from "./DomainAPIEvaluationLogicV1";
+import { DomainAPIEvaluationLogicV1FromJSON, DomainAPIEvaluationLogicV1FromJSONTyped, DomainAPIEvaluationLogicV1ToJSON, DomainAPIEvaluationLogicV1ToJSONTyped } from "./DomainAPIEvaluationLogicV1";
 
 /**
  *
@@ -70,10 +70,15 @@ export function DomainSPAPIEvaluationLogicEntitiesResponseV1FromJSONTyped(json: 
     };
 }
 
-export function DomainSPAPIEvaluationLogicEntitiesResponseV1ToJSON(value?: DomainSPAPIEvaluationLogicEntitiesResponseV1 | null): any {
+export function DomainSPAPIEvaluationLogicEntitiesResponseV1ToJSON(json: any): DomainSPAPIEvaluationLogicEntitiesResponseV1 {
+    return DomainSPAPIEvaluationLogicEntitiesResponseV1ToJSONTyped(json, false);
+}
+
+export function DomainSPAPIEvaluationLogicEntitiesResponseV1ToJSONTyped(value?: DomainSPAPIEvaluationLogicEntitiesResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: DomainMetaInfoToJSON(value["meta"]),

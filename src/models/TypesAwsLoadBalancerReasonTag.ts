@@ -54,10 +54,15 @@ export function TypesAwsLoadBalancerReasonTagFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function TypesAwsLoadBalancerReasonTagToJSON(value?: TypesAwsLoadBalancerReasonTag | null): any {
+export function TypesAwsLoadBalancerReasonTagToJSON(json: any): TypesAwsLoadBalancerReasonTag {
+    return TypesAwsLoadBalancerReasonTagToJSONTyped(json, false);
+}
+
+export function TypesAwsLoadBalancerReasonTagToJSONTyped(value?: TypesAwsLoadBalancerReasonTag | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         dnsName: value["dnsName"],
         reason: value["reason"],

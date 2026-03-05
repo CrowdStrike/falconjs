@@ -78,10 +78,15 @@ export function ClientExtractionFileResultV1FromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function ClientExtractionFileResultV1ToJSON(value?: ClientExtractionFileResultV1 | null): any {
+export function ClientExtractionFileResultV1ToJSON(json: any): ClientExtractionFileResultV1 {
+    return ClientExtractionFileResultV1ToJSONTyped(json, false);
+}
+
+export function ClientExtractionFileResultV1ToJSONTyped(value?: ClientExtractionFileResultV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         error: value["error"],
         extract_timestamp: value["extractTimestamp"],

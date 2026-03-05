@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesLibrary } from "./TypesLibrary";
-import { TypesLibraryFromJSON, TypesLibraryFromJSONTyped, TypesLibraryToJSON } from "./TypesLibrary";
+import { TypesLibraryFromJSON, TypesLibraryFromJSONTyped, TypesLibraryToJSON, TypesLibraryToJSONTyped } from "./TypesLibrary";
 
 /**
  *
@@ -57,10 +57,15 @@ export function TypesServiceServiceLibraryFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function TypesServiceServiceLibraryToJSON(value?: TypesServiceServiceLibrary | null): any {
+export function TypesServiceServiceLibraryToJSON(json: any): TypesServiceServiceLibrary {
+    return TypesServiceServiceLibraryToJSONTyped(json, false);
+}
+
+export function TypesServiceServiceLibraryToJSONTyped(value?: TypesServiceServiceLibrary | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count: value["count"],
         items: value["items"] == null ? undefined : (value["items"] as Array<any>).map(TypesLibraryToJSON),

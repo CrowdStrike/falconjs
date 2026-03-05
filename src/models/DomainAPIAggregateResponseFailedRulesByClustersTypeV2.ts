@@ -18,11 +18,12 @@ import {
     DomainAPIAggregateResponseFailedRulesByClustersTypeV2ResourcesFromJSON,
     DomainAPIAggregateResponseFailedRulesByClustersTypeV2ResourcesFromJSONTyped,
     DomainAPIAggregateResponseFailedRulesByClustersTypeV2ResourcesToJSON,
+    DomainAPIAggregateResponseFailedRulesByClustersTypeV2ResourcesToJSONTyped,
 } from "./DomainAPIAggregateResponseFailedRulesByClustersTypeV2Resources";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -74,10 +75,15 @@ export function DomainAPIAggregateResponseFailedRulesByClustersTypeV2FromJSONTyp
     };
 }
 
-export function DomainAPIAggregateResponseFailedRulesByClustersTypeV2ToJSON(value?: DomainAPIAggregateResponseFailedRulesByClustersTypeV2 | null): any {
+export function DomainAPIAggregateResponseFailedRulesByClustersTypeV2ToJSON(json: any): DomainAPIAggregateResponseFailedRulesByClustersTypeV2 {
+    return DomainAPIAggregateResponseFailedRulesByClustersTypeV2ToJSONTyped(json, false);
+}
+
+export function DomainAPIAggregateResponseFailedRulesByClustersTypeV2ToJSONTyped(value?: DomainAPIAggregateResponseFailedRulesByClustersTypeV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

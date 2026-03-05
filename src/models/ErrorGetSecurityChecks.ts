@@ -55,10 +55,15 @@ export function ErrorGetSecurityChecksFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function ErrorGetSecurityChecksToJSON(value?: ErrorGetSecurityChecks | null): any {
+export function ErrorGetSecurityChecksToJSON(json: any): ErrorGetSecurityChecks {
+    return ErrorGetSecurityChecksToJSONTyped(json, false);
+}
+
+export function ErrorGetSecurityChecksToJSONTyped(value?: ErrorGetSecurityChecks | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         message: value["message"],

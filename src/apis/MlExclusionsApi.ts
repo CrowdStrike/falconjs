@@ -117,12 +117,9 @@ export interface MlExclusionsApiUpdateMLExclusionsV1Request {
  */
 export class MlExclusionsApi extends runtime.BaseAPI {
     /**
-     * Create the ML exclusions
+     * Creates request options for createMLExclusionsV1 without sending the request
      */
-    async createMLExclusionsV1Raw(
-        requestParameters: MlExclusionsApiCreateMLExclusionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ExclusionsRespV1>> {
+    async createMLExclusionsV1RequestOpts(requestParameters: MlExclusionsApiCreateMLExclusionsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createMLExclusionsV1().');
         }
@@ -138,16 +135,26 @@ export class MlExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/ml-exclusions/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ExclusionsCreateReqV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/ml-exclusions/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ExclusionsCreateReqV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create the ML exclusions
+     */
+    async createMLExclusionsV1Raw(
+        requestParameters: MlExclusionsApiCreateMLExclusionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ExclusionsRespV1>> {
+        const requestOptions = await this.createMLExclusionsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ExclusionsRespV1FromJSON(jsonValue));
     }
@@ -161,12 +168,9 @@ export class MlExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete the ML exclusions by id
+     * Creates request options for deleteMLExclusionsV1 without sending the request
      */
-    async deleteMLExclusionsV1Raw(
-        requestParameters: MlExclusionsApiDeleteMLExclusionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async deleteMLExclusionsV1RequestOpts(requestParameters: MlExclusionsApiDeleteMLExclusionsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteMLExclusionsV1().');
         }
@@ -188,15 +192,25 @@ export class MlExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/ml-exclusions/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/ml-exclusions/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete the ML exclusions by id
+     */
+    async deleteMLExclusionsV1Raw(
+        requestParameters: MlExclusionsApiDeleteMLExclusionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.deleteMLExclusionsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -210,9 +224,9 @@ export class MlExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get exclusion aggregates as specified via json in request body.
+     * Creates request options for exclusionsAggregatesV2 without sending the request
      */
-    async exclusionsAggregatesV2Raw(requestParameters: MlExclusionsApiExclusionsAggregatesV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async exclusionsAggregatesV2RequestOpts(requestParameters: MlExclusionsApiExclusionsAggregatesV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling exclusionsAggregatesV2().');
         }
@@ -228,16 +242,23 @@ export class MlExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/exclusions/aggregates/exclusions/GET/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaAggregateQueryRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/exclusions/aggregates/exclusions/GET/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaAggregateQueryRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Get exclusion aggregates as specified via json in request body.
+     */
+    async exclusionsAggregatesV2Raw(requestParameters: MlExclusionsApiExclusionsAggregatesV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.exclusionsAggregatesV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -250,9 +271,9 @@ export class MlExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create the exclusions, with ancestor fields.
+     * Creates request options for exclusionsCreateV2 without sending the request
      */
-    async exclusionsCreateV2Raw(requestParameters: MlExclusionsApiExclusionsCreateV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async exclusionsCreateV2RequestOpts(requestParameters: MlExclusionsApiExclusionsCreateV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling exclusionsCreateV2().');
         }
@@ -268,16 +289,23 @@ export class MlExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/exclusions/entities/exclusions/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainExclusionsCreateReqV2ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/exclusions/entities/exclusions/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainExclusionsCreateReqV2ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create the exclusions, with ancestor fields.
+     */
+    async exclusionsCreateV2Raw(requestParameters: MlExclusionsApiExclusionsCreateV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.exclusionsCreateV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -290,9 +318,9 @@ export class MlExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete the exclusions by id, with ancestor fields.
+     * Creates request options for exclusionsDeleteV2 without sending the request
      */
-    async exclusionsDeleteV2Raw(requestParameters: MlExclusionsApiExclusionsDeleteV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async exclusionsDeleteV2RequestOpts(requestParameters: MlExclusionsApiExclusionsDeleteV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling exclusionsDeleteV2().');
         }
@@ -314,15 +342,22 @@ export class MlExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/exclusions/entities/exclusions/v2`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/exclusions/entities/exclusions/v2`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete the exclusions by id, with ancestor fields.
+     */
+    async exclusionsDeleteV2Raw(requestParameters: MlExclusionsApiExclusionsDeleteV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.exclusionsDeleteV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -335,9 +370,9 @@ export class MlExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get all exclusions.
+     * Creates request options for exclusionsGetAllV2 without sending the request
      */
-    async exclusionsGetAllV2Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async exclusionsGetAllV2RequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -347,15 +382,22 @@ export class MlExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/exclusions/entities/all-exclusions/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/exclusions/entities/all-exclusions/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get all exclusions.
+     */
+    async exclusionsGetAllV2Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.exclusionsGetAllV2RequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -368,9 +410,9 @@ export class MlExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create a report of ML exclusions scoped by the given filters
+     * Creates request options for exclusionsGetReportsV2 without sending the request
      */
-    async exclusionsGetReportsV2Raw(requestParameters: MlExclusionsApiExclusionsGetReportsV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async exclusionsGetReportsV2RequestOpts(requestParameters: MlExclusionsApiExclusionsGetReportsV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling exclusionsGetReportsV2().');
         }
@@ -386,16 +428,23 @@ export class MlExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/exclusions/entities/exclusions/reports/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainExclusionsReportRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/exclusions/entities/exclusions/reports/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainExclusionsReportRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create a report of ML exclusions scoped by the given filters
+     */
+    async exclusionsGetReportsV2Raw(requestParameters: MlExclusionsApiExclusionsGetReportsV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.exclusionsGetReportsV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -408,9 +457,9 @@ export class MlExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the exclusions by id, with ancestor fields.
+     * Creates request options for exclusionsGetV2 without sending the request
      */
-    async exclusionsGetV2Raw(requestParameters: MlExclusionsApiExclusionsGetV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async exclusionsGetV2RequestOpts(requestParameters: MlExclusionsApiExclusionsGetV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling exclusionsGetV2().');
         }
@@ -428,15 +477,22 @@ export class MlExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/exclusions/entities/exclusions/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/exclusions/entities/exclusions/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get the exclusions by id, with ancestor fields.
+     */
+    async exclusionsGetV2Raw(requestParameters: MlExclusionsApiExclusionsGetV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.exclusionsGetV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -449,12 +505,9 @@ export class MlExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Actions used to manipulate the content of exclusions, with ancestor fields.
+     * Creates request options for exclusionsPerformActionV2 without sending the request
      */
-    async exclusionsPerformActionV2Raw(
-        requestParameters: MlExclusionsApiExclusionsPerformActionV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<void>> {
+    async exclusionsPerformActionV2RequestOpts(requestParameters: MlExclusionsApiExclusionsPerformActionV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["actionName"] == null) {
             throw new runtime.RequiredError("actionName", 'Required parameter "actionName" was null or undefined when calling exclusionsPerformActionV2().');
         }
@@ -478,16 +531,26 @@ export class MlExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/exclusions/entities/exclusion-actions/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaspecActionToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/exclusions/entities/exclusion-actions/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaspecActionToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Actions used to manipulate the content of exclusions, with ancestor fields.
+     */
+    async exclusionsPerformActionV2Raw(
+        requestParameters: MlExclusionsApiExclusionsPerformActionV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.exclusionsPerformActionV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -500,9 +563,9 @@ export class MlExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for exclusions, with ancestor fields.
+     * Creates request options for exclusionsSearchV2 without sending the request
      */
-    async exclusionsSearchV2Raw(requestParameters: MlExclusionsApiExclusionsSearchV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async exclusionsSearchV2RequestOpts(requestParameters: MlExclusionsApiExclusionsSearchV2Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -528,15 +591,22 @@ export class MlExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/exclusions/queries/exclusions/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/exclusions/queries/exclusions/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for exclusions, with ancestor fields.
+     */
+    async exclusionsSearchV2Raw(requestParameters: MlExclusionsApiExclusionsSearchV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.exclusionsSearchV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -549,9 +619,9 @@ export class MlExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update the exclusions by id, with ancestor fields.
+     * Creates request options for exclusionsUpdateV2 without sending the request
      */
-    async exclusionsUpdateV2Raw(requestParameters: MlExclusionsApiExclusionsUpdateV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async exclusionsUpdateV2RequestOpts(requestParameters: MlExclusionsApiExclusionsUpdateV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling exclusionsUpdateV2().');
         }
@@ -567,16 +637,23 @@ export class MlExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/exclusions/entities/exclusions/v2`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainExclusionUpdateReqV2ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/exclusions/entities/exclusions/v2`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainExclusionUpdateReqV2ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update the exclusions by id, with ancestor fields.
+     */
+    async exclusionsUpdateV2Raw(requestParameters: MlExclusionsApiExclusionsUpdateV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.exclusionsUpdateV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -589,9 +666,9 @@ export class MlExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a set of ML Exclusions by specifying their IDs
+     * Creates request options for getMLExclusionsV1 without sending the request
      */
-    async getMLExclusionsV1Raw(requestParameters: MlExclusionsApiGetMLExclusionsV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ExclusionsRespV1>> {
+    async getMLExclusionsV1RequestOpts(requestParameters: MlExclusionsApiGetMLExclusionsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getMLExclusionsV1().');
         }
@@ -609,15 +686,22 @@ export class MlExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/ml-exclusions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/ml-exclusions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a set of ML Exclusions by specifying their IDs
+     */
+    async getMLExclusionsV1Raw(requestParameters: MlExclusionsApiGetMLExclusionsV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ExclusionsRespV1>> {
+        const requestOptions = await this.getMLExclusionsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ExclusionsRespV1FromJSON(jsonValue));
     }
@@ -631,12 +715,9 @@ export class MlExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for ML exclusions.
+     * Creates request options for queryMLExclusionsV1 without sending the request
      */
-    async queryMLExclusionsV1Raw(
-        requestParameters: MlExclusionsApiQueryMLExclusionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queryMLExclusionsV1RequestOpts(requestParameters: MlExclusionsApiQueryMLExclusionsV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -662,15 +743,25 @@ export class MlExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/queries/ml-exclusions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/queries/ml-exclusions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for ML exclusions.
+     */
+    async queryMLExclusionsV1Raw(
+        requestParameters: MlExclusionsApiQueryMLExclusionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queryMLExclusionsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -690,12 +781,9 @@ export class MlExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update the ML exclusions
+     * Creates request options for updateMLExclusionsV1 without sending the request
      */
-    async updateMLExclusionsV1Raw(
-        requestParameters: MlExclusionsApiUpdateMLExclusionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ExclusionsRespV1>> {
+    async updateMLExclusionsV1RequestOpts(requestParameters: MlExclusionsApiUpdateMLExclusionsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateMLExclusionsV1().');
         }
@@ -711,16 +799,26 @@ export class MlExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/ml-exclusions/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: SvExclusionsUpdateReqV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/ml-exclusions/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: SvExclusionsUpdateReqV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update the ML exclusions
+     */
+    async updateMLExclusionsV1Raw(
+        requestParameters: MlExclusionsApiUpdateMLExclusionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ExclusionsRespV1>> {
+        const requestOptions = await this.updateMLExclusionsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ExclusionsRespV1FromJSON(jsonValue));
     }

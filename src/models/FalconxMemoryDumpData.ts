@@ -117,10 +117,15 @@ export function FalconxMemoryDumpDataFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function FalconxMemoryDumpDataToJSON(value?: FalconxMemoryDumpData | null): any {
+export function FalconxMemoryDumpDataToJSON(json: any): FalconxMemoryDumpData {
+    return FalconxMemoryDumpDataToJSONTyped(json, false);
+}
+
+export function FalconxMemoryDumpDataToJSONTyped(value?: FalconxMemoryDumpData | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         address: value["address"],
         binary_content_id: value["binaryContentId"],

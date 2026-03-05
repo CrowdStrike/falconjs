@@ -64,10 +64,15 @@ export function DomainBatchGetCommandRequestFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function DomainBatchGetCommandRequestToJSON(value?: DomainBatchGetCommandRequest | null): any {
+export function DomainBatchGetCommandRequestToJSON(json: any): DomainBatchGetCommandRequest {
+    return DomainBatchGetCommandRequestToJSONTyped(json, false);
+}
+
+export function DomainBatchGetCommandRequestToJSONTyped(value?: DomainBatchGetCommandRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         batch_id: value["batchId"],
         file_path: value["filePath"],

@@ -152,10 +152,15 @@ export function DomainFileV2FromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function DomainFileV2ToJSON(value?: DomainFileV2 | null): any {
+export function DomainFileV2ToJSON(json: any): DomainFileV2 {
+    return DomainFileV2ToJSONTyped(json, false);
+}
+
+export function DomainFileV2ToJSONTyped(value?: DomainFileV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cloud_request_id: value["cloudRequestId"],
         complete: value["complete"],

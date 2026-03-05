@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { K8siomsSearchResult } from "./K8siomsSearchResult";
-import { K8siomsSearchResultFromJSON, K8siomsSearchResultFromJSONTyped, K8siomsSearchResultToJSON } from "./K8siomsSearchResult";
+import { K8siomsSearchResultFromJSON, K8siomsSearchResultFromJSONTyped, K8siomsSearchResultToJSON, K8siomsSearchResultToJSONTyped } from "./K8siomsSearchResult";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function K8siomsSearchResponseFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function K8siomsSearchResponseToJSON(value?: K8siomsSearchResponse | null): any {
+export function K8siomsSearchResponseToJSON(json: any): K8siomsSearchResponse {
+    return K8siomsSearchResponseToJSONTyped(json, false);
+}
+
+export function K8siomsSearchResponseToJSONTyped(value?: K8siomsSearchResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

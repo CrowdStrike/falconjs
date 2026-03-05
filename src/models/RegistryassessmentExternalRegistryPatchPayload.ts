@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApiCredPayload } from "./ApiCredPayload";
-import { ApiCredPayloadFromJSON, ApiCredPayloadFromJSONTyped, ApiCredPayloadToJSON } from "./ApiCredPayload";
+import { ApiCredPayloadFromJSON, ApiCredPayloadFromJSONTyped, ApiCredPayloadToJSON, ApiCredPayloadToJSONTyped } from "./ApiCredPayload";
 
 /**
  *
@@ -65,10 +65,15 @@ export function RegistryassessmentExternalRegistryPatchPayloadFromJSONTyped(json
     };
 }
 
-export function RegistryassessmentExternalRegistryPatchPayloadToJSON(value?: RegistryassessmentExternalRegistryPatchPayload | null): any {
+export function RegistryassessmentExternalRegistryPatchPayloadToJSON(json: any): RegistryassessmentExternalRegistryPatchPayload {
+    return RegistryassessmentExternalRegistryPatchPayloadToJSONTyped(json, false);
+}
+
+export function RegistryassessmentExternalRegistryPatchPayloadToJSONTyped(value?: RegistryassessmentExternalRegistryPatchPayload | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         credential: ApiCredPayloadToJSON(value["credential"]),
         state: value["state"],

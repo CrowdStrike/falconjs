@@ -18,9 +18,15 @@ import {
     ApiExposedDataRecordBotOperatingSystemV1FromJSON,
     ApiExposedDataRecordBotOperatingSystemV1FromJSONTyped,
     ApiExposedDataRecordBotOperatingSystemV1ToJSON,
+    ApiExposedDataRecordBotOperatingSystemV1ToJSONTyped,
 } from "./ApiExposedDataRecordBotOperatingSystemV1";
 import type { ApiExposedDataRecordBotLocationV1 } from "./ApiExposedDataRecordBotLocationV1";
-import { ApiExposedDataRecordBotLocationV1FromJSON, ApiExposedDataRecordBotLocationV1FromJSONTyped, ApiExposedDataRecordBotLocationV1ToJSON } from "./ApiExposedDataRecordBotLocationV1";
+import {
+    ApiExposedDataRecordBotLocationV1FromJSON,
+    ApiExposedDataRecordBotLocationV1FromJSONTyped,
+    ApiExposedDataRecordBotLocationV1ToJSON,
+    ApiExposedDataRecordBotLocationV1ToJSONTyped,
+} from "./ApiExposedDataRecordBotLocationV1";
 
 /**
  *
@@ -105,15 +111,20 @@ export function ApiExposedDataRecordBotV1FromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ApiExposedDataRecordBotV1ToJSON(value?: ApiExposedDataRecordBotV1 | null): any {
+export function ApiExposedDataRecordBotV1ToJSON(json: any): ApiExposedDataRecordBotV1 {
+    return ApiExposedDataRecordBotV1ToJSONTyped(json, false);
+}
+
+export function ApiExposedDataRecordBotV1ToJSONTyped(value?: ApiExposedDataRecordBotV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         bot_id: value["botId"],
         domain_detects: value["domainDetects"],
         infection_build_id: value["infectionBuildId"],
-        infection_date: value["infectionDate"] == null ? undefined : value["infectionDate"].toISOString(),
+        infection_date: value["infectionDate"] == null ? value["infectionDate"] : value["infectionDate"].toISOString(),
         infection_path: value["infectionPath"],
         ip: value["ip"],
         location: ApiExposedDataRecordBotLocationV1ToJSON(value["location"]),

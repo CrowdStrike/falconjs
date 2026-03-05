@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { MsaspecActionParameter } from "./MsaspecActionParameter";
-import { MsaspecActionParameterFromJSON, MsaspecActionParameterFromJSONTyped, MsaspecActionParameterToJSON } from "./MsaspecActionParameter";
+import { MsaspecActionParameterFromJSON, MsaspecActionParameterFromJSONTyped, MsaspecActionParameterToJSON, MsaspecActionParameterToJSONTyped } from "./MsaspecActionParameter";
 
 /**
  *
@@ -58,10 +58,15 @@ export function DetectsapiPatchEntitiesAlertsV3RequestFromJSONTyped(json: any, i
     };
 }
 
-export function DetectsapiPatchEntitiesAlertsV3RequestToJSON(value?: DetectsapiPatchEntitiesAlertsV3Request | null): any {
+export function DetectsapiPatchEntitiesAlertsV3RequestToJSON(json: any): DetectsapiPatchEntitiesAlertsV3Request {
+    return DetectsapiPatchEntitiesAlertsV3RequestToJSONTyped(json, false);
+}
+
+export function DetectsapiPatchEntitiesAlertsV3RequestToJSONTyped(value?: DetectsapiPatchEntitiesAlertsV3Request | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action_parameters: value["actionParameters"] == null ? undefined : (value["actionParameters"] as Array<any>).map(MsaspecActionParameterToJSON),
         composite_ids: value["compositeIds"],

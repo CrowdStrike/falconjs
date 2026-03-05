@@ -47,10 +47,15 @@ export function ApiMetadataReqV1FromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function ApiMetadataReqV1ToJSON(value?: ApiMetadataReqV1 | null): any {
+export function ApiMetadataReqV1ToJSON(json: any): ApiMetadataReqV1 {
+    return ApiMetadataReqV1ToJSONTyped(json, false);
+}
+
+export function ApiMetadataReqV1ToJSONTyped(value?: ApiMetadataReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         filename: value["filename"],
     };

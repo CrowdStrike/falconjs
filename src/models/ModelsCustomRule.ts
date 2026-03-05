@@ -56,10 +56,15 @@ export function ModelsCustomRuleFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function ModelsCustomRuleToJSON(value?: ModelsCustomRule | null): any {
+export function ModelsCustomRuleToJSON(json: any): ModelsCustomRule {
+    return ModelsCustomRuleToJSONTyped(json, false);
+}
+
+export function ModelsCustomRuleToJSONTyped(value?: ModelsCustomRule | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         id: value["id"],

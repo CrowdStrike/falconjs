@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ApimodelsCloudResourceSelectorFilter } from "./ApimodelsCloudResourceSelectorFilter";
-import { ApimodelsCloudResourceSelectorFilterFromJSON, ApimodelsCloudResourceSelectorFilterFromJSONTyped, ApimodelsCloudResourceSelectorFilterToJSON } from "./ApimodelsCloudResourceSelectorFilter";
+import {
+    ApimodelsCloudResourceSelectorFilterFromJSON,
+    ApimodelsCloudResourceSelectorFilterFromJSONTyped,
+    ApimodelsCloudResourceSelectorFilterToJSON,
+    ApimodelsCloudResourceSelectorFilterToJSONTyped,
+} from "./ApimodelsCloudResourceSelectorFilter";
 
 /**
  *
@@ -65,10 +70,15 @@ export function ApimodelsCloudResourceSelectorFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function ApimodelsCloudResourceSelectorToJSON(value?: ApimodelsCloudResourceSelector | null): any {
+export function ApimodelsCloudResourceSelectorToJSON(json: any): ApimodelsCloudResourceSelector {
+    return ApimodelsCloudResourceSelectorToJSONTyped(json, false);
+}
+
+export function ApimodelsCloudResourceSelectorToJSONTyped(value?: ApimodelsCloudResourceSelector | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_ids: value["accountIds"],
         cloud_provider: value["cloudProvider"],

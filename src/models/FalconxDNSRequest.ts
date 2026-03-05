@@ -96,10 +96,15 @@ export function FalconxDNSRequestFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function FalconxDNSRequestToJSON(value?: FalconxDNSRequest | null): any {
+export function FalconxDNSRequestToJSON(json: any): FalconxDNSRequest {
+    return FalconxDNSRequestToJSONTyped(json, false);
+}
+
+export function FalconxDNSRequestToJSONTyped(value?: FalconxDNSRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         address: value["address"],
         compromised: value["compromised"],

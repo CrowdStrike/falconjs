@@ -54,10 +54,15 @@ export function SadomainCustomerAssetsFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function SadomainCustomerAssetsToJSON(value?: SadomainCustomerAssets | null): any {
+export function SadomainCustomerAssetsToJSON(json: any): SadomainCustomerAssets {
+    return SadomainCustomerAssetsToJSONTyped(json, false);
+}
+
+export function SadomainCustomerAssetsToJSONTyped(value?: SadomainCustomerAssets | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         domains: value["domains"],
         emails: value["emails"],

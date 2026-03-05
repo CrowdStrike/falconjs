@@ -93,12 +93,9 @@ export interface CasesApiQueriesCasesGetV1Request {
  */
 export class CasesApi extends runtime.BaseAPI {
     /**
-     * Adds the given list of alert evidence to the specified case.
+     * Creates request options for entitiesAlertEvidencePostV1 without sending the request
      */
-    async entitiesAlertEvidencePostV1Raw(
-        requestParameters: CasesApiEntitiesAlertEvidencePostV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<OperationsUpdateCaseResponseVM>> {
+    async entitiesAlertEvidencePostV1RequestOpts(requestParameters: CasesApiEntitiesAlertEvidencePostV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesAlertEvidencePostV1().');
         }
@@ -114,16 +111,26 @@ export class CasesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cases/entities/alert-evidence/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: OperationsAddAlertsToCaseRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cases/entities/alert-evidence/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: OperationsAddAlertsToCaseRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Adds the given list of alert evidence to the specified case.
+     */
+    async entitiesAlertEvidencePostV1Raw(
+        requestParameters: CasesApiEntitiesAlertEvidencePostV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<OperationsUpdateCaseResponseVM>> {
+        const requestOptions = await this.entitiesAlertEvidencePostV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OperationsUpdateCaseResponseVMFromJSON(jsonValue));
     }
@@ -137,12 +144,9 @@ export class CasesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Removes the specified tags from the specified case.
+     * Creates request options for entitiesCaseTagsDeleteV1 without sending the request
      */
-    async entitiesCaseTagsDeleteV1Raw(
-        requestParameters: CasesApiEntitiesCaseTagsDeleteV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<OperationsUpdateCaseResponseVM>> {
+    async entitiesCaseTagsDeleteV1RequestOpts(requestParameters: CasesApiEntitiesCaseTagsDeleteV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling entitiesCaseTagsDeleteV1().');
         }
@@ -168,15 +172,25 @@ export class CasesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cases/entities/case-tags/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cases/entities/case-tags/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Removes the specified tags from the specified case.
+     */
+    async entitiesCaseTagsDeleteV1Raw(
+        requestParameters: CasesApiEntitiesCaseTagsDeleteV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<OperationsUpdateCaseResponseVM>> {
+        const requestOptions = await this.entitiesCaseTagsDeleteV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OperationsUpdateCaseResponseVMFromJSON(jsonValue));
     }
@@ -190,12 +204,9 @@ export class CasesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Adds the given list of tags to the specified case.
+     * Creates request options for entitiesCaseTagsPostV1 without sending the request
      */
-    async entitiesCaseTagsPostV1Raw(
-        requestParameters: CasesApiEntitiesCaseTagsPostV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<OperationsUpdateCaseResponseVM>> {
+    async entitiesCaseTagsPostV1RequestOpts(requestParameters: CasesApiEntitiesCaseTagsPostV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesCaseTagsPostV1().');
         }
@@ -211,16 +222,26 @@ export class CasesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cases/entities/case-tags/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: OperationsAddTagsToCaseRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cases/entities/case-tags/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: OperationsAddTagsToCaseRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Adds the given list of tags to the specified case.
+     */
+    async entitiesCaseTagsPostV1Raw(
+        requestParameters: CasesApiEntitiesCaseTagsPostV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<OperationsUpdateCaseResponseVM>> {
+        const requestOptions = await this.entitiesCaseTagsPostV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OperationsUpdateCaseResponseVMFromJSON(jsonValue));
     }
@@ -234,12 +255,9 @@ export class CasesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Updates given fields on the specified case.
+     * Creates request options for entitiesCasesPatchV2 without sending the request
      */
-    async entitiesCasesPatchV2Raw(
-        requestParameters: CasesApiEntitiesCasesPatchV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<OperationsUpdateCaseResponseVM>> {
+    async entitiesCasesPatchV2RequestOpts(requestParameters: CasesApiEntitiesCasesPatchV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesCasesPatchV2().');
         }
@@ -255,16 +273,26 @@ export class CasesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cases/entities/cases/v2`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: OperationsUpdateCaseRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cases/entities/cases/v2`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: OperationsUpdateCaseRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Updates given fields on the specified case.
+     */
+    async entitiesCasesPatchV2Raw(
+        requestParameters: CasesApiEntitiesCasesPatchV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<OperationsUpdateCaseResponseVM>> {
+        const requestOptions = await this.entitiesCasesPatchV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OperationsUpdateCaseResponseVMFromJSON(jsonValue));
     }
@@ -278,12 +306,9 @@ export class CasesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves all Cases given their IDs.
+     * Creates request options for entitiesCasesPostV2 without sending the request
      */
-    async entitiesCasesPostV2Raw(
-        requestParameters: CasesApiEntitiesCasesPostV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<OperationsGetCasesByIDsResponseVM>> {
+    async entitiesCasesPostV2RequestOpts(requestParameters: CasesApiEntitiesCasesPostV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesCasesPostV2().');
         }
@@ -299,16 +324,26 @@ export class CasesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cases/entities/cases/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: OperationsGetCasesByIDsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cases/entities/cases/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: OperationsGetCasesByIDsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Retrieves all Cases given their IDs.
+     */
+    async entitiesCasesPostV2Raw(
+        requestParameters: CasesApiEntitiesCasesPostV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<OperationsGetCasesByIDsResponseVM>> {
+        const requestOptions = await this.entitiesCasesPostV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OperationsGetCasesByIDsResponseVMFromJSON(jsonValue));
     }
@@ -322,12 +357,9 @@ export class CasesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates the given Case
+     * Creates request options for entitiesCasesPutV2 without sending the request
      */
-    async entitiesCasesPutV2Raw(
-        requestParameters: CasesApiEntitiesCasesPutV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<OperationsCreateCaseResponseVM>> {
+    async entitiesCasesPutV2RequestOpts(requestParameters: CasesApiEntitiesCasesPutV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesCasesPutV2().');
         }
@@ -343,16 +375,26 @@ export class CasesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cases/entities/cases/v2`,
-                method: "PUT",
-                headers: headerParameters,
-                query: queryParameters,
-                body: OperationsCreateCaseRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cases/entities/cases/v2`;
+
+        return {
+            path: urlPath,
+            method: "PUT",
+            headers: headerParameters,
+            query: queryParameters,
+            body: OperationsCreateCaseRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Creates the given Case
+     */
+    async entitiesCasesPutV2Raw(
+        requestParameters: CasesApiEntitiesCasesPutV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<OperationsCreateCaseResponseVM>> {
+        const requestOptions = await this.entitiesCasesPutV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OperationsCreateCaseResponseVMFromJSON(jsonValue));
     }
@@ -366,12 +408,9 @@ export class CasesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Adds the given list of event evidence to the specified case.
+     * Creates request options for entitiesEventEvidencePostV1 without sending the request
      */
-    async entitiesEventEvidencePostV1Raw(
-        requestParameters: CasesApiEntitiesEventEvidencePostV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<OperationsUpdateCaseResponseVM>> {
+    async entitiesEventEvidencePostV1RequestOpts(requestParameters: CasesApiEntitiesEventEvidencePostV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesEventEvidencePostV1().');
         }
@@ -387,16 +426,26 @@ export class CasesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cases/entities/event-evidence/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: OperationsAddEventsToCaseRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cases/entities/event-evidence/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: OperationsAddEventsToCaseRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Adds the given list of event evidence to the specified case.
+     */
+    async entitiesEventEvidencePostV1Raw(
+        requestParameters: CasesApiEntitiesEventEvidencePostV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<OperationsUpdateCaseResponseVM>> {
+        const requestOptions = await this.entitiesEventEvidencePostV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OperationsUpdateCaseResponseVMFromJSON(jsonValue));
     }
@@ -410,12 +459,9 @@ export class CasesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves all Cases IDs that match a given query.
+     * Creates request options for queriesCasesGetV1 without sending the request
      */
-    async queriesCasesGetV1Raw(
-        requestParameters: CasesApiQueriesCasesGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CasesapiGetQueriesCasesV1Response>> {
+    async queriesCasesGetV1RequestOpts(requestParameters: CasesApiQueriesCasesGetV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["limit"] != null) {
@@ -445,15 +491,25 @@ export class CasesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cases/queries/cases/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cases/queries/cases/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieves all Cases IDs that match a given query.
+     */
+    async queriesCasesGetV1Raw(
+        requestParameters: CasesApiQueriesCasesGetV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CasesapiGetQueriesCasesV1Response>> {
+        const requestOptions = await this.queriesCasesGetV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CasesapiGetQueriesCasesV1ResponseFromJSON(jsonValue));
     }

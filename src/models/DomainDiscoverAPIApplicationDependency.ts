@@ -69,10 +69,15 @@ export function DomainDiscoverAPIApplicationDependencyFromJSONTyped(json: any, i
     };
 }
 
-export function DomainDiscoverAPIApplicationDependencyToJSON(value?: DomainDiscoverAPIApplicationDependency | null): any {
+export function DomainDiscoverAPIApplicationDependencyToJSON(json: any): DomainDiscoverAPIApplicationDependency {
+    return DomainDiscoverAPIApplicationDependencyToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPIApplicationDependencyToJSONTyped(value?: DomainDiscoverAPIApplicationDependency | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         extra: value["extra"],
         name: value["name"],

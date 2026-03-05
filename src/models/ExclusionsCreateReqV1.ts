@@ -68,10 +68,15 @@ export function ExclusionsCreateReqV1FromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function ExclusionsCreateReqV1ToJSON(value?: ExclusionsCreateReqV1 | null): any {
+export function ExclusionsCreateReqV1ToJSON(json: any): ExclusionsCreateReqV1 {
+    return ExclusionsCreateReqV1ToJSONTyped(json, false);
+}
+
+export function ExclusionsCreateReqV1ToJSONTyped(value?: ExclusionsCreateReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         comment: value["comment"],
         excluded_from: value["excludedFrom"],

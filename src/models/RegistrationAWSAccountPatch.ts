@@ -158,10 +158,15 @@ export function RegistrationAWSAccountPatchFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function RegistrationAWSAccountPatchToJSON(value?: RegistrationAWSAccountPatch | null): any {
+export function RegistrationAWSAccountPatchToJSON(json: any): RegistrationAWSAccountPatch {
+    return RegistrationAWSAccountPatchToJSONTyped(json, false);
+}
+
+export function RegistrationAWSAccountPatchToJSONTyped(value?: RegistrationAWSAccountPatch | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         behavior_assessment_enabled: value["behaviorAssessmentEnabled"],
@@ -173,7 +178,7 @@ export function RegistrationAWSAccountPatchToJSON(value?: RegistrationAWSAccount
         falcon_client_id: value["falconClientId"],
         iam_role_arn: value["iamRoleArn"],
         remediation_region: value["remediationRegion"],
-        remediation_tou_accepted: value["remediationTouAccepted"] == null ? undefined : value["remediationTouAccepted"].toISOString(),
+        remediation_tou_accepted: value["remediationTouAccepted"] == null ? value["remediationTouAccepted"] : value["remediationTouAccepted"].toISOString(),
         root_stack_id: value["rootStackId"],
         sensor_management_enabled: value["sensorManagementEnabled"],
         target_ous: value["targetOus"],

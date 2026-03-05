@@ -47,10 +47,15 @@ export function ChangesDiffHashFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function ChangesDiffHashToJSON(value?: ChangesDiffHash | null): any {
+export function ChangesDiffHashToJSON(json: any): ChangesDiffHash {
+    return ChangesDiffHashToJSONTyped(json, false);
+}
+
+export function ChangesDiffHashToJSONTyped(value?: ChangesDiffHash | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         sha256: value["sha256"],
     };

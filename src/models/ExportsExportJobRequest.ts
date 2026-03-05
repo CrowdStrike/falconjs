@@ -84,10 +84,15 @@ export function ExportsExportJobRequestFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function ExportsExportJobRequestToJSON(value?: ExportsExportJobRequest | null): any {
+export function ExportsExportJobRequestToJSON(json: any): ExportsExportJobRequest {
+    return ExportsExportJobRequestToJSONTyped(json, false);
+}
+
+export function ExportsExportJobRequestToJSONTyped(value?: ExportsExportJobRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         format: value["format"],
         fql: value["fql"],

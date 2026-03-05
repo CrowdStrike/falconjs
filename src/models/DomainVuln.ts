@@ -48,10 +48,15 @@ export function DomainVulnFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function DomainVulnToJSON(value?: DomainVuln | null): any {
+export function DomainVulnToJSON(json: any): DomainVuln {
+    return DomainVulnToJSONTyped(json, false);
+}
+
+export function DomainVulnToJSONTyped(value?: DomainVuln | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cve: value["cve"],
     };

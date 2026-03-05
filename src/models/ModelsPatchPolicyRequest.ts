@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsRequestAPIPolicyData } from "./ModelsRequestAPIPolicyData";
-import { ModelsRequestAPIPolicyDataFromJSON, ModelsRequestAPIPolicyDataFromJSONTyped, ModelsRequestAPIPolicyDataToJSON } from "./ModelsRequestAPIPolicyData";
+import { ModelsRequestAPIPolicyDataFromJSON, ModelsRequestAPIPolicyDataFromJSONTyped, ModelsRequestAPIPolicyDataToJSON, ModelsRequestAPIPolicyDataToJSONTyped } from "./ModelsRequestAPIPolicyData";
 
 /**
  *
@@ -74,10 +74,15 @@ export function ModelsPatchPolicyRequestFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function ModelsPatchPolicyRequestToJSON(value?: ModelsPatchPolicyRequest | null): any {
+export function ModelsPatchPolicyRequestToJSON(json: any): ModelsPatchPolicyRequest {
+    return ModelsPatchPolicyRequestToJSONTyped(json, false);
+}
+
+export function ModelsPatchPolicyRequestToJSONTyped(value?: ModelsPatchPolicyRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         is_enabled: value["isEnabled"],

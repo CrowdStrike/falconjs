@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApiParserTestCase } from "./ApiParserTestCase";
-import { ApiParserTestCaseFromJSON, ApiParserTestCaseFromJSONTyped, ApiParserTestCaseToJSON } from "./ApiParserTestCase";
+import { ApiParserTestCaseFromJSON, ApiParserTestCaseFromJSONTyped, ApiParserTestCaseToJSON, ApiParserTestCaseToJSONTyped } from "./ApiParserTestCase";
 
 /**
  *
@@ -90,10 +90,15 @@ export function ApiCreateParserRequestV1FromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function ApiCreateParserRequestV1ToJSON(value?: ApiCreateParserRequestV1 | null): any {
+export function ApiCreateParserRequestV1ToJSON(json: any): ApiCreateParserRequestV1 {
+    return ApiCreateParserRequestV1ToJSONTyped(json, false);
+}
+
+export function ApiCreateParserRequestV1ToJSONTyped(value?: ApiCreateParserRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         fields_to_be_removed_before_parsing: value["fieldsToBeRemovedBeforeParsing"],
         fields_to_tag: value["fieldsToTag"],

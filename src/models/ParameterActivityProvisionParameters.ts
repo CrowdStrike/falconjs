@@ -18,9 +18,15 @@ import {
     ParameterActivityConfigProvisionParameterFromJSON,
     ParameterActivityConfigProvisionParameterFromJSONTyped,
     ParameterActivityConfigProvisionParameterToJSON,
+    ParameterActivityConfigProvisionParameterToJSONTyped,
 } from "./ParameterActivityConfigProvisionParameter";
 import type { ParameterActivitySelectionParameter } from "./ParameterActivitySelectionParameter";
-import { ParameterActivitySelectionParameterFromJSON, ParameterActivitySelectionParameterFromJSONTyped, ParameterActivitySelectionParameterToJSON } from "./ParameterActivitySelectionParameter";
+import {
+    ParameterActivitySelectionParameterFromJSON,
+    ParameterActivitySelectionParameterFromJSONTyped,
+    ParameterActivitySelectionParameterToJSON,
+    ParameterActivitySelectionParameterToJSONTyped,
+} from "./ParameterActivitySelectionParameter";
 
 /**
  *
@@ -63,10 +69,15 @@ export function ParameterActivityProvisionParametersFromJSONTyped(json: any, ign
     };
 }
 
-export function ParameterActivityProvisionParametersToJSON(value?: ParameterActivityProvisionParameters | null): any {
+export function ParameterActivityProvisionParametersToJSON(json: any): ParameterActivityProvisionParameters {
+    return ParameterActivityProvisionParametersToJSONTyped(json, false);
+}
+
+export function ParameterActivityProvisionParametersToJSONTyped(value?: ParameterActivityProvisionParameters | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         configuration: value["_configuration"] == null ? undefined : (value["_configuration"] as Array<any>).map(ParameterActivityConfigProvisionParameterToJSON),
         selection: value["selection"] == null ? undefined : (value["selection"] as Array<any>).map(ParameterActivitySelectionParameterToJSON),
