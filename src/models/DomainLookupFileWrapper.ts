@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainLookupFile } from "./DomainLookupFile";
-import { DomainLookupFileFromJSON, DomainLookupFileFromJSONTyped, DomainLookupFileToJSON } from "./DomainLookupFile";
+import { DomainLookupFileFromJSON, DomainLookupFileFromJSONTyped, DomainLookupFileToJSON, DomainLookupFileToJSONTyped } from "./DomainLookupFile";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainLookupFileWrapperFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function DomainLookupFileWrapperToJSON(value?: DomainLookupFileWrapper | null): any {
+export function DomainLookupFileWrapperToJSON(json: any): DomainLookupFileWrapper {
+    return DomainLookupFileWrapperToJSONTyped(json, false);
+}
+
+export function DomainLookupFileWrapperToJSONTyped(value?: DomainLookupFileWrapper | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

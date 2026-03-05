@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 
 /**
  *
@@ -128,10 +128,15 @@ export function DomainMultiStatusSensorResponseFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function DomainMultiStatusSensorResponseToJSON(value?: DomainMultiStatusSensorResponse | null): any {
+export function DomainMultiStatusSensorResponseToJSON(json: any): DomainMultiStatusSensorResponse {
+    return DomainMultiStatusSensorResponseToJSONTyped(json, false);
+}
+
+export function DomainMultiStatusSensorResponseToJSONTyped(value?: DomainMultiStatusSensorResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         aid: value["aid"],
         base_command: value["baseCommand"],

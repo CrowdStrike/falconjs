@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DetectsapiAggregationResult } from "./DetectsapiAggregationResult";
-import { DetectsapiAggregationResultFromJSON, DetectsapiAggregationResultFromJSONTyped, DetectsapiAggregationResultToJSON } from "./DetectsapiAggregationResult";
+import {
+    DetectsapiAggregationResultFromJSON,
+    DetectsapiAggregationResultFromJSONTyped,
+    DetectsapiAggregationResultToJSON,
+    DetectsapiAggregationResultToJSONTyped,
+} from "./DetectsapiAggregationResult";
 
 /**
  *
@@ -114,10 +119,15 @@ export function DetectsapiAggregationResultItemFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function DetectsapiAggregationResultItemToJSON(value?: DetectsapiAggregationResultItem | null): any {
+export function DetectsapiAggregationResultItemToJSON(json: any): DetectsapiAggregationResultItem {
+    return DetectsapiAggregationResultItemToJSONTyped(json, false);
+}
+
+export function DetectsapiAggregationResultItemToJSONTyped(value?: DetectsapiAggregationResultItem | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count: value["count"],
         from: value["from"],

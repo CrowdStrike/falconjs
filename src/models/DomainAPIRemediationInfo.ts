@@ -61,10 +61,15 @@ export function DomainAPIRemediationInfoFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function DomainAPIRemediationInfoToJSON(value?: DomainAPIRemediationInfo | null): any {
+export function DomainAPIRemediationInfoToJSON(json: any): DomainAPIRemediationInfo {
+    return DomainAPIRemediationInfoToJSONTyped(json, false);
+}
+
+export function DomainAPIRemediationInfoToJSONTyped(value?: DomainAPIRemediationInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         minimum_id: value["minimumId"],
         patch_publication_date: value["patchPublicationDate"],

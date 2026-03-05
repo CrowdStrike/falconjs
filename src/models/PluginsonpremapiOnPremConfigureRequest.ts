@@ -48,10 +48,15 @@ export function PluginsonpremapiOnPremConfigureRequestFromJSONTyped(json: any, i
     };
 }
 
-export function PluginsonpremapiOnPremConfigureRequestToJSON(value?: PluginsonpremapiOnPremConfigureRequest | null): any {
+export function PluginsonpremapiOnPremConfigureRequestToJSON(json: any): PluginsonpremapiOnPremConfigureRequest {
+    return PluginsonpremapiOnPremConfigureRequestToJSONTyped(json, false);
+}
+
+export function PluginsonpremapiOnPremConfigureRequestToJSONTyped(value?: PluginsonpremapiOnPremConfigureRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         host_group_id: value["hostGroupId"],
     };

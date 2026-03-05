@@ -141,12 +141,9 @@ export interface ContainerImagesApiReadCombinedImagesExportRequest {
  */
 export class ContainerImagesApi extends runtime.BaseAPI {
     /**
-     * Image assessment history
+     * Creates request options for aggregateImageAssessmentHistory without sending the request
      */
-    async aggregateImageAssessmentHistoryRaw(
-        requestParameters: ContainerImagesApiAggregateImageAssessmentHistoryRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ImagesApiImageAssessmentHistory>> {
+    async aggregateImageAssessmentHistoryRequestOpts(requestParameters: ContainerImagesApiAggregateImageAssessmentHistoryRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -160,15 +157,25 @@ export class ContainerImagesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/aggregates/images/assessment-history/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/aggregates/images/assessment-history/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Image assessment history
+     */
+    async aggregateImageAssessmentHistoryRaw(
+        requestParameters: ContainerImagesApiAggregateImageAssessmentHistoryRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ImagesApiImageAssessmentHistory>> {
+        const requestOptions = await this.aggregateImageAssessmentHistoryRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ImagesApiImageAssessmentHistoryFromJSON(jsonValue));
     }
@@ -182,12 +189,9 @@ export class ContainerImagesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Aggregate count of images
+     * Creates request options for aggregateImageCount without sending the request
      */
-    async aggregateImageCountRaw(
-        requestParameters: ContainerImagesApiAggregateImageCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ImagesApiImageCount>> {
+    async aggregateImageCountRequestOpts(requestParameters: ContainerImagesApiAggregateImageCountRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -201,15 +205,25 @@ export class ContainerImagesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/aggregates/images/count/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/aggregates/images/count/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Aggregate count of images
+     */
+    async aggregateImageCountRaw(
+        requestParameters: ContainerImagesApiAggregateImageCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ImagesApiImageCount>> {
+        const requestOptions = await this.aggregateImageCountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ImagesApiImageCountFromJSON(jsonValue));
     }
@@ -223,12 +237,9 @@ export class ContainerImagesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Aggregate count of images grouped by Base OS distribution
+     * Creates request options for aggregateImageCountByBaseOS without sending the request
      */
-    async aggregateImageCountByBaseOSRaw(
-        requestParameters: ContainerImagesApiAggregateImageCountByBaseOSRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ImagesApiImageCountByBaseOS>> {
+    async aggregateImageCountByBaseOSRequestOpts(requestParameters: ContainerImagesApiAggregateImageCountByBaseOSRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -242,15 +253,25 @@ export class ContainerImagesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/aggregates/images/count-by-os-distribution/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/aggregates/images/count-by-os-distribution/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Aggregate count of images grouped by Base OS distribution
+     */
+    async aggregateImageCountByBaseOSRaw(
+        requestParameters: ContainerImagesApiAggregateImageCountByBaseOSRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ImagesApiImageCountByBaseOS>> {
+        const requestOptions = await this.aggregateImageCountByBaseOSRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ImagesApiImageCountByBaseOSFromJSON(jsonValue));
     }
@@ -264,12 +285,9 @@ export class ContainerImagesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Aggregate count of images grouped by state
+     * Creates request options for aggregateImageCountByState without sending the request
      */
-    async aggregateImageCountByStateRaw(
-        requestParameters: ContainerImagesApiAggregateImageCountByStateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ImagesApiImageCountByState>> {
+    async aggregateImageCountByStateRequestOpts(requestParameters: ContainerImagesApiAggregateImageCountByStateRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -283,15 +301,25 @@ export class ContainerImagesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/aggregates/images/count-by-state/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/aggregates/images/count-by-state/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Aggregate count of images grouped by state
+     */
+    async aggregateImageCountByStateRaw(
+        requestParameters: ContainerImagesApiAggregateImageCountByStateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ImagesApiImageCountByState>> {
+        const requestOptions = await this.aggregateImageCountByStateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ImagesApiImageCountByStateFromJSON(jsonValue));
     }
@@ -305,12 +333,9 @@ export class ContainerImagesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves a list of base images for the provided filter. Maximum page size: 100
+     * Creates request options for combinedBaseImages without sending the request
      */
-    async combinedBaseImagesRaw(
-        requestParameters: ContainerImagesApiCombinedBaseImagesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CoreEntitiesResponse>> {
+    async combinedBaseImagesRequestOpts(requestParameters: ContainerImagesApiCombinedBaseImagesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -324,15 +349,25 @@ export class ContainerImagesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/combined/base-images/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/combined/base-images/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieves a list of base images for the provided filter. Maximum page size: 100
+     */
+    async combinedBaseImagesRaw(
+        requestParameters: ContainerImagesApiCombinedBaseImagesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CoreEntitiesResponse>> {
+        const requestOptions = await this.combinedBaseImagesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CoreEntitiesResponseFromJSON(jsonValue));
     }
@@ -346,12 +381,9 @@ export class ContainerImagesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve top x images with the most vulnerabilities
+     * Creates request options for combinedImageByVulnerabilityCount without sending the request
      */
-    async combinedImageByVulnerabilityCountRaw(
-        requestParameters: ContainerImagesApiCombinedImageByVulnerabilityCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ImagesApiImageByVulnerabilityCount>> {
+    async combinedImageByVulnerabilityCountRequestOpts(requestParameters: ContainerImagesApiCombinedImageByVulnerabilityCountRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -373,15 +405,25 @@ export class ContainerImagesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/combined/images/by-vulnerability-count/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/combined/images/by-vulnerability-count/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve top x images with the most vulnerabilities
+     */
+    async combinedImageByVulnerabilityCountRaw(
+        requestParameters: ContainerImagesApiCombinedImageByVulnerabilityCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ImagesApiImageByVulnerabilityCount>> {
+        const requestOptions = await this.combinedImageByVulnerabilityCountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ImagesApiImageByVulnerabilityCountFromJSON(jsonValue));
     }
@@ -395,12 +437,9 @@ export class ContainerImagesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve image entities identified by the provided filter criteria
+     * Creates request options for combinedImageDetail without sending the request
      */
-    async combinedImageDetailRaw(
-        requestParameters: ContainerImagesApiCombinedImageDetailRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ImagesApiCustomerAndImage>> {
+    async combinedImageDetailRequestOpts(requestParameters: ContainerImagesApiCombinedImageDetailRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -430,15 +469,25 @@ export class ContainerImagesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/combined/images/detail/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/combined/images/detail/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve image entities identified by the provided filter criteria
+     */
+    async combinedImageDetailRaw(
+        requestParameters: ContainerImagesApiCombinedImageDetailRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ImagesApiCustomerAndImage>> {
+        const requestOptions = await this.combinedImageDetailRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ImagesApiCustomerAndImageFromJSON(jsonValue));
     }
@@ -459,12 +508,9 @@ export class ContainerImagesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve image issues summary such as Image detections, Runtime detections, Policies, vulnerabilities
+     * Creates request options for combinedImageIssuesSummary without sending the request
      */
-    async combinedImageIssuesSummaryRaw(
-        requestParameters: ContainerImagesApiCombinedImageIssuesSummaryRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ImagesApiImageIssuesSummary>> {
+    async combinedImageIssuesSummaryRequestOpts(requestParameters: ContainerImagesApiCombinedImageIssuesSummaryRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["cid"] == null) {
             throw new runtime.RequiredError("cid", 'Required parameter "cid" was null or undefined when calling combinedImageIssuesSummary().');
         }
@@ -514,15 +560,25 @@ export class ContainerImagesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/combined/images/issues-summary/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/combined/images/issues-summary/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve image issues summary such as Image detections, Runtime detections, Policies, vulnerabilities
+     */
+    async combinedImageIssuesSummaryRaw(
+        requestParameters: ContainerImagesApiCombinedImageIssuesSummaryRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ImagesApiImageIssuesSummary>> {
+        const requestOptions = await this.combinedImageIssuesSummaryRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ImagesApiImageIssuesSummaryFromJSON(jsonValue));
     }
@@ -547,12 +603,9 @@ export class ContainerImagesApi extends runtime.BaseAPI {
     }
 
     /**
-     * aggregates information about vulnerabilities for an image
+     * Creates request options for combinedImageVulnerabilitySummary without sending the request
      */
-    async combinedImageVulnerabilitySummaryRaw(
-        requestParameters: ContainerImagesApiCombinedImageVulnerabilitySummaryRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ImagesApiImageVulnerabilitiesSummary>> {
+    async combinedImageVulnerabilitySummaryRequestOpts(requestParameters: ContainerImagesApiCombinedImageVulnerabilitySummaryRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["cid"] == null) {
             throw new runtime.RequiredError("cid", 'Required parameter "cid" was null or undefined when calling combinedImageVulnerabilitySummary().');
         }
@@ -602,15 +655,25 @@ export class ContainerImagesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/combined/images/vulnerabilities-summary/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/combined/images/vulnerabilities-summary/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * aggregates information about vulnerabilities for an image
+     */
+    async combinedImageVulnerabilitySummaryRaw(
+        requestParameters: ContainerImagesApiCombinedImageVulnerabilitySummaryRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ImagesApiImageVulnerabilitiesSummary>> {
+        const requestOptions = await this.combinedImageVulnerabilitySummaryRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ImagesApiImageVulnerabilitiesSummaryFromJSON(jsonValue));
     }
@@ -635,12 +698,9 @@ export class ContainerImagesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates base images using the provided details
+     * Creates request options for createBaseImagesEntities without sending the request
      */
-    async createBaseImagesEntitiesRaw(
-        requestParameters: ContainerImagesApiCreateBaseImagesEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CoreEntitiesResponse>> {
+    async createBaseImagesEntitiesRequestOpts(requestParameters: ContainerImagesApiCreateBaseImagesEntitiesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createBaseImagesEntities().');
         }
@@ -656,16 +716,26 @@ export class ContainerImagesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/entities/base-images/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ModelsCreateBaseImagesRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/entities/base-images/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ModelsCreateBaseImagesRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Creates base images using the provided details
+     */
+    async createBaseImagesEntitiesRaw(
+        requestParameters: ContainerImagesApiCreateBaseImagesEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CoreEntitiesResponse>> {
+        const requestOptions = await this.createBaseImagesEntitiesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CoreEntitiesResponseFromJSON(jsonValue));
     }
@@ -679,12 +749,9 @@ export class ContainerImagesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete base images by base image uuid
+     * Creates request options for deleteBaseImages without sending the request
      */
-    async deleteBaseImagesRaw(
-        requestParameters: ContainerImagesApiDeleteBaseImagesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CoreEntitiesResponse>> {
+    async deleteBaseImagesRequestOpts(requestParameters: ContainerImagesApiDeleteBaseImagesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteBaseImages().');
         }
@@ -702,15 +769,25 @@ export class ContainerImagesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/entities/base-images/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/entities/base-images/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete base images by base image uuid
+     */
+    async deleteBaseImagesRaw(
+        requestParameters: ContainerImagesApiDeleteBaseImagesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CoreEntitiesResponse>> {
+        const requestOptions = await this.deleteBaseImagesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CoreEntitiesResponseFromJSON(jsonValue));
     }
@@ -724,12 +801,9 @@ export class ContainerImagesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get image assessment results by providing an FQL filter and paging details
+     * Creates request options for getCombinedImages without sending the request
      */
-    async getCombinedImagesRaw(
-        requestParameters: ContainerImagesApiGetCombinedImagesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ImagesExtCombinedImagesResponse>> {
+    async getCombinedImagesRequestOpts(requestParameters: ContainerImagesApiGetCombinedImagesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -755,15 +829,25 @@ export class ContainerImagesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/combined/image-assessment/images/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/combined/image-assessment/images/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get image assessment results by providing an FQL filter and paging details
+     */
+    async getCombinedImagesRaw(
+        requestParameters: ContainerImagesApiGetCombinedImagesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ImagesExtCombinedImagesResponse>> {
+        const requestOptions = await this.getCombinedImagesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ImagesExtCombinedImagesResponseFromJSON(jsonValue));
     }
@@ -777,12 +861,9 @@ export class ContainerImagesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves a paginated list of images, with an option to expand aggregated vulnerabilities/detections. Maximum page size: 100. Maximum available images: 10,000
+     * Creates request options for readCombinedImagesExport without sending the request
      */
-    async readCombinedImagesExportRaw(
-        requestParameters: ContainerImagesApiReadCombinedImagesExportRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ImagesApiCombinedImageExport>> {
+    async readCombinedImagesExportRequestOpts(requestParameters: ContainerImagesApiReadCombinedImagesExportRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -816,15 +897,25 @@ export class ContainerImagesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/combined/images/export/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/combined/images/export/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieves a paginated list of images, with an option to expand aggregated vulnerabilities/detections. Maximum page size: 100. Maximum available images: 10,000
+     */
+    async readCombinedImagesExportRaw(
+        requestParameters: ContainerImagesApiReadCombinedImagesExportRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ImagesApiCombinedImageExport>> {
+        const requestOptions = await this.readCombinedImagesExportRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ImagesApiCombinedImageExportFromJSON(jsonValue));
     }

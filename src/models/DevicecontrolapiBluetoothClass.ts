@@ -14,9 +14,19 @@
 
 import { mapValues } from "../runtime";
 import type { DevicecontrolapiBluetoothException } from "./DevicecontrolapiBluetoothException";
-import { DevicecontrolapiBluetoothExceptionFromJSON, DevicecontrolapiBluetoothExceptionFromJSONTyped, DevicecontrolapiBluetoothExceptionToJSON } from "./DevicecontrolapiBluetoothException";
+import {
+    DevicecontrolapiBluetoothExceptionFromJSON,
+    DevicecontrolapiBluetoothExceptionFromJSONTyped,
+    DevicecontrolapiBluetoothExceptionToJSON,
+    DevicecontrolapiBluetoothExceptionToJSONTyped,
+} from "./DevicecontrolapiBluetoothException";
 import type { DevicecontrolapiBluetoothMinorClass } from "./DevicecontrolapiBluetoothMinorClass";
-import { DevicecontrolapiBluetoothMinorClassFromJSON, DevicecontrolapiBluetoothMinorClassFromJSONTyped, DevicecontrolapiBluetoothMinorClassToJSON } from "./DevicecontrolapiBluetoothMinorClass";
+import {
+    DevicecontrolapiBluetoothMinorClassFromJSON,
+    DevicecontrolapiBluetoothMinorClassFromJSONTyped,
+    DevicecontrolapiBluetoothMinorClassToJSON,
+    DevicecontrolapiBluetoothMinorClassToJSONTyped,
+} from "./DevicecontrolapiBluetoothMinorClass";
 
 /**
  *
@@ -80,10 +90,15 @@ export function DevicecontrolapiBluetoothClassFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function DevicecontrolapiBluetoothClassToJSON(value?: DevicecontrolapiBluetoothClass | null): any {
+export function DevicecontrolapiBluetoothClassToJSON(json: any): DevicecontrolapiBluetoothClass {
+    return DevicecontrolapiBluetoothClassToJSONTyped(json, false);
+}
+
+export function DevicecontrolapiBluetoothClassToJSONTyped(value?: DevicecontrolapiBluetoothClass | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         class: value["_class"],

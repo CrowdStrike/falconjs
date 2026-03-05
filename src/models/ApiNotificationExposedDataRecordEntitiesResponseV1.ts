@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { DomainReconAPIError } from "./DomainReconAPIError";
-import { DomainReconAPIErrorFromJSON, DomainReconAPIErrorFromJSONTyped, DomainReconAPIErrorToJSON } from "./DomainReconAPIError";
+import { DomainReconAPIErrorFromJSON, DomainReconAPIErrorFromJSONTyped, DomainReconAPIErrorToJSON, DomainReconAPIErrorToJSONTyped } from "./DomainReconAPIError";
 import type { ApiNotificationExposedDataRecordV1 } from "./ApiNotificationExposedDataRecordV1";
-import { ApiNotificationExposedDataRecordV1FromJSON, ApiNotificationExposedDataRecordV1FromJSONTyped, ApiNotificationExposedDataRecordV1ToJSON } from "./ApiNotificationExposedDataRecordV1";
+import {
+    ApiNotificationExposedDataRecordV1FromJSON,
+    ApiNotificationExposedDataRecordV1FromJSONTyped,
+    ApiNotificationExposedDataRecordV1ToJSON,
+    ApiNotificationExposedDataRecordV1ToJSONTyped,
+} from "./ApiNotificationExposedDataRecordV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +76,15 @@ export function ApiNotificationExposedDataRecordEntitiesResponseV1FromJSONTyped(
     };
 }
 
-export function ApiNotificationExposedDataRecordEntitiesResponseV1ToJSON(value?: ApiNotificationExposedDataRecordEntitiesResponseV1 | null): any {
+export function ApiNotificationExposedDataRecordEntitiesResponseV1ToJSON(json: any): ApiNotificationExposedDataRecordEntitiesResponseV1 {
+    return ApiNotificationExposedDataRecordEntitiesResponseV1ToJSONTyped(json, false);
+}
+
+export function ApiNotificationExposedDataRecordEntitiesResponseV1ToJSONTyped(value?: ApiNotificationExposedDataRecordEntitiesResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(DomainReconAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

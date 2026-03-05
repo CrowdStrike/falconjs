@@ -18,9 +18,15 @@ import {
     DevicecontrolapiReqUpdateBluetoothBaseV1FromJSON,
     DevicecontrolapiReqUpdateBluetoothBaseV1FromJSONTyped,
     DevicecontrolapiReqUpdateBluetoothBaseV1ToJSON,
+    DevicecontrolapiReqUpdateBluetoothBaseV1ToJSONTyped,
 } from "./DevicecontrolapiReqUpdateBluetoothBaseV1";
 import type { DevicecontrolapiReqUpdateUSBBaseV1 } from "./DevicecontrolapiReqUpdateUSBBaseV1";
-import { DevicecontrolapiReqUpdateUSBBaseV1FromJSON, DevicecontrolapiReqUpdateUSBBaseV1FromJSONTyped, DevicecontrolapiReqUpdateUSBBaseV1ToJSON } from "./DevicecontrolapiReqUpdateUSBBaseV1";
+import {
+    DevicecontrolapiReqUpdateUSBBaseV1FromJSON,
+    DevicecontrolapiReqUpdateUSBBaseV1FromJSONTyped,
+    DevicecontrolapiReqUpdateUSBBaseV1ToJSON,
+    DevicecontrolapiReqUpdateUSBBaseV1ToJSONTyped,
+} from "./DevicecontrolapiReqUpdateUSBBaseV1";
 
 /**
  *
@@ -54,7 +60,7 @@ export interface DevicecontrolapiReqCreatePolicyV1 {
     name?: string;
     /**
      * Name of the platform. *Required if clone_id is empty
-     * @type {string}
+     * @type {DevicecontrolapiReqCreatePolicyV1PlatformNameEnum}
      * @memberof DevicecontrolapiReqCreatePolicyV1
      */
     platformName?: DevicecontrolapiReqCreatePolicyV1PlatformNameEnum;
@@ -100,10 +106,15 @@ export function DevicecontrolapiReqCreatePolicyV1FromJSONTyped(json: any, ignore
     };
 }
 
-export function DevicecontrolapiReqCreatePolicyV1ToJSON(value?: DevicecontrolapiReqCreatePolicyV1 | null): any {
+export function DevicecontrolapiReqCreatePolicyV1ToJSON(json: any): DevicecontrolapiReqCreatePolicyV1 {
+    return DevicecontrolapiReqCreatePolicyV1ToJSONTyped(json, false);
+}
+
+export function DevicecontrolapiReqCreatePolicyV1ToJSONTyped(value?: DevicecontrolapiReqCreatePolicyV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         bluetooth_settings: DevicecontrolapiReqUpdateBluetoothBaseV1ToJSON(value["bluetoothSettings"]),
         clone_id: value["cloneId"],

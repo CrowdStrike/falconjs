@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesExecutorNode } from "./TypesExecutorNode";
-import { TypesExecutorNodeFromJSON, TypesExecutorNodeFromJSONTyped, TypesExecutorNodeToJSON } from "./TypesExecutorNode";
+import { TypesExecutorNodeFromJSON, TypesExecutorNodeFromJSONTyped, TypesExecutorNodeToJSON, TypesExecutorNodeToJSONTyped } from "./TypesExecutorNode";
 
 /**
  *
@@ -50,10 +50,15 @@ export function TypesListExecutorNodesResponseFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function TypesListExecutorNodesResponseToJSON(value?: TypesListExecutorNodesResponse | null): any {
+export function TypesListExecutorNodesResponseToJSON(json: any): TypesListExecutorNodesResponse {
+    return TypesListExecutorNodesResponseToJSONTyped(json, false);
+}
+
+export function TypesListExecutorNodesResponseToJSONTyped(value?: TypesListExecutorNodesResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         executor_nodes: value["executorNodes"] == null ? undefined : (value["executorNodes"] as Array<any>).map(TypesExecutorNodeToJSON),
     };

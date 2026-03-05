@@ -14,12 +14,18 @@
 
 import { mapValues } from "../runtime";
 import type { DomainDiscoverAPIApplicationContact } from "./DomainDiscoverAPIApplicationContact";
-import { DomainDiscoverAPIApplicationContactFromJSON, DomainDiscoverAPIApplicationContactFromJSONTyped, DomainDiscoverAPIApplicationContactToJSON } from "./DomainDiscoverAPIApplicationContact";
+import {
+    DomainDiscoverAPIApplicationContactFromJSON,
+    DomainDiscoverAPIApplicationContactFromJSONTyped,
+    DomainDiscoverAPIApplicationContactToJSON,
+    DomainDiscoverAPIApplicationContactToJSONTyped,
+} from "./DomainDiscoverAPIApplicationContact";
 import type { DomainDiscoverAPIApplicationDependency } from "./DomainDiscoverAPIApplicationDependency";
 import {
     DomainDiscoverAPIApplicationDependencyFromJSON,
     DomainDiscoverAPIApplicationDependencyFromJSONTyped,
     DomainDiscoverAPIApplicationDependencyToJSON,
+    DomainDiscoverAPIApplicationDependencyToJSONTyped,
 } from "./DomainDiscoverAPIApplicationDependency";
 
 /**
@@ -112,10 +118,15 @@ export function DomainDiscoverAPIApplicationPackageFromJSONTyped(json: any, igno
     };
 }
 
-export function DomainDiscoverAPIApplicationPackageToJSON(value?: DomainDiscoverAPIApplicationPackage | null): any {
+export function DomainDiscoverAPIApplicationPackageToJSON(json: any): DomainDiscoverAPIApplicationPackage {
+    return DomainDiscoverAPIApplicationPackageToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPIApplicationPackageToJSONTyped(value?: DomainDiscoverAPIApplicationPackage | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         author: DomainDiscoverAPIApplicationContactToJSON(value["author"]),
         dependency_count: value["dependencyCount"],

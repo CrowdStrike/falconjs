@@ -54,10 +54,15 @@ export function AzureDSPMRegionCustomNetworkConfigurationFromJSONTyped(json: any
     };
 }
 
-export function AzureDSPMRegionCustomNetworkConfigurationToJSON(value?: AzureDSPMRegionCustomNetworkConfiguration | null): any {
+export function AzureDSPMRegionCustomNetworkConfigurationToJSON(json: any): AzureDSPMRegionCustomNetworkConfiguration {
+    return AzureDSPMRegionCustomNetworkConfigurationToJSONTyped(json, false);
+}
+
+export function AzureDSPMRegionCustomNetworkConfigurationToJSONTyped(value?: AzureDSPMRegionCustomNetworkConfiguration | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         clones_subnet_id: value["clonesSubnetId"],
         scanners_subnet_id: value["scannersSubnetId"],

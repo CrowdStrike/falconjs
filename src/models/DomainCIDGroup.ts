@@ -77,10 +77,15 @@ export function DomainCIDGroupFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function DomainCIDGroupToJSON(value?: DomainCIDGroup | null): any {
+export function DomainCIDGroupToJSON(json: any): DomainCIDGroup {
+    return DomainCIDGroupToJSONTyped(json, false);
+}
+
+export function DomainCIDGroupToJSONTyped(value?: DomainCIDGroup | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         cid_group_id: value["cidGroupId"],

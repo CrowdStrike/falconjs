@@ -55,10 +55,15 @@ export function QuickscanproLaunchScanRequestResourceFromJSONTyped(json: any, ig
     };
 }
 
-export function QuickscanproLaunchScanRequestResourceToJSON(value?: QuickscanproLaunchScanRequestResource | null): any {
+export function QuickscanproLaunchScanRequestResourceToJSON(json: any): QuickscanproLaunchScanRequestResource {
+    return QuickscanproLaunchScanRequestResourceToJSONTyped(json, false);
+}
+
+export function QuickscanproLaunchScanRequestResourceToJSONTyped(value?: QuickscanproLaunchScanRequestResource | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         password: value["password"],
         sha256: value["sha256"],

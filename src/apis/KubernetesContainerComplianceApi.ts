@@ -106,12 +106,9 @@ export interface KubernetesContainerComplianceApiGetRulesMetadataByIDRequest {
  */
 export class KubernetesContainerComplianceApi extends runtime.BaseAPI {
     /**
-     * Returns cluster details along with aggregated assessment results organized by cluster, including pass/fail assessment counts for various asset types.
+     * Creates request options for aggregateAssessmentsGroupedByClustersV2 without sending the request
      */
-    async aggregateAssessmentsGroupedByClustersV2Raw(
-        requestParameters: KubernetesContainerComplianceApiAggregateAssessmentsGroupedByClustersV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainAPIAggregateResponseGroupByClustersV2>> {
+    async aggregateAssessmentsGroupedByClustersV2RequestOpts(requestParameters: KubernetesContainerComplianceApiAggregateAssessmentsGroupedByClustersV2Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -133,15 +130,25 @@ export class KubernetesContainerComplianceApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-compliance/aggregates/clusters/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-compliance/aggregates/clusters/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns cluster details along with aggregated assessment results organized by cluster, including pass/fail assessment counts for various asset types.
+     */
+    async aggregateAssessmentsGroupedByClustersV2Raw(
+        requestParameters: KubernetesContainerComplianceApiAggregateAssessmentsGroupedByClustersV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainAPIAggregateResponseGroupByClustersV2>> {
+        const requestOptions = await this.aggregateAssessmentsGroupedByClustersV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAPIAggregateResponseGroupByClustersV2FromJSON(jsonValue));
     }
@@ -160,12 +167,9 @@ export class KubernetesContainerComplianceApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns rule details along with aggregated assessment results organized by compliance rule, including pass/fail assessment counts.
+     * Creates request options for aggregateAssessmentsGroupedByRulesV2 without sending the request
      */
-    async aggregateAssessmentsGroupedByRulesV2Raw(
-        requestParameters: KubernetesContainerComplianceApiAggregateAssessmentsGroupedByRulesV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainAPIAggregateResponseGroupByRulesV1>> {
+    async aggregateAssessmentsGroupedByRulesV2RequestOpts(requestParameters: KubernetesContainerComplianceApiAggregateAssessmentsGroupedByRulesV2Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -187,15 +191,25 @@ export class KubernetesContainerComplianceApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-compliance/aggregates/rules/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-compliance/aggregates/rules/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns rule details along with aggregated assessment results organized by compliance rule, including pass/fail assessment counts.
+     */
+    async aggregateAssessmentsGroupedByRulesV2Raw(
+        requestParameters: KubernetesContainerComplianceApiAggregateAssessmentsGroupedByRulesV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainAPIAggregateResponseGroupByRulesV1>> {
+        const requestOptions = await this.aggregateAssessmentsGroupedByRulesV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAPIAggregateResponseGroupByRulesV1FromJSON(jsonValue));
     }
@@ -214,12 +228,9 @@ export class KubernetesContainerComplianceApi extends runtime.BaseAPI {
     }
 
     /**
-     * Provides aggregated compliance assessment metrics and rule status information, organized by asset type.
+     * Creates request options for aggregateComplianceByAssetType without sending the request
      */
-    async aggregateComplianceByAssetTypeRaw(
-        requestParameters: KubernetesContainerComplianceApiAggregateComplianceByAssetTypeRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainAPIAggregateResponseComplianceByAssetTypeV1>> {
+    async aggregateComplianceByAssetTypeRequestOpts(requestParameters: KubernetesContainerComplianceApiAggregateComplianceByAssetTypeRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -233,15 +244,25 @@ export class KubernetesContainerComplianceApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-compliance/aggregates/compliance-by-asset-type/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-compliance/aggregates/compliance-by-asset-type/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Provides aggregated compliance assessment metrics and rule status information, organized by asset type.
+     */
+    async aggregateComplianceByAssetTypeRaw(
+        requestParameters: KubernetesContainerComplianceApiAggregateComplianceByAssetTypeRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainAPIAggregateResponseComplianceByAssetTypeV1>> {
+        const requestOptions = await this.aggregateComplianceByAssetTypeRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAPIAggregateResponseComplianceByAssetTypeV1FromJSON(jsonValue));
     }
@@ -255,12 +276,9 @@ export class KubernetesContainerComplianceApi extends runtime.BaseAPI {
     }
 
     /**
-     * Provides aggregated compliance assessment metrics and rule status information, organized by Kubernetes cluster type.
+     * Creates request options for aggregateComplianceByClusterType without sending the request
      */
-    async aggregateComplianceByClusterTypeRaw(
-        requestParameters: KubernetesContainerComplianceApiAggregateComplianceByClusterTypeRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainAPIAggregateResponseComplianceByClusterTypeV1>> {
+    async aggregateComplianceByClusterTypeRequestOpts(requestParameters: KubernetesContainerComplianceApiAggregateComplianceByClusterTypeRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -274,15 +292,25 @@ export class KubernetesContainerComplianceApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-compliance/aggregates/compliance-by-cluster-type/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-compliance/aggregates/compliance-by-cluster-type/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Provides aggregated compliance assessment metrics and rule status information, organized by Kubernetes cluster type.
+     */
+    async aggregateComplianceByClusterTypeRaw(
+        requestParameters: KubernetesContainerComplianceApiAggregateComplianceByClusterTypeRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainAPIAggregateResponseComplianceByClusterTypeV1>> {
+        const requestOptions = await this.aggregateComplianceByClusterTypeRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAPIAggregateResponseComplianceByClusterTypeV1FromJSON(jsonValue));
     }
@@ -296,12 +324,9 @@ export class KubernetesContainerComplianceApi extends runtime.BaseAPI {
     }
 
     /**
-     * Provides aggregated compliance assessment metrics and rule status information, organized by compliance framework.
+     * Creates request options for aggregateComplianceByFramework without sending the request
      */
-    async aggregateComplianceByFrameworkRaw(
-        requestParameters: KubernetesContainerComplianceApiAggregateComplianceByFrameworkRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainAPIAggregateResponseComplianceByFrameworkV1>> {
+    async aggregateComplianceByFrameworkRequestOpts(requestParameters: KubernetesContainerComplianceApiAggregateComplianceByFrameworkRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -315,15 +340,25 @@ export class KubernetesContainerComplianceApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-compliance/aggregates/compliance-by-framework/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-compliance/aggregates/compliance-by-framework/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Provides aggregated compliance assessment metrics and rule status information, organized by compliance framework.
+     */
+    async aggregateComplianceByFrameworkRaw(
+        requestParameters: KubernetesContainerComplianceApiAggregateComplianceByFrameworkRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainAPIAggregateResponseComplianceByFrameworkV1>> {
+        const requestOptions = await this.aggregateComplianceByFrameworkRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAPIAggregateResponseComplianceByFrameworkV1FromJSON(jsonValue));
     }
@@ -337,12 +372,9 @@ export class KubernetesContainerComplianceApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves the most non-compliant clusters, ranked in descending order based on the number of failed compliance rules across severity levels (critical, high, medium, and low).
+     * Creates request options for aggregateFailedRulesByClustersV3 without sending the request
      */
-    async aggregateFailedRulesByClustersV3Raw(
-        requestParameters: KubernetesContainerComplianceApiAggregateFailedRulesByClustersV3Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainAPIAggregateResponseFailedRulesByClustersTypeV2>> {
+    async aggregateFailedRulesByClustersV3RequestOpts(requestParameters: KubernetesContainerComplianceApiAggregateFailedRulesByClustersV3Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -360,15 +392,25 @@ export class KubernetesContainerComplianceApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-compliance/aggregates/failed-rules-by-clusters/v3`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-compliance/aggregates/failed-rules-by-clusters/v3`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieves the most non-compliant clusters, ranked in descending order based on the number of failed compliance rules across severity levels (critical, high, medium, and low).
+     */
+    async aggregateFailedRulesByClustersV3Raw(
+        requestParameters: KubernetesContainerComplianceApiAggregateFailedRulesByClustersV3Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainAPIAggregateResponseFailedRulesByClustersTypeV2>> {
+        const requestOptions = await this.aggregateFailedRulesByClustersV3RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAPIAggregateResponseFailedRulesByClustersTypeV2FromJSON(jsonValue));
     }
@@ -386,12 +428,9 @@ export class KubernetesContainerComplianceApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves the most non-compliant container images, ranked in descending order based on the number of failed assessments across severity levels (critical, high, medium, and low).
+     * Creates request options for aggregateTopFailedImages without sending the request
      */
-    async aggregateTopFailedImagesRaw(
-        requestParameters: KubernetesContainerComplianceApiAggregateTopFailedImagesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainAPIAggregateResponseTopFailedImagesV1>> {
+    async aggregateTopFailedImagesRequestOpts(requestParameters: KubernetesContainerComplianceApiAggregateTopFailedImagesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -409,15 +448,25 @@ export class KubernetesContainerComplianceApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-compliance/aggregates/top-failed-images/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-compliance/aggregates/top-failed-images/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieves the most non-compliant container images, ranked in descending order based on the number of failed assessments across severity levels (critical, high, medium, and low).
+     */
+    async aggregateTopFailedImagesRaw(
+        requestParameters: KubernetesContainerComplianceApiAggregateTopFailedImagesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainAPIAggregateResponseTopFailedImagesV1>> {
+        const requestOptions = await this.aggregateTopFailedImagesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAPIAggregateResponseTopFailedImagesV1FromJSON(jsonValue));
     }
@@ -431,12 +480,9 @@ export class KubernetesContainerComplianceApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns detailed compliance assessment results for container images, providing the information needed to identify compliance violations.
+     * Creates request options for combinedImagesFindings without sending the request
      */
-    async combinedImagesFindingsRaw(
-        requestParameters: KubernetesContainerComplianceApiCombinedImagesFindingsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainAPIResponseImagesFindingsV1>> {
+    async combinedImagesFindingsRequestOpts(requestParameters: KubernetesContainerComplianceApiCombinedImagesFindingsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -458,15 +504,25 @@ export class KubernetesContainerComplianceApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-compliance/combined/findings-by-images/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-compliance/combined/findings-by-images/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns detailed compliance assessment results for container images, providing the information needed to identify compliance violations.
+     */
+    async combinedImagesFindingsRaw(
+        requestParameters: KubernetesContainerComplianceApiCombinedImagesFindingsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainAPIResponseImagesFindingsV1>> {
+        const requestOptions = await this.combinedImagesFindingsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAPIResponseImagesFindingsV1FromJSON(jsonValue));
     }
@@ -480,12 +536,9 @@ export class KubernetesContainerComplianceApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns detailed compliance assessment results for kubernetes nodes, providing the information needed to identify compliance violations.
+     * Creates request options for combinedNodesFindings without sending the request
      */
-    async combinedNodesFindingsRaw(
-        requestParameters: KubernetesContainerComplianceApiCombinedNodesFindingsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainAPIResponseNodesFindingsV1>> {
+    async combinedNodesFindingsRequestOpts(requestParameters: KubernetesContainerComplianceApiCombinedNodesFindingsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -507,15 +560,25 @@ export class KubernetesContainerComplianceApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-compliance/combined/findings-by-nodes/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-compliance/combined/findings-by-nodes/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns detailed compliance assessment results for kubernetes nodes, providing the information needed to identify compliance violations.
+     */
+    async combinedNodesFindingsRaw(
+        requestParameters: KubernetesContainerComplianceApiCombinedNodesFindingsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainAPIResponseNodesFindingsV1>> {
+        const requestOptions = await this.combinedNodesFindingsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAPIResponseNodesFindingsV1FromJSON(jsonValue));
     }
@@ -529,12 +592,9 @@ export class KubernetesContainerComplianceApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve detailed compliance rule information including descriptions, remediation steps, and audit procedures by specifying rule identifiers.
+     * Creates request options for getRulesMetadataByID without sending the request
      */
-    async getRulesMetadataByIDRaw(
-        requestParameters: KubernetesContainerComplianceApiGetRulesMetadataByIDRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainRuleMetadataResponse>> {
+    async getRulesMetadataByIDRequestOpts(requestParameters: KubernetesContainerComplianceApiGetRulesMetadataByIDRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getRulesMetadataByID().');
         }
@@ -552,15 +612,25 @@ export class KubernetesContainerComplianceApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-compliance/combined/rule-details-by-rule-ids/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-compliance/combined/rule-details-by-rule-ids/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve detailed compliance rule information including descriptions, remediation steps, and audit procedures by specifying rule identifiers.
+     */
+    async getRulesMetadataByIDRaw(
+        requestParameters: KubernetesContainerComplianceApiGetRulesMetadataByIDRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainRuleMetadataResponse>> {
+        const requestOptions = await this.getRulesMetadataByIDRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainRuleMetadataResponseFromJSON(jsonValue));
     }

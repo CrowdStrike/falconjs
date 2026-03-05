@@ -18,6 +18,7 @@ import {
     DomainKestrelDataExportHeaderMappingV2FromJSON,
     DomainKestrelDataExportHeaderMappingV2FromJSONTyped,
     DomainKestrelDataExportHeaderMappingV2ToJSON,
+    DomainKestrelDataExportHeaderMappingV2ToJSONTyped,
 } from "./DomainKestrelDataExportHeaderMappingV2";
 
 /**
@@ -78,10 +79,15 @@ export function DomainKestrelDataExportParamsFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function DomainKestrelDataExportParamsToJSON(value?: DomainKestrelDataExportParams | null): any {
+export function DomainKestrelDataExportParamsToJSON(json: any): DomainKestrelDataExportParams {
+    return DomainKestrelDataExportParamsToJSONTyped(json, false);
+}
+
+export function DomainKestrelDataExportParamsToJSONTyped(value?: DomainKestrelDataExportParams | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         export_mapping_v2: (value["exportMappingV2"] as Array<any>).map(DomainKestrelDataExportHeaderMappingV2ToJSON),
         gqe_query: value["gqeQuery"],

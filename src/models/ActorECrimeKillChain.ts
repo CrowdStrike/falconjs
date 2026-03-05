@@ -180,10 +180,15 @@ export function ActorECrimeKillChainFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function ActorECrimeKillChainToJSON(value?: ActorECrimeKillChain | null): any {
+export function ActorECrimeKillChainToJSON(json: any): ActorECrimeKillChain {
+    return ActorECrimeKillChainToJSONTyped(json, false);
+}
+
+export function ActorECrimeKillChainToJSONTyped(value?: ActorECrimeKillChain | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         attribution: value["attribution"],
         crimes: value["crimes"],

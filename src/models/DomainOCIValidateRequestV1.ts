@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DomainOCIValidateRequestData } from "./DomainOCIValidateRequestData";
-import { DomainOCIValidateRequestDataFromJSON, DomainOCIValidateRequestDataFromJSONTyped, DomainOCIValidateRequestDataToJSON } from "./DomainOCIValidateRequestData";
+import {
+    DomainOCIValidateRequestDataFromJSON,
+    DomainOCIValidateRequestDataFromJSONTyped,
+    DomainOCIValidateRequestDataToJSON,
+    DomainOCIValidateRequestDataToJSONTyped,
+} from "./DomainOCIValidateRequestData";
 
 /**
  *
@@ -51,10 +56,15 @@ export function DomainOCIValidateRequestV1FromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function DomainOCIValidateRequestV1ToJSON(value?: DomainOCIValidateRequestV1 | null): any {
+export function DomainOCIValidateRequestV1ToJSON(json: any): DomainOCIValidateRequestV1 {
+    return DomainOCIValidateRequestV1ToJSONTyped(json, false);
+}
+
+export function DomainOCIValidateRequestV1ToJSONTyped(value?: DomainOCIValidateRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(DomainOCIValidateRequestDataToJSON),
     };

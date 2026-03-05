@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { FwmgrMsaspecError } from "./FwmgrMsaspecError";
-import { FwmgrMsaspecErrorFromJSON, FwmgrMsaspecErrorFromJSONTyped, FwmgrMsaspecErrorToJSON } from "./FwmgrMsaspecError";
+import { FwmgrMsaspecErrorFromJSON, FwmgrMsaspecErrorFromJSONTyped, FwmgrMsaspecErrorToJSON, FwmgrMsaspecErrorToJSONTyped } from "./FwmgrMsaspecError";
 import type { FwmgrApiRuleGroupV1 } from "./FwmgrApiRuleGroupV1";
-import { FwmgrApiRuleGroupV1FromJSON, FwmgrApiRuleGroupV1FromJSONTyped, FwmgrApiRuleGroupV1ToJSON } from "./FwmgrApiRuleGroupV1";
+import { FwmgrApiRuleGroupV1FromJSON, FwmgrApiRuleGroupV1FromJSONTyped, FwmgrApiRuleGroupV1ToJSON, FwmgrApiRuleGroupV1ToJSONTyped } from "./FwmgrApiRuleGroupV1";
 import type { FwmgrMsaspecMetaInfo } from "./FwmgrMsaspecMetaInfo";
-import { FwmgrMsaspecMetaInfoFromJSON, FwmgrMsaspecMetaInfoFromJSONTyped, FwmgrMsaspecMetaInfoToJSON } from "./FwmgrMsaspecMetaInfo";
+import { FwmgrMsaspecMetaInfoFromJSON, FwmgrMsaspecMetaInfoFromJSONTyped, FwmgrMsaspecMetaInfoToJSON, FwmgrMsaspecMetaInfoToJSONTyped } from "./FwmgrMsaspecMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function FwmgrApiRuleGroupsResponseFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function FwmgrApiRuleGroupsResponseToJSON(value?: FwmgrApiRuleGroupsResponse | null): any {
+export function FwmgrApiRuleGroupsResponseToJSON(json: any): FwmgrApiRuleGroupsResponse {
+    return FwmgrApiRuleGroupsResponseToJSONTyped(json, false);
+}
+
+export function FwmgrApiRuleGroupsResponseToJSONTyped(value?: FwmgrApiRuleGroupsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(FwmgrMsaspecErrorToJSON),
         meta: FwmgrMsaspecMetaInfoToJSON(value["meta"]),

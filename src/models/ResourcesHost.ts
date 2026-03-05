@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ResourcesVulnerability } from "./ResourcesVulnerability";
-import { ResourcesVulnerabilityFromJSON, ResourcesVulnerabilityFromJSONTyped, ResourcesVulnerabilityToJSON } from "./ResourcesVulnerability";
+import { ResourcesVulnerabilityFromJSON, ResourcesVulnerabilityFromJSONTyped, ResourcesVulnerabilityToJSON, ResourcesVulnerabilityToJSONTyped } from "./ResourcesVulnerability";
 
 /**
  *
@@ -162,10 +162,15 @@ export function ResourcesHostFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function ResourcesHostToJSON(value?: ResourcesHost | null): any {
+export function ResourcesHostToJSON(json: any): ResourcesHost {
+    return ResourcesHostToJSONTyped(json, false);
+}
+
+export function ResourcesHostToJSONTyped(value?: ResourcesHost | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         aid: value["aid"],
         apps: value["apps"],

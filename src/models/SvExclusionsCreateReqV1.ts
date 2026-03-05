@@ -68,10 +68,15 @@ export function SvExclusionsCreateReqV1FromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function SvExclusionsCreateReqV1ToJSON(value?: SvExclusionsCreateReqV1 | null): any {
+export function SvExclusionsCreateReqV1ToJSON(json: any): SvExclusionsCreateReqV1 {
+    return SvExclusionsCreateReqV1ToJSONTyped(json, false);
+}
+
+export function SvExclusionsCreateReqV1ToJSONTyped(value?: SvExclusionsCreateReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         comment: value["comment"],
         groups: value["groups"],

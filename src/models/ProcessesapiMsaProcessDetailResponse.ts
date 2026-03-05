@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ProcessesapiProcessDetail } from "./ProcessesapiProcessDetail";
-import { ProcessesapiProcessDetailFromJSON, ProcessesapiProcessDetailFromJSONTyped, ProcessesapiProcessDetailToJSON } from "./ProcessesapiProcessDetail";
+import { ProcessesapiProcessDetailFromJSON, ProcessesapiProcessDetailFromJSONTyped, ProcessesapiProcessDetailToJSON, ProcessesapiProcessDetailToJSONTyped } from "./ProcessesapiProcessDetail";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function ProcessesapiMsaProcessDetailResponseFromJSONTyped(json: any, ign
     };
 }
 
-export function ProcessesapiMsaProcessDetailResponseToJSON(value?: ProcessesapiMsaProcessDetailResponse | null): any {
+export function ProcessesapiMsaProcessDetailResponseToJSON(json: any): ProcessesapiMsaProcessDetailResponse {
+    return ProcessesapiMsaProcessDetailResponseToJSONTyped(json, false);
+}
+
+export function ProcessesapiMsaProcessDetailResponseToJSONTyped(value?: ProcessesapiMsaProcessDetailResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

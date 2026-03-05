@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { K8sregAPIKey } from "./K8sregAPIKey";
-import { K8sregAPIKeyFromJSON, K8sregAPIKeyFromJSONTyped, K8sregAPIKeyToJSON } from "./K8sregAPIKey";
+import { K8sregAPIKeyFromJSON, K8sregAPIKeyFromJSONTyped, K8sregAPIKeyToJSON, K8sregAPIKeyToJSONTyped } from "./K8sregAPIKey";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function K8sregRegenAPIKeyRespFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function K8sregRegenAPIKeyRespToJSON(value?: K8sregRegenAPIKeyResp | null): any {
+export function K8sregRegenAPIKeyRespToJSON(json: any): K8sregRegenAPIKeyResp {
+    return K8sregRegenAPIKeyRespToJSONTyped(json, false);
+}
+
+export function K8sregRegenAPIKeyRespToJSONTyped(value?: K8sregRegenAPIKeyResp | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

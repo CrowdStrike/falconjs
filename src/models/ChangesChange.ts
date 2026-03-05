@@ -14,23 +14,23 @@
 
 import { mapValues } from "../runtime";
 import type { ChangesPermissions } from "./ChangesPermissions";
-import { ChangesPermissionsFromJSON, ChangesPermissionsFromJSONTyped, ChangesPermissionsToJSON } from "./ChangesPermissions";
+import { ChangesPermissionsFromJSON, ChangesPermissionsFromJSONTyped, ChangesPermissionsToJSON, ChangesPermissionsToJSONTyped } from "./ChangesPermissions";
 import type { ChangesPermissionsLin } from "./ChangesPermissionsLin";
-import { ChangesPermissionsLinFromJSON, ChangesPermissionsLinFromJSONTyped, ChangesPermissionsLinToJSON } from "./ChangesPermissionsLin";
+import { ChangesPermissionsLinFromJSON, ChangesPermissionsLinFromJSONTyped, ChangesPermissionsLinToJSON, ChangesPermissionsLinToJSONTyped } from "./ChangesPermissionsLin";
 import type { ChangesPrevalence } from "./ChangesPrevalence";
-import { ChangesPrevalenceFromJSON, ChangesPrevalenceFromJSONTyped, ChangesPrevalenceToJSON } from "./ChangesPrevalence";
+import { ChangesPrevalenceFromJSON, ChangesPrevalenceFromJSONTyped, ChangesPrevalenceToJSON, ChangesPrevalenceToJSONTyped } from "./ChangesPrevalence";
 import type { ChangesDiff } from "./ChangesDiff";
-import { ChangesDiffFromJSON, ChangesDiffFromJSONTyped, ChangesDiffToJSON } from "./ChangesDiff";
+import { ChangesDiffFromJSON, ChangesDiffFromJSONTyped, ChangesDiffToJSON, ChangesDiffToJSONTyped } from "./ChangesDiff";
 import type { ChangesHost } from "./ChangesHost";
-import { ChangesHostFromJSON, ChangesHostFromJSONTyped, ChangesHostToJSON } from "./ChangesHost";
+import { ChangesHostFromJSON, ChangesHostFromJSONTyped, ChangesHostToJSON, ChangesHostToJSONTyped } from "./ChangesHost";
 import type { ChangesPermissionsMac } from "./ChangesPermissionsMac";
-import { ChangesPermissionsMacFromJSON, ChangesPermissionsMacFromJSONTyped, ChangesPermissionsMacToJSON } from "./ChangesPermissionsMac";
+import { ChangesPermissionsMacFromJSON, ChangesPermissionsMacFromJSONTyped, ChangesPermissionsMacToJSON, ChangesPermissionsMacToJSONTyped } from "./ChangesPermissionsMac";
 import type { ChangesTag } from "./ChangesTag";
-import { ChangesTagFromJSON, ChangesTagFromJSONTyped, ChangesTagToJSON } from "./ChangesTag";
+import { ChangesTagFromJSON, ChangesTagFromJSONTyped, ChangesTagToJSON, ChangesTagToJSONTyped } from "./ChangesTag";
 import type { ChangesAttribute } from "./ChangesAttribute";
-import { ChangesAttributeFromJSON, ChangesAttributeFromJSONTyped, ChangesAttributeToJSON } from "./ChangesAttribute";
+import { ChangesAttributeFromJSON, ChangesAttributeFromJSONTyped, ChangesAttributeToJSON, ChangesAttributeToJSONTyped } from "./ChangesAttribute";
 import type { ChangesPolicy } from "./ChangesPolicy";
-import { ChangesPolicyFromJSON, ChangesPolicyFromJSONTyped, ChangesPolicyToJSON } from "./ChangesPolicy";
+import { ChangesPolicyFromJSON, ChangesPolicyFromJSONTyped, ChangesPolicyToJSON, ChangesPolicyToJSONTyped } from "./ChangesPolicy";
 
 /**
  *
@@ -301,10 +301,15 @@ export function ChangesChangeFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function ChangesChangeToJSON(value?: ChangesChange | null): any {
+export function ChangesChangeToJSON(json: any): ChangesChange {
+    return ChangesChangeToJSONTyped(json, false);
+}
+
+export function ChangesChangeToJSONTyped(value?: ChangesChange | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action_timestamp: value["actionTimestamp"],
         action_type: value["actionType"],

@@ -48,10 +48,15 @@ export function MsaIdsRequestFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function MsaIdsRequestToJSON(value?: MsaIdsRequest | null): any {
+export function MsaIdsRequestToJSON(json: any): MsaIdsRequest {
+    return MsaIdsRequestToJSONTyped(json, false);
+}
+
+export function MsaIdsRequestToJSONTyped(value?: MsaIdsRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ids: value["ids"],
     };

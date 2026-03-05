@@ -61,13 +61,18 @@ export function ModelsContentDownloadEntitiesResourceFromJSONTyped(json: any, ig
     };
 }
 
-export function ModelsContentDownloadEntitiesResourceToJSON(value?: ModelsContentDownloadEntitiesResource | null): any {
+export function ModelsContentDownloadEntitiesResourceToJSON(json: any): ModelsContentDownloadEntitiesResource {
+    return ModelsContentDownloadEntitiesResourceToJSONTyped(json, false);
+}
+
+export function ModelsContentDownloadEntitiesResourceToJSONTyped(value?: ModelsContentDownloadEntitiesResource | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         download_url: value["downloadUrl"],
-        expires_at: value["expiresAt"] == null ? undefined : value["expiresAt"].toISOString(),
+        expires_at: value["expiresAt"] == null ? value["expiresAt"] : value["expiresAt"].toISOString(),
         file_hash: value["fileHash"],
     };
 }

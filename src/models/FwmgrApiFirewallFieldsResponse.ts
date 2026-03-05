@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { FwmgrMsaspecError } from "./FwmgrMsaspecError";
-import { FwmgrMsaspecErrorFromJSON, FwmgrMsaspecErrorFromJSONTyped, FwmgrMsaspecErrorToJSON } from "./FwmgrMsaspecError";
+import { FwmgrMsaspecErrorFromJSON, FwmgrMsaspecErrorFromJSONTyped, FwmgrMsaspecErrorToJSON, FwmgrMsaspecErrorToJSONTyped } from "./FwmgrMsaspecError";
 import type { FwmgrApiFirewallFieldsV1 } from "./FwmgrApiFirewallFieldsV1";
-import { FwmgrApiFirewallFieldsV1FromJSON, FwmgrApiFirewallFieldsV1FromJSONTyped, FwmgrApiFirewallFieldsV1ToJSON } from "./FwmgrApiFirewallFieldsV1";
+import { FwmgrApiFirewallFieldsV1FromJSON, FwmgrApiFirewallFieldsV1FromJSONTyped, FwmgrApiFirewallFieldsV1ToJSON, FwmgrApiFirewallFieldsV1ToJSONTyped } from "./FwmgrApiFirewallFieldsV1";
 import type { FwmgrMsaspecMetaInfo } from "./FwmgrMsaspecMetaInfo";
-import { FwmgrMsaspecMetaInfoFromJSON, FwmgrMsaspecMetaInfoFromJSONTyped, FwmgrMsaspecMetaInfoToJSON } from "./FwmgrMsaspecMetaInfo";
+import { FwmgrMsaspecMetaInfoFromJSON, FwmgrMsaspecMetaInfoFromJSONTyped, FwmgrMsaspecMetaInfoToJSON, FwmgrMsaspecMetaInfoToJSONTyped } from "./FwmgrMsaspecMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function FwmgrApiFirewallFieldsResponseFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function FwmgrApiFirewallFieldsResponseToJSON(value?: FwmgrApiFirewallFieldsResponse | null): any {
+export function FwmgrApiFirewallFieldsResponseToJSON(json: any): FwmgrApiFirewallFieldsResponse {
+    return FwmgrApiFirewallFieldsResponseToJSONTyped(json, false);
+}
+
+export function FwmgrApiFirewallFieldsResponseToJSONTyped(value?: FwmgrApiFirewallFieldsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(FwmgrMsaspecErrorToJSON),
         meta: FwmgrMsaspecMetaInfoToJSON(value["meta"]),

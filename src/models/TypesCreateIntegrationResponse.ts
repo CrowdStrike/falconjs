@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { TypesCreateIntegration } from "./TypesCreateIntegration";
-import { TypesCreateIntegrationFromJSON, TypesCreateIntegrationFromJSONTyped, TypesCreateIntegrationToJSON } from "./TypesCreateIntegration";
+import { TypesCreateIntegrationFromJSON, TypesCreateIntegrationFromJSONTyped, TypesCreateIntegrationToJSON, TypesCreateIntegrationToJSONTyped } from "./TypesCreateIntegration";
 import type { TypesCreateExecutorNode } from "./TypesCreateExecutorNode";
-import { TypesCreateExecutorNodeFromJSON, TypesCreateExecutorNodeFromJSONTyped, TypesCreateExecutorNodeToJSON } from "./TypesCreateExecutorNode";
+import { TypesCreateExecutorNodeFromJSON, TypesCreateExecutorNodeFromJSONTyped, TypesCreateExecutorNodeToJSON, TypesCreateExecutorNodeToJSONTyped } from "./TypesCreateExecutorNode";
 
 /**
  *
@@ -59,10 +59,15 @@ export function TypesCreateIntegrationResponseFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function TypesCreateIntegrationResponseToJSON(value?: TypesCreateIntegrationResponse | null): any {
+export function TypesCreateIntegrationResponseToJSON(json: any): TypesCreateIntegrationResponse {
+    return TypesCreateIntegrationResponseToJSONTyped(json, false);
+}
+
+export function TypesCreateIntegrationResponseToJSONTyped(value?: TypesCreateIntegrationResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         integration: TypesCreateIntegrationToJSON(value["integration"]),
         new_executor_node: TypesCreateExecutorNodeToJSON(value["newExecutorNode"]),

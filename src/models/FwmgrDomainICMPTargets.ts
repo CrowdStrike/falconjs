@@ -48,10 +48,15 @@ export function FwmgrDomainICMPTargetsFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function FwmgrDomainICMPTargetsToJSON(value?: FwmgrDomainICMPTargets | null): any {
+export function FwmgrDomainICMPTargetsToJSON(json: any): FwmgrDomainICMPTargets {
+    return FwmgrDomainICMPTargetsToJSONTyped(json, false);
+}
+
+export function FwmgrDomainICMPTargetsToJSONTyped(value?: FwmgrDomainICMPTargets | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         targets: value["targets"],
     };

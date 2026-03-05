@@ -47,10 +47,15 @@ export function UninstallTokenIncrementUninstallTokenReqV1FromJSONTyped(json: an
     };
 }
 
-export function UninstallTokenIncrementUninstallTokenReqV1ToJSON(value?: UninstallTokenIncrementUninstallTokenReqV1 | null): any {
+export function UninstallTokenIncrementUninstallTokenReqV1ToJSON(json: any): UninstallTokenIncrementUninstallTokenReqV1 {
+    return UninstallTokenIncrementUninstallTokenReqV1ToJSONTyped(json, false);
+}
+
+export function UninstallTokenIncrementUninstallTokenReqV1ToJSONTyped(value?: UninstallTokenIncrementUninstallTokenReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         audit_message: value["auditMessage"],
     };

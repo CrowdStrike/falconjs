@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ModelsAPIFilterResponse } from "./ModelsAPIFilterResponse";
-import { ModelsAPIFilterResponseFromJSON, ModelsAPIFilterResponseFromJSONTyped, ModelsAPIFilterResponseToJSON } from "./ModelsAPIFilterResponse";
+import { ModelsAPIFilterResponseFromJSON, ModelsAPIFilterResponseFromJSONTyped, ModelsAPIFilterResponseToJSON, ModelsAPIFilterResponseToJSONTyped } from "./ModelsAPIFilterResponse";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function DetectionsApiDetectionsBySeverityFromJSONTyped(json: any, ignore
     };
 }
 
-export function DetectionsApiDetectionsBySeverityToJSON(value?: DetectionsApiDetectionsBySeverity | null): any {
+export function DetectionsApiDetectionsBySeverityToJSON(json: any): DetectionsApiDetectionsBySeverity {
+    return DetectionsApiDetectionsBySeverityToJSONTyped(json, false);
+}
+
+export function DetectionsApiDetectionsBySeverityToJSONTyped(value?: DetectionsApiDetectionsBySeverity | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

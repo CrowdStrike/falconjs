@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { EvaluationsBenchMark } from "./EvaluationsBenchMark";
-import { EvaluationsBenchMarkFromJSON, EvaluationsBenchMarkFromJSONTyped, EvaluationsBenchMarkToJSON } from "./EvaluationsBenchMark";
+import { EvaluationsBenchMarkFromJSON, EvaluationsBenchMarkFromJSONTyped, EvaluationsBenchMarkToJSON, EvaluationsBenchMarkToJSONTyped } from "./EvaluationsBenchMark";
 
 /**
  *
@@ -83,10 +83,15 @@ export function EvaluationsComplianceFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function EvaluationsComplianceToJSON(value?: EvaluationsCompliance | null): any {
+export function EvaluationsComplianceToJSON(json: any): EvaluationsCompliance {
+    return EvaluationsComplianceToJSONTyped(json, false);
+}
+
+export function EvaluationsComplianceToJSONTyped(value?: EvaluationsCompliance | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         benchmarks: (value["benchmarks"] as Array<any>).map(EvaluationsBenchMarkToJSON),
         framework: value["framework"],

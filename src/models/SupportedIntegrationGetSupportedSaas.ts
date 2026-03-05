@@ -64,10 +64,15 @@ export function SupportedIntegrationGetSupportedSaasFromJSONTyped(json: any, ign
     };
 }
 
-export function SupportedIntegrationGetSupportedSaasToJSON(value?: SupportedIntegrationGetSupportedSaas | null): any {
+export function SupportedIntegrationGetSupportedSaasToJSON(json: any): SupportedIntegrationGetSupportedSaas {
+    return SupportedIntegrationGetSupportedSaasToJSONTyped(json, false);
+}
+
+export function SupportedIntegrationGetSupportedSaasToJSONTyped(value?: SupportedIntegrationGetSupportedSaas | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         id: value["id"],

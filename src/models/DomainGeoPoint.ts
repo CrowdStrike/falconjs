@@ -54,10 +54,15 @@ export function DomainGeoPointFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function DomainGeoPointToJSON(value?: DomainGeoPoint | null): any {
+export function DomainGeoPointToJSON(json: any): DomainGeoPoint {
+    return DomainGeoPointToJSONTyped(json, false);
+}
+
+export function DomainGeoPointToJSONTyped(value?: DomainGeoPoint | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         lat: value["lat"],
         lon: value["lon"],

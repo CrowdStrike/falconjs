@@ -14,19 +14,19 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsConfigInfoType } from "./ModelsConfigInfoType";
-import { ModelsConfigInfoTypeFromJSON, ModelsConfigInfoTypeFromJSONTyped, ModelsConfigInfoTypeToJSON } from "./ModelsConfigInfoType";
+import { ModelsConfigInfoTypeFromJSON, ModelsConfigInfoTypeFromJSONTyped, ModelsConfigInfoTypeToJSON, ModelsConfigInfoTypeToJSONTyped } from "./ModelsConfigInfoType";
 import type { ModelsImageMetadataType } from "./ModelsImageMetadataType";
-import { ModelsImageMetadataTypeFromJSON, ModelsImageMetadataTypeFromJSONTyped, ModelsImageMetadataTypeToJSON } from "./ModelsImageMetadataType";
+import { ModelsImageMetadataTypeFromJSON, ModelsImageMetadataTypeFromJSONTyped, ModelsImageMetadataTypeToJSON, ModelsImageMetadataTypeToJSONTyped } from "./ModelsImageMetadataType";
 import type { ModelsScanInfoType } from "./ModelsScanInfoType";
-import { ModelsScanInfoTypeFromJSON, ModelsScanInfoTypeFromJSONTyped, ModelsScanInfoTypeToJSON } from "./ModelsScanInfoType";
+import { ModelsScanInfoTypeFromJSON, ModelsScanInfoTypeFromJSONTyped, ModelsScanInfoTypeToJSON, ModelsScanInfoTypeToJSONTyped } from "./ModelsScanInfoType";
 import type { ModelsImageInfoType } from "./ModelsImageInfoType";
-import { ModelsImageInfoTypeFromJSON, ModelsImageInfoTypeFromJSONTyped, ModelsImageInfoTypeToJSON } from "./ModelsImageInfoType";
+import { ModelsImageInfoTypeFromJSON, ModelsImageInfoTypeFromJSONTyped, ModelsImageInfoTypeToJSON, ModelsImageInfoTypeToJSONTyped } from "./ModelsImageInfoType";
 import type { V1Image } from "./V1Image";
-import { V1ImageFromJSON, V1ImageFromJSONTyped, V1ImageToJSON } from "./V1Image";
+import { V1ImageFromJSON, V1ImageFromJSONTyped, V1ImageToJSON, V1ImageToJSONTyped } from "./V1Image";
 import type { ModelsLayerInfoType } from "./ModelsLayerInfoType";
-import { ModelsLayerInfoTypeFromJSON, ModelsLayerInfoTypeFromJSONTyped, ModelsLayerInfoTypeToJSON } from "./ModelsLayerInfoType";
+import { ModelsLayerInfoTypeFromJSON, ModelsLayerInfoTypeFromJSONTyped, ModelsLayerInfoTypeToJSON, ModelsLayerInfoTypeToJSONTyped } from "./ModelsLayerInfoType";
 import type { Schema2Manifest } from "./Schema2Manifest";
-import { Schema2ManifestFromJSON, Schema2ManifestFromJSONTyped, Schema2ManifestToJSON } from "./Schema2Manifest";
+import { Schema2ManifestFromJSON, Schema2ManifestFromJSONTyped, Schema2ManifestToJSON, Schema2ManifestToJSONTyped } from "./Schema2Manifest";
 
 /**
  *
@@ -149,10 +149,15 @@ export function ModelsScanRequestTypeFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function ModelsScanRequestTypeToJSON(value?: ModelsScanRequestType | null): any {
+export function ModelsScanRequestTypeToJSON(json: any): ModelsScanRequestType {
+    return ModelsScanRequestTypeToJSONTyped(json, false);
+}
+
+export function ModelsScanRequestTypeToJSONTyped(value?: ModelsScanRequestType | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Config: V1ImageToJSON(value["config"]),
         ConfigInfo: ModelsConfigInfoTypeToJSON(value["configInfo"]),

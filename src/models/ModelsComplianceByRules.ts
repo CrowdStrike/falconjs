@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsRuleStatus } from "./ModelsRuleStatus";
-import { ModelsRuleStatusFromJSON, ModelsRuleStatusFromJSONTyped, ModelsRuleStatusToJSON } from "./ModelsRuleStatus";
+import { ModelsRuleStatusFromJSON, ModelsRuleStatusFromJSONTyped, ModelsRuleStatusToJSON, ModelsRuleStatusToJSONTyped } from "./ModelsRuleStatus";
 
 /**
  *
@@ -67,10 +67,15 @@ export function ModelsComplianceByRulesFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function ModelsComplianceByRulesToJSON(value?: ModelsComplianceByRules | null): any {
+export function ModelsComplianceByRulesToJSON(json: any): ModelsComplianceByRules {
+    return ModelsComplianceByRulesToJSONTyped(json, false);
+}
+
+export function ModelsComplianceByRulesToJSONTyped(value?: ModelsComplianceByRules | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         not_applicable_filters: value["notApplicableFilters"],
         percentage_of_passed_rules: value["percentageOfPassedRules"],

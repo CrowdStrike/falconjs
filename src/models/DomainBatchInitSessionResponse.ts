@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { DomainMultiStatusSensorResponse } from "./DomainMultiStatusSensorResponse";
-import { DomainMultiStatusSensorResponseFromJSON, DomainMultiStatusSensorResponseFromJSONTyped, DomainMultiStatusSensorResponseToJSON } from "./DomainMultiStatusSensorResponse";
+import {
+    DomainMultiStatusSensorResponseFromJSON,
+    DomainMultiStatusSensorResponseFromJSONTyped,
+    DomainMultiStatusSensorResponseToJSON,
+    DomainMultiStatusSensorResponseToJSONTyped,
+} from "./DomainMultiStatusSensorResponse";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -79,10 +84,15 @@ export function DomainBatchInitSessionResponseFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function DomainBatchInitSessionResponseToJSON(value?: DomainBatchInitSessionResponse | null): any {
+export function DomainBatchInitSessionResponseToJSON(json: any): DomainBatchInitSessionResponse {
+    return DomainBatchInitSessionResponseToJSONTyped(json, false);
+}
+
+export function DomainBatchInitSessionResponseToJSONTyped(value?: DomainBatchInitSessionResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         batch_id: value["batchId"],
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),

@@ -110,10 +110,15 @@ export function V1ImageConfigFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function V1ImageConfigToJSON(value?: V1ImageConfig | null): any {
+export function V1ImageConfigToJSON(json: any): V1ImageConfig {
+    return V1ImageConfigToJSONTyped(json, false);
+}
+
+export function V1ImageConfigToJSONTyped(value?: V1ImageConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ArgsEscaped: value["argsEscaped"],
         Cmd: value["cmd"],

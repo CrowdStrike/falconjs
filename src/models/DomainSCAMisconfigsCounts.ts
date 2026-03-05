@@ -48,10 +48,15 @@ export function DomainSCAMisconfigsCountsFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DomainSCAMisconfigsCountsToJSON(value?: DomainSCAMisconfigsCounts | null): any {
+export function DomainSCAMisconfigsCountsToJSON(json: any): DomainSCAMisconfigsCounts {
+    return DomainSCAMisconfigsCountsToJSONTyped(json, false);
+}
+
+export function DomainSCAMisconfigsCountsToJSONTyped(value?: DomainSCAMisconfigsCounts | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         critical: value["critical"],
     };

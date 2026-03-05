@@ -18,6 +18,7 @@ import {
     VulnerabilitymetadataapiVulnAPIQueryPagingFromJSON,
     VulnerabilitymetadataapiVulnAPIQueryPagingFromJSONTyped,
     VulnerabilitymetadataapiVulnAPIQueryPagingToJSON,
+    VulnerabilitymetadataapiVulnAPIQueryPagingToJSONTyped,
 } from "./VulnerabilitymetadataapiVulnAPIQueryPaging";
 
 /**
@@ -77,10 +78,15 @@ export function DomainVulnMetadataAPIMetaFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DomainVulnMetadataAPIMetaToJSON(value?: DomainVulnMetadataAPIMeta | null): any {
+export function DomainVulnMetadataAPIMetaToJSON(json: any): DomainVulnMetadataAPIMeta {
+    return DomainVulnMetadataAPIMetaToJSONTyped(json, false);
+}
+
+export function DomainVulnMetadataAPIMetaToJSONTyped(value?: DomainVulnMetadataAPIMeta | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: VulnerabilitymetadataapiVulnAPIQueryPagingToJSON(value["pagination"]),
         powered_by: value["poweredBy"],

@@ -14,15 +14,30 @@
 
 import { mapValues } from "../runtime";
 import type { ExecutionsAncestorExecution } from "./ExecutionsAncestorExecution";
-import { ExecutionsAncestorExecutionFromJSON, ExecutionsAncestorExecutionFromJSONTyped, ExecutionsAncestorExecutionToJSON } from "./ExecutionsAncestorExecution";
+import {
+    ExecutionsAncestorExecutionFromJSON,
+    ExecutionsAncestorExecutionFromJSONTyped,
+    ExecutionsAncestorExecutionToJSON,
+    ExecutionsAncestorExecutionToJSONTyped,
+} from "./ExecutionsAncestorExecution";
 import type { ExecutionsFlowExecutionResult } from "./ExecutionsFlowExecutionResult";
-import { ExecutionsFlowExecutionResultFromJSON, ExecutionsFlowExecutionResultFromJSONTyped, ExecutionsFlowExecutionResultToJSON } from "./ExecutionsFlowExecutionResult";
+import {
+    ExecutionsFlowExecutionResultFromJSON,
+    ExecutionsFlowExecutionResultFromJSONTyped,
+    ExecutionsFlowExecutionResultToJSON,
+    ExecutionsFlowExecutionResultToJSONTyped,
+} from "./ExecutionsFlowExecutionResult";
 import type { ExecutionsActivityExecutionResult } from "./ExecutionsActivityExecutionResult";
-import { ExecutionsActivityExecutionResultFromJSON, ExecutionsActivityExecutionResultFromJSONTyped, ExecutionsActivityExecutionResultToJSON } from "./ExecutionsActivityExecutionResult";
+import {
+    ExecutionsActivityExecutionResultFromJSON,
+    ExecutionsActivityExecutionResultFromJSONTyped,
+    ExecutionsActivityExecutionResultToJSON,
+    ExecutionsActivityExecutionResultToJSONTyped,
+} from "./ExecutionsActivityExecutionResult";
 import type { ExecutionsTriggerResult } from "./ExecutionsTriggerResult";
-import { ExecutionsTriggerResultFromJSON, ExecutionsTriggerResultFromJSONTyped, ExecutionsTriggerResultToJSON } from "./ExecutionsTriggerResult";
+import { ExecutionsTriggerResultFromJSON, ExecutionsTriggerResultFromJSONTyped, ExecutionsTriggerResultToJSON, ExecutionsTriggerResultToJSONTyped } from "./ExecutionsTriggerResult";
 import type { ExecutionsLoopResult } from "./ExecutionsLoopResult";
-import { ExecutionsLoopResultFromJSON, ExecutionsLoopResultFromJSONTyped, ExecutionsLoopResultToJSON } from "./ExecutionsLoopResult";
+import { ExecutionsLoopResultFromJSON, ExecutionsLoopResultFromJSONTyped, ExecutionsLoopResultToJSON, ExecutionsLoopResultToJSONTyped } from "./ExecutionsLoopResult";
 
 /**
  *
@@ -182,10 +197,15 @@ export function ExecutionsExecutionResultFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ExecutionsExecutionResultToJSON(value?: ExecutionsExecutionResult | null): any {
+export function ExecutionsExecutionResultToJSON(json: any): ExecutionsExecutionResult {
+    return ExecutionsExecutionResultToJSONTyped(json, false);
+}
+
+export function ExecutionsExecutionResultToJSONTyped(value?: ExecutionsExecutionResult | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         activities: (value["activities"] as Array<any>).map(ExecutionsActivityExecutionResultToJSON),
         ancestor_executions: (value["ancestorExecutions"] as Array<any>).map(ExecutionsAncestorExecutionToJSON),
@@ -193,7 +213,7 @@ export function ExecutionsExecutionResultToJSON(value?: ExecutionsExecutionResul
         definition_id: value["definitionId"],
         definition_name: value["definitionName"],
         definition_version: value["definitionVersion"],
-        end_timestamp: value["endTimestamp"] == null ? undefined : value["endTimestamp"].toISOString(),
+        end_timestamp: value["endTimestamp"] == null ? value["endTimestamp"] : value["endTimestamp"].toISOString(),
         execution_id: value["executionId"],
         flows: value["flows"] == null ? undefined : (value["flows"] as Array<any>).map(ExecutionsFlowExecutionResultToJSON),
         loops: (value["loops"] as Array<any>).map(ExecutionsLoopResultToJSON),

@@ -69,10 +69,15 @@ export function RegistrationNextTokenPaginationFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function RegistrationNextTokenPaginationToJSON(value?: RegistrationNextTokenPagination | null): any {
+export function RegistrationNextTokenPaginationToJSON(json: any): RegistrationNextTokenPagination {
+    return RegistrationNextTokenPaginationToJSONTyped(json, false);
+}
+
+export function RegistrationNextTokenPaginationToJSONTyped(value?: RegistrationNextTokenPagination | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         limit: value["limit"],
         next_token: value["nextToken"],

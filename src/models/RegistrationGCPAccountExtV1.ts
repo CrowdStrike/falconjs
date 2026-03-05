@@ -55,10 +55,15 @@ export function RegistrationGCPAccountExtV1FromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function RegistrationGCPAccountExtV1ToJSON(value?: RegistrationGCPAccountExtV1 | null): any {
+export function RegistrationGCPAccountExtV1ToJSON(json: any): RegistrationGCPAccountExtV1 {
+    return RegistrationGCPAccountExtV1ToJSONTyped(json, false);
+}
+
+export function RegistrationGCPAccountExtV1ToJSONTyped(value?: RegistrationGCPAccountExtV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         parent_id: value["parentId"],
         parent_type: value["parentType"],

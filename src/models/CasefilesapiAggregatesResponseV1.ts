@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaAggregationResult } from "./MsaAggregationResult";
-import { MsaAggregationResultFromJSON, MsaAggregationResultFromJSONTyped, MsaAggregationResultToJSON } from "./MsaAggregationResult";
+import { MsaAggregationResultFromJSON, MsaAggregationResultFromJSONTyped, MsaAggregationResultToJSON, MsaAggregationResultToJSONTyped } from "./MsaAggregationResult";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function CasefilesapiAggregatesResponseV1FromJSONTyped(json: any, ignoreD
     };
 }
 
-export function CasefilesapiAggregatesResponseV1ToJSON(value?: CasefilesapiAggregatesResponseV1 | null): any {
+export function CasefilesapiAggregatesResponseV1ToJSON(json: any): CasefilesapiAggregatesResponseV1 {
+    return CasefilesapiAggregatesResponseV1ToJSONTyped(json, false);
+}
+
+export function CasefilesapiAggregatesResponseV1ToJSONTyped(value?: CasefilesapiAggregatesResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

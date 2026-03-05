@@ -56,10 +56,15 @@ export function ModelsKACPolicyRuleGroupImageAssessmentFromJSONTyped(json: any, 
     };
 }
 
-export function ModelsKACPolicyRuleGroupImageAssessmentToJSON(value?: ModelsKACPolicyRuleGroupImageAssessment | null): any {
+export function ModelsKACPolicyRuleGroupImageAssessmentToJSON(json: any): ModelsKACPolicyRuleGroupImageAssessment {
+    return ModelsKACPolicyRuleGroupImageAssessmentToJSONTyped(json, false);
+}
+
+export function ModelsKACPolicyRuleGroupImageAssessmentToJSONTyped(value?: ModelsKACPolicyRuleGroupImageAssessment | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         enabled: value["enabled"],
         unassessed_handling: value["unassessedHandling"],

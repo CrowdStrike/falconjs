@@ -108,16 +108,21 @@ export function ApiFileTypeV1FromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function ApiFileTypeV1ToJSON(value?: ApiFileTypeV1 | null): any {
+export function ApiFileTypeV1ToJSON(json: any): ApiFileTypeV1 {
+    return ApiFileTypeV1ToJSONTyped(json, false);
+}
+
+export function ApiFileTypeV1ToJSONTyped(value?: ApiFileTypeV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         category_id: value["categoryId"],
-        created: value["created"] == null ? undefined : value["created"].toISOString(),
+        created: value["created"] == null ? value["created"] : value["created"].toISOString(),
         description: value["description"],
         id: value["id"],
-        last_updated: value["lastUpdated"] == null ? undefined : value["lastUpdated"].toISOString(),
+        last_updated: value["lastUpdated"] == null ? value["lastUpdated"] : value["lastUpdated"].toISOString(),
         name: value["name"],
         supported_platforms: value["supportedPlatforms"],
         supports_content_inspection: value["supportsContentInspection"],

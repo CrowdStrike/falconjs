@@ -68,10 +68,15 @@ export function TypesPaginateFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function TypesPaginateToJSON(value?: TypesPaginate | null): any {
+export function TypesPaginateToJSON(json: any): TypesPaginate {
+    return TypesPaginateToJSONTyped(json, false);
+}
+
+export function TypesPaginateToJSONTyped(value?: TypesPaginate | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         direction: value["direction"],
         limit: value["limit"],

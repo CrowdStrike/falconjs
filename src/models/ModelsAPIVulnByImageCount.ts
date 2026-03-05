@@ -72,10 +72,15 @@ export function ModelsAPIVulnByImageCountFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ModelsAPIVulnByImageCountToJSON(value?: ModelsAPIVulnByImageCount | null): any {
+export function ModelsAPIVulnByImageCountToJSON(json: any): ModelsAPIVulnByImageCount {
+    return ModelsAPIVulnByImageCountToJSONTyped(json, false);
+}
+
+export function ModelsAPIVulnByImageCountToJSONTyped(value?: ModelsAPIVulnByImageCount | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cve_id: value["cveId"],
         images_impacted: value["imagesImpacted"],

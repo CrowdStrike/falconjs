@@ -56,10 +56,15 @@ export function DomainQuotaFromJSONTyped(json: any, ignoreDiscriminator: boolean
     };
 }
 
-export function DomainQuotaToJSON(value?: DomainQuota | null): any {
+export function DomainQuotaToJSON(json: any): DomainQuota {
+    return DomainQuotaToJSONTyped(json, false);
+}
+
+export function DomainQuotaToJSONTyped(value?: DomainQuota | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         total: value["total"],
         used: value["used"],

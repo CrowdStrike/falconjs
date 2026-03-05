@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { DomainXDRData } from "./DomainXDRData";
-import { DomainXDRDataFromJSON, DomainXDRDataFromJSONTyped, DomainXDRDataToJSON } from "./DomainXDRData";
+import { DomainXDRDataFromJSON, DomainXDRDataFromJSONTyped, DomainXDRDataToJSON, DomainXDRDataToJSONTyped } from "./DomainXDRData";
 import type { DomainXDRParams } from "./DomainXDRParams";
-import { DomainXDRParamsFromJSON, DomainXDRParamsFromJSONTyped, DomainXDRParamsToJSON } from "./DomainXDRParams";
+import { DomainXDRParamsFromJSON, DomainXDRParamsFromJSONTyped, DomainXDRParamsToJSON, DomainXDRParamsToJSONTyped } from "./DomainXDRParams";
 import type { DomainReportParams } from "./DomainReportParams";
-import { DomainReportParamsFromJSON, DomainReportParamsFromJSONTyped, DomainReportParamsToJSON } from "./DomainReportParams";
+import { DomainReportParamsFromJSON, DomainReportParamsFromJSONTyped, DomainReportParamsToJSON, DomainReportParamsToJSONTyped } from "./DomainReportParams";
 
 /**
  *
@@ -126,10 +126,15 @@ export function DomainExecutionMetadataV1FromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DomainExecutionMetadataV1ToJSON(value?: DomainExecutionMetadataV1 | null): any {
+export function DomainExecutionMetadataV1ToJSON(json: any): DomainExecutionMetadataV1 {
+    return DomainExecutionMetadataV1ToJSONTyped(json, false);
+}
+
+export function DomainExecutionMetadataV1ToJSONTyped(value?: DomainExecutionMetadataV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         auto_retry_count: value["autoRetryCount"],
         report_params: DomainReportParamsToJSON(value["reportParams"]),

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { V2InlineConfig } from "./V2InlineConfig";
-import { V2InlineConfigFromJSON, V2InlineConfigFromJSONTyped, V2InlineConfigToJSON } from "./V2InlineConfig";
+import { V2InlineConfigFromJSON, V2InlineConfigFromJSONTyped, V2InlineConfigToJSON, V2InlineConfigToJSONTyped } from "./V2InlineConfig";
 
 /**
  *
@@ -108,10 +108,15 @@ export function V2ActivityFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function V2ActivityToJSON(value?: V2Activity | null): any {
+export function V2ActivityToJSON(json: any): V2Activity {
+    return V2ActivityToJSONTyped(json, false);
+}
+
+export function V2ActivityToJSONTyped(value?: V2Activity | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         class: value["_class"],
         continue_on_error: value["continueOnError"],

@@ -62,10 +62,15 @@ export function DomainOnPremFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function DomainOnPremToJSON(value?: DomainOnPrem | null): any {
+export function DomainOnPremToJSON(json: any): DomainOnPrem {
+    return DomainOnPremToJSONTyped(json, false);
+}
+
+export function DomainOnPremToJSONTyped(value?: DomainOnPrem | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         host_group_id: value["hostGroupId"],
         insecure_skip_verify: value["insecureSkipVerify"],

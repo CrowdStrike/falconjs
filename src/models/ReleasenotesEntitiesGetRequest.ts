@@ -48,10 +48,15 @@ export function ReleasenotesEntitiesGetRequestFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function ReleasenotesEntitiesGetRequestToJSON(value?: ReleasenotesEntitiesGetRequest | null): any {
+export function ReleasenotesEntitiesGetRequestToJSON(json: any): ReleasenotesEntitiesGetRequest {
+    return ReleasenotesEntitiesGetRequestToJSONTyped(json, false);
+}
+
+export function ReleasenotesEntitiesGetRequestToJSONTyped(value?: ReleasenotesEntitiesGetRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         IDs: value["iDs"],
     };

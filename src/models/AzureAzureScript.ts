@@ -71,10 +71,15 @@ export function AzureAzureScriptFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function AzureAzureScriptToJSON(value?: AzureAzureScript | null): any {
+export function AzureAzureScriptToJSON(json: any): AzureAzureScript {
+    return AzureAzureScriptToJSONTyped(json, false);
+}
+
+export function AzureAzureScriptToJSONTyped(value?: AzureAzureScript | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         tenantId: value["tenantId"],

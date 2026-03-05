@@ -14,9 +14,19 @@
 
 import { mapValues } from "../runtime";
 import type { DevicecontrolapiBluetoothSettings } from "./DevicecontrolapiBluetoothSettings";
-import { DevicecontrolapiBluetoothSettingsFromJSON, DevicecontrolapiBluetoothSettingsFromJSONTyped, DevicecontrolapiBluetoothSettingsToJSON } from "./DevicecontrolapiBluetoothSettings";
+import {
+    DevicecontrolapiBluetoothSettingsFromJSON,
+    DevicecontrolapiBluetoothSettingsFromJSONTyped,
+    DevicecontrolapiBluetoothSettingsToJSON,
+    DevicecontrolapiBluetoothSettingsToJSONTyped,
+} from "./DevicecontrolapiBluetoothSettings";
 import type { DevicecontrolapiRespUSBSettingsV2 } from "./DevicecontrolapiRespUSBSettingsV2";
-import { DevicecontrolapiRespUSBSettingsV2FromJSON, DevicecontrolapiRespUSBSettingsV2FromJSONTyped, DevicecontrolapiRespUSBSettingsV2ToJSON } from "./DevicecontrolapiRespUSBSettingsV2";
+import {
+    DevicecontrolapiRespUSBSettingsV2FromJSON,
+    DevicecontrolapiRespUSBSettingsV2FromJSONTyped,
+    DevicecontrolapiRespUSBSettingsV2ToJSON,
+    DevicecontrolapiRespUSBSettingsV2ToJSONTyped,
+} from "./DevicecontrolapiRespUSBSettingsV2";
 
 /**
  *
@@ -200,10 +210,15 @@ export function DevicecontrolapiRespPolicyV2FromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function DevicecontrolapiRespPolicyV2ToJSON(value?: DevicecontrolapiRespPolicyV2 | null): any {
+export function DevicecontrolapiRespPolicyV2ToJSON(json: any): DevicecontrolapiRespPolicyV2 {
+    return DevicecontrolapiRespPolicyV2ToJSONTyped(json, false);
+}
+
+export function DevicecontrolapiRespPolicyV2ToJSONTyped(value?: DevicecontrolapiRespPolicyV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         assignment_type: value["assignmentType"],
         bluetooth_channel_version: value["bluetoothChannelVersion"],

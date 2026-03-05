@@ -133,19 +133,24 @@ export function ApiMigrationFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function ApiMigrationToJSON(value?: ApiMigration | null): any {
+export function ApiMigrationToJSON(json: any): ApiMigration {
+    return ApiMigrationToJSONTyped(json, false);
+}
+
+export function ApiMigrationToJSONTyped(value?: ApiMigration | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         canceled_by: value["canceledBy"],
-        completed_time: value["completedTime"] == null ? undefined : value["completedTime"].toISOString(),
+        completed_time: value["completedTime"] == null ? value["completedTime"] : value["completedTime"].toISOString(),
         created_by: value["createdBy"],
         created_time: value["createdTime"].toISOString(),
         migration_id: value["migrationId"],
         migration_status: value["migrationStatus"],
         name: value["name"],
-        started_time: value["startedTime"] == null ? undefined : value["startedTime"].toISOString(),
+        started_time: value["startedTime"] == null ? value["startedTime"] : value["startedTime"].toISOString(),
         target_cid: value["targetCid"],
         total_hosts: value["totalHosts"],
         updated_by: value["updatedBy"],

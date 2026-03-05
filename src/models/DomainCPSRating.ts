@@ -14,9 +14,14 @@
 
 import { mapValues } from "../runtime";
 import type { DomainCPSRatingHistoryEntry } from "./DomainCPSRatingHistoryEntry";
-import { DomainCPSRatingHistoryEntryFromJSON, DomainCPSRatingHistoryEntryFromJSONTyped, DomainCPSRatingHistoryEntryToJSON } from "./DomainCPSRatingHistoryEntry";
+import {
+    DomainCPSRatingHistoryEntryFromJSON,
+    DomainCPSRatingHistoryEntryFromJSONTyped,
+    DomainCPSRatingHistoryEntryToJSON,
+    DomainCPSRatingHistoryEntryToJSONTyped,
+} from "./DomainCPSRatingHistoryEntry";
 import type { DomainCPSRatingIndicator } from "./DomainCPSRatingIndicator";
-import { DomainCPSRatingIndicatorFromJSON, DomainCPSRatingIndicatorFromJSONTyped, DomainCPSRatingIndicatorToJSON } from "./DomainCPSRatingIndicator";
+import { DomainCPSRatingIndicatorFromJSON, DomainCPSRatingIndicatorFromJSONTyped, DomainCPSRatingIndicatorToJSON, DomainCPSRatingIndicatorToJSONTyped } from "./DomainCPSRatingIndicator";
 
 /**
  *
@@ -85,10 +90,15 @@ export function DomainCPSRatingFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function DomainCPSRatingToJSON(value?: DomainCPSRating | null): any {
+export function DomainCPSRatingToJSON(json: any): DomainCPSRating {
+    return DomainCPSRatingToJSONTyped(json, false);
+}
+
+export function DomainCPSRatingToJSONTyped(value?: DomainCPSRating | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         CurrentRating: DomainCPSRatingHistoryEntryToJSON(value["currentRating"]),
         HighestRating: DomainCPSRatingHistoryEntryToJSON(value["highestRating"]),

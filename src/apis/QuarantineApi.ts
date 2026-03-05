@@ -75,12 +75,9 @@ export interface QuarantineApiUpdateQuarantinedDetectsByIdsRequest {
  */
 export class QuarantineApi extends runtime.BaseAPI {
     /**
-     * Returns count of potentially affected quarantined files for each action.
+     * Creates request options for actionUpdateCount without sending the request
      */
-    async actionUpdateCountRaw(
-        requestParameters: QuarantineApiActionUpdateCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+    async actionUpdateCountRequestOpts(requestParameters: QuarantineApiActionUpdateCountRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["filter"] == null) {
             throw new runtime.RequiredError("filter", 'Required parameter "filter" was null or undefined when calling actionUpdateCount().');
         }
@@ -98,15 +95,25 @@ export class QuarantineApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["quarantine:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/quarantine/aggregates/action-update-count/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/quarantine/aggregates/action-update-count/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns count of potentially affected quarantined files for each action.
+     */
+    async actionUpdateCountRaw(
+        requestParameters: QuarantineApiActionUpdateCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        const requestOptions = await this.actionUpdateCountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
     }
@@ -120,12 +127,9 @@ export class QuarantineApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get quarantine file aggregates as specified via json in request body.
+     * Creates request options for getAggregateFiles without sending the request
      */
-    async getAggregateFilesRaw(
-        requestParameters: QuarantineApiGetAggregateFilesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+    async getAggregateFilesRequestOpts(requestParameters: QuarantineApiGetAggregateFilesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getAggregateFiles().');
         }
@@ -141,16 +145,26 @@ export class QuarantineApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["quarantine:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/quarantine/aggregates/quarantined-files/GET/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaAggregateQueryRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/quarantine/aggregates/quarantined-files/GET/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaAggregateQueryRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Get quarantine file aggregates as specified via json in request body.
+     */
+    async getAggregateFilesRaw(
+        requestParameters: QuarantineApiGetAggregateFilesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        const requestOptions = await this.getAggregateFilesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
     }
@@ -164,12 +178,9 @@ export class QuarantineApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get quarantine file metadata for specified ids.
+     * Creates request options for getQuarantineFiles without sending the request
      */
-    async getQuarantineFilesRaw(
-        requestParameters: QuarantineApiGetQuarantineFilesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainMsaQfResponse>> {
+    async getQuarantineFilesRequestOpts(requestParameters: QuarantineApiGetQuarantineFilesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getQuarantineFiles().');
         }
@@ -185,16 +196,26 @@ export class QuarantineApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["quarantine:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/quarantine/entities/quarantined-files/GET/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaIdsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/quarantine/entities/quarantined-files/GET/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaIdsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Get quarantine file metadata for specified ids.
+     */
+    async getQuarantineFilesRaw(
+        requestParameters: QuarantineApiGetQuarantineFilesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainMsaQfResponse>> {
+        const requestOptions = await this.getQuarantineFilesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaQfResponseFromJSON(jsonValue));
     }
@@ -208,12 +229,9 @@ export class QuarantineApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get quarantine file ids that match the provided filter criteria.
+     * Creates request options for queryQuarantineFiles without sending the request
      */
-    async queryQuarantineFilesRaw(
-        requestParameters: QuarantineApiQueryQuarantineFilesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queryQuarantineFilesRequestOpts(requestParameters: QuarantineApiQueryQuarantineFilesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -243,15 +261,25 @@ export class QuarantineApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["quarantine:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/quarantine/queries/quarantined-files/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/quarantine/queries/quarantined-files/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get quarantine file ids that match the provided filter criteria.
+     */
+    async queryQuarantineFilesRaw(
+        requestParameters: QuarantineApiQueryQuarantineFilesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queryQuarantineFilesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -265,9 +293,9 @@ export class QuarantineApi extends runtime.BaseAPI {
     }
 
     /**
-     * Apply quarantine file actions by query.
+     * Creates request options for updateQfByQuery without sending the request
      */
-    async updateQfByQueryRaw(requestParameters: QuarantineApiUpdateQfByQueryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async updateQfByQueryRequestOpts(requestParameters: QuarantineApiUpdateQfByQueryRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateQfByQuery().');
         }
@@ -283,16 +311,23 @@ export class QuarantineApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["quarantine:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/quarantine/queries/quarantined-files/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainQueriesPatchRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/quarantine/queries/quarantined-files/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainQueriesPatchRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Apply quarantine file actions by query.
+     */
+    async updateQfByQueryRaw(requestParameters: QuarantineApiUpdateQfByQueryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+        const requestOptions = await this.updateQfByQueryRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
     }
@@ -306,12 +341,9 @@ export class QuarantineApi extends runtime.BaseAPI {
     }
 
     /**
-     * Apply action by quarantine file ids
+     * Creates request options for updateQuarantinedDetectsByIds without sending the request
      */
-    async updateQuarantinedDetectsByIdsRaw(
-        requestParameters: QuarantineApiUpdateQuarantinedDetectsByIdsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async updateQuarantinedDetectsByIdsRequestOpts(requestParameters: QuarantineApiUpdateQuarantinedDetectsByIdsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateQuarantinedDetectsByIds().');
         }
@@ -327,16 +359,26 @@ export class QuarantineApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["quarantine:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/quarantine/entities/quarantined-files/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainEntitiesPatchRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/quarantine/entities/quarantined-files/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainEntitiesPatchRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Apply action by quarantine file ids
+     */
+    async updateQuarantinedDetectsByIdsRaw(
+        requestParameters: QuarantineApiUpdateQuarantinedDetectsByIdsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+        const requestOptions = await this.updateQuarantinedDetectsByIdsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
     }

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ModelsAPIPolicyEntity } from "./ModelsAPIPolicyEntity";
-import { ModelsAPIPolicyEntityFromJSON, ModelsAPIPolicyEntityFromJSONTyped, ModelsAPIPolicyEntityToJSON } from "./ModelsAPIPolicyEntity";
+import { ModelsAPIPolicyEntityFromJSON, ModelsAPIPolicyEntityFromJSONTyped, ModelsAPIPolicyEntityToJSON, ModelsAPIPolicyEntityToJSONTyped } from "./ModelsAPIPolicyEntity";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function ModelsPolicyEntityResponseFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function ModelsPolicyEntityResponseToJSON(value?: ModelsPolicyEntityResponse | null): any {
+export function ModelsPolicyEntityResponseToJSON(json: any): ModelsPolicyEntityResponse {
+    return ModelsPolicyEntityResponseToJSONTyped(json, false);
+}
+
+export function ModelsPolicyEntityResponseToJSONTyped(value?: ModelsPolicyEntityResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

@@ -84,10 +84,15 @@ export function DomainPolicySettingByAccountAndRegionFromJSONTyped(json: any, ig
     };
 }
 
-export function DomainPolicySettingByAccountAndRegionToJSON(value?: DomainPolicySettingByAccountAndRegion | null): any {
+export function DomainPolicySettingByAccountAndRegionToJSON(json: any): DomainPolicySettingByAccountAndRegion {
+    return DomainPolicySettingByAccountAndRegionToJSONTyped(json, false);
+}
+
+export function DomainPolicySettingByAccountAndRegionToJSONTyped(value?: DomainPolicySettingByAccountAndRegion | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         enabled: value["enabled"],

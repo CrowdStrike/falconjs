@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 import type { ReleasesReleaseResponseV1 } from "./ReleasesReleaseResponseV1";
-import { ReleasesReleaseResponseV1FromJSON, ReleasesReleaseResponseV1FromJSONTyped, ReleasesReleaseResponseV1ToJSON } from "./ReleasesReleaseResponseV1";
+import { ReleasesReleaseResponseV1FromJSON, ReleasesReleaseResponseV1FromJSONTyped, ReleasesReleaseResponseV1ToJSON, ReleasesReleaseResponseV1ToJSONTyped } from "./ReleasesReleaseResponseV1";
 
 /**
  *
@@ -71,10 +71,15 @@ export function ReleasesReleaseResponseWrapperV1FromJSONTyped(json: any, ignoreD
     };
 }
 
-export function ReleasesReleaseResponseWrapperV1ToJSON(value?: ReleasesReleaseResponseWrapperV1 | null): any {
+export function ReleasesReleaseResponseWrapperV1ToJSON(json: any): ReleasesReleaseResponseWrapperV1 {
+    return ReleasesReleaseResponseWrapperV1ToJSONTyped(json, false);
+}
+
+export function ReleasesReleaseResponseWrapperV1ToJSONTyped(value?: ReleasesReleaseResponseWrapperV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

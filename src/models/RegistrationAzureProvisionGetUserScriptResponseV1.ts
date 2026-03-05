@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { RegistrationAzureUserScript } from "./RegistrationAzureUserScript";
-import { RegistrationAzureUserScriptFromJSON, RegistrationAzureUserScriptFromJSONTyped, RegistrationAzureUserScriptToJSON } from "./RegistrationAzureUserScript";
+import {
+    RegistrationAzureUserScriptFromJSON,
+    RegistrationAzureUserScriptFromJSONTyped,
+    RegistrationAzureUserScriptToJSON,
+    RegistrationAzureUserScriptToJSONTyped,
+} from "./RegistrationAzureUserScript";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +76,15 @@ export function RegistrationAzureProvisionGetUserScriptResponseV1FromJSONTyped(j
     };
 }
 
-export function RegistrationAzureProvisionGetUserScriptResponseV1ToJSON(value?: RegistrationAzureProvisionGetUserScriptResponseV1 | null): any {
+export function RegistrationAzureProvisionGetUserScriptResponseV1ToJSON(json: any): RegistrationAzureProvisionGetUserScriptResponseV1 {
+    return RegistrationAzureProvisionGetUserScriptResponseV1ToJSONTyped(json, false);
+}
+
+export function RegistrationAzureProvisionGetUserScriptResponseV1ToJSONTyped(value?: RegistrationAzureProvisionGetUserScriptResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

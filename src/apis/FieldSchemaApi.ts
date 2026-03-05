@@ -39,12 +39,9 @@ export interface FieldSchemaApiFdrschemaQueriesFieldGetRequest {
  */
 export class FieldSchemaApi extends runtime.BaseAPI {
     /**
-     * Fetch field schema by ID
+     * Creates request options for fdrschemaEntitiesFieldGet without sending the request
      */
-    async fdrschemaEntitiesFieldGetRaw(
-        requestParameters: FieldSchemaApiFdrschemaEntitiesFieldGetRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<SchemaSensorFieldResponseV1>> {
+    async fdrschemaEntitiesFieldGetRequestOpts(requestParameters: FieldSchemaApiFdrschemaEntitiesFieldGetRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -58,15 +55,25 @@ export class FieldSchemaApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fdr:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/fdr/entities/schema-fields/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/fdr/entities/schema-fields/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Fetch field schema by ID
+     */
+    async fdrschemaEntitiesFieldGetRaw(
+        requestParameters: FieldSchemaApiFdrschemaEntitiesFieldGetRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<SchemaSensorFieldResponseV1>> {
+        const requestOptions = await this.fdrschemaEntitiesFieldGetRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SchemaSensorFieldResponseV1FromJSON(jsonValue));
     }
@@ -80,12 +87,9 @@ export class FieldSchemaApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get list of field IDs given a particular query.
+     * Creates request options for fdrschemaQueriesFieldGet without sending the request
      */
-    async fdrschemaQueriesFieldGetRaw(
-        requestParameters: FieldSchemaApiFdrschemaQueriesFieldGetRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async fdrschemaQueriesFieldGetRequestOpts(requestParameters: FieldSchemaApiFdrschemaQueriesFieldGetRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["limit"] != null) {
@@ -111,15 +115,25 @@ export class FieldSchemaApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fdr:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/fdr/queries/schema-fields/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/fdr/queries/schema-fields/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get list of field IDs given a particular query.
+     */
+    async fdrschemaQueriesFieldGetRaw(
+        requestParameters: FieldSchemaApiFdrschemaQueriesFieldGetRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.fdrschemaQueriesFieldGetRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }

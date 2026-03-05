@@ -56,10 +56,15 @@ export function V2TimestampFieldsFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function V2TimestampFieldsToJSON(value?: V2TimestampFields | null): any {
+export function V2TimestampFieldsToJSON(json: any): V2TimestampFields {
+    return V2TimestampFieldsToJSONTyped(json, false);
+}
+
+export function V2TimestampFieldsToJSONTyped(value?: V2TimestampFields | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         first_seen: value["firstSeen"],
         last_seen: value["lastSeen"],

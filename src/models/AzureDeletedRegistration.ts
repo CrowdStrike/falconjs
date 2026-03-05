@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { DomainProductFeatures } from "./DomainProductFeatures";
-import { DomainProductFeaturesFromJSON, DomainProductFeaturesFromJSONTyped, DomainProductFeaturesToJSON } from "./DomainProductFeatures";
+import { DomainProductFeaturesFromJSON, DomainProductFeaturesFromJSONTyped, DomainProductFeaturesToJSON, DomainProductFeaturesToJSONTyped } from "./DomainProductFeatures";
 import type { AzureDeprovisionScripts } from "./AzureDeprovisionScripts";
-import { AzureDeprovisionScriptsFromJSON, AzureDeprovisionScriptsFromJSONTyped, AzureDeprovisionScriptsToJSON } from "./AzureDeprovisionScripts";
+import { AzureDeprovisionScriptsFromJSON, AzureDeprovisionScriptsFromJSONTyped, AzureDeprovisionScriptsToJSON, AzureDeprovisionScriptsToJSONTyped } from "./AzureDeprovisionScripts";
 import type { AzureDeletedSubscriptionInfo } from "./AzureDeletedSubscriptionInfo";
-import { AzureDeletedSubscriptionInfoFromJSON, AzureDeletedSubscriptionInfoFromJSONTyped, AzureDeletedSubscriptionInfoToJSON } from "./AzureDeletedSubscriptionInfo";
+import {
+    AzureDeletedSubscriptionInfoFromJSON,
+    AzureDeletedSubscriptionInfoFromJSONTyped,
+    AzureDeletedSubscriptionInfoToJSON,
+    AzureDeletedSubscriptionInfoToJSONTyped,
+} from "./AzureDeletedSubscriptionInfo";
 
 /**
  *
@@ -157,10 +162,15 @@ export function AzureDeletedRegistrationFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function AzureDeletedRegistrationToJSON(value?: AzureDeletedRegistration | null): any {
+export function AzureDeletedRegistrationToJSON(json: any): AzureDeletedRegistration {
+    return AzureDeletedRegistrationToJSONTyped(json, false);
+}
+
+export function AzureDeletedRegistrationToJSONTyped(value?: AzureDeletedRegistration | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         activity_log_diagnostic_settings_name: value["activityLogDiagnosticSettingsName"],
         cs_infra_subscription_id: value["csInfraSubscriptionId"],

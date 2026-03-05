@@ -75,10 +75,15 @@ export function TypesECSMetadataFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function TypesECSMetadataToJSON(value?: TypesECSMetadata | null): any {
+export function TypesECSMetadataToJSON(json: any): TypesECSMetadata {
+    return TypesECSMetadataToJSONTyped(json, false);
+}
+
+export function TypesECSMetadataToJSONTyped(value?: TypesECSMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         clusterName: value["clusterName"],
         collectionMethod: value["collectionMethod"],

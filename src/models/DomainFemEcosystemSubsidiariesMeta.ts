@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -59,10 +59,15 @@ export function DomainFemEcosystemSubsidiariesMetaFromJSONTyped(json: any, ignor
     };
 }
 
-export function DomainFemEcosystemSubsidiariesMetaToJSON(value?: DomainFemEcosystemSubsidiariesMeta | null): any {
+export function DomainFemEcosystemSubsidiariesMetaToJSON(json: any): DomainFemEcosystemSubsidiariesMeta {
+    return DomainFemEcosystemSubsidiariesMetaToJSONTyped(json, false);
+}
+
+export function DomainFemEcosystemSubsidiariesMetaToJSONTyped(value?: DomainFemEcosystemSubsidiariesMeta | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         MetaInfo: MsaMetaInfoToJSON(value["metaInfo"]),
         version_id: value["versionId"],

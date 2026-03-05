@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { PaginationMetaGetAssetInventory } from "./PaginationMetaGetAssetInventory";
-import { PaginationMetaGetAssetInventoryFromJSON, PaginationMetaGetAssetInventoryFromJSONTyped, PaginationMetaGetAssetInventoryToJSON } from "./PaginationMetaGetAssetInventory";
+import {
+    PaginationMetaGetAssetInventoryFromJSON,
+    PaginationMetaGetAssetInventoryFromJSONTyped,
+    PaginationMetaGetAssetInventoryToJSON,
+    PaginationMetaGetAssetInventoryToJSONTyped,
+} from "./PaginationMetaGetAssetInventory";
 
 /**
  *
@@ -64,10 +69,15 @@ export function MetaGetAssetInventoryFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function MetaGetAssetInventoryToJSON(value?: MetaGetAssetInventory | null): any {
+export function MetaGetAssetInventoryToJSON(json: any): MetaGetAssetInventory {
+    return MetaGetAssetInventoryToJSONTyped(json, false);
+}
+
+export function MetaGetAssetInventoryToJSONTyped(value?: MetaGetAssetInventory | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: PaginationMetaGetAssetInventoryToJSON(value["pagination"]),
         query_time: value["queryTime"],

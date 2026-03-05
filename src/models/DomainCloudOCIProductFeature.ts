@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainCloudOCIFeature } from "./DomainCloudOCIFeature";
-import { DomainCloudOCIFeatureFromJSON, DomainCloudOCIFeatureFromJSONTyped, DomainCloudOCIFeatureToJSON } from "./DomainCloudOCIFeature";
+import { DomainCloudOCIFeatureFromJSON, DomainCloudOCIFeatureFromJSONTyped, DomainCloudOCIFeatureToJSON, DomainCloudOCIFeatureToJSONTyped } from "./DomainCloudOCIFeature";
 
 /**
  *
@@ -59,10 +59,15 @@ export function DomainCloudOCIProductFeatureFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function DomainCloudOCIProductFeatureToJSON(value?: DomainCloudOCIProductFeature | null): any {
+export function DomainCloudOCIProductFeatureToJSON(json: any): DomainCloudOCIProductFeature {
+    return DomainCloudOCIProductFeatureToJSONTyped(json, false);
+}
+
+export function DomainCloudOCIProductFeatureToJSONTyped(value?: DomainCloudOCIProductFeature | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         features: (value["features"] as Array<any>).map(DomainCloudOCIFeatureToJSON),
         product: value["product"],

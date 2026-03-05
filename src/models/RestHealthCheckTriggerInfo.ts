@@ -56,10 +56,15 @@ export function RestHealthCheckTriggerInfoFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function RestHealthCheckTriggerInfoToJSON(value?: RestHealthCheckTriggerInfo | null): any {
+export function RestHealthCheckTriggerInfoToJSON(json: any): RestHealthCheckTriggerInfo {
+    return RestHealthCheckTriggerInfoToJSONTyped(json, false);
+}
+
+export function RestHealthCheckTriggerInfoToJSONTyped(value?: RestHealthCheckTriggerInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         fail: value["fail"],
         success: value["success"],

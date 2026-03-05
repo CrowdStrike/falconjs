@@ -72,10 +72,15 @@ export function ApiRuleGroupCreateRequestV1FromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function ApiRuleGroupCreateRequestV1ToJSON(value?: ApiRuleGroupCreateRequestV1 | null): any {
+export function ApiRuleGroupCreateRequestV1ToJSON(json: any): ApiRuleGroupCreateRequestV1 {
+    return ApiRuleGroupCreateRequestV1ToJSONTyped(json, false);
+}
+
+export function ApiRuleGroupCreateRequestV1ToJSONTyped(value?: ApiRuleGroupCreateRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         comment: value["comment"],
         description: value["description"],

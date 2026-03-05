@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ClientDataIngestResponseV1 } from "./ClientDataIngestResponseV1";
-import { ClientDataIngestResponseV1FromJSON, ClientDataIngestResponseV1FromJSONTyped, ClientDataIngestResponseV1ToJSON } from "./ClientDataIngestResponseV1";
+import { ClientDataIngestResponseV1FromJSON, ClientDataIngestResponseV1FromJSONTyped, ClientDataIngestResponseV1ToJSON, ClientDataIngestResponseV1ToJSONTyped } from "./ClientDataIngestResponseV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function ClientDataIngestResponseWrapperV1FromJSONTyped(json: any, ignore
     };
 }
 
-export function ClientDataIngestResponseWrapperV1ToJSON(value?: ClientDataIngestResponseWrapperV1 | null): any {
+export function ClientDataIngestResponseWrapperV1ToJSON(json: any): ClientDataIngestResponseWrapperV1 {
+    return ClientDataIngestResponseWrapperV1ToJSONTyped(json, false);
+}
+
+export function ClientDataIngestResponseWrapperV1ToJSONTyped(value?: ClientDataIngestResponseWrapperV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

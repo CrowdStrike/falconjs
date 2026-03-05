@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ApiCertBasedExclusionV1 } from "./ApiCertBasedExclusionV1";
-import { ApiCertBasedExclusionV1FromJSON, ApiCertBasedExclusionV1FromJSONTyped, ApiCertBasedExclusionV1ToJSON } from "./ApiCertBasedExclusionV1";
+import { ApiCertBasedExclusionV1FromJSON, ApiCertBasedExclusionV1FromJSONTyped, ApiCertBasedExclusionV1ToJSON, ApiCertBasedExclusionV1ToJSONTyped } from "./ApiCertBasedExclusionV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -69,10 +69,15 @@ export function ApiCertBasedExclusionRespV1FromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function ApiCertBasedExclusionRespV1ToJSON(value?: ApiCertBasedExclusionRespV1 | null): any {
+export function ApiCertBasedExclusionRespV1ToJSON(json: any): ApiCertBasedExclusionRespV1 {
+    return ApiCertBasedExclusionRespV1ToJSONTyped(json, false);
+}
+
+export function ApiCertBasedExclusionRespV1ToJSONTyped(value?: ApiCertBasedExclusionRespV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

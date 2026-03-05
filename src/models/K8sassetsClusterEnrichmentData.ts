@@ -72,10 +72,15 @@ export function K8sassetsClusterEnrichmentDataFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function K8sassetsClusterEnrichmentDataToJSON(value?: K8sassetsClusterEnrichmentData | null): any {
+export function K8sassetsClusterEnrichmentDataToJSON(json: any): K8sassetsClusterEnrichmentData {
+    return K8sassetsClusterEnrichmentDataToJSONTyped(json, false);
+}
+
+export function K8sassetsClusterEnrichmentDataToJSONTyped(value?: K8sassetsClusterEnrichmentData | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         container_count: value["containerCount"],
         image_count: value["imageCount"],

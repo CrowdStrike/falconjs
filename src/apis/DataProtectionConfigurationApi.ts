@@ -281,12 +281,9 @@ export interface DataProtectionConfigurationApiQueriesWebLocationGetV2Request {
  */
 export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     /**
-     * Deletes classifications that match the provided ids
+     * Creates request options for entitiesClassificationDeleteV2 without sending the request
      */
-    async entitiesClassificationDeleteV2Raw(
-        requestParameters: DataProtectionConfigurationApiEntitiesClassificationDeleteV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<PolicymanagerClassificationsResponse>> {
+    async entitiesClassificationDeleteV2RequestOpts(requestParameters: DataProtectionConfigurationApiEntitiesClassificationDeleteV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesClassificationDeleteV2().');
         }
@@ -304,15 +301,25 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/entities/classifications/v2`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/entities/classifications/v2`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Deletes classifications that match the provided ids
+     */
+    async entitiesClassificationDeleteV2Raw(
+        requestParameters: DataProtectionConfigurationApiEntitiesClassificationDeleteV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PolicymanagerClassificationsResponse>> {
+        const requestOptions = await this.entitiesClassificationDeleteV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PolicymanagerClassificationsResponseFromJSON(jsonValue));
     }
@@ -326,12 +333,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Gets the classifications that match the provided ids
+     * Creates request options for entitiesClassificationGetV2 without sending the request
      */
-    async entitiesClassificationGetV2Raw(
-        requestParameters: DataProtectionConfigurationApiEntitiesClassificationGetV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<PolicymanagerClassificationsResponse>> {
+    async entitiesClassificationGetV2RequestOpts(requestParameters: DataProtectionConfigurationApiEntitiesClassificationGetV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesClassificationGetV2().');
         }
@@ -349,15 +353,25 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/entities/classifications/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/entities/classifications/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Gets the classifications that match the provided ids
+     */
+    async entitiesClassificationGetV2Raw(
+        requestParameters: DataProtectionConfigurationApiEntitiesClassificationGetV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PolicymanagerClassificationsResponse>> {
+        const requestOptions = await this.entitiesClassificationGetV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PolicymanagerClassificationsResponseFromJSON(jsonValue));
     }
@@ -371,12 +385,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update classifications
+     * Creates request options for entitiesClassificationPatchV2 without sending the request
      */
-    async entitiesClassificationPatchV2Raw(
-        requestParameters: DataProtectionConfigurationApiEntitiesClassificationPatchV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<PolicymanagerClassificationsResponse>> {
+    async entitiesClassificationPatchV2RequestOpts(requestParameters: DataProtectionConfigurationApiEntitiesClassificationPatchV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesClassificationPatchV2().');
         }
@@ -392,16 +403,26 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/entities/classifications/v2`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: PolicymanagerUpdateClassificationsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/entities/classifications/v2`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: PolicymanagerUpdateClassificationsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update classifications
+     */
+    async entitiesClassificationPatchV2Raw(
+        requestParameters: DataProtectionConfigurationApiEntitiesClassificationPatchV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PolicymanagerClassificationsResponse>> {
+        const requestOptions = await this.entitiesClassificationPatchV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PolicymanagerClassificationsResponseFromJSON(jsonValue));
     }
@@ -415,12 +436,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create classifications
+     * Creates request options for entitiesClassificationPostV2 without sending the request
      */
-    async entitiesClassificationPostV2Raw(
-        requestParameters: DataProtectionConfigurationApiEntitiesClassificationPostV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<PolicymanagerClassificationsResponse>> {
+    async entitiesClassificationPostV2RequestOpts(requestParameters: DataProtectionConfigurationApiEntitiesClassificationPostV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesClassificationPostV2().');
         }
@@ -436,16 +454,26 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/entities/classifications/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: PolicymanagerCreateClassificationsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/entities/classifications/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: PolicymanagerCreateClassificationsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create classifications
+     */
+    async entitiesClassificationPostV2Raw(
+        requestParameters: DataProtectionConfigurationApiEntitiesClassificationPostV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PolicymanagerClassificationsResponse>> {
+        const requestOptions = await this.entitiesClassificationPostV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PolicymanagerClassificationsResponseFromJSON(jsonValue));
     }
@@ -459,12 +487,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Persist the given cloud application for the provided entity instance
+     * Creates request options for entitiesCloudApplicationCreate without sending the request
      */
-    async entitiesCloudApplicationCreateRaw(
-        requestParameters: DataProtectionConfigurationApiEntitiesCloudApplicationCreateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiCloudApplicationMSAResponseV1>> {
+    async entitiesCloudApplicationCreateRequestOpts(requestParameters: DataProtectionConfigurationApiEntitiesCloudApplicationCreateRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesCloudApplicationCreate().');
         }
@@ -480,16 +505,26 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/entities/cloud-applications/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiCloudApplicationCreateRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/entities/cloud-applications/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiCloudApplicationCreateRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Persist the given cloud application for the provided entity instance
+     */
+    async entitiesCloudApplicationCreateRaw(
+        requestParameters: DataProtectionConfigurationApiEntitiesCloudApplicationCreateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiCloudApplicationMSAResponseV1>> {
+        const requestOptions = await this.entitiesCloudApplicationCreateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiCloudApplicationMSAResponseV1FromJSON(jsonValue));
     }
@@ -503,12 +538,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete cloud application
+     * Creates request options for entitiesCloudApplicationDelete without sending the request
      */
-    async entitiesCloudApplicationDeleteRaw(
-        requestParameters: DataProtectionConfigurationApiEntitiesCloudApplicationDeleteRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiCloudApplicationMSAResponseV1>> {
+    async entitiesCloudApplicationDeleteRequestOpts(requestParameters: DataProtectionConfigurationApiEntitiesCloudApplicationDeleteRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesCloudApplicationDelete().');
         }
@@ -526,15 +558,25 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/entities/cloud-applications/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/entities/cloud-applications/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete cloud application
+     */
+    async entitiesCloudApplicationDeleteRaw(
+        requestParameters: DataProtectionConfigurationApiEntitiesCloudApplicationDeleteRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiCloudApplicationMSAResponseV1>> {
+        const requestOptions = await this.entitiesCloudApplicationDeleteRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiCloudApplicationMSAResponseV1FromJSON(jsonValue));
     }
@@ -548,12 +590,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a particular cloud-application
+     * Creates request options for entitiesCloudApplicationGet without sending the request
      */
-    async entitiesCloudApplicationGetRaw(
-        requestParameters: DataProtectionConfigurationApiEntitiesCloudApplicationGetRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiCloudApplicationMSAResponseV1>> {
+    async entitiesCloudApplicationGetRequestOpts(requestParameters: DataProtectionConfigurationApiEntitiesCloudApplicationGetRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesCloudApplicationGet().');
         }
@@ -571,15 +610,25 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/entities/cloud-applications/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/entities/cloud-applications/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a particular cloud-application
+     */
+    async entitiesCloudApplicationGetRaw(
+        requestParameters: DataProtectionConfigurationApiEntitiesCloudApplicationGetRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiCloudApplicationMSAResponseV1>> {
+        const requestOptions = await this.entitiesCloudApplicationGetRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiCloudApplicationMSAResponseV1FromJSON(jsonValue));
     }
@@ -593,12 +642,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update a cloud application
+     * Creates request options for entitiesCloudApplicationPatch without sending the request
      */
-    async entitiesCloudApplicationPatchRaw(
-        requestParameters: DataProtectionConfigurationApiEntitiesCloudApplicationPatchRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiCloudApplicationMSAResponseV1>> {
+    async entitiesCloudApplicationPatchRequestOpts(requestParameters: DataProtectionConfigurationApiEntitiesCloudApplicationPatchRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling entitiesCloudApplicationPatch().');
         }
@@ -622,16 +668,26 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/entities/cloud-applications/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiCloudApplicationUpdateRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/entities/cloud-applications/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiCloudApplicationUpdateRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update a cloud application
+     */
+    async entitiesCloudApplicationPatchRaw(
+        requestParameters: DataProtectionConfigurationApiEntitiesCloudApplicationPatchRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiCloudApplicationMSAResponseV1>> {
+        const requestOptions = await this.entitiesCloudApplicationPatchRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiCloudApplicationMSAResponseV1FromJSON(jsonValue));
     }
@@ -645,12 +701,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Persist the given content pattern for the provided entity instance
+     * Creates request options for entitiesContentPatternCreate without sending the request
      */
-    async entitiesContentPatternCreateRaw(
-        requestParameters: DataProtectionConfigurationApiEntitiesContentPatternCreateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiContentPatternMSAResponseV1>> {
+    async entitiesContentPatternCreateRequestOpts(requestParameters: DataProtectionConfigurationApiEntitiesContentPatternCreateRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesContentPatternCreate().');
         }
@@ -666,16 +719,26 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/entities/content-patterns/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiContentPatternCreateRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/entities/content-patterns/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiContentPatternCreateRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Persist the given content pattern for the provided entity instance
+     */
+    async entitiesContentPatternCreateRaw(
+        requestParameters: DataProtectionConfigurationApiEntitiesContentPatternCreateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiContentPatternMSAResponseV1>> {
+        const requestOptions = await this.entitiesContentPatternCreateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiContentPatternMSAResponseV1FromJSON(jsonValue));
     }
@@ -689,12 +752,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete content pattern
+     * Creates request options for entitiesContentPatternDelete without sending the request
      */
-    async entitiesContentPatternDeleteRaw(
-        requestParameters: DataProtectionConfigurationApiEntitiesContentPatternDeleteRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiContentPatternMSAResponseV1>> {
+    async entitiesContentPatternDeleteRequestOpts(requestParameters: DataProtectionConfigurationApiEntitiesContentPatternDeleteRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesContentPatternDelete().');
         }
@@ -712,15 +772,25 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/entities/content-patterns/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/entities/content-patterns/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete content pattern
+     */
+    async entitiesContentPatternDeleteRaw(
+        requestParameters: DataProtectionConfigurationApiEntitiesContentPatternDeleteRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiContentPatternMSAResponseV1>> {
+        const requestOptions = await this.entitiesContentPatternDeleteRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiContentPatternMSAResponseV1FromJSON(jsonValue));
     }
@@ -734,12 +804,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a particular content-pattern(s)
+     * Creates request options for entitiesContentPatternGet without sending the request
      */
-    async entitiesContentPatternGetRaw(
-        requestParameters: DataProtectionConfigurationApiEntitiesContentPatternGetRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiContentPatternMSAResponseV1>> {
+    async entitiesContentPatternGetRequestOpts(requestParameters: DataProtectionConfigurationApiEntitiesContentPatternGetRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesContentPatternGet().');
         }
@@ -757,15 +824,25 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/entities/content-patterns/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/entities/content-patterns/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a particular content-pattern(s)
+     */
+    async entitiesContentPatternGetRaw(
+        requestParameters: DataProtectionConfigurationApiEntitiesContentPatternGetRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiContentPatternMSAResponseV1>> {
+        const requestOptions = await this.entitiesContentPatternGetRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiContentPatternMSAResponseV1FromJSON(jsonValue));
     }
@@ -779,12 +856,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update a content pattern
+     * Creates request options for entitiesContentPatternPatch without sending the request
      */
-    async entitiesContentPatternPatchRaw(
-        requestParameters: DataProtectionConfigurationApiEntitiesContentPatternPatchRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiContentPatternMSAResponseV1>> {
+    async entitiesContentPatternPatchRequestOpts(requestParameters: DataProtectionConfigurationApiEntitiesContentPatternPatchRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling entitiesContentPatternPatch().');
         }
@@ -808,16 +882,26 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/entities/content-patterns/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiContentPatternUpdateRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/entities/content-patterns/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiContentPatternUpdateRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update a content pattern
+     */
+    async entitiesContentPatternPatchRaw(
+        requestParameters: DataProtectionConfigurationApiEntitiesContentPatternPatchRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiContentPatternMSAResponseV1>> {
+        const requestOptions = await this.entitiesContentPatternPatchRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiContentPatternMSAResponseV1FromJSON(jsonValue));
     }
@@ -831,12 +915,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Persist the given enterprise account for the provided entity instance
+     * Creates request options for entitiesEnterpriseAccountCreate without sending the request
      */
-    async entitiesEnterpriseAccountCreateRaw(
-        requestParameters: DataProtectionConfigurationApiEntitiesEnterpriseAccountCreateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiEnterpriseAccountMSAResponseV1>> {
+    async entitiesEnterpriseAccountCreateRequestOpts(requestParameters: DataProtectionConfigurationApiEntitiesEnterpriseAccountCreateRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesEnterpriseAccountCreate().');
         }
@@ -852,16 +933,26 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/entities/enterprise-accounts/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiEnterpriseAccountCreateRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/entities/enterprise-accounts/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiEnterpriseAccountCreateRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Persist the given enterprise account for the provided entity instance
+     */
+    async entitiesEnterpriseAccountCreateRaw(
+        requestParameters: DataProtectionConfigurationApiEntitiesEnterpriseAccountCreateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiEnterpriseAccountMSAResponseV1>> {
+        const requestOptions = await this.entitiesEnterpriseAccountCreateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiEnterpriseAccountMSAResponseV1FromJSON(jsonValue));
     }
@@ -875,12 +966,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete enterprise account
+     * Creates request options for entitiesEnterpriseAccountDelete without sending the request
      */
-    async entitiesEnterpriseAccountDeleteRaw(
-        requestParameters: DataProtectionConfigurationApiEntitiesEnterpriseAccountDeleteRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiEnterpriseAccountMSAResponseV1>> {
+    async entitiesEnterpriseAccountDeleteRequestOpts(requestParameters: DataProtectionConfigurationApiEntitiesEnterpriseAccountDeleteRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesEnterpriseAccountDelete().');
         }
@@ -898,15 +986,25 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/entities/enterprise-accounts/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/entities/enterprise-accounts/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete enterprise account
+     */
+    async entitiesEnterpriseAccountDeleteRaw(
+        requestParameters: DataProtectionConfigurationApiEntitiesEnterpriseAccountDeleteRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiEnterpriseAccountMSAResponseV1>> {
+        const requestOptions = await this.entitiesEnterpriseAccountDeleteRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiEnterpriseAccountMSAResponseV1FromJSON(jsonValue));
     }
@@ -920,12 +1018,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a particular enterprise-account(s)
+     * Creates request options for entitiesEnterpriseAccountGet without sending the request
      */
-    async entitiesEnterpriseAccountGetRaw(
-        requestParameters: DataProtectionConfigurationApiEntitiesEnterpriseAccountGetRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiEnterpriseAccountMSAResponseV1>> {
+    async entitiesEnterpriseAccountGetRequestOpts(requestParameters: DataProtectionConfigurationApiEntitiesEnterpriseAccountGetRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesEnterpriseAccountGet().');
         }
@@ -943,15 +1038,25 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/entities/enterprise-accounts/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/entities/enterprise-accounts/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a particular enterprise-account(s)
+     */
+    async entitiesEnterpriseAccountGetRaw(
+        requestParameters: DataProtectionConfigurationApiEntitiesEnterpriseAccountGetRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiEnterpriseAccountMSAResponseV1>> {
+        const requestOptions = await this.entitiesEnterpriseAccountGetRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiEnterpriseAccountMSAResponseV1FromJSON(jsonValue));
     }
@@ -965,12 +1070,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update a enterprise account
+     * Creates request options for entitiesEnterpriseAccountPatch without sending the request
      */
-    async entitiesEnterpriseAccountPatchRaw(
-        requestParameters: DataProtectionConfigurationApiEntitiesEnterpriseAccountPatchRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiEnterpriseAccountMSAResponseV1>> {
+    async entitiesEnterpriseAccountPatchRequestOpts(requestParameters: DataProtectionConfigurationApiEntitiesEnterpriseAccountPatchRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling entitiesEnterpriseAccountPatch().');
         }
@@ -994,16 +1096,26 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/entities/enterprise-accounts/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiEnterpriseAccountUpdateRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/entities/enterprise-accounts/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiEnterpriseAccountUpdateRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update a enterprise account
+     */
+    async entitiesEnterpriseAccountPatchRaw(
+        requestParameters: DataProtectionConfigurationApiEntitiesEnterpriseAccountPatchRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiEnterpriseAccountMSAResponseV1>> {
+        const requestOptions = await this.entitiesEnterpriseAccountPatchRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiEnterpriseAccountMSAResponseV1FromJSON(jsonValue));
     }
@@ -1021,12 +1133,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a particular file-type
+     * Creates request options for entitiesFileTypeGet without sending the request
      */
-    async entitiesFileTypeGetRaw(
-        requestParameters: DataProtectionConfigurationApiEntitiesFileTypeGetRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiFileTypeMSAResponseV1>> {
+    async entitiesFileTypeGetRequestOpts(requestParameters: DataProtectionConfigurationApiEntitiesFileTypeGetRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesFileTypeGet().');
         }
@@ -1044,15 +1153,25 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/entities/file-types/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/entities/file-types/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a particular file-type
+     */
+    async entitiesFileTypeGetRaw(
+        requestParameters: DataProtectionConfigurationApiEntitiesFileTypeGetRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiFileTypeMSAResponseV1>> {
+        const requestOptions = await this.entitiesFileTypeGetRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiFileTypeMSAResponseV1FromJSON(jsonValue));
     }
@@ -1066,12 +1185,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deletes policies that match the provided ids
+     * Creates request options for entitiesPolicyDeleteV2 without sending the request
      */
-    async entitiesPolicyDeleteV2Raw(
-        requestParameters: DataProtectionConfigurationApiEntitiesPolicyDeleteV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<PolicymanagerPoliciesResponse>> {
+    async entitiesPolicyDeleteV2RequestOpts(requestParameters: DataProtectionConfigurationApiEntitiesPolicyDeleteV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesPolicyDeleteV2().');
         }
@@ -1097,15 +1213,25 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/entities/policies/v2`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/entities/policies/v2`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Deletes policies that match the provided ids
+     */
+    async entitiesPolicyDeleteV2Raw(
+        requestParameters: DataProtectionConfigurationApiEntitiesPolicyDeleteV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PolicymanagerPoliciesResponse>> {
+        const requestOptions = await this.entitiesPolicyDeleteV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PolicymanagerPoliciesResponseFromJSON(jsonValue));
     }
@@ -1119,12 +1245,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Gets policies that match the provided ids
+     * Creates request options for entitiesPolicyGetV2 without sending the request
      */
-    async entitiesPolicyGetV2Raw(
-        requestParameters: DataProtectionConfigurationApiEntitiesPolicyGetV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<PolicymanagerPoliciesResponse>> {
+    async entitiesPolicyGetV2RequestOpts(requestParameters: DataProtectionConfigurationApiEntitiesPolicyGetV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesPolicyGetV2().');
         }
@@ -1142,15 +1265,25 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/entities/policies/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/entities/policies/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Gets policies that match the provided ids
+     */
+    async entitiesPolicyGetV2Raw(
+        requestParameters: DataProtectionConfigurationApiEntitiesPolicyGetV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PolicymanagerPoliciesResponse>> {
+        const requestOptions = await this.entitiesPolicyGetV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PolicymanagerPoliciesResponseFromJSON(jsonValue));
     }
@@ -1164,12 +1297,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update policies
+     * Creates request options for entitiesPolicyPatchV2 without sending the request
      */
-    async entitiesPolicyPatchV2Raw(
-        requestParameters: DataProtectionConfigurationApiEntitiesPolicyPatchV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<PolicymanagerPoliciesResponse>> {
+    async entitiesPolicyPatchV2RequestOpts(requestParameters: DataProtectionConfigurationApiEntitiesPolicyPatchV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["platformName"] == null) {
             throw new runtime.RequiredError("platformName", 'Required parameter "platformName" was null or undefined when calling entitiesPolicyPatchV2().');
         }
@@ -1193,16 +1323,26 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/entities/policies/v2`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: PolicymanagerUpdatePoliciesRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/entities/policies/v2`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: PolicymanagerUpdatePoliciesRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update policies
+     */
+    async entitiesPolicyPatchV2Raw(
+        requestParameters: DataProtectionConfigurationApiEntitiesPolicyPatchV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PolicymanagerPoliciesResponse>> {
+        const requestOptions = await this.entitiesPolicyPatchV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PolicymanagerPoliciesResponseFromJSON(jsonValue));
     }
@@ -1216,12 +1356,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create policies
+     * Creates request options for entitiesPolicyPostV2 without sending the request
      */
-    async entitiesPolicyPostV2Raw(
-        requestParameters: DataProtectionConfigurationApiEntitiesPolicyPostV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<PolicymanagerPoliciesResponse>> {
+    async entitiesPolicyPostV2RequestOpts(requestParameters: DataProtectionConfigurationApiEntitiesPolicyPostV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["platformName"] == null) {
             throw new runtime.RequiredError("platformName", 'Required parameter "platformName" was null or undefined when calling entitiesPolicyPostV2().');
         }
@@ -1245,16 +1382,26 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/entities/policies/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: PolicymanagerCreatePoliciesRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/entities/policies/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: PolicymanagerCreatePoliciesRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create policies
+     */
+    async entitiesPolicyPostV2Raw(
+        requestParameters: DataProtectionConfigurationApiEntitiesPolicyPostV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PolicymanagerPoliciesResponse>> {
+        const requestOptions = await this.entitiesPolicyPostV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PolicymanagerPoliciesResponseFromJSON(jsonValue));
     }
@@ -1268,12 +1415,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update Policy Precedence
+     * Creates request options for entitiesPolicyPrecedencePostV1 without sending the request
      */
-    async entitiesPolicyPrecedencePostV1Raw(
-        requestParameters: DataProtectionConfigurationApiEntitiesPolicyPrecedencePostV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<PolicymanagerPoliciesResponse>> {
+    async entitiesPolicyPrecedencePostV1RequestOpts(requestParameters: DataProtectionConfigurationApiEntitiesPolicyPrecedencePostV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesPolicyPrecedencePostV1().');
         }
@@ -1289,16 +1433,26 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/entities/data-protection-precedence/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: PolicymanagerPoliciesPrecedenceToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/entities/data-protection-precedence/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: PolicymanagerPoliciesPrecedenceToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update Policy Precedence
+     */
+    async entitiesPolicyPrecedencePostV1Raw(
+        requestParameters: DataProtectionConfigurationApiEntitiesPolicyPrecedencePostV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PolicymanagerPoliciesResponse>> {
+        const requestOptions = await this.entitiesPolicyPrecedencePostV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PolicymanagerPoliciesResponseFromJSON(jsonValue));
     }
@@ -1312,12 +1466,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create new sensitivity label (V2)
+     * Creates request options for entitiesSensitivityLabelCreateV2 without sending the request
      */
-    async entitiesSensitivityLabelCreateV2Raw(
-        requestParameters: DataProtectionConfigurationApiEntitiesSensitivityLabelCreateV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiSensitivityLabelMSAResponseV2>> {
+    async entitiesSensitivityLabelCreateV2RequestOpts(requestParameters: DataProtectionConfigurationApiEntitiesSensitivityLabelCreateV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesSensitivityLabelCreateV2().');
         }
@@ -1333,16 +1484,26 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/entities/labels/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiSensitivityLabelCreateRequestV2ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/entities/labels/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiSensitivityLabelCreateRequestV2ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create new sensitivity label (V2)
+     */
+    async entitiesSensitivityLabelCreateV2Raw(
+        requestParameters: DataProtectionConfigurationApiEntitiesSensitivityLabelCreateV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiSensitivityLabelMSAResponseV2>> {
+        const requestOptions = await this.entitiesSensitivityLabelCreateV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiSensitivityLabelMSAResponseV2FromJSON(jsonValue));
     }
@@ -1356,12 +1517,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete sensitivity labels matching the IDs (V2)
+     * Creates request options for entitiesSensitivityLabelDeleteV2 without sending the request
      */
-    async entitiesSensitivityLabelDeleteV2Raw(
-        requestParameters: DataProtectionConfigurationApiEntitiesSensitivityLabelDeleteV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiSensitivityLabelMSAResponseV2>> {
+    async entitiesSensitivityLabelDeleteV2RequestOpts(requestParameters: DataProtectionConfigurationApiEntitiesSensitivityLabelDeleteV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesSensitivityLabelDeleteV2().');
         }
@@ -1379,15 +1537,25 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/entities/labels/v2`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/entities/labels/v2`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete sensitivity labels matching the IDs (V2)
+     */
+    async entitiesSensitivityLabelDeleteV2Raw(
+        requestParameters: DataProtectionConfigurationApiEntitiesSensitivityLabelDeleteV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiSensitivityLabelMSAResponseV2>> {
+        const requestOptions = await this.entitiesSensitivityLabelDeleteV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiSensitivityLabelMSAResponseV2FromJSON(jsonValue));
     }
@@ -1401,12 +1569,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get sensitivity label matching the IDs (V2)
+     * Creates request options for entitiesSensitivityLabelGetV2 without sending the request
      */
-    async entitiesSensitivityLabelGetV2Raw(
-        requestParameters: DataProtectionConfigurationApiEntitiesSensitivityLabelGetV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiSensitivityLabelMSAResponseV2>> {
+    async entitiesSensitivityLabelGetV2RequestOpts(requestParameters: DataProtectionConfigurationApiEntitiesSensitivityLabelGetV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesSensitivityLabelGetV2().');
         }
@@ -1424,15 +1589,25 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/entities/labels/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/entities/labels/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get sensitivity label matching the IDs (V2)
+     */
+    async entitiesSensitivityLabelGetV2Raw(
+        requestParameters: DataProtectionConfigurationApiEntitiesSensitivityLabelGetV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiSensitivityLabelMSAResponseV2>> {
+        const requestOptions = await this.entitiesSensitivityLabelGetV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiSensitivityLabelMSAResponseV2FromJSON(jsonValue));
     }
@@ -1446,12 +1621,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Persist the given web-locations
+     * Creates request options for entitiesWebLocationCreateV2 without sending the request
      */
-    async entitiesWebLocationCreateV2Raw(
-        requestParameters: DataProtectionConfigurationApiEntitiesWebLocationCreateV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiWebLocationMSAResponseV2>> {
+    async entitiesWebLocationCreateV2RequestOpts(requestParameters: DataProtectionConfigurationApiEntitiesWebLocationCreateV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesWebLocationCreateV2().');
         }
@@ -1467,16 +1639,26 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/entities/web-locations/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiCreateWebLocationsRequestV2ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/entities/web-locations/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiCreateWebLocationsRequestV2ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Persist the given web-locations
+     */
+    async entitiesWebLocationCreateV2Raw(
+        requestParameters: DataProtectionConfigurationApiEntitiesWebLocationCreateV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiWebLocationMSAResponseV2>> {
+        const requestOptions = await this.entitiesWebLocationCreateV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiWebLocationMSAResponseV2FromJSON(jsonValue));
     }
@@ -1490,12 +1672,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete web-location
+     * Creates request options for entitiesWebLocationDeleteV2 without sending the request
      */
-    async entitiesWebLocationDeleteV2Raw(
-        requestParameters: DataProtectionConfigurationApiEntitiesWebLocationDeleteV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiWebLocationMSAResponseV2>> {
+    async entitiesWebLocationDeleteV2RequestOpts(requestParameters: DataProtectionConfigurationApiEntitiesWebLocationDeleteV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesWebLocationDeleteV2().');
         }
@@ -1513,15 +1692,25 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/entities/web-locations/v2`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/entities/web-locations/v2`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete web-location
+     */
+    async entitiesWebLocationDeleteV2Raw(
+        requestParameters: DataProtectionConfigurationApiEntitiesWebLocationDeleteV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiWebLocationMSAResponseV2>> {
+        const requestOptions = await this.entitiesWebLocationDeleteV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiWebLocationMSAResponseV2FromJSON(jsonValue));
     }
@@ -1535,12 +1724,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get web-location entities matching the provided ID(s)
+     * Creates request options for entitiesWebLocationGetV2 without sending the request
      */
-    async entitiesWebLocationGetV2Raw(
-        requestParameters: DataProtectionConfigurationApiEntitiesWebLocationGetV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiWebLocationMSAResponseV2>> {
+    async entitiesWebLocationGetV2RequestOpts(requestParameters: DataProtectionConfigurationApiEntitiesWebLocationGetV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesWebLocationGetV2().');
         }
@@ -1558,15 +1744,25 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/entities/web-locations/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/entities/web-locations/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get web-location entities matching the provided ID(s)
+     */
+    async entitiesWebLocationGetV2Raw(
+        requestParameters: DataProtectionConfigurationApiEntitiesWebLocationGetV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiWebLocationMSAResponseV2>> {
+        const requestOptions = await this.entitiesWebLocationGetV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiWebLocationMSAResponseV2FromJSON(jsonValue));
     }
@@ -1580,12 +1776,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update a web-location
+     * Creates request options for entitiesWebLocationPatchV2 without sending the request
      */
-    async entitiesWebLocationPatchV2Raw(
-        requestParameters: DataProtectionConfigurationApiEntitiesWebLocationPatchV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiWebLocationMSAResponseV2>> {
+    async entitiesWebLocationPatchV2RequestOpts(requestParameters: DataProtectionConfigurationApiEntitiesWebLocationPatchV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling entitiesWebLocationPatchV2().');
         }
@@ -1609,16 +1802,26 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/entities/web-locations/v2`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiUpdateWebLocationRequestV2ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/entities/web-locations/v2`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiUpdateWebLocationRequestV2ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update a web-location
+     */
+    async entitiesWebLocationPatchV2Raw(
+        requestParameters: DataProtectionConfigurationApiEntitiesWebLocationPatchV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiWebLocationMSAResponseV2>> {
+        const requestOptions = await this.entitiesWebLocationPatchV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiWebLocationMSAResponseV2FromJSON(jsonValue));
     }
@@ -1632,12 +1835,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for classifications that match the provided criteria
+     * Creates request options for queriesClassificationGetV2 without sending the request
      */
-    async queriesClassificationGetV2Raw(
-        requestParameters: DataProtectionConfigurationApiQueriesClassificationGetV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ResponsesPolicySearchV1>> {
+    async queriesClassificationGetV2RequestOpts(requestParameters: DataProtectionConfigurationApiQueriesClassificationGetV2Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1663,15 +1863,25 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/queries/classifications/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/queries/classifications/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for classifications that match the provided criteria
+     */
+    async queriesClassificationGetV2Raw(
+        requestParameters: DataProtectionConfigurationApiQueriesClassificationGetV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ResponsesPolicySearchV1>> {
+        const requestOptions = await this.queriesClassificationGetV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesPolicySearchV1FromJSON(jsonValue));
     }
@@ -1685,12 +1895,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get all cloud-application IDs matching the query with filter
+     * Creates request options for queriesCloudApplicationGetV2 without sending the request
      */
-    async queriesCloudApplicationGetV2Raw(
-        requestParameters: DataProtectionConfigurationApiQueriesCloudApplicationGetV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queriesCloudApplicationGetV2RequestOpts(requestParameters: DataProtectionConfigurationApiQueriesCloudApplicationGetV2Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1716,15 +1923,25 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/queries/cloud-applications/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/queries/cloud-applications/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get all cloud-application IDs matching the query with filter
+     */
+    async queriesCloudApplicationGetV2Raw(
+        requestParameters: DataProtectionConfigurationApiQueriesCloudApplicationGetV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queriesCloudApplicationGetV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -1738,12 +1955,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get all content-pattern IDs matching the query with filter
+     * Creates request options for queriesContentPatternGetV2 without sending the request
      */
-    async queriesContentPatternGetV2Raw(
-        requestParameters: DataProtectionConfigurationApiQueriesContentPatternGetV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queriesContentPatternGetV2RequestOpts(requestParameters: DataProtectionConfigurationApiQueriesContentPatternGetV2Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1769,15 +1983,25 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/queries/content-patterns/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/queries/content-patterns/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get all content-pattern IDs matching the query with filter
+     */
+    async queriesContentPatternGetV2Raw(
+        requestParameters: DataProtectionConfigurationApiQueriesContentPatternGetV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queriesContentPatternGetV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -1791,12 +2015,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get all enterprise-account IDs matching the query with filter
+     * Creates request options for queriesEnterpriseAccountGetV2 without sending the request
      */
-    async queriesEnterpriseAccountGetV2Raw(
-        requestParameters: DataProtectionConfigurationApiQueriesEnterpriseAccountGetV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queriesEnterpriseAccountGetV2RequestOpts(requestParameters: DataProtectionConfigurationApiQueriesEnterpriseAccountGetV2Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1822,15 +2043,25 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/queries/enterprise-accounts/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/queries/enterprise-accounts/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get all enterprise-account IDs matching the query with filter
+     */
+    async queriesEnterpriseAccountGetV2Raw(
+        requestParameters: DataProtectionConfigurationApiQueriesEnterpriseAccountGetV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queriesEnterpriseAccountGetV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -1844,12 +2075,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get all file-type IDs matching the query with filter
+     * Creates request options for queriesFileTypeGetV2 without sending the request
      */
-    async queriesFileTypeGetV2Raw(
-        requestParameters: DataProtectionConfigurationApiQueriesFileTypeGetV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queriesFileTypeGetV2RequestOpts(requestParameters: DataProtectionConfigurationApiQueriesFileTypeGetV2Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1875,15 +2103,25 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/queries/file-types/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/queries/file-types/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get all file-type IDs matching the query with filter
+     */
+    async queriesFileTypeGetV2Raw(
+        requestParameters: DataProtectionConfigurationApiQueriesFileTypeGetV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queriesFileTypeGetV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -1897,12 +2135,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for policies that match the provided criteria
+     * Creates request options for queriesPolicyGetV2 without sending the request
      */
-    async queriesPolicyGetV2Raw(
-        requestParameters: DataProtectionConfigurationApiQueriesPolicyGetV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ResponsesPolicySearchV1>> {
+    async queriesPolicyGetV2RequestOpts(requestParameters: DataProtectionConfigurationApiQueriesPolicyGetV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["platformName"] == null) {
             throw new runtime.RequiredError("platformName", 'Required parameter "platformName" was null or undefined when calling queriesPolicyGetV2().');
         }
@@ -1936,15 +2171,25 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/queries/policies/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/queries/policies/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for policies that match the provided criteria
+     */
+    async queriesPolicyGetV2Raw(
+        requestParameters: DataProtectionConfigurationApiQueriesPolicyGetV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ResponsesPolicySearchV1>> {
+        const requestOptions = await this.queriesPolicyGetV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ResponsesPolicySearchV1FromJSON(jsonValue));
     }
@@ -1965,12 +2210,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get all sensitivity label IDs matching the query with filter
+     * Creates request options for queriesSensitivityLabelGetV2 without sending the request
      */
-    async queriesSensitivityLabelGetV2Raw(
-        requestParameters: DataProtectionConfigurationApiQueriesSensitivityLabelGetV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queriesSensitivityLabelGetV2RequestOpts(requestParameters: DataProtectionConfigurationApiQueriesSensitivityLabelGetV2Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1996,15 +2238,25 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/queries/labels/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/queries/labels/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get all sensitivity label IDs matching the query with filter
+     */
+    async queriesSensitivityLabelGetV2Raw(
+        requestParameters: DataProtectionConfigurationApiQueriesSensitivityLabelGetV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queriesSensitivityLabelGetV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -2018,12 +2270,9 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get web-location IDs matching the query with filter
+     * Creates request options for queriesWebLocationGetV2 without sending the request
      */
-    async queriesWebLocationGetV2Raw(
-        requestParameters: DataProtectionConfigurationApiQueriesWebLocationGetV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queriesWebLocationGetV2RequestOpts(requestParameters: DataProtectionConfigurationApiQueriesWebLocationGetV2Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -2049,15 +2298,25 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/data-protection/queries/web-locations/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/data-protection/queries/web-locations/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get web-location IDs matching the query with filter
+     */
+    async queriesWebLocationGetV2Raw(
+        requestParameters: DataProtectionConfigurationApiQueriesWebLocationGetV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queriesWebLocationGetV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }

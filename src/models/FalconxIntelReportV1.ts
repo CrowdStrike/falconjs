@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { FalconxActor } from "./FalconxActor";
-import { FalconxActorFromJSON, FalconxActorFromJSONTyped, FalconxActorToJSON } from "./FalconxActor";
+import { FalconxActorFromJSON, FalconxActorFromJSONTyped, FalconxActorToJSON, FalconxActorToJSONTyped } from "./FalconxActor";
 import type { FalconxRelatedIndicator } from "./FalconxRelatedIndicator";
-import { FalconxRelatedIndicatorFromJSON, FalconxRelatedIndicatorFromJSONTyped, FalconxRelatedIndicatorToJSON } from "./FalconxRelatedIndicator";
+import { FalconxRelatedIndicatorFromJSON, FalconxRelatedIndicatorFromJSONTyped, FalconxRelatedIndicatorToJSON, FalconxRelatedIndicatorToJSONTyped } from "./FalconxRelatedIndicator";
 
 /**
  *
@@ -66,10 +66,15 @@ export function FalconxIntelReportV1FromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function FalconxIntelReportV1ToJSON(value?: FalconxIntelReportV1 | null): any {
+export function FalconxIntelReportV1ToJSON(json: any): FalconxIntelReportV1 {
+    return FalconxIntelReportV1ToJSONTyped(json, false);
+}
+
+export function FalconxIntelReportV1ToJSONTyped(value?: FalconxIntelReportV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         actors: value["actors"] == null ? undefined : (value["actors"] as Array<any>).map(FalconxActorToJSON),
         malware_families: value["malwareFamilies"],

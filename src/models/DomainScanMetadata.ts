@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainFileCount } from "./DomainFileCount";
-import { DomainFileCountFromJSON, DomainFileCountFromJSONTyped, DomainFileCountToJSON } from "./DomainFileCount";
+import { DomainFileCountFromJSON, DomainFileCountFromJSONTyped, DomainFileCountToJSON, DomainFileCountToJSONTyped } from "./DomainFileCount";
 
 /**
  *
@@ -121,21 +121,26 @@ export function DomainScanMetadataFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function DomainScanMetadataToJSON(value?: DomainScanMetadata | null): any {
+export function DomainScanMetadataToJSON(json: any): DomainScanMetadata {
+    return DomainScanMetadataToJSONTyped(json, false);
+}
+
+export function DomainScanMetadataToJSONTyped(value?: DomainScanMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
-        completed_on: value["completedOn"] == null ? undefined : value["completedOn"].toISOString(),
+        completed_on: value["completedOn"] == null ? value["completedOn"] : value["completedOn"].toISOString(),
         filecount: DomainFileCountToJSON(value["filecount"]),
         host_id: value["hostId"],
         host_name: value["hostName"],
         host_scan_id: value["hostScanId"],
-        last_updated: value["lastUpdated"] == null ? undefined : value["lastUpdated"].toISOString(),
+        last_updated: value["lastUpdated"] == null ? value["lastUpdated"] : value["lastUpdated"].toISOString(),
         scan_control_reason: value["scanControlReason"],
         scan_host_metadata_id: value["scanHostMetadataId"],
         severity: value["severity"],
-        started_on: value["startedOn"] == null ? undefined : value["startedOn"].toISOString(),
+        started_on: value["startedOn"] == null ? value["startedOn"] : value["startedOn"].toISOString(),
         status: value["status"],
     };
 }

@@ -18,12 +18,14 @@ import {
     DevicecontrolapiReqUpdateBluetoothClassV1FromJSON,
     DevicecontrolapiReqUpdateBluetoothClassV1FromJSONTyped,
     DevicecontrolapiReqUpdateBluetoothClassV1ToJSON,
+    DevicecontrolapiReqUpdateBluetoothClassV1ToJSONTyped,
 } from "./DevicecontrolapiReqUpdateBluetoothClassV1";
 import type { DevicecontrolapiBluetoothExceptionBase } from "./DevicecontrolapiBluetoothExceptionBase";
 import {
     DevicecontrolapiBluetoothExceptionBaseFromJSON,
     DevicecontrolapiBluetoothExceptionBaseFromJSONTyped,
     DevicecontrolapiBluetoothExceptionBaseToJSON,
+    DevicecontrolapiBluetoothExceptionBaseToJSONTyped,
 } from "./DevicecontrolapiBluetoothExceptionBase";
 
 /**
@@ -77,10 +79,15 @@ export function DevicecontrolapiReqUpdateBluetoothClassesV1FromJSONTyped(json: a
     };
 }
 
-export function DevicecontrolapiReqUpdateBluetoothClassesV1ToJSON(value?: DevicecontrolapiReqUpdateBluetoothClassesV1 | null): any {
+export function DevicecontrolapiReqUpdateBluetoothClassesV1ToJSON(json: any): DevicecontrolapiReqUpdateBluetoothClassesV1 {
+    return DevicecontrolapiReqUpdateBluetoothClassesV1ToJSONTyped(json, false);
+}
+
+export function DevicecontrolapiReqUpdateBluetoothClassesV1ToJSONTyped(value?: DevicecontrolapiReqUpdateBluetoothClassesV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         classes: (value["classes"] as Array<any>).map(DevicecontrolapiReqUpdateBluetoothClassV1ToJSON),
         delete_exceptions: value["deleteExceptions"],

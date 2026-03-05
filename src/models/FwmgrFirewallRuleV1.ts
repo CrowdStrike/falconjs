@@ -14,17 +14,22 @@
 
 import { mapValues } from "../runtime";
 import type { FwmgrFirewallMonitoring } from "./FwmgrFirewallMonitoring";
-import { FwmgrFirewallMonitoringFromJSON, FwmgrFirewallMonitoringFromJSONTyped, FwmgrFirewallMonitoringToJSON } from "./FwmgrFirewallMonitoring";
+import { FwmgrFirewallMonitoringFromJSON, FwmgrFirewallMonitoringFromJSONTyped, FwmgrFirewallMonitoringToJSON, FwmgrFirewallMonitoringToJSONTyped } from "./FwmgrFirewallMonitoring";
 import type { FwmgrFirewallRuleGroupSummaryV1 } from "./FwmgrFirewallRuleGroupSummaryV1";
-import { FwmgrFirewallRuleGroupSummaryV1FromJSON, FwmgrFirewallRuleGroupSummaryV1FromJSONTyped, FwmgrFirewallRuleGroupSummaryV1ToJSON } from "./FwmgrFirewallRuleGroupSummaryV1";
+import {
+    FwmgrFirewallRuleGroupSummaryV1FromJSON,
+    FwmgrFirewallRuleGroupSummaryV1FromJSONTyped,
+    FwmgrFirewallRuleGroupSummaryV1ToJSON,
+    FwmgrFirewallRuleGroupSummaryV1ToJSONTyped,
+} from "./FwmgrFirewallRuleGroupSummaryV1";
 import type { FwmgrFirewallPortRange } from "./FwmgrFirewallPortRange";
-import { FwmgrFirewallPortRangeFromJSON, FwmgrFirewallPortRangeFromJSONTyped, FwmgrFirewallPortRangeToJSON } from "./FwmgrFirewallPortRange";
+import { FwmgrFirewallPortRangeFromJSON, FwmgrFirewallPortRangeFromJSONTyped, FwmgrFirewallPortRangeToJSON, FwmgrFirewallPortRangeToJSONTyped } from "./FwmgrFirewallPortRange";
 import type { FwmgrFirewallFieldValue } from "./FwmgrFirewallFieldValue";
-import { FwmgrFirewallFieldValueFromJSON, FwmgrFirewallFieldValueFromJSONTyped, FwmgrFirewallFieldValueToJSON } from "./FwmgrFirewallFieldValue";
+import { FwmgrFirewallFieldValueFromJSON, FwmgrFirewallFieldValueFromJSONTyped, FwmgrFirewallFieldValueToJSON, FwmgrFirewallFieldValueToJSONTyped } from "./FwmgrFirewallFieldValue";
 import type { FwmgrFirewallICMP } from "./FwmgrFirewallICMP";
-import { FwmgrFirewallICMPFromJSON, FwmgrFirewallICMPFromJSONTyped, FwmgrFirewallICMPToJSON } from "./FwmgrFirewallICMP";
+import { FwmgrFirewallICMPFromJSON, FwmgrFirewallICMPFromJSONTyped, FwmgrFirewallICMPToJSON, FwmgrFirewallICMPToJSONTyped } from "./FwmgrFirewallICMP";
 import type { FwmgrFirewallAddressRange } from "./FwmgrFirewallAddressRange";
-import { FwmgrFirewallAddressRangeFromJSON, FwmgrFirewallAddressRangeFromJSONTyped, FwmgrFirewallAddressRangeToJSON } from "./FwmgrFirewallAddressRange";
+import { FwmgrFirewallAddressRangeFromJSON, FwmgrFirewallAddressRangeFromJSONTyped, FwmgrFirewallAddressRangeToJSON, FwmgrFirewallAddressRangeToJSONTyped } from "./FwmgrFirewallAddressRange";
 
 /**
  *
@@ -266,10 +271,15 @@ export function FwmgrFirewallRuleV1FromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function FwmgrFirewallRuleV1ToJSON(value?: FwmgrFirewallRuleV1 | null): any {
+export function FwmgrFirewallRuleV1ToJSON(json: any): FwmgrFirewallRuleV1 {
+    return FwmgrFirewallRuleV1ToJSONTyped(json, false);
+}
+
+export function FwmgrFirewallRuleV1ToJSONTyped(value?: FwmgrFirewallRuleV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         address_family: value["addressFamily"],

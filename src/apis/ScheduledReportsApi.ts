@@ -48,9 +48,9 @@ export interface ScheduledReportsApiQueryByIdRequest {
  */
 export class ScheduledReportsApi extends runtime.BaseAPI {
     /**
-     * Launch scheduled reports executions for the provided report IDs.
+     * Creates request options for execute without sending the request
      */
-    async executeRaw(requestParameters: ScheduledReportsApiExecuteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainReportExecutionsResponseV1>> {
+    async executeRequestOpts(requestParameters: ScheduledReportsApiExecuteRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling execute().');
         }
@@ -66,16 +66,23 @@ export class ScheduledReportsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["scheduled-report:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/reports/entities/scheduled-reports/execution/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(DomainReportExecutionLaunchRequestV1ToJSON),
-            },
-            initOverrides,
-        );
+        let urlPath = `/reports/entities/scheduled-reports/execution/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"]!.map(DomainReportExecutionLaunchRequestV1ToJSON),
+        };
+    }
+
+    /**
+     * Launch scheduled reports executions for the provided report IDs.
+     */
+    async executeRaw(requestParameters: ScheduledReportsApiExecuteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainReportExecutionsResponseV1>> {
+        const requestOptions = await this.executeRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainReportExecutionsResponseV1FromJSON(jsonValue));
     }
@@ -89,9 +96,9 @@ export class ScheduledReportsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Find all report IDs matching the query with filter
+     * Creates request options for query without sending the request
      */
-    async queryRaw(requestParameters: ScheduledReportsApiQueryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryRequestOpts(requestParameters: ScheduledReportsApiQueryRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["sort"] != null) {
@@ -121,15 +128,22 @@ export class ScheduledReportsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["scheduled-report:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/reports/queries/scheduled-reports/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/reports/queries/scheduled-reports/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Find all report IDs matching the query with filter
+     */
+    async queryRaw(requestParameters: ScheduledReportsApiQueryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.queryRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -143,12 +157,9 @@ export class ScheduledReportsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve scheduled reports for the provided report IDs.
+     * Creates request options for queryById without sending the request
      */
-    async queryByIdRaw(
-        requestParameters: ScheduledReportsApiQueryByIdRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainScheduledReportsResultV1>> {
+    async queryByIdRequestOpts(requestParameters: ScheduledReportsApiQueryByIdRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling queryById().');
         }
@@ -166,15 +177,25 @@ export class ScheduledReportsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["scheduled-report:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/reports/entities/scheduled-reports/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/reports/entities/scheduled-reports/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve scheduled reports for the provided report IDs.
+     */
+    async queryByIdRaw(
+        requestParameters: ScheduledReportsApiQueryByIdRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainScheduledReportsResultV1>> {
+        const requestOptions = await this.queryByIdRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainScheduledReportsResultV1FromJSON(jsonValue));
     }

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { HostGroupsHostGroupV1 } from "./HostGroupsHostGroupV1";
-import { HostGroupsHostGroupV1FromJSON, HostGroupsHostGroupV1FromJSONTyped, HostGroupsHostGroupV1ToJSON } from "./HostGroupsHostGroupV1";
+import { HostGroupsHostGroupV1FromJSON, HostGroupsHostGroupV1FromJSONTyped, HostGroupsHostGroupV1ToJSON, HostGroupsHostGroupV1ToJSONTyped } from "./HostGroupsHostGroupV1";
 
 /**
  *
@@ -130,10 +130,15 @@ export function ExclusionsExclusionV1FromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function ExclusionsExclusionV1ToJSON(value?: ExclusionsExclusionV1 | null): any {
+export function ExclusionsExclusionV1ToJSON(json: any): ExclusionsExclusionV1 {
+    return ExclusionsExclusionV1ToJSONTyped(json, false);
+}
+
+export function ExclusionsExclusionV1ToJSONTyped(value?: ExclusionsExclusionV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         applied_globally: value["appliedGlobally"],
         created_by: value["createdBy"],

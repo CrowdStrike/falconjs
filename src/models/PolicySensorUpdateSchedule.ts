@@ -64,10 +64,15 @@ export function PolicySensorUpdateScheduleFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function PolicySensorUpdateScheduleToJSON(value?: PolicySensorUpdateSchedule | null): any {
+export function PolicySensorUpdateScheduleToJSON(json: any): PolicySensorUpdateSchedule {
+    return PolicySensorUpdateScheduleToJSONTyped(json, false);
+}
+
+export function PolicySensorUpdateScheduleToJSONTyped(value?: PolicySensorUpdateSchedule | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         days: value["days"],
         end: value["end"],

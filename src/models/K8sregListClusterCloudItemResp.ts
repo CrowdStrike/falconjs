@@ -14,9 +14,14 @@
 
 import { mapValues } from "../runtime";
 import type { K8sregAWSClusterItemResp } from "./K8sregAWSClusterItemResp";
-import { K8sregAWSClusterItemRespFromJSON, K8sregAWSClusterItemRespFromJSONTyped, K8sregAWSClusterItemRespToJSON } from "./K8sregAWSClusterItemResp";
+import { K8sregAWSClusterItemRespFromJSON, K8sregAWSClusterItemRespFromJSONTyped, K8sregAWSClusterItemRespToJSON, K8sregAWSClusterItemRespToJSONTyped } from "./K8sregAWSClusterItemResp";
 import type { K8sregAzureAcctClusterItemResp } from "./K8sregAzureAcctClusterItemResp";
-import { K8sregAzureAcctClusterItemRespFromJSON, K8sregAzureAcctClusterItemRespFromJSONTyped, K8sregAzureAcctClusterItemRespToJSON } from "./K8sregAzureAcctClusterItemResp";
+import {
+    K8sregAzureAcctClusterItemRespFromJSON,
+    K8sregAzureAcctClusterItemRespFromJSONTyped,
+    K8sregAzureAcctClusterItemRespToJSON,
+    K8sregAzureAcctClusterItemRespToJSONTyped,
+} from "./K8sregAzureAcctClusterItemResp";
 
 /**
  *
@@ -111,10 +116,15 @@ export function K8sregListClusterCloudItemRespFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function K8sregListClusterCloudItemRespToJSON(value?: K8sregListClusterCloudItemResp | null): any {
+export function K8sregListClusterCloudItemRespToJSON(json: any): K8sregListClusterCloudItemResp {
+    return K8sregListClusterCloudItemRespToJSONTyped(json, false);
+}
+
+export function K8sregListClusterCloudItemRespToJSONTyped(value?: K8sregListClusterCloudItemResp | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         aws_meta: K8sregAWSClusterItemRespToJSON(value["awsMeta"]),

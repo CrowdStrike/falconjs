@@ -18,6 +18,7 @@ import {
     CorrelationrulesapiRuleSuppressionFieldBasedFilterV1FromJSON,
     CorrelationrulesapiRuleSuppressionFieldBasedFilterV1FromJSONTyped,
     CorrelationrulesapiRuleSuppressionFieldBasedFilterV1ToJSON,
+    CorrelationrulesapiRuleSuppressionFieldBasedFilterV1ToJSONTyped,
 } from "./CorrelationrulesapiRuleSuppressionFieldBasedFilterV1";
 
 /**
@@ -55,10 +56,15 @@ export function CorrelationrulesapiRuleSuppressionFilterV1FromJSONTyped(json: an
     };
 }
 
-export function CorrelationrulesapiRuleSuppressionFilterV1ToJSON(value?: CorrelationrulesapiRuleSuppressionFilterV1 | null): any {
+export function CorrelationrulesapiRuleSuppressionFilterV1ToJSON(json: any): CorrelationrulesapiRuleSuppressionFilterV1 {
+    return CorrelationrulesapiRuleSuppressionFilterV1ToJSONTyped(json, false);
+}
+
+export function CorrelationrulesapiRuleSuppressionFilterV1ToJSONTyped(value?: CorrelationrulesapiRuleSuppressionFilterV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         field_based: CorrelationrulesapiRuleSuppressionFieldBasedFilterV1ToJSON(value["fieldBased"]),
     };

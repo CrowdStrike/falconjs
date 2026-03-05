@@ -27,7 +27,7 @@ export interface BaseSetPolicyPrecedenceReqV1 {
     ids: Array<string>;
     /**
      * The name of the platform for which to set precedence
-     * @type {string}
+     * @type {BaseSetPolicyPrecedenceReqV1PlatformNameEnum}
      * @memberof BaseSetPolicyPrecedenceReqV1
      */
     platformName: BaseSetPolicyPrecedenceReqV1PlatformNameEnum;
@@ -66,10 +66,15 @@ export function BaseSetPolicyPrecedenceReqV1FromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function BaseSetPolicyPrecedenceReqV1ToJSON(value?: BaseSetPolicyPrecedenceReqV1 | null): any {
+export function BaseSetPolicyPrecedenceReqV1ToJSON(json: any): BaseSetPolicyPrecedenceReqV1 {
+    return BaseSetPolicyPrecedenceReqV1ToJSONTyped(json, false);
+}
+
+export function BaseSetPolicyPrecedenceReqV1ToJSONTyped(value?: BaseSetPolicyPrecedenceReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ids: value["ids"],
         platform_name: value["platformName"],

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainUserRole } from "./DomainUserRole";
-import { DomainUserRoleFromJSON, DomainUserRoleFromJSONTyped, DomainUserRoleToJSON } from "./DomainUserRole";
+import { DomainUserRoleFromJSON, DomainUserRoleFromJSONTyped, DomainUserRoleToJSON, DomainUserRoleToJSONTyped } from "./DomainUserRole";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function ApiUserRoleResponseFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function ApiUserRoleResponseToJSON(value?: ApiUserRoleResponse | null): any {
+export function ApiUserRoleResponseToJSON(json: any): ApiUserRoleResponse {
+    return ApiUserRoleResponseToJSONTyped(json, false);
+}
+
+export function ApiUserRoleResponseToJSONTyped(value?: ApiUserRoleResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

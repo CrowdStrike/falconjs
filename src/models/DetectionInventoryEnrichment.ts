@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DetectionEnrichmentHost } from "./DetectionEnrichmentHost";
-import { DetectionEnrichmentHostFromJSON, DetectionEnrichmentHostFromJSONTyped, DetectionEnrichmentHostToJSON } from "./DetectionEnrichmentHost";
+import { DetectionEnrichmentHostFromJSON, DetectionEnrichmentHostFromJSONTyped, DetectionEnrichmentHostToJSON, DetectionEnrichmentHostToJSONTyped } from "./DetectionEnrichmentHost";
 
 /**
  *
@@ -64,10 +64,15 @@ export function DetectionInventoryEnrichmentFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function DetectionInventoryEnrichmentToJSON(value?: DetectionInventoryEnrichment | null): any {
+export function DetectionInventoryEnrichmentToJSON(json: any): DetectionInventoryEnrichment {
+    return DetectionInventoryEnrichmentToJSONTyped(json, false);
+}
+
+export function DetectionInventoryEnrichmentToJSONTyped(value?: DetectionInventoryEnrichment | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         document_ids: value["documentIds"],
         enrichment_type: value["enrichmentType"],

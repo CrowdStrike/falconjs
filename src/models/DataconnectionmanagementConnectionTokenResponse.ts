@@ -14,15 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DataconnectionmanagementConnectionToken } from "./DataconnectionmanagementConnectionToken";
 import {
     DataconnectionmanagementConnectionTokenFromJSON,
     DataconnectionmanagementConnectionTokenFromJSONTyped,
     DataconnectionmanagementConnectionTokenToJSON,
+    DataconnectionmanagementConnectionTokenToJSONTyped,
 } from "./DataconnectionmanagementConnectionToken";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -74,10 +75,15 @@ export function DataconnectionmanagementConnectionTokenResponseFromJSONTyped(jso
     };
 }
 
-export function DataconnectionmanagementConnectionTokenResponseToJSON(value?: DataconnectionmanagementConnectionTokenResponse | null): any {
+export function DataconnectionmanagementConnectionTokenResponseToJSON(json: any): DataconnectionmanagementConnectionTokenResponse {
+    return DataconnectionmanagementConnectionTokenResponseToJSONTyped(json, false);
+}
+
+export function DataconnectionmanagementConnectionTokenResponseToJSONTyped(value?: DataconnectionmanagementConnectionTokenResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { ApiDeviceCountV1 } from "./ApiDeviceCountV1";
-import { ApiDeviceCountV1FromJSON, ApiDeviceCountV1FromJSONTyped, ApiDeviceCountV1ToJSON } from "./ApiDeviceCountV1";
+import { ApiDeviceCountV1FromJSON, ApiDeviceCountV1FromJSONTyped, ApiDeviceCountV1ToJSON, ApiDeviceCountV1ToJSONTyped } from "./ApiDeviceCountV1";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function ApiDeviceCountRespV1FromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function ApiDeviceCountRespV1ToJSON(value?: ApiDeviceCountRespV1 | null): any {
+export function ApiDeviceCountRespV1ToJSON(json: any): ApiDeviceCountRespV1 {
+    return ApiDeviceCountRespV1ToJSONTyped(json, false);
+}
+
+export function ApiDeviceCountRespV1ToJSONTyped(value?: ApiDeviceCountRespV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

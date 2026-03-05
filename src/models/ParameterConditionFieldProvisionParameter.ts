@@ -72,10 +72,15 @@ export function ParameterConditionFieldProvisionParameterFromJSONTyped(json: any
     };
 }
 
-export function ParameterConditionFieldProvisionParameterToJSON(value?: ParameterConditionFieldProvisionParameter | null): any {
+export function ParameterConditionFieldProvisionParameterToJSON(json: any): ParameterConditionFieldProvisionParameter {
+    return ParameterConditionFieldProvisionParameterToJSONTyped(json, false);
+}
+
+export function ParameterConditionFieldProvisionParameterToJSONTyped(value?: ParameterConditionFieldProvisionParameter | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         condition_group_id: value["conditionGroupId"],
         name: value["name"],

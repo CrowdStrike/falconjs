@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { EvaluationsTactic } from "./EvaluationsTactic";
-import { EvaluationsTacticFromJSON, EvaluationsTacticFromJSONTyped, EvaluationsTacticToJSON } from "./EvaluationsTactic";
+import { EvaluationsTacticFromJSON, EvaluationsTacticFromJSONTyped, EvaluationsTacticToJSON, EvaluationsTacticToJSONTyped } from "./EvaluationsTactic";
 import type { EvaluationsTechnique } from "./EvaluationsTechnique";
-import { EvaluationsTechniqueFromJSON, EvaluationsTechniqueFromJSONTyped, EvaluationsTechniqueToJSON } from "./EvaluationsTechnique";
+import { EvaluationsTechniqueFromJSON, EvaluationsTechniqueFromJSONTyped, EvaluationsTechniqueToJSON, EvaluationsTechniqueToJSONTyped } from "./EvaluationsTechnique";
 
 /**
  *
@@ -66,10 +66,15 @@ export function EvaluationsThreatFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function EvaluationsThreatToJSON(value?: EvaluationsThreat | null): any {
+export function EvaluationsThreatToJSON(json: any): EvaluationsThreat {
+    return EvaluationsThreatToJSONTyped(json, false);
+}
+
+export function EvaluationsThreatToJSONTyped(value?: EvaluationsThreat | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         framework: value["framework"],
         tactic: EvaluationsTacticToJSON(value["tactic"]),

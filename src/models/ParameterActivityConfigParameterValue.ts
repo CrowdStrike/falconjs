@@ -69,10 +69,15 @@ export function ParameterActivityConfigParameterValueFromJSONTyped(json: any, ig
     };
 }
 
-export function ParameterActivityConfigParameterValueToJSON(value?: ParameterActivityConfigParameterValue | null): any {
+export function ParameterActivityConfigParameterValueToJSON(json: any): ParameterActivityConfigParameterValue {
+    return ParameterActivityConfigParameterValueToJSONTyped(json, false);
+}
+
+export function ParameterActivityConfigParameterValueToJSONTyped(value?: ParameterActivityConfigParameterValue | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         default_value: value["defaultValue"],
         deny_override: value["denyOverride"],

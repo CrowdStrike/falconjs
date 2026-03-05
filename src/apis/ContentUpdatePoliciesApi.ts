@@ -113,12 +113,9 @@ export interface ContentUpdatePoliciesApiUpdateContentUpdatePoliciesRequest {
  */
 export class ContentUpdatePoliciesApi extends runtime.BaseAPI {
     /**
-     * Create Content Update Policies by specifying details about the policy to create
+     * Creates request options for createContentUpdatePolicies without sending the request
      */
-    async createContentUpdatePoliciesRaw(
-        requestParameters: ContentUpdatePoliciesApiCreateContentUpdatePoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ContentUpdateRespV1>> {
+    async createContentUpdatePoliciesRequestOpts(requestParameters: ContentUpdatePoliciesApiCreateContentUpdatePoliciesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createContentUpdatePolicies().');
         }
@@ -134,16 +131,26 @@ export class ContentUpdatePoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["content-update-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/content-update/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ContentUpdateCreatePoliciesReqV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/content-update/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ContentUpdateCreatePoliciesReqV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create Content Update Policies by specifying details about the policy to create
+     */
+    async createContentUpdatePoliciesRaw(
+        requestParameters: ContentUpdatePoliciesApiCreateContentUpdatePoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ContentUpdateRespV1>> {
+        const requestOptions = await this.createContentUpdatePoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ContentUpdateRespV1FromJSON(jsonValue));
     }
@@ -157,12 +164,9 @@ export class ContentUpdatePoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete a set of Content Update Policies by specifying their IDs
+     * Creates request options for deleteContentUpdatePolicies without sending the request
      */
-    async deleteContentUpdatePoliciesRaw(
-        requestParameters: ContentUpdatePoliciesApiDeleteContentUpdatePoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async deleteContentUpdatePoliciesRequestOpts(requestParameters: ContentUpdatePoliciesApiDeleteContentUpdatePoliciesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteContentUpdatePolicies().');
         }
@@ -180,15 +184,25 @@ export class ContentUpdatePoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["content-update-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/content-update/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/content-update/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a set of Content Update Policies by specifying their IDs
+     */
+    async deleteContentUpdatePoliciesRaw(
+        requestParameters: ContentUpdatePoliciesApiDeleteContentUpdatePoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.deleteContentUpdatePoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -202,12 +216,9 @@ export class ContentUpdatePoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve a set of Content Update Policies by specifying their IDs
+     * Creates request options for getContentUpdatePolicies without sending the request
      */
-    async getContentUpdatePoliciesRaw(
-        requestParameters: ContentUpdatePoliciesApiGetContentUpdatePoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ContentUpdateRespV1>> {
+    async getContentUpdatePoliciesRequestOpts(requestParameters: ContentUpdatePoliciesApiGetContentUpdatePoliciesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getContentUpdatePolicies().');
         }
@@ -225,15 +236,25 @@ export class ContentUpdatePoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["content-update-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/content-update/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/content-update/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve a set of Content Update Policies by specifying their IDs
+     */
+    async getContentUpdatePoliciesRaw(
+        requestParameters: ContentUpdatePoliciesApiGetContentUpdatePoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ContentUpdateRespV1>> {
+        const requestOptions = await this.getContentUpdatePoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ContentUpdateRespV1FromJSON(jsonValue));
     }
@@ -247,12 +268,9 @@ export class ContentUpdatePoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Perform the specified action on the Content Update Policies specified in the request
+     * Creates request options for performContentUpdatePoliciesAction without sending the request
      */
-    async performContentUpdatePoliciesActionRaw(
-        requestParameters: ContentUpdatePoliciesApiPerformContentUpdatePoliciesActionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ContentUpdateRespV1>> {
+    async performContentUpdatePoliciesActionRequestOpts(requestParameters: ContentUpdatePoliciesApiPerformContentUpdatePoliciesActionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["actionName"] == null) {
             throw new runtime.RequiredError("actionName", 'Required parameter "actionName" was null or undefined when calling performContentUpdatePoliciesAction().');
         }
@@ -276,16 +294,26 @@ export class ContentUpdatePoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["content-update-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/content-update-actions/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaEntityActionRequestV2ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/content-update-actions/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaEntityActionRequestV2ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Perform the specified action on the Content Update Policies specified in the request
+     */
+    async performContentUpdatePoliciesActionRaw(
+        requestParameters: ContentUpdatePoliciesApiPerformContentUpdatePoliciesActionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ContentUpdateRespV1>> {
+        const requestOptions = await this.performContentUpdatePoliciesActionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ContentUpdateRespV1FromJSON(jsonValue));
     }
@@ -303,12 +331,9 @@ export class ContentUpdatePoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for Content Update Policies in your environment by providing an FQL filter and paging details. Returns a set of Content Update Policies which match the filter criteria
+     * Creates request options for queryCombinedContentUpdatePolicies without sending the request
      */
-    async queryCombinedContentUpdatePoliciesRaw(
-        requestParameters: ContentUpdatePoliciesApiQueryCombinedContentUpdatePoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ContentUpdateRespV1>> {
+    async queryCombinedContentUpdatePoliciesRequestOpts(requestParameters: ContentUpdatePoliciesApiQueryCombinedContentUpdatePoliciesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -334,15 +359,25 @@ export class ContentUpdatePoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["content-update-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/combined/content-update/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/combined/content-update/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for Content Update Policies in your environment by providing an FQL filter and paging details. Returns a set of Content Update Policies which match the filter criteria
+     */
+    async queryCombinedContentUpdatePoliciesRaw(
+        requestParameters: ContentUpdatePoliciesApiQueryCombinedContentUpdatePoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ContentUpdateRespV1>> {
+        const requestOptions = await this.queryCombinedContentUpdatePoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ContentUpdateRespV1FromJSON(jsonValue));
     }
@@ -362,12 +397,9 @@ export class ContentUpdatePoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for members of a Content Update Policy in your environment by providing an FQL filter and paging details. Returns a set of host details which match the filter criteria
+     * Creates request options for queryCombinedContentUpdatePolicyMembers without sending the request
      */
-    async queryCombinedContentUpdatePolicyMembersRaw(
-        requestParameters: ContentUpdatePoliciesApiQueryCombinedContentUpdatePolicyMembersRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<BasePolicyMembersRespV1>> {
+    async queryCombinedContentUpdatePolicyMembersRequestOpts(requestParameters: ContentUpdatePoliciesApiQueryCombinedContentUpdatePolicyMembersRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["id"] != null) {
@@ -397,15 +429,25 @@ export class ContentUpdatePoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["content-update-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/combined/content-update-members/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/combined/content-update-members/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for members of a Content Update Policy in your environment by providing an FQL filter and paging details. Returns a set of host details which match the filter criteria
+     */
+    async queryCombinedContentUpdatePolicyMembersRaw(
+        requestParameters: ContentUpdatePoliciesApiQueryCombinedContentUpdatePolicyMembersRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<BasePolicyMembersRespV1>> {
+        const requestOptions = await this.queryCombinedContentUpdatePolicyMembersRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => BasePolicyMembersRespV1FromJSON(jsonValue));
     }
@@ -426,12 +468,9 @@ export class ContentUpdatePoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for Content Update Policies in your environment by providing an FQL filter and paging details. Returns a set of Content Update Policy IDs which match the filter criteria
+     * Creates request options for queryContentUpdatePolicies without sending the request
      */
-    async queryContentUpdatePoliciesRaw(
-        requestParameters: ContentUpdatePoliciesApiQueryContentUpdatePoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryContentUpdatePoliciesRequestOpts(requestParameters: ContentUpdatePoliciesApiQueryContentUpdatePoliciesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -457,15 +496,25 @@ export class ContentUpdatePoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["content-update-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/queries/content-update/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/queries/content-update/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for Content Update Policies in your environment by providing an FQL filter and paging details. Returns a set of Content Update Policy IDs which match the filter criteria
+     */
+    async queryContentUpdatePoliciesRaw(
+        requestParameters: ContentUpdatePoliciesApiQueryContentUpdatePoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.queryContentUpdatePoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -485,12 +534,9 @@ export class ContentUpdatePoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for members of a Content Update Policy in your environment by providing an FQL filter and paging details. Returns a set of Agent IDs which match the filter criteria
+     * Creates request options for queryContentUpdatePolicyMembers without sending the request
      */
-    async queryContentUpdatePolicyMembersRaw(
-        requestParameters: ContentUpdatePoliciesApiQueryContentUpdatePolicyMembersRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryContentUpdatePolicyMembersRequestOpts(requestParameters: ContentUpdatePoliciesApiQueryContentUpdatePolicyMembersRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["id"] != null) {
@@ -520,15 +566,25 @@ export class ContentUpdatePoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["content-update-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/queries/content-update-members/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/queries/content-update-members/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for members of a Content Update Policy in your environment by providing an FQL filter and paging details. Returns a set of Agent IDs which match the filter criteria
+     */
+    async queryContentUpdatePolicyMembersRaw(
+        requestParameters: ContentUpdatePoliciesApiQueryContentUpdatePolicyMembersRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.queryContentUpdatePolicyMembersRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -549,12 +605,9 @@ export class ContentUpdatePoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for content versions available for pinning given the category.
+     * Creates request options for queryPinnableContentVersions without sending the request
      */
-    async queryPinnableContentVersionsRaw(
-        requestParameters: ContentUpdatePoliciesApiQueryPinnableContentVersionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queryPinnableContentVersionsRequestOpts(requestParameters: ContentUpdatePoliciesApiQueryPinnableContentVersionsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["category"] == null) {
             throw new runtime.RequiredError("category", 'Required parameter "category" was null or undefined when calling queryPinnableContentVersions().');
         }
@@ -576,15 +629,25 @@ export class ContentUpdatePoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["content-update-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/queries/content-update-pin-versions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/queries/content-update-pin-versions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for content versions available for pinning given the category.
+     */
+    async queryPinnableContentVersionsRaw(
+        requestParameters: ContentUpdatePoliciesApiQueryPinnableContentVersionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queryPinnableContentVersionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -602,12 +665,9 @@ export class ContentUpdatePoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Sets the precedence of Content Update Policies based on the order of IDs specified in the request. The first ID specified will have the highest precedence and the last ID specified will have the lowest. You must specify all non-Default Policies when updating precedence
+     * Creates request options for setContentUpdatePoliciesPrecedence without sending the request
      */
-    async setContentUpdatePoliciesPrecedenceRaw(
-        requestParameters: ContentUpdatePoliciesApiSetContentUpdatePoliciesPrecedenceRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async setContentUpdatePoliciesPrecedenceRequestOpts(requestParameters: ContentUpdatePoliciesApiSetContentUpdatePoliciesPrecedenceRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling setContentUpdatePoliciesPrecedence().');
         }
@@ -623,16 +683,26 @@ export class ContentUpdatePoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["content-update-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/content-update-precedence/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: BaseSetContentUpdatePolicyPrecedenceReqV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/content-update-precedence/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: BaseSetContentUpdatePolicyPrecedenceReqV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Sets the precedence of Content Update Policies based on the order of IDs specified in the request. The first ID specified will have the highest precedence and the last ID specified will have the lowest. You must specify all non-Default Policies when updating precedence
+     */
+    async setContentUpdatePoliciesPrecedenceRaw(
+        requestParameters: ContentUpdatePoliciesApiSetContentUpdatePoliciesPrecedenceRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.setContentUpdatePoliciesPrecedenceRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -646,12 +716,9 @@ export class ContentUpdatePoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update Content Update Policies by specifying the ID of the policy and details to update
+     * Creates request options for updateContentUpdatePolicies without sending the request
      */
-    async updateContentUpdatePoliciesRaw(
-        requestParameters: ContentUpdatePoliciesApiUpdateContentUpdatePoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ContentUpdateRespV1>> {
+    async updateContentUpdatePoliciesRequestOpts(requestParameters: ContentUpdatePoliciesApiUpdateContentUpdatePoliciesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateContentUpdatePolicies().');
         }
@@ -667,16 +734,26 @@ export class ContentUpdatePoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["content-update-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/content-update/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ContentUpdateUpdatePoliciesReqV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/content-update/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ContentUpdateUpdatePoliciesReqV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update Content Update Policies by specifying the ID of the policy and details to update
+     */
+    async updateContentUpdatePoliciesRaw(
+        requestParameters: ContentUpdatePoliciesApiUpdateContentUpdatePoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ContentUpdateRespV1>> {
+        const requestOptions = await this.updateContentUpdatePoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ContentUpdateRespV1FromJSON(jsonValue));
     }
@@ -763,7 +840,7 @@ export type QueryPinnableContentVersionsCategoryEnum = (typeof QueryPinnableCont
  * @export
  */
 export const QueryPinnableContentVersionsSortEnum = {
-    Asc: "deployed_timestamp.asc",
-    Desc: "deployed_timestamp.desc",
+    DeployedTimestampAsc: "deployed_timestamp.asc",
+    DeployedTimestampDesc: "deployed_timestamp.desc",
 } as const;
 export type QueryPinnableContentVersionsSortEnum = (typeof QueryPinnableContentVersionsSortEnum)[keyof typeof QueryPinnableContentVersionsSortEnum];

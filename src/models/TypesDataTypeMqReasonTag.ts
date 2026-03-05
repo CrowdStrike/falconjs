@@ -54,10 +54,15 @@ export function TypesDataTypeMqReasonTagFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function TypesDataTypeMqReasonTagToJSON(value?: TypesDataTypeMqReasonTag | null): any {
+export function TypesDataTypeMqReasonTagToJSON(json: any): TypesDataTypeMqReasonTag {
+    return TypesDataTypeMqReasonTagToJSONTyped(json, false);
+}
+
+export function TypesDataTypeMqReasonTagToJSONTyped(value?: TypesDataTypeMqReasonTag | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         source: value["source"],
         topicNames: value["topicNames"],

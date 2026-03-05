@@ -63,10 +63,15 @@ export function DomainOCIDownloadScriptRequestDataFromJSONTyped(json: any, ignor
     };
 }
 
-export function DomainOCIDownloadScriptRequestDataToJSON(value?: DomainOCIDownloadScriptRequestData | null): any {
+export function DomainOCIDownloadScriptRequestDataToJSON(json: any): DomainOCIDownloadScriptRequestData {
+    return DomainOCIDownloadScriptRequestDataToJSONTyped(json, false);
+}
+
+export function DomainOCIDownloadScriptRequestDataToJSONTyped(value?: DomainOCIDownloadScriptRequestData | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         deployment_method: value["deploymentMethod"],
         is_download: value["isDownload"],

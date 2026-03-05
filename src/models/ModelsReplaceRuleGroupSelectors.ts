@@ -18,9 +18,15 @@ import {
     ModelsReplacePolicyRuleGroupNamespaceFromJSON,
     ModelsReplacePolicyRuleGroupNamespaceFromJSONTyped,
     ModelsReplacePolicyRuleGroupNamespaceToJSON,
+    ModelsReplacePolicyRuleGroupNamespaceToJSONTyped,
 } from "./ModelsReplacePolicyRuleGroupNamespace";
 import type { ModelsReplacePolicyRuleGroupLabel } from "./ModelsReplacePolicyRuleGroupLabel";
-import { ModelsReplacePolicyRuleGroupLabelFromJSON, ModelsReplacePolicyRuleGroupLabelFromJSONTyped, ModelsReplacePolicyRuleGroupLabelToJSON } from "./ModelsReplacePolicyRuleGroupLabel";
+import {
+    ModelsReplacePolicyRuleGroupLabelFromJSON,
+    ModelsReplacePolicyRuleGroupLabelFromJSONTyped,
+    ModelsReplacePolicyRuleGroupLabelToJSON,
+    ModelsReplacePolicyRuleGroupLabelToJSONTyped,
+} from "./ModelsReplacePolicyRuleGroupLabel";
 
 /**
  *
@@ -73,10 +79,15 @@ export function ModelsReplaceRuleGroupSelectorsFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function ModelsReplaceRuleGroupSelectorsToJSON(value?: ModelsReplaceRuleGroupSelectors | null): any {
+export function ModelsReplaceRuleGroupSelectorsToJSON(json: any): ModelsReplaceRuleGroupSelectors {
+    return ModelsReplaceRuleGroupSelectorsToJSONTyped(json, false);
+}
+
+export function ModelsReplaceRuleGroupSelectorsToJSONTyped(value?: ModelsReplaceRuleGroupSelectors | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         labels: (value["labels"] as Array<any>).map(ModelsReplacePolicyRuleGroupLabelToJSON),

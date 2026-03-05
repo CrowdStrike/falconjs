@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { K8sassetsContainerEnrichmentEntry } from "./K8sassetsContainerEnrichmentEntry";
-import { K8sassetsContainerEnrichmentEntryFromJSON, K8sassetsContainerEnrichmentEntryFromJSONTyped, K8sassetsContainerEnrichmentEntryToJSON } from "./K8sassetsContainerEnrichmentEntry";
+import {
+    K8sassetsContainerEnrichmentEntryFromJSON,
+    K8sassetsContainerEnrichmentEntryFromJSONTyped,
+    K8sassetsContainerEnrichmentEntryToJSON,
+    K8sassetsContainerEnrichmentEntryToJSONTyped,
+} from "./K8sassetsContainerEnrichmentEntry";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +75,15 @@ export function K8sassetsContainerEnrichmentResponseFromJSONTyped(json: any, ign
     };
 }
 
-export function K8sassetsContainerEnrichmentResponseToJSON(value?: K8sassetsContainerEnrichmentResponse | null): any {
+export function K8sassetsContainerEnrichmentResponseToJSON(json: any): K8sassetsContainerEnrichmentResponse {
+    return K8sassetsContainerEnrichmentResponseToJSONTyped(json, false);
+}
+
+export function K8sassetsContainerEnrichmentResponseToJSONTyped(value?: K8sassetsContainerEnrichmentResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         EnrichmentData: (value["enrichmentData"] as Array<any>).map(K8sassetsContainerEnrichmentEntryToJSON),
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),

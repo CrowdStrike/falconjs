@@ -61,10 +61,15 @@ export function FalconxFileMetadataFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function FalconxFileMetadataToJSON(value?: FalconxFileMetadata | null): any {
+export function FalconxFileMetadataToJSON(json: any): FalconxFileMetadata {
+    return FalconxFileMetadataToJSONTyped(json, false);
+}
+
+export function FalconxFileMetadataToJSONTyped(value?: FalconxFileMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         file_analysis: value["fileAnalysis"],
         file_compositions: value["fileCompositions"],

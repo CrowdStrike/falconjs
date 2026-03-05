@@ -14,9 +14,14 @@
 
 import { mapValues } from "../runtime";
 import type { MalqueryExternalHuntOptions } from "./MalqueryExternalHuntOptions";
-import { MalqueryExternalHuntOptionsFromJSON, MalqueryExternalHuntOptionsFromJSONTyped, MalqueryExternalHuntOptionsToJSON } from "./MalqueryExternalHuntOptions";
+import {
+    MalqueryExternalHuntOptionsFromJSON,
+    MalqueryExternalHuntOptionsFromJSONTyped,
+    MalqueryExternalHuntOptionsToJSON,
+    MalqueryExternalHuntOptionsToJSONTyped,
+} from "./MalqueryExternalHuntOptions";
 import type { MalquerySearchParameter } from "./MalquerySearchParameter";
-import { MalquerySearchParameterFromJSON, MalquerySearchParameterFromJSONTyped, MalquerySearchParameterToJSON } from "./MalquerySearchParameter";
+import { MalquerySearchParameterFromJSON, MalquerySearchParameterFromJSONTyped, MalquerySearchParameterToJSON, MalquerySearchParameterToJSONTyped } from "./MalquerySearchParameter";
 
 /**
  *
@@ -60,10 +65,15 @@ export function MalqueryExternalExactSearchParametersV1FromJSONTyped(json: any, 
     };
 }
 
-export function MalqueryExternalExactSearchParametersV1ToJSON(value?: MalqueryExternalExactSearchParametersV1 | null): any {
+export function MalqueryExternalExactSearchParametersV1ToJSON(json: any): MalqueryExternalExactSearchParametersV1 {
+    return MalqueryExternalExactSearchParametersV1ToJSONTyped(json, false);
+}
+
+export function MalqueryExternalExactSearchParametersV1ToJSONTyped(value?: MalqueryExternalExactSearchParametersV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         options: MalqueryExternalHuntOptionsToJSON(value["options"]),
         patterns: (value["patterns"] as Array<any>).map(MalquerySearchParameterToJSON),

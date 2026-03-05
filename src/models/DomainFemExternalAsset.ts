@@ -14,19 +14,30 @@
 
 import { mapValues } from "../runtime";
 import type { DomainExternalAssetSubsidiary } from "./DomainExternalAssetSubsidiary";
-import { DomainExternalAssetSubsidiaryFromJSON, DomainExternalAssetSubsidiaryFromJSONTyped, DomainExternalAssetSubsidiaryToJSON } from "./DomainExternalAssetSubsidiary";
+import {
+    DomainExternalAssetSubsidiaryFromJSON,
+    DomainExternalAssetSubsidiaryFromJSONTyped,
+    DomainExternalAssetSubsidiaryToJSON,
+    DomainExternalAssetSubsidiaryToJSONTyped,
+} from "./DomainExternalAssetSubsidiary";
 import type { DomainExternalAssetDiscoveryAttributes } from "./DomainExternalAssetDiscoveryAttributes";
 import {
     DomainExternalAssetDiscoveryAttributesFromJSON,
     DomainExternalAssetDiscoveryAttributesFromJSONTyped,
     DomainExternalAssetDiscoveryAttributesToJSON,
+    DomainExternalAssetDiscoveryAttributesToJSONTyped,
 } from "./DomainExternalAssetDiscoveryAttributes";
 import type { DomainExternalAssetsAPITriage } from "./DomainExternalAssetsAPITriage";
-import { DomainExternalAssetsAPITriageFromJSON, DomainExternalAssetsAPITriageFromJSONTyped, DomainExternalAssetsAPITriageToJSON } from "./DomainExternalAssetsAPITriage";
+import {
+    DomainExternalAssetsAPITriageFromJSON,
+    DomainExternalAssetsAPITriageFromJSONTyped,
+    DomainExternalAssetsAPITriageToJSON,
+    DomainExternalAssetsAPITriageToJSONTyped,
+} from "./DomainExternalAssetsAPITriage";
 import type { DomainFemDNSDomain } from "./DomainFemDNSDomain";
-import { DomainFemDNSDomainFromJSON, DomainFemDNSDomainFromJSONTyped, DomainFemDNSDomainToJSON } from "./DomainFemDNSDomain";
+import { DomainFemDNSDomainFromJSON, DomainFemDNSDomainFromJSONTyped, DomainFemDNSDomainToJSON, DomainFemDNSDomainToJSONTyped } from "./DomainFemDNSDomain";
 import type { DomainFemExternalIP } from "./DomainFemExternalIP";
-import { DomainFemExternalIPFromJSON, DomainFemExternalIPFromJSONTyped, DomainFemExternalIPToJSON } from "./DomainFemExternalIP";
+import { DomainFemExternalIPFromJSON, DomainFemExternalIPFromJSONTyped, DomainFemExternalIPToJSON, DomainFemExternalIPToJSONTyped } from "./DomainFemExternalIP";
 
 /**
  *
@@ -224,10 +235,15 @@ export function DomainFemExternalAssetFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function DomainFemExternalAssetToJSON(value?: DomainFemExternalAsset | null): any {
+export function DomainFemExternalAssetToJSON(json: any): DomainFemExternalAsset {
+    return DomainFemExternalAssetToJSONTyped(json, false);
+}
+
+export function DomainFemExternalAssetToJSONTyped(value?: DomainFemExternalAsset | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         applicable_actions: value["applicableActions"],
         asset_type: value["assetType"],

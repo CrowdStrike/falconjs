@@ -63,10 +63,15 @@ export function MsaAPIErrorFromJSONTyped(json: any, ignoreDiscriminator: boolean
     };
 }
 
-export function MsaAPIErrorToJSON(value?: MsaAPIError | null): any {
+export function MsaAPIErrorToJSON(json: any): MsaAPIError {
+    return MsaAPIErrorToJSONTyped(json, false);
+}
+
+export function MsaAPIErrorToJSONTyped(value?: MsaAPIError | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         id: value["id"],

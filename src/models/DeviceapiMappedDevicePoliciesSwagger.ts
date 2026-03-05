@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DeviceDevicePolicy } from "./DeviceDevicePolicy";
-import { DeviceDevicePolicyFromJSON, DeviceDevicePolicyFromJSONTyped, DeviceDevicePolicyToJSON } from "./DeviceDevicePolicy";
+import { DeviceDevicePolicyFromJSON, DeviceDevicePolicyFromJSONTyped, DeviceDevicePolicyToJSON, DeviceDevicePolicyToJSONTyped } from "./DeviceDevicePolicy";
 
 /**
  *
@@ -274,10 +274,15 @@ export function DeviceapiMappedDevicePoliciesSwaggerFromJSONTyped(json: any, ign
     };
 }
 
-export function DeviceapiMappedDevicePoliciesSwaggerToJSON(value?: DeviceapiMappedDevicePoliciesSwagger | null): any {
+export function DeviceapiMappedDevicePoliciesSwaggerToJSON(json: any): DeviceapiMappedDevicePoliciesSwagger {
+    return DeviceapiMappedDevicePoliciesSwaggerToJSONTyped(json, false);
+}
+
+export function DeviceapiMappedDevicePoliciesSwaggerToJSONTyped(value?: DeviceapiMappedDevicePoliciesSwagger | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         airlock: DeviceDevicePolicyToJSON(value["airlock"]),
         "application-abuse-prevention": DeviceDevicePolicyToJSON(value["applicationAbusePrevention"]),

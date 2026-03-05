@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { OperationsCaseFieldChanges } from "./OperationsCaseFieldChanges";
-import { OperationsCaseFieldChangesFromJSON, OperationsCaseFieldChangesFromJSONTyped, OperationsCaseFieldChangesToJSON } from "./OperationsCaseFieldChanges";
+import { OperationsCaseFieldChangesFromJSON, OperationsCaseFieldChangesFromJSONTyped, OperationsCaseFieldChangesToJSON, OperationsCaseFieldChangesToJSONTyped } from "./OperationsCaseFieldChanges";
 
 /**
  *
@@ -73,10 +73,15 @@ export function OperationsUpdateCaseRequestFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function OperationsUpdateCaseRequestToJSON(value?: OperationsUpdateCaseRequest | null): any {
+export function OperationsUpdateCaseRequestToJSON(json: any): OperationsUpdateCaseRequest {
+    return OperationsUpdateCaseRequestToJSONTyped(json, false);
+}
+
+export function OperationsUpdateCaseRequestToJSONTyped(value?: OperationsUpdateCaseRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         expected_consistency_version: value["expectedConsistencyVersion"],
         expected_version: value["expectedVersion"],

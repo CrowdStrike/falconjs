@@ -55,10 +55,15 @@ export function ErrorGetSystemLogsFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function ErrorGetSystemLogsToJSON(value?: ErrorGetSystemLogs | null): any {
+export function ErrorGetSystemLogsToJSON(json: any): ErrorGetSystemLogs {
+    return ErrorGetSystemLogsToJSONTyped(json, false);
+}
+
+export function ErrorGetSystemLogsToJSONTyped(value?: ErrorGetSystemLogs | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         message: value["message"],

@@ -14,9 +14,14 @@
 
 import { mapValues } from "../runtime";
 import type { SensorUpdateBuildRespV1 } from "./SensorUpdateBuildRespV1";
-import { SensorUpdateBuildRespV1FromJSON, SensorUpdateBuildRespV1FromJSONTyped, SensorUpdateBuildRespV1ToJSON } from "./SensorUpdateBuildRespV1";
+import { SensorUpdateBuildRespV1FromJSON, SensorUpdateBuildRespV1FromJSONTyped, SensorUpdateBuildRespV1ToJSON, SensorUpdateBuildRespV1ToJSONTyped } from "./SensorUpdateBuildRespV1";
 import type { PolicySensorUpdateScheduler } from "./PolicySensorUpdateScheduler";
-import { PolicySensorUpdateSchedulerFromJSON, PolicySensorUpdateSchedulerFromJSONTyped, PolicySensorUpdateSchedulerToJSON } from "./PolicySensorUpdateScheduler";
+import {
+    PolicySensorUpdateSchedulerFromJSON,
+    PolicySensorUpdateSchedulerFromJSONTyped,
+    PolicySensorUpdateSchedulerToJSON,
+    PolicySensorUpdateSchedulerToJSONTyped,
+} from "./PolicySensorUpdateScheduler";
 
 /**
  *
@@ -56,13 +61,13 @@ export interface SensorUpdateSettingsRespV2 {
     showEarlyAdopterBuilds: boolean;
     /**
      * The release stage this build is in
-     * @type {string}
+     * @type {SensorUpdateSettingsRespV2StageEnum}
      * @memberof SensorUpdateSettingsRespV2
      */
     stage: SensorUpdateSettingsRespV2StageEnum;
     /**
      * The uninstall protection setting to apply to devices in the policy
-     * @type {string}
+     * @type {SensorUpdateSettingsRespV2UninstallProtectionEnum}
      * @memberof SensorUpdateSettingsRespV2
      */
     uninstallProtection: SensorUpdateSettingsRespV2UninstallProtectionEnum;
@@ -131,10 +136,15 @@ export function SensorUpdateSettingsRespV2FromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function SensorUpdateSettingsRespV2ToJSON(value?: SensorUpdateSettingsRespV2 | null): any {
+export function SensorUpdateSettingsRespV2ToJSON(json: any): SensorUpdateSettingsRespV2 {
+    return SensorUpdateSettingsRespV2ToJSONTyped(json, false);
+}
+
+export function SensorUpdateSettingsRespV2ToJSONTyped(value?: SensorUpdateSettingsRespV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         build: value["build"],
         is_lts_build: value["isLtsBuild"],

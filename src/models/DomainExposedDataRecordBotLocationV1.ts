@@ -56,10 +56,15 @@ export function DomainExposedDataRecordBotLocationV1FromJSONTyped(json: any, ign
     };
 }
 
-export function DomainExposedDataRecordBotLocationV1ToJSON(value?: DomainExposedDataRecordBotLocationV1 | null): any {
+export function DomainExposedDataRecordBotLocationV1ToJSON(json: any): DomainExposedDataRecordBotLocationV1 {
+    return DomainExposedDataRecordBotLocationV1ToJSONTyped(json, false);
+}
+
+export function DomainExposedDataRecordBotLocationV1ToJSONTyped(value?: DomainExposedDataRecordBotLocationV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         country: value["country"],
         zip_code: value["zipCode"],

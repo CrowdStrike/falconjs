@@ -122,12 +122,9 @@ export interface CaseFilesApiQueriesFileDetailsGetV1Request {
  */
 export class CaseFilesApi extends runtime.BaseAPI {
     /**
-     * Get file details aggregates as specified via json in the request body.
+     * Creates request options for aggregatesFileDetailsPostV1 without sending the request
      */
-    async aggregatesFileDetailsPostV1Raw(
-        requestParameters: CaseFilesApiAggregatesFileDetailsPostV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CasefilesapiAggregatesResponseV1>> {
+    async aggregatesFileDetailsPostV1RequestOpts(requestParameters: CaseFilesApiAggregatesFileDetailsPostV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling aggregatesFileDetailsPostV1().');
         }
@@ -155,16 +152,26 @@ export class CaseFilesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/case-files/aggregates/file-details/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"],
-            },
-            initOverrides,
-        );
+        let urlPath = `/case-files/aggregates/file-details/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"],
+        };
+    }
+
+    /**
+     * Get file details aggregates as specified via json in the request body.
+     */
+    async aggregatesFileDetailsPostV1Raw(
+        requestParameters: CaseFilesApiAggregatesFileDetailsPostV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CasefilesapiAggregatesResponseV1>> {
+        const requestOptions = await this.aggregatesFileDetailsPostV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CasefilesapiAggregatesResponseV1FromJSON(jsonValue));
     }
@@ -178,12 +185,9 @@ export class CaseFilesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query file details
+     * Creates request options for combinedFileDetailsGetV1 without sending the request
      */
-    async combinedFileDetailsGetV1Raw(
-        requestParameters: CaseFilesApiCombinedFileDetailsGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CasefilesapiFileDetailsResponseV1>> {
+    async combinedFileDetailsGetV1RequestOpts(requestParameters: CaseFilesApiCombinedFileDetailsGetV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -205,15 +209,25 @@ export class CaseFilesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/case-files/combined/file-details/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/case-files/combined/file-details/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query file details
+     */
+    async combinedFileDetailsGetV1Raw(
+        requestParameters: CaseFilesApiCombinedFileDetailsGetV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CasefilesapiFileDetailsResponseV1>> {
+        const requestOptions = await this.combinedFileDetailsGetV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CasefilesapiFileDetailsResponseV1FromJSON(jsonValue));
     }
@@ -227,12 +241,9 @@ export class CaseFilesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get file details by id
+     * Creates request options for entitiesFileDetailsGetV1 without sending the request
      */
-    async entitiesFileDetailsGetV1Raw(
-        requestParameters: CaseFilesApiEntitiesFileDetailsGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CasefilesapiFileDetailsResponseV1>> {
+    async entitiesFileDetailsGetV1RequestOpts(requestParameters: CaseFilesApiEntitiesFileDetailsGetV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesFileDetailsGetV1().');
         }
@@ -250,15 +261,25 @@ export class CaseFilesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/case-files/entities/file-details/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/case-files/entities/file-details/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get file details by id
+     */
+    async entitiesFileDetailsGetV1Raw(
+        requestParameters: CaseFilesApiEntitiesFileDetailsGetV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CasefilesapiFileDetailsResponseV1>> {
+        const requestOptions = await this.entitiesFileDetailsGetV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CasefilesapiFileDetailsResponseV1FromJSON(jsonValue));
     }
@@ -272,12 +293,9 @@ export class CaseFilesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update file details
+     * Creates request options for entitiesFileDetailsPatchV1 without sending the request
      */
-    async entitiesFileDetailsPatchV1Raw(
-        requestParameters: CaseFilesApiEntitiesFileDetailsPatchV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CasefilesapiFileDetailsResponseV1>> {
+    async entitiesFileDetailsPatchV1RequestOpts(requestParameters: CaseFilesApiEntitiesFileDetailsPatchV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesFileDetailsPatchV1().');
         }
@@ -293,16 +311,26 @@ export class CaseFilesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/case-files/entities/file-details/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: CasefilesapiUpdateRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/case-files/entities/file-details/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: CasefilesapiUpdateRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update file details
+     */
+    async entitiesFileDetailsPatchV1Raw(
+        requestParameters: CaseFilesApiEntitiesFileDetailsPatchV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CasefilesapiFileDetailsResponseV1>> {
+        const requestOptions = await this.entitiesFileDetailsPatchV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CasefilesapiFileDetailsResponseV1FromJSON(jsonValue));
     }
@@ -316,12 +344,9 @@ export class CaseFilesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Download multiple existing file from case as a ZIP
+     * Creates request options for entitiesFilesBulkDownloadPostV1 without sending the request
      */
-    async entitiesFilesBulkDownloadPostV1Raw(
-        requestParameters: CaseFilesApiEntitiesFilesBulkDownloadPostV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CasefilesapiDownloadResponseV1>> {
+    async entitiesFilesBulkDownloadPostV1RequestOpts(requestParameters: CaseFilesApiEntitiesFilesBulkDownloadPostV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesFilesBulkDownloadPostV1().');
         }
@@ -337,16 +362,26 @@ export class CaseFilesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/case-files/entities/files/bulk-download/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: CasefilesapiBulkDownloadRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/case-files/entities/files/bulk-download/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: CasefilesapiBulkDownloadRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Download multiple existing file from case as a ZIP
+     */
+    async entitiesFilesBulkDownloadPostV1Raw(
+        requestParameters: CaseFilesApiEntitiesFilesBulkDownloadPostV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CasefilesapiDownloadResponseV1>> {
+        const requestOptions = await this.entitiesFilesBulkDownloadPostV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CasefilesapiDownloadResponseV1FromJSON(jsonValue));
     }
@@ -360,12 +395,9 @@ export class CaseFilesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete file details by id
+     * Creates request options for entitiesFilesDeleteV1 without sending the request
      */
-    async entitiesFilesDeleteV1Raw(
-        requestParameters: CaseFilesApiEntitiesFilesDeleteV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CasefilesapiMSAResponseString>> {
+    async entitiesFilesDeleteV1RequestOpts(requestParameters: CaseFilesApiEntitiesFilesDeleteV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesFilesDeleteV1().');
         }
@@ -383,15 +415,25 @@ export class CaseFilesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/case-files/entities/files/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/case-files/entities/files/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete file details by id
+     */
+    async entitiesFilesDeleteV1Raw(
+        requestParameters: CaseFilesApiEntitiesFilesDeleteV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CasefilesapiMSAResponseString>> {
+        const requestOptions = await this.entitiesFilesDeleteV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CasefilesapiMSAResponseStringFromJSON(jsonValue));
     }
@@ -405,12 +447,9 @@ export class CaseFilesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Download existing file from case
+     * Creates request options for entitiesFilesDownloadGetV1 without sending the request
      */
-    async entitiesFilesDownloadGetV1Raw(
-        requestParameters: CaseFilesApiEntitiesFilesDownloadGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CasefilesapiDownloadResponseV1>> {
+    async entitiesFilesDownloadGetV1RequestOpts(requestParameters: CaseFilesApiEntitiesFilesDownloadGetV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling entitiesFilesDownloadGetV1().');
         }
@@ -428,15 +467,25 @@ export class CaseFilesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/case-files/entities/files/download/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/case-files/entities/files/download/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Download existing file from case
+     */
+    async entitiesFilesDownloadGetV1Raw(
+        requestParameters: CaseFilesApiEntitiesFilesDownloadGetV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CasefilesapiDownloadResponseV1>> {
+        const requestOptions = await this.entitiesFilesDownloadGetV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CasefilesapiDownloadResponseV1FromJSON(jsonValue));
     }
@@ -450,13 +499,10 @@ export class CaseFilesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Download existing files from case
+     * Creates request options for entitiesFilesDownloadPostV1 without sending the request
      * @deprecated
      */
-    async entitiesFilesDownloadPostV1Raw(
-        requestParameters: CaseFilesApiEntitiesFilesDownloadPostV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CasefilesapiDownloadResponseV1>> {
+    async entitiesFilesDownloadPostV1RequestOpts(requestParameters: CaseFilesApiEntitiesFilesDownloadPostV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesFilesDownloadPostV1().');
         }
@@ -472,16 +518,27 @@ export class CaseFilesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/case-files/entities/files/download/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: CasefilesapiDownloadRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/case-files/entities/files/download/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: CasefilesapiDownloadRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Download existing files from case
+     * @deprecated
+     */
+    async entitiesFilesDownloadPostV1Raw(
+        requestParameters: CaseFilesApiEntitiesFilesDownloadPostV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CasefilesapiDownloadResponseV1>> {
+        const requestOptions = await this.entitiesFilesDownloadPostV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CasefilesapiDownloadResponseV1FromJSON(jsonValue));
     }
@@ -496,12 +553,9 @@ export class CaseFilesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Upload file for case
+     * Creates request options for entitiesFilesUploadPostV1 without sending the request
      */
-    async entitiesFilesUploadPostV1Raw(
-        requestParameters: CaseFilesApiEntitiesFilesUploadPostV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CasefilesapiFileDetailsResponseV1>> {
+    async entitiesFilesUploadPostV1RequestOpts(requestParameters: CaseFilesApiEntitiesFilesUploadPostV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["file"] == null) {
             throw new runtime.RequiredError("file", 'Required parameter "file" was null or undefined when calling entitiesFilesUploadPostV1().');
         }
@@ -545,16 +599,26 @@ export class CaseFilesApi extends runtime.BaseAPI {
             formParams.append("case_id", requestParameters["caseId"] as any);
         }
 
-        const response = await this.request(
-            {
-                path: `/case-files/entities/files/upload/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: formParams,
-            },
-            initOverrides,
-        );
+        let urlPath = `/case-files/entities/files/upload/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        };
+    }
+
+    /**
+     * Upload file for case
+     */
+    async entitiesFilesUploadPostV1Raw(
+        requestParameters: CaseFilesApiEntitiesFilesUploadPostV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CasefilesapiFileDetailsResponseV1>> {
+        const requestOptions = await this.entitiesFilesUploadPostV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CasefilesapiFileDetailsResponseV1FromJSON(jsonValue));
     }
@@ -568,12 +632,9 @@ export class CaseFilesApi extends runtime.BaseAPI {
     }
 
     /**
-     * gets metadata for a file via RTR without retrieving it
+     * Creates request options for entitiesGetRtrFileMetadataPostV1 without sending the request
      */
-    async entitiesGetRtrFileMetadataPostV1Raw(
-        requestParameters: CaseFilesApiEntitiesGetRtrFileMetadataPostV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CasefilesapiValidateRTRResponseV1>> {
+    async entitiesGetRtrFileMetadataPostV1RequestOpts(requestParameters: CaseFilesApiEntitiesGetRtrFileMetadataPostV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesGetRtrFileMetadataPostV1().');
         }
@@ -589,16 +650,26 @@ export class CaseFilesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/case-files/entities/get-rtr-file-metadata/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: CasefilesapiGetRTRFileMetaDataRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/case-files/entities/get-rtr-file-metadata/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: CasefilesapiGetRTRFileMetaDataRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * gets metadata for a file via RTR without retrieving it
+     */
+    async entitiesGetRtrFileMetadataPostV1Raw(
+        requestParameters: CaseFilesApiEntitiesGetRtrFileMetadataPostV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CasefilesapiValidateRTRResponseV1>> {
+        const requestOptions = await this.entitiesGetRtrFileMetadataPostV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CasefilesapiValidateRTRResponseV1FromJSON(jsonValue));
     }
@@ -612,12 +683,9 @@ export class CaseFilesApi extends runtime.BaseAPI {
     }
 
     /**
-     * retrieves a file from host using RTR and adds it to a case
+     * Creates request options for entitiesRetrieveRtrFilePostV1 without sending the request
      */
-    async entitiesRetrieveRtrFilePostV1Raw(
-        requestParameters: CaseFilesApiEntitiesRetrieveRtrFilePostV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CasefilesapiFileDetailsResponseV1>> {
+    async entitiesRetrieveRtrFilePostV1RequestOpts(requestParameters: CaseFilesApiEntitiesRetrieveRtrFilePostV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesRetrieveRtrFilePostV1().');
         }
@@ -633,16 +701,26 @@ export class CaseFilesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/case-files/entities/retrieve-rtr-file/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: CasefilesapiRetrieveRTRFileRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/case-files/entities/retrieve-rtr-file/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: CasefilesapiRetrieveRTRFileRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * retrieves a file from host using RTR and adds it to a case
+     */
+    async entitiesRetrieveRtrFilePostV1Raw(
+        requestParameters: CaseFilesApiEntitiesRetrieveRtrFilePostV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CasefilesapiFileDetailsResponseV1>> {
+        const requestOptions = await this.entitiesRetrieveRtrFilePostV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CasefilesapiFileDetailsResponseV1FromJSON(jsonValue));
     }
@@ -656,12 +734,9 @@ export class CaseFilesApi extends runtime.BaseAPI {
     }
 
     /**
-     * RetrieveRecentRTRFile retrieves a recently fetched RTR file and adds it to a case
+     * Creates request options for entitiesRetrieveRtrRecentFilePostV1 without sending the request
      */
-    async entitiesRetrieveRtrRecentFilePostV1Raw(
-        requestParameters: CaseFilesApiEntitiesRetrieveRtrRecentFilePostV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CasefilesapiFileDetailsResponseV1>> {
+    async entitiesRetrieveRtrRecentFilePostV1RequestOpts(requestParameters: CaseFilesApiEntitiesRetrieveRtrRecentFilePostV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesRetrieveRtrRecentFilePostV1().');
         }
@@ -677,16 +752,26 @@ export class CaseFilesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/case-files/entities/retrieve-rtr-recent-file/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: CasefilesapiRetrieveRTRRecentFileRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/case-files/entities/retrieve-rtr-recent-file/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: CasefilesapiRetrieveRTRRecentFileRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * RetrieveRecentRTRFile retrieves a recently fetched RTR file and adds it to a case
+     */
+    async entitiesRetrieveRtrRecentFilePostV1Raw(
+        requestParameters: CaseFilesApiEntitiesRetrieveRtrRecentFilePostV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CasefilesapiFileDetailsResponseV1>> {
+        const requestOptions = await this.entitiesRetrieveRtrRecentFilePostV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CasefilesapiFileDetailsResponseV1FromJSON(jsonValue));
     }
@@ -703,12 +788,9 @@ export class CaseFilesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query for ids of file details
+     * Creates request options for queriesFileDetailsGetV1 without sending the request
      */
-    async queriesFileDetailsGetV1Raw(
-        requestParameters: CaseFilesApiQueriesFileDetailsGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CasefilesapiMSAResponseString>> {
+    async queriesFileDetailsGetV1RequestOpts(requestParameters: CaseFilesApiQueriesFileDetailsGetV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -730,15 +812,25 @@ export class CaseFilesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/case-files/queries/file-details/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/case-files/queries/file-details/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query for ids of file details
+     */
+    async queriesFileDetailsGetV1Raw(
+        requestParameters: CaseFilesApiQueriesFileDetailsGetV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CasefilesapiMSAResponseString>> {
+        const requestOptions = await this.queriesFileDetailsGetV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CasefilesapiMSAResponseStringFromJSON(jsonValue));
     }

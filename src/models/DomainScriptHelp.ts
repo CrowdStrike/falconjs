@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ModelArgument } from "./ModelArgument";
-import { ModelArgumentFromJSON, ModelArgumentFromJSONTyped, ModelArgumentToJSON } from "./ModelArgument";
+import { ModelArgumentFromJSON, ModelArgumentFromJSONTyped, ModelArgumentToJSON, ModelArgumentToJSONTyped } from "./ModelArgument";
 
 /**
  *
@@ -99,10 +99,15 @@ export function DomainScriptHelpFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function DomainScriptHelpToJSON(value?: DomainScriptHelp | null): any {
+export function DomainScriptHelpToJSON(json: any): DomainScriptHelp {
+    return DomainScriptHelpToJSONTyped(json, false);
+}
+
+export function DomainScriptHelpToJSONTyped(value?: DomainScriptHelp | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         args: (value["args"] as Array<any>).map(ModelArgumentToJSON),
         command: value["command"],

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ModelsAPIDetectionResponse } from "./ModelsAPIDetectionResponse";
-import { ModelsAPIDetectionResponseFromJSON, ModelsAPIDetectionResponseFromJSONTyped, ModelsAPIDetectionResponseToJSON } from "./ModelsAPIDetectionResponse";
+import { ModelsAPIDetectionResponseFromJSON, ModelsAPIDetectionResponseFromJSONTyped, ModelsAPIDetectionResponseToJSON, ModelsAPIDetectionResponseToJSONTyped } from "./ModelsAPIDetectionResponse";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function ModelsDetectionsCombinedResponseFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function ModelsDetectionsCombinedResponseToJSON(value?: ModelsDetectionsCombinedResponse | null): any {
+export function ModelsDetectionsCombinedResponseToJSON(json: any): ModelsDetectionsCombinedResponse {
+    return ModelsDetectionsCombinedResponseToJSONTyped(json, false);
+}
+
+export function ModelsDetectionsCombinedResponseToJSONTyped(value?: ModelsDetectionsCombinedResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

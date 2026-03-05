@@ -75,10 +75,15 @@ export function PaginationMetaGetIntegrationsFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function PaginationMetaGetIntegrationsToJSON(value?: PaginationMetaGetIntegrations | null): any {
+export function PaginationMetaGetIntegrationsToJSON(json: any): PaginationMetaGetIntegrations {
+    return PaginationMetaGetIntegrationsToJSONTyped(json, false);
+}
+
+export function PaginationMetaGetIntegrationsToJSONTyped(value?: PaginationMetaGetIntegrations | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         limit: value["limit"],
         next: value["next"],

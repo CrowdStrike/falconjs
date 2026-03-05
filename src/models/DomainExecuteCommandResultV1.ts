@@ -77,10 +77,15 @@ export function DomainExecuteCommandResultV1FromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function DomainExecuteCommandResultV1ToJSON(value?: DomainExecuteCommandResultV1 | null): any {
+export function DomainExecuteCommandResultV1ToJSON(json: any): DomainExecuteCommandResultV1 {
+    return DomainExecuteCommandResultV1ToJSONTyped(json, false);
+}
+
+export function DomainExecuteCommandResultV1ToJSONTyped(value?: DomainExecuteCommandResultV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         headers: value["headers"],
         id: value["id"],

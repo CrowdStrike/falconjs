@@ -68,10 +68,15 @@ export function ItautomationUpdateUserGroupRequestFromJSONTyped(json: any, ignor
     };
 }
 
-export function ItautomationUpdateUserGroupRequestToJSON(value?: ItautomationUpdateUserGroupRequest | null): any {
+export function ItautomationUpdateUserGroupRequestToJSON(json: any): ItautomationUpdateUserGroupRequest {
+    return ItautomationUpdateUserGroupRequestToJSONTyped(json, false);
+}
+
+export function ItautomationUpdateUserGroupRequestToJSONTyped(value?: ItautomationUpdateUserGroupRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         add_user_ids: value["addUserIds"],
         description: value["description"],

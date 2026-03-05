@@ -83,10 +83,15 @@ export function CorrelationrulesapiPatchRuleSearchV1FromJSONTyped(json: any, ign
     };
 }
 
-export function CorrelationrulesapiPatchRuleSearchV1ToJSON(value?: CorrelationrulesapiPatchRuleSearchV1 | null): any {
+export function CorrelationrulesapiPatchRuleSearchV1ToJSON(json: any): CorrelationrulesapiPatchRuleSearchV1 {
+    return CorrelationrulesapiPatchRuleSearchV1ToJSONTyped(json, false);
+}
+
+export function CorrelationrulesapiPatchRuleSearchV1ToJSONTyped(value?: CorrelationrulesapiPatchRuleSearchV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         case_template_id: value["caseTemplateId"],
         filter: value["filter"],

@@ -96,10 +96,15 @@ export function SdkAnalysisResultsCloudAssetRecordVMFromJSONTyped(json: any, ign
     };
 }
 
-export function SdkAnalysisResultsCloudAssetRecordVMToJSON(value?: SdkAnalysisResultsCloudAssetRecordVM | null): any {
+export function SdkAnalysisResultsCloudAssetRecordVMToJSON(json: any): SdkAnalysisResultsCloudAssetRecordVM {
+    return SdkAnalysisResultsCloudAssetRecordVMToJSONTyped(json, false);
+}
+
+export function SdkAnalysisResultsCloudAssetRecordVMToJSONTyped(value?: SdkAnalysisResultsCloudAssetRecordVM | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         asset_id: value["assetId"],

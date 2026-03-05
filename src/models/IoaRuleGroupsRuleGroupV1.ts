@@ -160,10 +160,15 @@ export function IoaRuleGroupsRuleGroupV1FromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function IoaRuleGroupsRuleGroupV1ToJSON(value?: IoaRuleGroupsRuleGroupV1 | null): any {
+export function IoaRuleGroupsRuleGroupV1ToJSON(json: any): IoaRuleGroupsRuleGroupV1 {
+    return IoaRuleGroupsRuleGroupV1ToJSONTyped(json, false);
+}
+
+export function IoaRuleGroupsRuleGroupV1ToJSONTyped(value?: IoaRuleGroupsRuleGroupV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         comment: value["comment"],
         committed_timestamp: value["committedTimestamp"].toISOString(),

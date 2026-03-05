@@ -48,10 +48,18 @@ export function DataconnectionmanagementUpdateDataConnectionStatusRequestFromJSO
     };
 }
 
-export function DataconnectionmanagementUpdateDataConnectionStatusRequestToJSON(value?: DataconnectionmanagementUpdateDataConnectionStatusRequest | null): any {
+export function DataconnectionmanagementUpdateDataConnectionStatusRequestToJSON(json: any): DataconnectionmanagementUpdateDataConnectionStatusRequest {
+    return DataconnectionmanagementUpdateDataConnectionStatusRequestToJSONTyped(json, false);
+}
+
+export function DataconnectionmanagementUpdateDataConnectionStatusRequestToJSONTyped(
+    value?: DataconnectionmanagementUpdateDataConnectionStatusRequest | null,
+    ignoreDiscriminator: boolean = false,
+): any {
     if (value == null) {
         return value;
     }
+
     return {
         status: value["status"],
     };

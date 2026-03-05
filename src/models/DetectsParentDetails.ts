@@ -72,10 +72,15 @@ export function DetectsParentDetailsFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function DetectsParentDetailsToJSON(value?: DetectsParentDetails | null): any {
+export function DetectsParentDetailsToJSON(json: any): DetectsParentDetails {
+    return DetectsParentDetailsToJSONTyped(json, false);
+}
+
+export function DetectsParentDetailsToJSONTyped(value?: DetectsParentDetails | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         parent_cmdline: value["parentCmdline"],
         parent_md5: value["parentMd5"],

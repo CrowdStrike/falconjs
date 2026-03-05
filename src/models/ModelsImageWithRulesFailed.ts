@@ -104,10 +104,15 @@ export function ModelsImageWithRulesFailedFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function ModelsImageWithRulesFailedToJSON(value?: ModelsImageWithRulesFailed | null): any {
+export function ModelsImageWithRulesFailedToJSON(json: any): ModelsImageWithRulesFailed {
+    return ModelsImageWithRulesFailedToJSONTyped(json, false);
+}
+
+export function ModelsImageWithRulesFailedToJSONTyped(value?: ModelsImageWithRulesFailed | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         "1": value["_1"],
         "2": value["_2"],

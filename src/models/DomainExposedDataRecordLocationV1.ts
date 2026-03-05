@@ -88,10 +88,15 @@ export function DomainExposedDataRecordLocationV1FromJSONTyped(json: any, ignore
     };
 }
 
-export function DomainExposedDataRecordLocationV1ToJSON(value?: DomainExposedDataRecordLocationV1 | null): any {
+export function DomainExposedDataRecordLocationV1ToJSON(json: any): DomainExposedDataRecordLocationV1 {
+    return DomainExposedDataRecordLocationV1ToJSONTyped(json, false);
+}
+
+export function DomainExposedDataRecordLocationV1ToJSONTyped(value?: DomainExposedDataRecordLocationV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         city: value["city"],
         country_code: value["countryCode"],

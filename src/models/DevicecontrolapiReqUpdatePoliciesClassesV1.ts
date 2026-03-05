@@ -18,6 +18,7 @@ import {
     DevicecontrolapiReqUpdatePolicyClassesV1FromJSON,
     DevicecontrolapiReqUpdatePolicyClassesV1FromJSONTyped,
     DevicecontrolapiReqUpdatePolicyClassesV1ToJSON,
+    DevicecontrolapiReqUpdatePolicyClassesV1ToJSONTyped,
 } from "./DevicecontrolapiReqUpdatePolicyClassesV1";
 
 /**
@@ -55,10 +56,15 @@ export function DevicecontrolapiReqUpdatePoliciesClassesV1FromJSONTyped(json: an
     };
 }
 
-export function DevicecontrolapiReqUpdatePoliciesClassesV1ToJSON(value?: DevicecontrolapiReqUpdatePoliciesClassesV1 | null): any {
+export function DevicecontrolapiReqUpdatePoliciesClassesV1ToJSON(json: any): DevicecontrolapiReqUpdatePoliciesClassesV1 {
+    return DevicecontrolapiReqUpdatePoliciesClassesV1ToJSONTyped(json, false);
+}
+
+export function DevicecontrolapiReqUpdatePoliciesClassesV1ToJSONTyped(value?: DevicecontrolapiReqUpdatePoliciesClassesV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         policies: (value["policies"] as Array<any>).map(DevicecontrolapiReqUpdatePolicyClassesV1ToJSON),
     };

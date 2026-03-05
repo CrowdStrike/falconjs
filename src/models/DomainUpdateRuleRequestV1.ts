@@ -112,10 +112,15 @@ export function DomainUpdateRuleRequestV1FromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DomainUpdateRuleRequestV1ToJSON(value?: DomainUpdateRuleRequestV1 | null): any {
+export function DomainUpdateRuleRequestV1ToJSON(json: any): DomainUpdateRuleRequestV1 {
+    return DomainUpdateRuleRequestV1ToJSONTyped(json, false);
+}
+
+export function DomainUpdateRuleRequestV1ToJSONTyped(value?: DomainUpdateRuleRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         breach_monitor_only: value["breachMonitorOnly"],
         breach_monitoring_enabled: value["breachMonitoringEnabled"],

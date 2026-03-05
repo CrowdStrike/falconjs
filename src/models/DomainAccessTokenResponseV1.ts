@@ -90,10 +90,15 @@ export function DomainAccessTokenResponseV1FromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function DomainAccessTokenResponseV1ToJSON(value?: DomainAccessTokenResponseV1 | null): any {
+export function DomainAccessTokenResponseV1ToJSON(json: any): DomainAccessTokenResponseV1 {
+    return DomainAccessTokenResponseV1ToJSONTyped(json, false);
+}
+
+export function DomainAccessTokenResponseV1ToJSONTyped(value?: DomainAccessTokenResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         access_token: value["accessToken"],
         expires_in: value["expiresIn"],

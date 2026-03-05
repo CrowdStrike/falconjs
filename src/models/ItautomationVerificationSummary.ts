@@ -56,10 +56,15 @@ export function ItautomationVerificationSummaryFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function ItautomationVerificationSummaryToJSON(value?: ItautomationVerificationSummary | null): any {
+export function ItautomationVerificationSummaryToJSON(json: any): ItautomationVerificationSummary {
+    return ItautomationVerificationSummaryToJSONTyped(json, false);
+}
+
+export function ItautomationVerificationSummaryToJSONTyped(value?: ItautomationVerificationSummary | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         unverified_host_count: value["unverifiedHostCount"],
         verified_host_count: value["verifiedHostCount"],

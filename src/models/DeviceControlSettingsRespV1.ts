@@ -14,12 +14,18 @@
 
 import { mapValues } from "../runtime";
 import type { DeviceControlUSBCustomNotifications } from "./DeviceControlUSBCustomNotifications";
-import { DeviceControlUSBCustomNotificationsFromJSON, DeviceControlUSBCustomNotificationsFromJSONTyped, DeviceControlUSBCustomNotificationsToJSON } from "./DeviceControlUSBCustomNotifications";
+import {
+    DeviceControlUSBCustomNotificationsFromJSON,
+    DeviceControlUSBCustomNotificationsFromJSONTyped,
+    DeviceControlUSBCustomNotificationsToJSON,
+    DeviceControlUSBCustomNotificationsToJSONTyped,
+} from "./DeviceControlUSBCustomNotifications";
 import type { DeviceControlUSBClassExceptionsResponse } from "./DeviceControlUSBClassExceptionsResponse";
 import {
     DeviceControlUSBClassExceptionsResponseFromJSON,
     DeviceControlUSBClassExceptionsResponseFromJSONTyped,
     DeviceControlUSBClassExceptionsResponseToJSON,
+    DeviceControlUSBClassExceptionsResponseToJSONTyped,
 } from "./DeviceControlUSBClassExceptionsResponse";
 
 /**
@@ -42,13 +48,13 @@ export interface DeviceControlSettingsRespV1 {
     customNotifications?: DeviceControlUSBCustomNotifications;
     /**
      * Does the end user receives a notification when the policy is violated
-     * @type {string}
+     * @type {DeviceControlSettingsRespV1EndUserNotificationEnum}
      * @memberof DeviceControlSettingsRespV1
      */
     endUserNotification: DeviceControlSettingsRespV1EndUserNotificationEnum;
     /**
      * [How] is this policy enforced
-     * @type {string}
+     * @type {DeviceControlSettingsRespV1EnforcementModeEnum}
      * @memberof DeviceControlSettingsRespV1
      */
     enforcementMode: DeviceControlSettingsRespV1EnforcementModeEnum;
@@ -107,10 +113,15 @@ export function DeviceControlSettingsRespV1FromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function DeviceControlSettingsRespV1ToJSON(value?: DeviceControlSettingsRespV1 | null): any {
+export function DeviceControlSettingsRespV1ToJSON(json: any): DeviceControlSettingsRespV1 {
+    return DeviceControlSettingsRespV1ToJSONTyped(json, false);
+}
+
+export function DeviceControlSettingsRespV1ToJSONTyped(value?: DeviceControlSettingsRespV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         classes: (value["classes"] as Array<any>).map(DeviceControlUSBClassExceptionsResponseToJSON),
         custom_notifications: DeviceControlUSBCustomNotificationsToJSON(value["customNotifications"]),

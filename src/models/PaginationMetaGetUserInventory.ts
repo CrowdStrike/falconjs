@@ -75,10 +75,15 @@ export function PaginationMetaGetUserInventoryFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function PaginationMetaGetUserInventoryToJSON(value?: PaginationMetaGetUserInventory | null): any {
+export function PaginationMetaGetUserInventoryToJSON(json: any): PaginationMetaGetUserInventory {
+    return PaginationMetaGetUserInventoryToJSONTyped(json, false);
+}
+
+export function PaginationMetaGetUserInventoryToJSONTyped(value?: PaginationMetaGetUserInventory | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         limit: value["limit"],
         next: value["next"],

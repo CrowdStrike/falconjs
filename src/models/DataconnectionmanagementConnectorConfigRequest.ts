@@ -64,10 +64,15 @@ export function DataconnectionmanagementConnectorConfigRequestFromJSONTyped(json
     };
 }
 
-export function DataconnectionmanagementConnectorConfigRequestToJSON(value?: DataconnectionmanagementConnectorConfigRequest | null): any {
+export function DataconnectionmanagementConnectorConfigRequestToJSON(json: any): DataconnectionmanagementConnectorConfigRequest {
+    return DataconnectionmanagementConnectorConfigRequestToJSONTyped(json, false);
+}
+
+export function DataconnectionmanagementConnectorConfigRequestToJSONTyped(value?: DataconnectionmanagementConnectorConfigRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         auth: value["auth"],
         name: value["name"],

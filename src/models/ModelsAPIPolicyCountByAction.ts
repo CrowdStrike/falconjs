@@ -56,10 +56,15 @@ export function ModelsAPIPolicyCountByActionFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function ModelsAPIPolicyCountByActionToJSON(value?: ModelsAPIPolicyCountByAction | null): any {
+export function ModelsAPIPolicyCountByActionToJSON(json: any): ModelsAPIPolicyCountByAction {
+    return ModelsAPIPolicyCountByActionToJSONTyped(json, false);
+}
+
+export function ModelsAPIPolicyCountByActionToJSONTyped(value?: ModelsAPIPolicyCountByAction | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         count: value["count"],

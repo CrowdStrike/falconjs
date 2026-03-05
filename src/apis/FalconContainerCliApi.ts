@@ -32,12 +32,9 @@ export interface FalconContainerCliApiReadImageVulnerabilitiesRequest {
  */
 export class FalconContainerCliApi extends runtime.BaseAPI {
     /**
-     * Retrieve known vulnerabilities for the provided image
+     * Creates request options for readImageVulnerabilities without sending the request
      */
-    async readImageVulnerabilitiesRaw(
-        requestParameters: FalconContainerCliApiReadImageVulnerabilitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CoreEntitiesResponse>> {
+    async readImageVulnerabilitiesRequestOpts(requestParameters: FalconContainerCliApiReadImageVulnerabilitiesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling readImageVulnerabilities().');
         }
@@ -53,16 +50,26 @@ export class FalconContainerCliApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-cli:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/image-assessment/combined/vulnerability-lookups/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiImageLookupRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/image-assessment/combined/vulnerability-lookups/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiImageLookupRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Retrieve known vulnerabilities for the provided image
+     */
+    async readImageVulnerabilitiesRaw(
+        requestParameters: FalconContainerCliApiReadImageVulnerabilitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CoreEntitiesResponse>> {
+        const requestOptions = await this.readImageVulnerabilitiesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CoreEntitiesResponseFromJSON(jsonValue));
     }

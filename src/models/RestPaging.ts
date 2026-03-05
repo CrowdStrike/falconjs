@@ -63,10 +63,15 @@ export function RestPagingFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function RestPagingToJSON(value?: RestPaging | null): any {
+export function RestPagingToJSON(json: any): RestPaging {
+    return RestPagingToJSONTyped(json, false);
+}
+
+export function RestPagingToJSONTyped(value?: RestPaging | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         limit: value["limit"],
         offset: value["offset"],

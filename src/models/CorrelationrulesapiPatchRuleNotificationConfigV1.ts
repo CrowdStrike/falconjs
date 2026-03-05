@@ -75,10 +75,15 @@ export function CorrelationrulesapiPatchRuleNotificationConfigV1FromJSONTyped(js
     };
 }
 
-export function CorrelationrulesapiPatchRuleNotificationConfigV1ToJSON(value?: CorrelationrulesapiPatchRuleNotificationConfigV1 | null): any {
+export function CorrelationrulesapiPatchRuleNotificationConfigV1ToJSON(json: any): CorrelationrulesapiPatchRuleNotificationConfigV1 {
+    return CorrelationrulesapiPatchRuleNotificationConfigV1ToJSONTyped(json, false);
+}
+
+export function CorrelationrulesapiPatchRuleNotificationConfigV1ToJSONTyped(value?: CorrelationrulesapiPatchRuleNotificationConfigV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         config_id: value["configId"],

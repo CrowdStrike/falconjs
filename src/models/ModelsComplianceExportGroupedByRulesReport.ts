@@ -144,10 +144,15 @@ export function ModelsComplianceExportGroupedByRulesReportFromJSONTyped(json: an
     };
 }
 
-export function ModelsComplianceExportGroupedByRulesReportToJSON(value?: ModelsComplianceExportGroupedByRulesReport | null): any {
+export function ModelsComplianceExportGroupedByRulesReportToJSON(json: any): ModelsComplianceExportGroupedByRulesReport {
+    return ModelsComplianceExportGroupedByRulesReportToJSONTyped(json, false);
+}
+
+export function ModelsComplianceExportGroupedByRulesReportToJSONTyped(value?: ModelsComplianceExportGroupedByRulesReport | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         asset_type: value["assetType"],
         authority: value["authority"],

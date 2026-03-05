@@ -64,10 +64,15 @@ export function UninstallTokenUninstallTokenV1FromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function UninstallTokenUninstallTokenV1ToJSON(value?: UninstallTokenUninstallTokenV1 | null): any {
+export function UninstallTokenUninstallTokenV1ToJSON(json: any): UninstallTokenUninstallTokenV1 {
+    return UninstallTokenUninstallTokenV1ToJSONTyped(json, false);
+}
+
+export function UninstallTokenUninstallTokenV1ToJSONTyped(value?: UninstallTokenUninstallTokenV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         device_id: value["deviceId"],
         seed_id: value["seedId"],

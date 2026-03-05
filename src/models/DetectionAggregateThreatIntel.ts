@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DetectionAggregateIndicator } from "./DetectionAggregateIndicator";
-import { DetectionAggregateIndicatorFromJSON, DetectionAggregateIndicatorFromJSONTyped, DetectionAggregateIndicatorToJSON } from "./DetectionAggregateIndicator";
+import {
+    DetectionAggregateIndicatorFromJSON,
+    DetectionAggregateIndicatorFromJSONTyped,
+    DetectionAggregateIndicatorToJSON,
+    DetectionAggregateIndicatorToJSONTyped,
+} from "./DetectionAggregateIndicator";
 
 /**
  *
@@ -50,10 +55,15 @@ export function DetectionAggregateThreatIntelFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function DetectionAggregateThreatIntelToJSON(value?: DetectionAggregateThreatIntel | null): any {
+export function DetectionAggregateThreatIntelToJSON(json: any): DetectionAggregateThreatIntel {
+    return DetectionAggregateThreatIntelToJSONTyped(json, false);
+}
+
+export function DetectionAggregateThreatIntelToJSONTyped(value?: DetectionAggregateThreatIntel | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         indicator: DetectionAggregateIndicatorToJSON(value["indicator"]),
     };

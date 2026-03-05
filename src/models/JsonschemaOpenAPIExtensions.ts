@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { JsonschemaParameterExtensions } from "./JsonschemaParameterExtensions";
-import { JsonschemaParameterExtensionsFromJSON, JsonschemaParameterExtensionsFromJSONTyped, JsonschemaParameterExtensionsToJSON } from "./JsonschemaParameterExtensions";
+import {
+    JsonschemaParameterExtensionsFromJSON,
+    JsonschemaParameterExtensionsFromJSONTyped,
+    JsonschemaParameterExtensionsToJSON,
+    JsonschemaParameterExtensionsToJSONTyped,
+} from "./JsonschemaParameterExtensions";
 
 /**
  *
@@ -50,10 +55,15 @@ export function JsonschemaOpenAPIExtensionsFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function JsonschemaOpenAPIExtensionsToJSON(value?: JsonschemaOpenAPIExtensions | null): any {
+export function JsonschemaOpenAPIExtensionsToJSON(json: any): JsonschemaOpenAPIExtensions {
+    return JsonschemaOpenAPIExtensionsToJSONTyped(json, false);
+}
+
+export function JsonschemaOpenAPIExtensionsToJSONTyped(value?: JsonschemaOpenAPIExtensions | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         parameter: JsonschemaParameterExtensionsToJSON(value["parameter"]),
     };

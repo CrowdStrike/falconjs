@@ -14,15 +14,26 @@
 
 import { mapValues } from "../runtime";
 import type { DomainAPIEvaluationLogicHostInfoV1 } from "./DomainAPIEvaluationLogicHostInfoV1";
-import { DomainAPIEvaluationLogicHostInfoV1FromJSON, DomainAPIEvaluationLogicHostInfoV1FromJSONTyped, DomainAPIEvaluationLogicHostInfoV1ToJSON } from "./DomainAPIEvaluationLogicHostInfoV1";
+import {
+    DomainAPIEvaluationLogicHostInfoV1FromJSON,
+    DomainAPIEvaluationLogicHostInfoV1FromJSONTyped,
+    DomainAPIEvaluationLogicHostInfoV1ToJSON,
+    DomainAPIEvaluationLogicHostInfoV1ToJSONTyped,
+} from "./DomainAPIEvaluationLogicHostInfoV1";
 import type { DomainAPISimplifiedEvaluationLogicItemV1 } from "./DomainAPISimplifiedEvaluationLogicItemV1";
 import {
     DomainAPISimplifiedEvaluationLogicItemV1FromJSON,
     DomainAPISimplifiedEvaluationLogicItemV1FromJSONTyped,
     DomainAPISimplifiedEvaluationLogicItemV1ToJSON,
+    DomainAPISimplifiedEvaluationLogicItemV1ToJSONTyped,
 } from "./DomainAPISimplifiedEvaluationLogicItemV1";
 import type { DomainAPIEvaluationLogicItemV1 } from "./DomainAPIEvaluationLogicItemV1";
-import { DomainAPIEvaluationLogicItemV1FromJSON, DomainAPIEvaluationLogicItemV1FromJSONTyped, DomainAPIEvaluationLogicItemV1ToJSON } from "./DomainAPIEvaluationLogicItemV1";
+import {
+    DomainAPIEvaluationLogicItemV1FromJSON,
+    DomainAPIEvaluationLogicItemV1FromJSONTyped,
+    DomainAPIEvaluationLogicItemV1ToJSON,
+    DomainAPIEvaluationLogicItemV1ToJSONTyped,
+} from "./DomainAPIEvaluationLogicItemV1";
 
 /**
  *
@@ -122,10 +133,15 @@ export function DomainAPIEvaluationLogicV1FromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function DomainAPIEvaluationLogicV1ToJSON(value?: DomainAPIEvaluationLogicV1 | null): any {
+export function DomainAPIEvaluationLogicV1ToJSON(json: any): DomainAPIEvaluationLogicV1 {
+    return DomainAPIEvaluationLogicV1ToJSONTyped(json, false);
+}
+
+export function DomainAPIEvaluationLogicV1ToJSONTyped(value?: DomainAPIEvaluationLogicV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         aid: value["aid"],
         cid: value["cid"],

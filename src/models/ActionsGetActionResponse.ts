@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ActionsAction } from "./ActionsAction";
-import { ActionsActionFromJSON, ActionsActionFromJSONTyped, ActionsActionToJSON } from "./ActionsAction";
+import { ActionsActionFromJSON, ActionsActionFromJSONTyped, ActionsActionToJSON, ActionsActionToJSONTyped } from "./ActionsAction";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function ActionsGetActionResponseFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function ActionsGetActionResponseToJSON(value?: ActionsGetActionResponse | null): any {
+export function ActionsGetActionResponseToJSON(json: any): ActionsGetActionResponse {
+    return ActionsGetActionResponseToJSONTyped(json, false);
+}
+
+export function ActionsGetActionResponseToJSONTyped(value?: ActionsGetActionResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

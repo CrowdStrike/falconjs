@@ -86,14 +86,19 @@ export function ApiObjectMetadataFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function ApiObjectMetadataToJSON(value?: ApiObjectMetadata | null): any {
+export function ApiObjectMetadataToJSON(json: any): ApiObjectMetadata {
+    return ApiObjectMetadataToJSONTyped(json, false);
+}
+
+export function ApiObjectMetadataToJSONTyped(value?: ApiObjectMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         collection_name: value["collectionName"],
         collection_version: value["collectionVersion"],
-        last_modified_time: value["lastModifiedTime"] == null ? undefined : value["lastModifiedTime"].toISOString(),
+        last_modified_time: value["lastModifiedTime"] == null ? value["lastModifiedTime"] : value["lastModifiedTime"].toISOString(),
         namespace: value["namespace"],
         object_key: value["objectKey"],
         schema_version: value["schemaVersion"],

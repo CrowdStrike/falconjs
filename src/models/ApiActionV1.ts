@@ -64,10 +64,15 @@ export function ApiActionV1FromJSONTyped(json: any, ignoreDiscriminator: boolean
     };
 }
 
-export function ApiActionV1ToJSON(value?: ApiActionV1 | null): any {
+export function ApiActionV1ToJSON(json: any): ApiActionV1 {
+    return ApiActionV1ToJSONTyped(json, false);
+}
+
+export function ApiActionV1ToJSONTyped(value?: ApiActionV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         platforms_by_type: value["platformsByType"],

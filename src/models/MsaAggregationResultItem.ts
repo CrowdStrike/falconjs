@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAggregationResult } from "./MsaAggregationResult";
-import { MsaAggregationResultFromJSON, MsaAggregationResultFromJSONTyped, MsaAggregationResultToJSON } from "./MsaAggregationResult";
+import { MsaAggregationResultFromJSON, MsaAggregationResultFromJSONTyped, MsaAggregationResultToJSON, MsaAggregationResultToJSONTyped } from "./MsaAggregationResult";
 
 /**
  *
@@ -114,10 +114,15 @@ export function MsaAggregationResultItemFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function MsaAggregationResultItemToJSON(value?: MsaAggregationResultItem | null): any {
+export function MsaAggregationResultItemToJSON(json: any): MsaAggregationResultItem {
+    return MsaAggregationResultItemToJSONTyped(json, false);
+}
+
+export function MsaAggregationResultItemToJSONTyped(value?: MsaAggregationResultItem | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count: value["count"],
         from: value["from"],

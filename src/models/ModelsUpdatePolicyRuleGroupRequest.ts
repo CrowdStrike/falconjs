@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsUpdateRuleGroup } from "./ModelsUpdateRuleGroup";
-import { ModelsUpdateRuleGroupFromJSON, ModelsUpdateRuleGroupFromJSONTyped, ModelsUpdateRuleGroupToJSON } from "./ModelsUpdateRuleGroup";
+import { ModelsUpdateRuleGroupFromJSON, ModelsUpdateRuleGroupFromJSONTyped, ModelsUpdateRuleGroupToJSON, ModelsUpdateRuleGroupToJSONTyped } from "./ModelsUpdateRuleGroup";
 
 /**
  *
@@ -59,10 +59,15 @@ export function ModelsUpdatePolicyRuleGroupRequestFromJSONTyped(json: any, ignor
     };
 }
 
-export function ModelsUpdatePolicyRuleGroupRequestToJSON(value?: ModelsUpdatePolicyRuleGroupRequest | null): any {
+export function ModelsUpdatePolicyRuleGroupRequestToJSON(json: any): ModelsUpdatePolicyRuleGroupRequest {
+    return ModelsUpdatePolicyRuleGroupRequestToJSONTyped(json, false);
+}
+
+export function ModelsUpdatePolicyRuleGroupRequestToJSONTyped(value?: ModelsUpdatePolicyRuleGroupRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         rule_groups: (value["ruleGroups"] as Array<any>).map(ModelsUpdateRuleGroupToJSON),

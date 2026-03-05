@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DomainExternalCredentialResponse } from "./DomainExternalCredentialResponse";
-import { DomainExternalCredentialResponseFromJSON, DomainExternalCredentialResponseFromJSONTyped, DomainExternalCredentialResponseToJSON } from "./DomainExternalCredentialResponse";
+import {
+    DomainExternalCredentialResponseFromJSON,
+    DomainExternalCredentialResponseFromJSONTyped,
+    DomainExternalCredentialResponseToJSON,
+    DomainExternalCredentialResponseToJSONTyped,
+} from "./DomainExternalCredentialResponse";
 
 /**
  *
@@ -146,10 +151,15 @@ export function DomainExternalAPIRegistryFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DomainExternalAPIRegistryToJSON(value?: DomainExternalAPIRegistry | null): any {
+export function DomainExternalAPIRegistryToJSON(json: any): DomainExternalAPIRegistry {
+    return DomainExternalAPIRegistryToJSONTyped(json, false);
+}
+
+export function DomainExternalAPIRegistryToJSONTyped(value?: DomainExternalAPIRegistry | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         created_at: value["createdAt"],
         credential: DomainExternalCredentialResponseToJSON(value["credential"]),

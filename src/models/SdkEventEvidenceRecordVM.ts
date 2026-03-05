@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { SdkEventEvidenceSelector } from "./SdkEventEvidenceSelector";
-import { SdkEventEvidenceSelectorFromJSON, SdkEventEvidenceSelectorFromJSONTyped, SdkEventEvidenceSelectorToJSON } from "./SdkEventEvidenceSelector";
+import { SdkEventEvidenceSelectorFromJSON, SdkEventEvidenceSelectorFromJSONTyped, SdkEventEvidenceSelectorToJSON, SdkEventEvidenceSelectorToJSONTyped } from "./SdkEventEvidenceSelector";
 
 /**
  *
@@ -51,10 +51,15 @@ export function SdkEventEvidenceRecordVMFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function SdkEventEvidenceRecordVMToJSON(value?: SdkEventEvidenceRecordVM | null): any {
+export function SdkEventEvidenceRecordVMToJSON(json: any): SdkEventEvidenceRecordVM {
+    return SdkEventEvidenceRecordVMToJSONTyped(json, false);
+}
+
+export function SdkEventEvidenceRecordVMToJSONTyped(value?: SdkEventEvidenceRecordVM | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         selector: SdkEventEvidenceSelectorToJSON(value["selector"]),
     };

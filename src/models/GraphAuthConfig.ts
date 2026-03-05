@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { GraphAPIKeyConfig } from "./GraphAPIKeyConfig";
-import { GraphAPIKeyConfigFromJSON, GraphAPIKeyConfigFromJSONTyped, GraphAPIKeyConfigToJSON } from "./GraphAPIKeyConfig";
+import { GraphAPIKeyConfigFromJSON, GraphAPIKeyConfigFromJSONTyped, GraphAPIKeyConfigToJSON, GraphAPIKeyConfigToJSONTyped } from "./GraphAPIKeyConfig";
 import type { GraphHMACConfig } from "./GraphHMACConfig";
-import { GraphHMACConfigFromJSON, GraphHMACConfigFromJSONTyped, GraphHMACConfigToJSON } from "./GraphHMACConfig";
+import { GraphHMACConfigFromJSON, GraphHMACConfigFromJSONTyped, GraphHMACConfigToJSON, GraphHMACConfigToJSONTyped } from "./GraphHMACConfig";
 import type { GraphBasicAuthConfig } from "./GraphBasicAuthConfig";
-import { GraphBasicAuthConfigFromJSON, GraphBasicAuthConfigFromJSONTyped, GraphBasicAuthConfigToJSON } from "./GraphBasicAuthConfig";
+import { GraphBasicAuthConfigFromJSON, GraphBasicAuthConfigFromJSONTyped, GraphBasicAuthConfigToJSON, GraphBasicAuthConfigToJSONTyped } from "./GraphBasicAuthConfig";
 
 /**
  *
@@ -76,10 +76,15 @@ export function GraphAuthConfigFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function GraphAuthConfigToJSON(value?: GraphAuthConfig | null): any {
+export function GraphAuthConfigToJSON(json: any): GraphAuthConfig {
+    return GraphAuthConfigToJSONTyped(json, false);
+}
+
+export function GraphAuthConfigToJSONTyped(value?: GraphAuthConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         api_key_config: GraphAPIKeyConfigToJSON(value["apiKeyConfig"]),
         auth_type: value["authType"],

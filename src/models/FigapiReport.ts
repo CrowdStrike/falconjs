@@ -54,10 +54,15 @@ export function FigapiReportFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function FigapiReportToJSON(value?: FigapiReport | null): any {
+export function FigapiReportToJSON(json: any): FigapiReport {
+    return FigapiReportToJSONTyped(json, false);
+}
+
+export function FigapiReportToJSONTyped(value?: FigapiReport | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Slug: value["slug"],
         Title: value["title"],

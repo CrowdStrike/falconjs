@@ -56,10 +56,15 @@ export function ModelsUpdateCustomRuleActionFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function ModelsUpdateCustomRuleActionToJSON(value?: ModelsUpdateCustomRuleAction | null): any {
+export function ModelsUpdateCustomRuleActionToJSON(json: any): ModelsUpdateCustomRuleAction {
+    return ModelsUpdateCustomRuleActionToJSONTyped(json, false);
+}
+
+export function ModelsUpdateCustomRuleActionToJSONTyped(value?: ModelsUpdateCustomRuleAction | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         id: value["id"],

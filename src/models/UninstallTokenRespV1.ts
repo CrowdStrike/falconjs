@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { UninstallTokenUninstallTokenV1 } from "./UninstallTokenUninstallTokenV1";
-import { UninstallTokenUninstallTokenV1FromJSON, UninstallTokenUninstallTokenV1FromJSONTyped, UninstallTokenUninstallTokenV1ToJSON } from "./UninstallTokenUninstallTokenV1";
+import {
+    UninstallTokenUninstallTokenV1FromJSON,
+    UninstallTokenUninstallTokenV1FromJSONTyped,
+    UninstallTokenUninstallTokenV1ToJSON,
+    UninstallTokenUninstallTokenV1ToJSONTyped,
+} from "./UninstallTokenUninstallTokenV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +76,15 @@ export function UninstallTokenRespV1FromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function UninstallTokenRespV1ToJSON(value?: UninstallTokenRespV1 | null): any {
+export function UninstallTokenRespV1ToJSON(json: any): UninstallTokenRespV1 {
+    return UninstallTokenRespV1ToJSONTyped(json, false);
+}
+
+export function UninstallTokenRespV1ToJSONTyped(value?: UninstallTokenRespV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

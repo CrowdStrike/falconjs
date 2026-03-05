@@ -14,9 +14,14 @@
 
 import { mapValues } from "../runtime";
 import type { DetectionAggregateThreatIntel } from "./DetectionAggregateThreatIntel";
-import { DetectionAggregateThreatIntelFromJSON, DetectionAggregateThreatIntelFromJSONTyped, DetectionAggregateThreatIntelToJSON } from "./DetectionAggregateThreatIntel";
+import {
+    DetectionAggregateThreatIntelFromJSON,
+    DetectionAggregateThreatIntelFromJSONTyped,
+    DetectionAggregateThreatIntelToJSON,
+    DetectionAggregateThreatIntelToJSONTyped,
+} from "./DetectionAggregateThreatIntel";
 import type { Resource } from "./Resource";
-import { ResourceFromJSON, ResourceFromJSONTyped, ResourceToJSON } from "./Resource";
+import { ResourceFromJSON, ResourceFromJSONTyped, ResourceToJSON, ResourceToJSONTyped } from "./Resource";
 
 /**
  *
@@ -123,10 +128,15 @@ export function IoaEventAggregateFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function IoaEventAggregateToJSON(value?: IoaEventAggregate | null): any {
+export function IoaEventAggregateToJSON(json: any): IoaEventAggregate {
+    return IoaEventAggregateToJSONTyped(json, false);
+}
+
+export function IoaEventAggregateToJSONTyped(value?: IoaEventAggregate | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid_severity: value["cidSeverity"],
         confidence: value["confidence"],

@@ -56,10 +56,15 @@ export function DevicecontrolapiCustomNotificationFromJSONTyped(json: any, ignor
     };
 }
 
-export function DevicecontrolapiCustomNotificationToJSON(value?: DevicecontrolapiCustomNotification | null): any {
+export function DevicecontrolapiCustomNotificationToJSON(json: any): DevicecontrolapiCustomNotification {
+    return DevicecontrolapiCustomNotificationToJSONTyped(json, false);
+}
+
+export function DevicecontrolapiCustomNotificationToJSONTyped(value?: DevicecontrolapiCustomNotification | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         custom_message: value["customMessage"],
         use_custom: value["useCustom"],

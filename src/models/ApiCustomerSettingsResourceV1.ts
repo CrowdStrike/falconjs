@@ -55,10 +55,15 @@ export function ApiCustomerSettingsResourceV1FromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function ApiCustomerSettingsResourceV1ToJSON(value?: ApiCustomerSettingsResourceV1 | null): any {
+export function ApiCustomerSettingsResourceV1ToJSON(json: any): ApiCustomerSettingsResourceV1 {
+    return ApiCustomerSettingsResourceV1ToJSONTyped(json, false);
+}
+
+export function ApiCustomerSettingsResourceV1ToJSONTyped(value?: ApiCustomerSettingsResourceV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         max_active_tokens: value["maxActiveTokens"],
         tokens_required: value["tokensRequired"],

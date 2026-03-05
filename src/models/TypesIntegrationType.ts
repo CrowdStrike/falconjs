@@ -75,10 +75,15 @@ export function TypesIntegrationTypeFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function TypesIntegrationTypeToJSON(value?: TypesIntegrationType | null): any {
+export function TypesIntegrationTypeToJSON(json: any): TypesIntegrationType {
+    return TypesIntegrationTypeToJSONTyped(json, false);
+}
+
+export function TypesIntegrationTypeToJSONTyped(value?: TypesIntegrationType | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         configured: value["configured"],
         display_name: value["displayName"],

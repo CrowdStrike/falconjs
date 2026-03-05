@@ -56,10 +56,15 @@ export function ModelsUpdateDefaultRuleActionFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function ModelsUpdateDefaultRuleActionToJSON(value?: ModelsUpdateDefaultRuleAction | null): any {
+export function ModelsUpdateDefaultRuleActionToJSON(json: any): ModelsUpdateDefaultRuleAction {
+    return ModelsUpdateDefaultRuleActionToJSONTyped(json, false);
+}
+
+export function ModelsUpdateDefaultRuleActionToJSONTyped(value?: ModelsUpdateDefaultRuleAction | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         code: value["code"],

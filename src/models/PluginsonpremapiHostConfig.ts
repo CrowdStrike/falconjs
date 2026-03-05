@@ -77,14 +77,19 @@ export function PluginsonpremapiHostConfigFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function PluginsonpremapiHostConfigToJSON(value?: PluginsonpremapiHostConfig | null): any {
+export function PluginsonpremapiHostConfigToJSON(json: any): PluginsonpremapiHostConfig {
+    return PluginsonpremapiHostConfigToJSONTyped(json, false);
+}
+
+export function PluginsonpremapiHostConfigToJSONTyped(value?: PluginsonpremapiHostConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         device_id: value["deviceId"],
-        install_start_date: value["installStartDate"] == null ? undefined : value["installStartDate"].toISOString(),
-        installed_date: value["installedDate"] == null ? undefined : value["installedDate"].toISOString(),
+        install_start_date: value["installStartDate"] == null ? value["installStartDate"] : value["installStartDate"].toISOString(),
+        installed_date: value["installedDate"] == null ? value["installedDate"] : value["installedDate"].toISOString(),
         message: value["message"],
         status: value["status"],
     };

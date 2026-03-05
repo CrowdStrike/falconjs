@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ChangesPolicyRuleGroup } from "./ChangesPolicyRuleGroup";
-import { ChangesPolicyRuleGroupFromJSON, ChangesPolicyRuleGroupFromJSONTyped, ChangesPolicyRuleGroupToJSON } from "./ChangesPolicyRuleGroup";
+import { ChangesPolicyRuleGroupFromJSON, ChangesPolicyRuleGroupFromJSONTyped, ChangesPolicyRuleGroupToJSON, ChangesPolicyRuleGroupToJSONTyped } from "./ChangesPolicyRuleGroup";
 
 /**
  *
@@ -57,10 +57,15 @@ export function ChangesPolicyFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function ChangesPolicyToJSON(value?: ChangesPolicy | null): any {
+export function ChangesPolicyToJSON(json: any): ChangesPolicy {
+    return ChangesPolicyToJSONTyped(json, false);
+}
+
+export function ChangesPolicyToJSONTyped(value?: ChangesPolicy | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
         rule_group: ChangesPolicyRuleGroupToJSON(value["ruleGroup"]),

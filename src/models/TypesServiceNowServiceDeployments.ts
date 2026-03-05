@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesServiceNowDeployment } from "./TypesServiceNowDeployment";
-import { TypesServiceNowDeploymentFromJSON, TypesServiceNowDeploymentFromJSONTyped, TypesServiceNowDeploymentToJSON } from "./TypesServiceNowDeployment";
+import { TypesServiceNowDeploymentFromJSON, TypesServiceNowDeploymentFromJSONTyped, TypesServiceNowDeploymentToJSON, TypesServiceNowDeploymentToJSONTyped } from "./TypesServiceNowDeployment";
 
 /**
  *
@@ -59,10 +59,15 @@ export function TypesServiceNowServiceDeploymentsFromJSONTyped(json: any, ignore
     };
 }
 
-export function TypesServiceNowServiceDeploymentsToJSON(value?: TypesServiceNowServiceDeployments | null): any {
+export function TypesServiceNowServiceDeploymentsToJSON(json: any): TypesServiceNowServiceDeployments {
+    return TypesServiceNowServiceDeploymentsToJSONTyped(json, false);
+}
+
+export function TypesServiceNowServiceDeploymentsToJSONTyped(value?: TypesServiceNowServiceDeployments | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         deployments: (value["deployments"] as Array<any>).map(TypesServiceNowDeploymentToJSON),
         service_id: value["serviceId"],

@@ -56,10 +56,15 @@ export function RulegroupsAssignedRuleFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function RulegroupsAssignedRuleToJSON(value?: RulegroupsAssignedRule | null): any {
+export function RulegroupsAssignedRuleToJSON(json: any): RulegroupsAssignedRule {
+    return RulegroupsAssignedRuleToJSONTyped(json, false);
+}
+
+export function RulegroupsAssignedRuleToJSONTyped(value?: RulegroupsAssignedRule | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         href: value["href"],
         id: value["id"],

@@ -56,10 +56,15 @@ export function CaohuntingapiGuideCategoryFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function CaohuntingapiGuideCategoryToJSON(value?: CaohuntingapiGuideCategory | null): any {
+export function CaohuntingapiGuideCategoryToJSON(json: any): CaohuntingapiGuideCategory {
+    return CaohuntingapiGuideCategoryToJSONTyped(json, false);
+}
+
+export function CaohuntingapiGuideCategoryToJSONTyped(value?: CaohuntingapiGuideCategory | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
         type: value["type"],

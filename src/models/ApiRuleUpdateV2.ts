@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainFieldValue } from "./DomainFieldValue";
-import { DomainFieldValueFromJSON, DomainFieldValueFromJSONTyped, DomainFieldValueToJSON } from "./DomainFieldValue";
+import { DomainFieldValueFromJSON, DomainFieldValueFromJSONTyped, DomainFieldValueToJSON, DomainFieldValueToJSONTyped } from "./DomainFieldValue";
 
 /**
  *
@@ -107,10 +107,15 @@ export function ApiRuleUpdateV2FromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function ApiRuleUpdateV2ToJSON(value?: ApiRuleUpdateV2 | null): any {
+export function ApiRuleUpdateV2ToJSON(json: any): ApiRuleUpdateV2 {
+    return ApiRuleUpdateV2ToJSONTyped(json, false);
+}
+
+export function ApiRuleUpdateV2ToJSONTyped(value?: ApiRuleUpdateV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         disposition_id: value["dispositionId"],

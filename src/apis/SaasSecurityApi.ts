@@ -239,13 +239,9 @@ export interface SaasSecurityApiIntegrationBuilderUploadV3Request {
  */
 export class SaasSecurityApi extends runtime.BaseAPI {
     /**
-     * Preform dismiss to an affected entity in a security check
-     * POST Dismiss Affected Entity
+     * Creates request options for dismissAffectedEntityV3 without sending the request
      */
-    async dismissAffectedEntityV3Raw(
-        requestParameters: SaasSecurityApiDismissAffectedEntityV3OperationRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DismissAffected>> {
+    async dismissAffectedEntityV3RequestOpts(requestParameters: SaasSecurityApiDismissAffectedEntityV3OperationRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling dismissAffectedEntityV3().');
         }
@@ -269,16 +265,27 @@ export class SaasSecurityApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/saas-security/entities/check-dismiss-affected/v3`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DismissAffectedEntityV3RequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/saas-security/entities/check-dismiss-affected/v3`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DismissAffectedEntityV3RequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Preform dismiss to an affected entity in a security check
+     * POST Dismiss Affected Entity
+     */
+    async dismissAffectedEntityV3Raw(
+        requestParameters: SaasSecurityApiDismissAffectedEntityV3OperationRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DismissAffected>> {
+        const requestOptions = await this.dismissAffectedEntityV3RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DismissAffectedFromJSON(jsonValue));
     }
@@ -293,13 +300,9 @@ export class SaasSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Perform dismiss to a security check
-     * POST Dismiss Security Check by ID
+     * Creates request options for dismissSecurityCheckV3 without sending the request
      */
-    async dismissSecurityCheckV3Raw(
-        requestParameters: SaasSecurityApiDismissSecurityCheckV3OperationRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DismissSecurityCheck>> {
+    async dismissSecurityCheckV3RequestOpts(requestParameters: SaasSecurityApiDismissSecurityCheckV3OperationRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling dismissSecurityCheckV3().');
         }
@@ -323,16 +326,27 @@ export class SaasSecurityApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/saas-security/entities/check-dismiss/v3`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DismissSecurityCheckV3RequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/saas-security/entities/check-dismiss/v3`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DismissSecurityCheckV3RequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Perform dismiss to a security check
+     * POST Dismiss Security Check by ID
+     */
+    async dismissSecurityCheckV3Raw(
+        requestParameters: SaasSecurityApiDismissSecurityCheckV3OperationRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DismissSecurityCheck>> {
+        const requestOptions = await this.dismissSecurityCheckV3RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DismissSecurityCheckFromJSON(jsonValue));
     }
@@ -347,13 +361,9 @@ export class SaasSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a list of all events in monitor
-     * GET Activity Monitor
+     * Creates request options for getActivityMonitorV3 without sending the request
      */
-    async getActivityMonitorV3Raw(
-        requestParameters: SaasSecurityApiGetActivityMonitorV3Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<GetActivityMonitor>> {
+    async getActivityMonitorV3RequestOpts(requestParameters: SaasSecurityApiGetActivityMonitorV3Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["integrationId"] != null) {
@@ -395,15 +405,26 @@ export class SaasSecurityApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/saas-security/entities/monitor/v3`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/saas-security/entities/monitor/v3`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a list of all events in monitor
+     * GET Activity Monitor
+     */
+    async getActivityMonitorV3Raw(
+        requestParameters: SaasSecurityApiGetActivityMonitorV3Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<GetActivityMonitor>> {
+        const requestOptions = await this.getActivityMonitorV3RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => GetActivityMonitorFromJSON(jsonValue));
     }
@@ -431,10 +452,9 @@ export class SaasSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a data on a specific alert or get a list of all alerts
-     * GET Alert by ID or GET Alerts
+     * Creates request options for getAlertsV3 without sending the request
      */
-    async getAlertsV3Raw(requestParameters: SaasSecurityApiGetAlertsV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetAlertsResponse>> {
+    async getAlertsV3RequestOpts(requestParameters: SaasSecurityApiGetAlertsV3Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["id"] != null) {
@@ -480,15 +500,23 @@ export class SaasSecurityApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/saas-security/entities/alerts/v3`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/saas-security/entities/alerts/v3`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a data on a specific alert or get a list of all alerts
+     * GET Alert by ID or GET Alerts
+     */
+    async getAlertsV3Raw(requestParameters: SaasSecurityApiGetAlertsV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetAlertsResponse>> {
+        const requestOptions = await this.getAlertsV3RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => GetAlertsResponseFromJSON(jsonValue));
     }
@@ -517,10 +545,9 @@ export class SaasSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a list of all apps in the Applications inventory
-     * GET Applications Inventory
+     * Creates request options for getAppInventory without sending the request
      */
-    async getAppInventoryRaw(requestParameters: SaasSecurityApiGetAppInventoryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppInventory>> {
+    async getAppInventoryRequestOpts(requestParameters: SaasSecurityApiGetAppInventoryRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["type"] != null) {
@@ -570,15 +597,23 @@ export class SaasSecurityApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/saas-security/entities/apps/v3`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/saas-security/entities/apps/v3`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a list of all apps in the Applications inventory
+     * GET Applications Inventory
+     */
+    async getAppInventoryRaw(requestParameters: SaasSecurityApiGetAppInventoryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppInventory>> {
+        const requestOptions = await this.getAppInventoryRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AppInventoryFromJSON(jsonValue));
     }
@@ -619,13 +654,9 @@ export class SaasSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get users associated with an app from the Applications Inventory
-     * GET Application Users
+     * Creates request options for getAppInventoryUsers without sending the request
      */
-    async getAppInventoryUsersRaw(
-        requestParameters: SaasSecurityApiGetAppInventoryUsersRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<AppInventoryUsers>> {
+    async getAppInventoryUsersRequestOpts(requestParameters: SaasSecurityApiGetAppInventoryUsersRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["itemId"] == null) {
             throw new runtime.RequiredError("itemId", 'Required parameter "itemId" was null or undefined when calling getAppInventoryUsers().');
         }
@@ -643,15 +674,26 @@ export class SaasSecurityApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/saas-security/entities/app-users/v3`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/saas-security/entities/app-users/v3`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get users associated with an app from the Applications Inventory
+     * GET Application Users
+     */
+    async getAppInventoryUsersRaw(
+        requestParameters: SaasSecurityApiGetAppInventoryUsersRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AppInventoryUsers>> {
+        const requestOptions = await this.getAppInventoryUsersRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AppInventoryUsersFromJSON(jsonValue));
     }
@@ -666,13 +708,9 @@ export class SaasSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a list of all assets in the Data Inventory
-     * GET Data Inventory
+     * Creates request options for getAssetInventoryV3 without sending the request
      */
-    async getAssetInventoryV3Raw(
-        requestParameters: SaasSecurityApiGetAssetInventoryV3Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<GetAssetInventory>> {
+    async getAssetInventoryV3RequestOpts(requestParameters: SaasSecurityApiGetAssetInventoryV3Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["integrationId"] != null) {
@@ -730,15 +768,26 @@ export class SaasSecurityApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/saas-security/entities/data/v3`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/saas-security/entities/data/v3`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a list of all assets in the Data Inventory
+     * GET Data Inventory
+     */
+    async getAssetInventoryV3Raw(
+        requestParameters: SaasSecurityApiGetAssetInventoryV3Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<GetAssetInventory>> {
+        const requestOptions = await this.getAssetInventoryV3RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => GetAssetInventoryFromJSON(jsonValue));
     }
@@ -783,13 +832,9 @@ export class SaasSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a list of all devices
-     * GET Device Inventory
+     * Creates request options for getDeviceInventoryV3 without sending the request
      */
-    async getDeviceInventoryV3Raw(
-        requestParameters: SaasSecurityApiGetDeviceInventoryV3Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<GetDeviceInventory>> {
+    async getDeviceInventoryV3RequestOpts(requestParameters: SaasSecurityApiGetDeviceInventoryV3Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["integrationId"] != null) {
@@ -823,15 +868,26 @@ export class SaasSecurityApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/saas-security/entities/devices/v3`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/saas-security/entities/devices/v3`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a list of all devices
+     * GET Device Inventory
+     */
+    async getDeviceInventoryV3Raw(
+        requestParameters: SaasSecurityApiGetDeviceInventoryV3Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<GetDeviceInventory>> {
+        const requestOptions = await this.getDeviceInventoryV3RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => GetDeviceInventoryFromJSON(jsonValue));
     }
@@ -857,10 +913,9 @@ export class SaasSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a list of connected integrations in your account
-     * GET Integrations
+     * Creates request options for getIntegrationsV3 without sending the request
      */
-    async getIntegrationsV3Raw(requestParameters: SaasSecurityApiGetIntegrationsV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetIntegrations>> {
+    async getIntegrationsV3RequestOpts(requestParameters: SaasSecurityApiGetIntegrationsV3Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["saasId"] != null) {
@@ -874,15 +929,23 @@ export class SaasSecurityApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/saas-security/entities/integrations/v3`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/saas-security/entities/integrations/v3`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a list of connected integrations in your account
+     * GET Integrations
+     */
+    async getIntegrationsV3Raw(requestParameters: SaasSecurityApiGetIntegrationsV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetIntegrations>> {
+        const requestOptions = await this.getIntegrationsV3RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => GetIntegrationsFromJSON(jsonValue));
     }
@@ -897,10 +960,9 @@ export class SaasSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get metrics on security checks
-     * GET Metrics
+     * Creates request options for getMetricsV3 without sending the request
      */
-    async getMetricsV3Raw(requestParameters: SaasSecurityApiGetMetricsV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetMetrics>> {
+    async getMetricsV3RequestOpts(requestParameters: SaasSecurityApiGetMetricsV3Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["status"] != null) {
@@ -938,15 +1000,23 @@ export class SaasSecurityApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/saas-security/aggregates/check-metrics/v3`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/saas-security/aggregates/check-metrics/v3`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get metrics on security checks
+     * GET Metrics
+     */
+    async getMetricsV3Raw(requestParameters: SaasSecurityApiGetMetricsV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetMetrics>> {
+        const requestOptions = await this.getMetricsV3RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => GetMetricsFromJSON(jsonValue));
     }
@@ -973,13 +1043,9 @@ export class SaasSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a list of affected entities
-     * GET Security Check Affected
+     * Creates request options for getSecurityCheckAffectedV3 without sending the request
      */
-    async getSecurityCheckAffectedV3Raw(
-        requestParameters: SaasSecurityApiGetSecurityCheckAffectedV3Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<GetAffected>> {
+    async getSecurityCheckAffectedV3RequestOpts(requestParameters: SaasSecurityApiGetSecurityCheckAffectedV3Request): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling getSecurityCheckAffectedV3().');
         }
@@ -1005,15 +1071,26 @@ export class SaasSecurityApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/saas-security/entities/check-affected/v3`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/saas-security/entities/check-affected/v3`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a list of affected entities
+     * GET Security Check Affected
+     */
+    async getSecurityCheckAffectedV3Raw(
+        requestParameters: SaasSecurityApiGetSecurityCheckAffectedV3Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<GetAffected>> {
+        const requestOptions = await this.getSecurityCheckAffectedV3RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => GetAffectedFromJSON(jsonValue));
     }
@@ -1028,13 +1105,9 @@ export class SaasSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a list of compliance standards attached to a check
-     * GET Compliance
+     * Creates request options for getSecurityCheckComplianceV3 without sending the request
      */
-    async getSecurityCheckComplianceV3Raw(
-        requestParameters: SaasSecurityApiGetSecurityCheckComplianceV3Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<GetSecurityCompliance>> {
+    async getSecurityCheckComplianceV3RequestOpts(requestParameters: SaasSecurityApiGetSecurityCheckComplianceV3Request): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling getSecurityCheckComplianceV3().');
         }
@@ -1052,15 +1125,26 @@ export class SaasSecurityApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/saas-security/entities/compliance/v3`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/saas-security/entities/compliance/v3`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a list of compliance standards attached to a check
+     * GET Compliance
+     */
+    async getSecurityCheckComplianceV3Raw(
+        requestParameters: SaasSecurityApiGetSecurityCheckComplianceV3Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<GetSecurityCompliance>> {
+        const requestOptions = await this.getSecurityCheckComplianceV3RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => GetSecurityComplianceFromJSON(jsonValue));
     }
@@ -1075,13 +1159,9 @@ export class SaasSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a specific security check by ID or Get all security checks
-     * GET Security Check by ID or GET List Security Checks
+     * Creates request options for getSecurityChecksV3 without sending the request
      */
-    async getSecurityChecksV3Raw(
-        requestParameters: SaasSecurityApiGetSecurityChecksV3Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<GetSecurityChecks>> {
+    async getSecurityChecksV3RequestOpts(requestParameters: SaasSecurityApiGetSecurityChecksV3Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["id"] != null) {
@@ -1127,15 +1207,26 @@ export class SaasSecurityApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/saas-security/entities/checks/v3`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/saas-security/entities/checks/v3`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a specific security check by ID or Get all security checks
+     * GET Security Check by ID or GET List Security Checks
+     */
+    async getSecurityChecksV3Raw(
+        requestParameters: SaasSecurityApiGetSecurityChecksV3Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<GetSecurityChecks>> {
+        const requestOptions = await this.getSecurityChecksV3RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => GetSecurityChecksFromJSON(jsonValue));
     }
@@ -1164,10 +1255,9 @@ export class SaasSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a list of supported integrations
-     * GET Supported SaaS
+     * Creates request options for getSupportedSaasV3 without sending the request
      */
-    async getSupportedSaasV3Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetSupportedSaas>> {
+    async getSupportedSaasV3RequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1177,15 +1267,23 @@ export class SaasSecurityApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/saas-security/entities/supported-saas/v3`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/saas-security/entities/supported-saas/v3`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a list of supported integrations
+     * GET Supported SaaS
+     */
+    async getSupportedSaasV3Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetSupportedSaas>> {
+        const requestOptions = await this.getSupportedSaasV3RequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => GetSupportedSaasFromJSON(jsonValue));
     }
@@ -1200,10 +1298,9 @@ export class SaasSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a list of all system logs
-     * GET System Logs
+     * Creates request options for getSystemLogsV3 without sending the request
      */
-    async getSystemLogsV3Raw(requestParameters: SaasSecurityApiGetSystemLogsV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetSystemLogs>> {
+    async getSystemLogsV3RequestOpts(requestParameters: SaasSecurityApiGetSystemLogsV3Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["fromDate"] != null) {
@@ -1233,15 +1330,23 @@ export class SaasSecurityApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/saas-security/entities/system-logs/v3`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/saas-security/entities/system-logs/v3`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a list of all system logs
+     * GET System Logs
+     */
+    async getSystemLogsV3Raw(requestParameters: SaasSecurityApiGetSystemLogsV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetSystemLogs>> {
+        const requestOptions = await this.getSystemLogsV3RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => GetSystemLogsFromJSON(jsonValue));
     }
@@ -1256,10 +1361,9 @@ export class SaasSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a list of system users
-     * GET System Users
+     * Creates request options for getSystemUsersV3 without sending the request
      */
-    async getSystemUsersV3Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetSystemUsers>> {
+    async getSystemUsersV3RequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1269,15 +1373,23 @@ export class SaasSecurityApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/saas-security/entities/system-users/v3`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/saas-security/entities/system-users/v3`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a list of system users
+     * GET System Users
+     */
+    async getSystemUsersV3Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetSystemUsers>> {
+        const requestOptions = await this.getSystemUsersV3RequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => GetSystemUsersFromJSON(jsonValue));
     }
@@ -1292,13 +1404,9 @@ export class SaasSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a list of all users
-     * GET User Inventory
+     * Creates request options for getUserInventoryV3 without sending the request
      */
-    async getUserInventoryV3Raw(
-        requestParameters: SaasSecurityApiGetUserInventoryV3Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<GetUserInventory>> {
+    async getUserInventoryV3RequestOpts(requestParameters: SaasSecurityApiGetUserInventoryV3Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["integrationId"] != null) {
@@ -1328,15 +1436,26 @@ export class SaasSecurityApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/saas-security/entities/users/v3`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/saas-security/entities/users/v3`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a list of all users
+     * GET User Inventory
+     */
+    async getUserInventoryV3Raw(
+        requestParameters: SaasSecurityApiGetUserInventoryV3Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<GetUserInventory>> {
+        const requestOptions = await this.getUserInventoryV3RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => GetUserInventoryFromJSON(jsonValue));
     }
@@ -1358,13 +1477,9 @@ export class SaasSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Make a close transaction call after uploading the data
-     * POST Data Upload Transaction Completion
+     * Creates request options for integrationBuilderEndTransactionV3 without sending the request
      */
-    async integrationBuilderEndTransactionV3Raw(
-        requestParameters: SaasSecurityApiIntegrationBuilderEndTransactionV3Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<GetEndTransaction>> {
+    async integrationBuilderEndTransactionV3RequestOpts(requestParameters: SaasSecurityApiIntegrationBuilderEndTransactionV3Request): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling integrationBuilderEndTransactionV3().');
         }
@@ -1382,15 +1497,26 @@ export class SaasSecurityApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/saas-security/entities/custom-integration-close/v3`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/saas-security/entities/custom-integration-close/v3`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Make a close transaction call after uploading the data
+     * POST Data Upload Transaction Completion
+     */
+    async integrationBuilderEndTransactionV3Raw(
+        requestParameters: SaasSecurityApiIntegrationBuilderEndTransactionV3Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<GetEndTransaction>> {
+        const requestOptions = await this.integrationBuilderEndTransactionV3RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => GetEndTransactionFromJSON(jsonValue));
     }
@@ -1405,13 +1531,9 @@ export class SaasSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get transaction status for a custom integration
-     * GET Status
+     * Creates request options for integrationBuilderGetStatusV3 without sending the request
      */
-    async integrationBuilderGetStatusV3Raw(
-        requestParameters: SaasSecurityApiIntegrationBuilderGetStatusV3Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<GetTransactionStatus>> {
+    async integrationBuilderGetStatusV3RequestOpts(requestParameters: SaasSecurityApiIntegrationBuilderGetStatusV3Request): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling integrationBuilderGetStatusV3().');
         }
@@ -1429,15 +1551,26 @@ export class SaasSecurityApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/saas-security/entities/custom-integration-status/v3`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/saas-security/entities/custom-integration-status/v3`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get transaction status for a custom integration
+     * GET Status
+     */
+    async integrationBuilderGetStatusV3Raw(
+        requestParameters: SaasSecurityApiIntegrationBuilderGetStatusV3Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<GetTransactionStatus>> {
+        const requestOptions = await this.integrationBuilderGetStatusV3RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => GetTransactionStatusFromJSON(jsonValue));
     }
@@ -1452,13 +1585,9 @@ export class SaasSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Make a reset call to a custom integration
-     * Reset
+     * Creates request options for integrationBuilderResetV3 without sending the request
      */
-    async integrationBuilderResetV3Raw(
-        requestParameters: SaasSecurityApiIntegrationBuilderResetV3Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<GetTransactionStatus>> {
+    async integrationBuilderResetV3RequestOpts(requestParameters: SaasSecurityApiIntegrationBuilderResetV3Request): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling integrationBuilderResetV3().');
         }
@@ -1476,15 +1605,26 @@ export class SaasSecurityApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/saas-security/entities/custom-integration-reset/v3`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/saas-security/entities/custom-integration-reset/v3`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Make a reset call to a custom integration
+     * Reset
+     */
+    async integrationBuilderResetV3Raw(
+        requestParameters: SaasSecurityApiIntegrationBuilderResetV3Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<GetTransactionStatus>> {
+        const requestOptions = await this.integrationBuilderResetV3RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => GetTransactionStatusFromJSON(jsonValue));
     }
@@ -1499,13 +1639,9 @@ export class SaasSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Send data to a specific source in a custom integration
-     * POST Upload
+     * Creates request options for integrationBuilderUploadV3 without sending the request
      */
-    async integrationBuilderUploadV3Raw(
-        requestParameters: SaasSecurityApiIntegrationBuilderUploadV3Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<UploadDataResponse>> {
+    async integrationBuilderUploadV3RequestOpts(requestParameters: SaasSecurityApiIntegrationBuilderUploadV3Request): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling integrationBuilderUploadV3().');
         }
@@ -1537,16 +1673,27 @@ export class SaasSecurityApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/saas-security/entities/custom-integration-upload/v3`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: UploadDataRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/saas-security/entities/custom-integration-upload/v3`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: UploadDataRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Send data to a specific source in a custom integration
+     * POST Upload
+     */
+    async integrationBuilderUploadV3Raw(
+        requestParameters: SaasSecurityApiIntegrationBuilderUploadV3Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<UploadDataResponse>> {
+        const requestOptions = await this.integrationBuilderUploadV3RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UploadDataResponseFromJSON(jsonValue));
     }

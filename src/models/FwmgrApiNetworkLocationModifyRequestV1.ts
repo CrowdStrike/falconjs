@@ -14,13 +14,18 @@
 
 import { mapValues } from "../runtime";
 import type { FwmgrDomainICMPTargets } from "./FwmgrDomainICMPTargets";
-import { FwmgrDomainICMPTargetsFromJSON, FwmgrDomainICMPTargetsFromJSONTyped, FwmgrDomainICMPTargetsToJSON } from "./FwmgrDomainICMPTargets";
+import { FwmgrDomainICMPTargetsFromJSON, FwmgrDomainICMPTargetsFromJSONTyped, FwmgrDomainICMPTargetsToJSON, FwmgrDomainICMPTargetsToJSONTyped } from "./FwmgrDomainICMPTargets";
 import type { FwmgrDomainConnectionType } from "./FwmgrDomainConnectionType";
-import { FwmgrDomainConnectionTypeFromJSON, FwmgrDomainConnectionTypeFromJSONTyped, FwmgrDomainConnectionTypeToJSON } from "./FwmgrDomainConnectionType";
+import { FwmgrDomainConnectionTypeFromJSON, FwmgrDomainConnectionTypeFromJSONTyped, FwmgrDomainConnectionTypeToJSON, FwmgrDomainConnectionTypeToJSONTyped } from "./FwmgrDomainConnectionType";
 import type { FwmgrDomainHTTPSHosts } from "./FwmgrDomainHTTPSHosts";
-import { FwmgrDomainHTTPSHostsFromJSON, FwmgrDomainHTTPSHostsFromJSONTyped, FwmgrDomainHTTPSHostsToJSON } from "./FwmgrDomainHTTPSHosts";
+import { FwmgrDomainHTTPSHostsFromJSON, FwmgrDomainHTTPSHostsFromJSONTyped, FwmgrDomainHTTPSHostsToJSON, FwmgrDomainHTTPSHostsToJSONTyped } from "./FwmgrDomainHTTPSHosts";
 import type { FwmgrDomainDNSResolutionTargets } from "./FwmgrDomainDNSResolutionTargets";
-import { FwmgrDomainDNSResolutionTargetsFromJSON, FwmgrDomainDNSResolutionTargetsFromJSONTyped, FwmgrDomainDNSResolutionTargetsToJSON } from "./FwmgrDomainDNSResolutionTargets";
+import {
+    FwmgrDomainDNSResolutionTargetsFromJSON,
+    FwmgrDomainDNSResolutionTargetsFromJSONTyped,
+    FwmgrDomainDNSResolutionTargetsToJSON,
+    FwmgrDomainDNSResolutionTargetsToJSONTyped,
+} from "./FwmgrDomainDNSResolutionTargets";
 
 /**
  *
@@ -173,10 +178,15 @@ export function FwmgrApiNetworkLocationModifyRequestV1FromJSONTyped(json: any, i
     };
 }
 
-export function FwmgrApiNetworkLocationModifyRequestV1ToJSON(value?: FwmgrApiNetworkLocationModifyRequestV1 | null): any {
+export function FwmgrApiNetworkLocationModifyRequestV1ToJSON(json: any): FwmgrApiNetworkLocationModifyRequestV1 {
+    return FwmgrApiNetworkLocationModifyRequestV1ToJSONTyped(json, false);
+}
+
+export function FwmgrApiNetworkLocationModifyRequestV1ToJSONTyped(value?: FwmgrApiNetworkLocationModifyRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         connection_types: FwmgrDomainConnectionTypeToJSON(value["connectionTypes"]),
         created_by: value["createdBy"],

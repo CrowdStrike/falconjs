@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { JsonschemaSchema } from "./JsonschemaSchema";
-import { JsonschemaSchemaFromJSON, JsonschemaSchemaFromJSONTyped, JsonschemaSchemaToJSON } from "./JsonschemaSchema";
+import { JsonschemaSchemaFromJSON, JsonschemaSchemaFromJSONTyped, JsonschemaSchemaToJSON, JsonschemaSchemaToJSONTyped } from "./JsonschemaSchema";
 
 /**
  *
@@ -64,10 +64,15 @@ export function GraphInlineActivityConfigFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function GraphInlineActivityConfigToJSON(value?: GraphInlineActivityConfig | null): any {
+export function GraphInlineActivityConfigToJSON(json: any): GraphInlineActivityConfig {
+    return GraphInlineActivityConfigToJSONTyped(json, false);
+}
+
+export function GraphInlineActivityConfigToJSONTyped(value?: GraphInlineActivityConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         config: value["config"],
         input_schema: JsonschemaSchemaToJSON(value["inputSchema"]),

@@ -422,9 +422,9 @@ export interface AspmApiUpsertTagsRequest {
  */
 export class AspmApi extends runtime.BaseAPI {
     /**
-     * Create a new relay node
+     * Creates request options for createExecutorNode without sending the request
      */
-    async createExecutorNodeRaw(requestParameters: AspmApiCreateExecutorNodeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesExecutorNode>> {
+    async createExecutorNodeRequestOpts(requestParameters: AspmApiCreateExecutorNodeRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createExecutorNode().');
         }
@@ -440,16 +440,23 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/executor_nodes`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: TypesExecutorNodeToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/executor_nodes`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: TypesExecutorNodeToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create a new relay node
+     */
+    async createExecutorNodeRaw(requestParameters: AspmApiCreateExecutorNodeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesExecutorNode>> {
+        const requestOptions = await this.createExecutorNodeRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesExecutorNodeFromJSON(jsonValue));
     }
@@ -463,12 +470,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create a new integration
+     * Creates request options for createIntegration without sending the request
      */
-    async createIntegrationRaw(
-        requestParameters: AspmApiCreateIntegrationRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<TypesCreateIntegrationResponse>> {
+    async createIntegrationRequestOpts(requestParameters: AspmApiCreateIntegrationRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createIntegration().');
         }
@@ -484,16 +488,26 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/integrations`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: TypesCreateIntegrationRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/integrations`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: TypesCreateIntegrationRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create a new integration
+     */
+    async createIntegrationRaw(
+        requestParameters: AspmApiCreateIntegrationRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesCreateIntegrationResponse>> {
+        const requestOptions = await this.createIntegrationRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesCreateIntegrationResponseFromJSON(jsonValue));
     }
@@ -507,12 +521,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create new integration task.
+     * Creates request options for createIntegrationTask without sending the request
      */
-    async createIntegrationTaskRaw(
-        requestParameters: AspmApiCreateIntegrationTaskRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<TypesIntegrationTaskResponse>> {
+    async createIntegrationTaskRequestOpts(requestParameters: AspmApiCreateIntegrationTaskRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createIntegrationTask().');
         }
@@ -528,16 +539,26 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/integration_tasks`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: TypesCreateIntegrationTaskRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/integration_tasks`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: TypesCreateIntegrationTaskRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create new integration task.
+     */
+    async createIntegrationTaskRaw(
+        requestParameters: AspmApiCreateIntegrationTaskRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesIntegrationTaskResponse>> {
+        const requestOptions = await this.createIntegrationTaskRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesIntegrationTaskResponseFromJSON(jsonValue));
     }
@@ -551,9 +572,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete a relay node
+     * Creates request options for deleteExecutorNode without sending the request
      */
-    async deleteExecutorNodeRaw(requestParameters: AspmApiDeleteExecutorNodeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async deleteExecutorNodeRequestOpts(requestParameters: AspmApiDeleteExecutorNodeRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["iD"] == null) {
             throw new runtime.RequiredError("iD", 'Required parameter "iD" was null or undefined when calling deleteExecutorNode().');
         }
@@ -567,15 +588,23 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/executor_nodes/{ID}`.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"]))),
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/executor_nodes/{ID}`;
+        urlPath = urlPath.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"])));
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a relay node
+     */
+    async deleteExecutorNodeRaw(requestParameters: AspmApiDeleteExecutorNodeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteExecutorNodeRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -588,8 +617,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for deleteGroupID09 without sending the request
      */
-    async deleteGroupID09Raw(requestParameters: AspmApiDeleteGroupID09Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async deleteGroupID09RequestOpts(requestParameters: AspmApiDeleteGroupID09Request): Promise<runtime.RequestOpts> {
         if (requestParameters["iD"] == null) {
             throw new runtime.RequiredError("iD", 'Required parameter "iD" was null or undefined when calling deleteGroupID09().');
         }
@@ -603,15 +633,22 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-falcon-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/group/{ID}`.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"]))),
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/group/{ID}`;
+        urlPath = urlPath.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"])));
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    async deleteGroupID09Raw(requestParameters: AspmApiDeleteGroupID09Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteGroupID09RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -623,9 +660,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete an existing integration by its ID
+     * Creates request options for deleteIntegration without sending the request
      */
-    async deleteIntegrationRaw(requestParameters: AspmApiDeleteIntegrationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async deleteIntegrationRequestOpts(requestParameters: AspmApiDeleteIntegrationRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["iD"] == null) {
             throw new runtime.RequiredError("iD", 'Required parameter "iD" was null or undefined when calling deleteIntegration().');
         }
@@ -639,15 +676,23 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/integrations/{ID}`.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"]))),
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/integrations/{ID}`;
+        urlPath = urlPath.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"])));
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete an existing integration by its ID
+     */
+    async deleteIntegrationRaw(requestParameters: AspmApiDeleteIntegrationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteIntegrationRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -660,9 +705,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete an existing integration task by its ID
+     * Creates request options for deleteIntegrationTask without sending the request
      */
-    async deleteIntegrationTaskRaw(requestParameters: AspmApiDeleteIntegrationTaskRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async deleteIntegrationTaskRequestOpts(requestParameters: AspmApiDeleteIntegrationTaskRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["iD"] == null) {
             throw new runtime.RequiredError("iD", 'Required parameter "iD" was null or undefined when calling deleteIntegrationTask().');
         }
@@ -676,15 +721,23 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/integration_tasks/{ID}`.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"]))),
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/integration_tasks/{ID}`;
+        urlPath = urlPath.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"])));
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete an existing integration task by its ID
+     */
+    async deleteIntegrationTaskRaw(requestParameters: AspmApiDeleteIntegrationTaskRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteIntegrationTaskRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -697,9 +750,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Remove existing tags
+     * Creates request options for deleteTags without sending the request
      */
-    async deleteTagsRaw(requestParameters: AspmApiDeleteTagsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async deleteTagsRequestOpts(requestParameters: AspmApiDeleteTagsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling deleteTags().');
         }
@@ -715,16 +768,23 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-user:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/tags`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: TypesEditTagRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/tags`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: TypesEditTagRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Remove existing tags
+     */
+    async deleteTagsRaw(requestParameters: AspmApiDeleteTagsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteTagsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -737,12 +797,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * A selected list of queryLanguage queries. request & response are in MSA format
+     * Creates request options for executeFunctionData without sending the request
      */
-    async executeFunctionDataRaw(
-        requestParameters: AspmApiExecuteFunctionDataRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<TypesGeneralQueryResponse>> {
+    async executeFunctionDataRequestOpts(requestParameters: AspmApiExecuteFunctionDataRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["field"] == null) {
             throw new runtime.RequiredError("field", 'Required parameter "field" was null or undefined when calling executeFunctionData().');
         }
@@ -760,15 +817,25 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/application-security/combined/function-data/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/application-security/combined/function-data/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * A selected list of queryLanguage queries. request & response are in MSA format
+     */
+    async executeFunctionDataRaw(
+        requestParameters: AspmApiExecuteFunctionDataRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesGeneralQueryResponse>> {
+        const requestOptions = await this.executeFunctionDataRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesGeneralQueryResponseFromJSON(jsonValue));
     }
@@ -782,12 +849,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * A selected list of queryLanguage count queries. request & response are in MSA format
+     * Creates request options for executeFunctionDataCount without sending the request
      */
-    async executeFunctionDataCountRaw(
-        requestParameters: AspmApiExecuteFunctionDataCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<TypesCountResponse>> {
+    async executeFunctionDataCountRequestOpts(requestParameters: AspmApiExecuteFunctionDataCountRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["queryName"] == null) {
             throw new runtime.RequiredError("queryName", 'Required parameter "queryName" was null or undefined when calling executeFunctionDataCount().');
         }
@@ -833,15 +897,25 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/application-security/aggregates/function-data/count/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/application-security/aggregates/function-data/count/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * A selected list of queryLanguage count queries. request & response are in MSA format
+     */
+    async executeFunctionDataCountRaw(
+        requestParameters: AspmApiExecuteFunctionDataCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesCountResponse>> {
+        const requestOptions = await this.executeFunctionDataCountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesCountResponseFromJSON(jsonValue));
     }
@@ -875,12 +949,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * A selected list of queryLanguage queries. request & response are in MSA format
+     * Creates request options for executeFunctionDataQuery without sending the request
      */
-    async executeFunctionDataQueryRaw(
-        requestParameters: AspmApiExecuteFunctionDataQueryRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<TypesGeneralQueryResponse>> {
+    async executeFunctionDataQueryRequestOpts(requestParameters: AspmApiExecuteFunctionDataQueryRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["field"] == null) {
             throw new runtime.RequiredError("field", 'Required parameter "field" was null or undefined when calling executeFunctionDataQuery().');
         }
@@ -898,15 +969,25 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/application-security/combined/query-function-data/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/application-security/combined/query-function-data/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * A selected list of queryLanguage queries. request & response are in MSA format
+     */
+    async executeFunctionDataQueryRaw(
+        requestParameters: AspmApiExecuteFunctionDataQueryRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesGeneralQueryResponse>> {
+        const requestOptions = await this.executeFunctionDataQueryRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesGeneralQueryResponseFromJSON(jsonValue));
     }
@@ -920,12 +1001,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * A selected list of queryLanguage count queries. request & response are in MSA format
+     * Creates request options for executeFunctionDataQueryCount without sending the request
      */
-    async executeFunctionDataQueryCountRaw(
-        requestParameters: AspmApiExecuteFunctionDataQueryCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<TypesCountResponse>> {
+    async executeFunctionDataQueryCountRequestOpts(requestParameters: AspmApiExecuteFunctionDataQueryCountRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["field"] == null) {
             throw new runtime.RequiredError("field", 'Required parameter "field" was null or undefined when calling executeFunctionDataQueryCount().');
         }
@@ -943,15 +1021,25 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/application-security/aggregates/query-function-data-count/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/application-security/aggregates/query-function-data-count/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * A selected list of queryLanguage count queries. request & response are in MSA format
+     */
+    async executeFunctionDataQueryCountRaw(
+        requestParameters: AspmApiExecuteFunctionDataQueryCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesCountResponse>> {
+        const requestOptions = await this.executeFunctionDataQueryCountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesCountResponseFromJSON(jsonValue));
     }
@@ -965,9 +1053,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * A selected list of queryLanguage services queries. request & response are in MSA format
+     * Creates request options for executeFunctions without sending the request
      */
-    async executeFunctionsRaw(requestParameters: AspmApiExecuteFunctionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesGeneralQueryResponse>> {
+    async executeFunctionsRequestOpts(requestParameters: AspmApiExecuteFunctionsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["field"] == null) {
             throw new runtime.RequiredError("field", 'Required parameter "field" was null or undefined when calling executeFunctions().');
         }
@@ -985,15 +1073,22 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/application-security/combined/functions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/application-security/combined/functions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * A selected list of queryLanguage services queries. request & response are in MSA format
+     */
+    async executeFunctionsRaw(requestParameters: AspmApiExecuteFunctionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesGeneralQueryResponse>> {
+        const requestOptions = await this.executeFunctionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesGeneralQueryResponseFromJSON(jsonValue));
     }
@@ -1007,12 +1102,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * A selected list of queryLanguage count queries. request & response are in MSA format
+     * Creates request options for executeFunctionsCount without sending the request
      */
-    async executeFunctionsCountRaw(
-        requestParameters: AspmApiExecuteFunctionsCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<TypesCountResponse>> {
+    async executeFunctionsCountRequestOpts(requestParameters: AspmApiExecuteFunctionsCountRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["queryName"] == null) {
             throw new runtime.RequiredError("queryName", 'Required parameter "queryName" was null or undefined when calling executeFunctionsCount().');
         }
@@ -1046,15 +1138,25 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/application-security/aggregates/functions/count/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/application-security/aggregates/functions/count/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * A selected list of queryLanguage count queries. request & response are in MSA format
+     */
+    async executeFunctionsCountRaw(
+        requestParameters: AspmApiExecuteFunctionsCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesCountResponse>> {
+        const requestOptions = await this.executeFunctionsCountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesCountResponseFromJSON(jsonValue));
     }
@@ -1075,12 +1177,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * A selected list of queryLanguage overtime queries. request & response are in MSA format
+     * Creates request options for executeFunctionsOvertime without sending the request
      */
-    async executeFunctionsOvertimeRaw(
-        requestParameters: AspmApiExecuteFunctionsOvertimeRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<TypesOvertimeResponse>> {
+    async executeFunctionsOvertimeRequestOpts(requestParameters: AspmApiExecuteFunctionsOvertimeRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["field"] == null) {
             throw new runtime.RequiredError("field", 'Required parameter "field" was null or undefined when calling executeFunctionsOvertime().');
         }
@@ -1098,15 +1197,25 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/application-security/combined/functions-overtime/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/application-security/combined/functions-overtime/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * A selected list of queryLanguage overtime queries. request & response are in MSA format
+     */
+    async executeFunctionsOvertimeRaw(
+        requestParameters: AspmApiExecuteFunctionsOvertimeRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesOvertimeResponse>> {
+        const requestOptions = await this.executeFunctionsOvertimeRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesOvertimeResponseFromJSON(jsonValue));
     }
@@ -1120,12 +1229,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * A selected list of queryLanguage services queries. request & response are in MSA format
+     * Creates request options for executeFunctionsQuery without sending the request
      */
-    async executeFunctionsQueryRaw(
-        requestParameters: AspmApiExecuteFunctionsQueryRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<TypesGeneralQueryResponse>> {
+    async executeFunctionsQueryRequestOpts(requestParameters: AspmApiExecuteFunctionsQueryRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["field"] == null) {
             throw new runtime.RequiredError("field", 'Required parameter "field" was null or undefined when calling executeFunctionsQuery().');
         }
@@ -1143,15 +1249,25 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/application-security/combined/query-functions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/application-security/combined/query-functions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * A selected list of queryLanguage services queries. request & response are in MSA format
+     */
+    async executeFunctionsQueryRaw(
+        requestParameters: AspmApiExecuteFunctionsQueryRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesGeneralQueryResponse>> {
+        const requestOptions = await this.executeFunctionsQueryRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesGeneralQueryResponseFromJSON(jsonValue));
     }
@@ -1165,12 +1281,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * A selected list of queryLanguage count queries. request & response are in MSA format
+     * Creates request options for executeFunctionsQueryCount without sending the request
      */
-    async executeFunctionsQueryCountRaw(
-        requestParameters: AspmApiExecuteFunctionsQueryCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<TypesCountResponse>> {
+    async executeFunctionsQueryCountRequestOpts(requestParameters: AspmApiExecuteFunctionsQueryCountRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["field"] == null) {
             throw new runtime.RequiredError("field", 'Required parameter "field" was null or undefined when calling executeFunctionsQueryCount().');
         }
@@ -1188,15 +1301,25 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/application-security/aggregates/query-functions-count/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/application-security/aggregates/query-functions-count/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * A selected list of queryLanguage count queries. request & response are in MSA format
+     */
+    async executeFunctionsQueryCountRaw(
+        requestParameters: AspmApiExecuteFunctionsQueryCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesCountResponse>> {
+        const requestOptions = await this.executeFunctionsQueryCountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesCountResponseFromJSON(jsonValue));
     }
@@ -1210,12 +1333,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * A selected list of queryLanguage overtime queries. request & response are in MSA format
+     * Creates request options for executeFunctionsQueryOvertime without sending the request
      */
-    async executeFunctionsQueryOvertimeRaw(
-        requestParameters: AspmApiExecuteFunctionsQueryOvertimeRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<TypesOvertimeResponse>> {
+    async executeFunctionsQueryOvertimeRequestOpts(requestParameters: AspmApiExecuteFunctionsQueryOvertimeRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["field"] == null) {
             throw new runtime.RequiredError("field", 'Required parameter "field" was null or undefined when calling executeFunctionsQueryOvertime().');
         }
@@ -1233,15 +1353,25 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/application-security/combined/query-functions-overtime/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/application-security/combined/query-functions-overtime/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * A selected list of queryLanguage overtime queries. request & response are in MSA format
+     */
+    async executeFunctionsQueryOvertimeRaw(
+        requestParameters: AspmApiExecuteFunctionsQueryOvertimeRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesOvertimeResponse>> {
+        const requestOptions = await this.executeFunctionsQueryOvertimeRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesOvertimeResponseFromJSON(jsonValue));
     }
@@ -1255,9 +1385,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Execute a query. The syntax used is identical to that of the query page.
+     * Creates request options for executeQuery without sending the request
      */
-    async executeQueryRaw(requestParameters: AspmApiExecuteQueryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesQueryResponse>> {
+    async executeQueryRequestOpts(requestParameters: AspmApiExecuteQueryRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling executeQuery().');
         }
@@ -1273,16 +1403,23 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/query`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: TypesQueryRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/query`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: TypesQueryRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Execute a query. The syntax used is identical to that of the query page.
+     */
+    async executeQueryRaw(requestParameters: AspmApiExecuteQueryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesQueryResponse>> {
+        const requestOptions = await this.executeQueryRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesQueryResponseFromJSON(jsonValue));
     }
@@ -1296,9 +1433,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Cloud Security integration state
+     * Creates request options for getCloudSecurityIntegrationState without sending the request
      */
-    async getCloudSecurityIntegrationStateRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesGetCloudSecurityIntegrationStateResponse>> {
+    async getCloudSecurityIntegrationStateRequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1308,15 +1445,22 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/cloud_security_config`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/cloud_security_config`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get Cloud Security integration state
+     */
+    async getCloudSecurityIntegrationStateRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesGetCloudSecurityIntegrationStateResponse>> {
+        const requestOptions = await this.getCloudSecurityIntegrationStateRequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesGetCloudSecurityIntegrationStateResponseFromJSON(jsonValue));
     }
@@ -1330,12 +1474,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get all the relay nodes
+     * Creates request options for getExecutorNodes without sending the request
      */
-    async getExecutorNodesRaw(
-        requestParameters: AspmApiGetExecutorNodesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<TypesListExecutorNodesResponse>> {
+    async getExecutorNodesRequestOpts(requestParameters: AspmApiGetExecutorNodesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["nodeType"] == null) {
             throw new runtime.RequiredError("nodeType", 'Required parameter "nodeType" was null or undefined when calling getExecutorNodes().');
         }
@@ -1389,15 +1530,25 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/executor_nodes`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/executor_nodes`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get all the relay nodes
+     */
+    async getExecutorNodesRaw(
+        requestParameters: AspmApiGetExecutorNodesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesListExecutorNodesResponse>> {
+        const requestOptions = await this.getExecutorNodesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesListExecutorNodesResponseFromJSON(jsonValue));
     }
@@ -1437,12 +1588,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve the relay instances in CSV format
+     * Creates request options for getExecutorNodesID09InstancesCsv without sending the request
      */
-    async getExecutorNodesID09InstancesCsvRaw(
-        requestParameters: AspmApiGetExecutorNodesID09InstancesCsvRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<string>> {
+    async getExecutorNodesID09InstancesCsvRequestOpts(requestParameters: AspmApiGetExecutorNodesID09InstancesCsvRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["iD"] == null) {
             throw new runtime.RequiredError("iD", 'Required parameter "iD" was null or undefined when calling getExecutorNodesID09InstancesCsv().');
         }
@@ -1462,16 +1610,27 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/executor_nodes/{ID}/instances/csv`.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"]))),
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-                body: TypesExecutorNodeToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/executor_nodes/{ID}/instances/csv`;
+        urlPath = urlPath.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"])));
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+            body: TypesExecutorNodeToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Retrieve the relay instances in CSV format
+     */
+    async getExecutorNodesID09InstancesCsvRaw(
+        requestParameters: AspmApiGetExecutorNodesID09InstancesCsvRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<string>> {
+        const requestOptions = await this.getExecutorNodesID09InstancesCsvRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         if (this.isJsonMime(response.headers.get("content-type"))) {
             return new runtime.JSONApiResponse<string>(response);
@@ -1489,12 +1648,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get metadata about all executor nodes
+     * Creates request options for getExecutorNodesMetadata without sending the request
      */
-    async getExecutorNodesMetadataRaw(
-        requestParameters: AspmApiGetExecutorNodesMetadataRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<TypesGetExecutorNodesMetadataResponse>> {
+    async getExecutorNodesMetadataRequestOpts(requestParameters: AspmApiGetExecutorNodesMetadataRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["executorNodeIds"] != null) {
@@ -1520,15 +1676,25 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/executor_nodes/metadata`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/executor_nodes/metadata`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get metadata about all executor nodes
+     */
+    async getExecutorNodesMetadataRaw(
+        requestParameters: AspmApiGetExecutorNodesMetadataRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesGetExecutorNodesMetadataResponse>> {
+        const requestOptions = await this.getExecutorNodesMetadataRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesGetExecutorNodesMetadataResponseFromJSON(jsonValue));
     }
@@ -1551,9 +1717,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get group details
+     * Creates request options for getGroupID09V2 without sending the request
      */
-    async getGroupID09V2Raw(requestParameters: AspmApiGetGroupID09V2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesGroupDetails>> {
+    async getGroupID09V2RequestOpts(requestParameters: AspmApiGetGroupID09V2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["iD"] == null) {
             throw new runtime.RequiredError("iD", 'Required parameter "iD" was null or undefined when calling getGroupID09V2().');
         }
@@ -1567,15 +1733,23 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/group/{ID}/v2`.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"]))),
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/group/{ID}/v2`;
+        urlPath = urlPath.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"])));
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get group details
+     */
+    async getGroupID09V2Raw(requestParameters: AspmApiGetGroupID09V2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesGroupDetails>> {
+        const requestOptions = await this.getGroupID09V2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesGroupDetailsFromJSON(jsonValue));
     }
@@ -1589,9 +1763,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get group hierarchy
+     * Creates request options for getGroupsHierV2 without sending the request
      */
-    async getGroupsHierV2Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesGroupHierarchyResponse>> {
+    async getGroupsHierV2RequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1601,15 +1775,22 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/groups/hier/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/groups/hier/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get group hierarchy
+     */
+    async getGroupsHierV2Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesGroupHierarchyResponse>> {
+        const requestOptions = await this.getGroupsHierV2RequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesGroupHierarchyResponseFromJSON(jsonValue));
     }
@@ -1623,8 +1804,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for getGroupsListV2 without sending the request
      */
-    async getGroupsListV2Raw(requestParameters: AspmApiGetGroupsListV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<TypesGroupListItem>>> {
+    async getGroupsListV2RequestOpts(requestParameters: AspmApiGetGroupsListV2Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["type"] != null) {
@@ -1638,15 +1820,21 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/groups/list/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/groups/list/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    async getGroupsListV2Raw(requestParameters: AspmApiGetGroupsListV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<TypesGroupListItem>>> {
+        const requestOptions = await this.getGroupsListV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(TypesGroupListItemFromJSON));
     }
@@ -1659,12 +1847,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get all the integration tasks
+     * Creates request options for getIntegrationTasks without sending the request
      */
-    async getIntegrationTasksRaw(
-        requestParameters: AspmApiGetIntegrationTasksRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<TypesListIntegrationTasksResponse>> {
+    async getIntegrationTasksRequestOpts(requestParameters: AspmApiGetIntegrationTasksRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["integrationTaskType"] != null) {
@@ -1710,15 +1895,25 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/integration_tasks`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/integration_tasks`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get all the integration tasks
+     */
+    async getIntegrationTasksRaw(
+        requestParameters: AspmApiGetIntegrationTasksRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesListIntegrationTasksResponse>> {
+        const requestOptions = await this.getIntegrationTasksRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesListIntegrationTasksResponseFromJSON(jsonValue));
     }
@@ -1756,12 +1951,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get all the integration tasks, requires admin scope
+     * Creates request options for getIntegrationTasksAdmin without sending the request
      */
-    async getIntegrationTasksAdminRaw(
-        requestParameters: AspmApiGetIntegrationTasksAdminRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<TypesListIntegrationTasksResponse>> {
+    async getIntegrationTasksAdminRequestOpts(requestParameters: AspmApiGetIntegrationTasksAdminRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["integrationTaskType"] != null) {
@@ -1807,15 +1999,25 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/integration_tasks/admin`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/integration_tasks/admin`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get all the integration tasks, requires admin scope
+     */
+    async getIntegrationTasksAdminRaw(
+        requestParameters: AspmApiGetIntegrationTasksAdminRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesListIntegrationTasksResponse>> {
+        const requestOptions = await this.getIntegrationTasksAdminRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesListIntegrationTasksResponseFromJSON(jsonValue));
     }
@@ -1853,12 +2055,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get metadata about all integration tasks
+     * Creates request options for getIntegrationTasksMetadata without sending the request
      */
-    async getIntegrationTasksMetadataRaw(
-        requestParameters: AspmApiGetIntegrationTasksMetadataRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<TypesGetIntegrationTasksMetadataResponse>> {
+    async getIntegrationTasksMetadataRequestOpts(requestParameters: AspmApiGetIntegrationTasksMetadataRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["category"] != null) {
@@ -1884,15 +2083,25 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/integration_tasks/metadata`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/integration_tasks/metadata`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get metadata about all integration tasks
+     */
+    async getIntegrationTasksMetadataRaw(
+        requestParameters: AspmApiGetIntegrationTasksMetadataRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesGetIntegrationTasksMetadataResponse>> {
+        const requestOptions = await this.getIntegrationTasksMetadataRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesGetIntegrationTasksMetadataResponseFromJSON(jsonValue));
     }
@@ -1912,12 +2121,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get all the integration tasks
+     * Creates request options for getIntegrationTasksV2 without sending the request
      */
-    async getIntegrationTasksV2Raw(
-        requestParameters: AspmApiGetIntegrationTasksV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<TypesListIntegrationTasksResponse>> {
+    async getIntegrationTasksV2RequestOpts(requestParameters: AspmApiGetIntegrationTasksV2Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["integrationTaskType"] != null) {
@@ -1963,15 +2169,25 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/integration_tasks/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/integration_tasks/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get all the integration tasks
+     */
+    async getIntegrationTasksV2Raw(
+        requestParameters: AspmApiGetIntegrationTasksV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesListIntegrationTasksResponse>> {
+        const requestOptions = await this.getIntegrationTasksV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesListIntegrationTasksResponseFromJSON(jsonValue));
     }
@@ -2009,9 +2225,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get all the integration types
+     * Creates request options for getIntegrationTypes without sending the request
      */
-    async getIntegrationTypesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesListIntegrationTypesResponse>> {
+    async getIntegrationTypesRequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -2021,15 +2237,22 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/integration_types`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/integration_types`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get all the integration types
+     */
+    async getIntegrationTypesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesListIntegrationTypesResponse>> {
+        const requestOptions = await this.getIntegrationTypesRequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesListIntegrationTypesResponseFromJSON(jsonValue));
     }
@@ -2043,12 +2266,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a list of all the integrations
+     * Creates request options for getIntegrations without sending the request
      */
-    async getIntegrationsRaw(
-        requestParameters: AspmApiGetIntegrationsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<TypesListIntegrationsResponse>> {
+    async getIntegrationsRequestOpts(requestParameters: AspmApiGetIntegrationsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["integrationType"] != null) {
@@ -2066,15 +2286,25 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/integrations`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/integrations`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a list of all the integrations
+     */
+    async getIntegrationsRaw(
+        requestParameters: AspmApiGetIntegrationsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesListIntegrationsResponse>> {
+        const requestOptions = await this.getIntegrationsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesListIntegrationsResponseFromJSON(jsonValue));
     }
@@ -2088,12 +2318,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a list of all the integrations
+     * Creates request options for getIntegrationsV2 without sending the request
      */
-    async getIntegrationsV2Raw(
-        requestParameters: AspmApiGetIntegrationsV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<TypesListIntegrationsResponse>> {
+    async getIntegrationsV2RequestOpts(requestParameters: AspmApiGetIntegrationsV2Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["integrationType"] != null) {
@@ -2111,15 +2338,25 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/integrations/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/integrations/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a list of all the integrations
+     */
+    async getIntegrationsV2Raw(
+        requestParameters: AspmApiGetIntegrationsV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesListIntegrationsResponse>> {
+        const requestOptions = await this.getIntegrationsV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesListIntegrationsResponseFromJSON(jsonValue));
     }
@@ -2133,8 +2370,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for getServiceArtifacts without sending the request
      */
-    async getServiceArtifactsRaw(requestParameters: AspmApiGetServiceArtifactsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesArtifacts>> {
+    async getServiceArtifactsRequestOpts(requestParameters: AspmApiGetServiceArtifactsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["persistentSignature"] == null) {
             throw new runtime.RequiredError("persistentSignature", 'Required parameter "persistentSignature" was null or undefined when calling getServiceArtifacts().');
         }
@@ -2176,15 +2414,21 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/artifacts`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/artifacts`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    async getServiceArtifactsRaw(requestParameters: AspmApiGetServiceArtifactsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesArtifacts>> {
+        const requestOptions = await this.getServiceArtifactsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesArtifactsFromJSON(jsonValue));
     }
@@ -2209,12 +2453,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the different types of violation
+     * Creates request options for getServiceViolationTypes without sending the request
      */
-    async getServiceViolationTypesRaw(
-        requestParameters: AspmApiGetServiceViolationTypesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<TypesGetViolationTypesResponse>> {
+    async getServiceViolationTypesRequestOpts(requestParameters: AspmApiGetServiceViolationTypesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getServiceViolationTypes().');
         }
@@ -2230,16 +2471,26 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/services/violations/types`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-                body: TypesGenericUserFacingRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/services/violations/types`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+            body: TypesGenericUserFacingRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Get the different types of violation
+     */
+    async getServiceViolationTypesRaw(
+        requestParameters: AspmApiGetServiceViolationTypesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesGetViolationTypesResponse>> {
+        const requestOptions = await this.getServiceViolationTypesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesGetViolationTypesResponseFromJSON(jsonValue));
     }
@@ -2253,9 +2504,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the total amount of existing services
+     * Creates request options for getServicesCount without sending the request
      */
-    async getServicesCountRaw(requestParameters: AspmApiGetServicesCountRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async getServicesCountRequestOpts(requestParameters: AspmApiGetServicesCountRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getServicesCount().');
         }
@@ -2271,16 +2522,23 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/services/count`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: TypesGetServicesRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/services/count`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: TypesGetServicesRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Get the total amount of existing services
+     */
+    async getServicesCountRaw(requestParameters: AspmApiGetServicesCountRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.getServicesCountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -2293,9 +2551,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get all the tags
+     * Creates request options for getTags without sending the request
      */
-    async getTagsRaw(requestParameters: AspmApiGetTagsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesTagsDataResponse>> {
+    async getTagsRequestOpts(requestParameters: AspmApiGetTagsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["isUnique"] != null) {
@@ -2325,15 +2583,22 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/tags`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/tags`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get all the tags
+     */
+    async getTagsRaw(requestParameters: AspmApiGetTagsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesTagsDataResponse>> {
+        const requestOptions = await this.getTagsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesTagsDataResponseFromJSON(jsonValue));
     }
@@ -2354,9 +2619,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * List users
+     * Creates request options for getUsersV2 without sending the request
      */
-    async getUsersV2Raw(requestParameters: AspmApiGetUsersV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesUsersResponse>> {
+    async getUsersV2RequestOpts(requestParameters: AspmApiGetUsersV2Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["pagination"] != null) {
@@ -2370,15 +2635,22 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/users/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/users/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List users
+     */
+    async getUsersV2Raw(requestParameters: AspmApiGetUsersV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesUsersResponse>> {
+        const requestOptions = await this.getUsersV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesUsersResponseFromJSON(jsonValue));
     }
@@ -2392,9 +2664,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update default group
+     * Creates request options for postGroupID09UpdateDefault without sending the request
      */
-    async postGroupID09UpdateDefaultRaw(requestParameters: AspmApiPostGroupID09UpdateDefaultRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async postGroupID09UpdateDefaultRequestOpts(requestParameters: AspmApiPostGroupID09UpdateDefaultRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["iD"] == null) {
             throw new runtime.RequiredError("iD", 'Required parameter "iD" was null or undefined when calling postGroupID09UpdateDefault().');
         }
@@ -2408,15 +2680,23 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-falcon-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/group/{ID}/update_default`.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"]))),
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/group/{ID}/update_default`;
+        urlPath = urlPath.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"])));
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Update default group
+     */
+    async postGroupID09UpdateDefaultRaw(requestParameters: AspmApiPostGroupID09UpdateDefaultRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.postGroupID09UpdateDefaultRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -2429,9 +2709,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update group
+     * Creates request options for postGroupID09V2 without sending the request
      */
-    async postGroupID09V2Raw(requestParameters: AspmApiPostGroupID09V2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async postGroupID09V2RequestOpts(requestParameters: AspmApiPostGroupID09V2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["iD"] == null) {
             throw new runtime.RequiredError("iD", 'Required parameter "iD" was null or undefined when calling postGroupID09V2().');
         }
@@ -2451,16 +2731,24 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-falcon-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/group/{ID}/v2`.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"]))),
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: TypesUpdateGroupRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/group/{ID}/v2`;
+        urlPath = urlPath.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"])));
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: TypesUpdateGroupRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update group
+     */
+    async postGroupID09V2Raw(requestParameters: AspmApiPostGroupID09V2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.postGroupID09V2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -2473,9 +2761,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create group
+     * Creates request options for postGroupV2 without sending the request
      */
-    async postGroupV2Raw(requestParameters: AspmApiPostGroupV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async postGroupV2RequestOpts(requestParameters: AspmApiPostGroupV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postGroupV2().');
         }
@@ -2491,16 +2779,23 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-falcon-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/group/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: TypesCreateGroupRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/group/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: TypesCreateGroupRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create group
+     */
+    async postGroupV2Raw(requestParameters: AspmApiPostGroupV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.postGroupV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -2513,12 +2808,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Run an integration task by its ID
+     * Creates request options for runIntegrationTask without sending the request
      */
-    async runIntegrationTaskRaw(
-        requestParameters: AspmApiRunIntegrationTaskRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<TypesIntegrationTaskTestConnectionResponse>> {
+    async runIntegrationTaskRequestOpts(requestParameters: AspmApiRunIntegrationTaskRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["iD"] == null) {
             throw new runtime.RequiredError("iD", 'Required parameter "iD" was null or undefined when calling runIntegrationTask().');
         }
@@ -2542,16 +2834,27 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-user:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/integration_tasks/{ID}/run`.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"]))),
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: TypesRunIntegrationTaskRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/integration_tasks/{ID}/run`;
+        urlPath = urlPath.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"])));
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: TypesRunIntegrationTaskRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Run an integration task by its ID
+     */
+    async runIntegrationTaskRaw(
+        requestParameters: AspmApiRunIntegrationTaskRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesIntegrationTaskTestConnectionResponse>> {
+        const requestOptions = await this.runIntegrationTaskRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesIntegrationTaskTestConnectionResponseFromJSON(jsonValue));
     }
@@ -2570,12 +2873,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Run an integration task by its ID - for admin scope
+     * Creates request options for runIntegrationTaskAdmin without sending the request
      */
-    async runIntegrationTaskAdminRaw(
-        requestParameters: AspmApiRunIntegrationTaskAdminRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<TypesIntegrationTaskTestConnectionResponse>> {
+    async runIntegrationTaskAdminRequestOpts(requestParameters: AspmApiRunIntegrationTaskAdminRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["iD"] == null) {
             throw new runtime.RequiredError("iD", 'Required parameter "iD" was null or undefined when calling runIntegrationTaskAdmin().');
         }
@@ -2599,16 +2899,27 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/integration_tasks/{ID}/run/admin`.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"]))),
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: TypesRunIntegrationTaskRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/integration_tasks/{ID}/run/admin`;
+        urlPath = urlPath.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"])));
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: TypesRunIntegrationTaskRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Run an integration task by its ID - for admin scope
+     */
+    async runIntegrationTaskAdminRaw(
+        requestParameters: AspmApiRunIntegrationTaskAdminRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesIntegrationTaskTestConnectionResponse>> {
+        const requestOptions = await this.runIntegrationTaskAdminRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesIntegrationTaskTestConnectionResponseFromJSON(jsonValue));
     }
@@ -2627,12 +2938,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Run an integration task by its ID
+     * Creates request options for runIntegrationTaskV2 without sending the request
      */
-    async runIntegrationTaskV2Raw(
-        requestParameters: AspmApiRunIntegrationTaskV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<TypesIntegrationTaskTestConnectionResponse>> {
+    async runIntegrationTaskV2RequestOpts(requestParameters: AspmApiRunIntegrationTaskV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["iD"] == null) {
             throw new runtime.RequiredError("iD", 'Required parameter "iD" was null or undefined when calling runIntegrationTaskV2().');
         }
@@ -2656,16 +2964,27 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/integration_tasks/{ID}/run/v2`.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"]))),
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: TypesRunIntegrationTaskRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/integration_tasks/{ID}/run/v2`;
+        urlPath = urlPath.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"])));
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: TypesRunIntegrationTaskRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Run an integration task by its ID
+     */
+    async runIntegrationTaskV2Raw(
+        requestParameters: AspmApiRunIntegrationTaskV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesIntegrationTaskTestConnectionResponse>> {
+        const requestOptions = await this.runIntegrationTaskV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesIntegrationTaskTestConnectionResponseFromJSON(jsonValue));
     }
@@ -2684,11 +3003,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for serviceNowGetDeployments without sending the request
      */
-    async serviceNowGetDeploymentsRaw(
-        requestParameters: AspmApiServiceNowGetDeploymentsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<TypesServiceNowDeploymentsResponse>> {
+    async serviceNowGetDeploymentsRequestOpts(requestParameters: AspmApiServiceNowGetDeploymentsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["qlFilters"] != null) {
@@ -2718,15 +3035,24 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/servicenow/deployments`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/servicenow/deployments`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    async serviceNowGetDeploymentsRaw(
+        requestParameters: AspmApiServiceNowGetDeploymentsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesServiceNowDeploymentsResponse>> {
+        const requestOptions = await this.serviceNowGetDeploymentsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesServiceNowDeploymentsResponseFromJSON(jsonValue));
     }
@@ -2746,11 +3072,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for serviceNowGetServices without sending the request
      */
-    async serviceNowGetServicesRaw(
-        requestParameters: AspmApiServiceNowGetServicesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<TypesServiceNowServicesResponse>> {
+    async serviceNowGetServicesRequestOpts(requestParameters: AspmApiServiceNowGetServicesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["qlFilters"] != null) {
@@ -2784,15 +3108,24 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-viewer:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/servicenow/services`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/servicenow/services`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    async serviceNowGetServicesRaw(
+        requestParameters: AspmApiServiceNowGetServicesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesServiceNowServicesResponse>> {
+        const requestOptions = await this.serviceNowGetServicesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesServiceNowServicesResponseFromJSON(jsonValue));
     }
@@ -2816,12 +3149,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Set Cloud Security integration state
+     * Creates request options for setCloudSecurityIntegrationState without sending the request
      */
-    async setCloudSecurityIntegrationStateRaw(
-        requestParameters: AspmApiSetCloudSecurityIntegrationStateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<void>> {
+    async setCloudSecurityIntegrationStateRequestOpts(requestParameters: AspmApiSetCloudSecurityIntegrationStateRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling setCloudSecurityIntegrationState().');
         }
@@ -2837,16 +3167,26 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/cloud_security_config`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: TypesSetCloudSecurityIntegrationStateRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/cloud_security_config`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: TypesSetCloudSecurityIntegrationStateRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Set Cloud Security integration state
+     */
+    async setCloudSecurityIntegrationStateRaw(
+        requestParameters: AspmApiSetCloudSecurityIntegrationStateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.setCloudSecurityIntegrationStateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -2859,9 +3199,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update an existing relay node
+     * Creates request options for updateExecutorNode without sending the request
      */
-    async updateExecutorNodeRaw(requestParameters: AspmApiUpdateExecutorNodeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesExecutorNode>> {
+    async updateExecutorNodeRequestOpts(requestParameters: AspmApiUpdateExecutorNodeRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateExecutorNode().');
         }
@@ -2877,16 +3217,23 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/executor_nodes`,
-                method: "PUT",
-                headers: headerParameters,
-                query: queryParameters,
-                body: TypesExecutorNodeToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/executor_nodes`;
+
+        return {
+            path: urlPath,
+            method: "PUT",
+            headers: headerParameters,
+            query: queryParameters,
+            body: TypesExecutorNodeToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update an existing relay node
+     */
+    async updateExecutorNodeRaw(requestParameters: AspmApiUpdateExecutorNodeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesExecutorNode>> {
+        const requestOptions = await this.updateExecutorNodeRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesExecutorNodeFromJSON(jsonValue));
     }
@@ -2900,9 +3247,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update an existing integration by its ID
+     * Creates request options for updateIntegration without sending the request
      */
-    async updateIntegrationRaw(requestParameters: AspmApiUpdateIntegrationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesIntegrationResponse>> {
+    async updateIntegrationRequestOpts(requestParameters: AspmApiUpdateIntegrationRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["iD"] == null) {
             throw new runtime.RequiredError("iD", 'Required parameter "iD" was null or undefined when calling updateIntegration().');
         }
@@ -2922,16 +3269,24 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/integrations/{ID}`.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"]))),
-                method: "PUT",
-                headers: headerParameters,
-                query: queryParameters,
-                body: TypesUpdateIntegrationRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/integrations/{ID}`;
+        urlPath = urlPath.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"])));
+
+        return {
+            path: urlPath,
+            method: "PUT",
+            headers: headerParameters,
+            query: queryParameters,
+            body: TypesUpdateIntegrationRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update an existing integration by its ID
+     */
+    async updateIntegrationRaw(requestParameters: AspmApiUpdateIntegrationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TypesIntegrationResponse>> {
+        const requestOptions = await this.updateIntegrationRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesIntegrationResponseFromJSON(jsonValue));
     }
@@ -2945,12 +3300,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update an existing integration task by its ID
+     * Creates request options for updateIntegrationTask without sending the request
      */
-    async updateIntegrationTaskRaw(
-        requestParameters: AspmApiUpdateIntegrationTaskRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<TypesIntegrationTaskResponse>> {
+    async updateIntegrationTaskRequestOpts(requestParameters: AspmApiUpdateIntegrationTaskRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["iD"] == null) {
             throw new runtime.RequiredError("iD", 'Required parameter "iD" was null or undefined when calling updateIntegrationTask().');
         }
@@ -2970,16 +3322,27 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/integration_tasks/{ID}`.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"]))),
-                method: "PUT",
-                headers: headerParameters,
-                query: queryParameters,
-                body: TypesUpdateIntegrationTaskRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/integration_tasks/{ID}`;
+        urlPath = urlPath.replace(`{${"ID"}}`, encodeURIComponent(String(requestParameters["iD"])));
+
+        return {
+            path: urlPath,
+            method: "PUT",
+            headers: headerParameters,
+            query: queryParameters,
+            body: TypesUpdateIntegrationTaskRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update an existing integration task by its ID
+     */
+    async updateIntegrationTaskRaw(
+        requestParameters: AspmApiUpdateIntegrationTaskRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TypesIntegrationTaskResponse>> {
+        const requestOptions = await this.updateIntegrationTaskRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TypesIntegrationTaskResponseFromJSON(jsonValue));
     }
@@ -2993,9 +3356,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create or Update Business Applications
+     * Creates request options for upsertBusinessApplications without sending the request
      */
-    async upsertBusinessApplicationsRaw(requestParameters: AspmApiUpsertBusinessApplicationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async upsertBusinessApplicationsRequestOpts(requestParameters: AspmApiUpsertBusinessApplicationsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling upsertBusinessApplications().');
         }
@@ -3011,16 +3374,23 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-user:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/business_applications`,
-                method: "PUT",
-                headers: headerParameters,
-                query: queryParameters,
-                body: TypesUpsertBusinessApplicationRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/business_applications`;
+
+        return {
+            path: urlPath,
+            method: "PUT",
+            headers: headerParameters,
+            query: queryParameters,
+            body: TypesUpsertBusinessApplicationRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create or Update Business Applications
+     */
+    async upsertBusinessApplicationsRaw(requestParameters: AspmApiUpsertBusinessApplicationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.upsertBusinessApplicationsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -3033,9 +3403,9 @@ export class AspmApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create new or update existing tag. You can update unique tags table or regular tags table
+     * Creates request options for upsertTags without sending the request
      */
-    async upsertTagsRaw(requestParameters: AspmApiUpsertTagsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async upsertTagsRequestOpts(requestParameters: AspmApiUpsertTagsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling upsertTags().');
         }
@@ -3051,16 +3421,23 @@ export class AspmApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["aspm-user:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/aspm-api-gateway/api/v1/tags`,
-                method: "PUT",
-                headers: headerParameters,
-                query: queryParameters,
-                body: TypesEditUniqueTagRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/aspm-api-gateway/api/v1/tags`;
+
+        return {
+            path: urlPath,
+            method: "PUT",
+            headers: headerParameters,
+            query: queryParameters,
+            body: TypesEditUniqueTagRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create new or update existing tag. You can update unique tags table or regular tags table
+     */
+    async upsertTagsRaw(requestParameters: AspmApiUpsertTagsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.upsertTagsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -3196,10 +3573,10 @@ export type GetIntegrationTasksV2DirectionEnum = (typeof GetIntegrationTasksV2Di
  * @export
  */
 export const GetServiceArtifactsOrderByEnum = {
-    Id: "artifact_id",
-    Name: "artifact_name",
-    Hash: "artifact_hash",
-    FullPath: "artifact_full_path",
+    ArtifactId: "artifact_id",
+    ArtifactName: "artifact_name",
+    ArtifactHash: "artifact_hash",
+    ArtifactFullPath: "artifact_full_path",
 } as const;
 export type GetServiceArtifactsOrderByEnum = (typeof GetServiceArtifactsOrderByEnum)[keyof typeof GetServiceArtifactsOrderByEnum];
 /**

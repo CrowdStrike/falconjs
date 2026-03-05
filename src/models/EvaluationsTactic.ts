@@ -61,10 +61,15 @@ export function EvaluationsTacticFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function EvaluationsTacticToJSON(value?: EvaluationsTactic | null): any {
+export function EvaluationsTacticToJSON(json: any): EvaluationsTactic {
+    return EvaluationsTacticToJSONTyped(json, false);
+}
+
+export function EvaluationsTacticToJSONTyped(value?: EvaluationsTactic | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

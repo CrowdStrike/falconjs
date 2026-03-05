@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { FirewallPolicyV1 } from "./FirewallPolicyV1";
-import { FirewallPolicyV1FromJSON, FirewallPolicyV1FromJSONTyped, FirewallPolicyV1ToJSON } from "./FirewallPolicyV1";
+import { FirewallPolicyV1FromJSON, FirewallPolicyV1FromJSONTyped, FirewallPolicyV1ToJSON, FirewallPolicyV1ToJSONTyped } from "./FirewallPolicyV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function FirewallRespV1FromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function FirewallRespV1ToJSON(value?: FirewallRespV1 | null): any {
+export function FirewallRespV1ToJSON(json: any): FirewallRespV1 {
+    return FirewallRespV1ToJSONTyped(json, false);
+}
+
+export function FirewallRespV1ToJSONTyped(value?: FirewallRespV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

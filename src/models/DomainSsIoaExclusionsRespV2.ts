@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainSsIoaExclusionsV2 } from "./DomainSsIoaExclusionsV2";
-import { DomainSsIoaExclusionsV2FromJSON, DomainSsIoaExclusionsV2FromJSONTyped, DomainSsIoaExclusionsV2ToJSON } from "./DomainSsIoaExclusionsV2";
+import { DomainSsIoaExclusionsV2FromJSON, DomainSsIoaExclusionsV2FromJSONTyped, DomainSsIoaExclusionsV2ToJSON, DomainSsIoaExclusionsV2ToJSONTyped } from "./DomainSsIoaExclusionsV2";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainSsIoaExclusionsRespV2FromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function DomainSsIoaExclusionsRespV2ToJSON(value?: DomainSsIoaExclusionsRespV2 | null): any {
+export function DomainSsIoaExclusionsRespV2ToJSON(json: any): DomainSsIoaExclusionsRespV2 {
+    return DomainSsIoaExclusionsRespV2ToJSONTyped(json, false);
+}
+
+export function DomainSsIoaExclusionsRespV2ToJSONTyped(value?: DomainSsIoaExclusionsRespV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

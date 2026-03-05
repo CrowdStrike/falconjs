@@ -54,10 +54,15 @@ export function FigapiSectorFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function FigapiSectorToJSON(value?: FigapiSector | null): any {
+export function FigapiSectorToJSON(json: any): FigapiSector {
+    return FigapiSectorToJSONTyped(json, false);
+}
+
+export function FigapiSectorToJSONTyped(value?: FigapiSector | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Definition: value["definition"],
         Name: value["name"],

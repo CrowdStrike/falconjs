@@ -64,10 +64,15 @@ export function ModelsImageInformationFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function ModelsImageInformationToJSON(value?: ModelsImageInformation | null): any {
+export function ModelsImageInformationToJSON(json: any): ModelsImageInformation {
+    return ModelsImageInformationToJSONTyped(json, false);
+}
+
+export function ModelsImageInformationToJSONTyped(value?: ModelsImageInformation | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         image_digest: value["imageDigest"],
         image_id: value["imageId"],

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { FigapiIndicator } from "./FigapiIndicator";
-import { FigapiIndicatorFromJSON, FigapiIndicatorFromJSONTyped, FigapiIndicatorToJSON } from "./FigapiIndicator";
+import { FigapiIndicatorFromJSON, FigapiIndicatorFromJSONTyped, FigapiIndicatorToJSON, FigapiIndicatorToJSONTyped } from "./FigapiIndicator";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function RestapiIndicatorResponseFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function RestapiIndicatorResponseToJSON(value?: RestapiIndicatorResponse | null): any {
+export function RestapiIndicatorResponseToJSON(json: any): RestapiIndicatorResponse {
+    return RestapiIndicatorResponseToJSONTyped(json, false);
+}
+
+export function RestapiIndicatorResponseToJSONTyped(value?: RestapiIndicatorResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

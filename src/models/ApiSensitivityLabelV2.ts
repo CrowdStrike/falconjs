@@ -136,10 +136,15 @@ export function ApiSensitivityLabelV2FromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function ApiSensitivityLabelV2ToJSON(value?: ApiSensitivityLabelV2 | null): any {
+export function ApiSensitivityLabelV2ToJSON(json: any): ApiSensitivityLabelV2 {
+    return ApiSensitivityLabelV2ToJSONTyped(json, false);
+}
+
+export function ApiSensitivityLabelV2ToJSONTyped(value?: ApiSensitivityLabelV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         co_authoring: value["coAuthoring"],

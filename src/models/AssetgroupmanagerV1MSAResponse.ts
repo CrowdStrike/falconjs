@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { AssetgroupmanagerV1Error } from "./AssetgroupmanagerV1Error";
-import { AssetgroupmanagerV1ErrorFromJSON, AssetgroupmanagerV1ErrorFromJSONTyped, AssetgroupmanagerV1ErrorToJSON } from "./AssetgroupmanagerV1Error";
+import { AssetgroupmanagerV1ErrorFromJSON, AssetgroupmanagerV1ErrorFromJSONTyped, AssetgroupmanagerV1ErrorToJSON, AssetgroupmanagerV1ErrorToJSONTyped } from "./AssetgroupmanagerV1Error";
 import type { AssetgroupmanagerV1Meta } from "./AssetgroupmanagerV1Meta";
-import { AssetgroupmanagerV1MetaFromJSON, AssetgroupmanagerV1MetaFromJSONTyped, AssetgroupmanagerV1MetaToJSON } from "./AssetgroupmanagerV1Meta";
+import { AssetgroupmanagerV1MetaFromJSON, AssetgroupmanagerV1MetaFromJSONTyped, AssetgroupmanagerV1MetaToJSON, AssetgroupmanagerV1MetaToJSONTyped } from "./AssetgroupmanagerV1Meta";
 
 /**
  *
@@ -66,10 +66,15 @@ export function AssetgroupmanagerV1MSAResponseFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function AssetgroupmanagerV1MSAResponseToJSON(value?: AssetgroupmanagerV1MSAResponse | null): any {
+export function AssetgroupmanagerV1MSAResponseToJSON(json: any): AssetgroupmanagerV1MSAResponse {
+    return AssetgroupmanagerV1MSAResponseToJSONTyped(json, false);
+}
+
+export function AssetgroupmanagerV1MSAResponseToJSONTyped(value?: AssetgroupmanagerV1MSAResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(AssetgroupmanagerV1ErrorToJSON),
         meta: AssetgroupmanagerV1MetaToJSON(value["meta"]),

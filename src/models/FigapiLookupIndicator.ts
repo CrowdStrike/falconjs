@@ -14,37 +14,37 @@
 
 import { mapValues } from "../runtime";
 import type { FigapiThreat } from "./FigapiThreat";
-import { FigapiThreatFromJSON, FigapiThreatFromJSONTyped, FigapiThreatToJSON } from "./FigapiThreat";
+import { FigapiThreatFromJSON, FigapiThreatFromJSONTyped, FigapiThreatToJSON, FigapiThreatToJSONTyped } from "./FigapiThreat";
 import type { FigapiCountry } from "./FigapiCountry";
-import { FigapiCountryFromJSON, FigapiCountryFromJSONTyped, FigapiCountryToJSON } from "./FigapiCountry";
+import { FigapiCountryFromJSON, FigapiCountryFromJSONTyped, FigapiCountryToJSON, FigapiCountryToJSONTyped } from "./FigapiCountry";
 import type { FigapiEmailAddressDetails } from "./FigapiEmailAddressDetails";
-import { FigapiEmailAddressDetailsFromJSON, FigapiEmailAddressDetailsFromJSONTyped, FigapiEmailAddressDetailsToJSON } from "./FigapiEmailAddressDetails";
+import { FigapiEmailAddressDetailsFromJSON, FigapiEmailAddressDetailsFromJSONTyped, FigapiEmailAddressDetailsToJSON, FigapiEmailAddressDetailsToJSONTyped } from "./FigapiEmailAddressDetails";
 import type { FigapiAdversary } from "./FigapiAdversary";
-import { FigapiAdversaryFromJSON, FigapiAdversaryFromJSONTyped, FigapiAdversaryToJSON } from "./FigapiAdversary";
+import { FigapiAdversaryFromJSON, FigapiAdversaryFromJSONTyped, FigapiAdversaryToJSON, FigapiAdversaryToJSONTyped } from "./FigapiAdversary";
 import type { FigapiCredentials } from "./FigapiCredentials";
-import { FigapiCredentialsFromJSON, FigapiCredentialsFromJSONTyped, FigapiCredentialsToJSON } from "./FigapiCredentials";
+import { FigapiCredentialsFromJSON, FigapiCredentialsFromJSONTyped, FigapiCredentialsToJSON, FigapiCredentialsToJSONTyped } from "./FigapiCredentials";
 import type { FigapiURL } from "./FigapiURL";
-import { FigapiURLFromJSON, FigapiURLFromJSONTyped, FigapiURLToJSON } from "./FigapiURL";
+import { FigapiURLFromJSON, FigapiURLFromJSONTyped, FigapiURLToJSON, FigapiURLToJSONTyped } from "./FigapiURL";
 import type { FigapiCoinAddress } from "./FigapiCoinAddress";
-import { FigapiCoinAddressFromJSON, FigapiCoinAddressFromJSONTyped, FigapiCoinAddressToJSON } from "./FigapiCoinAddress";
+import { FigapiCoinAddressFromJSON, FigapiCoinAddressFromJSONTyped, FigapiCoinAddressToJSON, FigapiCoinAddressToJSONTyped } from "./FigapiCoinAddress";
 import type { FigapiVulnerability } from "./FigapiVulnerability";
-import { FigapiVulnerabilityFromJSON, FigapiVulnerabilityFromJSONTyped, FigapiVulnerabilityToJSON } from "./FigapiVulnerability";
+import { FigapiVulnerabilityFromJSON, FigapiVulnerabilityFromJSONTyped, FigapiVulnerabilityToJSON, FigapiVulnerabilityToJSONTyped } from "./FigapiVulnerability";
 import type { FigapiFile } from "./FigapiFile";
-import { FigapiFileFromJSON, FigapiFileFromJSONTyped, FigapiFileToJSON } from "./FigapiFile";
+import { FigapiFileFromJSON, FigapiFileFromJSONTyped, FigapiFileToJSON, FigapiFileToJSONTyped } from "./FigapiFile";
 import type { FigapiSector } from "./FigapiSector";
-import { FigapiSectorFromJSON, FigapiSectorFromJSONTyped, FigapiSectorToJSON } from "./FigapiSector";
+import { FigapiSectorFromJSON, FigapiSectorFromJSONTyped, FigapiSectorToJSON, FigapiSectorToJSONTyped } from "./FigapiSector";
 import type { FigapiUniqueIdentifier } from "./FigapiUniqueIdentifier";
-import { FigapiUniqueIdentifierFromJSON, FigapiUniqueIdentifierFromJSONTyped, FigapiUniqueIdentifierToJSON } from "./FigapiUniqueIdentifier";
+import { FigapiUniqueIdentifierFromJSON, FigapiUniqueIdentifierFromJSONTyped, FigapiUniqueIdentifierToJSON, FigapiUniqueIdentifierToJSONTyped } from "./FigapiUniqueIdentifier";
 import type { FigapiReport } from "./FigapiReport";
-import { FigapiReportFromJSON, FigapiReportFromJSONTyped, FigapiReportToJSON } from "./FigapiReport";
+import { FigapiReportFromJSON, FigapiReportFromJSONTyped, FigapiReportToJSON, FigapiReportToJSONTyped } from "./FigapiReport";
 import type { FigapiX509Certificate } from "./FigapiX509Certificate";
-import { FigapiX509CertificateFromJSON, FigapiX509CertificateFromJSONTyped, FigapiX509CertificateToJSON } from "./FigapiX509Certificate";
+import { FigapiX509CertificateFromJSON, FigapiX509CertificateFromJSONTyped, FigapiX509CertificateToJSON, FigapiX509CertificateToJSONTyped } from "./FigapiX509Certificate";
 import type { FigapiIPv6 } from "./FigapiIPv6";
-import { FigapiIPv6FromJSON, FigapiIPv6FromJSONTyped, FigapiIPv6ToJSON } from "./FigapiIPv6";
+import { FigapiIPv6FromJSON, FigapiIPv6FromJSONTyped, FigapiIPv6ToJSON, FigapiIPv6ToJSONTyped } from "./FigapiIPv6";
 import type { FigapiDomain } from "./FigapiDomain";
-import { FigapiDomainFromJSON, FigapiDomainFromJSONTyped, FigapiDomainToJSON } from "./FigapiDomain";
+import { FigapiDomainFromJSON, FigapiDomainFromJSONTyped, FigapiDomainToJSON, FigapiDomainToJSONTyped } from "./FigapiDomain";
 import type { FigapiIPv4 } from "./FigapiIPv4";
-import { FigapiIPv4FromJSON, FigapiIPv4FromJSONTyped, FigapiIPv4ToJSON } from "./FigapiIPv4";
+import { FigapiIPv4FromJSON, FigapiIPv4FromJSONTyped, FigapiIPv4ToJSON, FigapiIPv4ToJSONTyped } from "./FigapiIPv4";
 
 /**
  *
@@ -276,10 +276,15 @@ export function FigapiLookupIndicatorFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function FigapiLookupIndicatorToJSON(value?: FigapiLookupIndicator | null): any {
+export function FigapiLookupIndicatorToJSON(json: any): FigapiLookupIndicator {
+    return FigapiLookupIndicatorToJSONTyped(json, false);
+}
+
+export function FigapiLookupIndicatorToJSONTyped(value?: FigapiLookupIndicator | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Adversaries: value["adversaries"] == null ? undefined : (value["adversaries"] as Array<any>).map(FigapiAdversaryToJSON),
         AffectedCustomers: value["affectedCustomers"],

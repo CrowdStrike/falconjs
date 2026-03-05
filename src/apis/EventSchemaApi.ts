@@ -39,9 +39,9 @@ export interface EventSchemaApiFdrschemaQueriesEventGetRequest {
  */
 export class EventSchemaApi extends runtime.BaseAPI {
     /**
-     * Fetch combined schema
+     * Creates request options for fdrschemaCombinedEventGet without sending the request
      */
-    async fdrschemaCombinedEventGetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaSensorEventResponseV1>> {
+    async fdrschemaCombinedEventGetRequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -51,15 +51,22 @@ export class EventSchemaApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fdr:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/fdr/combined/schema-members/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/fdr/combined/schema-members/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Fetch combined schema
+     */
+    async fdrschemaCombinedEventGetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaSensorEventResponseV1>> {
+        const requestOptions = await this.fdrschemaCombinedEventGetRequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SchemaSensorEventResponseV1FromJSON(jsonValue));
     }
@@ -73,12 +80,9 @@ export class EventSchemaApi extends runtime.BaseAPI {
     }
 
     /**
-     * Fetch event schema by ID
+     * Creates request options for fdrschemaEntitiesEventGet without sending the request
      */
-    async fdrschemaEntitiesEventGetRaw(
-        requestParameters: EventSchemaApiFdrschemaEntitiesEventGetRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<SchemaSensorEventResponseV1>> {
+    async fdrschemaEntitiesEventGetRequestOpts(requestParameters: EventSchemaApiFdrschemaEntitiesEventGetRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -92,15 +96,25 @@ export class EventSchemaApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fdr:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/fdr/entities/schema-events/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/fdr/entities/schema-events/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Fetch event schema by ID
+     */
+    async fdrschemaEntitiesEventGetRaw(
+        requestParameters: EventSchemaApiFdrschemaEntitiesEventGetRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<SchemaSensorEventResponseV1>> {
+        const requestOptions = await this.fdrschemaEntitiesEventGetRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SchemaSensorEventResponseV1FromJSON(jsonValue));
     }
@@ -114,12 +128,9 @@ export class EventSchemaApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get list of event IDs given a particular query.
+     * Creates request options for fdrschemaQueriesEventGet without sending the request
      */
-    async fdrschemaQueriesEventGetRaw(
-        requestParameters: EventSchemaApiFdrschemaQueriesEventGetRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async fdrschemaQueriesEventGetRequestOpts(requestParameters: EventSchemaApiFdrschemaQueriesEventGetRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["limit"] != null) {
@@ -145,15 +156,25 @@ export class EventSchemaApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fdr:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/fdr/queries/schema-events/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/fdr/queries/schema-events/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get list of event IDs given a particular query.
+     */
+    async fdrschemaQueriesEventGetRaw(
+        requestParameters: EventSchemaApiFdrschemaQueriesEventGetRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.fdrschemaQueriesEventGetRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }

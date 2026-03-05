@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainFeatureStatus } from "./DomainFeatureStatus";
-import { DomainFeatureStatusFromJSON, DomainFeatureStatusFromJSONTyped, DomainFeatureStatusToJSON } from "./DomainFeatureStatus";
+import { DomainFeatureStatusFromJSON, DomainFeatureStatusFromJSONTyped, DomainFeatureStatusToJSON, DomainFeatureStatusToJSONTyped } from "./DomainFeatureStatus";
 
 /**
  *
@@ -59,10 +59,15 @@ export function DomainProductFeaturesStatusFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function DomainProductFeaturesStatusToJSON(value?: DomainProductFeaturesStatus | null): any {
+export function DomainProductFeaturesStatusToJSON(json: any): DomainProductFeaturesStatus {
+    return DomainProductFeaturesStatusToJSONTyped(json, false);
+}
+
+export function DomainProductFeaturesStatusToJSONTyped(value?: DomainProductFeaturesStatus | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         features: (value["features"] as Array<any>).map(DomainFeatureStatusToJSON),
         product: value["product"],

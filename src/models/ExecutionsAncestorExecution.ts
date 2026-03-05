@@ -64,10 +64,15 @@ export function ExecutionsAncestorExecutionFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function ExecutionsAncestorExecutionToJSON(value?: ExecutionsAncestorExecution | null): any {
+export function ExecutionsAncestorExecutionToJSON(json: any): ExecutionsAncestorExecution {
+    return ExecutionsAncestorExecutionToJSONTyped(json, false);
+}
+
+export function ExecutionsAncestorExecutionToJSONTyped(value?: ExecutionsAncestorExecution | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         field: value["field"],
         id: value["id"],

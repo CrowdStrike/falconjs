@@ -47,10 +47,15 @@ export function ClientQuerySamplesRequestFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ClientQuerySamplesRequestToJSON(value?: ClientQuerySamplesRequest | null): any {
+export function ClientQuerySamplesRequestToJSON(json: any): ClientQuerySamplesRequest {
+    return ClientQuerySamplesRequestToJSONTyped(json, false);
+}
+
+export function ClientQuerySamplesRequestToJSONTyped(value?: ClientQuerySamplesRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         sha256s: value["sha256s"],
     };

@@ -63,10 +63,15 @@ export function DetectsapiPostCombinedAlertsV1PagingFromJSONTyped(json: any, ign
     };
 }
 
-export function DetectsapiPostCombinedAlertsV1PagingToJSON(value?: DetectsapiPostCombinedAlertsV1Paging | null): any {
+export function DetectsapiPostCombinedAlertsV1PagingToJSON(json: any): DetectsapiPostCombinedAlertsV1Paging {
+    return DetectsapiPostCombinedAlertsV1PagingToJSONTyped(json, false);
+}
+
+export function DetectsapiPostCombinedAlertsV1PagingToJSONTyped(value?: DetectsapiPostCombinedAlertsV1Paging | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         after: value["after"],
         limit: value["limit"],

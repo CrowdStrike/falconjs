@@ -68,10 +68,15 @@ export function DetectsapiPostCombinedAlertsV1RequestSwaggerFromJSONTyped(json: 
     };
 }
 
-export function DetectsapiPostCombinedAlertsV1RequestSwaggerToJSON(value?: DetectsapiPostCombinedAlertsV1RequestSwagger | null): any {
+export function DetectsapiPostCombinedAlertsV1RequestSwaggerToJSON(json: any): DetectsapiPostCombinedAlertsV1RequestSwagger {
+    return DetectsapiPostCombinedAlertsV1RequestSwaggerToJSONTyped(json, false);
+}
+
+export function DetectsapiPostCombinedAlertsV1RequestSwaggerToJSONTyped(value?: DetectsapiPostCombinedAlertsV1RequestSwagger | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         after: value["after"],
         filter: value["filter"],

@@ -64,10 +64,15 @@ export function DomainCommandExecuteResponseFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function DomainCommandExecuteResponseToJSON(value?: DomainCommandExecuteResponse | null): any {
+export function DomainCommandExecuteResponseToJSON(json: any): DomainCommandExecuteResponse {
+    return DomainCommandExecuteResponseToJSONTyped(json, false);
+}
+
+export function DomainCommandExecuteResponseToJSONTyped(value?: DomainCommandExecuteResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cloud_request_id: value["cloudRequestId"],
         queued_command_offline: value["queuedCommandOffline"],

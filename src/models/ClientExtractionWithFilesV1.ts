@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ClientExtractionFileResultV1 } from "./ClientExtractionFileResultV1";
-import { ClientExtractionFileResultV1FromJSON, ClientExtractionFileResultV1FromJSONTyped, ClientExtractionFileResultV1ToJSON } from "./ClientExtractionFileResultV1";
+import {
+    ClientExtractionFileResultV1FromJSON,
+    ClientExtractionFileResultV1FromJSONTyped,
+    ClientExtractionFileResultV1ToJSON,
+    ClientExtractionFileResultV1ToJSONTyped,
+} from "./ClientExtractionFileResultV1";
 
 /**
  *
@@ -80,10 +85,15 @@ export function ClientExtractionWithFilesV1FromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function ClientExtractionWithFilesV1ToJSON(value?: ClientExtractionWithFilesV1 | null): any {
+export function ClientExtractionWithFilesV1ToJSON(json: any): ClientExtractionWithFilesV1 {
+    return ClientExtractionWithFilesV1ToJSONTyped(json, false);
+}
+
+export function ClientExtractionWithFilesV1ToJSONTyped(value?: ClientExtractionWithFilesV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         error: value["error"],
         extract_timestamp: value["extractTimestamp"],

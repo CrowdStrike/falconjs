@@ -70,14 +70,19 @@ export function StateOnlineStateResultV1FromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function StateOnlineStateResultV1ToJSON(value?: StateOnlineStateResultV1 | null): any {
+export function StateOnlineStateResultV1ToJSON(json: any): StateOnlineStateResultV1 {
+    return StateOnlineStateResultV1ToJSONTyped(json, false);
+}
+
+export function StateOnlineStateResultV1ToJSONTyped(value?: StateOnlineStateResultV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         id: value["id"],
-        last_seen: value["lastSeen"] == null ? undefined : value["lastSeen"].toISOString(),
+        last_seen: value["lastSeen"] == null ? value["lastSeen"] : value["lastSeen"].toISOString(),
         state: value["state"],
     };
 }

@@ -64,10 +64,15 @@ export function IntegrationExposureUserGetUserInventoryFromJSONTyped(json: any, 
     };
 }
 
-export function IntegrationExposureUserGetUserInventoryToJSON(value?: IntegrationExposureUserGetUserInventory | null): any {
+export function IntegrationExposureUserGetUserInventoryToJSON(json: any): IntegrationExposureUserGetUserInventory {
+    return IntegrationExposureUserGetUserInventoryToJSONTyped(json, false);
+}
+
+export function IntegrationExposureUserGetUserInventoryToJSONTyped(value?: IntegrationExposureUserGetUserInventory | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         alias: value["alias"],
         id: value["id"],

@@ -82,10 +82,15 @@ export function FalconxSuricataAlertFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function FalconxSuricataAlertToJSON(value?: FalconxSuricataAlert | null): any {
+export function FalconxSuricataAlertToJSON(json: any): FalconxSuricataAlert {
+    return FalconxSuricataAlertToJSONTyped(json, false);
+}
+
+export function FalconxSuricataAlertToJSONTyped(value?: FalconxSuricataAlert | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         category: value["category"],
         description: value["description"],

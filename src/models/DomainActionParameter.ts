@@ -21,7 +21,7 @@ import { mapValues } from "../runtime";
 export interface DomainActionParameter {
     /**
      * Action name.
-     * @type {string}
+     * @type {DomainActionParameterNameEnum}
      * @memberof DomainActionParameter
      */
     name: DomainActionParameterNameEnum;
@@ -73,10 +73,15 @@ export function DomainActionParameterFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function DomainActionParameterToJSON(value?: DomainActionParameter | null): any {
+export function DomainActionParameterToJSON(json: any): DomainActionParameter {
+    return DomainActionParameterToJSONTyped(json, false);
+}
+
+export function DomainActionParameterToJSONTyped(value?: DomainActionParameter | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
         value: value["value"],

@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { DomainBotnetInject } from "./DomainBotnetInject";
-import { DomainBotnetInjectFromJSON, DomainBotnetInjectFromJSONTyped, DomainBotnetInjectToJSON } from "./DomainBotnetInject";
+import { DomainBotnetInjectFromJSON, DomainBotnetInjectFromJSONTyped, DomainBotnetInjectToJSON, DomainBotnetInjectToJSONTyped } from "./DomainBotnetInject";
 import type { DomainKeyValuePair } from "./DomainKeyValuePair";
-import { DomainKeyValuePairFromJSON, DomainKeyValuePairFromJSONTyped, DomainKeyValuePairToJSON } from "./DomainKeyValuePair";
+import { DomainKeyValuePairFromJSON, DomainKeyValuePairFromJSONTyped, DomainKeyValuePairToJSON, DomainKeyValuePairToJSONTyped } from "./DomainKeyValuePair";
 
 /**
  *
@@ -109,10 +109,15 @@ export function DomainBotnetConfigSourceFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function DomainBotnetConfigSourceToJSON(value?: DomainBotnetConfigSource | null): any {
+export function DomainBotnetConfigSourceToJSON(json: any): DomainBotnetConfigSource {
+    return DomainBotnetConfigSourceToJSONTyped(json, false);
+}
+
+export function DomainBotnetConfigSourceToJSONTyped(value?: DomainBotnetConfigSource | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         actions: (value["actions"] as Array<any>).map(DomainKeyValuePairToJSON),
         body: value["body"],

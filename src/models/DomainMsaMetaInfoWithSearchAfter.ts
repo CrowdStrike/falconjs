@@ -14,9 +14,14 @@
 
 import { mapValues } from "../runtime";
 import type { MsaspecWrites } from "./MsaspecWrites";
-import { MsaspecWritesFromJSON, MsaspecWritesFromJSONTyped, MsaspecWritesToJSON } from "./MsaspecWrites";
+import { MsaspecWritesFromJSON, MsaspecWritesFromJSONTyped, MsaspecWritesToJSON, MsaspecWritesToJSONTyped } from "./MsaspecWrites";
 import type { DomainPagingWithSearchAfter } from "./DomainPagingWithSearchAfter";
-import { DomainPagingWithSearchAfterFromJSON, DomainPagingWithSearchAfterFromJSONTyped, DomainPagingWithSearchAfterToJSON } from "./DomainPagingWithSearchAfter";
+import {
+    DomainPagingWithSearchAfterFromJSON,
+    DomainPagingWithSearchAfterFromJSONTyped,
+    DomainPagingWithSearchAfterToJSON,
+    DomainPagingWithSearchAfterToJSONTyped,
+} from "./DomainPagingWithSearchAfter";
 
 /**
  *
@@ -82,10 +87,15 @@ export function DomainMsaMetaInfoWithSearchAfterFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function DomainMsaMetaInfoWithSearchAfterToJSON(value?: DomainMsaMetaInfoWithSearchAfter | null): any {
+export function DomainMsaMetaInfoWithSearchAfterToJSON(json: any): DomainMsaMetaInfoWithSearchAfter {
+    return DomainMsaMetaInfoWithSearchAfterToJSONTyped(json, false);
+}
+
+export function DomainMsaMetaInfoWithSearchAfterToJSONTyped(value?: DomainMsaMetaInfoWithSearchAfter | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: DomainPagingWithSearchAfterToJSON(value["pagination"]),
         powered_by: value["poweredBy"],

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsAccessHealthDetails } from "./ModelsAccessHealthDetails";
-import { ModelsAccessHealthDetailsFromJSON, ModelsAccessHealthDetailsFromJSONTyped, ModelsAccessHealthDetailsToJSON } from "./ModelsAccessHealthDetails";
+import { ModelsAccessHealthDetailsFromJSON, ModelsAccessHealthDetailsFromJSONTyped, ModelsAccessHealthDetailsToJSON, ModelsAccessHealthDetailsToJSONTyped } from "./ModelsAccessHealthDetails";
 
 /**
  *
@@ -50,10 +50,15 @@ export function ModelsAwsAccountAccessHealthFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function ModelsAwsAccountAccessHealthToJSON(value?: ModelsAwsAccountAccessHealth | null): any {
+export function ModelsAwsAccountAccessHealthToJSON(json: any): ModelsAwsAccountAccessHealth {
+    return ModelsAwsAccountAccessHealthToJSONTyped(json, false);
+}
+
+export function ModelsAwsAccountAccessHealthToJSONTyped(value?: ModelsAwsAccountAccessHealth | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         api: ModelsAccessHealthDetailsToJSON(value["api"]),
     };

@@ -61,10 +61,15 @@ export function DomainMarketplaceCredentialsFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function DomainMarketplaceCredentialsToJSON(value?: DomainMarketplaceCredentials | null): any {
+export function DomainMarketplaceCredentialsToJSON(json: any): DomainMarketplaceCredentials {
+    return DomainMarketplaceCredentialsToJSONTyped(json, false);
+}
+
+export function DomainMarketplaceCredentialsToJSONTyped(value?: DomainMarketplaceCredentials | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         sites_all: value["sitesAll"],
         sites_with_cookie_only: value["sitesWithCookieOnly"],

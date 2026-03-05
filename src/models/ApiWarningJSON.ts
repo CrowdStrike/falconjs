@@ -72,10 +72,15 @@ export function ApiWarningJSONFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function ApiWarningJSONToJSON(value?: ApiWarningJSON | null): any {
+export function ApiWarningJSONToJSON(json: any): ApiWarningJSON {
+    return ApiWarningJSONToJSONTyped(json, false);
+}
+
+export function ApiWarningJSONToJSONTyped(value?: ApiWarningJSON | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         category: value["category"],
         classification: value["classification"],

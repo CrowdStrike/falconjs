@@ -54,10 +54,15 @@ export function TypesGroupMinDetailsFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function TypesGroupMinDetailsToJSON(value?: TypesGroupMinDetails | null): any {
+export function TypesGroupMinDetailsToJSON(json: any): TypesGroupMinDetails {
+    return TypesGroupMinDetailsToJSONTyped(json, false);
+}
+
+export function TypesGroupMinDetailsToJSONTyped(value?: TypesGroupMinDetails | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         groupId: value["groupId"],
         name: value["name"],

@@ -63,10 +63,15 @@ export function FlowsFromJSONTyped(json: any, ignoreDiscriminator: boolean): Flo
     };
 }
 
-export function FlowsToJSON(value?: Flows | null): any {
+export function FlowsToJSON(json: any): Flows {
+    return FlowsToJSONTyped(json, false);
+}
+
+export function FlowsToJSONTyped(value?: Flows | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         default: value["_default"],
         incoming: value["incoming"],

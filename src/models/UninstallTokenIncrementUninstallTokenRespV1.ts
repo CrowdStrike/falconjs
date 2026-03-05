@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -61,10 +61,15 @@ export function UninstallTokenIncrementUninstallTokenRespV1FromJSONTyped(json: a
     };
 }
 
-export function UninstallTokenIncrementUninstallTokenRespV1ToJSON(value?: UninstallTokenIncrementUninstallTokenRespV1 | null): any {
+export function UninstallTokenIncrementUninstallTokenRespV1ToJSON(json: any): UninstallTokenIncrementUninstallTokenRespV1 {
+    return UninstallTokenIncrementUninstallTokenRespV1ToJSONTyped(json, false);
+}
+
+export function UninstallTokenIncrementUninstallTokenRespV1ToJSONTyped(value?: UninstallTokenIncrementUninstallTokenRespV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

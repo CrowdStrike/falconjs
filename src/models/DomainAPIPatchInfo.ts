@@ -98,10 +98,15 @@ export function DomainAPIPatchInfoFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function DomainAPIPatchInfoToJSON(value?: DomainAPIPatchInfo | null): any {
+export function DomainAPIPatchInfoToJSON(json: any): DomainAPIPatchInfo {
+    return DomainAPIPatchInfoToJSONTyped(json, false);
+}
+
+export function DomainAPIPatchInfoToJSONTyped(value?: DomainAPIPatchInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         detail_url: value["detailUrl"],

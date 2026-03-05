@@ -14,13 +14,13 @@
 
 import { mapValues } from "../runtime";
 import type { DetectsDeviceDetailIndexed } from "./DetectsDeviceDetailIndexed";
-import { DetectsDeviceDetailIndexedFromJSON, DetectsDeviceDetailIndexedFromJSONTyped, DetectsDeviceDetailIndexedToJSON } from "./DetectsDeviceDetailIndexed";
+import { DetectsDeviceDetailIndexedFromJSON, DetectsDeviceDetailIndexedFromJSONTyped, DetectsDeviceDetailIndexedToJSON, DetectsDeviceDetailIndexedToJSONTyped } from "./DetectsDeviceDetailIndexed";
 import type { DetectsHostInfo } from "./DetectsHostInfo";
-import { DetectsHostInfoFromJSON, DetectsHostInfoFromJSONTyped, DetectsHostInfoToJSON } from "./DetectsHostInfo";
+import { DetectsHostInfoFromJSON, DetectsHostInfoFromJSONTyped, DetectsHostInfoToJSON, DetectsHostInfoToJSONTyped } from "./DetectsHostInfo";
 import type { DetectsQuarantinedFile } from "./DetectsQuarantinedFile";
-import { DetectsQuarantinedFileFromJSON, DetectsQuarantinedFileFromJSONTyped, DetectsQuarantinedFileToJSON } from "./DetectsQuarantinedFile";
+import { DetectsQuarantinedFileFromJSON, DetectsQuarantinedFileFromJSONTyped, DetectsQuarantinedFileToJSON, DetectsQuarantinedFileToJSONTyped } from "./DetectsQuarantinedFile";
 import type { DetectsBehavior } from "./DetectsBehavior";
-import { DetectsBehaviorFromJSON, DetectsBehaviorFromJSONTyped, DetectsBehaviorToJSON } from "./DetectsBehavior";
+import { DetectsBehaviorFromJSON, DetectsBehaviorFromJSONTyped, DetectsBehaviorToJSON, DetectsBehaviorToJSONTyped } from "./DetectsBehavior";
 
 /**
  *
@@ -226,10 +226,15 @@ export function DomainAPIDetectionDocumentFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function DomainAPIDetectionDocumentToJSON(value?: DomainAPIDetectionDocument | null): any {
+export function DomainAPIDetectionDocumentToJSON(json: any): DomainAPIDetectionDocument {
+    return DomainAPIDetectionDocumentToJSONTyped(json, false);
+}
+
+export function DomainAPIDetectionDocumentToJSONTyped(value?: DomainAPIDetectionDocument | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         adversary_ids: value["adversaryIds"],
         assigned_to_name: value["assignedToName"],

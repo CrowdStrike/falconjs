@@ -70,10 +70,15 @@ export function DomainUserGroupFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function DomainUserGroupToJSON(value?: DomainUserGroup | null): any {
+export function DomainUserGroupToJSON(json: any): DomainUserGroup {
+    return DomainUserGroupToJSONTyped(json, false);
+}
+
+export function DomainUserGroupToJSONTyped(value?: DomainUserGroup | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         description: value["description"],

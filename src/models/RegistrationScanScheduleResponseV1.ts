@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { DomainScanScheduleDataV1 } from "./DomainScanScheduleDataV1";
-import { DomainScanScheduleDataV1FromJSON, DomainScanScheduleDataV1FromJSONTyped, DomainScanScheduleDataV1ToJSON } from "./DomainScanScheduleDataV1";
+import { DomainScanScheduleDataV1FromJSON, DomainScanScheduleDataV1FromJSONTyped, DomainScanScheduleDataV1ToJSON, DomainScanScheduleDataV1ToJSONTyped } from "./DomainScanScheduleDataV1";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function RegistrationScanScheduleResponseV1FromJSONTyped(json: any, ignor
     };
 }
 
-export function RegistrationScanScheduleResponseV1ToJSON(value?: RegistrationScanScheduleResponseV1 | null): any {
+export function RegistrationScanScheduleResponseV1ToJSON(json: any): RegistrationScanScheduleResponseV1 {
+    return RegistrationScanScheduleResponseV1ToJSONTyped(json, false);
+}
+
+export function RegistrationScanScheduleResponseV1ToJSONTyped(value?: RegistrationScanScheduleResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { FwmgrFirewallPolicyContainerV1 } from "./FwmgrFirewallPolicyContainerV1";
-import { FwmgrFirewallPolicyContainerV1FromJSON, FwmgrFirewallPolicyContainerV1FromJSONTyped, FwmgrFirewallPolicyContainerV1ToJSON } from "./FwmgrFirewallPolicyContainerV1";
+import {
+    FwmgrFirewallPolicyContainerV1FromJSON,
+    FwmgrFirewallPolicyContainerV1FromJSONTyped,
+    FwmgrFirewallPolicyContainerV1ToJSON,
+    FwmgrFirewallPolicyContainerV1ToJSONTyped,
+} from "./FwmgrFirewallPolicyContainerV1";
 import type { FwmgrMsaspecError } from "./FwmgrMsaspecError";
-import { FwmgrMsaspecErrorFromJSON, FwmgrMsaspecErrorFromJSONTyped, FwmgrMsaspecErrorToJSON } from "./FwmgrMsaspecError";
+import { FwmgrMsaspecErrorFromJSON, FwmgrMsaspecErrorFromJSONTyped, FwmgrMsaspecErrorToJSON, FwmgrMsaspecErrorToJSONTyped } from "./FwmgrMsaspecError";
 import type { FwmgrMsaspecMetaInfo } from "./FwmgrMsaspecMetaInfo";
-import { FwmgrMsaspecMetaInfoFromJSON, FwmgrMsaspecMetaInfoFromJSONTyped, FwmgrMsaspecMetaInfoToJSON } from "./FwmgrMsaspecMetaInfo";
+import { FwmgrMsaspecMetaInfoFromJSON, FwmgrMsaspecMetaInfoFromJSONTyped, FwmgrMsaspecMetaInfoToJSON, FwmgrMsaspecMetaInfoToJSONTyped } from "./FwmgrMsaspecMetaInfo";
 
 /**
  *
@@ -70,10 +75,15 @@ export function FwmgrApiPolicyContainersResponseFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function FwmgrApiPolicyContainersResponseToJSON(value?: FwmgrApiPolicyContainersResponse | null): any {
+export function FwmgrApiPolicyContainersResponseToJSON(json: any): FwmgrApiPolicyContainersResponse {
+    return FwmgrApiPolicyContainersResponseToJSONTyped(json, false);
+}
+
+export function FwmgrApiPolicyContainersResponseToJSONTyped(value?: FwmgrApiPolicyContainersResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(FwmgrMsaspecErrorToJSON),
         meta: FwmgrMsaspecMetaInfoToJSON(value["meta"]),

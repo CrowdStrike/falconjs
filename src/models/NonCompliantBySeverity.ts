@@ -72,10 +72,15 @@ export function NonCompliantBySeverityFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function NonCompliantBySeverityToJSON(value?: NonCompliantBySeverity | null): any {
+export function NonCompliantBySeverityToJSON(json: any): NonCompliantBySeverity {
+    return NonCompliantBySeverityToJSONTyped(json, false);
+}
+
+export function NonCompliantBySeverityToJSONTyped(value?: NonCompliantBySeverity | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         critical: value["critical"],
         high: value["high"],

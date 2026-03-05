@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DevicecontrolapiRespUSBExceptionV2 } from "./DevicecontrolapiRespUSBExceptionV2";
-import { DevicecontrolapiRespUSBExceptionV2FromJSON, DevicecontrolapiRespUSBExceptionV2FromJSONTyped, DevicecontrolapiRespUSBExceptionV2ToJSON } from "./DevicecontrolapiRespUSBExceptionV2";
+import {
+    DevicecontrolapiRespUSBExceptionV2FromJSON,
+    DevicecontrolapiRespUSBExceptionV2FromJSONTyped,
+    DevicecontrolapiRespUSBExceptionV2ToJSON,
+    DevicecontrolapiRespUSBExceptionV2ToJSONTyped,
+} from "./DevicecontrolapiRespUSBExceptionV2";
 
 /**
  *
@@ -75,10 +80,15 @@ export function DevicecontrolapiRespUSBClassSettingsV2FromJSONTyped(json: any, i
     };
 }
 
-export function DevicecontrolapiRespUSBClassSettingsV2ToJSON(value?: DevicecontrolapiRespUSBClassSettingsV2 | null): any {
+export function DevicecontrolapiRespUSBClassSettingsV2ToJSON(json: any): DevicecontrolapiRespUSBClassSettingsV2 {
+    return DevicecontrolapiRespUSBClassSettingsV2ToJSONTyped(json, false);
+}
+
+export function DevicecontrolapiRespUSBClassSettingsV2ToJSONTyped(value?: DevicecontrolapiRespUSBClassSettingsV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         class: value["_class"],

@@ -61,10 +61,15 @@ export function ClientExtractionFileParametersV1FromJSONTyped(json: any, ignoreD
     };
 }
 
-export function ClientExtractionFileParametersV1ToJSON(value?: ClientExtractionFileParametersV1 | null): any {
+export function ClientExtractionFileParametersV1ToJSON(json: any): ClientExtractionFileParametersV1 {
+    return ClientExtractionFileParametersV1ToJSONTyped(json, false);
+}
+
+export function ClientExtractionFileParametersV1ToJSONTyped(value?: ClientExtractionFileParametersV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         comment: value["comment"],
         is_confidential: value["isConfidential"],

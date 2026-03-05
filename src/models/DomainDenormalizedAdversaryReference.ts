@@ -69,10 +69,15 @@ export function DomainDenormalizedAdversaryReferenceFromJSONTyped(json: any, ign
     };
 }
 
-export function DomainDenormalizedAdversaryReferenceToJSON(value?: DomainDenormalizedAdversaryReference | null): any {
+export function DomainDenormalizedAdversaryReferenceToJSON(json: any): DomainDenormalizedAdversaryReference {
+    return DomainDenormalizedAdversaryReferenceToJSONTyped(json, false);
+}
+
+export function DomainDenormalizedAdversaryReferenceToJSONTyped(value?: DomainDenormalizedAdversaryReference | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         animal_classifier: value["animalClassifier"],
         id: value["id"],

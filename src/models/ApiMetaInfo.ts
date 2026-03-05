@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApiPaging } from "./ApiPaging";
-import { ApiPagingFromJSON, ApiPagingFromJSONTyped, ApiPagingToJSON } from "./ApiPaging";
+import { ApiPagingFromJSON, ApiPagingFromJSONTyped, ApiPagingToJSON, ApiPagingToJSONTyped } from "./ApiPaging";
 
 /**
  *
@@ -73,10 +73,15 @@ export function ApiMetaInfoFromJSONTyped(json: any, ignoreDiscriminator: boolean
     };
 }
 
-export function ApiMetaInfoToJSON(value?: ApiMetaInfo | null): any {
+export function ApiMetaInfoToJSON(json: any): ApiMetaInfo {
+    return ApiMetaInfoToJSONTyped(json, false);
+}
+
+export function ApiMetaInfoToJSONTyped(value?: ApiMetaInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: ApiPagingToJSON(value["pagination"]),
         powered_by: value["poweredBy"],

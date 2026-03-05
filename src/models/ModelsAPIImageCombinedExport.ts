@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { RbacCloudGroup } from "./RbacCloudGroup";
-import { RbacCloudGroupFromJSON, RbacCloudGroupFromJSONTyped, RbacCloudGroupToJSON } from "./RbacCloudGroup";
+import { RbacCloudGroupFromJSON, RbacCloudGroupFromJSONTyped, RbacCloudGroupToJSON, RbacCloudGroupToJSONTyped } from "./RbacCloudGroup";
 
 /**
  *
@@ -305,10 +305,15 @@ export function ModelsAPIImageCombinedExportFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function ModelsAPIImageCombinedExportToJSON(value?: ModelsAPIImageCombinedExport | null): any {
+export function ModelsAPIImageCombinedExportToJSON(json: any): ModelsAPIImageCombinedExport {
+    return ModelsAPIImageCombinedExportToJSONTyped(json, false);
+}
+
+export function ModelsAPIImageCombinedExportToJSONTyped(value?: ModelsAPIImageCombinedExport | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ai_related: value["aiRelated"],
         architecture: value["architecture"],

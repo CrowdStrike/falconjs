@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ScheduledexclusionsRepeated } from "./ScheduledexclusionsRepeated";
-import { ScheduledexclusionsRepeatedFromJSON, ScheduledexclusionsRepeatedFromJSONTyped, ScheduledexclusionsRepeatedToJSON } from "./ScheduledexclusionsRepeated";
+import {
+    ScheduledexclusionsRepeatedFromJSON,
+    ScheduledexclusionsRepeatedFromJSONTyped,
+    ScheduledexclusionsRepeatedToJSON,
+    ScheduledexclusionsRepeatedToJSONTyped,
+} from "./ScheduledexclusionsRepeated";
 
 /**
  *
@@ -108,10 +113,15 @@ export function ScheduledexclusionsCreateRequestFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function ScheduledexclusionsCreateRequestToJSON(value?: ScheduledexclusionsCreateRequest | null): any {
+export function ScheduledexclusionsCreateRequestToJSON(json: any): ScheduledexclusionsCreateRequest {
+    return ScheduledexclusionsCreateRequestToJSONTyped(json, false);
+}
+
+export function ScheduledexclusionsCreateRequestToJSONTyped(value?: ScheduledexclusionsCreateRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         name: value["name"],

@@ -18,6 +18,7 @@ import {
     AssetgroupmanagerV1WriteCloudGroupSelectorsFromJSON,
     AssetgroupmanagerV1WriteCloudGroupSelectorsFromJSONTyped,
     AssetgroupmanagerV1WriteCloudGroupSelectorsToJSON,
+    AssetgroupmanagerV1WriteCloudGroupSelectorsToJSONTyped,
 } from "./AssetgroupmanagerV1WriteCloudGroupSelectors";
 
 /**
@@ -28,7 +29,7 @@ import {
 export interface AssetgroupmanagerV1CreateCloudGroupRequest {
     /**
      * Business Impact is one of the "business context" field of the group.
-     * @type {string}
+     * @type {AssetgroupmanagerV1CreateCloudGroupRequestBusinessImpactEnum}
      * @memberof AssetgroupmanagerV1CreateCloudGroupRequest
      */
     businessImpact?: AssetgroupmanagerV1CreateCloudGroupRequestBusinessImpactEnum;
@@ -46,7 +47,7 @@ export interface AssetgroupmanagerV1CreateCloudGroupRequest {
     description?: string;
     /**
      * Environment is one of the "business context" field of the group.
-     * @type {string}
+     * @type {AssetgroupmanagerV1CreateCloudGroupRequestEnvironmentEnum}
      * @memberof AssetgroupmanagerV1CreateCloudGroupRequest
      */
     environment?: AssetgroupmanagerV1CreateCloudGroupRequestEnvironmentEnum;
@@ -120,10 +121,15 @@ export function AssetgroupmanagerV1CreateCloudGroupRequestFromJSONTyped(json: an
     };
 }
 
-export function AssetgroupmanagerV1CreateCloudGroupRequestToJSON(value?: AssetgroupmanagerV1CreateCloudGroupRequest | null): any {
+export function AssetgroupmanagerV1CreateCloudGroupRequestToJSON(json: any): AssetgroupmanagerV1CreateCloudGroupRequest {
+    return AssetgroupmanagerV1CreateCloudGroupRequestToJSONTyped(json, false);
+}
+
+export function AssetgroupmanagerV1CreateCloudGroupRequestToJSONTyped(value?: AssetgroupmanagerV1CreateCloudGroupRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         business_impact: value["businessImpact"],
         business_unit: value["businessUnit"],

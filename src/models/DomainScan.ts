@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { DomainFileCount } from "./DomainFileCount";
-import { DomainFileCountFromJSON, DomainFileCountFromJSONTyped, DomainFileCountToJSON } from "./DomainFileCount";
+import { DomainFileCountFromJSON, DomainFileCountFromJSONTyped, DomainFileCountToJSON, DomainFileCountToJSONTyped } from "./DomainFileCount";
 import type { DomainScanMetadata } from "./DomainScanMetadata";
-import { DomainScanMetadataFromJSON, DomainScanMetadataFromJSONTyped, DomainScanMetadataToJSON } from "./DomainScanMetadata";
+import { DomainScanMetadataFromJSON, DomainScanMetadataFromJSONTyped, DomainScanMetadataToJSON, DomainScanMetadataToJSONTyped } from "./DomainScanMetadata";
 
 /**
  *
@@ -431,10 +431,15 @@ export function DomainScanFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function DomainScanToJSON(value?: DomainScan | null): any {
+export function DomainScanToJSON(json: any): DomainScan {
+    return DomainScanToJSONTyped(json, false);
+}
+
+export function DomainScanToJSONTyped(value?: DomainScan | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         affected_hosts_count: value["affectedHostsCount"],
         cid: value["cid"],
@@ -445,7 +450,7 @@ export function DomainScanToJSON(value?: DomainScan | null): any {
         completed_host_count: value["completedHostCount"],
         cpu_priority: value["cpuPriority"],
         created_by: value["createdBy"],
-        created_on: value["createdOn"] == null ? undefined : value["createdOn"].toISOString(),
+        created_on: value["createdOn"] == null ? value["createdOn"] : value["createdOn"].toISOString(),
         description: value["description"],
         endpoint_notification: value["endpointNotification"],
         file_paths: value["filePaths"],
@@ -456,7 +461,7 @@ export function DomainScanToJSON(value?: DomainScan | null): any {
         id: value["id"],
         incomplete_host_count: value["incompleteHostCount"],
         initiated_from: value["initiatedFrom"],
-        last_updated: value["lastUpdated"] == null ? undefined : value["lastUpdated"].toISOString(),
+        last_updated: value["lastUpdated"] == null ? value["lastUpdated"] : value["lastUpdated"].toISOString(),
         mac_cloud_ml_level_detection: value["macCloudMlLevelDetection"],
         mac_cloud_ml_level_prevention: value["macCloudMlLevelPrevention"],
         mac_cloud_pup_adware_level_detection: value["macCloudPupAdwareLevelDetection"],
@@ -479,11 +484,11 @@ export function DomainScanToJSON(value?: DomainScan | null): any {
         profile_id: value["profileId"],
         quarantine: value["quarantine"],
         rollup_version: value["rollupVersion"],
-        scan_completed_on: value["scanCompletedOn"] == null ? undefined : value["scanCompletedOn"].toISOString(),
+        scan_completed_on: value["scanCompletedOn"] == null ? value["scanCompletedOn"] : value["scanCompletedOn"].toISOString(),
         scan_exclusions: value["scanExclusions"],
         scan_inclusions: value["scanInclusions"],
-        scan_scheduled_on: value["scanScheduledOn"] == null ? undefined : value["scanScheduledOn"].toISOString(),
-        scan_started_on: value["scanStartedOn"] == null ? undefined : value["scanStartedOn"].toISOString(),
+        scan_scheduled_on: value["scanScheduledOn"] == null ? value["scanScheduledOn"] : value["scanScheduledOn"].toISOString(),
+        scan_started_on: value["scanStartedOn"] == null ? value["scanStartedOn"] : value["scanStartedOn"].toISOString(),
         sensor_ml_level_detection: value["sensorMlLevelDetection"],
         sensor_ml_level_prevention: value["sensorMlLevelPrevention"],
         severity: value["severity"],

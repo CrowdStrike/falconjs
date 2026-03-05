@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -68,10 +68,15 @@ export function CasesapiGetQueriesCasesV1ResponseFromJSONTyped(json: any, ignore
     };
 }
 
-export function CasesapiGetQueriesCasesV1ResponseToJSON(value?: CasesapiGetQueriesCasesV1Response | null): any {
+export function CasesapiGetQueriesCasesV1ResponseToJSON(json: any): CasesapiGetQueriesCasesV1Response {
+    return CasesapiGetQueriesCasesV1ResponseToJSONTyped(json, false);
+}
+
+export function CasesapiGetQueriesCasesV1ResponseToJSONTyped(value?: CasesapiGetQueriesCasesV1Response | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainDiscoverAPIIoTHost } from "./DomainDiscoverAPIIoTHost";
-import { DomainDiscoverAPIIoTHostFromJSON, DomainDiscoverAPIIoTHostFromJSONTyped, DomainDiscoverAPIIoTHostToJSON } from "./DomainDiscoverAPIIoTHost";
+import { DomainDiscoverAPIIoTHostFromJSON, DomainDiscoverAPIIoTHostFromJSONTyped, DomainDiscoverAPIIoTHostToJSON, DomainDiscoverAPIIoTHostToJSONTyped } from "./DomainDiscoverAPIIoTHost";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function DomainDiscoverAPIIoTHostEntitiesResponseFromJSONTyped(json: any,
     };
 }
 
-export function DomainDiscoverAPIIoTHostEntitiesResponseToJSON(value?: DomainDiscoverAPIIoTHostEntitiesResponse | null): any {
+export function DomainDiscoverAPIIoTHostEntitiesResponseToJSON(json: any): DomainDiscoverAPIIoTHostEntitiesResponse {
+    return DomainDiscoverAPIIoTHostEntitiesResponseToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPIIoTHostEntitiesResponseToJSONTyped(value?: DomainDiscoverAPIIoTHostEntitiesResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

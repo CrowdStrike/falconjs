@@ -47,10 +47,15 @@ export function DomainThreatEntityFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function DomainThreatEntityToJSON(value?: DomainThreatEntity | null): any {
+export function DomainThreatEntityToJSON(json: any): DomainThreatEntity {
+    return DomainThreatEntityToJSONTyped(json, false);
+}
+
+export function DomainThreatEntityToJSONTyped(value?: DomainThreatEntity | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         family_name: value["familyName"],
     };

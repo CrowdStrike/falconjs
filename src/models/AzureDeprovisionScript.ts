@@ -47,10 +47,15 @@ export function AzureDeprovisionScriptFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function AzureDeprovisionScriptToJSON(value?: AzureDeprovisionScript | null): any {
+export function AzureDeprovisionScriptToJSON(json: any): AzureDeprovisionScript {
+    return AzureDeprovisionScriptToJSONTyped(json, false);
+}
+
+export function AzureDeprovisionScriptToJSONTyped(value?: AzureDeprovisionScript | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         activity_log_diagnostic_settings_cleanup: value["activityLogDiagnosticSettingsCleanup"],
     };

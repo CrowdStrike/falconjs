@@ -80,10 +80,15 @@ export function DomainUpdateNotificationRequestV1FromJSONTyped(json: any, ignore
     };
 }
 
-export function DomainUpdateNotificationRequestV1ToJSON(value?: DomainUpdateNotificationRequestV1 | null): any {
+export function DomainUpdateNotificationRequestV1ToJSON(json: any): DomainUpdateNotificationRequestV1 {
+    return DomainUpdateNotificationRequestV1ToJSONTyped(json, false);
+}
+
+export function DomainUpdateNotificationRequestV1ToJSONTyped(value?: DomainUpdateNotificationRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         assigned_to_uuid: value["assignedToUuid"],
         id: value["id"],

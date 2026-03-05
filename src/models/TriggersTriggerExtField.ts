@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { FielddataFieldSource } from "./FielddataFieldSource";
-import { FielddataFieldSourceFromJSON, FielddataFieldSourceFromJSONTyped, FielddataFieldSourceToJSON } from "./FielddataFieldSource";
+import { FielddataFieldSourceFromJSON, FielddataFieldSourceFromJSONTyped, FielddataFieldSourceToJSON, FielddataFieldSourceToJSONTyped } from "./FielddataFieldSource";
 
 /**
  *
@@ -94,10 +94,15 @@ export function TriggersTriggerExtFieldFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function TriggersTriggerExtFieldToJSON(value?: TriggersTriggerExtField | null): any {
+export function TriggersTriggerExtFieldToJSON(json: any): TriggersTriggerExtField {
+    return TriggersTriggerExtFieldToJSONTyped(json, false);
+}
+
+export function TriggersTriggerExtFieldToJSONTyped(value?: TriggersTriggerExtField | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         display: value["display"],

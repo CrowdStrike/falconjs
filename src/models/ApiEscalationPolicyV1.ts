@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApiEscalationStepV1 } from "./ApiEscalationStepV1";
-import { ApiEscalationStepV1FromJSON, ApiEscalationStepV1FromJSONTyped, ApiEscalationStepV1ToJSON } from "./ApiEscalationStepV1";
+import { ApiEscalationStepV1FromJSON, ApiEscalationStepV1FromJSONTyped, ApiEscalationStepV1ToJSON, ApiEscalationStepV1ToJSONTyped } from "./ApiEscalationStepV1";
 
 /**
  *
@@ -50,10 +50,15 @@ export function ApiEscalationPolicyV1FromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function ApiEscalationPolicyV1ToJSON(value?: ApiEscalationPolicyV1 | null): any {
+export function ApiEscalationPolicyV1ToJSON(json: any): ApiEscalationPolicyV1 {
+    return ApiEscalationPolicyV1ToJSONTyped(json, false);
+}
+
+export function ApiEscalationPolicyV1ToJSONTyped(value?: ApiEscalationPolicyV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         steps: value["steps"] == null ? undefined : (value["steps"] as Array<any>).map(ApiEscalationStepV1ToJSON),
     };

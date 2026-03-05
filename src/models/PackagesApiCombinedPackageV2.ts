@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ModelsAPIPackageCombinedV2 } from "./ModelsAPIPackageCombinedV2";
-import { ModelsAPIPackageCombinedV2FromJSON, ModelsAPIPackageCombinedV2FromJSONTyped, ModelsAPIPackageCombinedV2ToJSON } from "./ModelsAPIPackageCombinedV2";
+import { ModelsAPIPackageCombinedV2FromJSON, ModelsAPIPackageCombinedV2FromJSONTyped, ModelsAPIPackageCombinedV2ToJSON, ModelsAPIPackageCombinedV2ToJSONTyped } from "./ModelsAPIPackageCombinedV2";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function PackagesApiCombinedPackageV2FromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function PackagesApiCombinedPackageV2ToJSON(value?: PackagesApiCombinedPackageV2 | null): any {
+export function PackagesApiCombinedPackageV2ToJSON(json: any): PackagesApiCombinedPackageV2 {
+    return PackagesApiCombinedPackageV2ToJSONTyped(json, false);
+}
+
+export function PackagesApiCombinedPackageV2ToJSONTyped(value?: PackagesApiCombinedPackageV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

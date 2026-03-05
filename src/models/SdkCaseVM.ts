@@ -14,25 +14,25 @@
 
 import { mapValues } from "../runtime";
 import type { SdkAnalysisResultsVM } from "./SdkAnalysisResultsVM";
-import { SdkAnalysisResultsVMFromJSON, SdkAnalysisResultsVMFromJSONTyped, SdkAnalysisResultsVMToJSON } from "./SdkAnalysisResultsVM";
+import { SdkAnalysisResultsVMFromJSON, SdkAnalysisResultsVMFromJSONTyped, SdkAnalysisResultsVMToJSON, SdkAnalysisResultsVMToJSONTyped } from "./SdkAnalysisResultsVM";
 import type { SdkCaseSeverityInfoVM } from "./SdkCaseSeverityInfoVM";
-import { SdkCaseSeverityInfoVMFromJSON, SdkCaseSeverityInfoVMFromJSONTyped, SdkCaseSeverityInfoVMToJSON } from "./SdkCaseSeverityInfoVM";
+import { SdkCaseSeverityInfoVMFromJSON, SdkCaseSeverityInfoVMFromJSONTyped, SdkCaseSeverityInfoVMToJSON, SdkCaseSeverityInfoVMToJSONTyped } from "./SdkCaseSeverityInfoVM";
 import type { SdkEvidenceVM } from "./SdkEvidenceVM";
-import { SdkEvidenceVMFromJSON, SdkEvidenceVMFromJSONTyped, SdkEvidenceVMToJSON } from "./SdkEvidenceVM";
+import { SdkEvidenceVMFromJSON, SdkEvidenceVMFromJSONTyped, SdkEvidenceVMToJSON, SdkEvidenceVMToJSONTyped } from "./SdkEvidenceVM";
 import type { SdkCustomFieldVM } from "./SdkCustomFieldVM";
-import { SdkCustomFieldVMFromJSON, SdkCustomFieldVMFromJSONTyped, SdkCustomFieldVMToJSON } from "./SdkCustomFieldVM";
+import { SdkCustomFieldVMFromJSON, SdkCustomFieldVMFromJSONTyped, SdkCustomFieldVMToJSON, SdkCustomFieldVMToJSONTyped } from "./SdkCustomFieldVM";
 import type { SdkCaseAccessTag } from "./SdkCaseAccessTag";
-import { SdkCaseAccessTagFromJSON, SdkCaseAccessTagFromJSONTyped, SdkCaseAccessTagToJSON } from "./SdkCaseAccessTag";
+import { SdkCaseAccessTagFromJSON, SdkCaseAccessTagFromJSONTyped, SdkCaseAccessTagToJSON, SdkCaseAccessTagToJSONTyped } from "./SdkCaseAccessTag";
 import type { SdkSLAVM } from "./SdkSLAVM";
-import { SdkSLAVMFromJSON, SdkSLAVMFromJSONTyped, SdkSLAVMToJSON } from "./SdkSLAVM";
+import { SdkSLAVMFromJSON, SdkSLAVMFromJSONTyped, SdkSLAVMToJSON, SdkSLAVMToJSONTyped } from "./SdkSLAVM";
 import type { SdkFalconUserVM } from "./SdkFalconUserVM";
-import { SdkFalconUserVMFromJSON, SdkFalconUserVMFromJSONTyped, SdkFalconUserVMToJSON } from "./SdkFalconUserVM";
+import { SdkFalconUserVMFromJSON, SdkFalconUserVMFromJSONTyped, SdkFalconUserVMToJSON, SdkFalconUserVMToJSONTyped } from "./SdkFalconUserVM";
 import type { SdkTemplateVM } from "./SdkTemplateVM";
-import { SdkTemplateVMFromJSON, SdkTemplateVMFromJSONTyped, SdkTemplateVMToJSON } from "./SdkTemplateVM";
+import { SdkTemplateVMFromJSON, SdkTemplateVMFromJSONTyped, SdkTemplateVMToJSON, SdkTemplateVMToJSONTyped } from "./SdkTemplateVM";
 import type { SdkConsistencyVM } from "./SdkConsistencyVM";
-import { SdkConsistencyVMFromJSON, SdkConsistencyVMFromJSONTyped, SdkConsistencyVMToJSON } from "./SdkConsistencyVM";
+import { SdkConsistencyVMFromJSON, SdkConsistencyVMFromJSONTyped, SdkConsistencyVMToJSON, SdkConsistencyVMToJSONTyped } from "./SdkConsistencyVM";
 import type { SdkWorkflowVM } from "./SdkWorkflowVM";
-import { SdkWorkflowVMFromJSON, SdkWorkflowVMFromJSONTyped, SdkWorkflowVMToJSON } from "./SdkWorkflowVM";
+import { SdkWorkflowVMFromJSON, SdkWorkflowVMFromJSONTyped, SdkWorkflowVMToJSON, SdkWorkflowVMToJSONTyped } from "./SdkWorkflowVM";
 
 /**
  *
@@ -255,10 +255,15 @@ export function SdkCaseVMFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     };
 }
 
-export function SdkCaseVMToJSON(value?: SdkCaseVM | null): any {
+export function SdkCaseVMToJSON(json: any): SdkCaseVM {
+    return SdkCaseVMToJSONTyped(json, false);
+}
+
+export function SdkCaseVMToJSONTyped(value?: SdkCaseVM | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         access_tags: value["accessTags"] == null ? undefined : (value["accessTags"] as Array<any>).map(SdkCaseAccessTagToJSON),
         analysis_results: SdkAnalysisResultsVMToJSON(value["analysisResults"]),

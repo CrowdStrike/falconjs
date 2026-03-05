@@ -375,12 +375,9 @@ export interface NgsiemApiUploadLookupV1Request {
  */
 export class NgsiemApi extends runtime.BaseAPI {
     /**
-     * Create Dashboard from LogScale YAML Template in NGSIEM
+     * Creates request options for createDashboardFromTemplate without sending the request
      */
-    async createDashboardFromTemplateRaw(
-        requestParameters: NgsiemApiCreateDashboardFromTemplateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiCreateDashboardFromTemplateResponseV1>> {
+    async createDashboardFromTemplateRequestOpts(requestParameters: NgsiemApiCreateDashboardFromTemplateRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -416,16 +413,26 @@ export class NgsiemApi extends runtime.BaseAPI {
             formParams.append("yaml_template", requestParameters["yamlTemplate"] as any);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem-content/entities/dashboards-template/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: formParams,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem-content/entities/dashboards-template/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        };
+    }
+
+    /**
+     * Create Dashboard from LogScale YAML Template in NGSIEM
+     */
+    async createDashboardFromTemplateRaw(
+        requestParameters: NgsiemApiCreateDashboardFromTemplateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiCreateDashboardFromTemplateResponseV1>> {
+        const requestOptions = await this.createDashboardFromTemplateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiCreateDashboardFromTemplateResponseV1FromJSON(jsonValue));
     }
@@ -444,12 +451,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create Lookup File in NGSIEM
+     * Creates request options for createLookupFile without sending the request
      */
-    async createLookupFileRaw(
-        requestParameters: NgsiemApiCreateLookupFileRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiCreateLookupFileResponseV1>> {
+    async createLookupFileRequestOpts(requestParameters: NgsiemApiCreateLookupFileRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -485,16 +489,26 @@ export class NgsiemApi extends runtime.BaseAPI {
             formParams.append("file", requestParameters["file"] as any);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem-content/entities/lookupfiles/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: formParams,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem-content/entities/lookupfiles/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        };
+    }
+
+    /**
+     * Create Lookup File in NGSIEM
+     */
+    async createLookupFileRaw(
+        requestParameters: NgsiemApiCreateLookupFileRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiCreateLookupFileResponseV1>> {
+        const requestOptions = await this.createLookupFileRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiCreateLookupFileResponseV1FromJSON(jsonValue));
     }
@@ -513,10 +527,10 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create Parser in NGSIEM. This endpoint has been deprecated in favour of the POST /entities/parsers-template/v1 API.
+     * Creates request options for createParser without sending the request
      * @deprecated
      */
-    async createParserRaw(requestParameters: NgsiemApiCreateParserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiCreateParserResponseV1>> {
+    async createParserRequestOpts(requestParameters: NgsiemApiCreateParserRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createParser().');
         }
@@ -532,16 +546,24 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-parsers:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem-content/entities/parsers/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiCreateParserRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem-content/entities/parsers/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiCreateParserRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create Parser in NGSIEM. This endpoint has been deprecated in favour of the POST /entities/parsers-template/v1 API.
+     * @deprecated
+     */
+    async createParserRaw(requestParameters: NgsiemApiCreateParserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiCreateParserResponseV1>> {
+        const requestOptions = await this.createParserRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiCreateParserResponseV1FromJSON(jsonValue));
     }
@@ -556,12 +578,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create Parser from LogScale YAML Template in NGSIEM
+     * Creates request options for createParserFromTemplate without sending the request
      */
-    async createParserFromTemplateRaw(
-        requestParameters: NgsiemApiCreateParserFromTemplateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiCreateParserFromTemplateResponseV1>> {
+    async createParserFromTemplateRequestOpts(requestParameters: NgsiemApiCreateParserFromTemplateRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -593,16 +612,26 @@ export class NgsiemApi extends runtime.BaseAPI {
             formParams.append("yaml_template", requestParameters["yamlTemplate"] as any);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem-content/entities/parsers-template/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: formParams,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem-content/entities/parsers-template/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        };
+    }
+
+    /**
+     * Create Parser from LogScale YAML Template in NGSIEM
+     */
+    async createParserFromTemplateRaw(
+        requestParameters: NgsiemApiCreateParserFromTemplateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiCreateParserFromTemplateResponseV1>> {
+        const requestOptions = await this.createParserFromTemplateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiCreateParserFromTemplateResponseV1FromJSON(jsonValue));
     }
@@ -620,12 +649,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create Saved Query from LogScale YAML Template in NGSIEM
+     * Creates request options for createSavedQuery without sending the request
      */
-    async createSavedQueryRaw(
-        requestParameters: NgsiemApiCreateSavedQueryRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiCreateSavedQueryResponseV1>> {
+    async createSavedQueryRequestOpts(requestParameters: NgsiemApiCreateSavedQueryRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -657,16 +683,26 @@ export class NgsiemApi extends runtime.BaseAPI {
             formParams.append("yaml_template", requestParameters["yamlTemplate"] as any);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem-content/entities/savedqueries-template/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: formParams,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem-content/entities/savedqueries-template/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        };
+    }
+
+    /**
+     * Create Saved Query from LogScale YAML Template in NGSIEM
+     */
+    async createSavedQueryRaw(
+        requestParameters: NgsiemApiCreateSavedQueryRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiCreateSavedQueryResponseV1>> {
+        const requestOptions = await this.createSavedQueryRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiCreateSavedQueryResponseV1FromJSON(jsonValue));
     }
@@ -680,12 +716,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete Dashboard in NGSIEM
+     * Creates request options for deleteDashboard without sending the request
      */
-    async deleteDashboardRaw(
-        requestParameters: NgsiemApiDeleteDashboardRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiDeleteDashboardResponseV1>> {
+    async deleteDashboardRequestOpts(requestParameters: NgsiemApiDeleteDashboardRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -703,15 +736,25 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-dashboards:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem-content/entities/dashboards/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem-content/entities/dashboards/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete Dashboard in NGSIEM
+     */
+    async deleteDashboardRaw(
+        requestParameters: NgsiemApiDeleteDashboardRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiDeleteDashboardResponseV1>> {
+        const requestOptions = await this.deleteDashboardRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiDeleteDashboardResponseV1FromJSON(jsonValue));
     }
@@ -725,12 +768,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete Lookup File in NGSIEM
+     * Creates request options for deleteLookupFile without sending the request
      */
-    async deleteLookupFileRaw(
-        requestParameters: NgsiemApiDeleteLookupFileRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiDeleteLookupFileResponseV1>> {
+    async deleteLookupFileRequestOpts(requestParameters: NgsiemApiDeleteLookupFileRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filename"] != null) {
@@ -748,15 +788,25 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-lookup-files:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem-content/entities/lookupfiles/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem-content/entities/lookupfiles/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete Lookup File in NGSIEM
+     */
+    async deleteLookupFileRaw(
+        requestParameters: NgsiemApiDeleteLookupFileRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiDeleteLookupFileResponseV1>> {
+        const requestOptions = await this.deleteLookupFileRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiDeleteLookupFileResponseV1FromJSON(jsonValue));
     }
@@ -770,9 +820,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete Parser in NGSIEM
+     * Creates request options for deleteParser without sending the request
      */
-    async deleteParserRaw(requestParameters: NgsiemApiDeleteParserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiDeleteParserResponseV1>> {
+    async deleteParserRequestOpts(requestParameters: NgsiemApiDeleteParserRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -790,15 +840,22 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-parsers:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem-content/entities/parsers/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem-content/entities/parsers/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete Parser in NGSIEM
+     */
+    async deleteParserRaw(requestParameters: NgsiemApiDeleteParserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiDeleteParserResponseV1>> {
+        const requestOptions = await this.deleteParserRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiDeleteParserResponseV1FromJSON(jsonValue));
     }
@@ -812,12 +869,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete Saved Query in NGSIEM
+     * Creates request options for deleteSavedQuery without sending the request
      */
-    async deleteSavedQueryRaw(
-        requestParameters: NgsiemApiDeleteSavedQueryRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiDeleteSavedQueryResponseV1>> {
+    async deleteSavedQueryRequestOpts(requestParameters: NgsiemApiDeleteSavedQueryRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -835,15 +889,25 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-saved-queries:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem-content/entities/savedqueries/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem-content/entities/savedqueries/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete Saved Query in NGSIEM
+     */
+    async deleteSavedQueryRaw(
+        requestParameters: NgsiemApiDeleteSavedQueryRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiDeleteSavedQueryResponseV1>> {
+        const requestOptions = await this.deleteSavedQueryRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiDeleteSavedQueryResponseV1FromJSON(jsonValue));
     }
@@ -857,12 +921,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create a new data connection
+     * Creates request options for externalCreateDataConnection without sending the request
      */
-    async externalCreateDataConnectionRaw(
-        requestParameters: NgsiemApiExternalCreateDataConnectionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DataconnectionmanagementGenericResourcesResponse>> {
+    async externalCreateDataConnectionRequestOpts(requestParameters: NgsiemApiExternalCreateDataConnectionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling externalCreateDataConnection().');
         }
@@ -878,16 +939,26 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-data-connections:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem/entities/connections/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DataconnectionmanagementCreateDataConnectionRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem/entities/connections/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DataconnectionmanagementCreateDataConnectionRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create a new data connection
+     */
+    async externalCreateDataConnectionRaw(
+        requestParameters: NgsiemApiExternalCreateDataConnectionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DataconnectionmanagementGenericResourcesResponse>> {
+        const requestOptions = await this.externalCreateDataConnectionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DataconnectionmanagementGenericResourcesResponseFromJSON(jsonValue));
     }
@@ -904,12 +975,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete a data connection
+     * Creates request options for externalDeleteDataConnection without sending the request
      */
-    async externalDeleteDataConnectionRaw(
-        requestParameters: NgsiemApiExternalDeleteDataConnectionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaReplyAffectedEntities>> {
+    async externalDeleteDataConnectionRequestOpts(requestParameters: NgsiemApiExternalDeleteDataConnectionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling externalDeleteDataConnection().');
         }
@@ -927,15 +995,25 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-data-connections:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem/entities/connections/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem/entities/connections/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a data connection
+     */
+    async externalDeleteDataConnectionRaw(
+        requestParameters: NgsiemApiExternalDeleteDataConnectionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaReplyAffectedEntities>> {
+        const requestOptions = await this.externalDeleteDataConnectionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyAffectedEntitiesFromJSON(jsonValue));
     }
@@ -949,12 +1027,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get data connection by ID
+     * Creates request options for externalGetDataConnectionByID without sending the request
      */
-    async externalGetDataConnectionByIDRaw(
-        requestParameters: NgsiemApiExternalGetDataConnectionByIDRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DataconnectionmanagementDataConnectionResponse>> {
+    async externalGetDataConnectionByIDRequestOpts(requestParameters: NgsiemApiExternalGetDataConnectionByIDRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling externalGetDataConnectionByID().');
         }
@@ -972,15 +1047,25 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-data-connections:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem/entities/connections/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem/entities/connections/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get data connection by ID
+     */
+    async externalGetDataConnectionByIDRaw(
+        requestParameters: NgsiemApiExternalGetDataConnectionByIDRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DataconnectionmanagementDataConnectionResponse>> {
+        const requestOptions = await this.externalGetDataConnectionByIDRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DataconnectionmanagementDataConnectionResponseFromJSON(jsonValue));
     }
@@ -994,12 +1079,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get data connection provisioning status
+     * Creates request options for externalGetDataConnectionStatus without sending the request
      */
-    async externalGetDataConnectionStatusRaw(
-        requestParameters: NgsiemApiExternalGetDataConnectionStatusRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DataconnectionmanagementConnectionStatusResponse>> {
+    async externalGetDataConnectionStatusRequestOpts(requestParameters: NgsiemApiExternalGetDataConnectionStatusRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling externalGetDataConnectionStatus().');
         }
@@ -1017,15 +1099,25 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-data-connections:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem/entities/connections/status/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem/entities/connections/status/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get data connection provisioning status
+     */
+    async externalGetDataConnectionStatusRaw(
+        requestParameters: NgsiemApiExternalGetDataConnectionStatusRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DataconnectionmanagementConnectionStatusResponse>> {
+        const requestOptions = await this.externalGetDataConnectionStatusRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DataconnectionmanagementConnectionStatusResponseFromJSON(jsonValue));
     }
@@ -1039,12 +1131,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Ingest token for data connection
+     * Creates request options for externalGetDataConnectionToken without sending the request
      */
-    async externalGetDataConnectionTokenRaw(
-        requestParameters: NgsiemApiExternalGetDataConnectionTokenRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DataconnectionmanagementConnectionTokenResponse>> {
+    async externalGetDataConnectionTokenRequestOpts(requestParameters: NgsiemApiExternalGetDataConnectionTokenRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling externalGetDataConnectionToken().');
         }
@@ -1062,15 +1151,25 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-data-connections:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem/entities/connections/token/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem/entities/connections/token/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get Ingest token for data connection
+     */
+    async externalGetDataConnectionTokenRaw(
+        requestParameters: NgsiemApiExternalGetDataConnectionTokenRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DataconnectionmanagementConnectionTokenResponse>> {
+        const requestOptions = await this.externalGetDataConnectionTokenRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DataconnectionmanagementConnectionTokenResponseFromJSON(jsonValue));
     }
@@ -1084,12 +1183,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * List configurations for a data connector
+     * Creates request options for externalListConnectorConfigs without sending the request
      */
-    async externalListConnectorConfigsRaw(
-        requestParameters: NgsiemApiExternalListConnectorConfigsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DataconnectionmanagementConfigResponse>> {
+    async externalListConnectorConfigsRequestOpts(requestParameters: NgsiemApiExternalListConnectorConfigsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling externalListConnectorConfigs().');
         }
@@ -1107,15 +1203,25 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-data-connections:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem/entities/connectors/configs/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem/entities/connectors/configs/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List configurations for a data connector
+     */
+    async externalListConnectorConfigsRaw(
+        requestParameters: NgsiemApiExternalListConnectorConfigsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DataconnectionmanagementConfigResponse>> {
+        const requestOptions = await this.externalListConnectorConfigsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DataconnectionmanagementConfigResponseFromJSON(jsonValue));
     }
@@ -1129,12 +1235,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * List and search data connections
+     * Creates request options for externalListDataConnections without sending the request
      */
-    async externalListDataConnectionsRaw(
-        requestParameters: NgsiemApiExternalListDataConnectionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DataconnectionmanagementDataConnectionResponse>> {
+    async externalListDataConnectionsRequestOpts(requestParameters: NgsiemApiExternalListDataConnectionsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1160,15 +1263,25 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-data-connections:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem/combined/connections/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem/combined/connections/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List and search data connections
+     */
+    async externalListDataConnectionsRaw(
+        requestParameters: NgsiemApiExternalListDataConnectionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DataconnectionmanagementDataConnectionResponse>> {
+        const requestOptions = await this.externalListDataConnectionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DataconnectionmanagementDataConnectionResponseFromJSON(jsonValue));
     }
@@ -1188,12 +1301,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * List available data connectors
+     * Creates request options for externalListDataConnectors without sending the request
      */
-    async externalListDataConnectorsRaw(
-        requestParameters: NgsiemApiExternalListDataConnectorsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DataconnectionmanagementDataConnectorResponse>> {
+    async externalListDataConnectorsRequestOpts(requestParameters: NgsiemApiExternalListDataConnectorsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1219,15 +1329,25 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-data-connections:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem/combined/connectors/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem/combined/connectors/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List available data connectors
+     */
+    async externalListDataConnectorsRaw(
+        requestParameters: NgsiemApiExternalListDataConnectorsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DataconnectionmanagementDataConnectorResponse>> {
+        const requestOptions = await this.externalListDataConnectorsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DataconnectionmanagementDataConnectorResponseFromJSON(jsonValue));
     }
@@ -1247,12 +1367,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Regenerate Ingest token for data connection
+     * Creates request options for externalRegenerateDataConnectionToken without sending the request
      */
-    async externalRegenerateDataConnectionTokenRaw(
-        requestParameters: NgsiemApiExternalRegenerateDataConnectionTokenRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DataconnectionmanagementConnectionTokenResponse>> {
+    async externalRegenerateDataConnectionTokenRequestOpts(requestParameters: NgsiemApiExternalRegenerateDataConnectionTokenRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling externalRegenerateDataConnectionToken().');
         }
@@ -1270,15 +1387,25 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-data-connections:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem/entities/connections/token/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem/entities/connections/token/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Regenerate Ingest token for data connection
+     */
+    async externalRegenerateDataConnectionTokenRaw(
+        requestParameters: NgsiemApiExternalRegenerateDataConnectionTokenRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DataconnectionmanagementConnectionTokenResponse>> {
+        const requestOptions = await this.externalRegenerateDataConnectionTokenRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DataconnectionmanagementConnectionTokenResponseFromJSON(jsonValue));
     }
@@ -1292,12 +1419,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update a data connection
+     * Creates request options for externalUpdateDataConnection without sending the request
      */
-    async externalUpdateDataConnectionRaw(
-        requestParameters: NgsiemApiExternalUpdateDataConnectionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaReplyAffectedEntities>> {
+    async externalUpdateDataConnectionRequestOpts(requestParameters: NgsiemApiExternalUpdateDataConnectionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling externalUpdateDataConnection().');
         }
@@ -1321,16 +1445,26 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-data-connections:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem/entities/connections/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DataconnectionmanagementUpdateDataConnectionRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem/entities/connections/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DataconnectionmanagementUpdateDataConnectionRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update a data connection
+     */
+    async externalUpdateDataConnectionRaw(
+        requestParameters: NgsiemApiExternalUpdateDataConnectionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaReplyAffectedEntities>> {
+        const requestOptions = await this.externalUpdateDataConnectionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyAffectedEntitiesFromJSON(jsonValue));
     }
@@ -1348,12 +1482,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update data connection status
+     * Creates request options for externalUpdateDataConnectionStatus without sending the request
      */
-    async externalUpdateDataConnectionStatusRaw(
-        requestParameters: NgsiemApiExternalUpdateDataConnectionStatusRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DataconnectionmanagementConnectionStatusResponse>> {
+    async externalUpdateDataConnectionStatusRequestOpts(requestParameters: NgsiemApiExternalUpdateDataConnectionStatusRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling externalUpdateDataConnectionStatus().');
         }
@@ -1377,16 +1508,26 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-data-connections:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem/entities/connections/status/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DataconnectionmanagementUpdateDataConnectionStatusRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem/entities/connections/status/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DataconnectionmanagementUpdateDataConnectionStatusRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update data connection status
+     */
+    async externalUpdateDataConnectionStatusRaw(
+        requestParameters: NgsiemApiExternalUpdateDataConnectionStatusRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DataconnectionmanagementConnectionStatusResponse>> {
+        const requestOptions = await this.externalUpdateDataConnectionStatusRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DataconnectionmanagementConnectionStatusResponseFromJSON(jsonValue));
     }
@@ -1404,12 +1545,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve Dashboard in NGSIEM as LogScale YAML Template
+     * Creates request options for getDashboardTemplate without sending the request
      */
-    async getDashboardTemplateRaw(
-        requestParameters: NgsiemApiGetDashboardTemplateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiGetDashboardTemplateResponseV1>> {
+    async getDashboardTemplateRequestOpts(requestParameters: NgsiemApiGetDashboardTemplateRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -1427,15 +1565,25 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-dashboards:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem-content/entities/dashboards-template/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem-content/entities/dashboards-template/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve Dashboard in NGSIEM as LogScale YAML Template
+     */
+    async getDashboardTemplateRaw(
+        requestParameters: NgsiemApiGetDashboardTemplateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiGetDashboardTemplateResponseV1>> {
+        const requestOptions = await this.getDashboardTemplateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiGetDashboardTemplateResponseV1FromJSON(jsonValue));
     }
@@ -1453,9 +1601,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve Lookup File in NGSIEM
+     * Creates request options for getLookupFile without sending the request
      */
-    async getLookupFileRaw(requestParameters: NgsiemApiGetLookupFileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async getLookupFileRequestOpts(requestParameters: NgsiemApiGetLookupFileRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filename"] != null) {
@@ -1473,15 +1621,22 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-lookup-files:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem-content/entities/lookupfiles/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem-content/entities/lookupfiles/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve Lookup File in NGSIEM
+     */
+    async getLookupFileRaw(requestParameters: NgsiemApiGetLookupFileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.getLookupFileRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -1494,9 +1649,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Download lookup file in package from NGSIEM
+     * Creates request options for getLookupFromPackageV1 without sending the request
      */
-    async getLookupFromPackageV1Raw(requestParameters: NgsiemApiGetLookupFromPackageV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async getLookupFromPackageV1RequestOpts(requestParameters: NgsiemApiGetLookupFromPackageV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["repository"] == null) {
             throw new runtime.RequiredError("repository", 'Required parameter "repository" was null or undefined when calling getLookupFromPackageV1().');
         }
@@ -1518,18 +1673,25 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["humio-auth-proxy:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/humio/api/v1/repositories/{repository}/files/{package}/{filename}`
-                    .replace(`{${"repository"}}`, encodeURIComponent(String(requestParameters["repository"])))
-                    .replace(`{${"package"}}`, encodeURIComponent(String(requestParameters["_package"])))
-                    .replace(`{${"filename"}}`, encodeURIComponent(String(requestParameters["filename"]))),
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/humio/api/v1/repositories/{repository}/files/{package}/{filename}`;
+        urlPath = urlPath.replace(`{${"repository"}}`, encodeURIComponent(String(requestParameters["repository"])));
+        urlPath = urlPath.replace(`{${"package"}}`, encodeURIComponent(String(requestParameters["_package"])));
+        urlPath = urlPath.replace(`{${"filename"}}`, encodeURIComponent(String(requestParameters["filename"])));
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Download lookup file in package from NGSIEM
+     */
+    async getLookupFromPackageV1Raw(requestParameters: NgsiemApiGetLookupFromPackageV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.getLookupFromPackageV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -1542,12 +1704,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Download lookup file in namespaced package from NGSIEM
+     * Creates request options for getLookupFromPackageWithNamespaceV1 without sending the request
      */
-    async getLookupFromPackageWithNamespaceV1Raw(
-        requestParameters: NgsiemApiGetLookupFromPackageWithNamespaceV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<void>> {
+    async getLookupFromPackageWithNamespaceV1RequestOpts(requestParameters: NgsiemApiGetLookupFromPackageWithNamespaceV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["repository"] == null) {
             throw new runtime.RequiredError("repository", 'Required parameter "repository" was null or undefined when calling getLookupFromPackageWithNamespaceV1().');
         }
@@ -1573,19 +1732,29 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["humio-auth-proxy:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/humio/api/v1/repositories/{repository}/files/{namespace}/{package}/{filename}`
-                    .replace(`{${"repository"}}`, encodeURIComponent(String(requestParameters["repository"])))
-                    .replace(`{${"namespace"}}`, encodeURIComponent(String(requestParameters["namespace"])))
-                    .replace(`{${"package"}}`, encodeURIComponent(String(requestParameters["_package"])))
-                    .replace(`{${"filename"}}`, encodeURIComponent(String(requestParameters["filename"]))),
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/humio/api/v1/repositories/{repository}/files/{namespace}/{package}/{filename}`;
+        urlPath = urlPath.replace(`{${"repository"}}`, encodeURIComponent(String(requestParameters["repository"])));
+        urlPath = urlPath.replace(`{${"namespace"}}`, encodeURIComponent(String(requestParameters["namespace"])));
+        urlPath = urlPath.replace(`{${"package"}}`, encodeURIComponent(String(requestParameters["_package"])));
+        urlPath = urlPath.replace(`{${"filename"}}`, encodeURIComponent(String(requestParameters["filename"])));
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Download lookup file in namespaced package from NGSIEM
+     */
+    async getLookupFromPackageWithNamespaceV1Raw(
+        requestParameters: NgsiemApiGetLookupFromPackageWithNamespaceV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.getLookupFromPackageWithNamespaceV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -1598,9 +1767,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Download lookup file from NGSIEM
+     * Creates request options for getLookupV1 without sending the request
      */
-    async getLookupV1Raw(requestParameters: NgsiemApiGetLookupV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async getLookupV1RequestOpts(requestParameters: NgsiemApiGetLookupV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["repository"] == null) {
             throw new runtime.RequiredError("repository", 'Required parameter "repository" was null or undefined when calling getLookupV1().');
         }
@@ -1618,17 +1787,24 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["humio-auth-proxy:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/humio/api/v1/repositories/{repository}/files/{filename}`
-                    .replace(`{${"repository"}}`, encodeURIComponent(String(requestParameters["repository"])))
-                    .replace(`{${"filename"}}`, encodeURIComponent(String(requestParameters["filename"]))),
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/humio/api/v1/repositories/{repository}/files/{filename}`;
+        urlPath = urlPath.replace(`{${"repository"}}`, encodeURIComponent(String(requestParameters["repository"])));
+        urlPath = urlPath.replace(`{${"filename"}}`, encodeURIComponent(String(requestParameters["filename"])));
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Download lookup file from NGSIEM
+     */
+    async getLookupV1Raw(requestParameters: NgsiemApiGetLookupV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.getLookupV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -1641,10 +1817,10 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve Parser in NGSIEM. This endpoint has been deprecated in favour of the GET /entities/parsers-template/v1 API.
+     * Creates request options for getParser without sending the request
      * @deprecated
      */
-    async getParserRaw(requestParameters: NgsiemApiGetParserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiGetParserResponseV1>> {
+    async getParserRequestOpts(requestParameters: NgsiemApiGetParserRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -1662,15 +1838,23 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-parsers:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem-content/entities/parsers/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem-content/entities/parsers/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve Parser in NGSIEM. This endpoint has been deprecated in favour of the GET /entities/parsers-template/v1 API.
+     * @deprecated
+     */
+    async getParserRaw(requestParameters: NgsiemApiGetParserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiGetParserResponseV1>> {
+        const requestOptions = await this.getParserRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiGetParserResponseV1FromJSON(jsonValue));
     }
@@ -1685,12 +1869,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve Parser in NGSIEM as LogScale YAML Template
+     * Creates request options for getParserTemplate without sending the request
      */
-    async getParserTemplateRaw(
-        requestParameters: NgsiemApiGetParserTemplateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiGetParserTemplateResponseV1>> {
+    async getParserTemplateRequestOpts(requestParameters: NgsiemApiGetParserTemplateRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -1708,15 +1889,25 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-parsers:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem-content/entities/parsers-template/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem-content/entities/parsers-template/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve Parser in NGSIEM as LogScale YAML Template
+     */
+    async getParserTemplateRaw(
+        requestParameters: NgsiemApiGetParserTemplateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiGetParserTemplateResponseV1>> {
+        const requestOptions = await this.getParserTemplateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiGetParserTemplateResponseV1FromJSON(jsonValue));
     }
@@ -1730,12 +1921,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve Saved Query in NGSIEM as LogScale YAML Template
+     * Creates request options for getSavedQueryTemplate without sending the request
      */
-    async getSavedQueryTemplateRaw(
-        requestParameters: NgsiemApiGetSavedQueryTemplateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiGetSavedQueryResponseV1>> {
+    async getSavedQueryTemplateRequestOpts(requestParameters: NgsiemApiGetSavedQueryTemplateRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -1753,15 +1941,25 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-saved-queries:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem-content/entities/savedqueries-template/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem-content/entities/savedqueries-template/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve Saved Query in NGSIEM as LogScale YAML Template
+     */
+    async getSavedQueryTemplateRaw(
+        requestParameters: NgsiemApiGetSavedQueryTemplateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiGetSavedQueryResponseV1>> {
+        const requestOptions = await this.getSavedQueryTemplateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiGetSavedQueryResponseV1FromJSON(jsonValue));
     }
@@ -1775,9 +1973,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get status of search
+     * Creates request options for getSearchStatusV1 without sending the request
      */
-    async getSearchStatusV1Raw(requestParameters: NgsiemApiGetSearchStatusV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiQueryJobsResults>> {
+    async getSearchStatusV1RequestOpts(requestParameters: NgsiemApiGetSearchStatusV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["repository"] == null) {
             throw new runtime.RequiredError("repository", 'Required parameter "repository" was null or undefined when calling getSearchStatusV1().');
         }
@@ -1795,17 +1993,24 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["humio-auth-proxy:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/humio/api/v1/repositories/{repository}/queryjobs/{id}`
-                    .replace(`{${"repository"}}`, encodeURIComponent(String(requestParameters["repository"])))
-                    .replace(`{${"id"}}`, encodeURIComponent(String(requestParameters["id"]))),
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/humio/api/v1/repositories/{repository}/queryjobs/{id}`;
+        urlPath = urlPath.replace(`{${"repository"}}`, encodeURIComponent(String(requestParameters["repository"])));
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters["id"])));
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get status of search
+     */
+    async getSearchStatusV1Raw(requestParameters: NgsiemApiGetSearchStatusV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiQueryJobsResults>> {
+        const requestOptions = await this.getSearchStatusV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiQueryJobsResultsFromJSON(jsonValue));
     }
@@ -1819,9 +2024,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * List Dashboards in NGSIEM
+     * Creates request options for listDashboards without sending the request
      */
-    async listDashboardsRaw(requestParameters: NgsiemApiListDashboardsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiListDashboardsResponseV1>> {
+    async listDashboardsRequestOpts(requestParameters: NgsiemApiListDashboardsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["limit"] != null) {
@@ -1847,15 +2052,22 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-dashboards:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem-content/queries/dashboards/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem-content/queries/dashboards/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List Dashboards in NGSIEM
+     */
+    async listDashboardsRaw(requestParameters: NgsiemApiListDashboardsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiListDashboardsResponseV1>> {
+        const requestOptions = await this.listDashboardsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiListDashboardsResponseV1FromJSON(jsonValue));
     }
@@ -1875,12 +2087,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * List Lookup Files in NGSIEM
+     * Creates request options for listLookupFiles without sending the request
      */
-    async listLookupFilesRaw(
-        requestParameters: NgsiemApiListLookupFilesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiListLookupFilesResponseV1>> {
+    async listLookupFilesRequestOpts(requestParameters: NgsiemApiListLookupFilesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["limit"] != null) {
@@ -1906,15 +2115,25 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-lookup-files:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem-content/queries/lookupfiles/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem-content/queries/lookupfiles/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List Lookup Files in NGSIEM
+     */
+    async listLookupFilesRaw(
+        requestParameters: NgsiemApiListLookupFilesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiListLookupFilesResponseV1>> {
+        const requestOptions = await this.listLookupFilesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiListLookupFilesResponseV1FromJSON(jsonValue));
     }
@@ -1934,9 +2153,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * List Parsers in NGSIEM
+     * Creates request options for listParsers without sending the request
      */
-    async listParsersRaw(requestParameters: NgsiemApiListParsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiListParsersResponseV1>> {
+    async listParsersRequestOpts(requestParameters: NgsiemApiListParsersRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["limit"] != null) {
@@ -1962,15 +2181,22 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-parsers:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem-content/queries/parsers/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem-content/queries/parsers/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List Parsers in NGSIEM
+     */
+    async listParsersRaw(requestParameters: NgsiemApiListParsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiListParsersResponseV1>> {
+        const requestOptions = await this.listParsersRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiListParsersResponseV1FromJSON(jsonValue));
     }
@@ -1990,12 +2216,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Saved Queries in NGSIEM
+     * Creates request options for listSavedQueries without sending the request
      */
-    async listSavedQueriesRaw(
-        requestParameters: NgsiemApiListSavedQueriesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiListSavedQueriesResponseV1>> {
+    async listSavedQueriesRequestOpts(requestParameters: NgsiemApiListSavedQueriesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["limit"] != null) {
@@ -2021,15 +2244,25 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-saved-queries:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem-content/queries/savedqueries/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem-content/queries/savedqueries/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get Saved Queries in NGSIEM
+     */
+    async listSavedQueriesRaw(
+        requestParameters: NgsiemApiListSavedQueriesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiListSavedQueriesResponseV1>> {
+        const requestOptions = await this.listSavedQueriesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiListSavedQueriesResponseV1FromJSON(jsonValue));
     }
@@ -2049,9 +2282,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Initiate search
+     * Creates request options for startSearchV1 without sending the request
      */
-    async startSearchV1Raw(requestParameters: NgsiemApiStartSearchV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiQueryJobResponse>> {
+    async startSearchV1RequestOpts(requestParameters: NgsiemApiStartSearchV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["repository"] == null) {
             throw new runtime.RequiredError("repository", 'Required parameter "repository" was null or undefined when calling startSearchV1().');
         }
@@ -2071,16 +2304,24 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["humio-auth-proxy:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/humio/api/v1/repositories/{repository}/queryjobs`.replace(`{${"repository"}}`, encodeURIComponent(String(requestParameters["repository"]))),
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiQueryJobInputToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/humio/api/v1/repositories/{repository}/queryjobs`;
+        urlPath = urlPath.replace(`{${"repository"}}`, encodeURIComponent(String(requestParameters["repository"])));
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiQueryJobInputToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Initiate search
+     */
+    async startSearchV1Raw(requestParameters: NgsiemApiStartSearchV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiQueryJobResponse>> {
+        const requestOptions = await this.startSearchV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiQueryJobResponseFromJSON(jsonValue));
     }
@@ -2094,9 +2335,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Stop search
+     * Creates request options for stopSearchV1 without sending the request
      */
-    async stopSearchV1Raw(requestParameters: NgsiemApiStopSearchV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async stopSearchV1RequestOpts(requestParameters: NgsiemApiStopSearchV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["repository"] == null) {
             throw new runtime.RequiredError("repository", 'Required parameter "repository" was null or undefined when calling stopSearchV1().');
         }
@@ -2114,17 +2355,24 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["humio-auth-proxy:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/humio/api/v1/repositories/{repository}/queryjobs/{id}`
-                    .replace(`{${"repository"}}`, encodeURIComponent(String(requestParameters["repository"])))
-                    .replace(`{${"id"}}`, encodeURIComponent(String(requestParameters["id"]))),
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/humio/api/v1/repositories/{repository}/queryjobs/{id}`;
+        urlPath = urlPath.replace(`{${"repository"}}`, encodeURIComponent(String(requestParameters["repository"])));
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters["id"])));
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Stop search
+     */
+    async stopSearchV1Raw(requestParameters: NgsiemApiStopSearchV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.stopSearchV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -2137,12 +2385,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update Dashboard from LogScale YAML Template in NGSIEM.
+     * Creates request options for updateDashboardFromTemplate without sending the request
      */
-    async updateDashboardFromTemplateRaw(
-        requestParameters: NgsiemApiUpdateDashboardFromTemplateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiUpdateDashboardFromTemplateResponseV1>> {
+    async updateDashboardFromTemplateRequestOpts(requestParameters: NgsiemApiUpdateDashboardFromTemplateRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -2178,16 +2423,26 @@ export class NgsiemApi extends runtime.BaseAPI {
             formParams.append("yaml_template", requestParameters["yamlTemplate"] as any);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem-content/entities/dashboards-template/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: formParams,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem-content/entities/dashboards-template/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        };
+    }
+
+    /**
+     * Update Dashboard from LogScale YAML Template in NGSIEM.
+     */
+    async updateDashboardFromTemplateRaw(
+        requestParameters: NgsiemApiUpdateDashboardFromTemplateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiUpdateDashboardFromTemplateResponseV1>> {
+        const requestOptions = await this.updateDashboardFromTemplateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiUpdateDashboardFromTemplateResponseV1FromJSON(jsonValue));
     }
@@ -2206,12 +2461,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update an entire Lookup File in NGSIEM
+     * Creates request options for updateLookupFile without sending the request
      */
-    async updateLookupFileRaw(
-        requestParameters: NgsiemApiUpdateLookupFileRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiUpdateLookupFileResponseV1>> {
+    async updateLookupFileRequestOpts(requestParameters: NgsiemApiUpdateLookupFileRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -2247,16 +2499,26 @@ export class NgsiemApi extends runtime.BaseAPI {
             formParams.append("file", requestParameters["file"] as any);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem-content/entities/lookupfiles/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: formParams,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem-content/entities/lookupfiles/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        };
+    }
+
+    /**
+     * Update an entire Lookup File in NGSIEM
+     */
+    async updateLookupFileRaw(
+        requestParameters: NgsiemApiUpdateLookupFileRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiUpdateLookupFileResponseV1>> {
+        const requestOptions = await this.updateLookupFileRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiUpdateLookupFileResponseV1FromJSON(jsonValue));
     }
@@ -2275,12 +2537,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update entries in an existing Lookup File in NGSIEM
+     * Creates request options for updateLookupFileEntries without sending the request
      */
-    async updateLookupFileEntriesRaw(
-        requestParameters: NgsiemApiUpdateLookupFileEntriesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiUpdateLookupFileEntriesResponseV1>> {
+    async updateLookupFileEntriesRequestOpts(requestParameters: NgsiemApiUpdateLookupFileEntriesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -2328,16 +2587,26 @@ export class NgsiemApi extends runtime.BaseAPI {
             formParams.append("ignore_case", requestParameters["ignoreCase"] as any);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem-content/entities/lookupfiles-entries/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: formParams,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem-content/entities/lookupfiles-entries/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        };
+    }
+
+    /**
+     * Update entries in an existing Lookup File in NGSIEM
+     */
+    async updateLookupFileEntriesRaw(
+        requestParameters: NgsiemApiUpdateLookupFileEntriesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiUpdateLookupFileEntriesResponseV1>> {
+        const requestOptions = await this.updateLookupFileEntriesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiUpdateLookupFileEntriesResponseV1FromJSON(jsonValue));
     }
@@ -2362,10 +2631,10 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update Parser in NGSIEM. Please note that name changes are not supported, but rather should be created as a new parser.  This endpoint has been deprecated in favour of the PATCH /entities/parsers-template/v1 API.
+     * Creates request options for updateParser without sending the request
      * @deprecated
      */
-    async updateParserRaw(requestParameters: NgsiemApiUpdateParserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiUpdateParserResponseV1>> {
+    async updateParserRequestOpts(requestParameters: NgsiemApiUpdateParserRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateParser().');
         }
@@ -2381,16 +2650,24 @@ export class NgsiemApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-parsers:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem-content/entities/parsers/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiUpdateParserRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem-content/entities/parsers/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiUpdateParserRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update Parser in NGSIEM. Please note that name changes are not supported, but rather should be created as a new parser.  This endpoint has been deprecated in favour of the PATCH /entities/parsers-template/v1 API.
+     * @deprecated
+     */
+    async updateParserRaw(requestParameters: NgsiemApiUpdateParserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiUpdateParserResponseV1>> {
+        const requestOptions = await this.updateParserRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiUpdateParserResponseV1FromJSON(jsonValue));
     }
@@ -2405,12 +2682,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update Parser in NGSIEM from YAML Template. Please note that name changes are not supported, but rather should be created as a new parser.
+     * Creates request options for updateParserFromTemplate without sending the request
      */
-    async updateParserFromTemplateRaw(
-        requestParameters: NgsiemApiUpdateParserFromTemplateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiUpdateParserFromTemplateResponseV1>> {
+    async updateParserFromTemplateRequestOpts(requestParameters: NgsiemApiUpdateParserFromTemplateRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -2446,16 +2720,26 @@ export class NgsiemApi extends runtime.BaseAPI {
             formParams.append("yaml_template", requestParameters["yamlTemplate"] as any);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem-content/entities/parsers-template/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: formParams,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem-content/entities/parsers-template/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        };
+    }
+
+    /**
+     * Update Parser in NGSIEM from YAML Template. Please note that name changes are not supported, but rather should be created as a new parser.
+     */
+    async updateParserFromTemplateRaw(
+        requestParameters: NgsiemApiUpdateParserFromTemplateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiUpdateParserFromTemplateResponseV1>> {
+        const requestOptions = await this.updateParserFromTemplateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiUpdateParserFromTemplateResponseV1FromJSON(jsonValue));
     }
@@ -2474,12 +2758,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update Saved Query from LogScale YAML Template in NGSIEM.
+     * Creates request options for updateSavedQueryFromTemplate without sending the request
      */
-    async updateSavedQueryFromTemplateRaw(
-        requestParameters: NgsiemApiUpdateSavedQueryFromTemplateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiUpdateSavedQueryResponseV1>> {
+    async updateSavedQueryFromTemplateRequestOpts(requestParameters: NgsiemApiUpdateSavedQueryFromTemplateRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -2515,16 +2796,26 @@ export class NgsiemApi extends runtime.BaseAPI {
             formParams.append("yaml_template", requestParameters["yamlTemplate"] as any);
         }
 
-        const response = await this.request(
-            {
-                path: `/ngsiem-content/entities/savedqueries-template/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: formParams,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ngsiem-content/entities/savedqueries-template/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        };
+    }
+
+    /**
+     * Update Saved Query from LogScale YAML Template in NGSIEM.
+     */
+    async updateSavedQueryFromTemplateRaw(
+        requestParameters: NgsiemApiUpdateSavedQueryFromTemplateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiUpdateSavedQueryResponseV1>> {
+        const requestOptions = await this.updateSavedQueryFromTemplateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiUpdateSavedQueryResponseV1FromJSON(jsonValue));
     }
@@ -2543,9 +2834,9 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Upload file to NGSIEM
+     * Creates request options for uploadLookupV1 without sending the request
      */
-    async uploadLookupV1Raw(requestParameters: NgsiemApiUploadLookupV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async uploadLookupV1RequestOpts(requestParameters: NgsiemApiUploadLookupV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["repository"] == null) {
             throw new runtime.RequiredError("repository", 'Required parameter "repository" was null or undefined when calling uploadLookupV1().');
         }
@@ -2581,16 +2872,24 @@ export class NgsiemApi extends runtime.BaseAPI {
             formParams.append("file", requestParameters["file"] as any);
         }
 
-        const response = await this.request(
-            {
-                path: `/humio/api/v1/repositories/{repository}/files`.replace(`{${"repository"}}`, encodeURIComponent(String(requestParameters["repository"]))),
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: formParams,
-            },
-            initOverrides,
-        );
+        let urlPath = `/humio/api/v1/repositories/{repository}/files`;
+        urlPath = urlPath.replace(`{${"repository"}}`, encodeURIComponent(String(requestParameters["repository"])));
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        };
+    }
+
+    /**
+     * Upload file to NGSIEM
+     */
+    async uploadLookupV1Raw(requestParameters: NgsiemApiUploadLookupV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.uploadLookupV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }

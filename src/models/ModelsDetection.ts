@@ -120,10 +120,15 @@ export function ModelsDetectionFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function ModelsDetectionToJSON(value?: ModelsDetection | null): any {
+export function ModelsDetectionToJSON(json: any): ModelsDetection {
+    return ModelsDetectionToJSONTyped(json, false);
+}
+
+export function ModelsDetectionToJSONTyped(value?: ModelsDetection | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         details: value["details"],

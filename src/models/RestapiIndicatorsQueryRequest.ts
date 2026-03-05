@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { RestapiIndicatorsQuerySortRequest } from "./RestapiIndicatorsQuerySortRequest";
-import { RestapiIndicatorsQuerySortRequestFromJSON, RestapiIndicatorsQuerySortRequestFromJSONTyped, RestapiIndicatorsQuerySortRequestToJSON } from "./RestapiIndicatorsQuerySortRequest";
+import {
+    RestapiIndicatorsQuerySortRequestFromJSON,
+    RestapiIndicatorsQuerySortRequestFromJSONTyped,
+    RestapiIndicatorsQuerySortRequestToJSON,
+    RestapiIndicatorsQuerySortRequestToJSONTyped,
+} from "./RestapiIndicatorsQuerySortRequest";
 
 /**
  *
@@ -59,10 +64,15 @@ export function RestapiIndicatorsQueryRequestFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function RestapiIndicatorsQueryRequestToJSON(value?: RestapiIndicatorsQueryRequest | null): any {
+export function RestapiIndicatorsQueryRequestToJSON(json: any): RestapiIndicatorsQueryRequest {
+    return RestapiIndicatorsQueryRequestToJSONTyped(json, false);
+}
+
+export function RestapiIndicatorsQueryRequestToJSONTyped(value?: RestapiIndicatorsQueryRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         filter: value["filter"],
         sort: (value["sort"] as Array<any>).map(RestapiIndicatorsQuerySortRequestToJSON),

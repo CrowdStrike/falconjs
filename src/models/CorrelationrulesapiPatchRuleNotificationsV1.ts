@@ -18,6 +18,7 @@ import {
     CorrelationrulesapiPatchRuleNotificationConfigV1FromJSON,
     CorrelationrulesapiPatchRuleNotificationConfigV1FromJSONTyped,
     CorrelationrulesapiPatchRuleNotificationConfigV1ToJSON,
+    CorrelationrulesapiPatchRuleNotificationConfigV1ToJSONTyped,
 } from "./CorrelationrulesapiPatchRuleNotificationConfigV1";
 
 /**
@@ -68,10 +69,15 @@ export function CorrelationrulesapiPatchRuleNotificationsV1FromJSONTyped(json: a
     };
 }
 
-export function CorrelationrulesapiPatchRuleNotificationsV1ToJSON(value?: CorrelationrulesapiPatchRuleNotificationsV1 | null): any {
+export function CorrelationrulesapiPatchRuleNotificationsV1ToJSON(json: any): CorrelationrulesapiPatchRuleNotificationsV1 {
+    return CorrelationrulesapiPatchRuleNotificationsV1ToJSONTyped(json, false);
+}
+
+export function CorrelationrulesapiPatchRuleNotificationsV1ToJSONTyped(value?: CorrelationrulesapiPatchRuleNotificationsV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         config: CorrelationrulesapiPatchRuleNotificationConfigV1ToJSON(value["config"]),
         options: value["options"],

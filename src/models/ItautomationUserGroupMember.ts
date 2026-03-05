@@ -64,10 +64,15 @@ export function ItautomationUserGroupMemberFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function ItautomationUserGroupMemberToJSON(value?: ItautomationUserGroupMember | null): any {
+export function ItautomationUserGroupMemberToJSON(json: any): ItautomationUserGroupMember {
+    return ItautomationUserGroupMemberToJSONTyped(json, false);
+}
+
+export function ItautomationUserGroupMemberToJSONTyped(value?: ItautomationUserGroupMember | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         created_by: value["createdBy"],
         created_time: value["createdTime"].toISOString(),

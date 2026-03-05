@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DeviceControlPolicyV1 } from "./DeviceControlPolicyV1";
-import { DeviceControlPolicyV1FromJSON, DeviceControlPolicyV1FromJSONTyped, DeviceControlPolicyV1ToJSON } from "./DeviceControlPolicyV1";
+import { DeviceControlPolicyV1FromJSON, DeviceControlPolicyV1FromJSONTyped, DeviceControlPolicyV1ToJSON, DeviceControlPolicyV1ToJSONTyped } from "./DeviceControlPolicyV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DeviceControlRespV2FromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function DeviceControlRespV2ToJSON(value?: DeviceControlRespV2 | null): any {
+export function DeviceControlRespV2ToJSON(json: any): DeviceControlRespV2 {
+    return DeviceControlRespV2ToJSONTyped(json, false);
+}
+
+export function DeviceControlRespV2ToJSONTyped(value?: DeviceControlRespV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

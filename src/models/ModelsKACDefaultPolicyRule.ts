@@ -70,10 +70,15 @@ export function ModelsKACDefaultPolicyRuleFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function ModelsKACDefaultPolicyRuleToJSON(value?: ModelsKACDefaultPolicyRule | null): any {
+export function ModelsKACDefaultPolicyRuleToJSON(json: any): ModelsKACDefaultPolicyRule {
+    return ModelsKACDefaultPolicyRuleToJSONTyped(json, false);
+}
+
+export function ModelsKACDefaultPolicyRuleToJSONTyped(value?: ModelsKACDefaultPolicyRule | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         code: value["code"],

@@ -75,10 +75,15 @@ export function FalconxParameterFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function FalconxParameterToJSON(value?: FalconxParameter | null): any {
+export function FalconxParameterToJSON(json: any): FalconxParameter {
+    return FalconxParameterToJSONTyped(json, false);
+}
+
+export function FalconxParameterToJSONTyped(value?: FalconxParameter | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         argument_number: value["argumentNumber"],
         comment: value["comment"],

@@ -68,10 +68,15 @@ export function ApiActorV1FromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function ApiActorV1ToJSON(value?: ApiActorV1 | null): any {
+export function ApiActorV1ToJSON(json: any): ApiActorV1 {
+    return ApiActorV1ToJSONTyped(json, false);
+}
+
+export function ApiActorV1ToJSONTyped(value?: ApiActorV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         client_id: value["clientId"],

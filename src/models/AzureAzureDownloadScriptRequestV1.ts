@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { AzureAzureDownloadScriptRequestData } from "./AzureAzureDownloadScriptRequestData";
-import { AzureAzureDownloadScriptRequestDataFromJSON, AzureAzureDownloadScriptRequestDataFromJSONTyped, AzureAzureDownloadScriptRequestDataToJSON } from "./AzureAzureDownloadScriptRequestData";
+import {
+    AzureAzureDownloadScriptRequestDataFromJSON,
+    AzureAzureDownloadScriptRequestDataFromJSONTyped,
+    AzureAzureDownloadScriptRequestDataToJSON,
+    AzureAzureDownloadScriptRequestDataToJSONTyped,
+} from "./AzureAzureDownloadScriptRequestData";
 
 /**
  *
@@ -51,10 +56,15 @@ export function AzureAzureDownloadScriptRequestV1FromJSONTyped(json: any, ignore
     };
 }
 
-export function AzureAzureDownloadScriptRequestV1ToJSON(value?: AzureAzureDownloadScriptRequestV1 | null): any {
+export function AzureAzureDownloadScriptRequestV1ToJSON(json: any): AzureAzureDownloadScriptRequestV1 {
+    return AzureAzureDownloadScriptRequestV1ToJSONTyped(json, false);
+}
+
+export function AzureAzureDownloadScriptRequestV1ToJSONTyped(value?: AzureAzureDownloadScriptRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(AzureAzureDownloadScriptRequestDataToJSON),
     };

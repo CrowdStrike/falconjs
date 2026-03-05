@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainValueItem } from "./DomainValueItem";
-import { DomainValueItemFromJSON, DomainValueItemFromJSONTyped, DomainValueItemToJSON } from "./DomainValueItem";
+import { DomainValueItemFromJSON, DomainValueItemFromJSONTyped, DomainValueItemToJSON, DomainValueItemToJSONTyped } from "./DomainValueItem";
 
 /**
  *
@@ -75,10 +75,15 @@ export function ApiValidationRequestFieldV1FromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function ApiValidationRequestFieldV1ToJSON(value?: ApiValidationRequestFieldV1 | null): any {
+export function ApiValidationRequestFieldV1ToJSON(json: any): ApiValidationRequestFieldV1 {
+    return ApiValidationRequestFieldV1ToJSONTyped(json, false);
+}
+
+export function ApiValidationRequestFieldV1ToJSONTyped(value?: ApiValidationRequestFieldV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
         test_data: value["testData"],

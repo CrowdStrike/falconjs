@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { QuickscanproQuotaResource } from "./QuickscanproQuotaResource";
-import { QuickscanproQuotaResourceFromJSON, QuickscanproQuotaResourceFromJSONTyped, QuickscanproQuotaResourceToJSON } from "./QuickscanproQuotaResource";
+import { QuickscanproQuotaResourceFromJSON, QuickscanproQuotaResourceFromJSONTyped, QuickscanproQuotaResourceToJSON, QuickscanproQuotaResourceToJSONTyped } from "./QuickscanproQuotaResource";
 import type { QuickscanproMetaInfo } from "./QuickscanproMetaInfo";
-import { QuickscanproMetaInfoFromJSON, QuickscanproMetaInfoFromJSONTyped, QuickscanproMetaInfoToJSON } from "./QuickscanproMetaInfo";
+import { QuickscanproMetaInfoFromJSON, QuickscanproMetaInfoFromJSONTyped, QuickscanproMetaInfoToJSON, QuickscanproMetaInfoToJSONTyped } from "./QuickscanproMetaInfo";
 
 /**
  *
@@ -77,10 +77,15 @@ export function QuickscanproQueryScanResultsResponseFromJSONTyped(json: any, ign
     };
 }
 
-export function QuickscanproQueryScanResultsResponseToJSON(value?: QuickscanproQueryScanResultsResponse | null): any {
+export function QuickscanproQueryScanResultsResponseToJSON(json: any): QuickscanproQueryScanResultsResponse {
+    return QuickscanproQueryScanResultsResponseToJSONTyped(json, false);
+}
+
+export function QuickscanproQueryScanResultsResponseToJSONTyped(value?: QuickscanproQueryScanResultsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: QuickscanproMetaInfoToJSON(value["meta"]),

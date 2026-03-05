@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { MalquerySampleMetadata } from "./MalquerySampleMetadata";
-import { MalquerySampleMetadataFromJSON, MalquerySampleMetadataFromJSONTyped, MalquerySampleMetadataToJSON } from "./MalquerySampleMetadata";
+import { MalquerySampleMetadataFromJSON, MalquerySampleMetadataFromJSONTyped, MalquerySampleMetadataToJSON, MalquerySampleMetadataToJSONTyped } from "./MalquerySampleMetadata";
 
 /**
  *
@@ -156,10 +156,15 @@ export function MalqueryExternalResourceFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function MalqueryExternalResourceToJSON(value?: MalqueryExternalResource | null): any {
+export function MalqueryExternalResourceToJSON(json: any): MalqueryExternalResource {
+    return MalqueryExternalResourceToJSONTyped(json, false);
+}
+
+export function MalqueryExternalResourceToJSONTyped(value?: MalqueryExternalResource | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         family: value["family"],
         filesize: value["filesize"],

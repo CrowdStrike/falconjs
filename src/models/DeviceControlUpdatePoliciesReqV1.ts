@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DeviceControlUpdatePolicyReqV1 } from "./DeviceControlUpdatePolicyReqV1";
-import { DeviceControlUpdatePolicyReqV1FromJSON, DeviceControlUpdatePolicyReqV1FromJSONTyped, DeviceControlUpdatePolicyReqV1ToJSON } from "./DeviceControlUpdatePolicyReqV1";
+import {
+    DeviceControlUpdatePolicyReqV1FromJSON,
+    DeviceControlUpdatePolicyReqV1FromJSONTyped,
+    DeviceControlUpdatePolicyReqV1ToJSON,
+    DeviceControlUpdatePolicyReqV1ToJSONTyped,
+} from "./DeviceControlUpdatePolicyReqV1";
 
 /**
  * A req to update DeviceControl policies
@@ -51,10 +56,15 @@ export function DeviceControlUpdatePoliciesReqV1FromJSONTyped(json: any, ignoreD
     };
 }
 
-export function DeviceControlUpdatePoliciesReqV1ToJSON(value?: DeviceControlUpdatePoliciesReqV1 | null): any {
+export function DeviceControlUpdatePoliciesReqV1ToJSON(json: any): DeviceControlUpdatePoliciesReqV1 {
+    return DeviceControlUpdatePoliciesReqV1ToJSONTyped(json, false);
+}
+
+export function DeviceControlUpdatePoliciesReqV1ToJSONTyped(value?: DeviceControlUpdatePoliciesReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(DeviceControlUpdatePolicyReqV1ToJSON),
     };

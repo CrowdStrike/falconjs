@@ -80,10 +80,15 @@ export function ResourcesDetectionCountFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function ResourcesDetectionCountToJSON(value?: ResourcesDetectionCount | null): any {
+export function ResourcesDetectionCountToJSON(json: any): ResourcesDetectionCount {
+    return ResourcesDetectionCountToJSONTyped(json, false);
+}
+
+export function ResourcesDetectionCountToJSONTyped(value?: ResourcesDetectionCount | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         critical: value["critical"],
         high: value["high"],

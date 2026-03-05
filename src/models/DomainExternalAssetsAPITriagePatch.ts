@@ -68,10 +68,15 @@ export function DomainExternalAssetsAPITriagePatchFromJSONTyped(json: any, ignor
     };
 }
 
-export function DomainExternalAssetsAPITriagePatchToJSON(value?: DomainExternalAssetsAPITriagePatch | null): any {
+export function DomainExternalAssetsAPITriagePatchToJSON(json: any): DomainExternalAssetsAPITriagePatch {
+    return DomainExternalAssetsAPITriagePatchToJSONTyped(json, false);
+}
+
+export function DomainExternalAssetsAPITriagePatchToJSONTyped(value?: DomainExternalAssetsAPITriagePatch | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         assigned_to: value["assignedTo"],

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { K8sregAzureBashScript } from "./K8sregAzureBashScript";
-import { K8sregAzureBashScriptFromJSON, K8sregAzureBashScriptFromJSONTyped, K8sregAzureBashScriptToJSON } from "./K8sregAzureBashScript";
+import { K8sregAzureBashScriptFromJSON, K8sregAzureBashScriptFromJSONTyped, K8sregAzureBashScriptToJSON, K8sregAzureBashScriptToJSONTyped } from "./K8sregAzureBashScript";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function K8sregGetAzureBashScriptRespFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function K8sregGetAzureBashScriptRespToJSON(value?: K8sregGetAzureBashScriptResp | null): any {
+export function K8sregGetAzureBashScriptRespToJSON(json: any): K8sregGetAzureBashScriptResp {
+    return K8sregGetAzureBashScriptRespToJSONTyped(json, false);
+}
+
+export function K8sregGetAzureBashScriptRespToJSONTyped(value?: K8sregGetAzureBashScriptResp | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

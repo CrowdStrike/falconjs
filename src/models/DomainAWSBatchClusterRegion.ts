@@ -64,10 +64,15 @@ export function DomainAWSBatchClusterRegionFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function DomainAWSBatchClusterRegionToJSON(value?: DomainAWSBatchClusterRegion | null): any {
+export function DomainAWSBatchClusterRegionToJSON(json: any): DomainAWSBatchClusterRegion {
+    return DomainAWSBatchClusterRegionToJSONTyped(json, false);
+}
+
+export function DomainAWSBatchClusterRegionToJSONTyped(value?: DomainAWSBatchClusterRegion | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         job_definition_name: value["jobDefinitionName"],
         job_queue: value["jobQueue"],

@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { AssetgroupmanagerV1Pagination } from "./AssetgroupmanagerV1Pagination";
-import { AssetgroupmanagerV1PaginationFromJSON, AssetgroupmanagerV1PaginationFromJSONTyped, AssetgroupmanagerV1PaginationToJSON } from "./AssetgroupmanagerV1Pagination";
+import {
+    AssetgroupmanagerV1PaginationFromJSON,
+    AssetgroupmanagerV1PaginationFromJSONTyped,
+    AssetgroupmanagerV1PaginationToJSON,
+    AssetgroupmanagerV1PaginationToJSONTyped,
+} from "./AssetgroupmanagerV1Pagination";
 
 /**
  *
@@ -71,10 +76,15 @@ export function AssetgroupmanagerV1MetaFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function AssetgroupmanagerV1MetaToJSON(value?: AssetgroupmanagerV1Meta | null): any {
+export function AssetgroupmanagerV1MetaToJSON(json: any): AssetgroupmanagerV1Meta {
+    return AssetgroupmanagerV1MetaToJSONTyped(json, false);
+}
+
+export function AssetgroupmanagerV1MetaToJSONTyped(value?: AssetgroupmanagerV1Meta | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: AssetgroupmanagerV1PaginationToJSON(value["pagination"]),
         powered_by: value["poweredBy"],

@@ -56,10 +56,15 @@ export function ClientExtraInFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function ClientExtraInToJSON(value?: ClientExtraIn | null): any {
+export function ClientExtraInToJSON(json: any): ClientExtraIn {
+    return ClientExtraInToJSONTyped(json, false);
+}
+
+export function ClientExtraInToJSONTyped(value?: ClientExtraIn | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         field: value["field"],
         values: value["values"],

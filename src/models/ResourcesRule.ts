@@ -72,10 +72,15 @@ export function ResourcesRuleFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function ResourcesRuleToJSON(value?: ResourcesRule | null): any {
+export function ResourcesRuleToJSON(json: any): ResourcesRule {
+    return ResourcesRuleToJSONTyped(json, false);
+}
+
+export function ResourcesRuleToJSONTyped(value?: ResourcesRule | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

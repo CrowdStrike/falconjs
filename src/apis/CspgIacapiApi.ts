@@ -39,12 +39,9 @@ export interface CspgIacapiApiCombinedDetectionsRequest {
  */
 export class CspgIacapiApi extends runtime.BaseAPI {
     /**
-     * Search IaC Detections using a query in Falcon Query Language
+     * Creates request options for combinedDetections without sending the request
      */
-    async combinedDetectionsRaw(
-        requestParameters: CspgIacapiApiCombinedDetectionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ModelsDetectionsCombinedResponse>> {
+    async combinedDetectionsRequestOpts(requestParameters: CspgIacapiApiCombinedDetectionsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -70,15 +67,25 @@ export class CspgIacapiApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["iac:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/iac/combined/detections/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/iac/combined/detections/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search IaC Detections using a query in Falcon Query Language
+     */
+    async combinedDetectionsRaw(
+        requestParameters: CspgIacapiApiCombinedDetectionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ModelsDetectionsCombinedResponse>> {
+        const requestOptions = await this.combinedDetectionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsDetectionsCombinedResponseFromJSON(jsonValue));
     }
@@ -92,9 +99,9 @@ export class CspgIacapiApi extends runtime.BaseAPI {
     }
 
     /**
-     * Gets the registry credentials (external endpoint)
+     * Creates request options for getCredentialsMixin0 without sending the request
      */
-    async getCredentialsMixin0Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsRegistryCredentialsResponse>> {
+    async getCredentialsMixin0RequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -104,15 +111,22 @@ export class CspgIacapiApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["iac:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/iac/entities/image-registry-credentials/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/iac/entities/image-registry-credentials/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Gets the registry credentials (external endpoint)
+     */
+    async getCredentialsMixin0Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsRegistryCredentialsResponse>> {
+        const requestOptions = await this.getCredentialsMixin0RequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsRegistryCredentialsResponseFromJSON(jsonValue));
     }

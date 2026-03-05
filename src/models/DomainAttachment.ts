@@ -91,12 +91,17 @@ export function DomainAttachmentFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function DomainAttachmentToJSON(value?: DomainAttachment | null): any {
+export function DomainAttachmentToJSON(json: any): DomainAttachment {
+    return DomainAttachmentToJSONTyped(json, false);
+}
+
+export function DomainAttachmentToJSONTyped(value?: DomainAttachment | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
-        date: value["date"] == null ? undefined : value["date"].toISOString(),
+        date: value["date"] == null ? value["date"] : value["date"].toISOString(),
         file_name: value["fileName"],
         id: value["id"],
         link: value["link"],

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { StateOnlineStateResultV1 } from "./StateOnlineStateResultV1";
-import { StateOnlineStateResultV1FromJSON, StateOnlineStateResultV1FromJSONTyped, StateOnlineStateResultV1ToJSON } from "./StateOnlineStateResultV1";
+import { StateOnlineStateResultV1FromJSON, StateOnlineStateResultV1FromJSONTyped, StateOnlineStateResultV1ToJSON, StateOnlineStateResultV1ToJSONTyped } from "./StateOnlineStateResultV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function StateOnlineStateRespV1FromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function StateOnlineStateRespV1ToJSON(value?: StateOnlineStateRespV1 | null): any {
+export function StateOnlineStateRespV1ToJSON(json: any): StateOnlineStateRespV1 {
+    return StateOnlineStateRespV1ToJSONTyped(json, false);
+}
+
+export function StateOnlineStateRespV1ToJSONTyped(value?: StateOnlineStateRespV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

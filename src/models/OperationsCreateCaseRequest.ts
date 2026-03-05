@@ -14,13 +14,23 @@
 
 import { mapValues } from "../runtime";
 import type { SdkCaseSeverityInfoAssignment } from "./SdkCaseSeverityInfoAssignment";
-import { SdkCaseSeverityInfoAssignmentFromJSON, SdkCaseSeverityInfoAssignmentFromJSONTyped, SdkCaseSeverityInfoAssignmentToJSON } from "./SdkCaseSeverityInfoAssignment";
+import {
+    SdkCaseSeverityInfoAssignmentFromJSON,
+    SdkCaseSeverityInfoAssignmentFromJSONTyped,
+    SdkCaseSeverityInfoAssignmentToJSON,
+    SdkCaseSeverityInfoAssignmentToJSONTyped,
+} from "./SdkCaseSeverityInfoAssignment";
 import type { OperationsCreateCaseRequestEvidence } from "./OperationsCreateCaseRequestEvidence";
-import { OperationsCreateCaseRequestEvidenceFromJSON, OperationsCreateCaseRequestEvidenceFromJSONTyped, OperationsCreateCaseRequestEvidenceToJSON } from "./OperationsCreateCaseRequestEvidence";
+import {
+    OperationsCreateCaseRequestEvidenceFromJSON,
+    OperationsCreateCaseRequestEvidenceFromJSONTyped,
+    OperationsCreateCaseRequestEvidenceToJSON,
+    OperationsCreateCaseRequestEvidenceToJSONTyped,
+} from "./OperationsCreateCaseRequestEvidence";
 import type { SdkCaseAccessTag } from "./SdkCaseAccessTag";
-import { SdkCaseAccessTagFromJSON, SdkCaseAccessTagFromJSONTyped, SdkCaseAccessTagToJSON } from "./SdkCaseAccessTag";
+import { SdkCaseAccessTagFromJSON, SdkCaseAccessTagFromJSONTyped, SdkCaseAccessTagToJSON, SdkCaseAccessTagToJSONTyped } from "./SdkCaseAccessTag";
 import type { SdkTemplateSelector } from "./SdkTemplateSelector";
-import { SdkTemplateSelectorFromJSON, SdkTemplateSelectorFromJSONTyped, SdkTemplateSelectorToJSON } from "./SdkTemplateSelector";
+import { SdkTemplateSelectorFromJSON, SdkTemplateSelectorFromJSONTyped, SdkTemplateSelectorToJSON, SdkTemplateSelectorToJSONTyped } from "./SdkTemplateSelector";
 
 /**
  *
@@ -126,10 +136,15 @@ export function OperationsCreateCaseRequestFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function OperationsCreateCaseRequestToJSON(value?: OperationsCreateCaseRequest | null): any {
+export function OperationsCreateCaseRequestToJSON(json: any): OperationsCreateCaseRequest {
+    return OperationsCreateCaseRequestToJSONTyped(json, false);
+}
+
+export function OperationsCreateCaseRequestToJSONTyped(value?: OperationsCreateCaseRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         access_tags: value["accessTags"] == null ? undefined : (value["accessTags"] as Array<any>).map(SdkCaseAccessTagToJSON),
         assigned_to_user_uuid: value["assignedToUserUuid"],

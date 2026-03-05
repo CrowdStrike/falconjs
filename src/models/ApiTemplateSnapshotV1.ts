@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApiActorV1 } from "./ApiActorV1";
-import { ApiActorV1FromJSON, ApiActorV1FromJSONTyped, ApiActorV1ToJSON } from "./ApiActorV1";
+import { ApiActorV1FromJSON, ApiActorV1FromJSONTyped, ApiActorV1ToJSON, ApiActorV1ToJSONTyped } from "./ApiActorV1";
 
 /**
  *
@@ -131,10 +131,15 @@ export function ApiTemplateSnapshotV1FromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function ApiTemplateSnapshotV1ToJSON(value?: ApiTemplateSnapshotV1 | null): any {
+export function ApiTemplateSnapshotV1ToJSON(json: any): ApiTemplateSnapshotV1 {
+    return ApiTemplateSnapshotV1ToJSONTyped(json, false);
+}
+
+export function ApiTemplateSnapshotV1ToJSONTyped(value?: ApiTemplateSnapshotV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         created_by: ApiActorV1ToJSON(value["createdBy"]),

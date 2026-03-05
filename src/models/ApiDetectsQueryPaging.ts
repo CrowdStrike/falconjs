@@ -62,10 +62,15 @@ export function ApiDetectsQueryPagingFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function ApiDetectsQueryPagingToJSON(value?: ApiDetectsQueryPaging | null): any {
+export function ApiDetectsQueryPagingToJSON(json: any): ApiDetectsQueryPaging {
+    return ApiDetectsQueryPagingToJSONTyped(json, false);
+}
+
+export function ApiDetectsQueryPagingToJSONTyped(value?: ApiDetectsQueryPaging | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         after: value["after"],
         limit: value["limit"],

@@ -116,10 +116,15 @@ export function FwmgrApiNetworkLocationSummaryV1FromJSONTyped(json: any, ignoreD
     };
 }
 
-export function FwmgrApiNetworkLocationSummaryV1ToJSON(value?: FwmgrApiNetworkLocationSummaryV1 | null): any {
+export function FwmgrApiNetworkLocationSummaryV1ToJSON(json: any): FwmgrApiNetworkLocationSummaryV1 {
+    return FwmgrApiNetworkLocationSummaryV1ToJSONTyped(json, false);
+}
+
+export function FwmgrApiNetworkLocationSummaryV1ToJSONTyped(value?: FwmgrApiNetworkLocationSummaryV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         created_by: value["createdBy"],

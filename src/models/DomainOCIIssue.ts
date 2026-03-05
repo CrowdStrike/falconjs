@@ -72,10 +72,15 @@ export function DomainOCIIssueFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function DomainOCIIssueToJSON(value?: DomainOCIIssue | null): any {
+export function DomainOCIIssueToJSON(json: any): DomainOCIIssue {
+    return DomainOCIIssueToJSONTyped(json, false);
+}
+
+export function DomainOCIIssueToJSONTyped(value?: DomainOCIIssue | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         category: value["category"],
         impact: value["impact"],

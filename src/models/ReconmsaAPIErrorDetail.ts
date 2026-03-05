@@ -64,10 +64,15 @@ export function ReconmsaAPIErrorDetailFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function ReconmsaAPIErrorDetailToJSON(value?: ReconmsaAPIErrorDetail | null): any {
+export function ReconmsaAPIErrorDetailToJSON(json: any): ReconmsaAPIErrorDetail {
+    return ReconmsaAPIErrorDetailToJSONTyped(json, false);
+}
+
+export function ReconmsaAPIErrorDetailToJSONTyped(value?: ReconmsaAPIErrorDetail | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         field: value["field"],
         message: value["message"],

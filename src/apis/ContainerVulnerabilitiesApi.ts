@@ -121,12 +121,9 @@ export interface ContainerVulnerabilitiesApiReadVulnerabilityCountBySeverityRequ
  */
 export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
     /**
-     * Retrieves a paginated list of vulnerabilities filtered by the provided FQL. Maximum page size: 100. Maximum available vulnerabilities: 10,000
+     * Creates request options for readCombinedVulnerabilities without sending the request
      */
-    async readCombinedVulnerabilitiesRaw(
-        requestParameters: ContainerVulnerabilitiesApiReadCombinedVulnerabilitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<VulnerabilitiesApiCombinedVulnerability>> {
+    async readCombinedVulnerabilitiesRequestOpts(requestParameters: ContainerVulnerabilitiesApiReadCombinedVulnerabilitiesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -152,15 +149,25 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/combined/vulnerabilities/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/combined/vulnerabilities/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieves a paginated list of vulnerabilities filtered by the provided FQL. Maximum page size: 100. Maximum available vulnerabilities: 10,000
+     */
+    async readCombinedVulnerabilitiesRaw(
+        requestParameters: ContainerVulnerabilitiesApiReadCombinedVulnerabilitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<VulnerabilitiesApiCombinedVulnerability>> {
+        const requestOptions = await this.readCombinedVulnerabilitiesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => VulnerabilitiesApiCombinedVulnerabilityFromJSON(jsonValue));
     }
@@ -180,12 +187,9 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve vulnerability details related to an image
+     * Creates request options for readCombinedVulnerabilitiesDetails without sending the request
      */
-    async readCombinedVulnerabilitiesDetailsRaw(
-        requestParameters: ContainerVulnerabilitiesApiReadCombinedVulnerabilitiesDetailsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<VulnerabilitiesApiCombinedVulnerabilityDetails>> {
+    async readCombinedVulnerabilitiesDetailsRequestOpts(requestParameters: ContainerVulnerabilitiesApiReadCombinedVulnerabilitiesDetailsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling readCombinedVulnerabilitiesDetails().');
         }
@@ -215,15 +219,25 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/combined/vulnerabilities/details/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/combined/vulnerabilities/details/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve vulnerability details related to an image
+     */
+    async readCombinedVulnerabilitiesDetailsRaw(
+        requestParameters: ContainerVulnerabilitiesApiReadCombinedVulnerabilitiesDetailsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<VulnerabilitiesApiCombinedVulnerabilityDetails>> {
+        const requestOptions = await this.readCombinedVulnerabilitiesDetailsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => VulnerabilitiesApiCombinedVulnerabilityDetailsFromJSON(jsonValue));
     }
@@ -243,12 +257,9 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve vulnerability and package related info for this customer
+     * Creates request options for readCombinedVulnerabilitiesInfo without sending the request
      */
-    async readCombinedVulnerabilitiesInfoRaw(
-        requestParameters: ContainerVulnerabilitiesApiReadCombinedVulnerabilitiesInfoRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<VulnerabilitiesApiCombinedVulnerabilityInfo>> {
+    async readCombinedVulnerabilitiesInfoRequestOpts(requestParameters: ContainerVulnerabilitiesApiReadCombinedVulnerabilitiesInfoRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["cveId"] == null) {
             throw new runtime.RequiredError("cveId", 'Required parameter "cveId" was null or undefined when calling readCombinedVulnerabilitiesInfo().');
         }
@@ -274,15 +285,25 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/combined/vulnerabilities/info/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/combined/vulnerabilities/info/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve vulnerability and package related info for this customer
+     */
+    async readCombinedVulnerabilitiesInfoRaw(
+        requestParameters: ContainerVulnerabilitiesApiReadCombinedVulnerabilitiesInfoRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<VulnerabilitiesApiCombinedVulnerabilityInfo>> {
+        const requestOptions = await this.readCombinedVulnerabilitiesInfoRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => VulnerabilitiesApiCombinedVulnerabilityInfoFromJSON(jsonValue));
     }
@@ -301,12 +322,9 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve top x vulnerabilities with the most impacted images
+     * Creates request options for readVulnerabilitiesByImageCount without sending the request
      */
-    async readVulnerabilitiesByImageCountRaw(
-        requestParameters: ContainerVulnerabilitiesApiReadVulnerabilitiesByImageCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<VulnerabilitiesApiVulnByImageCount>> {
+    async readVulnerabilitiesByImageCountRequestOpts(requestParameters: ContainerVulnerabilitiesApiReadVulnerabilitiesByImageCountRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -328,15 +346,25 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/combined/vulnerabilities/by-image-count/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/combined/vulnerabilities/by-image-count/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve top x vulnerabilities with the most impacted images
+     */
+    async readVulnerabilitiesByImageCountRaw(
+        requestParameters: ContainerVulnerabilitiesApiReadVulnerabilitiesByImageCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<VulnerabilitiesApiVulnByImageCount>> {
+        const requestOptions = await this.readVulnerabilitiesByImageCountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => VulnerabilitiesApiVulnByImageCountFromJSON(jsonValue));
     }
@@ -350,12 +378,9 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve top x vulnerabilities with the most recent publication date
+     * Creates request options for readVulnerabilitiesPublicationDate without sending the request
      */
-    async readVulnerabilitiesPublicationDateRaw(
-        requestParameters: ContainerVulnerabilitiesApiReadVulnerabilitiesPublicationDateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<VulnerabilitiesApiVulnByPublication>> {
+    async readVulnerabilitiesPublicationDateRequestOpts(requestParameters: ContainerVulnerabilitiesApiReadVulnerabilitiesPublicationDateRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -377,15 +402,25 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/combined/vulnerabilities/by-published-date/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/combined/vulnerabilities/by-published-date/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve top x vulnerabilities with the most recent publication date
+     */
+    async readVulnerabilitiesPublicationDateRaw(
+        requestParameters: ContainerVulnerabilitiesApiReadVulnerabilitiesPublicationDateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<VulnerabilitiesApiVulnByPublication>> {
+        const requestOptions = await this.readVulnerabilitiesPublicationDateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => VulnerabilitiesApiVulnByPublicationFromJSON(jsonValue));
     }
@@ -404,12 +439,9 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Aggregate count of vulnerabilities
+     * Creates request options for readVulnerabilityCount without sending the request
      */
-    async readVulnerabilityCountRaw(
-        requestParameters: ContainerVulnerabilitiesApiReadVulnerabilityCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<VulnerabilitiesApiVulnCount>> {
+    async readVulnerabilityCountRequestOpts(requestParameters: ContainerVulnerabilitiesApiReadVulnerabilityCountRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -431,15 +463,25 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/aggregates/vulnerabilities/count/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/aggregates/vulnerabilities/count/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Aggregate count of vulnerabilities
+     */
+    async readVulnerabilityCountRaw(
+        requestParameters: ContainerVulnerabilitiesApiReadVulnerabilityCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<VulnerabilitiesApiVulnCount>> {
+        const requestOptions = await this.readVulnerabilityCountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => VulnerabilitiesApiVulnCountFromJSON(jsonValue));
     }
@@ -453,12 +495,9 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Aggregate count of vulnerabilities grouped by actively exploited
+     * Creates request options for readVulnerabilityCountByActivelyExploited without sending the request
      */
-    async readVulnerabilityCountByActivelyExploitedRaw(
-        requestParameters: ContainerVulnerabilitiesApiReadVulnerabilityCountByActivelyExploitedRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<VulnerabilitiesApiVulnCountByActivelyExploited>> {
+    async readVulnerabilityCountByActivelyExploitedRequestOpts(requestParameters: ContainerVulnerabilitiesApiReadVulnerabilityCountByActivelyExploitedRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -480,15 +519,25 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/aggregates/vulnerabilities/count-by-actively-exploited/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/aggregates/vulnerabilities/count-by-actively-exploited/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Aggregate count of vulnerabilities grouped by actively exploited
+     */
+    async readVulnerabilityCountByActivelyExploitedRaw(
+        requestParameters: ContainerVulnerabilitiesApiReadVulnerabilityCountByActivelyExploitedRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<VulnerabilitiesApiVulnCountByActivelyExploited>> {
+        const requestOptions = await this.readVulnerabilityCountByActivelyExploitedRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => VulnerabilitiesApiVulnCountByActivelyExploitedFromJSON(jsonValue));
     }
@@ -507,12 +556,9 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Aggregate count of vulnerabilities grouped by csp_rating
+     * Creates request options for readVulnerabilityCountByCPSRating without sending the request
      */
-    async readVulnerabilityCountByCPSRatingRaw(
-        requestParameters: ContainerVulnerabilitiesApiReadVulnerabilityCountByCPSRatingRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<VulnerabilitiesApiVulnCountByCSPRating>> {
+    async readVulnerabilityCountByCPSRatingRequestOpts(requestParameters: ContainerVulnerabilitiesApiReadVulnerabilityCountByCPSRatingRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -534,15 +580,25 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/aggregates/vulnerabilities/count-by-cps-rating/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/aggregates/vulnerabilities/count-by-cps-rating/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Aggregate count of vulnerabilities grouped by csp_rating
+     */
+    async readVulnerabilityCountByCPSRatingRaw(
+        requestParameters: ContainerVulnerabilitiesApiReadVulnerabilityCountByCPSRatingRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<VulnerabilitiesApiVulnCountByCSPRating>> {
+        const requestOptions = await this.readVulnerabilityCountByCPSRatingRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => VulnerabilitiesApiVulnCountByCSPRatingFromJSON(jsonValue));
     }
@@ -561,12 +617,9 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Aggregate count of vulnerabilities grouped by CVSS score
+     * Creates request options for readVulnerabilityCountByCVSSScore without sending the request
      */
-    async readVulnerabilityCountByCVSSScoreRaw(
-        requestParameters: ContainerVulnerabilitiesApiReadVulnerabilityCountByCVSSScoreRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<VulnerabilitiesApiVulnCountByCVSSScore>> {
+    async readVulnerabilityCountByCVSSScoreRequestOpts(requestParameters: ContainerVulnerabilitiesApiReadVulnerabilityCountByCVSSScoreRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -588,15 +641,25 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/aggregates/vulnerabilities/count-by-cvss-score/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/aggregates/vulnerabilities/count-by-cvss-score/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Aggregate count of vulnerabilities grouped by CVSS score
+     */
+    async readVulnerabilityCountByCVSSScoreRaw(
+        requestParameters: ContainerVulnerabilitiesApiReadVulnerabilityCountByCVSSScoreRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<VulnerabilitiesApiVulnCountByCVSSScore>> {
+        const requestOptions = await this.readVulnerabilityCountByCVSSScoreRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => VulnerabilitiesApiVulnCountByCVSSScoreFromJSON(jsonValue));
     }
@@ -615,12 +678,9 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Aggregate count of vulnerabilities grouped by severity
+     * Creates request options for readVulnerabilityCountBySeverity without sending the request
      */
-    async readVulnerabilityCountBySeverityRaw(
-        requestParameters: ContainerVulnerabilitiesApiReadVulnerabilityCountBySeverityRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<VulnerabilitiesApiVulnCountBySeverity>> {
+    async readVulnerabilityCountBySeverityRequestOpts(requestParameters: ContainerVulnerabilitiesApiReadVulnerabilityCountBySeverityRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -642,15 +702,25 @@ export class ContainerVulnerabilitiesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/aggregates/vulnerabilities/count-by-severity/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/aggregates/vulnerabilities/count-by-severity/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Aggregate count of vulnerabilities grouped by severity
+     */
+    async readVulnerabilityCountBySeverityRaw(
+        requestParameters: ContainerVulnerabilitiesApiReadVulnerabilityCountBySeverityRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<VulnerabilitiesApiVulnCountBySeverity>> {
+        const requestOptions = await this.readVulnerabilityCountBySeverityRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => VulnerabilitiesApiVulnCountBySeverityFromJSON(jsonValue));
     }

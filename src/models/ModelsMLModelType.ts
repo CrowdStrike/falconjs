@@ -103,10 +103,15 @@ export function ModelsMLModelTypeFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function ModelsMLModelTypeToJSON(value?: ModelsMLModelType | null): any {
+export function ModelsMLModelTypeToJSON(json: any): ModelsMLModelType {
+    return ModelsMLModelTypeToJSONTyped(json, false);
+}
+
+export function ModelsMLModelTypeToJSONTyped(value?: ModelsMLModelType | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Details: value["details"],
         DetectionName: value["detectionName"],

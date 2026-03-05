@@ -61,10 +61,15 @@ export function FalconxHandleFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function FalconxHandleToJSON(value?: FalconxHandle | null): any {
+export function FalconxHandleToJSON(json: any): FalconxHandle {
+    return FalconxHandleToJSONTyped(json, false);
+}
+
+export function FalconxHandleToJSONTyped(value?: FalconxHandle | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         path: value["path"],

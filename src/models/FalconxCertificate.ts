@@ -89,17 +89,22 @@ export function FalconxCertificateFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function FalconxCertificateToJSON(value?: FalconxCertificate | null): any {
+export function FalconxCertificateToJSON(json: any): FalconxCertificate {
+    return FalconxCertificateToJSONTyped(json, false);
+}
+
+export function FalconxCertificateToJSONTyped(value?: FalconxCertificate | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         issuer: value["issuer"],
         md5: value["md5"],
         owner: value["owner"],
         serial_number: value["serialNumber"],
         sha1: value["sha1"],
-        valid_from: value["validFrom"] == null ? undefined : value["validFrom"].toISOString(),
-        valid_until: value["validUntil"] == null ? undefined : value["validUntil"].toISOString(),
+        valid_from: value["validFrom"] == null ? value["validFrom"] : value["validFrom"].toISOString(),
+        valid_until: value["validUntil"] == null ? value["validUntil"] : value["validUntil"].toISOString(),
     };
 }

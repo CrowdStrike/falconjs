@@ -80,10 +80,15 @@ export function MalqueryStatsFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function MalqueryStatsToJSON(value?: MalqueryStats | null): any {
+export function MalqueryStatsToJSON(json: any): MalqueryStats {
+    return MalqueryStatsToJSONTyped(json, false);
+}
+
+export function MalqueryStatsToJSONTyped(value?: MalqueryStats | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         clean_count: value["cleanCount"],
         malware_count: value["malwareCount"],

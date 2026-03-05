@@ -14,12 +14,13 @@
 
 import { mapValues } from "../runtime";
 import type { DataclassificationsTag } from "./DataclassificationsTag";
-import { DataclassificationsTagFromJSON, DataclassificationsTagFromJSONTyped, DataclassificationsTagToJSON } from "./DataclassificationsTag";
+import { DataclassificationsTagFromJSON, DataclassificationsTagFromJSONTyped, DataclassificationsTagToJSON, DataclassificationsTagToJSONTyped } from "./DataclassificationsTag";
 import type { DataclassificationsDataClassificationFinding } from "./DataclassificationsDataClassificationFinding";
 import {
     DataclassificationsDataClassificationFindingFromJSON,
     DataclassificationsDataClassificationFindingFromJSONTyped,
     DataclassificationsDataClassificationFindingToJSON,
+    DataclassificationsDataClassificationFindingToJSONTyped,
 } from "./DataclassificationsDataClassificationFinding";
 
 /**
@@ -93,15 +94,20 @@ export function DataclassificationsResponseFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function DataclassificationsResponseToJSON(value?: DataclassificationsResponse | null): any {
+export function DataclassificationsResponseToJSON(json: any): DataclassificationsResponse {
+    return DataclassificationsResponseToJSONTyped(json, false);
+}
+
+export function DataclassificationsResponseToJSONTyped(value?: DataclassificationsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         findings: value["findings"] == null ? undefined : (value["findings"] as Array<any>).map(DataclassificationsDataClassificationFindingToJSON),
         found: value["found"],
         labels: value["labels"],
-        last_updated: value["lastUpdated"] == null ? undefined : value["lastUpdated"].toISOString(),
+        last_updated: value["lastUpdated"] == null ? value["lastUpdated"] : value["lastUpdated"].toISOString(),
         scanned: value["scanned"],
         tags: value["tags"] == null ? undefined : mapValues(value["tags"], DataclassificationsTagToJSON),
     };

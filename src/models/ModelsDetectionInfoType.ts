@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsDetection } from "./ModelsDetection";
-import { ModelsDetectionFromJSON, ModelsDetectionFromJSONTyped, ModelsDetectionToJSON } from "./ModelsDetection";
+import { ModelsDetectionFromJSON, ModelsDetectionFromJSONTyped, ModelsDetectionToJSON, ModelsDetectionToJSONTyped } from "./ModelsDetection";
 
 /**
  *
@@ -51,10 +51,15 @@ export function ModelsDetectionInfoTypeFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function ModelsDetectionInfoTypeToJSON(value?: ModelsDetectionInfoType | null): any {
+export function ModelsDetectionInfoTypeToJSON(json: any): ModelsDetectionInfoType {
+    return ModelsDetectionInfoTypeToJSONTyped(json, false);
+}
+
+export function ModelsDetectionInfoTypeToJSONTyped(value?: ModelsDetectionInfoType | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Detection: ModelsDetectionToJSON(value["detection"]),
     };

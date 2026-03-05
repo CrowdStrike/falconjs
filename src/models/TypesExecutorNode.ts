@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { TypesK8SPodSettings } from "./TypesK8SPodSettings";
-import { TypesK8SPodSettingsFromJSON, TypesK8SPodSettingsFromJSONTyped, TypesK8SPodSettingsToJSON } from "./TypesK8SPodSettings";
+import { TypesK8SPodSettingsFromJSON, TypesK8SPodSettingsFromJSONTyped, TypesK8SPodSettingsToJSON, TypesK8SPodSettingsToJSONTyped } from "./TypesK8SPodSettings";
 import type { TypesExecutorNodeStatus } from "./TypesExecutorNodeStatus";
-import { TypesExecutorNodeStatusFromJSON, TypesExecutorNodeStatusFromJSONTyped, TypesExecutorNodeStatusToJSON } from "./TypesExecutorNodeStatus";
+import { TypesExecutorNodeStatusFromJSON, TypesExecutorNodeStatusFromJSONTyped, TypesExecutorNodeStatusToJSON, TypesExecutorNodeStatusToJSONTyped } from "./TypesExecutorNodeStatus";
 
 /**
  *
@@ -143,10 +143,15 @@ export function TypesExecutorNodeFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function TypesExecutorNodeToJSON(value?: TypesExecutorNode | null): any {
+export function TypesExecutorNodeToJSON(json: any): TypesExecutorNode {
+    return TypesExecutorNodeToJSONTyped(json, false);
+}
+
+export function TypesExecutorNodeToJSONTyped(value?: TypesExecutorNode | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         additional_header: value["additionalHeader"],
         current_aws_arn: value["currentAwsArn"],

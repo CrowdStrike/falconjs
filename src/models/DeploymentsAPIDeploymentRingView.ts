@@ -91,17 +91,22 @@ export function DeploymentsAPIDeploymentRingViewFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function DeploymentsAPIDeploymentRingViewToJSON(value?: DeploymentsAPIDeploymentRingView | null): any {
+export function DeploymentsAPIDeploymentRingViewToJSON(json: any): DeploymentsAPIDeploymentRingView {
+    return DeploymentsAPIDeploymentRingViewToJSONTyped(json, false);
+}
+
+export function DeploymentsAPIDeploymentRingViewToJSONTyped(value?: DeploymentsAPIDeploymentRingView | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
-        complete_timestamp: value["completeTimestamp"] == null ? undefined : value["completeTimestamp"].toISOString(),
+        complete_timestamp: value["completeTimestamp"] == null ? value["completeTimestamp"] : value["completeTimestamp"].toISOString(),
         gates: value["gates"],
         id: value["id"],
         name: value["name"],
         ramping_schedule: value["rampingSchedule"],
-        start_timestamp: value["startTimestamp"] == null ? undefined : value["startTimestamp"].toISOString(),
+        start_timestamp: value["startTimestamp"] == null ? value["startTimestamp"] : value["startTimestamp"].toISOString(),
         threshold: value["threshold"],
     };
 }

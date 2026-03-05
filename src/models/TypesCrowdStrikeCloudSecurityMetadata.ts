@@ -89,10 +89,15 @@ export function TypesCrowdStrikeCloudSecurityMetadataFromJSONTyped(json: any, ig
     };
 }
 
-export function TypesCrowdStrikeCloudSecurityMetadataToJSON(value?: TypesCrowdStrikeCloudSecurityMetadata | null): any {
+export function TypesCrowdStrikeCloudSecurityMetadataToJSON(json: any): TypesCrowdStrikeCloudSecurityMetadata {
+    return TypesCrowdStrikeCloudSecurityMetadataToJSONTyped(json, false);
+}
+
+export function TypesCrowdStrikeCloudSecurityMetadataToJSONTyped(value?: TypesCrowdStrikeCloudSecurityMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         baseUrl: value["baseUrl"],
         clientId: value["clientId"],

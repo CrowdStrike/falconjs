@@ -18,13 +18,29 @@ import {
     ModelsKACPolicyRuleGroupImageAssessmentFromJSON,
     ModelsKACPolicyRuleGroupImageAssessmentFromJSONTyped,
     ModelsKACPolicyRuleGroupImageAssessmentToJSON,
+    ModelsKACPolicyRuleGroupImageAssessmentToJSONTyped,
 } from "./ModelsKACPolicyRuleGroupImageAssessment";
 import type { ModelsUpdateCustomRuleAction } from "./ModelsUpdateCustomRuleAction";
-import { ModelsUpdateCustomRuleActionFromJSON, ModelsUpdateCustomRuleActionFromJSONTyped, ModelsUpdateCustomRuleActionToJSON } from "./ModelsUpdateCustomRuleAction";
+import {
+    ModelsUpdateCustomRuleActionFromJSON,
+    ModelsUpdateCustomRuleActionFromJSONTyped,
+    ModelsUpdateCustomRuleActionToJSON,
+    ModelsUpdateCustomRuleActionToJSONTyped,
+} from "./ModelsUpdateCustomRuleAction";
 import type { ModelsKACPolicyRuleGroupDenyOnError } from "./ModelsKACPolicyRuleGroupDenyOnError";
-import { ModelsKACPolicyRuleGroupDenyOnErrorFromJSON, ModelsKACPolicyRuleGroupDenyOnErrorFromJSONTyped, ModelsKACPolicyRuleGroupDenyOnErrorToJSON } from "./ModelsKACPolicyRuleGroupDenyOnError";
+import {
+    ModelsKACPolicyRuleGroupDenyOnErrorFromJSON,
+    ModelsKACPolicyRuleGroupDenyOnErrorFromJSONTyped,
+    ModelsKACPolicyRuleGroupDenyOnErrorToJSON,
+    ModelsKACPolicyRuleGroupDenyOnErrorToJSONTyped,
+} from "./ModelsKACPolicyRuleGroupDenyOnError";
 import type { ModelsUpdateDefaultRuleAction } from "./ModelsUpdateDefaultRuleAction";
-import { ModelsUpdateDefaultRuleActionFromJSON, ModelsUpdateDefaultRuleActionFromJSONTyped, ModelsUpdateDefaultRuleActionToJSON } from "./ModelsUpdateDefaultRuleAction";
+import {
+    ModelsUpdateDefaultRuleActionFromJSON,
+    ModelsUpdateDefaultRuleActionFromJSONTyped,
+    ModelsUpdateDefaultRuleActionToJSON,
+    ModelsUpdateDefaultRuleActionToJSONTyped,
+} from "./ModelsUpdateDefaultRuleAction";
 
 /**
  *
@@ -109,10 +125,15 @@ export function ModelsUpdateRuleGroupFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function ModelsUpdateRuleGroupToJSON(value?: ModelsUpdateRuleGroup | null): any {
+export function ModelsUpdateRuleGroupToJSON(json: any): ModelsUpdateRuleGroup {
+    return ModelsUpdateRuleGroupToJSONTyped(json, false);
+}
+
+export function ModelsUpdateRuleGroupToJSONTyped(value?: ModelsUpdateRuleGroup | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         custom_rules: (value["customRules"] as Array<any>).map(ModelsUpdateCustomRuleActionToJSON),
         default_rules: (value["defaultRules"] as Array<any>).map(ModelsUpdateDefaultRuleActionToJSON),

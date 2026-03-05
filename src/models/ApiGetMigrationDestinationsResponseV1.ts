@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DestinationsMigrationDestination } from "./DestinationsMigrationDestination";
-import { DestinationsMigrationDestinationFromJSON, DestinationsMigrationDestinationFromJSONTyped, DestinationsMigrationDestinationToJSON } from "./DestinationsMigrationDestination";
+import {
+    DestinationsMigrationDestinationFromJSON,
+    DestinationsMigrationDestinationFromJSONTyped,
+    DestinationsMigrationDestinationToJSON,
+    DestinationsMigrationDestinationToJSONTyped,
+} from "./DestinationsMigrationDestination";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +75,15 @@ export function ApiGetMigrationDestinationsResponseV1FromJSONTyped(json: any, ig
     };
 }
 
-export function ApiGetMigrationDestinationsResponseV1ToJSON(value?: ApiGetMigrationDestinationsResponseV1 | null): any {
+export function ApiGetMigrationDestinationsResponseV1ToJSON(json: any): ApiGetMigrationDestinationsResponseV1 {
+    return ApiGetMigrationDestinationsResponseV1ToJSONTyped(json, false);
+}
+
+export function ApiGetMigrationDestinationsResponseV1ToJSONTyped(value?: ApiGetMigrationDestinationsResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

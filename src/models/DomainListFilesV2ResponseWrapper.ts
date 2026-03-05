@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainFileV2 } from "./DomainFileV2";
-import { DomainFileV2FromJSON, DomainFileV2FromJSONTyped, DomainFileV2ToJSON } from "./DomainFileV2";
+import { DomainFileV2FromJSON, DomainFileV2FromJSONTyped, DomainFileV2ToJSON, DomainFileV2ToJSONTyped } from "./DomainFileV2";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainListFilesV2ResponseWrapperFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function DomainListFilesV2ResponseWrapperToJSON(value?: DomainListFilesV2ResponseWrapper | null): any {
+export function DomainListFilesV2ResponseWrapperToJSON(json: any): DomainListFilesV2ResponseWrapper {
+    return DomainListFilesV2ResponseWrapperToJSONTyped(json, false);
+}
+
+export function DomainListFilesV2ResponseWrapperToJSONTyped(value?: DomainListFilesV2ResponseWrapper | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

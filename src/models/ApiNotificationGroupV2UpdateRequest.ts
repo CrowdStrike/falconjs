@@ -18,6 +18,7 @@ import {
     ApiNotificationChannelV2CreateRequestFromJSON,
     ApiNotificationChannelV2CreateRequestFromJSONTyped,
     ApiNotificationChannelV2CreateRequestToJSON,
+    ApiNotificationChannelV2CreateRequestToJSONTyped,
 } from "./ApiNotificationChannelV2CreateRequest";
 
 /**
@@ -79,10 +80,15 @@ export function ApiNotificationGroupV2UpdateRequestFromJSONTyped(json: any, igno
     };
 }
 
-export function ApiNotificationGroupV2UpdateRequestToJSON(value?: ApiNotificationGroupV2UpdateRequest | null): any {
+export function ApiNotificationGroupV2UpdateRequestToJSON(json: any): ApiNotificationGroupV2UpdateRequest {
+    return ApiNotificationGroupV2UpdateRequestToJSONTyped(json, false);
+}
+
+export function ApiNotificationGroupV2UpdateRequestToJSONTyped(value?: ApiNotificationGroupV2UpdateRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         channels: (value["channels"] as Array<any>).map(ApiNotificationChannelV2CreateRequestToJSON),
         description: value["description"],

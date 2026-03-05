@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ChangesDiffHash } from "./ChangesDiffHash";
-import { ChangesDiffHashFromJSON, ChangesDiffHashFromJSONTyped, ChangesDiffHashToJSON } from "./ChangesDiffHash";
+import { ChangesDiffHashFromJSON, ChangesDiffHashFromJSONTyped, ChangesDiffHashToJSON, ChangesDiffHashToJSONTyped } from "./ChangesDiffHash";
 
 /**
  *
@@ -50,10 +50,15 @@ export function ChangesDiffTypeFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function ChangesDiffTypeToJSON(value?: ChangesDiffType | null): any {
+export function ChangesDiffTypeToJSON(json: any): ChangesDiffType {
+    return ChangesDiffTypeToJSONTyped(json, false);
+}
+
+export function ChangesDiffTypeToJSONTyped(value?: ChangesDiffType | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         hash: ChangesDiffHashToJSON(value["hash"]),
     };

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { EvaluationsSubTechnique } from "./EvaluationsSubTechnique";
-import { EvaluationsSubTechniqueFromJSON, EvaluationsSubTechniqueFromJSONTyped, EvaluationsSubTechniqueToJSON } from "./EvaluationsSubTechnique";
+import { EvaluationsSubTechniqueFromJSON, EvaluationsSubTechniqueFromJSONTyped, EvaluationsSubTechniqueToJSON, EvaluationsSubTechniqueToJSONTyped } from "./EvaluationsSubTechnique";
 
 /**
  *
@@ -71,10 +71,15 @@ export function EvaluationsTechniqueFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function EvaluationsTechniqueToJSON(value?: EvaluationsTechnique | null): any {
+export function EvaluationsTechniqueToJSON(json: any): EvaluationsTechnique {
+    return EvaluationsTechniqueToJSONTyped(json, false);
+}
+
+export function EvaluationsTechniqueToJSONTyped(value?: EvaluationsTechnique | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

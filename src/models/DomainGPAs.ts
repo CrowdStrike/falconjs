@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainGPA } from "./DomainGPA";
-import { DomainGPAFromJSON, DomainGPAFromJSONTyped, DomainGPAToJSON } from "./DomainGPA";
+import { DomainGPAFromJSON, DomainGPAFromJSONTyped, DomainGPAToJSON, DomainGPAToJSONTyped } from "./DomainGPA";
 
 /**
  *
@@ -51,10 +51,15 @@ export function DomainGPAsFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function DomainGPAsToJSON(value?: DomainGPAs | null): any {
+export function DomainGPAsToJSON(json: any): DomainGPAs {
+    return DomainGPAsToJSONTyped(json, false);
+}
+
+export function DomainGPAsToJSONTyped(value?: DomainGPAs | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         signature: DomainGPAToJSON(value["signature"]),
     };

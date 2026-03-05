@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { MsaspecActionParameter } from "./MsaspecActionParameter";
-import { MsaspecActionParameterFromJSON, MsaspecActionParameterFromJSONTyped, MsaspecActionParameterToJSON } from "./MsaspecActionParameter";
+import { MsaspecActionParameterFromJSON, MsaspecActionParameterFromJSONTyped, MsaspecActionParameterToJSON, MsaspecActionParameterToJSONTyped } from "./MsaspecActionParameter";
 
 /**
  *
@@ -50,10 +50,15 @@ export function MsaEntityActionRequestFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function MsaEntityActionRequestToJSON(value?: MsaEntityActionRequest | null): any {
+export function MsaEntityActionRequestToJSON(json: any): MsaEntityActionRequest {
+    return MsaEntityActionRequestToJSONTyped(json, false);
+}
+
+export function MsaEntityActionRequestToJSONTyped(value?: MsaEntityActionRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action_parameters: value["actionParameters"] == null ? undefined : (value["actionParameters"] as Array<any>).map(MsaspecActionParameterToJSON),
     };

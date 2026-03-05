@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { DomainAPIFindingWithRuleV1 } from "./DomainAPIFindingWithRuleV1";
-import { DomainAPIFindingWithRuleV1FromJSON, DomainAPIFindingWithRuleV1FromJSONTyped, DomainAPIFindingWithRuleV1ToJSON } from "./DomainAPIFindingWithRuleV1";
+import { DomainAPIFindingWithRuleV1FromJSON, DomainAPIFindingWithRuleV1FromJSONTyped, DomainAPIFindingWithRuleV1ToJSON, DomainAPIFindingWithRuleV1ToJSONTyped } from "./DomainAPIFindingWithRuleV1";
 import type { DomainAPIHostInfoFacetV1 } from "./DomainAPIHostInfoFacetV1";
-import { DomainAPIHostInfoFacetV1FromJSON, DomainAPIHostInfoFacetV1FromJSONTyped, DomainAPIHostInfoFacetV1ToJSON } from "./DomainAPIHostInfoFacetV1";
+import { DomainAPIHostInfoFacetV1FromJSON, DomainAPIHostInfoFacetV1FromJSONTyped, DomainAPIHostInfoFacetV1ToJSON, DomainAPIHostInfoFacetV1ToJSONTyped } from "./DomainAPIHostInfoFacetV1";
 import type { DomainAPIEvaluationLogicItemV1 } from "./DomainAPIEvaluationLogicItemV1";
-import { DomainAPIEvaluationLogicItemV1FromJSON, DomainAPIEvaluationLogicItemV1FromJSONTyped, DomainAPIEvaluationLogicItemV1ToJSON } from "./DomainAPIEvaluationLogicItemV1";
+import {
+    DomainAPIEvaluationLogicItemV1FromJSON,
+    DomainAPIEvaluationLogicItemV1FromJSONTyped,
+    DomainAPIEvaluationLogicItemV1ToJSON,
+    DomainAPIEvaluationLogicItemV1ToJSONTyped,
+} from "./DomainAPIEvaluationLogicItemV1";
 
 /**
  *
@@ -109,10 +114,15 @@ export function DomainAPIFindingFacetV1FromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function DomainAPIFindingFacetV1ToJSON(value?: DomainAPIFindingFacetV1 | null): any {
+export function DomainAPIFindingFacetV1ToJSON(json: any): DomainAPIFindingFacetV1 {
+    return DomainAPIFindingFacetV1ToJSONTyped(json, false);
+}
+
+export function DomainAPIFindingFacetV1ToJSONTyped(value?: DomainAPIFindingFacetV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         aid: value["aid"],
         cid: value["cid"],

@@ -56,10 +56,15 @@ export function ApiFieldHasValueFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function ApiFieldHasValueToJSON(value?: ApiFieldHasValue | null): any {
+export function ApiFieldHasValueToJSON(json: any): ApiFieldHasValue {
+    return ApiFieldHasValueToJSONTyped(json, false);
+}
+
+export function ApiFieldHasValueToJSONTyped(value?: ApiFieldHasValue | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         expected_value: value["expectedValue"],
         field_name: value["fieldName"],

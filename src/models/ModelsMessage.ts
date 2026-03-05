@@ -48,10 +48,15 @@ export function ModelsMessageFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function ModelsMessageToJSON(value?: ModelsMessage | null): any {
+export function ModelsMessageToJSON(json: any): ModelsMessage {
+    return ModelsMessageToJSONTyped(json, false);
+}
+
+export function ModelsMessageToJSONTyped(value?: ModelsMessage | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         text: value["text"],
     };

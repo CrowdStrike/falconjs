@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApiCertificateReqV1 } from "./ApiCertificateReqV1";
-import { ApiCertificateReqV1FromJSON, ApiCertificateReqV1FromJSONTyped, ApiCertificateReqV1ToJSON } from "./ApiCertificateReqV1";
+import { ApiCertificateReqV1FromJSON, ApiCertificateReqV1FromJSONTyped, ApiCertificateReqV1ToJSON, ApiCertificateReqV1ToJSONTyped } from "./ApiCertificateReqV1";
 
 /**
  *
@@ -135,22 +135,27 @@ export function ApiCertBasedExclusionUpdateReqV1FromJSONTyped(json: any, ignoreD
     };
 }
 
-export function ApiCertBasedExclusionUpdateReqV1ToJSON(value?: ApiCertBasedExclusionUpdateReqV1 | null): any {
+export function ApiCertBasedExclusionUpdateReqV1ToJSON(json: any): ApiCertBasedExclusionUpdateReqV1 {
+    return ApiCertBasedExclusionUpdateReqV1ToJSONTyped(json, false);
+}
+
+export function ApiCertBasedExclusionUpdateReqV1ToJSONTyped(value?: ApiCertBasedExclusionUpdateReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         applied_globally: value["appliedGlobally"],
         certificate: ApiCertificateReqV1ToJSON(value["certificate"]),
         children_cids: value["childrenCids"],
         comment: value["comment"],
         created_by: value["createdBy"],
-        created_on: value["createdOn"] == null ? undefined : value["createdOn"].toISOString(),
+        created_on: value["createdOn"] == null ? value["createdOn"] : value["createdOn"].toISOString(),
         description: value["description"],
         host_groups: value["hostGroups"],
         id: value["id"],
         modified_by: value["modifiedBy"],
-        modified_on: value["modifiedOn"] == null ? undefined : value["modifiedOn"].toISOString(),
+        modified_on: value["modifiedOn"] == null ? value["modifiedOn"] : value["modifiedOn"].toISOString(),
         name: value["name"],
         status: value["status"],
     };

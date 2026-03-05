@@ -99,12 +99,9 @@ export interface ContainerImageComplianceApiExtAggregateRulesByStatusRequest {
  */
 export class ContainerImageComplianceApi extends runtime.BaseAPI {
     /**
-     * get the assessments for each cluster
+     * Creates request options for extAggregateClusterAssessments without sending the request
      */
-    async extAggregateClusterAssessmentsRaw(
-        requestParameters: ContainerImageComplianceApiExtAggregateClusterAssessmentsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainAggregateClusterAssessmentsResponse>> {
+    async extAggregateClusterAssessmentsRequestOpts(requestParameters: ContainerImageComplianceApiExtAggregateClusterAssessmentsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -118,15 +115,25 @@ export class ContainerImageComplianceApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-compliance/aggregates/compliance-by-clusters/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-compliance/aggregates/compliance-by-clusters/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * get the assessments for each cluster
+     */
+    async extAggregateClusterAssessmentsRaw(
+        requestParameters: ContainerImageComplianceApiExtAggregateClusterAssessmentsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainAggregateClusterAssessmentsResponse>> {
+        const requestOptions = await this.extAggregateClusterAssessmentsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregateClusterAssessmentsResponseFromJSON(jsonValue));
     }
@@ -140,12 +147,9 @@ export class ContainerImageComplianceApi extends runtime.BaseAPI {
     }
 
     /**
-     * get the containers grouped into rules on which they failed
+     * Creates request options for extAggregateFailedContainersByRulesPath without sending the request
      */
-    async extAggregateFailedContainersByRulesPathRaw(
-        requestParameters: ContainerImageComplianceApiExtAggregateFailedContainersByRulesPathRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainAggregateFailedAssetsByRulesResponse>> {
+    async extAggregateFailedContainersByRulesPathRequestOpts(requestParameters: ContainerImageComplianceApiExtAggregateFailedContainersByRulesPathRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -159,15 +163,25 @@ export class ContainerImageComplianceApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-compliance/aggregates/failed-containers-by-rules/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-compliance/aggregates/failed-containers-by-rules/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * get the containers grouped into rules on which they failed
+     */
+    async extAggregateFailedContainersByRulesPathRaw(
+        requestParameters: ContainerImageComplianceApiExtAggregateFailedContainersByRulesPathRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainAggregateFailedAssetsByRulesResponse>> {
+        const requestOptions = await this.extAggregateFailedContainersByRulesPathRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregateFailedAssetsByRulesResponseFromJSON(jsonValue));
     }
@@ -181,12 +195,9 @@ export class ContainerImageComplianceApi extends runtime.BaseAPI {
     }
 
     /**
-     * get the failed containers count grouped into severity levels
+     * Creates request options for extAggregateFailedContainersCountBySeverity without sending the request
      */
-    async extAggregateFailedContainersCountBySeverityRaw(
-        requestParameters: ContainerImageComplianceApiExtAggregateFailedContainersCountBySeverityRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainAggregateFailedAssetCountBySeverityResponse>> {
+    async extAggregateFailedContainersCountBySeverityRequestOpts(requestParameters: ContainerImageComplianceApiExtAggregateFailedContainersCountBySeverityRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -200,15 +211,25 @@ export class ContainerImageComplianceApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-compliance/aggregates/failed-containers-count-by-severity/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-compliance/aggregates/failed-containers-count-by-severity/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * get the failed containers count grouped into severity levels
+     */
+    async extAggregateFailedContainersCountBySeverityRaw(
+        requestParameters: ContainerImageComplianceApiExtAggregateFailedContainersCountBySeverityRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainAggregateFailedAssetCountBySeverityResponse>> {
+        const requestOptions = await this.extAggregateFailedContainersCountBySeverityRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregateFailedAssetCountBySeverityResponseFromJSON(jsonValue));
     }
@@ -222,12 +243,9 @@ export class ContainerImageComplianceApi extends runtime.BaseAPI {
     }
 
     /**
-     * get the images grouped into rules on which they failed
+     * Creates request options for extAggregateFailedImagesByRulesPath without sending the request
      */
-    async extAggregateFailedImagesByRulesPathRaw(
-        requestParameters: ContainerImageComplianceApiExtAggregateFailedImagesByRulesPathRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainAggregateFailedAssetsByRulesResponse>> {
+    async extAggregateFailedImagesByRulesPathRequestOpts(requestParameters: ContainerImageComplianceApiExtAggregateFailedImagesByRulesPathRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -241,15 +259,25 @@ export class ContainerImageComplianceApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-compliance/aggregates/failed-images-by-rules/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-compliance/aggregates/failed-images-by-rules/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * get the images grouped into rules on which they failed
+     */
+    async extAggregateFailedImagesByRulesPathRaw(
+        requestParameters: ContainerImageComplianceApiExtAggregateFailedImagesByRulesPathRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainAggregateFailedAssetsByRulesResponse>> {
+        const requestOptions = await this.extAggregateFailedImagesByRulesPathRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregateFailedAssetsByRulesResponseFromJSON(jsonValue));
     }
@@ -263,12 +291,9 @@ export class ContainerImageComplianceApi extends runtime.BaseAPI {
     }
 
     /**
-     * get the failed images count grouped into severity levels
+     * Creates request options for extAggregateFailedImagesCountBySeverity without sending the request
      */
-    async extAggregateFailedImagesCountBySeverityRaw(
-        requestParameters: ContainerImageComplianceApiExtAggregateFailedImagesCountBySeverityRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainAggregateFailedAssetCountBySeverityResponse>> {
+    async extAggregateFailedImagesCountBySeverityRequestOpts(requestParameters: ContainerImageComplianceApiExtAggregateFailedImagesCountBySeverityRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -282,15 +307,25 @@ export class ContainerImageComplianceApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-compliance/aggregates/failed-images-count-by-severity/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-compliance/aggregates/failed-images-count-by-severity/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * get the failed images count grouped into severity levels
+     */
+    async extAggregateFailedImagesCountBySeverityRaw(
+        requestParameters: ContainerImageComplianceApiExtAggregateFailedImagesCountBySeverityRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainAggregateFailedAssetCountBySeverityResponse>> {
+        const requestOptions = await this.extAggregateFailedImagesCountBySeverityRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregateFailedAssetCountBySeverityResponseFromJSON(jsonValue));
     }
@@ -304,12 +339,9 @@ export class ContainerImageComplianceApi extends runtime.BaseAPI {
     }
 
     /**
-     * get the failed rules for each cluster grouped into severity levels
+     * Creates request options for extAggregateFailedRulesByClusters without sending the request
      */
-    async extAggregateFailedRulesByClustersRaw(
-        requestParameters: ContainerImageComplianceApiExtAggregateFailedRulesByClustersRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainAggregateFailedRulesByClustersResponse>> {
+    async extAggregateFailedRulesByClustersRequestOpts(requestParameters: ContainerImageComplianceApiExtAggregateFailedRulesByClustersRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -323,15 +355,25 @@ export class ContainerImageComplianceApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-compliance/aggregates/failed-rules-by-clusters/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-compliance/aggregates/failed-rules-by-clusters/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * get the failed rules for each cluster grouped into severity levels
+     */
+    async extAggregateFailedRulesByClustersRaw(
+        requestParameters: ContainerImageComplianceApiExtAggregateFailedRulesByClustersRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainAggregateFailedRulesByClustersResponse>> {
+        const requestOptions = await this.extAggregateFailedRulesByClustersRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregateFailedRulesByClustersResponseFromJSON(jsonValue));
     }
@@ -345,12 +387,9 @@ export class ContainerImageComplianceApi extends runtime.BaseAPI {
     }
 
     /**
-     * get images with failed rules, rule count grouped by severity for each image
+     * Creates request options for extAggregateFailedRulesByImages without sending the request
      */
-    async extAggregateFailedRulesByImagesRaw(
-        requestParameters: ContainerImageComplianceApiExtAggregateFailedRulesByImagesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainAggregateFailedRulesByImagesResponse>> {
+    async extAggregateFailedRulesByImagesRequestOpts(requestParameters: ContainerImageComplianceApiExtAggregateFailedRulesByImagesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -364,15 +403,25 @@ export class ContainerImageComplianceApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-compliance/aggregates/failed-rules-by-images/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-compliance/aggregates/failed-rules-by-images/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * get images with failed rules, rule count grouped by severity for each image
+     */
+    async extAggregateFailedRulesByImagesRaw(
+        requestParameters: ContainerImageComplianceApiExtAggregateFailedRulesByImagesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainAggregateFailedRulesByImagesResponse>> {
+        const requestOptions = await this.extAggregateFailedRulesByImagesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregateFailedRulesByImagesResponseFromJSON(jsonValue));
     }
@@ -386,12 +435,9 @@ export class ContainerImageComplianceApi extends runtime.BaseAPI {
     }
 
     /**
-     * get the failed rules count grouped into severity levels
+     * Creates request options for extAggregateFailedRulesCountBySeverity without sending the request
      */
-    async extAggregateFailedRulesCountBySeverityRaw(
-        requestParameters: ContainerImageComplianceApiExtAggregateFailedRulesCountBySeverityRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainAggregateFailedRulesCountBySeverityResponse>> {
+    async extAggregateFailedRulesCountBySeverityRequestOpts(requestParameters: ContainerImageComplianceApiExtAggregateFailedRulesCountBySeverityRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -405,15 +451,25 @@ export class ContainerImageComplianceApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-compliance/aggregates/failed-rules-count-by-severity/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-compliance/aggregates/failed-rules-count-by-severity/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * get the failed rules count grouped into severity levels
+     */
+    async extAggregateFailedRulesCountBySeverityRaw(
+        requestParameters: ContainerImageComplianceApiExtAggregateFailedRulesCountBySeverityRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainAggregateFailedRulesCountBySeverityResponse>> {
+        const requestOptions = await this.extAggregateFailedRulesCountBySeverityRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregateFailedRulesCountBySeverityResponseFromJSON(jsonValue));
     }
@@ -427,12 +483,9 @@ export class ContainerImageComplianceApi extends runtime.BaseAPI {
     }
 
     /**
-     * get the assessments for each image
+     * Creates request options for extAggregateImageAssessments without sending the request
      */
-    async extAggregateImageAssessmentsRaw(
-        requestParameters: ContainerImageComplianceApiExtAggregateImageAssessmentsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainAggregateImageAssessmentsResponse>> {
+    async extAggregateImageAssessmentsRequestOpts(requestParameters: ContainerImageComplianceApiExtAggregateImageAssessmentsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -454,15 +507,25 @@ export class ContainerImageComplianceApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-compliance/aggregates/compliance-by-images/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-compliance/aggregates/compliance-by-images/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * get the assessments for each image
+     */
+    async extAggregateImageAssessmentsRaw(
+        requestParameters: ContainerImageComplianceApiExtAggregateImageAssessmentsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainAggregateImageAssessmentsResponse>> {
+        const requestOptions = await this.extAggregateImageAssessmentsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregateImageAssessmentsResponseFromJSON(jsonValue));
     }
@@ -476,12 +539,9 @@ export class ContainerImageComplianceApi extends runtime.BaseAPI {
     }
 
     /**
-     * get the assessments for each rule
+     * Creates request options for extAggregateRulesAssessments without sending the request
      */
-    async extAggregateRulesAssessmentsRaw(
-        requestParameters: ContainerImageComplianceApiExtAggregateRulesAssessmentsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainAggregateRulesAssessmentsResponse>> {
+    async extAggregateRulesAssessmentsRequestOpts(requestParameters: ContainerImageComplianceApiExtAggregateRulesAssessmentsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -495,15 +555,25 @@ export class ContainerImageComplianceApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-compliance/aggregates/compliance-by-rules/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-compliance/aggregates/compliance-by-rules/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * get the assessments for each rule
+     */
+    async extAggregateRulesAssessmentsRaw(
+        requestParameters: ContainerImageComplianceApiExtAggregateRulesAssessmentsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainAggregateRulesAssessmentsResponse>> {
+        const requestOptions = await this.extAggregateRulesAssessmentsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregateRulesAssessmentsResponseFromJSON(jsonValue));
     }
@@ -517,12 +587,9 @@ export class ContainerImageComplianceApi extends runtime.BaseAPI {
     }
 
     /**
-     * get the rules grouped by their statuses
+     * Creates request options for extAggregateRulesByStatus without sending the request
      */
-    async extAggregateRulesByStatusRaw(
-        requestParameters: ContainerImageComplianceApiExtAggregateRulesByStatusRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainAggregateRulesByStatusResponse>> {
+    async extAggregateRulesByStatusRequestOpts(requestParameters: ContainerImageComplianceApiExtAggregateRulesByStatusRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -536,15 +603,25 @@ export class ContainerImageComplianceApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-compliance/aggregates/rules-by-status/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-compliance/aggregates/rules-by-status/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * get the rules grouped by their statuses
+     */
+    async extAggregateRulesByStatusRaw(
+        requestParameters: ContainerImageComplianceApiExtAggregateRulesByStatusRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainAggregateRulesByStatusResponse>> {
+        const requestOptions = await this.extAggregateRulesByStatusRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregateRulesByStatusResponseFromJSON(jsonValue));
     }

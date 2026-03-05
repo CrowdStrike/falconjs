@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainExternalAssetService } from "./DomainExternalAssetService";
-import { DomainExternalAssetServiceFromJSON, DomainExternalAssetServiceFromJSONTyped, DomainExternalAssetServiceToJSON } from "./DomainExternalAssetService";
+import { DomainExternalAssetServiceFromJSON, DomainExternalAssetServiceFromJSONTyped, DomainExternalAssetServiceToJSON, DomainExternalAssetServiceToJSONTyped } from "./DomainExternalAssetService";
 
 /**
  *
@@ -87,10 +87,15 @@ export function DomainFemDNSDomainFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function DomainFemDNSDomainToJSON(value?: DomainFemDNSDomain | null): any {
+export function DomainFemDNSDomainToJSON(json: any): DomainFemDNSDomain {
+    return DomainFemDNSDomainToJSONTyped(json, false);
+}
+
+export function DomainFemDNSDomainToJSONTyped(value?: DomainFemDNSDomain | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         fqdn: value["fqdn"],
         isps: value["isps"],

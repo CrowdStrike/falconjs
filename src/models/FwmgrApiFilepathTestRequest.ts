@@ -56,10 +56,15 @@ export function FwmgrApiFilepathTestRequestFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function FwmgrApiFilepathTestRequestToJSON(value?: FwmgrApiFilepathTestRequest | null): any {
+export function FwmgrApiFilepathTestRequestToJSON(json: any): FwmgrApiFilepathTestRequest {
+    return FwmgrApiFilepathTestRequestToJSONTyped(json, false);
+}
+
+export function FwmgrApiFilepathTestRequestToJSONTyped(value?: FwmgrApiFilepathTestRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         filepath_pattern: value["filepathPattern"],
         filepath_test_string: value["filepathTestString"],

@@ -47,10 +47,15 @@ export function DomainReportTypeFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function DomainReportTypeToJSON(value?: DomainReportType | null): any {
+export function DomainReportTypeToJSON(json: any): DomainReportType {
+    return DomainReportTypeToJSONTyped(json, false);
+}
+
+export function DomainReportTypeToJSONTyped(value?: DomainReportType | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
     };

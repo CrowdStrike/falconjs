@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DetectsapiAggregationResultItem } from "./DetectsapiAggregationResultItem";
-import { DetectsapiAggregationResultItemFromJSON, DetectsapiAggregationResultItemFromJSONTyped, DetectsapiAggregationResultItemToJSON } from "./DetectsapiAggregationResultItem";
+import {
+    DetectsapiAggregationResultItemFromJSON,
+    DetectsapiAggregationResultItemFromJSONTyped,
+    DetectsapiAggregationResultItemToJSON,
+    DetectsapiAggregationResultItemToJSONTyped,
+} from "./DetectsapiAggregationResultItem";
 
 /**
  *
@@ -66,10 +71,15 @@ export function DetectsapiAggregationResultFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function DetectsapiAggregationResultToJSON(value?: DetectsapiAggregationResult | null): any {
+export function DetectsapiAggregationResultToJSON(json: any): DetectsapiAggregationResult {
+    return DetectsapiAggregationResultToJSONTyped(json, false);
+}
+
+export function DetectsapiAggregationResultToJSONTyped(value?: DetectsapiAggregationResult | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         buckets: (value["buckets"] as Array<any>).map(DetectsapiAggregationResultItemToJSON),
         name: value["name"],

@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DomainOCITenancyUpdateExtV1 } from "./DomainOCITenancyUpdateExtV1";
-import { DomainOCITenancyUpdateExtV1FromJSON, DomainOCITenancyUpdateExtV1FromJSONTyped, DomainOCITenancyUpdateExtV1ToJSON } from "./DomainOCITenancyUpdateExtV1";
+import {
+    DomainOCITenancyUpdateExtV1FromJSON,
+    DomainOCITenancyUpdateExtV1FromJSONTyped,
+    DomainOCITenancyUpdateExtV1ToJSON,
+    DomainOCITenancyUpdateExtV1ToJSONTyped,
+} from "./DomainOCITenancyUpdateExtV1";
 
 /**
  *
@@ -51,10 +56,15 @@ export function DomainOCITenancyUpdateRequestExtV1FromJSONTyped(json: any, ignor
     };
 }
 
-export function DomainOCITenancyUpdateRequestExtV1ToJSON(value?: DomainOCITenancyUpdateRequestExtV1 | null): any {
+export function DomainOCITenancyUpdateRequestExtV1ToJSON(json: any): DomainOCITenancyUpdateRequestExtV1 {
+    return DomainOCITenancyUpdateRequestExtV1ToJSONTyped(json, false);
+}
+
+export function DomainOCITenancyUpdateRequestExtV1ToJSONTyped(value?: DomainOCITenancyUpdateRequestExtV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(DomainOCITenancyUpdateExtV1ToJSON),
     };

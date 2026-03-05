@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ThreatgraphPaging } from "./ThreatgraphPaging";
-import { ThreatgraphPagingFromJSON, ThreatgraphPagingFromJSONTyped, ThreatgraphPagingToJSON } from "./ThreatgraphPaging";
+import { ThreatgraphPagingFromJSON, ThreatgraphPagingFromJSONTyped, ThreatgraphPagingToJSON, ThreatgraphPagingToJSONTyped } from "./ThreatgraphPaging";
 
 /**
  *
@@ -73,10 +73,15 @@ export function ThreatgraphMetaFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function ThreatgraphMetaToJSON(value?: ThreatgraphMeta | null): any {
+export function ThreatgraphMetaToJSON(json: any): ThreatgraphMeta {
+    return ThreatgraphMetaToJSONTyped(json, false);
+}
+
+export function ThreatgraphMetaToJSONTyped(value?: ThreatgraphMeta | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: ThreatgraphPagingToJSON(value["pagination"]),
         powered_by: value["poweredBy"],

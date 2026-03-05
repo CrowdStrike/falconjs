@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesInterface } from "./TypesInterface";
-import { TypesInterfaceFromJSON, TypesInterfaceFromJSONTyped, TypesInterfaceToJSON } from "./TypesInterface";
+import { TypesInterfaceFromJSON, TypesInterfaceFromJSONTyped, TypesInterfaceToJSON, TypesInterfaceToJSONTyped } from "./TypesInterface";
 
 /**
  *
@@ -57,10 +57,15 @@ export function TypesServiceServiceInterfaceFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function TypesServiceServiceInterfaceToJSON(value?: TypesServiceServiceInterface | null): any {
+export function TypesServiceServiceInterfaceToJSON(json: any): TypesServiceServiceInterface {
+    return TypesServiceServiceInterfaceToJSONTyped(json, false);
+}
+
+export function TypesServiceServiceInterfaceToJSONTyped(value?: TypesServiceServiceInterface | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count: value["count"],
         items: value["items"] == null ? undefined : (value["items"] as Array<any>).map(TypesInterfaceToJSON),

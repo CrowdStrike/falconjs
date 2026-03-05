@@ -56,10 +56,15 @@ export function ContentchangesContentFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function ContentchangesContentToJSON(value?: ContentchangesContent | null): any {
+export function ContentchangesContentToJSON(json: any): ContentchangesContent {
+    return ContentchangesContentToJSONTyped(json, false);
+}
+
+export function ContentchangesContentToJSONTyped(value?: ContentchangesContent | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         data: value["data"],
         path: value["path"],

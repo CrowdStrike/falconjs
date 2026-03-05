@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { InventoryapiUserExternalAssetCreate } from "./InventoryapiUserExternalAssetCreate";
-import { InventoryapiUserExternalAssetCreateFromJSON, InventoryapiUserExternalAssetCreateFromJSONTyped, InventoryapiUserExternalAssetCreateToJSON } from "./InventoryapiUserExternalAssetCreate";
+import {
+    InventoryapiUserExternalAssetCreateFromJSON,
+    InventoryapiUserExternalAssetCreateFromJSONTyped,
+    InventoryapiUserExternalAssetCreateToJSON,
+    InventoryapiUserExternalAssetCreateToJSONTyped,
+} from "./InventoryapiUserExternalAssetCreate";
 
 /**
  *
@@ -51,10 +56,15 @@ export function InventoryapiUserExternalAssetCreateRequestV1FromJSONTyped(json: 
     };
 }
 
-export function InventoryapiUserExternalAssetCreateRequestV1ToJSON(value?: InventoryapiUserExternalAssetCreateRequestV1 | null): any {
+export function InventoryapiUserExternalAssetCreateRequestV1ToJSON(json: any): InventoryapiUserExternalAssetCreateRequestV1 {
+    return InventoryapiUserExternalAssetCreateRequestV1ToJSONTyped(json, false);
+}
+
+export function InventoryapiUserExternalAssetCreateRequestV1ToJSONTyped(value?: InventoryapiUserExternalAssetCreateRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         data: (value["data"] as Array<any>).map(InventoryapiUserExternalAssetCreateToJSON),
     };

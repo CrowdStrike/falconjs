@@ -48,10 +48,15 @@ export function K8sassetsContainerEnrichmentDataFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function K8sassetsContainerEnrichmentDataToJSON(value?: K8sassetsContainerEnrichmentData | null): any {
+export function K8sassetsContainerEnrichmentDataToJSON(json: any): K8sassetsContainerEnrichmentData {
+    return K8sassetsContainerEnrichmentDataToJSONTyped(json, false);
+}
+
+export function K8sassetsContainerEnrichmentDataToJSONTyped(value?: K8sassetsContainerEnrichmentData | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         agents: value["agents"],
     };

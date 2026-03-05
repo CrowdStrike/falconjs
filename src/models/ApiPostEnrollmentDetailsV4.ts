@@ -64,10 +64,15 @@ export function ApiPostEnrollmentDetailsV4FromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function ApiPostEnrollmentDetailsV4ToJSON(value?: ApiPostEnrollmentDetailsV4 | null): any {
+export function ApiPostEnrollmentDetailsV4ToJSON(json: any): ApiPostEnrollmentDetailsV4 {
+    return ApiPostEnrollmentDetailsV4ToJSONTyped(json, false);
+}
+
+export function ApiPostEnrollmentDetailsV4ToJSONTyped(value?: ApiPostEnrollmentDetailsV4 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         email_addresses: value["emailAddresses"],
         enrollment_type: value["enrollmentType"],

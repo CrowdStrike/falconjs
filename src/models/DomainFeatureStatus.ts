@@ -69,10 +69,15 @@ export function DomainFeatureStatusFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function DomainFeatureStatusToJSON(value?: DomainFeatureStatus | null): any {
+export function DomainFeatureStatusToJSON(json: any): DomainFeatureStatus {
+    return DomainFeatureStatusToJSONTyped(json, false);
+}
+
+export function DomainFeatureStatusToJSONTyped(value?: DomainFeatureStatus | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         enabled: value["enabled"],
         failedPermissions: value["failedPermissions"],

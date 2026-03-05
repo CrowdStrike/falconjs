@@ -56,10 +56,15 @@ export function K8sregCreateAWSAccReqResourcesFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function K8sregCreateAWSAccReqResourcesToJSON(value?: K8sregCreateAWSAccReqResources | null): any {
+export function K8sregCreateAWSAccReqResourcesToJSON(json: any): K8sregCreateAWSAccReqResources {
+    return K8sregCreateAWSAccReqResourcesToJSONTyped(json, false);
+}
+
+export function K8sregCreateAWSAccReqResourcesToJSONTyped(value?: K8sregCreateAWSAccReqResources | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         region: value["region"],

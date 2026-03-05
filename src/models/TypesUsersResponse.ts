@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesUser } from "./TypesUser";
-import { TypesUserFromJSON, TypesUserFromJSONTyped, TypesUserToJSON } from "./TypesUser";
+import { TypesUserFromJSON, TypesUserFromJSONTyped, TypesUserToJSON, TypesUserToJSONTyped } from "./TypesUser";
 
 /**
  *
@@ -59,10 +59,15 @@ export function TypesUsersResponseFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function TypesUsersResponseToJSON(value?: TypesUsersResponse | null): any {
+export function TypesUsersResponseToJSON(json: any): TypesUsersResponse {
+    return TypesUsersResponseToJSONTyped(json, false);
+}
+
+export function TypesUsersResponseToJSONTyped(value?: TypesUsersResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         totalCount: value["totalCount"],
         users: (value["users"] as Array<any>).map(TypesUserToJSON),

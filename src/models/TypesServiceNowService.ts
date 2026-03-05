@@ -14,14 +14,15 @@
 
 import { mapValues } from "../runtime";
 import type { TypesServiceServiceTraits } from "./TypesServiceServiceTraits";
-import { TypesServiceServiceTraitsFromJSON, TypesServiceServiceTraitsFromJSONTyped, TypesServiceServiceTraitsToJSON } from "./TypesServiceServiceTraits";
+import { TypesServiceServiceTraitsFromJSON, TypesServiceServiceTraitsFromJSONTyped, TypesServiceServiceTraitsToJSON, TypesServiceServiceTraitsToJSONTyped } from "./TypesServiceServiceTraits";
 import type { TypesServiceServiceTag } from "./TypesServiceServiceTag";
-import { TypesServiceServiceTagFromJSON, TypesServiceServiceTagFromJSONTyped, TypesServiceServiceTagToJSON } from "./TypesServiceServiceTag";
+import { TypesServiceServiceTagFromJSON, TypesServiceServiceTagFromJSONTyped, TypesServiceServiceTagToJSON, TypesServiceServiceTagToJSONTyped } from "./TypesServiceServiceTag";
 import type { TypesServiceServiceBusinessApplication } from "./TypesServiceServiceBusinessApplication";
 import {
     TypesServiceServiceBusinessApplicationFromJSON,
     TypesServiceServiceBusinessApplicationFromJSONTyped,
     TypesServiceServiceBusinessApplicationToJSON,
+    TypesServiceServiceBusinessApplicationToJSONTyped,
 } from "./TypesServiceServiceBusinessApplication";
 
 /**
@@ -235,10 +236,15 @@ export function TypesServiceNowServiceFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function TypesServiceNowServiceToJSON(value?: TypesServiceNowService | null): any {
+export function TypesServiceNowServiceToJSON(json: any): TypesServiceNowService {
+    return TypesServiceNowServiceToJSONTyped(json, false);
+}
+
+export function TypesServiceNowServiceToJSONTyped(value?: TypesServiceNowService | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         applicationServer: value["applicationServer"],
         businessApplications: TypesServiceServiceBusinessApplicationToJSON(value["businessApplications"]),

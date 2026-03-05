@@ -18,6 +18,7 @@ import {
     ContentUpdateRingAssignmentSettingsReqV1FromJSON,
     ContentUpdateRingAssignmentSettingsReqV1FromJSONTyped,
     ContentUpdateRingAssignmentSettingsReqV1ToJSON,
+    ContentUpdateRingAssignmentSettingsReqV1ToJSONTyped,
 } from "./ContentUpdateRingAssignmentSettingsReqV1";
 
 /**
@@ -55,10 +56,15 @@ export function ContentUpdateContentUpdateSettingsReqV1FromJSONTyped(json: any, 
     };
 }
 
-export function ContentUpdateContentUpdateSettingsReqV1ToJSON(value?: ContentUpdateContentUpdateSettingsReqV1 | null): any {
+export function ContentUpdateContentUpdateSettingsReqV1ToJSON(json: any): ContentUpdateContentUpdateSettingsReqV1 {
+    return ContentUpdateContentUpdateSettingsReqV1ToJSONTyped(json, false);
+}
+
+export function ContentUpdateContentUpdateSettingsReqV1ToJSONTyped(value?: ContentUpdateContentUpdateSettingsReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ring_assignment_settings: (value["ringAssignmentSettings"] as Array<any>).map(ContentUpdateRingAssignmentSettingsReqV1ToJSON),
     };

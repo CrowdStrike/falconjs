@@ -48,10 +48,15 @@ export function ModelsAPIDetectionCountFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function ModelsAPIDetectionCountToJSON(value?: ModelsAPIDetectionCount | null): any {
+export function ModelsAPIDetectionCountToJSON(json: any): ModelsAPIDetectionCount {
+    return ModelsAPIDetectionCountToJSONTyped(json, false);
+}
+
+export function ModelsAPIDetectionCountToJSONTyped(value?: ModelsAPIDetectionCount | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count: value["count"],
     };

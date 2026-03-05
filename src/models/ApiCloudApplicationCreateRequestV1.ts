@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApiWebAppURL } from "./ApiWebAppURL";
-import { ApiWebAppURLFromJSON, ApiWebAppURLFromJSONTyped, ApiWebAppURLToJSON } from "./ApiWebAppURL";
+import { ApiWebAppURLFromJSON, ApiWebAppURLFromJSONTyped, ApiWebAppURLToJSON, ApiWebAppURLToJSONTyped } from "./ApiWebAppURL";
 
 /**
  *
@@ -65,10 +65,15 @@ export function ApiCloudApplicationCreateRequestV1FromJSONTyped(json: any, ignor
     };
 }
 
-export function ApiCloudApplicationCreateRequestV1ToJSON(value?: ApiCloudApplicationCreateRequestV1 | null): any {
+export function ApiCloudApplicationCreateRequestV1ToJSON(json: any): ApiCloudApplicationCreateRequestV1 {
+    return ApiCloudApplicationCreateRequestV1ToJSONTyped(json, false);
+}
+
+export function ApiCloudApplicationCreateRequestV1ToJSONTyped(value?: ApiCloudApplicationCreateRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         name: value["name"],

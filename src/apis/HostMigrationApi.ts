@@ -112,13 +112,9 @@ export interface HostMigrationApiMigrationsActionsV1Request {
  */
 export class HostMigrationApi extends runtime.BaseAPI {
     /**
-     * `device_ids` and `filter` are mutually exclusive. Filter takes precedence.
-     * Create a device migration job.
+     * Creates request options for createMigrationV1 without sending the request
      */
-    async createMigrationV1Raw(
-        requestParameters: HostMigrationApiCreateMigrationV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiCreateMigrationResponseV1>> {
+    async createMigrationV1RequestOpts(requestParameters: HostMigrationApiCreateMigrationV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createMigrationV1().');
         }
@@ -134,16 +130,27 @@ export class HostMigrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-migration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/host-migration/entities/migrations/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiCreateMigrationRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/host-migration/entities/migrations/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiCreateMigrationRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * `device_ids` and `filter` are mutually exclusive. Filter takes precedence.
+     * Create a device migration job.
+     */
+    async createMigrationV1Raw(
+        requestParameters: HostMigrationApiCreateMigrationV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiCreateMigrationResponseV1>> {
+        const requestOptions = await this.createMigrationV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiCreateMigrationResponseV1FromJSON(jsonValue));
     }
@@ -158,13 +165,9 @@ export class HostMigrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query host migration IDs.
-     * Query host migration IDs.
+     * Creates request options for getHostMigrationIDsV1 without sending the request
      */
-    async getHostMigrationIDsV1Raw(
-        requestParameters: HostMigrationApiGetHostMigrationIDsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async getHostMigrationIDsV1RequestOpts(requestParameters: HostMigrationApiGetHostMigrationIDsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling getHostMigrationIDsV1().');
         }
@@ -198,15 +201,26 @@ export class HostMigrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-migration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/host-migration/queries/host-migrations/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/host-migration/queries/host-migrations/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query host migration IDs.
+     * Query host migration IDs.
+     */
+    async getHostMigrationIDsV1Raw(
+        requestParameters: HostMigrationApiGetHostMigrationIDsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.getHostMigrationIDsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -228,13 +242,9 @@ export class HostMigrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * # Events   The `events` field describes actions that have occurred to the host migration entity. Each object is defined by the `action` field. When `user` is present, it is the user who performed the action. `time` is when the action occurred.  ## Event actions  ### added  This action is emitted when the host migration is created.  ``` { \"action\": \"added\", \"user\": \"example@example.com\", \"time\": \"2024-01-01T00:00:00Z\" } ```  ### assigned_static_host_groups  This action is emitted when a user assigns static host groups to a host migration. `ids` are the ids of the new host groups that have been assigned.  ``` { \"action\": \"assigned_static_host_groups\", \"ids\": [\"foo\", \"bar\"],  \"user\": \"example@example.com\", \"time\": \"2024-01-01T00:00:00Z\" } ```  ### removed_static_host_groups  This action is emitted when a user removes static host groups from a host migration. `ids` are the ids of the host groups that have been removed.  ``` { \"action\": \"removed_static_host_groups\", \"ids\": [\"foo\", \"bar\"],  \"user\": \"example@example.com\", \"time\": \"2024-01-01T00:00:00Z\" } ```  ### queued  This action is emitted when the migration is started.  ``` { \"action\": \"queued\", \"user\": \"example@example.com\", \"time\": \"2024-01-01T00:00:00Z\" } ```  ### failed  This action is emitted when the host migration fails. `reason` is the reason for failure. `reason` can be `unsupported_sensor_version`, `unsupported_sensor_platform`, `host_missing`, `migration_expired`, or `internal_error`.  ``` { \"action\": \"failed\", \"reason\": \"unsupported_sensor_version\", \"time\": \"2024-01-01T00:00:00Z\" } ```  ### cancelled  This action is emitted when the migration has been cancelled.  ``` { \"action\": \"cancelled\", \"user\": \"example@example.com\", \"time\": \"2024-01-01T00:00:00Z\" } ```  ### completed  This action is emitted when the host has successfully migrated.  ``` { \"action\": \"completed\", \"time\": \"2024-01-01T00:00:00Z\" } ```  # Status Details  The `status_details` field is an optional field that provides some more details about the status of a failed host migration. It may be omitted or empty from a response.  ### internal_error  This status detail is provided when an internal occurs during a host migration.  ### canceled_by_user  This status detail is provided when a migration has been canceled by a user.  ### host_missing  This status detail is provided when a host migration is canceled because the source host can no longer be found.  ### migration_expired  This status detail is provided when a host migration is expired because the migration is too old.  ### migration_already_in_progress  This status detail is provided when attempting to start a host migration on a host that is already in progress in another migration.  ### source_host_unsupported_version  This status detail is provided when attempting to create or start a host migration when the sensor is on an unsupported version.  ### source_host_unsupported_platform  This status detail is provided when attempting to create or start a host migration when the sensor is an unsupported platform.
-     * Get host migration details.
+     * Creates request options for getHostMigrationsV1 without sending the request
      */
-    async getHostMigrationsV1Raw(
-        requestParameters: HostMigrationApiGetHostMigrationsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiGetHostMigrationResponseV1>> {
+    async getHostMigrationsV1RequestOpts(requestParameters: HostMigrationApiGetHostMigrationsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getHostMigrationsV1().');
         }
@@ -250,16 +260,27 @@ export class HostMigrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-migration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/host-migration/entities/host-migrations/GET/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaIdsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/host-migration/entities/host-migrations/GET/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaIdsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * # Events   The `events` field describes actions that have occurred to the host migration entity. Each object is defined by the `action` field. When `user` is present, it is the user who performed the action. `time` is when the action occurred.  ## Event actions  ### added  This action is emitted when the host migration is created.  ``` { \"action\": \"added\", \"user\": \"example@example.com\", \"time\": \"2024-01-01T00:00:00Z\" } ```  ### assigned_static_host_groups  This action is emitted when a user assigns static host groups to a host migration. `ids` are the ids of the new host groups that have been assigned.  ``` { \"action\": \"assigned_static_host_groups\", \"ids\": [\"foo\", \"bar\"],  \"user\": \"example@example.com\", \"time\": \"2024-01-01T00:00:00Z\" } ```  ### removed_static_host_groups  This action is emitted when a user removes static host groups from a host migration. `ids` are the ids of the host groups that have been removed.  ``` { \"action\": \"removed_static_host_groups\", \"ids\": [\"foo\", \"bar\"],  \"user\": \"example@example.com\", \"time\": \"2024-01-01T00:00:00Z\" } ```  ### queued  This action is emitted when the migration is started.  ``` { \"action\": \"queued\", \"user\": \"example@example.com\", \"time\": \"2024-01-01T00:00:00Z\" } ```  ### failed  This action is emitted when the host migration fails. `reason` is the reason for failure. `reason` can be `unsupported_sensor_version`, `unsupported_sensor_platform`, `host_missing`, `migration_expired`, or `internal_error`.  ``` { \"action\": \"failed\", \"reason\": \"unsupported_sensor_version\", \"time\": \"2024-01-01T00:00:00Z\" } ```  ### cancelled  This action is emitted when the migration has been cancelled.  ``` { \"action\": \"cancelled\", \"user\": \"example@example.com\", \"time\": \"2024-01-01T00:00:00Z\" } ```  ### completed  This action is emitted when the host has successfully migrated.  ``` { \"action\": \"completed\", \"time\": \"2024-01-01T00:00:00Z\" } ```  # Status Details  The `status_details` field is an optional field that provides some more details about the status of a failed host migration. It may be omitted or empty from a response.  ### internal_error  This status detail is provided when an internal occurs during a host migration.  ### canceled_by_user  This status detail is provided when a migration has been canceled by a user.  ### host_missing  This status detail is provided when a host migration is canceled because the source host can no longer be found.  ### migration_expired  This status detail is provided when a host migration is expired because the migration is too old.  ### migration_already_in_progress  This status detail is provided when attempting to start a host migration on a host that is already in progress in another migration.  ### source_host_unsupported_version  This status detail is provided when attempting to create or start a host migration when the sensor is on an unsupported version.  ### source_host_unsupported_platform  This status detail is provided when attempting to create or start a host migration when the sensor is an unsupported platform.
+     * Get host migration details.
+     */
+    async getHostMigrationsV1Raw(
+        requestParameters: HostMigrationApiGetHostMigrationsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiGetHostMigrationResponseV1>> {
+        const requestOptions = await this.getHostMigrationsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiGetHostMigrationResponseV1FromJSON(jsonValue));
     }
@@ -274,13 +295,9 @@ export class HostMigrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * `device_ids` and `filter` are mutually exclusive.
-     * Get destinations for a migration.
+     * Creates request options for getMigrationDestinationsV1 without sending the request
      */
-    async getMigrationDestinationsV1Raw(
-        requestParameters: HostMigrationApiGetMigrationDestinationsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiGetMigrationDestinationsResponseV1>> {
+    async getMigrationDestinationsV1RequestOpts(requestParameters: HostMigrationApiGetMigrationDestinationsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getMigrationDestinationsV1().');
         }
@@ -296,16 +313,27 @@ export class HostMigrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-migration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/host-migration/entities/migration-destinations/GET/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiGetMigrationDestinationsRequestBodyV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/host-migration/entities/migration-destinations/GET/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiGetMigrationDestinationsRequestBodyV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * `device_ids` and `filter` are mutually exclusive.
+     * Get destinations for a migration.
+     */
+    async getMigrationDestinationsV1Raw(
+        requestParameters: HostMigrationApiGetMigrationDestinationsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiGetMigrationDestinationsResponseV1>> {
+        const requestOptions = await this.getMigrationDestinationsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiGetMigrationDestinationsResponseV1FromJSON(jsonValue));
     }
@@ -320,12 +348,9 @@ export class HostMigrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query migration jobs.
+     * Creates request options for getMigrationIDsV1 without sending the request
      */
-    async getMigrationIDsV1Raw(
-        requestParameters: HostMigrationApiGetMigrationIDsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async getMigrationIDsV1RequestOpts(requestParameters: HostMigrationApiGetMigrationIDsV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -351,15 +376,25 @@ export class HostMigrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-migration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/host-migration/queries/migrations/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/host-migration/queries/migrations/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query migration jobs.
+     */
+    async getMigrationIDsV1Raw(
+        requestParameters: HostMigrationApiGetMigrationIDsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.getMigrationIDsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -379,12 +414,9 @@ export class HostMigrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get migration job details.
+     * Creates request options for getMigrationsV1 without sending the request
      */
-    async getMigrationsV1Raw(
-        requestParameters: HostMigrationApiGetMigrationsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiGetMigrationsResponseV1>> {
+    async getMigrationsV1RequestOpts(requestParameters: HostMigrationApiGetMigrationsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getMigrationsV1().');
         }
@@ -402,15 +434,25 @@ export class HostMigrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-migration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/host-migration/entities/migrations/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/host-migration/entities/migrations/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get migration job details.
+     */
+    async getMigrationsV1Raw(
+        requestParameters: HostMigrationApiGetMigrationsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiGetMigrationsResponseV1>> {
+        const requestOptions = await this.getMigrationsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiGetMigrationsResponseV1FromJSON(jsonValue));
     }
@@ -424,13 +466,9 @@ export class HostMigrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get host migration aggregates as specified via json in request body.  # Supported Types  Both types support the following FQL filter properties: `groups`, `hostgroups`, `static_host_groups`, `hostname`, `status`, `target_cid`, `source_cid`, `migration_id`, `id`, `host_migration_id`, `created_time`.  The values `groups` and `hostgroups` are aliases for `static_host_groups`.  The value `host_migration_id` is an alias for `id`  ## Terms `\"type\": \"terms\"`  Supported `field` values: `groups`, `hostgroups`, `static_host_groups`, `hostname`, `status`, `target_cid`, `source_cid`, `migration_id`, `id`, `host_migration_id`.  `sort` must be done on the same value as `field` and include a direction (`asc` or `desc`). Supports all FQL fields except for `groups`, `hostgroups`, or `static_host_groups`.  Examples sort value: `status|asc` or `created_by|desc`   ## Date Range `\"type\": \"date_range\"`  Supported `field` fields: `created_time`.  Does not support `sort`, `size`, or `from`.
-     * Get host migration aggregates as specified via json in request body.
+     * Creates request options for hostMigrationAggregatesV1 without sending the request
      */
-    async hostMigrationAggregatesV1Raw(
-        requestParameters: HostMigrationApiHostMigrationAggregatesV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+    async hostMigrationAggregatesV1RequestOpts(requestParameters: HostMigrationApiHostMigrationAggregatesV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling hostMigrationAggregatesV1().');
         }
@@ -446,16 +484,27 @@ export class HostMigrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-migration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/host-migration/aggregates/host-migrations/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
-            },
-            initOverrides,
-        );
+        let urlPath = `/host-migration/aggregates/host-migrations/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
+        };
+    }
+
+    /**
+     * Get host migration aggregates as specified via json in request body.  # Supported Types  Both types support the following FQL filter properties: `groups`, `hostgroups`, `static_host_groups`, `hostname`, `status`, `target_cid`, `source_cid`, `migration_id`, `id`, `host_migration_id`, `created_time`.  The values `groups` and `hostgroups` are aliases for `static_host_groups`.  The value `host_migration_id` is an alias for `id`  ## Terms `\"type\": \"terms\"`  Supported `field` values: `groups`, `hostgroups`, `static_host_groups`, `hostname`, `status`, `target_cid`, `source_cid`, `migration_id`, `id`, `host_migration_id`.  `sort` must be done on the same value as `field` and include a direction (`asc` or `desc`). Supports all FQL fields except for `groups`, `hostgroups`, or `static_host_groups`.  Examples sort value: `status|asc` or `created_by|desc`   ## Date Range `\"type\": \"date_range\"`  Supported `field` fields: `created_time`.  Does not support `sort`, `size`, or `from`.
+     * Get host migration aggregates as specified via json in request body.
+     */
+    async hostMigrationAggregatesV1Raw(
+        requestParameters: HostMigrationApiHostMigrationAggregatesV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        const requestOptions = await this.hostMigrationAggregatesV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
     }
@@ -470,13 +519,9 @@ export class HostMigrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * The available actions are `add_host_groups`, `remove_host_groups`, and `remove_hosts`.  FQL filter supports the following fields: `groups`, `hostgroups`, `static_host_groups`, `hostname`, `status`, `target_cid`, `source_cid`, `migration_id`, `id`, `host_migration_id`, `created_time`.  These actions only works if the migration has not started.  `add_host_groups` adds static host groups to the selected hosts in a migration. This action accepts the following action parameter: `{ \"name\": \"host_group\": \"value\": \"$host_group_id\" }`. Action parameters can be repeated to add multiple static host groups in a single request.  `remove_host_groups` removes static host groups from the selected hosts in a migration. This action accepts the following action parameter: `{ \"name\": \"host_group\": \"value\": \"$host_group_id\" }`. Action parameters can be repeated to remove multiple static host groups in a single request.  `remove_hosts` removes the selected hosts from a migration. This action does not accept any action parameters.
-     * Perform an action on host migrations.
+     * Creates request options for hostMigrationsActionsV1 without sending the request
      */
-    async hostMigrationsActionsV1Raw(
-        requestParameters: HostMigrationApiHostMigrationsActionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async hostMigrationsActionsV1RequestOpts(requestParameters: HostMigrationApiHostMigrationsActionsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling hostMigrationsActionsV1().');
         }
@@ -508,16 +553,27 @@ export class HostMigrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-migration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/host-migration/entities/host-migrations-actions/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaEntityActionRequestV3ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/host-migration/entities/host-migrations-actions/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaEntityActionRequestV3ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * The available actions are `add_host_groups`, `remove_host_groups`, and `remove_hosts`.  FQL filter supports the following fields: `groups`, `hostgroups`, `static_host_groups`, `hostname`, `status`, `target_cid`, `source_cid`, `migration_id`, `id`, `host_migration_id`, `created_time`.  These actions only works if the migration has not started.  `add_host_groups` adds static host groups to the selected hosts in a migration. This action accepts the following action parameter: `{ \"name\": \"host_group\": \"value\": \"$host_group_id\" }`. Action parameters can be repeated to add multiple static host groups in a single request.  `remove_host_groups` removes static host groups from the selected hosts in a migration. This action accepts the following action parameter: `{ \"name\": \"host_group\": \"value\": \"$host_group_id\" }`. Action parameters can be repeated to remove multiple static host groups in a single request.  `remove_hosts` removes the selected hosts from a migration. This action does not accept any action parameters.
+     * Perform an action on host migrations.
+     */
+    async hostMigrationsActionsV1Raw(
+        requestParameters: HostMigrationApiHostMigrationsActionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.hostMigrationsActionsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -537,13 +593,9 @@ export class HostMigrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get migration aggregates as specified via json in request body.  # Supported Types  Both types support the following FQL filter props: `name`, `id`, `migration_id`, `target_cid`, `status`, `migration_status`, `created_by`, `created_time`.  The value `migration_status` is an alias for `status`.  The value `migration_id` is an alias for `id`.  ## Terms `\"type\": \"terms\"`  Supported `field` values: `name`, `id`, `migration_id,` `target_cid`, `status`, `migration_status`, `created_by`.  `sort` on `terms` type must be done on the same value as `field` and include a direction (`asc` or `desc`). Supports all supported FQL fields.  Examples sort value: `status|asc` or `created_by|desc`.   ## Date Range `\"type\": \"date_range\"`  Supported `field` fields: `created_time`.  Does not support `sort`, `size`, or `from`.
-     * Get migration aggregates as specified via json in request body.
+     * Creates request options for migrationAggregatesV1 without sending the request
      */
-    async migrationAggregatesV1Raw(
-        requestParameters: HostMigrationApiMigrationAggregatesV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+    async migrationAggregatesV1RequestOpts(requestParameters: HostMigrationApiMigrationAggregatesV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling migrationAggregatesV1().');
         }
@@ -559,16 +611,27 @@ export class HostMigrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-migration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/host-migration/aggregates/migrations/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
-            },
-            initOverrides,
-        );
+        let urlPath = `/host-migration/aggregates/migrations/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
+        };
+    }
+
+    /**
+     * Get migration aggregates as specified via json in request body.  # Supported Types  Both types support the following FQL filter props: `name`, `id`, `migration_id`, `target_cid`, `status`, `migration_status`, `created_by`, `created_time`.  The value `migration_status` is an alias for `status`.  The value `migration_id` is an alias for `id`.  ## Terms `\"type\": \"terms\"`  Supported `field` values: `name`, `id`, `migration_id,` `target_cid`, `status`, `migration_status`, `created_by`.  `sort` on `terms` type must be done on the same value as `field` and include a direction (`asc` or `desc`). Supports all supported FQL fields.  Examples sort value: `status|asc` or `created_by|desc`.   ## Date Range `\"type\": \"date_range\"`  Supported `field` fields: `created_time`.  Does not support `sort`, `size`, or `from`.
+     * Get migration aggregates as specified via json in request body.
+     */
+    async migrationAggregatesV1Raw(
+        requestParameters: HostMigrationApiMigrationAggregatesV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        const requestOptions = await this.migrationAggregatesV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
     }
@@ -583,13 +646,9 @@ export class HostMigrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * The available actions are `start_migration`, `cancel_migration`, `rename_migration`, and `delete_migration`.  `start_migration` starts the selected migrations. This action only works if the migration has not started. This action does not accept any action parameters. Only one migration may be started per request.  `cancel_migration` cancels the selected migrations. This actions only works if the migration has started and not completed. This action does not accept any action parameters.  `rename_migration` renames the selected migrations. This action can be called at any time. Only 1 action parameter may be supplied. Action parameters take the form of `{\"name\": \"migration_name\": \"value\": \"$new_migration_name\"}`.  `delete_migration` deletes the selected migrations. This action only works if the migration has not started. This action does not accept any action parameters.
-     * Perform an action on a migration job.
+     * Creates request options for migrationsActionsV1 without sending the request
      */
-    async migrationsActionsV1Raw(
-        requestParameters: HostMigrationApiMigrationsActionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async migrationsActionsV1RequestOpts(requestParameters: HostMigrationApiMigrationsActionsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["actionName"] == null) {
             throw new runtime.RequiredError("actionName", 'Required parameter "actionName" was null or undefined when calling migrationsActionsV1().');
         }
@@ -613,16 +672,27 @@ export class HostMigrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-migration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/host-migration/entities/migrations-actions/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaEntityActionRequestV3ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/host-migration/entities/migrations-actions/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaEntityActionRequestV3ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * The available actions are `start_migration`, `cancel_migration`, `rename_migration`, and `delete_migration`.  `start_migration` starts the selected migrations. This action only works if the migration has not started. This action does not accept any action parameters. Only one migration may be started per request.  `cancel_migration` cancels the selected migrations. This actions only works if the migration has started and not completed. This action does not accept any action parameters.  `rename_migration` renames the selected migrations. This action can be called at any time. Only 1 action parameter may be supplied. Action parameters take the form of `{\"name\": \"migration_name\": \"value\": \"$new_migration_name\"}`.  `delete_migration` deletes the selected migrations. This action only works if the migration has not started. This action does not accept any action parameters.
+     * Perform an action on a migration job.
+     */
+    async migrationsActionsV1Raw(
+        requestParameters: HostMigrationApiMigrationsActionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.migrationsActionsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }

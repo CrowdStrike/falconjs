@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApimodelsAssetFilter } from "./ApimodelsAssetFilter";
-import { ApimodelsAssetFilterFromJSON, ApimodelsAssetFilterFromJSONTyped, ApimodelsAssetFilterToJSON } from "./ApimodelsAssetFilter";
+import { ApimodelsAssetFilterFromJSON, ApimodelsAssetFilterFromJSONTyped, ApimodelsAssetFilterToJSON, ApimodelsAssetFilterToJSONTyped } from "./ApimodelsAssetFilter";
 
 /**
  *
@@ -202,10 +202,15 @@ export function ApimodelsRuleOverrideFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function ApimodelsRuleOverrideToJSON(value?: ApimodelsRuleOverride | null): any {
+export function ApimodelsRuleOverrideToJSON(json: any): ApimodelsRuleOverride {
+    return ApimodelsRuleOverrideToJSONTyped(json, false);
+}
+
+export function ApimodelsRuleOverrideToJSONTyped(value?: ApimodelsRuleOverride | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         asset_filter: ApimodelsAssetFilterToJSON(value["assetFilter"]),
         asset_scope_type: value["assetScopeType"],
@@ -214,7 +219,7 @@ export function ApimodelsRuleOverrideToJSON(value?: ApimodelsRuleOverride | null
         created_at: value["createdAt"].toISOString(),
         created_by: value["createdBy"],
         crn: value["crn"],
-        deleted_at: value["deletedAt"] == null ? undefined : value["deletedAt"].toISOString(),
+        deleted_at: value["deletedAt"] == null ? value["deletedAt"] : value["deletedAt"].toISOString(),
         deleted_by: value["deletedBy"],
         expires_at: value["expiresAt"].toISOString(),
         override_details: value["overrideDetails"],
@@ -224,7 +229,7 @@ export function ApimodelsRuleOverrideToJSON(value?: ApimodelsRuleOverride | null
         suppression_rule_id: value["suppressionRuleId"],
         target_region: value["targetRegion"],
         update_reason: value["updateReason"],
-        updated_at: value["updatedAt"] == null ? undefined : value["updatedAt"].toISOString(),
+        updated_at: value["updatedAt"] == null ? value["updatedAt"] : value["updatedAt"].toISOString(),
         updated_by: value["updatedBy"],
         user_id: value["userId"],
         uuid: value["uuid"],

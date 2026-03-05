@@ -56,9 +56,9 @@ export interface IocsApiProcessesRanOnRequest {
  */
 export class IocsApi extends runtime.BaseAPI {
     /**
-     * Number of hosts in your customer account that have observed a given custom IOC
+     * Creates request options for devicesCount without sending the request
      */
-    async devicesCountRaw(requestParameters: IocsApiDevicesCountRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<IocapiMsaReplyIOCDevicesCount>> {
+    async devicesCountRequestOpts(requestParameters: IocsApiDevicesCountRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["type"] == null) {
             throw new runtime.RequiredError("type", 'Required parameter "type" was null or undefined when calling devicesCount().');
         }
@@ -84,15 +84,22 @@ export class IocsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["iocs:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/indicators/aggregates/devices-count/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/indicators/aggregates/devices-count/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Number of hosts in your customer account that have observed a given custom IOC
+     */
+    async devicesCountRaw(requestParameters: IocsApiDevicesCountRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<IocapiMsaReplyIOCDevicesCount>> {
+        const requestOptions = await this.devicesCountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => IocapiMsaReplyIOCDevicesCountFromJSON(jsonValue));
     }
@@ -106,9 +113,9 @@ export class IocsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Find hosts that have observed a given custom IOC. For details about those hosts, use GET /devices/entities/devices/v1
+     * Creates request options for devicesRanOn without sending the request
      */
-    async devicesRanOnRaw(requestParameters: IocsApiDevicesRanOnRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<IocapiMsaReplyDevicesRanOn>> {
+    async devicesRanOnRequestOpts(requestParameters: IocsApiDevicesRanOnRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["type"] == null) {
             throw new runtime.RequiredError("type", 'Required parameter "type" was null or undefined when calling devicesRanOn().');
         }
@@ -142,15 +149,22 @@ export class IocsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["iocs:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/indicators/queries/devices/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/indicators/queries/devices/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Find hosts that have observed a given custom IOC. For details about those hosts, use GET /devices/entities/devices/v1
+     */
+    async devicesRanOnRaw(requestParameters: IocsApiDevicesRanOnRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<IocapiMsaReplyDevicesRanOn>> {
+        const requestOptions = await this.devicesRanOnRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => IocapiMsaReplyDevicesRanOnFromJSON(jsonValue));
     }
@@ -164,12 +178,9 @@ export class IocsApi extends runtime.BaseAPI {
     }
 
     /**
-     * For the provided ProcessID retrieve the process details
+     * Creates request options for entitiesProcesses without sending the request
      */
-    async entitiesProcessesRaw(
-        requestParameters: IocsApiEntitiesProcessesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ProcessesapiMsaProcessDetailResponse>> {
+    async entitiesProcessesRequestOpts(requestParameters: IocsApiEntitiesProcessesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesProcesses().');
         }
@@ -187,15 +198,25 @@ export class IocsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["iocs:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/processes/entities/processes/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/processes/entities/processes/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * For the provided ProcessID retrieve the process details
+     */
+    async entitiesProcessesRaw(
+        requestParameters: IocsApiEntitiesProcessesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ProcessesapiMsaProcessDetailResponse>> {
+        const requestOptions = await this.entitiesProcessesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ProcessesapiMsaProcessDetailResponseFromJSON(jsonValue));
     }
@@ -209,9 +230,9 @@ export class IocsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for processes associated with a custom IOC
+     * Creates request options for processesRanOn without sending the request
      */
-    async processesRanOnRaw(requestParameters: IocsApiProcessesRanOnRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<IocapiMsaReplyProcessesRanOn>> {
+    async processesRanOnRequestOpts(requestParameters: IocsApiProcessesRanOnRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["type"] == null) {
             throw new runtime.RequiredError("type", 'Required parameter "type" was null or undefined when calling processesRanOn().');
         }
@@ -253,15 +274,22 @@ export class IocsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["iocs:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/indicators/queries/processes/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/indicators/queries/processes/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for processes associated with a custom IOC
+     */
+    async processesRanOnRaw(requestParameters: IocsApiProcessesRanOnRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<IocapiMsaReplyProcessesRanOn>> {
+        const requestOptions = await this.processesRanOnRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => IocapiMsaReplyProcessesRanOnFromJSON(jsonValue));
     }

@@ -68,10 +68,15 @@ export function FalconxEntityFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function FalconxEntityToJSON(value?: FalconxEntity | null): any {
+export function FalconxEntityToJSON(json: any): FalconxEntity {
+    return FalconxEntityToJSONTyped(json, false);
+}
+
+export function FalconxEntityToJSONTyped(value?: FalconxEntity | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

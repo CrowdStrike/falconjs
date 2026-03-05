@@ -14,13 +14,13 @@
 
 import { mapValues } from "../runtime";
 import type { ApimodelsRuleOverride } from "./ApimodelsRuleOverride";
-import { ApimodelsRuleOverrideFromJSON, ApimodelsRuleOverrideFromJSONTyped, ApimodelsRuleOverrideToJSON } from "./ApimodelsRuleOverride";
+import { ApimodelsRuleOverrideFromJSON, ApimodelsRuleOverrideFromJSONTyped, ApimodelsRuleOverrideToJSON, ApimodelsRuleOverrideToJSONTyped } from "./ApimodelsRuleOverride";
 import type { ApimodelsRuleLogic } from "./ApimodelsRuleLogic";
-import { ApimodelsRuleLogicFromJSON, ApimodelsRuleLogicFromJSONTyped, ApimodelsRuleLogicToJSON } from "./ApimodelsRuleLogic";
+import { ApimodelsRuleLogicFromJSON, ApimodelsRuleLogicFromJSONTyped, ApimodelsRuleLogicToJSON, ApimodelsRuleLogicToJSONTyped } from "./ApimodelsRuleLogic";
 import type { ApimodelsResourceType } from "./ApimodelsResourceType";
-import { ApimodelsResourceTypeFromJSON, ApimodelsResourceTypeFromJSONTyped, ApimodelsResourceTypeToJSON } from "./ApimodelsResourceType";
+import { ApimodelsResourceTypeFromJSON, ApimodelsResourceTypeFromJSONTyped, ApimodelsResourceTypeToJSON, ApimodelsResourceTypeToJSONTyped } from "./ApimodelsResourceType";
 import type { ApimodelsControl } from "./ApimodelsControl";
-import { ApimodelsControlFromJSON, ApimodelsControlFromJSONTyped, ApimodelsControlToJSON } from "./ApimodelsControl";
+import { ApimodelsControlFromJSON, ApimodelsControlFromJSONTyped, ApimodelsControlToJSON, ApimodelsControlToJSONTyped } from "./ApimodelsControl";
 
 /**
  *
@@ -397,10 +397,15 @@ export function ApimodelsRuleFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function ApimodelsRuleToJSON(value?: ApimodelsRule | null): any {
+export function ApimodelsRuleToJSON(json: any): ApimodelsRule {
+    return ApimodelsRuleToJSONTyped(json, false);
+}
+
+export function ApimodelsRuleToJSONTyped(value?: ApimodelsRule | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         alert_info: value["alertInfo"],
         attack_types: value["attackTypes"],
@@ -412,7 +417,7 @@ export function ApimodelsRuleToJSON(value?: ApimodelsRule | null): any {
         created_at: value["createdAt"].toISOString(),
         created_by: value["createdBy"],
         custom_configuration: value["customConfiguration"],
-        deleted_at: value["deletedAt"] == null ? undefined : value["deletedAt"].toISOString(),
+        deleted_at: value["deletedAt"] == null ? value["deletedAt"] : value["deletedAt"].toISOString(),
         deleted_by: value["deletedBy"],
         deprecated: value["deprecated"],
         description: value["description"],
@@ -444,7 +449,7 @@ export function ApimodelsRuleToJSON(value?: ApimodelsRule | null): any {
         short_code: value["shortCode"],
         subdomain: value["subdomain"],
         update_reason: value["updateReason"],
-        updated_at: value["updatedAt"] == null ? undefined : value["updatedAt"].toISOString(),
+        updated_at: value["updatedAt"] == null ? value["updatedAt"] : value["updatedAt"].toISOString(),
         updated_by: value["updatedBy"],
         uuid: value["uuid"],
         visible: value["visible"],

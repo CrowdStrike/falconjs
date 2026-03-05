@@ -104,10 +104,15 @@ export function ModelsAPIContainerAlertFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function ModelsAPIContainerAlertToJSON(value?: ModelsAPIContainerAlert | null): any {
+export function ModelsAPIContainerAlertToJSON(json: any): ModelsAPIContainerAlert {
+    return ModelsAPIContainerAlertToJSONTyped(json, false);
+}
+
+export function ModelsAPIContainerAlertToJSONTyped(value?: ModelsAPIContainerAlert | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         containers_impacted_count: value["containersImpactedCount"],
         containers_impacted_ids: value["containersImpactedIds"],

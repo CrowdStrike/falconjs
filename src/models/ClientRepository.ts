@@ -72,10 +72,15 @@ export function ClientRepositoryFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function ClientRepositoryToJSON(value?: ClientRepository | null): any {
+export function ClientRepositoryToJSON(json: any): ClientRepository {
+    return ClientRepositoryToJSONTyped(json, false);
+}
+
+export function ClientRepositoryToJSONTyped(value?: ClientRepository | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         id: value["id"],

@@ -61,10 +61,15 @@ export function RestapiIndicatorGetFeedsItemFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function RestapiIndicatorGetFeedsItemToJSON(value?: RestapiIndicatorGetFeedsItem | null): any {
+export function RestapiIndicatorGetFeedsItemToJSON(json: any): RestapiIndicatorGetFeedsItem {
+    return RestapiIndicatorGetFeedsItemToJSONTyped(json, false);
+}
+
+export function RestapiIndicatorGetFeedsItemToJSONTyped(value?: RestapiIndicatorGetFeedsItem | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         name: value["name"],

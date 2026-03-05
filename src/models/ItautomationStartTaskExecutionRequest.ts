@@ -14,9 +14,14 @@
 
 import { mapValues } from "../runtime";
 import type { FalconforitapiConditionGroup } from "./FalconforitapiConditionGroup";
-import { FalconforitapiConditionGroupFromJSON, FalconforitapiConditionGroupFromJSONTyped, FalconforitapiConditionGroupToJSON } from "./FalconforitapiConditionGroup";
+import {
+    FalconforitapiConditionGroupFromJSON,
+    FalconforitapiConditionGroupFromJSONTyped,
+    FalconforitapiConditionGroupToJSON,
+    FalconforitapiConditionGroupToJSONTyped,
+} from "./FalconforitapiConditionGroup";
 import type { FalconforitapiGuardrails } from "./FalconforitapiGuardrails";
-import { FalconforitapiGuardrailsFromJSON, FalconforitapiGuardrailsFromJSONTyped, FalconforitapiGuardrailsToJSON } from "./FalconforitapiGuardrails";
+import { FalconforitapiGuardrailsFromJSON, FalconforitapiGuardrailsFromJSONTyped, FalconforitapiGuardrailsToJSON, FalconforitapiGuardrailsToJSONTyped } from "./FalconforitapiGuardrails";
 
 /**
  *
@@ -115,10 +120,15 @@ export function ItautomationStartTaskExecutionRequestFromJSONTyped(json: any, ig
     };
 }
 
-export function ItautomationStartTaskExecutionRequestToJSON(value?: ItautomationStartTaskExecutionRequest | null): any {
+export function ItautomationStartTaskExecutionRequestToJSON(json: any): ItautomationStartTaskExecutionRequest {
+    return ItautomationStartTaskExecutionRequestToJSONTyped(json, false);
+}
+
+export function ItautomationStartTaskExecutionRequestToJSONTyped(value?: ItautomationStartTaskExecutionRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         discover_new_hosts: value["discoverNewHosts"],
         discover_offline_hosts: value["discoverOfflineHosts"],

@@ -97,10 +97,15 @@ export function UploadSampleV2RequestFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function UploadSampleV2RequestToJSON(value?: UploadSampleV2Request | null): any {
+export function UploadSampleV2RequestToJSON(json: any): UploadSampleV2Request {
+    return UploadSampleV2RequestToJSONTyped(json, false);
+}
+
+export function UploadSampleV2RequestToJSONTyped(value?: UploadSampleV2Request | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         sample: value["sample"],
         file_name: value["fileName"],

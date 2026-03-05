@@ -14,17 +14,17 @@
 
 import { mapValues } from "../runtime";
 import type { FigapiEmailAddress } from "./FigapiEmailAddress";
-import { FigapiEmailAddressFromJSON, FigapiEmailAddressFromJSONTyped, FigapiEmailAddressToJSON } from "./FigapiEmailAddress";
+import { FigapiEmailAddressFromJSON, FigapiEmailAddressFromJSONTyped, FigapiEmailAddressToJSON, FigapiEmailAddressToJSONTyped } from "./FigapiEmailAddress";
 import type { FigapiMXRecord } from "./FigapiMXRecord";
-import { FigapiMXRecordFromJSON, FigapiMXRecordFromJSONTyped, FigapiMXRecordToJSON } from "./FigapiMXRecord";
+import { FigapiMXRecordFromJSON, FigapiMXRecordFromJSONTyped, FigapiMXRecordToJSON, FigapiMXRecordToJSONTyped } from "./FigapiMXRecord";
 import type { FigapiWhoIS } from "./FigapiWhoIS";
-import { FigapiWhoISFromJSON, FigapiWhoISFromJSONTyped, FigapiWhoISToJSON } from "./FigapiWhoIS";
+import { FigapiWhoISFromJSON, FigapiWhoISFromJSONTyped, FigapiWhoISToJSON, FigapiWhoISToJSONTyped } from "./FigapiWhoIS";
 import type { FigapiNameServer } from "./FigapiNameServer";
-import { FigapiNameServerFromJSON, FigapiNameServerFromJSONTyped, FigapiNameServerToJSON } from "./FigapiNameServer";
+import { FigapiNameServerFromJSON, FigapiNameServerFromJSONTyped, FigapiNameServerToJSON, FigapiNameServerToJSONTyped } from "./FigapiNameServer";
 import type { FigapiIPv6 } from "./FigapiIPv6";
-import { FigapiIPv6FromJSON, FigapiIPv6FromJSONTyped, FigapiIPv6ToJSON } from "./FigapiIPv6";
+import { FigapiIPv6FromJSON, FigapiIPv6FromJSONTyped, FigapiIPv6ToJSON, FigapiIPv6ToJSONTyped } from "./FigapiIPv6";
 import type { FigapiIPv4 } from "./FigapiIPv4";
-import { FigapiIPv4FromJSON, FigapiIPv4FromJSONTyped, FigapiIPv4ToJSON } from "./FigapiIPv4";
+import { FigapiIPv4FromJSON, FigapiIPv4FromJSONTyped, FigapiIPv4ToJSON, FigapiIPv4ToJSONTyped } from "./FigapiIPv4";
 
 /**
  *
@@ -137,10 +137,15 @@ export function FigapiDomainFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function FigapiDomainToJSON(value?: FigapiDomain | null): any {
+export function FigapiDomainToJSON(json: any): FigapiDomain {
+    return FigapiDomainToJSONTyped(json, false);
+}
+
+export function FigapiDomainToJSONTyped(value?: FigapiDomain | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         CreationDate: value["creationDate"],
         Domain: value["domain"],

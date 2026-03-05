@@ -68,10 +68,15 @@ export function DomainAWSD4COrganizationAccountV1FromJSONTyped(json: any, ignore
     };
 }
 
-export function DomainAWSD4COrganizationAccountV1ToJSON(value?: DomainAWSD4COrganizationAccountV1 | null): any {
+export function DomainAWSD4COrganizationAccountV1ToJSON(json: any): DomainAWSD4COrganizationAccountV1 {
+    return DomainAWSD4COrganizationAccountV1ToJSONTyped(json, false);
+}
+
+export function DomainAWSD4COrganizationAccountV1ToJSONTyped(value?: DomainAWSD4COrganizationAccountV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         cid: value["cid"],

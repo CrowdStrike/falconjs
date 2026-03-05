@@ -56,10 +56,15 @@ export function V1RootFSFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
     };
 }
 
-export function V1RootFSToJSON(value?: V1RootFS | null): any {
+export function V1RootFSToJSON(json: any): V1RootFS {
+    return V1RootFSToJSONTyped(json, false);
+}
+
+export function V1RootFSToJSONTyped(value?: V1RootFS | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         diff_ids: value["diffIds"],
         type: value["type"],

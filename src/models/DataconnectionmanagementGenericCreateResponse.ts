@@ -48,10 +48,15 @@ export function DataconnectionmanagementGenericCreateResponseFromJSONTyped(json:
     };
 }
 
-export function DataconnectionmanagementGenericCreateResponseToJSON(value?: DataconnectionmanagementGenericCreateResponse | null): any {
+export function DataconnectionmanagementGenericCreateResponseToJSON(json: any): DataconnectionmanagementGenericCreateResponse {
+    return DataconnectionmanagementGenericCreateResponseToJSONTyped(json, false);
+}
+
+export function DataconnectionmanagementGenericCreateResponseToJSONTyped(value?: DataconnectionmanagementGenericCreateResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
     };

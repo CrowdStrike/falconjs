@@ -39,12 +39,9 @@ export interface DeviceContentApiQueriesStatesV1Request {
  */
 export class DeviceContentApi extends runtime.BaseAPI {
     /**
-     * Retrieve the host content state for a number of ids between 1 and 100.
+     * Creates request options for entitiesStatesV1 without sending the request
      */
-    async entitiesStatesV1Raw(
-        requestParameters: DeviceContentApiEntitiesStatesV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DevicecontentapiEntitiesResponseV1>> {
+    async entitiesStatesV1RequestOpts(requestParameters: DeviceContentApiEntitiesStatesV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesStatesV1().');
         }
@@ -62,15 +59,25 @@ export class DeviceContentApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-content:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/device-content/entities/states/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/device-content/entities/states/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve the host content state for a number of ids between 1 and 100.
+     */
+    async entitiesStatesV1Raw(
+        requestParameters: DeviceContentApiEntitiesStatesV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DevicecontentapiEntitiesResponseV1>> {
+        const requestOptions = await this.entitiesStatesV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DevicecontentapiEntitiesResponseV1FromJSON(jsonValue));
     }
@@ -84,12 +91,9 @@ export class DeviceContentApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query for the content state of the host.
+     * Creates request options for queriesStatesV1 without sending the request
      */
-    async queriesStatesV1Raw(
-        requestParameters: DeviceContentApiQueriesStatesV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DevicecontentapiQueryResponseV1>> {
+    async queriesStatesV1RequestOpts(requestParameters: DeviceContentApiQueriesStatesV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["limit"] != null) {
@@ -115,15 +119,25 @@ export class DeviceContentApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-content:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/device-content/queries/states/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/device-content/queries/states/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query for the content state of the host.
+     */
+    async queriesStatesV1Raw(
+        requestParameters: DeviceContentApiQueriesStatesV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DevicecontentapiQueryResponseV1>> {
+        const requestOptions = await this.queriesStatesV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DevicecontentapiQueryResponseV1FromJSON(jsonValue));
     }

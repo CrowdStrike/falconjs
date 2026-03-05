@@ -292,10 +292,15 @@ export function DomainIOCFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     };
 }
 
-export function DomainIOCToJSON(value?: DomainIOC | null): any {
+export function DomainIOCToJSON(json: any): DomainIOC {
+    return DomainIOCToJSONTyped(json, false);
+}
+
+export function DomainIOCToJSONTyped(value?: DomainIOC | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         at_accounts: value["atAccounts"],
         aws_clis: value["awsClis"],

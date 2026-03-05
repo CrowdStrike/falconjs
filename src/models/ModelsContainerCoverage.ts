@@ -56,10 +56,15 @@ export function ModelsContainerCoverageFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function ModelsContainerCoverageToJSON(value?: ModelsContainerCoverage | null): any {
+export function ModelsContainerCoverageToJSON(json: any): ModelsContainerCoverage {
+    return ModelsContainerCoverageToJSONTyped(json, false);
+}
+
+export function ModelsContainerCoverageToJSONTyped(value?: ModelsContainerCoverage | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         managed: value["managed"],
         unmanaged: value["unmanaged"],

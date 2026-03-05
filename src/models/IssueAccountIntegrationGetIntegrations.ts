@@ -56,10 +56,15 @@ export function IssueAccountIntegrationGetIntegrationsFromJSONTyped(json: any, i
     };
 }
 
-export function IssueAccountIntegrationGetIntegrationsToJSON(value?: IssueAccountIntegrationGetIntegrations | null): any {
+export function IssueAccountIntegrationGetIntegrationsToJSON(json: any): IssueAccountIntegrationGetIntegrations {
+    return IssueAccountIntegrationGetIntegrationsToJSONTyped(json, false);
+}
+
+export function IssueAccountIntegrationGetIntegrationsToJSONTyped(value?: IssueAccountIntegrationGetIntegrations | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         message: value["message"],
         severity: value["severity"],

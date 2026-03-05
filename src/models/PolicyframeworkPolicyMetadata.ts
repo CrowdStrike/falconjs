@@ -54,10 +54,15 @@ export function PolicyframeworkPolicyMetadataFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function PolicyframeworkPolicyMetadataToJSON(value?: PolicyframeworkPolicyMetadata | null): any {
+export function PolicyframeworkPolicyMetadataToJSON(json: any): PolicyframeworkPolicyMetadata {
+    return PolicyframeworkPolicyMetadataToJSONTyped(json, false);
+}
+
+export function PolicyframeworkPolicyMetadataToJSONTyped(value?: PolicyframeworkPolicyMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
         uuid: value["uuid"],

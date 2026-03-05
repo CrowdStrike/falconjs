@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { V2AgentCoverage } from "./V2AgentCoverage";
-import { V2AgentCoverageFromJSON, V2AgentCoverageFromJSONTyped, V2AgentCoverageToJSON } from "./V2AgentCoverage";
+import { V2AgentCoverageFromJSON, V2AgentCoverageFromJSONTyped, V2AgentCoverageToJSON, V2AgentCoverageToJSONTyped } from "./V2AgentCoverage";
 import type { V2TimestampFields } from "./V2TimestampFields";
-import { V2TimestampFieldsFromJSON, V2TimestampFieldsFromJSONTyped, V2TimestampFieldsToJSON } from "./V2TimestampFields";
+import { V2TimestampFieldsFromJSON, V2TimestampFieldsFromJSONTyped, V2TimestampFieldsToJSON, V2TimestampFieldsToJSONTyped } from "./V2TimestampFields";
 import type { V2CloudProviderInfo } from "./V2CloudProviderInfo";
-import { V2CloudProviderInfoFromJSON, V2CloudProviderInfoFromJSONTyped, V2CloudProviderInfoToJSON } from "./V2CloudProviderInfo";
+import { V2CloudProviderInfoFromJSON, V2CloudProviderInfoFromJSONTyped, V2CloudProviderInfoToJSON, V2CloudProviderInfoToJSONTyped } from "./V2CloudProviderInfo";
 
 /**
  *
@@ -161,10 +161,15 @@ export function V2ClusterV2FromJSONTyped(json: any, ignoreDiscriminator: boolean
     };
 }
 
-export function V2ClusterV2ToJSON(value?: V2ClusterV2 | null): any {
+export function V2ClusterV2ToJSON(json: any): V2ClusterV2 {
+    return V2ClusterV2ToJSONTyped(json, false);
+}
+
+export function V2ClusterV2ToJSONTyped(value?: V2ClusterV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         access: value["access"],
         agent_coverage: V2AgentCoverageToJSON(value["agentCoverage"]),

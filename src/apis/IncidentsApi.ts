@@ -85,9 +85,9 @@ export interface IncidentsApiQueryIncidentsRequest {
  */
 export class IncidentsApi extends runtime.BaseAPI {
     /**
-     * DEPRECATED: the incidentapi will be removed in March 2026. Query environment wide CrowdScore and return the entity data
+     * Creates request options for crowdScore without sending the request
      */
-    async crowdScoreRaw(requestParameters: IncidentsApiCrowdScoreRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainMsaEnvironmentScoreResponse>> {
+    async crowdScoreRequestOpts(requestParameters: IncidentsApiCrowdScoreRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -113,15 +113,22 @@ export class IncidentsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["incidents:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/incidents/combined/crowdscores/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/incidents/combined/crowdscores/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * DEPRECATED: the incidentapi will be removed in March 2026. Query environment wide CrowdScore and return the entity data
+     */
+    async crowdScoreRaw(requestParameters: IncidentsApiCrowdScoreRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainMsaEnvironmentScoreResponse>> {
+        const requestOptions = await this.crowdScoreRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaEnvironmentScoreResponseFromJSON(jsonValue));
     }
@@ -141,12 +148,9 @@ export class IncidentsApi extends runtime.BaseAPI {
     }
 
     /**
-     * DEPRECATED: the incidentapi will be removed in March 2026. Get details on behaviors by providing behavior IDs
+     * Creates request options for getBehaviors without sending the request
      */
-    async getBehaviorsRaw(
-        requestParameters: IncidentsApiGetBehaviorsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainMsaExternalBehaviorResponse>> {
+    async getBehaviorsRequestOpts(requestParameters: IncidentsApiGetBehaviorsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getBehaviors().');
         }
@@ -162,16 +166,26 @@ export class IncidentsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["incidents:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/incidents/entities/behaviors/GET/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaIdsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/incidents/entities/behaviors/GET/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaIdsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * DEPRECATED: the incidentapi will be removed in March 2026. Get details on behaviors by providing behavior IDs
+     */
+    async getBehaviorsRaw(
+        requestParameters: IncidentsApiGetBehaviorsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainMsaExternalBehaviorResponse>> {
+        const requestOptions = await this.getBehaviorsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaExternalBehaviorResponseFromJSON(jsonValue));
     }
@@ -185,12 +199,9 @@ export class IncidentsApi extends runtime.BaseAPI {
     }
 
     /**
-     * DEPRECATED: the incidentapi will be removed in March 2026. Get details on incidents by providing incident IDs
+     * Creates request options for getIncidents without sending the request
      */
-    async getIncidentsRaw(
-        requestParameters: IncidentsApiGetIncidentsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainMsaExternalIncidentResponse>> {
+    async getIncidentsRequestOpts(requestParameters: IncidentsApiGetIncidentsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getIncidents().');
         }
@@ -206,16 +217,26 @@ export class IncidentsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["incidents:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/incidents/entities/incidents/GET/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaIdsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/incidents/entities/incidents/GET/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaIdsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * DEPRECATED: the incidentapi will be removed in March 2026. Get details on incidents by providing incident IDs
+     */
+    async getIncidentsRaw(
+        requestParameters: IncidentsApiGetIncidentsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainMsaExternalIncidentResponse>> {
+        const requestOptions = await this.getIncidentsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaExternalIncidentResponseFromJSON(jsonValue));
     }
@@ -229,12 +250,9 @@ export class IncidentsApi extends runtime.BaseAPI {
     }
 
     /**
-     * DEPRECATED: the incidentapi will be removed in March 2026. Perform a set of actions on one or more incidents, such as adding tags or comments or updating the incident name or description
+     * Creates request options for performIncidentAction without sending the request
      */
-    async performIncidentActionRaw(
-        requestParameters: IncidentsApiPerformIncidentActionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainMsaIncidentPerformActionResponse>> {
+    async performIncidentActionRequestOpts(requestParameters: IncidentsApiPerformIncidentActionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling performIncidentAction().');
         }
@@ -258,16 +276,26 @@ export class IncidentsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["incidents:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/incidents/entities/incident-actions/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainEntityActionRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/incidents/entities/incident-actions/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainEntityActionRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * DEPRECATED: the incidentapi will be removed in March 2026. Perform a set of actions on one or more incidents, such as adding tags or comments or updating the incident name or description
+     */
+    async performIncidentActionRaw(
+        requestParameters: IncidentsApiPerformIncidentActionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainMsaIncidentPerformActionResponse>> {
+        const requestOptions = await this.performIncidentActionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaIncidentPerformActionResponseFromJSON(jsonValue));
     }
@@ -286,9 +314,9 @@ export class IncidentsApi extends runtime.BaseAPI {
     }
 
     /**
-     * DEPRECATED: the incidentapi will be removed in March 2026. Search for behaviors by providing an FQL filter, sorting, and paging details
+     * Creates request options for queryBehaviors without sending the request
      */
-    async queryBehaviorsRaw(requestParameters: IncidentsApiQueryBehaviorsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryBehaviorsRequestOpts(requestParameters: IncidentsApiQueryBehaviorsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -314,15 +342,22 @@ export class IncidentsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["incidents:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/incidents/queries/behaviors/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/incidents/queries/behaviors/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * DEPRECATED: the incidentapi will be removed in March 2026. Search for behaviors by providing an FQL filter, sorting, and paging details
+     */
+    async queryBehaviorsRaw(requestParameters: IncidentsApiQueryBehaviorsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.queryBehaviorsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -336,12 +371,9 @@ export class IncidentsApi extends runtime.BaseAPI {
     }
 
     /**
-     * DEPRECATED: the incidentapi will be removed in March 2026. Search for incidents by providing an FQL filter, sorting, and paging details
+     * Creates request options for queryIncidents without sending the request
      */
-    async queryIncidentsRaw(
-        requestParameters: IncidentsApiQueryIncidentsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainMsaIncidentQueryResponse>> {
+    async queryIncidentsRequestOpts(requestParameters: IncidentsApiQueryIncidentsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["sort"] != null) {
@@ -367,15 +399,25 @@ export class IncidentsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["incidents:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/incidents/queries/incidents/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/incidents/queries/incidents/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * DEPRECATED: the incidentapi will be removed in March 2026. Search for incidents by providing an FQL filter, sorting, and paging details
+     */
+    async queryIncidentsRaw(
+        requestParameters: IncidentsApiQueryIncidentsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainMsaIncidentQueryResponse>> {
+        const requestOptions = await this.queryIncidentsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainMsaIncidentQueryResponseFromJSON(jsonValue));
     }

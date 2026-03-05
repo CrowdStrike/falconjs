@@ -55,10 +55,15 @@ export function ApiSLAV1CreateRequestGoalsEscalationPolicyStepsFromJSONTyped(jso
     };
 }
 
-export function ApiSLAV1CreateRequestGoalsEscalationPolicyStepsToJSON(value?: ApiSLAV1CreateRequestGoalsEscalationPolicySteps | null): any {
+export function ApiSLAV1CreateRequestGoalsEscalationPolicyStepsToJSON(json: any): ApiSLAV1CreateRequestGoalsEscalationPolicySteps {
+    return ApiSLAV1CreateRequestGoalsEscalationPolicyStepsToJSONTyped(json, false);
+}
+
+export function ApiSLAV1CreateRequestGoalsEscalationPolicyStepsToJSONTyped(value?: ApiSLAV1CreateRequestGoalsEscalationPolicySteps | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         escalate_after_seconds: value["escalateAfterSeconds"],
         notification_group_id: value["notificationGroupId"],

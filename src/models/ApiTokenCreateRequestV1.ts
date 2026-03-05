@@ -61,12 +61,17 @@ export function ApiTokenCreateRequestV1FromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function ApiTokenCreateRequestV1ToJSON(value?: ApiTokenCreateRequestV1 | null): any {
+export function ApiTokenCreateRequestV1ToJSON(json: any): ApiTokenCreateRequestV1 {
+    return ApiTokenCreateRequestV1ToJSONTyped(json, false);
+}
+
+export function ApiTokenCreateRequestV1ToJSONTyped(value?: ApiTokenCreateRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
-        expires_timestamp: value["expiresTimestamp"] == null ? undefined : value["expiresTimestamp"].toISOString(),
+        expires_timestamp: value["expiresTimestamp"] == null ? value["expiresTimestamp"] : value["expiresTimestamp"].toISOString(),
         label: value["label"],
         type: value["type"],
     };

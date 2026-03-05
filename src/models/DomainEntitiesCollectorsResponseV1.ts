@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainAgentV1 } from "./DomainAgentV1";
-import { DomainAgentV1FromJSON, DomainAgentV1FromJSONTyped, DomainAgentV1ToJSON } from "./DomainAgentV1";
+import { DomainAgentV1FromJSON, DomainAgentV1FromJSONTyped, DomainAgentV1ToJSON, DomainAgentV1ToJSONTyped } from "./DomainAgentV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function DomainEntitiesCollectorsResponseV1FromJSONTyped(json: any, ignor
     };
 }
 
-export function DomainEntitiesCollectorsResponseV1ToJSON(value?: DomainEntitiesCollectorsResponseV1 | null): any {
+export function DomainEntitiesCollectorsResponseV1ToJSON(json: any): DomainEntitiesCollectorsResponseV1 {
+    return DomainEntitiesCollectorsResponseV1ToJSONTyped(json, false);
+}
+
+export function DomainEntitiesCollectorsResponseV1ToJSONTyped(value?: DomainEntitiesCollectorsResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

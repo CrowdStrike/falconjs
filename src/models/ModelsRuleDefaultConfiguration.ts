@@ -48,10 +48,15 @@ export function ModelsRuleDefaultConfigurationFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function ModelsRuleDefaultConfigurationToJSON(value?: ModelsRuleDefaultConfiguration | null): any {
+export function ModelsRuleDefaultConfigurationToJSON(json: any): ModelsRuleDefaultConfiguration {
+    return ModelsRuleDefaultConfigurationToJSONTyped(json, false);
+}
+
+export function ModelsRuleDefaultConfigurationToJSONTyped(value?: ModelsRuleDefaultConfiguration | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         level: value["level"],
     };

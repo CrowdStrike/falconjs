@@ -68,10 +68,15 @@ export function DomainUserCreateRequestFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function DomainUserCreateRequestToJSON(value?: DomainUserCreateRequest | null): any {
+export function DomainUserCreateRequestToJSON(json: any): DomainUserCreateRequest {
+    return DomainUserCreateRequestToJSONTyped(json, false);
+}
+
+export function DomainUserCreateRequestToJSONTyped(value?: DomainUserCreateRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         firstName: value["firstName"],
         lastName: value["lastName"],

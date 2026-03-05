@@ -61,10 +61,15 @@ export function ItautomationConcurrencyConfigFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function ItautomationConcurrencyConfigToJSON(value?: ItautomationConcurrencyConfig | null): any {
+export function ItautomationConcurrencyConfigToJSON(json: any): ItautomationConcurrencyConfig {
+    return ItautomationConcurrencyConfigToJSONTyped(json, false);
+}
+
+export function ItautomationConcurrencyConfigToJSONTyped(value?: ItautomationConcurrencyConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         concurrent_host_file_transfer_limit: value["concurrentHostFileTransferLimit"],
         concurrent_host_limit: value["concurrentHostLimit"],

@@ -69,10 +69,15 @@ export function CompliancePostureFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function CompliancePostureToJSON(value?: CompliancePosture | null): any {
+export function CompliancePostureToJSON(json: any): CompliancePosture {
+    return CompliancePostureToJSONTyped(json, false);
+}
+
+export function CompliancePostureToJSONTyped(value?: CompliancePosture | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         failing: value["failing"],
         passing: value["passing"],

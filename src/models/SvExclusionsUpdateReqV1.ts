@@ -76,10 +76,15 @@ export function SvExclusionsUpdateReqV1FromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function SvExclusionsUpdateReqV1ToJSON(value?: SvExclusionsUpdateReqV1 | null): any {
+export function SvExclusionsUpdateReqV1ToJSON(json: any): SvExclusionsUpdateReqV1 {
+    return SvExclusionsUpdateReqV1ToJSONTyped(json, false);
+}
+
+export function SvExclusionsUpdateReqV1ToJSONTyped(value?: SvExclusionsUpdateReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         comment: value["comment"],
         groups: value["groups"],

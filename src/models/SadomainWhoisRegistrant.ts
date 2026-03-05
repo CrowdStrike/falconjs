@@ -64,10 +64,15 @@ export function SadomainWhoisRegistrantFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function SadomainWhoisRegistrantToJSON(value?: SadomainWhoisRegistrant | null): any {
+export function SadomainWhoisRegistrantToJSON(json: any): SadomainWhoisRegistrant {
+    return SadomainWhoisRegistrantToJSONTyped(json, false);
+}
+
+export function SadomainWhoisRegistrantToJSONTyped(value?: SadomainWhoisRegistrant | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         email: value["email"],
         name: value["name"],

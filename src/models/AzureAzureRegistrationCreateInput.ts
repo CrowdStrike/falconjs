@@ -14,17 +14,18 @@
 
 import { mapValues } from "../runtime";
 import type { DomainProductFeatures } from "./DomainProductFeatures";
-import { DomainProductFeaturesFromJSON, DomainProductFeaturesFromJSONTyped, DomainProductFeaturesToJSON } from "./DomainProductFeatures";
+import { DomainProductFeaturesFromJSON, DomainProductFeaturesFromJSONTyped, DomainProductFeaturesToJSON, DomainProductFeaturesToJSONTyped } from "./DomainProductFeatures";
 import type { AzureAdditionalFeature } from "./AzureAdditionalFeature";
-import { AzureAdditionalFeatureFromJSON, AzureAdditionalFeatureFromJSONTyped, AzureAdditionalFeatureToJSON } from "./AzureAdditionalFeature";
+import { AzureAdditionalFeatureFromJSON, AzureAdditionalFeatureFromJSONTyped, AzureAdditionalFeatureToJSON, AzureAdditionalFeatureToJSONTyped } from "./AzureAdditionalFeature";
 import type { AzureDSPMRegionCustomNetworkConfiguration } from "./AzureDSPMRegionCustomNetworkConfiguration";
 import {
     AzureDSPMRegionCustomNetworkConfigurationFromJSON,
     AzureDSPMRegionCustomNetworkConfigurationFromJSONTyped,
     AzureDSPMRegionCustomNetworkConfigurationToJSON,
+    AzureDSPMRegionCustomNetworkConfigurationToJSONTyped,
 } from "./AzureDSPMRegionCustomNetworkConfiguration";
 import type { AzureEventHubSettings } from "./AzureEventHubSettings";
-import { AzureEventHubSettingsFromJSON, AzureEventHubSettingsFromJSONTyped, AzureEventHubSettingsToJSON } from "./AzureEventHubSettings";
+import { AzureEventHubSettingsFromJSON, AzureEventHubSettingsFromJSONTyped, AzureEventHubSettingsToJSON, AzureEventHubSettingsToJSONTyped } from "./AzureEventHubSettings";
 
 /**
  *
@@ -112,7 +113,7 @@ export interface AzureAzureRegistrationCreateInput {
     dspmHostSubscriptionId?: string;
     /**
      * Network configuration type for DSPM
-     * @type {string}
+     * @type {AzureAzureRegistrationCreateInputDspmNetworkConfigurationTypeEnum}
      * @memberof AzureAzureRegistrationCreateInput
      */
     dspmNetworkConfigurationType?: AzureAzureRegistrationCreateInputDspmNetworkConfigurationTypeEnum;
@@ -276,10 +277,15 @@ export function AzureAzureRegistrationCreateInputFromJSONTyped(json: any, ignore
     };
 }
 
-export function AzureAzureRegistrationCreateInputToJSON(value?: AzureAzureRegistrationCreateInput | null): any {
+export function AzureAzureRegistrationCreateInputToJSON(json: any): AzureAzureRegistrationCreateInput {
+    return AzureAzureRegistrationCreateInputToJSONTyped(json, false);
+}
+
+export function AzureAzureRegistrationCreateInputToJSONTyped(value?: AzureAzureRegistrationCreateInput | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_type: value["accountType"],
         additional_features: (value["additionalFeatures"] as Array<any>).map(AzureAdditionalFeatureToJSON),

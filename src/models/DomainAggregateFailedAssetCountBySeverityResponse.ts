@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ModelsNonCompliantAssetsBySeverity } from "./ModelsNonCompliantAssetsBySeverity";
-import { ModelsNonCompliantAssetsBySeverityFromJSON, ModelsNonCompliantAssetsBySeverityFromJSONTyped, ModelsNonCompliantAssetsBySeverityToJSON } from "./ModelsNonCompliantAssetsBySeverity";
+import {
+    ModelsNonCompliantAssetsBySeverityFromJSON,
+    ModelsNonCompliantAssetsBySeverityFromJSONTyped,
+    ModelsNonCompliantAssetsBySeverityToJSON,
+    ModelsNonCompliantAssetsBySeverityToJSONTyped,
+} from "./ModelsNonCompliantAssetsBySeverity";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +75,15 @@ export function DomainAggregateFailedAssetCountBySeverityResponseFromJSONTyped(j
     };
 }
 
-export function DomainAggregateFailedAssetCountBySeverityResponseToJSON(value?: DomainAggregateFailedAssetCountBySeverityResponse | null): any {
+export function DomainAggregateFailedAssetCountBySeverityResponseToJSON(json: any): DomainAggregateFailedAssetCountBySeverityResponse {
+    return DomainAggregateFailedAssetCountBySeverityResponseToJSONTyped(json, false);
+}
+
+export function DomainAggregateFailedAssetCountBySeverityResponseToJSONTyped(value?: DomainAggregateFailedAssetCountBySeverityResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

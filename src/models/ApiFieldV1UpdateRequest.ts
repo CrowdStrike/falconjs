@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ApiFieldV1UpdateRequestOptions } from "./ApiFieldV1UpdateRequestOptions";
-import { ApiFieldV1UpdateRequestOptionsFromJSON, ApiFieldV1UpdateRequestOptionsFromJSONTyped, ApiFieldV1UpdateRequestOptionsToJSON } from "./ApiFieldV1UpdateRequestOptions";
+import {
+    ApiFieldV1UpdateRequestOptionsFromJSON,
+    ApiFieldV1UpdateRequestOptionsFromJSONTyped,
+    ApiFieldV1UpdateRequestOptionsToJSON,
+    ApiFieldV1UpdateRequestOptionsToJSONTyped,
+} from "./ApiFieldV1UpdateRequestOptions";
 
 /**
  *
@@ -112,10 +117,15 @@ export function ApiFieldV1UpdateRequestFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function ApiFieldV1UpdateRequestToJSON(value?: ApiFieldV1UpdateRequest | null): any {
+export function ApiFieldV1UpdateRequestToJSON(json: any): ApiFieldV1UpdateRequest {
+    return ApiFieldV1UpdateRequestToJSONTyped(json, false);
+}
+
+export function ApiFieldV1UpdateRequestToJSONTyped(value?: ApiFieldV1UpdateRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         data_type: value["dataType"],
         default_value: value["defaultValue"],

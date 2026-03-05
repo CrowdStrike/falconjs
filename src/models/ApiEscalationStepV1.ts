@@ -56,10 +56,15 @@ export function ApiEscalationStepV1FromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function ApiEscalationStepV1ToJSON(value?: ApiEscalationStepV1 | null): any {
+export function ApiEscalationStepV1ToJSON(json: any): ApiEscalationStepV1 {
+    return ApiEscalationStepV1ToJSONTyped(json, false);
+}
+
+export function ApiEscalationStepV1ToJSONTyped(value?: ApiEscalationStepV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         escalate_after_seconds: value["escalateAfterSeconds"],
         notification_group_id: value["notificationGroupId"],

@@ -72,10 +72,15 @@ export function DomainXLR8InfoFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function DomainXLR8InfoToJSON(value?: DomainXLR8Info | null): any {
+export function DomainXLR8InfoToJSON(json: any): DomainXLR8Info {
+    return DomainXLR8InfoToJSONTyped(json, false);
+}
+
+export function DomainXLR8InfoToJSONTyped(value?: DomainXLR8Info | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         asset_criticality: value["assetCriticality"],
         internet_exposed: value["internetExposed"],

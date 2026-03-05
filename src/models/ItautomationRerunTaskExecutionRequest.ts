@@ -21,7 +21,7 @@ import { mapValues } from "../runtime";
 export interface ItautomationRerunTaskExecutionRequest {
     /**
      * Type of rerun. When set to hosts, re-run on same hosts again. When set to failed, re-run only on failed hosts. When set to offline, re-run only on offline hosts. When set to target, re-run on all the hosts resolved to set criteria.
-     * @type {string}
+     * @type {ItautomationRerunTaskExecutionRequestRunTypeEnum}
      * @memberof ItautomationRerunTaskExecutionRequest
      */
     runType: ItautomationRerunTaskExecutionRequestRunTypeEnum;
@@ -67,10 +67,15 @@ export function ItautomationRerunTaskExecutionRequestFromJSONTyped(json: any, ig
     };
 }
 
-export function ItautomationRerunTaskExecutionRequestToJSON(value?: ItautomationRerunTaskExecutionRequest | null): any {
+export function ItautomationRerunTaskExecutionRequestToJSON(json: any): ItautomationRerunTaskExecutionRequest {
+    return ItautomationRerunTaskExecutionRequestToJSONTyped(json, false);
+}
+
+export function ItautomationRerunTaskExecutionRequestToJSONTyped(value?: ItautomationRerunTaskExecutionRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         run_type: value["runType"],
         task_execution_id: value["taskExecutionId"],

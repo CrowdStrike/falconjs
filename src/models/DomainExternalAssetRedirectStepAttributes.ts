@@ -71,10 +71,15 @@ export function DomainExternalAssetRedirectStepAttributesFromJSONTyped(json: any
     };
 }
 
-export function DomainExternalAssetRedirectStepAttributesToJSON(value?: DomainExternalAssetRedirectStepAttributes | null): any {
+export function DomainExternalAssetRedirectStepAttributesToJSON(json: any): DomainExternalAssetRedirectStepAttributes {
+    return DomainExternalAssetRedirectStepAttributesToJSONTyped(json, false);
+}
+
+export function DomainExternalAssetRedirectStepAttributesToJSONTyped(value?: DomainExternalAssetRedirectStepAttributes | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         clue: value["clue"],
         entity: value["entity"],

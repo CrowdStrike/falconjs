@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ItautomationPolicyStatus } from "./ItautomationPolicyStatus";
-import { ItautomationPolicyStatusFromJSON, ItautomationPolicyStatusFromJSONTyped, ItautomationPolicyStatusToJSON } from "./ItautomationPolicyStatus";
+import { ItautomationPolicyStatusFromJSON, ItautomationPolicyStatusFromJSONTyped, ItautomationPolicyStatusToJSON, ItautomationPolicyStatusToJSONTyped } from "./ItautomationPolicyStatus";
 
 /**
  *
@@ -135,10 +135,15 @@ export function ItautomationTaskExecutionHostStatusFromJSONTyped(json: any, igno
     };
 }
 
-export function ItautomationTaskExecutionHostStatusToJSON(value?: ItautomationTaskExecutionHostStatus | null): any {
+export function ItautomationTaskExecutionHostStatusToJSON(json: any): ItautomationTaskExecutionHostStatus {
+    return ItautomationTaskExecutionHostStatusToJSONTyped(json, false);
+}
+
+export function ItautomationTaskExecutionHostStatusToJSONTyped(value?: ItautomationTaskExecutionHostStatus | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         end_time: value["endTime"].toISOString(),
         host_id: value["hostId"],

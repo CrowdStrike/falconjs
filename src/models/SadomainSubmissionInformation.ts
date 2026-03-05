@@ -64,10 +64,15 @@ export function SadomainSubmissionInformationFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function SadomainSubmissionInformationToJSON(value?: SadomainSubmissionInformation | null): any {
+export function SadomainSubmissionInformationToJSON(json: any): SadomainSubmissionInformation {
+    return SadomainSubmissionInformationToJSONTyped(json, false);
+}
+
+export function SadomainSubmissionInformationToJSONTyped(value?: SadomainSubmissionInformation | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         date: value["date"].toISOString(),
         status: value["status"],

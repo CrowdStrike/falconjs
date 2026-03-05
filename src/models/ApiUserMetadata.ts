@@ -69,10 +69,15 @@ export function ApiUserMetadataFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function ApiUserMetadataToJSON(value?: ApiUserMetadata | null): any {
+export function ApiUserMetadataToJSON(json: any): ApiUserMetadata {
+    return ApiUserMetadataToJSONTyped(json, false);
+}
+
+export function ApiUserMetadataToJSONTyped(value?: ApiUserMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         email: value["email"],
         firstName: value["firstName"],

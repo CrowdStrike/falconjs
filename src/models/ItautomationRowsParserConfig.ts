@@ -48,10 +48,15 @@ export function ItautomationRowsParserConfigFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function ItautomationRowsParserConfigToJSON(value?: ItautomationRowsParserConfig | null): any {
+export function ItautomationRowsParserConfigToJSON(json: any): ItautomationRowsParserConfig {
+    return ItautomationRowsParserConfigToJSONTyped(json, false);
+}
+
+export function ItautomationRowsParserConfigToJSONTyped(value?: ItautomationRowsParserConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         delimiter: value["delimiter"],
     };

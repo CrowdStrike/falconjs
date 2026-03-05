@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { PolicymanagerError } from "./PolicymanagerError";
-import { PolicymanagerErrorFromJSON, PolicymanagerErrorFromJSONTyped, PolicymanagerErrorToJSON } from "./PolicymanagerError";
+import { PolicymanagerErrorFromJSON, PolicymanagerErrorFromJSONTyped, PolicymanagerErrorToJSON, PolicymanagerErrorToJSONTyped } from "./PolicymanagerError";
 import type { PolicymanagerExternalPolicy } from "./PolicymanagerExternalPolicy";
-import { PolicymanagerExternalPolicyFromJSON, PolicymanagerExternalPolicyFromJSONTyped, PolicymanagerExternalPolicyToJSON } from "./PolicymanagerExternalPolicy";
+import {
+    PolicymanagerExternalPolicyFromJSON,
+    PolicymanagerExternalPolicyFromJSONTyped,
+    PolicymanagerExternalPolicyToJSON,
+    PolicymanagerExternalPolicyToJSONTyped,
+} from "./PolicymanagerExternalPolicy";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +76,15 @@ export function PolicymanagerPoliciesResponseFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function PolicymanagerPoliciesResponseToJSON(value?: PolicymanagerPoliciesResponse | null): any {
+export function PolicymanagerPoliciesResponseToJSON(json: any): PolicymanagerPoliciesResponse {
+    return PolicymanagerPoliciesResponseToJSONTyped(json, false);
+}
+
+export function PolicymanagerPoliciesResponseToJSONTyped(value?: PolicymanagerPoliciesResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(PolicymanagerErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

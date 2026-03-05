@@ -62,10 +62,15 @@ export function ThreatgraphPagingFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function ThreatgraphPagingToJSON(value?: ThreatgraphPaging | null): any {
+export function ThreatgraphPagingToJSON(json: any): ThreatgraphPaging {
+    return ThreatgraphPagingToJSONTyped(json, false);
+}
+
+export function ThreatgraphPagingToJSONTyped(value?: ThreatgraphPaging | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         limit: value["limit"],
         next_page: value["nextPage"],

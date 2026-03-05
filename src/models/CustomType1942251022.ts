@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { ApiCollectionMetadata } from "./ApiCollectionMetadata";
-import { ApiCollectionMetadataFromJSON, ApiCollectionMetadataFromJSONTyped, ApiCollectionMetadataToJSON } from "./ApiCollectionMetadata";
+import { ApiCollectionMetadataFromJSON, ApiCollectionMetadataFromJSONTyped, ApiCollectionMetadataToJSON, ApiCollectionMetadataToJSONTyped } from "./ApiCollectionMetadata";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ApiMetaInfo } from "./ApiMetaInfo";
-import { ApiMetaInfoFromJSON, ApiMetaInfoFromJSONTyped, ApiMetaInfoToJSON } from "./ApiMetaInfo";
+import { ApiMetaInfoFromJSON, ApiMetaInfoFromJSONTyped, ApiMetaInfoToJSON, ApiMetaInfoToJSONTyped } from "./ApiMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function CustomType1942251022FromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function CustomType1942251022ToJSON(value?: CustomType1942251022 | null): any {
+export function CustomType1942251022ToJSON(json: any): CustomType1942251022 {
+    return CustomType1942251022ToJSONTyped(json, false);
+}
+
+export function CustomType1942251022ToJSONTyped(value?: CustomType1942251022 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: ApiMetaInfoToJSON(value["meta"]),

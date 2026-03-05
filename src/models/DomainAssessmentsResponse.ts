@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { DomainMetaInfo } from "./DomainMetaInfo";
-import { DomainMetaInfoFromJSON, DomainMetaInfoFromJSONTyped, DomainMetaInfoToJSON } from "./DomainMetaInfo";
+import { DomainMetaInfoFromJSON, DomainMetaInfoFromJSONTyped, DomainMetaInfoToJSON, DomainMetaInfoToJSONTyped } from "./DomainMetaInfo";
 import type { DomainSignalProperties } from "./DomainSignalProperties";
-import { DomainSignalPropertiesFromJSON, DomainSignalPropertiesFromJSONTyped, DomainSignalPropertiesToJSON } from "./DomainSignalProperties";
+import { DomainSignalPropertiesFromJSON, DomainSignalPropertiesFromJSONTyped, DomainSignalPropertiesToJSON, DomainSignalPropertiesToJSONTyped } from "./DomainSignalProperties";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainAssessmentsResponseFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DomainAssessmentsResponseToJSON(value?: DomainAssessmentsResponse | null): any {
+export function DomainAssessmentsResponseToJSON(json: any): DomainAssessmentsResponse {
+    return DomainAssessmentsResponseToJSONTyped(json, false);
+}
+
+export function DomainAssessmentsResponseToJSONTyped(value?: DomainAssessmentsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: DomainMetaInfoToJSON(value["meta"]),

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { PaginationMetaAppInventory } from "./PaginationMetaAppInventory";
-import { PaginationMetaAppInventoryFromJSON, PaginationMetaAppInventoryFromJSONTyped, PaginationMetaAppInventoryToJSON } from "./PaginationMetaAppInventory";
+import { PaginationMetaAppInventoryFromJSON, PaginationMetaAppInventoryFromJSONTyped, PaginationMetaAppInventoryToJSON, PaginationMetaAppInventoryToJSONTyped } from "./PaginationMetaAppInventory";
 
 /**
  *
@@ -64,10 +64,15 @@ export function MetaAppInventoryFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function MetaAppInventoryToJSON(value?: MetaAppInventory | null): any {
+export function MetaAppInventoryToJSON(json: any): MetaAppInventory {
+    return MetaAppInventoryToJSONTyped(json, false);
+}
+
+export function MetaAppInventoryToJSONTyped(value?: MetaAppInventory | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: PaginationMetaAppInventoryToJSON(value["pagination"]),
         query_time: value["queryTime"],

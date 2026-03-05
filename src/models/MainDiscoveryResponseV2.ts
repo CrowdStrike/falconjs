@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MainAvailableStreamV2 } from "./MainAvailableStreamV2";
-import { MainAvailableStreamV2FromJSON, MainAvailableStreamV2FromJSONTyped, MainAvailableStreamV2ToJSON } from "./MainAvailableStreamV2";
+import { MainAvailableStreamV2FromJSON, MainAvailableStreamV2FromJSONTyped, MainAvailableStreamV2ToJSON, MainAvailableStreamV2ToJSONTyped } from "./MainAvailableStreamV2";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function MainDiscoveryResponseV2FromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function MainDiscoveryResponseV2ToJSON(value?: MainDiscoveryResponseV2 | null): any {
+export function MainDiscoveryResponseV2ToJSON(json: any): MainDiscoveryResponseV2 {
+    return MainDiscoveryResponseV2ToJSONTyped(json, false);
+}
+
+export function MainDiscoveryResponseV2ToJSONTyped(value?: MainDiscoveryResponseV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

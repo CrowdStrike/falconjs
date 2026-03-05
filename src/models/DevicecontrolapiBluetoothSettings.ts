@@ -18,9 +18,15 @@ import {
     DevicecontrolapiBluetoothCustomNotificationsFromJSON,
     DevicecontrolapiBluetoothCustomNotificationsFromJSONTyped,
     DevicecontrolapiBluetoothCustomNotificationsToJSON,
+    DevicecontrolapiBluetoothCustomNotificationsToJSONTyped,
 } from "./DevicecontrolapiBluetoothCustomNotifications";
 import type { DevicecontrolapiBluetoothClass } from "./DevicecontrolapiBluetoothClass";
-import { DevicecontrolapiBluetoothClassFromJSON, DevicecontrolapiBluetoothClassFromJSONTyped, DevicecontrolapiBluetoothClassToJSON } from "./DevicecontrolapiBluetoothClass";
+import {
+    DevicecontrolapiBluetoothClassFromJSON,
+    DevicecontrolapiBluetoothClassFromJSONTyped,
+    DevicecontrolapiBluetoothClassToJSON,
+    DevicecontrolapiBluetoothClassToJSONTyped,
+} from "./DevicecontrolapiBluetoothClass";
 
 /**
  *
@@ -77,10 +83,15 @@ export function DevicecontrolapiBluetoothSettingsFromJSONTyped(json: any, ignore
     };
 }
 
-export function DevicecontrolapiBluetoothSettingsToJSON(value?: DevicecontrolapiBluetoothSettings | null): any {
+export function DevicecontrolapiBluetoothSettingsToJSON(json: any): DevicecontrolapiBluetoothSettings {
+    return DevicecontrolapiBluetoothSettingsToJSONTyped(json, false);
+}
+
+export function DevicecontrolapiBluetoothSettingsToJSONTyped(value?: DevicecontrolapiBluetoothSettings | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         classes: value["classes"] == null ? undefined : (value["classes"] as Array<any>).map(DevicecontrolapiBluetoothClassToJSON),
         custom_end_user_notifications: DevicecontrolapiBluetoothCustomNotificationsToJSON(value["customEndUserNotifications"]),

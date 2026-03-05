@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { PolicymanagerPolicyProperties } from "./PolicymanagerPolicyProperties";
-import { PolicymanagerPolicyPropertiesFromJSON, PolicymanagerPolicyPropertiesFromJSONTyped, PolicymanagerPolicyPropertiesToJSON } from "./PolicymanagerPolicyProperties";
+import {
+    PolicymanagerPolicyPropertiesFromJSON,
+    PolicymanagerPolicyPropertiesFromJSONTyped,
+    PolicymanagerPolicyPropertiesToJSON,
+    PolicymanagerPolicyPropertiesToJSONTyped,
+} from "./PolicymanagerPolicyProperties";
 
 /**
  *
@@ -90,7 +95,7 @@ export interface PolicymanagerExternalPolicy {
     name: string;
     /**
      * Accepts values: 'win', 'mac'
-     * @type {string}
+     * @type {PolicymanagerExternalPolicyPlatformNameEnum}
      * @memberof PolicymanagerExternalPolicy
      */
     platformName: PolicymanagerExternalPolicyPlatformNameEnum;
@@ -172,10 +177,15 @@ export function PolicymanagerExternalPolicyFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function PolicymanagerExternalPolicyToJSON(value?: PolicymanagerExternalPolicy | null): any {
+export function PolicymanagerExternalPolicyToJSON(json: any): PolicymanagerExternalPolicy {
+    return PolicymanagerExternalPolicyToJSONTyped(json, false);
+}
+
+export function PolicymanagerExternalPolicyToJSONTyped(value?: PolicymanagerExternalPolicy | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         created_at: value["createdAt"],

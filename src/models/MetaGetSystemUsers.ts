@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { PaginationMetaGetSystemUsers } from "./PaginationMetaGetSystemUsers";
-import { PaginationMetaGetSystemUsersFromJSON, PaginationMetaGetSystemUsersFromJSONTyped, PaginationMetaGetSystemUsersToJSON } from "./PaginationMetaGetSystemUsers";
+import {
+    PaginationMetaGetSystemUsersFromJSON,
+    PaginationMetaGetSystemUsersFromJSONTyped,
+    PaginationMetaGetSystemUsersToJSON,
+    PaginationMetaGetSystemUsersToJSONTyped,
+} from "./PaginationMetaGetSystemUsers";
 
 /**
  *
@@ -64,10 +69,15 @@ export function MetaGetSystemUsersFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function MetaGetSystemUsersToJSON(value?: MetaGetSystemUsers | null): any {
+export function MetaGetSystemUsersToJSON(json: any): MetaGetSystemUsers {
+    return MetaGetSystemUsersToJSONTyped(json, false);
+}
+
+export function MetaGetSystemUsersToJSONTyped(value?: MetaGetSystemUsers | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: PaginationMetaGetSystemUsersToJSON(value["pagination"]),
         query_time: value["queryTime"],

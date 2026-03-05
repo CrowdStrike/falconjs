@@ -72,10 +72,15 @@ export function ModelsKACPolicyRuleGroupLabelFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function ModelsKACPolicyRuleGroupLabelToJSON(value?: ModelsKACPolicyRuleGroupLabel | null): any {
+export function ModelsKACPolicyRuleGroupLabelToJSON(json: any): ModelsKACPolicyRuleGroupLabel {
+    return ModelsKACPolicyRuleGroupLabelToJSONTyped(json, false);
+}
+
+export function ModelsKACPolicyRuleGroupLabelToJSONTyped(value?: ModelsKACPolicyRuleGroupLabel | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         key: value["key"],

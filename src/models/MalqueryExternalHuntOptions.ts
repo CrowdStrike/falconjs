@@ -103,10 +103,15 @@ export function MalqueryExternalHuntOptionsFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function MalqueryExternalHuntOptionsToJSON(value?: MalqueryExternalHuntOptions | null): any {
+export function MalqueryExternalHuntOptionsToJSON(json: any): MalqueryExternalHuntOptions {
+    return MalqueryExternalHuntOptionsToJSONTyped(json, false);
+}
+
+export function MalqueryExternalHuntOptionsToJSONTyped(value?: MalqueryExternalHuntOptions | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         app: value["app"],
         filter_filetypes: value["filterFiletypes"],

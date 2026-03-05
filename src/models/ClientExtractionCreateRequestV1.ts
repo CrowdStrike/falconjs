@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ClientExtractionFileParametersV1 } from "./ClientExtractionFileParametersV1";
-import { ClientExtractionFileParametersV1FromJSON, ClientExtractionFileParametersV1FromJSONTyped, ClientExtractionFileParametersV1ToJSON } from "./ClientExtractionFileParametersV1";
+import {
+    ClientExtractionFileParametersV1FromJSON,
+    ClientExtractionFileParametersV1FromJSONTyped,
+    ClientExtractionFileParametersV1ToJSON,
+    ClientExtractionFileParametersV1ToJSONTyped,
+} from "./ClientExtractionFileParametersV1";
 
 /**
  *
@@ -64,10 +69,15 @@ export function ClientExtractionCreateRequestV1FromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function ClientExtractionCreateRequestV1ToJSON(value?: ClientExtractionCreateRequestV1 | null): any {
+export function ClientExtractionCreateRequestV1ToJSON(json: any): ClientExtractionCreateRequestV1 {
+    return ClientExtractionCreateRequestV1ToJSONTyped(json, false);
+}
+
+export function ClientExtractionCreateRequestV1ToJSONTyped(value?: ClientExtractionCreateRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         extract_all: value["extractAll"],
         files: value["files"] == null ? undefined : (value["files"] as Array<any>).map(ClientExtractionFileParametersV1ToJSON),

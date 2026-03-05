@@ -56,10 +56,15 @@ export function DomainAPIComplianceControlV1FromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function DomainAPIComplianceControlV1ToJSON(value?: DomainAPIComplianceControlV1 | null): any {
+export function DomainAPIComplianceControlV1ToJSON(json: any): DomainAPIComplianceControlV1 {
+    return DomainAPIComplianceControlV1ToJSONTyped(json, false);
+}
+
+export function DomainAPIComplianceControlV1ToJSONTyped(value?: DomainAPIComplianceControlV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         control: value["control"],
         id: value["id"],

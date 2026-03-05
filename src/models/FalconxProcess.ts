@@ -14,21 +14,21 @@
 
 import { mapValues } from "../runtime";
 import type { FalconxRegistry } from "./FalconxRegistry";
-import { FalconxRegistryFromJSON, FalconxRegistryFromJSONTyped, FalconxRegistryToJSON } from "./FalconxRegistry";
+import { FalconxRegistryFromJSON, FalconxRegistryFromJSONTyped, FalconxRegistryToJSON, FalconxRegistryToJSONTyped } from "./FalconxRegistry";
 import type { FalconxProcessFlag } from "./FalconxProcessFlag";
-import { FalconxProcessFlagFromJSON, FalconxProcessFlagFromJSONTyped, FalconxProcessFlagToJSON } from "./FalconxProcessFlag";
+import { FalconxProcessFlagFromJSON, FalconxProcessFlagFromJSONTyped, FalconxProcessFlagToJSON, FalconxProcessFlagToJSONTyped } from "./FalconxProcessFlag";
 import type { FalconxScriptCall } from "./FalconxScriptCall";
-import { FalconxScriptCallFromJSON, FalconxScriptCallFromJSONTyped, FalconxScriptCallToJSON } from "./FalconxScriptCall";
+import { FalconxScriptCallFromJSON, FalconxScriptCallFromJSONTyped, FalconxScriptCallToJSON, FalconxScriptCallToJSONTyped } from "./FalconxScriptCall";
 import type { FalconxAMSICall } from "./FalconxAMSICall";
-import { FalconxAMSICallFromJSON, FalconxAMSICallFromJSONTyped, FalconxAMSICallToJSON } from "./FalconxAMSICall";
+import { FalconxAMSICallFromJSON, FalconxAMSICallFromJSONTyped, FalconxAMSICallToJSON, FalconxAMSICallToJSONTyped } from "./FalconxAMSICall";
 import type { FalconxHandle } from "./FalconxHandle";
-import { FalconxHandleFromJSON, FalconxHandleFromJSONTyped, FalconxHandleToJSON } from "./FalconxHandle";
+import { FalconxHandleFromJSON, FalconxHandleFromJSONTyped, FalconxHandleToJSON, FalconxHandleToJSONTyped } from "./FalconxHandle";
 import type { FalconxFileAccess } from "./FalconxFileAccess";
-import { FalconxFileAccessFromJSON, FalconxFileAccessFromJSONTyped, FalconxFileAccessToJSON } from "./FalconxFileAccess";
+import { FalconxFileAccessFromJSON, FalconxFileAccessFromJSONTyped, FalconxFileAccessToJSON, FalconxFileAccessToJSONTyped } from "./FalconxFileAccess";
 import type { FalconxModule } from "./FalconxModule";
-import { FalconxModuleFromJSON, FalconxModuleFromJSONTyped, FalconxModuleToJSON } from "./FalconxModule";
+import { FalconxModuleFromJSON, FalconxModuleFromJSONTyped, FalconxModuleToJSON, FalconxModuleToJSONTyped } from "./FalconxModule";
 import type { FalconxStream } from "./FalconxStream";
-import { FalconxStreamFromJSON, FalconxStreamFromJSONTyped, FalconxStreamToJSON } from "./FalconxStream";
+import { FalconxStreamFromJSON, FalconxStreamFromJSONTyped, FalconxStreamToJSON, FalconxStreamToJSONTyped } from "./FalconxStream";
 
 /**
  *
@@ -176,10 +176,15 @@ export function FalconxProcessFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function FalconxProcessToJSON(value?: FalconxProcess | null): any {
+export function FalconxProcessToJSON(json: any): FalconxProcess {
+    return FalconxProcessToJSONTyped(json, false);
+}
+
+export function FalconxProcessToJSONTyped(value?: FalconxProcess | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         amsi_calls: value["amsiCalls"] == null ? undefined : (value["amsiCalls"] as Array<any>).map(FalconxAMSICallToJSON),
         command_line: value["commandLine"],

@@ -34,9 +34,9 @@ export interface DeliverySettingsApiPostDeliverySettingsRequest {
  */
 export class DeliverySettingsApi extends runtime.BaseAPI {
     /**
-     * Get Delivery Settings
+     * Creates request options for getDeliverySettings without sending the request
      */
-    async getDeliverySettingsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsDeliverySettingsEntityResponse>> {
+    async getDeliverySettingsRequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -46,15 +46,22 @@ export class DeliverySettingsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["delivery-settings:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/delivery-settings/entities/delivery-settings/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/delivery-settings/entities/delivery-settings/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get Delivery Settings
+     */
+    async getDeliverySettingsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsDeliverySettingsEntityResponse>> {
+        const requestOptions = await this.getDeliverySettingsRequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsDeliverySettingsEntityResponseFromJSON(jsonValue));
     }
@@ -68,12 +75,9 @@ export class DeliverySettingsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create Delivery Settings
+     * Creates request options for postDeliverySettings without sending the request
      */
-    async postDeliverySettingsRaw(
-        requestParameters: DeliverySettingsApiPostDeliverySettingsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ModelsDeliverySettingsEntityResponse>> {
+    async postDeliverySettingsRequestOpts(requestParameters: DeliverySettingsApiPostDeliverySettingsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postDeliverySettings().');
         }
@@ -89,16 +93,26 @@ export class DeliverySettingsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["delivery-settings:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/delivery-settings/entities/delivery-settings/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ModelsDeliverySettingsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/delivery-settings/entities/delivery-settings/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ModelsDeliverySettingsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create Delivery Settings
+     */
+    async postDeliverySettingsRaw(
+        requestParameters: DeliverySettingsApiPostDeliverySettingsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ModelsDeliverySettingsEntityResponse>> {
+        const requestOptions = await this.postDeliverySettingsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsDeliverySettingsEntityResponseFromJSON(jsonValue));
     }

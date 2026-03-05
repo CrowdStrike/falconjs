@@ -14,15 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { RegistrationAzureManagementGroupV1Ext } from "./RegistrationAzureManagementGroupV1Ext";
 import {
     RegistrationAzureManagementGroupV1ExtFromJSON,
     RegistrationAzureManagementGroupV1ExtFromJSONTyped,
     RegistrationAzureManagementGroupV1ExtToJSON,
+    RegistrationAzureManagementGroupV1ExtToJSONTyped,
 } from "./RegistrationAzureManagementGroupV1Ext";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -74,10 +75,15 @@ export function RegistrationAzureManagementGroupResponseV1FromJSONTyped(json: an
     };
 }
 
-export function RegistrationAzureManagementGroupResponseV1ToJSON(value?: RegistrationAzureManagementGroupResponseV1 | null): any {
+export function RegistrationAzureManagementGroupResponseV1ToJSON(json: any): RegistrationAzureManagementGroupResponseV1 {
+    return RegistrationAzureManagementGroupResponseV1ToJSONTyped(json, false);
+}
+
+export function RegistrationAzureManagementGroupResponseV1ToJSONTyped(value?: RegistrationAzureManagementGroupResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

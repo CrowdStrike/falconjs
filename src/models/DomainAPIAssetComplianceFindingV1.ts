@@ -111,10 +111,15 @@ export function DomainAPIAssetComplianceFindingV1FromJSONTyped(json: any, ignore
     };
 }
 
-export function DomainAPIAssetComplianceFindingV1ToJSON(value?: DomainAPIAssetComplianceFindingV1 | null): any {
+export function DomainAPIAssetComplianceFindingV1ToJSON(json: any): DomainAPIAssetComplianceFindingV1 {
+    return DomainAPIAssetComplianceFindingV1ToJSONTyped(json, false);
+}
+
+export function DomainAPIAssetComplianceFindingV1ToJSONTyped(value?: DomainAPIAssetComplianceFindingV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         asset_type: value["assetType"],
         framework_name: value["frameworkName"],

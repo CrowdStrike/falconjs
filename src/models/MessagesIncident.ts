@@ -56,10 +56,15 @@ export function MessagesIncidentFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function MessagesIncidentToJSON(value?: MessagesIncident | null): any {
+export function MessagesIncidentToJSON(json: any): MessagesIncident {
+    return MessagesIncidentToJSONTyped(json, false);
+}
+
+export function MessagesIncidentToJSONTyped(value?: MessagesIncident | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         url: value["url"],

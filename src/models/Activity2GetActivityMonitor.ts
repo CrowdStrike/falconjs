@@ -48,10 +48,15 @@ export function Activity2GetActivityMonitorFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function Activity2GetActivityMonitorToJSON(value?: Activity2GetActivityMonitor | null): any {
+export function Activity2GetActivityMonitorToJSON(json: any): Activity2GetActivityMonitor {
+    return Activity2GetActivityMonitorToJSONTyped(json, false);
+}
+
+export function Activity2GetActivityMonitorToJSONTyped(value?: Activity2GetActivityMonitor | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         result: value["result"],
     };

@@ -54,10 +54,15 @@ export function FalconxFileImportFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function FalconxFileImportToJSON(value?: FalconxFileImport | null): any {
+export function FalconxFileImportToJSON(json: any): FalconxFileImport {
+    return FalconxFileImportToJSONTyped(json, false);
+}
+
+export function FalconxFileImportToJSONTyped(value?: FalconxFileImport | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         functions: value["functions"],
         module: value["module"],

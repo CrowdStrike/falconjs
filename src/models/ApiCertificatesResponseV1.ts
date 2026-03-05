@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApiCertificateV1 } from "./ApiCertificateV1";
-import { ApiCertificateV1FromJSON, ApiCertificateV1FromJSONTyped, ApiCertificateV1ToJSON } from "./ApiCertificateV1";
+import { ApiCertificateV1FromJSON, ApiCertificateV1FromJSONTyped, ApiCertificateV1ToJSON, ApiCertificateV1ToJSONTyped } from "./ApiCertificateV1";
 
 /**
  *
@@ -51,10 +51,15 @@ export function ApiCertificatesResponseV1FromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ApiCertificatesResponseV1ToJSON(value?: ApiCertificatesResponseV1 | null): any {
+export function ApiCertificatesResponseV1ToJSON(json: any): ApiCertificatesResponseV1 {
+    return ApiCertificatesResponseV1ToJSONTyped(json, false);
+}
+
+export function ApiCertificatesResponseV1ToJSONTyped(value?: ApiCertificatesResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         certificates: (value["certificates"] as Array<any>).map(ApiCertificateV1ToJSON),
     };

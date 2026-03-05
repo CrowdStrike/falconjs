@@ -14,15 +14,25 @@
 
 import { mapValues } from "../runtime";
 import type { PolicyframeworkControl } from "./PolicyframeworkControl";
-import { PolicyframeworkControlFromJSON, PolicyframeworkControlFromJSONTyped, PolicyframeworkControlToJSON } from "./PolicyframeworkControl";
+import { PolicyframeworkControlFromJSON, PolicyframeworkControlFromJSONTyped, PolicyframeworkControlToJSON, PolicyframeworkControlToJSONTyped } from "./PolicyframeworkControl";
 import type { PolicyframeworkRuleGroupMetadata } from "./PolicyframeworkRuleGroupMetadata";
-import { PolicyframeworkRuleGroupMetadataFromJSON, PolicyframeworkRuleGroupMetadataFromJSONTyped, PolicyframeworkRuleGroupMetadataToJSON } from "./PolicyframeworkRuleGroupMetadata";
+import {
+    PolicyframeworkRuleGroupMetadataFromJSON,
+    PolicyframeworkRuleGroupMetadataFromJSONTyped,
+    PolicyframeworkRuleGroupMetadataToJSON,
+    PolicyframeworkRuleGroupMetadataToJSONTyped,
+} from "./PolicyframeworkRuleGroupMetadata";
 import type { EvaluationsRuleOverride } from "./EvaluationsRuleOverride";
-import { EvaluationsRuleOverrideFromJSON, EvaluationsRuleOverrideFromJSONTyped, EvaluationsRuleOverrideToJSON } from "./EvaluationsRuleOverride";
+import { EvaluationsRuleOverrideFromJSON, EvaluationsRuleOverrideFromJSONTyped, EvaluationsRuleOverrideToJSON, EvaluationsRuleOverrideToJSONTyped } from "./EvaluationsRuleOverride";
 import type { EvaluationsThreat } from "./EvaluationsThreat";
-import { EvaluationsThreatFromJSON, EvaluationsThreatFromJSONTyped, EvaluationsThreatToJSON } from "./EvaluationsThreat";
+import { EvaluationsThreatFromJSON, EvaluationsThreatFromJSONTyped, EvaluationsThreatToJSON, EvaluationsThreatToJSONTyped } from "./EvaluationsThreat";
 import type { PolicyframeworkPolicyMetadata } from "./PolicyframeworkPolicyMetadata";
-import { PolicyframeworkPolicyMetadataFromJSON, PolicyframeworkPolicyMetadataFromJSONTyped, PolicyframeworkPolicyMetadataToJSON } from "./PolicyframeworkPolicyMetadata";
+import {
+    PolicyframeworkPolicyMetadataFromJSON,
+    PolicyframeworkPolicyMetadataFromJSONTyped,
+    PolicyframeworkPolicyMetadataToJSON,
+    PolicyframeworkPolicyMetadataToJSONTyped,
+} from "./PolicyframeworkPolicyMetadata";
 
 /**
  *
@@ -142,10 +152,15 @@ export function EvaluationsRuleFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function EvaluationsRuleToJSON(value?: EvaluationsRule | null): any {
+export function EvaluationsRuleToJSON(json: any): EvaluationsRule {
+    return EvaluationsRuleToJSONTyped(json, false);
+}
+
+export function EvaluationsRuleToJSONTyped(value?: EvaluationsRule | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         alert_logic: value["alertLogic"],
         ciem_categories: value["ciemCategories"],

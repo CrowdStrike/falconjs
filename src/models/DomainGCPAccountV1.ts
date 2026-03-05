@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { StatemgmtCondition } from "./StatemgmtCondition";
-import { StatemgmtConditionFromJSON, StatemgmtConditionFromJSONTyped, StatemgmtConditionToJSON } from "./StatemgmtCondition";
+import { StatemgmtConditionFromJSON, StatemgmtConditionFromJSONTyped, StatemgmtConditionToJSON, StatemgmtConditionToJSONTyped } from "./StatemgmtCondition";
 import type { DomainCloudScope } from "./DomainCloudScope";
-import { DomainCloudScopeFromJSON, DomainCloudScopeFromJSONTyped, DomainCloudScopeToJSON } from "./DomainCloudScope";
+import { DomainCloudScopeFromJSON, DomainCloudScopeFromJSONTyped, DomainCloudScopeToJSON, DomainCloudScopeToJSONTyped } from "./DomainCloudScope";
 import type { DomainPermission } from "./DomainPermission";
-import { DomainPermissionFromJSON, DomainPermissionFromJSONTyped, DomainPermissionToJSON } from "./DomainPermission";
+import { DomainPermissionFromJSON, DomainPermissionFromJSONTyped, DomainPermissionToJSON, DomainPermissionToJSONTyped } from "./DomainPermission";
 
 /**
  *
@@ -231,10 +231,15 @@ export function DomainGCPAccountV1FromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function DomainGCPAccountV1ToJSON(value?: DomainGCPAccountV1 | null): any {
+export function DomainGCPAccountV1ToJSON(json: any): DomainGCPAccountV1 {
+    return DomainGCPAccountV1ToJSONTyped(json, false);
+}
+
+export function DomainGCPAccountV1ToJSONTyped(value?: DomainGCPAccountV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         CreatedAt: value["createdAt"].toISOString(),
         DeletedAt: value["deletedAt"].toISOString(),

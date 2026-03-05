@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { PaginationMetaGetActivityMonitor } from "./PaginationMetaGetActivityMonitor";
-import { PaginationMetaGetActivityMonitorFromJSON, PaginationMetaGetActivityMonitorFromJSONTyped, PaginationMetaGetActivityMonitorToJSON } from "./PaginationMetaGetActivityMonitor";
+import {
+    PaginationMetaGetActivityMonitorFromJSON,
+    PaginationMetaGetActivityMonitorFromJSONTyped,
+    PaginationMetaGetActivityMonitorToJSON,
+    PaginationMetaGetActivityMonitorToJSONTyped,
+} from "./PaginationMetaGetActivityMonitor";
 
 /**
  *
@@ -64,10 +69,15 @@ export function MetaGetActivityMonitorFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function MetaGetActivityMonitorToJSON(value?: MetaGetActivityMonitor | null): any {
+export function MetaGetActivityMonitorToJSON(json: any): MetaGetActivityMonitor {
+    return MetaGetActivityMonitorToJSONTyped(json, false);
+}
+
+export function MetaGetActivityMonitorToJSONTyped(value?: MetaGetActivityMonitor | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: PaginationMetaGetActivityMonitorToJSON(value["pagination"]),
         query_time: value["queryTime"],

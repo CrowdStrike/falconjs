@@ -18,6 +18,7 @@ import {
     CorrelationrulesapiCreateRuleNotificationConfigFromJSON,
     CorrelationrulesapiCreateRuleNotificationConfigFromJSONTyped,
     CorrelationrulesapiCreateRuleNotificationConfigToJSON,
+    CorrelationrulesapiCreateRuleNotificationConfigToJSONTyped,
 } from "./CorrelationrulesapiCreateRuleNotificationConfig";
 
 /**
@@ -70,10 +71,15 @@ export function CorrelationrulesapiCreateRuleNotificationsFromJSONTyped(json: an
     };
 }
 
-export function CorrelationrulesapiCreateRuleNotificationsToJSON(value?: CorrelationrulesapiCreateRuleNotifications | null): any {
+export function CorrelationrulesapiCreateRuleNotificationsToJSON(json: any): CorrelationrulesapiCreateRuleNotifications {
+    return CorrelationrulesapiCreateRuleNotificationsToJSONTyped(json, false);
+}
+
+export function CorrelationrulesapiCreateRuleNotificationsToJSONTyped(value?: CorrelationrulesapiCreateRuleNotifications | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         config: CorrelationrulesapiCreateRuleNotificationConfigToJSON(value["config"]),
         options: value["options"],

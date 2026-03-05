@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { AppUsersAppInventoryUsers } from "./AppUsersAppInventoryUsers";
-import { AppUsersAppInventoryUsersFromJSON, AppUsersAppInventoryUsersFromJSONTyped, AppUsersAppInventoryUsersToJSON } from "./AppUsersAppInventoryUsers";
+import { AppUsersAppInventoryUsersFromJSON, AppUsersAppInventoryUsersFromJSONTyped, AppUsersAppInventoryUsersToJSON, AppUsersAppInventoryUsersToJSONTyped } from "./AppUsersAppInventoryUsers";
 import type { ErrorAppInventoryUsers } from "./ErrorAppInventoryUsers";
-import { ErrorAppInventoryUsersFromJSON, ErrorAppInventoryUsersFromJSONTyped, ErrorAppInventoryUsersToJSON } from "./ErrorAppInventoryUsers";
+import { ErrorAppInventoryUsersFromJSON, ErrorAppInventoryUsersFromJSONTyped, ErrorAppInventoryUsersToJSON, ErrorAppInventoryUsersToJSONTyped } from "./ErrorAppInventoryUsers";
 import type { MetaAppInventoryUsers } from "./MetaAppInventoryUsers";
-import { MetaAppInventoryUsersFromJSON, MetaAppInventoryUsersFromJSONTyped, MetaAppInventoryUsersToJSON } from "./MetaAppInventoryUsers";
+import { MetaAppInventoryUsersFromJSON, MetaAppInventoryUsersFromJSONTyped, MetaAppInventoryUsersToJSON, MetaAppInventoryUsersToJSONTyped } from "./MetaAppInventoryUsers";
 
 /**
  *
@@ -68,10 +68,15 @@ export function AppInventoryUsersFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function AppInventoryUsersToJSON(value?: AppInventoryUsers | null): any {
+export function AppInventoryUsersToJSON(json: any): AppInventoryUsers {
+    return AppInventoryUsersToJSONTyped(json, false);
+}
+
+export function AppInventoryUsersToJSONTyped(value?: AppInventoryUsers | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(ErrorAppInventoryUsersToJSON),
         meta: MetaAppInventoryUsersToJSON(value["meta"]),

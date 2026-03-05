@@ -61,10 +61,15 @@ export function JsonschemaParameterExtensionsFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function JsonschemaParameterExtensionsToJSON(value?: JsonschemaParameterExtensions | null): any {
+export function JsonschemaParameterExtensionsToJSON(json: any): JsonschemaParameterExtensions {
+    return JsonschemaParameterExtensionsToJSONTyped(json, false);
+}
+
+export function JsonschemaParameterExtensionsToJSONTyped(value?: JsonschemaParameterExtensions | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         allow_empty_values: value["allowEmptyValues"],
         explode: value["explode"],

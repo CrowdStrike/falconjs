@@ -56,10 +56,15 @@ export function PluginsonpremapiIneligibleDeviceFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function PluginsonpremapiIneligibleDeviceToJSON(value?: PluginsonpremapiIneligibleDevice | null): any {
+export function PluginsonpremapiIneligibleDeviceToJSON(json: any): PluginsonpremapiIneligibleDevice {
+    return PluginsonpremapiIneligibleDeviceToJSONTyped(json, false);
+}
+
+export function PluginsonpremapiIneligibleDeviceToJSONTyped(value?: PluginsonpremapiIneligibleDevice | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         device_id: value["deviceId"],
         reason: value["reason"],

@@ -18,11 +18,12 @@ import {
     AssetsResourceApplicationFindingsItemFromJSON,
     AssetsResourceApplicationFindingsItemFromJSONTyped,
     AssetsResourceApplicationFindingsItemToJSON,
+    AssetsResourceApplicationFindingsItemToJSONTyped,
 } from "./AssetsResourceApplicationFindingsItem";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -74,10 +75,15 @@ export function AssetsGetResourceApplicationFindingsResponseFromJSONTyped(json: 
     };
 }
 
-export function AssetsGetResourceApplicationFindingsResponseToJSON(value?: AssetsGetResourceApplicationFindingsResponse | null): any {
+export function AssetsGetResourceApplicationFindingsResponseToJSON(json: any): AssetsGetResourceApplicationFindingsResponse {
+    return AssetsGetResourceApplicationFindingsResponseToJSONTyped(json, false);
+}
+
+export function AssetsGetResourceApplicationFindingsResponseToJSONTyped(value?: AssetsGetResourceApplicationFindingsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

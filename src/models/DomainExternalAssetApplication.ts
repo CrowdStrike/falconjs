@@ -75,10 +75,15 @@ export function DomainExternalAssetApplicationFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function DomainExternalAssetApplicationToJSON(value?: DomainExternalAssetApplication | null): any {
+export function DomainExternalAssetApplicationToJSON(json: any): DomainExternalAssetApplication {
+    return DomainExternalAssetApplicationToJSONTyped(json, false);
+}
+
+export function DomainExternalAssetApplicationToJSONTyped(value?: DomainExternalAssetApplication | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         category: value["category"],
         cpe: value["cpe"],

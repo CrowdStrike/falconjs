@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { FalconxMetaInfo } from "./FalconxMetaInfo";
-import { FalconxMetaInfoFromJSON, FalconxMetaInfoFromJSONTyped, FalconxMetaInfoToJSON } from "./FalconxMetaInfo";
+import { FalconxMetaInfoFromJSON, FalconxMetaInfoFromJSONTyped, FalconxMetaInfoToJSON, FalconxMetaInfoToJSONTyped } from "./FalconxMetaInfo";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 
 /**
  *
@@ -69,10 +69,15 @@ export function FalconxQueryResponseFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function FalconxQueryResponseToJSON(value?: FalconxQueryResponse | null): any {
+export function FalconxQueryResponseToJSON(json: any): FalconxQueryResponse {
+    return FalconxQueryResponseToJSONTyped(json, false);
+}
+
+export function FalconxQueryResponseToJSONTyped(value?: FalconxQueryResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: FalconxMetaInfoToJSON(value["meta"]),

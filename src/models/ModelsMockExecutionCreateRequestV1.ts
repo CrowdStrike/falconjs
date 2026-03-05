@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsDefinitionCreateRequestV2 } from "./ModelsDefinitionCreateRequestV2";
-import { ModelsDefinitionCreateRequestV2FromJSON, ModelsDefinitionCreateRequestV2FromJSONTyped, ModelsDefinitionCreateRequestV2ToJSON } from "./ModelsDefinitionCreateRequestV2";
+import {
+    ModelsDefinitionCreateRequestV2FromJSON,
+    ModelsDefinitionCreateRequestV2FromJSONTyped,
+    ModelsDefinitionCreateRequestV2ToJSON,
+    ModelsDefinitionCreateRequestV2ToJSONTyped,
+} from "./ModelsDefinitionCreateRequestV2";
 
 /**
  *
@@ -65,10 +70,15 @@ export function ModelsMockExecutionCreateRequestV1FromJSONTyped(json: any, ignor
     };
 }
 
-export function ModelsMockExecutionCreateRequestV1ToJSON(value?: ModelsMockExecutionCreateRequestV1 | null): any {
+export function ModelsMockExecutionCreateRequestV1ToJSON(json: any): ModelsMockExecutionCreateRequestV1 {
+    return ModelsMockExecutionCreateRequestV1ToJSONTyped(json, false);
+}
+
+export function ModelsMockExecutionCreateRequestV1ToJSONTyped(value?: ModelsMockExecutionCreateRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         definition: ModelsDefinitionCreateRequestV2ToJSON(value["definition"]),
         mocks: value["mocks"],

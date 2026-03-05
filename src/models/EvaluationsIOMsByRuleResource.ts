@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { EvaluationsRule } from "./EvaluationsRule";
-import { EvaluationsRuleFromJSON, EvaluationsRuleFromJSONTyped, EvaluationsRuleToJSON } from "./EvaluationsRule";
+import { EvaluationsRuleFromJSON, EvaluationsRuleFromJSONTyped, EvaluationsRuleToJSON, EvaluationsRuleToJSONTyped } from "./EvaluationsRule";
 import type { DomainCloudGroup } from "./DomainCloudGroup";
-import { DomainCloudGroupFromJSON, DomainCloudGroupFromJSONTyped, DomainCloudGroupToJSON } from "./DomainCloudGroup";
+import { DomainCloudGroupFromJSON, DomainCloudGroupFromJSONTyped, DomainCloudGroupToJSON, DomainCloudGroupToJSONTyped } from "./DomainCloudGroup";
 import type { EvaluationsCompliance } from "./EvaluationsCompliance";
-import { EvaluationsComplianceFromJSON, EvaluationsComplianceFromJSONTyped, EvaluationsComplianceToJSON } from "./EvaluationsCompliance";
+import { EvaluationsComplianceFromJSON, EvaluationsComplianceFromJSONTyped, EvaluationsComplianceToJSON, EvaluationsComplianceToJSONTyped } from "./EvaluationsCompliance";
 
 /**
  *
@@ -133,10 +133,15 @@ export function EvaluationsIOMsByRuleResourceFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function EvaluationsIOMsByRuleResourceToJSON(value?: EvaluationsIOMsByRuleResource | null): any {
+export function EvaluationsIOMsByRuleResourceToJSON(json: any): EvaluationsIOMsByRuleResource {
+    return EvaluationsIOMsByRuleResourceToJSONTyped(json, false);
+}
+
+export function EvaluationsIOMsByRuleResourceToJSONTyped(value?: EvaluationsIOMsByRuleResource | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         assessed_assets: value["assessedAssets"],

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsAPIPolicyRulesData } from "./ModelsAPIPolicyRulesData";
-import { ModelsAPIPolicyRulesDataFromJSON, ModelsAPIPolicyRulesDataFromJSONTyped, ModelsAPIPolicyRulesDataToJSON } from "./ModelsAPIPolicyRulesData";
+import { ModelsAPIPolicyRulesDataFromJSON, ModelsAPIPolicyRulesDataFromJSONTyped, ModelsAPIPolicyRulesDataToJSON, ModelsAPIPolicyRulesDataToJSONTyped } from "./ModelsAPIPolicyRulesData";
 
 /**
  *
@@ -58,10 +58,15 @@ export function ModelsAPIPolicyRuleFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function ModelsAPIPolicyRuleToJSON(value?: ModelsAPIPolicyRule | null): any {
+export function ModelsAPIPolicyRuleToJSON(json: any): ModelsAPIPolicyRule {
+    return ModelsAPIPolicyRuleToJSONTyped(json, false);
+}
+
+export function ModelsAPIPolicyRuleToJSONTyped(value?: ModelsAPIPolicyRule | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         policy_rules_data: ModelsAPIPolicyRulesDataToJSON(value["policyRulesData"]),

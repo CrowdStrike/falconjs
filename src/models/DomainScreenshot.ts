@@ -68,12 +68,17 @@ export function DomainScreenshotFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function DomainScreenshotToJSON(value?: DomainScreenshot | null): any {
+export function DomainScreenshotToJSON(json: any): DomainScreenshot {
+    return DomainScreenshotToJSONTyped(json, false);
+}
+
+export function DomainScreenshotToJSONTyped(value?: DomainScreenshot | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
-        date: value["date"] == null ? undefined : value["date"].toISOString(),
+        date: value["date"] == null ? value["date"] : value["date"].toISOString(),
         link: value["link"],
         sha256: value["sha256"],
         type: value["type"],

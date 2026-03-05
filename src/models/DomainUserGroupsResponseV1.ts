@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainUserGroup } from "./DomainUserGroup";
-import { DomainUserGroupFromJSON, DomainUserGroupFromJSONTyped, DomainUserGroupToJSON } from "./DomainUserGroup";
+import { DomainUserGroupFromJSON, DomainUserGroupFromJSONTyped, DomainUserGroupToJSON, DomainUserGroupToJSONTyped } from "./DomainUserGroup";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainUserGroupsResponseV1FromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function DomainUserGroupsResponseV1ToJSON(value?: DomainUserGroupsResponseV1 | null): any {
+export function DomainUserGroupsResponseV1ToJSON(json: any): DomainUserGroupsResponseV1 {
+    return DomainUserGroupsResponseV1ToJSONTyped(json, false);
+}
+
+export function DomainUserGroupsResponseV1ToJSONTyped(value?: DomainUserGroupsResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

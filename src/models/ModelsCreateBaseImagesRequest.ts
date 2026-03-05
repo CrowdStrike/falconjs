@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsBaseImageRequest } from "./ModelsBaseImageRequest";
-import { ModelsBaseImageRequestFromJSON, ModelsBaseImageRequestFromJSONTyped, ModelsBaseImageRequestToJSON } from "./ModelsBaseImageRequest";
+import { ModelsBaseImageRequestFromJSON, ModelsBaseImageRequestFromJSONTyped, ModelsBaseImageRequestToJSON, ModelsBaseImageRequestToJSONTyped } from "./ModelsBaseImageRequest";
 
 /**
  *
@@ -51,10 +51,15 @@ export function ModelsCreateBaseImagesRequestFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function ModelsCreateBaseImagesRequestToJSON(value?: ModelsCreateBaseImagesRequest | null): any {
+export function ModelsCreateBaseImagesRequestToJSON(json: any): ModelsCreateBaseImagesRequest {
+    return ModelsCreateBaseImagesRequestToJSONTyped(json, false);
+}
+
+export function ModelsCreateBaseImagesRequestToJSONTyped(value?: ModelsCreateBaseImagesRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         base_images: (value["baseImages"] as Array<any>).map(ModelsBaseImageRequestToJSON),
     };

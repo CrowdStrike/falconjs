@@ -48,10 +48,15 @@ export function DomainTenancyOCIDFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function DomainTenancyOCIDToJSON(value?: DomainTenancyOCID | null): any {
+export function DomainTenancyOCIDToJSON(json: any): DomainTenancyOCID {
+    return DomainTenancyOCIDToJSONTyped(json, false);
+}
+
+export function DomainTenancyOCIDToJSONTyped(value?: DomainTenancyOCID | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         tenancy_ocid: value["tenancyOcid"],
     };

@@ -86,10 +86,15 @@ export function DomainExportJobMetadataV1FromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DomainExportJobMetadataV1ToJSON(value?: DomainExportJobMetadataV1 | null): any {
+export function DomainExportJobMetadataV1ToJSON(json: any): DomainExportJobMetadataV1 {
+    return DomainExportJobMetadataV1ToJSONTyped(json, false);
+}
+
+export function DomainExportJobMetadataV1ToJSONTyped(value?: DomainExportJobMetadataV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         completion_percentage: value["completionPercentage"],
         created_date: value["createdDate"],

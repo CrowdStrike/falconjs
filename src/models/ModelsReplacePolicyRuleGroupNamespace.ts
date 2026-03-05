@@ -48,10 +48,15 @@ export function ModelsReplacePolicyRuleGroupNamespaceFromJSONTyped(json: any, ig
     };
 }
 
-export function ModelsReplacePolicyRuleGroupNamespaceToJSON(value?: ModelsReplacePolicyRuleGroupNamespace | null): any {
+export function ModelsReplacePolicyRuleGroupNamespaceToJSON(json: any): ModelsReplacePolicyRuleGroupNamespace {
+    return ModelsReplacePolicyRuleGroupNamespaceToJSONTyped(json, false);
+}
+
+export function ModelsReplacePolicyRuleGroupNamespaceToJSONTyped(value?: ModelsReplacePolicyRuleGroupNamespace | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         value: value["value"],
     };

@@ -64,10 +64,15 @@ export function SchemaSensorFieldValueFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function SchemaSensorFieldValueToJSON(value?: SchemaSensorFieldValue | null): any {
+export function SchemaSensorFieldValueToJSON(json: any): SchemaSensorFieldValue {
+    return SchemaSensorFieldValueToJSONTyped(json, false);
+}
+
+export function SchemaSensorFieldValueToJSONTyped(value?: SchemaSensorFieldValue | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         name: value["name"],

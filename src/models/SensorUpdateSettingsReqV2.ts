@@ -14,9 +14,14 @@
 
 import { mapValues } from "../runtime";
 import type { SensorUpdateBuildReqV1 } from "./SensorUpdateBuildReqV1";
-import { SensorUpdateBuildReqV1FromJSON, SensorUpdateBuildReqV1FromJSONTyped, SensorUpdateBuildReqV1ToJSON } from "./SensorUpdateBuildReqV1";
+import { SensorUpdateBuildReqV1FromJSON, SensorUpdateBuildReqV1FromJSONTyped, SensorUpdateBuildReqV1ToJSON, SensorUpdateBuildReqV1ToJSONTyped } from "./SensorUpdateBuildReqV1";
 import type { PolicySensorUpdateScheduler } from "./PolicySensorUpdateScheduler";
-import { PolicySensorUpdateSchedulerFromJSON, PolicySensorUpdateSchedulerFromJSONTyped, PolicySensorUpdateSchedulerToJSON } from "./PolicySensorUpdateScheduler";
+import {
+    PolicySensorUpdateSchedulerFromJSON,
+    PolicySensorUpdateSchedulerFromJSONTyped,
+    PolicySensorUpdateSchedulerToJSON,
+    PolicySensorUpdateSchedulerToJSONTyped,
+} from "./PolicySensorUpdateScheduler";
 
 /**
  *
@@ -44,7 +49,7 @@ export interface SensorUpdateSettingsReqV2 {
     showEarlyAdopterBuilds?: boolean;
     /**
      * The uninstall protection state to apply to the policy
-     * @type {string}
+     * @type {SensorUpdateSettingsReqV2UninstallProtectionEnum}
      * @memberof SensorUpdateSettingsReqV2
      */
     uninstallProtection?: SensorUpdateSettingsReqV2UninstallProtectionEnum;
@@ -94,10 +99,15 @@ export function SensorUpdateSettingsReqV2FromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function SensorUpdateSettingsReqV2ToJSON(value?: SensorUpdateSettingsReqV2 | null): any {
+export function SensorUpdateSettingsReqV2ToJSON(json: any): SensorUpdateSettingsReqV2 {
+    return SensorUpdateSettingsReqV2ToJSONTyped(json, false);
+}
+
+export function SensorUpdateSettingsReqV2ToJSONTyped(value?: SensorUpdateSettingsReqV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         build: value["build"],
         scheduler: PolicySensorUpdateSchedulerToJSON(value["scheduler"]),

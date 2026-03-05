@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { ChangesGroup } from "./ChangesGroup";
-import { ChangesGroupFromJSON, ChangesGroupFromJSONTyped, ChangesGroupToJSON } from "./ChangesGroup";
+import { ChangesGroupFromJSON, ChangesGroupFromJSONTyped, ChangesGroupToJSON, ChangesGroupToJSONTyped } from "./ChangesGroup";
 import type { ChangesBasic } from "./ChangesBasic";
-import { ChangesBasicFromJSON, ChangesBasicFromJSONTyped, ChangesBasicToJSON } from "./ChangesBasic";
+import { ChangesBasicFromJSON, ChangesBasicFromJSONTyped, ChangesBasicToJSON, ChangesBasicToJSONTyped } from "./ChangesBasic";
 import type { ChangesOwner } from "./ChangesOwner";
-import { ChangesOwnerFromJSON, ChangesOwnerFromJSONTyped, ChangesOwnerToJSON } from "./ChangesOwner";
+import { ChangesOwnerFromJSON, ChangesOwnerFromJSONTyped, ChangesOwnerToJSON, ChangesOwnerToJSONTyped } from "./ChangesOwner";
 
 /**
  *
@@ -89,10 +89,15 @@ export function ChangesPermissionsMacFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function ChangesPermissionsMacToJSON(value?: ChangesPermissionsMac | null): any {
+export function ChangesPermissionsMacToJSON(json: any): ChangesPermissionsMac {
+    return ChangesPermissionsMacToJSONTyped(json, false);
+}
+
+export function ChangesPermissionsMacToJSONTyped(value?: ChangesPermissionsMac | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         acl: value["acl"],
         basic: value["basic"] == null ? undefined : (value["basic"] as Array<any>).map(ChangesBasicToJSON),

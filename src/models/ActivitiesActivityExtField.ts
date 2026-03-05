@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { FielddataFieldSource } from "./FielddataFieldSource";
-import { FielddataFieldSourceFromJSON, FielddataFieldSourceFromJSONTyped, FielddataFieldSourceToJSON } from "./FielddataFieldSource";
+import { FielddataFieldSourceFromJSON, FielddataFieldSourceFromJSONTyped, FielddataFieldSourceToJSON, FielddataFieldSourceToJSONTyped } from "./FielddataFieldSource";
 
 /**
  *
@@ -108,10 +108,15 @@ export function ActivitiesActivityExtFieldFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function ActivitiesActivityExtFieldToJSON(value?: ActivitiesActivityExtField | null): any {
+export function ActivitiesActivityExtFieldToJSON(json: any): ActivitiesActivityExtField {
+    return ActivitiesActivityExtFieldToJSONTyped(json, false);
+}
+
+export function ActivitiesActivityExtFieldToJSONTyped(value?: ActivitiesActivityExtField | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         display: value["display"],

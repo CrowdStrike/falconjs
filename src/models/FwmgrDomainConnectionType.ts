@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { FwmgrDomainWirelessType } from "./FwmgrDomainWirelessType";
-import { FwmgrDomainWirelessTypeFromJSON, FwmgrDomainWirelessTypeFromJSONTyped, FwmgrDomainWirelessTypeToJSON } from "./FwmgrDomainWirelessType";
+import { FwmgrDomainWirelessTypeFromJSON, FwmgrDomainWirelessTypeFromJSONTyped, FwmgrDomainWirelessTypeToJSON, FwmgrDomainWirelessTypeToJSONTyped } from "./FwmgrDomainWirelessType";
 
 /**
  *
@@ -59,10 +59,15 @@ export function FwmgrDomainConnectionTypeFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function FwmgrDomainConnectionTypeToJSON(value?: FwmgrDomainConnectionType | null): any {
+export function FwmgrDomainConnectionTypeToJSON(json: any): FwmgrDomainConnectionType {
+    return FwmgrDomainConnectionTypeToJSONTyped(json, false);
+}
+
+export function FwmgrDomainConnectionTypeToJSONTyped(value?: FwmgrDomainConnectionType | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         wired: value["wired"],
         wireless: FwmgrDomainWirelessTypeToJSON(value["wireless"]),

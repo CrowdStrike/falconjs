@@ -64,10 +64,15 @@ export function ChangesHighVolumeQueryPagingFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function ChangesHighVolumeQueryPagingToJSON(value?: ChangesHighVolumeQueryPaging | null): any {
+export function ChangesHighVolumeQueryPagingToJSON(json: any): ChangesHighVolumeQueryPaging {
+    return ChangesHighVolumeQueryPagingToJSONTyped(json, false);
+}
+
+export function ChangesHighVolumeQueryPagingToJSONTyped(value?: ChangesHighVolumeQueryPaging | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         after: value["after"],
         limit: value["limit"],

@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsRuleWithNonCompliantAssets } from "./ModelsRuleWithNonCompliantAssets";
-import { ModelsRuleWithNonCompliantAssetsFromJSON, ModelsRuleWithNonCompliantAssetsFromJSONTyped, ModelsRuleWithNonCompliantAssetsToJSON } from "./ModelsRuleWithNonCompliantAssets";
+import {
+    ModelsRuleWithNonCompliantAssetsFromJSON,
+    ModelsRuleWithNonCompliantAssetsFromJSONTyped,
+    ModelsRuleWithNonCompliantAssetsToJSON,
+    ModelsRuleWithNonCompliantAssetsToJSONTyped,
+} from "./ModelsRuleWithNonCompliantAssets";
 
 /**
  *
@@ -59,10 +64,15 @@ export function ModelsRulesWithNonCompliantAssetsFromJSONTyped(json: any, ignore
     };
 }
 
-export function ModelsRulesWithNonCompliantAssetsToJSON(value?: ModelsRulesWithNonCompliantAssets | null): any {
+export function ModelsRulesWithNonCompliantAssetsToJSON(json: any): ModelsRulesWithNonCompliantAssets {
+    return ModelsRulesWithNonCompliantAssetsToJSONTyped(json, false);
+}
+
+export function ModelsRulesWithNonCompliantAssetsToJSONTyped(value?: ModelsRulesWithNonCompliantAssets | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         not_applicable_filters: value["notApplicableFilters"],
         rules: (value["rules"] as Array<any>).map(ModelsRuleWithNonCompliantAssetsToJSON),

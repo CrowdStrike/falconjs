@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainEnvironmentScore } from "./DomainEnvironmentScore";
-import { DomainEnvironmentScoreFromJSON, DomainEnvironmentScoreFromJSONTyped, DomainEnvironmentScoreToJSON } from "./DomainEnvironmentScore";
+import { DomainEnvironmentScoreFromJSON, DomainEnvironmentScoreFromJSONTyped, DomainEnvironmentScoreToJSON, DomainEnvironmentScoreToJSONTyped } from "./DomainEnvironmentScore";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainMsaEnvironmentScoreResponseFromJSONTyped(json: any, ignore
     };
 }
 
-export function DomainMsaEnvironmentScoreResponseToJSON(value?: DomainMsaEnvironmentScoreResponse | null): any {
+export function DomainMsaEnvironmentScoreResponseToJSON(json: any): DomainMsaEnvironmentScoreResponse {
+    return DomainMsaEnvironmentScoreResponseToJSONTyped(json, false);
+}
+
+export function DomainMsaEnvironmentScoreResponseToJSONTyped(value?: DomainMsaEnvironmentScoreResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { K8sassetsDeploymentEnrichmentEntry } from "./K8sassetsDeploymentEnrichmentEntry";
-import { K8sassetsDeploymentEnrichmentEntryFromJSON, K8sassetsDeploymentEnrichmentEntryFromJSONTyped, K8sassetsDeploymentEnrichmentEntryToJSON } from "./K8sassetsDeploymentEnrichmentEntry";
+import {
+    K8sassetsDeploymentEnrichmentEntryFromJSON,
+    K8sassetsDeploymentEnrichmentEntryFromJSONTyped,
+    K8sassetsDeploymentEnrichmentEntryToJSON,
+    K8sassetsDeploymentEnrichmentEntryToJSONTyped,
+} from "./K8sassetsDeploymentEnrichmentEntry";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +75,15 @@ export function K8sassetsDeploymentEnrichmentResponseFromJSONTyped(json: any, ig
     };
 }
 
-export function K8sassetsDeploymentEnrichmentResponseToJSON(value?: K8sassetsDeploymentEnrichmentResponse | null): any {
+export function K8sassetsDeploymentEnrichmentResponseToJSON(json: any): K8sassetsDeploymentEnrichmentResponse {
+    return K8sassetsDeploymentEnrichmentResponseToJSONTyped(json, false);
+}
+
+export function K8sassetsDeploymentEnrichmentResponseToJSONTyped(value?: K8sassetsDeploymentEnrichmentResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         EnrichmentData: (value["enrichmentData"] as Array<any>).map(K8sassetsDeploymentEnrichmentEntryToJSON),
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),

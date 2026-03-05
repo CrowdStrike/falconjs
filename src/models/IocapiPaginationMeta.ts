@@ -68,10 +68,15 @@ export function IocapiPaginationMetaFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function IocapiPaginationMetaToJSON(value?: IocapiPaginationMeta | null): any {
+export function IocapiPaginationMetaToJSON(json: any): IocapiPaginationMeta {
+    return IocapiPaginationMetaToJSONTyped(json, false);
+}
+
+export function IocapiPaginationMetaToJSONTyped(value?: IocapiPaginationMeta | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         limit: value["limit"],
         next_page: value["nextPage"],

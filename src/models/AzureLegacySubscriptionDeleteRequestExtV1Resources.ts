@@ -64,10 +64,15 @@ export function AzureLegacySubscriptionDeleteRequestExtV1ResourcesFromJSONTyped(
     };
 }
 
-export function AzureLegacySubscriptionDeleteRequestExtV1ResourcesToJSON(value?: AzureLegacySubscriptionDeleteRequestExtV1Resources | null): any {
+export function AzureLegacySubscriptionDeleteRequestExtV1ResourcesToJSON(json: any): AzureLegacySubscriptionDeleteRequestExtV1Resources {
+    return AzureLegacySubscriptionDeleteRequestExtV1ResourcesToJSONTyped(json, false);
+}
+
+export function AzureLegacySubscriptionDeleteRequestExtV1ResourcesToJSONTyped(value?: AzureLegacySubscriptionDeleteRequestExtV1Resources | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         retain_client: value["retainClient"],
         subscription_id: value["subscriptionId"],

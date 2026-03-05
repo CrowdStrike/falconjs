@@ -34,12 +34,9 @@ export interface DeploymentsApiGetDeploymentsExternalV1Request {
  */
 export class DeploymentsApi extends runtime.BaseAPI {
     /**
-     * Get deployment resources by ids
+     * Creates request options for getDeploymentsExternalV1 without sending the request
      */
-    async getDeploymentsExternalV1Raw(
-        requestParameters: DeploymentsApiGetDeploymentsExternalV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DeploymentsAPIDeploymentViewWrapper>> {
+    async getDeploymentsExternalV1RequestOpts(requestParameters: DeploymentsApiGetDeploymentsExternalV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["authorization"] == null) {
             throw new runtime.RequiredError("authorization", 'Required parameter "authorization" was null or undefined when calling getDeploymentsExternalV1().');
         }
@@ -69,15 +66,25 @@ export class DeploymentsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["deploymentcoordinator:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/deployment-coordinator/entities/deployments/external/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/deployment-coordinator/entities/deployments/external/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get deployment resources by ids
+     */
+    async getDeploymentsExternalV1Raw(
+        requestParameters: DeploymentsApiGetDeploymentsExternalV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DeploymentsAPIDeploymentViewWrapper>> {
+        const requestOptions = await this.getDeploymentsExternalV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeploymentsAPIDeploymentViewWrapperFromJSON(jsonValue));
     }

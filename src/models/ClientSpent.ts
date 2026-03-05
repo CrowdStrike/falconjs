@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ClientCost } from "./ClientCost";
-import { ClientCostFromJSON, ClientCostFromJSONTyped, ClientCostToJSON } from "./ClientCost";
+import { ClientCostFromJSON, ClientCostFromJSONTyped, ClientCostToJSON, ClientCostToJSONTyped } from "./ClientCost";
 
 /**
  *
@@ -75,10 +75,15 @@ export function ClientSpentFromJSONTyped(json: any, ignoreDiscriminator: boolean
     };
 }
 
-export function ClientSpentToJSON(value?: ClientSpent | null): any {
+export function ClientSpentToJSON(json: any): ClientSpent {
+    return ClientSpentToJSONTyped(json, false);
+}
+
+export function ClientSpentToJSONTyped(value?: ClientSpent | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         day: ClientCostToJSON(value["day"]),
         hour: ClientCostToJSON(value["hour"]),

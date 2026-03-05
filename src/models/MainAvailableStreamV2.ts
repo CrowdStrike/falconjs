@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { MainSessionToken } from "./MainSessionToken";
-import { MainSessionTokenFromJSON, MainSessionTokenFromJSONTyped, MainSessionTokenToJSON } from "./MainSessionToken";
+import { MainSessionTokenFromJSON, MainSessionTokenFromJSONTyped, MainSessionTokenToJSON, MainSessionTokenToJSONTyped } from "./MainSessionToken";
 
 /**
  *
@@ -75,10 +75,15 @@ export function MainAvailableStreamV2FromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function MainAvailableStreamV2ToJSON(value?: MainAvailableStreamV2 | null): any {
+export function MainAvailableStreamV2ToJSON(json: any): MainAvailableStreamV2 {
+    return MainAvailableStreamV2ToJSONTyped(json, false);
+}
+
+export function MainAvailableStreamV2ToJSONTyped(value?: MainAvailableStreamV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         dataFeedURL: value["dataFeedURL"],
         refreshActiveSessionInterval: value["refreshActiveSessionInterval"],

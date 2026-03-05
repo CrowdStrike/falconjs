@@ -62,10 +62,15 @@ export function InventoryapiSurfaceErrorFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function InventoryapiSurfaceErrorToJSON(value?: InventoryapiSurfaceError | null): any {
+export function InventoryapiSurfaceErrorToJSON(json: any): InventoryapiSurfaceError {
+    return InventoryapiSurfaceErrorToJSONTyped(json, false);
+}
+
+export function InventoryapiSurfaceErrorToJSONTyped(value?: InventoryapiSurfaceError | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         details: value["details"],

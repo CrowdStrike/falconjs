@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { DomainCard } from "./DomainCard";
-import { DomainCardFromJSON, DomainCardFromJSONTyped, DomainCardToJSON } from "./DomainCard";
+import { DomainCardFromJSON, DomainCardFromJSONTyped, DomainCardToJSON, DomainCardToJSONTyped } from "./DomainCard";
 import type { DomainHost } from "./DomainHost";
-import { DomainHostFromJSON, DomainHostFromJSONTyped, DomainHostToJSON } from "./DomainHost";
+import { DomainHostFromJSON, DomainHostFromJSONTyped, DomainHostToJSON, DomainHostToJSONTyped } from "./DomainHost";
 import type { DomainMarketplaceCredentials } from "./DomainMarketplaceCredentials";
-import { DomainMarketplaceCredentialsFromJSON, DomainMarketplaceCredentialsFromJSONTyped, DomainMarketplaceCredentialsToJSON } from "./DomainMarketplaceCredentials";
+import {
+    DomainMarketplaceCredentialsFromJSON,
+    DomainMarketplaceCredentialsFromJSONTyped,
+    DomainMarketplaceCredentialsToJSON,
+    DomainMarketplaceCredentialsToJSONTyped,
+} from "./DomainMarketplaceCredentials";
 
 /**
  *
@@ -96,10 +101,15 @@ export function DomainMarketplaceProductFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function DomainMarketplaceProductToJSON(value?: DomainMarketplaceProduct | null): any {
+export function DomainMarketplaceProductToJSON(json: any): DomainMarketplaceProduct {
+    return DomainMarketplaceProductToJSONTyped(json, false);
+}
+
+export function DomainMarketplaceProductToJSONTyped(value?: DomainMarketplaceProduct | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         card: DomainCardToJSON(value["card"]),
         country_code: value["countryCode"],

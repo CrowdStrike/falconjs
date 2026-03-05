@@ -85,10 +85,15 @@ export function ApimodelsSecurityFrameworkFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function ApimodelsSecurityFrameworkToJSON(value?: ApimodelsSecurityFramework | null): any {
+export function ApimodelsSecurityFrameworkToJSON(json: any): ApimodelsSecurityFramework {
+    return ApimodelsSecurityFrameworkToJSONTyped(json, false);
+}
+
+export function ApimodelsSecurityFrameworkToJSONTyped(value?: ApimodelsSecurityFramework | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         active: value["active"],
         authority: value["authority"],

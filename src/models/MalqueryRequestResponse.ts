@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MalqueryQueryError } from "./MalqueryQueryError";
-import { MalqueryQueryErrorFromJSON, MalqueryQueryErrorFromJSONTyped, MalqueryQueryErrorToJSON } from "./MalqueryQueryError";
+import { MalqueryQueryErrorFromJSON, MalqueryQueryErrorFromJSONTyped, MalqueryQueryErrorToJSON, MalqueryQueryErrorToJSONTyped } from "./MalqueryQueryError";
 import type { MalqueryRequestMetaInfo } from "./MalqueryRequestMetaInfo";
-import { MalqueryRequestMetaInfoFromJSON, MalqueryRequestMetaInfoFromJSONTyped, MalqueryRequestMetaInfoToJSON } from "./MalqueryRequestMetaInfo";
+import { MalqueryRequestMetaInfoFromJSON, MalqueryRequestMetaInfoFromJSONTyped, MalqueryRequestMetaInfoToJSON, MalqueryRequestMetaInfoToJSONTyped } from "./MalqueryRequestMetaInfo";
 import type { MalqueryExternalResource } from "./MalqueryExternalResource";
-import { MalqueryExternalResourceFromJSON, MalqueryExternalResourceFromJSONTyped, MalqueryExternalResourceToJSON } from "./MalqueryExternalResource";
+import { MalqueryExternalResourceFromJSON, MalqueryExternalResourceFromJSONTyped, MalqueryExternalResourceToJSON, MalqueryExternalResourceToJSONTyped } from "./MalqueryExternalResource";
 
 /**
  *
@@ -70,10 +70,15 @@ export function MalqueryRequestResponseFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function MalqueryRequestResponseToJSON(value?: MalqueryRequestResponse | null): any {
+export function MalqueryRequestResponseToJSON(json: any): MalqueryRequestResponse {
+    return MalqueryRequestResponseToJSONTyped(json, false);
+}
+
+export function MalqueryRequestResponseToJSONTyped(value?: MalqueryRequestResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MalqueryQueryErrorToJSON),
         meta: MalqueryRequestMetaInfoToJSON(value["meta"]),

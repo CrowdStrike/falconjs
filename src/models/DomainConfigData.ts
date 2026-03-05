@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { DomainOnPrem } from "./DomainOnPrem";
-import { DomainOnPremFromJSON, DomainOnPremFromJSONTyped, DomainOnPremToJSON } from "./DomainOnPrem";
+import { DomainOnPremFromJSON, DomainOnPremFromJSONTyped, DomainOnPremToJSON, DomainOnPremToJSONTyped } from "./DomainOnPrem";
 import type { DomainGPAs } from "./DomainGPAs";
-import { DomainGPAsFromJSON, DomainGPAsFromJSONTyped, DomainGPAsToJSON } from "./DomainGPAs";
+import { DomainGPAsFromJSON, DomainGPAsFromJSONTyped, DomainGPAsToJSON, DomainGPAsToJSONTyped } from "./DomainGPAs";
 import type { DomainParams } from "./DomainParams";
-import { DomainParamsFromJSON, DomainParamsFromJSONTyped, DomainParamsToJSON } from "./DomainParams";
+import { DomainParamsFromJSON, DomainParamsFromJSONTyped, DomainParamsToJSON, DomainParamsToJSONTyped } from "./DomainParams";
 
 /**
  *
@@ -167,10 +167,15 @@ export function DomainConfigDataFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function DomainConfigDataToJSON(value?: DomainConfigData | null): any {
+export function DomainConfigDataToJSON(json: any): DomainConfigData {
+    return DomainConfigDataToJSONTyped(json, false);
+}
+
+export function DomainConfigDataToJSONTyped(value?: DomainConfigData | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         auth: value["auth"],
         data: value["data"],

@@ -82,10 +82,15 @@ export function ModelsClusterInfoFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function ModelsClusterInfoToJSON(value?: ModelsClusterInfo | null): any {
+export function ModelsClusterInfoToJSON(json: any): ModelsClusterInfo {
+    return ModelsClusterInfoToJSONTyped(json, false);
+}
+
+export function ModelsClusterInfoToJSONTyped(value?: ModelsClusterInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cloud: value["cloud"],
         cloud_account_id: value["cloudAccountId"],

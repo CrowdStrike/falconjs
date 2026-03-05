@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainMITREAttackParent } from "./DomainMITREAttackParent";
-import { DomainMITREAttackParentFromJSON, DomainMITREAttackParentFromJSONTyped, DomainMITREAttackParentToJSON } from "./DomainMITREAttackParent";
+import { DomainMITREAttackParentFromJSON, DomainMITREAttackParentFromJSONTyped, DomainMITREAttackParentToJSON, DomainMITREAttackParentToJSONTyped } from "./DomainMITREAttackParent";
 
 /**
  *
@@ -106,10 +106,15 @@ export function DomainMITREAttackFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function DomainMITREAttackToJSON(value?: DomainMITREAttack | null): any {
+export function DomainMITREAttackToJSON(json: any): DomainMITREAttack {
+    return DomainMITREAttackToJSONTyped(json, false);
+}
+
+export function DomainMITREAttackToJSONTyped(value?: DomainMITREAttack | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         attack_id: value["attackId"],
         attack_id_wiki: value["attackIdWiki"],

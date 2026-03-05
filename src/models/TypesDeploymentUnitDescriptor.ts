@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { TypesStruct } from "./TypesStruct";
-import { TypesStructFromJSON, TypesStructFromJSONTyped, TypesStructToJSON } from "./TypesStruct";
+import { TypesStructFromJSON, TypesStructFromJSONTyped, TypesStructToJSON, TypesStructToJSONTyped } from "./TypesStruct";
 import type { TypesDeploymentUnitService } from "./TypesDeploymentUnitService";
-import { TypesDeploymentUnitServiceFromJSON, TypesDeploymentUnitServiceFromJSONTyped, TypesDeploymentUnitServiceToJSON } from "./TypesDeploymentUnitService";
+import { TypesDeploymentUnitServiceFromJSON, TypesDeploymentUnitServiceFromJSONTyped, TypesDeploymentUnitServiceToJSON, TypesDeploymentUnitServiceToJSONTyped } from "./TypesDeploymentUnitService";
 
 /**
  *
@@ -73,10 +73,15 @@ export function TypesDeploymentUnitDescriptorFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function TypesDeploymentUnitDescriptorToJSON(value?: TypesDeploymentUnitDescriptor | null): any {
+export function TypesDeploymentUnitDescriptorToJSON(json: any): TypesDeploymentUnitDescriptor {
+    return TypesDeploymentUnitDescriptorToJSONTyped(json, false);
+}
+
+export function TypesDeploymentUnitDescriptorToJSONTyped(value?: TypesDeploymentUnitDescriptor | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         data: TypesStructToJSON(value["data"]),
         relatedServices: value["relatedServices"] == null ? undefined : (value["relatedServices"] as Array<any>).map(TypesDeploymentUnitServiceToJSON),

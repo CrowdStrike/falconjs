@@ -56,10 +56,15 @@ export function ItautomationParameterOptionFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function ItautomationParameterOptionToJSON(value?: ItautomationParameterOption | null): any {
+export function ItautomationParameterOptionToJSON(json: any): ItautomationParameterOption {
+    return ItautomationParameterOptionToJSONTyped(json, false);
+}
+
+export function ItautomationParameterOptionToJSONTyped(value?: ItautomationParameterOption | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         key: value["key"],
         value: value["value"],

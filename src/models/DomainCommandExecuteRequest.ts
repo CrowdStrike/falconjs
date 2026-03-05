@@ -88,10 +88,15 @@ export function DomainCommandExecuteRequestFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function DomainCommandExecuteRequestToJSON(value?: DomainCommandExecuteRequest | null): any {
+export function DomainCommandExecuteRequestToJSON(json: any): DomainCommandExecuteRequest {
+    return DomainCommandExecuteRequestToJSONTyped(json, false);
+}
+
+export function DomainCommandExecuteRequestToJSONTyped(value?: DomainCommandExecuteRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         base_command: value["baseCommand"],
         command_string: value["commandString"],

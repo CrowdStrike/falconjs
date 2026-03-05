@@ -14,13 +14,13 @@
 
 import { mapValues } from "../runtime";
 import type { ClientExtraIn } from "./ClientExtraIn";
-import { ClientExtraInFromJSON, ClientExtraInFromJSONTyped, ClientExtraInToJSON } from "./ClientExtraIn";
+import { ClientExtraInFromJSON, ClientExtraInFromJSONTyped, ClientExtraInToJSON, ClientExtraInToJSONTyped } from "./ClientExtraIn";
 import type { ClientExtraSort } from "./ClientExtraSort";
-import { ClientExtraSortFromJSON, ClientExtraSortFromJSONTyped, ClientExtraSortToJSON } from "./ClientExtraSort";
+import { ClientExtraSortFromJSON, ClientExtraSortFromJSONTyped, ClientExtraSortToJSON, ClientExtraSortToJSONTyped } from "./ClientExtraSort";
 import type { ClientExtraLimit } from "./ClientExtraLimit";
-import { ClientExtraLimitFromJSON, ClientExtraLimitFromJSONTyped, ClientExtraLimitToJSON } from "./ClientExtraLimit";
+import { ClientExtraLimitFromJSON, ClientExtraLimitFromJSONTyped, ClientExtraLimitToJSON, ClientExtraLimitToJSONTyped } from "./ClientExtraLimit";
 import type { ClientExtraRename } from "./ClientExtraRename";
-import { ClientExtraRenameFromJSON, ClientExtraRenameFromJSONTyped, ClientExtraRenameToJSON } from "./ClientExtraRename";
+import { ClientExtraRenameFromJSON, ClientExtraRenameFromJSONTyped, ClientExtraRenameToJSON, ClientExtraRenameToJSONTyped } from "./ClientExtraRename";
 
 /**
  *
@@ -119,10 +119,15 @@ export function ApidomainSavedSearchExecuteRequestV1FromJSONTyped(json: any, ign
     };
 }
 
-export function ApidomainSavedSearchExecuteRequestV1ToJSON(value?: ApidomainSavedSearchExecuteRequestV1 | null): any {
+export function ApidomainSavedSearchExecuteRequestV1ToJSON(json: any): ApidomainSavedSearchExecuteRequestV1 {
+    return ApidomainSavedSearchExecuteRequestV1ToJSONTyped(json, false);
+}
+
+export function ApidomainSavedSearchExecuteRequestV1ToJSONTyped(value?: ApidomainSavedSearchExecuteRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         end: value["end"],
         id: value["id"],

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ApiObjectMetadata } from "./ApiObjectMetadata";
-import { ApiObjectMetadataFromJSON, ApiObjectMetadataFromJSONTyped, ApiObjectMetadataToJSON } from "./ApiObjectMetadata";
+import { ApiObjectMetadataFromJSON, ApiObjectMetadataFromJSONTyped, ApiObjectMetadataToJSON, ApiObjectMetadataToJSONTyped } from "./ApiObjectMetadata";
 import type { ApiMetaInfo } from "./ApiMetaInfo";
-import { ApiMetaInfoFromJSON, ApiMetaInfoFromJSONTyped, ApiMetaInfoToJSON } from "./ApiMetaInfo";
+import { ApiMetaInfoFromJSON, ApiMetaInfoFromJSONTyped, ApiMetaInfoToJSON, ApiMetaInfoToJSONTyped } from "./ApiMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function CustomStorageResponseFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function CustomStorageResponseToJSON(value?: CustomStorageResponse | null): any {
+export function CustomStorageResponseToJSON(json: any): CustomStorageResponse {
+    return CustomStorageResponseToJSONTyped(json, false);
+}
+
+export function CustomStorageResponseToJSONTyped(value?: CustomStorageResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: ApiMetaInfoToJSON(value["meta"]),

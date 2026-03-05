@@ -72,10 +72,15 @@ export function DomainAPIEvaluationLogicEntityComparisonV1FromJSONTyped(json: an
     };
 }
 
-export function DomainAPIEvaluationLogicEntityComparisonV1ToJSON(value?: DomainAPIEvaluationLogicEntityComparisonV1 | null): any {
+export function DomainAPIEvaluationLogicEntityComparisonV1ToJSON(json: any): DomainAPIEvaluationLogicEntityComparisonV1 {
+    return DomainAPIEvaluationLogicEntityComparisonV1ToJSONTyped(json, false);
+}
+
+export function DomainAPIEvaluationLogicEntityComparisonV1ToJSONTyped(value?: DomainAPIEvaluationLogicEntityComparisonV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         actual_value_field: value["actualValueField"],
         expected_value: value["expectedValue"],

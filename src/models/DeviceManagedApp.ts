@@ -48,10 +48,15 @@ export function DeviceManagedAppFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function DeviceManagedAppToJSON(value?: DeviceManagedApp | null): any {
+export function DeviceManagedAppToJSON(json: any): DeviceManagedApp {
+    return DeviceManagedAppToJSONTyped(json, false);
+}
+
+export function DeviceManagedAppToJSONTyped(value?: DeviceManagedApp | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         version: value["version"],
     };

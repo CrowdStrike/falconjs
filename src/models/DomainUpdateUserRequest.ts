@@ -54,10 +54,15 @@ export function DomainUpdateUserRequestFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function DomainUpdateUserRequestToJSON(value?: DomainUpdateUserRequest | null): any {
+export function DomainUpdateUserRequestToJSON(json: any): DomainUpdateUserRequest {
+    return DomainUpdateUserRequestToJSONTyped(json, false);
+}
+
+export function DomainUpdateUserRequestToJSONTyped(value?: DomainUpdateUserRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         first_name: value["firstName"],
         last_name: value["lastName"],

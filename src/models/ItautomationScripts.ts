@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ItautomationScript } from "./ItautomationScript";
-import { ItautomationScriptFromJSON, ItautomationScriptFromJSONTyped, ItautomationScriptToJSON } from "./ItautomationScript";
+import { ItautomationScriptFromJSON, ItautomationScriptFromJSONTyped, ItautomationScriptToJSON, ItautomationScriptToJSONTyped } from "./ItautomationScript";
 
 /**
  *
@@ -64,10 +64,15 @@ export function ItautomationScriptsFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function ItautomationScriptsToJSON(value?: ItautomationScripts | null): any {
+export function ItautomationScriptsToJSON(json: any): ItautomationScripts {
+    return ItautomationScriptsToJSONTyped(json, false);
+}
+
+export function ItautomationScriptsToJSONTyped(value?: ItautomationScripts | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         linux: ItautomationScriptToJSON(value["linux"]),
         mac: ItautomationScriptToJSON(value["mac"]),

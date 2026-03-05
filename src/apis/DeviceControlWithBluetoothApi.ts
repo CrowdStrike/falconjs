@@ -70,9 +70,9 @@ export interface DeviceControlWithBluetoothApiUpdateDefaultDeviceControlSettings
  */
 export class DeviceControlWithBluetoothApi extends runtime.BaseAPI {
     /**
-     * Get default device control settings (USB and Bluetooth)
+     * Creates request options for getDefaultDeviceControlSettings without sending the request
      */
-    async getDefaultDeviceControlSettingsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeviceControlRespDefaultSettingV1>> {
+    async getDefaultDeviceControlSettingsRequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -82,15 +82,22 @@ export class DeviceControlWithBluetoothApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/device-control-default-settings/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/device-control-default-settings/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get default device control settings (USB and Bluetooth)
+     */
+    async getDefaultDeviceControlSettingsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeviceControlRespDefaultSettingV1>> {
+        const requestOptions = await this.getDefaultDeviceControlSettingsRequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceControlRespDefaultSettingV1FromJSON(jsonValue));
     }
@@ -104,12 +111,9 @@ export class DeviceControlWithBluetoothApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get device control policies for the given filter criteria. (USB and Bluetooth)
+     * Creates request options for getDeviceControlPoliciesV2 without sending the request
      */
-    async getDeviceControlPoliciesV2Raw(
-        requestParameters: DeviceControlWithBluetoothApiGetDeviceControlPoliciesV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DevicecontrolapiRespPoliciesV2>> {
+    async getDeviceControlPoliciesV2RequestOpts(requestParameters: DeviceControlWithBluetoothApiGetDeviceControlPoliciesV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getDeviceControlPoliciesV2().');
         }
@@ -127,15 +131,25 @@ export class DeviceControlWithBluetoothApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/device-control/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/device-control/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get device control policies for the given filter criteria. (USB and Bluetooth)
+     */
+    async getDeviceControlPoliciesV2Raw(
+        requestParameters: DeviceControlWithBluetoothApiGetDeviceControlPoliciesV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DevicecontrolapiRespPoliciesV2>> {
+        const requestOptions = await this.getDeviceControlPoliciesV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DevicecontrolapiRespPoliciesV2FromJSON(jsonValue));
     }
@@ -149,12 +163,9 @@ export class DeviceControlWithBluetoothApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update device control policy\'s classes (USB and Bluetooth)
+     * Creates request options for patchDeviceControlPoliciesClassesV1 without sending the request
      */
-    async patchDeviceControlPoliciesClassesV1Raw(
-        requestParameters: DeviceControlWithBluetoothApiPatchDeviceControlPoliciesClassesV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DevicecontrolapiRespPoliciesV2>> {
+    async patchDeviceControlPoliciesClassesV1RequestOpts(requestParameters: DeviceControlWithBluetoothApiPatchDeviceControlPoliciesClassesV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling patchDeviceControlPoliciesClassesV1().');
         }
@@ -170,16 +181,26 @@ export class DeviceControlWithBluetoothApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/device-control-classes/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DevicecontrolapiReqUpdatePoliciesClassesV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/device-control-classes/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DevicecontrolapiReqUpdatePoliciesClassesV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update device control policy\'s classes (USB and Bluetooth)
+     */
+    async patchDeviceControlPoliciesClassesV1Raw(
+        requestParameters: DeviceControlWithBluetoothApiPatchDeviceControlPoliciesClassesV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DevicecontrolapiRespPoliciesV2>> {
+        const requestOptions = await this.patchDeviceControlPoliciesClassesV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DevicecontrolapiRespPoliciesV2FromJSON(jsonValue));
     }
@@ -193,12 +214,9 @@ export class DeviceControlWithBluetoothApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update device control policy base (USB and Bluetooth)
+     * Creates request options for patchDeviceControlPoliciesV2 without sending the request
      */
-    async patchDeviceControlPoliciesV2Raw(
-        requestParameters: DeviceControlWithBluetoothApiPatchDeviceControlPoliciesV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DevicecontrolapiRespPoliciesV2>> {
+    async patchDeviceControlPoliciesV2RequestOpts(requestParameters: DeviceControlWithBluetoothApiPatchDeviceControlPoliciesV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling patchDeviceControlPoliciesV2().');
         }
@@ -214,16 +232,26 @@ export class DeviceControlWithBluetoothApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/device-control/v2`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DevicecontrolapiReqUpdateBasesV1ExternalToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/device-control/v2`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DevicecontrolapiReqUpdateBasesV1ExternalToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update device control policy base (USB and Bluetooth)
+     */
+    async patchDeviceControlPoliciesV2Raw(
+        requestParameters: DeviceControlWithBluetoothApiPatchDeviceControlPoliciesV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DevicecontrolapiRespPoliciesV2>> {
+        const requestOptions = await this.patchDeviceControlPoliciesV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DevicecontrolapiRespPoliciesV2FromJSON(jsonValue));
     }
@@ -237,12 +265,9 @@ export class DeviceControlWithBluetoothApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create/clone a device control policy (USB and Bluetooth)
+     * Creates request options for postDeviceControlPoliciesV2 without sending the request
      */
-    async postDeviceControlPoliciesV2Raw(
-        requestParameters: DeviceControlWithBluetoothApiPostDeviceControlPoliciesV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DevicecontrolapiRespPoliciesV2>> {
+    async postDeviceControlPoliciesV2RequestOpts(requestParameters: DeviceControlWithBluetoothApiPostDeviceControlPoliciesV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postDeviceControlPoliciesV2().');
         }
@@ -258,16 +283,26 @@ export class DeviceControlWithBluetoothApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/device-control/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DevicecontrolapiReqCreatePoliciesV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/device-control/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DevicecontrolapiReqCreatePoliciesV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create/clone a device control policy (USB and Bluetooth)
+     */
+    async postDeviceControlPoliciesV2Raw(
+        requestParameters: DeviceControlWithBluetoothApiPostDeviceControlPoliciesV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DevicecontrolapiRespPoliciesV2>> {
+        const requestOptions = await this.postDeviceControlPoliciesV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DevicecontrolapiRespPoliciesV2FromJSON(jsonValue));
     }
@@ -281,12 +316,9 @@ export class DeviceControlWithBluetoothApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update the configuration for Default Device Control Settings
+     * Creates request options for updateDefaultDeviceControlSettings without sending the request
      */
-    async updateDefaultDeviceControlSettingsRaw(
-        requestParameters: DeviceControlWithBluetoothApiUpdateDefaultDeviceControlSettingsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DeviceControlRespDefaultSettingV1>> {
+    async updateDefaultDeviceControlSettingsRequestOpts(requestParameters: DeviceControlWithBluetoothApiUpdateDefaultDeviceControlSettingsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateDefaultDeviceControlSettings().');
         }
@@ -302,16 +334,26 @@ export class DeviceControlWithBluetoothApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["device-control-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/device-control-default-settings/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DeviceControlReqUpdateDefaultSettingsV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/device-control-default-settings/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DeviceControlReqUpdateDefaultSettingsV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update the configuration for Default Device Control Settings
+     */
+    async updateDefaultDeviceControlSettingsRaw(
+        requestParameters: DeviceControlWithBluetoothApiUpdateDefaultDeviceControlSettingsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DeviceControlRespDefaultSettingV1>> {
+        const requestOptions = await this.updateDefaultDeviceControlSettingsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceControlRespDefaultSettingV1FromJSON(jsonValue));
     }

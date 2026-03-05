@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ApiWebLocationV2 } from "./ApiWebLocationV2";
-import { ApiWebLocationV2FromJSON, ApiWebLocationV2FromJSONTyped, ApiWebLocationV2ToJSON } from "./ApiWebLocationV2";
+import { ApiWebLocationV2FromJSON, ApiWebLocationV2FromJSONTyped, ApiWebLocationV2ToJSON, ApiWebLocationV2ToJSONTyped } from "./ApiWebLocationV2";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function ApiWebLocationMSAResponseV2FromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function ApiWebLocationMSAResponseV2ToJSON(value?: ApiWebLocationMSAResponseV2 | null): any {
+export function ApiWebLocationMSAResponseV2ToJSON(json: any): ApiWebLocationMSAResponseV2 {
+    return ApiWebLocationMSAResponseV2ToJSONTyped(json, false);
+}
+
+export function ApiWebLocationMSAResponseV2ToJSONTyped(value?: ApiWebLocationMSAResponseV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

@@ -95,10 +95,15 @@ export function ApiContentPatternCreateRequestV1FromJSONTyped(json: any, ignoreD
     };
 }
 
-export function ApiContentPatternCreateRequestV1ToJSON(value?: ApiContentPatternCreateRequestV1 | null): any {
+export function ApiContentPatternCreateRequestV1ToJSON(json: any): ApiContentPatternCreateRequestV1 {
+    return ApiContentPatternCreateRequestV1ToJSONTyped(json, false);
+}
+
+export function ApiContentPatternCreateRequestV1ToJSONTyped(value?: ApiContentPatternCreateRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         category: value["category"],
         description: value["description"],

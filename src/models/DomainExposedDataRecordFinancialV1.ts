@@ -64,10 +64,15 @@ export function DomainExposedDataRecordFinancialV1FromJSONTyped(json: any, ignor
     };
 }
 
-export function DomainExposedDataRecordFinancialV1ToJSON(value?: DomainExposedDataRecordFinancialV1 | null): any {
+export function DomainExposedDataRecordFinancialV1ToJSON(json: any): DomainExposedDataRecordFinancialV1 {
+    return DomainExposedDataRecordFinancialV1ToJSONTyped(json, false);
+}
+
+export function DomainExposedDataRecordFinancialV1ToJSONTyped(value?: DomainExposedDataRecordFinancialV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         bank_account: value["bankAccount"],
         credit_card: value["creditCard"],

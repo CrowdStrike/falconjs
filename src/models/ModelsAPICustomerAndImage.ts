@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsLightWeightConfig } from "./ModelsLightWeightConfig";
-import { ModelsLightWeightConfigFromJSON, ModelsLightWeightConfigFromJSONTyped, ModelsLightWeightConfigToJSON } from "./ModelsLightWeightConfig";
+import { ModelsLightWeightConfigFromJSON, ModelsLightWeightConfigFromJSONTyped, ModelsLightWeightConfigToJSON, ModelsLightWeightConfigToJSONTyped } from "./ModelsLightWeightConfig";
 import type { ModelsImageDetails } from "./ModelsImageDetails";
-import { ModelsImageDetailsFromJSON, ModelsImageDetailsFromJSONTyped, ModelsImageDetailsToJSON } from "./ModelsImageDetails";
+import { ModelsImageDetailsFromJSON, ModelsImageDetailsFromJSONTyped, ModelsImageDetailsToJSON, ModelsImageDetailsToJSONTyped } from "./ModelsImageDetails";
 
 /**
  *
@@ -227,10 +227,15 @@ export function ModelsAPICustomerAndImageFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ModelsAPICustomerAndImageToJSON(value?: ModelsAPICustomerAndImage | null): any {
+export function ModelsAPICustomerAndImageToJSON(json: any): ModelsAPICustomerAndImage {
+    return ModelsAPICustomerAndImageToJSONTyped(json, false);
+}
+
+export function ModelsAPICustomerAndImageToJSONTyped(value?: ModelsAPICustomerAndImage | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ai_related: value["aiRelated"],
         base_image_id: value["baseImageId"],

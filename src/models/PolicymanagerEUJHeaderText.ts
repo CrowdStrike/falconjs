@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { PolicymanagerEUJHeader } from "./PolicymanagerEUJHeader";
-import { PolicymanagerEUJHeaderFromJSON, PolicymanagerEUJHeaderFromJSONTyped, PolicymanagerEUJHeaderToJSON } from "./PolicymanagerEUJHeader";
+import { PolicymanagerEUJHeaderFromJSON, PolicymanagerEUJHeaderFromJSONTyped, PolicymanagerEUJHeaderToJSON, PolicymanagerEUJHeaderToJSONTyped } from "./PolicymanagerEUJHeader";
 
 /**
  *
@@ -51,10 +51,15 @@ export function PolicymanagerEUJHeaderTextFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function PolicymanagerEUJHeaderTextToJSON(value?: PolicymanagerEUJHeaderText | null): any {
+export function PolicymanagerEUJHeaderTextToJSON(json: any): PolicymanagerEUJHeaderText {
+    return PolicymanagerEUJHeaderTextToJSONTyped(json, false);
+}
+
+export function PolicymanagerEUJHeaderTextToJSONTyped(value?: PolicymanagerEUJHeaderText | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         headers: (value["headers"] as Array<any>).map(PolicymanagerEUJHeaderToJSON),
     };

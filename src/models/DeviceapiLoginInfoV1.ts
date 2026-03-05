@@ -54,10 +54,15 @@ export function DeviceapiLoginInfoV1FromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function DeviceapiLoginInfoV1ToJSON(value?: DeviceapiLoginInfoV1 | null): any {
+export function DeviceapiLoginInfoV1ToJSON(json: any): DeviceapiLoginInfoV1 {
+    return DeviceapiLoginInfoV1ToJSONTyped(json, false);
+}
+
+export function DeviceapiLoginInfoV1ToJSONTyped(value?: DeviceapiLoginInfoV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         login_time: value["loginTime"],
         user_name: value["userName"],

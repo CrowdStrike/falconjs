@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { QuickscanproURLResult } from "./QuickscanproURLResult";
-import { QuickscanproURLResultFromJSON, QuickscanproURLResultFromJSONTyped, QuickscanproURLResultToJSON } from "./QuickscanproURLResult";
+import { QuickscanproURLResultFromJSON, QuickscanproURLResultFromJSONTyped, QuickscanproURLResultToJSON, QuickscanproURLResultToJSONTyped } from "./QuickscanproURLResult";
 import type { DomainMITREAttack } from "./DomainMITREAttack";
-import { DomainMITREAttackFromJSON, DomainMITREAttackFromJSONTyped, DomainMITREAttackToJSON } from "./DomainMITREAttack";
+import { DomainMITREAttackFromJSON, DomainMITREAttackFromJSONTyped, DomainMITREAttackToJSON, DomainMITREAttackToJSONTyped } from "./DomainMITREAttack";
 import type { QuickscanproFileResult } from "./QuickscanproFileResult";
-import { QuickscanproFileResultFromJSON, QuickscanproFileResultFromJSONTyped, QuickscanproFileResultToJSON } from "./QuickscanproFileResult";
+import { QuickscanproFileResultFromJSON, QuickscanproFileResultFromJSONTyped, QuickscanproFileResultToJSON, QuickscanproFileResultToJSONTyped } from "./QuickscanproFileResult";
 
 /**
  *
@@ -70,7 +70,7 @@ export interface QuickscanproScanResult {
     urlArtifacts?: Array<QuickscanproURLResult>;
     /**
      *
-     * @type {string}
+     * @type {QuickscanproScanResultVerdictEnum}
      * @memberof QuickscanproScanResult
      */
     verdict: QuickscanproScanResultVerdictEnum;
@@ -133,10 +133,15 @@ export function QuickscanproScanResultFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function QuickscanproScanResultToJSON(value?: QuickscanproScanResult | null): any {
+export function QuickscanproScanResultToJSON(json: any): QuickscanproScanResult {
+    return QuickscanproScanResultToJSONTyped(json, false);
+}
+
+export function QuickscanproScanResultToJSONTyped(value?: QuickscanproScanResult | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         beta_intelligence_context: value["betaIntelligenceContext"],
         file_artifacts: (value["fileArtifacts"] as Array<any>).map(QuickscanproFileResultToJSON),

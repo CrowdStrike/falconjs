@@ -61,10 +61,15 @@ export function FigapiCoinAddressFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function FigapiCoinAddressToJSON(value?: FigapiCoinAddress | null): any {
+export function FigapiCoinAddressToJSON(json: any): FigapiCoinAddress {
+    return FigapiCoinAddressToJSONTyped(json, false);
+}
+
+export function FigapiCoinAddressToJSONTyped(value?: FigapiCoinAddress | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Address: value["address"],
         Properties: value["properties"],

@@ -48,10 +48,15 @@ export function CasefilesapiBulkDownloadRequestV1FromJSONTyped(json: any, ignore
     };
 }
 
-export function CasefilesapiBulkDownloadRequestV1ToJSON(value?: CasefilesapiBulkDownloadRequestV1 | null): any {
+export function CasefilesapiBulkDownloadRequestV1ToJSON(json: any): CasefilesapiBulkDownloadRequestV1 {
+    return CasefilesapiBulkDownloadRequestV1ToJSONTyped(json, false);
+}
+
+export function CasefilesapiBulkDownloadRequestV1ToJSONTyped(value?: CasefilesapiBulkDownloadRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ids: value["ids"],
     };

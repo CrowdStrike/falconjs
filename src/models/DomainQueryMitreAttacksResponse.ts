@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -69,10 +69,15 @@ export function DomainQueryMitreAttacksResponseFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function DomainQueryMitreAttacksResponseToJSON(value?: DomainQueryMitreAttacksResponse | null): any {
+export function DomainQueryMitreAttacksResponseToJSON(json: any): DomainQueryMitreAttacksResponse {
+    return DomainQueryMitreAttacksResponseToJSONTyped(json, false);
+}
+
+export function DomainQueryMitreAttacksResponseToJSONTyped(value?: DomainQueryMitreAttacksResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

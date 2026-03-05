@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ApiMetaInfo } from "./ApiMetaInfo";
-import { ApiMetaInfoFromJSON, ApiMetaInfoFromJSONTyped, ApiMetaInfoToJSON } from "./ApiMetaInfo";
+import { ApiMetaInfoFromJSON, ApiMetaInfoFromJSONTyped, ApiMetaInfoToJSON, ApiMetaInfoToJSONTyped } from "./ApiMetaInfo";
 import type { ApiSchemaMetadata } from "./ApiSchemaMetadata";
-import { ApiSchemaMetadataFromJSON, ApiSchemaMetadataFromJSONTyped, ApiSchemaMetadataToJSON } from "./ApiSchemaMetadata";
+import { ApiSchemaMetadataFromJSON, ApiSchemaMetadataFromJSONTyped, ApiSchemaMetadataToJSON, ApiSchemaMetadataToJSONTyped } from "./ApiSchemaMetadata";
 
 /**
  *
@@ -71,10 +71,15 @@ export function CustomType4161059146FromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function CustomType4161059146ToJSON(value?: CustomType4161059146 | null): any {
+export function CustomType4161059146ToJSON(json: any): CustomType4161059146 {
+    return CustomType4161059146ToJSONTyped(json, false);
+}
+
+export function CustomType4161059146ToJSONTyped(value?: CustomType4161059146 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: ApiMetaInfoToJSON(value["meta"]),

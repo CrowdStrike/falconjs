@@ -54,10 +54,15 @@ export function ApiExposedDataRecordBotLocationV1FromJSONTyped(json: any, ignore
     };
 }
 
-export function ApiExposedDataRecordBotLocationV1ToJSON(value?: ApiExposedDataRecordBotLocationV1 | null): any {
+export function ApiExposedDataRecordBotLocationV1ToJSON(json: any): ApiExposedDataRecordBotLocationV1 {
+    return ApiExposedDataRecordBotLocationV1ToJSONTyped(json, false);
+}
+
+export function ApiExposedDataRecordBotLocationV1ToJSONTyped(value?: ApiExposedDataRecordBotLocationV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         country: value["country"],
         zip_code: value["zipCode"],

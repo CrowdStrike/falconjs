@@ -18,6 +18,7 @@ import {
     DevicecontrolapiBluetoothCustomNotificationsFromJSON,
     DevicecontrolapiBluetoothCustomNotificationsFromJSONTyped,
     DevicecontrolapiBluetoothCustomNotificationsToJSON,
+    DevicecontrolapiBluetoothCustomNotificationsToJSONTyped,
 } from "./DevicecontrolapiBluetoothCustomNotifications";
 
 /**
@@ -34,13 +35,13 @@ export interface DevicecontrolapiReqUpdateBluetoothBaseV1 {
     customEndUserNotifications: DevicecontrolapiBluetoothCustomNotifications;
     /**
      * Determines if a notification will be shown to the end user (omit to keep current)
-     * @type {string}
+     * @type {DevicecontrolapiReqUpdateBluetoothBaseV1EndUserNotificationEnum}
      * @memberof DevicecontrolapiReqUpdateBluetoothBaseV1
      */
     endUserNotification: DevicecontrolapiReqUpdateBluetoothBaseV1EndUserNotificationEnum;
     /**
      * Enforcement for the Bluetooth policy (omit to keep current)
-     * @type {string}
+     * @type {DevicecontrolapiReqUpdateBluetoothBaseV1EnforcementModeEnum}
      * @memberof DevicecontrolapiReqUpdateBluetoothBaseV1
      */
     enforcementMode: DevicecontrolapiReqUpdateBluetoothBaseV1EnforcementModeEnum;
@@ -92,10 +93,15 @@ export function DevicecontrolapiReqUpdateBluetoothBaseV1FromJSONTyped(json: any,
     };
 }
 
-export function DevicecontrolapiReqUpdateBluetoothBaseV1ToJSON(value?: DevicecontrolapiReqUpdateBluetoothBaseV1 | null): any {
+export function DevicecontrolapiReqUpdateBluetoothBaseV1ToJSON(json: any): DevicecontrolapiReqUpdateBluetoothBaseV1 {
+    return DevicecontrolapiReqUpdateBluetoothBaseV1ToJSONTyped(json, false);
+}
+
+export function DevicecontrolapiReqUpdateBluetoothBaseV1ToJSONTyped(value?: DevicecontrolapiReqUpdateBluetoothBaseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         custom_end_user_notifications: DevicecontrolapiBluetoothCustomNotificationsToJSON(value["customEndUserNotifications"]),
         end_user_notification: value["endUserNotification"],

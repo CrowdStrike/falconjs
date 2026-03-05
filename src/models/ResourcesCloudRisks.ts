@@ -80,10 +80,15 @@ export function ResourcesCloudRisksFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function ResourcesCloudRisksToJSON(value?: ResourcesCloudRisks | null): any {
+export function ResourcesCloudRisksToJSON(json: any): ResourcesCloudRisks {
+    return ResourcesCloudRisksToJSONTyped(json, false);
+}
+
+export function ResourcesCloudRisksToJSONTyped(value?: ResourcesCloudRisks | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         openRiskCount: value["openRiskCount"],
         riskFactors: value["riskFactors"],

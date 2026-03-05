@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { RegistrationIOAEvent } from "./RegistrationIOAEvent";
-import { RegistrationIOAEventFromJSON, RegistrationIOAEventFromJSONTyped, RegistrationIOAEventToJSON } from "./RegistrationIOAEvent";
+import { RegistrationIOAEventFromJSON, RegistrationIOAEventFromJSONTyped, RegistrationIOAEventToJSON, RegistrationIOAEventToJSONTyped } from "./RegistrationIOAEvent";
 
 /**
  *
@@ -65,10 +65,15 @@ export function RegistrationExternalIOAResourcesFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function RegistrationExternalIOAResourcesToJSON(value?: RegistrationExternalIOAResources | null): any {
+export function RegistrationExternalIOAResourcesToJSON(json: any): RegistrationExternalIOAResources {
+    return RegistrationExternalIOAResourcesToJSONTyped(json, false);
+}
+
+export function RegistrationExternalIOAResourcesToJSONTyped(value?: RegistrationExternalIOAResources | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         confidence: value["confidence"],
         events: (value["events"] as Array<any>).map(RegistrationIOAEventToJSON),

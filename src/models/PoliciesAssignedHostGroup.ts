@@ -56,10 +56,15 @@ export function PoliciesAssignedHostGroupFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function PoliciesAssignedHostGroupToJSON(value?: PoliciesAssignedHostGroup | null): any {
+export function PoliciesAssignedHostGroupToJSON(json: any): PoliciesAssignedHostGroup {
+    return PoliciesAssignedHostGroupToJSONTyped(json, false);
+}
+
+export function PoliciesAssignedHostGroupToJSONTyped(value?: PoliciesAssignedHostGroup | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         href: value["href"],
         id: value["id"],

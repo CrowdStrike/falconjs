@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ApiMetaInfo } from "./ApiMetaInfo";
-import { ApiMetaInfoFromJSON, ApiMetaInfoFromJSONTyped, ApiMetaInfoToJSON } from "./ApiMetaInfo";
+import { ApiMetaInfoFromJSON, ApiMetaInfoFromJSONTyped, ApiMetaInfoToJSON, ApiMetaInfoToJSONTyped } from "./ApiMetaInfo";
 
 /**
  *
@@ -69,10 +69,15 @@ export function CustomStorageObjectKeysFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function CustomStorageObjectKeysToJSON(value?: CustomStorageObjectKeys | null): any {
+export function CustomStorageObjectKeysToJSON(json: any): CustomStorageObjectKeys {
+    return CustomStorageObjectKeysToJSONTyped(json, false);
+}
+
+export function CustomStorageObjectKeysToJSONTyped(value?: CustomStorageObjectKeys | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: ApiMetaInfoToJSON(value["meta"]),

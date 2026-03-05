@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainAggregationResult } from "./DomainAggregationResult";
-import { DomainAggregationResultFromJSON, DomainAggregationResultFromJSONTyped, DomainAggregationResultToJSON } from "./DomainAggregationResult";
+import { DomainAggregationResultFromJSON, DomainAggregationResultFromJSONTyped, DomainAggregationResultToJSON, DomainAggregationResultToJSONTyped } from "./DomainAggregationResult";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainAggregatesResponseFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function DomainAggregatesResponseToJSON(value?: DomainAggregatesResponse | null): any {
+export function DomainAggregatesResponseToJSON(json: any): DomainAggregatesResponse {
+    return DomainAggregatesResponseToJSONTyped(json, false);
+}
+
+export function DomainAggregatesResponseToJSONTyped(value?: DomainAggregatesResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

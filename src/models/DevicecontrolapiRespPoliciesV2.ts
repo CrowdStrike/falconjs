@@ -14,11 +14,26 @@
 
 import { mapValues } from "../runtime";
 import type { DevicecontrolapiRespPolicyV2 } from "./DevicecontrolapiRespPolicyV2";
-import { DevicecontrolapiRespPolicyV2FromJSON, DevicecontrolapiRespPolicyV2FromJSONTyped, DevicecontrolapiRespPolicyV2ToJSON } from "./DevicecontrolapiRespPolicyV2";
+import {
+    DevicecontrolapiRespPolicyV2FromJSON,
+    DevicecontrolapiRespPolicyV2FromJSONTyped,
+    DevicecontrolapiRespPolicyV2ToJSON,
+    DevicecontrolapiRespPolicyV2ToJSONTyped,
+} from "./DevicecontrolapiRespPolicyV2";
 import type { DevicecontrolapiRespMSAMetaV1 } from "./DevicecontrolapiRespMSAMetaV1";
-import { DevicecontrolapiRespMSAMetaV1FromJSON, DevicecontrolapiRespMSAMetaV1FromJSONTyped, DevicecontrolapiRespMSAMetaV1ToJSON } from "./DevicecontrolapiRespMSAMetaV1";
+import {
+    DevicecontrolapiRespMSAMetaV1FromJSON,
+    DevicecontrolapiRespMSAMetaV1FromJSONTyped,
+    DevicecontrolapiRespMSAMetaV1ToJSON,
+    DevicecontrolapiRespMSAMetaV1ToJSONTyped,
+} from "./DevicecontrolapiRespMSAMetaV1";
 import type { DevicecontrolapiRespMSAErrorV1 } from "./DevicecontrolapiRespMSAErrorV1";
-import { DevicecontrolapiRespMSAErrorV1FromJSON, DevicecontrolapiRespMSAErrorV1FromJSONTyped, DevicecontrolapiRespMSAErrorV1ToJSON } from "./DevicecontrolapiRespMSAErrorV1";
+import {
+    DevicecontrolapiRespMSAErrorV1FromJSON,
+    DevicecontrolapiRespMSAErrorV1FromJSONTyped,
+    DevicecontrolapiRespMSAErrorV1ToJSON,
+    DevicecontrolapiRespMSAErrorV1ToJSONTyped,
+} from "./DevicecontrolapiRespMSAErrorV1";
 
 /**
  *
@@ -70,10 +85,15 @@ export function DevicecontrolapiRespPoliciesV2FromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function DevicecontrolapiRespPoliciesV2ToJSON(value?: DevicecontrolapiRespPoliciesV2 | null): any {
+export function DevicecontrolapiRespPoliciesV2ToJSON(json: any): DevicecontrolapiRespPoliciesV2 {
+    return DevicecontrolapiRespPoliciesV2ToJSONTyped(json, false);
+}
+
+export function DevicecontrolapiRespPoliciesV2ToJSONTyped(value?: DevicecontrolapiRespPoliciesV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(DevicecontrolapiRespMSAErrorV1ToJSON),
         meta: DevicecontrolapiRespMSAMetaV1ToJSON(value["meta"]),

@@ -14,9 +14,14 @@
 
 import { mapValues } from "../runtime";
 import type { ApimodelsRuleSelectionFilter } from "./ApimodelsRuleSelectionFilter";
-import { ApimodelsRuleSelectionFilterFromJSON, ApimodelsRuleSelectionFilterFromJSONTyped, ApimodelsRuleSelectionFilterToJSON } from "./ApimodelsRuleSelectionFilter";
+import {
+    ApimodelsRuleSelectionFilterFromJSON,
+    ApimodelsRuleSelectionFilterFromJSONTyped,
+    ApimodelsRuleSelectionFilterToJSON,
+    ApimodelsRuleSelectionFilterToJSONTyped,
+} from "./ApimodelsRuleSelectionFilter";
 import type { ApimodelsAssetFilter } from "./ApimodelsAssetFilter";
-import { ApimodelsAssetFilterFromJSON, ApimodelsAssetFilterFromJSONTyped, ApimodelsAssetFilterToJSON } from "./ApimodelsAssetFilter";
+import { ApimodelsAssetFilterFromJSON, ApimodelsAssetFilterFromJSONTyped, ApimodelsAssetFilterToJSON, ApimodelsAssetFilterToJSONTyped } from "./ApimodelsAssetFilter";
 
 /**
  *
@@ -210,14 +215,19 @@ export function ApimodelsSuppressionRuleFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function ApimodelsSuppressionRuleToJSON(value?: ApimodelsSuppressionRule | null): any {
+export function ApimodelsSuppressionRuleToJSON(json: any): ApimodelsSuppressionRule {
+    return ApimodelsSuppressionRuleToJSONTyped(json, false);
+}
+
+export function ApimodelsSuppressionRuleToJSONTyped(value?: ApimodelsSuppressionRule | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         created_at: value["createdAt"].toISOString(),
         created_by: value["createdBy"],
-        deleted_at: value["deletedAt"] == null ? undefined : value["deletedAt"].toISOString(),
+        deleted_at: value["deletedAt"] == null ? value["deletedAt"] : value["deletedAt"].toISOString(),
         deleted_by: value["deletedBy"],
         description: value["description"],
         disabled: value["disabled"],
@@ -235,7 +245,7 @@ export function ApimodelsSuppressionRuleToJSON(value?: ApimodelsSuppressionRule 
         suppression_expiration_date: value["suppressionExpirationDate"],
         suppression_reason: value["suppressionReason"],
         update_reason: value["updateReason"],
-        updated_at: value["updatedAt"] == null ? undefined : value["updatedAt"].toISOString(),
+        updated_at: value["updatedAt"] == null ? value["updatedAt"] : value["updatedAt"].toISOString(),
         updated_by: value["updatedBy"],
     };
 }

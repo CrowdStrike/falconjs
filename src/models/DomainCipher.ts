@@ -61,10 +61,15 @@ export function DomainCipherFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function DomainCipherToJSON(value?: DomainCipher | null): any {
+export function DomainCipherToJSON(json: any): DomainCipher {
+    return DomainCipherToJSONTyped(json, false);
+}
+
+export function DomainCipherToJSONTyped(value?: DomainCipher | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         bits: value["bits"],
         name: value["name"],

@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { DomainProductPermission } from "./DomainProductPermission";
-import { DomainProductPermissionFromJSON, DomainProductPermissionFromJSONTyped, DomainProductPermissionToJSON } from "./DomainProductPermission";
+import { DomainProductPermissionFromJSON, DomainProductPermissionFromJSONTyped, DomainProductPermissionToJSON, DomainProductPermissionToJSONTyped } from "./DomainProductPermission";
 import type { DomainCloudCondition } from "./DomainCloudCondition";
-import { DomainCloudConditionFromJSON, DomainCloudConditionFromJSONTyped, DomainCloudConditionToJSON } from "./DomainCloudCondition";
+import { DomainCloudConditionFromJSON, DomainCloudConditionFromJSONTyped, DomainCloudConditionToJSON, DomainCloudConditionToJSONTyped } from "./DomainCloudCondition";
 import type { DomainProductFeaturesStatus } from "./DomainProductFeaturesStatus";
-import { DomainProductFeaturesStatusFromJSON, DomainProductFeaturesStatusFromJSONTyped, DomainProductFeaturesStatusToJSON } from "./DomainProductFeaturesStatus";
+import {
+    DomainProductFeaturesStatusFromJSON,
+    DomainProductFeaturesStatusFromJSONTyped,
+    DomainProductFeaturesStatusToJSON,
+    DomainProductFeaturesStatusToJSONTyped,
+} from "./DomainProductFeaturesStatus";
 
 /**
  *
@@ -78,10 +83,15 @@ export function RestAWSAccountValidatedFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function RestAWSAccountValidatedToJSON(value?: RestAWSAccountValidated | null): any {
+export function RestAWSAccountValidatedToJSON(json: any): RestAWSAccountValidated {
+    return RestAWSAccountValidatedToJSONTyped(json, false);
+}
+
+export function RestAWSAccountValidatedToJSONTyped(value?: RestAWSAccountValidated | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         conditions: value["conditions"] == null ? undefined : (value["conditions"] as Array<any>).map(DomainCloudConditionToJSON),

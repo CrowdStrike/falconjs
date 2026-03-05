@@ -72,10 +72,15 @@ export function CommonOSAuditFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function CommonOSAuditToJSON(value?: CommonOSAudit | null): any {
+export function CommonOSAuditToJSON(json: any): CommonOSAudit {
+    return CommonOSAuditToJSONTyped(json, false);
+}
+
+export function CommonOSAuditToJSONTyped(value?: CommonOSAudit | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         audit: value["audit"],
         average_overall_score: value["averageOverallScore"],

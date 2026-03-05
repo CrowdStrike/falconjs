@@ -64,10 +64,15 @@ export function DomainSPAPIQueryPagingFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function DomainSPAPIQueryPagingToJSON(value?: DomainSPAPIQueryPaging | null): any {
+export function DomainSPAPIQueryPagingToJSON(json: any): DomainSPAPIQueryPaging {
+    return DomainSPAPIQueryPagingToJSONTyped(json, false);
+}
+
+export function DomainSPAPIQueryPagingToJSONTyped(value?: DomainSPAPIQueryPaging | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         after: value["after"],
         limit: value["limit"],

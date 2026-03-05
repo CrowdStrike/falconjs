@@ -82,10 +82,15 @@ export function RegistrationAzureAccountExternalV1FromJSONTyped(json: any, ignor
     };
 }
 
-export function RegistrationAzureAccountExternalV1ToJSON(value?: RegistrationAzureAccountExternalV1 | null): any {
+export function RegistrationAzureAccountExternalV1ToJSON(json: any): RegistrationAzureAccountExternalV1 {
+    return RegistrationAzureAccountExternalV1ToJSONTyped(json, false);
+}
+
+export function RegistrationAzureAccountExternalV1ToJSONTyped(value?: RegistrationAzureAccountExternalV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_type: value["accountType"],
         client_id: value["clientId"],

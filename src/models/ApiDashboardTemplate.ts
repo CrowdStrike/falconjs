@@ -64,10 +64,15 @@ export function ApiDashboardTemplateFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function ApiDashboardTemplateToJSON(value?: ApiDashboardTemplate | null): any {
+export function ApiDashboardTemplateToJSON(json: any): ApiDashboardTemplate {
+    return ApiDashboardTemplateToJSONTyped(json, false);
+}
+
+export function ApiDashboardTemplateToJSONTyped(value?: ApiDashboardTemplate | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

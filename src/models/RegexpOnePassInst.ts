@@ -80,10 +80,15 @@ export function RegexpOnePassInstFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function RegexpOnePassInstToJSON(value?: RegexpOnePassInst | null): any {
+export function RegexpOnePassInstToJSON(json: any): RegexpOnePassInst {
+    return RegexpOnePassInstToJSONTyped(json, false);
+}
+
+export function RegexpOnePassInstToJSONTyped(value?: RegexpOnePassInst | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Arg: value["arg"],
         Next: value["next"],

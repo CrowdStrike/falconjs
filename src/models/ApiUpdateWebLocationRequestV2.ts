@@ -107,10 +107,15 @@ export function ApiUpdateWebLocationRequestV2FromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function ApiUpdateWebLocationRequestV2ToJSON(value?: ApiUpdateWebLocationRequestV2 | null): any {
+export function ApiUpdateWebLocationRequestV2ToJSON(json: any): ApiUpdateWebLocationRequestV2 {
+    return ApiUpdateWebLocationRequestV2ToJSONTyped(json, false);
+}
+
+export function ApiUpdateWebLocationRequestV2ToJSONTyped(value?: ApiUpdateWebLocationRequestV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         application_id: value["applicationId"],
         deleted: value["deleted"],

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApiQueryJobAroundInput } from "./ApiQueryJobAroundInput";
-import { ApiQueryJobAroundInputFromJSON, ApiQueryJobAroundInputFromJSONTyped, ApiQueryJobAroundInputToJSON } from "./ApiQueryJobAroundInput";
+import { ApiQueryJobAroundInputFromJSON, ApiQueryJobAroundInputFromJSONTyped, ApiQueryJobAroundInputToJSON, ApiQueryJobAroundInputToJSONTyped } from "./ApiQueryJobAroundInput";
 
 /**
  *
@@ -135,10 +135,15 @@ export function ApiQueryJobInputFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function ApiQueryJobInputToJSON(value?: ApiQueryJobInput | null): any {
+export function ApiQueryJobInputToJSON(json: any): ApiQueryJobInput {
+    return ApiQueryJobInputToJSONTyped(json, false);
+}
+
+export function ApiQueryJobInputToJSONTyped(value?: ApiQueryJobInput | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         allowEventSkipping: value["allowEventSkipping"],
         arguments: value["arguments"],

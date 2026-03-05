@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainCollectionCountByV1 } from "./DomainCollectionCountByV1";
-import { DomainCollectionCountByV1FromJSON, DomainCollectionCountByV1FromJSONTyped, DomainCollectionCountByV1ToJSON } from "./DomainCollectionCountByV1";
+import { DomainCollectionCountByV1FromJSON, DomainCollectionCountByV1FromJSONTyped, DomainCollectionCountByV1ToJSON, DomainCollectionCountByV1ToJSONTyped } from "./DomainCollectionCountByV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function DomainAggregateCollectionCountsByResponseV1FromJSONTyped(json: a
     };
 }
 
-export function DomainAggregateCollectionCountsByResponseV1ToJSON(value?: DomainAggregateCollectionCountsByResponseV1 | null): any {
+export function DomainAggregateCollectionCountsByResponseV1ToJSON(json: any): DomainAggregateCollectionCountsByResponseV1 {
+    return DomainAggregateCollectionCountsByResponseV1ToJSONTyped(json, false);
+}
+
+export function DomainAggregateCollectionCountsByResponseV1ToJSONTyped(value?: DomainAggregateCollectionCountsByResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

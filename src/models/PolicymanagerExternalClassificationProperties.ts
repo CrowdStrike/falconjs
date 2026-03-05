@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { PolicymanagerExternalRule } from "./PolicymanagerExternalRule";
-import { PolicymanagerExternalRuleFromJSON, PolicymanagerExternalRuleFromJSONTyped, PolicymanagerExternalRuleToJSON } from "./PolicymanagerExternalRule";
+import { PolicymanagerExternalRuleFromJSON, PolicymanagerExternalRuleFromJSONTyped, PolicymanagerExternalRuleToJSON, PolicymanagerExternalRuleToJSONTyped } from "./PolicymanagerExternalRule";
 
 /**
  *
@@ -42,7 +42,7 @@ export interface PolicymanagerExternalClassificationProperties {
     fileTypes?: Array<string>;
     /**
      * Protection mode accepts values: 'monitor', 'simulate', 'enforce'
-     * @type {string}
+     * @type {PolicymanagerExternalClassificationPropertiesProtectionModeEnum}
      * @memberof PolicymanagerExternalClassificationProperties
      */
     protectionMode?: PolicymanagerExternalClassificationPropertiesProtectionModeEnum;
@@ -103,10 +103,15 @@ export function PolicymanagerExternalClassificationPropertiesFromJSONTyped(json:
     };
 }
 
-export function PolicymanagerExternalClassificationPropertiesToJSON(value?: PolicymanagerExternalClassificationProperties | null): any {
+export function PolicymanagerExternalClassificationPropertiesToJSON(json: any): PolicymanagerExternalClassificationProperties {
+    return PolicymanagerExternalClassificationPropertiesToJSONTyped(json, false);
+}
+
+export function PolicymanagerExternalClassificationPropertiesToJSONTyped(value?: PolicymanagerExternalClassificationProperties | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         content_patterns: value["contentPatterns"],
         evidence_duplication_enabled: value["evidenceDuplicationEnabled"],

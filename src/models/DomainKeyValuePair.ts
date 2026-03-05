@@ -56,10 +56,15 @@ export function DomainKeyValuePairFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function DomainKeyValuePairToJSON(value?: DomainKeyValuePair | null): any {
+export function DomainKeyValuePairToJSON(json: any): DomainKeyValuePair {
+    return DomainKeyValuePairToJSONTyped(json, false);
+}
+
+export function DomainKeyValuePairToJSONTyped(value?: DomainKeyValuePair | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
         value: value["value"],

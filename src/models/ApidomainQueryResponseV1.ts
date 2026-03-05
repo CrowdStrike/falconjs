@@ -14,13 +14,18 @@
 
 import { mapValues } from "../runtime";
 import type { ClientField } from "./ClientField";
-import { ClientFieldFromJSON, ClientFieldFromJSONTyped, ClientFieldToJSON } from "./ClientField";
+import { ClientFieldFromJSON, ClientFieldFromJSONTyped, ClientFieldToJSON, ClientFieldToJSONTyped } from "./ClientField";
 import type { ClientQueryResultMetadata } from "./ClientQueryResultMetadata";
-import { ClientQueryResultMetadataFromJSON, ClientQueryResultMetadataFromJSONTyped, ClientQueryResultMetadataToJSON } from "./ClientQueryResultMetadata";
+import { ClientQueryResultMetadataFromJSON, ClientQueryResultMetadataFromJSONTyped, ClientQueryResultMetadataToJSON, ClientQueryResultMetadataToJSONTyped } from "./ClientQueryResultMetadata";
 import type { ClientJobStatus } from "./ClientJobStatus";
-import { ClientJobStatusFromJSON, ClientJobStatusFromJSONTyped, ClientJobStatusToJSON } from "./ClientJobStatus";
+import { ClientJobStatusFromJSON, ClientJobStatusFromJSONTyped, ClientJobStatusToJSON, ClientJobStatusToJSONTyped } from "./ClientJobStatus";
 import type { ClientQueryResponseSchemasV1 } from "./ClientQueryResponseSchemasV1";
-import { ClientQueryResponseSchemasV1FromJSON, ClientQueryResponseSchemasV1FromJSONTyped, ClientQueryResponseSchemasV1ToJSON } from "./ClientQueryResponseSchemasV1";
+import {
+    ClientQueryResponseSchemasV1FromJSON,
+    ClientQueryResponseSchemasV1FromJSONTyped,
+    ClientQueryResponseSchemasV1ToJSON,
+    ClientQueryResponseSchemasV1ToJSONTyped,
+} from "./ClientQueryResponseSchemasV1";
 
 /**
  *
@@ -101,10 +106,15 @@ export function ApidomainQueryResponseV1FromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function ApidomainQueryResponseV1ToJSON(value?: ApidomainQueryResponseV1 | null): any {
+export function ApidomainQueryResponseV1ToJSON(json: any): ApidomainQueryResponseV1 {
+    return ApidomainQueryResponseV1ToJSONTyped(json, false);
+}
+
+export function ApidomainQueryResponseV1ToJSONTyped(value?: ApidomainQueryResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         event_count: value["eventCount"],
         events: value["events"],

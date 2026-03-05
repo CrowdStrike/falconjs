@@ -104,10 +104,15 @@ export function ModelSessionLogFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function ModelSessionLogToJSON(value?: ModelSessionLog | null): any {
+export function ModelSessionLogToJSON(json: any): ModelSessionLog {
+    return ModelSessionLogToJSONTyped(json, false);
+}
+
+export function ModelSessionLogToJSONTyped(value?: ModelSessionLog | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         base_command: value["baseCommand"],
         cloud_request_id: value["cloudRequestId"],

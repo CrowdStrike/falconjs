@@ -96,10 +96,15 @@ export function FalconxHTTPRequestFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function FalconxHTTPRequestToJSON(value?: FalconxHTTPRequest | null): any {
+export function FalconxHTTPRequestToJSON(json: any): FalconxHTTPRequest {
+    return FalconxHTTPRequestToJSONTyped(json, false);
+}
+
+export function FalconxHTTPRequestToJSONTyped(value?: FalconxHTTPRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         header: value["header"],
         host: value["host"],

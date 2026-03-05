@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ItautomationPolicyConfig } from "./ItautomationPolicyConfig";
-import { ItautomationPolicyConfigFromJSON, ItautomationPolicyConfigFromJSONTyped, ItautomationPolicyConfigToJSON } from "./ItautomationPolicyConfig";
+import { ItautomationPolicyConfigFromJSON, ItautomationPolicyConfigFromJSONTyped, ItautomationPolicyConfigToJSON, ItautomationPolicyConfigToJSONTyped } from "./ItautomationPolicyConfig";
 
 /**
  *
@@ -42,7 +42,7 @@ export interface ItautomationCreatePolicyRequest {
     name?: string;
     /**
      * The platform for the policy
-     * @type {string}
+     * @type {ItautomationCreatePolicyRequestPlatformEnum}
      * @memberof ItautomationCreatePolicyRequest
      */
     platform: ItautomationCreatePolicyRequestPlatformEnum;
@@ -83,10 +83,15 @@ export function ItautomationCreatePolicyRequestFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function ItautomationCreatePolicyRequestToJSON(value?: ItautomationCreatePolicyRequest | null): any {
+export function ItautomationCreatePolicyRequestToJSON(json: any): ItautomationCreatePolicyRequest {
+    return ItautomationCreatePolicyRequestToJSONTyped(json, false);
+}
+
+export function ItautomationCreatePolicyRequestToJSONTyped(value?: ItautomationCreatePolicyRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         config: ItautomationPolicyConfigToJSON(value["config"]),
         description: value["description"],

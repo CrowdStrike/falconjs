@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { SensorUpdateSettingsReqV1 } from "./SensorUpdateSettingsReqV1";
-import { SensorUpdateSettingsReqV1FromJSON, SensorUpdateSettingsReqV1FromJSONTyped, SensorUpdateSettingsReqV1ToJSON } from "./SensorUpdateSettingsReqV1";
+import { SensorUpdateSettingsReqV1FromJSON, SensorUpdateSettingsReqV1FromJSONTyped, SensorUpdateSettingsReqV1ToJSON, SensorUpdateSettingsReqV1ToJSONTyped } from "./SensorUpdateSettingsReqV1";
 
 /**
  *
@@ -36,7 +36,7 @@ export interface SensorUpdateCreatePolicyReqV1 {
     name: string;
     /**
      * The name of the platform
-     * @type {string}
+     * @type {SensorUpdateCreatePolicyReqV1PlatformNameEnum}
      * @memberof SensorUpdateCreatePolicyReqV1
      */
     platformName: SensorUpdateCreatePolicyReqV1PlatformNameEnum;
@@ -83,10 +83,15 @@ export function SensorUpdateCreatePolicyReqV1FromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function SensorUpdateCreatePolicyReqV1ToJSON(value?: SensorUpdateCreatePolicyReqV1 | null): any {
+export function SensorUpdateCreatePolicyReqV1ToJSON(json: any): SensorUpdateCreatePolicyReqV1 {
+    return SensorUpdateCreatePolicyReqV1ToJSONTyped(json, false);
+}
+
+export function SensorUpdateCreatePolicyReqV1ToJSONTyped(value?: SensorUpdateCreatePolicyReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         name: value["name"],

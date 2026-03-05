@@ -56,10 +56,15 @@ export function ModelsAddHostGroupRequestFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ModelsAddHostGroupRequestToJSON(value?: ModelsAddHostGroupRequest | null): any {
+export function ModelsAddHostGroupRequestToJSON(json: any): ModelsAddHostGroupRequest {
+    return ModelsAddHostGroupRequestToJSONTyped(json, false);
+}
+
+export function ModelsAddHostGroupRequestToJSONTyped(value?: ModelsAddHostGroupRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         host_groups: value["hostGroups"],
         id: value["id"],

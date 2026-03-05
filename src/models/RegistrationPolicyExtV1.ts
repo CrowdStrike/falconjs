@@ -96,10 +96,15 @@ export function RegistrationPolicyExtV1FromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function RegistrationPolicyExtV1ToJSON(value?: RegistrationPolicyExtV1 | null): any {
+export function RegistrationPolicyExtV1ToJSON(json: any): RegistrationPolicyExtV1 {
+    return RegistrationPolicyExtV1ToJSONTyped(json, false);
+}
+
+export function RegistrationPolicyExtV1ToJSONTyped(value?: RegistrationPolicyExtV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         account_ids: value["accountIds"],

@@ -14,15 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MetaUploadDataResponse } from "./MetaUploadDataResponse";
-import { MetaUploadDataResponseFromJSON, MetaUploadDataResponseFromJSONTyped, MetaUploadDataResponseToJSON } from "./MetaUploadDataResponse";
+import { MetaUploadDataResponseFromJSON, MetaUploadDataResponseFromJSONTyped, MetaUploadDataResponseToJSON, MetaUploadDataResponseToJSONTyped } from "./MetaUploadDataResponse";
 import type { DataTransactionResponseDtoUploadDataResponse } from "./DataTransactionResponseDtoUploadDataResponse";
 import {
     DataTransactionResponseDtoUploadDataResponseFromJSON,
     DataTransactionResponseDtoUploadDataResponseFromJSONTyped,
     DataTransactionResponseDtoUploadDataResponseToJSON,
+    DataTransactionResponseDtoUploadDataResponseToJSONTyped,
 } from "./DataTransactionResponseDtoUploadDataResponse";
 import type { ErrorUploadDataResponse } from "./ErrorUploadDataResponse";
-import { ErrorUploadDataResponseFromJSON, ErrorUploadDataResponseFromJSONTyped, ErrorUploadDataResponseToJSON } from "./ErrorUploadDataResponse";
+import { ErrorUploadDataResponseFromJSON, ErrorUploadDataResponseFromJSONTyped, ErrorUploadDataResponseToJSON, ErrorUploadDataResponseToJSONTyped } from "./ErrorUploadDataResponse";
 
 /**
  *
@@ -72,10 +73,15 @@ export function UploadDataResponseFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function UploadDataResponseToJSON(value?: UploadDataResponse | null): any {
+export function UploadDataResponseToJSON(json: any): UploadDataResponse {
+    return UploadDataResponseToJSONTyped(json, false);
+}
+
+export function UploadDataResponseToJSONTyped(value?: UploadDataResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(ErrorUploadDataResponseToJSON),
         meta: MetaUploadDataResponseToJSON(value["meta"]),

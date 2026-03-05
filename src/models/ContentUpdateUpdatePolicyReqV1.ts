@@ -18,6 +18,7 @@ import {
     ContentUpdateContentUpdateSettingsReqV1FromJSON,
     ContentUpdateContentUpdateSettingsReqV1FromJSONTyped,
     ContentUpdateContentUpdateSettingsReqV1ToJSON,
+    ContentUpdateContentUpdateSettingsReqV1ToJSONTyped,
 } from "./ContentUpdateContentUpdateSettingsReqV1";
 
 /**
@@ -76,10 +77,15 @@ export function ContentUpdateUpdatePolicyReqV1FromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function ContentUpdateUpdatePolicyReqV1ToJSON(value?: ContentUpdateUpdatePolicyReqV1 | null): any {
+export function ContentUpdateUpdatePolicyReqV1ToJSON(json: any): ContentUpdateUpdatePolicyReqV1 {
+    return ContentUpdateUpdatePolicyReqV1ToJSONTyped(json, false);
+}
+
+export function ContentUpdateUpdatePolicyReqV1ToJSONTyped(value?: ContentUpdateUpdatePolicyReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         id: value["id"],

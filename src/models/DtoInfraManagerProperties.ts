@@ -61,10 +61,15 @@ export function DtoInfraManagerPropertiesFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DtoInfraManagerPropertiesToJSON(value?: DtoInfraManagerProperties | null): any {
+export function DtoInfraManagerPropertiesToJSON(json: any): DtoInfraManagerProperties {
+    return DtoInfraManagerPropertiesToJSONTyped(json, false);
+}
+
+export function DtoInfraManagerPropertiesToJSONTyped(value?: DtoInfraManagerProperties | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         deployment_id: value["deploymentId"],
         region: value["region"],

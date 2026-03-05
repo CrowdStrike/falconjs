@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { FalconxMatchedSignature } from "./FalconxMatchedSignature";
-import { FalconxMatchedSignatureFromJSON, FalconxMatchedSignatureFromJSONTyped, FalconxMatchedSignatureToJSON } from "./FalconxMatchedSignature";
+import { FalconxMatchedSignatureFromJSON, FalconxMatchedSignatureFromJSONTyped, FalconxMatchedSignatureToJSON, FalconxMatchedSignatureToJSONTyped } from "./FalconxMatchedSignature";
 
 /**
  *
@@ -85,10 +85,15 @@ export function FalconxStreamFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function FalconxStreamToJSON(value?: FalconxStream | null): any {
+export function FalconxStreamToJSON(json: any): FalconxStream {
+    return FalconxStreamToJSONTyped(json, false);
+}
+
+export function FalconxStreamToJSONTyped(value?: FalconxStream | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         executed: value["executed"],
         file_name: value["fileName"],

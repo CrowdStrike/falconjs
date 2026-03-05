@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { DomainScanProfileMetadata } from "./DomainScanProfileMetadata";
-import { DomainScanProfileMetadataFromJSON, DomainScanProfileMetadataFromJSONTyped, DomainScanProfileMetadataToJSON } from "./DomainScanProfileMetadata";
+import { DomainScanProfileMetadataFromJSON, DomainScanProfileMetadataFromJSONTyped, DomainScanProfileMetadataToJSON, DomainScanProfileMetadataToJSONTyped } from "./DomainScanProfileMetadata";
 import type { DomainSchedule } from "./DomainSchedule";
-import { DomainScheduleFromJSON, DomainScheduleFromJSONTyped, DomainScheduleToJSON } from "./DomainSchedule";
+import { DomainScheduleFromJSON, DomainScheduleFromJSONTyped, DomainScheduleToJSON, DomainScheduleToJSONTyped } from "./DomainSchedule";
 
 /**
  *
@@ -341,10 +341,15 @@ export function DomainScanProfileFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function DomainScanProfileToJSON(value?: DomainScanProfile | null): any {
+export function DomainScanProfileToJSON(json: any): DomainScanProfile {
+    return DomainScanProfileToJSONTyped(json, false);
+}
+
+export function DomainScanProfileToJSONTyped(value?: DomainScanProfile | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         cloud_ml_level_detection: value["cloudMlLevelDetection"],
@@ -353,7 +358,7 @@ export function DomainScanProfileToJSON(value?: DomainScanProfile | null): any {
         cloud_pup_adware_level_prevention: value["cloudPupAdwareLevelPrevention"],
         cpu_priority: value["cpuPriority"],
         created_by: value["createdBy"],
-        created_on: value["createdOn"] == null ? undefined : value["createdOn"].toISOString(),
+        created_on: value["createdOn"] == null ? value["createdOn"] : value["createdOn"].toISOString(),
         deleted: value["deleted"],
         description: value["description"],
         endpoint_notification: value["endpointNotification"],
@@ -362,7 +367,7 @@ export function DomainScanProfileToJSON(value?: DomainScanProfile | null): any {
         hosts: value["hosts"],
         id: value["id"],
         initiated_from: value["initiatedFrom"],
-        last_updated: value["lastUpdated"] == null ? undefined : value["lastUpdated"].toISOString(),
+        last_updated: value["lastUpdated"] == null ? value["lastUpdated"] : value["lastUpdated"].toISOString(),
         mac_cloud_ml_level_detection: value["macCloudMlLevelDetection"],
         mac_cloud_ml_level_prevention: value["macCloudMlLevelPrevention"],
         mac_cloud_pup_adware_level_detection: value["macCloudPupAdwareLevelDetection"],

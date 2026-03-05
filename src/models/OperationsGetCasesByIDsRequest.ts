@@ -48,10 +48,15 @@ export function OperationsGetCasesByIDsRequestFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function OperationsGetCasesByIDsRequestToJSON(value?: OperationsGetCasesByIDsRequest | null): any {
+export function OperationsGetCasesByIDsRequestToJSON(json: any): OperationsGetCasesByIDsRequest {
+    return OperationsGetCasesByIDsRequestToJSONTyped(json, false);
+}
+
+export function OperationsGetCasesByIDsRequestToJSONTyped(value?: OperationsGetCasesByIDsRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ids: value["ids"],
     };

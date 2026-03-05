@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { ContentUpdateSettingsV1 } from "./ContentUpdateSettingsV1";
-import { ContentUpdateSettingsV1FromJSON, ContentUpdateSettingsV1FromJSONTyped, ContentUpdateSettingsV1ToJSON } from "./ContentUpdateSettingsV1";
+import { ContentUpdateSettingsV1FromJSON, ContentUpdateSettingsV1FromJSONTyped, ContentUpdateSettingsV1ToJSON, ContentUpdateSettingsV1ToJSONTyped } from "./ContentUpdateSettingsV1";
 import type { HostGroupsHostGroupV1 } from "./HostGroupsHostGroupV1";
-import { HostGroupsHostGroupV1FromJSON, HostGroupsHostGroupV1FromJSONTyped, HostGroupsHostGroupV1ToJSON } from "./HostGroupsHostGroupV1";
+import { HostGroupsHostGroupV1FromJSON, HostGroupsHostGroupV1FromJSONTyped, HostGroupsHostGroupV1ToJSON, HostGroupsHostGroupV1ToJSONTyped } from "./HostGroupsHostGroupV1";
 
 /**
  *
@@ -86,7 +86,7 @@ export interface ContentUpdatePolicyV1 {
     name: string;
     /**
      * The name of the platform ('all' is the only option for Content Update Policy)
-     * @type {string}
+     * @type {ContentUpdatePolicyV1PlatformNameEnum}
      * @memberof ContentUpdatePolicyV1
      */
     platformName: ContentUpdatePolicyV1PlatformNameEnum;
@@ -149,10 +149,15 @@ export function ContentUpdatePolicyV1FromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function ContentUpdatePolicyV1ToJSON(value?: ContentUpdatePolicyV1 | null): any {
+export function ContentUpdatePolicyV1ToJSON(json: any): ContentUpdatePolicyV1 {
+    return ContentUpdatePolicyV1ToJSONTyped(json, false);
+}
+
+export function ContentUpdatePolicyV1ToJSONTyped(value?: ContentUpdatePolicyV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         created_by: value["createdBy"],

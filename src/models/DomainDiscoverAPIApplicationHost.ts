@@ -181,10 +181,15 @@ export function DomainDiscoverAPIApplicationHostFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function DomainDiscoverAPIApplicationHostToJSON(value?: DomainDiscoverAPIApplicationHost | null): any {
+export function DomainDiscoverAPIApplicationHostToJSON(json: any): DomainDiscoverAPIApplicationHost {
+    return DomainDiscoverAPIApplicationHostToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPIApplicationHostToJSONTyped(value?: DomainDiscoverAPIApplicationHost | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         agent_version: value["agentVersion"],
         aid: value["aid"],

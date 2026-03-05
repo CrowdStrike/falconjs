@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsDeliverySettingsInput } from "./ModelsDeliverySettingsInput";
-import { ModelsDeliverySettingsInputFromJSON, ModelsDeliverySettingsInputFromJSONTyped, ModelsDeliverySettingsInputToJSON } from "./ModelsDeliverySettingsInput";
+import {
+    ModelsDeliverySettingsInputFromJSON,
+    ModelsDeliverySettingsInputFromJSONTyped,
+    ModelsDeliverySettingsInputToJSON,
+    ModelsDeliverySettingsInputToJSONTyped,
+} from "./ModelsDeliverySettingsInput";
 
 /**
  *
@@ -51,10 +56,15 @@ export function ModelsDeliverySettingsRequestFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function ModelsDeliverySettingsRequestToJSON(value?: ModelsDeliverySettingsRequest | null): any {
+export function ModelsDeliverySettingsRequestToJSON(json: any): ModelsDeliverySettingsRequest {
+    return ModelsDeliverySettingsRequestToJSONTyped(json, false);
+}
+
+export function ModelsDeliverySettingsRequestToJSONTyped(value?: ModelsDeliverySettingsRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         delivery_settings: (value["deliverySettings"] as Array<any>).map(ModelsDeliverySettingsInputToJSON),
     };

@@ -75,10 +75,15 @@ export function V2CloudProviderInfoFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function V2CloudProviderInfoToJSON(value?: V2CloudProviderInfo | null): any {
+export function V2CloudProviderInfoToJSON(json: any): V2CloudProviderInfo {
+    return V2CloudProviderInfoToJSONTyped(json, false);
+}
+
+export function V2CloudProviderInfoToJSONTyped(value?: V2CloudProviderInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cloud_account_id: value["cloudAccountId"],
         cloud_provider: value["cloudProvider"],

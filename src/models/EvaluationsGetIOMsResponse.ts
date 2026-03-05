@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { EvaluationsEvaluation } from "./EvaluationsEvaluation";
-import { EvaluationsEvaluationFromJSON, EvaluationsEvaluationFromJSONTyped, EvaluationsEvaluationToJSON } from "./EvaluationsEvaluation";
+import { EvaluationsEvaluationFromJSON, EvaluationsEvaluationFromJSONTyped, EvaluationsEvaluationToJSON, EvaluationsEvaluationToJSONTyped } from "./EvaluationsEvaluation";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function EvaluationsGetIOMsResponseFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function EvaluationsGetIOMsResponseToJSON(value?: EvaluationsGetIOMsResponse | null): any {
+export function EvaluationsGetIOMsResponseToJSON(json: any): EvaluationsGetIOMsResponse {
+    return EvaluationsGetIOMsResponseToJSONTyped(json, false);
+}
+
+export function EvaluationsGetIOMsResponseToJSONTyped(value?: EvaluationsGetIOMsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

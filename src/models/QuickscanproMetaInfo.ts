@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { QuickscanproQuotaResource } from "./QuickscanproQuotaResource";
-import { QuickscanproQuotaResourceFromJSON, QuickscanproQuotaResourceFromJSONTyped, QuickscanproQuotaResourceToJSON } from "./QuickscanproQuotaResource";
+import { QuickscanproQuotaResourceFromJSON, QuickscanproQuotaResourceFromJSONTyped, QuickscanproQuotaResourceToJSON, QuickscanproQuotaResourceToJSONTyped } from "./QuickscanproQuotaResource";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -60,10 +60,15 @@ export function QuickscanproMetaInfoFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function QuickscanproMetaInfoToJSON(value?: QuickscanproMetaInfo | null): any {
+export function QuickscanproMetaInfoToJSON(json: any): QuickscanproMetaInfo {
+    return QuickscanproMetaInfoToJSONTyped(json, false);
+}
+
+export function QuickscanproMetaInfoToJSONTyped(value?: QuickscanproMetaInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         MetaInfo: MsaMetaInfoToJSON(value["metaInfo"]),
         quota: QuickscanproQuotaResourceToJSON(value["quota"]),

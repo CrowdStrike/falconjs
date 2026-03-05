@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { CommonOSAudit } from "./CommonOSAudit";
-import { CommonOSAuditFromJSON, CommonOSAuditFromJSONTyped, CommonOSAuditToJSON } from "./CommonOSAudit";
+import { CommonOSAuditFromJSON, CommonOSAuditFromJSONTyped, CommonOSAuditToJSON, CommonOSAuditToJSONTyped } from "./CommonOSAudit";
 
 /**
  *
@@ -75,10 +75,15 @@ export function CommonCIDAuditResultFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function CommonCIDAuditResultToJSON(value?: CommonCIDAuditResult | null): any {
+export function CommonCIDAuditResultToJSON(json: any): CommonCIDAuditResult {
+    return CommonCIDAuditResultToJSONTyped(json, false);
+}
+
+export function CommonCIDAuditResultToJSONTyped(value?: CommonCIDAuditResult | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         average_overall_score: value["averageOverallScore"],
         cid: value["cid"],

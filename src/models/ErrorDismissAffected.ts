@@ -55,10 +55,15 @@ export function ErrorDismissAffectedFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function ErrorDismissAffectedToJSON(value?: ErrorDismissAffected | null): any {
+export function ErrorDismissAffectedToJSON(json: any): ErrorDismissAffected {
+    return ErrorDismissAffectedToJSONTyped(json, false);
+}
+
+export function ErrorDismissAffectedToJSONTyped(value?: ErrorDismissAffected | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         message: value["message"],

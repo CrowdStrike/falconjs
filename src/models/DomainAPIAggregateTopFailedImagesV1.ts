@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainCountBySeverity } from "./DomainCountBySeverity";
-import { DomainCountBySeverityFromJSON, DomainCountBySeverityFromJSONTyped, DomainCountBySeverityToJSON } from "./DomainCountBySeverity";
+import { DomainCountBySeverityFromJSON, DomainCountBySeverityFromJSONTyped, DomainCountBySeverityToJSON, DomainCountBySeverityToJSONTyped } from "./DomainCountBySeverity";
 
 /**
  *
@@ -107,10 +107,15 @@ export function DomainAPIAggregateTopFailedImagesV1FromJSONTyped(json: any, igno
     };
 }
 
-export function DomainAPIAggregateTopFailedImagesV1ToJSON(value?: DomainAPIAggregateTopFailedImagesV1 | null): any {
+export function DomainAPIAggregateTopFailedImagesV1ToJSON(json: any): DomainAPIAggregateTopFailedImagesV1 {
+    return DomainAPIAggregateTopFailedImagesV1ToJSONTyped(json, false);
+}
+
+export function DomainAPIAggregateTopFailedImagesV1ToJSONTyped(value?: DomainAPIAggregateTopFailedImagesV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         asset_uid: value["assetUid"],
         cid: value["cid"],

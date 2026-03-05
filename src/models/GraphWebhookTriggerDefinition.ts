@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { GraphResponseConfig } from "./GraphResponseConfig";
-import { GraphResponseConfigFromJSON, GraphResponseConfigFromJSONTyped, GraphResponseConfigToJSON } from "./GraphResponseConfig";
+import { GraphResponseConfigFromJSON, GraphResponseConfigFromJSONTyped, GraphResponseConfigToJSON, GraphResponseConfigToJSONTyped } from "./GraphResponseConfig";
 import type { GraphIPMask } from "./GraphIPMask";
-import { GraphIPMaskFromJSON, GraphIPMaskFromJSONTyped, GraphIPMaskToJSON } from "./GraphIPMask";
+import { GraphIPMaskFromJSON, GraphIPMaskFromJSONTyped, GraphIPMaskToJSON, GraphIPMaskToJSONTyped } from "./GraphIPMask";
 import type { GraphAuthConfig } from "./GraphAuthConfig";
-import { GraphAuthConfigFromJSON, GraphAuthConfigFromJSONTyped, GraphAuthConfigToJSON } from "./GraphAuthConfig";
+import { GraphAuthConfigFromJSON, GraphAuthConfigFromJSONTyped, GraphAuthConfigToJSON, GraphAuthConfigToJSONTyped } from "./GraphAuthConfig";
 
 /**
  *
@@ -97,10 +97,15 @@ export function GraphWebhookTriggerDefinitionFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function GraphWebhookTriggerDefinitionToJSON(value?: GraphWebhookTriggerDefinition | null): any {
+export function GraphWebhookTriggerDefinitionToJSON(json: any): GraphWebhookTriggerDefinition {
+    return GraphWebhookTriggerDefinitionToJSONTyped(json, false);
+}
+
+export function GraphWebhookTriggerDefinitionToJSONTyped(value?: GraphWebhookTriggerDefinition | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         auth_config: GraphAuthConfigToJSON(value["authConfig"]),
         change_log: value["changeLog"],

@@ -54,10 +54,15 @@ export function DeviceDeviceMetaFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function DeviceDeviceMetaToJSON(value?: DeviceDeviceMeta | null): any {
+export function DeviceDeviceMetaToJSON(json: any): DeviceDeviceMeta {
+    return DeviceDeviceMetaToJSONTyped(json, false);
+}
+
+export function DeviceDeviceMetaToJSONTyped(value?: DeviceDeviceMeta | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         version: value["version"],
         version_string: value["versionString"],

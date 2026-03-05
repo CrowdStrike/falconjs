@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsELFBinary } from "./ModelsELFBinary";
-import { ModelsELFBinaryFromJSON, ModelsELFBinaryFromJSONTyped, ModelsELFBinaryToJSON } from "./ModelsELFBinary";
+import { ModelsELFBinaryFromJSON, ModelsELFBinaryFromJSONTyped, ModelsELFBinaryToJSON, ModelsELFBinaryToJSONTyped } from "./ModelsELFBinary";
 import type { ModelsSnapshotInventoryApplication } from "./ModelsSnapshotInventoryApplication";
-import { ModelsSnapshotInventoryApplicationFromJSON, ModelsSnapshotInventoryApplicationFromJSONTyped, ModelsSnapshotInventoryApplicationToJSON } from "./ModelsSnapshotInventoryApplication";
+import {
+    ModelsSnapshotInventoryApplicationFromJSON,
+    ModelsSnapshotInventoryApplicationFromJSONTyped,
+    ModelsSnapshotInventoryApplicationToJSON,
+    ModelsSnapshotInventoryApplicationToJSONTyped,
+} from "./ModelsSnapshotInventoryApplication";
 import type { ModelsContainer } from "./ModelsContainer";
-import { ModelsContainerFromJSON, ModelsContainerFromJSONTyped, ModelsContainerToJSON } from "./ModelsContainer";
+import { ModelsContainerFromJSON, ModelsContainerFromJSONTyped, ModelsContainerToJSON, ModelsContainerToJSONTyped } from "./ModelsContainer";
 
 /**
  *
@@ -79,10 +84,15 @@ export function ModelsScanResultsFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function ModelsScanResultsToJSON(value?: ModelsScanResults | null): any {
+export function ModelsScanResultsToJSON(json: any): ModelsScanResults {
+    return ModelsScanResultsToJSONTyped(json, false);
+}
+
+export function ModelsScanResultsToJSONTyped(value?: ModelsScanResults | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         applications: (value["applications"] as Array<any>).map(ModelsSnapshotInventoryApplicationToJSON),
         containers: (value["containers"] as Array<any>).map(ModelsContainerToJSON),

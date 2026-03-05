@@ -75,10 +75,15 @@ export function PaginationMetaGetAffectedFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function PaginationMetaGetAffectedToJSON(value?: PaginationMetaGetAffected | null): any {
+export function PaginationMetaGetAffectedToJSON(json: any): PaginationMetaGetAffected {
+    return PaginationMetaGetAffectedToJSONTyped(json, false);
+}
+
+export function PaginationMetaGetAffectedToJSONTyped(value?: PaginationMetaGetAffected | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         limit: value["limit"],
         next: value["next"],

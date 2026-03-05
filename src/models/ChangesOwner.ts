@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { ChangesBefore } from "./ChangesBefore";
-import { ChangesBeforeFromJSON, ChangesBeforeFromJSONTyped, ChangesBeforeToJSON } from "./ChangesBefore";
+import { ChangesBeforeFromJSON, ChangesBeforeFromJSONTyped, ChangesBeforeToJSON, ChangesBeforeToJSONTyped } from "./ChangesBefore";
 import type { ChangesAfter } from "./ChangesAfter";
-import { ChangesAfterFromJSON, ChangesAfterFromJSONTyped, ChangesAfterToJSON } from "./ChangesAfter";
+import { ChangesAfterFromJSON, ChangesAfterFromJSONTyped, ChangesAfterToJSON, ChangesAfterToJSONTyped } from "./ChangesAfter";
 
 /**
  *
@@ -59,10 +59,15 @@ export function ChangesOwnerFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function ChangesOwnerToJSON(value?: ChangesOwner | null): any {
+export function ChangesOwnerToJSON(json: any): ChangesOwner {
+    return ChangesOwnerToJSONTyped(json, false);
+}
+
+export function ChangesOwnerToJSONTyped(value?: ChangesOwner | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         after: ChangesAfterToJSON(value["after"]),
         before: ChangesBeforeToJSON(value["before"]),

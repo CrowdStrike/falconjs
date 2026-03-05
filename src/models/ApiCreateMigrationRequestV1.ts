@@ -72,10 +72,15 @@ export function ApiCreateMigrationRequestV1FromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function ApiCreateMigrationRequestV1ToJSON(value?: ApiCreateMigrationRequestV1 | null): any {
+export function ApiCreateMigrationRequestV1ToJSON(json: any): ApiCreateMigrationRequestV1 {
+    return ApiCreateMigrationRequestV1ToJSONTyped(json, false);
+}
+
+export function ApiCreateMigrationRequestV1ToJSONTyped(value?: ApiCreateMigrationRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         device_ids: value["deviceIds"],
         filter: value["filter"],

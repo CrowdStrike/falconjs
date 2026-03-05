@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ParameterConditionFieldParameter } from "./ParameterConditionFieldParameter";
-import { ParameterConditionFieldParameterFromJSON, ParameterConditionFieldParameterFromJSONTyped, ParameterConditionFieldParameterToJSON } from "./ParameterConditionFieldParameter";
+import {
+    ParameterConditionFieldParameterFromJSON,
+    ParameterConditionFieldParameterFromJSONTyped,
+    ParameterConditionFieldParameterToJSON,
+    ParameterConditionFieldParameterToJSONTyped,
+} from "./ParameterConditionFieldParameter";
 
 /**
  *
@@ -59,10 +64,15 @@ export function V2ConditionGroupsFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function V2ConditionGroupsToJSON(value?: V2ConditionGroups | null): any {
+export function V2ConditionGroupsToJSON(json: any): V2ConditionGroups {
+    return V2ConditionGroupsToJSONTyped(json, false);
+}
+
+export function V2ConditionGroupsToJSONTyped(value?: V2ConditionGroups | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         fields: mapValues(value["fields"], ParameterConditionFieldParameterToJSON),
         parameter_order: value["parameterOrder"],

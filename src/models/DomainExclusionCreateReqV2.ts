@@ -82,10 +82,15 @@ export function DomainExclusionCreateReqV2FromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function DomainExclusionCreateReqV2ToJSON(value?: DomainExclusionCreateReqV2 | null): any {
+export function DomainExclusionCreateReqV2ToJSON(json: any): DomainExclusionCreateReqV2 {
+    return DomainExclusionCreateReqV2ToJSONTyped(json, false);
+}
+
+export function DomainExclusionCreateReqV2ToJSONTyped(value?: DomainExclusionCreateReqV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         comment: value["comment"],
         excluded_from: value["excludedFrom"],

@@ -92,12 +92,9 @@ export interface ContainerPackagesApiReadPackagesCountByZeroDayRequest {
  */
 export class ContainerPackagesApi extends runtime.BaseAPI {
     /**
-     * Retrieve top x app packages with the most fixable vulnerabilities
+     * Creates request options for readPackagesByFixableVulnCount without sending the request
      */
-    async readPackagesByFixableVulnCountRaw(
-        requestParameters: ContainerPackagesApiReadPackagesByFixableVulnCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<PackagesApiPackagesByVulnCount>> {
+    async readPackagesByFixableVulnCountRequestOpts(requestParameters: ContainerPackagesApiReadPackagesByFixableVulnCountRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -119,15 +116,25 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/combined/packages/app-by-fixable-vulnerability-count/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/combined/packages/app-by-fixable-vulnerability-count/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve top x app packages with the most fixable vulnerabilities
+     */
+    async readPackagesByFixableVulnCountRaw(
+        requestParameters: ContainerPackagesApiReadPackagesByFixableVulnCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PackagesApiPackagesByVulnCount>> {
+        const requestOptions = await this.readPackagesByFixableVulnCountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PackagesApiPackagesByVulnCountFromJSON(jsonValue));
     }
@@ -141,12 +148,9 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves the N most frequently used packages across images
+     * Creates request options for readPackagesByImageCount without sending the request
      */
-    async readPackagesByImageCountRaw(
-        requestParameters: ContainerPackagesApiReadPackagesByImageCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<PackagesApiPackagesByImageCount>> {
+    async readPackagesByImageCountRequestOpts(requestParameters: ContainerPackagesApiReadPackagesByImageCountRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -164,15 +168,25 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/aggregates/packages/by-image-count/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/aggregates/packages/by-image-count/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieves the N most frequently used packages across images
+     */
+    async readPackagesByImageCountRaw(
+        requestParameters: ContainerPackagesApiReadPackagesByImageCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PackagesApiPackagesByImageCount>> {
+        const requestOptions = await this.readPackagesByImageCountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PackagesApiPackagesByImageCountFromJSON(jsonValue));
     }
@@ -186,12 +200,9 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve top x packages with the most vulnerabilities
+     * Creates request options for readPackagesByVulnCount without sending the request
      */
-    async readPackagesByVulnCountRaw(
-        requestParameters: ContainerPackagesApiReadPackagesByVulnCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<PackagesApiPackagesByVulnCount>> {
+    async readPackagesByVulnCountRequestOpts(requestParameters: ContainerPackagesApiReadPackagesByVulnCountRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -213,15 +224,25 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/combined/packages/by-vulnerability-count/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/combined/packages/by-vulnerability-count/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve top x packages with the most vulnerabilities
+     */
+    async readPackagesByVulnCountRaw(
+        requestParameters: ContainerPackagesApiReadPackagesByVulnCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PackagesApiPackagesByVulnCount>> {
+        const requestOptions = await this.readPackagesByVulnCountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PackagesApiPackagesByVulnCountFromJSON(jsonValue));
     }
@@ -235,12 +256,9 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve packages identified by the provided filter criteria
+     * Creates request options for readPackagesCombined without sending the request
      */
-    async readPackagesCombinedRaw(
-        requestParameters: ContainerPackagesApiReadPackagesCombinedRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<PackagesApiCombinedPackage>> {
+    async readPackagesCombinedRequestOpts(requestParameters: ContainerPackagesApiReadPackagesCombinedRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -270,15 +288,25 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/combined/packages/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/combined/packages/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve packages identified by the provided filter criteria
+     */
+    async readPackagesCombinedRaw(
+        requestParameters: ContainerPackagesApiReadPackagesCombinedRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PackagesApiCombinedPackage>> {
+        const requestOptions = await this.readPackagesCombinedRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PackagesApiCombinedPackageFromJSON(jsonValue));
     }
@@ -299,12 +327,9 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves a paginated list of packages identified by the provided filter criteria,used for export.Maximum page size: 100. Maximum available packages: 10,000
+     * Creates request options for readPackagesCombinedExport without sending the request
      */
-    async readPackagesCombinedExportRaw(
-        requestParameters: ContainerPackagesApiReadPackagesCombinedExportRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<PackagesApiCombinedPackageExport>> {
+    async readPackagesCombinedExportRequestOpts(requestParameters: ContainerPackagesApiReadPackagesCombinedExportRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -334,15 +359,25 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/combined/packages/export/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/combined/packages/export/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieves a paginated list of packages identified by the provided filter criteria,used for export.Maximum page size: 100. Maximum available packages: 10,000
+     */
+    async readPackagesCombinedExportRaw(
+        requestParameters: ContainerPackagesApiReadPackagesCombinedExportRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PackagesApiCombinedPackageExport>> {
+        const requestOptions = await this.readPackagesCombinedExportRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PackagesApiCombinedPackageExportFromJSON(jsonValue));
     }
@@ -363,12 +398,9 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve packages identified by the provided filter criteria
+     * Creates request options for readPackagesCombinedV2 without sending the request
      */
-    async readPackagesCombinedV2Raw(
-        requestParameters: ContainerPackagesApiReadPackagesCombinedV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<PackagesApiCombinedPackageV2>> {
+    async readPackagesCombinedV2RequestOpts(requestParameters: ContainerPackagesApiReadPackagesCombinedV2Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -398,15 +430,25 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/combined/packages/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/combined/packages/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve packages identified by the provided filter criteria
+     */
+    async readPackagesCombinedV2Raw(
+        requestParameters: ContainerPackagesApiReadPackagesCombinedV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PackagesApiCombinedPackageV2>> {
+        const requestOptions = await this.readPackagesCombinedV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PackagesApiCombinedPackageV2FromJSON(jsonValue));
     }
@@ -427,12 +469,9 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve packages count affected by zero day vulnerabilities
+     * Creates request options for readPackagesCountByZeroDay without sending the request
      */
-    async readPackagesCountByZeroDayRaw(
-        requestParameters: ContainerPackagesApiReadPackagesCountByZeroDayRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CommonCountResponse>> {
+    async readPackagesCountByZeroDayRequestOpts(requestParameters: ContainerPackagesApiReadPackagesCountByZeroDayRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -446,15 +485,25 @@ export class ContainerPackagesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/aggregates/packages/count-by-zero-day/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/aggregates/packages/count-by-zero-day/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve packages count affected by zero day vulnerabilities
+     */
+    async readPackagesCountByZeroDayRaw(
+        requestParameters: ContainerPackagesApiReadPackagesCountByZeroDayRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CommonCountResponse>> {
+        const requestOptions = await this.readPackagesCountByZeroDayRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonCountResponseFromJSON(jsonValue));
     }

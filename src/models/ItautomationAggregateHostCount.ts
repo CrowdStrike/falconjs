@@ -104,10 +104,15 @@ export function ItautomationAggregateHostCountFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function ItautomationAggregateHostCountToJSON(value?: ItautomationAggregateHostCount | null): any {
+export function ItautomationAggregateHostCountToJSON(json: any): ItautomationAggregateHostCount {
+    return ItautomationAggregateHostCountToJSONTyped(json, false);
+}
+
+export function ItautomationAggregateHostCountToJSONTyped(value?: ItautomationAggregateHostCount | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         canceled_host_count: value["canceledHostCount"],
         expired_host_count: value["expiredHostCount"],

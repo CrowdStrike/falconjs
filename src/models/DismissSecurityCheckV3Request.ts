@@ -47,10 +47,15 @@ export function DismissSecurityCheckV3RequestFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function DismissSecurityCheckV3RequestToJSON(value?: DismissSecurityCheckV3Request | null): any {
+export function DismissSecurityCheckV3RequestToJSON(json: any): DismissSecurityCheckV3Request {
+    return DismissSecurityCheckV3RequestToJSONTyped(json, false);
+}
+
+export function DismissSecurityCheckV3RequestToJSONTyped(value?: DismissSecurityCheckV3Request | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         reason: value["reason"],
     };

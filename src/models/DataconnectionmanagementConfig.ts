@@ -64,10 +64,15 @@ export function DataconnectionmanagementConfigFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function DataconnectionmanagementConfigToJSON(value?: DataconnectionmanagementConfig | null): any {
+export function DataconnectionmanagementConfigToJSON(json: any): DataconnectionmanagementConfig {
+    return DataconnectionmanagementConfigToJSONTyped(json, false);
+}
+
+export function DataconnectionmanagementConfigToJSONTyped(value?: DataconnectionmanagementConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

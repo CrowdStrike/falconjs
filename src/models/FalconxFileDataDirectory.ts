@@ -68,10 +68,15 @@ export function FalconxFileDataDirectoryFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function FalconxFileDataDirectoryToJSON(value?: FalconxFileDataDirectory | null): any {
+export function FalconxFileDataDirectoryToJSON(json: any): FalconxFileDataDirectory {
+    return FalconxFileDataDirectoryToJSONTyped(json, false);
+}
+
+export function FalconxFileDataDirectoryToJSONTyped(value?: FalconxFileDataDirectory | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         is_in_section: value["isInSection"],
         name: value["name"],

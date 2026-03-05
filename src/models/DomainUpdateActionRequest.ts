@@ -88,10 +88,15 @@ export function DomainUpdateActionRequestFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DomainUpdateActionRequestToJSON(value?: DomainUpdateActionRequest | null): any {
+export function DomainUpdateActionRequestToJSON(json: any): DomainUpdateActionRequest {
+    return DomainUpdateActionRequestToJSONTyped(json, false);
+}
+
+export function DomainUpdateActionRequestToJSONTyped(value?: DomainUpdateActionRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         content_format: value["contentFormat"],
         frequency: value["frequency"],

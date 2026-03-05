@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { PaginationMetaGetEndTransaction } from "./PaginationMetaGetEndTransaction";
-import { PaginationMetaGetEndTransactionFromJSON, PaginationMetaGetEndTransactionFromJSONTyped, PaginationMetaGetEndTransactionToJSON } from "./PaginationMetaGetEndTransaction";
+import {
+    PaginationMetaGetEndTransactionFromJSON,
+    PaginationMetaGetEndTransactionFromJSONTyped,
+    PaginationMetaGetEndTransactionToJSON,
+    PaginationMetaGetEndTransactionToJSONTyped,
+} from "./PaginationMetaGetEndTransaction";
 
 /**
  *
@@ -64,10 +69,15 @@ export function MetaGetEndTransactionFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function MetaGetEndTransactionToJSON(value?: MetaGetEndTransaction | null): any {
+export function MetaGetEndTransactionToJSON(json: any): MetaGetEndTransaction {
+    return MetaGetEndTransactionToJSONTyped(json, false);
+}
+
+export function MetaGetEndTransactionToJSONTyped(value?: MetaGetEndTransaction | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: PaginationMetaGetEndTransactionToJSON(value["pagination"]),
         query_time: value["queryTime"],

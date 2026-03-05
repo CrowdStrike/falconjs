@@ -55,10 +55,15 @@ export function CorrelationrulesapiMitreAttackMappingV1FromJSONTyped(json: any, 
     };
 }
 
-export function CorrelationrulesapiMitreAttackMappingV1ToJSON(value?: CorrelationrulesapiMitreAttackMappingV1 | null): any {
+export function CorrelationrulesapiMitreAttackMappingV1ToJSON(json: any): CorrelationrulesapiMitreAttackMappingV1 {
+    return CorrelationrulesapiMitreAttackMappingV1ToJSONTyped(json, false);
+}
+
+export function CorrelationrulesapiMitreAttackMappingV1ToJSONTyped(value?: CorrelationrulesapiMitreAttackMappingV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         tactic_id: value["tacticId"],
         technique_id: value["techniqueId"],

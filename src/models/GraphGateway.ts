@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { GraphNodePosition } from "./GraphNodePosition";
-import { GraphNodePositionFromJSON, GraphNodePositionFromJSONTyped, GraphNodePositionToJSON } from "./GraphNodePosition";
+import { GraphNodePositionFromJSON, GraphNodePositionFromJSONTyped, GraphNodePositionToJSON, GraphNodePositionToJSONTyped } from "./GraphNodePosition";
 import type { Flows } from "./Flows";
-import { FlowsFromJSON, FlowsFromJSONTyped, FlowsToJSON } from "./Flows";
+import { FlowsFromJSON, FlowsFromJSONTyped, FlowsToJSON, FlowsToJSONTyped } from "./Flows";
 
 /**
  *
@@ -76,10 +76,15 @@ export function GraphGatewayFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function GraphGatewayToJSON(value?: GraphGateway | null): any {
+export function GraphGatewayToJSON(json: any): GraphGateway {
+    return GraphGatewayToJSONTyped(json, false);
+}
+
+export function GraphGatewayToJSONTyped(value?: GraphGateway | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         flows: FlowsToJSON(value["flows"]),
         nodeID: value["nodeID"],

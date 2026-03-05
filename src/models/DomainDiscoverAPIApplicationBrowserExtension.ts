@@ -18,6 +18,7 @@ import {
     DomainDiscoverAPIApplicationBrowserExtensionInstallationFromJSON,
     DomainDiscoverAPIApplicationBrowserExtensionInstallationFromJSONTyped,
     DomainDiscoverAPIApplicationBrowserExtensionInstallationToJSON,
+    DomainDiscoverAPIApplicationBrowserExtensionInstallationToJSONTyped,
 } from "./DomainDiscoverAPIApplicationBrowserExtensionInstallation";
 
 /**
@@ -105,10 +106,15 @@ export function DomainDiscoverAPIApplicationBrowserExtensionFromJSONTyped(json: 
     };
 }
 
-export function DomainDiscoverAPIApplicationBrowserExtensionToJSON(value?: DomainDiscoverAPIApplicationBrowserExtension | null): any {
+export function DomainDiscoverAPIApplicationBrowserExtensionToJSON(json: any): DomainDiscoverAPIApplicationBrowserExtension {
+    return DomainDiscoverAPIApplicationBrowserExtensionToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPIApplicationBrowserExtensionToJSONTyped(value?: DomainDiscoverAPIApplicationBrowserExtension | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         architecture: value["architecture"],
         browser_name: value["browserName"],

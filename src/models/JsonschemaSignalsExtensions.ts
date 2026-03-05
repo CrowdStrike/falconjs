@@ -75,10 +75,15 @@ export function JsonschemaSignalsExtensionsFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function JsonschemaSignalsExtensionsToJSON(value?: JsonschemaSignalsExtensions | null): any {
+export function JsonschemaSignalsExtensionsToJSON(json: any): JsonschemaSignalsExtensions {
+    return JsonschemaSignalsExtensionsToJSONTyped(json, false);
+}
+
+export function JsonschemaSignalsExtensionsToJSONTyped(value?: JsonschemaSignalsExtensions | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         enum_wrapper: value["enumWrapper"],
         example_display_map: value["exampleDisplayMap"],

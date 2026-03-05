@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { DtoGCPRegistration } from "./DtoGCPRegistration";
-import { DtoGCPRegistrationFromJSON, DtoGCPRegistrationFromJSONTyped, DtoGCPRegistrationToJSON } from "./DtoGCPRegistration";
+import { DtoGCPRegistrationFromJSON, DtoGCPRegistrationFromJSONTyped, DtoGCPRegistrationToJSON, DtoGCPRegistrationToJSONTyped } from "./DtoGCPRegistration";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function DtoGCPRegistrationResponseExtV1FromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function DtoGCPRegistrationResponseExtV1ToJSON(value?: DtoGCPRegistrationResponseExtV1 | null): any {
+export function DtoGCPRegistrationResponseExtV1ToJSON(json: any): DtoGCPRegistrationResponseExtV1 {
+    return DtoGCPRegistrationResponseExtV1ToJSONTyped(json, false);
+}
+
+export function DtoGCPRegistrationResponseExtV1ToJSONTyped(value?: DtoGCPRegistrationResponseExtV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

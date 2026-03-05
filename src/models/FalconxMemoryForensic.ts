@@ -54,10 +54,15 @@ export function FalconxMemoryForensicFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function FalconxMemoryForensicToJSON(value?: FalconxMemoryForensic | null): any {
+export function FalconxMemoryForensicToJSON(json: any): FalconxMemoryForensic {
+    return FalconxMemoryForensicToJSONTyped(json, false);
+}
+
+export function FalconxMemoryForensicToJSONTyped(value?: FalconxMemoryForensic | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         stream_uid: value["streamUid"],
         value: value["value"],

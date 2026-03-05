@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { HostGroupsHostGroupV1 } from "./HostGroupsHostGroupV1";
-import { HostGroupsHostGroupV1FromJSON, HostGroupsHostGroupV1FromJSONTyped, HostGroupsHostGroupV1ToJSON } from "./HostGroupsHostGroupV1";
+import { HostGroupsHostGroupV1FromJSON, HostGroupsHostGroupV1FromJSONTyped, HostGroupsHostGroupV1ToJSON, HostGroupsHostGroupV1ToJSONTyped } from "./HostGroupsHostGroupV1";
 
 /**
  *
@@ -155,10 +155,15 @@ export function IoaExclusionsIoaExclusionRespV1FromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function IoaExclusionsIoaExclusionRespV1ToJSON(value?: IoaExclusionsIoaExclusionRespV1 | null): any {
+export function IoaExclusionsIoaExclusionRespV1ToJSON(json: any): IoaExclusionsIoaExclusionRespV1 {
+    return IoaExclusionsIoaExclusionRespV1ToJSONTyped(json, false);
+}
+
+export function IoaExclusionsIoaExclusionRespV1ToJSONTyped(value?: IoaExclusionsIoaExclusionRespV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         applied_globally: value["appliedGlobally"],
         cl_regex: value["clRegex"],

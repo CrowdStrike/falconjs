@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainExecuteCommandV1 } from "./DomainExecuteCommandV1";
-import { DomainExecuteCommandV1FromJSON, DomainExecuteCommandV1FromJSONTyped, DomainExecuteCommandV1ToJSON } from "./DomainExecuteCommandV1";
+import { DomainExecuteCommandV1FromJSON, DomainExecuteCommandV1FromJSONTyped, DomainExecuteCommandV1ToJSON, DomainExecuteCommandV1ToJSONTyped } from "./DomainExecuteCommandV1";
 
 /**
  *
@@ -51,10 +51,15 @@ export function DomainExecuteCommandRequestV1FromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function DomainExecuteCommandRequestV1ToJSON(value?: DomainExecuteCommandRequestV1 | null): any {
+export function DomainExecuteCommandRequestV1ToJSON(json: any): DomainExecuteCommandRequestV1 {
+    return DomainExecuteCommandRequestV1ToJSONTyped(json, false);
+}
+
+export function DomainExecuteCommandRequestV1ToJSONTyped(value?: DomainExecuteCommandRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(DomainExecuteCommandV1ToJSON),
     };

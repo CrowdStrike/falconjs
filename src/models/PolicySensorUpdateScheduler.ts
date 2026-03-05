@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { PolicySensorUpdateSchedule } from "./PolicySensorUpdateSchedule";
-import { PolicySensorUpdateScheduleFromJSON, PolicySensorUpdateScheduleFromJSONTyped, PolicySensorUpdateScheduleToJSON } from "./PolicySensorUpdateSchedule";
+import { PolicySensorUpdateScheduleFromJSON, PolicySensorUpdateScheduleFromJSONTyped, PolicySensorUpdateScheduleToJSON, PolicySensorUpdateScheduleToJSONTyped } from "./PolicySensorUpdateSchedule";
 
 /**
  *
@@ -67,10 +67,15 @@ export function PolicySensorUpdateSchedulerFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function PolicySensorUpdateSchedulerToJSON(value?: PolicySensorUpdateScheduler | null): any {
+export function PolicySensorUpdateSchedulerToJSON(json: any): PolicySensorUpdateScheduler {
+    return PolicySensorUpdateSchedulerToJSONTyped(json, false);
+}
+
+export function PolicySensorUpdateSchedulerToJSONTyped(value?: PolicySensorUpdateScheduler | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         enabled: value["enabled"],
         schedules: (value["schedules"] as Array<any>).map(PolicySensorUpdateScheduleToJSON),

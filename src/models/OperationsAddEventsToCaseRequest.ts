@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { SdkEventEvidenceSelector } from "./SdkEventEvidenceSelector";
-import { SdkEventEvidenceSelectorFromJSON, SdkEventEvidenceSelectorFromJSONTyped, SdkEventEvidenceSelectorToJSON } from "./SdkEventEvidenceSelector";
+import { SdkEventEvidenceSelectorFromJSON, SdkEventEvidenceSelectorFromJSONTyped, SdkEventEvidenceSelectorToJSON, SdkEventEvidenceSelectorToJSONTyped } from "./SdkEventEvidenceSelector";
 
 /**
  *
@@ -59,10 +59,15 @@ export function OperationsAddEventsToCaseRequestFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function OperationsAddEventsToCaseRequestToJSON(value?: OperationsAddEventsToCaseRequest | null): any {
+export function OperationsAddEventsToCaseRequestToJSON(json: any): OperationsAddEventsToCaseRequest {
+    return OperationsAddEventsToCaseRequestToJSONTyped(json, false);
+}
+
+export function OperationsAddEventsToCaseRequestToJSONTyped(value?: OperationsAddEventsToCaseRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         events: (value["events"] as Array<any>).map(SdkEventEvidenceSelectorToJSON),
         id: value["id"],

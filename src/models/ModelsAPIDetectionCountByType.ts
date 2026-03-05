@@ -56,10 +56,15 @@ export function ModelsAPIDetectionCountByTypeFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function ModelsAPIDetectionCountByTypeToJSON(value?: ModelsAPIDetectionCountByType | null): any {
+export function ModelsAPIDetectionCountByTypeToJSON(json: any): ModelsAPIDetectionCountByType {
+    return ModelsAPIDetectionCountByTypeToJSONTyped(json, false);
+}
+
+export function ModelsAPIDetectionCountByTypeToJSONTyped(value?: ModelsAPIDetectionCountByType | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count: value["count"],
         type: value["type"],

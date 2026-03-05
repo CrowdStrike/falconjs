@@ -48,10 +48,15 @@ export function DetectsapiPostEntitiesAlertsV2RequestFromJSONTyped(json: any, ig
     };
 }
 
-export function DetectsapiPostEntitiesAlertsV2RequestToJSON(value?: DetectsapiPostEntitiesAlertsV2Request | null): any {
+export function DetectsapiPostEntitiesAlertsV2RequestToJSON(json: any): DetectsapiPostEntitiesAlertsV2Request {
+    return DetectsapiPostEntitiesAlertsV2RequestToJSONTyped(json, false);
+}
+
+export function DetectsapiPostEntitiesAlertsV2RequestToJSONTyped(value?: DetectsapiPostEntitiesAlertsV2Request | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         composite_ids: value["compositeIds"],
     };

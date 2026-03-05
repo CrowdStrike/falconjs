@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { AzureDBRoleAssignment } from "./AzureDBRoleAssignment";
-import { AzureDBRoleAssignmentFromJSON, AzureDBRoleAssignmentFromJSONTyped, AzureDBRoleAssignmentToJSON } from "./AzureDBRoleAssignment";
+import { AzureDBRoleAssignmentFromJSON, AzureDBRoleAssignmentFromJSONTyped, AzureDBRoleAssignmentToJSON, AzureDBRoleAssignmentToJSONTyped } from "./AzureDBRoleAssignment";
 import type { StatemgmtCondition } from "./StatemgmtCondition";
-import { StatemgmtConditionFromJSON, StatemgmtConditionFromJSONTyped, StatemgmtConditionToJSON } from "./StatemgmtCondition";
+import { StatemgmtConditionFromJSON, StatemgmtConditionFromJSONTyped, StatemgmtConditionToJSON, StatemgmtConditionToJSONTyped } from "./StatemgmtCondition";
 import type { DomainPermission } from "./DomainPermission";
-import { DomainPermissionFromJSON, DomainPermissionFromJSONTyped, DomainPermissionToJSON } from "./DomainPermission";
+import { DomainPermissionFromJSON, DomainPermissionFromJSONTyped, DomainPermissionToJSON, DomainPermissionToJSONTyped } from "./DomainPermission";
 
 /**
  *
@@ -194,10 +194,15 @@ export function RegistrationAzureManagementGroupV1ExtFromJSONTyped(json: any, ig
     };
 }
 
-export function RegistrationAzureManagementGroupV1ExtToJSON(value?: RegistrationAzureManagementGroupV1Ext | null): any {
+export function RegistrationAzureManagementGroupV1ExtToJSON(json: any): RegistrationAzureManagementGroupV1Ext {
+    return RegistrationAzureManagementGroupV1ExtToJSONTyped(json, false);
+}
+
+export function RegistrationAzureManagementGroupV1ExtToJSONTyped(value?: RegistrationAzureManagementGroupV1Ext | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         CreatedAt: value["createdAt"].toISOString(),
         DeletedAt: value["deletedAt"].toISOString(),
@@ -209,7 +214,7 @@ export function RegistrationAzureManagementGroupV1ExtToJSON(value?: Registration
         cid: value["cid"],
         client_id: value["clientId"],
         conditions: value["conditions"] == null ? undefined : (value["conditions"] as Array<any>).map(StatemgmtConditionToJSON),
-        credentials_end_date: value["credentialsEndDate"] == null ? undefined : value["credentialsEndDate"].toISOString(),
+        credentials_end_date: value["credentialsEndDate"] == null ? value["credentialsEndDate"] : value["credentialsEndDate"].toISOString(),
         credentials_type: value["credentialsType"],
         default_subscription_id: value["defaultSubscriptionId"],
         object_id: value["objectId"],

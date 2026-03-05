@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DistributionDescriptor } from "./DistributionDescriptor";
-import { DistributionDescriptorFromJSON, DistributionDescriptorFromJSONTyped, DistributionDescriptorToJSON } from "./DistributionDescriptor";
+import { DistributionDescriptorFromJSON, DistributionDescriptorFromJSONTyped, DistributionDescriptorToJSON, DistributionDescriptorToJSONTyped } from "./DistributionDescriptor";
 
 /**
  *
@@ -74,10 +74,15 @@ export function Schema2ManifestFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function Schema2ManifestToJSON(value?: Schema2Manifest | null): any {
+export function Schema2ManifestToJSON(json: any): Schema2Manifest {
+    return Schema2ManifestToJSONTyped(json, false);
+}
+
+export function Schema2ManifestToJSONTyped(value?: Schema2Manifest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         config: DistributionDescriptorToJSON(value["config"]),
         layers: (value["layers"] as Array<any>).map(DistributionDescriptorToJSON),

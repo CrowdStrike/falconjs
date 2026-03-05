@@ -88,10 +88,15 @@ export function ModelsAPIPackagesByVulnCountFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function ModelsAPIPackagesByVulnCountToJSON(value?: ModelsAPIPackagesByVulnCount | null): any {
+export function ModelsAPIPackagesByVulnCountToJSON(json: any): ModelsAPIPackagesByVulnCount {
+    return ModelsAPIPackagesByVulnCountToJSONTyped(json, false);
+}
+
+export function ModelsAPIPackagesByVulnCountToJSONTyped(value?: ModelsAPIPackagesByVulnCount | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         images: value["images"],
         package: value["_package"],

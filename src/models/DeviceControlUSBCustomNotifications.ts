@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DeviceControlUSBCustomNotification } from "./DeviceControlUSBCustomNotification";
-import { DeviceControlUSBCustomNotificationFromJSON, DeviceControlUSBCustomNotificationFromJSONTyped, DeviceControlUSBCustomNotificationToJSON } from "./DeviceControlUSBCustomNotification";
+import {
+    DeviceControlUSBCustomNotificationFromJSON,
+    DeviceControlUSBCustomNotificationFromJSONTyped,
+    DeviceControlUSBCustomNotificationToJSON,
+    DeviceControlUSBCustomNotificationToJSONTyped,
+} from "./DeviceControlUSBCustomNotification";
 
 /**
  *
@@ -57,10 +62,15 @@ export function DeviceControlUSBCustomNotificationsFromJSONTyped(json: any, igno
     };
 }
 
-export function DeviceControlUSBCustomNotificationsToJSON(value?: DeviceControlUSBCustomNotifications | null): any {
+export function DeviceControlUSBCustomNotificationsToJSON(json: any): DeviceControlUSBCustomNotifications {
+    return DeviceControlUSBCustomNotificationsToJSONTyped(json, false);
+}
+
+export function DeviceControlUSBCustomNotificationsToJSONTyped(value?: DeviceControlUSBCustomNotifications | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         blocked_notification: DeviceControlUSBCustomNotificationToJSON(value["blockedNotification"]),
         restricted_notification: DeviceControlUSBCustomNotificationToJSON(value["restrictedNotification"]),

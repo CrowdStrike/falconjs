@@ -63,10 +63,15 @@ export function FwmgrMsaspecErrorFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function FwmgrMsaspecErrorToJSON(value?: FwmgrMsaspecError | null): any {
+export function FwmgrMsaspecErrorToJSON(json: any): FwmgrMsaspecError {
+    return FwmgrMsaspecErrorToJSONTyped(json, false);
+}
+
+export function FwmgrMsaspecErrorToJSONTyped(value?: FwmgrMsaspecError | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         id: value["id"],

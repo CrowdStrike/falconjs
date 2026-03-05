@@ -48,10 +48,15 @@ export function ItautomationUpdatePoliciesPrecedenceRequestFromJSONTyped(json: a
     };
 }
 
-export function ItautomationUpdatePoliciesPrecedenceRequestToJSON(value?: ItautomationUpdatePoliciesPrecedenceRequest | null): any {
+export function ItautomationUpdatePoliciesPrecedenceRequestToJSON(json: any): ItautomationUpdatePoliciesPrecedenceRequest {
+    return ItautomationUpdatePoliciesPrecedenceRequestToJSONTyped(json, false);
+}
+
+export function ItautomationUpdatePoliciesPrecedenceRequestToJSONTyped(value?: ItautomationUpdatePoliciesPrecedenceRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ids: value["ids"],
     };

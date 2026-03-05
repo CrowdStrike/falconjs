@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DefinitionsParameterProperty } from "./DefinitionsParameterProperty";
-import { DefinitionsParameterPropertyFromJSON, DefinitionsParameterPropertyFromJSONTyped, DefinitionsParameterPropertyToJSON } from "./DefinitionsParameterProperty";
+import {
+    DefinitionsParameterPropertyFromJSON,
+    DefinitionsParameterPropertyFromJSONTyped,
+    DefinitionsParameterPropertyToJSON,
+    DefinitionsParameterPropertyToJSONTyped,
+} from "./DefinitionsParameterProperty";
 
 /**
  *
@@ -59,10 +64,15 @@ export function DefinitionsPlaybookParameterFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function DefinitionsPlaybookParameterToJSON(value?: DefinitionsPlaybookParameter | null): any {
+export function DefinitionsPlaybookParameterToJSON(json: any): DefinitionsPlaybookParameter {
+    return DefinitionsPlaybookParameterToJSONTyped(json, false);
+}
+
+export function DefinitionsPlaybookParameterToJSONTyped(value?: DefinitionsPlaybookParameter | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         node_id: value["nodeId"],
         properties: (value["properties"] as Array<any>).map(DefinitionsParameterPropertyToJSON),

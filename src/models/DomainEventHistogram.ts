@@ -88,10 +88,15 @@ export function DomainEventHistogramFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function DomainEventHistogramToJSON(value?: DomainEventHistogram | null): any {
+export function DomainEventHistogramToJSON(json: any): DomainEventHistogram {
+    return DomainEventHistogramToJSONTyped(json, false);
+}
+
+export function DomainEventHistogramToJSONTyped(value?: DomainEventHistogram | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count: value["count"],
         has_detect: value["hasDetect"],

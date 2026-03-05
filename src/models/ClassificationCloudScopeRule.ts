@@ -61,10 +61,15 @@ export function ClassificationCloudScopeRuleFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function ClassificationCloudScopeRuleToJSON(value?: ClassificationCloudScopeRule | null): any {
+export function ClassificationCloudScopeRuleToJSON(json: any): ClassificationCloudScopeRule {
+    return ClassificationCloudScopeRuleToJSONTyped(json, false);
+}
+
+export function ClassificationCloudScopeRuleToJSONTyped(value?: ClassificationCloudScopeRule | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         accounts: value["accounts"],
         business_impact: value["businessImpact"],

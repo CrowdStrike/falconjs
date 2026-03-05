@@ -72,10 +72,15 @@ export function ModelsRuleWithNonCompliantAssetsFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function ModelsRuleWithNonCompliantAssetsToJSON(value?: ModelsRuleWithNonCompliantAssets | null): any {
+export function ModelsRuleWithNonCompliantAssetsToJSON(json: any): ModelsRuleWithNonCompliantAssets {
+    return ModelsRuleWithNonCompliantAssetsToJSONTyped(json, false);
+}
+
+export function ModelsRuleWithNonCompliantAssetsToJSONTyped(value?: ModelsRuleWithNonCompliantAssets | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         asset_count: value["assetCount"],
         name: value["name"],

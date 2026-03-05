@@ -88,10 +88,15 @@ export function ApiCertificateV1FromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function ApiCertificateV1ToJSON(value?: ApiCertificateV1 | null): any {
+export function ApiCertificateV1ToJSON(json: any): ApiCertificateV1 {
+    return ApiCertificateV1ToJSONTyped(json, false);
+}
+
+export function ApiCertificateV1ToJSONTyped(value?: ApiCertificateV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         issuer: value["issuer"],
         serial: value["serial"],

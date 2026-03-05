@@ -33,10 +33,10 @@ export interface AppUsersAppInventoryUsers {
     itemId: string;
     /**
      *
-     * @type {Array<string>}
+     * @type {Array<string | null>}
      * @memberof AppUsersAppInventoryUsers
      */
-    users: Array<string>;
+    users: Array<string | null>;
 }
 
 /**
@@ -64,10 +64,15 @@ export function AppUsersAppInventoryUsersFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function AppUsersAppInventoryUsersToJSON(value?: AppUsersAppInventoryUsers | null): any {
+export function AppUsersAppInventoryUsersToJSON(json: any): AppUsersAppInventoryUsers {
+    return AppUsersAppInventoryUsersToJSONTyped(json, false);
+}
+
+export function AppUsersAppInventoryUsersToJSONTyped(value?: AppUsersAppInventoryUsers | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         item_id: value["itemId"],

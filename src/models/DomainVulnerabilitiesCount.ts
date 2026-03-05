@@ -48,10 +48,15 @@ export function DomainVulnerabilitiesCountFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function DomainVulnerabilitiesCountToJSON(value?: DomainVulnerabilitiesCount | null): any {
+export function DomainVulnerabilitiesCountToJSON(json: any): DomainVulnerabilitiesCount {
+    return DomainVulnerabilitiesCountToJSONTyped(json, false);
+}
+
+export function DomainVulnerabilitiesCountToJSONTyped(value?: DomainVulnerabilitiesCount | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         critical: value["critical"],
     };

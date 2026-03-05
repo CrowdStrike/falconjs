@@ -56,10 +56,15 @@ export function ModelsKACPolicyRuleGroupNamespaceFromJSONTyped(json: any, ignore
     };
 }
 
-export function ModelsKACPolicyRuleGroupNamespaceToJSON(value?: ModelsKACPolicyRuleGroupNamespace | null): any {
+export function ModelsKACPolicyRuleGroupNamespaceToJSON(json: any): ModelsKACPolicyRuleGroupNamespace {
+    return ModelsKACPolicyRuleGroupNamespaceToJSONTyped(json, false);
+}
+
+export function ModelsKACPolicyRuleGroupNamespaceToJSONTyped(value?: ModelsKACPolicyRuleGroupNamespace | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         value: value["value"],

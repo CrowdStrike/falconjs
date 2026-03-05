@@ -64,10 +64,15 @@ export function ApiParserTemplateFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function ApiParserTemplateToJSON(value?: ApiParserTemplate | null): any {
+export function ApiParserTemplateToJSON(json: any): ApiParserTemplate {
+    return ApiParserTemplateToJSONTyped(json, false);
+}
+
+export function ApiParserTemplateToJSONTyped(value?: ApiParserTemplate | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

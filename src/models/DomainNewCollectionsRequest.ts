@@ -112,10 +112,15 @@ export function DomainNewCollectionsRequestFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function DomainNewCollectionsRequestToJSON(value?: DomainNewCollectionsRequest | null): any {
+export function DomainNewCollectionsRequestToJSON(json: any): DomainNewCollectionsRequest {
+    return DomainNewCollectionsRequestToJSONTyped(json, false);
+}
+
+export function DomainNewCollectionsRequestToJSONTyped(value?: DomainNewCollectionsRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         aids: value["aids"],
         collection_tag: value["collectionTag"],

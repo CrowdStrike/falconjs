@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ModelsAPIImageCombinedExport } from "./ModelsAPIImageCombinedExport";
-import { ModelsAPIImageCombinedExportFromJSON, ModelsAPIImageCombinedExportFromJSONTyped, ModelsAPIImageCombinedExportToJSON } from "./ModelsAPIImageCombinedExport";
+import {
+    ModelsAPIImageCombinedExportFromJSON,
+    ModelsAPIImageCombinedExportFromJSONTyped,
+    ModelsAPIImageCombinedExportToJSON,
+    ModelsAPIImageCombinedExportToJSONTyped,
+} from "./ModelsAPIImageCombinedExport";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +75,15 @@ export function ImagesApiCombinedImageExportFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function ImagesApiCombinedImageExportToJSON(value?: ImagesApiCombinedImageExport | null): any {
+export function ImagesApiCombinedImageExportToJSON(json: any): ImagesApiCombinedImageExport {
+    return ImagesApiCombinedImageExportToJSONTyped(json, false);
+}
+
+export function ImagesApiCombinedImageExportToJSONTyped(value?: ImagesApiCombinedImageExport | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

@@ -88,10 +88,15 @@ export function ApiContentPatternUpdateRequestV1FromJSONTyped(json: any, ignoreD
     };
 }
 
-export function ApiContentPatternUpdateRequestV1ToJSON(value?: ApiContentPatternUpdateRequestV1 | null): any {
+export function ApiContentPatternUpdateRequestV1ToJSON(json: any): ApiContentPatternUpdateRequestV1 {
+    return ApiContentPatternUpdateRequestV1ToJSONTyped(json, false);
+}
+
+export function ApiContentPatternUpdateRequestV1ToJSONTyped(value?: ApiContentPatternUpdateRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         example: value["example"],

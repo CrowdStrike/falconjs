@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsAPIVulnByImageCount } from "./ModelsAPIVulnByImageCount";
-import { ModelsAPIVulnByImageCountFromJSON, ModelsAPIVulnByImageCountFromJSONTyped, ModelsAPIVulnByImageCountToJSON } from "./ModelsAPIVulnByImageCount";
+import { ModelsAPIVulnByImageCountFromJSON, ModelsAPIVulnByImageCountFromJSONTyped, ModelsAPIVulnByImageCountToJSON, ModelsAPIVulnByImageCountToJSONTyped } from "./ModelsAPIVulnByImageCount";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function VulnerabilitiesApiVulnByImageCountFromJSONTyped(json: any, ignor
     };
 }
 
-export function VulnerabilitiesApiVulnByImageCountToJSON(value?: VulnerabilitiesApiVulnByImageCount | null): any {
+export function VulnerabilitiesApiVulnByImageCountToJSON(json: any): VulnerabilitiesApiVulnByImageCount {
+    return VulnerabilitiesApiVulnByImageCountToJSONTyped(json, false);
+}
+
+export function VulnerabilitiesApiVulnByImageCountToJSONTyped(value?: VulnerabilitiesApiVulnByImageCount | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

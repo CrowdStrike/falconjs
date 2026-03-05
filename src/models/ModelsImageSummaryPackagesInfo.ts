@@ -56,10 +56,15 @@ export function ModelsImageSummaryPackagesInfoFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function ModelsImageSummaryPackagesInfoToJSON(value?: ModelsImageSummaryPackagesInfo | null): any {
+export function ModelsImageSummaryPackagesInfoToJSON(json: any): ModelsImageSummaryPackagesInfo {
+    return ModelsImageSummaryPackagesInfoToJSONTyped(json, false);
+}
+
+export function ModelsImageSummaryPackagesInfoToJSONTyped(value?: ModelsImageSummaryPackagesInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count_with_vulnerabilities: value["countWithVulnerabilities"],
         total_count: value["totalCount"],

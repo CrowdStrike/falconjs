@@ -56,10 +56,15 @@ export function FwmgrDomainPortRangeFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function FwmgrDomainPortRangeToJSON(value?: FwmgrDomainPortRange | null): any {
+export function FwmgrDomainPortRangeToJSON(json: any): FwmgrDomainPortRange {
+    return FwmgrDomainPortRangeToJSONTyped(json, false);
+}
+
+export function FwmgrDomainPortRangeToJSONTyped(value?: FwmgrDomainPortRange | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         end: value["end"],
         start: value["start"],

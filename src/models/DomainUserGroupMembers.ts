@@ -56,10 +56,15 @@ export function DomainUserGroupMembersFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function DomainUserGroupMembersToJSON(value?: DomainUserGroupMembers | null): any {
+export function DomainUserGroupMembersToJSON(json: any): DomainUserGroupMembers {
+    return DomainUserGroupMembersToJSONTyped(json, false);
+}
+
+export function DomainUserGroupMembersToJSONTyped(value?: DomainUserGroupMembers | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         user_group_id: value["userGroupId"],
         user_uuids: value["userUuids"],

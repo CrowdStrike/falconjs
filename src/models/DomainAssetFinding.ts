@@ -112,10 +112,15 @@ export function DomainAssetFindingFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function DomainAssetFindingToJSON(value?: DomainAssetFinding | null): any {
+export function DomainAssetFindingToJSON(json: any): DomainAssetFinding {
+    return DomainAssetFindingToJSONTyped(json, false);
+}
+
+export function DomainAssetFindingToJSONTyped(value?: DomainAssetFinding | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         authority: value["authority"],
         framework: value["framework"],

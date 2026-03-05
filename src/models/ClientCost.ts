@@ -64,10 +64,15 @@ export function ClientCostFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function ClientCostToJSON(value?: ClientCost | null): any {
+export function ClientCostToJSON(json: any): ClientCost {
+    return ClientCostToJSONTyped(json, false);
+}
+
+export function ClientCostToJSONTyped(value?: ClientCost | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         liveCost: value["liveCost"],
         queryCount: value["queryCount"],

@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DevicecontrolapiCustomNotification } from "./DevicecontrolapiCustomNotification";
-import { DevicecontrolapiCustomNotificationFromJSON, DevicecontrolapiCustomNotificationFromJSONTyped, DevicecontrolapiCustomNotificationToJSON } from "./DevicecontrolapiCustomNotification";
+import {
+    DevicecontrolapiCustomNotificationFromJSON,
+    DevicecontrolapiCustomNotificationFromJSONTyped,
+    DevicecontrolapiCustomNotificationToJSON,
+    DevicecontrolapiCustomNotificationToJSONTyped,
+} from "./DevicecontrolapiCustomNotification";
 
 /**
  *
@@ -50,10 +55,15 @@ export function DevicecontrolapiBluetoothCustomNotificationsFromJSONTyped(json: 
     };
 }
 
-export function DevicecontrolapiBluetoothCustomNotificationsToJSON(value?: DevicecontrolapiBluetoothCustomNotifications | null): any {
+export function DevicecontrolapiBluetoothCustomNotificationsToJSON(json: any): DevicecontrolapiBluetoothCustomNotifications {
+    return DevicecontrolapiBluetoothCustomNotificationsToJSONTyped(json, false);
+}
+
+export function DevicecontrolapiBluetoothCustomNotificationsToJSONTyped(value?: DevicecontrolapiBluetoothCustomNotifications | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         blocked_notification: DevicecontrolapiCustomNotificationToJSON(value["blockedNotification"]),
     };

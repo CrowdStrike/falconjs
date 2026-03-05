@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ThirdpartyapiSubConnectionInfo } from "./ThirdpartyapiSubConnectionInfo";
-import { ThirdpartyapiSubConnectionInfoFromJSON, ThirdpartyapiSubConnectionInfoFromJSONTyped, ThirdpartyapiSubConnectionInfoToJSON } from "./ThirdpartyapiSubConnectionInfo";
+import {
+    ThirdpartyapiSubConnectionInfoFromJSON,
+    ThirdpartyapiSubConnectionInfoFromJSONTyped,
+    ThirdpartyapiSubConnectionInfoToJSON,
+    ThirdpartyapiSubConnectionInfoToJSONTyped,
+} from "./ThirdpartyapiSubConnectionInfo";
 
 /**
  *
@@ -127,14 +132,19 @@ export function DataconnectionmanagementDataConnectionFromJSONTyped(json: any, i
     };
 }
 
-export function DataconnectionmanagementDataConnectionToJSON(value?: DataconnectionmanagementDataConnection | null): any {
+export function DataconnectionmanagementDataConnectionToJSON(json: any): DataconnectionmanagementDataConnection {
+    return DataconnectionmanagementDataConnectionToJSONTyped(json, false);
+}
+
+export function DataconnectionmanagementDataConnectionToJSONTyped(value?: DataconnectionmanagementDataConnection | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         ingest_url: value["ingestUrl"],
-        last_ingested: value["lastIngested"] == null ? undefined : value["lastIngested"].toISOString(),
+        last_ingested: value["lastIngested"] == null ? value["lastIngested"] : value["lastIngested"].toISOString(),
         last_ingested_volume_one_day: value["lastIngestedVolumeOneDay"],
         name: value["name"],
         parser_name: value["parserName"],

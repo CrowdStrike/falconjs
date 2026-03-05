@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainMaliciousFile } from "./DomainMaliciousFile";
-import { DomainMaliciousFileFromJSON, DomainMaliciousFileFromJSONTyped, DomainMaliciousFileToJSON } from "./DomainMaliciousFile";
+import { DomainMaliciousFileFromJSON, DomainMaliciousFileFromJSONTyped, DomainMaliciousFileToJSON, DomainMaliciousFileToJSONTyped } from "./DomainMaliciousFile";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function EntitiesODSScanMaliciousFileResponseFromJSONTyped(json: any, ign
     };
 }
 
-export function EntitiesODSScanMaliciousFileResponseToJSON(value?: EntitiesODSScanMaliciousFileResponse | null): any {
+export function EntitiesODSScanMaliciousFileResponseToJSON(json: any): EntitiesODSScanMaliciousFileResponse {
+    return EntitiesODSScanMaliciousFileResponseToJSONTyped(json, false);
+}
+
+export function EntitiesODSScanMaliciousFileResponseToJSONTyped(value?: EntitiesODSScanMaliciousFileResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

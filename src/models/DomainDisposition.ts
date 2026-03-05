@@ -56,10 +56,15 @@ export function DomainDispositionFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function DomainDispositionToJSON(value?: DomainDisposition | null): any {
+export function DomainDispositionToJSON(json: any): DomainDisposition {
+    return DomainDispositionToJSONTyped(json, false);
+}
+
+export function DomainDispositionToJSONTyped(value?: DomainDisposition | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         label: value["label"],

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ModelsPod } from "./ModelsPod";
-import { ModelsPodFromJSON, ModelsPodFromJSONTyped, ModelsPodToJSON } from "./ModelsPod";
+import { ModelsPodFromJSON, ModelsPodFromJSONTyped, ModelsPodToJSON, ModelsPodToJSONTyped } from "./ModelsPod";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function ModelsPodEntityResponseFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function ModelsPodEntityResponseToJSON(value?: ModelsPodEntityResponse | null): any {
+export function ModelsPodEntityResponseToJSON(json: any): ModelsPodEntityResponse {
+    return ModelsPodEntityResponseToJSONTyped(json, false);
+}
+
+export function ModelsPodEntityResponseToJSONTyped(value?: ModelsPodEntityResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

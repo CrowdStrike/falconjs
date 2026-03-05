@@ -61,10 +61,15 @@ export function EvaluationsSubTechniqueFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function EvaluationsSubTechniqueToJSON(value?: EvaluationsSubTechnique | null): any {
+export function EvaluationsSubTechniqueToJSON(json: any): EvaluationsSubTechnique {
+    return EvaluationsSubTechniqueToJSONTyped(json, false);
+}
+
+export function EvaluationsSubTechniqueToJSONTyped(value?: EvaluationsSubTechnique | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

@@ -35,12 +35,9 @@ export interface ServerlessVulnerabilitiesApiGetCombinedVulnerabilitiesSARIFRequ
  */
 export class ServerlessVulnerabilitiesApi extends runtime.BaseAPI {
     /**
-     * Retrieve all lambda vulnerabilities that match the given query and return in the SARIF format
+     * Creates request options for getCombinedVulnerabilitiesSARIF without sending the request
      */
-    async getCombinedVulnerabilitiesSARIFRaw(
-        requestParameters: ServerlessVulnerabilitiesApiGetCombinedVulnerabilitiesSARIFRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<VulnerabilitiesVulnerabilityEntitySARIFResponse>> {
+    async getCombinedVulnerabilitiesSARIFRequestOpts(requestParameters: ServerlessVulnerabilitiesApiGetCombinedVulnerabilitiesSARIFRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -66,15 +63,25 @@ export class ServerlessVulnerabilitiesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/lambdas/combined/vulnerabilities/sarif/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/lambdas/combined/vulnerabilities/sarif/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve all lambda vulnerabilities that match the given query and return in the SARIF format
+     */
+    async getCombinedVulnerabilitiesSARIFRaw(
+        requestParameters: ServerlessVulnerabilitiesApiGetCombinedVulnerabilitiesSARIFRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<VulnerabilitiesVulnerabilityEntitySARIFResponse>> {
+        const requestOptions = await this.getCombinedVulnerabilitiesSARIFRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => VulnerabilitiesVulnerabilityEntitySARIFResponseFromJSON(jsonValue));
     }

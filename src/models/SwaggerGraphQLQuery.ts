@@ -48,10 +48,15 @@ export function SwaggerGraphQLQueryFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function SwaggerGraphQLQueryToJSON(value?: SwaggerGraphQLQuery | null): any {
+export function SwaggerGraphQLQueryToJSON(json: any): SwaggerGraphQLQuery {
+    return SwaggerGraphQLQueryToJSONTyped(json, false);
+}
+
+export function SwaggerGraphQLQueryToJSONTyped(value?: SwaggerGraphQLQuery | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         query: value["query"],
     };

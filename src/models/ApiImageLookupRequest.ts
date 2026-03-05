@@ -14,9 +14,14 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsApplicationPackageInfoType } from "./ModelsApplicationPackageInfoType";
-import { ModelsApplicationPackageInfoTypeFromJSON, ModelsApplicationPackageInfoTypeFromJSONTyped, ModelsApplicationPackageInfoTypeToJSON } from "./ModelsApplicationPackageInfoType";
+import {
+    ModelsApplicationPackageInfoTypeFromJSON,
+    ModelsApplicationPackageInfoTypeFromJSONTyped,
+    ModelsApplicationPackageInfoTypeToJSON,
+    ModelsApplicationPackageInfoTypeToJSONTyped,
+} from "./ModelsApplicationPackageInfoType";
 import type { ModelsPackageInfoType } from "./ModelsPackageInfoType";
-import { ModelsPackageInfoTypeFromJSON, ModelsPackageInfoTypeFromJSONTyped, ModelsPackageInfoTypeToJSON } from "./ModelsPackageInfoType";
+import { ModelsPackageInfoTypeFromJSON, ModelsPackageInfoTypeFromJSONTyped, ModelsPackageInfoTypeToJSON, ModelsPackageInfoTypeToJSONTyped } from "./ModelsPackageInfoType";
 
 /**
  *
@@ -68,10 +73,15 @@ export function ApiImageLookupRequestFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function ApiImageLookupRequestToJSON(value?: ApiImageLookupRequest | null): any {
+export function ApiImageLookupRequestToJSON(json: any): ApiImageLookupRequest {
+    return ApiImageLookupRequestToJSONTyped(json, false);
+}
+
+export function ApiImageLookupRequestToJSONTyped(value?: ApiImageLookupRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         applicationPackages: value["applicationPackages"] == null ? undefined : (value["applicationPackages"] as Array<any>).map(ModelsApplicationPackageInfoTypeToJSON),
         osversion: value["osversion"],

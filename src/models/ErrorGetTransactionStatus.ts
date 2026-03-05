@@ -55,10 +55,15 @@ export function ErrorGetTransactionStatusFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ErrorGetTransactionStatusToJSON(value?: ErrorGetTransactionStatus | null): any {
+export function ErrorGetTransactionStatusToJSON(json: any): ErrorGetTransactionStatus {
+    return ErrorGetTransactionStatusToJSONTyped(json, false);
+}
+
+export function ErrorGetTransactionStatusToJSONTyped(value?: ErrorGetTransactionStatus | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         message: value["message"],

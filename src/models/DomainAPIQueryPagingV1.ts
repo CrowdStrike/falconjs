@@ -64,10 +64,15 @@ export function DomainAPIQueryPagingV1FromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function DomainAPIQueryPagingV1ToJSON(value?: DomainAPIQueryPagingV1 | null): any {
+export function DomainAPIQueryPagingV1ToJSON(json: any): DomainAPIQueryPagingV1 {
+    return DomainAPIQueryPagingV1ToJSONTyped(json, false);
+}
+
+export function DomainAPIQueryPagingV1ToJSONTyped(value?: DomainAPIQueryPagingV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         after: value["after"],
         limit: value["limit"],

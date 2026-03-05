@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { JsonschemaSchema } from "./JsonschemaSchema";
-import { JsonschemaSchemaFromJSON, JsonschemaSchemaFromJSONTyped, JsonschemaSchemaToJSON } from "./JsonschemaSchema";
+import { JsonschemaSchemaFromJSON, JsonschemaSchemaFromJSONTyped, JsonschemaSchemaToJSON, JsonschemaSchemaToJSONTyped } from "./JsonschemaSchema";
 
 /**
  *
@@ -64,10 +64,15 @@ export function V2InlineConfigFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function V2InlineConfigToJSON(value?: V2InlineConfig | null): any {
+export function V2InlineConfigToJSON(json: any): V2InlineConfig {
+    return V2InlineConfigToJSONTyped(json, false);
+}
+
+export function V2InlineConfigToJSONTyped(value?: V2InlineConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         config: value["config"],
         input_schema: JsonschemaSchemaToJSON(value["inputSchema"]),

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ModelsAPIVulnCount } from "./ModelsAPIVulnCount";
-import { ModelsAPIVulnCountFromJSON, ModelsAPIVulnCountFromJSONTyped, ModelsAPIVulnCountToJSON } from "./ModelsAPIVulnCount";
+import { ModelsAPIVulnCountFromJSON, ModelsAPIVulnCountFromJSONTyped, ModelsAPIVulnCountToJSON, ModelsAPIVulnCountToJSONTyped } from "./ModelsAPIVulnCount";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function VulnerabilitiesApiVulnCountFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function VulnerabilitiesApiVulnCountToJSON(value?: VulnerabilitiesApiVulnCount | null): any {
+export function VulnerabilitiesApiVulnCountToJSON(json: any): VulnerabilitiesApiVulnCount {
+    return VulnerabilitiesApiVulnCountToJSONTyped(json, false);
+}
+
+export function VulnerabilitiesApiVulnCountToJSONTyped(value?: VulnerabilitiesApiVulnCount | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

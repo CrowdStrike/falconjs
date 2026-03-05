@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TriggersTriggerExtField } from "./TriggersTriggerExtField";
-import { TriggersTriggerExtFieldFromJSON, TriggersTriggerExtFieldFromJSONTyped, TriggersTriggerExtFieldToJSON } from "./TriggersTriggerExtField";
+import { TriggersTriggerExtFieldFromJSON, TriggersTriggerExtFieldFromJSONTyped, TriggersTriggerExtFieldToJSON, TriggersTriggerExtFieldToJSONTyped } from "./TriggersTriggerExtField";
 
 /**
  *
@@ -97,10 +97,15 @@ export function TriggersTriggerExtFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function TriggersTriggerExtToJSON(value?: TriggersTriggerExt | null): any {
+export function TriggersTriggerExtToJSON(json: any): TriggersTriggerExt {
+    return TriggersTriggerExtToJSONTyped(json, false);
+}
+
+export function TriggersTriggerExtToJSONTyped(value?: TriggersTriggerExt | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         api_scope: value["apiScope"],
         category: value["category"],

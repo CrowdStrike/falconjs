@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DeviceManagedApp } from "./DeviceManagedApp";
-import { DeviceManagedAppFromJSON, DeviceManagedAppFromJSONTyped, DeviceManagedAppToJSON } from "./DeviceManagedApp";
+import { DeviceManagedAppFromJSON, DeviceManagedAppFromJSONTyped, DeviceManagedAppToJSON, DeviceManagedAppToJSONTyped } from "./DeviceManagedApp";
 
 /**
  *
@@ -85,10 +85,15 @@ export function DeviceManagedAppsFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function DeviceManagedAppsToJSON(value?: DeviceManagedApps | null): any {
+export function DeviceManagedAppsToJSON(json: any): DeviceManagedApps {
+    return DeviceManagedAppsToJSONTyped(json, false);
+}
+
+export function DeviceManagedAppsToJSONTyped(value?: DeviceManagedApps | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         airlock: DeviceManagedAppToJSON(value["airlock"]),
         automox: DeviceManagedAppToJSON(value["automox"]),

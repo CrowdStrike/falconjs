@@ -55,10 +55,15 @@ export function ErrorAppInventoryFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function ErrorAppInventoryToJSON(value?: ErrorAppInventory | null): any {
+export function ErrorAppInventoryToJSON(json: any): ErrorAppInventory {
+    return ErrorAppInventoryToJSONTyped(json, false);
+}
+
+export function ErrorAppInventoryToJSONTyped(value?: ErrorAppInventory | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         message: value["message"],

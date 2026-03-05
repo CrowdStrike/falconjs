@@ -80,10 +80,15 @@ export function DomainSignalPropertyFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function DomainSignalPropertyToJSON(value?: DomainSignalProperty | null): any {
+export function DomainSignalPropertyToJSON(json: any): DomainSignalProperty {
+    return DomainSignalPropertyToJSONTyped(json, false);
+}
+
+export function DomainSignalPropertyToJSONTyped(value?: DomainSignalProperty | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         criteria: value["criteria"],
         group_name: value["groupName"],

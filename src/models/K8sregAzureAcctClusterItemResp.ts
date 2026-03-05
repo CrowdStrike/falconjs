@@ -48,10 +48,15 @@ export function K8sregAzureAcctClusterItemRespFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function K8sregAzureAcctClusterItemRespToJSON(value?: K8sregAzureAcctClusterItemResp | null): any {
+export function K8sregAzureAcctClusterItemRespToJSON(json: any): K8sregAzureAcctClusterItemResp {
+    return K8sregAzureAcctClusterItemRespToJSONTyped(json, false);
+}
+
+export function K8sregAzureAcctClusterItemRespToJSONTyped(value?: K8sregAzureAcctClusterItemResp | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         tenant_id: value["tenantId"],
     };

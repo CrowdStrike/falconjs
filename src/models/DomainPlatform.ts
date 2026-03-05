@@ -56,10 +56,15 @@ export function DomainPlatformFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function DomainPlatformToJSON(value?: DomainPlatform | null): any {
+export function DomainPlatformToJSON(json: any): DomainPlatform {
+    return DomainPlatformToJSONTyped(json, false);
+}
+
+export function DomainPlatformToJSONTyped(value?: DomainPlatform | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         label: value["label"],

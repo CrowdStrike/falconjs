@@ -90,12 +90,9 @@ export interface CloudSecurityApiUpdateCloudGroupExternalRequest {
  */
 export class CloudSecurityApi extends runtime.BaseAPI {
     /**
-     * Gets cloud risks with full details based on filters and sort criteria
+     * Creates request options for combinedCloudRisks without sending the request
      */
-    async combinedCloudRisksRaw(
-        requestParameters: CloudSecurityApiCombinedCloudRisksRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RisksGetCloudRisksResponse>> {
+    async combinedCloudRisksRequestOpts(requestParameters: CloudSecurityApiCombinedCloudRisksRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -121,15 +118,25 @@ export class CloudSecurityApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-risks:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-risks/combined/cloud-risks/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-risks/combined/cloud-risks/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Gets cloud risks with full details based on filters and sort criteria
+     */
+    async combinedCloudRisksRaw(
+        requestParameters: CloudSecurityApiCombinedCloudRisksRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RisksGetCloudRisksResponse>> {
+        const requestOptions = await this.combinedCloudRisksRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RisksGetCloudRisksResponseFromJSON(jsonValue));
     }
@@ -143,12 +150,9 @@ export class CloudSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create a Cloud Group. The created_by field will be set to the API client ID.
+     * Creates request options for createCloudGroupExternal without sending the request
      */
-    async createCloudGroupExternalRaw(
-        requestParameters: CloudSecurityApiCreateCloudGroupExternalRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<AssetgroupmanagerV1CreateCloudGroupResponse>> {
+    async createCloudGroupExternalRequestOpts(requestParameters: CloudSecurityApiCreateCloudGroupExternalRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createCloudGroupExternal().');
         }
@@ -164,16 +168,26 @@ export class CloudSecurityApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["asset-groups:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security/entities/cloud-groups/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: AssetgroupmanagerV1CreateCloudGroupRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security/entities/cloud-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: AssetgroupmanagerV1CreateCloudGroupRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create a Cloud Group. The created_by field will be set to the API client ID.
+     */
+    async createCloudGroupExternalRaw(
+        requestParameters: CloudSecurityApiCreateCloudGroupExternalRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AssetgroupmanagerV1CreateCloudGroupResponse>> {
+        const requestOptions = await this.createCloudGroupExternalRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetgroupmanagerV1CreateCloudGroupResponseFromJSON(jsonValue));
     }
@@ -187,12 +201,9 @@ export class CloudSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete Cloud Groups in batch
+     * Creates request options for deleteCloudGroupsExternal without sending the request
      */
-    async deleteCloudGroupsExternalRaw(
-        requestParameters: CloudSecurityApiDeleteCloudGroupsExternalRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<object>> {
+    async deleteCloudGroupsExternalRequestOpts(requestParameters: CloudSecurityApiDeleteCloudGroupsExternalRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -206,15 +217,25 @@ export class CloudSecurityApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["asset-groups:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security/entities/cloud-groups/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security/entities/cloud-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete Cloud Groups in batch
+     */
+    async deleteCloudGroupsExternalRaw(
+        requestParameters: CloudSecurityApiDeleteCloudGroupsExternalRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<object>> {
+        const requestOptions = await this.deleteCloudGroupsExternalRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse<any>(response);
     }
@@ -228,12 +249,9 @@ export class CloudSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query Cloud Groups and returns IDs
+     * Creates request options for listCloudGroupIDsExternal without sending the request
      */
-    async listCloudGroupIDsExternalRaw(
-        requestParameters: CloudSecurityApiListCloudGroupIDsExternalRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<AssetgroupmanagerV1ListCloudGroupIDsResponse>> {
+    async listCloudGroupIDsExternalRequestOpts(requestParameters: CloudSecurityApiListCloudGroupIDsExternalRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -259,15 +277,25 @@ export class CloudSecurityApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["asset-groups:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security/queries/cloud-groups/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security/queries/cloud-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query Cloud Groups and returns IDs
+     */
+    async listCloudGroupIDsExternalRaw(
+        requestParameters: CloudSecurityApiListCloudGroupIDsExternalRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AssetgroupmanagerV1ListCloudGroupIDsResponse>> {
+        const requestOptions = await this.listCloudGroupIDsExternalRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetgroupmanagerV1ListCloudGroupIDsResponseFromJSON(jsonValue));
     }
@@ -287,12 +315,9 @@ export class CloudSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * List Cloud Groups By ID
+     * Creates request options for listCloudGroupsByIDExternal without sending the request
      */
-    async listCloudGroupsByIDExternalRaw(
-        requestParameters: CloudSecurityApiListCloudGroupsByIDExternalRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<AssetgroupmanagerV1ListCloudGroupsResponse>> {
+    async listCloudGroupsByIDExternalRequestOpts(requestParameters: CloudSecurityApiListCloudGroupsByIDExternalRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -306,15 +331,25 @@ export class CloudSecurityApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["asset-groups:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security/entities/cloud-groups/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security/entities/cloud-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List Cloud Groups By ID
+     */
+    async listCloudGroupsByIDExternalRaw(
+        requestParameters: CloudSecurityApiListCloudGroupsByIDExternalRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AssetgroupmanagerV1ListCloudGroupsResponse>> {
+        const requestOptions = await this.listCloudGroupsByIDExternalRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetgroupmanagerV1ListCloudGroupsResponseFromJSON(jsonValue));
     }
@@ -328,12 +363,9 @@ export class CloudSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query Cloud Groups and returns entities
+     * Creates request options for listCloudGroupsExternal without sending the request
      */
-    async listCloudGroupsExternalRaw(
-        requestParameters: CloudSecurityApiListCloudGroupsExternalRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<AssetgroupmanagerV1ListCloudGroupsResponse>> {
+    async listCloudGroupsExternalRequestOpts(requestParameters: CloudSecurityApiListCloudGroupsExternalRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -359,15 +391,25 @@ export class CloudSecurityApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["asset-groups:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security/combined/cloud-groups/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security/combined/cloud-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query Cloud Groups and returns entities
+     */
+    async listCloudGroupsExternalRaw(
+        requestParameters: CloudSecurityApiListCloudGroupsExternalRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AssetgroupmanagerV1ListCloudGroupsResponse>> {
+        const requestOptions = await this.listCloudGroupsExternalRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetgroupmanagerV1ListCloudGroupsResponseFromJSON(jsonValue));
     }
@@ -387,12 +429,9 @@ export class CloudSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update Cloud Group
+     * Creates request options for updateCloudGroupExternal without sending the request
      */
-    async updateCloudGroupExternalRaw(
-        requestParameters: CloudSecurityApiUpdateCloudGroupExternalRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<AssetgroupmanagerV1UpdateCloudGroupResponse>> {
+    async updateCloudGroupExternalRequestOpts(requestParameters: CloudSecurityApiUpdateCloudGroupExternalRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["group"] == null) {
             throw new runtime.RequiredError("group", 'Required parameter "group" was null or undefined when calling updateCloudGroupExternal().');
         }
@@ -408,16 +447,26 @@ export class CloudSecurityApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["asset-groups:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security/entities/cloud-groups/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: AssetgroupmanagerV1UpdateCloudGroupMessageToJSON(requestParameters["group"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security/entities/cloud-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: AssetgroupmanagerV1UpdateCloudGroupMessageToJSON(requestParameters["group"]),
+        };
+    }
+
+    /**
+     * Update Cloud Group
+     */
+    async updateCloudGroupExternalRaw(
+        requestParameters: CloudSecurityApiUpdateCloudGroupExternalRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AssetgroupmanagerV1UpdateCloudGroupResponse>> {
+        const requestOptions = await this.updateCloudGroupExternalRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetgroupmanagerV1UpdateCloudGroupResponseFromJSON(jsonValue));
     }

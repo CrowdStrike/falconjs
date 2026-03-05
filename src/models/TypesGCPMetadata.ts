@@ -54,10 +54,15 @@ export function TypesGCPMetadataFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function TypesGCPMetadataToJSON(value?: TypesGCPMetadata | null): any {
+export function TypesGCPMetadataToJSON(json: any): TypesGCPMetadata {
+    return TypesGCPMetadataToJSONTyped(json, false);
+}
+
+export function TypesGCPMetadataToJSONTyped(value?: TypesGCPMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         project: value["project"],
         region: value["region"],

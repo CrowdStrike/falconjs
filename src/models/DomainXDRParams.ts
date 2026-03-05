@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { DomainNotifications } from "./DomainNotifications";
-import { DomainNotificationsFromJSON, DomainNotificationsFromJSONTyped, DomainNotificationsToJSON } from "./DomainNotifications";
+import { DomainNotificationsFromJSON, DomainNotificationsFromJSONTyped, DomainNotificationsToJSON, DomainNotificationsToJSONTyped } from "./DomainNotifications";
 import type { DomainMitreAttackMapping } from "./DomainMitreAttackMapping";
-import { DomainMitreAttackMappingFromJSON, DomainMitreAttackMappingFromJSONTyped, DomainMitreAttackMappingToJSON } from "./DomainMitreAttackMapping";
+import { DomainMitreAttackMappingFromJSON, DomainMitreAttackMappingFromJSONTyped, DomainMitreAttackMappingToJSON, DomainMitreAttackMappingToJSONTyped } from "./DomainMitreAttackMapping";
 
 /**
  *
@@ -194,10 +194,15 @@ export function DomainXDRParamsFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function DomainXDRParamsToJSON(value?: DomainXDRParams | null): any {
+export function DomainXDRParamsToJSON(json: any): DomainXDRParams {
+    return DomainXDRParamsToJSONTyped(json, false);
+}
+
+export function DomainXDRParamsToJSONTyped(value?: DomainXDRParams | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         assign_to: value["assignTo"],
         assign_to_uuid: value["assignToUuid"],

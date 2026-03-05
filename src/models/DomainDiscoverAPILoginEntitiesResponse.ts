@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainDiscoverAPILogin } from "./DomainDiscoverAPILogin";
-import { DomainDiscoverAPILoginFromJSON, DomainDiscoverAPILoginFromJSONTyped, DomainDiscoverAPILoginToJSON } from "./DomainDiscoverAPILogin";
+import { DomainDiscoverAPILoginFromJSON, DomainDiscoverAPILoginFromJSONTyped, DomainDiscoverAPILoginToJSON, DomainDiscoverAPILoginToJSONTyped } from "./DomainDiscoverAPILogin";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function DomainDiscoverAPILoginEntitiesResponseFromJSONTyped(json: any, i
     };
 }
 
-export function DomainDiscoverAPILoginEntitiesResponseToJSON(value?: DomainDiscoverAPILoginEntitiesResponse | null): any {
+export function DomainDiscoverAPILoginEntitiesResponseToJSON(json: any): DomainDiscoverAPILoginEntitiesResponse {
+    return DomainDiscoverAPILoginEntitiesResponseToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPILoginEntitiesResponseToJSONTyped(value?: DomainDiscoverAPILoginEntitiesResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

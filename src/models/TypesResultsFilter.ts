@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { TypesPaginate } from "./TypesPaginate";
-import { TypesPaginateFromJSON, TypesPaginateFromJSONTyped, TypesPaginateToJSON } from "./TypesPaginate";
+import { TypesPaginateFromJSON, TypesPaginateFromJSONTyped, TypesPaginateToJSON, TypesPaginateToJSONTyped } from "./TypesPaginate";
 import type { TypesOrderBy } from "./TypesOrderBy";
-import { TypesOrderByFromJSON, TypesOrderByFromJSONTyped, TypesOrderByToJSON } from "./TypesOrderBy";
+import { TypesOrderByFromJSON, TypesOrderByFromJSONTyped, TypesOrderByToJSON, TypesOrderByToJSONTyped } from "./TypesOrderBy";
 
 /**
  *
@@ -59,10 +59,15 @@ export function TypesResultsFilterFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function TypesResultsFilterToJSON(value?: TypesResultsFilter | null): any {
+export function TypesResultsFilterToJSON(json: any): TypesResultsFilter {
+    return TypesResultsFilterToJSONTyped(json, false);
+}
+
+export function TypesResultsFilterToJSONTyped(value?: TypesResultsFilter | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         order_by: TypesOrderByToJSON(value["orderBy"]),
         paginate: TypesPaginateToJSON(value["paginate"]),

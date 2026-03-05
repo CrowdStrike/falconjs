@@ -54,10 +54,15 @@ export function FalconxIncidentFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function FalconxIncidentToJSON(value?: FalconxIncident | null): any {
+export function FalconxIncidentToJSON(json: any): FalconxIncident {
+    return FalconxIncidentToJSONTyped(json, false);
+}
+
+export function FalconxIncidentToJSONTyped(value?: FalconxIncident | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         details: value["details"],
         name: value["name"],

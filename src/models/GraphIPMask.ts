@@ -47,10 +47,15 @@ export function GraphIPMaskFromJSONTyped(json: any, ignoreDiscriminator: boolean
     };
 }
 
-export function GraphIPMaskToJSON(value?: GraphIPMask | null): any {
+export function GraphIPMaskToJSON(json: any): GraphIPMask {
+    return GraphIPMaskToJSONTyped(json, false);
+}
+
+export function GraphIPMaskToJSONTyped(value?: GraphIPMask | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         allowed_cidrs: value["allowedCidrs"],
     };

@@ -63,10 +63,15 @@ export function ActionsCreateActionRequestFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function ActionsCreateActionRequestToJSON(value?: ActionsCreateActionRequest | null): any {
+export function ActionsCreateActionRequestToJSON(json: any): ActionsCreateActionRequest {
+    return ActionsCreateActionRequestToJSONTyped(json, false);
+}
+
+export function ActionsCreateActionRequestToJSONTyped(value?: ActionsCreateActionRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         change_ids: value["changeIds"],
         comment: value["comment"],

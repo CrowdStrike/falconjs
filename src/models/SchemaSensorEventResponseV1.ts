@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { SchemaSensorEvent } from "./SchemaSensorEvent";
-import { SchemaSensorEventFromJSON, SchemaSensorEventFromJSONTyped, SchemaSensorEventToJSON } from "./SchemaSensorEvent";
+import { SchemaSensorEventFromJSON, SchemaSensorEventFromJSONTyped, SchemaSensorEventToJSON, SchemaSensorEventToJSONTyped } from "./SchemaSensorEvent";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function SchemaSensorEventResponseV1FromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function SchemaSensorEventResponseV1ToJSON(value?: SchemaSensorEventResponseV1 | null): any {
+export function SchemaSensorEventResponseV1ToJSON(json: any): SchemaSensorEventResponseV1 {
+    return SchemaSensorEventResponseV1ToJSONTyped(json, false);
+}
+
+export function SchemaSensorEventResponseV1ToJSONTyped(value?: SchemaSensorEventResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

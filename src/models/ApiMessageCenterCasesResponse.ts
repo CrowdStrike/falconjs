@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MessagesCase } from "./MessagesCase";
-import { MessagesCaseFromJSON, MessagesCaseFromJSONTyped, MessagesCaseToJSON } from "./MessagesCase";
+import { MessagesCaseFromJSON, MessagesCaseFromJSONTyped, MessagesCaseToJSON, MessagesCaseToJSONTyped } from "./MessagesCase";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function ApiMessageCenterCasesResponseFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function ApiMessageCenterCasesResponseToJSON(value?: ApiMessageCenterCasesResponse | null): any {
+export function ApiMessageCenterCasesResponseToJSON(json: any): ApiMessageCenterCasesResponse {
+    return ApiMessageCenterCasesResponseToJSONTyped(json, false);
+}
+
+export function ApiMessageCenterCasesResponseToJSONTyped(value?: ApiMessageCenterCasesResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

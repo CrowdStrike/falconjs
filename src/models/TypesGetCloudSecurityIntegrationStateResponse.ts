@@ -56,10 +56,15 @@ export function TypesGetCloudSecurityIntegrationStateResponseFromJSONTyped(json:
     };
 }
 
-export function TypesGetCloudSecurityIntegrationStateResponseToJSON(value?: TypesGetCloudSecurityIntegrationStateResponse | null): any {
+export function TypesGetCloudSecurityIntegrationStateResponseToJSON(json: any): TypesGetCloudSecurityIntegrationStateResponse {
+    return TypesGetCloudSecurityIntegrationStateResponseToJSONTyped(json, false);
+}
+
+export function TypesGetCloudSecurityIntegrationStateResponseToJSONTyped(value?: TypesGetCloudSecurityIntegrationStateResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         customerHasCSPM: value["customerHasCSPM"],
         isEnabled: value["isEnabled"],

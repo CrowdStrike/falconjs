@@ -27,7 +27,7 @@ export interface QuickscanproURLResult {
     url: string;
     /**
      *
-     * @type {string}
+     * @type {QuickscanproURLResultVerdictEnum}
      * @memberof QuickscanproURLResult
      */
     verdict: QuickscanproURLResultVerdictEnum;
@@ -75,10 +75,15 @@ export function QuickscanproURLResultFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function QuickscanproURLResultToJSON(value?: QuickscanproURLResult | null): any {
+export function QuickscanproURLResultToJSON(json: any): QuickscanproURLResult {
+    return QuickscanproURLResultToJSONTyped(json, false);
+}
+
+export function QuickscanproURLResultToJSONTyped(value?: QuickscanproURLResult | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         url: value["url"],
         verdict: value["verdict"],

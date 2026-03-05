@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { DomainSPAPIQueryPaging } from "./DomainSPAPIQueryPaging";
-import { DomainSPAPIQueryPagingFromJSON, DomainSPAPIQueryPagingFromJSONTyped, DomainSPAPIQueryPagingToJSON } from "./DomainSPAPIQueryPaging";
+import { DomainSPAPIQueryPagingFromJSON, DomainSPAPIQueryPagingFromJSONTyped, DomainSPAPIQueryPagingToJSON, DomainSPAPIQueryPagingToJSONTyped } from "./DomainSPAPIQueryPaging";
 import type { DomainQuota } from "./DomainQuota";
-import { DomainQuotaFromJSON, DomainQuotaFromJSONTyped, DomainQuotaToJSON } from "./DomainQuota";
+import { DomainQuotaFromJSON, DomainQuotaFromJSONTyped, DomainQuotaToJSON, DomainQuotaToJSONTyped } from "./DomainQuota";
 
 /**
  *
@@ -82,10 +82,15 @@ export function DomainSPAPIQueryMetaFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function DomainSPAPIQueryMetaToJSON(value?: DomainSPAPIQueryMeta | null): any {
+export function DomainSPAPIQueryMetaToJSON(json: any): DomainSPAPIQueryMeta {
+    return DomainSPAPIQueryMetaToJSONTyped(json, false);
+}
+
+export function DomainSPAPIQueryMetaToJSONTyped(value?: DomainSPAPIQueryMeta | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: DomainSPAPIQueryPagingToJSON(value["pagination"]),
         powered_by: value["poweredBy"],

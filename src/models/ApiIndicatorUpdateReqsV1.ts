@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { ApiIndicatorUpdateReqV1 } from "./ApiIndicatorUpdateReqV1";
-import { ApiIndicatorUpdateReqV1FromJSON, ApiIndicatorUpdateReqV1FromJSONTyped, ApiIndicatorUpdateReqV1ToJSON } from "./ApiIndicatorUpdateReqV1";
+import { ApiIndicatorUpdateReqV1FromJSON, ApiIndicatorUpdateReqV1FromJSONTyped, ApiIndicatorUpdateReqV1ToJSON, ApiIndicatorUpdateReqV1ToJSONTyped } from "./ApiIndicatorUpdateReqV1";
 import type { ApiBulkUpdateReqV1 } from "./ApiBulkUpdateReqV1";
-import { ApiBulkUpdateReqV1FromJSON, ApiBulkUpdateReqV1FromJSONTyped, ApiBulkUpdateReqV1ToJSON } from "./ApiBulkUpdateReqV1";
+import { ApiBulkUpdateReqV1FromJSON, ApiBulkUpdateReqV1FromJSONTyped, ApiBulkUpdateReqV1ToJSON, ApiBulkUpdateReqV1ToJSONTyped } from "./ApiBulkUpdateReqV1";
 
 /**
  *
@@ -68,10 +68,15 @@ export function ApiIndicatorUpdateReqsV1FromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function ApiIndicatorUpdateReqsV1ToJSON(value?: ApiIndicatorUpdateReqsV1 | null): any {
+export function ApiIndicatorUpdateReqsV1ToJSON(json: any): ApiIndicatorUpdateReqsV1 {
+    return ApiIndicatorUpdateReqsV1ToJSONTyped(json, false);
+}
+
+export function ApiIndicatorUpdateReqsV1ToJSONTyped(value?: ApiIndicatorUpdateReqsV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         bulk_update: ApiBulkUpdateReqV1ToJSON(value["bulkUpdate"]),
         comment: value["comment"],

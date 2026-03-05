@@ -93,10 +93,15 @@ export function DomainStatusResponseFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function DomainStatusResponseToJSON(value?: DomainStatusResponse | null): any {
+export function DomainStatusResponseToJSON(json: any): DomainStatusResponse {
+    return DomainStatusResponseToJSONTyped(json, false);
+}
+
+export function DomainStatusResponseToJSONTyped(value?: DomainStatusResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         base_command: value["baseCommand"],
         complete: value["complete"],

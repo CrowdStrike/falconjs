@@ -56,10 +56,15 @@ export function ApimodelsControlReferenceFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ApimodelsControlReferenceToJSON(value?: ApimodelsControlReference | null): any {
+export function ApimodelsControlReferenceToJSON(json: any): ApimodelsControlReference {
+    return ApimodelsControlReferenceToJSONTyped(json, false);
+}
+
+export function ApimodelsControlReferenceToJSONTyped(value?: ApimodelsControlReference | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         authority: value["authority"],
         code: value["code"],

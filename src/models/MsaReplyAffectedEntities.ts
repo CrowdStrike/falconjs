@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaAffectedEntity } from "./MsaAffectedEntity";
-import { MsaAffectedEntityFromJSON, MsaAffectedEntityFromJSONTyped, MsaAffectedEntityToJSON } from "./MsaAffectedEntity";
+import { MsaAffectedEntityFromJSON, MsaAffectedEntityFromJSONTyped, MsaAffectedEntityToJSON, MsaAffectedEntityToJSONTyped } from "./MsaAffectedEntity";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function MsaReplyAffectedEntitiesFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function MsaReplyAffectedEntitiesToJSON(value?: MsaReplyAffectedEntities | null): any {
+export function MsaReplyAffectedEntitiesToJSON(json: any): MsaReplyAffectedEntities {
+    return MsaReplyAffectedEntitiesToJSONTyped(json, false);
+}
+
+export function MsaReplyAffectedEntitiesToJSONTyped(value?: MsaReplyAffectedEntities | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

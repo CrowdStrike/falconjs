@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaPaging } from "./MsaPaging";
-import { MsaPagingFromJSON, MsaPagingFromJSONTyped, MsaPagingToJSON } from "./MsaPaging";
+import { MsaPagingFromJSON, MsaPagingFromJSONTyped, MsaPagingToJSON, MsaPagingToJSONTyped } from "./MsaPaging";
 import type { MsaspecWrites } from "./MsaspecWrites";
-import { MsaspecWritesFromJSON, MsaspecWritesFromJSONTyped, MsaspecWritesToJSON } from "./MsaspecWrites";
+import { MsaspecWritesFromJSON, MsaspecWritesFromJSONTyped, MsaspecWritesToJSON, MsaspecWritesToJSONTyped } from "./MsaspecWrites";
 import type { DomainQuota } from "./DomainQuota";
-import { DomainQuotaFromJSON, DomainQuotaFromJSONTyped, DomainQuotaToJSON } from "./DomainQuota";
+import { DomainQuotaFromJSON, DomainQuotaFromJSONTyped, DomainQuotaToJSON, DomainQuotaToJSONTyped } from "./DomainQuota";
 
 /**
  *
@@ -91,10 +91,15 @@ export function DomainMetaInfoFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function DomainMetaInfoToJSON(value?: DomainMetaInfo | null): any {
+export function DomainMetaInfoToJSON(json: any): DomainMetaInfo {
+    return DomainMetaInfoToJSONTyped(json, false);
+}
+
+export function DomainMetaInfoToJSONTyped(value?: DomainMetaInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: MsaPagingToJSON(value["pagination"]),
         powered_by: value["poweredBy"],

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { SyntaxInst } from "./SyntaxInst";
-import { SyntaxInstFromJSON, SyntaxInstFromJSONTyped, SyntaxInstToJSON } from "./SyntaxInst";
+import { SyntaxInstFromJSON, SyntaxInstFromJSONTyped, SyntaxInstToJSON, SyntaxInstToJSONTyped } from "./SyntaxInst";
 
 /**
  *
@@ -67,10 +67,15 @@ export function SyntaxProgFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function SyntaxProgToJSON(value?: SyntaxProg | null): any {
+export function SyntaxProgToJSON(json: any): SyntaxProg {
+    return SyntaxProgToJSONTyped(json, false);
+}
+
+export function SyntaxProgToJSONTyped(value?: SyntaxProg | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Inst: (value["inst"] as Array<any>).map(SyntaxInstToJSON),
         NumCap: value["numCap"],

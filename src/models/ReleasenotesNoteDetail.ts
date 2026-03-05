@@ -69,10 +69,15 @@ export function ReleasenotesNoteDetailFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function ReleasenotesNoteDetailToJSON(value?: ReleasenotesNoteDetail | null): any {
+export function ReleasenotesNoteDetailToJSON(json: any): ReleasenotesNoteDetail {
+    return ReleasenotesNoteDetailToJSONTyped(json, false);
+}
+
+export function ReleasenotesNoteDetailToJSONTyped(value?: ReleasenotesNoteDetail | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         category: value["category"],
         cloud: value["cloud"],

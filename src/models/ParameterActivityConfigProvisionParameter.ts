@@ -56,10 +56,15 @@ export function ParameterActivityConfigProvisionParameterFromJSONTyped(json: any
     };
 }
 
-export function ParameterActivityConfigProvisionParameterToJSON(value?: ParameterActivityConfigProvisionParameter | null): any {
+export function ParameterActivityConfigProvisionParameterToJSON(json: any): ParameterActivityConfigProvisionParameter {
+    return ParameterActivityConfigProvisionParameterToJSONTyped(json, false);
+}
+
+export function ParameterActivityConfigProvisionParameterToJSONTyped(value?: ParameterActivityConfigProvisionParameter | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         node_id: value["nodeId"],
         properties: value["properties"],

@@ -54,10 +54,15 @@ export function FigapiURLFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     };
 }
 
-export function FigapiURLToJSON(value?: FigapiURL | null): any {
+export function FigapiURLToJSON(json: any): FigapiURL {
+    return FigapiURLToJSONTyped(json, false);
+}
+
+export function FigapiURLToJSONTyped(value?: FigapiURL | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         URL: value["uRL"],
         URLProperties: value["uRLProperties"],

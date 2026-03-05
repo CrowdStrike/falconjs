@@ -61,10 +61,15 @@ export function AssetgroupmanagerV1PaginationFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function AssetgroupmanagerV1PaginationToJSON(value?: AssetgroupmanagerV1Pagination | null): any {
+export function AssetgroupmanagerV1PaginationToJSON(json: any): AssetgroupmanagerV1Pagination {
+    return AssetgroupmanagerV1PaginationToJSONTyped(json, false);
+}
+
+export function AssetgroupmanagerV1PaginationToJSONTyped(value?: AssetgroupmanagerV1Pagination | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         limit: value["limit"],
         offset: value["offset"],

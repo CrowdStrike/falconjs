@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ThirdpartyapiDataSourceProperty } from "./ThirdpartyapiDataSourceProperty";
-import { ThirdpartyapiDataSourcePropertyFromJSON, ThirdpartyapiDataSourcePropertyFromJSONTyped, ThirdpartyapiDataSourcePropertyToJSON } from "./ThirdpartyapiDataSourceProperty";
+import {
+    ThirdpartyapiDataSourcePropertyFromJSON,
+    ThirdpartyapiDataSourcePropertyFromJSONTyped,
+    ThirdpartyapiDataSourcePropertyToJSON,
+    ThirdpartyapiDataSourcePropertyToJSONTyped,
+} from "./ThirdpartyapiDataSourceProperty";
 
 /**
  *
@@ -134,10 +139,15 @@ export function ThirdpartyapiSubConnectionInfoFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function ThirdpartyapiSubConnectionInfoToJSON(value?: ThirdpartyapiSubConnectionInfo | null): any {
+export function ThirdpartyapiSubConnectionInfoToJSON(json: any): ThirdpartyapiSubConnectionInfo {
+    return ThirdpartyapiSubConnectionInfoToJSONTyped(json, false);
+}
+
+export function ThirdpartyapiSubConnectionInfoToJSONTyped(value?: ThirdpartyapiSubConnectionInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         display_status: value["displayStatus"],
         errors_count: value["errorsCount"],
@@ -147,7 +157,7 @@ export function ThirdpartyapiSubConnectionInfoToJSON(value?: ThirdpartyapiSubCon
         id: value["id"],
         ingest_source_id: value["ingestSourceId"],
         ingest_source_name: value["ingestSourceName"],
-        last_ingested_time: value["lastIngestedTime"] == null ? undefined : value["lastIngestedTime"].toISOString(),
+        last_ingested_time: value["lastIngestedTime"] == null ? value["lastIngestedTime"] : value["lastIngestedTime"].toISOString(),
         last_ingested_volume_one_day: value["lastIngestedVolumeOneDay"],
         parser_errors_search_query: value["parserErrorsSearchQuery"],
         properties: value["properties"] == null ? undefined : (value["properties"] as Array<any>).map(ThirdpartyapiDataSourcePropertyToJSON),

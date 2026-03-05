@@ -48,10 +48,15 @@ export function DomainCredentialsFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function DomainCredentialsToJSON(value?: DomainCredentials | null): any {
+export function DomainCredentialsToJSON(json: any): DomainCredentials {
+    return DomainCredentialsToJSONTyped(json, false);
+}
+
+export function DomainCredentialsToJSONTyped(value?: DomainCredentials | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         token: value["token"],
     };

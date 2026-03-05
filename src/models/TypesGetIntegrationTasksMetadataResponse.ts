@@ -68,10 +68,15 @@ export function TypesGetIntegrationTasksMetadataResponseFromJSONTyped(json: any,
     };
 }
 
-export function TypesGetIntegrationTasksMetadataResponseToJSON(value?: TypesGetIntegrationTasksMetadataResponse | null): any {
+export function TypesGetIntegrationTasksMetadataResponseToJSON(json: any): TypesGetIntegrationTasksMetadataResponse {
+    return TypesGetIntegrationTasksMetadataResponseToJSONTyped(json, false);
+}
+
+export function TypesGetIntegrationTasksMetadataResponseToJSONTyped(value?: TypesGetIntegrationTasksMetadataResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count: value["count"],
         ids: value["ids"],

@@ -82,10 +82,15 @@ export function DtoWIFPropertiesFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function DtoWIFPropertiesToJSON(value?: DtoWIFProperties | null): any {
+export function DtoWIFPropertiesToJSON(json: any): DtoWIFProperties {
+    return DtoWIFPropertiesToJSONTyped(json, false);
+}
+
+export function DtoWIFPropertiesToJSONTyped(value?: DtoWIFProperties | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pool_id: value["poolId"],
         pool_name: value["poolName"],

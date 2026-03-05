@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainPolicyInfo } from "./DomainPolicyInfo";
-import { DomainPolicyInfoFromJSON, DomainPolicyInfoFromJSONTyped, DomainPolicyInfoToJSON } from "./DomainPolicyInfo";
+import { DomainPolicyInfoFromJSON, DomainPolicyInfoFromJSONTyped, DomainPolicyInfoToJSON, DomainPolicyInfoToJSONTyped } from "./DomainPolicyInfo";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function RegistrationPolicyResponseV1FromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function RegistrationPolicyResponseV1ToJSON(value?: RegistrationPolicyResponseV1 | null): any {
+export function RegistrationPolicyResponseV1ToJSON(json: any): RegistrationPolicyResponseV1 {
+    return RegistrationPolicyResponseV1ToJSONTyped(json, false);
+}
+
+export function RegistrationPolicyResponseV1ToJSONTyped(value?: RegistrationPolicyResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

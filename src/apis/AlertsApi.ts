@@ -110,9 +110,9 @@ export interface AlertsApiUpdateV3Request {
  */
 export class AlertsApi extends runtime.BaseAPI {
     /**
-     * Retrieves aggregate values for Alerts across all CIDs.
+     * Creates request options for getAggregateV2 without sending the request
      */
-    async getAggregateV2Raw(requestParameters: AlertsApiGetAggregateV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DetectsapiAggregatesResponse>> {
+    async getAggregateV2RequestOpts(requestParameters: AlertsApiGetAggregateV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getAggregateV2().');
         }
@@ -132,16 +132,23 @@ export class AlertsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["alerts:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/alerts/aggregates/alerts/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(DetectsapiAggregateAlertQueryRequestToJSON),
-            },
-            initOverrides,
-        );
+        let urlPath = `/alerts/aggregates/alerts/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"]!.map(DetectsapiAggregateAlertQueryRequestToJSON),
+        };
+    }
+
+    /**
+     * Retrieves aggregate values for Alerts across all CIDs.
+     */
+    async getAggregateV2Raw(requestParameters: AlertsApiGetAggregateV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DetectsapiAggregatesResponse>> {
+        const requestOptions = await this.getAggregateV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DetectsapiAggregatesResponseFromJSON(jsonValue));
     }
@@ -159,13 +166,10 @@ export class AlertsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deprecated: please use version v2 of this endpoint. Retrieves all Alerts ids that match a given query.
+     * Creates request options for getQueriesAlertsV1 without sending the request
      * @deprecated
      */
-    async getQueriesAlertsV1Raw(
-        requestParameters: AlertsApiGetQueriesAlertsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DetectsapiAlertQueryResponse>> {
+    async getQueriesAlertsV1RequestOpts(requestParameters: AlertsApiGetQueriesAlertsV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -195,15 +199,26 @@ export class AlertsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["alerts:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/alerts/queries/alerts/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/alerts/queries/alerts/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Deprecated: please use version v2 of this endpoint. Retrieves all Alerts ids that match a given query.
+     * @deprecated
+     */
+    async getQueriesAlertsV1Raw(
+        requestParameters: AlertsApiGetQueriesAlertsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DetectsapiAlertQueryResponse>> {
+        const requestOptions = await this.getQueriesAlertsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DetectsapiAlertQueryResponseFromJSON(jsonValue));
     }
@@ -225,9 +240,9 @@ export class AlertsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves all Alerts given their composite ids.
+     * Creates request options for getV2 without sending the request
      */
-    async getV2Raw(requestParameters: AlertsApiGetV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DetectsapiPostEntitiesAlertsV2ResponseSwagger>> {
+    async getV2RequestOpts(requestParameters: AlertsApiGetV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getV2().');
         }
@@ -247,16 +262,23 @@ export class AlertsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["alerts:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/alerts/entities/alerts/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DetectsapiPostEntitiesAlertsV2RequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/alerts/entities/alerts/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DetectsapiPostEntitiesAlertsV2RequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Retrieves all Alerts given their composite ids.
+     */
+    async getV2Raw(requestParameters: AlertsApiGetV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DetectsapiPostEntitiesAlertsV2ResponseSwagger>> {
+        const requestOptions = await this.getV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DetectsapiPostEntitiesAlertsV2ResponseSwaggerFromJSON(jsonValue));
     }
@@ -274,13 +296,10 @@ export class AlertsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deprecated: Please use version v3 of this endpoint. Perform actions on Alerts identified by composite ID(s) in request. Each action has a name and a description which describes what the action does. If a request adds and removes tag in a single request, the order of processing would be to remove tags before adding new ones in.
+     * Creates request options for patchEntitiesAlertsV2 without sending the request
      * @deprecated
      */
-    async patchEntitiesAlertsV2Raw(
-        requestParameters: AlertsApiPatchEntitiesAlertsV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DetectsapiResponseFields>> {
+    async patchEntitiesAlertsV2RequestOpts(requestParameters: AlertsApiPatchEntitiesAlertsV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling patchEntitiesAlertsV2().');
         }
@@ -296,16 +315,27 @@ export class AlertsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["alerts:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/alerts/entities/alerts/v2`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DetectsapiPatchEntitiesAlertsV2RequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/alerts/entities/alerts/v2`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DetectsapiPatchEntitiesAlertsV2RequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Deprecated: Please use version v3 of this endpoint. Perform actions on Alerts identified by composite ID(s) in request. Each action has a name and a description which describes what the action does. If a request adds and removes tag in a single request, the order of processing would be to remove tags before adding new ones in.
+     * @deprecated
+     */
+    async patchEntitiesAlertsV2Raw(
+        requestParameters: AlertsApiPatchEntitiesAlertsV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DetectsapiResponseFields>> {
+        const requestOptions = await this.patchEntitiesAlertsV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DetectsapiResponseFieldsFromJSON(jsonValue));
     }
@@ -320,13 +350,10 @@ export class AlertsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deprecated: Please use version v2 of this endpoint. Retrieves aggregate values for Alerts across all CIDs.
+     * Creates request options for postAggregatesAlertsV1 without sending the request
      * @deprecated
      */
-    async postAggregatesAlertsV1Raw(
-        requestParameters: AlertsApiPostAggregatesAlertsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DetectsapiAggregatesResponse>> {
+    async postAggregatesAlertsV1RequestOpts(requestParameters: AlertsApiPostAggregatesAlertsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postAggregatesAlertsV1().');
         }
@@ -342,16 +369,27 @@ export class AlertsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["alerts:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/alerts/aggregates/alerts/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(DetectsapiAggregateAlertQueryRequestToJSON),
-            },
-            initOverrides,
-        );
+        let urlPath = `/alerts/aggregates/alerts/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"]!.map(DetectsapiAggregateAlertQueryRequestToJSON),
+        };
+    }
+
+    /**
+     * Deprecated: Please use version v2 of this endpoint. Retrieves aggregate values for Alerts across all CIDs.
+     * @deprecated
+     */
+    async postAggregatesAlertsV1Raw(
+        requestParameters: AlertsApiPostAggregatesAlertsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DetectsapiAggregatesResponse>> {
+        const requestOptions = await this.postAggregatesAlertsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DetectsapiAggregatesResponseFromJSON(jsonValue));
     }
@@ -366,12 +404,9 @@ export class AlertsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves all Alerts that match a particular FQL filter. This API is intended for retrieval of large amounts of Alerts(>10k) using a pagination based on a `after` token. If you need to use `offset` pagination, consider using GET /alerts/queries/alerts/_* and POST /alerts/entities/alerts/_* APIs.
+     * Creates request options for postCombinedAlertsV1 without sending the request
      */
-    async postCombinedAlertsV1Raw(
-        requestParameters: AlertsApiPostCombinedAlertsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DetectsapiPostCombinedAlertsV1ResponseSwagger>> {
+    async postCombinedAlertsV1RequestOpts(requestParameters: AlertsApiPostCombinedAlertsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postCombinedAlertsV1().');
         }
@@ -387,16 +422,26 @@ export class AlertsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["alerts:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/alerts/combined/alerts/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DetectsapiPostCombinedAlertsV1RequestSwaggerToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/alerts/combined/alerts/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DetectsapiPostCombinedAlertsV1RequestSwaggerToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Retrieves all Alerts that match a particular FQL filter. This API is intended for retrieval of large amounts of Alerts(>10k) using a pagination based on a `after` token. If you need to use `offset` pagination, consider using GET /alerts/queries/alerts/_* and POST /alerts/entities/alerts/_* APIs.
+     */
+    async postCombinedAlertsV1Raw(
+        requestParameters: AlertsApiPostCombinedAlertsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DetectsapiPostCombinedAlertsV1ResponseSwagger>> {
+        const requestOptions = await this.postCombinedAlertsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DetectsapiPostCombinedAlertsV1ResponseSwaggerFromJSON(jsonValue));
     }
@@ -410,13 +455,10 @@ export class AlertsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deprecated: please use version v2 of this endpoint. Retrieves all Alerts given their ids.
+     * Creates request options for postEntitiesAlertsV1 without sending the request
      * @deprecated
      */
-    async postEntitiesAlertsV1Raw(
-        requestParameters: AlertsApiPostEntitiesAlertsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DetectsapiPostEntitiesAlertsV1ResponseSwagger>> {
+    async postEntitiesAlertsV1RequestOpts(requestParameters: AlertsApiPostEntitiesAlertsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postEntitiesAlertsV1().');
         }
@@ -432,16 +474,27 @@ export class AlertsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["alerts:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/alerts/entities/alerts/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DetectsapiPostEntitiesAlertsV1RequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/alerts/entities/alerts/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DetectsapiPostEntitiesAlertsV1RequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Deprecated: please use version v2 of this endpoint. Retrieves all Alerts given their ids.
+     * @deprecated
+     */
+    async postEntitiesAlertsV1Raw(
+        requestParameters: AlertsApiPostEntitiesAlertsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DetectsapiPostEntitiesAlertsV1ResponseSwagger>> {
+        const requestOptions = await this.postEntitiesAlertsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DetectsapiPostEntitiesAlertsV1ResponseSwaggerFromJSON(jsonValue));
     }
@@ -456,9 +509,9 @@ export class AlertsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves all Alerts ids that match a given query.
+     * Creates request options for queryV2 without sending the request
      */
-    async queryV2Raw(requestParameters: AlertsApiQueryV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DetectsapiAlertQueryResponse>> {
+    async queryV2RequestOpts(requestParameters: AlertsApiQueryV2Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["includeHidden"] != null) {
@@ -492,15 +545,22 @@ export class AlertsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["alerts:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/alerts/queries/alerts/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/alerts/queries/alerts/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieves all Alerts ids that match a given query.
+     */
+    async queryV2Raw(requestParameters: AlertsApiQueryV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DetectsapiAlertQueryResponse>> {
+        const requestOptions = await this.queryV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DetectsapiAlertQueryResponseFromJSON(jsonValue));
     }
@@ -522,9 +582,9 @@ export class AlertsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Perform actions on Alerts identified by composite ID(s) in request. Each action has a name and a description which describes what the action does. If a request adds and removes tag in a single request, the order of processing would be to remove tags before adding new ones in.
+     * Creates request options for updateV3 without sending the request
      */
-    async updateV3Raw(requestParameters: AlertsApiUpdateV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DetectsapiResponseFields>> {
+    async updateV3RequestOpts(requestParameters: AlertsApiUpdateV3Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateV3().');
         }
@@ -544,16 +604,23 @@ export class AlertsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["alerts:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/alerts/entities/alerts/v3`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DetectsapiPatchEntitiesAlertsV3RequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/alerts/entities/alerts/v3`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DetectsapiPatchEntitiesAlertsV3RequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Perform actions on Alerts identified by composite ID(s) in request. Each action has a name and a description which describes what the action does. If a request adds and removes tag in a single request, the order of processing would be to remove tags before adding new ones in.
+     */
+    async updateV3Raw(requestParameters: AlertsApiUpdateV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DetectsapiResponseFields>> {
+        const requestOptions = await this.updateV3RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DetectsapiResponseFieldsFromJSON(jsonValue));
     }

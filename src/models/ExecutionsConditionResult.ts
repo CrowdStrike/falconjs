@@ -61,10 +61,15 @@ export function ExecutionsConditionResultFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ExecutionsConditionResultToJSON(value?: ExecutionsConditionResult | null): any {
+export function ExecutionsConditionResultToJSON(json: any): ExecutionsConditionResult {
+    return ExecutionsConditionResultToJSONTyped(json, false);
+}
+
+export function ExecutionsConditionResultToJSONTyped(value?: ExecutionsConditionResult | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cel_expression: value["celExpression"],
         display: value["display"],

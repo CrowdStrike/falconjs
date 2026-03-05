@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesArtifact } from "./TypesArtifact";
-import { TypesArtifactFromJSON, TypesArtifactFromJSONTyped, TypesArtifactToJSON } from "./TypesArtifact";
+import { TypesArtifactFromJSON, TypesArtifactFromJSONTyped, TypesArtifactToJSON, TypesArtifactToJSONTyped } from "./TypesArtifact";
 
 /**
  *
@@ -50,10 +50,15 @@ export function TypesArtifactsFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function TypesArtifactsToJSON(value?: TypesArtifacts | null): any {
+export function TypesArtifactsToJSON(json: any): TypesArtifacts {
+    return TypesArtifactsToJSONTyped(json, false);
+}
+
+export function TypesArtifactsToJSONTyped(value?: TypesArtifacts | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         artifacts: value["artifacts"] == null ? undefined : (value["artifacts"] as Array<any>).map(TypesArtifactToJSON),
     };

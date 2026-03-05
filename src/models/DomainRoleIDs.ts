@@ -48,10 +48,15 @@ export function DomainRoleIDsFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function DomainRoleIDsToJSON(value?: DomainRoleIDs | null): any {
+export function DomainRoleIDsToJSON(json: any): DomainRoleIDs {
+    return DomainRoleIDsToJSONTyped(json, false);
+}
+
+export function DomainRoleIDsToJSONTyped(value?: DomainRoleIDs | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         roleIds: value["roleIds"],
     };

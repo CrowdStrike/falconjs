@@ -76,10 +76,15 @@ export function DomainExternalAssetHTTPAttributesFromJSONTyped(json: any, ignore
     };
 }
 
-export function DomainExternalAssetHTTPAttributesToJSON(value?: DomainExternalAssetHTTPAttributes | null): any {
+export function DomainExternalAssetHTTPAttributesToJSON(json: any): DomainExternalAssetHTTPAttributes {
+    return DomainExternalAssetHTTPAttributesToJSONTyped(json, false);
+}
+
+export function DomainExternalAssetHTTPAttributesToJSONTyped(value?: DomainExternalAssetHTTPAttributes | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cookies: value["cookies"],
         meta: value["meta"],

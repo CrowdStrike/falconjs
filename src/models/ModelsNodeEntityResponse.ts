@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ModelsNode } from "./ModelsNode";
-import { ModelsNodeFromJSON, ModelsNodeFromJSONTyped, ModelsNodeToJSON } from "./ModelsNode";
+import { ModelsNodeFromJSON, ModelsNodeFromJSONTyped, ModelsNodeToJSON, ModelsNodeToJSONTyped } from "./ModelsNode";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function ModelsNodeEntityResponseFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function ModelsNodeEntityResponseToJSON(value?: ModelsNodeEntityResponse | null): any {
+export function ModelsNodeEntityResponseToJSON(json: any): ModelsNodeEntityResponse {
+    return ModelsNodeEntityResponseToJSONTyped(json, false);
+}
+
+export function ModelsNodeEntityResponseToJSONTyped(value?: ModelsNodeEntityResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

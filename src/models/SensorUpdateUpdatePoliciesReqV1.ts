@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { SensorUpdateUpdatePolicyReqV1 } from "./SensorUpdateUpdatePolicyReqV1";
-import { SensorUpdateUpdatePolicyReqV1FromJSON, SensorUpdateUpdatePolicyReqV1FromJSONTyped, SensorUpdateUpdatePolicyReqV1ToJSON } from "./SensorUpdateUpdatePolicyReqV1";
+import {
+    SensorUpdateUpdatePolicyReqV1FromJSON,
+    SensorUpdateUpdatePolicyReqV1FromJSONTyped,
+    SensorUpdateUpdatePolicyReqV1ToJSON,
+    SensorUpdateUpdatePolicyReqV1ToJSONTyped,
+} from "./SensorUpdateUpdatePolicyReqV1";
 
 /**
  * A req to update sensorUpdate policies
@@ -51,10 +56,15 @@ export function SensorUpdateUpdatePoliciesReqV1FromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function SensorUpdateUpdatePoliciesReqV1ToJSON(value?: SensorUpdateUpdatePoliciesReqV1 | null): any {
+export function SensorUpdateUpdatePoliciesReqV1ToJSON(json: any): SensorUpdateUpdatePoliciesReqV1 {
+    return SensorUpdateUpdatePoliciesReqV1ToJSONTyped(json, false);
+}
+
+export function SensorUpdateUpdatePoliciesReqV1ToJSONTyped(value?: SensorUpdateUpdatePoliciesReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(SensorUpdateUpdatePolicyReqV1ToJSON),
     };

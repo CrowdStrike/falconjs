@@ -119,16 +119,21 @@ export function DeviceDevicePolicyFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function DeviceDevicePolicyToJSON(value?: DeviceDevicePolicy | null): any {
+export function DeviceDevicePolicyToJSON(json: any): DeviceDevicePolicy {
+    return DeviceDevicePolicyToJSONTyped(json, false);
+}
+
+export function DeviceDevicePolicyToJSONTyped(value?: DeviceDevicePolicy | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         applied: value["applied"],
-        applied_date: value["appliedDate"] == null ? undefined : value["appliedDate"].toISOString(),
-        assigned_date: value["assignedDate"] == null ? undefined : value["assignedDate"].toISOString(),
+        applied_date: value["appliedDate"] == null ? value["appliedDate"] : value["appliedDate"].toISOString(),
+        assigned_date: value["assignedDate"] == null ? value["assignedDate"] : value["assignedDate"].toISOString(),
         exempt: value["exempt"],
-        last_evaluation_date: value["lastEvaluationDate"] == null ? undefined : value["lastEvaluationDate"].toISOString(),
+        last_evaluation_date: value["lastEvaluationDate"] == null ? value["lastEvaluationDate"] : value["lastEvaluationDate"].toISOString(),
         policy_id: value["policyId"],
         policy_type: value["policyType"],
         rule_groups: value["ruleGroups"],

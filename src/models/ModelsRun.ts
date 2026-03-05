@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsResult } from "./ModelsResult";
-import { ModelsResultFromJSON, ModelsResultFromJSONTyped, ModelsResultToJSON } from "./ModelsResult";
+import { ModelsResultFromJSON, ModelsResultFromJSONTyped, ModelsResultToJSON, ModelsResultToJSONTyped } from "./ModelsResult";
 import type { ModelsRunTool } from "./ModelsRunTool";
-import { ModelsRunToolFromJSON, ModelsRunToolFromJSONTyped, ModelsRunToolToJSON } from "./ModelsRunTool";
+import { ModelsRunToolFromJSON, ModelsRunToolFromJSONTyped, ModelsRunToolToJSON, ModelsRunToolToJSONTyped } from "./ModelsRunTool";
 
 /**
  *
@@ -61,10 +61,15 @@ export function ModelsRunFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     };
 }
 
-export function ModelsRunToJSON(value?: ModelsRun | null): any {
+export function ModelsRunToJSON(json: any): ModelsRun {
+    return ModelsRunToJSONTyped(json, false);
+}
+
+export function ModelsRunToJSONTyped(value?: ModelsRun | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         results: (value["results"] as Array<any>).map(ModelsResultToJSON),
         tool: ModelsRunToolToJSON(value["tool"]),

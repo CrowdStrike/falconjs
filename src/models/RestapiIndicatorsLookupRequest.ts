@@ -48,10 +48,15 @@ export function RestapiIndicatorsLookupRequestFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function RestapiIndicatorsLookupRequestToJSON(value?: RestapiIndicatorsLookupRequest | null): any {
+export function RestapiIndicatorsLookupRequestToJSON(json: any): RestapiIndicatorsLookupRequest {
+    return RestapiIndicatorsLookupRequestToJSONTyped(json, false);
+}
+
+export function RestapiIndicatorsLookupRequestToJSONTyped(value?: RestapiIndicatorsLookupRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         values: value["values"],
     };

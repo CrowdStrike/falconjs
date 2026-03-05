@@ -77,10 +77,15 @@ export function DomainIOMCountsFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function DomainIOMCountsToJSON(value?: DomainIOMCounts | null): any {
+export function DomainIOMCountsToJSON(json: any): DomainIOMCounts {
+    return DomainIOMCountsToJSONTyped(json, false);
+}
+
+export function DomainIOMCountsToJSONTyped(value?: DomainIOMCounts | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         critical: value["critical"],
         high: value["high"],

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ApimodelsSecurityFramework } from "./ApimodelsSecurityFramework";
-import { ApimodelsSecurityFrameworkFromJSON, ApimodelsSecurityFrameworkFromJSONTyped, ApimodelsSecurityFrameworkToJSON } from "./ApimodelsSecurityFramework";
+import { ApimodelsSecurityFrameworkFromJSON, ApimodelsSecurityFrameworkFromJSONTyped, ApimodelsSecurityFrameworkToJSON, ApimodelsSecurityFrameworkToJSONTyped } from "./ApimodelsSecurityFramework";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function CommonCreateComplianceFrameworkResponseFromJSONTyped(json: any, 
     };
 }
 
-export function CommonCreateComplianceFrameworkResponseToJSON(value?: CommonCreateComplianceFrameworkResponse | null): any {
+export function CommonCreateComplianceFrameworkResponseToJSON(json: any): CommonCreateComplianceFrameworkResponse {
+    return CommonCreateComplianceFrameworkResponseToJSONTyped(json, false);
+}
+
+export function CommonCreateComplianceFrameworkResponseToJSONTyped(value?: CommonCreateComplianceFrameworkResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

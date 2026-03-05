@@ -68,10 +68,15 @@ export function FalconxC2FromJSONTyped(json: any, ignoreDiscriminator: boolean):
     };
 }
 
-export function FalconxC2ToJSON(value?: FalconxC2 | null): any {
+export function FalconxC2ToJSON(json: any): FalconxC2 {
+    return FalconxC2ToJSONTyped(json, false);
+}
+
+export function FalconxC2ToJSONTyped(value?: FalconxC2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         host: value["host"],
         path: value["path"],

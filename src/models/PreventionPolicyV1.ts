@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { IoaRuleGroupsRuleGroupV1 } from "./IoaRuleGroupsRuleGroupV1";
-import { IoaRuleGroupsRuleGroupV1FromJSON, IoaRuleGroupsRuleGroupV1FromJSONTyped, IoaRuleGroupsRuleGroupV1ToJSON } from "./IoaRuleGroupsRuleGroupV1";
+import { IoaRuleGroupsRuleGroupV1FromJSON, IoaRuleGroupsRuleGroupV1FromJSONTyped, IoaRuleGroupsRuleGroupV1ToJSON, IoaRuleGroupsRuleGroupV1ToJSONTyped } from "./IoaRuleGroupsRuleGroupV1";
 import type { PreventionCategoryRespV1 } from "./PreventionCategoryRespV1";
-import { PreventionCategoryRespV1FromJSON, PreventionCategoryRespV1FromJSONTyped, PreventionCategoryRespV1ToJSON } from "./PreventionCategoryRespV1";
+import { PreventionCategoryRespV1FromJSON, PreventionCategoryRespV1FromJSONTyped, PreventionCategoryRespV1ToJSON, PreventionCategoryRespV1ToJSONTyped } from "./PreventionCategoryRespV1";
 import type { HostGroupsHostGroupV1 } from "./HostGroupsHostGroupV1";
-import { HostGroupsHostGroupV1FromJSON, HostGroupsHostGroupV1FromJSONTyped, HostGroupsHostGroupV1ToJSON } from "./HostGroupsHostGroupV1";
+import { HostGroupsHostGroupV1FromJSON, HostGroupsHostGroupV1FromJSONTyped, HostGroupsHostGroupV1ToJSON, HostGroupsHostGroupV1ToJSONTyped } from "./HostGroupsHostGroupV1";
 
 /**
  * A fully formed prevention policy
@@ -94,7 +94,7 @@ export interface PreventionPolicyV1 {
     name: string;
     /**
      * The name of the platform
-     * @type {string}
+     * @type {PreventionPolicyV1PlatformNameEnum}
      * @memberof PreventionPolicyV1
      */
     platformName: PreventionPolicyV1PlatformNameEnum;
@@ -161,10 +161,15 @@ export function PreventionPolicyV1FromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function PreventionPolicyV1ToJSON(value?: PreventionPolicyV1 | null): any {
+export function PreventionPolicyV1ToJSON(json: any): PreventionPolicyV1 {
+    return PreventionPolicyV1ToJSONTyped(json, false);
+}
+
+export function PreventionPolicyV1ToJSONTyped(value?: PreventionPolicyV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         created_by: value["createdBy"],

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ModelsAPIContainerAlert } from "./ModelsAPIContainerAlert";
-import { ModelsAPIContainerAlertFromJSON, ModelsAPIContainerAlertFromJSONTyped, ModelsAPIContainerAlertToJSON } from "./ModelsAPIContainerAlert";
+import { ModelsAPIContainerAlertFromJSON, ModelsAPIContainerAlertFromJSONTyped, ModelsAPIContainerAlertToJSON, ModelsAPIContainerAlertToJSONTyped } from "./ModelsAPIContainerAlert";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function AlertsContainerAlertsEntityResponseFromJSONTyped(json: any, igno
     };
 }
 
-export function AlertsContainerAlertsEntityResponseToJSON(value?: AlertsContainerAlertsEntityResponse | null): any {
+export function AlertsContainerAlertsEntityResponseToJSON(json: any): AlertsContainerAlertsEntityResponse {
+    return AlertsContainerAlertsEntityResponseToJSONTyped(json, false);
+}
+
+export function AlertsContainerAlertsEntityResponseToJSONTyped(value?: AlertsContainerAlertsEntityResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

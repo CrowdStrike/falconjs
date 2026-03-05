@@ -264,10 +264,15 @@ export function EntitiesODSScanRequestFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function EntitiesODSScanRequestToJSON(value?: EntitiesODSScanRequest | null): any {
+export function EntitiesODSScanRequestToJSON(json: any): EntitiesODSScanRequest {
+    return EntitiesODSScanRequestToJSONTyped(json, false);
+}
+
+export function EntitiesODSScanRequestToJSONTyped(value?: EntitiesODSScanRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cloud_ml_level_detection: value["cloudMlLevelDetection"],
         cloud_ml_level_prevention: value["cloudMlLevelPrevention"],

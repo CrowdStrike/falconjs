@@ -36,12 +36,9 @@ export interface SensorUsageApiApiGetSensorUsageWeeklyRequest {
  */
 export class SensorUsageApiApi extends runtime.BaseAPI {
     /**
-     * Fetches hourly average. Each data point represents the average of how many unique AIDs were seen per hour for the previous 28 days.
+     * Creates request options for getSensorUsageHourly without sending the request
      */
-    async getSensorUsageHourlyRaw(
-        requestParameters: SensorUsageApiApiGetSensorUsageHourlyRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiHourlyAverageResponse>> {
+    async getSensorUsageHourlyRequestOpts(requestParameters: SensorUsageApiApiGetSensorUsageHourlyRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -55,15 +52,25 @@ export class SensorUsageApiApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-usage-api:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/billing-dashboards-usage/aggregates/hourly-average/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/billing-dashboards-usage/aggregates/hourly-average/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Fetches hourly average. Each data point represents the average of how many unique AIDs were seen per hour for the previous 28 days.
+     */
+    async getSensorUsageHourlyRaw(
+        requestParameters: SensorUsageApiApiGetSensorUsageHourlyRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiHourlyAverageResponse>> {
+        const requestOptions = await this.getSensorUsageHourlyRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiHourlyAverageResponseFromJSON(jsonValue));
     }
@@ -77,12 +84,9 @@ export class SensorUsageApiApi extends runtime.BaseAPI {
     }
 
     /**
-     * Fetches weekly average. Each data point represents the average of how many unique AIDs were seen per week for the previous 28 days.
+     * Creates request options for getSensorUsageWeekly without sending the request
      */
-    async getSensorUsageWeeklyRaw(
-        requestParameters: SensorUsageApiApiGetSensorUsageWeeklyRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiWeeklyAverageResponse>> {
+    async getSensorUsageWeeklyRequestOpts(requestParameters: SensorUsageApiApiGetSensorUsageWeeklyRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -96,15 +100,25 @@ export class SensorUsageApiApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-usage-api:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/billing-dashboards-usage/aggregates/weekly-average/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/billing-dashboards-usage/aggregates/weekly-average/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Fetches weekly average. Each data point represents the average of how many unique AIDs were seen per week for the previous 28 days.
+     */
+    async getSensorUsageWeeklyRaw(
+        requestParameters: SensorUsageApiApiGetSensorUsageWeeklyRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiWeeklyAverageResponse>> {
+        const requestOptions = await this.getSensorUsageWeeklyRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiWeeklyAverageResponseFromJSON(jsonValue));
     }

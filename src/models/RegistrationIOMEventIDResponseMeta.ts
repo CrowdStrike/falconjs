@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { RegistrationNextTokenPagination } from "./RegistrationNextTokenPagination";
-import { RegistrationNextTokenPaginationFromJSON, RegistrationNextTokenPaginationFromJSONTyped, RegistrationNextTokenPaginationToJSON } from "./RegistrationNextTokenPagination";
+import {
+    RegistrationNextTokenPaginationFromJSON,
+    RegistrationNextTokenPaginationFromJSONTyped,
+    RegistrationNextTokenPaginationToJSON,
+    RegistrationNextTokenPaginationToJSONTyped,
+} from "./RegistrationNextTokenPagination";
 
 /**
  *
@@ -75,10 +80,15 @@ export function RegistrationIOMEventIDResponseMetaFromJSONTyped(json: any, ignor
     };
 }
 
-export function RegistrationIOMEventIDResponseMetaToJSON(value?: RegistrationIOMEventIDResponseMeta | null): any {
+export function RegistrationIOMEventIDResponseMetaToJSON(json: any): RegistrationIOMEventIDResponseMeta {
+    return RegistrationIOMEventIDResponseMetaToJSONTyped(json, false);
+}
+
+export function RegistrationIOMEventIDResponseMetaToJSONTyped(value?: RegistrationIOMEventIDResponseMeta | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: RegistrationNextTokenPaginationToJSON(value["pagination"]),
         powered_by: value["poweredBy"],

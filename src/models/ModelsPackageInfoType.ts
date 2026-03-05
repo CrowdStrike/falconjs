@@ -111,10 +111,15 @@ export function ModelsPackageInfoTypeFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function ModelsPackageInfoTypeToJSON(value?: ModelsPackageInfoType | null): any {
+export function ModelsPackageInfoTypeToJSON(json: any): ModelsPackageInfoType {
+    return ModelsPackageInfoTypeToJSONTyped(json, false);
+}
+
+export function ModelsPackageInfoTypeToJSONTyped(value?: ModelsPackageInfoType | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         LayerHash: value["layerHash"],
         LayerIndex: value["layerIndex"],

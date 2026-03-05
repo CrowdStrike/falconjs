@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MlscannerapiMetaInfo } from "./MlscannerapiMetaInfo";
-import { MlscannerapiMetaInfoFromJSON, MlscannerapiMetaInfoFromJSONTyped, MlscannerapiMetaInfoToJSON } from "./MlscannerapiMetaInfo";
+import { MlscannerapiMetaInfoFromJSON, MlscannerapiMetaInfoFromJSONTyped, MlscannerapiMetaInfoToJSON, MlscannerapiMetaInfoToJSONTyped } from "./MlscannerapiMetaInfo";
 import type { MlscannerapiSamplesScanResult } from "./MlscannerapiSamplesScanResult";
-import { MlscannerapiSamplesScanResultFromJSON, MlscannerapiSamplesScanResultFromJSONTyped, MlscannerapiSamplesScanResultToJSON } from "./MlscannerapiSamplesScanResult";
+import {
+    MlscannerapiSamplesScanResultFromJSON,
+    MlscannerapiSamplesScanResultFromJSONTyped,
+    MlscannerapiSamplesScanResultToJSON,
+    MlscannerapiSamplesScanResultToJSONTyped,
+} from "./MlscannerapiSamplesScanResult";
 
 /**
  *
@@ -71,10 +76,15 @@ export function MlscannerapiScanV1ResponseFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function MlscannerapiScanV1ResponseToJSON(value?: MlscannerapiScanV1Response | null): any {
+export function MlscannerapiScanV1ResponseToJSON(json: any): MlscannerapiScanV1Response {
+    return MlscannerapiScanV1ResponseToJSONTyped(json, false);
+}
+
+export function MlscannerapiScanV1ResponseToJSONTyped(value?: MlscannerapiScanV1Response | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MlscannerapiMetaInfoToJSON(value["meta"]),

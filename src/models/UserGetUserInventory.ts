@@ -14,9 +14,19 @@
 
 import { mapValues } from "../runtime";
 import type { ExposureUserGetUserInventory } from "./ExposureUserGetUserInventory";
-import { ExposureUserGetUserInventoryFromJSON, ExposureUserGetUserInventoryFromJSONTyped, ExposureUserGetUserInventoryToJSON } from "./ExposureUserGetUserInventory";
+import {
+    ExposureUserGetUserInventoryFromJSON,
+    ExposureUserGetUserInventoryFromJSONTyped,
+    ExposureUserGetUserInventoryToJSON,
+    ExposureUserGetUserInventoryToJSONTyped,
+} from "./ExposureUserGetUserInventory";
 import type { IntegrationUserGetUserInventory } from "./IntegrationUserGetUserInventory";
-import { IntegrationUserGetUserInventoryFromJSON, IntegrationUserGetUserInventoryFromJSONTyped, IntegrationUserGetUserInventoryToJSON } from "./IntegrationUserGetUserInventory";
+import {
+    IntegrationUserGetUserInventoryFromJSON,
+    IntegrationUserGetUserInventoryFromJSONTyped,
+    IntegrationUserGetUserInventoryToJSON,
+    IntegrationUserGetUserInventoryToJSONTyped,
+} from "./IntegrationUserGetUserInventory";
 
 /**
  *
@@ -173,10 +183,15 @@ export function UserGetUserInventoryFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function UserGetUserInventoryToJSON(value?: UserGetUserInventory | null): any {
+export function UserGetUserInventoryToJSON(json: any): UserGetUserInventory {
+    return UserGetUserInventoryToJSONTyped(json, false);
+}
+
+export function UserGetUserInventoryToJSONTyped(value?: UserGetUserInventory | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         company: value["company"],

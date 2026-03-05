@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { K8sregAWSAccountResp } from "./K8sregAWSAccountResp";
-import { K8sregAWSAccountRespFromJSON, K8sregAWSAccountRespFromJSONTyped, K8sregAWSAccountRespToJSON } from "./K8sregAWSAccountResp";
+import { K8sregAWSAccountRespFromJSON, K8sregAWSAccountRespFromJSONTyped, K8sregAWSAccountRespToJSON, K8sregAWSAccountRespToJSONTyped } from "./K8sregAWSAccountResp";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function K8sregGetAWSAccountsRespFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function K8sregGetAWSAccountsRespToJSON(value?: K8sregGetAWSAccountsResp | null): any {
+export function K8sregGetAWSAccountsRespToJSON(json: any): K8sregGetAWSAccountsResp {
+    return K8sregGetAWSAccountsRespToJSONTyped(json, false);
+}
+
+export function K8sregGetAWSAccountsRespToJSONTyped(value?: K8sregGetAWSAccountsResp | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

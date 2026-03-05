@@ -14,15 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MetaGetSecurityChecks } from "./MetaGetSecurityChecks";
-import { MetaGetSecurityChecksFromJSON, MetaGetSecurityChecksFromJSONTyped, MetaGetSecurityChecksToJSON } from "./MetaGetSecurityChecks";
+import { MetaGetSecurityChecksFromJSON, MetaGetSecurityChecksFromJSONTyped, MetaGetSecurityChecksToJSON, MetaGetSecurityChecksToJSONTyped } from "./MetaGetSecurityChecks";
 import type { SecurityCheckWithComplianceGetSecurityChecks } from "./SecurityCheckWithComplianceGetSecurityChecks";
 import {
     SecurityCheckWithComplianceGetSecurityChecksFromJSON,
     SecurityCheckWithComplianceGetSecurityChecksFromJSONTyped,
     SecurityCheckWithComplianceGetSecurityChecksToJSON,
+    SecurityCheckWithComplianceGetSecurityChecksToJSONTyped,
 } from "./SecurityCheckWithComplianceGetSecurityChecks";
 import type { ErrorGetSecurityChecks } from "./ErrorGetSecurityChecks";
-import { ErrorGetSecurityChecksFromJSON, ErrorGetSecurityChecksFromJSONTyped, ErrorGetSecurityChecksToJSON } from "./ErrorGetSecurityChecks";
+import { ErrorGetSecurityChecksFromJSON, ErrorGetSecurityChecksFromJSONTyped, ErrorGetSecurityChecksToJSON, ErrorGetSecurityChecksToJSONTyped } from "./ErrorGetSecurityChecks";
 
 /**
  *
@@ -72,10 +73,15 @@ export function GetSecurityChecksFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function GetSecurityChecksToJSON(value?: GetSecurityChecks | null): any {
+export function GetSecurityChecksToJSON(json: any): GetSecurityChecks {
+    return GetSecurityChecksToJSONTyped(json, false);
+}
+
+export function GetSecurityChecksToJSONTyped(value?: GetSecurityChecks | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(ErrorGetSecurityChecksToJSON),
         meta: MetaGetSecurityChecksToJSON(value["meta"]),

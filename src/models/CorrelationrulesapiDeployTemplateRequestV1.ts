@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { CorrelationrulesapiDeployTemplate } from "./CorrelationrulesapiDeployTemplate";
-import { CorrelationrulesapiDeployTemplateFromJSON, CorrelationrulesapiDeployTemplateFromJSONTyped, CorrelationrulesapiDeployTemplateToJSON } from "./CorrelationrulesapiDeployTemplate";
+import {
+    CorrelationrulesapiDeployTemplateFromJSON,
+    CorrelationrulesapiDeployTemplateFromJSONTyped,
+    CorrelationrulesapiDeployTemplateToJSON,
+    CorrelationrulesapiDeployTemplateToJSONTyped,
+} from "./CorrelationrulesapiDeployTemplate";
 
 /**
  *
@@ -59,10 +64,15 @@ export function CorrelationrulesapiDeployTemplateRequestV1FromJSONTyped(json: an
     };
 }
 
-export function CorrelationrulesapiDeployTemplateRequestV1ToJSON(value?: CorrelationrulesapiDeployTemplateRequestV1 | null): any {
+export function CorrelationrulesapiDeployTemplateRequestV1ToJSON(json: any): CorrelationrulesapiDeployTemplateRequestV1 {
+    return CorrelationrulesapiDeployTemplateRequestV1ToJSONTyped(json, false);
+}
+
+export function CorrelationrulesapiDeployTemplateRequestV1ToJSONTyped(value?: CorrelationrulesapiDeployTemplateRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         customer_id: value["customerId"],
         templates: (value["templates"] as Array<any>).map(CorrelationrulesapiDeployTemplateToJSON),

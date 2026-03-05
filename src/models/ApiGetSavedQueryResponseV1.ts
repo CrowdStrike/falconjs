@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ApiSavedQuery } from "./ApiSavedQuery";
-import { ApiSavedQueryFromJSON, ApiSavedQueryFromJSONTyped, ApiSavedQueryToJSON } from "./ApiSavedQuery";
+import { ApiSavedQueryFromJSON, ApiSavedQueryFromJSONTyped, ApiSavedQueryToJSON, ApiSavedQueryToJSONTyped } from "./ApiSavedQuery";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function ApiGetSavedQueryResponseV1FromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function ApiGetSavedQueryResponseV1ToJSON(value?: ApiGetSavedQueryResponseV1 | null): any {
+export function ApiGetSavedQueryResponseV1ToJSON(json: any): ApiGetSavedQueryResponseV1 {
+    return ApiGetSavedQueryResponseV1ToJSONTyped(json, false);
+}
+
+export function ApiGetSavedQueryResponseV1ToJSONTyped(value?: ApiGetSavedQueryResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

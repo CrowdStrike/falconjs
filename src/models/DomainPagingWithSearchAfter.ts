@@ -63,10 +63,15 @@ export function DomainPagingWithSearchAfterFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function DomainPagingWithSearchAfterToJSON(value?: DomainPagingWithSearchAfter | null): any {
+export function DomainPagingWithSearchAfterToJSON(json: any): DomainPagingWithSearchAfter {
+    return DomainPagingWithSearchAfterToJSONTyped(json, false);
+}
+
+export function DomainPagingWithSearchAfterToJSONTyped(value?: DomainPagingWithSearchAfter | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         after: value["after"],
         limit: value["limit"],

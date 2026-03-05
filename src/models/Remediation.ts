@@ -56,10 +56,15 @@ export function RemediationFromJSONTyped(json: any, ignoreDiscriminator: boolean
     };
 }
 
-export function RemediationToJSON(value?: Remediation | null): any {
+export function RemediationToJSON(json: any): Remediation {
+    return RemediationToJSONTyped(json, false);
+}
+
+export function RemediationToJSONTyped(value?: Remediation | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         actual_value: value["actualValue"],
         expected_value: value["expectedValue"],

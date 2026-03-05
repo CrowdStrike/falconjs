@@ -96,10 +96,15 @@ export function DomainSsIoaExclusionsNewRuleReqV2FromJSONTyped(json: any, ignore
     };
 }
 
-export function DomainSsIoaExclusionsNewRuleReqV2ToJSON(value?: DomainSsIoaExclusionsNewRuleReqV2 | null): any {
+export function DomainSsIoaExclusionsNewRuleReqV2ToJSON(json: any): DomainSsIoaExclusionsNewRuleReqV2 {
+    return DomainSsIoaExclusionsNewRuleReqV2ToJSONTyped(json, false);
+}
+
+export function DomainSsIoaExclusionsNewRuleReqV2ToJSONTyped(value?: DomainSsIoaExclusionsNewRuleReqV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         aid: value["aid"],
         command_line: value["commandLine"],

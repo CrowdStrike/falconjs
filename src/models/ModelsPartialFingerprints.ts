@@ -48,10 +48,15 @@ export function ModelsPartialFingerprintsFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ModelsPartialFingerprintsToJSON(value?: ModelsPartialFingerprints | null): any {
+export function ModelsPartialFingerprintsToJSON(json: any): ModelsPartialFingerprints {
+    return ModelsPartialFingerprintsToJSONTyped(json, false);
+}
+
+export function ModelsPartialFingerprintsToJSONTyped(value?: ModelsPartialFingerprints | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         "identifier/v1": value["identifierV1"],
     };

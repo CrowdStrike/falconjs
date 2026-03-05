@@ -103,10 +103,15 @@ export function SuppressionrulesScopeAssetFilterFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function SuppressionrulesScopeAssetFilterToJSON(value?: SuppressionrulesScopeAssetFilter | null): any {
+export function SuppressionrulesScopeAssetFilterToJSON(json: any): SuppressionrulesScopeAssetFilter {
+    return SuppressionrulesScopeAssetFilterToJSONTyped(json, false);
+}
+
+export function SuppressionrulesScopeAssetFilterToJSONTyped(value?: SuppressionrulesScopeAssetFilter | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_ids: value["accountIds"],
         cloud_group_ids: value["cloudGroupIds"],

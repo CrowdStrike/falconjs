@@ -56,10 +56,15 @@ export function DomainCIDGroupMembersFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function DomainCIDGroupMembersToJSON(value?: DomainCIDGroupMembers | null): any {
+export function DomainCIDGroupMembersToJSON(json: any): DomainCIDGroupMembers {
+    return DomainCIDGroupMembersToJSONTyped(json, false);
+}
+
+export function DomainCIDGroupMembersToJSONTyped(value?: DomainCIDGroupMembers | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid_group_id: value["cidGroupId"],
         cids: value["cids"],

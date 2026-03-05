@@ -48,10 +48,15 @@ export function ModelsResultPhysicalLocationRegionFromJSONTyped(json: any, ignor
     };
 }
 
-export function ModelsResultPhysicalLocationRegionToJSON(value?: ModelsResultPhysicalLocationRegion | null): any {
+export function ModelsResultPhysicalLocationRegionToJSON(json: any): ModelsResultPhysicalLocationRegion {
+    return ModelsResultPhysicalLocationRegionToJSONTyped(json, false);
+}
+
+export function ModelsResultPhysicalLocationRegionToJSONTyped(value?: ModelsResultPhysicalLocationRegion | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         startLine: value["startLine"],
     };

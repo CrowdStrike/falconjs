@@ -54,10 +54,15 @@ export function AssetgroupmanagerV1ImageFiltersFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function AssetgroupmanagerV1ImageFiltersToJSON(value?: AssetgroupmanagerV1ImageFilters | null): any {
+export function AssetgroupmanagerV1ImageFiltersToJSON(json: any): AssetgroupmanagerV1ImageFilters {
+    return AssetgroupmanagerV1ImageFiltersToJSONTyped(json, false);
+}
+
+export function AssetgroupmanagerV1ImageFiltersToJSONTyped(value?: AssetgroupmanagerV1ImageFilters | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         repository: value["repository"],
         tag: value["tag"],

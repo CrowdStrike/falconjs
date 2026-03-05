@@ -56,10 +56,15 @@ export function ExportsExportJobResponseFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function ExportsExportJobResponseToJSON(value?: ExportsExportJobResponse | null): any {
+export function ExportsExportJobResponseToJSON(json: any): ExportsExportJobResponse {
+    return ExportsExportJobResponseToJSONTyped(json, false);
+}
+
+export function ExportsExportJobResponseToJSONTyped(value?: ExportsExportJobResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         job_url: value["jobUrl"],

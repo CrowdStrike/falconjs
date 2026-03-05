@@ -55,10 +55,15 @@ export function ErrorGetAlertsResponseFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function ErrorGetAlertsResponseToJSON(value?: ErrorGetAlertsResponse | null): any {
+export function ErrorGetAlertsResponseToJSON(json: any): ErrorGetAlertsResponse {
+    return ErrorGetAlertsResponseToJSONTyped(json, false);
+}
+
+export function ErrorGetAlertsResponseToJSONTyped(value?: ErrorGetAlertsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         message: value["message"],

@@ -14,26 +14,52 @@
 
 import { mapValues } from "../runtime";
 import type { TypesAwsLoadBalancerReasonTag } from "./TypesAwsLoadBalancerReasonTag";
-import { TypesAwsLoadBalancerReasonTagFromJSON, TypesAwsLoadBalancerReasonTagFromJSONTyped, TypesAwsLoadBalancerReasonTagToJSON } from "./TypesAwsLoadBalancerReasonTag";
+import {
+    TypesAwsLoadBalancerReasonTagFromJSON,
+    TypesAwsLoadBalancerReasonTagFromJSONTyped,
+    TypesAwsLoadBalancerReasonTagToJSON,
+    TypesAwsLoadBalancerReasonTagToJSONTyped,
+} from "./TypesAwsLoadBalancerReasonTag";
 import type { TypesDataTypeMqReasonTag } from "./TypesDataTypeMqReasonTag";
-import { TypesDataTypeMqReasonTagFromJSON, TypesDataTypeMqReasonTagFromJSONTyped, TypesDataTypeMqReasonTagToJSON } from "./TypesDataTypeMqReasonTag";
+import { TypesDataTypeMqReasonTagFromJSON, TypesDataTypeMqReasonTagFromJSONTyped, TypesDataTypeMqReasonTagToJSON, TypesDataTypeMqReasonTagToJSONTyped } from "./TypesDataTypeMqReasonTag";
 import type { TypesK8SLoadBalancerReasonTag } from "./TypesK8SLoadBalancerReasonTag";
-import { TypesK8SLoadBalancerReasonTagFromJSON, TypesK8SLoadBalancerReasonTagFromJSONTyped, TypesK8SLoadBalancerReasonTagToJSON } from "./TypesK8SLoadBalancerReasonTag";
+import {
+    TypesK8SLoadBalancerReasonTagFromJSON,
+    TypesK8SLoadBalancerReasonTagFromJSONTyped,
+    TypesK8SLoadBalancerReasonTagToJSON,
+    TypesK8SLoadBalancerReasonTagToJSONTyped,
+} from "./TypesK8SLoadBalancerReasonTag";
 import type { TypesDataTypeDbReasonTag } from "./TypesDataTypeDbReasonTag";
-import { TypesDataTypeDbReasonTagFromJSON, TypesDataTypeDbReasonTagFromJSONTyped, TypesDataTypeDbReasonTagToJSON } from "./TypesDataTypeDbReasonTag";
+import { TypesDataTypeDbReasonTagFromJSON, TypesDataTypeDbReasonTagFromJSONTyped, TypesDataTypeDbReasonTagToJSON, TypesDataTypeDbReasonTagToJSONTyped } from "./TypesDataTypeDbReasonTag";
 import type { TypesAwsElasticIpReasonTag } from "./TypesAwsElasticIpReasonTag";
-import { TypesAwsElasticIpReasonTagFromJSON, TypesAwsElasticIpReasonTagFromJSONTyped, TypesAwsElasticIpReasonTagToJSON } from "./TypesAwsElasticIpReasonTag";
+import { TypesAwsElasticIpReasonTagFromJSON, TypesAwsElasticIpReasonTagFromJSONTyped, TypesAwsElasticIpReasonTagToJSON, TypesAwsElasticIpReasonTagToJSONTyped } from "./TypesAwsElasticIpReasonTag";
 import type { TypesAzureLoadBalancerReasonTag } from "./TypesAzureLoadBalancerReasonTag";
-import { TypesAzureLoadBalancerReasonTagFromJSON, TypesAzureLoadBalancerReasonTagFromJSONTyped, TypesAzureLoadBalancerReasonTagToJSON } from "./TypesAzureLoadBalancerReasonTag";
+import {
+    TypesAzureLoadBalancerReasonTagFromJSON,
+    TypesAzureLoadBalancerReasonTagFromJSONTyped,
+    TypesAzureLoadBalancerReasonTagToJSON,
+    TypesAzureLoadBalancerReasonTagToJSONTyped,
+} from "./TypesAzureLoadBalancerReasonTag";
 import type { TypesAwsApiGatewayReasonTag } from "./TypesAwsApiGatewayReasonTag";
-import { TypesAwsApiGatewayReasonTagFromJSON, TypesAwsApiGatewayReasonTagFromJSONTyped, TypesAwsApiGatewayReasonTagToJSON } from "./TypesAwsApiGatewayReasonTag";
+import {
+    TypesAwsApiGatewayReasonTagFromJSON,
+    TypesAwsApiGatewayReasonTagFromJSONTyped,
+    TypesAwsApiGatewayReasonTagToJSON,
+    TypesAwsApiGatewayReasonTagToJSONTyped,
+} from "./TypesAwsApiGatewayReasonTag";
 import type { TypesAwsLambdaApiGatewayReasonTag } from "./TypesAwsLambdaApiGatewayReasonTag";
-import { TypesAwsLambdaApiGatewayReasonTagFromJSON, TypesAwsLambdaApiGatewayReasonTagFromJSONTyped, TypesAwsLambdaApiGatewayReasonTagToJSON } from "./TypesAwsLambdaApiGatewayReasonTag";
+import {
+    TypesAwsLambdaApiGatewayReasonTagFromJSON,
+    TypesAwsLambdaApiGatewayReasonTagFromJSONTyped,
+    TypesAwsLambdaApiGatewayReasonTagToJSON,
+    TypesAwsLambdaApiGatewayReasonTagToJSONTyped,
+} from "./TypesAwsLambdaApiGatewayReasonTag";
 import type { TypesAzureApplicationGatewayReasonTag } from "./TypesAzureApplicationGatewayReasonTag";
 import {
     TypesAzureApplicationGatewayReasonTagFromJSON,
     TypesAzureApplicationGatewayReasonTagFromJSONTyped,
     TypesAzureApplicationGatewayReasonTagToJSON,
+    TypesAzureApplicationGatewayReasonTagToJSONTyped,
 } from "./TypesAzureApplicationGatewayReasonTag";
 
 /**
@@ -133,10 +159,15 @@ export function TypesReasonTagFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function TypesReasonTagToJSON(value?: TypesReasonTag | null): any {
+export function TypesReasonTagToJSON(json: any): TypesReasonTag {
+    return TypesReasonTagToJSONTyped(json, false);
+}
+
+export function TypesReasonTagToJSONTyped(value?: TypesReasonTag | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         awsApiGatewayType: TypesAwsApiGatewayReasonTagToJSON(value["awsApiGatewayType"]),
         awsElasticIpType: TypesAwsElasticIpReasonTagToJSON(value["awsElasticIpType"]),

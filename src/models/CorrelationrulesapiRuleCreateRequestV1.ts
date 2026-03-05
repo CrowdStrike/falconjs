@@ -18,20 +18,28 @@ import {
     CorrelationrulesapiCreateRuleNotificationsFromJSON,
     CorrelationrulesapiCreateRuleNotificationsFromJSONTyped,
     CorrelationrulesapiCreateRuleNotificationsToJSON,
+    CorrelationrulesapiCreateRuleNotificationsToJSONTyped,
 } from "./CorrelationrulesapiCreateRuleNotifications";
 import type { CorrelationrulesapiCreateRuleOperationV1 } from "./CorrelationrulesapiCreateRuleOperationV1";
 import {
     CorrelationrulesapiCreateRuleOperationV1FromJSON,
     CorrelationrulesapiCreateRuleOperationV1FromJSONTyped,
     CorrelationrulesapiCreateRuleOperationV1ToJSON,
+    CorrelationrulesapiCreateRuleOperationV1ToJSONTyped,
 } from "./CorrelationrulesapiCreateRuleOperationV1";
 import type { CorrelationrulesapiRuleSearchV1 } from "./CorrelationrulesapiRuleSearchV1";
-import { CorrelationrulesapiRuleSearchV1FromJSON, CorrelationrulesapiRuleSearchV1FromJSONTyped, CorrelationrulesapiRuleSearchV1ToJSON } from "./CorrelationrulesapiRuleSearchV1";
+import {
+    CorrelationrulesapiRuleSearchV1FromJSON,
+    CorrelationrulesapiRuleSearchV1FromJSONTyped,
+    CorrelationrulesapiRuleSearchV1ToJSON,
+    CorrelationrulesapiRuleSearchV1ToJSONTyped,
+} from "./CorrelationrulesapiRuleSearchV1";
 import type { CorrelationrulesapiMitreAttackMappingV1 } from "./CorrelationrulesapiMitreAttackMappingV1";
 import {
     CorrelationrulesapiMitreAttackMappingV1FromJSON,
     CorrelationrulesapiMitreAttackMappingV1FromJSONTyped,
     CorrelationrulesapiMitreAttackMappingV1ToJSON,
+    CorrelationrulesapiMitreAttackMappingV1ToJSONTyped,
 } from "./CorrelationrulesapiMitreAttackMappingV1";
 
 /**
@@ -173,10 +181,15 @@ export function CorrelationrulesapiRuleCreateRequestV1FromJSONTyped(json: any, i
     };
 }
 
-export function CorrelationrulesapiRuleCreateRequestV1ToJSON(value?: CorrelationrulesapiRuleCreateRequestV1 | null): any {
+export function CorrelationrulesapiRuleCreateRequestV1ToJSON(json: any): CorrelationrulesapiRuleCreateRequestV1 {
+    return CorrelationrulesapiRuleCreateRequestV1ToJSONTyped(json, false);
+}
+
+export function CorrelationrulesapiRuleCreateRequestV1ToJSONTyped(value?: CorrelationrulesapiRuleCreateRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         comment: value["comment"],
         customer_id: value["customerId"],

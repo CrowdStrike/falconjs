@@ -88,10 +88,15 @@ export function ApiRuleGroupModifyRequestV1FromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function ApiRuleGroupModifyRequestV1ToJSON(value?: ApiRuleGroupModifyRequestV1 | null): any {
+export function ApiRuleGroupModifyRequestV1ToJSON(json: any): ApiRuleGroupModifyRequestV1 {
+    return ApiRuleGroupModifyRequestV1ToJSONTyped(json, false);
+}
+
+export function ApiRuleGroupModifyRequestV1ToJSONTyped(value?: ApiRuleGroupModifyRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         comment: value["comment"],
         description: value["description"],

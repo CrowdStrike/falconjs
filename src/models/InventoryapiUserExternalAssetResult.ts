@@ -14,9 +14,14 @@
 
 import { mapValues } from "../runtime";
 import type { InventoryapidomainSubsidiary } from "./InventoryapidomainSubsidiary";
-import { InventoryapidomainSubsidiaryFromJSON, InventoryapidomainSubsidiaryFromJSONTyped, InventoryapidomainSubsidiaryToJSON } from "./InventoryapidomainSubsidiary";
+import {
+    InventoryapidomainSubsidiaryFromJSON,
+    InventoryapidomainSubsidiaryFromJSONTyped,
+    InventoryapidomainSubsidiaryToJSON,
+    InventoryapidomainSubsidiaryToJSONTyped,
+} from "./InventoryapidomainSubsidiary";
 import type { InventoryapiSurfaceError } from "./InventoryapiSurfaceError";
-import { InventoryapiSurfaceErrorFromJSON, InventoryapiSurfaceErrorFromJSONTyped, InventoryapiSurfaceErrorToJSON } from "./InventoryapiSurfaceError";
+import { InventoryapiSurfaceErrorFromJSON, InventoryapiSurfaceErrorFromJSONTyped, InventoryapiSurfaceErrorToJSON, InventoryapiSurfaceErrorToJSONTyped } from "./InventoryapiSurfaceError";
 
 /**
  *
@@ -105,10 +110,15 @@ export function InventoryapiUserExternalAssetResultFromJSONTyped(json: any, igno
     };
 }
 
-export function InventoryapiUserExternalAssetResultToJSON(value?: InventoryapiUserExternalAssetResult | null): any {
+export function InventoryapiUserExternalAssetResultToJSON(json: any): InventoryapiUserExternalAssetResult {
+    return InventoryapiUserExternalAssetResultToJSONTyped(json, false);
+}
+
+export function InventoryapiUserExternalAssetResultToJSONTyped(value?: InventoryapiUserExternalAssetResult | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         asset_type: value["assetType"],
         current_subsidiary: InventoryapidomainSubsidiaryToJSON(value["currentSubsidiary"]),

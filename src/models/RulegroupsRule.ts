@@ -306,10 +306,15 @@ export function RulegroupsRuleFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function RulegroupsRuleToJSON(value?: RulegroupsRule | null): any {
+export function RulegroupsRuleToJSON(json: any): RulegroupsRule {
+    return RulegroupsRuleToJSONTyped(json, false);
+}
+
+export function RulegroupsRuleToJSONTyped(value?: RulegroupsRule | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         content_files: value["contentFiles"],
         content_registry_values: value["contentRegistryValues"],

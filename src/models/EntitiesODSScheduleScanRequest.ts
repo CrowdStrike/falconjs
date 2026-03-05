@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainSchedule } from "./DomainSchedule";
-import { DomainScheduleFromJSON, DomainScheduleFromJSONTyped, DomainScheduleToJSON } from "./DomainSchedule";
+import { DomainScheduleFromJSON, DomainScheduleFromJSONTyped, DomainScheduleToJSON, DomainScheduleToJSONTyped } from "./DomainSchedule";
 
 /**
  *
@@ -283,10 +283,15 @@ export function EntitiesODSScheduleScanRequestFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function EntitiesODSScheduleScanRequestToJSON(value?: EntitiesODSScheduleScanRequest | null): any {
+export function EntitiesODSScheduleScanRequestToJSON(json: any): EntitiesODSScheduleScanRequest {
+    return EntitiesODSScheduleScanRequestToJSONTyped(json, false);
+}
+
+export function EntitiesODSScheduleScanRequestToJSONTyped(value?: EntitiesODSScheduleScanRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cloud_ml_level_detection: value["cloudMlLevelDetection"],
         cloud_ml_level_prevention: value["cloudMlLevelPrevention"],

@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { RestapiIndicatorFeedQueryItem } from "./RestapiIndicatorFeedQueryItem";
-import { RestapiIndicatorFeedQueryItemFromJSON, RestapiIndicatorFeedQueryItemFromJSONTyped, RestapiIndicatorFeedQueryItemToJSON } from "./RestapiIndicatorFeedQueryItem";
+import {
+    RestapiIndicatorFeedQueryItemFromJSON,
+    RestapiIndicatorFeedQueryItemFromJSONTyped,
+    RestapiIndicatorFeedQueryItemToJSON,
+    RestapiIndicatorFeedQueryItemToJSONTyped,
+} from "./RestapiIndicatorFeedQueryItem";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -76,10 +81,15 @@ export function RestapiIndicatorFeedQueryResponseFromJSONTyped(json: any, ignore
     };
 }
 
-export function RestapiIndicatorFeedQueryResponseToJSON(value?: RestapiIndicatorFeedQueryResponse | null): any {
+export function RestapiIndicatorFeedQueryResponseToJSON(json: any): RestapiIndicatorFeedQueryResponse {
+    return RestapiIndicatorFeedQueryResponseToJSONTyped(json, false);
+}
+
+export function RestapiIndicatorFeedQueryResponseToJSONTyped(value?: RestapiIndicatorFeedQueryResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         feed_name: value["feedName"],

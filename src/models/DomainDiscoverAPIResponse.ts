@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { DomainDiscoverAPIMetaInfo } from "./DomainDiscoverAPIMetaInfo";
-import { DomainDiscoverAPIMetaInfoFromJSON, DomainDiscoverAPIMetaInfoFromJSONTyped, DomainDiscoverAPIMetaInfoToJSON } from "./DomainDiscoverAPIMetaInfo";
+import { DomainDiscoverAPIMetaInfoFromJSON, DomainDiscoverAPIMetaInfoFromJSONTyped, DomainDiscoverAPIMetaInfoToJSON, DomainDiscoverAPIMetaInfoToJSONTyped } from "./DomainDiscoverAPIMetaInfo";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 
 /**
  *
@@ -69,10 +69,15 @@ export function DomainDiscoverAPIResponseFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DomainDiscoverAPIResponseToJSON(value?: DomainDiscoverAPIResponse | null): any {
+export function DomainDiscoverAPIResponseToJSON(json: any): DomainDiscoverAPIResponse {
+    return DomainDiscoverAPIResponseToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPIResponseToJSONTyped(value?: DomainDiscoverAPIResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: DomainDiscoverAPIMetaInfoToJSON(value["meta"]),

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MlscannerapiQuota } from "./MlscannerapiQuota";
-import { MlscannerapiQuotaFromJSON, MlscannerapiQuotaFromJSONTyped, MlscannerapiQuotaToJSON } from "./MlscannerapiQuota";
+import { MlscannerapiQuotaFromJSON, MlscannerapiQuotaFromJSONTyped, MlscannerapiQuotaToJSON, MlscannerapiQuotaToJSONTyped } from "./MlscannerapiQuota";
 import type { MsaPaging } from "./MsaPaging";
-import { MsaPagingFromJSON, MsaPagingFromJSONTyped, MsaPagingToJSON } from "./MsaPaging";
+import { MsaPagingFromJSON, MsaPagingFromJSONTyped, MsaPagingToJSON, MsaPagingToJSONTyped } from "./MsaPaging";
 import type { MsaspecWrites } from "./MsaspecWrites";
-import { MsaspecWritesFromJSON, MsaspecWritesFromJSONTyped, MsaspecWritesToJSON } from "./MsaspecWrites";
+import { MsaspecWritesFromJSON, MsaspecWritesFromJSONTyped, MsaspecWritesToJSON, MsaspecWritesToJSONTyped } from "./MsaspecWrites";
 
 /**
  *
@@ -91,10 +91,15 @@ export function MlscannerapiMetaInfoFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function MlscannerapiMetaInfoToJSON(value?: MlscannerapiMetaInfo | null): any {
+export function MlscannerapiMetaInfoToJSON(json: any): MlscannerapiMetaInfo {
+    return MlscannerapiMetaInfoToJSONTyped(json, false);
+}
+
+export function MlscannerapiMetaInfoToJSONTyped(value?: MlscannerapiMetaInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: MsaPagingToJSON(value["pagination"]),
         powered_by: value["poweredBy"],

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainBehavior } from "./DomainBehavior";
-import { DomainBehaviorFromJSON, DomainBehaviorFromJSONTyped, DomainBehaviorToJSON } from "./DomainBehavior";
+import { DomainBehaviorFromJSON, DomainBehaviorFromJSONTyped, DomainBehaviorToJSON, DomainBehaviorToJSONTyped } from "./DomainBehavior";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainMsaExternalBehaviorResponseFromJSONTyped(json: any, ignore
     };
 }
 
-export function DomainMsaExternalBehaviorResponseToJSON(value?: DomainMsaExternalBehaviorResponse | null): any {
+export function DomainMsaExternalBehaviorResponseToJSON(json: any): DomainMsaExternalBehaviorResponse {
+    return DomainMsaExternalBehaviorResponseToJSONTyped(json, false);
+}
+
+export function DomainMsaExternalBehaviorResponseToJSONTyped(value?: DomainMsaExternalBehaviorResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

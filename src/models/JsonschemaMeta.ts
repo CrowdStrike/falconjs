@@ -48,10 +48,15 @@ export function JsonschemaMetaFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function JsonschemaMetaToJSON(value?: JsonschemaMeta | null): any {
+export function JsonschemaMetaToJSON(json: any): JsonschemaMeta {
+    return JsonschemaMetaToJSONTyped(json, false);
+}
+
+export function JsonschemaMetaToJSONTyped(value?: JsonschemaMeta | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ignoreValue: value["ignoreValue"],
     };

@@ -110,10 +110,15 @@ export function FalconxSignatureFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function FalconxSignatureToJSON(value?: FalconxSignature | null): any {
+export function FalconxSignatureToJSON(json: any): FalconxSignature {
+    return FalconxSignatureToJSONTyped(json, false);
+}
+
+export function FalconxSignatureToJSONTyped(value?: FalconxSignature | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         attack_id: value["attackId"],
         category: value["category"],

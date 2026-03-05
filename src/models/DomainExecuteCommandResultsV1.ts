@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainExecuteCommandResultV1 } from "./DomainExecuteCommandResultV1";
-import { DomainExecuteCommandResultV1FromJSON, DomainExecuteCommandResultV1FromJSONTyped, DomainExecuteCommandResultV1ToJSON } from "./DomainExecuteCommandResultV1";
+import {
+    DomainExecuteCommandResultV1FromJSON,
+    DomainExecuteCommandResultV1FromJSONTyped,
+    DomainExecuteCommandResultV1ToJSON,
+    DomainExecuteCommandResultV1ToJSONTyped,
+} from "./DomainExecuteCommandResultV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +76,15 @@ export function DomainExecuteCommandResultsV1FromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function DomainExecuteCommandResultsV1ToJSON(value?: DomainExecuteCommandResultsV1 | null): any {
+export function DomainExecuteCommandResultsV1ToJSON(json: any): DomainExecuteCommandResultsV1 {
+    return DomainExecuteCommandResultsV1ToJSONTyped(json, false);
+}
+
+export function DomainExecuteCommandResultsV1ToJSONTyped(value?: DomainExecuteCommandResultsV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

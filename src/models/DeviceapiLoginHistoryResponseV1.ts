@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DeviceapiLoginDetailV1 } from "./DeviceapiLoginDetailV1";
-import { DeviceapiLoginDetailV1FromJSON, DeviceapiLoginDetailV1FromJSONTyped, DeviceapiLoginDetailV1ToJSON } from "./DeviceapiLoginDetailV1";
+import { DeviceapiLoginDetailV1FromJSON, DeviceapiLoginDetailV1FromJSONTyped, DeviceapiLoginDetailV1ToJSON, DeviceapiLoginDetailV1ToJSONTyped } from "./DeviceapiLoginDetailV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DeviceapiLoginHistoryResponseV1FromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function DeviceapiLoginHistoryResponseV1ToJSON(value?: DeviceapiLoginHistoryResponseV1 | null): any {
+export function DeviceapiLoginHistoryResponseV1ToJSON(json: any): DeviceapiLoginHistoryResponseV1 {
+    return DeviceapiLoginHistoryResponseV1ToJSONTyped(json, false);
+}
+
+export function DeviceapiLoginHistoryResponseV1ToJSONTyped(value?: DeviceapiLoginHistoryResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

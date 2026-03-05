@@ -47,10 +47,15 @@ export function DomainExternalAssetAPIDeleteRequestV1FromJSONTyped(json: any, ig
     };
 }
 
-export function DomainExternalAssetAPIDeleteRequestV1ToJSON(value?: DomainExternalAssetAPIDeleteRequestV1 | null): any {
+export function DomainExternalAssetAPIDeleteRequestV1ToJSON(json: any): DomainExternalAssetAPIDeleteRequestV1 {
+    return DomainExternalAssetAPIDeleteRequestV1ToJSONTyped(json, false);
+}
+
+export function DomainExternalAssetAPIDeleteRequestV1ToJSONTyped(value?: DomainExternalAssetAPIDeleteRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
     };

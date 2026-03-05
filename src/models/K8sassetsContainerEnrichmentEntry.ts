@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { K8sassetsContainerEnrichmentData } from "./K8sassetsContainerEnrichmentData";
-import { K8sassetsContainerEnrichmentDataFromJSON, K8sassetsContainerEnrichmentDataFromJSONTyped, K8sassetsContainerEnrichmentDataToJSON } from "./K8sassetsContainerEnrichmentData";
+import {
+    K8sassetsContainerEnrichmentDataFromJSON,
+    K8sassetsContainerEnrichmentDataFromJSONTyped,
+    K8sassetsContainerEnrichmentDataToJSON,
+    K8sassetsContainerEnrichmentDataToJSONTyped,
+} from "./K8sassetsContainerEnrichmentData";
 
 /**
  *
@@ -59,10 +64,15 @@ export function K8sassetsContainerEnrichmentEntryFromJSONTyped(json: any, ignore
     };
 }
 
-export function K8sassetsContainerEnrichmentEntryToJSON(value?: K8sassetsContainerEnrichmentEntry | null): any {
+export function K8sassetsContainerEnrichmentEntryToJSON(json: any): K8sassetsContainerEnrichmentEntry {
+    return K8sassetsContainerEnrichmentEntryToJSONTyped(json, false);
+}
+
+export function K8sassetsContainerEnrichmentEntryToJSONTyped(value?: K8sassetsContainerEnrichmentEntry | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         container_id: value["containerId"],
         enrichment_data: K8sassetsContainerEnrichmentDataToJSON(value["enrichmentData"]),

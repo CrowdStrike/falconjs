@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { SdkCaseVM } from "./SdkCaseVM";
-import { SdkCaseVMFromJSON, SdkCaseVMFromJSONTyped, SdkCaseVMToJSON } from "./SdkCaseVM";
+import { SdkCaseVMFromJSON, SdkCaseVMFromJSONTyped, SdkCaseVMToJSON, SdkCaseVMToJSONTyped } from "./SdkCaseVM";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function OperationsUpdateCaseResponseVMFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function OperationsUpdateCaseResponseVMToJSON(value?: OperationsUpdateCaseResponseVM | null): any {
+export function OperationsUpdateCaseResponseVMToJSON(json: any): OperationsUpdateCaseResponseVM {
+    return OperationsUpdateCaseResponseVMToJSONTyped(json, false);
+}
+
+export function OperationsUpdateCaseResponseVMToJSONTyped(value?: OperationsUpdateCaseResponseVM | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

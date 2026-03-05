@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { RestCursorAndLimitMetaInfo } from "./RestCursorAndLimitMetaInfo";
-import { RestCursorAndLimitMetaInfoFromJSON, RestCursorAndLimitMetaInfoFromJSONTyped, RestCursorAndLimitMetaInfoToJSON } from "./RestCursorAndLimitMetaInfo";
+import { RestCursorAndLimitMetaInfoFromJSON, RestCursorAndLimitMetaInfoFromJSONTyped, RestCursorAndLimitMetaInfoToJSON, RestCursorAndLimitMetaInfoToJSONTyped } from "./RestCursorAndLimitMetaInfo";
 
 /**
  *
@@ -67,10 +67,15 @@ export function EvaluationsQueryIOMsResponseFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function EvaluationsQueryIOMsResponseToJSON(value?: EvaluationsQueryIOMsResponse | null): any {
+export function EvaluationsQueryIOMsResponseToJSON(json: any): EvaluationsQueryIOMsResponse {
+    return EvaluationsQueryIOMsResponseToJSONTyped(json, false);
+}
+
+export function EvaluationsQueryIOMsResponseToJSONTyped(value?: EvaluationsQueryIOMsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: RestCursorAndLimitMetaInfoToJSON(value["meta"]),

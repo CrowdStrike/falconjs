@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { FalconxMalwareConfig } from "./FalconxMalwareConfig";
-import { FalconxMalwareConfigFromJSON, FalconxMalwareConfigFromJSONTyped, FalconxMalwareConfigToJSON } from "./FalconxMalwareConfig";
+import { FalconxMalwareConfigFromJSON, FalconxMalwareConfigFromJSONTyped, FalconxMalwareConfigToJSON, FalconxMalwareConfigToJSONTyped } from "./FalconxMalwareConfig";
 
 /**
  *
@@ -57,10 +57,15 @@ export function FalconxIntelXReportV1FromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function FalconxIntelXReportV1ToJSON(value?: FalconxIntelXReportV1 | null): any {
+export function FalconxIntelXReportV1ToJSON(json: any): FalconxIntelXReportV1 {
+    return FalconxIntelXReportV1ToJSONTyped(json, false);
+}
+
+export function FalconxIntelXReportV1ToJSONTyped(value?: FalconxIntelXReportV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         malware_config: FalconxMalwareConfigToJSON(value["malwareConfig"]),
         sha256: value["sha256"],

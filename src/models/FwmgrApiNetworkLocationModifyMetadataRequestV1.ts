@@ -80,10 +80,15 @@ export function FwmgrApiNetworkLocationModifyMetadataRequestV1FromJSONTyped(json
     };
 }
 
-export function FwmgrApiNetworkLocationModifyMetadataRequestV1ToJSON(value?: FwmgrApiNetworkLocationModifyMetadataRequestV1 | null): any {
+export function FwmgrApiNetworkLocationModifyMetadataRequestV1ToJSON(json: any): FwmgrApiNetworkLocationModifyMetadataRequestV1 {
+    return FwmgrApiNetworkLocationModifyMetadataRequestV1ToJSONTyped(json, false);
+}
+
+export function FwmgrApiNetworkLocationModifyMetadataRequestV1ToJSONTyped(value?: FwmgrApiNetworkLocationModifyMetadataRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         dns_resolution_targets_polling_interval: value["dnsResolutionTargetsPollingInterval"],

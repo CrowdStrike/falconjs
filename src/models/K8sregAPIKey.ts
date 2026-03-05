@@ -48,10 +48,15 @@ export function K8sregAPIKeyFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function K8sregAPIKeyToJSON(value?: K8sregAPIKey | null): any {
+export function K8sregAPIKeyToJSON(json: any): K8sregAPIKey {
+    return K8sregAPIKeyToJSONTyped(json, false);
+}
+
+export function K8sregAPIKeyToJSONTyped(value?: K8sregAPIKey | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         api_key: value["apiKey"],
     };

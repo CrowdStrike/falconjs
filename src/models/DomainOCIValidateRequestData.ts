@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainProductFeatures } from "./DomainProductFeatures";
-import { DomainProductFeaturesFromJSON, DomainProductFeaturesFromJSONTyped, DomainProductFeaturesToJSON } from "./DomainProductFeatures";
+import { DomainProductFeaturesFromJSON, DomainProductFeaturesFromJSONTyped, DomainProductFeaturesToJSON, DomainProductFeaturesToJSONTyped } from "./DomainProductFeatures";
 
 /**
  *
@@ -59,10 +59,15 @@ export function DomainOCIValidateRequestDataFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function DomainOCIValidateRequestDataToJSON(value?: DomainOCIValidateRequestData | null): any {
+export function DomainOCIValidateRequestDataToJSON(json: any): DomainOCIValidateRequestData {
+    return DomainOCIValidateRequestDataToJSONTyped(json, false);
+}
+
+export function DomainOCIValidateRequestDataToJSONTyped(value?: DomainOCIValidateRequestData | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         products: (value["products"] as Array<any>).map(DomainProductFeaturesToJSON),
         tenancy_ocid: value["tenancyOcid"],

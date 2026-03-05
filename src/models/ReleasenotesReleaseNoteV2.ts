@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ReleasenotesNoteDetail } from "./ReleasenotesNoteDetail";
-import { ReleasenotesNoteDetailFromJSON, ReleasenotesNoteDetailFromJSONTyped, ReleasenotesNoteDetailToJSON } from "./ReleasenotesNoteDetail";
+import { ReleasenotesNoteDetailFromJSON, ReleasenotesNoteDetailFromJSONTyped, ReleasenotesNoteDetailToJSON, ReleasenotesNoteDetailToJSONTyped } from "./ReleasenotesNoteDetail";
 
 /**
  *
@@ -89,14 +89,19 @@ export function ReleasenotesReleaseNoteV2FromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ReleasenotesReleaseNoteV2ToJSON(value?: ReleasenotesReleaseNoteV2 | null): any {
+export function ReleasenotesReleaseNoteV2ToJSON(json: any): ReleasenotesReleaseNoteV2 {
+    return ReleasenotesReleaseNoteV2ToJSONTyped(json, false);
+}
+
+export function ReleasenotesReleaseNoteV2ToJSONTyped(value?: ReleasenotesReleaseNoteV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         categories: value["categories"],
-        early_access: value["earlyAccess"] == null ? undefined : value["earlyAccess"].toISOString(),
-        general_availability: value["generalAvailability"] == null ? undefined : value["generalAvailability"].toISOString(),
+        early_access: value["earlyAccess"] == null ? value["earlyAccess"] : value["earlyAccess"].toISOString(),
+        general_availability: value["generalAvailability"] == null ? value["generalAvailability"] : value["generalAvailability"].toISOString(),
         notes: (value["notes"] as Array<any>).map(ReleasenotesNoteDetailToJSON),
         timestamp: value["timestamp"].toISOString(),
         version: value["version"],

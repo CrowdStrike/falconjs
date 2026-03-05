@@ -62,10 +62,15 @@ export function CommonUpdateComplianceFrameworkRequestFromJSONTyped(json: any, i
     };
 }
 
-export function CommonUpdateComplianceFrameworkRequestToJSON(value?: CommonUpdateComplianceFrameworkRequest | null): any {
+export function CommonUpdateComplianceFrameworkRequestToJSON(json: any): CommonUpdateComplianceFrameworkRequest {
+    return CommonUpdateComplianceFrameworkRequestToJSONTyped(json, false);
+}
+
+export function CommonUpdateComplianceFrameworkRequestToJSONTyped(value?: CommonUpdateComplianceFrameworkRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         active: value["active"],
         description: value["description"],

@@ -78,10 +78,15 @@ export function ApidomainDynamicExecuteSearchRequestV1FromJSONTyped(json: any, i
     };
 }
 
-export function ApidomainDynamicExecuteSearchRequestV1ToJSON(value?: ApidomainDynamicExecuteSearchRequestV1 | null): any {
+export function ApidomainDynamicExecuteSearchRequestV1ToJSON(json: any): ApidomainDynamicExecuteSearchRequestV1 {
+    return ApidomainDynamicExecuteSearchRequestV1ToJSONTyped(json, false);
+}
+
+export function ApidomainDynamicExecuteSearchRequestV1ToJSONTyped(value?: ApidomainDynamicExecuteSearchRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         end: value["end"],
         repo_or_view: value["repoOrView"],

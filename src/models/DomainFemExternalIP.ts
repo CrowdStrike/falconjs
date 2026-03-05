@@ -14,14 +14,15 @@
 
 import { mapValues } from "../runtime";
 import type { DomainExternalAssetService } from "./DomainExternalAssetService";
-import { DomainExternalAssetServiceFromJSON, DomainExternalAssetServiceFromJSONTyped, DomainExternalAssetServiceToJSON } from "./DomainExternalAssetService";
+import { DomainExternalAssetServiceFromJSON, DomainExternalAssetServiceFromJSONTyped, DomainExternalAssetServiceToJSON, DomainExternalAssetServiceToJSONTyped } from "./DomainExternalAssetService";
 import type { DomainExternalAssetCloudVM } from "./DomainExternalAssetCloudVM";
-import { DomainExternalAssetCloudVMFromJSON, DomainExternalAssetCloudVMFromJSONTyped, DomainExternalAssetCloudVMToJSON } from "./DomainExternalAssetCloudVM";
+import { DomainExternalAssetCloudVMFromJSON, DomainExternalAssetCloudVMFromJSONTyped, DomainExternalAssetCloudVMToJSON, DomainExternalAssetCloudVMToJSONTyped } from "./DomainExternalAssetCloudVM";
 import type { DomainExternalAssetGeographicalLocation } from "./DomainExternalAssetGeographicalLocation";
 import {
     DomainExternalAssetGeographicalLocationFromJSON,
     DomainExternalAssetGeographicalLocationFromJSONTyped,
     DomainExternalAssetGeographicalLocationToJSON,
+    DomainExternalAssetGeographicalLocationToJSONTyped,
 } from "./DomainExternalAssetGeographicalLocation";
 
 /**
@@ -121,10 +122,15 @@ export function DomainFemExternalIPFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function DomainFemExternalIPToJSON(value?: DomainFemExternalIP | null): any {
+export function DomainFemExternalIPToJSON(json: any): DomainFemExternalIP {
+    return DomainFemExternalIPToJSONTyped(json, false);
+}
+
+export function DomainFemExternalIPToJSONTyped(value?: DomainFemExternalIP | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         aid: value["aid"],
         asn: value["asn"],

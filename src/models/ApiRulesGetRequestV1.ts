@@ -48,10 +48,15 @@ export function ApiRulesGetRequestV1FromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function ApiRulesGetRequestV1ToJSON(value?: ApiRulesGetRequestV1 | null): any {
+export function ApiRulesGetRequestV1ToJSON(json: any): ApiRulesGetRequestV1 {
+    return ApiRulesGetRequestV1ToJSONTyped(json, false);
+}
+
+export function ApiRulesGetRequestV1ToJSONTyped(value?: ApiRulesGetRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ids: value["ids"],
     };

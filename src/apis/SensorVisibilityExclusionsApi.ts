@@ -60,12 +60,9 @@ export interface SensorVisibilityExclusionsApiUpdateSensorVisibilityExclusionsV1
  */
 export class SensorVisibilityExclusionsApi extends runtime.BaseAPI {
     /**
-     * Create the sensor visibility exclusions
+     * Creates request options for createSVExclusionsV1 without sending the request
      */
-    async createSVExclusionsV1Raw(
-        requestParameters: SensorVisibilityExclusionsApiCreateSVExclusionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ExclusionsRespV1>> {
+    async createSVExclusionsV1RequestOpts(requestParameters: SensorVisibilityExclusionsApiCreateSVExclusionsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createSVExclusionsV1().');
         }
@@ -81,16 +78,26 @@ export class SensorVisibilityExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-visibility-exclusions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/sv-exclusions/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: SvExclusionsCreateReqV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/sv-exclusions/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: SvExclusionsCreateReqV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create the sensor visibility exclusions
+     */
+    async createSVExclusionsV1Raw(
+        requestParameters: SensorVisibilityExclusionsApiCreateSVExclusionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ExclusionsRespV1>> {
+        const requestOptions = await this.createSVExclusionsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ExclusionsRespV1FromJSON(jsonValue));
     }
@@ -104,12 +111,9 @@ export class SensorVisibilityExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete the sensor visibility exclusions by id
+     * Creates request options for deleteSensorVisibilityExclusionsV1 without sending the request
      */
-    async deleteSensorVisibilityExclusionsV1Raw(
-        requestParameters: SensorVisibilityExclusionsApiDeleteSensorVisibilityExclusionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async deleteSensorVisibilityExclusionsV1RequestOpts(requestParameters: SensorVisibilityExclusionsApiDeleteSensorVisibilityExclusionsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteSensorVisibilityExclusionsV1().');
         }
@@ -131,15 +135,25 @@ export class SensorVisibilityExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-visibility-exclusions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/sv-exclusions/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/sv-exclusions/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete the sensor visibility exclusions by id
+     */
+    async deleteSensorVisibilityExclusionsV1Raw(
+        requestParameters: SensorVisibilityExclusionsApiDeleteSensorVisibilityExclusionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.deleteSensorVisibilityExclusionsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -153,12 +167,9 @@ export class SensorVisibilityExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a set of Sensor Visibility Exclusions by specifying their IDs
+     * Creates request options for getSensorVisibilityExclusionsV1 without sending the request
      */
-    async getSensorVisibilityExclusionsV1Raw(
-        requestParameters: SensorVisibilityExclusionsApiGetSensorVisibilityExclusionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<SvExclusionsRespV1>> {
+    async getSensorVisibilityExclusionsV1RequestOpts(requestParameters: SensorVisibilityExclusionsApiGetSensorVisibilityExclusionsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getSensorVisibilityExclusionsV1().');
         }
@@ -176,15 +187,25 @@ export class SensorVisibilityExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-visibility-exclusions:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/sv-exclusions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/sv-exclusions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a set of Sensor Visibility Exclusions by specifying their IDs
+     */
+    async getSensorVisibilityExclusionsV1Raw(
+        requestParameters: SensorVisibilityExclusionsApiGetSensorVisibilityExclusionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<SvExclusionsRespV1>> {
+        const requestOptions = await this.getSensorVisibilityExclusionsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SvExclusionsRespV1FromJSON(jsonValue));
     }
@@ -198,12 +219,9 @@ export class SensorVisibilityExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for sensor visibility exclusions.
+     * Creates request options for querySensorVisibilityExclusionsV1 without sending the request
      */
-    async querySensorVisibilityExclusionsV1Raw(
-        requestParameters: SensorVisibilityExclusionsApiQuerySensorVisibilityExclusionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async querySensorVisibilityExclusionsV1RequestOpts(requestParameters: SensorVisibilityExclusionsApiQuerySensorVisibilityExclusionsV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -229,15 +247,25 @@ export class SensorVisibilityExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-visibility-exclusions:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/queries/sv-exclusions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/queries/sv-exclusions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for sensor visibility exclusions.
+     */
+    async querySensorVisibilityExclusionsV1Raw(
+        requestParameters: SensorVisibilityExclusionsApiQuerySensorVisibilityExclusionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.querySensorVisibilityExclusionsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -257,12 +285,9 @@ export class SensorVisibilityExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update the sensor visibility exclusions
+     * Creates request options for updateSensorVisibilityExclusionsV1 without sending the request
      */
-    async updateSensorVisibilityExclusionsV1Raw(
-        requestParameters: SensorVisibilityExclusionsApiUpdateSensorVisibilityExclusionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<SvExclusionsRespV1>> {
+    async updateSensorVisibilityExclusionsV1RequestOpts(requestParameters: SensorVisibilityExclusionsApiUpdateSensorVisibilityExclusionsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateSensorVisibilityExclusionsV1().');
         }
@@ -278,16 +303,26 @@ export class SensorVisibilityExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["sensor-visibility-exclusions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/sv-exclusions/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: SvExclusionsUpdateReqV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/sv-exclusions/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: SvExclusionsUpdateReqV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update the sensor visibility exclusions
+     */
+    async updateSensorVisibilityExclusionsV1Raw(
+        requestParameters: SensorVisibilityExclusionsApiUpdateSensorVisibilityExclusionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<SvExclusionsRespV1>> {
+        const requestOptions = await this.updateSensorVisibilityExclusionsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SvExclusionsRespV1FromJSON(jsonValue));
     }

@@ -14,15 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ScheduledexclusionsScheduledExclusion } from "./ScheduledexclusionsScheduledExclusion";
 import {
     ScheduledexclusionsScheduledExclusionFromJSON,
     ScheduledexclusionsScheduledExclusionFromJSONTyped,
     ScheduledexclusionsScheduledExclusionToJSON,
+    ScheduledexclusionsScheduledExclusionToJSONTyped,
 } from "./ScheduledexclusionsScheduledExclusion";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -74,10 +75,15 @@ export function ScheduledexclusionsResponseFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function ScheduledexclusionsResponseToJSON(value?: ScheduledexclusionsResponse | null): any {
+export function ScheduledexclusionsResponseToJSON(json: any): ScheduledexclusionsResponse {
+    return ScheduledexclusionsResponseToJSONTyped(json, false);
+}
+
+export function ScheduledexclusionsResponseToJSONTyped(value?: ScheduledexclusionsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

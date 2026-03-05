@@ -46,9 +46,9 @@ export interface LookupFilesApiUpdateFileV1Request {
  */
 export class LookupFilesApi extends runtime.BaseAPI {
     /**
-     * Creates a lookup file
+     * Creates request options for createFileV1 without sending the request
      */
-    async createFileV1Raw(requestParameters: LookupFilesApiCreateFileV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainLookupFileWrapper>> {
+    async createFileV1RequestOpts(requestParameters: LookupFilesApiCreateFileV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["file"] == null) {
             throw new runtime.RequiredError("file", 'Required parameter "file" was null or undefined when calling createFileV1().');
         }
@@ -103,16 +103,23 @@ export class LookupFilesApi extends runtime.BaseAPI {
             formParams.append("repo", requestParameters["repo"] as any);
         }
 
-        const response = await this.request(
-            {
-                path: `/loggingapi/entities/lookup-files/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: formParams,
-            },
-            initOverrides,
-        );
+        let urlPath = `/loggingapi/entities/lookup-files/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        };
+    }
+
+    /**
+     * Creates a lookup file
+     */
+    async createFileV1Raw(requestParameters: LookupFilesApiCreateFileV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainLookupFileWrapper>> {
+        const requestOptions = await this.createFileV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainLookupFileWrapperFromJSON(jsonValue));
     }
@@ -135,9 +142,9 @@ export class LookupFilesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Updates a lookup file
+     * Creates request options for updateFileV1 without sending the request
      */
-    async updateFileV1Raw(requestParameters: LookupFilesApiUpdateFileV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainLookupFileWrapper>> {
+    async updateFileV1RequestOpts(requestParameters: LookupFilesApiUpdateFileV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling updateFileV1().');
         }
@@ -180,16 +187,23 @@ export class LookupFilesApi extends runtime.BaseAPI {
             formParams.append("file", requestParameters["file"] as any);
         }
 
-        const response = await this.request(
-            {
-                path: `/loggingapi/entities/lookup-files/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: formParams,
-            },
-            initOverrides,
-        );
+        let urlPath = `/loggingapi/entities/lookup-files/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        };
+    }
+
+    /**
+     * Updates a lookup file
+     */
+    async updateFileV1Raw(requestParameters: LookupFilesApiUpdateFileV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainLookupFileWrapper>> {
+        const requestOptions = await this.updateFileV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainLookupFileWrapperFromJSON(jsonValue));
     }

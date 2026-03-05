@@ -120,10 +120,15 @@ export function ModelUserInputViewModelFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function ModelUserInputViewModelToJSON(value?: ModelUserInputViewModel | null): any {
+export function ModelUserInputViewModelToJSON(json: any): ModelUserInputViewModel {
+    return ModelUserInputViewModelToJSONTyped(json, false);
+}
+
+export function ModelUserInputViewModelToJSONTyped(value?: ModelUserInputViewModel | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         allowed_inputs: value["allowedInputs"],
         allowed_responders: value["allowedResponders"],

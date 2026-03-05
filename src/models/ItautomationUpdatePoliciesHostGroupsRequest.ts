@@ -64,10 +64,15 @@ export function ItautomationUpdatePoliciesHostGroupsRequestFromJSONTyped(json: a
     };
 }
 
-export function ItautomationUpdatePoliciesHostGroupsRequestToJSON(value?: ItautomationUpdatePoliciesHostGroupsRequest | null): any {
+export function ItautomationUpdatePoliciesHostGroupsRequestToJSON(json: any): ItautomationUpdatePoliciesHostGroupsRequest {
+    return ItautomationUpdatePoliciesHostGroupsRequestToJSONTyped(json, false);
+}
+
+export function ItautomationUpdatePoliciesHostGroupsRequestToJSONTyped(value?: ItautomationUpdatePoliciesHostGroupsRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         host_group_ids: value["hostGroupIds"],

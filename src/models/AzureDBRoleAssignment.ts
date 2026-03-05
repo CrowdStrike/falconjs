@@ -83,10 +83,15 @@ export function AzureDBRoleAssignmentFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function AzureDBRoleAssignmentToJSON(value?: AzureDBRoleAssignment | null): any {
+export function AzureDBRoleAssignmentToJSON(json: any): AzureDBRoleAssignment {
+    return AzureDBRoleAssignmentToJSONTyped(json, false);
+}
+
+export function AzureDBRoleAssignmentToJSONTyped(value?: AzureDBRoleAssignment | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
         role_definition_id: value["roleDefinitionId"],

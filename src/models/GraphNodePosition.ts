@@ -64,10 +64,15 @@ export function GraphNodePositionFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function GraphNodePositionToJSON(value?: GraphNodePosition | null): any {
+export function GraphNodePositionToJSON(json: any): GraphNodePosition {
+    return GraphNodePositionToJSONTyped(json, false);
+}
+
+export function GraphNodePositionToJSONTyped(value?: GraphNodePosition | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         anchor: value["anchor"],
         x: value["x"],

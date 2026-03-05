@@ -33,7 +33,7 @@ export interface QuickscanproFileResult {
     sha256: string;
     /**
      *
-     * @type {string}
+     * @type {QuickscanproFileResultVerdictEnum}
      * @memberof QuickscanproFileResult
      */
     verdict: QuickscanproFileResultVerdictEnum;
@@ -82,10 +82,15 @@ export function QuickscanproFileResultFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function QuickscanproFileResultToJSON(value?: QuickscanproFileResult | null): any {
+export function QuickscanproFileResultToJSON(json: any): QuickscanproFileResult {
+    return QuickscanproFileResultToJSONTyped(json, false);
+}
+
+export function QuickscanproFileResultToJSONTyped(value?: QuickscanproFileResult | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         filename: value["filename"],
         sha256: value["sha256"],

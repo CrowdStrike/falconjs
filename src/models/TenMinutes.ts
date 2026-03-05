@@ -64,10 +64,15 @@ export function TenMinutesFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function TenMinutesToJSON(value?: TenMinutes | null): any {
+export function TenMinutesToJSON(json: any): TenMinutes {
+    return TenMinutesToJSONTyped(json, false);
+}
+
+export function TenMinutesToJSONTyped(value?: TenMinutes | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         liveCost: value["liveCost"],
         queryCount: value["queryCount"],

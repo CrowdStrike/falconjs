@@ -399,12 +399,9 @@ export interface ItAutomationApiITAutomationUpdateUserGroupRequest {
  */
 export class ItAutomationApi extends runtime.BaseAPI {
     /**
-     * Cancel a task execution specified in the request
+     * Creates request options for iTAutomationCancelTaskExecution without sending the request
      */
-    async iTAutomationCancelTaskExecutionRaw(
-        requestParameters: ItAutomationApiITAutomationCancelTaskExecutionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationCancelTaskExecutionResponse>> {
+    async iTAutomationCancelTaskExecutionRequestOpts(requestParameters: ItAutomationApiITAutomationCancelTaskExecutionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling iTAutomationCancelTaskExecution().');
         }
@@ -420,16 +417,26 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-task-executions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/task-execution-cancel/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ItautomationCancelTaskExecutionRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/task-execution-cancel/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ItautomationCancelTaskExecutionRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Cancel a task execution specified in the request
+     */
+    async iTAutomationCancelTaskExecutionRaw(
+        requestParameters: ItAutomationApiITAutomationCancelTaskExecutionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationCancelTaskExecutionResponse>> {
+        const requestOptions = await this.iTAutomationCancelTaskExecutionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationCancelTaskExecutionResponseFromJSON(jsonValue));
     }
@@ -443,12 +450,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns full details of scheduled tasks matching the filter query parameter.
+     * Creates request options for iTAutomationCombinedScheduledTasks without sending the request
      */
-    async iTAutomationCombinedScheduledTasksRaw(
-        requestParameters: ItAutomationApiITAutomationCombinedScheduledTasksRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationGetScheduledTaskResponse>> {
+    async iTAutomationCombinedScheduledTasksRequestOpts(requestParameters: ItAutomationApiITAutomationCombinedScheduledTasksRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -474,15 +478,25 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-task-executions:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/combined/scheduled-tasks/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/combined/scheduled-tasks/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns full details of scheduled tasks matching the filter query parameter.
+     */
+    async iTAutomationCombinedScheduledTasksRaw(
+        requestParameters: ItAutomationApiITAutomationCombinedScheduledTasksRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationGetScheduledTaskResponse>> {
+        const requestOptions = await this.iTAutomationCombinedScheduledTasksRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationGetScheduledTaskResponseFromJSON(jsonValue));
     }
@@ -502,13 +516,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * After they are created, host groups can be assigned and policy precedence can be set.
-     * Creates a new policy of the specified type. New policies are always added at the end of the precedence list for the provided policy type.
+     * Creates request options for iTAutomationCreatePolicy without sending the request
      */
-    async iTAutomationCreatePolicyRaw(
-        requestParameters: ItAutomationApiITAutomationCreatePolicyRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationCreatePolicyResponse>> {
+    async iTAutomationCreatePolicyRequestOpts(requestParameters: ItAutomationApiITAutomationCreatePolicyRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling iTAutomationCreatePolicy().');
         }
@@ -524,16 +534,27 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/policies/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ItautomationCreatePolicyRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/policies/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ItautomationCreatePolicyRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * After they are created, host groups can be assigned and policy precedence can be set.
+     * Creates a new policy of the specified type. New policies are always added at the end of the precedence list for the provided policy type.
+     */
+    async iTAutomationCreatePolicyRaw(
+        requestParameters: ItAutomationApiITAutomationCreatePolicyRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationCreatePolicyResponse>> {
+        const requestOptions = await this.iTAutomationCreatePolicyRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationCreatePolicyResponseFromJSON(jsonValue));
     }
@@ -548,12 +569,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates a scheduled task from the given request
+     * Creates request options for iTAutomationCreateScheduledTask without sending the request
      */
-    async iTAutomationCreateScheduledTaskRaw(
-        requestParameters: ItAutomationApiITAutomationCreateScheduledTaskRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationCreateScheduledTaskResponse>> {
+    async iTAutomationCreateScheduledTaskRequestOpts(requestParameters: ItAutomationApiITAutomationCreateScheduledTaskRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling iTAutomationCreateScheduledTask().');
         }
@@ -569,16 +587,26 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-task-executions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/scheduled-tasks/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ItautomationCreateScheduledTaskRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/scheduled-tasks/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ItautomationCreateScheduledTaskRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Creates a scheduled task from the given request
+     */
+    async iTAutomationCreateScheduledTaskRaw(
+        requestParameters: ItAutomationApiITAutomationCreateScheduledTaskRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationCreateScheduledTaskResponse>> {
+        const requestOptions = await this.iTAutomationCreateScheduledTaskRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationCreateScheduledTaskResponseFromJSON(jsonValue));
     }
@@ -592,12 +620,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates a task with details from the given request.
+     * Creates request options for iTAutomationCreateTask without sending the request
      */
-    async iTAutomationCreateTaskRaw(
-        requestParameters: ItAutomationApiITAutomationCreateTaskRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationCreateTaskResponse>> {
+    async iTAutomationCreateTaskRequestOpts(requestParameters: ItAutomationApiITAutomationCreateTaskRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling iTAutomationCreateTask().');
         }
@@ -613,16 +638,26 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-tasks:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/tasks/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ItautomationCreateTaskRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/tasks/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ItautomationCreateTaskRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Creates a task with details from the given request.
+     */
+    async iTAutomationCreateTaskRaw(
+        requestParameters: ItAutomationApiITAutomationCreateTaskRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationCreateTaskResponse>> {
+        const requestOptions = await this.iTAutomationCreateTaskRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationCreateTaskResponseFromJSON(jsonValue));
     }
@@ -636,12 +671,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates a task group from the given request
+     * Creates request options for iTAutomationCreateTaskGroup without sending the request
      */
-    async iTAutomationCreateTaskGroupRaw(
-        requestParameters: ItAutomationApiITAutomationCreateTaskGroupRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationCreateTaskGroupResponse>> {
+    async iTAutomationCreateTaskGroupRequestOpts(requestParameters: ItAutomationApiITAutomationCreateTaskGroupRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling iTAutomationCreateTaskGroup().');
         }
@@ -657,16 +689,26 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-tasks:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/task-groups/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ItautomationCreateTaskGroupRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/task-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ItautomationCreateTaskGroupRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Creates a task group from the given request
+     */
+    async iTAutomationCreateTaskGroupRaw(
+        requestParameters: ItAutomationApiITAutomationCreateTaskGroupRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationCreateTaskGroupResponse>> {
+        const requestOptions = await this.iTAutomationCreateTaskGroupRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationCreateTaskGroupResponseFromJSON(jsonValue));
     }
@@ -680,12 +722,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates a user group from the given request
+     * Creates request options for iTAutomationCreateUserGroup without sending the request
      */
-    async iTAutomationCreateUserGroupRaw(
-        requestParameters: ItAutomationApiITAutomationCreateUserGroupRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationCreateUserGroupResponse>> {
+    async iTAutomationCreateUserGroupRequestOpts(requestParameters: ItAutomationApiITAutomationCreateUserGroupRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling iTAutomationCreateUserGroup().');
         }
@@ -701,16 +740,26 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-user-groups:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/it-user-groups/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ItautomationCreateUserGroupRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/it-user-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ItautomationCreateUserGroupRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Creates a user group from the given request
+     */
+    async iTAutomationCreateUserGroupRaw(
+        requestParameters: ItAutomationApiITAutomationCreateUserGroupRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationCreateUserGroupResponse>> {
+        const requestOptions = await this.iTAutomationCreateUserGroupRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationCreateUserGroupResponseFromJSON(jsonValue));
     }
@@ -724,13 +773,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Only disabled policies are allowed to be deleted.
-     * Deletes 1 or more policies.
+     * Creates request options for iTAutomationDeletePolicy without sending the request
      */
-    async iTAutomationDeletePolicyRaw(
-        requestParameters: ItAutomationApiITAutomationDeletePolicyRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationDeletePolicyResponse>> {
+    async iTAutomationDeletePolicyRequestOpts(requestParameters: ItAutomationApiITAutomationDeletePolicyRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling iTAutomationDeletePolicy().');
         }
@@ -748,15 +793,26 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/policies/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/policies/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Only disabled policies are allowed to be deleted.
+     * Deletes 1 or more policies.
+     */
+    async iTAutomationDeletePolicyRaw(
+        requestParameters: ItAutomationApiITAutomationDeletePolicyRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationDeletePolicyResponse>> {
+        const requestOptions = await this.iTAutomationDeletePolicyRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationDeletePolicyResponseFromJSON(jsonValue));
     }
@@ -771,12 +827,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete one or more scheduled tasks by providing the scheduled tasks IDs
+     * Creates request options for iTAutomationDeleteScheduledTasks without sending the request
      */
-    async iTAutomationDeleteScheduledTasksRaw(
-        requestParameters: ItAutomationApiITAutomationDeleteScheduledTasksRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationDeleteScheduledTasksResponse>> {
+    async iTAutomationDeleteScheduledTasksRequestOpts(requestParameters: ItAutomationApiITAutomationDeleteScheduledTasksRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling iTAutomationDeleteScheduledTasks().');
         }
@@ -794,15 +847,25 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-task-executions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/scheduled-tasks/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/scheduled-tasks/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete one or more scheduled tasks by providing the scheduled tasks IDs
+     */
+    async iTAutomationDeleteScheduledTasksRaw(
+        requestParameters: ItAutomationApiITAutomationDeleteScheduledTasksRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationDeleteScheduledTasksResponse>> {
+        const requestOptions = await this.iTAutomationDeleteScheduledTasksRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationDeleteScheduledTasksResponseFromJSON(jsonValue));
     }
@@ -816,12 +879,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deletes tasks for each provided ID
+     * Creates request options for iTAutomationDeleteTask without sending the request
      */
-    async iTAutomationDeleteTaskRaw(
-        requestParameters: ItAutomationApiITAutomationDeleteTaskRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationDeleteTaskResponse>> {
+    async iTAutomationDeleteTaskRequestOpts(requestParameters: ItAutomationApiITAutomationDeleteTaskRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling iTAutomationDeleteTask().');
         }
@@ -839,15 +899,25 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-tasks:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/tasks/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/tasks/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Deletes tasks for each provided ID
+     */
+    async iTAutomationDeleteTaskRaw(
+        requestParameters: ItAutomationApiITAutomationDeleteTaskRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationDeleteTaskResponse>> {
+        const requestOptions = await this.iTAutomationDeleteTaskRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationDeleteTaskResponseFromJSON(jsonValue));
     }
@@ -861,12 +931,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete one or more task groups by providing the task group IDs
+     * Creates request options for iTAutomationDeleteTaskGroups without sending the request
      */
-    async iTAutomationDeleteTaskGroupsRaw(
-        requestParameters: ItAutomationApiITAutomationDeleteTaskGroupsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationDeleteTaskGroupsResponse>> {
+    async iTAutomationDeleteTaskGroupsRequestOpts(requestParameters: ItAutomationApiITAutomationDeleteTaskGroupsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling iTAutomationDeleteTaskGroups().');
         }
@@ -884,15 +951,25 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-tasks:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/task-groups/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/task-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete one or more task groups by providing the task group IDs
+     */
+    async iTAutomationDeleteTaskGroupsRaw(
+        requestParameters: ItAutomationApiITAutomationDeleteTaskGroupsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationDeleteTaskGroupsResponse>> {
+        const requestOptions = await this.iTAutomationDeleteTaskGroupsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationDeleteTaskGroupsResponseFromJSON(jsonValue));
     }
@@ -906,12 +983,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deletes user groups for each provided ids
+     * Creates request options for iTAutomationDeleteUserGroup without sending the request
      */
-    async iTAutomationDeleteUserGroupRaw(
-        requestParameters: ItAutomationApiITAutomationDeleteUserGroupRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationDeleteUserGroupsResponse>> {
+    async iTAutomationDeleteUserGroupRequestOpts(requestParameters: ItAutomationApiITAutomationDeleteUserGroupRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling iTAutomationDeleteUserGroup().');
         }
@@ -929,15 +1003,25 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-user-groups:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/it-user-groups/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/it-user-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Deletes user groups for each provided ids
+     */
+    async iTAutomationDeleteUserGroupRaw(
+        requestParameters: ItAutomationApiITAutomationDeleteUserGroupRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationDeleteUserGroupsResponse>> {
+        const requestOptions = await this.iTAutomationDeleteUserGroupRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationDeleteUserGroupsResponseFromJSON(jsonValue));
     }
@@ -951,12 +1035,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve tasks associated with the provided file id
+     * Creates request options for iTAutomationGetAssociatedTasks without sending the request
      */
-    async iTAutomationGetAssociatedTasksRaw(
-        requestParameters: ItAutomationApiITAutomationGetAssociatedTasksRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationFileTaskAssociationResponse>> {
+    async iTAutomationGetAssociatedTasksRequestOpts(requestParameters: ItAutomationApiITAutomationGetAssociatedTasksRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling iTAutomationGetAssociatedTasks().');
         }
@@ -990,15 +1071,25 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-tasks:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/combined/associated-tasks/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/combined/associated-tasks/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve tasks associated with the provided file id
+     */
+    async iTAutomationGetAssociatedTasksRaw(
+        requestParameters: ItAutomationApiITAutomationGetAssociatedTasksRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationFileTaskAssociationResponse>> {
+        const requestOptions = await this.iTAutomationGetAssociatedTasksRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationFileTaskAssociationResponseFromJSON(jsonValue));
     }
@@ -1019,12 +1110,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the task execution results from an async search.    Use the ITAutomationStartExecutionResultsSearch command to start the async search. You can retrieve the results again for up to 24 hours, after which they will be deleted.
+     * Creates request options for iTAutomationGetExecutionResults without sending the request
      */
-    async iTAutomationGetExecutionResultsRaw(
-        requestParameters: ItAutomationApiITAutomationGetExecutionResultsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationTaskExecutionResultsResponse>> {
+    async iTAutomationGetExecutionResultsRequestOpts(requestParameters: ItAutomationApiITAutomationGetExecutionResultsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling iTAutomationGetExecutionResults().');
         }
@@ -1054,15 +1142,25 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-task-executions:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/task-execution-results/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/task-execution-results/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get the task execution results from an async search.    Use the ITAutomationStartExecutionResultsSearch command to start the async search. You can retrieve the results again for up to 24 hours, after which they will be deleted.
+     */
+    async iTAutomationGetExecutionResultsRaw(
+        requestParameters: ItAutomationApiITAutomationGetExecutionResultsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationTaskExecutionResultsResponse>> {
+        const requestOptions = await this.iTAutomationGetExecutionResultsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationTaskExecutionResultsResponseFromJSON(jsonValue));
     }
@@ -1082,12 +1180,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the status of an async task execution results.   Look for `is_pending: false` to know search is complete.
+     * Creates request options for iTAutomationGetExecutionResultsSearchStatus without sending the request
      */
-    async iTAutomationGetExecutionResultsSearchStatusRaw(
-        requestParameters: ItAutomationApiITAutomationGetExecutionResultsSearchStatusRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationSearchStatusResponse>> {
+    async iTAutomationGetExecutionResultsSearchStatusRequestOpts(requestParameters: ItAutomationApiITAutomationGetExecutionResultsSearchStatusRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling iTAutomationGetExecutionResultsSearchStatus().');
         }
@@ -1105,15 +1200,25 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-task-executions:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/task-execution-results-search/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/task-execution-results-search/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get the status of an async task execution results.   Look for `is_pending: false` to know search is complete.
+     */
+    async iTAutomationGetExecutionResultsSearchStatusRaw(
+        requestParameters: ItAutomationApiITAutomationGetExecutionResultsSearchStatusRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationSearchStatusResponse>> {
+        const requestOptions = await this.iTAutomationGetExecutionResultsSearchStatusRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationSearchStatusResponseFromJSON(jsonValue));
     }
@@ -1127,13 +1232,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * The configuration of each policy that match the provided id will be returned.
-     * Retrieves the configuration for 1 or more policies.
+     * Creates request options for iTAutomationGetPolicies without sending the request
      */
-    async iTAutomationGetPoliciesRaw(
-        requestParameters: ItAutomationApiITAutomationGetPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationPoliciesAPIResponse>> {
+    async iTAutomationGetPoliciesRequestOpts(requestParameters: ItAutomationApiITAutomationGetPoliciesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling iTAutomationGetPolicies().');
         }
@@ -1151,15 +1252,26 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/policies/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/policies/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * The configuration of each policy that match the provided id will be returned.
+     * Retrieves the configuration for 1 or more policies.
+     */
+    async iTAutomationGetPoliciesRaw(
+        requestParameters: ItAutomationApiITAutomationGetPoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationPoliciesAPIResponse>> {
+        const requestOptions = await this.iTAutomationGetPoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationPoliciesAPIResponseFromJSON(jsonValue));
     }
@@ -1174,12 +1286,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns scheduled tasks for each provided id
+     * Creates request options for iTAutomationGetScheduledTasks without sending the request
      */
-    async iTAutomationGetScheduledTasksRaw(
-        requestParameters: ItAutomationApiITAutomationGetScheduledTasksRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationGetScheduledTaskResponse>> {
+    async iTAutomationGetScheduledTasksRequestOpts(requestParameters: ItAutomationApiITAutomationGetScheduledTasksRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling iTAutomationGetScheduledTasks().');
         }
@@ -1197,15 +1306,25 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-task-executions:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/scheduled-tasks/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/scheduled-tasks/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns scheduled tasks for each provided id
+     */
+    async iTAutomationGetScheduledTasksRaw(
+        requestParameters: ItAutomationApiITAutomationGetScheduledTasksRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationGetScheduledTaskResponse>> {
+        const requestOptions = await this.iTAutomationGetScheduledTasksRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationGetScheduledTaskResponseFromJSON(jsonValue));
     }
@@ -1219,12 +1338,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the task execution for the provided task execution IDs
+     * Creates request options for iTAutomationGetTaskExecution without sending the request
      */
-    async iTAutomationGetTaskExecutionRaw(
-        requestParameters: ItAutomationApiITAutomationGetTaskExecutionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationGetTaskExecutionResponse>> {
+    async iTAutomationGetTaskExecutionRequestOpts(requestParameters: ItAutomationApiITAutomationGetTaskExecutionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling iTAutomationGetTaskExecution().');
         }
@@ -1242,15 +1358,25 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-task-executions:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/task-executions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/task-executions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get the task execution for the provided task execution IDs
+     */
+    async iTAutomationGetTaskExecutionRaw(
+        requestParameters: ItAutomationApiITAutomationGetTaskExecutionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationGetTaskExecutionResponse>> {
+        const requestOptions = await this.iTAutomationGetTaskExecutionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationGetTaskExecutionResponseFromJSON(jsonValue));
     }
@@ -1264,12 +1390,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the status of host executions by providing the execution IDs
+     * Creates request options for iTAutomationGetTaskExecutionHostStatus without sending the request
      */
-    async iTAutomationGetTaskExecutionHostStatusRaw(
-        requestParameters: ItAutomationApiITAutomationGetTaskExecutionHostStatusRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationGetTaskExecutionHostStatusResponse>> {
+    async iTAutomationGetTaskExecutionHostStatusRequestOpts(requestParameters: ItAutomationApiITAutomationGetTaskExecutionHostStatusRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling iTAutomationGetTaskExecutionHostStatus().');
         }
@@ -1303,15 +1426,25 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-task-executions:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/task-execution-host-status/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/task-execution-host-status/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get the status of host executions by providing the execution IDs
+     */
+    async iTAutomationGetTaskExecutionHostStatusRaw(
+        requestParameters: ItAutomationApiITAutomationGetTaskExecutionHostStatusRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationGetTaskExecutionHostStatusResponse>> {
+        const requestOptions = await this.iTAutomationGetTaskExecutionHostStatusRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationGetTaskExecutionHostStatusResponseFromJSON(jsonValue));
     }
@@ -1332,12 +1465,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns the list of task executions (and their details) matching the filter query parameter. This endpoint will return the same output as if you ran ITAutomationSearchTaskExecutions and ITAutomationGetTaskExecution
+     * Creates request options for iTAutomationGetTaskExecutionsByQuery without sending the request
      */
-    async iTAutomationGetTaskExecutionsByQueryRaw(
-        requestParameters: ItAutomationApiITAutomationGetTaskExecutionsByQueryRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationGetTaskExecutionResponse>> {
+    async iTAutomationGetTaskExecutionsByQueryRequestOpts(requestParameters: ItAutomationApiITAutomationGetTaskExecutionsByQueryRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1363,15 +1493,25 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-task-executions:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/combined/task-executions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/combined/task-executions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns the list of task executions (and their details) matching the filter query parameter. This endpoint will return the same output as if you ran ITAutomationSearchTaskExecutions and ITAutomationGetTaskExecution
+     */
+    async iTAutomationGetTaskExecutionsByQueryRaw(
+        requestParameters: ItAutomationApiITAutomationGetTaskExecutionsByQueryRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationGetTaskExecutionResponse>> {
+        const requestOptions = await this.iTAutomationGetTaskExecutionsByQueryRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationGetTaskExecutionResponseFromJSON(jsonValue));
     }
@@ -1391,12 +1531,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns task groups for each provided id
+     * Creates request options for iTAutomationGetTaskGroups without sending the request
      */
-    async iTAutomationGetTaskGroupsRaw(
-        requestParameters: ItAutomationApiITAutomationGetTaskGroupsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationGetTaskGroupsResponse>> {
+    async iTAutomationGetTaskGroupsRequestOpts(requestParameters: ItAutomationApiITAutomationGetTaskGroupsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling iTAutomationGetTaskGroups().');
         }
@@ -1414,15 +1551,25 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-tasks:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/task-groups/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/task-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns task groups for each provided id
+     */
+    async iTAutomationGetTaskGroupsRaw(
+        requestParameters: ItAutomationApiITAutomationGetTaskGroupsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationGetTaskGroupsResponse>> {
+        const requestOptions = await this.iTAutomationGetTaskGroupsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationGetTaskGroupsResponseFromJSON(jsonValue));
     }
@@ -1436,13 +1583,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Can be used in place of calling ITAutomationSearchTaskGroups then ITAutomationGetTaskGroups.
-     * Returns full details of task groups matching the filter query parameter.
+     * Creates request options for iTAutomationGetTaskGroupsByQuery without sending the request
      */
-    async iTAutomationGetTaskGroupsByQueryRaw(
-        requestParameters: ItAutomationApiITAutomationGetTaskGroupsByQueryRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationGetTaskGroupsResponse>> {
+    async iTAutomationGetTaskGroupsByQueryRequestOpts(requestParameters: ItAutomationApiITAutomationGetTaskGroupsByQueryRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1468,15 +1611,26 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-tasks:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/combined/task-groups/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/combined/task-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Can be used in place of calling ITAutomationSearchTaskGroups then ITAutomationGetTaskGroups.
+     * Returns full details of task groups matching the filter query parameter.
+     */
+    async iTAutomationGetTaskGroupsByQueryRaw(
+        requestParameters: ItAutomationApiITAutomationGetTaskGroupsByQueryRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationGetTaskGroupsResponse>> {
+        const requestOptions = await this.iTAutomationGetTaskGroupsByQueryRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationGetTaskGroupsResponseFromJSON(jsonValue));
     }
@@ -1497,12 +1651,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns tasks for each provided ID
+     * Creates request options for iTAutomationGetTasks without sending the request
      */
-    async iTAutomationGetTasksRaw(
-        requestParameters: ItAutomationApiITAutomationGetTasksRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationGetTaskResponse>> {
+    async iTAutomationGetTasksRequestOpts(requestParameters: ItAutomationApiITAutomationGetTasksRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling iTAutomationGetTasks().');
         }
@@ -1520,15 +1671,25 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-tasks:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/tasks/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/tasks/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns tasks for each provided ID
+     */
+    async iTAutomationGetTasksRaw(
+        requestParameters: ItAutomationApiITAutomationGetTasksRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationGetTaskResponse>> {
+        const requestOptions = await this.iTAutomationGetTasksRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationGetTaskResponseFromJSON(jsonValue));
     }
@@ -1542,12 +1703,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns full details of tasks matching the filter query parameter.
+     * Creates request options for iTAutomationGetTasksByQuery without sending the request
      */
-    async iTAutomationGetTasksByQueryRaw(
-        requestParameters: ItAutomationApiITAutomationGetTasksByQueryRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationGetTaskResponse>> {
+    async iTAutomationGetTasksByQueryRequestOpts(requestParameters: ItAutomationApiITAutomationGetTasksByQueryRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1573,15 +1731,25 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-tasks:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/combined/tasks/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/combined/tasks/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns full details of tasks matching the filter query parameter.
+     */
+    async iTAutomationGetTasksByQueryRaw(
+        requestParameters: ItAutomationApiITAutomationGetTasksByQueryRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationGetTaskResponse>> {
+        const requestOptions = await this.iTAutomationGetTasksByQueryRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationGetTaskResponseFromJSON(jsonValue));
     }
@@ -1601,12 +1769,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns user groups for each provided id
+     * Creates request options for iTAutomationGetUserGroup without sending the request
      */
-    async iTAutomationGetUserGroupRaw(
-        requestParameters: ItAutomationApiITAutomationGetUserGroupRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationGetUserGroupsResponse>> {
+    async iTAutomationGetUserGroupRequestOpts(requestParameters: ItAutomationApiITAutomationGetUserGroupRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling iTAutomationGetUserGroup().');
         }
@@ -1624,15 +1789,25 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-user-groups:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/it-user-groups/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/it-user-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns user groups for each provided id
+     */
+    async iTAutomationGetUserGroupRaw(
+        requestParameters: ItAutomationApiITAutomationGetUserGroupRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationGetUserGroupsResponse>> {
+        const requestOptions = await this.iTAutomationGetUserGroupRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationGetUserGroupsResponseFromJSON(jsonValue));
     }
@@ -1646,12 +1821,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns the list of policy ids matching the filter query parameter.
+     * Creates request options for iTAutomationQueryPolicies without sending the request
      */
-    async iTAutomationQueryPoliciesRaw(
-        requestParameters: ItAutomationApiITAutomationQueryPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationQueryPolicyResponse>> {
+    async iTAutomationQueryPoliciesRequestOpts(requestParameters: ItAutomationApiITAutomationQueryPoliciesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["platform"] == null) {
             throw new runtime.RequiredError("platform", 'Required parameter "platform" was null or undefined when calling iTAutomationQueryPolicies().');
         }
@@ -1681,15 +1853,25 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/queries/policies/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/queries/policies/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns the list of policy ids matching the filter query parameter.
+     */
+    async iTAutomationQueryPoliciesRaw(
+        requestParameters: ItAutomationApiITAutomationQueryPoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationQueryPolicyResponse>> {
+        const requestOptions = await this.iTAutomationQueryPoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationQueryPolicyResponseFromJSON(jsonValue));
     }
@@ -1709,12 +1891,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Rerun the task execution specified in the request
+     * Creates request options for iTAutomationRerunTaskExecution without sending the request
      */
-    async iTAutomationRerunTaskExecutionRaw(
-        requestParameters: ItAutomationApiITAutomationRerunTaskExecutionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationRerunTaskExecutionResponse>> {
+    async iTAutomationRerunTaskExecutionRequestOpts(requestParameters: ItAutomationApiITAutomationRerunTaskExecutionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling iTAutomationRerunTaskExecution().');
         }
@@ -1730,16 +1909,26 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-task-executions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/task-execution-rerun/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ItautomationRerunTaskExecutionRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/task-execution-rerun/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ItautomationRerunTaskExecutionRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Rerun the task execution specified in the request
+     */
+    async iTAutomationRerunTaskExecutionRaw(
+        requestParameters: ItAutomationApiITAutomationRerunTaskExecutionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationRerunTaskExecutionResponse>> {
+        const requestOptions = await this.iTAutomationRerunTaskExecutionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationRerunTaskExecutionResponseFromJSON(jsonValue));
     }
@@ -1753,12 +1942,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Starts a new task execution from the provided query data in the request and returns the initiated task executions
+     * Creates request options for iTAutomationRunLiveQuery without sending the request
      */
-    async iTAutomationRunLiveQueryRaw(
-        requestParameters: ItAutomationApiITAutomationRunLiveQueryRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationStartTaskExecutionResponse>> {
+    async iTAutomationRunLiveQueryRequestOpts(requestParameters: ItAutomationApiITAutomationRunLiveQueryRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling iTAutomationRunLiveQuery().');
         }
@@ -1774,16 +1960,26 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-task-executions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/live-query-execution/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ItautomationRunLiveQueryRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/live-query-execution/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ItautomationRunLiveQueryRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Starts a new task execution from the provided query data in the request and returns the initiated task executions
+     */
+    async iTAutomationRunLiveQueryRaw(
+        requestParameters: ItAutomationApiITAutomationRunLiveQueryRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationStartTaskExecutionResponse>> {
+        const requestOptions = await this.iTAutomationRunLiveQueryRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationStartTaskExecutionResponseFromJSON(jsonValue));
     }
@@ -1797,13 +1993,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Can be used together with the entities endpoint to retrieve full information on queries
-     * Returns the list of scheduled task IDs matching the filter query parameter
+     * Creates request options for iTAutomationSearchScheduledTasks without sending the request
      */
-    async iTAutomationSearchScheduledTasksRaw(
-        requestParameters: ItAutomationApiITAutomationSearchScheduledTasksRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationSearchScheduledTaskResponse>> {
+    async iTAutomationSearchScheduledTasksRequestOpts(requestParameters: ItAutomationApiITAutomationSearchScheduledTasksRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1829,15 +2021,26 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-task-executions:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/queries/scheduled-tasks/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/queries/scheduled-tasks/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Can be used together with the entities endpoint to retrieve full information on queries
+     * Returns the list of scheduled task IDs matching the filter query parameter
+     */
+    async iTAutomationSearchScheduledTasksRaw(
+        requestParameters: ItAutomationApiITAutomationSearchScheduledTasksRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationSearchScheduledTaskResponse>> {
+        const requestOptions = await this.iTAutomationSearchScheduledTasksRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationSearchScheduledTaskResponseFromJSON(jsonValue));
     }
@@ -1858,12 +2061,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns the list of task execution IDs matching the filter query parameter. Can be used together with the entities endpoint to retrieve full information on executions
+     * Creates request options for iTAutomationSearchTaskExecutions without sending the request
      */
-    async iTAutomationSearchTaskExecutionsRaw(
-        requestParameters: ItAutomationApiITAutomationSearchTaskExecutionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationSearchTaskExecutionResponse>> {
+    async iTAutomationSearchTaskExecutionsRequestOpts(requestParameters: ItAutomationApiITAutomationSearchTaskExecutionsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1889,15 +2089,25 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-task-executions:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/queries/task-executions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/queries/task-executions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns the list of task execution IDs matching the filter query parameter. Can be used together with the entities endpoint to retrieve full information on executions
+     */
+    async iTAutomationSearchTaskExecutionsRaw(
+        requestParameters: ItAutomationApiITAutomationSearchTaskExecutionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationSearchTaskExecutionResponse>> {
+        const requestOptions = await this.iTAutomationSearchTaskExecutionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationSearchTaskExecutionResponseFromJSON(jsonValue));
     }
@@ -1917,13 +2127,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Can be used together with the entities endpoint to retrieve full information on task groups.
-     * Returns the list of task group ids matching the filter query parameter
+     * Creates request options for iTAutomationSearchTaskGroups without sending the request
      */
-    async iTAutomationSearchTaskGroupsRaw(
-        requestParameters: ItAutomationApiITAutomationSearchTaskGroupsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationSearchTaskGroupsResponse>> {
+    async iTAutomationSearchTaskGroupsRequestOpts(requestParameters: ItAutomationApiITAutomationSearchTaskGroupsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1949,15 +2155,26 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-tasks:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/queries/task-groups/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/queries/task-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Can be used together with the entities endpoint to retrieve full information on task groups.
+     * Returns the list of task group ids matching the filter query parameter
+     */
+    async iTAutomationSearchTaskGroupsRaw(
+        requestParameters: ItAutomationApiITAutomationSearchTaskGroupsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationSearchTaskGroupsResponse>> {
+        const requestOptions = await this.iTAutomationSearchTaskGroupsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationSearchTaskGroupsResponseFromJSON(jsonValue));
     }
@@ -1978,12 +2195,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns the list of task IDs matching the filter query parameter.
+     * Creates request options for iTAutomationSearchTasks without sending the request
      */
-    async iTAutomationSearchTasksRaw(
-        requestParameters: ItAutomationApiITAutomationSearchTasksRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationSearchTaskResponse>> {
+    async iTAutomationSearchTasksRequestOpts(requestParameters: ItAutomationApiITAutomationSearchTasksRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -2009,15 +2223,25 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-tasks:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/queries/tasks/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/queries/tasks/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns the list of task IDs matching the filter query parameter.
+     */
+    async iTAutomationSearchTasksRaw(
+        requestParameters: ItAutomationApiITAutomationSearchTasksRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationSearchTaskResponse>> {
+        const requestOptions = await this.iTAutomationSearchTasksRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationSearchTaskResponseFromJSON(jsonValue));
     }
@@ -2037,12 +2261,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns the list of user group ids matching the filter query parameter. It can be used together with the entities endpoint to retrieve full information on user groups
+     * Creates request options for iTAutomationSearchUserGroup without sending the request
      */
-    async iTAutomationSearchUserGroupRaw(
-        requestParameters: ItAutomationApiITAutomationSearchUserGroupRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationSearchUserGroupsResponse>> {
+    async iTAutomationSearchUserGroupRequestOpts(requestParameters: ItAutomationApiITAutomationSearchUserGroupRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -2068,15 +2289,25 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-user-groups:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/queries/it-user-groups/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/queries/it-user-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns the list of user group ids matching the filter query parameter. It can be used together with the entities endpoint to retrieve full information on user groups
+     */
+    async iTAutomationSearchUserGroupRaw(
+        requestParameters: ItAutomationApiITAutomationSearchUserGroupRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationSearchUserGroupsResponse>> {
+        const requestOptions = await this.iTAutomationSearchUserGroupRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationSearchUserGroupsResponseFromJSON(jsonValue));
     }
@@ -2096,12 +2327,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Starts an async task execution results search. Poll ITAutomationGetExecutionResultsSearchStatus to check if the search is complete. You must retrieve the results using ITAutomationGetExecutionResults within 30 seconds of completion, or the job will be deleted.
+     * Creates request options for iTAutomationStartExecutionResultsSearch without sending the request
      */
-    async iTAutomationStartExecutionResultsSearchRaw(
-        requestParameters: ItAutomationApiITAutomationStartExecutionResultsSearchRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationSearchStatusResponse>> {
+    async iTAutomationStartExecutionResultsSearchRequestOpts(requestParameters: ItAutomationApiITAutomationStartExecutionResultsSearchRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling iTAutomationStartExecutionResultsSearch().');
         }
@@ -2117,16 +2345,26 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-task-executions:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/task-execution-results-search/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ItautomationSearchRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/task-execution-results-search/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ItautomationSearchRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Starts an async task execution results search. Poll ITAutomationGetExecutionResultsSearchStatus to check if the search is complete. You must retrieve the results using ITAutomationGetExecutionResults within 30 seconds of completion, or the job will be deleted.
+     */
+    async iTAutomationStartExecutionResultsSearchRaw(
+        requestParameters: ItAutomationApiITAutomationStartExecutionResultsSearchRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationSearchStatusResponse>> {
+        const requestOptions = await this.iTAutomationStartExecutionResultsSearchRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationSearchStatusResponseFromJSON(jsonValue));
     }
@@ -2140,12 +2378,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Starts a new task execution from an existing task provided in the request and returns the initiated task executions
+     * Creates request options for iTAutomationStartTaskExecution without sending the request
      */
-    async iTAutomationStartTaskExecutionRaw(
-        requestParameters: ItAutomationApiITAutomationStartTaskExecutionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationStartTaskExecutionResponse>> {
+    async iTAutomationStartTaskExecutionRequestOpts(requestParameters: ItAutomationApiITAutomationStartTaskExecutionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling iTAutomationStartTaskExecution().');
         }
@@ -2161,16 +2396,26 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-task-executions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/task-executions/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ItautomationStartTaskExecutionRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/task-executions/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ItautomationStartTaskExecutionRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Starts a new task execution from an existing task provided in the request and returns the initiated task executions
+     */
+    async iTAutomationStartTaskExecutionRaw(
+        requestParameters: ItAutomationApiITAutomationStartTaskExecutionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationStartTaskExecutionResponse>> {
+        const requestOptions = await this.iTAutomationStartTaskExecutionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationStartTaskExecutionResponseFromJSON(jsonValue));
     }
@@ -2184,13 +2429,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Updates multiple fields for a policy.
-     * Updates a new policy of the specified type.
+     * Creates request options for iTAutomationUpdatePolicies without sending the request
      */
-    async iTAutomationUpdatePoliciesRaw(
-        requestParameters: ItAutomationApiITAutomationUpdatePoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationUpdatePolicyResponse>> {
+    async iTAutomationUpdatePoliciesRequestOpts(requestParameters: ItAutomationApiITAutomationUpdatePoliciesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling iTAutomationUpdatePolicies().');
         }
@@ -2206,16 +2447,27 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/policies/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ItautomationUpdatePolicyRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/policies/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ItautomationUpdatePolicyRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Updates multiple fields for a policy.
+     * Updates a new policy of the specified type.
+     */
+    async iTAutomationUpdatePoliciesRaw(
+        requestParameters: ItAutomationApiITAutomationUpdatePoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationUpdatePolicyResponse>> {
+        const requestOptions = await this.iTAutomationUpdatePoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationUpdatePolicyResponseFromJSON(jsonValue));
     }
@@ -2230,13 +2482,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Requests that do not represent all ids of the provided policy platform will not be processed.
-     * Updates the policy precedence for all policies of a specific platform.
+     * Creates request options for iTAutomationUpdatePoliciesPrecedence without sending the request
      */
-    async iTAutomationUpdatePoliciesPrecedenceRaw(
-        requestParameters: ItAutomationApiITAutomationUpdatePoliciesPrecedenceRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationUpdatePoliciesPrecedenceResponse>> {
+    async iTAutomationUpdatePoliciesPrecedenceRequestOpts(requestParameters: ItAutomationApiITAutomationUpdatePoliciesPrecedenceRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["platform"] == null) {
             throw new runtime.RequiredError("platform", 'Required parameter "platform" was null or undefined when calling iTAutomationUpdatePoliciesPrecedence().');
         }
@@ -2260,16 +2508,27 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/policies-precedence/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ItautomationUpdatePoliciesPrecedenceRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/policies-precedence/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ItautomationUpdatePoliciesPrecedenceRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Requests that do not represent all ids of the provided policy platform will not be processed.
+     * Updates the policy precedence for all policies of a specific platform.
+     */
+    async iTAutomationUpdatePoliciesPrecedenceRaw(
+        requestParameters: ItAutomationApiITAutomationUpdatePoliciesPrecedenceRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationUpdatePoliciesPrecedenceResponse>> {
+        const requestOptions = await this.iTAutomationUpdatePoliciesPrecedenceRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationUpdatePoliciesPrecedenceResponseFromJSON(jsonValue));
     }
@@ -2288,13 +2547,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Manage host groups assigned to a policy.
-     * Manage host groups assigned to a policy.
+     * Creates request options for iTAutomationUpdatePolicyHostGroups without sending the request
      */
-    async iTAutomationUpdatePolicyHostGroupsRaw(
-        requestParameters: ItAutomationApiITAutomationUpdatePolicyHostGroupsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationUpdatePolicyResponse>> {
+    async iTAutomationUpdatePolicyHostGroupsRequestOpts(requestParameters: ItAutomationApiITAutomationUpdatePolicyHostGroupsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling iTAutomationUpdatePolicyHostGroups().');
         }
@@ -2310,16 +2565,27 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/policies-host-groups/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ItautomationUpdatePoliciesHostGroupsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/policies-host-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ItautomationUpdatePoliciesHostGroupsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Manage host groups assigned to a policy.
+     * Manage host groups assigned to a policy.
+     */
+    async iTAutomationUpdatePolicyHostGroupsRaw(
+        requestParameters: ItAutomationApiITAutomationUpdatePolicyHostGroupsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationUpdatePolicyResponse>> {
+        const requestOptions = await this.iTAutomationUpdatePolicyHostGroupsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationUpdatePolicyResponseFromJSON(jsonValue));
     }
@@ -2334,12 +2600,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update an existing scheduled task with the supplied info
+     * Creates request options for iTAutomationUpdateScheduledTask without sending the request
      */
-    async iTAutomationUpdateScheduledTaskRaw(
-        requestParameters: ItAutomationApiITAutomationUpdateScheduledTaskRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationUpdateScheduledTasksResponse>> {
+    async iTAutomationUpdateScheduledTaskRequestOpts(requestParameters: ItAutomationApiITAutomationUpdateScheduledTaskRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling iTAutomationUpdateScheduledTask().');
         }
@@ -2363,16 +2626,26 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-task-executions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/scheduled-tasks/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ItautomationUpdateScheduledTaskRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/scheduled-tasks/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ItautomationUpdateScheduledTaskRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update an existing scheduled task with the supplied info
+     */
+    async iTAutomationUpdateScheduledTaskRaw(
+        requestParameters: ItAutomationApiITAutomationUpdateScheduledTaskRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationUpdateScheduledTasksResponse>> {
+        const requestOptions = await this.iTAutomationUpdateScheduledTaskRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationUpdateScheduledTasksResponseFromJSON(jsonValue));
     }
@@ -2390,12 +2663,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update a task with details from the given request.
+     * Creates request options for iTAutomationUpdateTask without sending the request
      */
-    async iTAutomationUpdateTaskRaw(
-        requestParameters: ItAutomationApiITAutomationUpdateTaskRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationUpdateTaskResponse>> {
+    async iTAutomationUpdateTaskRequestOpts(requestParameters: ItAutomationApiITAutomationUpdateTaskRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling iTAutomationUpdateTask().');
         }
@@ -2419,16 +2689,26 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-tasks:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/tasks/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ItautomationUpdateTaskRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/tasks/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ItautomationUpdateTaskRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update a task with details from the given request.
+     */
+    async iTAutomationUpdateTaskRaw(
+        requestParameters: ItAutomationApiITAutomationUpdateTaskRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationUpdateTaskResponse>> {
+        const requestOptions = await this.iTAutomationUpdateTaskRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationUpdateTaskResponseFromJSON(jsonValue));
     }
@@ -2442,12 +2722,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update a task group for a given id
+     * Creates request options for iTAutomationUpdateTaskGroup without sending the request
      */
-    async iTAutomationUpdateTaskGroupRaw(
-        requestParameters: ItAutomationApiITAutomationUpdateTaskGroupRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationUpdateTaskGroupResponse>> {
+    async iTAutomationUpdateTaskGroupRequestOpts(requestParameters: ItAutomationApiITAutomationUpdateTaskGroupRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling iTAutomationUpdateTaskGroup().');
         }
@@ -2471,16 +2748,26 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-tasks:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/task-groups/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ItautomationUpdateTaskGroupRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/task-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ItautomationUpdateTaskGroupRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update a task group for a given id
+     */
+    async iTAutomationUpdateTaskGroupRaw(
+        requestParameters: ItAutomationApiITAutomationUpdateTaskGroupRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationUpdateTaskGroupResponse>> {
+        const requestOptions = await this.iTAutomationUpdateTaskGroupRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationUpdateTaskGroupResponseFromJSON(jsonValue));
     }
@@ -2494,12 +2781,9 @@ export class ItAutomationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update a user group for a given id
+     * Creates request options for iTAutomationUpdateUserGroup without sending the request
      */
-    async iTAutomationUpdateUserGroupRaw(
-        requestParameters: ItAutomationApiITAutomationUpdateUserGroupRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ItautomationUpdateUserGroupResponse>> {
+    async iTAutomationUpdateUserGroupRequestOpts(requestParameters: ItAutomationApiITAutomationUpdateUserGroupRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling iTAutomationUpdateUserGroup().');
         }
@@ -2523,16 +2807,26 @@ export class ItAutomationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["it-automation-user-groups:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/it-automation/entities/it-user-groups/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ItautomationUpdateUserGroupRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/it-automation/entities/it-user-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ItautomationUpdateUserGroupRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update a user group for a given id
+     */
+    async iTAutomationUpdateUserGroupRaw(
+        requestParameters: ItAutomationApiITAutomationUpdateUserGroupRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ItautomationUpdateUserGroupResponse>> {
+        const requestOptions = await this.iTAutomationUpdateUserGroupRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ItautomationUpdateUserGroupResponseFromJSON(jsonValue));
     }

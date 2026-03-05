@@ -14,19 +14,24 @@
 
 import { mapValues } from "../runtime";
 import type { SdkAnalysisResultsHostsVM } from "./SdkAnalysisResultsHostsVM";
-import { SdkAnalysisResultsHostsVMFromJSON, SdkAnalysisResultsHostsVMFromJSONTyped, SdkAnalysisResultsHostsVMToJSON } from "./SdkAnalysisResultsHostsVM";
+import { SdkAnalysisResultsHostsVMFromJSON, SdkAnalysisResultsHostsVMFromJSONTyped, SdkAnalysisResultsHostsVMToJSON, SdkAnalysisResultsHostsVMToJSONTyped } from "./SdkAnalysisResultsHostsVM";
 import type { SdkAnalysisResultsFilesVM } from "./SdkAnalysisResultsFilesVM";
-import { SdkAnalysisResultsFilesVMFromJSON, SdkAnalysisResultsFilesVMFromJSONTyped, SdkAnalysisResultsFilesVMToJSON } from "./SdkAnalysisResultsFilesVM";
+import { SdkAnalysisResultsFilesVMFromJSON, SdkAnalysisResultsFilesVMFromJSONTyped, SdkAnalysisResultsFilesVMToJSON, SdkAnalysisResultsFilesVMToJSONTyped } from "./SdkAnalysisResultsFilesVM";
 import type { SdkAnalysisResultsCloudAssetsVM } from "./SdkAnalysisResultsCloudAssetsVM";
-import { SdkAnalysisResultsCloudAssetsVMFromJSON, SdkAnalysisResultsCloudAssetsVMFromJSONTyped, SdkAnalysisResultsCloudAssetsVMToJSON } from "./SdkAnalysisResultsCloudAssetsVM";
+import {
+    SdkAnalysisResultsCloudAssetsVMFromJSON,
+    SdkAnalysisResultsCloudAssetsVMFromJSONTyped,
+    SdkAnalysisResultsCloudAssetsVMToJSON,
+    SdkAnalysisResultsCloudAssetsVMToJSONTyped,
+} from "./SdkAnalysisResultsCloudAssetsVM";
 import type { SdkAnalysisResultsEventsVM } from "./SdkAnalysisResultsEventsVM";
-import { SdkAnalysisResultsEventsVMFromJSON, SdkAnalysisResultsEventsVMFromJSONTyped, SdkAnalysisResultsEventsVMToJSON } from "./SdkAnalysisResultsEventsVM";
+import { SdkAnalysisResultsEventsVMFromJSON, SdkAnalysisResultsEventsVMFromJSONTyped, SdkAnalysisResultsEventsVMToJSON, SdkAnalysisResultsEventsVMToJSONTyped } from "./SdkAnalysisResultsEventsVM";
 import type { SdkAnalysisResultsLeadsVM } from "./SdkAnalysisResultsLeadsVM";
-import { SdkAnalysisResultsLeadsVMFromJSON, SdkAnalysisResultsLeadsVMFromJSONTyped, SdkAnalysisResultsLeadsVMToJSON } from "./SdkAnalysisResultsLeadsVM";
+import { SdkAnalysisResultsLeadsVMFromJSON, SdkAnalysisResultsLeadsVMFromJSONTyped, SdkAnalysisResultsLeadsVMToJSON, SdkAnalysisResultsLeadsVMToJSONTyped } from "./SdkAnalysisResultsLeadsVM";
 import type { SdkAnalysisResultsAlertsVM } from "./SdkAnalysisResultsAlertsVM";
-import { SdkAnalysisResultsAlertsVMFromJSON, SdkAnalysisResultsAlertsVMFromJSONTyped, SdkAnalysisResultsAlertsVMToJSON } from "./SdkAnalysisResultsAlertsVM";
+import { SdkAnalysisResultsAlertsVMFromJSON, SdkAnalysisResultsAlertsVMFromJSONTyped, SdkAnalysisResultsAlertsVMToJSON, SdkAnalysisResultsAlertsVMToJSONTyped } from "./SdkAnalysisResultsAlertsVM";
 import type { SdkAnalysisResultsUsersVM } from "./SdkAnalysisResultsUsersVM";
-import { SdkAnalysisResultsUsersVMFromJSON, SdkAnalysisResultsUsersVMFromJSONTyped, SdkAnalysisResultsUsersVMToJSON } from "./SdkAnalysisResultsUsersVM";
+import { SdkAnalysisResultsUsersVMFromJSON, SdkAnalysisResultsUsersVMFromJSONTyped, SdkAnalysisResultsUsersVMToJSON, SdkAnalysisResultsUsersVMToJSONTyped } from "./SdkAnalysisResultsUsersVM";
 
 /**
  *
@@ -119,10 +124,15 @@ export function SdkAnalysisResultsVMFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function SdkAnalysisResultsVMToJSON(value?: SdkAnalysisResultsVM | null): any {
+export function SdkAnalysisResultsVMToJSON(json: any): SdkAnalysisResultsVM {
+    return SdkAnalysisResultsVMToJSONTyped(json, false);
+}
+
+export function SdkAnalysisResultsVMToJSONTyped(value?: SdkAnalysisResultsVM | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         alerts: SdkAnalysisResultsAlertsVMToJSON(value["alerts"]),
         cloud_assets: SdkAnalysisResultsCloudAssetsVMToJSON(value["cloudAssets"]),

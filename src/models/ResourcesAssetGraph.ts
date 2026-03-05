@@ -54,10 +54,15 @@ export function ResourcesAssetGraphFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function ResourcesAssetGraphToJSON(value?: ResourcesAssetGraph | null): any {
+export function ResourcesAssetGraphToJSON(json: any): ResourcesAssetGraph {
+    return ResourcesAssetGraphToJSONTyped(json, false);
+}
+
+export function ResourcesAssetGraphToJSONTyped(value?: ResourcesAssetGraph | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         res_id: value["resId"],

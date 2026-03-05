@@ -14,13 +14,18 @@
 
 import { mapValues } from "../runtime";
 import type { ApiFieldV1CreateRequest } from "./ApiFieldV1CreateRequest";
-import { ApiFieldV1CreateRequestFromJSON, ApiFieldV1CreateRequestFromJSONTyped, ApiFieldV1CreateRequestToJSON } from "./ApiFieldV1CreateRequest";
+import { ApiFieldV1CreateRequestFromJSON, ApiFieldV1CreateRequestFromJSONTyped, ApiFieldV1CreateRequestToJSON, ApiFieldV1CreateRequestToJSONTyped } from "./ApiFieldV1CreateRequest";
 import type { ApiWorkflowV1 } from "./ApiWorkflowV1";
-import { ApiWorkflowV1FromJSON, ApiWorkflowV1FromJSONTyped, ApiWorkflowV1ToJSON } from "./ApiWorkflowV1";
+import { ApiWorkflowV1FromJSON, ApiWorkflowV1FromJSONTyped, ApiWorkflowV1ToJSON, ApiWorkflowV1ToJSONTyped } from "./ApiWorkflowV1";
 import type { ApiAccessTagV1 } from "./ApiAccessTagV1";
-import { ApiAccessTagV1FromJSON, ApiAccessTagV1FromJSONTyped, ApiAccessTagV1ToJSON } from "./ApiAccessTagV1";
+import { ApiAccessTagV1FromJSON, ApiAccessTagV1FromJSONTyped, ApiAccessTagV1ToJSON, ApiAccessTagV1ToJSONTyped } from "./ApiAccessTagV1";
 import type { ApiTemplateSLARuleV1CreateRequest } from "./ApiTemplateSLARuleV1CreateRequest";
-import { ApiTemplateSLARuleV1CreateRequestFromJSON, ApiTemplateSLARuleV1CreateRequestFromJSONTyped, ApiTemplateSLARuleV1CreateRequestToJSON } from "./ApiTemplateSLARuleV1CreateRequest";
+import {
+    ApiTemplateSLARuleV1CreateRequestFromJSON,
+    ApiTemplateSLARuleV1CreateRequestFromJSONTyped,
+    ApiTemplateSLARuleV1CreateRequestToJSON,
+    ApiTemplateSLARuleV1CreateRequestToJSONTyped,
+} from "./ApiTemplateSLARuleV1CreateRequest";
 
 /**
  *
@@ -99,10 +104,15 @@ export function ApiTemplateV1CreateRequestFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function ApiTemplateV1CreateRequestToJSON(value?: ApiTemplateV1CreateRequest | null): any {
+export function ApiTemplateV1CreateRequestToJSON(json: any): ApiTemplateV1CreateRequest {
+    return ApiTemplateV1CreateRequestToJSONTyped(json, false);
+}
+
+export function ApiTemplateV1CreateRequestToJSONTyped(value?: ApiTemplateV1CreateRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         access_tags: value["accessTags"] == null ? undefined : (value["accessTags"] as Array<any>).map(ApiAccessTagV1ToJSON),
         description: value["description"],

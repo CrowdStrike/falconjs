@@ -64,10 +64,15 @@ export function DomainCollectionV1FromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function DomainCollectionV1ToJSON(value?: DomainCollectionV1 | null): any {
+export function DomainCollectionV1ToJSON(json: any): DomainCollectionV1 {
+    return DomainCollectionV1ToJSONTyped(json, false);
+}
+
+export function DomainCollectionV1ToJSONTyped(value?: DomainCollectionV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         collector: value["collector"],
         name: value["name"],

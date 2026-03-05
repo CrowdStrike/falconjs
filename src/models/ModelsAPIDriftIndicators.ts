@@ -240,10 +240,15 @@ export function ModelsAPIDriftIndicatorsFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function ModelsAPIDriftIndicatorsToJSON(value?: ModelsAPIDriftIndicators | null): any {
+export function ModelsAPIDriftIndicatorsToJSON(json: any): ModelsAPIDriftIndicators {
+    return ModelsAPIDriftIndicatorsToJSONTyped(json, false);
+}
+
+export function ModelsAPIDriftIndicatorsToJSONTyped(value?: ModelsAPIDriftIndicators | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         agent_id: value["agentId"],
         aid: value["aid"],

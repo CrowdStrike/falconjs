@@ -55,10 +55,15 @@ export function GraphResponseConfigFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function GraphResponseConfigToJSON(value?: GraphResponseConfig | null): any {
+export function GraphResponseConfigToJSON(json: any): GraphResponseConfig {
+    return GraphResponseConfigToJSONTyped(json, false);
+}
+
+export function GraphResponseConfigToJSONTyped(value?: GraphResponseConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         body_content: value["bodyContent"],
         status_code: value["statusCode"],

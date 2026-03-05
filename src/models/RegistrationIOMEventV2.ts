@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { DomainCloudGroup } from "./DomainCloudGroup";
-import { DomainCloudGroupFromJSON, DomainCloudGroupFromJSONTyped, DomainCloudGroupToJSON } from "./DomainCloudGroup";
+import { DomainCloudGroupFromJSON, DomainCloudGroupFromJSONTyped, DomainCloudGroupToJSON, DomainCloudGroupToJSONTyped } from "./DomainCloudGroup";
 import type { ClassificationLabel } from "./ClassificationLabel";
-import { ClassificationLabelFromJSON, ClassificationLabelFromJSONTyped, ClassificationLabelToJSON } from "./ClassificationLabel";
+import { ClassificationLabelFromJSON, ClassificationLabelFromJSONTyped, ClassificationLabelToJSON, ClassificationLabelToJSONTyped } from "./ClassificationLabel";
 import type { DomainCloudScope } from "./DomainCloudScope";
-import { DomainCloudScopeFromJSON, DomainCloudScopeFromJSONTyped, DomainCloudScopeToJSON } from "./DomainCloudScope";
+import { DomainCloudScopeFromJSON, DomainCloudScopeFromJSONTyped, DomainCloudScopeToJSON, DomainCloudScopeToJSONTyped } from "./DomainCloudScope";
 
 /**
  *
@@ -299,10 +299,15 @@ export function RegistrationIOMEventV2FromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function RegistrationIOMEventV2ToJSON(value?: RegistrationIOMEventV2 | null): any {
+export function RegistrationIOMEventV2ToJSON(json: any): RegistrationIOMEventV2 {
+    return RegistrationIOMEventV2ToJSONTyped(json, false);
+}
+
+export function RegistrationIOMEventV2ToJSONTyped(value?: RegistrationIOMEventV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         account_name: value["accountName"],

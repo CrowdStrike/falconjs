@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainFemExternalAsset } from "./DomainFemExternalAsset";
-import { DomainFemExternalAssetFromJSON, DomainFemExternalAssetFromJSONTyped, DomainFemExternalAssetToJSON } from "./DomainFemExternalAsset";
+import { DomainFemExternalAssetFromJSON, DomainFemExternalAssetFromJSONTyped, DomainFemExternalAssetToJSON, DomainFemExternalAssetToJSONTyped } from "./DomainFemExternalAsset";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function DomainExternalAssetsAPITypeV1FromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function DomainExternalAssetsAPITypeV1ToJSON(value?: DomainExternalAssetsAPITypeV1 | null): any {
+export function DomainExternalAssetsAPITypeV1ToJSON(json: any): DomainExternalAssetsAPITypeV1 {
+    return DomainExternalAssetsAPITypeV1ToJSONTyped(json, false);
+}
+
+export function DomainExternalAssetsAPITypeV1ToJSONTyped(value?: DomainExternalAssetsAPITypeV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

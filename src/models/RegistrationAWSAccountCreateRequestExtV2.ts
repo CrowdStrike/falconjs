@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { RegistrationAWSAccountExtV2 } from "./RegistrationAWSAccountExtV2";
-import { RegistrationAWSAccountExtV2FromJSON, RegistrationAWSAccountExtV2FromJSONTyped, RegistrationAWSAccountExtV2ToJSON } from "./RegistrationAWSAccountExtV2";
+import {
+    RegistrationAWSAccountExtV2FromJSON,
+    RegistrationAWSAccountExtV2FromJSONTyped,
+    RegistrationAWSAccountExtV2ToJSON,
+    RegistrationAWSAccountExtV2ToJSONTyped,
+} from "./RegistrationAWSAccountExtV2";
 
 /**
  *
@@ -51,10 +56,15 @@ export function RegistrationAWSAccountCreateRequestExtV2FromJSONTyped(json: any,
     };
 }
 
-export function RegistrationAWSAccountCreateRequestExtV2ToJSON(value?: RegistrationAWSAccountCreateRequestExtV2 | null): any {
+export function RegistrationAWSAccountCreateRequestExtV2ToJSON(json: any): RegistrationAWSAccountCreateRequestExtV2 {
+    return RegistrationAWSAccountCreateRequestExtV2ToJSONTyped(json, false);
+}
+
+export function RegistrationAWSAccountCreateRequestExtV2ToJSONTyped(value?: RegistrationAWSAccountCreateRequestExtV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(RegistrationAWSAccountExtV2ToJSON),
     };

@@ -61,10 +61,15 @@ export function RestapiIndicatorFeedQueryItemFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function RestapiIndicatorFeedQueryItemToJSON(value?: RestapiIndicatorFeedQueryItem | null): any {
+export function RestapiIndicatorFeedQueryItemToJSON(json: any): RestapiIndicatorFeedQueryItem {
+    return RestapiIndicatorFeedQueryItemToJSONTyped(json, false);
+}
+
+export function RestapiIndicatorFeedQueryItemToJSONTyped(value?: RestapiIndicatorFeedQueryItem | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         created_timestamp: value["createdTimestamp"],
         feed_item_id: value["feedItemId"],

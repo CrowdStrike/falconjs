@@ -64,10 +64,15 @@ export function FwmgrFirewallFlagsFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function FwmgrFirewallFlagsToJSON(value?: FwmgrFirewallFlags | null): any {
+export function FwmgrFirewallFlagsToJSON(json: any): FwmgrFirewallFlags {
+    return FwmgrFirewallFlagsToJSONTyped(json, false);
+}
+
+export function FwmgrFirewallFlagsToJSONTyped(value?: FwmgrFirewallFlags | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         audit: value["audit"],
         log: value["log"],

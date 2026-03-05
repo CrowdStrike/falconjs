@@ -56,10 +56,15 @@ export function DomainDenormalizedCountryFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DomainDenormalizedCountryToJSON(value?: DomainDenormalizedCountry | null): any {
+export function DomainDenormalizedCountryToJSON(json: any): DomainDenormalizedCountry {
+    return DomainDenormalizedCountryToJSONTyped(json, false);
+}
+
+export function DomainDenormalizedCountryToJSONTyped(value?: DomainDenormalizedCountry | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         name: value["name"],

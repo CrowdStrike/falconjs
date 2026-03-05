@@ -54,10 +54,15 @@ export function InventoryapidomainSubsidiaryFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function InventoryapidomainSubsidiaryToJSON(value?: InventoryapidomainSubsidiary | null): any {
+export function InventoryapidomainSubsidiaryToJSON(json: any): InventoryapidomainSubsidiary {
+    return InventoryapidomainSubsidiaryToJSONTyped(json, false);
+}
+
+export function InventoryapidomainSubsidiaryToJSONTyped(value?: InventoryapidomainSubsidiary | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { ApiCursorMetaInfo } from "./ApiCursorMetaInfo";
-import { ApiCursorMetaInfoFromJSON, ApiCursorMetaInfoFromJSONTyped, ApiCursorMetaInfoToJSON } from "./ApiCursorMetaInfo";
+import { ApiCursorMetaInfoFromJSON, ApiCursorMetaInfoFromJSONTyped, ApiCursorMetaInfoToJSON, ApiCursorMetaInfoToJSONTyped } from "./ApiCursorMetaInfo";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 
 /**
  *
@@ -60,10 +60,15 @@ export function ApiCursorResponseFieldsFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function ApiCursorResponseFieldsToJSON(value?: ApiCursorResponseFields | null): any {
+export function ApiCursorResponseFieldsToJSON(json: any): ApiCursorResponseFields {
+    return ApiCursorResponseFieldsToJSONTyped(json, false);
+}
+
+export function ApiCursorResponseFieldsToJSONTyped(value?: ApiCursorResponseFields | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: ApiCursorMetaInfoToJSON(value["meta"]),

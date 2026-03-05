@@ -14,13 +14,13 @@
 
 import { mapValues } from "../runtime";
 import type { MessagesAuthor } from "./MessagesAuthor";
-import { MessagesAuthorFromJSON, MessagesAuthorFromJSONTyped, MessagesAuthorToJSON } from "./MessagesAuthor";
+import { MessagesAuthorFromJSON, MessagesAuthorFromJSONTyped, MessagesAuthorToJSON, MessagesAuthorToJSONTyped } from "./MessagesAuthor";
 import type { MessagesAttachment } from "./MessagesAttachment";
-import { MessagesAttachmentFromJSON, MessagesAttachmentFromJSONTyped, MessagesAttachmentToJSON } from "./MessagesAttachment";
+import { MessagesAttachmentFromJSON, MessagesAttachmentFromJSONTyped, MessagesAttachmentToJSON, MessagesAttachmentToJSONTyped } from "./MessagesAttachment";
 import type { MessagesIncident } from "./MessagesIncident";
-import { MessagesIncidentFromJSON, MessagesIncidentFromJSONTyped, MessagesIncidentToJSON } from "./MessagesIncident";
+import { MessagesIncidentFromJSON, MessagesIncidentFromJSONTyped, MessagesIncidentToJSON, MessagesIncidentToJSONTyped } from "./MessagesIncident";
 import type { MessagesDetection } from "./MessagesDetection";
-import { MessagesDetectionFromJSON, MessagesDetectionFromJSONTyped, MessagesDetectionToJSON } from "./MessagesDetection";
+import { MessagesDetectionFromJSON, MessagesDetectionFromJSONTyped, MessagesDetectionToJSON, MessagesDetectionToJSONTyped } from "./MessagesDetection";
 
 /**
  *
@@ -209,10 +209,15 @@ export function MessagesCaseFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function MessagesCaseToJSON(value?: MessagesCase | null): any {
+export function MessagesCaseToJSON(json: any): MessagesCase {
+    return MessagesCaseToJSONTyped(json, false);
+}
+
+export function MessagesCaseToJSONTyped(value?: MessagesCase | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         aids: value["aids"],
         assigner: MessagesAuthorToJSON(value["assigner"]),

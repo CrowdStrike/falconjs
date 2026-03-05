@@ -47,10 +47,15 @@ export function DomainSecretReferencesV1FromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function DomainSecretReferencesV1ToJSON(value?: DomainSecretReferencesV1 | null): any {
+export function DomainSecretReferencesV1ToJSON(json: any): DomainSecretReferencesV1 {
+    return DomainSecretReferencesV1ToJSONTyped(json, false);
+}
+
+export function DomainSecretReferencesV1ToJSONTyped(value?: DomainSecretReferencesV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pdf_password_secret_id: value["pdfPasswordSecretId"],
     };

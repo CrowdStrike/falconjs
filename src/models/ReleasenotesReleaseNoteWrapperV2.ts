@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ReleasenotesReleaseNoteV2 } from "./ReleasenotesReleaseNoteV2";
-import { ReleasenotesReleaseNoteV2FromJSON, ReleasenotesReleaseNoteV2FromJSONTyped, ReleasenotesReleaseNoteV2ToJSON } from "./ReleasenotesReleaseNoteV2";
+import { ReleasenotesReleaseNoteV2FromJSON, ReleasenotesReleaseNoteV2FromJSONTyped, ReleasenotesReleaseNoteV2ToJSON, ReleasenotesReleaseNoteV2ToJSONTyped } from "./ReleasenotesReleaseNoteV2";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function ReleasenotesReleaseNoteWrapperV2FromJSONTyped(json: any, ignoreD
     };
 }
 
-export function ReleasenotesReleaseNoteWrapperV2ToJSON(value?: ReleasenotesReleaseNoteWrapperV2 | null): any {
+export function ReleasenotesReleaseNoteWrapperV2ToJSON(json: any): ReleasenotesReleaseNoteWrapperV2 {
+    return ReleasenotesReleaseNoteWrapperV2ToJSONTyped(json, false);
+}
+
+export function ReleasenotesReleaseNoteWrapperV2ToJSONTyped(value?: ReleasenotesReleaseNoteWrapperV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

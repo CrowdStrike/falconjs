@@ -62,10 +62,15 @@ export function DomainImageFromJSONTyped(json: any, ignoreDiscriminator: boolean
     };
 }
 
-export function DomainImageToJSON(value?: DomainImage | null): any {
+export function DomainImageToJSON(json: any): DomainImage {
+    return DomainImageToJSONTyped(json, false);
+}
+
+export function DomainImageToJSONTyped(value?: DomainImage | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         height: value["height"],
         url: value["url"],

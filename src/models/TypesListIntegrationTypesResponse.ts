@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesIntegrationType } from "./TypesIntegrationType";
-import { TypesIntegrationTypeFromJSON, TypesIntegrationTypeFromJSONTyped, TypesIntegrationTypeToJSON } from "./TypesIntegrationType";
+import { TypesIntegrationTypeFromJSON, TypesIntegrationTypeFromJSONTyped, TypesIntegrationTypeToJSON, TypesIntegrationTypeToJSONTyped } from "./TypesIntegrationType";
 
 /**
  *
@@ -50,10 +50,15 @@ export function TypesListIntegrationTypesResponseFromJSONTyped(json: any, ignore
     };
 }
 
-export function TypesListIntegrationTypesResponseToJSON(value?: TypesListIntegrationTypesResponse | null): any {
+export function TypesListIntegrationTypesResponseToJSON(json: any): TypesListIntegrationTypesResponse {
+    return TypesListIntegrationTypesResponseToJSONTyped(json, false);
+}
+
+export function TypesListIntegrationTypesResponseToJSONTyped(value?: TypesListIntegrationTypesResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         types: value["types"] == null ? undefined : (value["types"] as Array<any>).map(TypesIntegrationTypeToJSON),
     };

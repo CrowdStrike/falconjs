@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { SensorUpdateSettingsRespV2 } from "./SensorUpdateSettingsRespV2";
-import { SensorUpdateSettingsRespV2FromJSON, SensorUpdateSettingsRespV2FromJSONTyped, SensorUpdateSettingsRespV2ToJSON } from "./SensorUpdateSettingsRespV2";
+import { SensorUpdateSettingsRespV2FromJSON, SensorUpdateSettingsRespV2FromJSONTyped, SensorUpdateSettingsRespV2ToJSON, SensorUpdateSettingsRespV2ToJSONTyped } from "./SensorUpdateSettingsRespV2";
 import type { HostGroupsHostGroupV1 } from "./HostGroupsHostGroupV1";
-import { HostGroupsHostGroupV1FromJSON, HostGroupsHostGroupV1FromJSONTyped, HostGroupsHostGroupV1ToJSON } from "./HostGroupsHostGroupV1";
+import { HostGroupsHostGroupV1FromJSON, HostGroupsHostGroupV1FromJSONTyped, HostGroupsHostGroupV1ToJSON, HostGroupsHostGroupV1ToJSONTyped } from "./HostGroupsHostGroupV1";
 
 /**
  *
@@ -86,7 +86,7 @@ export interface SensorUpdatePolicyV2 {
     name: string;
     /**
      * The name of the platform
-     * @type {string}
+     * @type {SensorUpdatePolicyV2PlatformNameEnum}
      * @memberof SensorUpdatePolicyV2
      */
     platformName: SensorUpdatePolicyV2PlatformNameEnum;
@@ -151,10 +151,15 @@ export function SensorUpdatePolicyV2FromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function SensorUpdatePolicyV2ToJSON(value?: SensorUpdatePolicyV2 | null): any {
+export function SensorUpdatePolicyV2ToJSON(json: any): SensorUpdatePolicyV2 {
+    return SensorUpdatePolicyV2ToJSONTyped(json, false);
+}
+
+export function SensorUpdatePolicyV2ToJSONTyped(value?: SensorUpdatePolicyV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         created_by: value["createdBy"],

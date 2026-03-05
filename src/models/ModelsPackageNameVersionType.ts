@@ -80,10 +80,15 @@ export function ModelsPackageNameVersionTypeFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function ModelsPackageNameVersionTypeToJSON(value?: ModelsPackageNameVersionType | null): any {
+export function ModelsPackageNameVersionTypeToJSON(json: any): ModelsPackageNameVersionType {
+    return ModelsPackageNameVersionTypeToJSONTyped(json, false);
+}
+
+export function ModelsPackageNameVersionTypeToJSONTyped(value?: ModelsPackageNameVersionType | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         package_fixed_version: value["packageFixedVersion"],
         package_name_version: value["packageNameVersion"],

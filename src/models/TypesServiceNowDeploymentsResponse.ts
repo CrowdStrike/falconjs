@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { TypesServiceNowServiceDeployments } from "./TypesServiceNowServiceDeployments";
-import { TypesServiceNowServiceDeploymentsFromJSON, TypesServiceNowServiceDeploymentsFromJSONTyped, TypesServiceNowServiceDeploymentsToJSON } from "./TypesServiceNowServiceDeployments";
+import {
+    TypesServiceNowServiceDeploymentsFromJSON,
+    TypesServiceNowServiceDeploymentsFromJSONTyped,
+    TypesServiceNowServiceDeploymentsToJSON,
+    TypesServiceNowServiceDeploymentsToJSONTyped,
+} from "./TypesServiceNowServiceDeployments";
 
 /**
  *
@@ -67,10 +72,15 @@ export function TypesServiceNowDeploymentsResponseFromJSONTyped(json: any, ignor
     };
 }
 
-export function TypesServiceNowDeploymentsResponseToJSON(value?: TypesServiceNowDeploymentsResponse | null): any {
+export function TypesServiceNowDeploymentsResponseToJSON(json: any): TypesServiceNowDeploymentsResponse {
+    return TypesServiceNowDeploymentsResponseToJSONTyped(json, false);
+}
+
+export function TypesServiceNowDeploymentsResponseToJSONTyped(value?: TypesServiceNowDeploymentsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         deployment_units: (value["deploymentUnits"] as Array<any>).map(TypesServiceNowServiceDeploymentsToJSON),
         error: value["error"],

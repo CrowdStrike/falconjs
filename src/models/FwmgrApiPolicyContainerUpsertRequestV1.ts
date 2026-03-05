@@ -118,10 +118,15 @@ export function FwmgrApiPolicyContainerUpsertRequestV1FromJSONTyped(json: any, i
     };
 }
 
-export function FwmgrApiPolicyContainerUpsertRequestV1ToJSON(value?: FwmgrApiPolicyContainerUpsertRequestV1 | null): any {
+export function FwmgrApiPolicyContainerUpsertRequestV1ToJSON(json: any): FwmgrApiPolicyContainerUpsertRequestV1 {
+    return FwmgrApiPolicyContainerUpsertRequestV1ToJSONTyped(json, false);
+}
+
+export function FwmgrApiPolicyContainerUpsertRequestV1ToJSONTyped(value?: FwmgrApiPolicyContainerUpsertRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         default_inbound: value["defaultInbound"],
         default_outbound: value["defaultOutbound"],

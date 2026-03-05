@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApiNotificationChannelV1 } from "./ApiNotificationChannelV1";
-import { ApiNotificationChannelV1FromJSON, ApiNotificationChannelV1FromJSONTyped, ApiNotificationChannelV1ToJSON } from "./ApiNotificationChannelV1";
+import { ApiNotificationChannelV1FromJSON, ApiNotificationChannelV1FromJSONTyped, ApiNotificationChannelV1ToJSON, ApiNotificationChannelV1ToJSONTyped } from "./ApiNotificationChannelV1";
 
 /**
  *
@@ -75,10 +75,15 @@ export function ApiNotificationGroupV1UpdateRequestFromJSONTyped(json: any, igno
     };
 }
 
-export function ApiNotificationGroupV1UpdateRequestToJSON(value?: ApiNotificationGroupV1UpdateRequest | null): any {
+export function ApiNotificationGroupV1UpdateRequestToJSON(json: any): ApiNotificationGroupV1UpdateRequest {
+    return ApiNotificationGroupV1UpdateRequestToJSONTyped(json, false);
+}
+
+export function ApiNotificationGroupV1UpdateRequestToJSONTyped(value?: ApiNotificationGroupV1UpdateRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         channels: (value["channels"] as Array<any>).map(ApiNotificationChannelV1ToJSON),
         description: value["description"],

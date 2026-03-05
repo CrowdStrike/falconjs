@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ClientTopValue } from "./ClientTopValue";
-import { ClientTopValueFromJSON, ClientTopValueFromJSONTyped, ClientTopValueToJSON } from "./ClientTopValue";
+import { ClientTopValueFromJSON, ClientTopValueFromJSONTyped, ClientTopValueToJSON, ClientTopValueToJSONTyped } from "./ClientTopValue";
 
 /**
  *
@@ -67,10 +67,15 @@ export function ClientFieldFromJSONTyped(json: any, ignoreDiscriminator: boolean
     };
 }
 
-export function ClientFieldToJSON(value?: ClientField | null): any {
+export function ClientFieldToJSON(json: any): ClientField {
+    return ClientFieldToJSONTyped(json, false);
+}
+
+export function ClientFieldToJSONTyped(value?: ClientField | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count: value["count"],
         name: value["name"],

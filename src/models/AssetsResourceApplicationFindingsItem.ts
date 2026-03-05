@@ -64,10 +64,15 @@ export function AssetsResourceApplicationFindingsItemFromJSONTyped(json: any, ig
     };
 }
 
-export function AssetsResourceApplicationFindingsItemToJSON(value?: AssetsResourceApplicationFindingsItem | null): any {
+export function AssetsResourceApplicationFindingsItemToJSON(json: any): AssetsResourceApplicationFindingsItem {
+    return AssetsResourceApplicationFindingsItemToJSONTyped(json, false);
+}
+
+export function AssetsResourceApplicationFindingsItemToJSONTyped(value?: AssetsResourceApplicationFindingsItem | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         crn: value["crn"],
         finding_type: value["findingType"],

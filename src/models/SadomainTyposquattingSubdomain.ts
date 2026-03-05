@@ -102,15 +102,20 @@ export function SadomainTyposquattingSubdomainFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function SadomainTyposquattingSubdomainToJSON(value?: SadomainTyposquattingSubdomain | null): any {
+export function SadomainTyposquattingSubdomainToJSON(json: any): SadomainTyposquattingSubdomain {
+    return SadomainTyposquattingSubdomainToJSONTyped(json, false);
+}
+
+export function SadomainTyposquattingSubdomainToJSONTyped(value?: SadomainTyposquattingSubdomain | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
-        first_seen: value["firstSeen"] == null ? undefined : value["firstSeen"].toISOString(),
+        first_seen: value["firstSeen"] == null ? value["firstSeen"] : value["firstSeen"].toISOString(),
         has_noisy_domain_prefix: value["hasNoisyDomainPrefix"],
         id: value["id"],
-        last_seen: value["lastSeen"] == null ? undefined : value["lastSeen"].toISOString(),
+        last_seen: value["lastSeen"] == null ? value["lastSeen"] : value["lastSeen"].toISOString(),
         punycode_domain_prefix: value["punycodeDomainPrefix"],
         punycode_format: value["punycodeFormat"],
         unicode_domain_prefix: value["unicodeDomainPrefix"],

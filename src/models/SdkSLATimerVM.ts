@@ -99,10 +99,15 @@ export function SdkSLATimerVMFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function SdkSLATimerVMToJSON(value?: SdkSLATimerVM | null): any {
+export function SdkSLATimerVMToJSON(json: any): SdkSLATimerVM {
+    return SdkSLATimerVMToJSONTyped(json, false);
+}
+
+export function SdkSLATimerVMToJSONTyped(value?: SdkSLATimerVM | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         duration_seconds: value["durationSeconds"],
         goal_id: value["goalId"],

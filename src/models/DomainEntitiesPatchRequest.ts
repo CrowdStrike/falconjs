@@ -61,10 +61,15 @@ export function DomainEntitiesPatchRequestFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function DomainEntitiesPatchRequestToJSON(value?: DomainEntitiesPatchRequest | null): any {
+export function DomainEntitiesPatchRequestToJSON(json: any): DomainEntitiesPatchRequest {
+    return DomainEntitiesPatchRequestToJSONTyped(json, false);
+}
+
+export function DomainEntitiesPatchRequestToJSONTyped(value?: DomainEntitiesPatchRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         comment: value["comment"],

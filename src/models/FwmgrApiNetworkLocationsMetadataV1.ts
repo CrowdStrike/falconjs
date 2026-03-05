@@ -64,10 +64,15 @@ export function FwmgrApiNetworkLocationsMetadataV1FromJSONTyped(json: any, ignor
     };
 }
 
-export function FwmgrApiNetworkLocationsMetadataV1ToJSON(value?: FwmgrApiNetworkLocationsMetadataV1 | null): any {
+export function FwmgrApiNetworkLocationsMetadataV1ToJSON(json: any): FwmgrApiNetworkLocationsMetadataV1 {
+    return FwmgrApiNetworkLocationsMetadataV1ToJSONTyped(json, false);
+}
+
+export function FwmgrApiNetworkLocationsMetadataV1ToJSONTyped(value?: FwmgrApiNetworkLocationsMetadataV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         dns_resolution_targets_polling_interval: value["dnsResolutionTargetsPollingInterval"],
         https_reachable_hosts_polling_interval: value["httpsReachableHostsPollingInterval"],

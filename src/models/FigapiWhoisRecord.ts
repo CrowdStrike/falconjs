@@ -103,10 +103,15 @@ export function FigapiWhoisRecordFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function FigapiWhoisRecordToJSON(value?: FigapiWhoisRecord | null): any {
+export function FigapiWhoisRecordToJSON(json: any): FigapiWhoisRecord {
+    return FigapiWhoisRecordToJSONTyped(json, false);
+}
+
+export function FigapiWhoisRecordToJSONTyped(value?: FigapiWhoisRecord | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         City: value["city"],
         Country: value["country"],

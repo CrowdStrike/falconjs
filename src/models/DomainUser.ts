@@ -110,20 +110,25 @@ export function DomainUserFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function DomainUserToJSON(value?: DomainUser | null): any {
+export function DomainUserToJSON(json: any): DomainUser {
+    return DomainUserToJSONTyped(json, false);
+}
+
+export function DomainUserToJSONTyped(value?: DomainUser | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
-        created_at: value["createdAt"] == null ? undefined : value["createdAt"].toISOString(),
+        created_at: value["createdAt"] == null ? value["createdAt"] : value["createdAt"].toISOString(),
         factors: value["factors"],
         first_name: value["firstName"],
-        last_login_at: value["lastLoginAt"] == null ? undefined : value["lastLoginAt"].toISOString(),
+        last_login_at: value["lastLoginAt"] == null ? value["lastLoginAt"] : value["lastLoginAt"].toISOString(),
         last_name: value["lastName"],
         status: value["status"],
         uid: value["uid"],
-        updated_at: value["updatedAt"] == null ? undefined : value["updatedAt"].toISOString(),
+        updated_at: value["updatedAt"] == null ? value["updatedAt"] : value["updatedAt"].toISOString(),
         uuid: value["uuid"],
     };
 }

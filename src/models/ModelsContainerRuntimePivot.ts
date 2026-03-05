@@ -112,10 +112,15 @@ export function ModelsContainerRuntimePivotFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function ModelsContainerRuntimePivotToJSON(value?: ModelsContainerRuntimePivot | null): any {
+export function ModelsContainerRuntimePivotToJSON(json: any): ModelsContainerRuntimePivot {
+    return ModelsContainerRuntimePivotToJSONTyped(json, false);
+}
+
+export function ModelsContainerRuntimePivotToJSONTyped(value?: ModelsContainerRuntimePivot | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         cloud_name: value["cloudName"],

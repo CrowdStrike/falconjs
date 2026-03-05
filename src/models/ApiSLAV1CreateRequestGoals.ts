@@ -18,6 +18,7 @@ import {
     ApiSLAV1CreateRequestGoalsEscalationPolicyFromJSON,
     ApiSLAV1CreateRequestGoalsEscalationPolicyFromJSONTyped,
     ApiSLAV1CreateRequestGoalsEscalationPolicyToJSON,
+    ApiSLAV1CreateRequestGoalsEscalationPolicyToJSONTyped,
 } from "./ApiSLAV1CreateRequestGoalsEscalationPolicy";
 
 /**
@@ -70,10 +71,15 @@ export function ApiSLAV1CreateRequestGoalsFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function ApiSLAV1CreateRequestGoalsToJSON(value?: ApiSLAV1CreateRequestGoals | null): any {
+export function ApiSLAV1CreateRequestGoalsToJSON(json: any): ApiSLAV1CreateRequestGoals {
+    return ApiSLAV1CreateRequestGoalsToJSONTyped(json, false);
+}
+
+export function ApiSLAV1CreateRequestGoalsToJSONTyped(value?: ApiSLAV1CreateRequestGoals | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         duration_seconds: value["durationSeconds"],
         escalation_policy: ApiSLAV1CreateRequestGoalsEscalationPolicyToJSON(value["escalationPolicy"]),

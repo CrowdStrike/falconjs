@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { K8sassetsPodEnrichmentData } from "./K8sassetsPodEnrichmentData";
-import { K8sassetsPodEnrichmentDataFromJSON, K8sassetsPodEnrichmentDataFromJSONTyped, K8sassetsPodEnrichmentDataToJSON } from "./K8sassetsPodEnrichmentData";
+import { K8sassetsPodEnrichmentDataFromJSON, K8sassetsPodEnrichmentDataFromJSONTyped, K8sassetsPodEnrichmentDataToJSON, K8sassetsPodEnrichmentDataToJSONTyped } from "./K8sassetsPodEnrichmentData";
 
 /**
  *
@@ -59,10 +59,15 @@ export function K8sassetsPodEnrichmentEntryFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function K8sassetsPodEnrichmentEntryToJSON(value?: K8sassetsPodEnrichmentEntry | null): any {
+export function K8sassetsPodEnrichmentEntryToJSON(json: any): K8sassetsPodEnrichmentEntry {
+    return K8sassetsPodEnrichmentEntryToJSONTyped(json, false);
+}
+
+export function K8sassetsPodEnrichmentEntryToJSONTyped(value?: K8sassetsPodEnrichmentEntry | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         enrichment_data: K8sassetsPodEnrichmentDataToJSON(value["enrichmentData"]),
         pod_id: value["podId"],

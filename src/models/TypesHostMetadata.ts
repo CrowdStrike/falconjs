@@ -47,10 +47,15 @@ export function TypesHostMetadataFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function TypesHostMetadataToJSON(value?: TypesHostMetadata | null): any {
+export function TypesHostMetadataToJSON(json: any): TypesHostMetadata {
+    return TypesHostMetadataToJSONTyped(json, false);
+}
+
+export function TypesHostMetadataToJSONTyped(value?: TypesHostMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         address: value["address"],
     };

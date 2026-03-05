@@ -18,6 +18,7 @@ import {
     DomainAPIAggregateComplianceByAssetTypeV1FromJSON,
     DomainAPIAggregateComplianceByAssetTypeV1FromJSONTyped,
     DomainAPIAggregateComplianceByAssetTypeV1ToJSON,
+    DomainAPIAggregateComplianceByAssetTypeV1ToJSONTyped,
 } from "./DomainAPIAggregateComplianceByAssetTypeV1";
 
 /**
@@ -63,10 +64,18 @@ export function DomainAPIAggregateResponseComplianceByAssetTypeV1ResourcesFromJS
     };
 }
 
-export function DomainAPIAggregateResponseComplianceByAssetTypeV1ResourcesToJSON(value?: DomainAPIAggregateResponseComplianceByAssetTypeV1Resources | null): any {
+export function DomainAPIAggregateResponseComplianceByAssetTypeV1ResourcesToJSON(json: any): DomainAPIAggregateResponseComplianceByAssetTypeV1Resources {
+    return DomainAPIAggregateResponseComplianceByAssetTypeV1ResourcesToJSONTyped(json, false);
+}
+
+export function DomainAPIAggregateResponseComplianceByAssetTypeV1ResourcesToJSONTyped(
+    value?: DomainAPIAggregateResponseComplianceByAssetTypeV1Resources | null,
+    ignoreDiscriminator: boolean = false,
+): any {
     if (value == null) {
         return value;
     }
+
     return {
         buckets: (value["buckets"] as Array<any>).map(DomainAPIAggregateComplianceByAssetTypeV1ToJSON),
         name: value["name"],

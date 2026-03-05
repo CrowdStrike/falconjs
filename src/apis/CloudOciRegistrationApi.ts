@@ -94,12 +94,9 @@ export interface CloudOciRegistrationApiCloudSecurityRegistrationOciValidateTena
  */
 export class CloudOciRegistrationApi extends runtime.BaseAPI {
     /**
-     * Create OCI tenancy account in CSPM
+     * Creates request options for cloudSecurityRegistrationOciCreateAccount without sending the request
      */
-    async cloudSecurityRegistrationOciCreateAccountRaw(
-        requestParameters: CloudOciRegistrationApiCloudSecurityRegistrationOciCreateAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainOCITenancyCreateResponseExtV1>> {
+    async cloudSecurityRegistrationOciCreateAccountRequestOpts(requestParameters: CloudOciRegistrationApiCloudSecurityRegistrationOciCreateAccountRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling cloudSecurityRegistrationOciCreateAccount().');
         }
@@ -115,16 +112,26 @@ export class CloudOciRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-oci-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-oci/entities/accounts/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainOCITenancyCreateRequestExtV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-registration-oci/entities/accounts/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainOCITenancyCreateRequestExtV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create OCI tenancy account in CSPM
+     */
+    async cloudSecurityRegistrationOciCreateAccountRaw(
+        requestParameters: CloudOciRegistrationApiCloudSecurityRegistrationOciCreateAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainOCITenancyCreateResponseExtV1>> {
+        const requestOptions = await this.cloudSecurityRegistrationOciCreateAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainOCITenancyCreateResponseExtV1FromJSON(jsonValue));
     }
@@ -141,12 +148,9 @@ export class CloudOciRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete an existing OCI tenancy in CSPM.
+     * Creates request options for cloudSecurityRegistrationOciDeleteAccount without sending the request
      */
-    async cloudSecurityRegistrationOciDeleteAccountRaw(
-        requestParameters: CloudOciRegistrationApiCloudSecurityRegistrationOciDeleteAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
+    async cloudSecurityRegistrationOciDeleteAccountRequestOpts(requestParameters: CloudOciRegistrationApiCloudSecurityRegistrationOciDeleteAccountRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -160,15 +164,25 @@ export class CloudOciRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-oci-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-oci/entities/accounts/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-registration-oci/entities/accounts/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete an existing OCI tenancy in CSPM.
+     */
+    async cloudSecurityRegistrationOciDeleteAccountRaw(
+        requestParameters: CloudOciRegistrationApiCloudSecurityRegistrationOciDeleteAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
+        const requestOptions = await this.cloudSecurityRegistrationOciDeleteAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecResponseFieldsFromJSON(jsonValue));
     }
@@ -182,12 +196,9 @@ export class CloudOciRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve script to create resources in tenancy OCID
+     * Creates request options for cloudSecurityRegistrationOciDownloadScript without sending the request
      */
-    async cloudSecurityRegistrationOciDownloadScriptRaw(
-        requestParameters: CloudOciRegistrationApiCloudSecurityRegistrationOciDownloadScriptRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainOCIProvisionGetAccountScriptResponseV1>> {
+    async cloudSecurityRegistrationOciDownloadScriptRequestOpts(requestParameters: CloudOciRegistrationApiCloudSecurityRegistrationOciDownloadScriptRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling cloudSecurityRegistrationOciDownloadScript().');
         }
@@ -203,16 +214,26 @@ export class CloudOciRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-oci-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-oci/entities/scripts/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainOCIDownloadScriptRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-registration-oci/entities/scripts/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainOCIDownloadScriptRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Retrieve script to create resources in tenancy OCID
+     */
+    async cloudSecurityRegistrationOciDownloadScriptRaw(
+        requestParameters: CloudOciRegistrationApiCloudSecurityRegistrationOciDownloadScriptRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainOCIProvisionGetAccountScriptResponseV1>> {
+        const requestOptions = await this.cloudSecurityRegistrationOciDownloadScriptRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainOCIProvisionGetAccountScriptResponseV1FromJSON(jsonValue));
     }
@@ -229,12 +250,9 @@ export class CloudOciRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve a list of OCI tenancies with support for FQL filtering, sorting, and pagination
+     * Creates request options for cloudSecurityRegistrationOciGetAccount without sending the request
      */
-    async cloudSecurityRegistrationOciGetAccountRaw(
-        requestParameters: CloudOciRegistrationApiCloudSecurityRegistrationOciGetAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainOCITenancyResponseExtV1>> {
+    async cloudSecurityRegistrationOciGetAccountRequestOpts(requestParameters: CloudOciRegistrationApiCloudSecurityRegistrationOciGetAccountRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -264,15 +282,25 @@ export class CloudOciRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-oci-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-oci/combined/accounts/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-registration-oci/combined/accounts/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve a list of OCI tenancies with support for FQL filtering, sorting, and pagination
+     */
+    async cloudSecurityRegistrationOciGetAccountRaw(
+        requestParameters: CloudOciRegistrationApiCloudSecurityRegistrationOciGetAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainOCITenancyResponseExtV1>> {
+        const requestOptions = await this.cloudSecurityRegistrationOciGetAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainOCITenancyResponseExtV1FromJSON(jsonValue));
     }
@@ -293,12 +321,9 @@ export class CloudOciRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Refresh key for the OCI Tenancy
+     * Creates request options for cloudSecurityRegistrationOciRotateKey without sending the request
      */
-    async cloudSecurityRegistrationOciRotateKeyRaw(
-        requestParameters: CloudOciRegistrationApiCloudSecurityRegistrationOciRotateKeyRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainOCITenancyRotateKeyResponseExtV1>> {
+    async cloudSecurityRegistrationOciRotateKeyRequestOpts(requestParameters: CloudOciRegistrationApiCloudSecurityRegistrationOciRotateKeyRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling cloudSecurityRegistrationOciRotateKey().');
         }
@@ -314,16 +339,26 @@ export class CloudOciRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-oci-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-oci/entities/account-rotate-keys/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainOCITenancyRotateKeyRequestExtV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-registration-oci/entities/account-rotate-keys/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainOCITenancyRotateKeyRequestExtV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Refresh key for the OCI Tenancy
+     */
+    async cloudSecurityRegistrationOciRotateKeyRaw(
+        requestParameters: CloudOciRegistrationApiCloudSecurityRegistrationOciRotateKeyRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainOCITenancyRotateKeyResponseExtV1>> {
+        const requestOptions = await this.cloudSecurityRegistrationOciRotateKeyRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainOCITenancyRotateKeyResponseExtV1FromJSON(jsonValue));
     }
@@ -340,12 +375,9 @@ export class CloudOciRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Patch an existing OCI account in our system for a customer.
+     * Creates request options for cloudSecurityRegistrationOciUpdateAccount without sending the request
      */
-    async cloudSecurityRegistrationOciUpdateAccountRaw(
-        requestParameters: CloudOciRegistrationApiCloudSecurityRegistrationOciUpdateAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainOCITenancyUpdateResponseExtV1>> {
+    async cloudSecurityRegistrationOciUpdateAccountRequestOpts(requestParameters: CloudOciRegistrationApiCloudSecurityRegistrationOciUpdateAccountRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling cloudSecurityRegistrationOciUpdateAccount().');
         }
@@ -361,16 +393,26 @@ export class CloudOciRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-oci-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-oci/entities/accounts/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainOCITenancyUpdateRequestExtV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-registration-oci/entities/accounts/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainOCITenancyUpdateRequestExtV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Patch an existing OCI account in our system for a customer.
+     */
+    async cloudSecurityRegistrationOciUpdateAccountRaw(
+        requestParameters: CloudOciRegistrationApiCloudSecurityRegistrationOciUpdateAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainOCITenancyUpdateResponseExtV1>> {
+        const requestOptions = await this.cloudSecurityRegistrationOciUpdateAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainOCITenancyUpdateResponseExtV1FromJSON(jsonValue));
     }
@@ -387,12 +429,9 @@ export class CloudOciRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Validate the OCI account in CSPM for a provided CID. For internal clients only.
+     * Creates request options for cloudSecurityRegistrationOciValidateTenancy without sending the request
      */
-    async cloudSecurityRegistrationOciValidateTenancyRaw(
-        requestParameters: CloudOciRegistrationApiCloudSecurityRegistrationOciValidateTenancyRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainOCITenancyValidationResponse>> {
+    async cloudSecurityRegistrationOciValidateTenancyRequestOpts(requestParameters: CloudOciRegistrationApiCloudSecurityRegistrationOciValidateTenancyRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling cloudSecurityRegistrationOciValidateTenancy().');
         }
@@ -408,16 +447,26 @@ export class CloudOciRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-oci-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-oci/entities/account-validate/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainOCIValidateRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-registration-oci/entities/account-validate/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainOCIValidateRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Validate the OCI account in CSPM for a provided CID. For internal clients only.
+     */
+    async cloudSecurityRegistrationOciValidateTenancyRaw(
+        requestParameters: CloudOciRegistrationApiCloudSecurityRegistrationOciValidateTenancyRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainOCITenancyValidationResponse>> {
+        const requestOptions = await this.cloudSecurityRegistrationOciValidateTenancyRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainOCITenancyValidationResponseFromJSON(jsonValue));
     }

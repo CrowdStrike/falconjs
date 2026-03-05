@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApiActorV1 } from "./ApiActorV1";
-import { ApiActorV1FromJSON, ApiActorV1FromJSONTyped, ApiActorV1ToJSON } from "./ApiActorV1";
+import { ApiActorV1FromJSON, ApiActorV1FromJSONTyped, ApiActorV1ToJSON, ApiActorV1ToJSONTyped } from "./ApiActorV1";
 
 /**
  *
@@ -123,10 +123,15 @@ export function ApiTemplateSLARuleV1FromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function ApiTemplateSLARuleV1ToJSON(value?: ApiTemplateSLARuleV1 | null): any {
+export function ApiTemplateSLARuleV1ToJSON(json: any): ApiTemplateSLARuleV1 {
+    return ApiTemplateSLARuleV1ToJSONTyped(json, false);
+}
+
+export function ApiTemplateSLARuleV1ToJSONTyped(value?: ApiTemplateSLARuleV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         condition: value["condition"],
         created_by: ApiActorV1ToJSON(value["createdBy"]),

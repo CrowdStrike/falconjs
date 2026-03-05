@@ -102,10 +102,15 @@ export function DomainAPIRemediationV2FromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function DomainAPIRemediationV2ToJSON(value?: DomainAPIRemediationV2 | null): any {
+export function DomainAPIRemediationV2ToJSON(json: any): DomainAPIRemediationV2 {
+    return DomainAPIRemediationV2ToJSONTyped(json, false);
+}
+
+export function DomainAPIRemediationV2ToJSONTyped(value?: DomainAPIRemediationV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         id: value["id"],

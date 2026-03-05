@@ -18,6 +18,7 @@ import {
     ParameterConditionFieldProvisionParameterFromJSON,
     ParameterConditionFieldProvisionParameterFromJSONTyped,
     ParameterConditionFieldProvisionParameterToJSON,
+    ParameterConditionFieldProvisionParameterToJSONTyped,
 } from "./ParameterConditionFieldProvisionParameter";
 
 /**
@@ -63,10 +64,15 @@ export function ParameterConditionProvisionParameterFromJSONTyped(json: any, ign
     };
 }
 
-export function ParameterConditionProvisionParameterToJSON(value?: ParameterConditionProvisionParameter | null): any {
+export function ParameterConditionProvisionParameterToJSON(json: any): ParameterConditionProvisionParameter {
+    return ParameterConditionProvisionParameterToJSONTyped(json, false);
+}
+
+export function ParameterConditionProvisionParameterToJSONTyped(value?: ParameterConditionProvisionParameter | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         fields: (value["fields"] as Array<any>).map(ParameterConditionFieldProvisionParameterToJSON),
         node_id: value["nodeId"],

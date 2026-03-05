@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApiCertificateV1 } from "./ApiCertificateV1";
-import { ApiCertificateV1FromJSON, ApiCertificateV1FromJSONTyped, ApiCertificateV1ToJSON } from "./ApiCertificateV1";
+import { ApiCertificateV1FromJSON, ApiCertificateV1FromJSONTyped, ApiCertificateV1ToJSON, ApiCertificateV1ToJSONTyped } from "./ApiCertificateV1";
 
 /**
  *
@@ -143,10 +143,15 @@ export function ApiCertBasedExclusionV1FromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function ApiCertBasedExclusionV1ToJSON(value?: ApiCertBasedExclusionV1 | null): any {
+export function ApiCertBasedExclusionV1ToJSON(json: any): ApiCertBasedExclusionV1 {
+    return ApiCertBasedExclusionV1ToJSONTyped(json, false);
+}
+
+export function ApiCertBasedExclusionV1ToJSONTyped(value?: ApiCertBasedExclusionV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         applied_globally: value["appliedGlobally"],
         certificate: ApiCertificateV1ToJSON(value["certificate"]),
@@ -154,12 +159,12 @@ export function ApiCertBasedExclusionV1ToJSON(value?: ApiCertBasedExclusionV1 | 
         cid: value["cid"],
         comment: value["comment"],
         created_by: value["createdBy"],
-        created_on: value["createdOn"] == null ? undefined : value["createdOn"].toISOString(),
+        created_on: value["createdOn"] == null ? value["createdOn"] : value["createdOn"].toISOString(),
         description: value["description"],
         host_groups: value["hostGroups"],
         id: value["id"],
         modified_by: value["modifiedBy"],
-        modified_on: value["modifiedOn"] == null ? undefined : value["modifiedOn"].toISOString(),
+        modified_on: value["modifiedOn"] == null ? value["modifiedOn"] : value["modifiedOn"].toISOString(),
         name: value["name"],
         status: value["status"],
     };

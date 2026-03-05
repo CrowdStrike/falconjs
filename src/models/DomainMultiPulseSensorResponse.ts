@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 
 /**
  *
@@ -67,10 +67,15 @@ export function DomainMultiPulseSensorResponseFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function DomainMultiPulseSensorResponseToJSON(value?: DomainMultiPulseSensorResponse | null): any {
+export function DomainMultiPulseSensorResponseToJSON(json: any): DomainMultiPulseSensorResponse {
+    return DomainMultiPulseSensorResponseToJSONTyped(json, false);
+}
+
+export function DomainMultiPulseSensorResponseToJSONTyped(value?: DomainMultiPulseSensorResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         aid: value["aid"],
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),

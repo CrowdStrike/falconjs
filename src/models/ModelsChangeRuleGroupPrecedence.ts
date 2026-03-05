@@ -48,10 +48,15 @@ export function ModelsChangeRuleGroupPrecedenceFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function ModelsChangeRuleGroupPrecedenceToJSON(value?: ModelsChangeRuleGroupPrecedence | null): any {
+export function ModelsChangeRuleGroupPrecedenceToJSON(json: any): ModelsChangeRuleGroupPrecedence {
+    return ModelsChangeRuleGroupPrecedenceToJSONTyped(json, false);
+}
+
+export function ModelsChangeRuleGroupPrecedenceToJSONTyped(value?: ModelsChangeRuleGroupPrecedence | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
     };

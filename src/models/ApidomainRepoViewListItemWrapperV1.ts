@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ApidomainRepoViewListItemV1 } from "./ApidomainRepoViewListItemV1";
-import { ApidomainRepoViewListItemV1FromJSON, ApidomainRepoViewListItemV1FromJSONTyped, ApidomainRepoViewListItemV1ToJSON } from "./ApidomainRepoViewListItemV1";
+import {
+    ApidomainRepoViewListItemV1FromJSON,
+    ApidomainRepoViewListItemV1FromJSONTyped,
+    ApidomainRepoViewListItemV1ToJSON,
+    ApidomainRepoViewListItemV1ToJSONTyped,
+} from "./ApidomainRepoViewListItemV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +76,15 @@ export function ApidomainRepoViewListItemWrapperV1FromJSONTyped(json: any, ignor
     };
 }
 
-export function ApidomainRepoViewListItemWrapperV1ToJSON(value?: ApidomainRepoViewListItemWrapperV1 | null): any {
+export function ApidomainRepoViewListItemWrapperV1ToJSON(json: any): ApidomainRepoViewListItemWrapperV1 {
+    return ApidomainRepoViewListItemWrapperV1ToJSONTyped(json, false);
+}
+
+export function ApidomainRepoViewListItemWrapperV1ToJSONTyped(value?: ApidomainRepoViewListItemWrapperV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

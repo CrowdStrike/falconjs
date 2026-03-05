@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { ReconmsaAPIError } from "./ReconmsaAPIError";
-import { ReconmsaAPIErrorFromJSON, ReconmsaAPIErrorFromJSONTyped, ReconmsaAPIErrorToJSON } from "./ReconmsaAPIError";
+import { ReconmsaAPIErrorFromJSON, ReconmsaAPIErrorFromJSONTyped, ReconmsaAPIErrorToJSON, ReconmsaAPIErrorToJSONTyped } from "./ReconmsaAPIError";
 import type { DomainExportJobV1 } from "./DomainExportJobV1";
-import { DomainExportJobV1FromJSON, DomainExportJobV1FromJSONTyped, DomainExportJobV1ToJSON } from "./DomainExportJobV1";
+import { DomainExportJobV1FromJSON, DomainExportJobV1FromJSONTyped, DomainExportJobV1ToJSON, DomainExportJobV1ToJSONTyped } from "./DomainExportJobV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainLaunchExportJobResponseV1FromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function DomainLaunchExportJobResponseV1ToJSON(value?: DomainLaunchExportJobResponseV1 | null): any {
+export function DomainLaunchExportJobResponseV1ToJSON(json: any): DomainLaunchExportJobResponseV1 {
+    return DomainLaunchExportJobResponseV1ToJSONTyped(json, false);
+}
+
+export function DomainLaunchExportJobResponseV1ToJSONTyped(value?: DomainLaunchExportJobResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(ReconmsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

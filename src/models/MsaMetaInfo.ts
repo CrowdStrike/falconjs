@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { MsaPaging } from "./MsaPaging";
-import { MsaPagingFromJSON, MsaPagingFromJSONTyped, MsaPagingToJSON } from "./MsaPaging";
+import { MsaPagingFromJSON, MsaPagingFromJSONTyped, MsaPagingToJSON, MsaPagingToJSONTyped } from "./MsaPaging";
 import type { MsaResources } from "./MsaResources";
-import { MsaResourcesFromJSON, MsaResourcesFromJSONTyped, MsaResourcesToJSON } from "./MsaResources";
+import { MsaResourcesFromJSON, MsaResourcesFromJSONTyped, MsaResourcesToJSON, MsaResourcesToJSONTyped } from "./MsaResources";
 
 /**
  *
@@ -82,10 +82,15 @@ export function MsaMetaInfoFromJSONTyped(json: any, ignoreDiscriminator: boolean
     };
 }
 
-export function MsaMetaInfoToJSON(value?: MsaMetaInfo | null): any {
+export function MsaMetaInfoToJSON(json: any): MsaMetaInfo {
+    return MsaMetaInfoToJSONTyped(json, false);
+}
+
+export function MsaMetaInfoToJSONTyped(value?: MsaMetaInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: MsaPagingToJSON(value["pagination"]),
         powered_by: value["poweredBy"],

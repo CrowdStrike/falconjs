@@ -56,10 +56,15 @@ export function DomainProductFeaturesFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function DomainProductFeaturesToJSON(value?: DomainProductFeatures | null): any {
+export function DomainProductFeaturesToJSON(json: any): DomainProductFeatures {
+    return DomainProductFeaturesToJSONTyped(json, false);
+}
+
+export function DomainProductFeaturesToJSONTyped(value?: DomainProductFeatures | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         features: value["features"],
         product: value["product"],

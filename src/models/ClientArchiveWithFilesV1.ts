@@ -101,10 +101,15 @@ export function ClientArchiveWithFilesV1FromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function ClientArchiveWithFilesV1ToJSON(value?: ClientArchiveWithFilesV1 | null): any {
+export function ClientArchiveWithFilesV1ToJSON(json: any): ClientArchiveWithFilesV1 {
+    return ClientArchiveWithFilesV1ToJSONTyped(json, false);
+}
+
+export function ClientArchiveWithFilesV1ToJSONTyped(value?: ClientArchiveWithFilesV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         error: value["error"],
         files: value["files"],

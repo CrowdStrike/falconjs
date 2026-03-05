@@ -64,10 +64,15 @@ export function FwmgrDomainWirelessTypeFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function FwmgrDomainWirelessTypeToJSON(value?: FwmgrDomainWirelessType | null): any {
+export function FwmgrDomainWirelessTypeToJSON(json: any): FwmgrDomainWirelessType {
+    return FwmgrDomainWirelessTypeToJSONTyped(json, false);
+}
+
+export function FwmgrDomainWirelessTypeToJSONTyped(value?: FwmgrDomainWirelessType | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         enabled: value["enabled"],
         require_encryption: value["requireEncryption"],

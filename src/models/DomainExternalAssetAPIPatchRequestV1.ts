@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DomainExternalAssetsAPIPatch } from "./DomainExternalAssetsAPIPatch";
-import { DomainExternalAssetsAPIPatchFromJSON, DomainExternalAssetsAPIPatchFromJSONTyped, DomainExternalAssetsAPIPatchToJSON } from "./DomainExternalAssetsAPIPatch";
+import {
+    DomainExternalAssetsAPIPatchFromJSON,
+    DomainExternalAssetsAPIPatchFromJSONTyped,
+    DomainExternalAssetsAPIPatchToJSON,
+    DomainExternalAssetsAPIPatchToJSONTyped,
+} from "./DomainExternalAssetsAPIPatch";
 
 /**
  * Represents the payload for patching multiple assets.
@@ -51,10 +56,15 @@ export function DomainExternalAssetAPIPatchRequestV1FromJSONTyped(json: any, ign
     };
 }
 
-export function DomainExternalAssetAPIPatchRequestV1ToJSON(value?: DomainExternalAssetAPIPatchRequestV1 | null): any {
+export function DomainExternalAssetAPIPatchRequestV1ToJSON(json: any): DomainExternalAssetAPIPatchRequestV1 {
+    return DomainExternalAssetAPIPatchRequestV1ToJSONTyped(json, false);
+}
+
+export function DomainExternalAssetAPIPatchRequestV1ToJSONTyped(value?: DomainExternalAssetAPIPatchRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         assets: (value["assets"] as Array<any>).map(DomainExternalAssetsAPIPatchToJSON),
     };

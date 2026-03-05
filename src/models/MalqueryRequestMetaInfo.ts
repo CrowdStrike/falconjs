@@ -14,15 +14,20 @@
 
 import { mapValues } from "../runtime";
 import type { MalqueryExternalHuntOptions } from "./MalqueryExternalHuntOptions";
-import { MalqueryExternalHuntOptionsFromJSON, MalqueryExternalHuntOptionsFromJSONTyped, MalqueryExternalHuntOptionsToJSON } from "./MalqueryExternalHuntOptions";
+import {
+    MalqueryExternalHuntOptionsFromJSON,
+    MalqueryExternalHuntOptionsFromJSONTyped,
+    MalqueryExternalHuntOptionsToJSON,
+    MalqueryExternalHuntOptionsToJSONTyped,
+} from "./MalqueryExternalHuntOptions";
 import type { MsaPaging } from "./MsaPaging";
-import { MsaPagingFromJSON, MsaPagingFromJSONTyped, MsaPagingToJSON } from "./MsaPaging";
+import { MsaPagingFromJSON, MsaPagingFromJSONTyped, MsaPagingToJSON, MsaPagingToJSONTyped } from "./MsaPaging";
 import type { MsaspecWrites } from "./MsaspecWrites";
-import { MsaspecWritesFromJSON, MsaspecWritesFromJSONTyped, MsaspecWritesToJSON } from "./MsaspecWrites";
+import { MsaspecWritesFromJSON, MsaspecWritesFromJSONTyped, MsaspecWritesToJSON, MsaspecWritesToJSONTyped } from "./MsaspecWrites";
 import type { MalqueryStats } from "./MalqueryStats";
-import { MalqueryStatsFromJSON, MalqueryStatsFromJSONTyped, MalqueryStatsToJSON } from "./MalqueryStats";
+import { MalqueryStatsFromJSON, MalqueryStatsFromJSONTyped, MalqueryStatsToJSON, MalqueryStatsToJSONTyped } from "./MalqueryStats";
 import type { MalquerySearchParameter } from "./MalquerySearchParameter";
-import { MalquerySearchParameterFromJSON, MalquerySearchParameterFromJSONTyped, MalquerySearchParameterToJSON } from "./MalquerySearchParameter";
+import { MalquerySearchParameterFromJSON, MalquerySearchParameterFromJSONTyped, MalquerySearchParameterToJSON, MalquerySearchParameterToJSONTyped } from "./MalquerySearchParameter";
 
 /**
  *
@@ -143,10 +148,15 @@ export function MalqueryRequestMetaInfoFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function MalqueryRequestMetaInfoToJSON(value?: MalqueryRequestMetaInfo | null): any {
+export function MalqueryRequestMetaInfoToJSON(json: any): MalqueryRequestMetaInfo {
+    return MalqueryRequestMetaInfoToJSONTyped(json, false);
+}
+
+export function MalqueryRequestMetaInfoToJSONTyped(value?: MalqueryRequestMetaInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         options: MalqueryExternalHuntOptionsToJSON(value["options"]),
         pagination: MsaPagingToJSON(value["pagination"]),

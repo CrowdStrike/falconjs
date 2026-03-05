@@ -79,10 +79,15 @@ export function DomainLaunchExportJobRequestV1FromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function DomainLaunchExportJobRequestV1ToJSON(value?: DomainLaunchExportJobRequestV1 | null): any {
+export function DomainLaunchExportJobRequestV1ToJSON(json: any): DomainLaunchExportJobRequestV1 {
+    return DomainLaunchExportJobRequestV1ToJSONTyped(json, false);
+}
+
+export function DomainLaunchExportJobRequestV1ToJSONTyped(value?: DomainLaunchExportJobRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         entity: value["entity"],
         export_type: value["exportType"],

@@ -75,10 +75,15 @@ export function JsonschemaQueryConfigFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function JsonschemaQueryConfigToJSON(value?: JsonschemaQueryConfig | null): any {
+export function JsonschemaQueryConfigToJSON(json: any): JsonschemaQueryConfig {
+    return JsonschemaQueryConfigToJSONTyped(json, false);
+}
+
+export function JsonschemaQueryConfigToJSONTyped(value?: JsonschemaQueryConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         filterable: value["filterable"],
         no_index: value["noIndex"],

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsHEStringFileInfoType } from "./ModelsHEStringFileInfoType";
-import { ModelsHEStringFileInfoTypeFromJSON, ModelsHEStringFileInfoTypeFromJSONTyped, ModelsHEStringFileInfoTypeToJSON } from "./ModelsHEStringFileInfoType";
+import { ModelsHEStringFileInfoTypeFromJSON, ModelsHEStringFileInfoTypeFromJSONTyped, ModelsHEStringFileInfoTypeToJSON, ModelsHEStringFileInfoTypeToJSONTyped } from "./ModelsHEStringFileInfoType";
 import type { ModelsInventoryType } from "./ModelsInventoryType";
-import { ModelsInventoryTypeFromJSON, ModelsInventoryTypeFromJSONTyped, ModelsInventoryTypeToJSON } from "./ModelsInventoryType";
+import { ModelsInventoryTypeFromJSON, ModelsInventoryTypeFromJSONTyped, ModelsInventoryTypeToJSON, ModelsInventoryTypeToJSONTyped } from "./ModelsInventoryType";
 import type { ModelsScanRequestType } from "./ModelsScanRequestType";
-import { ModelsScanRequestTypeFromJSON, ModelsScanRequestTypeFromJSONTyped, ModelsScanRequestTypeToJSON } from "./ModelsScanRequestType";
+import { ModelsScanRequestTypeFromJSON, ModelsScanRequestTypeFromJSONTyped, ModelsScanRequestTypeToJSON, ModelsScanRequestTypeToJSONTyped } from "./ModelsScanRequestType";
 
 /**
  *
@@ -192,10 +192,15 @@ export function ModelsInventoryScanRequestTypeFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function ModelsInventoryScanRequestTypeToJSON(value?: ModelsInventoryScanRequestType | null): any {
+export function ModelsInventoryScanRequestTypeToJSON(json: any): ModelsInventoryScanRequestType {
+    return ModelsInventoryScanRequestTypeToJSONTyped(json, false);
+}
+
+export function ModelsInventoryScanRequestTypeToJSONTyped(value?: ModelsInventoryScanRequestType | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         agent_uuid: value["agentUuid"],
         agent_version: value["agentVersion"],

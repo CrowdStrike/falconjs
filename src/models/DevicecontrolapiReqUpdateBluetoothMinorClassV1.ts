@@ -21,7 +21,7 @@ import { mapValues } from "../runtime";
 export interface DevicecontrolapiReqUpdateBluetoothMinorClassV1 {
     /**
      * Action to be taken for devices in this class
-     * @type {string}
+     * @type {DevicecontrolapiReqUpdateBluetoothMinorClassV1ActionEnum}
      * @memberof DevicecontrolapiReqUpdateBluetoothMinorClassV1
      */
     action: DevicecontrolapiReqUpdateBluetoothMinorClassV1ActionEnum;
@@ -66,10 +66,15 @@ export function DevicecontrolapiReqUpdateBluetoothMinorClassV1FromJSONTyped(json
     };
 }
 
-export function DevicecontrolapiReqUpdateBluetoothMinorClassV1ToJSON(value?: DevicecontrolapiReqUpdateBluetoothMinorClassV1 | null): any {
+export function DevicecontrolapiReqUpdateBluetoothMinorClassV1ToJSON(json: any): DevicecontrolapiReqUpdateBluetoothMinorClassV1 {
+    return DevicecontrolapiReqUpdateBluetoothMinorClassV1ToJSONTyped(json, false);
+}
+
+export function DevicecontrolapiReqUpdateBluetoothMinorClassV1ToJSONTyped(value?: DevicecontrolapiReqUpdateBluetoothMinorClassV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         minor_class: value["minorClass"],

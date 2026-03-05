@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainSession } from "./DomainSession";
-import { DomainSessionFromJSON, DomainSessionFromJSONTyped, DomainSessionToJSON } from "./DomainSession";
+import { DomainSessionFromJSON, DomainSessionFromJSONTyped, DomainSessionToJSON, DomainSessionToJSONTyped } from "./DomainSession";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainSessionResponseWrapperFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function DomainSessionResponseWrapperToJSON(value?: DomainSessionResponseWrapper | null): any {
+export function DomainSessionResponseWrapperToJSON(json: any): DomainSessionResponseWrapper {
+    return DomainSessionResponseWrapperToJSONTyped(json, false);
+}
+
+export function DomainSessionResponseWrapperToJSONTyped(value?: DomainSessionResponseWrapper | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

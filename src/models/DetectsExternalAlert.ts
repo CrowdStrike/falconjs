@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DetectsMitreAttackMapping } from "./DetectsMitreAttackMapping";
-import { DetectsMitreAttackMappingFromJSON, DetectsMitreAttackMappingFromJSONTyped, DetectsMitreAttackMappingToJSON } from "./DetectsMitreAttackMapping";
+import { DetectsMitreAttackMappingFromJSON, DetectsMitreAttackMappingFromJSONTyped, DetectsMitreAttackMappingToJSON, DetectsMitreAttackMappingToJSONTyped } from "./DetectsMitreAttackMapping";
 
 /**
  *
@@ -389,10 +389,15 @@ export function DetectsExternalAlertFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function DetectsExternalAlertToJSON(value?: DetectsExternalAlert | null): any {
+export function DetectsExternalAlertToJSON(json: any): DetectsExternalAlert {
+    return DetectsExternalAlertToJSONTyped(json, false);
+}
+
+export function DetectsExternalAlertToJSONTyped(value?: DetectsExternalAlert | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ...value,
         agent_id: value["agentId"],

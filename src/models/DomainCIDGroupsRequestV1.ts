@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainCIDGroup } from "./DomainCIDGroup";
-import { DomainCIDGroupFromJSON, DomainCIDGroupFromJSONTyped, DomainCIDGroupToJSON } from "./DomainCIDGroup";
+import { DomainCIDGroupFromJSON, DomainCIDGroupFromJSONTyped, DomainCIDGroupToJSON, DomainCIDGroupToJSONTyped } from "./DomainCIDGroup";
 
 /**
  *
@@ -51,10 +51,15 @@ export function DomainCIDGroupsRequestV1FromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function DomainCIDGroupsRequestV1ToJSON(value?: DomainCIDGroupsRequestV1 | null): any {
+export function DomainCIDGroupsRequestV1ToJSON(json: any): DomainCIDGroupsRequestV1 {
+    return DomainCIDGroupsRequestV1ToJSONTyped(json, false);
+}
+
+export function DomainCIDGroupsRequestV1ToJSONTyped(value?: DomainCIDGroupsRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(DomainCIDGroupToJSON),
     };

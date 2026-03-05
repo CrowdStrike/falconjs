@@ -61,10 +61,15 @@ export function ApiExposedDataRecordFinancialV1FromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function ApiExposedDataRecordFinancialV1ToJSON(value?: ApiExposedDataRecordFinancialV1 | null): any {
+export function ApiExposedDataRecordFinancialV1ToJSON(json: any): ApiExposedDataRecordFinancialV1 {
+    return ApiExposedDataRecordFinancialV1ToJSONTyped(json, false);
+}
+
+export function ApiExposedDataRecordFinancialV1ToJSONTyped(value?: ApiExposedDataRecordFinancialV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         bank_account: value["bankAccount"],
         credit_card: value["creditCard"],

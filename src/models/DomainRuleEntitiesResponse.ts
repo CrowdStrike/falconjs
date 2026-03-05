@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainRule } from "./DomainRule";
-import { DomainRuleFromJSON, DomainRuleFromJSONTyped, DomainRuleToJSON } from "./DomainRule";
+import { DomainRuleFromJSON, DomainRuleFromJSONTyped, DomainRuleToJSON, DomainRuleToJSONTyped } from "./DomainRule";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function DomainRuleEntitiesResponseFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function DomainRuleEntitiesResponseToJSON(value?: DomainRuleEntitiesResponse | null): any {
+export function DomainRuleEntitiesResponseToJSON(json: any): DomainRuleEntitiesResponse {
+    return DomainRuleEntitiesResponseToJSONTyped(json, false);
+}
+
+export function DomainRuleEntitiesResponseToJSONTyped(value?: DomainRuleEntitiesResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

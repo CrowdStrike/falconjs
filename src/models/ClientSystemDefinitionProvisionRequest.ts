@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ParameterTemplateProvisionParameters } from "./ParameterTemplateProvisionParameters";
-import { ParameterTemplateProvisionParametersFromJSON, ParameterTemplateProvisionParametersFromJSONTyped, ParameterTemplateProvisionParametersToJSON } from "./ParameterTemplateProvisionParameters";
+import {
+    ParameterTemplateProvisionParametersFromJSON,
+    ParameterTemplateProvisionParametersFromJSONTyped,
+    ParameterTemplateProvisionParametersToJSON,
+    ParameterTemplateProvisionParametersToJSONTyped,
+} from "./ParameterTemplateProvisionParameters";
 
 /**
  *
@@ -83,10 +88,15 @@ export function ClientSystemDefinitionProvisionRequestFromJSONTyped(json: any, i
     };
 }
 
-export function ClientSystemDefinitionProvisionRequestToJSON(value?: ClientSystemDefinitionProvisionRequest | null): any {
+export function ClientSystemDefinitionProvisionRequestToJSON(json: any): ClientSystemDefinitionProvisionRequest {
+    return ClientSystemDefinitionProvisionRequestToJSONTyped(json, false);
+}
+
+export function ClientSystemDefinitionProvisionRequestToJSONTyped(value?: ClientSystemDefinitionProvisionRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
         parameters: ParameterTemplateProvisionParametersToJSON(value["parameters"]),

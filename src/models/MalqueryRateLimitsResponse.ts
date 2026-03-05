@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MalqueryRateLimitsMeta } from "./MalqueryRateLimitsMeta";
-import { MalqueryRateLimitsMetaFromJSON, MalqueryRateLimitsMetaFromJSONTyped, MalqueryRateLimitsMetaToJSON } from "./MalqueryRateLimitsMeta";
+import { MalqueryRateLimitsMetaFromJSON, MalqueryRateLimitsMetaFromJSONTyped, MalqueryRateLimitsMetaToJSON, MalqueryRateLimitsMetaToJSONTyped } from "./MalqueryRateLimitsMeta";
 
 /**
  *
@@ -61,10 +61,15 @@ export function MalqueryRateLimitsResponseFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function MalqueryRateLimitsResponseToJSON(value?: MalqueryRateLimitsResponse | null): any {
+export function MalqueryRateLimitsResponseToJSON(json: any): MalqueryRateLimitsResponse {
+    return MalqueryRateLimitsResponseToJSONTyped(json, false);
+}
+
+export function MalqueryRateLimitsResponseToJSONTyped(value?: MalqueryRateLimitsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MalqueryRateLimitsMetaToJSON(value["meta"]),

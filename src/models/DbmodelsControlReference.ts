@@ -56,10 +56,15 @@ export function DbmodelsControlReferenceFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function DbmodelsControlReferenceToJSON(value?: DbmodelsControlReference | null): any {
+export function DbmodelsControlReferenceToJSON(json: any): DbmodelsControlReference {
+    return DbmodelsControlReferenceToJSONTyped(json, false);
+}
+
+export function DbmodelsControlReferenceToJSONTyped(value?: DbmodelsControlReference | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Authority: value["authority"],
         Code: value["code"],

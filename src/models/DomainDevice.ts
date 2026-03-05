@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainMappedDevicePolicies } from "./DomainMappedDevicePolicies";
-import { DomainMappedDevicePoliciesFromJSON, DomainMappedDevicePoliciesFromJSONTyped, DomainMappedDevicePoliciesToJSON } from "./DomainMappedDevicePolicies";
+import { DomainMappedDevicePoliciesFromJSON, DomainMappedDevicePoliciesFromJSONTyped, DomainMappedDevicePoliciesToJSON, DomainMappedDevicePoliciesToJSONTyped } from "./DomainMappedDevicePolicies";
 
 /**
  *
@@ -290,10 +290,15 @@ export function DomainDeviceFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function DomainDeviceToJSON(value?: DomainDevice | null): any {
+export function DomainDeviceToJSON(json: any): DomainDevice {
+    return DomainDeviceToJSONTyped(json, false);
+}
+
+export function DomainDeviceToJSONTyped(value?: DomainDevice | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         _: value["u"],
         agent_version: value["agentVersion"],

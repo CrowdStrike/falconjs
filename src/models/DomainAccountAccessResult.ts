@@ -63,10 +63,15 @@ export function DomainAccountAccessResultFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DomainAccountAccessResultToJSON(value?: DomainAccountAccessResult | null): any {
+export function DomainAccountAccessResultToJSON(json: any): DomainAccountAccessResult {
+    return DomainAccountAccessResultToJSONTyped(json, false);
+}
+
+export function DomainAccountAccessResultToJSONTyped(value?: DomainAccountAccessResult | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         reason: value["reason"],

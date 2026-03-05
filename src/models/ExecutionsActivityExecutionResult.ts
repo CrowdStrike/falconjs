@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ExecutionsReferenceLink } from "./ExecutionsReferenceLink";
-import { ExecutionsReferenceLinkFromJSON, ExecutionsReferenceLinkFromJSONTyped, ExecutionsReferenceLinkToJSON } from "./ExecutionsReferenceLink";
+import { ExecutionsReferenceLinkFromJSON, ExecutionsReferenceLinkFromJSONTyped, ExecutionsReferenceLinkToJSON, ExecutionsReferenceLinkToJSONTyped } from "./ExecutionsReferenceLink";
 
 /**
  *
@@ -133,12 +133,17 @@ export function ExecutionsActivityExecutionResultFromJSONTyped(json: any, ignore
     };
 }
 
-export function ExecutionsActivityExecutionResultToJSON(value?: ExecutionsActivityExecutionResult | null): any {
+export function ExecutionsActivityExecutionResultToJSON(json: any): ExecutionsActivityExecutionResult {
+    return ExecutionsActivityExecutionResultToJSONTyped(json, false);
+}
+
+export function ExecutionsActivityExecutionResultToJSONTyped(value?: ExecutionsActivityExecutionResult | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
-        end_timestamp: value["endTimestamp"] == null ? undefined : value["endTimestamp"].toISOString(),
+        end_timestamp: value["endTimestamp"] == null ? value["endTimestamp"] : value["endTimestamp"].toISOString(),
         error_code: value["errorCode"],
         error_message: value["errorMessage"],
         id: value["id"],

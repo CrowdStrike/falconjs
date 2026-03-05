@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DeploymentsAPIDeploymentRingView } from "./DeploymentsAPIDeploymentRingView";
-import { DeploymentsAPIDeploymentRingViewFromJSON, DeploymentsAPIDeploymentRingViewFromJSONTyped, DeploymentsAPIDeploymentRingViewToJSON } from "./DeploymentsAPIDeploymentRingView";
+import {
+    DeploymentsAPIDeploymentRingViewFromJSON,
+    DeploymentsAPIDeploymentRingViewFromJSONTyped,
+    DeploymentsAPIDeploymentRingViewToJSON,
+    DeploymentsAPIDeploymentRingViewToJSONTyped,
+} from "./DeploymentsAPIDeploymentRingView";
 
 /**
  *
@@ -101,17 +106,22 @@ export function DeploymentsAPIDeploymentViewFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function DeploymentsAPIDeploymentViewToJSON(value?: DeploymentsAPIDeploymentView | null): any {
+export function DeploymentsAPIDeploymentViewToJSON(json: any): DeploymentsAPIDeploymentView {
+    return DeploymentsAPIDeploymentViewToJSONTyped(json, false);
+}
+
+export function DeploymentsAPIDeploymentViewToJSONTyped(value?: DeploymentsAPIDeploymentView | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
-        complete_timestamp: value["completeTimestamp"] == null ? undefined : value["completeTimestamp"].toISOString(),
+        complete_timestamp: value["completeTimestamp"] == null ? value["completeTimestamp"] : value["completeTimestamp"].toISOString(),
         id: value["id"],
         modified_by: value["modifiedBy"],
-        modified_timestamp: value["modifiedTimestamp"] == null ? undefined : value["modifiedTimestamp"].toISOString(),
+        modified_timestamp: value["modifiedTimestamp"] == null ? value["modifiedTimestamp"] : value["modifiedTimestamp"].toISOString(),
         rings: value["rings"] == null ? undefined : (value["rings"] as Array<any>).map(DeploymentsAPIDeploymentRingViewToJSON),
-        start_timestamp: value["startTimestamp"] == null ? undefined : value["startTimestamp"].toISOString(),
+        start_timestamp: value["startTimestamp"] == null ? value["startTimestamp"] : value["startTimestamp"].toISOString(),
         status: value["status"],
         template_id: value["templateId"],
     };

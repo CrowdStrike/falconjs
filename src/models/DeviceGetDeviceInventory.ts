@@ -69,10 +69,10 @@ export interface DeviceGetDeviceInventory {
     lastSeen: string | null;
     /**
      *
-     * @type {Array<string>}
+     * @type {Array<string | null>}
      * @memberof DeviceGetDeviceInventory
      */
-    macAddressList: Array<string> | null;
+    macAddressList: Array<string | null> | null;
     /**
      *
      * @type {string}
@@ -99,16 +99,16 @@ export interface DeviceGetDeviceInventory {
     privilegedRolesCount: number | null;
     /**
      *
-     * @type {Array<string>}
+     * @type {Array<string | null>}
      * @memberof DeviceGetDeviceInventory
      */
-    reportedApps: Array<string> | null;
+    reportedApps: Array<string | null> | null;
     /**
      *
-     * @type {Array<string>}
+     * @type {Array<string | null>}
      * @memberof DeviceGetDeviceInventory
      */
-    reporters: Array<string>;
+    reporters: Array<string | null>;
     /**
      *
      * @type {string}
@@ -164,22 +164,27 @@ export function DeviceGetDeviceInventoryFromJSONTyped(json: any, ignoreDiscrimin
         hasUserAssociation: json["has_user_association"],
         id: json["id"],
         lastSeen: json["last_seen"],
-        macAddressList: json["mac_address_list"],
+        macAddressList: json["mac_address_list"] == null ? null : json["mac_address_list"],
         os: json["os"],
         osVersion: json["os_version"],
         platform: json["platform"],
         privilegedRolesCount: json["privileged_roles_count"],
-        reportedApps: json["reported_apps"],
+        reportedApps: json["reported_apps"] == null ? null : json["reported_apps"],
         reporters: json["reporters"],
         userEmail: json["user_email"],
         userExists: json["user_exists"],
     };
 }
 
-export function DeviceGetDeviceInventoryToJSON(value?: DeviceGetDeviceInventory | null): any {
+export function DeviceGetDeviceInventoryToJSON(json: any): DeviceGetDeviceInventory {
+    return DeviceGetDeviceInventoryToJSONTyped(json, false);
+}
+
+export function DeviceGetDeviceInventoryToJSONTyped(value?: DeviceGetDeviceInventory | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         apps_count: value["appsCount"],

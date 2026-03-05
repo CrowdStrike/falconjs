@@ -18,6 +18,7 @@ import {
     StatusBreakdownSecurityCheckMetricsGetMetricsFromJSON,
     StatusBreakdownSecurityCheckMetricsGetMetricsFromJSONTyped,
     StatusBreakdownSecurityCheckMetricsGetMetricsToJSON,
+    StatusBreakdownSecurityCheckMetricsGetMetricsToJSONTyped,
 } from "./StatusBreakdownSecurityCheckMetricsGetMetrics";
 
 /**
@@ -95,10 +96,15 @@ export function SecurityCheckMetricsGetMetricsFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function SecurityCheckMetricsGetMetricsToJSON(value?: SecurityCheckMetricsGetMetrics | null): any {
+export function SecurityCheckMetricsGetMetricsToJSON(json: any): SecurityCheckMetricsGetMetrics {
+    return SecurityCheckMetricsGetMetricsToJSONTyped(json, false);
+}
+
+export function SecurityCheckMetricsGetMetricsToJSONTyped(value?: SecurityCheckMetricsGetMetrics | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         integrations_count: value["integrationsCount"],

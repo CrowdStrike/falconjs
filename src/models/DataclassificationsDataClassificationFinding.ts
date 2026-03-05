@@ -64,10 +64,15 @@ export function DataclassificationsDataClassificationFindingFromJSONTyped(json: 
     };
 }
 
-export function DataclassificationsDataClassificationFindingToJSON(value?: DataclassificationsDataClassificationFinding | null): any {
+export function DataclassificationsDataClassificationFindingToJSON(json: any): DataclassificationsDataClassificationFinding {
+    return DataclassificationsDataClassificationFindingToJSONTyped(json, false);
+}
+
+export function DataclassificationsDataClassificationFindingToJSONTyped(value?: DataclassificationsDataClassificationFinding | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         labelId: value["labelId"],
         tagId: value["tagId"],

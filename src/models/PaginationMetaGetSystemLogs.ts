@@ -75,10 +75,15 @@ export function PaginationMetaGetSystemLogsFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function PaginationMetaGetSystemLogsToJSON(value?: PaginationMetaGetSystemLogs | null): any {
+export function PaginationMetaGetSystemLogsToJSON(json: any): PaginationMetaGetSystemLogs {
+    return PaginationMetaGetSystemLogsToJSONTyped(json, false);
+}
+
+export function PaginationMetaGetSystemLogsToJSONTyped(value?: PaginationMetaGetSystemLogs | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         limit: value["limit"],
         next: value["next"],

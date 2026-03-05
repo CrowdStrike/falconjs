@@ -104,10 +104,15 @@ export function DomainDiscoverParamsFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function DomainDiscoverParamsToJSON(value?: DomainDiscoverParams | null): any {
+export function DomainDiscoverParamsToJSON(json: any): DomainDiscoverParams {
+    return DomainDiscoverParamsToJSONTyped(json, false);
+}
+
+export function DomainDiscoverParamsToJSONTyped(value?: DomainDiscoverParams | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         application_filters: value["applicationFilters"],
         application_group_id: value["applicationGroupId"],

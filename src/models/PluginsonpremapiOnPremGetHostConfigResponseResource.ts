@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { PluginsonpremapiHostConfig } from "./PluginsonpremapiHostConfig";
-import { PluginsonpremapiHostConfigFromJSON, PluginsonpremapiHostConfigFromJSONTyped, PluginsonpremapiHostConfigToJSON } from "./PluginsonpremapiHostConfig";
+import { PluginsonpremapiHostConfigFromJSON, PluginsonpremapiHostConfigFromJSONTyped, PluginsonpremapiHostConfigToJSON, PluginsonpremapiHostConfigToJSONTyped } from "./PluginsonpremapiHostConfig";
 
 /**
  *
@@ -67,10 +67,15 @@ export function PluginsonpremapiOnPremGetHostConfigResponseResourceFromJSONTyped
     };
 }
 
-export function PluginsonpremapiOnPremGetHostConfigResponseResourceToJSON(value?: PluginsonpremapiOnPremGetHostConfigResponseResource | null): any {
+export function PluginsonpremapiOnPremGetHostConfigResponseResourceToJSON(json: any): PluginsonpremapiOnPremGetHostConfigResponseResource {
+    return PluginsonpremapiOnPremGetHostConfigResponseResourceToJSONTyped(json, false);
+}
+
+export function PluginsonpremapiOnPremGetHostConfigResponseResourceToJSONTyped(value?: PluginsonpremapiOnPremGetHostConfigResponseResource | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         configs: (value["configs"] as Array<any>).map(PluginsonpremapiHostConfigToJSON),
         host_group_id: value["hostGroupId"],

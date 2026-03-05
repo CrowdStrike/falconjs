@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesTimestamp } from "./TypesTimestamp";
-import { TypesTimestampFromJSON, TypesTimestampFromJSONTyped, TypesTimestampToJSON } from "./TypesTimestamp";
+import { TypesTimestampFromJSON, TypesTimestampFromJSONTyped, TypesTimestampToJSON, TypesTimestampToJSONTyped } from "./TypesTimestamp";
 
 /**
  *
@@ -99,10 +99,15 @@ export function TypesComposedScheduleFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function TypesComposedScheduleToJSON(value?: TypesComposedSchedule | null): any {
+export function TypesComposedScheduleToJSON(json: any): TypesComposedSchedule {
+    return TypesComposedScheduleToJSONTyped(json, false);
+}
+
+export function TypesComposedScheduleToJSONTyped(value?: TypesComposedSchedule | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         every: value["every"],
         every_unit: value["everyUnit"],

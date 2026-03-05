@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { PaginationMetaGetSecurityChecks } from "./PaginationMetaGetSecurityChecks";
-import { PaginationMetaGetSecurityChecksFromJSON, PaginationMetaGetSecurityChecksFromJSONTyped, PaginationMetaGetSecurityChecksToJSON } from "./PaginationMetaGetSecurityChecks";
+import {
+    PaginationMetaGetSecurityChecksFromJSON,
+    PaginationMetaGetSecurityChecksFromJSONTyped,
+    PaginationMetaGetSecurityChecksToJSON,
+    PaginationMetaGetSecurityChecksToJSONTyped,
+} from "./PaginationMetaGetSecurityChecks";
 
 /**
  *
@@ -64,10 +69,15 @@ export function MetaGetSecurityChecksFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function MetaGetSecurityChecksToJSON(value?: MetaGetSecurityChecks | null): any {
+export function MetaGetSecurityChecksToJSON(json: any): MetaGetSecurityChecks {
+    return MetaGetSecurityChecksToJSONTyped(json, false);
+}
+
+export function MetaGetSecurityChecksToJSONTyped(value?: MetaGetSecurityChecks | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: PaginationMetaGetSecurityChecksToJSON(value["pagination"]),
         query_time: value["queryTime"],

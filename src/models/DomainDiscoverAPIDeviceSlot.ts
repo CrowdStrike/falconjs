@@ -103,10 +103,15 @@ export function DomainDiscoverAPIDeviceSlotFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function DomainDiscoverAPIDeviceSlotToJSON(value?: DomainDiscoverAPIDeviceSlot | null): any {
+export function DomainDiscoverAPIDeviceSlotToJSON(json: any): DomainDiscoverAPIDeviceSlot {
+    return DomainDiscoverAPIDeviceSlotToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPIDeviceSlotToJSONTyped(value?: DomainDiscoverAPIDeviceSlot | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         slot_firmware: value["slotFirmware"],
         slot_ip_address: value["slotIpAddress"],

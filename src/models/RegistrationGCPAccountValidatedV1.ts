@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { StatemgmtCondition } from "./StatemgmtCondition";
-import { StatemgmtConditionFromJSON, StatemgmtConditionFromJSONTyped, StatemgmtConditionToJSON } from "./StatemgmtCondition";
+import { StatemgmtConditionFromJSON, StatemgmtConditionFromJSONTyped, StatemgmtConditionToJSON, StatemgmtConditionToJSONTyped } from "./StatemgmtCondition";
 import type { DomainPermission } from "./DomainPermission";
-import { DomainPermissionFromJSON, DomainPermissionFromJSONTyped, DomainPermissionToJSON } from "./DomainPermission";
+import { DomainPermissionFromJSON, DomainPermissionFromJSONTyped, DomainPermissionToJSON, DomainPermissionToJSONTyped } from "./DomainPermission";
 
 /**
  *
@@ -89,10 +89,15 @@ export function RegistrationGCPAccountValidatedV1FromJSONTyped(json: any, ignore
     };
 }
 
-export function RegistrationGCPAccountValidatedV1ToJSON(value?: RegistrationGCPAccountValidatedV1 | null): any {
+export function RegistrationGCPAccountValidatedV1ToJSON(json: any): RegistrationGCPAccountValidatedV1 {
+    return RegistrationGCPAccountValidatedV1ToJSONTyped(json, false);
+}
+
+export function RegistrationGCPAccountValidatedV1ToJSONTyped(value?: RegistrationGCPAccountValidatedV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         conditions: value["conditions"] == null ? undefined : (value["conditions"] as Array<any>).map(StatemgmtConditionToJSON),
         gcp_permissions_status: (value["gcpPermissionsStatus"] as Array<any>).map(DomainPermissionToJSON),

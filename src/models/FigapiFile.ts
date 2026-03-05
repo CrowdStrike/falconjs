@@ -89,10 +89,15 @@ export function FigapiFileFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function FigapiFileToJSON(value?: FigapiFile | null): any {
+export function FigapiFileToJSON(json: any): FigapiFile {
+    return FigapiFileToJSONTyped(json, false);
+}
+
+export function FigapiFileToJSONTyped(value?: FigapiFile | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         FileProperties: value["fileProperties"],
         FileSize: value["fileSize"],

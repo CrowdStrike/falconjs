@@ -86,10 +86,15 @@ export function RegistrationAWSAccountD4CExtV2FromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function RegistrationAWSAccountD4CExtV2ToJSON(value?: RegistrationAWSAccountD4CExtV2 | null): any {
+export function RegistrationAWSAccountD4CExtV2ToJSON(json: any): RegistrationAWSAccountD4CExtV2 {
+    return RegistrationAWSAccountD4CExtV2ToJSONTyped(json, false);
+}
+
+export function RegistrationAWSAccountD4CExtV2ToJSONTyped(value?: RegistrationAWSAccountD4CExtV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         account_type: value["accountType"],

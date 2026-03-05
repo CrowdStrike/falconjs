@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsContainerRuntimePivot } from "./ModelsContainerRuntimePivot";
-import { ModelsContainerRuntimePivotFromJSON, ModelsContainerRuntimePivotFromJSONTyped, ModelsContainerRuntimePivotToJSON } from "./ModelsContainerRuntimePivot";
+import {
+    ModelsContainerRuntimePivotFromJSON,
+    ModelsContainerRuntimePivotFromJSONTyped,
+    ModelsContainerRuntimePivotToJSON,
+    ModelsContainerRuntimePivotToJSONTyped,
+} from "./ModelsContainerRuntimePivot";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +75,15 @@ export function ModelsContainerRuntimePivotResponseFromJSONTyped(json: any, igno
     };
 }
 
-export function ModelsContainerRuntimePivotResponseToJSON(value?: ModelsContainerRuntimePivotResponse | null): any {
+export function ModelsContainerRuntimePivotResponseToJSON(json: any): ModelsContainerRuntimePivotResponse {
+    return ModelsContainerRuntimePivotResponseToJSONTyped(json, false);
+}
+
+export function ModelsContainerRuntimePivotResponseToJSONTyped(value?: ModelsContainerRuntimePivotResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

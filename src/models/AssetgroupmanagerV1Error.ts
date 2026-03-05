@@ -61,10 +61,15 @@ export function AssetgroupmanagerV1ErrorFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function AssetgroupmanagerV1ErrorToJSON(value?: AssetgroupmanagerV1Error | null): any {
+export function AssetgroupmanagerV1ErrorToJSON(json: any): AssetgroupmanagerV1Error {
+    return AssetgroupmanagerV1ErrorToJSONTyped(json, false);
+}
+
+export function AssetgroupmanagerV1ErrorToJSONTyped(value?: AssetgroupmanagerV1Error | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         id: value["id"],

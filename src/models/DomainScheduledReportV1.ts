@@ -14,17 +14,22 @@
 
 import { mapValues } from "../runtime";
 import type { DomainSchedule } from "./DomainSchedule";
-import { DomainScheduleFromJSON, DomainScheduleFromJSONTyped, DomainScheduleToJSON } from "./DomainSchedule";
+import { DomainScheduleFromJSON, DomainScheduleFromJSONTyped, DomainScheduleToJSON, DomainScheduleToJSONTyped } from "./DomainSchedule";
 import type { DomainNotifications } from "./DomainNotifications";
-import { DomainNotificationsFromJSON, DomainNotificationsFromJSONTyped, DomainNotificationsToJSON } from "./DomainNotifications";
+import { DomainNotificationsFromJSON, DomainNotificationsFromJSONTyped, DomainNotificationsToJSON, DomainNotificationsToJSONTyped } from "./DomainNotifications";
 import type { DomainReportMetadata } from "./DomainReportMetadata";
-import { DomainReportMetadataFromJSON, DomainReportMetadataFromJSONTyped, DomainReportMetadataToJSON } from "./DomainReportMetadata";
+import { DomainReportMetadataFromJSON, DomainReportMetadataFromJSONTyped, DomainReportMetadataToJSON, DomainReportMetadataToJSONTyped } from "./DomainReportMetadata";
 import type { DomainSecretReferencesV1 } from "./DomainSecretReferencesV1";
-import { DomainSecretReferencesV1FromJSON, DomainSecretReferencesV1FromJSONTyped, DomainSecretReferencesV1ToJSON } from "./DomainSecretReferencesV1";
+import { DomainSecretReferencesV1FromJSON, DomainSecretReferencesV1FromJSONTyped, DomainSecretReferencesV1ToJSON, DomainSecretReferencesV1ToJSONTyped } from "./DomainSecretReferencesV1";
 import type { DomainReportParams } from "./DomainReportParams";
-import { DomainReportParamsFromJSON, DomainReportParamsFromJSONTyped, DomainReportParamsToJSON } from "./DomainReportParams";
+import { DomainReportParamsFromJSON, DomainReportParamsFromJSONTyped, DomainReportParamsToJSON, DomainReportParamsToJSONTyped } from "./DomainReportParams";
 import type { DomainReportExecutionSummaryV1 } from "./DomainReportExecutionSummaryV1";
-import { DomainReportExecutionSummaryV1FromJSON, DomainReportExecutionSummaryV1FromJSONTyped, DomainReportExecutionSummaryV1ToJSON } from "./DomainReportExecutionSummaryV1";
+import {
+    DomainReportExecutionSummaryV1FromJSON,
+    DomainReportExecutionSummaryV1FromJSONTyped,
+    DomainReportExecutionSummaryV1ToJSON,
+    DomainReportExecutionSummaryV1ToJSONTyped,
+} from "./DomainReportExecutionSummaryV1";
 
 /**
  *
@@ -265,22 +270,27 @@ export function DomainScheduledReportV1FromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function DomainScheduledReportV1ToJSON(value?: DomainScheduledReportV1 | null): any {
+export function DomainScheduledReportV1ToJSON(json: any): DomainScheduledReportV1 {
+    return DomainScheduledReportV1ToJSONTyped(json, false);
+}
+
+export function DomainScheduledReportV1ToJSONTyped(value?: DomainScheduledReportV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         api_client_id: value["apiClientId"],
         can_write: value["canWrite"],
         created_on: value["createdOn"].toISOString(),
         customer_id: value["customerId"],
         description: value["description"],
-        expiration_on: value["expirationOn"] == null ? undefined : value["expirationOn"].toISOString(),
+        expiration_on: value["expirationOn"] == null ? value["expirationOn"] : value["expirationOn"].toISOString(),
         id: value["id"],
         last_execution: DomainReportExecutionSummaryV1ToJSON(value["lastExecution"]),
         last_updated_on: value["lastUpdatedOn"].toISOString(),
         name: value["name"],
-        next_execution_on: value["nextExecutionOn"] == null ? undefined : value["nextExecutionOn"].toISOString(),
+        next_execution_on: value["nextExecutionOn"] == null ? value["nextExecutionOn"] : value["nextExecutionOn"].toISOString(),
         notifications: (value["notifications"] as Array<any>).map(DomainNotificationsToJSON),
         owned_by_cs: value["ownedByCs"],
         report_metadata: DomainReportMetadataToJSON(value["reportMetadata"]),
@@ -289,9 +299,9 @@ export function DomainScheduledReportV1ToJSON(value?: DomainScheduledReportV1 | 
         schedule_type: value["scheduleType"],
         secret_references: DomainSecretReferencesV1ToJSON(value["secretReferences"]),
         shared_with: value["sharedWith"],
-        start_on: value["startOn"] == null ? undefined : value["startOn"].toISOString(),
+        start_on: value["startOn"] == null ? value["startOn"] : value["startOn"].toISOString(),
         status: value["status"],
-        stop_on: value["stopOn"] == null ? undefined : value["stopOn"].toISOString(),
+        stop_on: value["stopOn"] == null ? value["stopOn"] : value["stopOn"].toISOString(),
         stopped_by_cs: value["stoppedByCs"],
         tracking: value["tracking"],
         trigger_reference: value["triggerReference"],

@@ -134,13 +134,9 @@ export interface ExposureManagementApiQueryExternalAssetsV2Request {
  */
 export class ExposureManagementApi extends runtime.BaseAPI {
     /**
-     * Returns external assets aggregates as specified via JSON in request body.
-     * Returns external assets aggregates.
+     * Creates request options for aggregateExternalAssets without sending the request
      */
-    async aggregateExternalAssetsRaw(
-        requestParameters: ExposureManagementApiAggregateExternalAssetsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+    async aggregateExternalAssetsRequestOpts(requestParameters: ExposureManagementApiAggregateExternalAssetsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateExternalAssets().');
         }
@@ -156,16 +152,27 @@ export class ExposureManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/fem/aggregates/external-assets/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
-            },
-            initOverrides,
-        );
+        let urlPath = `/fem/aggregates/external-assets/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
+        };
+    }
+
+    /**
+     * Returns external assets aggregates as specified via JSON in request body.
+     * Returns external assets aggregates.
+     */
+    async aggregateExternalAssetsRaw(
+        requestParameters: ExposureManagementApiAggregateExternalAssetsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        const requestOptions = await this.aggregateExternalAssetsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
     }
@@ -180,13 +187,9 @@ export class ExposureManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Download the entire contents of the blob.
-     * Download the entire contents of the blob. The relative link to this endpoint is returned in the GET /entities/external-assets/v1 request.
+     * Creates request options for blobDownloadExternalAssets without sending the request
      */
-    async blobDownloadExternalAssetsRaw(
-        requestParameters: ExposureManagementApiBlobDownloadExternalAssetsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<Array<number>>> {
+    async blobDownloadExternalAssetsRequestOpts(requestParameters: ExposureManagementApiBlobDownloadExternalAssetsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["assetId"] == null) {
             throw new runtime.RequiredError("assetId", 'Required parameter "assetId" was null or undefined when calling blobDownloadExternalAssets().');
         }
@@ -212,15 +215,26 @@ export class ExposureManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/fem/entities/blobs-download/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/fem/entities/blobs-download/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Download the entire contents of the blob.
+     * Download the entire contents of the blob. The relative link to this endpoint is returned in the GET /entities/external-assets/v1 request.
+     */
+    async blobDownloadExternalAssetsRaw(
+        requestParameters: ExposureManagementApiBlobDownloadExternalAssetsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<Array<number>>> {
+        const requestOptions = await this.blobDownloadExternalAssetsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse<any>(response);
     }
@@ -235,13 +249,9 @@ export class ExposureManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Download a preview of the blob.
-     * Download a preview of the blob. The relative link to this endpoint is returned in the GET /entities/external-assets/v1 request.
+     * Creates request options for blobPreviewExternalAssets without sending the request
      */
-    async blobPreviewExternalAssetsRaw(
-        requestParameters: ExposureManagementApiBlobPreviewExternalAssetsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainExternalAssetsBlobAPITypeV1>> {
+    async blobPreviewExternalAssetsRequestOpts(requestParameters: ExposureManagementApiBlobPreviewExternalAssetsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["assetId"] == null) {
             throw new runtime.RequiredError("assetId", 'Required parameter "assetId" was null or undefined when calling blobPreviewExternalAssets().');
         }
@@ -267,15 +277,26 @@ export class ExposureManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/fem/entities/blobs-preview/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/fem/entities/blobs-preview/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Download a preview of the blob.
+     * Download a preview of the blob. The relative link to this endpoint is returned in the GET /entities/external-assets/v1 request.
+     */
+    async blobPreviewExternalAssetsRaw(
+        requestParameters: ExposureManagementApiBlobPreviewExternalAssetsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainExternalAssetsBlobAPITypeV1>> {
+        const requestOptions = await this.blobPreviewExternalAssetsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainExternalAssetsBlobAPITypeV1FromJSON(jsonValue));
     }
@@ -290,12 +311,9 @@ export class ExposureManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves a list of ecosystem subsidiaries with their detailed information.
+     * Creates request options for combinedEcosystemSubsidiaries without sending the request
      */
-    async combinedEcosystemSubsidiariesRaw(
-        requestParameters: ExposureManagementApiCombinedEcosystemSubsidiariesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainFemEcosystemSubsidiariesEntitiesResponse>> {
+    async combinedEcosystemSubsidiariesRequestOpts(requestParameters: ExposureManagementApiCombinedEcosystemSubsidiariesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -325,15 +343,25 @@ export class ExposureManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/fem/combined/ecosystem-subsidiaries/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/fem/combined/ecosystem-subsidiaries/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieves a list of ecosystem subsidiaries with their detailed information.
+     */
+    async combinedEcosystemSubsidiariesRaw(
+        requestParameters: ExposureManagementApiCombinedEcosystemSubsidiariesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainFemEcosystemSubsidiariesEntitiesResponse>> {
+        const requestOptions = await this.combinedEcosystemSubsidiariesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainFemEcosystemSubsidiariesEntitiesResponseFromJSON(jsonValue));
     }
@@ -354,12 +382,9 @@ export class ExposureManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete multiple external assets.
+     * Creates request options for deleteExternalAssets without sending the request
      */
-    async deleteExternalAssetsRaw(
-        requestParameters: ExposureManagementApiDeleteExternalAssetsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async deleteExternalAssetsRequestOpts(requestParameters: ExposureManagementApiDeleteExternalAssetsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteExternalAssets().');
         }
@@ -383,16 +408,26 @@ export class ExposureManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/fem/entities/external-assets/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainExternalAssetAPIDeleteRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/fem/entities/external-assets/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainExternalAssetAPIDeleteRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Delete multiple external assets.
+     */
+    async deleteExternalAssetsRaw(
+        requestParameters: ExposureManagementApiDeleteExternalAssetsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.deleteExternalAssetsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -406,12 +441,9 @@ export class ExposureManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves detailed information about ecosystem subsidiaries by ID.
+     * Creates request options for getEcosystemSubsidiaries without sending the request
      */
-    async getEcosystemSubsidiariesRaw(
-        requestParameters: ExposureManagementApiGetEcosystemSubsidiariesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainFemEcosystemSubsidiariesEntitiesResponse>> {
+    async getEcosystemSubsidiariesRequestOpts(requestParameters: ExposureManagementApiGetEcosystemSubsidiariesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getEcosystemSubsidiaries().');
         }
@@ -433,15 +465,25 @@ export class ExposureManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/fem/entities/ecosystem-subsidiaries/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/fem/entities/ecosystem-subsidiaries/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieves detailed information about ecosystem subsidiaries by ID.
+     */
+    async getEcosystemSubsidiariesRaw(
+        requestParameters: ExposureManagementApiGetEcosystemSubsidiariesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainFemEcosystemSubsidiariesEntitiesResponse>> {
+        const requestOptions = await this.getEcosystemSubsidiariesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainFemEcosystemSubsidiariesEntitiesResponseFromJSON(jsonValue));
     }
@@ -455,12 +497,9 @@ export class ExposureManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get details on external assets by providing one or more IDs.
+     * Creates request options for getExternalAssets without sending the request
      */
-    async getExternalAssetsRaw(
-        requestParameters: ExposureManagementApiGetExternalAssetsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainExternalAssetsAPITypeV1>> {
+    async getExternalAssetsRequestOpts(requestParameters: ExposureManagementApiGetExternalAssetsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getExternalAssets().');
         }
@@ -478,15 +517,25 @@ export class ExposureManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/fem/entities/external-assets/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/fem/entities/external-assets/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get details on external assets by providing one or more IDs.
+     */
+    async getExternalAssetsRaw(
+        requestParameters: ExposureManagementApiGetExternalAssetsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainExternalAssetsAPITypeV1>> {
+        const requestOptions = await this.getExternalAssetsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainExternalAssetsAPITypeV1FromJSON(jsonValue));
     }
@@ -500,12 +549,9 @@ export class ExposureManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update the details of external assets.
+     * Creates request options for patchExternalAssets without sending the request
      */
-    async patchExternalAssetsRaw(
-        requestParameters: ExposureManagementApiPatchExternalAssetsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainExternalAssetsAPITypeV1>> {
+    async patchExternalAssetsRequestOpts(requestParameters: ExposureManagementApiPatchExternalAssetsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling patchExternalAssets().');
         }
@@ -521,16 +567,26 @@ export class ExposureManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/fem/entities/external-assets/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainExternalAssetAPIPatchRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/fem/entities/external-assets/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainExternalAssetAPIPatchRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update the details of external assets.
+     */
+    async patchExternalAssetsRaw(
+        requestParameters: ExposureManagementApiPatchExternalAssetsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainExternalAssetsAPITypeV1>> {
+        const requestOptions = await this.patchExternalAssetsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainExternalAssetsAPITypeV1FromJSON(jsonValue));
     }
@@ -544,12 +600,9 @@ export class ExposureManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Add external assets for external asset scanning.
+     * Creates request options for postExternalAssetsInventoryV1 without sending the request
      */
-    async postExternalAssetsInventoryV1Raw(
-        requestParameters: ExposureManagementApiPostExternalAssetsInventoryV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<InventoryapiUserExternalAssetCreateResponseV1>> {
+    async postExternalAssetsInventoryV1RequestOpts(requestParameters: ExposureManagementApiPostExternalAssetsInventoryV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postExternalAssetsInventoryV1().');
         }
@@ -565,16 +618,26 @@ export class ExposureManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/fem/entities/external-asset-inventory/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: InventoryapiUserExternalAssetCreateRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/fem/entities/external-asset-inventory/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: InventoryapiUserExternalAssetCreateRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Add external assets for external asset scanning.
+     */
+    async postExternalAssetsInventoryV1Raw(
+        requestParameters: ExposureManagementApiPostExternalAssetsInventoryV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<InventoryapiUserExternalAssetCreateResponseV1>> {
+        const requestOptions = await this.postExternalAssetsInventoryV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => InventoryapiUserExternalAssetCreateResponseV1FromJSON(jsonValue));
     }
@@ -591,12 +654,9 @@ export class ExposureManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves a list of IDs for ecosystem subsidiaries. Use these IDs with the /entities/ecosystem-subsidiaries/v1 endpoints.
+     * Creates request options for queryEcosystemSubsidiaries without sending the request
      */
-    async queryEcosystemSubsidiariesRaw(
-        requestParameters: ExposureManagementApiQueryEcosystemSubsidiariesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainFemEcosystemSubsidiariesQueryResponse>> {
+    async queryEcosystemSubsidiariesRequestOpts(requestParameters: ExposureManagementApiQueryEcosystemSubsidiariesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -626,15 +686,25 @@ export class ExposureManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/fem/queries/ecosystem-subsidiaries/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/fem/queries/ecosystem-subsidiaries/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieves a list of IDs for ecosystem subsidiaries. Use these IDs with the /entities/ecosystem-subsidiaries/v1 endpoints.
+     */
+    async queryEcosystemSubsidiariesRaw(
+        requestParameters: ExposureManagementApiQueryEcosystemSubsidiariesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainFemEcosystemSubsidiariesQueryResponse>> {
+        const requestOptions = await this.queryEcosystemSubsidiariesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainFemEcosystemSubsidiariesQueryResponseFromJSON(jsonValue));
     }
@@ -655,12 +725,9 @@ export class ExposureManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a list of external asset IDs that match the provided filter conditions. Use these IDs with the /entities/external-assets/v1 endpoints
+     * Creates request options for queryExternalAssets without sending the request
      */
-    async queryExternalAssetsRaw(
-        requestParameters: ExposureManagementApiQueryExternalAssetsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queryExternalAssetsRequestOpts(requestParameters: ExposureManagementApiQueryExternalAssetsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -686,15 +753,25 @@ export class ExposureManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/fem/queries/external-assets/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/fem/queries/external-assets/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a list of external asset IDs that match the provided filter conditions. Use these IDs with the /entities/external-assets/v1 endpoints
+     */
+    async queryExternalAssetsRaw(
+        requestParameters: ExposureManagementApiQueryExternalAssetsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queryExternalAssetsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -708,12 +785,9 @@ export class ExposureManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a list of external asset IDs that match the provided filter conditions. Use these IDs with the /entities/external-assets/v1 endpoint
+     * Creates request options for queryExternalAssetsV2 without sending the request
      */
-    async queryExternalAssetsV2Raw(
-        requestParameters: ExposureManagementApiQueryExternalAssetsV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainDiscoverAPIResponse>> {
+    async queryExternalAssetsV2RequestOpts(requestParameters: ExposureManagementApiQueryExternalAssetsV2Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["after"] != null) {
@@ -739,15 +813,25 @@ export class ExposureManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["discover:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/fem/queries/external-assets/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/fem/queries/external-assets/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a list of external asset IDs that match the provided filter conditions. Use these IDs with the /entities/external-assets/v1 endpoint
+     */
+    async queryExternalAssetsV2Raw(
+        requestParameters: ExposureManagementApiQueryExternalAssetsV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainDiscoverAPIResponse>> {
+        const requestOptions = await this.queryExternalAssetsV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainDiscoverAPIResponseFromJSON(jsonValue));
     }

@@ -14,13 +14,13 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsMessage } from "./ModelsMessage";
-import { ModelsMessageFromJSON, ModelsMessageFromJSONTyped, ModelsMessageToJSON } from "./ModelsMessage";
+import { ModelsMessageFromJSON, ModelsMessageFromJSONTyped, ModelsMessageToJSON, ModelsMessageToJSONTyped } from "./ModelsMessage";
 import type { ModelsPartialFingerprints } from "./ModelsPartialFingerprints";
-import { ModelsPartialFingerprintsFromJSON, ModelsPartialFingerprintsFromJSONTyped, ModelsPartialFingerprintsToJSON } from "./ModelsPartialFingerprints";
+import { ModelsPartialFingerprintsFromJSON, ModelsPartialFingerprintsFromJSONTyped, ModelsPartialFingerprintsToJSON, ModelsPartialFingerprintsToJSONTyped } from "./ModelsPartialFingerprints";
 import type { ModelsResultLocation } from "./ModelsResultLocation";
-import { ModelsResultLocationFromJSON, ModelsResultLocationFromJSONTyped, ModelsResultLocationToJSON } from "./ModelsResultLocation";
+import { ModelsResultLocationFromJSON, ModelsResultLocationFromJSONTyped, ModelsResultLocationToJSON, ModelsResultLocationToJSONTyped } from "./ModelsResultLocation";
 import type { ModelsResultProperties } from "./ModelsResultProperties";
-import { ModelsResultPropertiesFromJSON, ModelsResultPropertiesFromJSONTyped, ModelsResultPropertiesToJSON } from "./ModelsResultProperties";
+import { ModelsResultPropertiesFromJSON, ModelsResultPropertiesFromJSONTyped, ModelsResultPropertiesToJSON, ModelsResultPropertiesToJSONTyped } from "./ModelsResultProperties";
 
 /**
  *
@@ -113,10 +113,15 @@ export function ModelsResultFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function ModelsResultToJSON(value?: ModelsResult | null): any {
+export function ModelsResultToJSON(json: any): ModelsResult {
+    return ModelsResultToJSONTyped(json, false);
+}
+
+export function ModelsResultToJSONTyped(value?: ModelsResult | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         kind: value["kind"],
         level: value["level"],

@@ -64,10 +64,15 @@ export function DomainRuleQuotaFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function DomainRuleQuotaToJSON(value?: DomainRuleQuota | null): any {
+export function DomainRuleQuotaToJSON(json: any): DomainRuleQuota {
+    return DomainRuleQuotaToJSONTyped(json, false);
+}
+
+export function DomainRuleQuotaToJSONTyped(value?: DomainRuleQuota | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         active: value["active"],
         pending: value["pending"],

@@ -80,10 +80,15 @@ export function ModelsNonCompliantAssetsBySeverityFromJSONTyped(json: any, ignor
     };
 }
 
-export function ModelsNonCompliantAssetsBySeverityToJSON(value?: ModelsNonCompliantAssetsBySeverity | null): any {
+export function ModelsNonCompliantAssetsBySeverityToJSON(json: any): ModelsNonCompliantAssetsBySeverity {
+    return ModelsNonCompliantAssetsBySeverityToJSONTyped(json, false);
+}
+
+export function ModelsNonCompliantAssetsBySeverityToJSONTyped(value?: ModelsNonCompliantAssetsBySeverity | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         "1": value["_1"],
         "2": value["_2"],

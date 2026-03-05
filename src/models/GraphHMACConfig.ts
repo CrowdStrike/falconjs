@@ -103,10 +103,15 @@ export function GraphHMACConfigFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function GraphHMACConfigToJSON(value?: GraphHMACConfig | null): any {
+export function GraphHMACConfigToJSON(json: any): GraphHMACConfig {
+    return GraphHMACConfigToJSONTyped(json, false);
+}
+
+export function GraphHMACConfigToJSONTyped(value?: GraphHMACConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         field_delimiter: value["fieldDelimiter"],
         fields: value["fields"],

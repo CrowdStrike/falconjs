@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { PaginationMetaGetTransactionStatus } from "./PaginationMetaGetTransactionStatus";
-import { PaginationMetaGetTransactionStatusFromJSON, PaginationMetaGetTransactionStatusFromJSONTyped, PaginationMetaGetTransactionStatusToJSON } from "./PaginationMetaGetTransactionStatus";
+import {
+    PaginationMetaGetTransactionStatusFromJSON,
+    PaginationMetaGetTransactionStatusFromJSONTyped,
+    PaginationMetaGetTransactionStatusToJSON,
+    PaginationMetaGetTransactionStatusToJSONTyped,
+} from "./PaginationMetaGetTransactionStatus";
 
 /**
  *
@@ -64,10 +69,15 @@ export function MetaGetTransactionStatusFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function MetaGetTransactionStatusToJSON(value?: MetaGetTransactionStatus | null): any {
+export function MetaGetTransactionStatusToJSON(json: any): MetaGetTransactionStatus {
+    return MetaGetTransactionStatusToJSONTyped(json, false);
+}
+
+export function MetaGetTransactionStatusToJSONTyped(value?: MetaGetTransactionStatus | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: PaginationMetaGetTransactionStatusToJSON(value["pagination"]),
         query_time: value["queryTime"],

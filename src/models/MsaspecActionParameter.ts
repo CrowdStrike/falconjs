@@ -56,10 +56,15 @@ export function MsaspecActionParameterFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function MsaspecActionParameterToJSON(value?: MsaspecActionParameter | null): any {
+export function MsaspecActionParameterToJSON(json: any): MsaspecActionParameter {
+    return MsaspecActionParameterToJSONTyped(json, false);
+}
+
+export function MsaspecActionParameterToJSONTyped(value?: MsaspecActionParameter | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
         value: value["value"],

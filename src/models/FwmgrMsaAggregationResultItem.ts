@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { FwmgrMsaAggregationResult } from "./FwmgrMsaAggregationResult";
-import { FwmgrMsaAggregationResultFromJSON, FwmgrMsaAggregationResultFromJSONTyped, FwmgrMsaAggregationResultToJSON } from "./FwmgrMsaAggregationResult";
+import { FwmgrMsaAggregationResultFromJSON, FwmgrMsaAggregationResultFromJSONTyped, FwmgrMsaAggregationResultToJSON, FwmgrMsaAggregationResultToJSONTyped } from "./FwmgrMsaAggregationResult";
 
 /**
  *
@@ -114,10 +114,15 @@ export function FwmgrMsaAggregationResultItemFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function FwmgrMsaAggregationResultItemToJSON(value?: FwmgrMsaAggregationResultItem | null): any {
+export function FwmgrMsaAggregationResultItemToJSON(json: any): FwmgrMsaAggregationResultItem {
+    return FwmgrMsaAggregationResultItemToJSONTyped(json, false);
+}
+
+export function FwmgrMsaAggregationResultItemToJSONTyped(value?: FwmgrMsaAggregationResultItem | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count: value["count"],
         from: value["from"],

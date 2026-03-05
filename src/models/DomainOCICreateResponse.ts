@@ -56,10 +56,15 @@ export function DomainOCICreateResponseFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function DomainOCICreateResponseToJSON(value?: DomainOCICreateResponse | null): any {
+export function DomainOCICreateResponseToJSON(json: any): DomainOCICreateResponse {
+    return DomainOCICreateResponseToJSONTyped(json, false);
+}
+
+export function DomainOCICreateResponseToJSONTyped(value?: DomainOCICreateResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         tenancy_ocid: value["tenancyOcid"],

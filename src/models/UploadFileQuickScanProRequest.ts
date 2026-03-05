@@ -62,10 +62,15 @@ export function UploadFileQuickScanProRequestFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function UploadFileQuickScanProRequestToJSON(value?: UploadFileQuickScanProRequest | null): any {
+export function UploadFileQuickScanProRequestToJSON(json: any): UploadFileQuickScanProRequest {
+    return UploadFileQuickScanProRequestToJSONTyped(json, false);
+}
+
+export function UploadFileQuickScanProRequestToJSONTyped(value?: UploadFileQuickScanProRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         file: value["file"],
         scan: value["scan"],

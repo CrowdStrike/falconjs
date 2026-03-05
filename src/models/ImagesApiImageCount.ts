@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ModelsAPIImageCount } from "./ModelsAPIImageCount";
-import { ModelsAPIImageCountFromJSON, ModelsAPIImageCountFromJSONTyped, ModelsAPIImageCountToJSON } from "./ModelsAPIImageCount";
+import { ModelsAPIImageCountFromJSON, ModelsAPIImageCountFromJSONTyped, ModelsAPIImageCountToJSON, ModelsAPIImageCountToJSONTyped } from "./ModelsAPIImageCount";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function ImagesApiImageCountFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function ImagesApiImageCountToJSON(value?: ImagesApiImageCount | null): any {
+export function ImagesApiImageCountToJSON(json: any): ImagesApiImageCount {
+    return ImagesApiImageCountToJSONTyped(json, false);
+}
+
+export function ImagesApiImageCountToJSONTyped(value?: ImagesApiImageCount | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

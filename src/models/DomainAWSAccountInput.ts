@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DomainAWSBatchClusterRegion } from "./DomainAWSBatchClusterRegion";
-import { DomainAWSBatchClusterRegionFromJSON, DomainAWSBatchClusterRegionFromJSONTyped, DomainAWSBatchClusterRegionToJSON } from "./DomainAWSBatchClusterRegion";
+import {
+    DomainAWSBatchClusterRegionFromJSON,
+    DomainAWSBatchClusterRegionFromJSONTyped,
+    DomainAWSBatchClusterRegionToJSON,
+    DomainAWSBatchClusterRegionToJSONTyped,
+} from "./DomainAWSBatchClusterRegion";
 
 /**
  *
@@ -91,10 +96,15 @@ export function DomainAWSAccountInputFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function DomainAWSAccountInputToJSON(value?: DomainAWSAccountInput | null): any {
+export function DomainAWSAccountInputToJSON(json: any): DomainAWSAccountInput {
+    return DomainAWSAccountInputToJSONTyped(json, false);
+}
+
+export function DomainAWSAccountInputToJSONTyped(value?: DomainAWSAccountInput | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_number: value["accountNumber"],
         batch_regions: (value["batchRegions"] as Array<any>).map(DomainAWSBatchClusterRegionToJSON),

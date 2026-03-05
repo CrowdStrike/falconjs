@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { PolicyframeworkControl } from "./PolicyframeworkControl";
-import { PolicyframeworkControlFromJSON, PolicyframeworkControlFromJSONTyped, PolicyframeworkControlToJSON } from "./PolicyframeworkControl";
+import { PolicyframeworkControlFromJSON, PolicyframeworkControlFromJSONTyped, PolicyframeworkControlToJSON, PolicyframeworkControlToJSONTyped } from "./PolicyframeworkControl";
 
 /**
  *
@@ -93,10 +93,15 @@ export function ResourcesComplianceFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function ResourcesComplianceToJSON(value?: ResourcesCompliance | null): any {
+export function ResourcesComplianceToJSON(json: any): ResourcesCompliance {
+    return ResourcesComplianceToJSONTyped(json, false);
+}
+
+export function ResourcesComplianceToJSONTyped(value?: ResourcesCompliance | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         benchmarkNames: value["benchmarkNames"],
         benchmarkVersions: value["benchmarkVersions"],

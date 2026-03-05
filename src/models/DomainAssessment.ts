@@ -72,10 +72,15 @@ export function DomainAssessmentFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function DomainAssessmentToJSON(value?: DomainAssessment | null): any {
+export function DomainAssessmentToJSON(json: any): DomainAssessment {
+    return DomainAssessmentToJSONTyped(json, false);
+}
+
+export function DomainAssessmentToJSONTyped(value?: DomainAssessment | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         os: value["os"],
         overall: value["overall"],

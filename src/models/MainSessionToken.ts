@@ -56,10 +56,15 @@ export function MainSessionTokenFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function MainSessionTokenToJSON(value?: MainSessionToken | null): any {
+export function MainSessionTokenToJSON(json: any): MainSessionToken {
+    return MainSessionTokenToJSONTyped(json, false);
+}
+
+export function MainSessionTokenToJSONTyped(value?: MainSessionToken | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         expiration: value["expiration"].toISOString(),
         token: value["token"],

@@ -89,10 +89,15 @@ export function FalconxFileSectionFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function FalconxFileSectionToJSON(value?: FalconxFileSection | null): any {
+export function FalconxFileSectionToJSON(json: any): FalconxFileSection {
+    return FalconxFileSectionToJSONTyped(json, false);
+}
+
+export function FalconxFileSectionToJSONTyped(value?: FalconxFileSection | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         characteristics: value["characteristics"],
         entropy: value["entropy"],
