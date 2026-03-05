@@ -69,8 +69,8 @@ git rm -r --cached src/apis/ src/models/ src/runtime.ts
 
 #TODO: populate client.ts with all API imports, class defs, and constructors
 
-npm run format:fix
 npm run lint:fix
+npm run format:fix
 npm run lint
 npm run build
 
@@ -79,6 +79,5 @@ git add src/apis/ src/models/ src/runtime.ts
 
 cat << EOF
 ✅ Rebuild complete. If everything looks good and you're ready to commit:
-  git add src/
   git commit -m "Re-generate the codebase using swagger $SPEC_VERSION"
 EOF
