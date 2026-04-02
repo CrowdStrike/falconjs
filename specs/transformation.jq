@@ -272,3 +272,6 @@
     "name": "orderBy",
     "in": "query"
   })
+
+# Fix prevention_settings nullable handling - issue #316
+| .definitions."prevention.PolicyV1".properties.prevention_settings += {"x-nullable": true}
