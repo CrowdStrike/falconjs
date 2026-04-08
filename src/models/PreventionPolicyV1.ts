@@ -103,7 +103,7 @@ export interface PreventionPolicyV1 {
      * @type {Array<PreventionCategoryRespV1>}
      * @memberof PreventionPolicyV1
      */
-    preventionSettings: Array<PreventionCategoryRespV1>;
+    preventionSettings: Array<PreventionCategoryRespV1> | null;
 }
 
 /**
@@ -157,7 +157,7 @@ export function PreventionPolicyV1FromJSONTyped(json: any, ignoreDiscriminator: 
         modifiedTimestamp: new Date(json["modified_timestamp"]),
         name: json["name"],
         platformName: json["platform_name"],
-        preventionSettings: (json["prevention_settings"] as Array<any>).map(PreventionCategoryRespV1FromJSON),
+        preventionSettings: json["prevention_settings"] == null ? null : (json["prevention_settings"] as Array<any>).map(PreventionCategoryRespV1FromJSON),
     };
 }
 
@@ -178,6 +178,6 @@ export function PreventionPolicyV1ToJSON(value?: PreventionPolicyV1 | null): any
         modified_timestamp: value["modifiedTimestamp"].toISOString(),
         name: value["name"],
         platform_name: value["platformName"],
-        prevention_settings: (value["preventionSettings"] as Array<any>).map(PreventionCategoryRespV1ToJSON),
+        prevention_settings: value["preventionSettings"] == null ? null : (value["preventionSettings"] as Array<any>).map(PreventionCategoryRespV1ToJSON),
     };
 }
