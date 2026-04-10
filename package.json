@@ -1,6 +1,6 @@
 {
     "name": "crowdstrike-falcon",
-    "version": "0.5.0",
+    "version": "0.6.0",
     "description": "CrowdStrike Falcon SDK for browser and node",
     "sideEffects": false,
     "devDependencies": {
