@@ -2,7 +2,7 @@
 
 set -euxo pipefail
 
-VERSION=0.5.0 # Target version of FalconJS
+VERSION=0.6.0 # Target version of FalconJS
 
 ORIGINAL_SWAGGER=./specs/swagger.json
 FINAL_SWAGGER=./specs/final.json
