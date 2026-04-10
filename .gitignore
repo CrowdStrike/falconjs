@@ -7,3 +7,5 @@
 typings
 *.js
 .DS_Store
+.claude/*
+!.claude/skills/
